@@ -1,0 +1,1136 @@
+\documentclass{amsart}
+\usepackage{amsmath, amssymb, amsthm, tikz-cd}
+
+
+\title[Creative Component]{Introduction to Some Problems in Arithmetic Dynamics}
+  \author[James]{Carson James}
+ \address{}
+ \email{}
+ \subjclass[2010]{11G50, 11R80, 37P30}
+ \keywords{}
+\date{\today}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}{Conjecture}
+
+
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand{\sbs}{\subset}
+\newcommand{\es}{\emptyset}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\AF}{\mathbb{A}}
+\newcommand{\AFAF}{\mathbb{A}^2}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\so}{\sum_{n=0}^\infty}
+\newcommand{\soN}{\sum_{n=0}^N}
+\newcommand{\si}{\sum_{n=1}^\infty}
+\newcommand{\siN}{\sum_{n=1}^N}
+\newcommand{\limi}{\lim_{n\to \infty}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\La}{\Leftarrow}
+\newcommand{\MCG}{\mathcal{G}}
+\newcommand{\MCA}{\mathcal{A}}
+\newcommand{\MCM}{\mathcal{M}}
+\newcommand{\MCB}{\mathcal{B}}
+\newcommand{\MCP}{\mathcal{P}}
+\newcommand{\MCF}{\mathcal{F}}
+\newcommand{\MCJ}{\mathcal{J}}
+\newcommand{\MCL}{\mathcal{L}}
+\newcommand{\MCO}{\mathcal{O}}
+\newcommand{\MCU}{\mathcal{U}}
+\newcommand{\ol}{\overline}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\Sb}{\mathbb{S}}
+\newcommand{\mfp}{\mathfrak{p}}
+\newcommand{\mfk}{\mathfrak{k}}
+\newcommand{\hp}{\hspace{1pc}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\del}{\delta}
+\newcommand{\sig}{\sigma}
+\newcommand{\Dp}{\D_{p,q}}
+\newcommand{\U}{U(p,q)}
+\newcommand{\SU}{SU(p,q)}
+\newcommand{\tz}{\tilde Z}
+\newcommand{\tiU}{\tilde{U}(p,q)}
+\newcommand{\skp}{\vspace{4pc}}
+\newcommand{\Sbn}{\mathbb{S}^{2n-1}}
+\newcommand{\lam}{\lambda}
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\mfg}{\mathfrak{g}}
+\newcommand{\tiSU}{\widetilde{SU}(p,q)}
+\newcommand{\RR}{\mathbb{R} \cup \{\infty\}}
+
+
+
+\begin{document}
+
+\maketitle
+\newpage
+\thanks{Thank you Dr. Fili for helping me throughout my studies, I learned a lot working with you.}
+
+\tableofcontents
+
+\section{Introduction}
+This document was created in partial fulfillment for my masters degree in mathematics. I hope to keep adding to it after graduation in hopes of creating something like a crash course set of notes for any interested student new to the field of arithmetic dynamics so that they may have an introduction to some of the topics. Many proofs are skipped and many theorems not mentioned. The goal was to develop the background to approach open problems in the area as fast as possible. These problems are often generalizations of other well known conjectures and theorems. In this way, the paper is very much a bare bones set up to access these problems.
+
+This paper starts with a number theoretic flavor and discusses reduction of rational morphisms, but then moves onto defining heights to begin exploring the dynamics of these maps. The two sections are somewhat linked by the section on local heights where good reduction simplifies the computation of the local heights.
+
+The paper then takes a turn toward the analytic side by introducing basic potential theory in the plane follwed by the $p$-adic integers. Then relation between height, equilibrium measures and equidistribution is barely mentioned, but the filtered material here should be enough to give a new student the rough idea so that they may pursue the material elsewhere.
+
+In the end, we wrap up with a partial analogue of a theorem related to Lehmer's conjecture.
+
+The first several sections until the potential theory as well as the last section mostly draws from \cite{ADS}
+and the section on potential theory draws heavily from \cite{PT}
+
+
+
+\section{Absolute Values and Valuations}
+
+We begin by considering a field $K$ and a function $|\cdot|: K \to [0,\infty)$. Then $|\cdot|$ is called an \textbf{absolute value} on $K$ if 
+
+\begin{enumerate}
+\item  $|a| = 0 \text{ iff } a = 0 $
+\item $|ab| = |a||b| \text{ for all } a,b \in K$
+\item $ |a+b| \leq |a|+|b| \text{ for all } a,b \in K$
+\end{enumerate}
+If in addition $|\cdot|$ satisfies 
+
+\begin{align*}
+|a+b| \leq max\{|a|,|b|\} \text{ for all } a,b \in K
+\end{align*}
+
+\noindent Then $|\cdot|$ is said to be \textbf{nonarchimedean}
+
+
+For any field $K$ with absolute value $|\cdot |_v$, we have that $| \cdot |_v:K^{\times}\rightarrow (0 , \infty)$ is a homomorphism and $|K^{\times}|_v$ is a subgroup of $(0, \infty)$. 
+
+It is well known that subgroups $G$ of $(0, \infty)$ are either trivial, discrete or dense in $(0,\infty)$ and discrete if and only if there exists $t \in (0,1)$ such that $G=\langle t \rangle$. We then say that $|\cdot|_v$ is called \textbf{trivial} if $|K^{\times}|_v$ is trivial and \textbf{discrete} if $|K^{\times}|_v$ is discrete.
+
+From now on, assume that $|\cdot|$ is nonarchimedean. Let us define the ring of integers $\MCO_K$ of $K$ by 
+$$\MCO_K=\{a \in K : |a| \leq 1\}$$ 
+
+\noindent It is clear that $\MCO_K$ is a ring by the ultrametric inequality. 
+
+\noindent Now we define the ideal $\MCM_K$ of $\MCO_K$ by
+$$\MCM_K=\{a \in K : |a|< 1\}$$
+Clearly $\MCM_K$ is the unique maximal ideal of $\MCO_K$, and therefore $\MCO_K/\MCM_K$ is a field called the \textbf{residue field} of $\MCO_K$ and is denoted by $k$.  
+
+\begin{lem}
+A nontrivial nonarchimedan absolute value on $K$ is discrete if and only if $\MCM_K$ is a principal ideal in $\MCO_K$. 
+\end{lem}
+
+We can discuss the same ideas but with a related object called a valuation. 
+
+Given a field $K$, $v: K \rightarrow \mathbb{R} \cup \{\infty\}$, we say that $v$ is \textbf{valuation} on $K$ if for all $x,y \in K$, 
+\begin{enumerate}
+\item $v(x)=\infty$ if and only if $x=0$
+\item $v(xy)=v(x)+v(y)$
+\item $v(x+y)\geq \text{min } \{v(x),v(y)\}$
+\end{enumerate}
+
+Note that if $v$ is a valuation on $K$, then for all $\theta >0$, $x \mapsto e^{-\theta v(x)}$ defines a nonarchimedian absolute value on $K$  and if $|\cdot |$ is a nonarchimdedian absolute value on $K$, then for each $\theta >0$, $x \mapsto -\theta \log |x|$ defines a valuation on $K$. 
+
+Also, we can describe the previously defined objects with this new language. 
+
+For example: $\MCO_K=\{a \in K : v(a)\geq 0\}$ and $\MCM_K=\{a \in K : v(a) > 0\}$. 
+
+If $|\cdot|_v$ is a discrete nonarchimedian absolute value on $K$, then there exists $t \in (0,1)$ such that $|K^{\times}|_v=\langle t \rangle$ and thus $V(|K^{\times}|_v)= \langle v(t) \rangle$ is an additive cyclic subgroup of $\mathbb{R}$.   So, we can normalize $v$ such that $v: K \rightarrow \mathbb{Z} \cup \{\infty\}$.
+In this case, if $v: K \rightarrow \mathbb{Z} \cup \{\infty \}$ is a discrete valuation, 
+$\MCM_K=\{a \in K : v(a) \geq 1\}$.
+
+Now that we have the basics we will begin to incorporate the structure of discrete valuation fields into our discussion of dynamics. 
+
+\section{Dynamical Systems}
+
+Let $S$ be a set and $\phi: S \to S$. Then the pair $(S,\phi)$ form a \textbf{dynamical system}. We denote the iterates of $\phi$ by $\phi^{n}$, where by convention, $\phi^{0}$ is just the identity on $S$. 
+
+As we iterate over a point $\alpha$, the values $\phi^{n}(\alpha)$ wander throughout the set $S$. So for any point $\alpha \in S$, we can consider the $\textbf{orbit}$ of $\alpha$ which is defined to be the set \begin{equation}
+\mathcal{O}_{\phi}(\alpha) = \{\phi^{n}(\alpha): n \geq 0\}
+\end{equation}
+
+\noindent We would like to extract information about the points in $S$ by observing how they meander through S. We can naturally classify points into two categories: those that only have a finite number of points in their orbit and those that do not. The following definition formalizes this notion.
+
+A point $\alpha \in S$ is said to be \textbf{periodic} if there is some $n \in \mathbb{N}$ such that $\phi^{n}(\alpha) = \alpha$ and \textbf{preperiodic} if there exist $m > n \geq 0$ such that $\phi^{m}(\alpha) = \phi^{n}(\alpha)$.
+
+We may consider the \textbf{periodic} and  \textbf{preperiodic points} of $\phi$, defined by 
+
+\begin{align*}
+Per(\phi,S) 
+&= \{\alpha \in S: \alpha \text{ is periodic}\} \\ \text{ and }PrePer(\phi,S) 
+&= \{\alpha \in S: \alpha \text{ is preperiodic}\} \\ 
+& = \{\alpha:\mathcal{O}_{\phi}(\alpha) \text{ is finite}\}  \text{ respectively}
+\end{align*}
+
+Thus $Per(\phi,S) \sbs PrePer(\phi,S)$. If an element is not preperiodic, it has infinite orbit. Therefore, if an element $\alpha \in PrePer(\phi,S)$ is not preperiodic, $\alpha$  is said to be a $\textbf{wandering}$ point in $S$.
+
+A principle goal in Dynamics is to classify the points $\alpha \in S$ according to the behavior of $\mathcal{O}_\phi(\alpha)$. So far we have seen only a very general definitions, but now we review some material required to investigate more concrete dynamical systems that have properties arising from extra algebraic and analytic structure. 
+
+Although there is a more general schema, we restrict our attention to the projective line. Consider a field $K$ with nonarchimedean absolute value $|\cdot|_{\nu}$. Then We may form the projective line over $K$ denoted by $\P^{1}(K)$ and define the {\boldmath$v$}\textbf{-adic chordal metric} on $\P^{1}(K)$ by 
+
+\begin{align*}
+&\rho_{v}([X_{1}:Y_{1}],[X_{2}:Y_{2}]) = \frac{|X_{1}Y_{2} - X_{2}Y_{1}|_{v}}{\max\{|X_{1}|_{v},|Y_{1}|_{v}\}\max\{|X_{2}|_{v},|Y_{2}|_{v}\}} 
+\end{align*} 
+
+\noindent for each $[X_{1}: Y_{1}],[X_{2}: Y_{2}] \in \P^{1}(K)$
+
+
+As the name suggests we have the following results, plus a nice nonarchimedean quality:
+
+\begin{lem}
+The $v$-adic chordal metric on $\P^{1}$ has the following properties: 
+
+$\text{for all }P_{1}, P_{2}, P_{3} \in \P^{1}$, $\text{we have}$
+
+\begin{enumerate}
+\item $ 0 \leq \rho_{v}(P_{1},P_{2}) \leq 1$.  
+\item $\rho_{v}(P_{1},P_{2}) = 0$ iff $P_{1} = P_2$.
+\item $\rho_{v}(P_{1},P_{2}) = \rho_{v}(P_{2},P_{1})$
+\item $\rho_{v}(P_{1},P_{3}) \leq \max\{\rho_{v}(P_{1},P_{2}), \rho_{v}(P_{2},P_{3})\}$
+\end{enumerate}
+
+\end{lem}
+
+For $\phi:\P^1(K) \rightarrow \P^1(K)$, we define the \textbf{Fatou set of $\phi$} to be the largest open set on which $\phi$ and its iterates are equicontinuous with respect to the chordal metric. The Fatou set is denoted by $\MCF_{\phi}$. If we put \\$\MCU = \{U \sbs \P^1(K): U \text{ is open and }\phi^k, k=1,2,\cdots \text{ are equicontinuous on } U \}$, then 
+$$\MCF = \bigcup_{U \sbs \MCU} U$$
+
+We define the \textbf{Julia set of $\phi$}, denoted by $\MCJ_{\phi}$, to be the complement of the Fatou set of $\phi$. The Julia set may be empty in $\P^1(\C_p)$ and in this instance one should consider the Berkovich space in order to investigate the dynamics of $\phi$.
+ 
+\section{Reduction}
+
+
+Now we have all the language needed to begin discussing reduction.  
+
+Let $P=[x_0:x_1] \in \mathbb{P}^{1}(K)$.  Choose $a \in K^{\times}$ such that $v(a)=\text{min } \{v(x_0),v(x_1)\}$.  We may always do this since by definition $x_0 \neq 0$ or $x_1 \neq 0$.  Then $a^{-1}x_1, a^{-1}x_2 \in O_K$ since $v(a^{-1}x_1)=-v(a)+v(x_1) \geq 0$ and $v(a^{-1}x_2)=-v(a)+v(x_2) \geq 0$.
+
+Now we may reduce modulo $\MCM_K$.  We define the reduction of $P$ modulo $\MCM_K$ to be $\tilde{P}=[\tilde{a}^{-1}\tilde{x_0}: \tilde{a}^{-1}\tilde{x_1}]$ where the tilde denotes reduction modulo $\MCM_K$.  Note that one of $a^{-1}x_i$ is a unit by definition of a, so $\tilde{P} \in \mathbb{P}^1(k)$ where $k = \MCO_K/\MCM_K$. 
+
+Since $x_0 \neq 0$ or $x_1 \neq 0$, one of them is a unit and since for all $c \in K^{\times}$, $[cx_0:cx_1]=[x_0:x_1]$ we may find $y_0,y_1 \in K$ such that $P=[y_0:y_1]$ and min$\{v(y_0),v(y_1)\}=0$.  (i.e. at least one of $y_0,y_1$ is a unit)
+It is pretty easy to see that $\tilde{P}$ is independent of the choice of coordinates for $P$.
+
+We say a point $P=[x_0:x_1] \in \mathbb{P}^1(K)$ is written in \textbf{normalized coordinates} if min$\{v(x_0),v(x_1)\}=0$. All it means for P to be written in normalized coordinates is that it is ready to be reduced modulo $M_K$.  
+
+\begin{lem}
+For all $P_1,P_2 \in \mathbb{P}^1(K)$, $\tilde{P}_1=\tilde{P}_2$ if and only if $\rho(P_1,P_2)<1$. 
+\end{lem}
+
+Now we can talk about rational morphisms from $\mathbb{P}^1(K)$ to $\mathbb{P}^1(K)$.   Let $F,G \in K[x_0: x_1]$ be  homogeneous polynomials in $x_0$ and $x_1$ of degree $d$ and suppose the only solution to  $F(x_0,x_1)=G(x_0,x_1)=0$ is $x_0=x_1=0$. Then for $\lambda \in K$, we have $F(\lambda x)=\lambda^dF(x)$ and $G(\lambda x)=\lambda^dG(x)$ for all $x \in K^2$. 
+Thus, $\phi: \mathbb{P}^1(K) \rightarrow \mathbb{P}^1(K)$ defined by $\phi([x_0: x_1])=[F(x_0,x_1): G(x_0,x_1)]$ is well defined. 
+
+We define a \textbf{rational morphism of degree d} to be any $\phi:\mathbb{P}^1(K) \rightarrow \mathbb{P}^1(K)$ such that there are $F,G \in K[x_0,x_1]$ homogeneous of degree d with $x_0=x_1=0$ as the only solution in $K^2$ to $F(x_0,x_1)=G(x_0,x_1)=0$ and $\phi = [F:G]$
+
+Let $\phi=[F:G]$ be a rational morphism from $\mathbb{P}^1(K)$ to $\mathbb{P}^1(K)$ of degree d. We say $\phi$ is written in normalized form if $F,G \in \MCO_K[x_0,x_1]$ and at least one coefficient of $F$ on $G$ is in $\MCO_K^{\times}$. Equivalently $\phi$ is written in normalized form if \[F(x_0,x_1)=a_0x_0^d+a_1x_0^{d-1}x_1 + \cdots + a_{d-1}x_0x_1^{d-1}+a_dx_1^d\] \[G(x_0,x_1)=b_0x_0^d + b_1x_0^{d-1}x_1 + \cdots + b_{d-1}x_0x_1^{d-1}+b_dx_1^d\] \[ \text{and }\min\{v(a_0), \cdots, v(a_0), v(b_0), \cdots, v(b_d)\}=0\]
+
+Given $\phi = [F:G]$ a rational morphism of degree $d$, with F,G written as above, we may define the \textbf{v-adic norm of $\phi$} to be $\norm{\phi}_v = \max\{|a_0|_v, \cdots, |a_0|_v, b_0|_v, \cdots, |b_d|_v\}$
+
+Therefore, we may equivalently say that $\phi$ is written in normalized form if and only if $\norm{\phi}_v = 1$. This notion of norm will be useful later on.
+
+Just as in the case of normalizing $[x_0:x_1]$ for reduction, given any representation $\phi =[F:G]$ there is $c \in K^{\times}$ such that $\phi=[cF:cG]$ is normalized.  We define the \textbf{reduction of} $\phi$ \textbf{ modulo $\MCM_K$} analogously by $\tilde{\phi}(x_0, x_1)=[\tilde{F}(x_0,x_1): \tilde{G}(x_0,x_1)]$ where $\tilde{F}(x_0,x_1)$ naturally denotes $\tilde{a}_0x_0^d + \cdots +\tilde{a}_dx_1^d$. 
+ 
+Then $\tilde{\phi}$ is still a rational map but not necessarily a rational morphism since $\tilde{F}, \tilde{G}$ may have a common nontrivial roots in $K$.  So we must discuss when $\tilde{G}, \tilde{F}$ don't have any common roots. The tool that completely describes this behavior is the \emph{resultant}. 
+ 
+\begin{prop}
+ Let $A(x,y)=a_0x^n+a_1x^{n-1}y+\cdots + a_{n-1}xy^{n-1}+a_ny^n$. 
+ $B(x,y)=b_0x^m+b_1x^{m-1}y+\cdots +b_{n-1}xy^{m-1}+b_ny^m$ be homogeneous polynomials of degree $n$ and $m$ respectively in $K[x,y]$. Then there exists a polynomial $\text{Res}(A,B) \in \mathbb{Z}[a_0,...,a_n,b_0,...,b_m]$ in the coefficients of $A$ and $B$ called the \textbf{resultant of A and B} such that 
+\begin{enumerate}
+\item Res$(A,B)=0$ if and only if A and B have a nontrivial common root in $\overline{K}^2$ (where $\ol{K}$ is the algebraic closure of $K$). 
+\item If $a_0b_0 \neq 0$ and we factor $A=a_0 \prod_{i=1}^n(x-\alpha_iy)$ and $B=b_0\prod_{j=1}^m (x - \beta_jy)$ over $\ol{K}$, then $Res(A,B) = a_0^{m}b_0^{n}\prod_{i=1}^n\prod_{j=1}^m(\alpha_i - \beta_j)$. 
+ 
+\item The resultant is the $(m+n) \times (m+n)$ determinant
+ 
+ \[
+Res(A,B) = \det \begin{pmatrix}
+a_0 & a_1 & a_2 & \cdots & a_n & & & \\
+    & a_0 & a_1 & a_2 & \cdots & a_n\\
+    &     & \ddots &    &      &  & \ddots\\      
+    &   &  & a_0 & a_1 & a_2 & \cdots & a_n\\
+b_0 & b_1 & b_2 & \cdots &\cdots & \cdots & b_m\\
+    & b_0 & b_1 & b_2 & \cdots &\cdots & \cdots & b_m\\
+    &&\ddots &&&&&& \ddots\\
+    &&&b_0 & b_1 & b_2 & \cdots &\cdots & \cdots & b_m 
+\end{pmatrix}
+\]
+
+ \end{enumerate} 
+ \end{prop}
+
+
+
+
+ 
+ Now, let $\phi : \mathbb{P}^1(K) \rightarrow \mathbb{P}^1(K)$ be a rational morphism at degree d. Writing $\phi =[F:G]$ we define the \textbf{resultant of $\phi$} to be $Res(\phi)=Res(F,G)$. Writing $\phi$ in normalized form, we have $Res(\phi$) is well defined only up to multiplication by a unit in $\MCO_K$ by previous theorem because $u\phi=\phi$ and Res($u\phi)=u^{zd}$Res($\phi$) for all $u \in \MCO_K$. So $Res(\phi)$ may not be well defined, but $|Res(\phi)|_v$ is well defined, which is all we care about. We may now characterize our projective morphisms that are well defined after reduction. 
+ 
+\begin{thm}
+Let $\phi: \mathbb{P}^1(K) \rightarrow \mathbb{P}^1(K)$ be a rational morphism of degree $d$ with $\phi=[F:G]$ in normalized form. 
+The following are equivalent. 
+
+\begin{enumerate}
+\item $\deg(\phi)=\deg(\tilde{\phi})$
+\item $\tilde{F}, \tilde{G}$ have no nontrivial roots in $\overline{k}^2$
+\item Res$(\tilde{F},\tilde{G}) \neq 0$
+\end{enumerate}
+
+
+\end{thm}
+
+\begin{proof}
+
+\begin{align*}
+& 2)\iff 4) \text{ is clear from previous proposition on resultants.} \\
+& 3)\iff 4) \text{ is clear since } Res(\tilde{F}, \tilde{G})=\widetilde{Res(F,G)} \text{ which is nonzero if and only if } Res(F,G) \in \MCO_K^{\times}. \\
+& 2)\iff 1) \text{ since } \deg(\tilde{\phi})=\deg(\phi) - \text{number of common nontrivial roots of }\tilde{F}\text{ and }\tilde{G}\text{ in } \overline{k}^2. 
+\end{align*}
+
+\end{proof}
+
+For a rational morphism $\phi: \mathbb{P}^1(K) \rightarrow \mathbb{P}^1(K) $ we say that $\phi$ has good reduction modulo $\MCM_K$ if one (hence all) of the above conditions is met. 
+
+\begin{thm}
+Let $\phi:\mathbb{P}^1(K) \rightarrow \mathbb{P}^1(K) $ be a rational map with good reduction.  Then 
+\begin{enumerate}
+\item $\tilde{\phi}(\tilde{P})=\widetilde{\phi(P)}$ for all $P \in \P^1(K) $
+\item For all rational map $\psi: \mathbb{P}^1(K)  \rightarrow \mathbb{P}^1(K) $, if $\psi$ has good reduction, then $\phi \circ \psi$ has good reduction and $\widetilde{\phi \circ \psi} = \tilde{\phi} \circ \tilde{\psi}. $
+ 
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+To show $(1)$, note that reduction is a homomorphism.  Let $P=[x_0:x_1] \in \mathbb{P}^1(K) $ be in normalized form.   Write $\phi = [F:G]$ in normalized form.  
+Good reduction tells us that one of $\tilde{F}(\tilde{x_0}, \tilde{x_1})$ or $\tilde{G}(\tilde{x_0}, \tilde{x_1})$ is nonzero.  Hence, one of $F(x_0,x_1), G(x_0,x_1)$ is in $\MCO_K^{\times}$. 
+
+Thus, $\phi(P)=[F(x_0,x_1): G(x_0,x_1)]$ is in normalized form and $\widetilde{\phi(P)}=[\widetilde{F(x_0,x_1)}:\widetilde{G(x_0,x_1)}]=[\tilde{F}(\tilde{x_0}: \tilde{x_1}): \tilde{G}(\tilde{x_0}, \tilde{x_1})]=\tilde{\phi}(\tilde{P})$. 
+
+To show $(2)$, we write $\phi=[F:G], \psi=[f:g]$ in normalized form. For $P=[x_0:x_1] \in \mathbb{P}^1(K)$ written in normalized form we have $\phi \circ \psi (P)=[F(f(x_0,x_1),g(x_0,x_1)):G(f(x_0,x_1),g(x_0,x_1))]$
+Good reduction of $\phi$ and $\psi$ tells us that $\phi \circ \psi(P)$ is already in normalized form. So, $\widetilde{\phi \circ \psi}(\tilde{P})=\tilde{\phi}\circ \tilde{\psi}(\tilde{P})$
+
+If there exists common root $[x:y]$ of $\widetilde{\phi \circ \psi}$ in $\mathbb{P}^1(k)$, then  $\tilde{F}(\tilde{f}(x,y),\tilde{g}(x,y))=\tilde{G}(\tilde{f}(x,y),\tilde{g}(x,y))=0$. Then, by good reduction of $\phi$, $\tilde{f}(x,y)=\tilde{g}(x,y)=0$. Finally, good reduction of $\psi$ gives that $x=y=0$, a contradiction.  So, $\phi \circ \psi$ has good reduction. 
+\end{proof} 
+
+
+\section{Height}
+%Begin page 5 of handwritten notes. 
+
+In this section we will introduce the height of an algebraic number. The height is just a way to measure the arithmetic complexity of algebraic numbers. For instance, $\frac{1}{2}$ and $\frac{100001}{200000}$ are very close with our usual notion of distance but to represent them on, say, a computer, one is significantly more complex than the other. A first notion of height on the rational numbers might be $$h\bigg(\frac{p}{q}\bigg) =  \max\{|p|,|q|\}$$ with $\frac{p}{q}$ in reduced terms. This does the job of capturing compexity, but in order to extend this notion to algebraic numbers we will need to introduce some more machinery.
+
+Given a field $K$ with absolute values $|\cdot |_1, |\cdot |_2, $ we say that $|\cdot |_1$ is equivalent to $|\cdot |_2$ if their respective induced topologies are equal.  
+
+On $\Q$ we denote the usual archimedean absolute value and the p-adic absolute value by $$|\cdot |_{\infty}, \hspace{1mm} \text{and} \hspace{1mm}  |\cdot |_p\hspace{1mm} \text{(prime p) respectively}.$$
+
+A famous theorem of Ostrowski characterizes the possible absolute values on $\Q$. 
+
+\begin{thm}
+If $| \cdot |$ is a nontrivial absolute value on $\Q$, then  $| \cdot |$ is equivalent to  $| \cdot |_{\infty}$ or there exists $p$ prime such that  $| \cdot |$ is equivalent to  $| \cdot |_p$. 
+\end{thm}
+
+
+With the previous theorem in mind, we define the \textbf{standard absolute values on $\Q$} by 
+
+$M_{\Q}=\{  | \cdot |_p : p \in \N, \text{ prime }\} \cup \{ | \cdot |_{\infty}\}$
+
+To generalize this, given a number field $K$, we define the standard set of absolute values on $K$ to be the set of absolute values $M_K$ on $K$ whose restriction to $\Q$  is a standard absolute value on $\Q$ (i.e, $|\cdot|_v \in M_K$ iff $|\cdot|_v|_{\Q} \in M_{\Q}$. 
+
+For $v \in M_K$, let $K_v$ denote the completion of $K$ with respect to  $| \cdot |_v$ and $\Q_v$ the completion of $\Q$ with respect to the restriction of $|\cdot|_v$ to $\Q$. Define the \textbf{local degree of $v$} to be $n_v=[K_v:\Q_v]$. If $L/K/\Q$ is a tower of number fields $w \in M_L, v \in M_K$, then we say that $w$ lies above $v$ if  $| \cdot |_w |_K =  | \cdot |_v$. We denote this by $w|v$. There are two big theorems which are very useful for proving results about the height that we will later define.  They are given below. 
+
+
+\begin{thm}{(Extension Formula)}
+Let $L/K/\Q$ be a tower of number fields and $v\in M_K$. 
+Then $$\dfrac{1}{[L:K]} \sum\limits_{\substack{w \in M_v\\ w|v}} n_w=n_v$$ 
+
+Hence, the local degree of $v$ of $K$ is an "average" over local degrees on $L$ that lie above $v$. 
+
+\end{thm}
+
+
+\begin{thm}{(Product Formula)} Let $K$ be a number field.  
+Then for each $\alpha \in K^{\times}$, $$\prod_{v \in M_K} |\alpha |_v^{n_v} =1$$ 
+\end{thm}
+
+Now we are finally in a position to extend our notion of height. Let $K$ be a number field and $P = [x_0:x_1] \in \P^1(K)$. We define the \textbf{height of $P$ relative to $K$} to be $$H_K(P) = \prod_{v \in M_K}\max\{|x_0|_{v}, |x_1|_{v}\}^{n_{v}}$$
+
+\begin{prop}
+Let $K$ be a number field and $P \in \P^1(K)$. Then 
+
+\begin{enumerate}
+\item $H_K(P)$ is independent of the choice of homogeneous coordinates for $P$. 
+
+\item $H_K(P) \geq 1$.
+
+\item If $L/K$ is a finite extension, then $H_L(P) = H_K(P)^{[L:K]}$
+
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+To show $(1)$, choose a pair of homogeneous coordinates $[x_0:x_1]$ for $P$ and let $[y_0:y_1] = Q \in \P^1(K)$ and suppose that $Q=P$. Then there exists $\lambda \in K^{\times}$ such that $y_0 = \lambda x_0$ and $y_1 = \lambda x_1$. So
+ 
+\begin{align*}
+H_K(Q) &= \prod_{v \in M_K}\max\{|\lambda x_0|_{v}, | \lambda x_1|_{v}\}^{n_{v}} \\
+&= \prod_{v \in M_K}|\lambda |_{v}^{n_{v}} \max\{|x_0|_{v}, |x_1|_{v}\}^{n_{v}}\\
+&= \prod_{v \in M_K}|\lambda |_{v}^{n_{v}} \prod_{v \in M_K}\max\{|x_0|_{v}, |x_1|_{v}\}^{n_{v}}\\
+&= \prod_{v \in M_K}\max\{|x_0|_{v}, |x_1|_{v}\}^{n_{v}} \hspace{3mm} \text{(Product Formula)}\\
+&= H_K(P)
+\end{align*}
+
+To show $(2)$, we equivalently write 
+
+\[ P = \begin{cases} 
+     [x_0x_1^{-1}:1] & x_1 \neq 0 \\
+      [1:0] & x_1 = 0
+   \end{cases}
+\]
+
+Then if $x_1 \neq 0$, we have 
+\begin{align*}
+H_K(P) 
+&= \prod_{v \in M_K}\max\{|x_0x_1^{-1}|_v, |1|_v\}^{n_v}\\
+&= \prod_{v \in M_K}\max\{|x_0x_1^{-1}|_v, 1\}^{n_v} \geq 1
+\end{align*}  
+
+If $x_1 = 0$, we have 
+
+\begin{align*}
+H_K(P) 
+&= \prod_{v \in M_K}\max\{|1|_v, |0|_v\}^{n_v} =1
+\end{align*}
+
+To show $(3)$, let $L$ be a finite extension of $K$. 
+Then 
+\begin{align*}
+H_L(P) 
+&= \prod_{w \in M_L}\max\{|x_0|_w, |x_1|_w\}^{n_w}\\
+&=\prod_{v \in M_K} \prod_{\substack{w \in M_L\\ w|v}}\max\{|x_0|_w, |x_1|_w\}^{n_w} \\
+&=\prod_{v \in M_K} \prod_{\substack{w \in M_L\\ w|v}}\max\{|x_0|_v, |x_1|_v\}^{n_w} \hspace{5mm} (\text{Since } x_0, x_1 \in K)\\
+&= \prod_{\substack{w \in M_L\\ w|v}}\big[ \prod_{v \in M_K}\max\{|x_0|_v, |x_1|_v\}\big]^{n_w}\\
+&= \big[\prod_{v \in M_K} \max \{|x_0|_v, |x_1|_v\}\big]^{\sum\limits_{\substack{w\in M_L \\ w|v}}n_w}\\
+&= \big[\prod_{v \in M_K} \max \{|x_0|_v, |x_1|_v\}\big]^{[L:K]n_v} \hspace{4mm} (\text{Extension Formula})\\ &= H_K(P)^{[L:K]}
+\end{align*}
+\end{proof}
+
+For $x$ in $K$, define $H_K(x) = H_K([x:1])$ so that for $s,t \in \Z, t \neq 0$ with no common factors and $p$ a prime, we have that $\max\{|s|_p,|t|_p\} = 1$ and thus 
+\begin{align*}
+H_\Q(s/t) \
+&= \prod_{p \text{ prime or } p = \infty}\max\{|s|_p,|t|_p\}\\
+&= \max\{|s|_\infty,|t|_\infty\}
+\end{align*} 
+which was our first notion of height.
+
+We now are in a position to generalize the height in such a way that it will no longer depend on a number field. Let $P \in \P^1(\overline{\Q})$. Choose a number field $K$ such that $P \in \P^1(K)$. Then define the \textbf{absolute height} of $P$ to be $$H(P) = H_K(P)^{1/[K:\Q]}$$
+
+Note that if $K_1,K_2$ are number fields and $P \in \P^1(K_1)$ and $P \in \P^1(K_2)$, then $L = K_1K_2$ is a number field with $P \in \P^1(L)$ and by the previous proposition
+\begin{align*}
+H_{K_1}(P)^{1/[K_1:\Q]} 
+&= H_L(P)^{1/([L:K_1][K_1:\Q])}\\
+&= H_L(P)^{1/[L:\Q]}\\
+&= H_L(P)^{1/([L:K_2][K_2:\Q])}\\
+&= H_{K_2}(P)^{1/[K_2:\Q]}
+\end{align*}
+
+\noindent Thus the absolute height is well defined. 
+
+The next fact will be used a couple of times, so it might as well be justified since it is not hard to show.
+
+\begin{prop}
+For $\beta \in \overline{\Q}$, and $n \in \N$, we have that $H(\beta^n) = H(\beta)^n$.
+
+\end{prop}
+
+\begin{proof}
+It suffices to show the result is true for the relative height. Choose a number field $K$ such that $\beta \in K$. Then \begin{align*}
+H_K(\beta^n) 
+&= \prod_{v \in M_K}\max\{|\beta^n|_{v}, 1\}^{n_{v}}\\
+&= \prod_{v \in M_K}\max\{|\beta|_{v}^n, 1\}^{n_{v}}\\
+&= \prod_{v \in M_K}\max\{|\beta|_{v}, 1\}^{nn_{v}} \hspace{4mm} (\text{Split into cases: }|\beta|_{v} < 1 \text{ or }|\beta|_{v} \geq 1)\\
+&= H_K(\beta)^n
+\end{align*}
+\end{proof}
+
+Note that the automorphisms of a field $K$ act on $P^1(K)$ naturally by $\sigma[x_0:x_1] = [\sigma(x_0):\sigma(x_1)]$.
+
+\begin{lem}
+Let $K$ be a number field, $P \in \P^1(\overline{K})$ and $\sigma \in Gal(\overline{K}/K)$. Then $H(\sigma(P)) = H(P)$ (i.e. height is Galois invariant).
+\end{lem}
+
+For $P_1, P_2, \cdots, P_n \in \overline{\Q}$, we define the the \textbf{field of definition of $P_1, P_2, \cdots, P_n$} (denoted by $\Q(P_1, P_2, \cdots, P_n)$) to be the smallest extension of $\Q$ such that for each $i \in \{1,2, \cdots, n\}$, $P_i \in \P^1(\Q(P_1, P_2, \cdots, P_n))$. It is easy to see that for $P=[x_0:x_1]$, $\Q(P)=\Q(x_0x_i^{-1},x_1x_i^{-1})$ for some coordinate $x_i \neq 0$ (and this is independent of choice of nonzero coordinate).
+
+For a number field $K$ and $P_1, P_2, \cdots, P_n \in \overline{\Q}$ we can analogously define $K(P_1, P_2, \cdots, P_n)$ by replacing the words ``smallest extension of $\Q$" by the words ``smallest extension of $K$" in the previous definition. Therefore, similarly to the case of adjoining multiple algebraic numbers to $\Q$, it's easy to see that $\Q(P_1,P_2, \cdots, P_n) = \Q (P_1,P_2, \cdots, P_{n-1})(P_n)$.
+
+The next Proposition will be extremely important for proving theorems about roots of unity and later preperiodic points.
+
+\begin{prop}{(Kronecker's Theorem)}
+
+Let $K$ be a number field, $B \geq 0$. Then $\{P \in \P^1(K):H_K(P) \leq B\}$ is finite. More generally, for $B,D \geq 0$,  $\{P \in \P^1(\overline{K}):H(P) \leq B\ \text{and } [K(P):K] \leq D\}$ is finite.
+
+\end{prop}
+
+\begin{prop}
+
+Let $\alpha \in \Q^{\times}$. Then $H(\alpha) = 0$ iff $\alpha$ is a root of unity. 
+
+\end{prop}
+
+
+\begin{proof}
+
+If $\alpha$ is a root of unity, then there exists $n \in \N$ such that $\alpha^n = 1$. Choose some finite extension $K$ of $\Q$ such that $\alpha \in K$.   
+Then for each $v \in M_K$, $|\alpha|_v = 1$
+\begin{align*}
+H(\alpha) 
+&= \prod_{v \in M_K} \max\{|\alpha|_v,1\}\\
+&= \prod_{v \in M_K} 1 = 1
+\end{align*}
+
+Conversely, if $H(\alpha)=1$, we know that for each $n \in \N$, $H(\alpha^n) = H(\alpha)^n = 1$. Thus $\{\alpha, \alpha^2, \alpha^3, \cdots\}$ is a set whose elements have bounded height and all belong to the same finite extension of $\Q$. Hence it is also finite and $\alpha$ is a root of unity.
+
+\end{proof}
+
+The following theorem is by Northcott. It elaborates on our results for roots of unity.
+
+\begin{thm}
+Let $K$ be a number field, $\phi: \P^1(K) \rightarrow \P^1(K)$ a rational morphism of degree $d\geq 2$. Then $PrePer(\phi, K)$ is a set of bounded height and in particular is finite. 
+\end{thm}
+
+For convenience, we will refer to the previously defined height as the Weil height to differentiate it from the other heights to be defined.
+
+The next couple of definitions many of the previous ones in a way that allows us to easily generalize these concepts to a dynamical analogue.
+
+For a given number field $K$, we define the \textbf{logarithmic height relative to K} $h_K: \P^1(K) \rightarrow \R$ by $h_K = \log(H_K)$. Similarly we define the \textbf{absoulte logarithmic height} $h: \P^1(\overline{\Q}) \rightarrow \R$ by $h=log(H)$.
+
+The next theorem is basically the property of the logarithmic height that allows us to generalize to the dynamical case. 
+
+\begin{prop}
+
+Let $\phi: \P^1(\overline{\Q}) \rightarrow \P^1(\overline{\Q})$ a rational morphism of degree $d$. Then there exist $C_1,C_2 > 0$ such that for each $\P \in \P^1(\overline{\Q})$, $C_1H(P)^d \leq H(\phi(P)) \leq C_2H(P)^d$ or equivalently $C_1 \leq h(\phi(P))-dh(P) \leq C_2$.   
+
+\end{prop}
+
+So that $\phi$ does not complicate $P$ too much more than around $H(P)^d$. The second form mentioned will be useful for the next topic.
+
+\begin{thm}
+
+Let $S$ be a set, $d>1$ and $\phi:S \rightarrow S, h:S \rightarrow \R$ functions satisfying $h(\phi(P)) = dh(P) + O(1)$ for each $P \in S$. Then the limit $\hat{h}_\phi(P) = \lim\limits_{n\rightarrow \infty} \frac{1}{d^n}h(\phi^n(P))$ exists and satisfies 
+
+\begin{enumerate}
+
+\item $\hat{h}_\phi(P) = h(P) + O(1)$
+\item $\hat{h}_\phi(\phi(P)) = d\hat{h}_\phi(P)$
+\item $\hat{h}_\phi(P)$ is uniquely determined by properties $(1)$ and $(2)$.
+
+\end{enumerate} 
+
+\end{thm}
+
+\begin{proof}
+To show the limit exists, we show that the sequence is Cauchy. 
+
+Let $P \in S$ and $n>m \geq 0$. By assumption, there exists $C > 0 $ such that for each $Q \in S$, $|h(\phi(Q)) - dh(Q)| \leq C$. We then form the telescoping sum 
+
+\begin{align*}
+\bigg|\frac{1}{d^n} h(\phi^n(P)) - \frac{1}{d^m} h(\phi^m(P))\bigg|&= \bigg|\sum_{i = m+1}^n \frac{1}{d^i}[h(\phi^i(P)-dh(\phi^{i-1}(P))]\bigg| \\
+&\leq \sum_{i = m+1}^n \frac{C}{d^i} \\
+&\leq \sum_{i = m+1}^{\infty} \frac{C}{d^i}\\
+&= \frac{C}{(d-1)d^m}
+\end{align*}
+
+Hence the sequence is Cauchy.
+
+To prove $(1)$, in the previous inequality take $m=0$ to get $|\frac{1}{d^n} h(\phi^n(P)) - h(P)| \leq \frac{C}{d-1}$. Thus as $n \rightarrow \infty$, we obtain that 
+$|\hat{h}_\phi(P) - h(P)| \leq \frac{C}{d-1}$.
+
+To show $(2)$, use the definition of $\hat{h}_\phi.$
+
+\begin{align*}
+\hat{h}_\phi(\phi(P)) 
+&= \lim_{n \rightarrow \infty}\frac{1}{d^n}h(\phi^n(\phi(P)))\\
+&= \lim_{n \rightarrow \infty}\frac{1}{d^n}h(\phi^{n+1}(P))\\
+&= \lim_{n \rightarrow \infty}\frac{d}{d^{n+1}}h(\phi^{n+1}(P))\\
+&= d\hat{h}_\phi(P)
+\end{align*}
+
+Finally to show uniqueness, suppose $h':S \rightarrow \R$ also has properties $(1)$ and $(2)$. Then 
+
+\begin{align*}
+g
+&=\hat{h}_\phi-h' \\
+&= h + O(1) -(h+O(1))\\
+&= O(1)
+\end{align*}
+
+\noindent and for each $P \in S$,
+
+\begin{align*}
+g(\phi(P)) 
+&= d\hat{h}_\phi(P) - dh'(P)\\
+&=dg(P)
+\end{align*}
+
+Thus for each $n \in \N$, $d^ng(P) = g(\phi^n(P))= O(1)$.
+Since $d > 1$, $g(P)=0$ and $\hat{h}_\phi = h'$.
+
+\end{proof}
+
+Now, for $\phi: \P^1(\overline{\Q}) \rightarrow \P^1(\overline{\Q})$ a rational morphism of degree $d \geq 2$, we define the \textbf{canonical height function associated to $\phi$} to be the unique function $\hat{h}_\phi: \P^1(\overline{\Q}) \rightarrow \R$ satisfying 
+$\hat{h}_\phi(P) = h(P) + O(1)$ and $\hat{h}_\phi(\phi(P)) =  d\hat{h}_\phi(P)$ for each $P \in \P^1(\overline{\Q})$. The existence and 
+uniqueness is guaranteed by the last theorem and proposition applied to $\phi: \P^1(\overline{\Q}) \rightarrow \P^1(\overline{\Q})$ our rational morphism and $h:\P^1(\overline{\Q}) \rightarrow \R$ the absolute logarithmic height.
+
+\begin{prop}
+
+Let $\phi: \P^1(\overline{\Q}) \rightarrow \P^1(\overline{\Q})$ be a rational morphism of degree $d \geq 2$ and $P \in \P^1(\overline{\Q})$. 
+
+Then $P \in PrePer(\phi)$ iff $\hat{h}_\phi(P) = 0$.
+
+\end{prop}
+
+\begin{proof}
+
+If $P \in PrePer(\phi)$, then $\{P, \phi(P), \phi^2(P) \cdots\}$ is finite and therefore a set with bounded logarithmic height. Hence 
+$\hat{h}_\phi(P) = \lim\limits_{n \rightarrow \infty}\frac{1}{d^n} h(\phi^n(P)) = 0$.
+
+Conversely, suppose that $\hat{h}_\phi(P) = 0$. Choose a number field $K$ such that $P \in \P^1(K)$ and $\phi$ is defined over $K$. Then for each $n \in \N$, 
+
+\begin{align*}
+h(\phi^n(P)) 
+&= \hat{h}_\phi(\phi^n(P)) + O(1)\\
+&= d^n\hat{h}_\phi(P) + O(1)\\
+&= O(1)
+\end{align*}
+
+Hence $\{\phi^n(P):n \in \N\}$ is a set of bounded height whose field of definition is of finite degree over $\Q$ and is therefore finite. Thus $P \in PrePer(\phi)$ 
+
+\end{proof}
+
+This fact is a generalization of the case when dealing with the roots of unity and the logarithmic height because the logarithmic height is in fact the canonical height function associated to $\phi(x) = x^2$ for which the roots of unity are in fact the preperiodic points in $\Q$. 
+
+To motivate the following conjecture and its dynamical analogue we observe the height of the sequence $a_n = 2^{1/n}$. We see that $h(a_n) = \frac{log(2)}{n}$ and $[\Q(a_n):\Q] = n$. As $d \rightarrow \infty$, $h(a_n) \rightarrow 0$ and $[\Q(a_n):\Q] \rightarrow \infty$. So we can approach a height of zero but not without the degree blowing up in this case.
+
+The following conjecture is due to Lehmer.
+
+\begin{conj}
+There exists $\kappa > 0$ such that for each $\alpha \in \overline{\Q}^{\times}$, if $\alpha$ is not a root of unity, then $h(\alpha) \geq \kappa / [\Q(\alpha):\Q]$ .
+\end{conj}
+
+Using the analogy between the roots of unity and preperiodic points we can give the  dynamical analogue of Lehmer's conjecture. 
+
+\begin{conj}
+
+Let $\phi: \P^1(\overline{\Q}) \rightarrow \P^1(\overline{\Q})$ be a rational morphism of degree $d \geq 2$. Then there exists $\kappa>0$ such that for each $P \in \P^1(\overline{\Q})$, if $P \notin PrePer(\phi)$, then $\hat{h}_\phi(P) \geq \kappa /[\Q(P):\Q]$.
+
+\end{conj}
+
+\section{Local Heights}
+It's often useful to dissect global properties and investigate them locally. In this section we develop a theory for local height-like functions and end up gluing them all together in order to obtain the global height. This will be useful for attacking problems by examining them locally.  
+
+We fix a field $K$ and will denote affine $K$-space by $\AF$ and projective $K$-space by $\P^1$ so that $\P^1 = \AFAF\setminus\{(0,0)\}/\sim$ where $\sim$ denotes the homogeneous equivalence relation on $\AFAF$.
+
+We denote the punctured affine plane $\AFAF\setminus\{(0,0)\}$ by $\AFAF_*$ and we write $\pi: \AFAF_* \rightarrow \P^1$ to refer to the natural projection map $(x,y) \mapsto [x:y]$. 
+
+Let $\phi: \P^1 \rightarrow \P^1$ be a rational morphism of degree $d$ defined over $K$. Then we may write $\phi = [F,G]$ for $F,G \in K[x_0,x_1]$ homogeneous of degree $d$ with $Res(F,G) \neq 0$. We then obtain the map $\Phi: \AFAF_* \rightarrow \AFAF_*$ defined by $\Phi(x,y) = (F(x,y),G(x,y))$ for $(x,y) \in \AFAF_*$. The special thing about $\Phi$, is that it makes the following diagram commute. 
+\[\begin{tikzcd}
+\AFAF_* \arrow[r, "\Phi"] \arrow[d, "\pi"]
+& \AFAF_* \arrow[d, "\pi"] \\
+\P^1 \arrow[r, "\phi"]
+& \P^1
+\end{tikzcd}\]
+
+Any map $\Phi$ with this property is called a \textbf{lift of $\phi$} and the lifts of $\phi$ are readily seen to be given by $c \Phi = (cF,cG)$ for $c \in K^{\times}$.
+
+If our field $K$ has and absolute value $v$, then we may define the \textbf{sup norm} of a point $(x,y) \in \AF^2$ to be the quantity $$\norm{(x,y)}_v = \max\{|x|_v,|y|_v\}$$
+
+\begin{prop}
+
+Let $K$ be a field with an absolute value $v$, and $\Phi:\AF^2(K) \rightarrow \AF^2(K)$ be given by $\Phi = (F,G)$ for $F,G \in K[x_0,x_1]$ of degree $d \geq 1$ with $Res(F,G) \neq 0$. Then 
+\begin{enumerate}
+\item there exist $c_1, c_2 >0$ such that $$c_1 \leq \frac{\norm{\Phi(x,y)}_v}{\norm{(x,y)}_v^d} \leq c_2 \hspace{4mm }\text{ for each } (x,y) \in \AFAF_*(K)$$
+\item If $v$ is nonarchimedean and $\Phi$ satisfies $\norm{\Phi} = 1$, then $$Res(F,G) \leq \frac{\norm{\Phi(x,y)}_v}{\norm{(x,y)}_v^d} \leq 1 \hspace{4mm }\text{ for each } (x,y) \in \AFAF_*(K)$$ 
+ 
+\end{enumerate}
+
+\end{prop} 
+
+Now, the setup is just like in the previous section.
+
+\begin{prop}
+Let $K$ be a field with absolute value $v$ and $\phi:\P^1(K) \rightarrow \P^1(K)$ a rational morphism of degree $d \geq 2$. Let $\Phi: \AFAF_*(K) \rightarrow \AFAF_*(K)$ a lift of $\Phi$. Then \begin{enumerate}
+\item for each $(x,y) \in \AFAF_*$, the limit $$\MCG_{\Phi}(x,y) = \lim_{n \rightarrow \infty}\frac{1}{d^n}\log \norm{\Phi^n(x,y)}$$ exists. We call the function $\MCG_{\Phi}: \AFAF_*(K) \rightarrow \AFAF_*$ the Green function of $\Phi$.
+\item The Green function of $\Phi$ is the unique funtion $\AFAF_* \rightarrow \R$ such that $$\text{for each $(x,y) \in \AFAF_*(K)$,\hspace{1mm}$\MCG_{\Phi}(\Phi(x,y)) = d\MCG_{\Phi}(x,y)$}$$ and $$\text{for each $(x,y) \in \AFAF_*(K)$,\hspace{1mm}$\MCG_{\Phi}(x,y) = log\norm{(x,y)}_v+O(1)$}$$
+\item If $v$ is nonarchimedean and $\Phi$ satisfies $\norm{\Phi}_v = 1$ and $|Res(F,G)|_v = 1$ (i.e. $\phi = [F:G]$ has good reduction at $v$), then $$\text{for each } (x,y) \in \AFAF_*(K)\text{,\hspace{1mm}}\MCG_{\Phi}(x,y) = log\norm{(x,y)}_v$$
+\item for each $(x,y) \in \AFAF_*(K)$ and $c \in K^{\times}$,  $\MCG_{\Phi}$ has the following properties: $$\MCG_{\Phi}(cx,cy) = \MCG_{\Phi}(x,y) + log|c|_v$$ and $$\MCG_{c \Phi}(x,y) = \MCG_{\Phi}(x,y) + \frac{1}{d-1}log|c|_v$$
+\item $\MCG_{\Phi}: \AFAF_*(K) \rightarrow \AFAF_*(K)$ is continuous.
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+$(1)$ and $(2)$ follow immediately from proposition $5.2$ and theorem $4.13$
+
+To show $(3)$, we use the assumptions that $\norm{\Phi}_v = 1$ to be able to use the second part of proposition $5.1$ where we plug in $Res(F,G) = 1$ to obtain that $\norm{\Phi(x,y)}_v = \norm{(x,y)}_v^d$. Induction then yields that for $n \in \N$, $\norm{\Phi^n(x,y)}_v = \norm{(x,y)}_v^{d^n}$. Plugging this into the definition of $\MCG_{\Phi}$ gives the desired result.
+
+The proofs of $(4)$ and $(5)$ are skipped for brevity.
+\end{proof}
+
+The next theorem is very useful and ties all the previous information about heights together.
+
+\begin{thm}
+Let $K$ be a number field and $\phi:\P^1(K) \rightarrow \P^1(K)$ a rational morphism of degree $d \geq 2$. Let $\Phi:\AFAF_*(K) \rightarrow \AFAF_*(K)$ be a lift for $\phi$. For each $v \in M_K$, let $\MCG_{\Phi,v}$ be the associated Green function and $k_v = [K_v:\Q_v]/[K:\Q]$. Define $\eta: \P^1(K) \rightarrow \P^1(K)$ by $$\eta([x,y]) = \sum_{v \in M_K}k_v\MCG_{\Phi,v}(x,y) \text{ for each } [x,y] \in \P^1(K)$$ Then $\eta$ is well defined and  $$\hat{h}_{\phi}(P) = \eta(P) \text{ for each } P \in \P^1(K)$$
+\end{thm}
+
+\begin{proof}
+For $c \in K^{\times}$, 
+\begin{align*}
+\sum_{v \in M_K}k_v \MCG_{\Phi,v}(cx,cy) 
+&= \sum_{v \in M_K}k_v \big[\MCG_{\Phi,v}(x,y)+log|c|_v\big] \hspace{15mm} \text{(previous proposition)}\\
+&= \sum_{v \in M_K}k_v \MCG_{\Phi,v}(x,y) +\sum_{v \in M_K}k_vlog|c|_v\\
+&= \sum_{v \in M_K}k_v \MCG_{\Phi,v}(x,y) \hspace{35mm}\text{(product formula)}
+\end{align*}
+
+\noindent So $\eta$ is well defined.
+
+Next we observe that 
+\begin{align*}
+\eta (\phi (P)) 
+&= \sum_{v \in M_K} k_v \MCG_{\Phi, v}(\Phi(P))
+&= \sum_{v \in M_K} k_v d\MCG_{\Phi, v}(P)
+&= d \eta(P)
+\end{align*} 
+and 
+\begin{align*}
+\eta(P) 
+&= \sum_{v \in M_K} k_v \MCG_{\Phi, v}(P)\\
+&= \sum_{v \in M_K} k_v (log\norm{P}_v +O_v(1))\\
+&= h(P) + \sum_{v \in M_K} k_v O_v(1) 
+\end{align*}
+
+Since $\phi = [F:G]$ has good reduction at $v$ for all but finitely many $v \in M_K$, we see that $\eta = h(P)+O(1)$. These two properties and uniqueness of $\hat{h}_{\phi}$ imply equality as desired.
+
+\end{proof}
+
+
+\section{Basic Potential Theory}
+
+In this section we develop another tool related to height that is useful for describing behavior of sequences of points. We first develop the the flavor of the classical potential theory in the plane, then generalize to the $p$-adic case.
+
+Let $X$ be a locally compact Hausdorff space and $K \subset X$ compact. We denote the set of finite Borel measures on $X$ with compact support by $\MCM_c(X)$ and we denote the Borel probability measures on $K$ (equivalently on $X$ with support in $K$) by $\mathcal{P}(K)$. Recall that these measures are regular.
+
+Let $X$ be a topological space and $v:X \rightarrow \R\cup \{ \infty \}$. Then we say that $v$ is \textbf{lower semicontinuous} if for each $\alpha \in \R$, $v^{-1}((\alpha,\infty])$ is open. Equivalently $v$ is lower semicontinuous if for each $x_0 \in X$, $\liminf\limits_{x \rightarrow x_0}v(x) \geq v(x_0)$.
+
+\begin{prop}
+
+Let $X$ be a topological space, $K \subset X$ compact and $v:X \rightarrow \R\cup \{ \infty \}$ lower semicontinuous. Then $v$ is bounded below on $K$ and there exits $x_0 \in K$ such that $v(x_0) = \inf\limits_{x \in K}v(x)$.
+
+\end{prop}
+
+\begin{proof}
+
+The sets $M_n = v^{-1}((-n,\infty])$ $(i \in \N)$ form an open cover of $K$. Hence there is a finite subcover $\{M_{i_1}, M_{i_2}, \cdots, M_{i_t}\}$ of $K$. Thus $v$ is bounded below on $K$. Put $l = \inf\limits_{x \in K}v(y)$. Then for each $n \in \N$, there exists $x \in K$ such that $v(x) < l+1/n$. Therefore there is no finite subcollection of the open sets $v^{-1}((l+1/n,\infty])$ that covers $K$. So the open sets $v^{-1}((l+1/n,\infty])$ do not form a cover of $K$. Since $\bigcup\limits_{n \in \N}v^{-1}((l+1/n,\infty] = v^{-1}((l,\infty]$ does not contain $K$ and $v(K) \subset [l, \infty]$, we see that there exists $x_0 \in K$ such that $v(x_0) = l$. 
+
+\end{proof}
+
+\begin{lem}
+
+If $u,v:X \rightarrow \R\cup \{\infty\}$ are lower semicontinuous, then 
+
+\begin{enumerate}
+\item $\min(u,v)$ is lower semicontinuous
+\item for $\alpha, \beta \geq 0$, $\alpha u + \beta v$ is lower semicontinuous.
+\end{enumerate} 
+
+\end{lem}
+
+Note that if $v:X \rightarrow \RR$ is lower semicontinuous, then for each $\mu \in \MCM_c(X)$, we have that $$\int_{K}v^-d \mu < \infty$$ So that $$\int_{K}vd\mu$$ is well defined.
+
+Let $V \subset \C$ be open and $v:V \rightarrow \RR$. Then $v$ is \textbf{superharmonic} if it is lower semicontinuous and it satisfies the local supermean inequality: for each $z \in V $, there exits $\rho > 0$
+such that for each $r \in [0,\rho)$, $$v(z) \geq\frac{1}{2\pi}\int_0^{2\pi}v(z + re^{it})dt$$
+
+\begin{lem}
+
+Let $V \subset \C$ be open and $f \in Hol(V)$. Then the function $v:V \rightarrow \RR$ defined by $v = -log(|f|)$ is superharmonic.
+
+\end{lem}
+
+\begin{lem}
+
+Let $V \subset \C$ be open and $u,v : V \rightarrow \RR$ superharmonic. Then 
+
+\begin{enumerate}
+\item $min(u,v)$ is superharmonic
+\item for each $\alpha, \beta \geq 0$, $\alpha u + \beta v $ is superharmonic
+\end{enumerate}
+
+\end{lem}
+
+\begin{prop}
+
+Let $V \subset \C$ be open, $v:V \rightarrow \RR$ lower semicontinuous. Then $v$ is superharmonic iff $v$ satisfies the global supermean inequality: for each $z \in V$, $\rho \in [0,\infty)$ if $\overline{D}(z,\rho) \subset V$, then $$v(z) \geq \frac{1}{2\pi}\int_0^{2\pi}v(z + \rho e^{it})dt$$
+
+\end{prop}
+
+\begin{lem}
+
+Let $(\Omega, \mu)$ be a measure space with $\mu(\Omega) < \infty$. Let $V \subset \C$ be open and $u: V \times \Omega \rightarrow \RR$ satisfy 
+
+\begin{enumerate}
+\item $u$ is $V\times\Omega$ measurable
+\item for each $\omega \in \Omega$, $z \mapsto u(z,\omega)$ is superharmonic on $V$
+\item $z \mapsto \inf\limits_{\omega \in \Omega}u(z,\omega)$ is locally bounded below on $V$.   
+\end{enumerate}
+
+Then the function $v:V \rightarrow \RR$ given by $$v(z)= \int_{\Omega}u(z,w)d\mu(\omega)$$ 
+
+is well defined and superharmonic.  
+
+\end{lem}
+
+\begin{proof}
+
+Let $z \in V$. Since $\{z\}$ is compact, $(3)$ implies that there exists $l> 0$ such that $ -l < \inf\limits_{\omega \in \Omega} u(z,\omega)$. 
+
+So 
+\begin{align*}
+\int_{\Omega}u^{-}(z,w)d\mu(\omega) 
+&< l \mu(\Omega) < \infty
+\end{align*} and thus $v(z)$ is well defined.
+
+To show lower semicontinuity of $v$, let $z_0 \in V$ and choose $K \subset V$ such that $K$ is compact, $z_0 \in K^{\circ}$. Then $(3)$ implies that $z \mapsto \inf\limits_{\omega \in \Omega}u(z, \omega)$ is bounded below on $K$. Put $l = \inf\limits_{\substack{z \in K\\ \omega \in \Omega}}u(z, \omega)$. Then $0 \leq \inf\limits_{\omega \in \Omega}u(z, \omega) - l$ on $K$. Let $(z_n)$ be a sequence in $K^{\circ}\setminus\{z_0\}$ such that $z_n \rightarrow z_0$ as $n \rightarrow \infty$.
+Then 
+
+\begin{align*}
+\liminf_{n \rightarrow \infty}v(z_n) - l\mu(\Omega) 
+&= \liminf_{n \rightarrow \infty}[v(z_n) - l\mu(\Omega)]\\
+&= \liminf_{n \rightarrow \infty}\int_{\Omega}(u(z_n,\omega) - l)d\mu(\omega)\\
+&\geq \int_{\Omega}\liminf_{n \rightarrow \infty}[u(z_n,\omega) - l]d\mu(\omega) \hspace{5mm} \text{ (Fatou's lemma)}\\
+&= \int_{\Omega}(\liminf_{n \rightarrow \infty}u(z_n,\omega) - l)d\mu(\omega)\\
+&\geq \int_{\Omega}u(z_0,\omega) -ld\mu(\omega) \hspace{20mm} (2)\\
+&= \int_{\Omega}u(z_0,\omega) d\mu(\omega) - l\mu(\Omega)\\
+&= v(z_0) - l\mu(\Omega)
+\end{align*}
+
+Hence $\liminf_{n \rightarrow \infty}v(z_n) \geq v(z_0)$. Since $(z_n)$ was arbitrary, $v$ is lower semicontinuous at $z_0$. Finally since $z_0$ was arbitrary, $v$ is lower semicontinuous.
+
+To show superharmonicity of $v$, let $z_0 \in V$, $\rho \in [0,\infty)$. Suppose $\overline{D}(z_0,\rho) \subset V$. As above, $(3)$ implies that $l= \inf\limits_{\substack{z \in \overline{D}(z_0,\rho) \\ \omega \in \Omega}}u(z, \omega)> -\infty$. Then for each $z \in \overline{D}(z_0,\rho)$, $0 \leq \inf\limits_{\omega \in \Omega}u(z, \omega) - l$. Hence  
+\begin{align*}
+\frac{1}{2\pi}\int_0^{2\pi}v(z_0 + \rho e^{it})dt - l\mu(\Omega)
+&= \frac{1}{2\pi}\int_0^{2\pi}[v(z_0 + \rho e^{it}) - l\mu(\Omega)]dt\\
+&= \frac{1}{2\pi}\int_0^{2\pi}\int_{\Omega}(u(z_0 + \rho e^{it}, \omega) - l)d\mu(\omega)dt\\
+&= \int_{\Omega}\frac{1}{2\pi}\int_0^{2\pi}[u(z_0 + \rho e^{it}, \omega) - l]dtd\mu(\omega) \hspace{5mm} \text{(Tonelli's theorem)}\\
+&\leq \int_{\Omega}(u(z_0, \omega) - l)d\mu(\omega) \hspace{34mm} (2)\\
+&= v(z_0) - l\mu(\Omega)
+\end{align*}  
+
+Thus $v(z_0) \geq \frac{1}{2\pi}\int_0^{2\pi}v(z_0 + \rho e^{it})dt$ and $v$ is super harmonic from the previous proposition. 
+
+\end{proof}
+
+Note that if $K \subset \C$ is compact and $\mu \in \MCM(\C)$ then the function $u: \C \times \mathrm{supp}(\mu) \rightarrow \RR$ defined by $u(z,w) = -log(|z-w|)$ satisfies all the conditions in the previous lemma. The next definition makes full use of this fact.  
+
+Let $\mu \in \MCM_c(\C)$. Then the \textbf{potential function associated to $\mu$} is the superharmonic function $U_{\mu}: \C \rightarrow \RR$ defined by 
+\begin{align*}
+U_{\mu}(z) 
+&= \int-\log|z-w|d\mu\\
+&= \int \log\frac{1}{|z-w|}d\mu
+\end{align*}
+
+and the \textbf{energy of $\mu$} is the quantity $I(\mu) \in \RR$ defined by 
+\begin{align*}
+I(\mu) 
+&= \int U_{\mu}(z)d\mu \\
+&= \int-\log|z-w|d\mu^2 \hspace{8mm} \text{ (Tonelli's theorem)}
+\end{align*}
+
+Finally let $E \subset \C$. Then $E$ is \textbf{polar} if for each $\mu \in \MCM_c(\C)$, $\mathrm{supp}(\mu) \subset E$ and $\mu$ is nonzero imply that $I(\mu) = \infty$.  We say that that a property holds \textbf{quasi-everywhere} on $\C$ if there exists a polar set $E \subset \C$ such that the property holds on $\C\setminus E$.
+
+Note that for each $\mu \in \MCM_c(\C)$, if there exists $z_0 \in \C$ such that $supp(\mu) = \{z_0\}$, then there exists $c>0$ such that $\mu = c\delta_{z_0}$ and therefore $I(\mu) = \infty$. More generally, if $supp(\mu)$ contains an isolated point, then $I(\mu) = \infty$.
+
+\begin{prop}
+
+Let $\mu \in \MCM_c(\C)$ If $I(\mu) < \infty$, then for each Borel set $E \subset \C$, if $E$ is polar, then $\mu(E)=0$.
+
+\end{prop}
+
+\begin{proof}
+Let $E \in \MCB(\C)$ and suppose that $\mu(E) > 0$. By regularity of $\mu$, there exists a compact $K \subset E$ such that $\mu(E) >0$. Define $\overline{\mu} \in \MCM_c(\C)$ by $\overline{\mu}(A)= \mu(K\cap A)$. Since $I(\mu)< \infty$, we note that $|supp(\mu)| > 1$ so that $d = diam(supp(\mu)) >0$. Then we have that 
+\begin{align*}
+I(\overline{\mu}) 
+&=\int_{\C \times \C} \log \frac{d}{|z-w|}d\overline{\mu}^2 -\log(d)\overline{\mu}(K)^2\\
+&= \int_{K \times K} \log\frac{d}{|z-w|}d\mu^2 - log(d)\mu(K)^2\\
+&\leq \int_{\C \times \C} \log \frac{d}{|z-w|}d\mu^2 - log(d)\mu(K)^2\\
+&=\int_{\C \times \C} \log \frac{1}{|z-w|} d\mu^2 + \log(d)\mu(\C)^2 - \log(d)\mu(K)^2\\
+&= I(\mu) + \log(d)\mu(\C)^2 - \log(d)\mu(K)^2 - \log(d)\\
+& < \infty
+\end{align*}
+
+Since $\overline{\mu}$ is nonzero, $E$ is not polar.
+
+\end{proof}
+
+\begin{cor}
+Let $(E_n)_{n \in \N}$ be a sequence of Borel polar sets in $\C$. Then $E = \bigcup\limits_{n \in \N}E_n$ is a Borel polar set. 
+\end{cor}
+
+\begin{proof}
+Let $\mu \in \MCM_c(\C)$. Suppose that $supp(\mu) \subset E$, $supp(\mu) \neq \emptyset$ and $I(\mu) < \infty$. Then for each $n \in \N$, $\mu(E_n) = 0$. Then $\mu(E) = 0$ which is a contradiction since $supp(\mu) \subset E$ is nonempty. Hence $I(\mu) = \infty$ and $E$ is polar.
+\end{proof}
+ 
+The next definition is an optimization problem motivated in physics, particularly how charge distributes in a conductor in order to minimize the potential energy of its configuration. 
+Let $K \subset \C$ be compact. If there exists $\nu \in \MCP(K)$ such that $I(\nu) = \inf\limits_{\mu \in \MCP(K)}I(\mu)$, then $\nu$ is called an \textbf{equilibrium measure for $K$}.
+
+For example if $K \subset \C$ is compact and polar, then for each $\mu \in \MCP(K)$, $\mu$ is an equilibrium measure for $K$.
+ 
+\begin{lem}
+Let $K \subset \C$ be compact and $(\mu_n)_{n \in \N}$ a sequence in $\MCP(K)$ and $\mu \in \MCP(K)$. Suppose that $\mu_n \overset{w^*}{\rightarrow} \mu$ (i.e for each $f \in C_c(\C)$, $\int f d\mu_{n} \rightarrow \int f d\mu$). Then $\liminf\limits_{n\rightarrow \infty}I(\mu_n) \geq I(\mu)$ 
+\end{lem} 
+ 
+\begin{prop}
+For each $K \subset \C$, if $K$ is compact, then there exists $\nu \in \MCP(K)$ such that $\nu$ is an equilibrium measure for $K$.
+\end{prop}
+
+The following theorem is due to Frostman. 
+ 
+\begin{thm}
+Let $K \subset \C$ be compact and $\nu$ an equilibrium measure for $K$. Then 
+\begin{enumerate}
+\item $U_{\nu} \leq I(\nu)$ on $\C$
+\item $U_{\nu} = I(\nu)$ quasi-everywhere on $K$. 
+\end{enumerate}
+\end{thm}
+
+Let $K \subset \C$. We define the \textbf{external boundary} of $K$ to be the boundary of the connected component of $\C \setminus K$ that contains the point at infinity. The external boundary of $K$ is denoted by $\partial_eK$
+
+\begin{prop}
+Let $K \subset E$ be compact. If $K$ is nonpolar, then there exists a unique $\nu \in \MCP(K)$ such that $\nu$ is an equilibrium measure for $K$ and we also have that $supp(\nu) \subset \partial_eK$. 
+\end{prop}
+ 
+As an example Consider $K = \overline{D}(0,1)$, the closed disk with center $0$ and radius $1$. Let $\mu$ be the equilibrium measure for the disk. We know that $supp(\mu) \subset \partial_eK = S^1$. Fix a $c \in S^1$, define $f:\C \rightarrow \C$ by $f(z) = c^{-1}z$ for each $z \in \C$. Then the push-forward measure $f_*\mu$ satisfies \begin{align*}
+f_*\mu(E) 
+&= \mu(f^{-1}(E)) \\
+&= \mu(cE) \hspace{10mm}\text{ for each } E \subset \MCB(\C) 
+\end{align*}
+
+Letting $g(z,w) = -log|z-w|$ we see that $g(f(z),f(w)) = g(z,w)$ and so 
+\begin{align*}
+I(\mu_*f_c) 
+&= \int_{\C}\int_{\C}g(z,w)df_*\mu(w)df_*\mu(z)\\
+&= \int_{\C}\int_{\C}g(f(z),f(w))d\mu(z)d\mu(z)\\
+&= \int_{\C}\int_{\C}g(z,w)d\mu(w)d\mu(z)\\
+&= I(\mu)
+\end{align*} 
+Since the equilibrium measure is unique, we have that $f_*\mu = \mu$. Thus regarding $\mu$ as a measure on $S^1$ the previous statement implies that $\mu$ is rotation invariant. Since $S^1$ is a locally compact group whose product is simply multiplication, we are admitted a Haar measure that is the unique translation invariant measure on $S^1$ up to scaling. Thus our equilibrium measure is the unit Haar measure on $S^1$ which is just the push-forward of the normalized Lebesgue measure on $[0,2\pi]$ by $f(t) = e^{it}$.
+
+It is then an exercise in complex analysis to show that the potential function of $\mu$ is 
+\begin{align*}
+p_\mu(z) 
+&= \int_{S^1}-log|z-w|d\mu(w)\\
+&= \frac{1}{2\pi}\int_0^{2\pi}-log|z-e^{it}|dt\\
+&= \begin{cases} 0 & |z|<1 \\ log\frac{1}{|z|} & |z| \geq
+1
+\end{cases}\\
+&= -\log^+|z|
+\end{align*} 
+
+Now everything in the discussion of potential theory so far has been in the classical flavor. However, we can do the same sorts of things if instead of $\C$, we work in $\Q_p$. For instance, in lemma $7.6$, properties $1)$ and $3)$ carry over to when $V \subset \Q_p$ is open and have the same implications except for the superharmonicity of the defined function. In particular, the function $-\log(|z-w|_p)$ satisfies properties $1)$ and $2)$ in lemma$ 7.6$ 
+
+
+So for $\mu \in M_c(\Q_p)$, we may similarly define the potential function of $\mu$ to be $$U_{\mu}(z) = \int_{\Q_p}-\log|z-w|_pd\mu (z)$$ and we similarly define the energy of $\mu$ to be 
+\begin{align*}
+I(\mu) 
+&= \int_{\Q_p}U_{\mu}(z)d \mu (z)\\
+&= \int_{\Q_p \times \Q_p}-\log|z-w|_p d\mu^2(z,w)
+\end{align*}
+
+For a compact set $K \subset \Q_p$, we define an equilibrium measure in the exact same way and similarly, the following fact carries over to the $p$-adic case.
+
+\begin{thm}
+Let $K \subset \Q_p$ be compact. Then there exists $\nu \in \MCP(K)$ such that $\nu$ is an equilibrium measure for $K$. If in addition $K$ is nonpolar, then $\nu$ is unique.
+\end{thm}
+
+In addition to the last theorem's applicability on $\Q_p$, we also enjoy the use of Frostman's theorem on $\Q_p$.
+
+\begin{thm}
+Let $K \subset \Q_p$ be compact and $\nu$ an equilibrium measure for $K$. Then 
+\begin{enumerate}
+\item $U_\nu(z) \leq I(\nu)$ on $\Q_p$
+\item $U_\nu(z) = I(\nu)$ quasi-everywhere on $K$. 
+\end{enumerate}
+\end{thm}
+
+With these facts in hand we can pretty much copy the unit disk example from before into the $p$-adic case.
+
+Example: Let $\Z_p = \{x \in \Q_p: |x|_p \leq 1\}$. It is well known that $\Z_p$ is compact and as mentioned in the first section, the ultrametric inequality implies that $\Z_p$ is also a ring. Choose an equilibrium measure $\mu$ for $\Z_p$. Analogously to the previous example, for $c \in \Z_p$, we define $f:\Q_p \rightarrow \Q_p$ by $f(x) = c + x$ for each $x \in \Q_p$. Then the push forward measure of $\mu$ by $f$ on $\Z_p$ satisfies $f_*\mu(E) = \mu(-c + E)$ for each Borel $E \subset \Z_p$ (which is well defined since $\Z_p$ is a ring). Note that for each $z,w \in \Z_p$  
+\begin{align*}
+-\log|f(z)-f(w)|_p 
+&= -\log|(z+c) - (w+c)|_p\\
+&= -\log|z-w|_p 
+\end{align*} 
+
+Thus $I(\mu) = I(f_* \mu)$ and thus $\mu = f_* \mu$. Since $c \in \Z_p$ was arbitrary, $\mu$ is translation invariant which means it must be the normalized Haar measure on $\Z_p$. 
+
+To get a feeling for this measure, recall that each $x \in \Z_p$ has a unique series expansion $x = \sum_{i=0}^{\infty} a_ip^i$ where each $a_i \in \{0,1, \cdots ,p-1 \}$. The ultrametric inequality then tells us that $$\Z_p^{\times} = \bigg\{ \sum_{i=0}^{\infty} a_ip^i \in \Z_p: a_0 \neq 0 \bigg\}$$
+Thus we can rewrite $\Z_p$ as the following disjoint union: $$\Z_p = \{0\}\cup \bigg[\bigcup_{i=0}^{\infty} p^i\Z_p^{\times}\bigg]$$ Which just says that for $x \in \Z_p$, write $x = \sum_{i=0}^{\infty} a_ip^i$ and if $x \neq 0$ and the first nonzero coefficient  of the series expansion is $a_i$, then $x \in p^i \Z_p^{\times}$. 
+
+Again taking note of the series expansions, with $P_0 = \{0, 1, \cdots ,p-1 \}$ we can write $\Z_p$ as the following disjoint unions: 
+\begin{align*}
+\Z_p 
+&= \bigcup_{j_0 \in P_0} j_0 + p\Z_p\\
+&= \bigcup_{j_0, j_1 \in P_0} j_0 + j_1p + p^2\Z_p\\
+&= \bigcup_{j_0, j_1, j_2 \in P_0} j_0 + j_1p + j_2p^2 + p^3\Z_p\\
+&\hspace{1mm} \vdots
+\end{align*}
+
+By translation invariance of $\mu$, we have that for $i \in \N_0$, $$\mu(p^i \Z_p) = \frac{1}{p^i}$$
+
+Now, writing $P = \{1, \cdots ,p-1 \}$, the above note about the series expansions for elements of $\Z_p^{\times}$ implies that we can write the following disjoint union: 
+
+$$
+\Z_p^{\times} = \bigcup_{j \in P} i_0 + p\Z_p $$
+Therefore for $i \in \N_0$ $$p^i\Z_p^{\times} = \bigcup_{j \in P} p^ii_0 + p^{i+1}\Z_p$$ 
+Using translation invariance of $\mu$ along with the above tells us that for $i \in \N_0$, 
+\begin{align*}
+\mu(p^i\Z_p^{\times}) 
+&= (p-1)\mu(p^{i+1}\Z_p)\\
+&= \frac{p-1}{p^{i+1}} \\
+\end{align*} 
+
+Note that for $x \in p^i \Z_p^{\times}$, $|x|_p = p^{-i}$. Now that we have some familiarity with $\mu$, we return to the potential theory. Define $f$ depending on $c \in \Z_p$ as before. With the knowledge that $\mu$ is translation invariant (by an element of $\Z_p$), we see that 
+\begin{align*}
+U_{\mu}(z+c) 
+&= \int_{\Z_p}-\log|(z+c)-w|_pd\mu(w) \\
+&= \int_{\Z_p} - \log|z-(w-c)|_p d\mu(w)\\
+&= \int_{\Z_p} - \log|z-w|_p d{f^{-1}}_*\mu(w)\\
+&= \int_{\Z_p} - \log|z-w|_p d\mu(w)\\
+&= U_{\mu}(z)\\
+\end{align*} 
+
+Since $U_{\mu} = I(\mu)$ quasi-everywhere on $\Z_p$, the above implies that in fact $U_{\mu} = I(\mu)$ everywhere on $\Z_p$ and in particular, $I(\mu) = U_{\mu}(0)$.
+
+Thus 
+\begin{align*}
+I(\mu) 
+&= \int_{\Z_p}-\log|z|_pd\mu(z)\\
+&= \int_{\Z_p}-\log|z|_pd\mu(z)\\
+&= \sum_{i=0}^{\infty} \int_{p^i\Z_p^{\times}}-\log|z|_p d\mu(z)\\
+&= \sum_{i=0}^{\infty}-\log p^{-i} \mu(p^i\Z_p^{\times})\\
+&= (p-1)\log p \sum_{i=0}^{\infty}\frac{i}{p^{i+1}}\\
+&= \frac{(p-1) p \log p}{(p-1)^2} = \frac{\log p}{p-1} 
+\end{align*}  
+
+\section{Equidistribution}
+
+At this point it would be good to take a glimpse at the interplay between equidistribution, height and potential theory. 
+
+Let $X$ be a locally compact Hausdorff space and $S \subset X $ be finite. We define the \textbf{normalized counting measure for $S$} on $(X, \MCB(X))$ to be the Borel probability measure $$\mu_S = \frac{1}{|S|}\sum\limits_{z \in S} \delta_z$$ where $\delta_z$ is the point mass measure at $z$. \
+
+For a sequence $(S_i)_{i \in \N}$ of finite subsets of $X$, and a Borel probability measure $\mu$ on $X$, we say that $(S_i)_{i \in \N}$   \textbf{equidistribute with respect to $\mu$} if $\mu_{S_i} \xrightarrow{w^*} \mu$ (i.e for each $f \in C_c(X)$, $\int f d\mu_{S_i} \rightarrow \int f d\mu$).
+
+The following theorem is due to Bilu \cite{Bilu}:
+
+\begin{thm}
+
+Let $z_n \in \overline{\Q}$. Let $S_n = \{\sigma(\alpha_n): \sigma \in \mathrm{Gal}(\ol{ \Q }/ \Q )\}$ (i.e the conjugates of $z_n$) and $\mu$ the equilibrium measure for $S^1$. If $h(z_n) \rightarrow 0$, then $(S_n)_{n \in \N}$ equidistribute with respect to $\mu$.  
+
+\end{thm}
+ 
+We will discuss a generalization of this theorem due to Rumely \cite{R}. 
+
+Let $\alpha \in \ol{\Q}$. Choose a finite Galois extension $K$ of $\Q$ such that $\alpha \in K$. For each $p \in M_{\Q}$, fix some $v_0 \in M_K$ such that $v_0|p$. Put $S_p = \{\sigma :K \rightarrow \ol{\Q}_p: \sigma \text{ is an embedding }\}$. Recall that $S_p$ acts transitively on $\{v \in M_K: v|p\}$ by $|\cdot|_{\sigma(v)} = |\sigma^{-1}( \cdot)|_v$. Then we may rewrite the logarithmic height of $\alpha$ to be 
+
+\begin{align*}
+h(\alpha)
+&= \sum_{p \in M_{\Q}} \frac{1}{[K:\Q]} \sum_{\substack{v|p\\v \in M_K}}n_v \log^+|\alpha|_v\\
+&= \sum_{p \in M_{\Q}} \frac{1}{[K:\Q]} \sum_{\sigma \in S_p} \log^+ |\sigma(\alpha)|_{v_0}\\
+&= \sum_{p \in M_{\Q}} \frac{1}{deg(\alpha)}\sum_{\sigma \in S_p} \log^+ |\sigma(\alpha)|_{p}\\
+\end{align*}
+
+Thus if we put $$h_p(\alpha) = \frac{1}{deg(\alpha)}\sum_{\sigma \in S_p} \log^+ |\sigma_i(\alpha)|_{p}$$ 
+
+we have that $$h(\alpha) = \sum_{p \in M_{\Q}} h_p(\alpha) = h_{\infty}(\alpha) + \sum_{\substack{p \in M_{\Q}\\ p \text{ finite}}} h_p(\alpha)$$
+
+If we put $\mu$ to be the equilibrium measure for the unit disk, then we see that $$h_{\infty}(\alpha) = \frac{1}{deg(\alpha)} \sum_{\sigma \in S_p} U_{\mu}(\sigma(\alpha))$$
+
+We now wish to generalize this.
+
+For $E \sbs \C$ compact and nonpolar, let $\nu$ be the equilibrium measure for $E$. Define $$h_{E,\infty}(\alpha) = \frac{1}{deg(\alpha)} \sum_{\sigma \in S_p} U_{\nu}(\sigma(\alpha))$$ and $$h_E(\alpha) = h_{E,\infty}(\alpha) + \sum_{\substack{p \in M_{\Q}\\ p \text{ finite}}} h_p(\alpha)$$
+
+\begin{thm}
+
+Let $E \sbs \C $ be compact and $\mu$ be the equilibrium measure for $E$. Suppose that $I(\mu) = 0$ and $E$ is stable under complex conjugation. Let $(\alpha_n)_{n \in \N} \sbs \ol{\Q}$. Suppose that $deg(\alpha_n) \rightarrow \infty$ and $h_E(\alpha_n) \rightarrow 0$. Define $(S_n)_{n \in \N}$ by $S_n = \{\sigma(\alpha_n): \sigma \in \mathrm{Gal}(\ol{ \Q }/ \Q )\}$. Then $(S_n)_{n \in \N}$ equidistribute with respect to $\mu$. 
+
+\end{thm}
+
+Now, it is well known that for $\phi \in \Z[z]$ with $deg(\phi) \geq 2$, taking $E = \MCJ_{\phi}$ (the Julia set for $\phi$), we have $h_E = \hat{h}_{\phi}$. Combining this fact with the previous theorem we get a nice generalization of Bilu's theorem. 
+
+
+
+\section{Dynatomic Fields} 
+ 
+We start off our discussion of dynatomic fields by talking about periodic points. 
+
+Let $K$ be a number field and $\phi: \P^1(K) \rightarrow \P^1(K)$ be a rational morphism of degree $d$. Writing $\phi = [F:G]$ for $F,G \in K[x,y]$ homogeneous of degree $d$ with $Res(F,G)=0$ as usual we note that the $n^{th}$ iterate of $\phi$ will be of degree $d^n$ and we will write $\phi^n = [F_n,G_n]$. Note that $\phi$ and its iterates may then also be considered as maps $\P^1(\overline{K}) \rightarrow \P^1(\overline{K})$.
+
+We define the \textbf{$n$-periodic points of $\phi$} to be the set of points with period $n$, i.e. $\{P \in \P^1(\overline{K}): \phi^n(P) = P \}$. We denote these points by $Per_n(\phi)$.
+
+To find the periodic points $P \in \P^1(K)$ of $\phi$, we will look for $[x:y] \in \P^1(\overline{K})$ such that $[F_n(x,y):G_n(x,y)] = [x:y]$, which happens iff $yF_n(x,y) = xG_n(x,y)$. (The forward implication is immediate, the backward splits into cases of whether or not one of the $x,y,F_n,G_n$ are zero and using the fact that not both of $F_n,G_n$ or $x,y$ can be zero.)
+
+It is completely possible that a point of period $n$ has period of $m<n$. So we will define the \textbf{primitive $n$-periodic points} to be the the points whose smallest period is $n$. We denote these points by $Per_n^{**}(\phi)$. Thus $Per_n^{**}(\phi) = \{P \in \P^1(\overline{K}): \phi^n(P) = P \text{ and for } 1\leq i \leq n-1, \phi^i(P) \neq P\}$.
+
+For $n \in \N$ define the function $\Phi_n: \P^1(\overline{K}) \rightarrow \overline{K}$ by $\Phi_n([x:y]) = yF_n(x,y) - xG_n(x,y)$. Then $\Phi_n$ is well defined and as noted earlier, $Per_n(\phi) = \{P \in \P^1(\overline{K}): \Phi_n(P) = 0\}$ and $Per_n^{**}(\phi) = \{P \in \P^1(\overline{K}): \Phi_n(P) = 0 \text{ and for } 1\leq i \leq n-1, \Phi_i(P) \neq 0\}$. 
+
+The next proposition describes how elements of $\mathrm{Gal}(\overline{K}/K)$ act on $Per_n(\phi)$ and $Per_n^{**}(\phi)$.
+
+\begin{prop}
+Let K be a number field and $\phi: \P^1(K) \rightarrow \P^1(K)$ be a rational morphism of degree $d$. Then for each $\sigma \in \mathrm{Gal}(\overline{K}/K)$, we have that $\sigma(Per_n(\phi)) = Per_n(\phi)$ and $\sigma(Per_n^{**}(\phi)) = Per_n^{**}(\phi)$. So the n-periodic and primitive n-periodic points of $\phi$ are Galois-invariant
+\end{prop}
+ 
+\begin{proof}
+Let $\sigma \in \mathrm{Gal}(\overline{K}/K)$. Then for $n \in \N$, $\sigma \circ \phi^n = \phi^n \circ \sigma$ on $\P^1(\overline{K})$ since the coefficients of $F,G$ are in $K$. Thus for $P \in Per_n(\phi)$,
+\begin{align*}
+\phi^n(\sigma(P)) 
+&= \sigma(\phi^n(P)) = \sigma(P)  \\
+\end{align*}
+So $\sigma(P) \in Per_n(\phi)$. Similarly, if $P \in Per_n^{**}(\phi)$, then by the above, $$\phi^n(\sigma(P))  = \sigma(P)$$ and by assumption, for each $1 \leq i \leq n-1$, $\phi^n(P) \neq P$. Thus for each  $1 \leq i \leq n-1$,
+\begin{align*}
+\phi(\sigma(P)) 
+&= \sigma(\phi(P))\\
+& \neq \sigma(P) \hspace{10mm} \text{(}\sigma \text{ is injective)}  \\
+\end{align*} 
+
+So $\sigma(P) \in Per_n^{**}(\phi)$.
+
+\end{proof} 
+  
+Looking at the definition of field of definition in the section on heights, the last proposition tells us that the field of definition of $Per_n^{**}(\phi)$ generates a Galois extension of K. We then define the \textbf{$n^{th}$ dynatomic field of }$\phi$ to be the field $K(P:P \in Per_n^{**})$. We denote this field by $K_{n,\phi}$.
+
+The analogous field for the case of the squaring map would be $\Q(\omega_n)$ where $\omega_n$ is a primitive $2^{n}-1$ root of unity. 
+
+We will now begin to explore a result for the Weil height and possible analogues. The following result is due to Amoroso and Dvornicich \cite{AD}:
+
+\begin{thm}
+
+Let $L/\Q$ be an abelian extension. Then for each $\alpha \in L^{\times}$, if $\alpha$ is not a root of unity, then $h(\alpha) \geq \frac{\log(5)}{12}$
+\end{thm}
+ 
+Note that the inequality did not depend on the degree of $\alpha$.
+ 
+One analogue of this statement might be whether or not there exists $\kappa \geq 0$ for $P \in K(Q:Q \in PrePer(\phi))$, if $ P \not \in PrePer(\phi)$, then $\hat{h}_{\phi}(P) \geq \kappa$, but even much more specific cases are still not yet known. So we consider the much more specific case for dynatomic fields since they are much more well understood.
+
+\begin{conj}
+Let $\phi: \P^1(K) \rightarrow \P^1(K)$ be a rational morphism of degree $d \geq 2$. Then there exists $\kappa \geq 0$ such that for $P \in K_{n,\phi}$, if $P \not\in PrePer(\phi)$, then $\hat{h}_{\phi}(P) \geq \kappa$. 
+\end{conj}  
+
+Not much is known about the validity of this conjecture, not even for very specific cases such as for simple maps $\phi(z) = z^2 + c$ for some nonzero constant $c$. 
+
+
+
+% Set a bibliography style. Options include abbrv, amsplain, amsalpha
+\bibliographystyle{abbrv} % abbrv} %amsplain %amsalpha 
+% Import the bibtex file, and generate entries for all referenced documents above
+\bibliography{References}        % is inserted.
+
+
+\end{document}

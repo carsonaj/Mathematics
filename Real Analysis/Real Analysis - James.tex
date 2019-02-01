@@ -1,0 +1,1237 @@
+\documentclass[12pt]{amsart}
+ \usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}{Conjecture}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{note}[thm]{Note}
+\newtheorem{ex}[thm]{Exercise}
+
+
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MM}{\mathcal{M}}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+ 
+\begin{document}
+
+\title{Real Analysis Notes}
+\maketitle
+
+\tableofcontents
+
+\section{Measure}
+
+\subsection{Product Measures}
+
+\begin{defn}
+Let $(X,\MA, \mu), (Y,\MB, \nu)$ be measurable spaces. Put $\ME = \{A \times B: A \in \MA \text{ and } B \in \MB\}$. Then $\ME$ is an elementary family and thus $\MM_0 = \{\bigcup_{i =1}^n M_i: (M_i)_{i=1 }^n \subset \ME \text{ are disjoint}\}$ is an algebra on $X \times Y$. We define $\pi_0: \MM_0 \rightarrow \RG$ by $$\pi_0(\bigcup_{i=1}^n A_i \times B_i) = \sum_{i=1}^n\mu(A_i)\nu(B_i)$$ Since $\MA \otimes \MB = \sig(\MM_0)$, we define a product measure $\mu \times \nu$ on $(X \times Y, \MA \otimes \MB)$ to be an extension of $\pi_0$ to $\MA \otimes \MB$. The existence of which is guaranteed by Caratheodory's theorem and on $\MA \otimes \MB$, 
+
+\begin{align*}
+\mu \times \nu(E) 
+&= \inf \{\sum_{n \in \N}\pi_0(E_i): (E_i)_{i \in \N} \subset \MM_0 \text{ and } E \subset \bigcup_{i \in \N} E_i\}\\
+&= \inf \{\sum_{n \in \N}\mu(A_i)\nu(B_i): (A_i \times B_i)_{i \in \N} \subset \ME \text{ and } E \subset \bigcup_{i \in \N} A_i \times B_i \}
+\end{align*}
+
+If $(X,\MA, \mu)$ and $(Y,\MB, \nu)$ are both sigma finite, then so is $\pi_0$ and thus $\mu \times \nu$ is unique.
+\end{defn}
+
+\section{Integration}
+
+\subsection{Measurable Functions}
+
+\begin{defn}
+Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is said to be $\MA$-$\MB$ \textbf{measurable} if for each $B \in \MB$, $f^{-1}(B) \in \MA$. When $(Y, \MB) = (\R, \MB(\R))$ we say that $f$ is $\MA$-\textbf{measurbale}. If $(Y,\MB) = (\R, \MB(\R))$ and $(X,\MA) = (\R, \MB(\R))$ or $(\R, \ML)$, then we say that $f$ is \textbf{Borel measurable} or \textbf{Lebsgue measurbale} respectively.
+\end{defn}
+
+\begin{lem}
+Let $(X,\MA), (Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. Then 
+\begin{enumerate}
+\item $\{B \subset Y: f^{-1}(B) \in \MA\}$ is a $\sig$-algebra on $Y$
+\item $\{f^{-1}(B): B \in \MB\}$ is a $\sig$-algebra on $X$
+\end{enumerate}
+\end{lem}
+
+\begin{lem}
+Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces. Suppose that there exists $\ME \subset Y$ such that $\sig(\ME) = \MB$. Let $f:X \rightarrow Y$. If for each $B \in \ME$, $f^{-1}(B) \in \MA$, then $f$ is $\MA$-$\MB$ measurable.
+\end{lem}
+
+\begin{proof}
+The previous lemma tells us that $\ML = \{B \subset Y: f^{-1}(B) \in \MA\}$ is a $\sig$-algebra on $Y$. Since $\ME \subset \ML$, we have that $\MB = \sig(\ME) \subset \ML$.
+\end{proof}
+
+\begin{cor}
+Let $(X_1,\MT_1), (X_2,\MT_2)$ be topological spaces and $f: X \rightarrow Y$. If $f$ is continuous, then $f$ is $\MB(X)$-$\MB(Y)$ measurable.
+\end{cor}
+
+\begin{proof}
+Recall that $\MB(Y) = \sig(\MT_2)$ and continuity tells us that for each $U \in \MT_2$, $f^{-1}(U) \in \MT_1 \subset \MB(X)$. 
+\end{proof}
+
+\begin{defn}
+Let $X$ be a set and $f:X \rightarrow \C$. The $f$ is said to be \textbf{simple} if $f(X)$ is finite.
+\end{defn}
+
+\begin{defn}
+Let $(X,\MA)$ be a measurable space. We define $S^+(X,\MA) = \{f:X \rightarrow \Rg: f \text{ is simple, measurable}\}$ and $S(X,\MA) = \{f: X \rightarrow \C: f \text{ is simple, measurable}\}$
+\end{defn}
+
+\begin{thm}
+Let $(X, \MA)$ be a measurable space. Then 
+\begin{enumerate}
+\item If $f: X \rightarrow \RG$ is measurable, then there exists a sequence $(\phi_n)_{n \in \N} \subset S^+$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \rightarrow f$ pointwise and $\phi_n \rightarrow f$ uniformly on any set on which $f$ is bounded.
+
+\item If $f: X \rightarrow \C$ is measurable, then there exists a sequence $(\phi_n)_{n \in \N} \subset S$ such that for each $n \in \N$, $|\phi_n| \leq |\phi_{n+1}| \leq |f|$ and $\phi_n \rightarrow f$ pointwise and $\phi_n \rightarrow f$ uniformly on any set on which $f$ is bounded.
+\end{enumerate}
+\end{thm}
+
+\subsection{Integration of Nonnegative Functions}
+
+\begin{defn}
+Let $(X, \MA, \mu)$ be a measure space. Define $L^{+}(X, \MA, \mu) = \{f:X \rightarrow \RG : f \text{ is measurable}\}$ We will typically just write $L^{+}$.
+\end{defn}
+
+\begin{thm}{Monotone Convergence Theorem} 
+Let $(f_n)_{n \in \N} \subset L^+$. Suppose that for each $n \in \N$, $f_n \leq f_{n+1}$. Then $$\sup_{n \in \N} \int f_n = \int \sup_{n \in \N} f_n$$.
+\end{thm}
+
+\begin{ex}
+Let $\mu_1, \mu_2$ be measures on $(X, \MA)$ and $f \in L^+$. Then $$\int f d (\mu_1 + \mu_2) = \int f d\mu_1 + \int f d\mu_2$$.  
+\end{ex}
+
+\begin{proof}
+Suppose that $f$ is simple. Then there exist $(a_n)_{i=1}^n \subset \Rg$ and $(E_i)_{i=1}^n \subset \MA$ such that $f = \sum\limits_{i =1}^n a_i \chi_{E_i}$. Then 
+\begin{align*}
+\int f d(\mu_1 + \mu_2) 
+&= \sum\limits_{i =1}^n a_i (\mu_1 + \mu_2)(E_i)\\
+&= \sum\limits_{i =1}^n a_i (\mu_1(E_i) + \mu_2(E_i))\\
+&= \sum\limits_{i =1}^n a_i \mu_1(E_i) + a_i \mu_2(E_i)\\
+&= \int f d\mu_1 + \int f d\mu_2
+\end{align*}
+
+Now for general $f$, choose $(\phi_n)_{n \in \N} \subset S^+$ such that $\phi_n \rightarrow f$ pointwise and for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$. Then monotone convergence tells us that 
+\begin{align*}
+\int f d(\mu_1 + \mu_2) 
+&= \limn \int \phi_n d(\mu_1 + \mu_2)\\
+&= \limn \int \phi_n d \mu_1 + \limn \int \phi_n d \mu_2 \\
+&= \int f d \mu_1 + \int f d \mu_2
+\end{align*}
+
+\end{proof}
+
+
+\begin{ex}
+Let $\mu_1, \mu_2$ be measures on $(X,\MA)$. Suppose that $\mu_1 \leq \mu_2$. Then for each $f \in L^+$, $$\int f d\mu_1 \leq \int f d\mu_2$$
+\end{ex}
+
+\begin{proof}
+First suppose that $f$ is simple. Then there exist $(a_n)_{i=1}^n \subset \Rg$ and $(E_i)_{i=1}^n \subset \MA$ such that $f = \sum\limits_{i =1}^n a_i \chi_{E_i}$. Then 
+\begin{align*}
+\int f d\mu_1 
+&= \sum\limits_{i =1}^n a_i \mu_1(E_i)\\
+& \leq \sum\limits_{i =1}^n a_i \mu_2(E_i)\\
+&= \int f d \mu_2
+\end{align*} 
+
+for general $f$, 
+\begin{align*}
+\int f d\mu_1 
+&= \sup_{\substack{s \in S^+\\s \leq f}} \int s d \mu_1 \\
+& \leq \sup_{\substack{s \in S^+\\s \leq f}} \int s d\mu_2\\
+&= \int f d\mu_2
+\end{align*}
+
+\end{proof}
+
+\begin{thm}{Fatou's Lemma}
+Let $(f_n)_{n \in \N} \subset L^+$. Then $$\int \limfn f_n \leq \limfn \int f_n.$$
+\end{thm}
+
+\begin{thm}
+Let $(f_n)_{n \in \N} \subset L^+$. Then $$\int \sum_{n \in \N} f_n= \sum_{n \in \N} \int f_n.$$
+\end{thm}
+
+\begin{ex}
+Let $f \in L^+$ and suppose that $\int f < \infty$. Put $N = \{x \in X: f(x) = \infty\}$ and $S = \{x \in X: f(x) > 0\}$. Then $\mu(N) = 0$ and $S$ is $\sig$-finite.
+\end{ex}
+
+\begin{proof}
+Suppose that $\mu(N) > 0$. Define $f_n = n \chi_{N} \in L^+$. Then for each $n \in \N$, $f_n \leq f_{n+1} \leq f$ on $N$. So 
+\begin{align*}
+\int f 
+&\geq \int_N f\\ 
+&= \lim\limits_{n \rightarrow \infty} \int_N f_n\\ 
+&= \lim\limits_{n \rightarrow \infty} n\mu(N)\\
+&= \infty \text{, a contradiction.}
+\end{align*}
+Hence $N$ is a null set. Now, put $S_n = \{x \in X: f(x)>1/n\}$. Then $S = \bigcup \limits_{n \in \N}S_n$. Suppose that there exists some $n \in \N$ such that $\mu(S_n) = \infty$. Then 
+\begin{align*}
+\int f 
+&\geq \int_{S_n} f \\
+&\geq \frac{1}{n}\mu(S_n) \\
+&= \infty \text{, a contradiction.}
+\end{align*}
+
+So for each $n \in \N$, $\mu(S_n) < \infty$ and $S$ is $\sig$-finite.
+
+\end{proof}
+
+\begin{ex}
+Let $f \in L^+$. Then $f =0$ a.e. iff for each $E \in \MA$, $\int_E f =0$.
+\end{ex}
+
+\begin{proof}
+$f = 0$ a.e. implies that for each $E \in \MA$, $\int_E f =0$ is clear. Conversely, suppose that for each $E \in \MA$, $\int_E f$ = 0. For $n \in \N$ put $N_n = \{x \in X: f(x) > 1/n\}$ and define $N = \{x \in X: f(x)>0\}$. So $N = \bigcup\limits_{n \in \N} N_n$. Let $n \in \N$. Then our assumption tells us that 
+\begin{align*}
+0 
+&= \int_{N_n} f \\
+& \geq \frac{1}{n}\mu(N_n)\\
+& \geq 0.
+\end{align*} 
+
+Hence for each $n \in \N$, $\mu(N_n) = 0$. Thus $\mu(N) = 0$ and $f =0$ a.e. as required.
+
+\end{proof}
+
+\begin{ex}
+
+Let $(f_n)_{n \in \N} \subset L^+$ and $f \in L^+$. Suppose that $f_n \xrightarrow{\text{p.w.}} f$, $\lim \limits_{n \rightarrow \infty} \int f_n = \int f$ and $\int f < \infty$. Then for each $E \in \MA$, $\lim \limits_{n \rightarrow \infty} \int_E f_n = \int_E f$. This result may fail to be true if $\int f = \infty$
+
+\end{ex}
+
+\begin{proof}
+
+Let $E \in \MA$. By Fatou's lemma, $\int_E f \leq \limfn \int_E f_n$. Note that since $\int f < \infty$, we have that $\int_{E^c} f \leq \int f < \infty$. Thus we may write
+\begin{align*}
+\int_E f 
+&= \int f - \int_{E^c} f\\
+&\geq \int f - \limfn \int_{E^c} f_n\\
+&= \int f - \limfn \bigg(\int f_n - \int_{E} f_n\bigg)\\
+&= \int f - \int f  + \limpn \int_{E} f_n\\
+&= \limpn \int_E f_n.
+\end{align*}
+
+Hence $$\limpn \int_E f_n \leq \int_E f \leq \limfn \int_E f_n$$ and therefore $$\limn \int_E f_n = \int_E f.$$ 
+
+If we drop the assumption that $\int f < \infty$, then the result would fail to be true for the functions $f = \infty \chi_{(0,1)}$ and $ f_n = \infty \chi_{(0,1)} + n \chi_{(1,1+1/n)}$. Here $f_n \xrightarrow{\text{p.w.}} f$, $\limn \int f_n = \int f = \infty$ and $\limn \int_{(1,\infty)} f_n = 1$ while $\int_{(1,\infty)} f = 0$.  
+
+\end{proof}
+
+\begin{ex}
+Let $f \in L^+$. Define $\lam: \MA \rightarrow \RG$ by $\lam(E) = \int_E f d\mu$ for $E \in \MA$
+Then $\lam$ is a measure on $(X, \MA)$ and for each $g \in L^+$, $\int g d\lam = \int g f d\mu$.
+\end{ex}
+
+\begin{proof}
+Clearly $\lam(\varnothing) = 0$. Let $(A_j)_{j \in \N} \subset \MA$ and suppose that for each $i, j \in \N$, if $i \neq j$, then $A_i \cap A_j = \varnothing$. For now, suppose that $f$ is simple. Then there exist $E_1, E_2, \cdots, E_n \in \MA$ and  $a_1, a_2, \cdots, a_n \in \Rg$ such that $f = \sum\limits_{i=1}^n a_i \chi_{E_i}$.  Then 
+\begin{align*}
+\lam\bigg(\bigcup_{j \in \N} A_j\bigg) 
+&= \int_{\bigcup_{j \in \N} A_j} f\\
+&= \sum_{i = 1} ^n a_i\mu\bigg(E_i \cap \bigg(\bigcup_{j \in \N} A_j\bigg)\bigg)\\
+&= \sum_{i = 1} ^n a_i\mu\bigg(\bigcup_{j \in \N} E_i \cap A_j\bigg)\\
+&= \sum_{i = 1} ^n a_i \sum_{j \in \N} \mu(E_i \cap A_j)\\
+&= \sum_{j \in \N} \sum_{i = 1} ^n a_i \mu(E_i \cap A_j)\\
+&= \sum_{j \in \N} \int_{A_j} f\\
+&= \sum_{j \in \N} \lam(A_j)
+\end{align*} 
+Hence $\lam$ is a measure on $(X, \MA)$. Now, for a general f, there exist $(\phi_n)_{n \in \N} \subset L^+$ such that for each $n \in \N$, $\phi_n$ is simple, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \xrightarrow{\text{p.w.}} f$. Put $A = \bigcup_{j \in \N}A_j$ and define the measures $\lam_n$ by $\lam_n(E) = \int_E \phi_n$. Note that we may define a monotonically increasing sequence of functions $g_n: \N \rightarrow \RG$ by $g_n(j) = \int_{A_j} \phi_n$. Using monotone convergence three times and a nice application of the counting measure on $\N$, we may write
+
+\begin{align*}
+\lam(A) 
+&= \int_A f\\
+&= \limn \int_A \phi_n\\
+&= \limn \sum_{j \in \N} \int_{A_j} \phi_n\\
+&= \sum_{j \in \N} \limn \int_{A_j} \phi_n \hspace{4mm} \text{(by the above)}\\
+&= \sum_{j \in \N} \int_{A_j} f\\
+&= \sum_{j \in \N} \lam(A_j).
+\end{align*} 
+
+Hence $\lam$ is a measure on $(X, \MA)$. Let $g \in L^+$. First assume that $g$ is simple. Then there exist $E_1, E_2, \cdots, E_n \in \MA$ and  $a_1, a_2, \cdots, a_n \in \Rg$ such that $g = \sum\limits_{i=1}^n a_i \chi_{E_i}$.
+In this case, we have that 
+\begin{align*}
+\int g d\lam 
+&= \sum_{i=1}^n a_i \lam(E_i)\\
+&= \sum_{i=1}^n a_i \int_{E_i} f d\mu\\
+&= \int \bigg(\sum_{i=1}^n a_i\chi_{E_i} \bigg) f d\mu\\
+&= \int gf d\mu.
+\end{align*}
+
+Now for a general $g \in L^+$, there exist $(\psi_n)_{n \in \N} \subset L^+$ such that for each $n \in \N$, $\psi_n$ is simple, $\psi_n \leq \psi_{n+1} \leq f$ and $\psi_n \xrightarrow{\text{p.w.}} g$. Monotone convergence then gives us 
+\begin{align*}
+\int g d\lam 
+&= \limn \int \psi_n d\lam\\
+&= \limn \int \psi_n f d\mu\\
+&= \int g f d\mu \text{ as required.}
+\end{align*}
+\end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N} \subset L^+$ and $f \in L^+$. Suppose that for each $n \in \N$, $f_n \geq f_{n+1}$, $f_n \xrightarrow{\text{p.w.}} f$ and $\int f_1 < \infty$. Then $\limn \int f_n = \int f$.
+\end{ex}
+
+\begin{proof}
+First we note that since $\int f_1 < \infty$, $f_1 < \infty$ a.e., for each $n \in \N$, $f_1 - f_n$ and $\int f_1 - \int f_n$ are well defined and $\int f_n \leq \int f_1 < \infty$. Also, for $n \in \N$, $f_1 -f_n \in L^+$. So we may write 
+\begin{align*}
+\int (f_1 - f_n) 
+&= \int (f_1 - f_n)  + \int f_n - \int f_n\\
+&= \int [(f_1 - f_n) + f_n] - \int f_n\\
+&= \int f_1 - \int f_n
+\end{align*}
+
+Put $g_n = f + (f_1 - f_n)$. Then $g_n \in L^+$, for each $n \in \N$, $g_n \leq g_{n+1}$ and $g_n \xrightarrow{\text{p.w.}} f_1$. Monotone convergence tells us that 
+\begin{align*}
+\int f_1 
+&= \limn \int g_n\\
+&= \limn \bigg[\int f + (f_1-f_n)\bigg]\\
+&= \limn \bigg[ \int f + \int (f_1-f_n)\bigg] \\
+&= \limn \bigg[ \int f + \int f_1- \int f_n\bigg] 
+\end{align*}
+
+Since $\limn \int f$ and $\limn \int f_1$ exist, $\limn \int f_n = \int f$ as required.  
+
+\end{proof}
+
+\subsection{Integration of Complex Valued Functions}
+
+\begin{defn}
+Let $f:X \rightarrow \C$ be measurable. Then $f$ is said to be \textbf{integrable} if $$\int |f| d\mu < \infty$$
+\end{defn}
+
+\begin{defn}
+Let $(X, \MA, \mu)$ be a measure space. Define $L^1(X, \MA, \mu) = \{f:X \rightarrow \C : f \text{ is measurable and } \int |f| < \infty \}$
+\end{defn}
+
+\begin{lem}
+Let $f:X \rightarrow \R$ be measurable. Then $f$ is integrable iff $f^+$ and $f^-$ are integrable. 
+\end{lem}
+
+\begin{proof}
+$f^+,f^- \leq |f| = f^+ + f^-$
+\end{proof}
+
+\begin{defn}
+Let $f:X \rightarrow \R$ be measurable. Then $f$ is said to be \textbf{extended integrable} if $$\int f^+ d\mu  < \infty \text{ or } \int f^- d\mu < \infty$$
+\end{defn}
+
+\begin{lem}
+Let $f:X \rightarrow \R$ be measurable. Then $f$ is integrable iff $Re(f)$ and $Im(f)$ are integrable.
+\end{lem}
+
+\begin{proof}
+$|Re(f)|, |Im(f)| \leq |f| \leq |Re(f)| + |Im(f)|$
+\end{proof}
+
+\begin{thm}{Dominated Convergence}
+Let $(f_n)_{n \in \N} \subset L^1$, $f$ measurable and $g \in L^1$. Suppose that $f_n \xrightarrow{\text{a.e.}} f$ and for each $n \in \N$, $|f_n| \leq g_n$. Then $f \in L^1$ and $\int f_n \rightarrow \int f$. 
+\end{thm}
+
+\begin{ex}
+Let $\mu_1, \mu_2$ be measures on $(X, \MA)$. Then
+\begin{enumerate}
+\item $L^1(\mu_1 + \mu_2) = L^1(\mu_1) \cap L^1(\mu_2)$
+
+\item for each $f \in L^1(\mu_1 + \mu_2)$, we have that $$\int f d(\mu_1 + \mu_2) = \int f d \mu_1 + \int f d\mu_2$$
+\end{enumerate}
+
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item The firt part is clear since similar exercise from the section on nonnegative funtions tells us that $$\int |f| d(\mu_1 + \mu_2) = \int |f| d \mu_1 + \int |f| d\mu_2$$
+
+
+\item Suppose that $f$ is simple. Then there exist $(a_n)_{i=1}^n \subset \C$ and $(E_i)_{i=1}^n \subset \MA$ such that $f = \sum\limits_{i =1}^n a_i \chi_{E_i}$. Then 
+\begin{align*}
+\int f d(\mu_1 + \mu_2) 
+&= \sum\limits_{i =1}^n a_i (\mu_1 + \mu_2)(E_i)\\
+&= \sum\limits_{i =1}^n a_i (\mu_1(E_i) + \mu_2(E_i))\\
+&= \sum\limits_{i =1}^n a_i \mu_1(E_i) + a_i \mu_2(E_i)\\
+&= \int f d\mu_1 + \int f d\mu_2
+\end{align*}
+
+Now for general $f$, choose $(\phi_n)_{n \in \N} \subset S$ such that $\phi_n \rightarrow f$ pointwise and for each $n \in \N$, $|\phi_n| \leq |\phi_{n+1}| \leq |f|$. Then dominated convergence tells us that 
+\begin{align*}
+\int f d(\mu_1 + \mu_2) 
+&= \limn \int \phi_n d(\mu_1 + \mu_2)\\
+&= \limn \int \phi_n d \mu_1 + \limn \int \phi_n d \mu_2 \\
+&= \int f d \mu_1 + \int f d \mu_2
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+\begin{thm}
+Let $(f_n)_{n \in \N} \subset L^1$. Suppose that $$\sum_{n \in \N} \int |f_n| < \infty.$$ Then after redefinition on a set of measure zero, $\sum_{n \in \N}f_n \in L^1$ and $$\int \sum_{n \in \N}f_n = \sum_{n \in \N} \int f_n$$
+\end{thm}
+
+\begin{thm}
+Let $f \in L^1$. Then for each $\ep > 0$, there exists $\phi \in L^1$ such that $\phi$ is simple and $\int |f - \phi| < \ep$. 
+\end{thm}
+
+\begin{ex}{Generalized Fatou's Lemma:}
+Let $(f_n)_{n \in \N}$ be a sequence of measurable real valued functions. Suppose that there exists $g \in L^1$ such that $g \geq 0$ and for each $n \in \N$, $f_n \geq -g$. Then $ \int \limfn f_n \leq \limfn \int f_n$. What is the analogue of Fatou's lemma for measurable, real valued functions that are appropriately bounded above?  
+\end{ex}
+
+\begin{proof}
+First note that for each $n \in \N$, $\int f_n$ is well defined since $f_n^- \leq g \in L^1$. Since $g + f_n \geq 0$, we may use Fatou's lemma to write
+\begin{align*}
+\int g + \int \limfn f_n
+&= \int \limfn (g+f_n) \\
+& \leq \limfn \int (g + f_n)\\
+&= \int g + \limfn \int f_n
+\end{align*}
+
+Since $\int g < \infty$, $\int \limfn f_n \leq \limfn \int f_n$ as required. The analogue is as follows: Let $(f_n)_{n \in \N}$ be a sequence of measurable real valued functions. Suppose that there exists $g \in L^1$ such that $g \geq 0$ and for each $n \in \N$, $f_n \leq g$. Then $\limpn \int f_n \leq \int \limpn f_n$. To show this, just use the result from above with the sequence $(g_n)_{n \in \N}$ given by $g_n = -f_n$.
+
+\end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N} \subset L^1(X, \MA, \mu)$ and $f:X \rightarrow \C$. Suppose that $f_n \xrightarrow{\text{uni}} f$. Then 
+\begin{enumerate}
+\item if $\mu(X) < \infty$, then $f \in L^1(X, \MA, \mu)$ and $\limn \int f_n = \int f$
+\item if $\mu(X) = \infty$, then the conclusion of $(1)$ may fail (find an example on $\R$ with Lebesgue measure).
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+Choose $N \in \N$ such that for $n \geq N$ and $x \in X$, $|f(x) - f_n(x)| < 1$. Then $||f| - |f_N|| < 1$ and so $|f| < |f_N| +1$. Thus $\int |f| \leq \int |f_N| +\mu(X) < \infty$ and $f \in L^1$. Similarly for $n \geq N$, $|f_n| < |f|+ 1$. Dominated convergence then gives us that $\limn \int f_n = \int f$ as required. To see the necessity that $\mu(X) < \infty$, consider $f \equiv 0$ and $f_n = (1/n) \chi_{(0,n)}$. Then $f_n \xrightarrow{\text{uni}} f$, but $1 = \limn \int f_n \neq \int f = 0$.  
+\end{proof}
+
+\begin{ex}{Generalized Dominated Convergence}
+Let $f_n,g_n,f,g \in L^1$. Suppose that $f_n \xrightarrow{\text{a.e.}} f$, $g_n \xrightarrow{\text{a.e.}} g$, $|f_n| \leq g_n$ and $\int g_n \rightarrow \int g$. Then $\int f_n \rightarrow \int f$.
+\end{ex}
+
+
+\begin{proof}
+We simply use Fatou's lemma. Put $h_n = (g + g_n) - |f_n - f|$. Since for each $n \in \N$, $|f_n| \leq g_n$, we know that $|f| \leq g$. So $h_n \geq 0$ and $h_n \xrightarrow{\text{p.w.}} 2g$. Thus 
+\begin{align*}
+2\int g 
+&= \int \limfn h_n\\
+&\leq \limfn \bigg[ \bigg(\int g +\int g_n\bigg) - \int |f_n -f|\bigg]\\
+&= 2\int g + \limfn \bigg( - \int |f_n - f| \bigg)\\
+&= 2\int g - \limpn \int |f_n - f| 
+\end{align*}
+
+Hence $\limpn \int |f_n - f|  \leq 0$ which implies that $\int |f_n - f| \rightarrow 0$ and $\int f_n \rightarrow \int f$ as required. 
+\end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N} \subset L^1$ and $f \in L^1$. Suppose that $f_n \xrightarrow{\text{a.e.}} f$. Then $\int |f_n - f| \rightarrow 0$ iff $\int |f_n| \rightarrow \int |f|$.
+\end{ex}
+
+\begin{proof}
+Suppose that $\int |f_n - f| \rightarrow 0$. Since 
+\begin{align*}
+\bigg|\int |f_n| - \int |f|\bigg| 
+&= \bigg|\int (|f_n| - |f|)\bigg|\\
+&\leq \int ||f_n| - |f||\\
+&\leq \int |f_n - f|,
+\end{align*}
+we see that $\int |f_n| \rightarrow \int |f|$. Conversely, suppose that $\int |f_n| \rightarrow \int |f|$. Put $h_n = |f_n-f|$,  $g_n = |f_n| + |f|$, $h \equiv 0$ and $g = 2f$. Then $h_n \xrightarrow{\text{a.e.}} h$, $g_n \xrightarrow{\text{a.e.}} g$ and for each $n \in \N$, $h_n \leq g_n$. Our assumption implies that $\int g_n \rightarrow \int g$. Thus the last exercise tells us that $\int h_n \rightarrow \int h$ as required. 
+
+\end{proof}
+
+\begin{ex}
+Let $(r_n)_{n \in \N}$ be an enummeration of the rationals. Define $f: \R \rightarrow \Rg$ by 
+
+\[ f(x) = \begin{cases} 
+     x^{-\frac{1}{2}} & x \in (0,1) \\
+      0 & x \not\in (0,1)
+   \end{cases}
+\]
+
+and define $g: X \rightarrow \RG$ by $$g(x) = \sum_{n \in \N}2^{-n}f(x -r_n).$$
+
+
+Then 
+\begin{enumerate}
+\item $g \in L^1$ (perhaps after redefinition on a null set) and particularly $g < \infty$ a.e. 
+\item $g^2 < \infty$ a.e., but $g^2$ is not integrable on any subinterval of $\R$
+\item Taking $g \in L^1$, $g$ is unbounded on each subinterval of $\R$ and discontinuous everywhere and remains so after redefinition on a null set
+\end{enumerate}
+\end{ex}
+
+\begin{proof} For convenience, define $f_n: \R \rightarrow \Rg$ by $f_n(x) = f(x-r_n)$ for $x \in \R$.
+To show $(1)$ we note that for each $n \in \N$, $f_n \in L^1$ and
+\begin{align*}
+\int |2^{-n} f_n| 
+&= 2^{-n}\int_0^1 x^{-1/2}dx\\ 
+&= 2^{n-1}
+\end{align*}
+
+Hence $$\sum_{n \in \N} \int |2^{-n} f_n| = 2 < \infty.$$
+
+Therefore after redefinition on a null set, $g \in L^1.$ In particular $\int |g| < \infty$ and so $|g|$ (and hence $g$) are finite almost everywhere. For $(2)$, since $g < \infty$ a.e., so too is $g^{2}$. Let $a,b \in \R$ and suppose that $a<b$. Choose $N \in \N$ such that $r_N \in (a,b)$. Since all the terms in the sum are nonnegative, $g^{2} \geq \sum_{n \in \N} 2^{-2n}f_n^2$ and so 
+
+\begin{align*}
+\int_{(a,b)} g^2 
+&\geq \int_{(a,b)} \sum_{n \in \N} 2^{-2n}f_n^2\\
+&= \sum_{n \in \N} 2^{-2n} \int_{(a,b)} f_n^2\\
+&\geq 2^{-2N} \int_{(a,b)} f_N^2\\
+&\geq 2^{-2N} \int_{r_N}^{b \wedge (r_N+1)} \frac{1}{x-r_N} dx\\
+&= \infty
+\end{align*}
+
+So $g^2$ is not integrable on any subinterval of $\R$. For $(3)$, note that redefining $g$ on a null set does not change the result of $(2)$. Suppose that there is a finite subinterval $I \subset \R$ such that $g$ is bounded on $I$. Hence there exists $M >0$ such that for each $x \in I$, $g(x)^2 \leq M$. Then 
+\begin{align*}
+\int_I g^2
+&\leq M^2 m(I)\\
+&< \infty
+\end{align*}
+
+which is a contradiction. So $g$ is not bounded on any subinterval of $\R$. Now, suppose that there exists $x_0 \in \R$ such that $g$ is continuous at $x_0$. Choose $\del > 0$ such that for each $x \in \R$, if $|x-x_0|< \del$, then $|g(x) - g(x_0)| < 1$. The reverse triangle inequality tells us that for each $x \in (x_0-\del, x_0 +\del)$, $|g(x)| < 1 + |g(x_0)|$. Hence $g$ is bounded on $(x_0-\del, x_0 +\del)$ which is a contradiction. So $g$ is discontinuous everywhere.
+\end{proof}
+
+\begin{ex}
+Let $f \in L^1$. 
+\begin{enumerate}
+\item If $f$ is bounded, then for each $\ep >0$, there exists $\del >0$ such that for each $E \in \MA$, if $\mu(E) < \del$, then $\int_E |f| < \ep $.
+\item The same conclusion holds for $f$ unbounded.
+\end{enumerate} 
+\end{ex}
+
+\begin{proof}
+$(1)$ Since $f$ is bounded, there exists $M >0$ such that $|f| \leq M$. Let $\ep >0$. Choose $\del = \ep/2M$. Let $E \in \MA$. Suppose that $\mu(A) < \del$. Then 
+\begin{align*}
+\int_E|f| 
+& \leq M \mu(E)\\
+&= M\frac{\ep}{2M}\\
+&= \frac{\ep}{2}\\
+&< \ep
+\end{align*}
+
+$(2)$ Suppose that $f$ is unbounded. Let $\epsilon >0$. Then there exists $\phi \in L^1$ such that $\phi$ is simple and $\int|f-\phi| < \ep/2$. Since $\phi$ is bounded, there exists $\del >0 $ such that for each $E \in \MA$, if $\mu(E) < \del$, then $\int_E |\phi| < \ep/2$. Let $E \in \MA$. Suppose that $\mu(E) < \del$. Then 
+\begin{align*}
+\int_E|f|
+& \leq \int_E |f-\phi| + \int_E |\phi|\\
+& < \ep/2 + \ep/2\\
+& = \ep
+\end{align*}   
+\end{proof}
+
+\begin{ex}
+Let $f \in L^1(\R, \ML, m)$. Define $F: \R \rightarrow \R$ by $$F(x) = \int_{(-\infty,x]}fdm.$$
+
+Then $F$ is continuous.
+\end{ex}
+
+\begin{proof}
+Let $x_0 \in \R$ and $\epsilon >0$. Since $f \in L^1$, there exists $\del >0$ such that for $x \in \R$, if $|x-x_0| < \del$, then $$\int_{(x \wedge x_0,x \vee x_0]}|f|dm < \ep.$$ Let $x \in \R$. Suppose that $|x-x_0|< \del$. Then 
+\begin{align*}
+|F(x)-F(x_0)|
+&= \bigg|\int_{(x \wedge x_0,x \vee x_0]}fdm\bigg|\\
+& \leq \int_{(x \wedge x_0,x \vee x_0]}|f|dm\\
+& < \ep
+\end{align*} 
+
+So $F$ is continuous.
+
+\end{proof}
+
+\begin{ex}
+Denote by $\del_x$ the point mass measure at $x \in X$ on  measurable space $(X, \MP(X))$. Let $f:X \rightarrow \C$. Then $$\int f d \del_x = f(x)$$  
+\end{ex}
+
+\begin{proof}
+First assume that $f$ is simple. Then there exist $a_1, a_2, \cdots, a_n \in \C$ and $E_1, E_2, \cdots , E_n \in \MP (X)$ such that $f = \sum_{i = 1}^n a_i\chi_{E_i}$ Thus $\int f d\del_x = f(x)$. Now assume that $f$, which is measurable by choice of $\sig$-algebra, satisfies $f(X) \subset \Rg$. Choose a sequence $(\phi_n)_{n \in \N} \subset L^+$ such that for each $n \in \N$, $\phi_n$ is simple, $\phi_n \leq \phi_{n+1}$ and $\phi_n \xrightarrow{\text{p.w}} f$. From before, we see that for each $n \in \N$, $\int \phi_n d\del_x = \phi_n(x)$. Monotone convergence tells us that $\int f d\del_x = f(x)$. Now just extend to complex valued functions.
+
+\end{proof}
+
+\begin{ex}
+Denote by $\#$ the counting measure on the measurable space $(X, \MP(X))$. Let $f:X \rightarrow \C$ and suppose that $f \in L^1$. Then $$\int f d\# = \sum_{x \in X}f(x).$$ In particular, if $f$ is integrable, then $\{x \in X: f(x) \neq 0\}$ is countable.
+\end{ex}
+
+\begin{proof}
+Please refer to the definition of the sum in the appendix. First suppose that $f(X) \subset \Rg$. For $n \in \N$, put $X_n = \{x \in X: f(x) > 1/n\}$ and define $X^* = \{x \in X: f(x) > 0\}$, $X_0 = \{x \in X: f(x) = 0\}$ Then $X^* = \bigcup\limits_{n \in \N}X_n$. Since $f \in L^1$, we have that for each $n \in \N$,
+\begin{align*}
+\infty 
+&> \int f d\#\\
+&\geq \int_{X_n} f d\# \\
+&\geq \frac{1}{n} \#(X_n).
+\end{align*}
+
+Thus for each $n \in \N$, $X_n$ is finite and $X^*$ is countable. Thus there exists $\{x_n\}_{n \in \N} \subset X$ such that $X^* = \{x_n\}_{n \in \N}$. For $n \in \N$, define $E_n = \{x_1, x_2, \cdots, x_n\}$ and 
+\begin{align*}
+f_n 
+&= f \chi_{E_n}\\
+&= \sum_{i = 1}^n f(x_i)\chi_{\{x_i\}}
+\end{align*}
+
+Then $f_n \xrightarrow{\text{p.w.}} f\chi_{X^*} = f$ and for each $n \in \N, f_n \leq f_{n+1}$. So
+\begin{align*}
+\int f 
+&= \sup_{n \in \N} \int f_n\\
+&= \sup_{n \in \N} \sum_{i =1}^n f(x_i)\\
+&= \sum_{x \in X^*} f(x)\\
+&=\sum_{x \in X} f(x).
+\end{align*} 
+
+For $f:X \rightarrow \C$, our $L^1$ assumption and the result above tell us that $$\sum_{x \in X}|f(x)| < \infty.$$ Thus writing $f = g+ih$, we see that the same is true for $f^+,f^-,g^+,g^-$. Simply using the definitions of the sum and the integral, as well as the result from above, we have that $$\int fd\# = \sum_{x \in X}f(x).$$
+
+\end{proof}
+
+\begin{ex}
+Let $f,g:X \rightarrow \R$. Suppose that $f,g \in L^1$. Then $f \leq g$ a.e. iff for each $E \in \MA$, $\int_E f \leq \int_E g$.  
+\end{ex}
+
+\begin{proof}
+Suppose $f \leq g$ a.e. Put $N = \{x\in X: f(x) > g(x)\} \subset N$. Then $\mu(N) = 0$ and $g-f \geq 0$ on $N^c$. So for each $E \in \MA$,
+\begin{align*}
+\int_E g - \int_E f 
+&= \int_E (g-f)\\
+&= \int_{E \cap N^c} (g-f)\\
+& \geq 0
+\end{align*} 
+
+Conversely, suppose that for each $E \in \MA$, $\int_E f \leq \int_E g$. Put $N_n = \{x \in X: f(x) - g(x) > 1/n\}$ and $N = \{x \in X: f(x) > g(x)\}$. Then $N = \bigcup\limits_{n \in \N}N_n$. Let $n \in \N$. Then our assumption tells us that 
+\begin{align*}
+0 
+&\geq \int_{N_n} f-g\\
+& \geq \frac{1}{n} \mu(N_n)\\
+& \geq 0.
+\end{align*} 
+
+So that $\mu(N_n) = 0$. Thus for each $n \in \N$, $\mu(N_n) = 0$ which implies $\mu(N) = 0$. Therefore $f \leq g$ a.e. as required. 
+\end{proof}
+
+\begin{defn}
+Let $\MF \subset L^1$. Then $\MF$ is said to be \textbf{uniformly integrable} if for each $\ep >0$, there exists $K \in \N$ such that for each $k \in \N$, if $k \geq K$, then $\sup\limits_{f \in \MF} \int_{\{|f|>k\}}|f| < \ep$. (i.e. $\lim\limits_{k \rightarrow \infty} \sup\limits_{f \in \MF} \int_{\{|f| > k\}} |f| = 0$).
+\end{defn}
+
+\begin{ex}
+
+Suppose that $\mu$ is finite. Let $\MF \subset L^1$. Then $\MF$ is uniformly integrable iff 
+\begin{enumerate}
+\item there exists $M >0$ such that $\sup\limits_{f \in \MF}\int |f| \leq M$
+\item for each $\ep >0$, there exists $\del >0$ such that for each $E \in \MA$, if $\mu(E) < \del$, then $\sup\limits_{f \in \MF} \int_E |f| < \ep$.
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+($\Rightarrow$): (1) Suppose that $\MF$ is uniformly integrable. Then there exists $K \in \N$ such that for each $k \in \N$, if $k \geq K$, then $\sup\limits_{f \in \MF} \int_{\{|f|>k\}} |f| < 1$. Choose $M = \mu(X)K + 1$. Then for each $f \in \MF$, 
+\begin{align*}
+\int |f| 
+&= \int_{\{|f|>K\}} |f| + \int_{\{|f| \leq K|\}}|f|\\
+& \leq 1 + K\mu(X)\\
+&=M
+\end{align*}
+
+(2) Let $\ep >0$. Then choose $K \in \N$ such that $\sup\limits_{f \in \MF}\int_{\{|f|>K\}} |f| < \ep/2$ and choose $\del = \ep/2K$. Let $E \in \MA$. Suppose that $\mu(E) < \del$. Then for $f \in \MF$, 
+\begin{align*}
+\int_E |f| 
+&= \int_{E \cap \{|f| > K\}} |f| + \int_{E \cap \{|f| \leq K\}} |f|\\
+& \leq \ep/2 + K\del \\
+&=  \ep
+\end{align*}
+
+($\Leftarrow$): Choose $M >0$ as in (1). Suppose that there exists $\ep >0$ such that for each $K \in \N$, there exists $f \in \MF$ such that $\mu(\{|f| > K\}) \geq \ep$. Choose $K \in \N$ such that $K > M/\ep$. Then choose $f_K \in \MF$ such that $\mu(\{|f_K| > K\}) \geq \ep$. Then 
+\begin{align*}
+\int |f_K| 
+&\geq \int_{\{|f_K| > K\}} |f|\\
+& \geq K\mu(\{|f_K| > K\})\\
+& > \frac{M}{\ep} \cdot \ep\\
+&= M, \\
+\end{align*}  
+which is a contradiction. Hence for each $\ep >0$, there exists $K \in \N$ such that for each $f \in \MF$, $\mu(\{|f| > K\}) < \ep$. Since $\mu(\{|f| > k\})$ is a decreasing sequence in $k$, we have that $\lim\limits_{k \rightarrow \infty} \sup\limits_{f \in \MF} \mu(\{|f| > k\}) = 0$. Now, let $\ep > 0$. Choose $\del >0$ as in (2). Choose $K \in \N$ such that for each $k \in \N$, if $k \geq K$, then for each $f \in \MF$, $\mu(\{|f| > k\}) < \del$. Then for each $k \in \N$, if $k \geq K$, then for each $f \in \MF$, 
+$$\int_{\{|f| > k\}} |f| < \ep.$$ Thus $\lim\limits_{k \rightarrow \infty} \sup\limits_{f \in \MF} \int_{\{|f|>k\}} |f| = 0$ as required.
+
+\end{proof}
+
+\subsection{Integration on Product Spaces}
+
+\begin{defn}
+Let $X$, $Y$, and $Z$ be sets, $E \subset X \times Y$ and $f :X \times Y \rightarrow Z$. For each $x \in X$, define $E_x = \{y \in Y: (x,y) \in E\}$ and $f_x:Y \rightarrow Z$ by $f_x(y) = f(x,y)$. For each $y \in Y$, define $E^y = \{x \in X: (x,y) \in E\}$ and $f^y:X \rightarrow Z$ by $f^y(x) = f(x,y)$. 
+\end{defn}
+
+\begin{note}
+It is often helpful to observe that $(\chi_E)_x = \chi_{E_x}$ and $(\chi_E)^y = \chi_{E^y}$.
+\end{note}
+
+\begin{lem}
+Let $(X,\MA), (Y, \MB)$ be measurable spaces, $Z = \RG$ or $\C$ and $f:X\times Y \rightarrow Z$. 
+\begin{enumerate}
+\item For each $E \in \MA \otimes \MB$, $x \in X$, $y \in Y$, we have that $E_x \in \MB$ and $E^y \in \MA$
+\item If $f$ is  $\MA \otimes \MB$-measurable, then for each $x \in X$, $y \in Y$, we have that $f_x$ is $\MB$-measurable and $f^y$ is $\MA$-measurable.   
+\end{enumerate}
+\end{lem}
+
+\begin{thm}
+Let $(X,\MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces. Then for each $E \in \MA \otimes \MB$, the maps $\phi:X \rightarrow \RG$ and $\psi: Y \rightarrow \RG$ defined by $\phi(x) = \nu(E_x)$ and $\psi(y) = \mu(E^y)$ are $\MA$-measurable and $\MB$-measurable, respectively and $$\mu \times \nu(E) = \int_X \nu(E_x)d\mu(x) = \int_Y \mu(E^y)d\nu(y)$$ 
+\end{thm}
+
+\begin{thm}{Fubini, Tonelli:}
+Let $(X,\MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces. 
+
+\begin{enumerate}
+\item (Tonelli) For each $f \in L^+(X \times Y)$, the functions $g:X \rightarrow \RG$, $h:Y \rightarrow \RG$ defined by $g(x) = \int_Y f_x(y)d\nu(y)$ and $h(y) = \int_X f^y(x) d \mu(x)$ are $\MA$-measurable and $\MB$-measurable respectively and $$\int_{X \times Y}f d \mu \times \nu = \int_X g d\mu = \int_Y h d\nu$$
+
+\item (Fubini) For each $f \in L^1(X \times Y)$, $f_x \in L^1(\nu)$ for $\mu$-a.e. $x \in X$ and $f^y \in L^1(\mu)$ for $\nu$-a.e. $y \in Y$, respectively and  the functions (after redefinition of $f$ on a null set) $g:X \rightarrow \C$, $h:Y \rightarrow \C$ defined by $g(x) = \int_Y f_x(y)d\nu(y)$ and $h(y) = \int_X f^y(x) d \mu(x)$ are in $L^1(\mu)$ and $L^1(\nu)$ respectively. Furthermore 
+$$\int_{X \times Y}f d \mu \times \nu = \int_X g d\mu = \int_Y h d\nu$$
+\end{enumerate}
+\end{thm}
+
+\begin{note}
+We usually just write $\int \int f d\mu d\nu$ and $\int \int f d\nu d\mu$ instead of $\int h d\nu$ and $\int g d\mu$ respectively. We have a similar result for complete product measure spaces. See 
+\end{note}
+
+\begin{ex}
+Take $X=Y= [0,1]$, $\MA = \MB([0,1]), \MB = \MP([0,1])$ and $\mu,\nu$ to be Lebesgue measure and counting measure respectively. Define $D = \{(x,y) \in [0,1]^2: x=y\}$ Show that $$\int \chi_D d\mu \times \nu, \int \int \chi_D d\mu d \nu \text{ and } \int \int \chi_D d\nu d\mu$$ are all different. (Hint: for the first integral, use the definition of $\mu \times \nu$)
+\end{ex}
+
+\begin{proof}
+Let $x,y \in [0,1]$. Then $(\chi_D)_x = \chi_{D_x} = \chi_{x}$ and $(\chi_D)^y = \chi_{D^y} = \chi_{y}$. Thus
+
+\begin{align*}
+\int \int \chi_D d\mu d \nu
+&= \int \mu(\{y\}) d\nu\\
+&= \int 0 d\nu\\
+&= 0
+\end{align*}
+
+and
+ 
+\begin{align*}
+\int \int \chi_D d\mu d \nu
+&= \int \nu(\{x\}) d\mu\\
+&= \int 1 d\mu\\
+&= 1
+\end{align*}
+ 
+Now, Observe that $\int \chi_D d\mu \times \nu = \mu \times \nu(D)$. Recall from the section on product measures that $\mu \times \nu(D) = \inf \{\sum_{n \in \N}\mu(A_n)\nu(B_n): (A_n \times B_n)_{n \in \N} \subset \ME \text{ and } D \subset \bigcup_{n \in \N} A_n \times B_n \}$. Let $(A_n \times B_n)_{n \in \N} \subset \ME$. Suppose that $D \subset \bigcup_{n \in \N}A_n \times B_n$. Then for each $x \in [0,1]$, $(x,x) \in  \bigcup_{n \in \N} A_n \times B_n$. So for each $x \in [0,1]$, there exists $n \in \N$, such that $x \in A_n \cap B_n$. Thus $[0,1] \subset \bigcup_{n \in \N} A_n \cap B_n.$ Since $1  = \mu([0,1]) \leq \sum_{n \in \N}\mu(A_n \cap B_n)$, we know that there exists $n \in \N$ such that $0 < \mu(A_n \cap B_n)$. Thus $\mu(A_n)> 0$ and $\mu(B_n) > 0$. Since $\mu(B_n) > 0$, $B_n$ must be infinite and therefore $\nu(B_n) = \infty$. So $\sum_{n \in \N} \mu(A_n)\nu(B_n) = \infty$.
+
+\end{proof}
+
+\begin{ex}
+Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $f:X \rightarrow \Rg \in L^+$. Show that $G = \{(x,y) \in X \times \Rg: f(x) \geq y\} \in \MA \otimes \MB(\Rg)$ and $\mu \times m (G) = \int_X f d \mu$. The same is true if we replace "$\geq$" with "$>$". (Hint: to show that $G$ is measurable, split up $(x,y) \mapsto f(x) - y$) into the composition of measurable functions. 
+\end{ex}
+
+\begin{proof}
+Define $\phi: X \times \Rg \rightarrow \Rg^2$ and $\psi: \Rg^2 \rightarrow \Rg$ by $\phi(x,y) = (f(x),y)$ and $\psi(z,y) = z-y$. Then $G = \{(x,y) \in X \times \Rg: \psi \circ \phi(x,y) \geq 0\}$. Let $A, B \in \MB(\Rg)$. Then $\phi^{-1}(A \times B) = f^{-1}(A) \times B \in \MA \times \MB(\Rg)$. Since $\MB(\Rg^2) = \MB(\Rg) \otimes \MB(\Rg) = \sig(\{A \times B: A, B \in \MB(\Rg)\})$, we have that $\phi$ is $\MA \otimes \MB(\Rg)$-$\MB(\Rg^2)$ measurable. Since $\psi$ is continuous, we have that $\psi$ is $\MB(\Rg^2)$-$\MB(\Rg)$ measurable. This implies that $\psi \circ \phi$ is $\MA \otimes \MB(\Rg)$-$\MB(\Rg)$ measurable. Thus $G = \psi \circ \phi^{-1}(\Rg) \in \MA \otimes \MB(\Rg)$. Now for $x \in X$, $G_x = \{y \in \Rg: f(x) \geq y\} = [0, f(x)]$. Thus 
+
+\begin{align*}
+\mu \times m(G) 
+&= \int \chi_G d\mu \times m\\
+&= \int_X \int_{\Rg} \chi_{G_x} dm d\mu(x)\\
+&= \int_X f(x) d\mu(x) 
+\end{align*}
+
+The same reasoning holds if we replace "$\geq$" with "$>$".
+\end{proof}
+
+\begin{ex}
+Let $(X, \MA, \mu), (Y, \MB, \nu)$ be measure spaces and $f:X \rightarrow \C$, $g:Y \rightarrow \C$. Define $h:X \times Y \rightarrow \C$ by $h(x,y) = f(x)g(y)$.
+
+\begin{enumerate}
+\item If $f$ is $\MA$-measurable and $g$ is $\MB$-measurable, then $h$ is $\MA \otimes \MB$-measurable.
+
+\item If $f \in L^1(\mu)$ and $g \in L^1(\nu)$, then $h \in L^1(\mu \times \nu)$ and $$\int_{X \times Y}hd \mu \times \nu = \int_X f d\mu \int_Y g d\nu$$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item First suppose that $f$, $g$ are simple. Then there exist $(A_i)_{i=1}^n \subset \MA$, $(B_j)_{j=1}^m \subset \MB$ and $(a_i)_{i=1}^n, (b_i)_{j=1}^m \subset \C$ such that $f = \sum_{i=1}^n a_i \chi_{A_i}$ and $g = \sum_{j=1}^m b_j \chi_{B_j}$. Then $h = \sum_{i=1}^n \sum_{j=1}^m a_i b_j \chi_{A_i \times B_j}$. So $h$ is $\MA \otimes \MB$-measurable. For general $f,g$, there exist $(f_n)_{n \in \N} \subset S(X, \MA)$ and $(g_n)_{n \in \N} \subset S(Y, \MB)$ such that $f_n \rightarrow f$ pointwise, $g_n \rightarrow g$ pointwise and for each $n \in \N$, $|f_n| \leq |f_{n+1}| \leq |f|$ and $|g_n| \leq |g_{n+1}| \leq |g|$. For $n \in \N$, define $h_n \in S(X \times Y, \MA \otimes \MB)$ by $h_n = f_n g_n$. Then $h_n \rightarrow h$ pointwise and for each $n \in \N$, $|h_n| \leq |h_{n+1}| \leq |h|$. Thus $h$ is $\MA \otimes \MB$-measurable.
+
+\item First suppose $f$ and $g$ are simple as before. Then  
+\begin{align*}
+\int_{X \times Y} |h| d \mu \times \nu 
+& \leq \sum_{i=1}^n \sum_{j=1}^m |a_i b_j| \mu(A_i) \nu(B_j)\\ 
+&= \big(\sum_{i=1}^n |a_i| \mu(A_i) \big) \big( \sum_{j=1}^m |b_j| \nu(B_j) \big)\\
+&= \int_X |f| d\mu \int_Y |g| d \nu\\
+&< \infty
+\end{align*}
+
+So $h \in L^1(\mu \times \nu)$. Furthermore, 
+
+\begin{align*}
+\int_{X \times Y} h d \mu \times \nu 
+&= \sum_{i=1}^n \sum_{j=1}^m a_i b_j \mu(A_i) \nu(B_j)\\ 
+&= \big(\sum_{i=1}^n a_i \mu(A_i) \big) \big( \sum_{j=1}^m b_j \nu(B_j) \big)\\
+&= \int_X f d\mu \int_Y gd \nu
+\end{align*}
+
+For general $f \in L^1(\mu), g \in L^1(\nu)$, take $(h_n)_{n \in \N}$ as before. Monotone convergence and the result above say that 
+
+\begin{align*}
+\int_{X \times Y} |h| d\mu \times d\nu 
+&= \limn \int_{X \times Y} |h_n|d \mu \times \nu\\
+&=  \limn \bigg( \int_X |f_n| d\mu \int_Y |g_n| d\nu \bigg) \\
+&= \int_X |f| d\mu \int_Y |g| d\nu\\
+& < \infty
+\end{align*}
+
+So $h \in L^1(\mu \times \nu)$. Dominated convergence and the result above then tell us that 
+
+\begin{align*}
+\int_{X \times Y} h d\mu \times d\nu 
+&= \limn \int_{X \times Y} h_n d\mu \times d\nu \\
+&= \limn \bigg( \int_X f_n d\mu \int_Y g_n d\nu \bigg)\\
+&= \int_X f d\mu \int_Y g d\nu
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $f:\R \rightarrow \Rg \in L^+$. Show that $$\int_{\R}fdm = \int_{\Rg}m(\{x \in \R: f(x) \geq t\}) dm(t)$$
+\end{ex}
+
+\begin{proof}
+Note that $$\int_{\Rg}m(\{x \in \R: f(x) \geq t\}) = \int_{\Rg} \bigg[\int_{\R} \chi_{\{x \in \R: f(x) \geq t\}}dm \bigg]dm(t)$$
+Comparing this with Tonelli's theorem, we can put $\chi_{\{x \in \R: f(x) \geq t\}} = (\chi_{E})^t = \chi_{E^t}$. Then $E = \{(x,t) \in \R \times \Rg: f(x) \geq t\}$ and $E_x = \{t \in \Rg: f(x) \geq t\} = [0,f(x)]$. Tonelli's theorem tells us that 
+\begin{align*}
+\int_{\Rg} \bigg[\int_{\R} \chi_{\{x \in \R: f(x) \geq t\}}(x) dm(x) \bigg]dm(t)
+&= \int_{\R} \bigg[ \int_{\Rg} \chi_{[0,f(x)]}(t) dm(t) \bigg] dm(x)\\
+&= \int_{\R} f(x) dm(x)
+\end{align*} 
+\end{proof}
+
+\subsection{Convergence}
+
+\begin{defn}
+Let $(X, \MA)$ be a measurable space. For convencience we will define $L^0 = \{f:X \rightarrow \C: f \text{ is measurable}\}$.
+\end{defn}
+
+\begin{defn}
+Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Then $f_n$ converges to $f$ \textbf{in measure} if for each $\ep > 0$, $\mu(\{x \in X: |f_n(x) - f(x)| \geq \ep \}) \rightarrow 0$. This is written $f_n \xrightarrow{\mu} f$.
+\end{defn}
+
+\begin{defn}
+Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Then $f_n$ converges to $f$ \textbf{almost uniformly} if for each $\ep >0$, there exists $N \in \MA$ such that $\mu(N) < \ep$ and $f_n \xrightarrow{\text{uni}} f$ on $N^c$. This is written $f_n \xrightarrow{\text{a.u.}} f$.
+\end{defn}
+
+\begin{thm}
+Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. If $f_n \xrightarrow{\mu} f$, then there exists a subsequence $(f_{n_k})_{k \in \N}$ of $(f_n)_{n \in \N}$ such that $f_{n_k} \xrightarrow{\text{a.e.}} f$.
+\end{thm}
+
+\begin{thm}{(Egoroff):}
+Suppose that $\mu(X) < \infty$. Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that $f_n \xrightarrow{\text{a.e.}}$. Then $f_n \xrightarrow{\text{a.u.}}f$.
+\end{thm}
+
+\begin{ex}
+Let $(f_n)_{n \in \N} \subset L^1$ and $f \in L^1$. If $f_n \xrightarrow{L^1}f$, then $f_n \conv{\mu} f$.
+\end{ex}
+
+\begin{proof}
+Let $\ep >0$. for $n \in \N$, define $E_{e,n} = \{x \in X: |f(x) - f_n(x)|\geq \ep\}$. Then for $n \in \N$,
+\begin{align*}
+\int |f - f_n|
+& \geq \int_{E_{\ep,n}} |f- f_n|\\
+& \geq \ep \mu(E_{\ep,n}).
+\end{align*}
+
+So for each $n \in \N$, $\mu(E_{\ep, n}) \leq \ep^{-1}\int |f - f_n|$. Since $\int |f - f_n| \conv{} 0$, we have that $\mu(E_{\ep,n}) \conv{} 0$. Since $\ep >0$ is arbitrary, $f_n \conv{\mu} f$ as required. 
+\end{proof}
+
+\begin{ex}
+Suppose $\mu(X) < \infty$. Define $d:L^0 \times L^0 \rightarrow \Rg$ by $$d(f,g) = \int \frac{|f-g|}{1+|f-g|} \hspace{5mm} f,g \in L^0$$
+Then $d$ is a metric on $L^0$ if we identify functions that are equal a.e. and convergence in this metric is equivalent to convergence in measure. Note that for each $f,g \in L^0$, $d(f,g) \leq \mu(X)$.
+\end{ex} 
+
+\begin{proof}
+Let $f,g \in L^0$. Clearly $d(f,g) = d(g,f)$. If $f = g$ a.e. then clearly $d(f,g) = 0$. Conversely, if $d(f,g) = 0$, then $\frac{|f-g|}{1 + |f-g|} = 0$ a.e and so $|f-g| = 0$ a.e. which implies $f =g$ a.e. It is not hard to show that $\phi: \Rg \rightarrow \Rg$ given by $\phi(x) = \frac{x}{1+x}$ satisfies $\phi(x+y) \leq \phi(x)+\phi(y)$. Thus satisfies the triangle inequality. Now, let $(f_n)_{n \in \N} \subset L^0$. Suppose that $f_n \not \conv{\mu} f$. Then there exists $\ep>0, \del>0$ and a subsequence $(f_{n_k})_{k \in \N}$ such that for each $k \in \N$, $\mu(E_{\ep,n_k}) = \mu(\{x \in X: |f_{n_k} - f| \geq \ep\}) \geq \del $. It is not hard to show that $\phi$ from earlier is increasing. Thus for each $k \in \N$, 
+\begin{align*}
+d(f_{n_k},f)
+&= \int \frac{|f_{n_k} -f|}{1+|f_{n_k} -f|}\\
+& \geq \int_{E_{\ep,n_k}} \frac{|f_{n_k} -f|}{1+|f_{n_k} -f|}\\
+& \geq \int_{E_{\ep, n_k}} \frac{\ep}{1+\ep}\\
+& \geq \frac{\ep\del}{1+\ep}
+\end{align*}
+
+So $f_{n_k} \not \conv{d} f$. Hence $f_{n_k} \conv{d} f$ implies that $f_{n_k} \conv{\mu} f$. Conversely, suppose that $f_{n_k} \conv{\mu} f$. Let $\ep >0.$ Then $\del = \frac{\ep}{1+\mu(X)} > 0$. Choose $N \in \N$ such that for each $n \in \N$, if $n \geq N$, then $\mu(E_{\del, n}) < \frac{\del}{1+\del}$. Let $n \in \N$. Suppose that $n \geq N$. Since $\phi$ is increasing and $\phi \leq 1$, we have that 
+\begin{align*}
+d(f_n,f)
+&= \int \frac{|f_n -f|}{1+|f_n -f|}\\
+&= \int_{E_{\del,n}} \frac{|f_n -f|}{1+|f_n -f|} + \int_{E_{\del,n}^c} \frac{|f_n -f|}{1+|f_n -f|}\\
+&\leq \mu(E_{\del,n}) + \mu(X)\frac{\del}{1+\del}\\
+& < \frac{\del}{1+\del}(1+\mu(X))\\
+& \leq \del(1+\mu(X))\\
+& = \ep
+\end{align*}
+\end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that for each $n \in \N$, $f_n \geq 0$ and $f_n \conv{\mu} f$. Then $f \geq 0$ a.e. and $\int f \leq \limfn \int f_n$. 
+\end{ex}
+
+\begin{proof}
+Since $f_n \conv{\mu} f$, there is a subsequence converging to $f$ a.e. So clearly $f \geq 0$ a.e. Now, choose a subsequence $(f_{n_k})_{k \in \N}$ of $(f_n)_{n \in \N}$ such that $\int f_{n_k} \conv{} \limfn \int f_n$. Since $f_n \conv{\mu} f$ so does $(f_{n_k})_{k \in N}$. Therefore there exists a subsequence $(f_{n_{k_j}})_{k \in \N}$ of $(f_{n_k})_{k \in \N}$ such that $f_{n_{k_j}} \convt{a.e.} f$. Thus $f \geq 0 $ a.e. and Fatou's lemma tells us that 
+\begin{align*}
+\int f 
+&\leq \liminf_{j \in \N} \int f_{n_{k_j}}\\
+&= \limfn \int f_n.
+\end{align*}
+\end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that there exists $g \in L^1$ such that for each $n \in \N$, $|f_n| \leq g$. Then $f_n \conv{\mu} f$ implies that $f \in L^1$ and $f_n \conv{L^1} f$. 
+\end{ex}
+
+\begin{proof}
+Clearly $(f_n)_{n \in \N} \subset L^1$. Since $f_n \conv{\mu} f$, there exists a subsequence $(f_{n_k})_{k \in \N} \subset (f_n)_{n \in \N}$ such that $f_{n_k} \convt{a.e.} f$. This implies that $|f| \leq g$ a.e. and so $f \in L^1$. For $n \in \N$, put $h_n = 2g - |f_n-f|$. Then for each $n \in \N$, $h_n \geq 0$ and $h_n \conv{\mu}2g$. By the previous exercise 
+\begin{align*}
+\int 2g 
+&\leq \limfn \int (2g - |f_n -f|)\\
+& = \int 2g - \limpn \int|f_n -f|.
+\end{align*}
+
+So $\limpn \int|f_n -f| \leq 0$ which implies that $\int|f_n -f| \rightarrow 0$ and $f_n \conv{L^1} f$ as required. 
+\end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N} \subset L^0$, $f \in L^0$ and $\phi :\C \rightarrow \C$. 
+\begin{enumerate}
+\item If $\phi$ is continuous, and $f_n \convt{a.e.} f$ then $\phi \circ f_n \convt{a.e.} \phi \circ f$.
+\item If $\phi$ is uniformly continuous and $f_n \rightarrow f$ uniformly, almost uniformly or in measure, then $\phi \circ f_n \rightarrow \phi \circ f$ uniformly, almost uniformly or in measure, respectively.
+\item Find a counter example to (2) if we drop the word "uniform".
+\end{enumerate} 
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item Clear
+\item Suppose that $\phi$ is unifomly continuous. 
+
+(uniform conv.) Suppose that $f_n \convt{uni} f$. Let $\ep > 0$. Choose $\del >0$ such that for each $z,w \in \C$, if $|z-w|<\del$, then $|\phi(z) - \phi(w)| < \ep$. Now choose $N \in \N$ such that for each $n \in \N$ if $n \geq n$ then for each $x \in X$, $|f_n(x)-f(x)| < \del$. Let $n \in \N$, suppose $n \geq N$, Let $x \in X$. Then $|\phi(f_n(x)) - \phi(f(x))| < \ep$. Thus $\phi \circ f_n \convt{uni} \phi \circ f$.
+
+(almost uni.) Suppose that $f_n \convt{a.u.} f$. Let $\ep > 0$. Choose $N \in \MA$ such $\mu(N) < \ep$ and $f_n \convt{uni} f$ on $N^c$. Then from above, we know that $\phi \circ f_n \convt{uni} \phi \circ f$ on $N^c$. Thus $\phi \circ f_n \convt{a.u.} \phi \circ f$.
+
+(measure) Suppose that $f_n \conv{\mu} f$. Let $\ep > 0$. Choose $\del >0$ such that for each $z,w \in \C$, if $|z-w|<\del$, then $|\phi(z) - \phi(w)| < \ep$. Observe that for $x \in X$, if $|f_n(x) - f(x)| < \del$, then $|\phi(f_n(x)) - \phi(f(x))| < \ep$. Hence $E_{n,\ep} = \{x \in X: |\phi(f_n(x)) - \phi(f(x))| \geq \ep\} \subset F_{n,\del} = \{x \in X: |f_n(x) - f(x)| \geq \del\}$. By definition of convergence in measure, $\mu(F_{n,\del}) \rightarrow 0$. Thus $\mu(E_{n,\ep}) \rightarrow 0$. Hence $\phi \circ f_n \conv{\mu} \phi \circ f$.
+
+\item
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that $f_n \convt{a.u} f$. Then $f_n \conv{\mu}f$ and $f_n \convt{a.e.}f$. 
+\end{ex}
+
+\begin{proof}
+(measure) Let $\ep>0$, $\del >0$. Choose $M \in \MA$ such that $\mu(M) < \del$ and $f_n \convt{uni} f$ on $M^c$. Choose $N \in \N$ such that for each $n \in \N$, if $n \geq N$, then for each $x \in M^c$, $|f_n(x) - f(x)| < \ep$. Let $n \in \N$. Suppose $n \geq N$. Then $E_{\ep,n} \subset M$ and $\mu(E_{\ep,n}) < \del$. Thus $\mu(E_{\ep,n}) \rightarrow 0$ and $f_n \conv{\mu} f$.
+
+(a.e.) For each $n \in \N$, Choose $N_n \in \MA$ such that $\mu(N_n) < 1/n$ and $f_n \convt{uni} f$ on $N_n^c$. Observe that for $x \in X$, if $x \in \bigcup_{n \in \N}N_n^c$, then $f_n(x) \rightarrow f(x)$. Thus $N = \{x \in X: f_n(x) \not \rightarrow f(x)\} \subset \bigcap_{n \in \N} N_n$. Therefor $\mu(N) = 0$ and $f_n \convt{a.e.} f$.
+\end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N}, (g_n)_{n \in \N} \subset L^0$ and $f,g \in L^0$. Suppose that $f_n \conv{\mu} f$ and $g_n \conv{\mu}g$. Then 
+\begin{enumerate}
+\item $f_n + g_n \conv{\mu} f+g$
+\item if $\mu(X) < \infty$, then $f_n g_n \conv{\mu} fg$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+
+\begin{enumerate}
+\item Let $\ep > 0$. For convenience, put $F_{n,\ep/2} = \{x \in X: |f_n(x) - f(x)| \geq \ep/2\}$, $G_{n, \ep/2} = \{x \in X: |g_n(x) - g(x)| \geq \ep/2\}$, and $(F+G)_{n,\ep} = \{x \in X: |f_n(x)+g_n(x) - (f(x) + g_n(x))| \geq \ep\}$ Observe that for $x \in X$, $|f_n(x) + g_n(x) - (f(x) + g(x))| \leq |f_n(x) - f(x)| + |g_n(x) - g(x)|$. Thus $(F+G)_{n,\ep} \subset F_{n,\ep/2} \cup G_{n, \ep/2}$. Since $\mu(F_{n,\ep/2} \cup G_{n, \ep/2}) \leq \mu(F_{n,\ep/2}) + \mu(G_{n, \ep/2}) \rightarrow 0$, we have that $\mu((F+G)_{n,\ep}) \rightarrow 0$. Hence $f_n + g_n \conv{\mu} f+g$.
+
+\item Suppose that $\mu(X) < \infty$. Let $(f_{n_k}g_{n_k})_{k \in \N}$ be a subsequence of $(f_ng_n)_{n \in \N}$. Choose a subsequence $(f_{n_{k_j}}g_{n_{k_j}})_{j \in \N}$ such that $f_{n_{k_j}} \convt{a.e} f$ and $g_{n_{k_j}} \convt{a.e} g$. Then $f_{n_{k_j}}g_{n_{k_j}} \convt{a.e.} fg$. Egoroff's theorem tells us that $f_{n_{k_j}}g_{n_{k_j}} \convt{a.u.} fg$, which implies that $f_{n_{k_j}}g_{n_{k_j}} \conv{\mu} fg$. Thus for each subsequence $(f_{n_k}g_{n_k})_{k \in \N}$ of $(f_ng_n)_{n \in \N}$, there exists a subsequence $(f_{n_{k_j}}g_{n_{k_j}})_{j \in \N}$ of $(f_{n_k}g_{n_k})_{k \in \N}$ such that $f_{n_{k_j}}g_{n_{k_j}} \conv{\mu} fg$. Using the fact that this is equivalent to convergence in a metric defined in an earlier exercise,
+we have that $f_ng_n \conv{\mu} fg$.
+\end{enumerate}
+
+\end{proof}
+
+\section{Differentiation}
+
+\subsection{Signed Measures}
+
+\begin{defn}
+Let $(X, \MA)$ be a measurable space and $\nu : \MA \rightarrow [-\infty, \infty]$. Then $\nu$ is said to be a \textbf{signed measure} if 
+\begin{enumerate}
+\item for each $E \in \MA$, $\nu(E) < \infty$ or for each $E \in \MA$, $\nu(E) > -\infty$.
+\item $\nu(\varnothing) = 0$
+\item for each $(E_n)_{n \in \N} \subset \MA$ if $(E_n)_{n \in \N} \subset \MA$ is disjoint, then $\nu(\bigcup\limits_{n \in \N} E_n) = \sum\limits_{n \in \N} \nu(E_n)$ and if $|\sum\limits_{n \in \N} \nu(E_n)| < \infty$, then $\sum\limits_{n \in \N} \nu(E_n)$ converges absolutely.
+\end{enumerate}
+\end{defn}
+
+\begin{ex}
+Let $\nu: \MA \rightarrow \RG$ be a signed measure and $(E_n)_{n \in \N}$, $(F_n)_{n \in \N} \subset \MA$. If $(E_n)_{n \in \N}$ is increasing, then $\nu(\bigcup\limits_{n \in \N} E_n) = \limn \nu(E_n)$. If $(F_n)_{n \in \N}$ is decreasing and $|\nu(E_1)| < \infty$, then $\nu(\bigcap\limits_{n \in \N} F_n) = \limn \nu(F_n)$. 
+\end{ex}
+
+\begin{proof}
+Put $E'_1 = E_1$, $F'_1 = F_1$ and for $n \in \N$, $n \geq 2$, put $E'_n = E_n \setminus E_{n-1}$ and $F'_n = F_1 \setminus F_n$. Then $(E'_n)_{n \in \N} \subset \MA$ is disjoint. Thus 
+\begin{align*}
+\nu(\bigcup\limits_{n \in \N} E_n) 
+&= \nu(\bigcup\limits_{n \in \N} E'_n)\\
+&= \sum\limits_{n \in \N} \nu(E'_n)\\
+&= \limn \sum_{n=1}^n \nu(E'_n)\\
+&= \limn \nu(E_n)
+\end{align*}
+
+Since $(F'_n)_{n \in \N}$ is increasing, we now know that 
+\begin{align*}
+\nu(F_1) - \nu(\bigcap\limits_{n \in \N} F_n)
+&= \nu(F_1 \setminus \bigcap\limits_{n \in \N} F_n)\\
+&= \nu(\bigcup\limits_{n \in \N} F'_n) \\
+&= \limn \nu(F'_n) \\
+&= \limn \nu(F_1 \setminus F_n) \\ 
+&= \nu(F_1) - \limn \nu(F_n)
+\end{align*}
+
+Since $|\nu(F_1)| < \infty$, we see that $\nu(\bigcap\limits_{n \in \N} F_n) = \limn \nu(F_n)$.
+\end{proof}
+
+\begin{defn}
+Let $(X, \MA)$ be a measurable space and $\nu: \MA \rightarrow [-\infty, \infty]$ a signed measure and $E \in \MA$. Then $E$ is said to be $\nu$-\textbf{positive}, $\nu$-\textbf{negative} and $\nu$-\textbf{null} if for each $F \in \MA$, $F \subset E$ implies that $\nu(F) \geq 0$, $\nu(F) \leq 0$, $\nu(F) = 0$ respectively.
+\end{defn}
+
+\begin{ex}
+Let $E \subset \MA$. If $E$ is positive, negative or null, then for each $F \in \MA$, if $F \subset E$, then $F$ is positive, negative or null respectively.
+\end{ex}
+
+\begin{proof}
+Clear
+\end{proof}
+
+\begin{ex}
+Let $(E_n)_{n \in \N} \subset \MA$ be positive, negative or null. Then $\bigcup\limits_{n \in \N} E_n$ is positive, negative or null respectively. 
+\end{ex}
+
+\begin{proof}
+Suppose that $(E_n)_{n \in \N} \subset \MA$ is positive. Let $F \in \MA$. Suppose that $F \subset \bigcup\limits_{n \in \N} E_n$. Put $P_1 = E_1$ and for $n \in \N$, $n \geq 2$, put $P_n = E_n \setminus (\bigcup\limits_{j=1}^{n-1} E_j)$. So $\bigcup\limits_{n \in \N} P_n = \bigcup\limits_{n \in \N} E_n$ and $(P_n)_{n \in \N}$ is disjoint. Thus 
+\begin{align*}
+\nu(F) 
+&= \nu(F \cap \bigcup_{n \in \N} P_n)\\
+&= \nu(\bigcup_{n \in \N} (F \cap P_n))\\
+&= \sum_{n \in \N} \nu(F \cap P_n)\\
+& \geq 0 
+\end{align*}
+
+The process is the same if $(E_n)_{n \in \N}$ is negative and null.
+\end{proof}
+
+\begin{thm}{Hahn Decomposition:}
+Let $\nu$ be a signed measure on $(X, \MA)$. Then there exist $P,N \in \MA$ such that $P$ is positive, $N$ is negative, $X = N \cup P$ and $N \cap P = \varnothing$. Furthermore, these two sets are unique in the following sense: For any $P',N' \in \MA$, if $N,P$ satisfy the properties above, $P' \Delta P = N' \Delta N$ is null.
+\end{thm}
+
+\begin{defn}
+Let $\nu$ be a signed measure on $(X, \MA)$ and $P,N \in \MA$. Then $P$ and $N$ are said to form a \textbf{Hahn decomposition} of $X$ with respect to $\nu$ if $P,N$ satisfy the results in the above theorem.
+\end{defn}
+
+\begin{defn}
+Let $\mu, \nu$ be signed measures on $(X, \MA)$. Then $\mu$ and $\nu$ are said to be \textbf{mutually singular} if there exist $E, F \in \MA$ such that $X = E \cup F$, $E \cap F = \varnothing$ and $E$ is $\mu$-null and $F$ is $\nu$-null. We will denote this by $\mu \perp \nu$.
+\end{defn}
+
+\begin{thm}{Jordan Decomposition:}
+Let $\nu$ be a signed measure on $(X, \MA)$. Then there exist unique positive measures $\nu^+$ and $\nu^-$ on $(X, \MA)$ such that $\nu = \nu^+ - \nu^-$ and $\nu^+ \perp \nu^-$. 
+\end{thm}
+
+\begin{proof}
+Choose a Hahn decomposition $P,N$ of $X$ with respect to $\nu$. Define $\nu^+, \nu^-$ by $\nu^+(E)= \nu(E \cap P)$ and $\nu^-(E) = \nu(E \cap N)$.
+\end{proof}
+
+\begin{defn}
+Let $\nu$ be a signed measure on $(X, \MA)$. Then $\nu^+$ and $\nu^-$ from the last theorem are called the \textbf{positive} and \textbf{negative variations} of $\nu$ respectively. We define the \textbf{total variation} measure $|\nu|$ on $(X, \MA)$ by $|\nu| = \nu^+ + \nu^-$. 
+\end{defn}
+
+\begin{defn}
+Let $\nu$ be a signed measure on $(X,\MA)$. Then $\nu$ is said to be $\sig$-finite if $|\nu|$ is $\sig$-finite.
+\end{defn}
+
+\begin{ex}
+Let $\nu$ be a signed measure and $\lam, \mu$ positive measures on $(X,\MA)$. Suppose that $\nu = \lam - \mu$. Then $\lam \geq \nu^+$ and $\mu \geq \nu^-$.
+\end{ex}
+
+\begin{proof}
+Choose a Hahn decomposition $P,N$ of $X$ with respect to $\nu$. Let $E \in \MA$. Then 
+\begin{align*}
+\lam(E \cap P) - \mu(E \cap P) 
+&= \nu(E \cap P)\\
+&= \nu^+(E \cap P)
+\end{align*}
+So $\lam(E \cap P) \geq  \nu^+(E \cap P) $ and therefore 
+\begin{align*}
+\lam(E) 
+&= \lam(E \cap P) + \lam(E \cap N)\\
+& \geq \nu^+(E \cap P) + \lam (E \cap N)\\
+& \geq \nu^+(E \cap P)\\
+& = \nu^+(E)
+\end{align*} 
+
+Similarly $\mu(E \cap N) \geq \nu^-(E \cap N)$ and $\mu(E) \geq \nu^-(E)$.
+\end{proof}
+
+\begin{ex}
+Let $\nu_1, \nu_2$ be signed measures on $(X, \MA)$. Suppose that $\nu_1 + \nu_2$ is a signed measure. Then $|\nu_1 + \nu_2| \leq |\nu_1|+ |\nu_2|$. (Hint: use the last exercise)
+\end{ex}
+
+\begin{proof}
+Since 
+\begin{align*}
+\nu_1 + \nu_2 
+&= (\nu_1^+ - \nu_1^-) + (\nu_2^+ - \nu_2^-)\\
+&= (\nu_1^+ + \nu_2^+) - (\nu_1^- + \nu_2^-)
+\end{align*}
+the previous exercise tells us that $\lam = \nu_1^+ + \nu_2^+ \geq (\nu_1 + \nu_2)^+$ and $ \mu = \nu_1^- + \nu_2^- \geq (\nu_1 + \nu_2)^-$. Therefore 
+\begin{align*}
+|\nu_1 + \nu_2| 
+&= (\nu_1 + \nu_2)^+  + (\nu_1 + \nu_2)^-\\
+& \leq (\nu_1^+ + \nu_2^+) + (\nu_1^- + \nu_2^-)\\
+&= (\nu_1^+ + \nu_1^-) + (\nu_2^+ + \nu_2^-)\\
+&= |\nu_1| + |\nu_2|
+\end{align*}
+\end{proof}
+
+\begin{note}
+Recall that a previous exercise from the section on complex valued functions tells us that $L^1(|\nu|) = L^1(\nu^+) \cap L^1(\nu^-)$.
+\end{note}
+
+\begin{defn}
+Let $\nu$ be a signed measure on $(X, \MA)$. Then we define $L^1(\nu) = L^1(|\nu|)$. For $f \in L^1(\nu)$, we define $$\int f d \nu = \int f d \nu^+ - \int f d\nu^-$$
+\end{defn}
+
+\begin{ex}
+Let $\nu_1, \nu_2$ be signed measures on $(X, \MA)$. Suppose that $\nu_1 + \nu_2$ is a signed measure. Then 
+$L^1(\nu_1)\cap L^1(\nu_2) \subset L^1(\nu_1 + \nu_2)$
+\end{ex}
+
+\begin{proof}
+The previous exercise tells us that $|\nu_1 + \nu_2| \leq |\nu_1| + |\nu_2|$. Two previous exercises from the section on nonnegative functions tells us that 
+\begin{align*}
+\int |f|d |\nu_1 + \nu_2| 
+& \leq \int |f| d(|\nu_1|+|\nu_2|)\\
+&= \int |f|d |\nu_1| + \int |f| d|\nu_2|
+\end{align*}
+\end{proof}
+
+Let $\nu, \mu$ be signed measures on $(X,\MA)$ and $E \in \MA$. Then 
+\begin{enumerate}
+\item $E$ is $\nu$-null iff $|\nu|(E) = 0$
+\item $\nu \perp \mu$ iff $|\nu| \perp \mu$ iff $\nu^+ \perp \mu$ and $\nu^- \perp \mu$.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item Suppose that $E$ is $\nu$-null. Choose a Hahn decomposition $P,N$ of $X$ with respect to $\nu$. Then $\nu^+(E) = \nu(E \cap P) = 0$ and $\nu^-(E) = \nu(E \cap N) = 0$. Therefore $|\nu|(E) = \nu^+(E) + \nu^-(E) = 0$. Conversely, suppose that $|\nu|(E) = 0$. Then $\nu^+(E) = \nu^-(E) = 0$. Let $F \in \MA$. Suppose that $F \subset E$. Then $\nu^+(F) = 0$ and $\nu^-(F) = 0$. Therefore $\nu(F) = \nu^+(F) - \nu^-(F) = 0$. So $E$ is $\nu$-null.
+
+\item Suppose that $\nu \perp \mu$. Then there exist $E,F \in \MA$ such that $E \cup F = X$, $E \cap F = \varnothing$, $E$ is $\mu$-null and $F$ is $\nu$-null. By (1), $F$ is $|\nu|$-null and thus $|\nu| \perp \mu$. If $|\nu| \perp \mu$, choose $E,F \in \MA$ as before. Since $F$ is $|\nu|$-null, we know that $\nu^+(F) + \nu^-(F) = |\nu|(F) = 0$. This implies that $F$ is $\nu^+$-null and $F$ is $\nu^-$-null. So $\nu^+ \perp \mu$ and $\nu^- \perp \mu$. Finally assume that $\nu^+ \perp \mu$ and $\nu^- \perp \mu$. \textbf{FINISH!!!!}
+
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $\nu$ be a finite signed measure on $(X, \MA)$. Then 
+\begin{enumerate}
+\item for $f \in L^1(\nu)$, $|\int f d \nu| \leq \int |f| d |\nu|$
+\item for each $E \in \MA$, $|\nu|(E) = \sup \{|\int_E f d \nu |: f  \text{ is measurable and } |f| \leq 1 \}$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $f \in L^1(\nu)$. Then 
+\begin{align*}
+\bigg|\int f d \nu \bigg| 
+&= \bigg|\int f d \nu^+ - \int f d \nu^-\bigg|\\
+& \leq \bigg|\int f d \nu^+\bigg| + \bigg|\int f d \nu^-\bigg|\\
+& \leq \int |f| d\nu^+ + \int |f| d\nu^-\\
+&= \int |f| d (\nu^+ + \nu^-)\\
+&= \int |f| d |\nu|
+\end{align*}
+
+\item Let $E \in \MA$. Let $f:X \rightarrow \R$ be measurable and suppose that $|f| \leq 1$. Since $\nu$ is finite, so is $|\nu|$ and thus $f \in L^1(\nu)$. Then (1) tells us that 
+\begin{align*}
+|\int_E f d \nu| 
+& \leq \int_E |f| d |\nu|\\
+& \leq |\nu|(E) 
+\end{align*}
+
+Now, choose a Hahn decomposition $P,N$ of $X$ with respect to $\nu$. Define $f = \chi_{P} - \chi_{N}$. Then $|f| \leq 1$, $f$ is measurable and 
+\begin{align*}
+\bigg|\int_E f d\nu\bigg|
+&= \bigg|\int_E f d \nu^+ - \int_E f d \nu^-\bigg|\\
+&= | \nu^+(E \cap P) + \nu^-(E \cap N)|\\
+&= \nu^+(E) + \nu^-(E)\\
+&= |\nu|(E).
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $\mu$ be a positive measure on $(X, \MA)$ and $f:X \rightarrow \R \in L^1(\mu)$ . Define $\nu$ on $(X, \MA)$ by $\nu(E) = \int_E f d \mu$. Then
+\begin{enumerate}
+\item $\nu$ is a signed measure
+\item for each $E\in \MA$, $|\nu|(E) = \int_E|f|d\mu$.
+\end{enumerate} 
+\end{ex}
+
+\begin{proof}
+
+\begin{enumerate}
+
+\item Clearly $\nu(\varnothing) = 0$ and $\nu$ attains at most one infinte value by assumption. Let $(E_n)_{n \in \N} \subset \MA$. Suppose that $(E_n)_{n \in \N}$ is disjoint. Then 
+\begin{align*}
+\nu(\bigcup_{n \in \N} E_n)
+&= \int_{\bigcup_{n \in \N} E_n} f d \mu \\ 
+&= \int_{\bigcup_{n \in \N} E_n} f^+ d \mu - \int_{\bigcup_{n \in \N} E_n} f^- d \mu\\
+&= \sum_{n \in \N} \int_{ E_n} f^+ d \mu - \sum_{n \in \N} \int_{E_n} f^- d \mu\\
+&= \sum_{n \in \N} \bigg[ \int_{ E_n} f^+ d \mu - \int_{ E_n} f^- d \mu \bigg]\\
+&= \sum_{n \in \N} \int_{ E_n} f d \mu\\
+&= \sum_{n \in \N} \nu(E_n)
+\end{align*}
+
+Since $f \in L^1(\mu)$, we have that 
+
+\begin{align*}
+\sum_{n \in \N} |\nu(E_n)|
+&=  \sum_{n \in \N} \bigg|\int_{E_n} f d \mu \bigg|\\
+& \leq \sum_{n \in \N} \int_{E_n} |f| d\mu\\
+&= \int_{\bigcup_{n \in \N} E_n} |f| d \mu\\
+& < \infty
+\end{align*}
+So the sum converges absolutely and $\nu$ is a signed measure. 
+
+\item Put $P = \{x \in X: f(x) \geq 0\}$ and $N = \{x \in X: f(x) < 0\}$. Then $P,N$ form a Hahn decomposition of $X$ with respect to $\nu$. Thus for $E \in \MA$, $$\nu^+(E) = \int_{E \cap P} f d \mu = \int_E f^+ d \mu$$ and $$\nu^-(E) = \int_{E \cap N} f d \mu = \int_E f^- d \mu$$. So for $E \in \MA$, $$|\nu|(E) = \int_E f^+ d\mu + \int_E f^- d\mu = \int_E |f| d\mu$$
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $\nu$ be a signed measure on $(X, \MA)$.
+\end{ex}
+
+\section{Appendix}
+
+\subsection{Summation}
+
+\begin{defn}
+Let $f:X \rightarrow \Rg$, Then we define $$\sum_{x \in X} f(x) := \sup_{\substack{F \subset X \\ F \text{ finite}}} \sum_{x \in F} f(x)$$ This definition coincides with the usual notion of summation when $X$ is countable. For $f:X \rightarrow \C$, we can write $f = g +ih$ where $g,h:X \rightarrow \R$. If $$\sum_{x \in X}|f(x)| < \infty,$$ then the same is true for $g^+,g^-,h^+,h^-$. In this case, we may define $$\sum_{x \in X} f(x)$$ in the obvious way.
+\end{defn}
+
+\end{document}
