@@ -755,7 +755,7 @@ The same reasoning holds if we replace "$\geq$" with "$>$".
 \end{proof}
 
 \begin{ex}
-Let $(X, \MA, \mu), (Y, \MB, \nu)$ be measure spaces and $f:X \rightarrow \C$, $g:Y \rightarrow \C$. Define $h:X \times Y \rightarrow \C$ by $h(x,y) = f(x)g(y)$.
+Let $(X, \MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces and $f:X \rightarrow \C$, $g:Y \rightarrow \C$. Define $h:X \times Y \rightarrow \C$ by $h(x,y) = f(x)g(y)$.
 
 \begin{enumerate}
 \item If $f$ is $\MA$-measurable and $g$ is $\MB$-measurable, then $h$ is $\MA \otimes \MB$-measurable.
@@ -807,6 +807,10 @@ So $h \in L^1(\mu \times \nu)$. Dominated convergence and the result above then 
 
 \end{enumerate}
 \end{proof}
+
+\begin{note}
+In the above exercise part (2), we can replace $L^1$ with $L^+$ and get the same result by the same method.
+\end{note}
 
 \begin{ex}
 Let $f:\R \rightarrow \Rg \in L^+$. Show that $$\int_{\R}fdm = \int_{\Rg}m(\{x \in \R: f(x) \geq t\}) dm(t)$$
@@ -965,6 +969,22 @@ Let $(f_n)_{n \in \N}, (g_n)_{n \in \N} \subset L^0$ and $f,g \in L^0$. Suppose 
 we have that $f_ng_n \conv{\mu} fg$.
 \end{enumerate}
 
+\end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N} L^0$ and $f \in L^0$. Suppose that for each $\ep >0$, $$\sum_{n \in \N}\mu(\{x \in X: |f_n(x)-f(x)| > \ep\}) < \infty$$
+Then $f_n \convt{a.e.} f$.
+\end{ex}
+
+\begin{proof}
+Let $\ep>0$. By assumption we know that
+\begin{align*}
+\int \bigg[ \sum_{n \in \N}\chi_{\{x \in X: |f_n(x)-f(x)| > \ep\}}\bigg] d \mu 
+&= \sum_{n \in \N}\int \chi_{\{x \in X: |f_n(x)-f(x)| > \ep\}}d \mu\\
+&=\sum_{n \in \N}\mu(\{x \in X: |f_n(x)-f(x)| > \ep\})\\
+& < \infty
+\end{align*}
+Thus we also know that $\sum_{n \in \N}\chi_{\{x \in X: |f_n(x)-f(x)| > \ep\}} < \infty$ a.e. Equivalently, we could say that for a.e. $x \in X$, $|\{n \in \N: f_n(x) - f(x) > \ep\}| < \infty$. For $k \in \N$, define $N_k = \{x \in X: \sum_{n \in \N}\chi_{\{x \in X: |f_n(x)-f(x)| > 1/k\}} = \infty\}$. Then for each $k \in \N$, $\mu(N_k) = 0$. Define $N = \bigcup_{k \in \N} N_k$. Then $\mu(N) = 0$. Let $x \in N^c$ and $\ep > 0$. Choose $k \in \N$ such that $1/k < \ep$. Then $\{n \in \N: f_n(x) - f(x) > \ep\} \subset \{n \in \N: f_n(x) - f(x) > 1/k\}$ which is finite because $x \in N_k^c$. Put $M = \max\{n \in \N: f_n(x) - f(x) > \ep\}$. Then for $m \geq M$, $|f_m(x) - f(x) \leq \ep|$. Thus $f_n(x) \rightarrow f(x)$. Hence $f_n \convt{a.e.} f$.
 \end{proof}
 
 \section{Differentiation}
@@ -1146,10 +1166,10 @@ Let $\nu, \mu$ be signed measures on $(X,\MA)$ and $E \in \MA$. Then
 \end{proof}
 
 \begin{ex}
-Let $\nu$ be a finite signed measure on $(X, \MA)$. Then 
+Let $\nu$ be a signed measure on $(X, \MA)$. Then 
 \begin{enumerate}
 \item for $f \in L^1(\nu)$, $|\int f d \nu| \leq \int |f| d |\nu|$
-\item for each $E \in \MA$, $|\nu|(E) = \sup \{|\int_E f d \nu |: f  \text{ is measurable and } |f| \leq 1 \}$
+\item if $\nu$ is finite, then for each $E \in \MA$, $|\nu|(E) = \sup \{|\int_E f d \nu |: f  \text{ is measurable and } |f| \leq 1 \}$
 \end{enumerate}
 \end{ex}
 
@@ -1185,7 +1205,7 @@ Now, choose a Hahn decomposition $P,N$ of $X$ with respect to $\nu$. Define $f =
 \end{proof}
 
 \begin{ex}
-Let $\mu$ be a positive measure on $(X, \MA)$ and $f:X \rightarrow \R \in L^1(\mu)$ . Define $\nu$ on $(X, \MA)$ by $\nu(E) = \int_E f d \mu$. Then
+Let $\mu$ be a positive measure on $(X, \MA)$ and $f \in L^0(X, \MA)$ extended $\mu$-integrable. Define $\nu$ on $(X, \MA)$ by $\nu(E) = \int_E f d \mu$. Then
 \begin{enumerate}
 \item $\nu$ is a signed measure
 \item for each $E\in \MA$, $|\nu|(E) = \int_E|f|d\mu$.
@@ -1196,7 +1216,7 @@ Let $\mu$ be a positive measure on $(X, \MA)$ and $f:X \rightarrow \R \in L^1(\m
 
 \begin{enumerate}
 
-\item Clearly $\nu(\varnothing) = 0$ and $\nu$ attains at most one infinte value by assumption. Let $(E_n)_{n \in \N} \subset \MA$. Suppose that $(E_n)_{n \in \N}$ is disjoint. Then 
+\item Clearly $\nu(\varnothing) = 0$ and $\nu$ is finte by assumption. Let $(E_n)_{n \in \N} \subset \MA$. Suppose that $(E_n)_{n \in \N}$ is disjoint. Then 
 \begin{align*}
 \nu(\bigcup_{n \in \N} E_n)
 &= \int_{\bigcup_{n \in \N} E_n} f d \mu \\ 
@@ -1207,24 +1227,77 @@ Let $\mu$ be a positive measure on $(X, \MA)$ and $f:X \rightarrow \R \in L^1(\m
 &= \sum_{n \in \N} \nu(E_n)
 \end{align*}
 
-Since $f \in L^1(\mu)$, we have that 
+If $|\nu(\bigcup_{n \in \N}E_n)| < \infty$, then $ \int_{\bigcup_{n \in \N} E_n} f^+ d  \mu < \infty$ and $ \int_{\bigcup_{n \in \N} E_n} f^- d  \mu < \infty$ because
+\begin{align*}
+|\nu(\bigcup_{n \in \N}E_n)|
+&=\bigg |\int_{\bigcup_{n \in \N} E_n} f d \mu\bigg| \\
+&= \bigg |\int_{\bigcup_{n \in \N} E_n} f^+ d \mu - \int_{\bigcup_{n \in \N} E_n} f^- d \mu \bigg|
+\end{align*} Therefore, we have that
 
 \begin{align*}
 \sum_{n \in \N} |\nu(E_n)|
 &=  \sum_{n \in \N} \bigg|\int_{E_n} f d \mu \bigg|\\
-& \leq \sum_{n \in \N} \int_{E_n} |f| d\mu\\
-&= \int_{\bigcup_{n \in \N} E_n} |f| d \mu\\
+&= \sum_{n \in \N} \bigg| \int_{E_n} f^+ d\mu -  \int_{E_n} f^- d\mu \bigg|\\
+& \leq \sum_{n \in \N}  \int_{E_n} f^+ d\mu  + \sum_{n \in \N}  \int_{E_n} f^- d\mu \\
+&= \int_{\bigcup_{n \in \N} E_n} f^+ d \mu + \int_{\bigcup_{n \in \N} E_n} f^- d \mu\\
 & < \infty
 \end{align*}
-So the sum converges absolutely and $\nu$ is a signed measure. 
+So the sum $\sum_{n \in \N} \nu(E_n)$ converges absolutely and $\nu$ is a signed measure. 
 
 \item Put $P = \{x \in X: f(x) \geq 0\}$ and $N = \{x \in X: f(x) < 0\}$. Then $P,N$ form a Hahn decomposition of $X$ with respect to $\nu$. Thus for $E \in \MA$, $$\nu^+(E) = \int_{E \cap P} f d \mu = \int_E f^+ d \mu$$ and $$\nu^-(E) = \int_{E \cap N} f d \mu = \int_E f^- d \mu$$. So for $E \in \MA$, $$|\nu|(E) = \int_E f^+ d\mu + \int_E f^- d\mu = \int_E |f| d\mu$$
 \end{enumerate}
 \end{proof}
 
+\subsection{The Lebesgue-Radon-Nikodym Theorem}
+
+\begin{defn}
+Let $(X, \MA)$ be a measureable space, $\nu$ be a signed measure on $(X, \MA)$ and $\mu$ a measure on $(X,\MA)$. Then $\nu$ is said to be \textbf{absolutely continuous} with respect to $\mu$, denoted $\nu \ll \mu$, if for each $E \in \MA$, $\mu(E) = 0$ implies that $\nu(E) =0$. 
+\end{defn}
+
+\begin{note}
+If there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that for each $E \in \MA$, $\nu(E) = \int_E f d\mu$, then we write $d\nu = f d\mu$.
+\end{note}
+
+\begin{thm}
+Let $(X, \MA)$ be a measureable space, $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X,\MA)$. Then there exist unique $\sig$-finite signed measures $\lam$, $\rho$ on $(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that $\rho = f d \mu$ and $f$ is unique $\mu$-a.e.  
+\end{thm}
+
+\begin{defn}
+The decomposition $\nu = \lam + \rho$ is referred to as the \textbf{Lebesgue decomposition} of $\nu$. In the case $\nu \ll \mu$, we have $\lam = 0$ and $\rho = \nu$ and we define the \textbf{Radon-Nikodym derivative of $\nu$ with respect to $\mu$}, denoted by $d\nu/d\mu$, to be $d\nu/d\mu = f$ where $d\nu = fd\mu$.   
+\end{defn}
+
+\begin{thm}
+Let $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$, $\lam$ $\sig$-finite measures on $(X,\MA)$. Suppose that $\nu \ll \mu$ and $\mu \ll \lam$. Then 
+\begin{enumerate}
+\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and $$\int g d\nu = \int g \frac{d\nu}{d\mu} d\mu$$
+\item $\nu \ll \lam$ and $$\frac{d \nu}{d\lam} = \frac{d \nu}{d\mu} \frac{d\mu}{d\lam} \hspace{4mm} \lam \text{-a.e.}$$
+\end{enumerate}
+\end{thm}
+
 \begin{ex}
-Let $\nu$ be a signed measure on $(X, \MA)$.
+Let $(X, \MA)$, $(Y, \MB)$ be measurable spaces and $\mu_1, \nu_1$ $\sig$-finite measures on $(X, \MA)$, $\mu_2, \nu_2$ $\sig$-finite measures on $(Y, \MB)$ (with $\nu_1, \nu_2$ signed). If $\nu_1 \ll \mu_1$ and $\nu_2 \ll \mu_2$, then $\nu_1 \times \nu_2 \ll \mu_1 \times \mu_2$ and $$\frac{d\nu_1 \times \nu_2}{d \mu_1 \times \mu_2} = \frac{d\nu_1}{d\mu_1} \times \frac{d\nu_2}{d\mu_2} \hspace{6mm} \mu_1 \times \mu_2 \text{-a.e.}$$
 \end{ex}
+
+\begin{proof}
+Let $E \in \MA \otimes \MB$. Suppose that $\mu_1 \times \mu_2(E) = 0$. Then 
+\begin{align*}
+\mu_1 \times \mu_2 (E)
+&= \int \chi_{E} d\mu_1 \times \mu_2\\
+&= \int \bigg[\int \chi_{E^y}(x) d\mu_1(x)\bigg] d\mu_2(y)\\
+&= \int \mu_1(E^y) d\mu_2(y)\\
+&= 0 
+\end{align*} 
+
+Thus for $\mu_2$-a.e. (and therefore $\nu_2$-a.e) $y \in Y$, $\mu_1(E^y)=0$. Hence for $\nu_2$-a.e. $y \in Y$, $\nu_1(E^y)=0$. So 
+\begin{align*}
+\nu_1 \times \nu_2 (E)
+&= \int \chi_{E} d\nu_1 \times \nu_2\\
+&= \int \bigg[\int \chi_{E^y}(x) d\nu_1(x)\bigg] d\nu_2(y)\\
+&= \int \nu_1(E^y) d\nu_2(y)\\
+&= 0
+\end{align*}
+So $\nu_1 \times \nu_2 \ll \mu_1 \times \mu_2$. 
+\end{proof}
 
 \section{Appendix}
 
