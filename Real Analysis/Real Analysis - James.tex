@@ -1,3 +1,4 @@
+
 \documentclass[12pt]{amsart}
  \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
@@ -1275,7 +1276,7 @@ Let $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$, $\lam$ $\si
 \end{thm}
 
 \begin{ex}
-Let $(\nu)_{n \in \N}$ be a sequence of measures and $\mu$ a measure. 
+Let $(\nu_n)_{n \in \N}$ be a sequence of measures and $\mu$ a measure. 
 \begin{enumerate}
 \item If for each $n \in \N$, $\nu_n \ll \mu$, then $\sum_{n \in \N} \nu_n \ll \mu$. 
 \item If for each $n \in \N$, $\nu_n \perp \mu$, then $\sum_{n \in \N} \nu_n \perp \mu$.
@@ -1289,35 +1290,75 @@ Let $(\nu)_{n \in \N}$ be a sequence of measures and $\mu$ a measure.
 \end{enumerate}
 \end{proof}
 
+
 \begin{ex}
-Let $(X, \MA)$, $(Y, \MB)$ be measurable spaces and $\mu_1, \nu_1$ $\sig$-finite measures on $(X, \MA)$, $\mu_2, \nu_2$ $\sig$-finite measures on $(Y, \MB)$ (with $\nu_1, \nu_2$ signed). If $\nu_1 \ll \mu_1$ and $\nu_2 \ll \mu_2$, then $\nu_1 \times \nu_2 \ll \mu_1 \times \mu_2$ and $$\frac{d\nu_1 \times \nu_2}{d \mu_1 \times \mu_2} = \frac{d\nu_1}{d\mu_1} \times \frac{d\nu_2}{d\mu_2} \hspace{6mm} \mu_1 \times \mu_2 \text{-a.e.}$$
+Choose $X = [0,1]$, $\MA = \MB_{[0,1]}$. Let $m$ be Lebesgue measure and $\mu$ the counting measure. 
+
+Then 
+\begin{enumerate}
+\item $m \ll \mu$ but for each $f \in L^+$, $dm \neq f d\mu$
+\item There is no Lebesgue decomposition of $\mu$ with respect to $m$.
+\end{enumerate}
 \end{ex}
 
 \begin{proof}
-Let $E \in \MA \otimes \MB$. Suppose that $\mu_1 \times \mu_2(E) = 0$. Then 
+\begin{enumerate}
+\item Let $E \in \MA$. If $\mu(E) = 0$, then $E = \varnothing$ and $m(E) = 0$. So $m \ll \mu$. Suppose for the sake of contradiction that there exists $f \in L^+$ such that $dm = f d\mu$. Then 
 \begin{align*}
-\mu_1 \times \mu_2 (E)
-&= \int \chi_{E} d\mu_1 \times \mu_2\\
-&= \int \bigg[\int \chi_{E^y}(x) d\mu_1(x)\bigg] d\mu_2(y)\\
-&= \int \mu_1(E^y) d\mu_2(y)\\
-&= 0 
-\end{align*} 
+1
+&= m(X) \\
+&= \sum_{x \in X} f(x)
+\end{align*}
 
-Thus for $\mu_2$-a.e. (and therefore $\nu_2$-a.e) $y \in Y$, $\mu_1(E^y)=0$. Hence for $\nu_2$-a.e. $y \in Y$, $\nu_1(E^y)=0$. So 
+Put $Z = \{x \in X: f(x) \neq 0 \}$. Then $Z$ is countable. So 
 \begin{align*}
-\nu_1 \times \nu_2 (E)
-&= \int \chi_{E} d\nu_1 \times \nu_2\\
-&= \int \bigg[\int \chi_{E^y}(x) d\nu_1(x)\bigg] d\nu_2(y)\\
-&= \int \nu_1(E^y) d\nu_2(y)\\
+1
+&= m(X \setminus Z) \\
+&= \sum_{x \in X \setminus Z} f(x)\\
 &= 0
 \end{align*}
-So $\nu_1 \times \nu_2 \ll \mu_1 \times \mu_2$. 
+
+This is a contradiction, so no such $f$ exists.
+
+\item Suppose for the sake of contradiction that there is a Lebesgue decomposition for $\mu$ with respect to $m$ given by $\mu = \lam + \rho$ where $\lam \perp m$ and $\rho \ll m$. We may assume $\lam$ and $\rho$ are positive. Then for each $x \in X$, $m(\{x\})=0$ which implies that $\rho(\{x\}) = 0$. Let $E \subset X$, if $E$ is countable, then $\lam(E) = \mu(E)$. If $E$ is uncountable, choose $F \subset E$ such that $F$ is countable. Then 
+\begin{align*}
+\lam(E) 
+& \geq \lam(F) \\
+& = \mu(F) \\
+&= \infty
+\end{align*}
+
+So $\lam = \mu$. This is a contradiction since $\mu \not \perp m$.
+\end{enumerate}
 \end{proof}
 
-
 \begin{ex}
-Let
+Let $(X, \MF, \mu)$ be a measure space and $\ME$ a sub $\sig$-alg of $\MF$ and $f \in L^1(\mu)$. Define $\nu: \ME \rightarrow [0,\infty]$ by $\nu(E) = \int_E f d \mu $. Let $\overline{\mu}$ be the restriction of $\mu$ to $\ME$. Define the \textbf{expectation of} $f$ \textbf{given} $\ME$ to be $E[f|\ME] = d\nu / d \overline{\mu}$. Then for each $E \in \ME$, $$\int_E E[f|\ME] d\mu = \int_E f d\mu$$
 \end{ex}
+
+\begin{proof}
+Let $E \in \ME$. By definition, 
+\begin{align*}
+\int_E E[f|\ME] d\mu 
+&= \nu(E)\\
+&= \int_E f d\mu
+\end{align*}
+\end{proof}
+
+\subsection{Complex Measures}
+
+\begin{defn}
+Let $(X, \MA)$ be a measurable space and $\nu:\MA \rightarrow \C$. Then $\nu$ is said to be a \textbf{complex measure} if 
+\begin{enumerate}
+\item $\nu (\varnothing) = 0$
+\item for each sequence $(E_n)_{n \in \N} \subset \MA$, if $(E_n)_{n \in \N}$ is disjoint, then $\nu(\bigcup_{n \in \N} E_n) = \sum_{n \in \N} \nu(E_n)$ and $\sum_{n \in \N} \nu(E_n)$ converges absolutely. 
+\end{enumerate}
+\end{defn}
+
+\begin{note}
+We use the same definitions for mutual orthogonality and absolute continuity when discussing complex measures instead of signed measures.
+\end{note}
+
 \section{Appendix}
 
 \subsection{Summation}

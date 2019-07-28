@@ -1,0 +1,137 @@
+
+\documentclass[12pt]{amsart}
+ \usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}{Conjecture}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{note}[thm]{Note}
+\newtheorem{ex}[thm]{Exercise}
+
+
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MM}{\mathcal{M}}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+ 
+\begin{document}
+
+\title{Portfolio Theory Notes}
+\maketitle
+
+\tableofcontents
+
+\begin{note}
+In these notes we will mostly consider random variables $X$ that model returns. As such we may assume that $F_X:\R \rightarrow (0,1)$ is bijective and continuous. 
+\end{note}
+
+\section{Risk Measures}
+
+\subsection{Value at Risk}
+
+\begin{defn}
+Let $X$ be a random variable and $\ep>0$. Assume that $F_X$ is bijective. We define the \textbf{value at risk of } $X$ \textbf{at confidence level } $1-\ep$, denoted by $VaR_{\ep}(X)$, to be $$VaR_{\ep}(X) = -F^{-1}_X(\ep)$$
+\end{defn}
+
+\begin{note}
+If $X$ represents the return of a portfolio, then $Var_{\ep}(X)$ is just a bound such that with probability $\ep$, the loss of the portfolio is not less than the bound.  
+\end{note}
+
+\subsection{Sampling the Value at Risk}
+
+\subsection{Average Value at Risk}
+
+ \begin{defn}
+Let $X$ be a random variable and $\ep > 0$. Assume that $F_X$ is bijective. We define the \textbf{average value at risk of } $X$ \textbf{with tail probability } $\ep$, denoted by $AVaR_{\ep}(X)$, to be $$AVaR_{\ep}(X) = \frac{1}{\ep}\int_{(0,\ep]}VaR_p(X)dm(p)$$
+\end{defn}
+
+\begin{note}
+If $X$ represents the return on a portfolio, then $AVaR_{\ep}(X)$ is just the average of the $VaR_{p}(X)$ over all $p< \ep$.
+\end{note}
+
+\begin{ex}
+Let $X$ be a random variable and $\ep > 0$. Suppose that $F_X: \R \rightarrow (0,1)$ is continuous and bijective. Then $AVaR_{\ep}(X) = \E[-X|-X \geq VaR_{\ep}(X)]$.
+\end{ex}
+
+\begin{proof}
+Recall that for measurable spaces $(X,\MA), (Y, \MB)$, measurable $f:X \rightarrow Y$, measure $\mu:\MA \rightarrow \RG$, we may form the push-foreward measure of $\mu$ by $f$, $f_{*}\mu:\MB \rightarrow \RG$ with the folling property: for each $g:Y \rightarrow \C$, $g \in L^1(f_* \mu)$ iff  $g \circ f \in L^1(\mu)$ and for each $B \in \MB$, 
+
+$$\int_{f^{-1}(B)}g \circ f d\mu = \int_B g d f_*\mu$$
+
+Note that 
+\begin{align*}
+\E[-X|-X \geq -F^{-1}_X(\ep)] 
+&= -\E[X|X \leq F^{-1}_X(\ep)] \\ 
+&= -\frac{1}{\ep}\E [X\mathbf{1}_{\{X \leq F^{-1}_X(\ep)\}}] \\ 
+&= - \frac{1}{\ep} \int_{\{X \leq F_X^{-1}(\ep)\}}XdP \\
+& = -\frac{1}{\ep} \int_{(-\infty, F_X^{-1}(\ep)]}xd F_X(x)
+\end{align*}
+
+Let $\mu$ be the Lebesgue-Stieltjes measure obtained from $F_X$ (i.e. $d \mu = dF_X$). Consider $F_X: \R \rightarrow (0,1)$ as in the theorem recalled above. Then for each $(a,b] \subset [0,1]$ with $a' =  F_X^{-1}(a)$ (could be $-\infty$) and $b' = F_X^{-1}(b)$, we have that 
+\begin{align*}
+{F_X}_{*} \mu ((a,b]) 
+&= \mu(F^{-1}_X((a,b]))\\
+&= \mu((a', b']) \\ 
+&= F_X(b') - F_X(a')\\
+&= b-a
+\end{align*}
+
+So ${F_X}_{*} \mu = m$. Hence  
+\begin{align*}
+\int_{(-\infty, F_X^{-1}(\ep)]}xd F_X(x) 
+&= \int_{(-\infty, F_X^{-1}(\ep)]}(F^{-1}_X \circ F_X) (x)d F_X(x) \\
+&= \int_{(0,\ep]} F^{-1}_X(x)dm(x)
+\end{align*}
+\end{proof}
+
+\begin{note}
+If $X$ represents the return of a portfolio. We may define the \textbf{loss of} $X$, denoted by $L_X$, to be $L_X = -X$. Then $AVaR_{\ep}(X) = \E[L|L>VaR_{\ep}(X)]$.  
+\end{note}
+
+\begin{thm}
+Let $X$ be random variable and $\ep>0$. Suppose that $X$ is "nice". Then $$AVaR_{\ep}(X) = \min_{\theta \in \R} (\theta + \frac{1}{\ep}\E[(-X - \theta)^+])$$
+\end{thm}
+
+\begin{proof}
+??? I have no clue
+\end{proof}
+
+\subsection{Sampling the Average Value at Risk}
+
+\end{document}
