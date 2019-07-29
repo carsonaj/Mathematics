@@ -58,7 +58,7 @@
 \tableofcontents
 
 \begin{note}
-In these notes we will mostly consider random variables $X$ that model returns. As such we may assume that $F_X:\R \rightarrow (0,1)$ is bijective and continuous. 
+In these notes we will mostly consider random variables $X$ that model returns. As such we may assume that $X \in L^1(\P)$ and $F_X:\R \rightarrow (0,1)$ is bijective and continuous. We will call such random variabels "nice".
 \end{note}
 
 \section{Risk Measures}
@@ -66,7 +66,7 @@ In these notes we will mostly consider random variables $X$ that model returns. 
 \subsection{Value at Risk}
 
 \begin{defn}
-Let $X$ be a random variable and $\ep>0$. Assume that $F_X$ is bijective. We define the \textbf{value at risk of } $X$ \textbf{at confidence level } $1-\ep$, denoted by $VaR_{\ep}(X)$, to be $$VaR_{\ep}(X) = -F^{-1}_X(\ep)$$
+Let $X$ be a nice random variable and $\ep \in (0,1)$. We define the \textbf{value at risk of } $X$ \textbf{at confidence level } $1-\ep$, denoted by $VaR_{\ep}(X)$, to be $$VaR_{\ep}(X) = F^{-1}_{-X}(\ep)$$
 \end{defn}
 
 \begin{note}
@@ -78,7 +78,7 @@ If $X$ represents the return of a portfolio, then $Var_{\ep}(X)$ is just a bound
 \subsection{Average Value at Risk}
 
  \begin{defn}
-Let $X$ be a random variable and $\ep > 0$. Assume that $F_X$ is bijective. We define the \textbf{average value at risk of } $X$ \textbf{with tail probability } $\ep$, denoted by $AVaR_{\ep}(X)$, to be $$AVaR_{\ep}(X) = \frac{1}{\ep}\int_{(0,\ep]}VaR_p(X)dm(p)$$
+Let $X$ be a nice random variable and $\ep \in (0,1)$. We define the \textbf{average value at risk of } $X$ \textbf{with tail probability } $\ep$, denoted by $AVaR_{\ep}(X)$, to be $$AVaR_{\ep}(X) = \frac{1}{\ep}\int_{(0,\ep]}VaR_p(X)dm(p)$$
 \end{defn}
 
 \begin{note}
@@ -86,11 +86,11 @@ If $X$ represents the return on a portfolio, then $AVaR_{\ep}(X)$ is just the av
 \end{note}
 
 \begin{ex}
-Let $X$ be a random variable and $\ep > 0$. Suppose that $F_X: \R \rightarrow (0,1)$ is continuous and bijective. Then $AVaR_{\ep}(X) = \E[-X|-X \geq VaR_{\ep}(X)]$.
+Let $X$ be a nice random variable and $\ep \in (0,1)$. Then $AVaR_{\ep}(X) = \E[-X|-X \geq VaR_{\ep}(X)]$.
 \end{ex}
 
 \begin{proof}
-Recall that for measurable spaces $(X,\MA), (Y, \MB)$, measurable $f:X \rightarrow Y$, measure $\mu:\MA \rightarrow \RG$, we may form the push-foreward measure of $\mu$ by $f$, $f_{*}\mu:\MB \rightarrow \RG$ with the folling property: for each $g:Y \rightarrow \C$, $g \in L^1(f_* \mu)$ iff  $g \circ f \in L^1(\mu)$ and for each $B \in \MB$, 
+Recall that for measurable spaces $(X,\MA), (Y, \MB)$, measurable $f:X \rightarrow Y$, measure $\mu:\MA \rightarrow \RG$, we may form the push-foreward measure of $\mu$ by $f$, $f_{*}\mu:\MB \rightarrow \RG$ with the following property: for each $g:Y \rightarrow \C$, $g \in L^1(f_* \mu)$ iff  $g \circ f \in L^1(\mu)$ and for each $B \in \MB$, 
 
 $$\int_{f^{-1}(B)}g \circ f d\mu = \int_B g d f_*\mu$$
 
@@ -121,17 +121,59 @@ So ${F_X}_{*} \mu = m$. Hence
 \end{proof}
 
 \begin{note}
-If $X$ represents the return of a portfolio. We may define the \textbf{loss of} $X$, denoted by $L_X$, to be $L_X = -X$. Then $AVaR_{\ep}(X) = \E[L|L>VaR_{\ep}(X)]$.  
+If $X$ represents the return of a portfolio. We may define the \textbf{loss of} $X$, denoted by $L_X$, to be $L_X = -X$. Then $AVaR_{\ep}(X) = \E[L_X|L_X>VaR_{\ep}(X)]$.  
 \end{note}
 
 \begin{thm}
-Let $X$ be random variable and $\ep>0$. Suppose that $X$ is "nice". Then $$AVaR_{\ep}(X) = \min_{\theta \in \R} (\theta + \frac{1}{\ep}\E[(-X - \theta)^+])$$
+Let $X$ be a nice random variable and $\ep \in (0,1)$. Then $$AVaR_{\ep}(X) = \min_{\theta \in \R} \bigg(\theta + \frac{1}{\ep}\E[(-X - \theta)^+]\bigg)$$
 \end{thm}
 
-\begin{proof}
-??? I have no clue
+\begin{proof} 
+For $\om \in \Om, \theta \in \R$, put $g_{\om}(\theta) = (-X(\om) - \theta)^+$ and for $\theta \in \R, \ep \in (0,1)$, put $f_{\ep}(\theta) = \theta + \frac{1}{\ep}\E[g(\theta)]$. Then for each $\om \in \Om$, $g_{\om}$ is convex. This implies that for each $\ep \in (0,1)$, $f_{\ep}$ is convex and therefore continuous with right and left.
+
+Let $L = -X$ be the loss of X.  One can show that $$\frac{\partial f_{\ep}}{\partial \theta}(\theta) = \frac{F_L(\theta) -1 + \ep}{\ep} $$. The details can be found in \cite{Rockafellar and Uryasev (2002)}, but will be omitted here. Thus $$\lim_{\theta \rightarrow \infty}\frac{\partial f_{\ep}}{\partial \theta}(\theta) = 1$$ and $$\lim_{\theta \rightarrow -\infty} \frac{\partial f_{\ep}}{\partial \theta}(\theta) = \frac{\ep-1}{\ep} <0$$
+
+This implies that there exists $\theta^* \in \R$ such that $f(\theta^*) = \inf\limits_{\theta \in \R}(f_{\theta})$
+
+Thus $$\frac{\partial f_{\ep}}{\partial \theta}(\theta^*) = 0$$
+
+which implies that $$F_L(\theta^*) = 1-\ep$$
+
+This implies that $\theta^* = Var_{1-\ep}$ Finally, evaluating $f_{\ep}$ at $\theta^*$ shows us that 
+
+\begin{align*}
+f_{\ep}(\theta^*)  
+&=  \theta^* + \frac{1}{\epsilon}\E[(L - \theta^*)^+]\\
+& = \theta^* + \frac{1}{\P(L>\theta^*)}\E[(L-\theta^*)\mathbf{1}_{\{L>\theta^*\}}] \\
+& = \theta^* + \frac{1}{\P(L>\theta^*)}\E[L\mathbf{1}_{\{L>\theta^*\}}] - \frac{1}{\P(L>\theta^*)}\E[\theta^*\mathbf{1}_{\{L>\theta^*\}}] \\
+& = \theta^* + \frac{1}{\P(L>\theta^*)}\E[L\mathbf{1}_{\{L>\theta^*\}}] - \theta^* \\
+&= \E[L|L> \theta^*] \\
+& ?= \E[L|L>VaR_{1-\ep}(X)] \text{that} 1-\ep \text{ is bad}
+\end{align*}
+
 \end{proof}
 
 \subsection{Estimating the Average Value at Risk}
+
+\begin{defn}
+Let $X$ be a random nice random variable and $X_1, \cdots , X_n \stackrel{iid}{\sim} X$. We define the \textbf{sample average value at risk of }$X$ \textbf{with tail probability } $\ep$, denoted by $\widehat{AVar_{\ep}(X)}$, to be $$\widehat{AVaR_{\ep}(X)} = \inf_{\theta \in \R}\bigg(\theta + \frac{1}{n \ep} \sum_{i=1}^n\max(-X_i - \theta, 0) \bigg)$$ 
+\end{defn}
+
+\begin{lem}
+Let $X$ be a random nice random variable and $X_1, \cdots , X_n \stackrel{iid}{\sim} X$. Then $\widehat{AVarR_{\ep}(X)}$ is an unbiased estimator for $AVaR_{\ep}(X)$. 
+\end{lem}
+
+\begin{proof}
+For each $\theta \in \R$, define $$f_{\theta} = \theta + \frac{1}{n \ep} \sum_{i=1}^n\max(-X_i - \theta, 0) $$ Note that for each $\theta \in \R$, $f_\theta \in L^1(\P)$.  
+
+Since $f_\theta$ is continuous in $\theta$, we have that $$\inf_{\theta \in \R} f_{\theta} = \inf_{\theta \in \Q} f_{\theta}$$ 
+
+which is measurable. 
+For $\theta_1, \theta_2 \in \Rg$, if $\theta_1 < \theta_2$, then $\max(-X_i - \theta_1, 0) \geq \max(-X_i - \theta_2, 0) $. So 
+
+$$f_{0} \leq \frac{1}{n \ep} \sum_{i=1}^n\max(-X_i, 0)\\$$
+\end{proof} 
+
+\bibliography{Portfolio Theory References}
 
 \end{document}
