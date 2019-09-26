@@ -49,6 +49,7 @@
 \newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
 \newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
+
  
 \begin{document}
 
@@ -125,30 +126,31 @@ If $X$ represents the return of a portfolio. We may define the \textbf{loss of} 
 \end{note}
 
 \begin{thm}
-Let $X$ be a nice random variable and $\ep \in (0,1)$. Then $$AVaR_{\ep}(X) = \min_{\theta \in \R} \bigg(\theta + \frac{1}{\ep}\E[(-X - \theta)^+]\bigg)$$
+Let $X$ be a nice random variable and $\ep \in (0,1)$. Then $$AVaR_{\ep}(X) = \min_{\theta \in \R} \bigg(\theta + \frac{1}{1-\ep}\E[(-X - \theta)^+]\bigg)$$
 \end{thm}
 
 \begin{proof} 
-For $\om \in \Om, \theta \in \R$, put $g_{\om}(\theta) = (-X(\om) - \theta)^+$ and for $\theta \in \R, \ep \in (0,1)$, put $f_{\ep}(\theta) = \theta + \frac{1}{\ep}\E[g(\theta)]$. Then for each $\om \in \Om$, $g_{\om}$ is convex. This implies that for each $\ep \in (0,1)$, $f_{\ep}$ is convex and therefore continuous with right and left.
+For $\om \in \Om, \theta \in \R$, put $g_{\om}(\theta) = (-X(\om) - \theta)^+$ and for $\theta \in \R, \ep \in (0,1)$, put $f_{\ep}(\theta) = \theta + \frac{1}{1-\ep}\E[g(\theta)]$. Then for each $\om \in \Om$, $g_{\om}$ is convex. This implies that for each $\ep \in (0,1)$, $f_{\ep}$ is convex and therefore continuous.
 
-Let $L = -X$ be the loss of X.  One can show that $$\frac{\partial f_{\ep}}{\partial \theta}(\theta) = \frac{F_L(\theta) -1 + \ep}{\ep} $$. The details can be found in \cite{Rockafellar and Uryasev (2002)}, but will be omitted here. Thus $$\lim_{\theta \rightarrow \infty}\frac{\partial f_{\ep}}{\partial \theta}(\theta) = 1$$ and $$\lim_{\theta \rightarrow -\infty} \frac{\partial f_{\ep}}{\partial \theta}(\theta) = \frac{\ep-1}{\ep} <0$$
+Let $L = -X$ be the loss of X.  One can show that $$\frac{\partial f_{\ep}}{\partial \theta}(\theta) = \frac{F_L(\theta) -\ep}{1-\ep} $$ The details can be found in \cite{RockUr}, but will be omitted here. Thus $$\lim_{\theta \rightarrow \infty}\frac{\partial f_{\ep}}{\partial \theta}(\theta) = 1$$ and $$\lim_{\theta \rightarrow -\infty} \frac{\partial f_{\ep}}{\partial \theta}(\theta) = - \frac{\ep}{1-\ep} <0$$
 
-This implies that there exists $\theta^* \in \R$ such that $f(\theta^*) = \inf\limits_{\theta \in \R}(f_{\theta})$
+This implies that there exists $\theta^* \in \R$ such that $f_{\ep}(\theta^*) = \inf\limits_{\theta \in \R}f_{\ep}(\theta)$
 
 Thus $$\frac{\partial f_{\ep}}{\partial \theta}(\theta^*) = 0$$
 
-which implies that $$F_L(\theta^*) = 1-\ep$$
+which implies that $$F_L(\theta^*) = \ep$$
 
-This implies that $\theta^* = Var_{1-\ep}$ Finally, evaluating $f_{\ep}$ at $\theta^*$ shows us that 
+This implies that $\theta^* = VaR_{\ep}(X)$ Finally, evaluating $f_{\ep}$ at $\theta^*$ shows us that 
 
 \begin{align*}
 f_{\ep}(\theta^*)  
-&=  \theta^* + \frac{1}{\epsilon}\E[(L - \theta^*)^+]\\
+&=  \theta^* + \frac{1}{1- \epsilon}\E[(L - \theta^*)^+]\\
 & = \theta^* + \frac{1}{\P(L>\theta^*)}\E[(L-\theta^*)\mathbf{1}_{\{L>\theta^*\}}] \\
 & = \theta^* + \frac{1}{\P(L>\theta^*)}\E[L\mathbf{1}_{\{L>\theta^*\}}] - \frac{1}{\P(L>\theta^*)}\E[\theta^*\mathbf{1}_{\{L>\theta^*\}}] \\
 & = \theta^* + \frac{1}{\P(L>\theta^*)}\E[L\mathbf{1}_{\{L>\theta^*\}}] - \theta^* \\
 &= \E[L|L> \theta^*] \\
-& ?= \E[L|L>VaR_{1-\ep}(X)] \text{that} 1-\ep \text{ is bad}
+& = \E[L|L>VaR_{\ep}(X)] \\
+& = AVaR_{\ep}(X)
 \end{align*}
 
 \end{proof}
@@ -156,24 +158,31 @@ f_{\ep}(\theta^*)
 \subsection{Estimating the Average Value at Risk}
 
 \begin{defn}
-Let $X$ be a random nice random variable and $X_1, \cdots , X_n \stackrel{iid}{\sim} X$. We define the \textbf{sample average value at risk of }$X$ \textbf{with tail probability } $\ep$, denoted by $\widehat{AVar_{\ep}(X)}$, to be $$\widehat{AVaR_{\ep}(X)} = \inf_{\theta \in \R}\bigg(\theta + \frac{1}{n \ep} \sum_{i=1}^n\max(-X_i - \theta, 0) \bigg)$$ 
+Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\ep \in (0,1)$. We define the \textbf{sample average value at risk of }$X$ \textbf{with tail probability } $\ep$, denoted by $\widehat{AVar_{\ep}(X)}$, to be $$\widehat{AVaR_{\ep}(X)} = \min_{\theta \in \R}\bigg(\theta + \frac{1}{n (1-\ep)} \sum_{i=1}^n\max(-X_i - \theta, 0) \bigg)$$ 
 \end{defn}
 
 \begin{lem}
-Let $X$ be a random nice random variable and $X_1, \cdots , X_n \stackrel{iid}{\sim} X$. Then $\widehat{AVarR_{\ep}(X)}$ is an unbiased estimator for $AVaR_{\ep}(X)$. 
+Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\ep \in (0,1)$. Then $\widehat{AVarR_{\ep}(X)}$ is an unbiased estimator for $AVaR_{\ep}(X)$. 
 \end{lem}
 
 \begin{proof}
-For each $\theta \in \R$, define $$f_{\theta} = \theta + \frac{1}{n \ep} \sum_{i=1}^n\max(-X_i - \theta, 0) $$ Note that for each $\theta \in \R$, $f_\theta \in L^1(\P)$.  
+For each $\ep \in (0,1), \om \in \Om$ and $\theta \in \R$, define $$f_{\ep}(\om)(\theta) = \theta + \frac{1}{n (1-\ep)} \sum_{i=1}^n\max(-X_i(\om) - \theta, 0) $$ 
 
-Since $f_\theta$ is continuous in $\theta$, we have that $$\inf_{\theta \in \R} f_{\theta} = \inf_{\theta \in \Q} f_{\theta}$$ 
+Note that for each $\ep \in (0,1)$ and $\om \in \Om$, $f_{\ep}(\om)$ is convex and continuous. In this case with no expectation, it is easy to show that $$\lim_{\theta \rightarrow \infty}\frac{\partial f_{\ep}(\om)}{\partial \theta}(\theta) = 1$$
+
+and
+ 
+$$\lim_{\theta \rightarrow -\infty}\frac{\partial f_{\ep}(\om)}{\partial \theta}(\theta) = -\frac{\ep}{1-\ep} <0$$  
+
+So for each $\ep \in (0,1)$ and $\om \in \Om$, $f_{\ep}(\om)$ achieves its minimum at . Then $\{\theta \in \R: f_{\ep}(\om)(\theta)\leq m+1\}$ is bounded
+
+Since $f_{\ep}$ is continuous, we have that $$\inf_{\theta \in \R} f_{\ep}(\theta) = \inf_{\theta \in \Q} f_{\ep}(\theta)$$ 
 
 which is measurable. 
-For $\theta_1, \theta_2 \in \Rg$, if $\theta_1 < \theta_2$, then $\max(-X_i - \theta_1, 0) \geq \max(-X_i - \theta_2, 0) $. So 
 
-$$f_{0} \leq \frac{1}{n \ep} \sum_{i=1}^n\max(-X_i, 0)\\$$
 \end{proof} 
 
-\bibliography{Portfolio Theory References}
+\bibliographystyle{amsplain}
+\bibliography{Portfolio_Theory_References}
 
 \end{document}
