@@ -1151,11 +1151,13 @@ The previous exercise tells us that $|\nu_1 + \nu_2| \leq |\nu_1| + |\nu_2|$. Tw
 \end{align*}
 \end{proof}
 
+\begin{ex}
 Let $\nu, \mu$ be signed measures on $(X,\MA)$ and $E \in \MA$. Then 
 \begin{enumerate}
 \item $E$ is $\nu$-null iff $|\nu|(E) = 0$
 \item $\nu \perp \mu$ iff $|\nu| \perp \mu$ iff $\nu^+ \perp \mu$ and $\nu^- \perp \mu$.
 \end{enumerate}
+\end{ex}
 
 \begin{proof}
 \begin{enumerate}
@@ -1340,8 +1342,10 @@ Let $(X, \MF, \mu)$ be a measure space and $\ME$ a sub $\sig$-alg of $\MF$ and $
 Let $E \in \ME$. By definition, 
 \begin{align*}
 \int_E E[f|\ME] d\mu 
+&= \int_E d\nu / d \overline{\mu} d\mu \\
+&= \int_E d\nu / d \overline{\mu} d \overline{\mu} \hspace{1cm} \text{(since $E \in \ME$)} \\
 &= \nu(E)\\
-&= \int_E f d\mu
+&= \int_E f d \mu
 \end{align*}
 \end{proof}
 
@@ -1358,6 +1362,151 @@ Let $(X, \MA)$ be a measurable space and $\nu:\MA \rightarrow \C$. Then $\nu$ is
 \begin{note}
 We use the same definitions for mutual orthogonality and absolute continuity when discussing complex measures instead of signed measures.
 \end{note}
+
+\begin{defn}
+Let $(X,\MA)$ be a measurable space and $\nu = \nu_1 + i\nu_2$ a complex measure on $(X,\MA)$. We define $L^1(\nu) = L^1(\nu_1)\cap L^1(\nu_2)$. For $f \in L^1(\nu)$, we define $$\int f d\nu = \int fd\nu_1 + i \int f d \nu_2$$
+\end{defn}
+
+\begin{thm}
+Let $(X,\MA)$ be a measurable space, $\nu$ a complex measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X, \MA)$. Then there exists a  complex measure $\lambda$ on $(X, \MA)$ and $f \in L^1(\mu)$ such that $\lam \perp \mu$ and $d \nu = d \lam + f d\mu$ and such that for each complex measure $\lam '$ on $(X, \MA)$, $f' \in L^1(\mu)$, if $\nu = d \lam '+ f'd \mu$, then $\lam = \lam '$ and $f = f'$  $\mu$-a.e.
+\end{thm}
+
+\begin{thm}
+Let $\nu$ be a complex measure on $(X, \MA)$ and $\mu$, $\lam$ $\sig$-finite measures on $(X,\MA)$. Suppose that $\nu \ll \mu$ and $\mu \ll \lam$. Then 
+\begin{enumerate}
+\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and $$\int g d\nu = \int g \frac{d\nu}{d\mu} d\mu$$
+\item $\nu \ll \lam$ and $$\frac{d \nu}{d\lam} = \frac{d \nu}{d\mu} \frac{d\mu}{d\lam} \hspace{4mm} \lam \text{-a.e.}$$
+\end{enumerate}
+\end{thm}
+
+\begin{defn}Let $(X,\MA)$ be a measurable space and $\nu = \nu_1 + i \nu_2$ a complex measure on $(X, \MA)$. Define $\mu = |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$ and thus There exists $f \in L^1(\mu)$ such that $d\nu = f d\mu$. Define $|\nu|: \MA \rightarrow \Rg$ by $|\nu|(E) = \int_E |f|d\mu$ for each $E \in \MA$. We call $|\nu|$ the \textbf{total variation of $\nu$}. 
+\end{defn}
+
+\begin{ex}
+Let $\nu$ be a complex measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measures on $(X,\MA)$. If $\nu \ll \mu$, then $\{x \in X: d\nu / d \mu(x) = 0 \}$ is $\nu$-null.
+\end{ex}
+
+\begin{proof}
+Define $f = d\nu / d \mu$ and $E = \{x: f(x) = 0\}$. Let $A \in \MA$ and suppose that $A \subset E$. Then 
+\begin{align*}
+\nu(A) 
+&= \int_A f d\mu\\
+&= 0
+\end{align*} 
+\end{proof}
+
+\begin{ex}
+Let $(X, \MA)$ be a measurable space and $\nu = \nu_1 + i\nu_2$ a complex measure on $(X, \MA)$. Then $|\nu_1|, |\nu_2| \leq |\nu| \leq |\nu_1| + |\nu2|$.
+
+\end{ex}
+
+\begin{proof}
+Let $\mu$ and $f$ be as in the definition of $|\nu|$. Since for each $E \in \MA$, we have 
+\begin{align*}
+\nu(E) 
+&= \int_E f d\mu\\
+&= \int_E f_1 d \mu + i \int_E f_2 d\mu
+\end{align*}
+
+and $$\nu(E) = \nu_1(E) + i\nu_2(E)$$
+
+we know that $\nu_1 = f_1 d\mu$ and $\nu_2 = f_2 d \mu$. 
+
+A previous exercise tells us that $d|v_1| = |f_1|d\mu$ and $d |v_2| = |f_2|d \mu$. Since $|f_1|, |f_2| \leq |f| \leq |f_1|+|f_2|$, we have that 
+\begin{align*}
+|\nu_1|, |\nu_2| 
+&\leq |\nu| \\
+&\leq |\nu_1| + |\nu_2|\\
+\end{align*}
+\end{proof}
+
+\begin{ex}
+Let $(X, \MA)$ be a measurable space and $\nu$ a complex measure on $(X, \MA)$. Then 
+
+\begin{enumerate}
+\item for each $E \in \MA$, $|\nu(E)| \leq |\nu|(E)$. 
+\item $\nu \ll |\nu|$ and $\big|d \nu /d |\nu|\big| = 1$ $|\nu|$-a.e.
+\item $L^1(\nu) = L^1(|\nu|)$ and for each $g \in L^1(\nu)$, $|\int g d\nu| \leq \int |g|d |\nu|$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+Let $\mu$, $f \in L^1(\mu)$ be as in the definition of $|\nu|$.
+\begin{enumerate}
+\item Let $E \in \MA$. Then 
+\begin{align*}
+|\nu(E)| 
+& = \bigg|\int_E f d\mu\bigg|\\
+& \leq \int_E |f| d\mu\\
+&= |\nu|(E)
+\end{align*}
+
+\item Let $E \in \MA$ and suppose that $|\nu|(E)=0$. The previous part implies $|\nu(E)|=0$ and $\nu \ll |\nu|$. Put $g = d \nu / d|\nu|$. Then 
+\begin{align*}
+f 
+&= \frac{d\nu}{d\mu}\\
+&= g|f| \hspace{2mm }\mu\text{-a.e.}
+\end{align*}
+
+Hence $|f| = |g||f|$ $\mu$-a.e. Since $|\nu| \ll \mu$, $|f| = |g||f|$ $|\nu|$-a.e.
+
+A previous exercise tells us that $|f| \neq 0$ $|\nu|$-a.e. Thus $|g|=1$ $|\nu|$-a.e.\\
+
+\item Write $\nu = \nu_1 + i\nu_2$ and $f = f_1 + if_2$. First we observe that
+\begin{align*}
+L^1(\nu)
+&= L^1(\nu_1) \cap L^1(\nu_2) \\
+&= L^1(|\nu_1|) \cap L^1(|\nu_2|)\\
+&= L^1(|\nu_1| + |\nu_2|)\\
+&= L^1(\mu)
+\end{align*}
+
+The previous exercise tells us that 
+\begin{align*}
+|\nu_1|, |\nu_2| 
+&\leq |\nu| \\
+&\leq |\nu_1|+ |\nu_2| \\
+&= \mu
+\end{align*}
+
+Let $g \in L^1(\mu)$. Then 
+\begin{align*}
+\int |g| d |\nu| 
+&\leq \int |g| d \mu \\
+&< \infty
+\end{align*}
+So $g \in L^1(|\nu|)$.
+
+Conversely, let $g \in L^1(|\nu|)$. Then 
+\begin{align*}
+\int |g| d|\nu_1|, \int |g| d |\nu_2| 
+& \leq \int |g|d |\nu|\\
+& < \infty
+\end{align*}
+
+So 
+\begin{align*}
+\int |g| d\mu
+& =\int |g| d|\nu_1| + \int |g| d |\nu_2| \\
+& < \infty
+\end{align*}
+
+and $g \in L^1(\mu)$. Hence $L^1(\nu) = L^1(|\nu|)$. 
+
+Now, let $g \in L^1(\nu) = L^1(|\nu|)$, then 
+\begin{align*}
+\bigg| \int g d\nu \bigg| 
+&= \bigg| \int g f d\mu \bigg| \\
+& \leq \int |g||f|d\mu\\
+& = \int |g| d |\nu|
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+
+
+
 
 \section{Appendix}
 
