@@ -49,6 +49,8 @@
 \newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
 \newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
+
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
  
 \begin{document}
 
@@ -1266,7 +1268,7 @@ Let $(X, \MA)$ be a measureable space, $\nu$ be a $\sig$-finite signed measure o
 \end{thm}
 
 \begin{defn}
-The decomposition $\nu = \lam + \rho$ is referred to as the \textbf{Lebesgue decomposition} of $\nu$. In the case $\nu \ll \mu$, we have $\lam = 0$ and $\rho = \nu$ and we define the \textbf{Radon-Nikodym derivative of $\nu$ with respect to $\mu$}, denoted by $d\nu/d\mu$, to be $d\nu/d\mu = f$ where $d\nu = fd\mu$.   
+The decomposition $\nu = \lam + \rho$ is referred to as the \textbf{Lebesgue decomposition of $\nu$ with respect to $\mu$}. In the case $\nu \ll \mu$, we have $\lam = 0$ and $\rho = \nu$ and we define the \textbf{Radon-Nikodym derivative of $\nu$ with respect to $\mu$}, denoted by $d\nu/d\mu$, to be $d\nu/d\mu = f$ where $d\nu = fd\mu$.   
 \end{defn}
 
 \begin{thm}
@@ -1504,8 +1506,83 @@ Now, let $g \in L^1(\nu) = L^1(|\nu|)$, then
 \end{enumerate}
 \end{proof}
 
+\subsection{Differentiation}
 
+\begin{defn}
+Let $f: \R^n \rightarrow \C$. Then $f$ is said to be \textbf{locally integrable} (with respect to Lebesgue measure) if $f$ is measurable and for each $K \subset \R$, $K$ is compact implies $\int_K |f| dm < \infty$. We define $L^1_{\text{loc}}(\R^n) = \{f:\R^n \rightarrow \C: f \text{ is locally integrable}\}$
+\end{defn}
 
+\begin{defn}
+For $f \in \Ll$, $r>0$, $x \in \R^n$, we define the \textbf{average of $f$ over $B(x,r)$}, denoted by $Af(x,r)$, to be $$Af(x,r) = \frac{1}{m(B(x,r))}\int_{B(x,r)}fdm$$
+\end{defn}
+
+\begin{lem}
+Let $f \in \Ll$, then $Af:\R^n \times (0, \infty)\rightarrow \R$ is continuous.
+\end{lem}
+
+\begin{defn}
+Let $f \in \Ll$. We define its \textbf{Hardy Littlewood maximal function}, denoted by $Hf$ to be $$Hf(x) = \sup_{r>0} A|f|(x,r) \hspace{4mm} x \in \R^n$$
+\end{defn}
+
+\begin{thm}
+There exists $C >0$ such that for each $f \in L^1(m)$ and $\al > 0$, $$m(\{x \in \R^n: Hf(x) > \al\}) \leq \frac{C}{a} \int |f|dm$$
+\end{thm}
+
+\begin{thm}
+Let $f \in \Ll$, then for a.e. $x \in \R^n$, $$\lim_{r \rightarrow 0} Af(x,r) =f(x)$$. Equivalently, for a.e. $x \in \R^n$, $$ \lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}[f(y)-f(x)]dm(y)\bigg] =0$$
+\end{thm}
+
+\begin{note}
+We can a stronger result of the same flavor.
+\end{note}
+
+\begin{defn}
+Let $f \in \Ll$. We define the \textbf{Lebesgue set of $f$}, denoted by $L_f$, to be 
+\begin{align*}
+L_f 
+&= \{x \in \R^n: \lim_{r \rightarrow 0} A|f-f(x)|(x,r) =0 \}\\
+&= \bigg \{x \in \R^n: \lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y) - f(x)|dm(y)\bigg] =0 \bigg \}
+\end{align*}
+\end{defn}
+
+\begin{thm}
+Let $f \in \Ll$. Then $m((L_f)^c) = 0$
+\end{thm}
+
+\begin{defn}
+Let $x \in \R^n$ and $(E_r)_{r>0} \subset \MB(\R^n)$. Then $(E_r)_{r>0}$ is said to \textbf{shrink nicely to $x$} if 
+
+\begin{enumerate}
+\item for each $r>0$, $E_r \subset B(x,r)$
+\item there exists $\al >0$ such that for each $r>0$, $m(E_r)> \al m(B(x,r))$
+\end{enumerate} 
+\end{defn}
+
+\begin{thm}
+Let $f \in \Ll$ and $(E_r)_{r>0} \subset \MB(\R^n)$. Then for each $x \in L_f$, 
+
+$$\lim_{r \rightarrow 0} \bigg[ \frac{1}{m(E_r)}\int_{E_r}|f(y) - f(x)|dm(y)\bigg] =0$$
+
+and 
+
+$$\lim_{r \rightarrow 0}  \frac{1}{m(E_r)}\int_{E_r}fdm = f(x)$$
+\end{thm}
+
+\begin{defn}
+Let $\mu:\MB(\R^n) \rightarrow \RG$ be a Borel measure. Then $\mu$ is said to be \textbf{regular} if 
+\begin{enumerate}
+\item for each $K \subset \R^n$, if $K$ is compact, then $\mu(K)< \infty$
+\item for each $E \in \MB(\R^n)$, $\mu(E) = \inf \{\mu(U): U \text{ is open and }E \subset U\}$
+\end{enumerate}
+
+Let $\nu$ be a signed or complex Borel measure on $\R^n$. Then $\nu$ is said to be regular if $|\nu|$ is regular.
+\end{defn}
+
+\begin{thm}
+Let $\nu$ be a regular signed or complex measure on $\R^n$. Let $d\nu = d\lam + f dm$ be the Lebesgue decomposition of $\nu$ with respect to $m$. Then for $m$-a.e. $x \in \R^n$ and $(E_r)_{r >0} \subset \MB(R^n)$, if $(E_r)_{r >0}$ shrinks nicely to $x$, then 
+
+$$\lim_{r \rightarrow 0} \frac{\nu(E_r)}{m(E_r)} = f(x)$$
+\end{thm}
 
 
 \section{Appendix}
