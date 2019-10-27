@@ -2,6 +2,7 @@
 \documentclass[12pt]{amsart}
  \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
+\usepackage[shortlabels]{enumitem}
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}[thm]{Lemma}
@@ -1516,6 +1517,25 @@ Let $f: \R^n \rightarrow \C$. Then $f$ is said to be \textbf{locally integrable}
 For $f \in \Ll$, $r>0$, $x \in \R^n$, we define the \textbf{average of $f$ over $B(x,r)$}, denoted by $Af(x,r)$, to be $$Af(x,r) = \frac{1}{m(B(x,r))}\int_{B(x,r)}fdm$$
 \end{defn}
 
+\begin{ex}
+Let $f \in \Ll$. Define $$H^*f(x) = \sup\{\frac{1}{m(B)}\int_{B}|f|dm: B \text{ is a ball and } x \in B\} \hspace{4mm} (x \in \R^n)$$
+
+Then $Hf \leq H^*f \leq 2^n Hf$. 
+\end{ex}
+
+\begin{proof}
+Let $x \in \R^n$. Then $$\bigg \{ \frac{1}{m(B(x,r))}\int_{B(x,r)}|f|dm: r >0\bigg \} \subset \bigg\{ \frac{1}{m(B)}\int_{B}|f|dm: B \text{ is a ball and } x \in B \bigg\} $$
+
+So $Hf(x) \leq H^*f(x)$. Let $B$ be a ball. Then there exists $y \in \R^n$, $R>0$ such that $B = B(y,R)$ Suppose that $x \in B$. Then $B \subset B(x,2R)$. Since $m(B(x,2R)) = 2^n m(B(y,R))$, we have that 
+\begin{align*}
+\frac{1}{m(B)}\int_{B}|f|dm
+& \leq \frac{1}{m(B)} \int_{m(B(x,2R))}|f|dm\\
+&= \frac{2^n}{m(B(x,2R))} \int_{m(B(x,2R))}|f|dm
+\end{align*}
+
+Thus $H^*f(x) \leq 2^n Hf(x)$.
+\end{proof}
+
 \begin{lem}
 Let $f \in \Ll$, then $Af:\R^n \times (0, \infty)\rightarrow \R$ is continuous.
 \end{lem}
@@ -1529,11 +1549,36 @@ There exists $C >0$ such that for each $f \in L^1(m)$ and $\al > 0$, $$m(\{x \in
 \end{thm}
 
 \begin{ex}
-Let $f \in \L^1(\R^n)$. Suppose that $m(\{x \in X: f(x) \neq 0\}) >0$. Then there exist $C,R>0$ such that for each $x \in \R^n$ if $|x| > R$, then $Hf(x) \geq C|x|^{-n}$. Hence there exists $C' > 0$ such that for each $\al >0$, $m(\{x \in X: Hf(x)>\alpha\}) > C'/\al$ when $\al$ is small. 
+Let $f \in \L^1(\R^n)$. Suppose that $||f||_1>0$. Then there exist $C,R>0$ such that for each $x \in \R^n$, if $|x| > R$, then $Hf(x) \geq C|x|^{-n}$. Hence there exists $C' > 0$ such that for each $\al >0$, $m(\{x \in X: Hf(x)>\alpha\}) > C'/\al$ when $\al$ is small. 
 \end{ex}
 
 \begin{proof}
+Since $||f||_1 >0$, there exists $R>0$ such that $\int_{B(0,R)}|f|dm >0$. Recall that there exists $K>0$ such that for each $x \in R^n$ and $r>0$, $m(B(x,r)) = Kr^n$ Choose $$C = \frac{\int_{B(0,R)}|f|dm}{K2^n}$$. Let $x \in \R^n$. Suppose that $|x|>R$. Then $B(0,R) \subset B(x,2|x|)$. Thus 
+\begin{align*}
+Hf(x) 
+&\geq \frac{1}{m(B(x,2|x|))}\int_{B(x,2|x|)}|f|dm\\
+&= \frac{1}{K2^n|x|^n}\int_{B(x,2|x|)}|f|dm \\
+&\geq \frac{1}{K2^n|x|^n}\int_{B(0,R)}|f|dm \\
+&= \frac{C}{|x^n|}
+\end{align*}
 
+Let $a\ < \frac{C}{2R^n}$. Then $R^n < \frac{C}{2 \al}$. Choose $C' =\frac{KC}{2}$. Let $A = \{x \in \R^n: R < |x|< (\frac{C}{\al})^{\frac{1}{n}}\}$. For $x \in A$, 
+\begin{align*}
+Hf(x) 
+&\geq \frac{C}{|x|^n} \\
+& > \al
+\end{align*}
+
+Thus $A \subset m(\{x \in R^n: Hf(x)> \al\})$ and therefore 
+\begin{align*}
+m(\{x \in R^n: Hf(x)> \al\}) 
+&\geq m(A) \\
+&= m(B(0,(C/\al)^{1/n})) - m(B(0,R)) \\
+&= K\bigg [\frac{C}{\al} - R^n \bigg] \\
+&> K\bigg[\frac{C}{\al} - \frac{C}{2 \al}\bigg] \\
+&= \frac{KC}{2 \al}\\
+&= \frac{C'}{\al}
+\end{align*}
 \end{proof}
 
 \begin{thm}
@@ -1552,6 +1597,22 @@ L_f
 &= \bigg \{x \in \R^n: \lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y) - f(x)|dm(y)\bigg] =0 \bigg \}
 \end{align*}
 \end{defn}
+
+\begin{ex}
+Let $f \in \Ll$ and $x \in \R^n$. If $f$ is continuous at $x$, then $x \in L_f$.
+\end{ex}
+
+\begin{proof}
+Suppose that $f$ is continuous at $x$. Let $\ep > 0$. By assumption, there exists $\del >0$ such that for each $y \in \R^n$, if $|x-y|< \del$, then $|f(x)-f(y)| < \ep$. Let $r >0$. Suppose that $r< \del$. Then for each $y \in \R^n$, $y \in B(x,r)$ implies that $|f(x) - f(y)| < \ep$ and thus 
+\begin{align*}
+\frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y) - f(x)|dm(y)
+& \leq \frac{1}{m(B(x,r))} \ep m(B(x,r))\\
+&=\ep
+\end{align*}
+
+\newpage Hence $$\lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y) - f(x)|dm(y)\bigg] =0$$ 
+and $x \in L_f$.
+\end{proof}
 
 \begin{thm}
 Let $f \in \Ll$. Then $m((L_f)^c) = 0$
@@ -1592,6 +1653,108 @@ Let $\nu$ be a regular signed or complex measure on $\R^n$. Let $d\nu = d\lam + 
 $$\lim_{r \rightarrow 0} \frac{\nu(E_r)}{m(E_r)} = f(x)$$
 \end{thm}
 
+\subsection{Functions of Bounded Variation}
+
+\begin{defn}
+Let $F:\R \rightarrow \R$ be increasing. Define $F_+:\R \rightarrow \R$ by $$F_+(x) = \lim_{t \rightarrow x^+}F(t) = \inf \{F(t): t>x \}$$
+\end{defn}
+
+\begin{note}
+Observe that $F \leq F_+$ and $F_+$ is increasing.
+\end{note}
+
+\begin{ex}
+Let $F:\R \rightarrow \R$ be increasing. Then for each $x \in \R$ and $ \ep>0$, there exists $\del >0$ such that for each $y \in (x,x+\del)$, $0 \leq F_+(y) - F(y) \leq \ep$.
+\end{ex}
+
+\begin{proof}
+For the sake of contradiction, suppose not. Then there exists $x \in R$ and $\ep >0$ such that for each $\del >0$, there exist $y \in (x,x+\del)$ such that $F_+(y) - F(y) > \ep$. Then there exists a sequence $(y_n)_{n \in \N} \subset \R$ such that for each $n \in \N$, $y_n \in (x, x+\frac{1}{n})$, $y_n > y_{n+1}$ and $F_+(y_n) - F(y_n) > \ep$. Choose $N \in \N$ such that $(N-1)\ep > F(y_1) - F(x)$. Then 
+\begin{align*}
+F(y_1) - F(x) 
+&= \sum_{i=1}^{N-1} \bigg[F(y_i)-F_+(y_{i+1}) + F_+(y_{i+1}) - F(y_{i+1}) \bigg] + F(y_N)- F(x)\\
+& = \sum_{i=1}^{N-1} \bigg[F(y_i)-F_+(y_{i+1}) \bigg] + \sum_{i=1}^{N-1} \bigg[ F_+(y_{i+1}) - F(y_{i+1}) \bigg] + F(y_N)- F(x) \\
+& \geq (N-1)\ep \\
+& > F(y_1) - F(x)
+\end{align*}
+This is a contradiction, so the claim holds.
+\end{proof}
+
+\begin{ex}
+Let $F:\R \rightarrow \R$ be increasing. Then $F_+$ is right continuous. 
+\end{ex}
+
+\begin{proof}
+Let $x \in \R$. Let $\ep >0$. Then there exists $\del_1>0$ such that for each $y \in (x,x+\del_1)$ $0 \leq F(y)-F_+(x) < \ep/2$. There exists $\del_2 >0$ such that for each $y \in (x,x+\del_2)$, \\$0 \leq F_+(y)-F(y) < \ep/2$. Choose $\del = \min\{\del_1, \del_2\}$. Let $y \in (x, x+\del)$.
+\begin{align*}
+|F_+(x) - F_+(y)|
+& \leq |F_+(x) - F(y)| + |F(y)- F_+(y)| \\
+& = (F(y) - F_+(x)) + (F_+(y) - F(y)) \\
+& \leq \frac{\ep}{2} + \frac{\ep}{2}\\
+& = \ep
+\end{align*}
+
+So $\lim\limits_{t \rightarrow x^+} F_+(t) = F_+(x)$ and $F_+$ is right continuous.
+\end{proof}
+
+\begin{thm}
+Let $F:\R \rightarrow \R$ be increasing. Then 
+\begin{enumerate}
+\item $\{x \in \R: F \text{ is not continuous at }x\}$ is countable
+\item $F$ and $F_+$ are differentiable a.e. and $F' = F_+'$ a.e.
+\end{enumerate}
+\end{thm}
+
+\begin{defn}
+Let $F:\R \rightarrow \C$. Define $T_F:\R \rightarrow \R$ by $$T_F(x) = \sup\bigg \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset \R \text{ is increasing and } x_n=x  \bigg \} \hspace{4mm} (x \in \R)$$
+
+$T_F$ is called the \textbf{total variation function of $F$}.
+\end{defn}
+
+\begin{ex}
+Let $F:\R \rightarrow \C$. Then $T_F$ is increasing.
+\end{ex}
+
+\begin{proof}
+Let $x,y \in \R$. Suppose that $x<y_2$. \\Define  $A_x = \big \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset \R \text{ is increasing and } x_n=x  \big \}$ and \\$A_y = \big \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset \R \text{ is increasing and } x_n=y  \big \}$. Let $z \in A_x$. Then there exists $(x_i)_{i=0}^n \subset \R$ such that $(x_i)_{i=0}^n$ is increasing,\\ $x_n=x$ and $z = \sum_{i=1}^n |F(x_{i}) - F(x_{i-1})|$. Then
+
+\begin{align*}
+z 
+& \leq z+|F(y)-F(x)|\\
+&= \sum_{i=1}^n |F(x_{i}) - F(x_{i-1})| + |F(y)-F(x)|\\
+& \in A_y\\
+\end{align*} 
+So $z \leq \sup A_y = T_F(y) $ and thus $F_T(x)  = \sup A_x \leq T_F(y)$
+\end{proof}
+
+\begin{lem}
+Let $F:\R \rightarrow \R$. Then $T_F+F$ and $T_F-F$ are increasing.
+\end{lem}
+
+\begin{defn}
+Let $F:\R \rightarrow \C$. Then $F$ is said to have \textbf{bounded variation} if $\lim \limits_{x \rightarrow \infty}T_F(x)<\infty$. The \textbf{total variation of $F$}, denoted by $TV(F)$, is defined to be $TV(F) = \lim\limits_{x\rightarrow \infty}T_F(x)$.
+We define $BV = \{F:\R \rightarrow \C: TV(F)<\infty \}$.
+\end{defn}
+
+\begin{defn}
+Let $a,b \in \R$ and $F:[a,b] \rightarrow \C$. Define $G_F:\R \rightarrow \C$ by $G_F = F(a)\chi_{(-\infty,a)} + F\chi_{[a,b]}+F(b)\chi_{(b,\infty)}$. Then $F$ is said to have \textbf{bounded variation on $[a,b]$} if $G_F \in BV$. The \textbf{total variation of $F$ on $[a,b]$}, denoted by $TV(F, [a,b])$, is defined to be $TV(F, [a,b]) = TV(G_F)$ We define $BV([a,b]) = \{F:[a,b] \rightarrow \C: TV(F, [a,b]) < \infty\}$.
+\end{defn}
+
+\begin{note}
+Equivalently, $TV(F, [a,b]) = \sup \big \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset [a,b] \text{ is increasing, } x_0=a \text{, and } x_n=b\big \}$ and $F \in BV([a,b])$ iff $TV(F, [a,b]) < \infty$. In general, 
+\end{note}
+
+\begin{ex} The following is stated for $BV$, but is also true for $BV([a,b])$.
+
+\begin{enumerate} 
+\item The set $BV$ is a vector space. 
+\item For each $F: \R \rightarrow \C$, $F \in BV$ iff $Re(f) \in BV$ and $Im(F) \in BV$.
+\item For each $F \in BV, c \in \R$, $F-c \in BV$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+
+\end{proof}
 
 \section{Appendix}
 
