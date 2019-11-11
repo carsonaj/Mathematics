@@ -59,7 +59,7 @@
 \tableofcontents
 
 \begin{note}
-In these notes we will mostly consider random variables $X$ that model returns. As such we may assume that $X \in L^1(\P)$ and $F_X:\R \rightarrow (0,1)$ is bijective and continuous. We will call such random variabels "nice".
+In these notes we will mostly consider random variables $X$ that model returns. As such we may assume that $X \in L^1(\P)$ and $F_X:\R \rightarrow (0,1)$ is bijective and continuous. We will call such random variabels "nice". The random variable $X$ will usually be taken to mean the return on some portfolio. As such, we will define the loss of $X$ to be $L_X = -X$.
 \end{note}
 
 \section{Risk Measures}
@@ -67,7 +67,13 @@ In these notes we will mostly consider random variables $X$ that model returns. 
 \subsection{Value at Risk}
 
 \begin{defn}
-Let $X$ be a nice random variable and $\ep \in (0,1)$. We define the \textbf{value at risk of } $X$ \textbf{at confidence level } $\ep$, denoted by $VaR_{\ep}(X)$, to be $$VaR_{\ep}(X) = F^{-1}_{-X}(\ep)$$
+Let $X$ be a nice random variable and $\ep \in (0,1)$. We define the \textbf{value at risk of } $X$ \textbf{at confidence level } $\ep$, denoted by $VaR_{\ep}(X)$, to be 
+
+\begin{align*}
+VaR_{\ep}(X) 
+&= F^{-1}_{-X}(\ep)\\
+&= F^{-1}_{L_X}(\ep)
+\end{align*}
 \end{defn}
 
 \begin{note}
@@ -87,7 +93,12 @@ If $X$ represents the return on a portfolio, then $AVaR_{\ep}(X)$ is just the av
 \end{note}
 
 \begin{ex}
-Let $X$ be a nice random variable and $\ep \in (0,1)$. Then $AVaR_{\ep}(X) = \E[-X|-X \geq VaR_{\ep}(X)]$.
+Let $X$ be a nice random variable and $\ep \in (0,1)$. Then 
+\begin{align*}
+AVaR_{\ep}(X) 
+&= \E[-X|-X \geq VaR_{\ep}(X)]\\
+&= \E[L_X|L_X \geq Var_{\ep}(X)]
+\end{align*}
 \end{ex}
 
 \begin{proof}
@@ -95,29 +106,29 @@ Recall that for measurable spaces $(X,\MA)$ and $(Y, \MB)$, a measurable functio
 
 $$\int_{f^{-1}(B)}g \circ f d\mu = \int_B g d f_*\mu$$
 
-Put $L = -X$. Note that 
+Also recall that for an increasing continuous, bijective $F:\R \rightarrow (0,1)$, we may form the Borel measure $\mu_F$ with $\mu_F((a,b]) = F(b)-F(a)$. Then observe that $F_*\mu_F = m$ because
 \begin{align*}
-\E[L|L \geq F^{-1}_{L}(\ep)] 
-&= \E[L|L \geq F^{-1}_{L}(\ep)] \\ 
-&= \frac{1}{1-\ep}\E [L\mathbf{1}_{\{L \geq F^{-1}_{L}(\ep)\}}] \\ 
-&=  \frac{1}{1-\ep} \int_{\{L \geq F_{L}^{-1}(\ep)\}}LdP \\
-& = \frac{1}{1-\ep} \int_{[F_{L}^{-1}(\ep),  \infty)}xd F_{L}(x)
-\end{align*}
-
-Let $\mu$ be the Lebesgue-Stieltjes measure obtained from $F_L$ (i.e. $d \mu = dF_{L}$). Consider $F_{L}: \R \rightarrow (0,1)$ as in the theorem recalled above. Then for each $(a,b] \subset [0,1]$ with $a' =  F_{L}^{-1}(a)$ (could be $-\infty$) and $b' = F_{L}^{-1}(b)$, we have that 
-\begin{align*}
-{F_{L}}_{*} \mu ((a,b]) 
-&= \mu(F^{-1}_{L}((a,b]))\\
-&= \mu((a', b']) \\ 
-&= F_{L}(b') - F_{L}(a')\\
+{F}_{*} \mu_F ((a,b]) 
+&= \mu_F(F^{-1}((a,b]))\\
+&= \mu_F((F^{-1}(a), F^{-1}(b)]) \\ 
+&= F(F^{-1}(a)) - F(F^{-1}(b))\\
 &= b-a
 \end{align*}
 
-So ${F_L}_{*} \mu = m$. Hence  
+Then  
 \begin{align*}
-\int_{[F_{L}^{-1}(\ep),  \infty)}xd F_L(x) 
-&= \int_{[F_{L}^{-1}(\ep),  \infty)}(F^{-1}_L \circ F_L) (x)d F_L(x) \\
-&= \int_{[\ep,  \infty)} F^{-1}_L(x)dm(x)\\
+\E[L_X |L_X \geq F^{-1}_{L_X}(\ep)] 
+&= \E[L_X|L_X \geq F^{-1}_{L_X}(\ep)] \\ 
+&= \frac{1}{1-\ep}\E [L_X \mathbf{1}_{\{L_X \geq F^{-1}_{L_X}(\ep)\}}] \\ 
+&=  \frac{1}{1-\ep} \int_{\{L_X \geq F_{L_X}^{-1}(\ep)\}}L_X dP \\
+& = \frac{1}{1-\ep} \int_{[F_{L_X}^{-1}(\ep),  \infty)}xd F_{L_X}(x)
+\end{align*}
+
+Using the facts recalled earilier, we have  
+\begin{align*}
+\int_{[F_{L_X}^{-1}(\ep),  \infty)}xd F_{L_X}(x) 
+&= \int_{[F_{L_X}^{-1}(\ep),  \infty)}(F^{-1}_{L_X} \circ F_{L_X}) (x)d F_{L_X}(x) \\
+&= \int_{[\ep,  \infty)} F^{-1}_{L_X}(x)dm(x)\\
 &= \int_{[\ep,  \infty)} VaR_{\ep}(X)dm(x)
 \end{align*}
 \end{proof}
@@ -156,10 +167,16 @@ f_{\ep}(\theta^*)
 
 \end{proof}
 
+\subsection{Estimating the Value at Risk}
+
+\begin{defn}
+Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\ep \in (0,1)$. Define $$\widehat{VaR_\ep}(X) = $$
+\end{defn}
+
 \subsection{Estimating the Average Value at Risk}
 
 \begin{defn}
-Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\ep \in (0,1)$. We define the \textbf{sample average value at risk of }$X$ \textbf{with tail probability } $\ep$, denoted by $\widehat{AVar_{\ep}(X)}$, to be $$\widehat{AVaR_{\ep}(X)} = \min_{\theta \in \R}\bigg(\theta + \frac{1}{n (1-\ep)} \sum_{i=1}^n\max(-X_i - \theta, 0) \bigg)$$ 
+Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\ep \in (0,1)$. Define $$ \widehat{AVaR_{\ep}(X)} = $$ 
 \end{defn}
 
 \begin{lem}
