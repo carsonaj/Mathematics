@@ -1,0 +1,105 @@
+
+\documentclass[12pt]{amsart}
+ \usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
+\usepackage[shortlabels]{enumitem}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}{Conjecture}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{note}[thm]{Note}
+\newtheorem{ex}[thm]{Exercise}
+
+
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MM}{\mathcal{M}}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+ 
+\begin{document}
+
+\title{notes}
+\maketitle
+
+Let $\mu$ be the Haar measure on $\Z_p^{\times}$.
+
+For $x \in \Q_p$, $p^{-\nu(x)}$, so $\nu(x) = -\log_p|x|_p$
+
+For $\al \in \Q_p$, define 
+\begin{align*}
+m(\al)
+& = -\int_{\Z_p^{\times}}\nu(x-\al)d\mu(x)\\
+& = \int_{\Z_p^{\times}}\log_p|x-\al|_pd\mu(x)
+\end{align*}
+
+\begin{lem}
+For each $\al \in \Q_p$, 
+$$m(\al) = 
+\begin{cases} 
+      0 & |\al|_p <1 \\
+      -\frac{p}{(p-1)^2} & p = 1\\
+      -\nu(\al) & |\al|_p >1
+   \end{cases}$$. 
+\end{lem}
+
+\begin{proof}
+Let $\al \in \Q_p$. First assume $|\al|_p=1$. Then $\al = \al_0 + \al_1p + \cdots$ Define $Z_0 = \{x \in \Z_p^{\times} : x_0 \neq \al_0\}$ and $Z_n = \bigg(\bigcap_{i=0}^{n-1}\{x \in \Z_p^{\times}: x_i = \al_i\}\bigg) \cap \{x \in \Z_p^{\times}: x_n \neq \al_n\}$. \\Then $(Z_i)_{i=1}^{\infty}$ are disjoint, $\Z_p^{\times} = \{\al\} \cup \bigg(\bigcup_{i=0}^{\infty} Z_i\bigg)$, for each $x \in Z_n, |x-\al|_p = p^{-n}$ and $$ \mu(Z_n) =  \begin{cases} 
+      (p-1)^{-1} & n=0 \\
+      p^{-n} & n \geq 1
+   \end{cases} $$ \\ Thus for each $x \in \Z_p^{\times}$, $\log^+_p|x-\al|_p = 0$ and so 
+
+\begin{align*}
+\int_{\Z_p^{\times} }\log_p|x-\al|_pd\mu(x)
+&= \sum_{i=1}^{\infty} \int_{Z_i}log_p|x-\al|d\mu(x)\\
+&= \sum_{i=1}^\infty -np^{-n}\\
+&= -\frac{p}{(p-1)^2}
+\end{align*} \\ Now assume that $|\al|_p <1$. Then for each $x \in \Z_p^{\times}$, $\log_p|x-\al|_p= \log_p|x|_p =0$. Thus $$\int_{\Z_p^{\times}}\log_p|x-\al|_pd\mu(x) =0$$ \\Finally assume that $|\al|_p >1$. Then for each $x \in \Z_p^{\times}$, $\log_p|x-\al|_p = \log_p|\al|_p$ and thus \begin{align*}
+\int_{\Z_p^{\times}}\log_p|x-\al|_pd\mu(x) 
+&= \log_p|\al|_p\\
+&= -\nu(\al)
+\end{align*}
+\end{proof}
+
+
+
+
+
+
+\end{document}
