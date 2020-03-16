@@ -3,6 +3,7 @@
  \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
 \usepackage[shortlabels]{enumitem}
+\usepackage{exercise, chngcntr}
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}[thm]{Lemma}
@@ -1730,6 +1731,23 @@ So $z \leq \sup A_y = T_F(y) $ and thus $F_T(x)  = \sup A_x \leq T_F(y)$
 Let $F:\R \rightarrow \R$. Then $T_F+F$ and $T_F-F$ are increasing.
 \end{lem}
 
+\begin{ex}
+For each $F:\R \rightarrow \C$, $T_{|F|} \leq T_F$.
+\end{ex}
+
+\begin{proof}
+Let $F:\R \rightarrow \C$, $x \in R$ and $(x_i)_{i=0}^n \subset \R$. Suppose that $(x_i)_{i=0}^n$ is increasing and $x_n=x$. Then by the reverse triangle inequality, $$ \sum_{i=1}^n\big||F(x_i)|-|F(x_{i-1})|\big|
+\leq \sum_{i=1}^n\big|F(x_i)-|F(x_{i-1})\big|$$
+Thus 
+\begin{align*}
+T_{|F|}(x) 
+&= \sup\bigg \{\sum_{i=1}^{n}\big||F(x_{i})| - |F(x_{i-1})|\big|: (x_i)_{i=0}^n \subset \R \text{ is increasing and } x_n=x  \bigg \} \\
+& \leq \sup\bigg \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset \R \text{ is increasing and } x_n=x  \bigg \} \\
+&= T_F(x)
+\end{align*}
+Hence $T_{|F|} \leq T_F$
+\end{proof}
+
 \begin{defn}
 Let $F:\R \rightarrow \C$. Then $F$ is said to have \textbf{bounded variation} if $\lim \limits_{x \rightarrow \infty}T_F(x)<\infty$. The \textbf{total variation of $F$}, denoted by $TV(F)$, is defined to be $TV(F) = \lim\limits_{x\rightarrow \infty}T_F(x)$.
 We define $BV = \{F:\R \rightarrow \C: TV(F)<\infty \}$.
@@ -1743,18 +1761,305 @@ Let $a,b \in \R$ and $F:[a,b] \rightarrow \C$. Define $G_F:\R \rightarrow \C$ by
 Equivalently, $TV(F, [a,b]) = \sup \big \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset [a,b] \text{ is increasing, } x_0=a \text{, and } x_n=b\big \}$ and $F \in BV([a,b])$ iff $TV(F, [a,b]) < \infty$. In general, 
 \end{note}
 
+\begin{ex}
+Let $F \in BV$. Then $F$ is bounded.
+\end{ex}
+
+\begin{proof}
+If $F$ is unbounded, then the supremum in the previous definition is clearly infinite.
+\end{proof}
+
+\begin{ex}
+Let $F:\R \rightarrow \R$. If $F$ is bounded and increasing, then $F \in BV$.
+\end{ex}
+
+\begin{proof}
+Suppose that $F$ is bounded and increasing. Then $-\infty<\inf_{x \in \R}F(x) \leq \sup_{x \in \R}F(x)<\infty$. Let $x \in \R$ and $(x_i)_{i=0}^n \subset \R$. Suppose that $(x_i)_{i=0}^n$ is increasing and $x_n=x$. Then 
+\begin{align*}
+\sum_{i=1}^n|F(x_i)-F(x_{i-1})| 
+&= \sum_{i=1}^n F(x_i)-F(x_{i-1})\\
+&= F(x)-F(x_0)
+\end{align*}
+
+Thus $$T_F(x) = F(x)-\inf_{x \in \R}F(x)$$. This implies that 
+\begin{align*}
+TV(F) 
+&= \sup_{x \in \R}F(x)-\inf_{x \in \R}F(x)\\
+&<\infty
+\end{align*}
+
+Hence $F \in BV$.
+\end{proof}
+
+\begin{ex}
+Let $F:\R \rightarrow \C$. If $F$ is differentiable and $F'$ is bounded on $[a,b]$, then, $F \in BV([a,b])$. 
+\end{ex}
+
+\begin{proof}
+Suppose that $F$ is differentiable and $F'$ is bounded on $[a,b]$. Then there exists $M>0$ such that for each $x \in [a,b]$, $|F(x)| \leq M$. Let $(x_i)_{i=1}^n \subset [a,b]$. Suppose that $(x_i)_{i=1}^n$ is strictly increasing, $x_0=a$ and $x_n=b$. By the mean value theorem, for each $i =1,2, \cdots, n$, there exists $c_i\in (x_{i-1}, x_i)$ such that $F(x_i)-F(x_{i-1})=F'(c_i)(x_i-x_{i-1})$. Then 
+\begin{align*}
+\sum_{i=1}^n|F(x_i)-F(x_{i-1})|
+&= \sum_{i=1}^n|F'(c_i)(x_i-x_{i-1})|\\
+&\leq  \sum_{i=1}^nM(x_i-x_{i-1})\\
+&=M(b-a)
+\end{align*}
+
+Hence $TV(F, [a,b]) \leq M(b-a)$.
+\end{proof}
+
+\begin{ex}
+Define $F,G:\R \rightarrow \R$ by 
+\[ F(x) = \begin{cases}
+x^2sin(x^{-1}) & x \neq 0\\
+0 & x=0\\
+\end{cases}$$ and $$G(x)=
+\begin{cases}
+x^2sin(x^{-2}) & x \neq 0\\
+0 & x=0
+\end{cases}
+\]
+
+Then $F$ and $G$ are differentiable, $F \in BV([-1,1])$ and $G \not \in BV([-1,1])$.
+\end{ex}
+
+\begin{proof}
+On $\R \setminus \{0\}$, 
+\begin{align*}
+F'(x) 
+&= 2xsin(x^{-1})-sin(x^{-1})\\
+&= sin(x^{-1})(2x-1)
+\end{align*} We see that $F$ is also differentiable at $x=0$ since 
+\begin{align*}
+F'(0) 
+&= \lim_{x \rightarrow 0} \frac{F(x)-F(0)}{x-0}\\
+&= \lim_{x \rightarrow 0} \frac{x^2sin(x^{-1})}{x}\\
+&= \lim_{x \rightarrow 0} xsin(x^{-1})\\
+&=0
+\end{align*}
+
+Therefore for each $x \in [-1,1]$, $|F'(x)| \leq 3$. Which by a previous exercise implies that $F \in BV([-1,1])$.
+
+On $\R \setminus \{0\}$, 
+\begin{align*}
+G'(x)
+&= 2xsin(x^{-2})-\frac{2sin(x^{-2})}{x}\\
+&= sin(x^{-2})(2x-\frac{2}{x})
+\end{align*}
+We see that $G$ is also differentiable at $x=0$ since 
+\begin{align*}
+G'(0) 
+&= \lim_{x \rightarrow 0} \frac{G(x)-G(0)}{x-0}\\
+&= \lim_{x \rightarrow 0} \frac{x^2sin(x^{-2})}{x}\\
+&= \lim_{x \rightarrow 0} xsin(x^{-2})\\
+&=0
+\end{align*}
+
+For $n \in \N$, define $(x_i)_{i=0}^n \subset [-1,1]$ by $$x_i= \frac{-1}{\sqrt{\frac{\pi}{2}+i\pi}}$$
+
+Then for each $n \in \N$, $(x_i)_{i=1}^n$ is strictly increasing and for each $i=1,2,\cdots, n$ we have that 
+\begin{align*}
+|G(x_i)-G(x_{i-1})|
+&=\frac{1}{\frac{\pi}{2}+i\pi}+ \frac{1}{\frac{\pi}{2}+(i-1)\pi}\\
+&=\frac{2}{\pi}\bigg[\frac{(2i-1)+(2i+1)}{(2i+1)(2i-1)}\bigg]\\
+&=\frac{2}{\pi}\bigg[\frac{4i}{4i^2-1}\bigg]\\
+& > \frac{2}{i\pi}
+\end{align*}
+\newpage
+Hence for each $n \in \N$,
+\begin{align*}
+TV(G,[-1,1]) 
+&\geq \sum_{i=1}^n|G(x_i)-G(x_{i-1})| \\
+& > \frac{2}{\pi}\sum_{i=1}^n \frac{1}{i}
+\end{align*}
+Therefore $G \not \in BV([-1,1])$.
+\end{proof}
+
 \begin{ex} The following is stated for $BV$, but is also true for $BV([a,b])$.
 
 \begin{enumerate} 
-\item The set $BV$ is a vector space. 
+\item For each $F,G \in BV$, $T_{F+G} \leq T_F + T_G$ and therefore $BV$ is a vector space. 
 \item For each $F: \R \rightarrow \C$, $F \in BV$ iff $Re(f) \in BV$ and $Im(F) \in BV$.
+\item For each $F:\R \rightarrow \R$, $F \in BV$ iff there exist functions $F_1,F_2:\R \rightarrow \R$ such that $F_1,F_2$ are bounded, increasing and $F=F_1-F_2$
+\item For each $F \in BV$ and $x \in \R$, $\lim_{t \rightarrow x^+}F(t)$ and $\lim_{t \rightarrow x^-}F(t)$ exist. 
+\item For each $F \in BV$, $\{x \in R: F \text{ is not continuous at }x\}$ is countable.
+\item For each $F \in BV$, $F$ and $F_+$ are differentiable a.e. and $F'=(F_+)'$ a.e.
 \item For each $F \in BV, c \in \R$, $F-c \in BV$
 \end{enumerate}
 \end{ex}
 
 \begin{proof}
+\begin{enumerate}
+\item Let $F, G \in BV$, $x \in \R$ and $\ep>0$. Since $T_{F+G}(x) < \infty$, $T_{F+G}(x)-\ep< T_{F+G}(x)$. Thus there exists $(x_i)_{i=0}^n \subset \R$ such that $(x_i)_{i=0}^n$ is increasing, $x_n=x$ and $T_{F+G}(x) < \sum_{i=1}^n |(F+G)(x_i) - (F+G)(x_{i-1}))|+ \ep$. Thuerefore 
 
+\begin{align*}
+T_{F+G}(x)
+& < \sum_{i=1}^n |(F+G)(x_i) - (F+G)(x_{i-1}))|+ \ep\\
+& \leq \sum_{i=1}^n |F(x_i)-F(x_{i-1})|+ \sum_{i=1}^n|G(x_i)-G(x_{i-1})| + \ep\\
+& \leq T_F(x) + T_G(x) + \ep
+\end{align*}
+Since $\ep >0$ is arbitrary, $T_{F+G}(x) \leq T_F(x)+T_G(x)$. Therefore $TV(F+G) \leq TV(F)+TV(G)<\infty$. Thus $F+G \in BV$. It is straight forward to verify the other requirements needed to show that $BV$ is a vector space.
+
+\item Let $F: \R \rightarrow \C$. Write $F=F_1+iF_2$ with $F_1, F_2:\R \rightarrow \R$. Suppose that $F \in BV$. Note that for each $x_1,x_2 \in \R$ and $j =1,2$, $|F_j(x_1)-F_j(x_2)| \leq |F(x_1)-F(x_2)|$. Let $x\in \R$ and $(x_i)_{i=0}^n \subset \R$. Suppose that $(x_i)_{i=0}^n$ is increasing and $x_n=x$. Then for $j=1,2$ $$\sum_{i=1}^n|F_j(x_i)-F_j(x_{i-1})| \leq \sum_{i=1}^n|F(x_i)-F(x_{i-1})|$$. 
+Thus for $j=1,2$ we have that $T_{F_j}(x) \leq T_F(x)$ which implies that $Re(f),Im(F) \in BV$. Conversely, Suppose that $Re(f), Im(F) \in BV$. Then $F=Re(f)+iIm(f) \in BV$ by (1).
+\item Suppose that $F \in BV$. Choose $F_1=\frac{1}{2}(T_F-F)$ and $F_2=\frac{1}{2}(T_F+F)$. Then $F_1,F_2$ are bounded, increasing and $F=F_1+F_2$. Conversely, if there exist $F_1,F_2:\R \rightarrow \R$ such that $F_1,F_2$ are bounded, increasing and $F=F_1-F_2$, then $F_1, F_2 \in BV$. By (1) $F \in BV$.
+\item This is clear by previous results and (3)
+\item This is clear by previous results and (3)
+\item This is clear by previous results and (3)
+\item Clearly constant functions have zero total variation. The rest is implied by (1).
+\end{enumerate}
 \end{proof}
+
+\begin{lem}
+Let $F \in BV$. Then $\lim_{x \rightarrow -\infty}T_F(x)=0$ and if $F$ is right continuous, then $T_F$ is right continuous.
+\end{lem}
+
+\begin{defn}
+Define $NBV=\{F \in BV: F \text{ is right continuous and }\lim_{x \rightarrow -\infty}F(x)=0\}$.
+\end{defn}
+
+\begin{thm}
+Let $M(\R)$ be the set of complex Borel measures on $\R$. For $F \in NBV$, define $\mu_F \in M(\R)$ by $\mu_F((-\infty, x]) = F(x)$. Then $F \mapsto \mu_F$ defines a bijection $NBV \rightarrow M(\R)$. In addition, $|\mu_F| = \mu_{T_F}$
+\end{thm}
+
+\begin{thm}
+Let $F \in NBV$. Then $F' \in L^1(m)$, $\mu_F \perp m$ iff $F' =0$ a.e. and $\mu_F \ll m$ iff for each $x \in \R$, $\int_{(-\infty, x]}F'dm = F(x)$
+\end{thm}
+
+\begin{defn}
+Let $F: \R \rightarrow \C$. Then $F$ is said to be \textbf{absolutely continuous} if for each $\ep>0$, there exists $\del>0$ such that for each $((a_i, b_i))_{i=1}^n \subset \MB(\R)$, $\sum_{i=1}^n b_i-a_i < \del$ implies that $\sum_{i=1}^n|F(b_i)-F(a_i)| < \ep$.
+\end{defn}
+
+\begin{defn}
+Let $F: [a,b] \rightarrow \C$. Then $F$ is said to be \textbf{absolutely continuous on $[a,b]$} if for each $\ep>0$, there exists $\del>0$ such that for each $((a_i, b_i))_{i=1}^n \subset \MB([a,b])$, $\sum_{i=1}^n b_i-a_i < \del$ implies that $\sum_{i=1}^n|F(b_i)-F(a_i)| < \ep$.
+\end{defn}
+
+\begin{prop}
+Let $F:[a,b] \rightarrow \C$. If $F$ is absolutely continuous on $[a,b]$, then $F \in BV$.
+\end{prop}
+
+\begin{lem}
+Let $F \in NBV$. Then $F$ is absolutely continuous iff $\mu_F \ll m$.
+\end{lem}
+
+\begin{thm}{Fundamental Theorem of Calculus:}
+Let $F:[a,b] \rightarrow \C$. The following are equivalent:
+\begin{enumerate}
+\item $F$ is absolutely continuous on $[a,b]$.
+\item there exists $f \in L^1(m)$ such that for each $x \in [a,b]$, $F(x)-F(a)= \int_{(a,x]}fdm$
+\item $F$ is differentiable a.e. on $[a,b]$, $F' \in L^1(m)$ and for each $x \in [a,b]$, $F(x)-F(a)=\int_{(a,x]}F'dm$
+\end{enumerate}
+\end{thm}
+
+\begin{ex}
+Let $F: \R \rightarrow \C$. If $F$ is absolutely continuous. Then $F$ is differentiable a.e.
+\end{ex}
+
+\begin{proof}
+Let $n \in \N$. Since $F$ is absolutely continuous on $\R$, $F$ is absolutely continuous on $[-n,n]$. The FTC implies that $F$ is differentiable a.e. on $[-n,n]$. Since $n \in \N$ is arbitrary, $F$ is differentiable a.e on $\R$.
+\end{proof}
+
+\begin{ex}
+Let $F: \R \rightarrow \C$. Then $F$ is Lipschitz continuous iff $F$ is absolutely continuous and $F'$ is bounded a.e.
+\end{ex}
+
+\begin{proof}
+Suppose that $F$ is Lipschitz continuous. Then there exists $M>0$ such that for each $x,y \in \R, |F(x)-F(y)| \leq M|x-y|$. Let $\ep >0$. Choose $\del = \frac{\ep}{M}$. Let $((a_i, b_i))_{i=1}^n \subset \MB(\R)$, Suppose that $\sum_{i=1}^n b_i-a_i < \del$. Then 
+\begin{align*}
+\sum_{i=1}^n|F(b_i)-F(a_i)| 
+&\leq \sum_{i=1}^n M(b_i - a_i)\\
+&< M\del\\
+&= \ep
+\end{align*}
+Hence $F$ is absolutely continuous. For each $x, y \in \R$, if $x \neq y$, then $\bigg|\frac{F(x)-F(y)}{x-y}\bigg| \leq M$. Hence for a.e. $x \in \R$, $|F'(x)| \leq M$. Conversely, suppose that $F$ is absolutely continuous and $F'$ is bounded a.e. Then there exits $M> 0$ such that for a.e. $x \in \R$, $|F'(x)| \leq M$. Let $x,y \in \R$. Suppose $x<y$. Then the FTC implies that 
+\begin{align*}
+|F(y)-F(x)|
+& = \bigg|\int_{(x,y]}F'dm\bigg|\\
+&\leq \int_{(x,y]}|F'|dm\\
+&=M|y-x|
+\end{align*}
+and $F$ is Lipschitz continuous.
+\end{proof}
+
+\begin{ex}
+Construct an increasing function $F: \R \rightarrow \R$ whose discontinuities is $\Q$.
+\end{ex}
+
+\begin{proof}
+Let $(q_n)_{n\in \N}$ be an ennumeration of $\Q$. Define $F:\R \rightarrow \R$ by $$F =\sum_{n\in \N} 2^{-n}\chi_{[q_n, \infty)}$$. Equivalently, if we define $S_x=\{n \in \N: q_n \leq x\}$, then we may write $$F(x) = \sum_{n \in S_x}2^{-n}$$\\ Let $x, y \in \R$. Suppose that $x < y$. Then $S_x \subsetneq S_y$. So $F(x)<F(y)$ and therefore $F$ is strictly increasing.\\ 
+For each $x,y \in R$ with $x<y$, define $S_{x,y}= \{n \in \N:x< q_n \leq y\}$. Note that $\lim\limits_{y\rightarrow x^+}\min(S_{x,y}) = \infty$ and if $y \in \R \setminus \Q$, then $\lim\limits_{x\rightarrow y^-}\min(S_{x,y}) = \infty$.\\
+Now, let $x \in \R$ and $\ep>0$. Choose $N \in \N$ such that $\sum\limits_{n = N}^{\infty}2^{-n}<\ep$. Choose $\del>0$ such that $\min (S_{x,x+\del}) \geq N$.  Let $y \in [x,\infty)$. Suppose that $|x-y| < \del$. Then 
+\begin{align*}
+|F(x)-F(y)| 
+&= \sum_{n \in S_y}2^{-n} - \sum_{n \in S_x}2^{-n}\\
+& = \sum_{n \in S_{x,y}}2^{-n}\\
+& \leq \sum_{n=N}^{\infty}2^{-n}\\
+&<\ep
+\end{align*} 
+
+Hence $F$ is right continuous. Now let $x \in \R\setminus \Q$ and $\ep>0$. Choose $N \in \N$ as before and $\del>0$ such that $\min(S_{x-\del,x})\geq N$. Let $y \in (-\infty, x]$. Suppose that $|x-y|<\del$. Then 
+\begin{align*}
+|F(x)-F(y)| 
+&= \sum_{n \in S_x}2^{-n} - \sum_{n \in S_y}2^{-n}\\
+& = \sum_{n \in S_{y,x}}2^{-n}\\
+& \leq \sum_{n=N}^{\infty}2^{-n}\\
+&<\ep
+\end{align*}
+
+Hence $F$ is left continuous on $\R\setminus \Q$.\\
+Now, let $x \in \Q$. Then there exists $j \in \N$ such that $q_j=x$. Choose $\ep=2^{-j}$. Let $\del>0$. Choose $y=x-\frac{\del}{2}$. Then $|x-y|< \del$ and 
+\begin{align*}
+|F(x)-F(y)|
+&= \sum_{n \in S_{y,x}}2^{-n}\\
+&\geq 2^{-j}\\
+&= \ep
+\end{align*}
+
+Hence $F$ is discontinuous from the left at $x$. Since $x \in \Q$ is arbitrary, $F$ is discontinuous from the left on $\Q$.  
+\end{proof}
+
+\begin{ex}
+Let $(F_n)_{n\in \N} \in NBV$ be a sequence of nonnegative, increasing functions. If for each $x \in \R$, $F(x)=\sum_{n \in \N}F_n(x)< \infty$, then for a.e. $x \in \R$, $F$ is differentiable at $x$ and $F'(x) = \sum_{n\in \N}F_n'(x)$. 
+\end{ex}
+
+\begin{proof}
+
+Define $\mu = \sum_{n \in \N}\mu_{F_n}$. Note that 
+\begin{align*}
+\mu((-\infty,x]) 
+&= \sum_{n \in \N}\mu_{F_n}((-\infty,x]) \\
+&= \sum_{n \in \N}F_n(x)\\
+&= F(x)
+\end{align*}
+Hence $F \in NBV$ and $\mu=\mu_F$. For each $n \in \N$, there exist $\lam_n \in M(\R)$ and $f \in L^1(\R)$ such that $d\mu_{F_n} = d\lam_n + f_ndm$ and $\lam \perp m$. Since for each $n \in \N$, $\lam_n, f_n$ are nonnegative, we have that $d\mu_F =  \sum_{n \in \N} d\lam_n + (\sum_{n \in \N}f_n)dm$. By a previous theorem, for a.e. $x \in \R$, 
+\begin{align*}
+F'(x) 
+&= \lim_{r \rightarrow 0}\frac{\mu_F((x,x+r])}{m((x,x+r])} \\
+&= \sum_{n \in \N}f_n(x)\\
+&= \sum_{n \in \N}\lim_{r \rightarrow 0}\frac{\mu_{F_n}((x,x+r])}{m((x,x+r])} \\
+&= \sum_{n \in \N}F_n'(x)
+\end{align*}
+\end{proof}
+
+\begin{ex}
+Let $F:[0,1]\rightarrow [0, 1]$ be the Cantor function. Extend $F$ to $\R$ by setting $F(x) = 0$ for $x<0$ and $F(x)=1$ for $x>1$. Let $([a_n,b_n])_{n \in \N}$ be an ennumeration of the closed subintervals of $[0,1]$ with rational endpoints. For $n \in \N$, define $F_n:\R \rightarrow [0,1]$ by $F_n(x) = F(\frac{x-a_n}{b_n-a_n})$. Define $G:\R \rightarrow \R$ by $G = \sum_{n \in \N}2^{-n}F_n$. Then $G$ is continuous, strictly increasing on $[0,1]$ and $G'=0$ a.e.
+\end{ex}
+
+\begin{proof}
+Since $F$ is continuous on $\R$, we have that for each $n \in \N$, $F_n$ is continuous on $\R$. We observe that for each $x \in \R$ and $n \in \N$, $|2^{-n}F_n(x)| \leq 2^{-n}$. Thus the Weierstrass M-test implies that $G$ converges uniformly on $\R$ and is therefore continuous. Since $F$ is increasing, for each $n \in \N$, $F_n$ is increasing. Let $x, y \in \R$. Suppose that $x<y$. Choose $j \in \N$ such that $x<a_j<y<b_j$. Then 
+\begin{align*}
+G(x) 
+&= \sum_{n \in \N}2^{-n}F_n(x)\\
+&= \sum_{\substack{n \in \N \\ n \neq j}}2^{-n}F_n(x) + 0\\
+& < \sum_{\substack{n \in \N \\ n \neq j}}2^{-n}F_n(y) + 2^{-j}F_n(y)\\
+&=\sum_{n \in \N}2^{-n}F_n(y)\\
+&=G(y)
+\end{align*}
+So $G$ is strictly increasing.\\
+Now we observe that for each $n \in \N$, $F_n \in NBV$. The previous exercise implies that $$G' = \sum 2^{-n}F_n'=0 \text{ a.e.}$$
+\end{proof}
+
+
+
 
 \section{Appendix}
 
