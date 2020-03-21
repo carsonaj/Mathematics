@@ -2164,8 +2164,24 @@ Hence $(x_{n_k})_{k \in \N} = (\sum_{i=1}^k y_i)_{i\in \N}$ converges. Since $(x
 \end{proof}
 
 \begin{defn}
-Let $X,Y$ be a normed vector spaces. A linear map$T:X \rightarrow Y$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x \in X$, $\n Tx \n \leq C \n x \n$.
+Let $X,Y$ be a normed vector spaces. A linear map $T:X \rightarrow Y$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x \in X$, $\n Tx \n \leq C \n x \n$.
 \end{defn}
+
+\begin{ex}
+Let $X,Y$ be a normed vector spaces and $T:X \rightarrow Y$ a linear map. Then $T$ is bounded iff there exists $r,s>0$ such that $T(B(0,r)) \subset B(0,s)$
+\end{ex}
+
+\begin{proof}
+Suppose that $T$ is bounded. Then there exists $C \geq 0$ such that for each $x \in X$, $\n Tx \n \leq C \n x \n$. Thus $T(B(0,1)) \subset B(0,C+1)$. Conversely. Suppose that there exists $r,s >0$ such that $T(B(0,r)) \subset B(0,s)$. Define $C = \frac{2s}{r}$. Let $x \in X$. Put $\al = \frac{r}{2\n x \n}$ Then $\al x \in B(0,r)$. So $T(\al x ) = \al T(x) \in B(0,s)$. Hence 
+\begin{align*}
+\n T(\al x) \n 
+&= \n \al T(x) \n \\
+&= \vert \al \vert \n T(x) \n \\
+& = \frac{r}{2 \n x \n}  \n T(x) \n \\
+& < s.
+\end{align*}
+Thus $$\n Tx \n < \frac{2 s}{r} \n x \n = C \n x \n $$ So $T$ is bounded. 
+\end{proof}
 
 \begin{thm}
 Let $X,Y$ be normed vector spaces and $T:X \rightarrow Y$ a linear map. Then the following are equivalent:
@@ -2686,10 +2702,56 @@ So $\phi(x+ \lam y) = \phi(x) + \lam \phi(y)$ and $\phi$ is linear. A previous e
 So $\phi$ is an isometry.
 \end{proof}
 
+\begin{defn}
+Let $X$ be a normed vector space. Then $X$ is said to be reflexive if $X$ is isomorphic to $X^{**}$.
+\end{defn}
 
+\begin{ex}
+Let $X$ be a normed vector space and $f:X \rightarrow \C$ a linear functional on $X$. Then $f$ is bounded iff $\ker f$ is closed. 
+\end{ex}
 
+\begin{proof}
+Suppose that $f$ is continuous. Since $\{0\}$ is closed, we have that $\ker f = f^{-1}(\{0\})$ is closed. Conversely, suppose that $\ker f$ is closed. If $\ker f = X$, then $f =0$ and $f$ is continuous. Suppose that $\ker f \neq X$. Then $\ker f$ is a proper, closed subspace of $X$. A previous exercise tells us that there exists $x \in X$ such that $\n x \n = 1$ and $\n x + \ker f \n > \frac{1}{2}$. Let $y \in X$. Suppose that $\n y \n < \frac{1}{2}$. Then for each $z \in \ker f$, 
+\begin{align*}
+\n z -  (x+y)\n 
+& = \n (z-x) -y \n \\
+& \geq \n z-x \n - \n y \n \\
+& > \frac{1}{2} - \frac{1}{2} \\
+&=0
+\end{align*}
 
+So $x+y \not \in \ker f$. Therefore $f(B(x,\frac{1}{2})) \cap \{0\} = \varnothing$. If $f(B(x,\frac{1}{2})) $ is unbounded, then $f(B(x,\frac{1}{2})) = \C$ by linearity. This is a contradiction since $0 \not \in f(B(x,\frac{1}{2}))$. So There exists $s > 0$ such that $f(B(x,\frac{1}{2})) \subset B(0,s)$ and thus $f$ is bounded. 
+\end{proof}
 
+\begin{ex}
+Let $X$ be a normed vector space. 
+\begin{enumerate}
+\item Let $M \subsetneq X$ be a proper closed subspace of $X$ and $x \in X \setminus M$. Then $M + \C x$ is closed.
+\item Let $M \subset X$ be a finite dimensional subspace of $X$. Then $M$ is closed.
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $y \in X$ and $(y_n)_{n \in \N} \subset M+ \C x$. Suppose that $y_n \conv{} y$. If $y \in M$, then $y \in M+ \C x$. Suppose that $y \not \in M$. For each $n \in \N$, there exists $m_n \in M$ and $\lam_n \in \C$ such that $y_n = m_n + \lam_nx$. A previous exercise tells us that there exists $F \in X^*$ such that $\n F \n = 1$, $F|_M = 0$ and $F(x) = \n x+M \n \neq 0$. Since $F$ is continuous, $F(y_n) \conv{} F(y)$. Since for each $n \in \N$, $$F(y_n) = F(m_n + \lam_n x) = F(m_n)+ \lam_n (F_x) = \lam_n F(x)$$ we have that $\lam_n F(x) \conv{} F(y)$. Since $F(x) \neq 0$, this implies that $\lam_n \conv{} F(x)^{-1} F(y)$. It follows that $\lam_n x \conv{}F(x)^{-1}F(y)x$. Since  for each $n \in \N$, $m_n = y_n - \lam_nx$, we know that $m_n \conv{} y-F(x)^{-1}F(y)x$. Since $(m_n)_{n \in \N} \subset M$ and $M$ is closed, we have that $y-F(x)^{-1}F(y)x \in M$ and therefore $y \in M+\C x$. Hence $M+\C x$ is closed. \vspace{.5cm}\\
+\item If $M = X$, then $M$ is closed. Suppose that $M \neq X$. Let $(x_i)_{i=1}^n$ be a basis for $M$. Define $N_0 = \{0\}$ and for each $i =1,2, \cdots, n$, define $N_i = N_{i-1}+\C x_i$. Since $N_0$ is a proper closed subpace of $X$ and $x_1 \in X \setminus N_0$, (1) implies that $N_1$ is closed. Proceed inductively to obtain that $M = N_n$ is closed.
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $X$ be an infinite-dimensional normed vector space. 
+\begin{enumerate}
+\item There exists a sequence $(x_n)_{n\in \N} \subset X$ such that for each $m, n \in \N$, $\n x_n \n = 1$ and if $m \neq n$, then $\n x_m - x_n \n > \frac{1}{2}$.
+\item $X$ is not locally compact. 
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item Define $N_0 = \{0\}$. Then $N_0$ is a closed proper subspace of $X$. Choose $x_1 \in X$ such that $\n x_1 \n = 1$. Using the results of previous exercises, we proceed inductively. For each $n \geq 2$ we define $N_{n-1} = \text{span}(x_1, x_2, \cdots, x_{n-1})$. Then $N_{n-1}$ is a closed proper subspace of $X$. Thus we may choose $x_n \in X$ such that $\n x_n \n = 1$ and $\n x_n + N_{n-1} \n >  \frac{1}{2}$. Let $m,n \in \N$. Suppose that $m<n$. Then $x_m \in N_{n-1}$. Thus $\n x_n - x_m \n \geq \n x_n + N_{n-1} \n > \frac{1}{2}$\vspace{.5cm}\\
+\item Suppose that $X$ is locally compact. Then $\overline{B(0,1)}$ is compact and therefore sequentially compact. Using $(x_n)_{n \in \N} \subset \overline{B(0,1)}$ defined in (1), we see that there exists a subsequence $(x_{n_k})_{k \in \N}$, $x \in \overline{B(0,1)}$ such that $x_{n_k} \conv{} x$. Then $(x_{n_k})_{k \in \N}$ is Cauchy. So there exists $N \in N$ such that for each $j, k \in \N$, if $j, k \geq N$, then $\n x_{n_j} - x_{n_k} \n < \frac{1}{2}$. Then $\n x_{n_N} - x_{n_{N+1}} \n  < \frac{1}{2}$. This is a contradiction since by construction, $\n x_{n_N} - x_{n_{N+1}} \n  > \frac{1}{2}$. Thus $X$ is not locally compact.
+\end{enumerate}
+\end{proof}
 
 
 
