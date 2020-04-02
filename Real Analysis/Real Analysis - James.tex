@@ -16,6 +16,7 @@
 
 
 \newcommand{\al}{\alpha}
+\newcommand{\Gam}{\Gamma}
 \newcommand{\be}{\beta} 
 \newcommand{\del}{\delta} 
 \newcommand{\Del}{\Delta}
@@ -2115,6 +2116,15 @@ Now we observe that for each $n \in \N$, $F_n \in NBV$. The previous exercise im
 
 \section{Topology}
 
+\begin{defn}
+Let $(X,\MA)$ and $(Y,\MB)$ be topological spaces and $f:X \rightarrow Y$. Then 
+\begin{enumerate}
+\item $f$ is said to be \textbf{continuous} if for each $B \in \MB$, $f^{-1}(B) \in \MA$.
+\item $f$ is said to be open if for each $A \in \MA$, $f(A) \in \MB$.
+\item $f$ is said to be \textbf{closed} if for each $A \subset X$, if $A^c \in \MA$, then $f(A)^c \in \MB$.
+\end{enumerate}
+\end{defn}
+
 \section{$L^{p}$ Spaces}
 
 \section{Functional Analysis}
@@ -2509,7 +2519,6 @@ Since $I \neq 0$, $\n I \n \neq 0$. By definition, $$\n I \n = \n I I \n \leq \n
 \begin{note}
 If $X$ is a Banach space, then a previous exercise implies that $L(X,X)$ equipped with composition is a unital Banach algebra where $I$ is the identity operator. It is easy to see that $\n I \n =1$.
 \end{note}
-\newpage
 
 \begin{note}
 Let $X$ be a  Banach algebra. Then the set of invertible elements in $X$ is a group.  
@@ -2616,7 +2625,7 @@ So $\n F \n = \n f \n$.
 \end{proof}
 
 \begin{ex}
-Let $X$ be a normed vector space, $M \subsetneq X$ a proper closed subspace and $x \in X \setminus M$. Then there exists $F \in X^*$ such that $F|M = 0$, $\n F \n =1$ and $ F(x) = \n x+M \n \neq 0$. (Hint: Consider $f:M+\C x \rightarrow \C$ defined by $f(m+\lam x) = \lam \n x +M \n$.)
+Let $X$ be a normed vector space, $M \subsetneq X$ a proper closed subspace and $x \in X \setminus M$. Then there exists $F \in X^*$ such that $F|_M = 0$, $\n F \n =1$ and $ F(x) = \n x+M \n \neq 0$. (Hint: Consider $f:M+\C x \rightarrow \C$ defined by $f(m+\lam x) = \lam \n x +M \n$.)
 \end{ex}
 
 \begin{proof}
@@ -2658,16 +2667,6 @@ Let $X$ be a normed vector space. Then $X^*$ separates the points of $X$.
 Let $x, y \in X$. Suppose that $x \neq y$. Then $x-y \neq 0$. The previous exercies implies that there exists $F \in X^*$ such that $\n F \n = 1$ and $$F(x) - F(y) = F(x-y) = \n x-y \n \neq 0$$ Thus $F(x) \neq F(y)$ and $X^*$ separates the points of $X$.
 \end{proof}
 
-\begin{ex}
-Let $X$ be a normed vector space and $x \in X$. Define $\hat{x}:X^* \rightarrow \C$ by $\hat{x}(f) = f(x)$. Then $\hat{x} \in X^{**}$ and $\n \hat{x} \n = \n x \n$.
-\end{ex}
-
-\begin{proof}
-Let $f,g \in X^*$ and $\lam \in \C$. Then $$\hat{x}(f+\lam g) = (f+ \lam g)(x) = f(x) + \lam g(x) = \hat{x}(f) + \lam \hat{x}(g)$$
-So $\hat{x}$ is linear. For each $f \in X^*$, $$\vert \hat{x}(f) \vert = \vert f(x) \vert \leq \n x \n \n f \n $$ Hence $\hat{x} \in X^{**}$ with $\n \hat{x} \n \leq \n x \n$. If $x=0$, then $\hat{x} = 0$ and $\n \hat{x} \n = \n x \n$. Suppose that $x \neq 0$. Then a previous exercise implies that there exists $F \in X^*$ such that $\n F \n =1$ and $F(x) = \n x \n$. Then we have that $$\sup_{\substack{f \in X^* \\ \n f \n = 1 } } \vert \hat{x}(f) \vert  = \sup_{\substack{f \in X^* \\ \n f \n = 1 }}  \vert f(x) \vert \geq \vert F(x) \vert = \n x \n$$
-Hence $\n \hat{x} \n = \n x \n$.
-\end{proof}
-
 \begin{defn}
 Let $X, Y$ be metric spaces and $T : X \rightarrow Y$. Then $T$ is said to be an \textbf{isometry} if for each $x_1, x_2 \in X$, $d( Tx_1, Tx_2) = d(x_1,x_2) $.
 \end{defn}
@@ -2680,6 +2679,21 @@ Let $X,Y$ be metric spaces and $T:X \rightarrow Y$ and isometry. Then $T$ is inj
 Let $x_1, x_2 \in X$. Suppose that $Tx_1=Tx_2$. Then $0= d( Tx_1, Tx_2) = d(x_1,x_2)$. So $x_1 = x_2$. Hence $T$ is injective.
 \end{proof}
 
+\begin{note}
+Let $X,Y$ be metric spaces and $T:X \rightarrow Y$ an isometry. Then $T$ is clearly continuous. If $T$ is surjective, then $T^{-1}$ is an isometry and therefore continuous. Hence $T$ is a homeomorphism.
+\end{note}
+
+\begin{ex}
+Let $X$ be a normed vector space and $x \in X$. Define $\hat{x}:X^* \rightarrow \C$ by $\hat{x}(f) = f(x)$. Then $\hat{x} \in X^{**}$ and $\n \hat{x} \n = \n x \n$.
+\end{ex}
+
+\begin{proof}
+Let $f,g \in X^*$ and $\lam \in \C$. Then $$\hat{x}(f+\lam g) = (f+ \lam g)(x) = f(x) + \lam g(x) = \hat{x}(f) + \lam \hat{x}(g)$$
+So $\hat{x}$ is linear. For each $f \in X^*$, $$\vert \hat{x}(f) \vert = \vert f(x) \vert \leq \n x \n \n f \n $$ Hence $\hat{x} \in X^{**}$ with $\n \hat{x} \n \leq \n x \n$. If $x=0$, then $\hat{x} = 0$ and $\n \hat{x} \n = \n x \n$. Suppose that $x \neq 0$. Then a previous exercise implies that there exists $F \in X^*$ such that $\n F \n =1$ and $F(x) = \n x \n$. Then we have that $$\sup_{\substack{f \in X^* \\ \n f \n = 1 } } \vert \hat{x}(f) \vert  = \sup_{\substack{f \in X^* \\ \n f \n = 1 }}  \vert f(x) \vert \geq \vert F(x) \vert = \n x \n$$
+Hence $\n \hat{x} \n = \n x \n$.
+\end{proof}
+
+
 \begin{ex}
 Let $X$ be a normed vector space. Define $\phi : X \rightarrow X^{**}$ by $\phi(x) = \hat{x}$. Then $\phi$ is a linear isometry. 
 \end{ex}
@@ -2688,12 +2702,13 @@ Let $X$ be a normed vector space. Define $\phi : X \rightarrow X^{**}$ by $\phi(
 Let $x,y \in X$ and $\lam \in \C$. Then for each $f \in X^*$, we have that 
 \begin{align*}
 \phi(x+ \lam y)(f) 
+&= \widehat{x+ \lam y}(f) \\
 &= f(x+\lam y) \\
 &= f(x) + \lam f(y) \\
 &= \hat{x}(f) + \lam \hat{y}(f)\\
 &= \phi(x)(f) + \lam \phi(y)(f)
 \end{align*} 
-So $\phi(x+ \lam y) = \phi(x) + \lam \phi(y)$ and $\phi$ is linear. A previous exercise tells us that 
+So $\phi(x+ \lam y) = \phi(x) + \lam \phi(y)$ and $\phi$ is linear. The previous exercise tells us that 
 \begin{align*}
 \n \phi(x) - \phi(y) \n 
 &= \n \phi(x-y)\n \\
@@ -2703,7 +2718,11 @@ So $\phi$ is an isometry.
 \end{proof}
 
 \begin{defn}
-Let $X$ be a normed vector space. Then $X$ is said to be reflexive if $X$ is isomorphic to $X^{**}$.
+Let $X$ be a normed vector space and define $\phi:X \rightarrow X^{**}$ as above. We define $\widehat{X} = \phi(X) \subset X^{**}$. Since $\widehat{X}$ and $X$ are isomorphic, we may identify $X$ as a subset of $X^{**}$. 
+\end{defn}
+
+\begin{defn}
+Let $X$ be a normed vector space and define $\phi:X \rightarrow X^{**}$ as above. Then $X$ is said to be reflexive if $\phi$ is surjective. In this case $\phi$ is then an isomorphism
 \end{defn}
 
 \begin{ex}
@@ -2753,8 +2772,170 @@ Let $X$ be an infinite-dimensional normed vector space.
 \end{enumerate}
 \end{proof}
 
+\begin{ex}
+Let $X,Y$ be normed vector spaces and $T \in L(X,Y)$. 
+\begin{enumerate}
+\item Define the \textbf{adjoint of $T$}, $T^*:Y^* \rightarrow X^*$ by $T^*(f) = f \circ T$. Then $T^* \in L(Y^*, X^*)$.
+\item Applying the result from (1) twice, we have that $T^{**} \in L(X^{**},Y^{**})$. We have that for each $x \in X$, $T^{**}(\hat{x}) = \widehat{T(x)}$.
+\item $T^*$ is injective iff $T(X)$ is dense in $Y$.
+\item If $T^*(Y^*)$ is dense in $X^*$, then $T$ is injective. The converse is true if $X$ is reflexive.
+\end{enumerate}
+\end{ex}
 
+\begin{proof}
+\begin{enumerate}
+\item Let $f \in Y^*$. Then $\n T^* (f) \n = \n f \circ T \n \leq  \n T \n  \n f \n$. So $T^* \in L(Y^*, X^*)$ with $\n T^* \n \leq \n T \n$.\vspace{.5cm}\\
+\item Let $x \in X$. Let $f \in Y^*$. Then 
+\begin{align*}
+T^{**}(\hat{x})(f) 
+&= \hat{x} \circ T^{*}(f) \\
+&= \hat{x}(T^* (f)) \\
+&= \hat{x}(f \circ T) \\
+&= f \circ T (x) \\
+&= f(T(x)) \\
+&= \widehat{T(x)}(f)
+\end{align*} 
+Hence $T^{**}(\hat{x}) = \widehat{T(x)}$.\vspace{.5cm}\\
+\item Suppose that $T(X)$ is not dense in $Y$. Then $\overline{T(X)} \neq Y$. So $T(X)$ is a proper closed subspace of $Y$ and there exists $y \in Y$ such that $y \not \in \overline{T(X)}$. By a previous exercise, there exists $f \in Y^*$ such that $f(y) = \n y+\overline{T(X)} \n \neq 0$, $\n f \n =1$ and $f|_{\overline{T(X)}} = 0$. Let $x \in X$. Then $T^*(f)(x) = f \circ T(x) = 0$. Hence $T^*(f) = 0 = T^*(0)$. Since $f \neq 0$, $T^*$ is not injective.\\ Now suppose that $T(X)$ is dense in $Y$. Let $f,g \in Y^*$. Define $h \in Y^*$ by $h = f-g$ Suppose that $T*(f) = T^*(g)$ Then $T^*(h) = 0$. So for each $x \in X$, $h(T(x)) = 0$. Let $y \in Y$ and $\ep >0$. By continuity, there exists $\del > 0 $ such that for each $y' \in Y$, if $\n y - y' \n < \del$, then $\n h(y) - h(y') \n < \ep$. Since $T(X)$ is dense in $Y$, there exists $x \in X$ such that $\n y - T(x) \n < \del$. Thus 
+\begin{align*}
+\n h (y) \n 
+&\leq \n h(y) - h(T(x)) \n + \n h(T(x)) \n\\
+& = \n h(y) - h(T(x)) \n  \\
+& < \ep
+\end{align*} 
+Since $\ep > 0$ is arbitrary, $\n h(y) \n = 0$. This implies that $h(y) = 0$ and therefore $f(y) = g(y) $. Since $y \in Y$ is arbitrary, $f=g$ and $T^*$ is injective. \vspace{.5cm}\\
+\item For the sake of contradiction, suppose that $T^*(Y^*)$ is dense in $X^*$ and $T$ is not injective. Then there exist $x_1, x_2 \in X$ such that $x_1 \neq x_2$ and $T(x_1) = T(x_2)$. Define $x = x_1-x_2$. Then $x \neq 0$ and $T(x) = 0$. A previous exercise implies that there exists $F \in X^*$ such that $F(x) = \n x\n \neq 0$ and $\n F \n = 1$. Let $\ep >0$. Choose $g \in Y^*$ such that $\n F - T^*(g) \n < \ep$. Then 
+\begin{align*}
+\n x \n 
+&= \vert F(x) \vert \\
+&\leq \vert F(x) - T^*(g)(x) \vert + \vert T^*(g)(x) \vert \\
+& < \ep \n x \n + \vert g(T(x)) \vert\\
+&= \ep \n x \n
+\end{align*}
 
+Since $\ep > 0$ is arbitrary, we have that $\n x \n =0$ which is a contradiction. Hence if $T^*(Y^*) $ is dense in $X^*$, then $T$ is injective. \vspace{.5cm}\\ 
+Now, suppose that $X$ is reflexive and $T$ is injective. Let $\phi_1, \phi_2 \in X^{**}$. Suppose that $T^{**}(\phi_1) = T^{**}(\phi_2)$. Then $T^{**}(\phi_1 - \phi_2) = 0$. Since $X$ is reflexive, there exist $x_1, x_2 \in X$ such that $\phi_1 = \hat{x_1}$ and $\phi_2 = \hat{x_2}$. Define $x = x_1 - x_2$. Then $T^{**}(\hat{x}) = 0$. So for each $f \in Y^*$, 
+\begin{align*}
+T^{**}(\hat{x})(f) 
+&= \hat{x} \circ T^*(f)\\
+&= \hat{x}( T^*(f))\\
+&= \hat{x} (f \circ T)\\
+&= f \circ T(x)\\
+&= f(T(x))\\
+&= 0 
+\end{align*}
+Suppose that $T(x) \neq 0$. Then a previous exercise implies that there exists $g \in Y^*$ such that $g(T(x)) = \n T(x) \n \neq 0$ and $\n g \n  = 1$. This is a contradiction since $g(T(x)) = 0$. So $T(x) = 0$. Since $T$ is injective, this implies that $x = 0$. Hence $\hat{x}=0$ and thus $\phi_1 = \phi_2$. Thus $T^{**}$ is injective. By (3), we have that $T^*(Y^*)$ is dense in $X^*$.
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $X$ be a normed vector space. Then $X$ is reflexive iff $X^*$ is reflexive. 
+\end{ex}
+
+\begin{proof}
+Suppose that $X$ is reflexive. Let $\al \in X^{***}$. Define $f :X \rightarrow \C$ by $f(x) = \al(\hat{x})$. Clearly $f$ is linear and a previous exercise tells us that for each $x \in X$, 
+\begin{align*}
+\vert f(x) \vert 
+& \leq \n \al \n \n \hat{x} \n\\
+&= \n \al \n \n x \n
+\end{align*}
+So $f \in X^*$.
+Let $\phi \in X^{**}$. Since $X$ is reflexive, there exists $x \in X$ such that $\phi = \hat{x}$. Then 
+\begin{align*}
+\al(\phi)
+&= \al(\hat{x})\\
+&= f(x)\\
+&= \hat{x}(f)\\
+&= \hat{f}(\hat{x})\\
+&= \hat{f}(\phi)
+\end{align*}
+Hence $\al = \hat{f}$. Thus the map $X^* \rightarrow X^{***}$ given by $f \mapsto \hat{f} $ is surjective and so $X^{*}$ is reflexive.\vspace{.5cm}\\
+Conversely, suppose that $X^*$ is reflexive. Since $\phi:X \rightarrow X^{**}$ given by $\phi(x) = \hat{x}$ is an isometry, $\widehat{X} \subset X^{**}$ is closed. For the sake of contradiction, suppose that $\widehat{X} \neq X^{**}$. Then there exists $\al \in X^{**}$ such that $\al \not \in \widehat{X}$. Thus there exists $F \in X^{***}$ such that $\n F \n = 1$, $F(\al) = \n \al + \widehat{X} \n \neq 0$ and $F|_{\widehat{X}}=0$. Since $X^*$ is reflexive, there exists $f \in X^*$ such that $F = \hat{f}$. A previous exercise tells us that $\n f \n = \n \hat{f} \n = \n F \n = 1$. Since for each $x \in X$, $f(x) = \hat{x}(f) = \hat{f}(\hat{x}) = F(\hat{x}) = 0$, we have that $f = 0$. Thus $\n f \n = 0$, a contradiction. So $\widehat{X} = X^{**}$ and $X$ is reflexive.
+
+\end{proof}
+
+\subsection{The Baire Category Theorem and Consequences}
+
+\begin{thm}
+Let $X, Y$ be Banach spaces and $T\in L(X,Y)$. If $T$ is surjective, then $T$ is open.
+\end{thm}
+
+\begin{cor}
+Let $X, Y$ be Banach spaces and $T \in L(X,Y)$. If $T$ is a bijection, then $T^{-1} \in L(X,Y)$.
+\end{cor}
+
+\begin{defn}
+Let $X,Y$ be sets and $f:X \rightarrow Y$. We define the \textbf{graph of f}, $\Gam(f)$, by $\Gam(f) = \{(x,y) \in X \times Y: f(x) = y\}$.
+\end{defn}
+
+\begin{thm}
+Let $X, Y$ be Banach spaces and $T:X \rightarrow Y$ a linear map. If $\Gam(T)$ is closed, then $T \in L(X,Y)$.  
+\end{thm}
+
+\begin{note}
+We recall that $\Gam(T)$ is closed iff for each $(x_n)_{n \in \N} \subset X$, $x \in X$ and $y \in Y$ if $x_n \conv{} x$ and $T(x_n) \conv{} y$, then $T(x) = y$. 
+\end{note}
+
+\begin{thm}
+
+Let $X, Y$ be Banach spaces and $S \subset L(X,Y)$. If for each $x \in X$, $$\sup_{T \in S} \n Tx \n < \infty$$ then $$\sup_{T \in S} \n T \n < \infty$$
+\end{thm}
+
+\begin{ex}
+Let $\mu$ be counting measure on $(N, \MP(\N))$. Define $h: \N \rightarrow \N$ and $ \nu$ on $(N, \MP(\N))$ by $h(n) = n$ and $d \nu = h d \mu$. Define $X=L^1(\nu)$ and $Y = L^1(\mu)$. Equip both $X$ and $Y$ with the $L^1$ norm with respect to $\mu$. 
+\begin{enumerate}
+\item We have that $X$ is a proper subspace of $Y$ and therefore $X$ is not complete.
+\item Define $T: X \rightarrow Y$ by $Tf(n) = nf(n)$. Then $T$ is linear, $\Gam(T)$ is closed, and $T$ is unbounded.
+\item Define $S:Y \rightarrow X$ by $Sg(n) = \frac{1}{n}g(n)$. Then $S \in L(Y,X)$, $S$ is surjective and $S$ is not open. 
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item Note that for each $f: \N \rightarrow \C$, 
+\begin{align*}
+{\n f \n}_{\mu, 1}
+&= \sum_{n=1}^{\infty} \vert f(n) \vert  \\
+& \leq \sum_{n=1}^{\infty} n \vert f(n) \vert  \\
+& = \n f \n_{\nu,1} 
+\end{align*} 
+Hence $X$ is a subspace of $Y$. Define $f : \N \rightarrow \C$ by $f(n) = \frac{1}{n^2}$. Then $$\n f \n_{\mu, 1} = \sum_{n=1}^{\infty} \frac{1}{n^2} < \infty$$ So  $f \in Y$. However $$\n f \n_{\nu, 1} = \sum_{n=1}^\infty \frac{1}{n} = \infty$$ So $f \not \in X$. Thus $X$ is a proper subspace of $Y$. Let $g \in Y$ and $\ep >0$. Since the simple functions are dense in $L^1(\mu)$, there exists $\phi \in L^1(\mu)$ such that $\phi$ is simple and $\n g - \phi \n_{\mu ,1} < \ep$. Then there exist $(c_i)_{i=1}^k \subset \C$ and $ (E_i)_{i=1}^k \subset \MP(\N)$ such that for each $i =1,2,\cdots, k$, $E_i$ is finite and  $$\phi = \sum_{i=1}^kc_i \chi_{E_i}$$ Define $c = \max\{\vert c_i \vert: i=1,2,\cdots k\}$ and $m = \max \bigcup_{i=1}^k E_i$. Then 
+\begin{align*}
+\n \phi \n_{\nu,1} 
+&=  \sum_{n=1}^m n \vert \phi(n) \vert \\
+& \leq \sum_{n=1}^m  mc \\
+& = c m^2 \\
+& < \infty
+\end{align*}
+
+Hence $\phi \in X$ and $X$ is dense in $Y$. Since $X$ is a dense, proper subspace, it is not closed. Since $Y$ is complete and $X \subset Y$ is not closed, we have that $X$ is not complete.
+\item Clearly $T$ is linear. Let $(f_j)_{j \in \N} \subset X$, $f \in X$ and $g \in Y$. Suppose that $f_j \conv{L^1(\mu)} f$ and $Tf_j \conv{L^1(\mu)} g$. 
+
+Note that for each $j \in \N$ and $n \in \N$, $$\vert f_j(n) - f(n) \vert \leq \sum_{n =1}^{\infty}\vert f_j(n) - f(n) \vert = \n f_j-f \n_{\mu, 1}$$ and $$\vert nf_j(n) - g(n) \vert \leq \sum_{n =1}^{\infty}\vert nf_j(n) - g(n) \vert = \n Tf_n - g\n_{\mu, 1}$$  
+
+Thus for each $n \in \N$, $f_j(n) \conv{j} f(n)$ and $nf_j(n) \conv{j} g(n)$. This implies that for each $n \in \N$, $nf(n) = g(n)$. Thus $Tf = g$ which implies that $\Gam(T)$ is closed. Suppose, for the sake of contradiction, that $T$ is bounded. Then there exists $C \geq 0$ such that for each $f \in X$, $\n Tf \n_{\mu,1} \leq C \n f \n_{\mu, 1}$. Choose $n \in \N$ such that $n > C$. Define $f: \N \rightarrow \C$ by $f = \chi_{\{n\}}$. As established above, $S^+ \subset L^1(\mu)$. Then $\n f \n_{\mu,1} = 1$ and
+\begin{align*}
+\n Tf \n_{\mu,1}
+& = n \\
+&> C\\
+& = C \n f \n_{\mu,1}
+\end{align*}
+which is a contradiction. So $T$ is unbounded.
+\item Clearly $S$ is linear. Let $g \in Y$. Then \begin{align*}
+\n Sg \n_{\mu,1} 
+&= \sum_{n =1}^{\infty} \frac{1}{n} \vert g(n) \vert \\
+& \leq  \sum_{n =1}^{\infty} \vert g(n) \vert \\
+& = \n g \n_{\mu,1}
+\end{align*}
+So $S$ is bounded and $\n S \n \leq 1$. Thus $S \in L(Y,X)$. Let $f \in X$. Define $g: \N \rightarrow \C$ by $g(n) = nf(n)$. By defnition, $g \in Y$ and we have that
+\begin{align*}
+Sg(n) 
+&= \frac{1}{n}g(n) \\
+& = f(n)
+\end{align*}
+Hence $Sg =f$ and thus $S$ is surjective.
+\end{enumerate}
+\end{proof}
 
 
 
@@ -2789,6 +2970,5 @@ The following note justifies the notation $\sum_{x \in X}f(x)$ where $f:X \right
 \begin{note}
 Let $f:X \rightarrow \C$ and $\al:X \rightarrow X$ a bijection. If $\sum_{x \in X}|f(x)|< \infty$, then $\sum_{x \in X}f( \al (x)) = \sum_{x \in X}f(x) $.
 \end{note}
-
 
 \end{document}
