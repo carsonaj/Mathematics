@@ -2460,6 +2460,31 @@ We have that $\sum\limits_{i=1}^{\infty}x_i +M$ converges which implies that $X/
 \end{proof}
 
 \begin{ex}
+Let $X,Y$ be normed vector spaces and $T \in L(X,Y)$. Then
+\begin{enumerate}
+\item $\ker T$ is closed
+\item there exists a unique map $S :X/ \ker T \rightarrow T(X)$ such that $T = S \circ \pi$. Furthermore $S$ is a bounded linear bijection and $\n S \n = \n T \n$.
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item Since $T$ is continuous and $\ker T = T^{-1}(\{0\})$, we have that $\ker T$ is closed.
+\item Suppose that there exists $S_1,S_2 \in L(X/ \ker T, T(X)) $ such that $T = S_1 \circ \pi$ and  $T = S_2 \circ \pi $. Let $x \in X$. Then $$S_1(x + \ker T) = S_1(\pi(x)) = T(x) = S_2(\pi(x)) = S_2(x + \ker T)$$ So $S_1 = S_2$. Therefore such a map is unique.\\
+Define $S: X / \ker T \rightarrow T(X)$ by $S(x+ \ker T) = T(x)$. Then $S$ is clearly a linear bijection that satisfies $T = S \circ \pi$. Let $x \in X$ and $z \in \ker T$. Then 
+\begin{align*}
+\n S(x+ \ker T) \n
+& = \n T(x) \n \\
+& = \n T(x+z) \n \\
+& \leq \n T \n \n x+ z \n
+\end{align*} 
+Thus $$\n S(x+ \ker T) \n \leq \n T \n \inf_{z \in \ker T}  \n x + z \n = \n T \n \n x + \ker T \n$$
+So $S$ is bounded and $\n S \n \leq \n T \n$. This implies that $$\n T \n = \n S \circ \pi \n \leq \n S \n \n \pi \n = \n S \n$$
+Thus $\n S \n = \n T \n$.
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
 Let $X, Y$ be normed vector spaces. Define $\phi: L(X,Y) \times X \rightarrow Y$ by \\$\phi(T,x) = Tx$. Then $\phi$ is continuous.
 \end{ex}
 
@@ -2933,11 +2958,99 @@ Sg(n)
 &= \frac{1}{n}g(n) \\
 & = f(n)
 \end{align*}
-Hence $Sg =f$ and thus $S$ is surjective.
+Hence $Sg =f$ and thus $S$ is surjective. Let $g \in Y$. Suppsose that $Sg = 0$. Then $$\sum_{n=1}^{\infty} \frac{1}{n}\vert g(n)\vert =\n Sg \n  = 0$$ Thus for each $n \in \N$, $g(n) = 0$. Hence $\ker g = \{0\}$ and $g$ is injective. Note that $S^{-1} = T$. If $g$ is open, then $T$ is continuous which as shown above is a contradiction. So $g$ is not open. 
 \end{enumerate}
 \end{proof}
 
+\begin{ex}
+Let $X = C^1([0,1])$ and $Y=C([0,1])$. Equip both $X$ and $Y$ with the uniform norm. 
+\begin{enumerate}
+\item Then $X$ is not complete
+\item Define $T: X \rightarrow Y$ by $Tf = f'$. Then $\Gam(T)$ is closed and $T$ is not bounded. 
+\end{enumerate}
+\end{ex}
 
+\begin{proof}
+\begin{enumerate}
+\item Recall that for each $a,b \geq 0$ and $p \in \N$, $$(a^{\frac{1}{p}}+b^{\frac{1}{p}})^p = \sum_{n=0}^p  {p \choose n} a^{\frac{n}{p}}b^{\frac{p-n}{p}} \geq a + b$$ Thus $(a+b)^{\frac{1}{p}} \leq a^{\frac{1}{p}}+b^{\frac{1}{p}}$.\\
+For each $n \in \N$, define $f_n: [0,1] \rightarrow \C$ by $f_n(x) = \sqrt{(x-\frac{1}{2})^2+ \frac{1}{n^2}}$. Then $(f_n)_{n \in \N} \subset X$. Define $f:[0,1] \rightarrow \C$ by $f(x) = \vert x-\frac{1}{2}\vert$. Then $f \in Y \cap X^c$. Note that for each $n \in \N$, $f \leq f_n$. Our observation above implies that for each $x \in X$,
+\begin{align*}
+f_n(x) 
+&= \bigg[ (x-\frac{1}{2})^2 + \frac{1}{n^2} \bigg]^{\frac{1}{2}}\\
+& \leq \vert x-\frac{1}{2} \vert + \frac{1}{n}
+\end{align*}
+Thus $0 \leq f_n - f \leq \frac{1}{n} $. This implies that $f_n \convt{u} f$. Since $f \not \in X$, $X$ is not complete. \vspace{.5cm}\\
+\item Let $(f_n)_{n \in \N} \subset X$, $f \in X$ and $g \in Y$. Suppose that $f_n \convt{u} f$ and $Tf_n \convt{u} g$. Let $x \in [0,1]$. Then $f_n(x) \conv{} f(x)$ and $f_n(0) \conv{} f(0)$ and $f_n' \conv{u} g$. Applying the DCT to this sequence of integrable functions that converges uniformly to an integrable function on a finite measure space (a previous exercise) we have that
+\begin{align*}
+f_n(x) - f_n(0) 
+&= \int_{[0,x]} f_n' dm \\
+& \conv{} \int_{[0,x]} g dm \\ 
+\end{align*} 
+Since $f_n(x) - f_n(0) \conv{} f(x) - f(0)$, we know that $$f(x) - f(0) = \int_{[0,x]} g dm$$. Thus $Tf = g$ and $\Gam(T)$ is closed. \\
+Suppose for the sake of contradiction that $T$ is bounded. Then there exists $C \geq 0$ such that for each $f \in X$, $\n T f \n \leq C \n f \n$. Choose $n \in \N$ such that $n > C$. Define $f \in X$ by $f(x) = x^n$. Then $\n f \n = 1$ and 
+\begin{align*}
+\n Tf \n 
+&= \n f' \n \\
+&= n \\
+&> C \\
+&= C \n f \n
+\end{align*}
+which is a contradiction. So $T$ is not bounded.
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $X, Y$ be Banach spaces and $T \in L(X,Y)$. Then $X/\ker T \cong T(X)$ iff $T(X)$ is closed.
+\end{ex}
+
+\begin{proof}
+Since $X$ is a banach space and $T$ is continuous, we have that $\ker T$ is closed and $X/ \ker T$ is a Banach space. Suppose that $X/ \ker T \cong T(X)$. Then $T(X)$ is complete. Since $Y$ is complete, this implies that $T(X)$ is closed. \\
+Conversely Suppose that $T(X)$ is closed. Then $T(X)$ is complete. Define $S: X/ \ker T \rightarrow T(X)$ by $S(x + \ker T) = T(x)$. A previous exercise tells us that the map $S: X/ \ker T \rightarrow T(X)$ defined by $S(x + \ker T) = T(x)$ is a bounded linear bijection. Since $T(X)$ is complete and $S$ is surjective, $S^{-1}$ is bounded and thus $S$ is an isomorphism.   
+\end{proof}
+
+\begin{ex}
+Let $X$ be a separable Banach space. Define $B_X = \{x \in X: \n x \n < 1\}$. Let $(x_n)_{n \in \N} \subset B_X $ a dense subset of the unit ball and $\mu$ the counting measure on $(\N, \MP(\N))$. Define $T: L^1(\mu) \rightarrow X$ by $$Tf = \sum_{n=1}^{\infty}f(n)x_n$$ Then 
+\begin{enumerate}
+\item $T$ is well defined and $T \in L(L^1(\mu), X)$
+\item $T$ is surjective
+\item There exists a closed subspace $K \subset L^1(\mu)$ such that $L^1(\mu)/K \cong X$ 
+\end{enumerate} 
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $f \in L^1(\mu)$. Since $X$ is complete and 
+\begin{align*}
+\sum_{n=1}^{\infty}\n f(n)x_n \n
+& = \sum_{n=1}^{\infty} \vert f(n) \vert \n x_n \n \\
+& \leq \sum_{n=1}^{\infty} \vert f(n) \vert \\
+&< \infty 
+\end{align*}
+we have that $\sum_{n=1}^{\infty} f(n)x_n $ converges and thus $Tf \in X$. Hence $T$ is well defined. \vspace{.5cm}\\
+Clearly $T$ is linear. Let $f \in L^1(\mu)$. Then
+\begin{align*}
+\n Tf \n 
+&= \n  \sum_{n=1}^{\infty} f(n)x_n \n \\
+& \leq \sum_{n=1}^{\infty} \n f(n)x_n \n \\
+& \leq \sum_{n=1}^{\infty} \vert f(n) \vert \\
+&= \n f \n_1
+\end{align*}
+So $T$ is bounded with $\n T \n \leq 1$.\vspace{.5cm}\\
+\item Let $x \in X$. Suppose that $\n x \n < 1$. Then $x \in B_X$. So there exists $n_1 \in \N$ such that $\n x - x_{n_1} \n < \frac{1}{2}$. Then $2(x-x_{n_1}) \in B_X$. Since for each $j \in \N$, $B_X\setminus (x_n)_{n=1}^j$ is dense in $B_X$, there exists $n_2 \in \N$ such that $x_{n_2} \not \in (x_n)_{n=1}^{n_1}$ and $\n 2(x- x_{n_1}) - x_{n_2} \n < \frac{1}{2}$ which implies that $\n x- (x_{n_1} - \frac{1}{2}x_{n_2}) \n < \frac{1}{4}$. \vspace{.5cm}\\ 
+Proceed inductively to obtain a subsequence $(x_{n_k})_{k \in \N}$ such that for each $k \geq 2$, $x_{n_k} \not \in (x_n)_{n=1}^{n_{k-1}}$ and $\n x - \sum_{j=1}^k 2^{1-j}x_{n_j} \n < \frac{1}{2^k}$. Then $x = \sum_{k=1}^{\infty}2^{1-k}x_{n_k}$. \vspace{.5cm} \\ 
+Define $f:\N \rightarrow \C$ by $f = \sum_{k=1}^{\infty}2^{1-k}\chi_{\{n_k\}}$. Then $\n f \n_1 = \sum_{k=1}^{\infty}2^{1-k}< \infty$, so $f \in L^1(\mu)$ and $Tf = \sum_{k=1}^{\infty}2^{1-k}x_{n_k} = x$. Now, suppose that $\n x \n \geq 1$, then $\frac{1}{2\n x \n}x \in B_X$. The above argument shows that there exists $f \in L^1(\mu)$ such that $Tf = \frac{1}{2\n x \n}x$. Then $2 \n x \n f \in L^1(\mu)$ and $T(2 \n x \n f) = 2 \n x \n Tf =x$. \\
+So for each $x \in X$, there exists $f \in L^1(\mu)$ such that $Tf = x$ and thus $T$ is surjective. 
+\item Since $X$ is a Banach space and $T$ is surjective, the previous exercise implies that $L^1(\mu)/\ker T \cong X$. 
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $X, Y$ be Banach spaces and $T:X \rightarrow Y$ a linear map. If for each $f \in Y^*$, $f \circ T \in X^*$, then $T \in L(X,Y)$. 
+\end{ex}
+
+\begin{proof}
+Suppose that for each $f \in Y^*$, $f \circ T \in X^*$. Let $x \in X$, 
+\end{proof}
 
 
 
