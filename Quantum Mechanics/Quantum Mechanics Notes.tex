@@ -1,0 +1,280 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
+\usepackage[shortlabels]{enumitem}
+\usepackage{exercise, chngcntr}
+\usepackage{cite}
+
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}{Conjecture}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{note}[thm]{Note}
+\newtheorem{ex}[thm]{Exercise}
+\newtheorem{exm}[thm]{Example}
+\newtheorem{sol}[thm]{Solution}
+
+\renewcommand{\r}{\rangle}
+\renewcommand{\l}{\langle}
+
+
+\newcommand{\al}{\alpha}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\gam}{\gamma}
+\newcommand{\be}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MW}{\mathcal{W}}
+\renewcommand{\MR}{\mathcal{R}}
+
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+\newcommand{\seq}[1]{(x_{#1})_{#1 \in \N}}
+
+\newcommand{\n}{\Vert}
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\E}{\mathbb{E}}
+ 
+\begin{document}
+
+\title{Quantum Mechanics Notes}
+\author[James]{Carson James}
+\maketitle
+
+
+\tableofcontents
+
+\section{Hilbert Spaces}
+
+\begin{note}
+In the notes we will consider a Hilbert Space $\H$ with an inner product $\langle \cdot , \cdot \rangle: \H \times \H \rightarrow \C$ which is linear in the first argument and antilinear in the second argument.
+\end{note}
+
+\begin{defn}
+Let $\H$ be a Hilbert space and $A \in L(\H)$. For each $x \in \H$, define $\phi_x \in \H^*$ by $\phi_x(y) = \l Ay, x\r$. The Riesz representation theorem tells us that there exists $x' \in \H$ such that $\phi_x = \l \cdot, x' \r$. Define $A^* \in L(\H)$ by $A^*x = x'$. Thus for each $x, y \in \H$, we have that $$\l Ay, x\r = \l y, A^*x \r$$ The linear operator $A^*$ is called the \textbf{adjoint} of $A$.
+\end{defn}
+
+\begin{ex}
+Let $A \in L(\H)$. Then 
+\begin{enumerate}
+\item for each $x,y \in \H$, $\l x, Ay\r = \l A^*x, y \r$.
+\item $A^{**} = A$. 
+
+\end{enumerate}
+\end{ex}
+
+\begin{proof} \
+\begin{enumerate}
+\item Let $x,y \in \H$. Then 
+\begin{align*}
+\l x, Ay \r 
+&= \overline{\l Ay, x \r}\\
+&= \overline{\l y, A^*x\r}\\
+&= \l A^*x, y \r
+\end{align*}
+\item We have that for each $x, y \in \H$, $\l Ay, x\r = \l y, A^*x \r = \l A^{**}y, x\r  \r$. \\Hence for each $x, y \in \H$, $\l (A-A^{**})y, x \r = 0$. This implies that $A-A^{**}= 0$ and thus $A = A^{**}$.
+\end{enumerate}
+\end{proof}
+
+\begin{defn}
+Let $A \in  L(\H)$. Then $A$ is said to be \textbf{self-adjoint} if $A = A^*$.
+\end{defn}
+
+\begin{ex}
+Let $A \in L(\H)$. Suppose that $A$ is self adjoint. Then 
+\begin{enumerate}
+\item the eigenvalues of $A$ are real.
+\item the eigenvectors of distinct eigenvalues are orthogonal.
+\end{enumerate} 
+\end{ex}
+
+\newpage
+\begin{proof}\
+\begin{enumerate}
+\item Let $\lam \in \C$, $x \in \H$. Suppose that $x \neq 0$ and $Ax = \lam x$. Then 
+\begin{align*}
+\lam \l x, x\r
+&= \l Ax,x \r\\
+&= \l x, A^*x \r\\
+&= \l x, Ax \r\\
+&= \overline{\l Ax, x \r}\\
+&= \overline{\lam \l x, x\r}\\
+&= \overline{\lam} \l x,x \r
+\end{align*}
+
+So $(\lam - \overline{\lam}) \l x,x \r =0$. Since $x \neq 0$, $\l x,x\r \neq 0$. Hence $\lam = \overline{\lam}$. \vspace{5mm}
+\item Let $\lam_1, \lam_2 \in \C$ and $x_1,x_2 \in \H$. Suppose that $\lam_1 \neq \lam_2$, $x_1,x_2 \neq 0$, \\$Ax_1 = \lam_1 x_1$ and $Ax_2 = \lam_2 x_2$. 
+Then 
+\begin{align*}
+\lam_1 \l x_1, x_2\r
+&= \l \lam_1 x_1, x_2 \r \\
+&= \l A x_1, x_2 \r \\
+&= \l  x_1, A^* x_2 \r \\
+&= \l  x_1, A x_2 \r \\
+&= \l  x_1, \lam_2 x_2 \r \\
+&= \overline{\lam_2} \l  x_1, x_2 \r \\
+&= \lam_2 \l  x_1, x_2 \r \hspace{.75cm} \text{by (1)}\\
+\end{align*}
+So $(\lam_1 - \lam_2)\l x_1, x_2\r = 0$. Since $\lam_1 \neq \lam_2$, we have that $\l x_1, x_2\r = 0$.
+\end{enumerate}
+\end{proof}
+
+\begin{note}
+To show that $A \in L(\H)$ is self-adjoint. It suffices to show that for each $x_1, x_2 \in \H$, $\l Ax_1, x_2 \r = \l x_1, A x_2 \r$
+\end{note}
+
+\section{Wave Mechanics}
+\subsection{Schrodinger Equation}
+
+\begin{note}
+In what follows, we will take $\MR = \R$ or $\MR = \R^3$ and $\H = L^2(\MR) \cap \MN(\MR)$ where $\MN(\MR)$ signifies the ``nice" functions on $\MR$. The inner product on $\H$ is given by $$\l f, g\r = \int_\MR f \overline{g}dm_{\MR}$$ We will typically discuss functions (states of the system) $\psi \in \H$ given by $x \mapsto \psi(x)$. The evolution of the state of a system will be given by $\Psi: \MR \times \R \rightarrow \C$ given by $(x,t) \mapsto \Psi(x,t)$ where for each $t \in \R$, $\Psi(\cdot, t) \in \H$. In these notes, the Laplace operator $\Del $ is only spatial.
+\end{note}
+
+\newpage
+
+
+\begin{ex}
+Let $A \in L(\H)$, $\lam \in \C$ and $f = g + ih \in H \setminus \{0\}$. Suppose that $Af = \lam f$. Then 
+\begin{enumerate}
+\item $A g = \lam g$ and $A h= \lam h$.
+\item $A \overline{f} = \lam \overline{f}$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item Since $A$ is linear, 
+\begin{align*}
+Ag +iAh 
+&= Af\\
+&= \lam f\\
+&= \lam g + i\lam h
+\end{align*}
+
+Thus $Ag = \lam g$ and $Ah = \lam h$. \vspace{3mm}
+\item 
+\begin{align*}
+A\overline{f} 
+&= A(g-ih)\\
+&= Ag -iAh\\
+&= \lam g - i \lam h \\
+&= \lam \overline{f} 
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{defn}
+For $j =1,2,3$, define the \textbf{$j^{\text{th}}$ position operator} $X_j \in L(\H)$ by $$[X_jf](x) = x_jf(x)$$.
+\end{defn}
+
+\begin{ex}
+The $j^{\text{th}}$ position operator $X_j$ is self-adjoint.
+\end{ex}
+
+\begin{proof}
+Let $f, g \in \H$. Then  and 
+\begin{align*}
+\l X_jf, g\r 
+&= \int_\MR x_jf(x)\overline{g(x)}dm_{\MR}(x)\\
+&= \int_\MR f(x)x_j\overline{g(x)}dm_{\MR}(x)\\
+&= \int_\MR f(x)\overline{x_jg(x)}dm_{\MR}(x)\\
+&=\l f, X_jg\r 
+\end{align*}
+\end{proof}
+
+\begin{defn}
+For $j =1,2,3$, define the \textbf{$j^{\text{th}}$ momentum operator} $P_j \in L(\H)$ by $$P_jf = -i \hbar \frac{\partial f}{\partial x_j}$$
+\end{defn}
+\newpage
+
+\begin{ex}
+The $j^{\text{th}}$ momentum operator $P_j$ is self-adjoint.
+\end{ex}
+
+\begin{proof}
+We will assume the case $\MR = \R^3$ since the case $\MR=\R$ uses the same method. Let $f,g \in \H$. Then 
+\begin{align*}
+\l P_jf, g\r
+&= \int_{\R^3} -i\hbar \frac{\partial f}{\partial x_j}\overline{g} dm^3\\
+&= \int_{\R^2} \int_{\R} -i\hbar \frac{\partial f}{\partial x_j}(x)\overline{g(x)} dm(x_j)dm^2(x_{j^-})\\
+&= \int_{\R^2} \bigg(-i\hbar f(x) \overline{g(x)} \bigg]^{x_j=\infty}_{x_j= -\infty} - \int_{\R} -i \hbar f(x) \frac{\partial \overline{g}}{\partial x_j} dm(x_j)dm^2(x_{j^-})\\
+&= \int_{\R^2} \int_{\R}  f(x) i \hbar \frac{\partial \overline{g}}{\partial x_j} dm(x_j)dm^2(x_{j^-})\\
+&= \int_{\R^3} f \bigg(\overline{-i \hbar\frac{\partial g}{\partial x_j} }\bigg)dm^3 \\
+&= \l f, P_j g\r 
+\end{align*}
+Hence $P_j$ is self-adjoint.
+
+\end{proof}
+
+\begin{note}
+Often instead of the operators $X_1, X_2, X_3$ and $P_1, P_2, P_3$ acting on functions $f$ with $(x_1, x_2, x_3) \mapsto f(x_1, x_2, x_3)$ we write $X,Y,Z$ and $P_x,P_y,P_z$ acting on functions $f$ with $(x,y,z) \mapsto f(x,y,z)$
+\end{note}
+
+\begin{defn} 
+Consider a particle of mass $m$ with a ``nice'' potential energy $V: \MR \rightarrow \R$ where $V(x)$ signifies the potential energy of a particle at position $x$. We define the \textbf{Hamiltonian operator}, $H \in L(\H)$, by $$H = -\frac{\hbar^2}{2m} \Delta+VI$$ where I is the identity operator. Thus for each $x \in \MR$, $$[H \psi](x) = -\frac{\hbar^2}{2m} \Delta\psi(x) +V(x)\psi(x)$$  
+\end{defn} 
+
+\begin{ex}
+The Hamiltonian operator $H$ is self-adjoint. Hint: use Green's identity.
+\end{ex}
+
+\begin{proof} Let $f, g \in \H$. Then $$\l H f, g \r = \int_{\MR} \bigg[-\frac{\hbar^2}{2m} \Delta f(x) +V(x)f(x) \bigg] \overline{g}(x) dm_{\MR}(x)$$ and 
+
+$$\l  f, Hg \r = \int_{\MR} f(x) \bigg[- \frac{\hbar^2}{2m} \Delta \overline{g}(x) +V(x)\overline{g}(x) \bigg]  dm_{\MR}(x)$$
+
+So 
+\begin{align*}
+\l H f, g \r  - \l  f, Hg \r 
+&= -\frac{\hbar^2}{2m} \int_{\MR} \overline{g} \Del f  - f \Del \overline{g}dm_{\MR}\\
+&= - \frac{\hbar^2}{2m} \int_{\partial \MR} \overline{g}\nabla_{n}f - f \nabla_{n}\overline{g} ds_{R} \hspace {4mm}\text{(Green's identity)}\\
+&= 0
+\end{align*}
+
+So $\l Hf, g \r = \l f, Hg\r$ and $H$ is self-adjoint.
+\end{proof}
+
+\begin{defn}
+Suppose we have a system containing a particle with potential energy $V: \MR \rightarrow \R$. Let $\psi \in \H$ and $\Psi:\MR \times \R \rightarrow \C$. We say that $\psi$ is a \textbf{state} (of the system) if$$\l \psi, \psi \r = \int_{\MR} \psi(x) \overline{\psi(x)} dm_{\MR}(x) = 1$$ We say that $\Psi$ is a \textbf{wave function} (of the system) if for each $t \in \R$, $\Psi(\cdot, t) \in \H $ is a state of the system and for each $t \in \R$, $\Psi$ satisfies the \textbf{Schrodinger equation}: $$i\hbar \frac{\partial \Psi}{\partial t}(\cdot, t) = H\Psi(\cdot, t)$$ The wave function tells us the state of the system at each time $t \in \R$ and each state $\psi$ of the system gives us the probability density of the position $X$ of the particle via the relation: $$\P(X \in A) = \int_{A} \psi \overline{\psi} dm_{\MR}$$  
+\end{defn}
+
+\begin{note}
+Our interpretation of this model is the following: The wave function tells us the state of the system at each time $t \in \R$ and each state $\psi$ of the system gives us the probability density of the position $X$ of the particle via the relation: $$\P(X \in A) = \int_{A} \psi \overline{\psi} dm_{\MR}$$  Measurements of a physical quantity of the state of the system, such as the energy, the momentum in the x direction, etc, correspond to applying a self-adjoint operator to the state. The eigen values of self-adjoint operators tell us the possible measurements 
+\end{note}
+\end{document}
