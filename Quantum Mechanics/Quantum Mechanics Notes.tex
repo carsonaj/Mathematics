@@ -12,6 +12,7 @@
 \newtheorem{cor}[thm]{Corollary}
 \newtheorem{conj}{Conjecture}
 \newtheorem{defn}[thm]{Definition}
+\newtheorem{intp}[thm]{Interpretation}
 \newtheorem{note}[thm]{Note}
 \newtheorem{ex}[thm]{Exercise}
 \newtheorem{exm}[thm]{Example}
@@ -20,6 +21,7 @@
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
 
+\newcommand{\sch}{Schr\"{o}dinger }
 
 \newcommand{\al}{\alpha}
 \newcommand{\Gam}{\Gamma}
@@ -62,10 +64,9 @@
 \newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
 \newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
-
+\newcommand{\p}[1]{\frac{\partial}{\partial{#1}}}
 \newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
 \newcommand{\seq}[1]{(x_{#1})_{#1 \in \N}}
-
 \newcommand{\n}{\Vert}
 
 \DeclareMathOperator*{\argmax}{argmax}
@@ -81,202 +82,365 @@
 
 \tableofcontents
 
-\section{Hilbert Spaces}
+\section{Introduction}
+\subsection{Schr\"{o}dinger Equation}
+
+\begin{defn}
+A particle with potential energy $V(r,t)$ is completely decribed by its \textbf{position wavefunction} $\Psi(r,t)$, which satisfies the \textbf{Schr\"{o}dinger equation}: 
+\begin{align*}
+i\hbar \p{t} \Psi 
+&= -\frac{\hbar^2}{2m} \Del \Psi + V \Psi\\
+\end{align*}
+\end{defn}
+
+\begin{intp}
+We interpret $\vert\Psi(r,t)\vert^2$ to be the \textbf{probability density} for the position, $r$, of the particle at time $t$. Therefore, we require that for each $t \in \R$, $$\int_{\R^n}\Psi(r,t)^* \Psi(r,t) dr = 1$$
+\end{intp}
+
+\subsection{Operators}
+
+\begin{defn}
+
+We define the jth \textbf{position} and \textbf{momentum} coordinate operators $X_j,P_j$, (in position space) by $$X_j \Psi(r,t) = x_j \Psi(r,t)$$ and $$P_j \Psi(r,t) = -i \hbar \p{x_j} \Psi(r,t)$$ 
+If the partical has potential energy $V(r,t)$, we define the \textbf{Hamiltonian} operator, $H$, by $$H = \frac{P^2}{2m} + V$$ Thus the Schr\"{o}dinger equation reads $$i\hbar \p{t}\Psi = H \Psi$$ 
+\end{defn}
 
 \begin{note}
-In the notes we will consider a Hilbert Space $\H$ with an inner product $\langle \cdot , \cdot \rangle: \H \times \H \rightarrow \C$ which is linear in the first argument and antilinear in the second argument.
+If the potential energy doesn't depend on time, we may write $$H = \frac{P^2}{2m} + V(X)$$ meaning Hamiltonian only depends on the position and momentum operators, $X$ and $P$. For the rest of these notes, we assume that the potential energy $V$ does not depend on time.
 \end{note}
 
 \begin{defn}
-Let $\H$ be a Hilbert space and $A \in L(\H)$. For each $x \in \H$, define $\phi_x \in \H^*$ by $\phi_x(y) = \l Ay, x\r$. The Riesz representation theorem tells us that there exists $x' \in \H$ such that $\phi_x = \l \cdot, x' \r$. Define $A^* \in L(\H)$ by $A^*x = x'$. Thus for each $x, y \in \H$, we have that $$\l Ay, x\r = \l y, A^*x \r$$ The linear operator $A^*$ is called the \textbf{adjoint} of $A$.
+Let $A$ and $B$ be operators. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $\Psi_1$, $\Psi_2$, $$\l \Psi_1 \vert A\Psi_2 \r = \l B \Psi_1 \vert \Psi_2 \r$$ i.e. $$\int_{\R^n}\Psi_1^* (A\Psi_2) dr = \int_{\R^n}(B\Psi_1)^* \Psi_2 dr$$ If B is the adjoint of $A$, we write $$B = A^{\dagger}$$
 \end{defn}
 
 \begin{ex}
-Let $A \in L(\H)$. Then 
-\begin{enumerate}
-\item for each $x,y \in \H$, $\l x, Ay\r = \l A^*x, y \r$.
-\item $A^{**} = A$. 
-
+Let $A$ be an operator, then \begin{enumerate}
+\item for each $\Psi_1, \Psi_2$, $\l A\Psi_1 \vert \Psi_2 \r = \l   \Psi_1 \vert A^{\dagger} \Psi_2 \r$ 
+\item $(A^{\dagger})^{\dagger} = A$
 \end{enumerate}
 \end{ex}
 
-\begin{proof} \
+\begin{proof}
 \begin{enumerate}
-\item Let $x,y \in \H$. Then 
+\item For wavefunctions $\Psi_1$, $\Psi_2$, we have
 \begin{align*}
-\l x, Ay \r 
-&= \overline{\l Ay, x \r}\\
-&= \overline{\l y, A^*x\r}\\
-&= \l A^*x, y \r
+\l A \Psi_1 \vert \Psi_2 \r
+&= \l \Psi_2 \vert A \Psi_1 \r^*\\
+&= \l A^{\dagger}\Psi_2 \vert  \Psi_1 \r^* \hspace{.5cm} \text{(by definition)}\\
+&= \l  \Psi_1 \vert A^{\dagger}\Psi_2 \r
 \end{align*}
-\item We have that for each $x, y \in \H$, $\l Ay, x\r = \l y, A^*x \r = \l A^{**}y, x\r  \r$. \\Hence for each $x, y \in \H$, $\l (A-A^{**})y, x \r = 0$. This implies that $A-A^{**}= 0$ and thus $A = A^{**}$.
+\item For each $\Psi_1, \Psi_2$, we have that
+\begin{align*}
+\l  A\Psi_1 \vert \Psi_2 \r
+&= \l   \Psi_1 \vert A^{\dagger}\Psi_2 \r \\
+&= \l  (A^{\dagger})^{\dagger} \Psi_1 \vert \Psi_2 \r
+\end{align*}
+
+This implies that for each $\Psi_1, \Psi_2$, $$\big \l \big[A-(A^{\dagger})^{\dagger} \big] \Psi_1, \Psi_2 \big \r = 0$$ Therefore for each $\Psi_1$, $$ \big[A-(A^{\dagger})^{\dagger} \big] \Psi_1 = 0$$ Hence $ \l A-(A^{\dagger})^{\dagger}  = 0$ and $A = (A^{\dagger})^{\dagger}$.
 \end{enumerate}
 \end{proof}
 
 \begin{defn}
-Let $A \in  L(\H)$. Then $A$ is said to be \textbf{self-adjoint} if $A = A^*$.
+An linear operator $Q$ is \textbf{self-adjoint} if $$Q = Q^{\dagger}$$
+\end{defn}
+
+\begin{intp}
+For each measurable, observable quantity $\hat{Q}$, there is a self-adjoint operator $Q$ whose eigenvalues are the possible measurment values and whose eigenfunctions are the possible states of the system at measurment.
+\end{intp}
+
+\begin{ex}
+The operators $X_j, P_j$ and $H$ are self adjoint. 
+\end{ex}
+
+\begin{proof}
+Since $x_j$ is real, clearly $$\l \Psi_1 \vert X_j \Psi_2 \r = \l X_j\Psi_1 \vert \Psi_2 \r $$ Similarly, we have that 
+\begin{align*}
+\l \Psi_1 \vert P_j \Psi_2 \r
+&=  \int_{\R^n} \Psi_1^* \bigg(-i\hbar\p{x_j} \Psi_2\bigg)dr \\
+&= -i \hbar\int_{\R^n} \Psi_1^*  \bigg(\p{x_j} \Psi_2\bigg)dr\\
+&= i\hbar \int_{\R_n} \bigg( \p{x_j} \Psi_1^* \bigg) \Psi_2 dr \hspace{1cm } \text{(integration by parts)}\\
+&= \int_{\R^n} \bigg( -i \hbar \p{x_j} \Psi_1 \bigg)^* \Psi_2 dr\\
+&= \l P \Psi_1 \vert \Psi_2 \r
+\end{align*}
+
+Finally 
+\begin{align*}
+\l \Psi_1 \vert H \Psi_2 \r - \l H \Psi_1 \vert  \Psi_2 \r
+&= \int_{\R^n} \Psi_1^* \bigg(-\frac{\hbar^2}{2m}\Del \Psi_2 + V \Psi_2\bigg)dr - \int_{\R^n} \bigg(-\frac{\hbar^2}{2m}\Del \Psi_1 + V\Psi_1\bigg)^*  \Psi_2 dr \\
+&= \frac{\hbar^2}{2m}\int_{\R^n} (\Del \Psi_1^* )\Psi_2 - \Psi_1^*(\Del \Psi_2)dr\\
+&= 0 \hspace{1cm} \text{(Green's second identity)}
+\end{align*}
+\end{proof}
+
+\begin{ex}
+Let $Q$ be a self-adjoint operator. Then 
+\begin{enumerate}
+\item the eigenvalues of $Q$ are real.
+\item the eigenfunctions of $Q$ corresponding to distinct eigenvalues are orthogonal.
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+\ \begin{enumerate}
+\item Let $\lam$ be an eigenvalue of $Q$ with corresponding eigenfunction $\Psi$. Then 
+\begin{align*}
+ \lam \l \Psi \vert \Psi\r
+&= \l \Psi \vert Q \Psi\r \\
+&= \l Q \Psi \vert \Psi\r \\
+&= \lam^* \l \Psi \vert \Psi\r
+\end{align*}
+Thus $\lam = \lam^*$ and is real
+
+\item Let $\lam_1$ and $\lam_2$ be eigenvalues of $Q$ with corresponding eigenfunctions $\Psi_1$ and $\Psi_2$. Suppose that $\lam_1 \neq \lam_2$. Then 
+\begin{align*}
+\lam_2 \l \Psi_1 \vert  \Psi_2\r
+&= \l \Psi_1 \vert Q \Psi_2\r\\
+&= \l Q \Psi_1 \vert  \Psi_2\r\\
+&= \lam_1 \l \Psi_1 \vert  \Psi_2\r
+\end{align*}
+So $(\lam_2 - \lam_1)\l \Psi_1 \vert  \Psi_2\r = 0$. Which implies that $\l \Psi_1 \vert  \Psi_2\r=0$
+\end{enumerate}
+\end{proof}
+
+\begin{defn}
+Let $A$ and $B$ be operators. The \textbf{commutator} of $A$ and $B$, $[A,B]$, is defined by $$[A,B] = AB - BA$$
 \end{defn}
 
 \begin{ex}
-Let $A \in L(\H)$. Suppose that $A$ is self adjoint. Then 
+We have $[X_j, P_j] = i\hbar$.
+\end{ex}
+
+\begin{proof}
+For a position wave function $\Psi$, 
+\begin{align*}
+[X_j, P_j]\Psi(r,t)
+&= [x_j, -i\hbar \p{x_j}]\Psi(r,t)\\
+&= (-i\hbar) \bigg[x_j \p{x_j}\Psi(r,t)- \p{x_j}x_j\Psi(r,t)\bigg]\\
+&= (-i\hbar)\bigg[ x_j \p{x_j}\Psi(r,t)- \Psi(r,t) - x_j \p{x_j}\Psi(r,t)\bigg]\\
+&=i\hbar \Psi(r,t)
+\end{align*}
+
+Hence $[X_j, P_j] = i\hbar$
+\end{proof}
+
+\subsection{Continuity Equation}
+
+\begin{ex}
+If $V$ is real and $\Psi$ satisfies the Schr\"{o}dinger equation, then $$i\hbar \p{t} \Psi^* = -H\Psi^* $$
+\end{ex}
+
+\begin{proof}
+We have that 
+\begin{align*}
+i \hbar \p{t} \Psi^{*} 
+&= \bigg(-i \hbar \p{t} \Psi\bigg)^*\\
+&=\bigg( - \bigg[-\frac{\hbar^2}{2m}\Del \Psi + V \Psi \bigg] \bigg)^*\\
+&= - \bigg[ -\frac{\hbar^2}{2m}\Del \Psi^* + V \Psi^*\bigg]\\
+&= -H \Psi^*
+\end{align*}
+\end{proof}
+
+\begin{ex}
+We have that $$\p{t} (\Psi^* \Psi) + \frac{\hbar}{2mi} \nabla \cdot \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg] = 0 $$
+\end{ex}
+
+\begin{proof}
+\begin{align*}
+\p{t}(\Psi^* \Psi) 
+&= \bigg(\p{t} \Psi^* \bigg) \Psi + \Psi^* \bigg(\p{t} \Psi \bigg)\\
+&= \bigg( \frac{\hbar}{2mi} (\Del \Psi^*) \Psi - \frac{1}{i \hbar }V \Psi^* \Psi\bigg) + \bigg( -\frac{\hbar}{2mi}  \Psi^* (\Del \Psi) + \frac{1}{i \hbar }V \Psi^* \Psi \bigg)\\
+&= \frac{\hbar}{2mi} \bigg[ (\Del \Psi^*) \Psi - \Psi^* (\Del \Psi) \bigg]\\
+&= -\frac{\hbar}{2mi} \bigg[ \Psi^* (\Del \Psi) - (\Del \Psi^*) \Psi\bigg]\\
+&= - \frac{\hbar}{2mi} \nabla \cdot \bigg[\Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi \bigg]
+\end{align*}
+
+Therefore  $$\p{t} (\Psi^* \Psi) + \frac{\hbar}{2mi} \nabla \cdot \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg] = 0 $$
+\end{proof}
+
+\begin{defn}
+We define the \textbf{probability current density}, $j$, of the particle to be $$j = \frac{\hbar}{2mi} \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg]$$ 
+\end{defn}
+\subsection{Position and Momentum Space}
+\begin{defn}
+We define the \textbf{momemtum wavefunction}, $\Phi$, of the particle to be the Fourier transform of the position wavefunction: 
+\begin{align*}
+\Phi(p,t) 
+&= F[\Psi](p,t)\\
+&= \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Psi(r,t)e^{-i \frac{p \cdot r}{\hbar} }dr 
+\end{align*}
+\end{defn}
+
+\begin{note}
+We recall the following facts about Fourier transforms:
 \begin{enumerate}
-\item the eigenvalues of $A$ are real.
-\item the eigenvectors of distinct eigenvalues are orthogonal.
+\item $$\Phi(p,t) = \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Psi(r,t)e^{-i \frac{p \cdot r}{\hbar} }dr $$ and $$\Psi(r,t) = \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Phi(p,t)e^{i \frac{p \cdot r}{\hbar} }dp $$
+
+\item $$F\bigg[\p{x_j} \Psi \bigg] = \frac{i p_j}{\hbar}F[\Psi]$$
+and $$F^{-1}\bigg[\p{p_j} \Phi \bigg] = -\frac{i x_j}{\hbar}F[\Psi]$$
+
+\item $$\int_{\R^n} \Psi_1^* \Psi_2 dr = \int_{\R^n} F[\Psi_1]^* F[\Psi_2]dr$$
+\end{enumerate}
+\end{note}
+
+\begin{note}
+Let $Q(X,P)$ be a self-adjoint operator. Then the properties of the Fourier transform inmply that:
+\[
+Q(X,P)=
+\begin{cases}
+Q(x, -i\hbar \nabla) & \text{(position space)}\\
+Q(i\hbar \nabla, p) & \text{(momentum space)}
+\end{cases}
+\]
+\end{note}
+
+\begin{ex}
+If $\Psi$ satisfies the Schr\"{o}dinger equation, then $\Phi$ satisfies $$i\hbar \p{t}\Phi = \frac{p^2}{2m}\Phi + V(i \hbar \nabla)\Phi$$
+\end{ex}
+
+\begin{proof}
+Starting with the Schr\"{o}dinger equation, we have 
+\begin{align*}
+i\hbar \p{t} \Psi 
+&= \bigg[\frac{P^2}{2m} + V(X)\bigg] \Psi\\
+&= \bigg[\frac{-\hbar^2}{2m}\Del + V(r)\bigg] \Psi \hspace{1cm} \text{(position space)}
+\end{align*} 
+Taking Fourier transforms of both sides, we see that 
+\begin{align*}
+i\hbar \p{t} \Phi 
+&= \bigg[\frac{P^2}{2m} + V(X)\bigg] \Phi\\
+&= \bigg[\frac{p^2}{2m} + V(i \hbar \nabla)\bigg] \Phi \hspace{1cm} \text{(position space)}
+\end{align*} 
+\end{proof}
+
+\begin{intp}
+We interpret $\vert \Phi (p,t) \vert^2$ to be the probability density for the momentum, $p$, of the particle at time $t$.  
+\end{intp}
+
+\begin{note}
+For a self-adjoint operator $Q(X,P)$, the expected value of $Q$,  is given by 
+
+\[ 
+\l Q \r = 
+\begin{cases}
+\l \Psi(r,t) \vert Q(r, -i\hbar \nabla) \Psi(r,t)\r & \hspace{1cm} \text{(position space)}\\
+\l \Phi(p,t) \vert Q(i\hbar \nabla, p) \Phi(p,t) \r & \hspace{1cm} \text{(momentum space)}\\
+\end{cases}
+\]
+\end{note}
+
+\subsection{Stationary States}
+\begin{defn}
+When the potential energy $V$ doesn't depend on time, we look for solutions to the \sch equation of the form $$\Psi(r,t) = \psi(r) \varphi(t)$$ With a closer look, we find that
+
+\begin{enumerate}
+\item $H\psi = E \psi$
+\item $\varphi(t) = e^{-i\frac{E}{\hbar}t}$
+\end{enumerate}
+Eigenfuntions of the Hamiltonian operator are called \textbf{stationary states}. If the possible eigenvalues for the Hamiltonian operator are discreet $(E_n)_{n\in \N}$ with stationary states $(\psi_n)_{n \in \N}$, then the general solution to the \sch equation is $$\Psi(r,t) = \sum_{n \in \N} c_n \psi_n(r) e^{-i\frac{E_n}{\hbar}t}$$ where $$c_n = \int_{\R^n}\psi_n^*(r) \Psi(r,0)dr$$
+\end{defn}
+
+\begin{defn}
+If the spectrum of the Hamiltonian is discreet, the stationary state with the least energy is called the \textbf{ground state}. The stationary states that are not the ground state are called \textbf{excited states}.
+\end{defn}
+
+\section{Fundamental Examples in One Dimension}
+
+\subsection{The Harmonic Oscillator}
+
+\begin{defn}
+The \textbf{harmonic oscillator} in one dimension is defined by the potential energy: $$V(x) = \frac{1}{2}m \om^2 x^2$$ We define the \textbf{lowering operator}, $a$, by $$a = \frac{1}{\sqrt{2 \hbar m \om }}\bigg(m\om X +iP\bigg)$$ 
+\end{defn}
+
+\begin{ex}
+The adjoint of the lowering operator is $$a^{\dagger} = \frac{1}{\sqrt{2 \hbar m \om }}\bigg(m\om X -iP\bigg)$$
+\end{ex}
+
+\begin{proof}
+For a wave functions $\Psi_1$, $\Psi_2$,
+\begin{align*}
+\int_{\R}\bigg[ \frac{1}{\sqrt{2 \hbar m \om }}\bigg(m\om X -iP\bigg)\Psi_1 \bigg]^* \Psi_2 dx
+&= \frac{1}{\sqrt{2 \hbar m \om }}\int_{\R}(m\om x \Psi_1(x,t)^* \Psi_2(x,t) -\hbar \bigg(\p{x}\Psi_1(x,t)^*\bigg)\Psi_2(x,t) dx\\
+&=\frac{1}{\sqrt{2 \hbar m \om }}\int_{\R}(m\om x \Psi_1(x,t)^* \Psi_2(x,t) +\hbar \Psi_1(x,t)^*\bigg(\p{x}\Psi_2(x,t)\bigg) dx \hspace{.5cm}\\
+&=\int_{\R}\Psi_1^*\bigg[ \frac{1}{\sqrt{2 \hbar m \om }}\bigg(m\om X +iP\bigg)\Psi_2 \bigg]  dx
+\end{align*}
+\end{proof}
+
+\begin{defn}
+We call $a^{\dagger}$ the \textbf{raising operator} and together, $a$ and $a^{\dagger}$ are called the ladder operators.
+\end{defn}
+
+\begin{ex}
+We have that 
+\begin{enumerate}
+\item $aa^{\dagger} = \frac{1}{\hbar \om}H + \frac{1}{2}$
+\item $a^{\dagger}a = \frac{1}{\hbar \om}H - \frac{1}{2}$
+\item $[a,a^{\dagger}] = 1$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item \
+\begin{align*}
+a a^{\dagger}
+&= \frac{1}{2\hbar m \om}\big(m \om X + iP \big) \big( m\om X - iP )\\
+&= \frac{1}{2 \hbar m \om} \bigg[ \big(m^2 \om^2 X^2 + P^2 \big) - m\om i\big(XP - PX \big) \bigg]\\
+&= \frac{1}{\hbar \om}\big(\frac{1}{2m}P^2 + \frac{1}{2}m \om^2 X^2 \big) - \frac{i}{2 \hbar}\big[X,P \big]\\
+&= \frac{1}{\hbar \om}H + \frac{1}{2}
+\end{align*}
+\item Similar
+\item Trivial
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+If $H\psi = E\psi$, then 
+\begin{enumerate}
+\item $Ha\psi = (E-\hbar \om) a \psi$
+\item $Ha^{\dagger}\psi = (E+\hbar \om) a \psi$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item \
+\begin{align*}
+Ha\psi 
+&= \hbar \om \bigg(aa^{\dagger}-\frac{1}{2}\bigg)a \psi\\
+&= \hbar \om \bigg(aa^{\dagger}a-\frac{1}{2}a\bigg) \psi\\
+&= \hbar \om a\bigg(a^{\dagger}a-\frac{1}{2}\bigg) \psi\\
+&= \hbar \om a\bigg(a^{\dagger}a+\frac{1}{2} -1\bigg) \psi\\
+&= \hbar \om a\bigg(\frac{1}{\hbar \om}H -1\bigg) \psi\\
+&= a H\psi -\hbar \om a \psi \\
+&= (E - \hbar \om)a\psi 
+\end{align*}
+\item Similar
+\end{enumerate}
+\end{proof}
+
+\begin{intp}
+The lowering operator ``lowers"  a stationary state $\psi$ with energy $E$ to a stationary state $a\psi$ with energy $E-\hbar \om$ and the raising operator ``raises"  a stationary state $\psi$ with energy $E$ to a stationary state $a^{\dagger}\psi$ with energy $E+\hbar \om$.
+\end{intp}
+
+\begin{defn}
+Since the zero function is a solution to the time-independent \sch equation, we define the ground state, $\psi_0$ of the harmonic oscillator to be the stationary state that satisfies $a\psi_0 = 0$. 
+\end{defn}
+
+\begin{ex}
+We have that
+\begin{enumerate}
+\item $\psi_0(x) = $
+\item $E_0 = \frac{1}{2}\hbar \om$
+\end{enumerate}
+
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item The simple differential equation $a\psi_0 = 0$ has the solution $$\psi_0 = Ae^{-\frac{m \om}{2 \hbar}x^2}$$ If we normalize this function, we obtain $$\psi_0= \sqrt{\frac{2 \pi \hbar}{m \om}}e^{-\frac{m \om}{2 \hbar}x^2}$$
+\item It is tedious but straightforward to show that $$H\psi_0 = \frac{1}{2}\hbar \om$$
 \end{enumerate} 
-\end{ex}
-
-\newpage
-\begin{proof}\
-\begin{enumerate}
-\item Let $\lam \in \C$, $x \in \H$. Suppose that $x \neq 0$ and $Ax = \lam x$. Then 
-\begin{align*}
-\lam \l x, x\r
-&= \l Ax,x \r\\
-&= \l x, A^*x \r\\
-&= \l x, Ax \r\\
-&= \overline{\l Ax, x \r}\\
-&= \overline{\lam \l x, x\r}\\
-&= \overline{\lam} \l x,x \r
-\end{align*}
-
-So $(\lam - \overline{\lam}) \l x,x \r =0$. Since $x \neq 0$, $\l x,x\r \neq 0$. Hence $\lam = \overline{\lam}$. \vspace{5mm}
-\item Let $\lam_1, \lam_2 \in \C$ and $x_1,x_2 \in \H$. Suppose that $\lam_1 \neq \lam_2$, $x_1,x_2 \neq 0$, \\$Ax_1 = \lam_1 x_1$ and $Ax_2 = \lam_2 x_2$. 
-Then 
-\begin{align*}
-\lam_1 \l x_1, x_2\r
-&= \l \lam_1 x_1, x_2 \r \\
-&= \l A x_1, x_2 \r \\
-&= \l  x_1, A^* x_2 \r \\
-&= \l  x_1, A x_2 \r \\
-&= \l  x_1, \lam_2 x_2 \r \\
-&= \overline{\lam_2} \l  x_1, x_2 \r \\
-&= \lam_2 \l  x_1, x_2 \r \hspace{.75cm} \text{by (1)}\\
-\end{align*}
-So $(\lam_1 - \lam_2)\l x_1, x_2\r = 0$. Since $\lam_1 \neq \lam_2$, we have that $\l x_1, x_2\r = 0$.
-\end{enumerate}
 \end{proof}
 
-\begin{note}
-To show that $A \in L(\H)$ is self-adjoint. It suffices to show that for each $x_1, x_2 \in \H$, $\l Ax_1, x_2 \r = \l x_1, A x_2 \r$
-\end{note}
-
-\section{Wave Mechanics}
-\subsection{Schrodinger Equation}
-
-\begin{note}
-In what follows, we will take $\MR = \R$ or $\MR = \R^3$ and $\H = L^2(\MR) \cap \MN(\MR)$ where $\MN(\MR)$ signifies the ``nice" functions on $\MR$. The inner product on $\H$ is given by $$\l f, g\r = \int_\MR f \overline{g}dm_{\MR}$$ We will typically discuss functions (states of the system) $\psi \in \H$ given by $x \mapsto \psi(x)$. The evolution of the state of a system will be given by $\Psi: \MR \times \R \rightarrow \C$ given by $(x,t) \mapsto \Psi(x,t)$ where for each $t \in \R$, $\Psi(\cdot, t) \in \H$. In these notes, the Laplace operator $\Del $ is only spatial.
-\end{note}
-
-\newpage
-
-
-\begin{ex}
-Let $A \in L(\H)$, $\lam \in \C$ and $f = g + ih \in H \setminus \{0\}$. Suppose that $Af = \lam f$. Then 
-\begin{enumerate}
-\item $A g = \lam g$ and $A h= \lam h$.
-\item $A \overline{f} = \lam \overline{f}$
-\end{enumerate}
-\end{ex}
-
-\begin{proof}\
-\begin{enumerate}
-\item Since $A$ is linear, 
-\begin{align*}
-Ag +iAh 
-&= Af\\
-&= \lam f\\
-&= \lam g + i\lam h
-\end{align*}
-
-Thus $Ag = \lam g$ and $Ah = \lam h$. \vspace{3mm}
-\item 
-\begin{align*}
-A\overline{f} 
-&= A(g-ih)\\
-&= Ag -iAh\\
-&= \lam g - i \lam h \\
-&= \lam \overline{f} 
-\end{align*}
-\end{enumerate}
-\end{proof}
-
-\begin{defn}
-For $j =1,2,3$, define the \textbf{$j^{\text{th}}$ position operator} $X_j \in L(\H)$ by $$[X_jf](x) = x_jf(x)$$.
-\end{defn}
-
-\begin{ex}
-The $j^{\text{th}}$ position operator $X_j$ is self-adjoint.
-\end{ex}
-
-\begin{proof}
-Let $f, g \in \H$. Then  and 
-\begin{align*}
-\l X_jf, g\r 
-&= \int_\MR x_jf(x)\overline{g(x)}dm_{\MR}(x)\\
-&= \int_\MR f(x)x_j\overline{g(x)}dm_{\MR}(x)\\
-&= \int_\MR f(x)\overline{x_jg(x)}dm_{\MR}(x)\\
-&=\l f, X_jg\r 
-\end{align*}
-\end{proof}
-
-\begin{defn}
-For $j =1,2,3$, define the \textbf{$j^{\text{th}}$ momentum operator} $P_j \in L(\H)$ by $$P_jf = -i \hbar \frac{\partial f}{\partial x_j}$$
-\end{defn}
-\newpage
-
-\begin{ex}
-The $j^{\text{th}}$ momentum operator $P_j$ is self-adjoint.
-\end{ex}
-
-\begin{proof}
-We will assume the case $\MR = \R^3$ since the case $\MR=\R$ uses the same method. Let $f,g \in \H$. Then 
-\begin{align*}
-\l P_jf, g\r
-&= \int_{\R^3} -i\hbar \frac{\partial f}{\partial x_j}\overline{g} dm^3\\
-&= \int_{\R^2} \int_{\R} -i\hbar \frac{\partial f}{\partial x_j}(x)\overline{g(x)} dm(x_j)dm^2(x_{j^-})\\
-&= \int_{\R^2} \bigg(-i\hbar f(x) \overline{g(x)} \bigg]^{x_j=\infty}_{x_j= -\infty} - \int_{\R} -i \hbar f(x) \frac{\partial \overline{g}}{\partial x_j} dm(x_j)dm^2(x_{j^-})\\
-&= \int_{\R^2} \int_{\R}  f(x) i \hbar \frac{\partial \overline{g}}{\partial x_j} dm(x_j)dm^2(x_{j^-})\\
-&= \int_{\R^3} f \bigg(\overline{-i \hbar\frac{\partial g}{\partial x_j} }\bigg)dm^3 \\
-&= \l f, P_j g\r 
-\end{align*}
-Hence $P_j$ is self-adjoint.
-
-\end{proof}
-
-\begin{note}
-Often instead of the operators $X_1, X_2, X_3$ and $P_1, P_2, P_3$ acting on functions $f$ with $(x_1, x_2, x_3) \mapsto f(x_1, x_2, x_3)$ we write $X,Y,Z$ and $P_x,P_y,P_z$ acting on functions $f$ with $(x,y,z) \mapsto f(x,y,z)$
-\end{note}
-
-\begin{defn} 
-Consider a particle of mass $m$ with a ``nice'' potential energy $V: \MR \rightarrow \R$ where $V(x)$ signifies the potential energy of a particle at position $x$. We define the \textbf{Hamiltonian operator}, $H \in L(\H)$, by $$H = -\frac{\hbar^2}{2m} \Delta+VI$$ where I is the identity operator. Thus for each $x \in \MR$, $$[H \psi](x) = -\frac{\hbar^2}{2m} \Delta\psi(x) +V(x)\psi(x)$$  
-\end{defn} 
-
-\begin{ex}
-The Hamiltonian operator $H$ is self-adjoint. Hint: use Green's identity.
-\end{ex}
-
-\begin{proof} Let $f, g \in \H$. Then $$\l H f, g \r = \int_{\MR} \bigg[-\frac{\hbar^2}{2m} \Delta f(x) +V(x)f(x) \bigg] \overline{g}(x) dm_{\MR}(x)$$ and 
-
-$$\l  f, Hg \r = \int_{\MR} f(x) \bigg[- \frac{\hbar^2}{2m} \Delta \overline{g}(x) +V(x)\overline{g}(x) \bigg]  dm_{\MR}(x)$$
-
-So 
-\begin{align*}
-\l H f, g \r  - \l  f, Hg \r 
-&= -\frac{\hbar^2}{2m} \int_{\MR} \overline{g} \Del f  - f \Del \overline{g}dm_{\MR}\\
-&= - \frac{\hbar^2}{2m} \int_{\partial \MR} \overline{g}\nabla_{n}f - f \nabla_{n}\overline{g} ds_{R} \hspace {4mm}\text{(Green's identity)}\\
-&= 0
-\end{align*}
-
-So $\l Hf, g \r = \l f, Hg\r$ and $H$ is self-adjoint.
-\end{proof}
-
-\begin{defn}
-Suppose we have a system containing a particle with potential energy $V: \MR \rightarrow \R$. Let $\psi \in \H$ and $\Psi:\MR \times \R \rightarrow \C$. We say that $\psi$ is a \textbf{state} (of the system) if$$\l \psi, \psi \r = \int_{\MR} \psi(x) \overline{\psi(x)} dm_{\MR}(x) = 1$$ We say that $\Psi$ is a \textbf{wave function} (of the system) if for each $t \in \R$, $\Psi(\cdot, t) \in \H $ is a state of the system and for each $t \in \R$, $\Psi$ satisfies the \textbf{Schrodinger equation}: $$i\hbar \frac{\partial \Psi}{\partial t}(\cdot, t) = H\Psi(\cdot, t)$$
-\end{defn}
-
-\begin{note}
-Our interpretation of this model is the following: The wave function tells us the state of the system at each time $t \in \R$ and each state $\psi$ of the system gives us the probability density of the position $X$ of the particle via the relation: $$\P(X \in A) = \int_{A} \psi \overline{\psi} dm_{\MR}$$  The act of measuring a physical quantity of the state of the system, such as the energy, the momentum in the x direction, etc, correspond to applying a self-adjoint operator to the state. The eigenvalues of self-adjoint operators tell us the possible measurements of that physical quantity. We assume that the eigenvectors of our self-adjoint operator form an orthonormal basis for $\H$. If a system has a wavefunction $\Psi$ and at time $t$, we measure a physical quantity corresponding to a self-adjoint operator $A$ with distinct eigenvalues $(\lambda_j)_{j \in J}$ and corresponding eigen states (normalized eigenvectors) $(\psi_j)_{j \in J}$, then the probability of measuring the quantity $\lam_j$, $\P(m(\Psi, A, t) =\lam_j)$ is given by $$\P(m(\Psi, A, t) = \lam_j) = \vert \l \Psi(\cdot, t), \psi_j \r \vert ^2 = \bigg \vert \int_{\MR} \Psi(x, t)\overline{\psi_j(x)} dm_{\MR}(x) \bigg\vert ^2$$ 
-
-If for $j \in J$, we define $c_j: \R \rightarrow \C$ by $$c_j(t) = \int_{\MR} \Psi(x, t)\overline{\psi_j(x)} dm_{\MR}(x)$$ then the expected value of the measurement at time $t$, $\l A \r_t$, is given by $$\l A \r_t = \sum_{j \in J}\lam_j \vert c_j(t) \vert ^2$$
-\end{note}
 \end{document}
+
