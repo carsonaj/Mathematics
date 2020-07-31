@@ -4,6 +4,21 @@
 \usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
 \usepackage[shortlabels]{enumitem}
 \usepackage{exercise, chngcntr}
+%
+%
+%
+\newif\ifhideproofs
+\hideproofstrue %uncomment to hide proofs
+%
+%
+%
+%
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}[thm]{Lemma}
@@ -115,7 +130,7 @@ Recall that $\MB(Y) = \sig(\MT_2)$ and continuity tells us that for each $U \in 
 \end{proof}
 
 \begin{defn}
-Let $X$ be a set and $f:X \rightarrow \C$. The $f$ is said to be \textbf{simple} if $f(X)$ is finite.
+Let $X$ be a set and $f:X \rightarrow \C$. Then $f$ is said to be \textbf{simple} if $f(X)$ is finite.
 \end{defn}
 
 \begin{defn}
@@ -155,7 +170,7 @@ Suppose that $f$ is simple. Then there exist $(a_n)_{i=1}^n \subset \Rg$ and $(E
 &= \int f d\mu_1 + \int f d\mu_2
 \end{align*}
 
-Now for general $f$, choose $(\phi_n)_{n \in \N} \subset S^+$ such that $\phi_n \rightarrow f$ pointwise and for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$. Then monotone convergence tells us that 
+Now for a general $f$, choose $(\phi_n)_{n \in \N} \subset S^+$ such that $\phi_n \rightarrow f$ pointwise and for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$. Then monotone convergence tells us that 
 \begin{align*}
 \int f d(\mu_1 + \mu_2) 
 &= \limn \int \phi_n d(\mu_1 + \mu_2)\\

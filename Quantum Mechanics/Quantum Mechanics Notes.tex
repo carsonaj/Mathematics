@@ -5,6 +5,16 @@
 \usepackage{exercise, chngcntr}
 \usepackage{cite}
 
+%
+%
+%
+\newif\ifhideproofs
+\hideproofstrue %uncomment to hide proofs
+%
+%
+%
+%
+
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}[thm]{Lemma}
@@ -16,7 +26,11 @@
 \newtheorem{note}[thm]{Note}
 \newtheorem{ex}[thm]{Exercise}
 \newtheorem{exm}[thm]{Example}
-\newtheorem{sol}[thm]{Solution}
+
+
+\newenvironment{sol}
+  {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+  {\end{proof}}
 
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
@@ -397,7 +411,7 @@ a a^{\dagger}
 If $H\psi = E\psi$, then 
 \begin{enumerate}
 \item $Ha\psi = (E-\hbar \om) a \psi$
-\item $Ha^{\dagger}\psi = (E+\hbar \om) a \psi$
+\item $Ha^{\dagger}\psi = (E+\hbar \om) a^{\dagger} \psi$
 \end{enumerate}
 \end{ex}
 
@@ -423,24 +437,96 @@ The lowering operator ``lowers"  a stationary state $\psi$ with energy $E$ to a 
 \end{intp}
 
 \begin{defn}
-Since the zero function is a solution to the time-independent \sch equation, we define the ground state, $\psi_0$ of the harmonic oscillator to be the stationary state that satisfies $a\psi_0 = 0$. 
+Since the zero function is a solution to the time-independent \sch equation, we define the ground state, $\psi_0$ of the harmonic oscillator to be the stationary state that satisfies $a\psi_0 = 0$. The excited states $\psi_n$, for $n \geq 1$, are obtained by applying the rasing operator $n$ times and then normalizing.
 \end{defn}
 
 \begin{ex}
 We have that
 \begin{enumerate}
-\item $\psi_0(x) = $
+\item $\psi_0= \big(\frac{m \om}{ \pi \hbar}\big)^{\frac{1}{4}}e^{-\frac{m \om}{2 \hbar}x^2}$
 \item $E_0 = \frac{1}{2}\hbar \om$
+\item $\psi_n = c_n(a^{\dagger})^n\psi_0$ $\hspace{.4cm}$ (for some constant $c_n$)
+\item $E_n = \hbar \om (n + \frac{1}{2})$
 \end{enumerate}
 
 \end{ex}
 
 \begin{proof}\
 \begin{enumerate}
-\item The simple differential equation $a\psi_0 = 0$ has the solution $$\psi_0 = Ae^{-\frac{m \om}{2 \hbar}x^2}$$ If we normalize this function, we obtain $$\psi_0= \sqrt{\frac{2 \pi \hbar}{m \om}}e^{-\frac{m \om}{2 \hbar}x^2}$$
-\item It is tedious but straightforward to show that $$H\psi_0 = \frac{1}{2}\hbar \om$$
+\item The simple differential equation $a\psi_0 = 0$ has the solution $$\psi_0 = Ae^{-\frac{m \om}{2 \hbar}x^2}$$ Thus $$\vert \psi_0\vert^2 = \vert A \vert^2 e^{-\frac{m \om}{ \hbar}x^2}$$ If we normalize this function, we obtain $$\psi_0= \bigg( \frac{m \om}{ \pi \hbar} \bigg)^{\frac{1}{4}} e^{-\frac{m \om}{2 \hbar}x^2}$$
+\item It is tedious but straightforward to show that $$H\psi_0 = \frac{1}{2}\hbar \om\psi_0$$
+\item Clear by definition.
+\item Clear by previous exercise.
 \end{enumerate} 
 \end{proof}
+
+\begin{ex}
+\begin{enumerate}\
+\item $\psi_{n+1} = \frac{1}{\sqrt{n+1}} a^{\dagger} \psi_n $
+\item $\psi_{n-1} = \frac{1}{\sqrt{n}} a \psi_n $
+
+\end{enumerate}
+Hint: use the adjoint-ness of $a$ and $a^{\dagger}$
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item 
+\begin{align*}
+aa^{\dagger}\psi_n
+&= \bigg(\frac{1}{\hbar \om}H +\frac{1}{2}\bigg)\psi_n\\
+&= \frac{1}{\hbar \om}E_n \psi_n + \frac{1}{2} \psi_n\\
+&= (n+1) \psi_n
+\end{align*}
+Since $\psi_{n+1} = ca^{\dagger}\psi_{n}$, we have that
+\begin{align*}
+1
+&=\l \psi_{n+1}\vert \psi_{n+1}\r\\
+&=\l c a^{\dagger}\psi_n \vert ca^{\dagger}\psi_n\r\\
+&= \vert c\vert^2 \l a^{\dagger} \psi_n\vert a^{\dagger} \psi_n \r\\
+&= \vert c\vert^2 \l a a^{\dagger}\psi_n \vert \psi_n \r\\
+&= \vert c\vert^2 \l (n+1)\psi_n \vert \psi_n \r\\
+&= \vert c\vert^2  (n+1) \l \psi_n \vert \psi_n \r\\
+&= \vert c\vert^2  (n+1)\\
+\end{align*}
+So $c = \frac{1}{\sqrt{n+1}}$\vspace{2mm}
+
+\item Similar to $(1)$.
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+The $n^{\text{th}}$ stationary state is given by $\psi_n = \frac{1}{\sqrt{n!}}(a^{\dagger})^n\psi_0$
+\end{ex}
+
+\begin{proof}
+Clear by induction.
+\end{proof}
+
+\begin{ex}
+Show that
+\begin{enumerate}
+\item $\psi_1(x) = \big(\frac{4m^3 \om^3}{\hbar^3 \pi} \big)xe^{-\frac{m \om}{2 \hbar}x^2}$
+\item $E_1 = \frac{3}{2} \hbar \om$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+Straightforward.
+\end{proof}
+
+
+
+\begin{ex}
+If particle one is in state $\psi_0$ at time $t=0$, then the momentum wave function is $$\Phi(p,t) = \bigg(\frac{1}{m \om \pi \hbar}\bigg)^{\frac{1}{4}}e^{-\frac{1}{2m \om \hbar}p^2}e^{-i \frac{\om}{2}t}$$
+\end{ex}
+
+\begin{proof}
+By assumption $$\Psi(x,t) = \psi_0(x)e^{-i \frac{\om}{2}t}$$ Thus $$\Phi(p,t) = \frac{1}{\sqrt{2 \pi \hbar}}\int_{\R}\Psi(x,t)e^{-i\frac{px}{h}}dx$$
+The rest is straightforward.
+\end{proof}
+
+\section{Fundamental Examples in Three Dimensions}
 
 \end{document}
 
