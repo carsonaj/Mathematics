@@ -5,6 +5,8 @@
 \usepackage{exercise, chngcntr}
 \usepackage{cite}
 
+
+
 %
 %
 %
@@ -36,6 +38,10 @@
 \renewcommand{\l}{\langle}
 
 \newcommand{\sch}{Schr\"{o}dinger }
+
+\newcommand\Item[1][]{%
+  \ifx\relax#1\relax  \item \else \item[#1] \fi
+  \abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 
 \newcommand{\al}{\alpha}
 \newcommand{\Gam}{\Gamma}
@@ -100,7 +106,7 @@
 \subsection{Schr\"{o}dinger Equation}
 
 \begin{defn}
-A particle with potential energy $V(r,t)$ is completely decribed by its \textbf{position wavefunction} $\Psi(r,t)$, which satisfies the \textbf{Schr\"{o}dinger equation}: 
+A particle with potential energy $V(x,t)$ is completely decribed by its \textbf{position wavefunction} $\Psi(x,t)$, which satisfies the \textbf{Schr\"{o}dinger equation}: 
 \begin{align*}
 i\hbar \p{t} \Psi 
 &= -\frac{\hbar^2}{2m} \Del \Psi + V \Psi\\
@@ -108,15 +114,17 @@ i\hbar \p{t} \Psi
 \end{defn}
 
 \begin{intp}
-We interpret $\vert\Psi(r,t)\vert^2$ to be the \textbf{probability density} for the position, $r$, of the particle at time $t$. Therefore, we require that for each $t \in \R$, $$\int_{\R^n}\Psi(r,t)^* \Psi(r,t) dr = 1$$
+We interpret $\vert\Psi(x,t)\vert^2$ to be the \textbf{probability density} for the position, $x$, of the particle at time $t$. Therefore, we require that for each $t \in \R$, $$\int_{\R^n}\Psi(x,t)^* \Psi(x,t) dx = 1$$
 \end{intp}
 
 \subsection{Operators}
 
 \begin{defn}
 
-We define the jth \textbf{position} and \textbf{momentum} coordinate operators $X_j,P_j$, (in position space) by $$X_j \Psi(r,t) = x_j \Psi(r,t)$$ and $$P_j \Psi(r,t) = -i \hbar \p{x_j} \Psi(r,t)$$ 
-If the partical has potential energy $V(r,t)$, we define the \textbf{Hamiltonian} operator, $H$, by $$H = \frac{P^2}{2m} + V$$ Thus the Schr\"{o}dinger equation reads $$i\hbar \p{t}\Psi = H \Psi$$ 
+We define the $j^{\text{th}}$ \textbf{position} and \textbf{momentum coordinate operators} $X_j,P_j$, (in position space) by $$X_j \Psi(x,t) = x_j \Psi(x,t)$$ and $$P_j \Psi(x,t) = -i \hbar \p{x_j} \Psi(x,t)$$ 
+We define the \textbf{position} and \textbf{momentum} operators, $X$ and $P$, by $$X = (X_1, X_2, \cdots, X_n)$$ and $$P = (P_1, P_2, \cdots, P_n)$$
+We denote $P \cdot P$ by $P^2$. Note that $$P^2 = -\hbar^2 \Del$$
+If the partical has potential energy $V(x,t)$, we define the \textbf{Hamiltonian} operator, $H$, by $$H = \frac{P^2}{2m} + V$$ Thus the Schr\"{o}dinger equation reads $$i\hbar \p{t}\Psi = H \Psi$$ 
 \end{defn}
 
 \begin{note}
@@ -124,7 +132,7 @@ If the potential energy doesn't depend on time, we may write $$H = \frac{P^2}{2m
 \end{note}
 
 \begin{defn}
-Let $A$ and $B$ be operators. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $\Psi_1$, $\Psi_2$, $$\l \Psi_1 \vert A\Psi_2 \r = \l B \Psi_1 \vert \Psi_2 \r$$ i.e. $$\int_{\R^n}\Psi_1^* (A\Psi_2) dr = \int_{\R^n}(B\Psi_1)^* \Psi_2 dr$$ If B is the adjoint of $A$, we write $$B = A^{\dagger}$$
+Let $A$ and $B$ be operators. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $\Psi_1$, $\Psi_2$, $$\l \Psi_1 \vert A\Psi_2 \r = \l B \Psi_1 \vert \Psi_2 \r$$ i.e. $$\int_{\R^n}\Psi_1^* (A\Psi_2) dx = \int_{\R^n}(B\Psi_1)^* \Psi_2 dx$$ If B is the adjoint of $A$, we write $$B = A^{\dagger}$$
 \end{defn}
 
 \begin{ex}
@@ -170,18 +178,18 @@ The operators $X_j, P_j$ and $H$ are self adjoint.
 Since $x_j$ is real, clearly $$\l \Psi_1 \vert X_j \Psi_2 \r = \l X_j\Psi_1 \vert \Psi_2 \r $$ Similarly, we have that 
 \begin{align*}
 \l \Psi_1 \vert P_j \Psi_2 \r
-&=  \int_{\R^n} \Psi_1^* \bigg(-i\hbar\p{x_j} \Psi_2\bigg)dr \\
-&= -i \hbar\int_{\R^n} \Psi_1^*  \bigg(\p{x_j} \Psi_2\bigg)dr\\
-&= i\hbar \int_{\R_n} \bigg( \p{x_j} \Psi_1^* \bigg) \Psi_2 dr \hspace{1cm } \text{(integration by parts)}\\
-&= \int_{\R^n} \bigg( -i \hbar \p{x_j} \Psi_1 \bigg)^* \Psi_2 dr\\
+&=  \int_{\R^n} \Psi_1^* \bigg(-i\hbar\p{x_j} \Psi_2\bigg)dx \\
+&= -i \hbar\int_{\R^n} \Psi_1^*  \bigg(\p{x_j} \Psi_2\bigg)dx\\
+&= i\hbar \int_{\R_n} \bigg( \p{x_j} \Psi_1^* \bigg) \Psi_2 dx \hspace{1cm } \text{(integration by parts)}\\
+&= \int_{\R^n} \bigg( -i \hbar \p{x_j} \Psi_1 \bigg)^* \Psi_2 dx\\
 &= \l P \Psi_1 \vert \Psi_2 \r
 \end{align*}
 
 Finally 
 \begin{align*}
 \l \Psi_1 \vert H \Psi_2 \r - \l H \Psi_1 \vert  \Psi_2 \r
-&= \int_{\R^n} \Psi_1^* \bigg(-\frac{\hbar^2}{2m}\Del \Psi_2 + V \Psi_2\bigg)dr - \int_{\R^n} \bigg(-\frac{\hbar^2}{2m}\Del \Psi_1 + V\Psi_1\bigg)^*  \Psi_2 dr \\
-&= \frac{\hbar^2}{2m}\int_{\R^n} (\Del \Psi_1^* )\Psi_2 - \Psi_1^*(\Del \Psi_2)dr\\
+&= \int_{\R^n} \Psi_1^* \bigg(-\frac{\hbar^2}{2m}\Del \Psi_2 + V \Psi_2\bigg)dx - \int_{\R^n} \bigg(-\frac{\hbar^2}{2m}\Del \Psi_1 + V\Psi_1\bigg)^*  \Psi_2 dx \\
+&= \frac{\hbar^2}{2m}\int_{\R^n} (\Del \Psi_1^* )\Psi_2 - \Psi_1^*(\Del \Psi_2)dx\\
 &= 0 \hspace{1cm} \text{(Green's second identity)}
 \end{align*}
 \end{proof}
@@ -227,11 +235,11 @@ We have $[X_j, P_j] = i\hbar$.
 \begin{proof}
 For a position wave function $\Psi$, 
 \begin{align*}
-[X_j, P_j]\Psi(r,t)
-&= [x_j, -i\hbar \p{x_j}]\Psi(r,t)\\
-&= (-i\hbar) \bigg[x_j \p{x_j}\Psi(r,t)- \p{x_j}x_j\Psi(r,t)\bigg]\\
-&= (-i\hbar)\bigg[ x_j \p{x_j}\Psi(r,t)- \Psi(r,t) - x_j \p{x_j}\Psi(r,t)\bigg]\\
-&=i\hbar \Psi(r,t)
+[X_j, P_j]\Psi(x,t)
+&= [x_j, -i\hbar \p{x_j}]\Psi(x,t)\\
+&= (-i\hbar) \bigg[x_j \p{x_j}\Psi(x,t)- \p{x_j}x_j\Psi(x,t)\bigg]\\
+&= (-i\hbar)\bigg[ x_j \p{x_j}\Psi(x,t)- \Psi(x,t) - x_j \p{x_j}\Psi(x,t)\bigg]\\
+&=i\hbar \Psi(x,t)
 \end{align*}
 
 Hence $[X_j, P_j] = i\hbar$
@@ -280,19 +288,19 @@ We define the \textbf{momemtum wavefunction}, $\Phi$, of the particle to be the 
 \begin{align*}
 \Phi(p,t) 
 &= F[\Psi](p,t)\\
-&= \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Psi(r,t)e^{-i \frac{p \cdot r}{\hbar} }dr 
+&= \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Psi(x,t)e^{-i \frac{p \cdot x}{\hbar} }dx
 \end{align*}
 \end{defn}
 
 \begin{note}
 We recall the following facts about Fourier transforms:
 \begin{enumerate}
-\item $$\Phi(p,t) = \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Psi(r,t)e^{-i \frac{p \cdot r}{\hbar} }dr $$ and $$\Psi(r,t) = \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Phi(p,t)e^{i \frac{p \cdot r}{\hbar} }dp $$
+\item $$\Phi(p,t) = \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Psi(x,t)e^{-i \frac{p \cdot x}{\hbar} }dx $$ and $$\Psi(x,t) = \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Phi(p,t)e^{i \frac{p \cdot x}{\hbar} }dp $$
 
 \item $$F\bigg[\p{x_j} \Psi \bigg] = \frac{i p_j}{\hbar}F[\Psi]$$
 and $$F^{-1}\bigg[\p{p_j} \Phi \bigg] = -\frac{i x_j}{\hbar}F[\Psi]$$
 
-\item $$\int_{\R^n} \Psi_1^* \Psi_2 dr = \int_{\R^n} F[\Psi_1]^* F[\Psi_2]dr$$
+\item $$\int_{\R^n} \Psi_1^* \Psi_2 dx = \int_{\R^n} F[\Psi_1]^* F[\Psi_2]dx$$
 \end{enumerate}
 \end{note}
 
@@ -316,7 +324,7 @@ Starting with the Schr\"{o}dinger equation, we have
 \begin{align*}
 i\hbar \p{t} \Psi 
 &= \bigg[\frac{P^2}{2m} + V(X)\bigg] \Psi\\
-&= \bigg[\frac{-\hbar^2}{2m}\Del + V(r)\bigg] \Psi \hspace{1cm} \text{(position space)}
+&= \bigg[\frac{-\hbar^2}{2m}\Del + V(x)\bigg] \Psi \hspace{1cm} \text{(position space)}
 \end{align*} 
 Taking Fourier transforms of both sides, we see that 
 \begin{align*}
@@ -336,7 +344,7 @@ For a self-adjoint operator $Q(X,P)$, the expected value of $Q$,  is given by
 \[ 
 \l Q \r = 
 \begin{cases}
-\l \Psi(r,t) \vert Q(r, -i\hbar \nabla) \Psi(r,t)\r & \hspace{1cm} \text{(position space)}\\
+\l \Psi(x,t) \vert Q(x, -i\hbar \nabla) \Psi(x,t)\r & \hspace{1cm} \text{(position space)}\\
 \l \Phi(p,t) \vert Q(i\hbar \nabla, p) \Phi(p,t) \r & \hspace{1cm} \text{(momentum space)}\\
 \end{cases}
 \]
@@ -344,13 +352,13 @@ For a self-adjoint operator $Q(X,P)$, the expected value of $Q$,  is given by
 
 \subsection{Stationary States}
 \begin{defn}
-When the potential energy $V$ doesn't depend on time, we look for solutions to the \sch equation of the form $$\Psi(r,t) = \psi(r) \varphi(t)$$ With a closer look, we find that
+When the potential energy $V$ doesn't depend on time, we look for solutions to the \sch equation of the form $$\Psi(x,t) = \psi(x) \varphi(t)$$ With a closer look, we find that
 
 \begin{enumerate}
 \item $H\psi = E \psi$
 \item $\varphi(t) = e^{-i\frac{E}{\hbar}t}$
 \end{enumerate}
-Eigenfuntions of the Hamiltonian operator are called \textbf{stationary states}. If the possible eigenvalues for the Hamiltonian operator are discreet $(E_n)_{n\in \N}$ with stationary states $(\psi_n)_{n \in \N}$, then the general solution to the \sch equation is $$\Psi(r,t) = \sum_{n \in \N} c_n \psi_n(r) e^{-i\frac{E_n}{\hbar}t}$$ where $$c_n = \int_{\R^n}\psi_n^*(r) \Psi(r,0)dr$$
+Statement $(1)$ is referred to as the \textbf{time-independent \sch equation}. Eigenfuntions of the Hamiltonian operator are called \textbf{stationary states}. If the possible eigenvalues for the Hamiltonian operator are discreet $(E_n)_{n\in \N}$ with stationary states $(\psi_n)_{n \in \N}$, then the general solution to the \sch equation is $$\Psi(x,t) = \sum_{n \in \N} c_n \psi_n(x) e^{-i\frac{E_n}{\hbar}t}$$ where $$c_n = \int_{\R^n}\psi_n^*(x) \Psi(x,0)dx$$
 \end{defn}
 
 \begin{defn}
@@ -527,6 +535,54 @@ The rest is straightforward.
 \end{proof}
 
 \section{Fundamental Examples in Three Dimensions}
+\subsection{Spherical Coordinates}
+\begin{defn}
+We now set $n=3$, and work with spherical coordinates $(r, \theta, \phi)$ where $r$ is the distance in from the origin, $0 \leq \theta \leq \pi$ is the angle with initial side on the positive $z$-axis, and $0 \leq \phi < 2\pi$ is the angle in the $x$-$y$ plane with initial side on the positive $x$-axis going towards the positive $y$-axis.
+\end{defn}
+
+\begin{prop}
+In spherical coordinates, the time independent \sch equation becomes $$-\frac{\hbar^2}{2m}\bigg[ \frac{1}{r^2} \p{r}\bigg( r^2 \p{r}\bigg) + \frac{1}{r^2 \sin \theta} \p{\theta} \bigg( \sin \theta \p{\theta}\bigg) + \frac{1}{r^2 \sin^2 \theta} \frac{\partial^2}{\partial \phi^2}  \bigg] \psi + V \psi = E \psi$$
+\end{prop}
+
+\begin{defn}
+If the potential energy $V$ only depends on $r$, then we can solve for stationary solutions of the form $\psi(r, \theta, \phi) = R(r), Y(\theta, \phi)$. It results that there is some constant $l$ such that 
+
+\begin{enumerate}
+\Item 
+$$\frac{1}{R} \frac{d}{dr} r^2 \frac{dR}{dr} - \frac{2m}{\hbar^2}r^2(V -E) = l(l+1)$$ \vspace{3mm}
+\Item 
+$$\frac{1}{Y}\bigg[\frac{1}{\sin \theta}\p{\theta} \bigg(\sin \theta \frac{\partial Y}{\partial \theta} \bigg) + \frac{1}{\sin^2 \theta}\frac{\partial^2Y}{\partial \phi^2} \bigg] = -l(l+1)$$
+
+\end{enumerate} \vspace{3mm}
+The number $l$ is called the \textbf{azimuthal quantum number}, equation $(1)$ is called the \textbf{radial equation} and equation $(2)$ is called the \textbf{angular equation}. 
+\end{defn}
+
+\begin{defn}
+We can look for solutions to the angular equation of the form \\$Y(\theta, \phi) = \Theta(\theta)\Phi(\phi)$. It results that there is some constant $m$ such that 
+\begin{enumerate}
+\Item 
+$$\frac{1}{\Theta}  \sin \theta \frac{d}{d\theta}\bigg( \sin \theta \frac{d\Theta}{d\theta} \bigg) + l (l+1) \sin^2 \theta = m^2$$
+\vspace{3mm}
+\Item $$\frac{1}{\Phi} \frac{d^2 \Phi}{d\phi^2} = -m^2$$
+\end{enumerate} \vspace{3mm}
+Equation $(2)$ has the solution $$\Phi(\phi) = e^{im\phi}$$
+Since $(r,\theta, \phi)$ is the same point in space as $(r, \theta, \phi+2 \pi)$, we require that $\Phi(\phi) = \Phi(\phi+2\pi)$. This implies that $m \in \Z$. The integer $m$ is called the \textbf{magnetic quantum number}. \vspace{3mm}\\ 
+If $l \in \N_0$ and $m \leq l$, then equation $(1)$ has the solution $$\Theta(\theta) = AP_l^m(\cos \theta)$$ where $P_l^m$ is the \textbf{associated Legendre} function given by $$P_l^m(x) = (1-x^2)^{\frac{\vert m \vert}{2}}\bigg(\frac{d}{dx} \bigg)^{\vert m \vert} P_l(x)$$ and $P_l(x)$ is the $l^{\text{th}}$ \textbf{Legendre polynomial} defined by $$P_l(x) = \frac{1}{2^l l!} \bigg(\frac{d}{dx} \bigg)^{l}(x^2 -1)^l$$ \vspace{3mm} The angular function $Y^m_l(\theta, \phi) = A_l^m P_l^m(\cos \theta)e^{im\phi}$ may be normalized by setting $$A_l^m = \ep \sqrt{\frac{(2l+1)}{4\pi} \frac{(l-\vert m \vert)!}{(l+ \vert m \vert)!}}$$ where $$\ep = 
+\begin{cases}
+(-1)^m & m \geq 0\\
+1 & m < 0
+\end{cases}$$ The normalized angular functions are called \textbf{spherical harmonics}.
+\end{defn}
+
+\begin{ex}
+Compute some spherical harmonics.
+\end{ex}
+
+\begin{defn}
+If we make the substitution $u(r) = rR(r)$, we may rewrite the radial equation as $$-\frac{\hbar^2}{2m}\frac{d^2u}{dr^2} = \bigg[V+ \frac{\hbar^2}{2m}\frac{l(l+1)}{r^2} \bigg]u = Eu$$ which looks like the one dimensional \sch equation. The function $$V+ \frac{\hbar^2}{2m}\frac{l(l+1)}{r^2}$$ is called the \textbf{effective potential}.
+\end{defn}
+
+\subsection{Spherical Harmonic Oscillator}
 
 \end{document}
 
