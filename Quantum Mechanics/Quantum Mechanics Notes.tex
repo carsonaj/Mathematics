@@ -108,6 +108,10 @@
 \section{Introduction}
 \subsection{Schr\"{o}dinger Equation}
 
+\begin{note}
+In the introduction, we keep position general with $x \in \R^n$ given by $x = (x_1, \cdots, x_n)$, the usual math notation. The notation in cartesian coordinates changes in three dimensions to $r = (x,y,z)$, the usual physics notation. 
+\end{note}
+
 \begin{defn}
 A particle with potential energy $V(x,t)$ is completely decribed by its \textbf{position wavefunction} $\Psi(x,t)$, which satisfies the \textbf{Schr\"{o}dinger equation}: 
 \begin{align*}
@@ -232,7 +236,7 @@ Let $A$ and $B$ be operators. The \textbf{commutator} of $A$ and $B$, $[A,B]$, i
 \end{defn}
 
 \begin{ex}
-We have $[X_j, P_j] = i\hbar$.
+We have $[X_i, P_j] = \del_{i,j}i\hbar$.
 \end{ex}
 
 \begin{proof}
@@ -245,7 +249,30 @@ For a position wave function $\Psi$,
 &=i\hbar \Psi(x,t)
 \end{align*}
 
-Hence $[X_j, P_j] = i\hbar$
+Hence $[X_j, P_j] = i\hbar$\vspace{.5cm}
+
+For $i\neq j$, 
+\begin{align*}
+X_iP_j \Psi(x,t)
+&= \p{x_j}x_i \Psi(x,t)\\
+& = -i \hbar x_i \p{x_j}\Psi(x,t) \\
+&= P_jX_i \Psi(x,t)
+\end{align*}
+So $$[X_i,P_j] =0 $$
+\end{proof}
+
+\begin{ex}
+Let $A,B$ and $C$ be operators, then $[AB,C] = A[B,C] + [A,C]B$
+\end{ex}
+
+\begin{proof} We have 
+\begin{align*}
+[AB,C]
+&= ABC - CAB\\
+&= ABC - ACB + ACB -CAB\\
+&= A(BC - CB) + (AC-CA)B\\
+&= A[B,C] + [A,C]B
+\end{align*}
 \end{proof}
 
 \subsection{Continuity Equation}
@@ -450,33 +477,31 @@ and (after normalizing) our stationary states are
 \subsection{The Harmonic Oscillator}
 
 \begin{defn}
-The \textbf{harmonic oscillator} in one dimension is defined by the potential energy: $$V(x) = \frac{1}{2}m \om^2 x^2$$ We define the \textbf{lowering operator}, $a$, by $$a = \frac{1}{\sqrt{2 \hbar m \om }}\bigg(m\om X +iP\bigg)$$ 
+The \textbf{harmonic oscillator} in one dimension is defined by the potential energy: $$V(x) = \frac{1}{2}m \om^2 x^2$$ We define the \textbf{lowering operator}, $a_-$, by $$a_- = \frac{1}{\sqrt{2 \hbar m \om }}\bigg(m\om X +iP\bigg)$$  and we define the \textbf{raising operator}, $a_+$, by $$a_+ = \frac{1}{\sqrt{2 \hbar m \om }}\bigg(m\om X -iP\bigg)$$
 \end{defn}
 
 \begin{ex}
-The adjoint of the lowering operator is $$a^{\dagger} = \frac{1}{\sqrt{2 \hbar m \om }}\bigg(m\om X -iP\bigg)$$
+The adjoint of the lowering operator is the raising operator: $$(a_-)^{\dagger} = a_+$$
 \end{ex}
 
 \begin{proof}
-For a wave functions $\Psi_1$, $\Psi_2$,
+Let $\Psi_1$, $\Psi_2$ be wavefunctions. Since $X,P$ are self-adjoint, we have that
 \begin{align*}
-\int_{\R}\bigg[ \frac{1}{\sqrt{2 \hbar m \om }}\bigg(m\om X -iP\bigg)\Psi_1 \bigg]^* \Psi_2 dx
-&= \frac{1}{\sqrt{2 \hbar m \om }}\int_{\R}(m\om x \Psi_1(x,t)^* \Psi_2(x,t) -\hbar \bigg(\p{x}\Psi_1(x,t)^*\bigg)\Psi_2(x,t) dx\\
-&=\frac{1}{\sqrt{2 \hbar m \om }}\int_{\R}(m\om x \Psi_1(x,t)^* \Psi_2(x,t) +\hbar \Psi_1(x,t)^*\bigg(\p{x}\Psi_2(x,t)\bigg) dx \hspace{.5cm}\\
-&=\int_{\R}\Psi_1^*\bigg[ \frac{1}{\sqrt{2 \hbar m \om }}\bigg(m\om X +iP\bigg)\Psi_2 \bigg]  dx
+\l \Psi_1 \vert a_- \Psi_2\r
+&= \frac{1}{\sqrt{2 \hbar m \om}} \l\Psi_1 \vert (m\om X +iP) \Psi_2 \r \\
+&= \frac{1}{\sqrt{2 \hbar m \om}}\bigg[ m \om \l\Psi_1 \vert X \Psi_2 \r +i \l \Psi_1 \vert  P \Psi_2 \r \bigg] \\
+&= \frac{1}{\sqrt{2 \hbar m \om}}\bigg[  \l m \om X \Psi_1 \vert \Psi_2 \r + \l -i P \Psi_1 \vert \Psi_2 \r \bigg] \\
+&= \frac{1}{\sqrt{2 \hbar m \om}}  \l (m \om X -iP)\Psi_1 \vert \Psi_2 \r  \\
+&= \l a_+ \Psi_1 \vert \Psi_2\r 
 \end{align*}
 \end{proof}
-
-\begin{defn}
-We call $a^{\dagger}$ the \textbf{raising operator} and together, $a$ and $a^{\dagger}$ are called the ladder operators.
-\end{defn}
 
 \begin{ex}
 We have that 
 \begin{enumerate}
-\item $aa^{\dagger} = \frac{1}{\hbar \om}H + \frac{1}{2}$
-\item $a^{\dagger}a = \frac{1}{\hbar \om}H - \frac{1}{2}$
-\item $[a,a^{\dagger}] = 1$
+\item $a_-a_+ = \frac{1}{\hbar \om}H + \frac{1}{2}$
+\item $a_+a_- = \frac{1}{\hbar \om}H - \frac{1}{2}$
+\item $[a_-,a_+] = 1$
 \end{enumerate}
 \end{ex}
 
@@ -484,7 +509,7 @@ We have that
 \begin{enumerate}
 \item \
 \begin{align*}
-a a^{\dagger}
+a_- a_+
 &= \frac{1}{2\hbar m \om}\big(m \om X + iP \big) \big( m\om X - iP )\\
 &= \frac{1}{2 \hbar m \om} \bigg[ \big(m^2 \om^2 X^2 + P^2 \big) - m\om i\big(XP - PX \big) \bigg]\\
 &= \frac{1}{\hbar \om}\big(\frac{1}{2m}P^2 + \frac{1}{2}m \om^2 X^2 \big) - \frac{i}{2 \hbar}\big[X,P \big]\\
@@ -498,8 +523,8 @@ a a^{\dagger}
 \begin{ex}
 If $H\psi = E\psi$, then 
 \begin{enumerate}
-\item $Ha\psi = (E-\hbar \om) a \psi$
-\item $Ha^{\dagger}\psi = (E+\hbar \om) a^{\dagger} \psi$
+\item $Ha_-\psi = (E-\hbar \om) a_- \psi$
+\item $Ha_+\psi = (E+\hbar \om) a_+ \psi$
 \end{enumerate}
 \end{ex}
 
@@ -507,25 +532,25 @@ If $H\psi = E\psi$, then
 \begin{enumerate}
 \item \
 \begin{align*}
-Ha\psi 
-&= \hbar \om \bigg(aa^{\dagger}-\frac{1}{2}\bigg)a \psi\\
-&= \hbar \om \bigg(aa^{\dagger}a-\frac{1}{2}a\bigg) \psi\\
-&= \hbar \om a\bigg(a^{\dagger}a-\frac{1}{2}\bigg) \psi\\
-&= \hbar \om a\bigg(a^{\dagger}a+\frac{1}{2} -1\bigg) \psi\\
-&= \hbar \om a\bigg(\frac{1}{\hbar \om}H -1\bigg) \psi\\
-&= a H\psi -\hbar \om a \psi \\
-&= (E - \hbar \om)a\psi 
+Ha_-\psi 
+&= \hbar \om \bigg(a_-a_+-\frac{1}{2}\bigg)a \psi\\
+&= \hbar \om \bigg(a_-a_+a_- -\frac{1}{2}a_-\bigg) \psi\\
+&= \hbar \om a_-\bigg(a_+a_- -\frac{1}{2}\bigg) \psi\\
+&= \hbar \om a_-\bigg(a_+a_- +\frac{1}{2} -1\bigg) \psi\\
+&= \hbar \om a_-\bigg(\frac{1}{\hbar \om}H -1\bigg) \psi\\
+&= a_- H\psi -\hbar \om a_- \psi \\
+&= (E - \hbar \om)a_-\psi 
 \end{align*}
 \item Similar
 \end{enumerate}
 \end{proof}
 
 \begin{intp}
-The lowering operator ``lowers"  a stationary state $\psi$ with energy $E$ to a stationary state $a\psi$ with energy $E-\hbar \om$ and the raising operator ``raises"  a stationary state $\psi$ with energy $E$ to a stationary state $a^{\dagger}\psi$ with energy $E+\hbar \om$.
+The lowering operator ``lowers"  a stationary state $\psi$ with energy $E$ to a stationary state $a_-\psi$ with energy $E-\hbar \om$ and the raising operator ``raises"  a stationary state $\psi$ with energy $E$ to a stationary state $a_+\psi$ with energy $E+\hbar \om$.
 \end{intp}
 
 \begin{defn}
-Since the zero function is a solution to the time-independent \sch equation, we define the ground state, $\psi_0$ of the harmonic oscillator to be the stationary state that satisfies $a\psi_0 = 0$. The excited states $\psi_n$, for $n \geq 1$, are obtained by applying the rasing operator $n$ times and then normalizing.
+Since the zero function is a solution to the time-independent \sch equation, we define the ground state, $\psi_0$ of the harmonic oscillator to be the stationary state that satisfies $a_-\psi_0 = 0$. The excited states $\psi_n$, for $n \geq 1$, are obtained by applying the rasing operator $n$ times and then normalizing.
 \end{defn}
 
 \begin{ex}
@@ -533,7 +558,7 @@ We have that
 \begin{enumerate}
 \Item $$\psi_0= \bigg(\frac{m \om}{ \pi \hbar}\bigg)^{\frac{1}{4}}e^{-\frac{m \om}{2 \hbar}x^2}$$\vspace{2mm}
 \Item $$E_0 = \frac{1}{2}\hbar \om$$ \vspace{2mm}
-\Item $$\psi_n = c_n(a^{\dagger})^n\psi_0 \hspace{.4cm} (\text{for some constant } c_n)$$ \vspace{2mm}
+\Item $$\psi_n = c_n(a_+)^n\psi_0 \hspace{.4cm} (\text{for some constant } c_n)$$ \vspace{2mm}
 \Item $$E_n = \hbar \om (n + \frac{1}{2})$$
 \end{enumerate}
 
@@ -541,7 +566,7 @@ We have that
 
 \begin{proof}\
 \begin{enumerate}
-\item The simple differential equation $a\psi_0 = 0$ has the solution $$\psi_0 = Ae^{-\frac{m \om}{2 \hbar}x^2}$$ Thus $$\vert \psi_0\vert^2 = \vert A \vert^2 e^{-\frac{m \om}{ \hbar}x^2}$$ If we normalize this function, we obtain $$\psi_0= \bigg( \frac{m \om}{ \pi \hbar} \bigg)^{\frac{1}{4}} e^{-\frac{m \om}{2 \hbar}x^2}$$
+\item The simple differential equation $a_-\psi_0 = 0$ has the solution $$\psi_0 = Ae^{-\frac{m \om}{2 \hbar}x^2}$$ Thus $$\vert \psi_0\vert^2 = \vert A \vert^2 e^{-\frac{m \om}{ \hbar}x^2}$$ If we normalize this function, we obtain $$\psi_0= \bigg( \frac{m \om}{ \pi \hbar} \bigg)^{\frac{1}{4}} e^{-\frac{m \om}{2 \hbar}x^2}$$
 \item It is tedious but straightforward to show that $$H\psi_0 = \frac{1}{2}\hbar \om\psi_0$$
 \item Clear by definition.
 \item Clear by previous exercise.
@@ -550,29 +575,29 @@ We have that
 
 \begin{ex}
 \begin{enumerate}\
-\item $\psi_{n+1} = \frac{1}{\sqrt{n+1}} a^{\dagger} \psi_n $
-\item $\psi_{n-1} = \frac{1}{\sqrt{n}} a \psi_n $
+\item $\psi_{n+1} = \frac{1}{\sqrt{n+1}} a_+\psi_n $
+\item $\psi_{n-1} = \frac{1}{\sqrt{n}} a_- \psi_n $
 
 \end{enumerate}
-Hint: use the adjoint-ness of $a$ and $a^{\dagger}$
+Hint: use the adjoint-ness of $a_-$ and $a_+$
 \end{ex}
 
 \begin{proof}\
 \begin{enumerate}
 \item 
 \begin{align*}
-aa^{\dagger}\psi_n
+a_-a_+\psi_n
 &= \bigg(\frac{1}{\hbar \om}H +\frac{1}{2}\bigg)\psi_n\\
 &= \frac{1}{\hbar \om}E_n \psi_n + \frac{1}{2} \psi_n\\
 &= (n+1) \psi_n
 \end{align*}
-Since $\psi_{n+1} = ca^{\dagger}\psi_{n}$, we have that
+Since $\psi_{n+1} = ca_+\psi_{n}$, we have that
 \begin{align*}
 1
 &=\l \psi_{n+1}\vert \psi_{n+1}\r\\
-&=\l c a^{\dagger}\psi_n \vert ca^{\dagger}\psi_n\r\\
-&= \vert c\vert^2 \l a^{\dagger} \psi_n\vert a^{\dagger} \psi_n \r\\
-&= \vert c\vert^2 \l a a^{\dagger}\psi_n \vert \psi_n \r\\
+&=\l c a_+\psi_n \vert ca_+\psi_n\r\\
+&= \vert c\vert^2 \l a_+ \psi_n\vert a_+ \psi_n \r\\
+&= \vert c\vert^2 \l a_- a_+\psi_n \vert \psi_n \r\\
 &= \vert c\vert^2 \l (n+1)\psi_n \vert \psi_n \r\\
 &= \vert c\vert^2  (n+1) \l \psi_n \vert \psi_n \r\\
 &= \vert c\vert^2  (n+1)\\
@@ -584,7 +609,7 @@ So $c = \frac{1}{\sqrt{n+1}}$\vspace{2mm}
 \end{proof}
 
 \begin{ex}
-The $n^{\text{th}}$ stationary state is given by $\psi_n = \frac{1}{\sqrt{n!}}(a^{\dagger})^n\psi_0$
+The $n^{\text{th}}$ stationary state is given by $\psi_n = \frac{1}{\sqrt{n!}}(a_+)^n\psi_0$
 \end{ex}
 
 \begin{proof}
@@ -615,6 +640,48 @@ The rest is straightforward.
 \end{proof}
 
 \section{Fundamental Examples in Three Dimensions}
+
+\subsection{Spherical Harmonic Oscillator (Cartesian Coordinates)}
+
+\begin{defn}
+The spherical harmonic oscillator (in cartesian coordinates) is defined by the potential energy
+$$V(x,y,z) = x^2 + y^2 + z^2$$
+\end{defn}
+
+\begin{ex}
+In cartesian coordinates, the the stationary states of the harmonic oscillator are given by $$\psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energies $$E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$ where $\psi_{n_x}, \psi_{n_y}, \psi_{n_z}$ are stationary states for the one dimensional harmonic oscillator.
+\end{ex}
+
+\begin{proof}
+We look for solutions of the form $\psi(x,y,z) = \psi_x(x) \psi_y(y) \psi_z(z)$. Plugging this into the time-independent \sch equation, we get $$-\frac{\hbar^2}{2m}\bigg[ \pdv[2]{\psi_x}{x}\psi_y \psi_z + \psi_x \pdv[2]{\psi_y}{y} \psi_z  + \psi_x \psi_y \pdv[2]{\psi_z}{z} \bigg] + \frac{1}{2}m \omega^2(x^2 + y^2 + x^2) \psi = E\psi$$ Dividing both sides by $\psi$ and rearranging, we obtain $$\bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x}\frac{1}{\psi_x} + \frac{1}{2}m \om^2x^2\bigg) + \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y}\frac{1}{\psi_y} + \frac{1}{2}m \om^2y^2\bigg)+ \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z}\frac{1}{\psi_z} + \frac{1}{2}m \om^2z^2\bigg) = E $$ 
+Thus each part is constant and we may write 
+\begin{align*}
+-\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x} + \frac{1}{2}m \om^2x^2\psi_x = E_x\psi_x \\ 
+-\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y} + \frac{1}{2}m \om^2y^2\psi_y = E_y\psi_y \\
+-\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z} + \frac{1}{2}m \om^2z^2\psi_z = E_z\psi_z
+\end{align*}
+
+So we have three one-dimensional harmonic oscillators and we have 
+\begin{align*}
+\psi_x = \psi_{n_x} = \frac{1}{\sqrt{{n_x}!}}(a_+)^{n_x} \psi_0 \text{ and } E_x = E_{n_x} = \hbar \om \bigg( n_x +\frac{1}{2}\bigg)\\
+\psi_y = \psi_{n_y} = \frac{1}{\sqrt{{n_y}!}}(a_+)^{n_y} \psi_0 \text{ and } E_y = E_{n_y} = \hbar \om \bigg( n_y +\frac{1}{2}\bigg)\\
+\psi_z = \psi_{n_z} = \frac{1}{\sqrt{{n_z}!}}(a_+)^{n_z} \psi_0 \text{ and } E_z = E_{n_z} = \hbar \om \bigg( n_z +\frac{1}{2}\bigg)
+\end{align*}
+Thus $$\psi = \psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energy $$E = E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$
+\end{proof}
+
+\begin{ex}
+Show that the degree of degeneracy of $E_n$ is $$deg(E_n) = {n+2 \choose 2}$$
+\end{ex}
+
+\begin{proof}
+Stars and bars
+\end{proof}
+
+\begin{intp}
+The energies of the three-dimensional harmonic oscillator are given by $E_n = \hbar \om \bigg( n + \frac{3}{2}\bigg)$ which correspond to $ n+2 \choose 2$ stationary states.
+\end{intp}
+
 
 \subsection{Spherical Coordinates}
 \begin{defn}
@@ -663,46 +730,10 @@ Compute some spherical harmonics.
 If we make the substitution $u(r) = rR(r)$, we may rewrite the radial equation as $$-\frac{\hbar^2}{2m}\frac{d^2u}{dr^2} + \bigg[V+ \frac{\hbar^2}{2m}\frac{l(l+1)}{r^2} \bigg]u = Eu$$ which looks like the one dimensional \sch equation. The function $$V+ \frac{\hbar^2}{2m}\frac{l(l+1)}{r^2}$$ is called the \textbf{effective potential}.
 \end{defn}
 
-\subsection{Spherical Harmonic Oscillator (Cartesian Coordinates)}
+\subsection{The Infinite Spherical Box}
 
-\begin{defn}
-The spherical harmonic oscillator (in cartesian coordinates) is defined by the potential energy
-$$V(x,y,z) = x^2 + y^2 + z^2$$
-\end{defn}
+\subsection{The Hydrogen Atom}
 
-\begin{ex}
-In cartesian coordinates, the the stationary states of the harmonic oscillator are given by $$\psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energies $$E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$ where $\psi_{n_x}, \psi_{n_y}, \psi_{n_z}$ are stationary states for the one dimensional harmonic oscillator.
-\end{ex}
-
-\begin{proof}
-We look for solutions of the form $\psi(x,y,z) = \psi_x(x) \psi_y(y) \psi_z(z)$. Plugging this into the time-independent \sch equation, we get $$-\frac{\hbar^2}{2m}\bigg[ \pdv[2]{\psi_x}{x}\psi_y \psi_z + \psi_x \pdv[2]{\psi_y}{y} \psi_z  + \psi_x \psi_y \pdv[2]{\psi_z}{z} \bigg] + \frac{1}{2}m \omega^2(x^2 + y^2 + x^2) \psi = E\psi$$ Dividing both sides by $\psi$ and rearranging, we obtain $$\bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x}\frac{1}{\psi_x} + \frac{1}{2}m \om^2x^2\bigg) + \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y}\frac{1}{\psi_y} + \frac{1}{2}m \om^2y^2\bigg)+ \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z}\frac{1}{\psi_z} + \frac{1}{2}m \om^2z^2\bigg) = E $$ 
-Thus each part is constant and we may write 
-\begin{align*}
--\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x} + \frac{1}{2}m \om^2x^2\psi_x = E_x\psi_x \\ 
--\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y} + \frac{1}{2}m \om^2y^2\psi_y = E_y\psi_y \\
--\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z} + \frac{1}{2}m \om^2z^2\psi_z = E_z\psi_z
-\end{align*}
-
-So we have three one-dimensional harmonic oscillators and we have 
-\begin{align*}
-\psi_x = \psi_{n_x} = \frac{1}{\sqrt{{n_x}!}}(a^{\dagger})^{n_x} \psi_0 \text{ and } E_x = E_{n_x} = \hbar \om \bigg( n_x +\frac{1}{2}\bigg)\\
-\psi_y = \psi_{n_y} = \frac{1}{\sqrt{{n_y}!}}(a^{\dagger})^{n_y} \psi_0 \text{ and } E_y = E_{n_y} = \hbar \om \bigg( n_y +\frac{1}{2}\bigg)\\
-\psi_z = \psi_{n_z} = \frac{1}{\sqrt{{n_z}!}}(a^{\dagger})^{n_z} \psi_0 \text{ and } E_z = E_{n_z} = \hbar \om \bigg( n_z +\frac{1}{2}\bigg)
-\end{align*}
-Thus $$\psi = \psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energy $$E = E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$
-\end{proof}
-
-\begin{ex}
-Show that the degeneracy of $E_n$ is $$deg(E_n) = {n+2 \choose 2}$$
-\end{ex}
-
-\begin{proof}
-Stars and bars
-\end{proof}
-
-\begin{intp}
-The energies of the three-dimensional harmonic oscillator are given by $E_n = \hbar \om \bigg( n + \frac{3}{2}\bigg)$ which correspond to $ n+2 \choose 2$ stationary states.
-\end{intp}
 
 \subsection{Spherical Harmonic Oscillator (Spherical Coordinates)}
 \begin{defn}
@@ -783,7 +814,7 @@ Tedious but straightforward.
 \end{proof}
 
 \begin{ex}
-If for each $j \geq 0$, $c_{2j} \neq 0$, then $v$ behaves asymptotically like $e^{\rho_0\rho^2}$. Thus $u(\rho)$ behaves asymptotically like $\rho^{l+1}e^{\frac{\rho_0}{2}\rho^2}$. This implies that $R(r)$ is not normalizable. Therefore there exists $j_{max} \geq 0$ such that $c_{2j+2} = 0$ and $v(\rho)$ is a polynomial of degree $2j_{max}$ and consists of only even powers of $\rho$. 
+If for each $j \geq 0$, $c_{2j} \neq 0$, then $v$ behaves asymptotically like $e^{\rho_0\rho^2}$. Thus $u(\rho)$ behaves asymptotically like $\rho^{l+1}e^{\frac{\rho_0}{2}\rho^2}$. This implies that $R(r)$ is not normalizable. Therefore there exists $j_{max} \geq 0$ such that $c_{2j_{max}+2} = 0$ and $v(\rho)$ is a polynomial of degree $2j_{max}$ and consists of only even powers of $\rho$. 
 \end{ex}
 
 \begin{proof}
@@ -797,16 +828,15 @@ As $j \rightarrow \infty$, $c_{j+2} \approx \frac{2 \rho_0}{j}c_j$. Hence $v(\rh
 \end{proof}
 
 \begin{ex}
-
+The energies allowed for this system are $$E_n = \hbar \om \bigg(n+\frac{3}{2} \bigg) \hspace{.5cm}n \in \N_0$$.
 \end{ex}
 
+\begin{proof}
+Using the recursion relation found earlier, we have that $$0 = \bigg[ \frac{\rho_0(2j_{max}+2l+3)-1}{(j_{max}+2)(j_{max}+2l+3)}\bigg]c_{j_{max}} $$ This implies that $$0 = \rho_0(2j_{max}+2l+3)-1$$ and so $$\frac{1}{\rho_0} = 2j_{max} + 2l +3$$ Using the fact that $\rho_0 = \frac{\hbar \om}{2E}$, we solve for $E$ to obtain $$E = \hbar \om \bigg( j_{max} + l + \frac{3}{2}\bigg)$$ Since $j_{max}$ and $l$ may be any non-negative integers, we introduce a non-negative integer $n = j_{max}+l$ and index the allowed energies as $$E_n = \hbar \om\bigg(n+ \frac{3}{2} \bigg) \hspace{.5cm} n \in \N_0$$
+\end{proof}
 
 
 
-
-\subsection{The Infinite Spherical Box}
-
-\subsection{The Hydrogen Atom}
 
 
 
@@ -816,6 +846,156 @@ As $j \rightarrow \infty$, $c_{j+2} \approx \frac{2 \rho_0}{j}c_j$. Hence $v(\rh
 
 
 \subsection{Orbital Angular Momentum}
+\begin{defn}
+Extrapolating from the classical formula for angular momentum, we define the \textbf{orbital angular momentum operator} $L$, of a particle by $$L = R \times P$$ so that 
+\begin{align*}
+L_x = YP_z - ZP_y\\
+L_y = ZP_x - XP_z\\
+L_z = XP_y - YP_x
+\end{align*}
+and $$L^2 = L_x^2 + L_y^2 + L_z^2$$
+\end{defn}
+
+\begin{ex}
+We have that 
+\begin{enumerate}
+\item $[L_x,L_y] = i \hbar L_z$
+\item $[L_y,L_z] = i \hbar L_x$
+\item $[L_z,L_x] = i \hbar L_y$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item 
+\begin{align*}
+[L_x,L_y] 
+&= (YP_z -ZP_y)(ZP_x - XP_z) - (ZP_x - XP_z)(YP_z -ZP_y)\\
+&= YP_x(P_zZ-ZP_z) + XP_y(ZP_z - P_zZ)\\
+&= (XP_y-YP_x)[Z.P_z]\\
+&= i \hbar L_z 
+\end{align*}
+\item Similar
+\item Similar
+\end{enumerate}
+\end{proof}
+
+\begin{ex}\
+\begin{enumerate}
+\item $[L^2, L_x] = 0$
+\item $[L^2, L_y] = 0$
+\item $[L^2, L_z] = 0$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item 
+\begin{align*}
+[L^2, L_x] 
+&= [L_x^2, L_x] + [L_y^2, L_x]+ [L_z^2,L_x]\\
+&= \big(L_y[L_y,L_x]+[L_y,L_x]L_y\big) + \big(L_z[L_z,L_x]+[L_z,L_x]L_z\big)\\
+&=-i \hbar \big(L_yL_z+ L_zL_y\big) + i\hbar\big( L_zL_y+L_yL_z\big)\\
+&=0
+\end{align*}
+\item Similar.
+\item Similar.
+\end{enumerate}
+\end{proof}
+
+\begin{ex} The operators $L_x,L_y$ and $L_z$ are self-adjoint.
+\end{ex}
+
+\begin{proof} Let $\Psi_1, \Psi_2$ be wave functions. Since $X_i$ and $P_j$ are self-adjoint and commute for $i \neq j$, we have that
+\begin{align*}
+\l \Psi_1 \vert L_x \Psi_2\r
+&= \l \Psi_1 \vert YP_z \Psi_2\r - \l \Psi_1 \vert ZP_y \Psi_2\r\\
+&= \l P_zY\Psi_1 \vert  \Psi_2\r - \l P_yZ \Psi_1 \vert \Psi_2\r \\
+&= \l YP_z \Psi_1 \vert  \Psi_2\r - \l ZP_y \Psi_1 \vert \Psi_2\r \\
+&= \l L_x\Psi_1 \vert \Psi_2\r 
+\end{align*} \\
+So $L_x$ is self-adjoint. The case is similar for $L_y$ and $L_z$
+\end{proof}
+
+\begin{defn}
+We define the \textbf{raising operator} $L_+$ and \textbf{lowering operator} $L_-$ by $$L_+ = L_x +iL_y \hspace{2mm}\text{ and } \hspace{2mm} L_- = L_x - iL_y$$
+\end{defn}
+
+\begin{ex}
+$$[L^2, L_+] = [L^2,L_-] = 0$$
+\end{ex}
+
+\begin{proof}
+Trivial.
+\end{proof}
+
+\begin{ex}
+The lowering operator is the adjoint of the raising operator: $$L_- = (L_+)^{\dagger}$$
+\end{ex}
+
+\begin{proof} Let $\Psi_1, \Psi_2$ be wavefunctions. Then 
+\begin{align*}
+\l \Psi_1 \vert L_+ \Psi_2 \r
+&=  \l \Psi_1 \vert L_x \Psi_2 \r + i\l \Psi_1 \vert L_y \Psi_2 \r \\
+&= \l L_x \Psi_1 \vert \Psi_2 \r + i\l L_y \Psi_1 \vert  \Psi_2 \r \\
+&= \l L_x \Psi_1 \vert \Psi_2 \r + \l -i L_y \Psi_1 \vert  \Psi_2 \r \\
+&= \l (L_x -iL_y)\Psi_1 \vert \Psi_2 \r\\
+&= \l L_- \Psi_1 \vert \Psi_2 \r
+\end{align*}
+Hence $L_- = (L_+)^{\dagger}$.
+\end{proof}
+
+\begin{ex} We have 
+\begin{enumerate}
+\item $[L_z,L_+] = \hbar L_+$
+\item $[L_z, L_-] = -\hbar L_-$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item 
+\begin{align*}
+[L_z,L_+] 
+&= [L_z,L_x]+i[L_z,L_y]\\
+&= i \hbar L_y + \hbar L_x\\
+&= \hbar L_+
+\end{align*}
+
+\item Similar.
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Suppose that $f$ is simultaneously an eigenfunction of $L^2$ with eigenvalue $\lam$ and an eigenfunction of $L_z$ with eigenvalue $\mu$. Then 
+\begin{enumerate}
+\item $L_+f$ is simultaneously an eigenfunction of $L^2$ with eigenvalue $\lam$ and an eigenfunction of $L_z$ with eigenvalue $\mu + \hbar$
+\item  $L_+f$ is simultaneously an eigenfunction of $L^2$ with eigenvalue $\lam$ and an eigenfunction of $L_z$ with eigenvalue $ \mu - \hbar$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item  First we have
+\begin{align*}
+L^2L_+f 
+&= L_+L^2 f\\
+&= L_+ \lam f \\
+&= \lam L_+ f
+\end{align*}
+Second we see that
+\begin{align*}
+L_zL_+f 
+&= \bigg[ L_+L_z + \big(L_zL_+ - L_+L_z\big) \bigg]f \\
+&= \big(L_+L_z + [L_z, L_+] \big)f \\
+&= (\mu L_+ + \hbar L_+)f \\
+&= (\mu + \hbar )L_+f  
+\end{align*}
+\item Similar.
+\end{enumerate}
+\end{proof}
+
+
 
 
 
