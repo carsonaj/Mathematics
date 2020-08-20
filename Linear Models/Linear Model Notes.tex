@@ -1,0 +1,523 @@
+\documentclass[12pt]{amsart}
+ \usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
+\usepackage[shortlabels]{enumitem}
+\usepackage{exercise, chngcntr}
+\usepackage{physics}
+%
+%
+%
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+%
+%
+%
+%
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
+
+
+
+\newcommand\Item[1][]{%
+  \ifx\relax#1\relax  \item \else \item[#1] \fi
+  \abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
+
+
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}{Conjecture}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{note}[thm]{Note}
+\newtheorem{ex}[thm]{Exercise}
+
+
+\newcommand{\al}{\alpha}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\be}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MM}{\mathcal{M}}
+
+\newcommand{\z}[1]{Let ${#1} \in \MM_{m,n}$}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+\newcommand{\seq}[1]{(x_{#1})_{#1 \in \N}}
+
+\newcommand{\n}{\Vert}
+ 
+\begin{document}
+
+\title{Linear Model Notes}
+\author[James]{Carson James}
+\maketitle
+
+\tableofcontents
+
+\section{Matrix Algebra}
+
+\subsection{Column and Null Space}
+
+\begin{ex}
+Let $X \in \MM_{m,n}$. Then $\MN(X) = \MN(X^TX)$.
+\end{ex}
+
+\begin{proof}
+Let $a \in \MN(X)$. Then $Xa = 0$. So $X^TXa = 0$. Thus $a \in \MN(X^TX)$. Conversely, suppose that $a \in \MN(X^TX)$. Then $X^TXa = 0$. So 
+\begin{align*}
+0 
+&= a^TX^TXa \\
+&= (Xa)^T(Xa) \\
+&= \n Xa \n^2 
+\end{align*}
+Hence $Xa = 0$ and $a \in \MN(X)$.
+\end{proof}
+
+\begin{ex}
+Let $X \in \MM_{m,n}$. Then $\MC(X^T) = \MC(X^TX)$.
+\end{ex}
+
+\begin{proof}
+\begin{align*}
+\MC(X^T) 
+&= \MN(X)^{\perp} \\
+&= \MN(X^TX)^{\perp} \\
+&= \MC(X^T X)
+\end{align*}
+\end{proof}
+
+\begin{ex}
+\z{X}. If $X^TX = 0$, then $X = 0$.
+\end{ex}
+
+\begin{proof}
+Suppose that $X^TX = 0$. Then 
+\begin{align*}
+rank(X^T)
+&= \dim \MC(X^T) \\
+&= \dim \MC(X^TX) \\
+&= rank(X^TX) \\
+&= 0
+\end{align*}
+So $X^T = X = 0$.
+\end{proof}
+
+\begin{ex}
+Let $X \in \MM_{m,n}$ and $A,B \in \MM_{n,p}$. Then $X^TXA = X^TXB$ iff $XA = XB$. 
+\end{ex}
+
+\begin{proof}
+Clearly if $XA = XB$, then $X^TXA = X^TXB$. Conversely, suppose that $X^TXA = X^TXB$. Then $X^TX(A-B) = 0$. So for  each $i =1, \cdots, p$, $X^TX(A-B)e_i = 0$. Thus for each $i=1, \cdots, p$ $X(A-B)e_i \in \MN(X^T) \cap \MC(X) = \{0\}$. Hence $X(A-B) = 0$ and $XA = XB$. 
+\end{proof}
+
+\subsection{Generalized Inverses}
+
+\begin{defn}
+Let $A \in \MM_{m,n}$ and $G \in \MM_{n,m}$. Then $G$ is said to be a \textbf{generalized inverse} of $A$ if $AGA = A$. 
+\end{defn}
+
+\begin{thm}
+Let $A \in \MM_{m,n}$. Then there exists $G \in \MM_{n,m}$ such that $G$ is a generalized inverse of $A$. 
+\end{thm}
+
+\begin{note}
+We will denote a generalized inverse of $A$ by $A^-$.
+\end{note}
+
+\begin{ex}
+\z{X}. Then $(X^T)^- = (X^-)^T$.
+\end{ex}
+
+\begin{proof}
+\begin{align*}
+X^T(X^-)^TX^T
+&= (X X^- X)^T\\
+&= X^T
+\end{align*}
+\end{proof}
+
+\begin{ex}
+\z{X}. Then $\MC(XX^-) = \MC(X)$. 
+\end{ex}
+
+\begin{proof}
+Clearly $\MC(XX^-) \subset \MC(X)$. Let $b \in \MC(X)$. Then there exists $a \in \R^n$ such that $Xa = b$. Then 
+\begin{align*}
+XX^-b 
+&= XX^-Xa \\
+&= Xa \\
+&= b
+\end{align*}
+
+So $b \in \MC(XX^-)$. Thus $\MC(X) \subset \MC(XX^-)$ and $\MC(X) = \MC(XX^-)$
+\end{proof}
+
+\begin{ex}
+\z{X}. Then $\MN(X) = \MN(X^-X)$
+\end{ex}
+
+\begin{proof}
+From the previous exercise, we have that 
+\begin{align*}
+\MN(X) 
+&= \MC(X^T)^{\perp} \\
+&= \MC(X^T(X^T)^-)^{\perp} \\
+&= \MC(X^T(X^-)^T)^{\perp} \\
+&= \MC((X^-X)^T)^{\perp} \\
+&= \MN(X^-X)
+\end{align*}
+\end{proof}
+\vspace{2mm}
+\begin{defn}
+Let $A \in \MM_{m,n}$ and $b \in \R^m$. Then the system $Ax=b$ is said to be \textbf{consistent} if $b \in \MC(A)$.
+\end{defn}
+
+\begin{ex}
+Let $A \in \MM_{m,n}$ and $b \in \R^m$. If the system $Ax=b$ is consistent, then $x=A^-b$ satisfies $Ax=b$.
+\end{ex}
+
+\begin{proof}
+Suppose that the system $Ax=b$ is consistent. Then $b \in \MC(A)$. So there exists $x^* \in \R^n$ such that $Ax^* = b$. Then 
+\begin{align*}
+A(A^{-} b)
+&= A(A^{-} Ax^*) \\
+&= Ax^* \\
+&= b
+\end{align*}
+Hence $A^- b$ satisfies $Ax=b$.
+\end{proof} 
+\vspace{2mm}
+
+\begin{ex}
+\z{X}. Then $X^- = (X^TX)^-X^T$. 
+\end{ex}
+
+\begin{proof}
+By definition, $X^TX (X^TX)^- X^TX = X^TX$. A previous exercise implies that $X(X^TX)^-X^TX = X$. Thus $X^- = (X^TX)^-X^T$.
+\end{proof}
+
+\begin{ex}
+\z{X}. Then $(X^T)^- = X(X^TX)^-$. 
+\end{ex}
+
+\begin{proof}
+The previous exercise tells us that $X^- = (X^TX)^-X^T$. Transposing both sides, we obtain $(X^T)^- = X(X^TX)^-$.
+\end{proof}
+
+\subsection{Projections}
+
+\begin{defn}
+Let $A \in \MM_{m,m}$. Then $X$ is said to be \textbf{idempotent} if $A^2 = A$.
+\end{defn}
+
+\begin{ex}
+Let $X \in \MM_{m.n}$. Then $XX^-$ and $X^-X$ are idempotent
+\end{ex}
+
+\begin{proof}
+\begin{align*}
+(XX^-)(XX^-) 
+&= (XX^-X)X^- \\
+&= XX^-\\
+\end{align*} The case is similar for $X^-X$.
+\end{proof}
+
+\begin{ex}
+Let $A \in \MM_{m.m}$. If $X$ is idempotent, then $I-A$ is idempotent.
+\end{ex}
+
+\begin{proof} 
+Suppose that $A$ is idempotent. Then
+\begin{align*}
+(I-A)(I-A) 
+&= I^2 -IA -AI + A^2 \\
+&= I -2A +A \\
+&= I -A
+\end{align*}
+\end{proof}
+
+\begin{thm}
+Let $A \in \MM_{m,m}$. If $A$ is idempotent, then $rank(A) = tr(A)$.
+\end{thm}
+
+\begin{defn}
+Let $P \in \MM_{m,m}$ and $S \subset \R^m$ a subspace. Then $P$ is said to be a \textbf{projection matrix} onto $S$ if 
+\begin{enumerate}
+\item $\MC(X) = S$ 
+\item $P$ is idempotent
+\item for each $x \in S$, $Px = x$
+\end{enumerate} 
+\end{defn}
+
+\begin{ex}
+Let $S \subset \R^m$ and $P,Q$ projection matrices onto $S$. Then $PQ = Q$. 
+\end{ex}
+
+\begin{proof}
+Let $x \in \R^m$. Then $Qx \in \MC(Q) = S$. So $PQx = Qx$. Thus $PQ = Q$.
+\end{proof}
+
+\begin{ex}
+\z{X}. Then $XX^-$ is a projection onto $\MC(X)$.
+\end{ex}
+
+\begin{proof}
+A previous exercise tells us that $\MC(XX^-) = \MC(X)$. Another previous exercises tells us that $XX^-$ is idempotent. Let $b \in \MC(X)$. Then there exists $a \in \R^n$ such that $Xa =b$. So 
+\begin{align*}
+XX^-b
+&= XX^- Xa\\ 
+&= Xa\\
+&= b
+\end{align*}
+\end{proof}
+
+\begin{ex}
+\z{X}. Then $I-X^-X$ is a projection onto $\MN(X)$
+\end{ex}
+
+\begin{proof}
+Since $X^-X$ is idempotent, so is $I-X^-X$. Let $b \in \MC(I-X^-X)$. Then there exists $a \in \R^n$ such that $(I-X^-X)a = b$. Then 
+\begin{align*}
+Xb 
+&= X(I-X^-X)a \\
+&= (X-XX^-X)a \\
+&= (X-X)a \\
+&= 0a \\ 
+&= 0
+\end{align*}
+So $\MC(I-X^-X) \subset \MN(X)$. Let $a \in \MN(X)$. Then $Xa =0$ and 
+\begin{align*}
+(I-X^-X)a 
+&= a - X^-Xa \\
+&= a
+\end{align*} 
+So $\MN(X) \subset \MC(I-X^-X)$ and therefore $ \MC(I-X^-X) = \MN(X) $.
+\end{proof}
+
+\begin{ex}
+Let $S \subset \R^m$ be a subspace and $P \in \MM_{m,m}$ be a symmetric projection matrix onto $S$. Then $P$ is unique. 
+\end{ex}
+
+\begin{proof}
+Let $Q \in \MM_{m,m}$ be a symmetric projection matrix onto $S$. Then 
+\begin{align*}
+(P-Q)^T(P-Q) 
+&= P^TP - P^TQ - Q^TP + Q^TQ \\
+&= P^2 - PQ - QP +Q^2 \\
+&= P - Q - P + Q \\
+&= 0
+\end{align*}
+Thus $P-Q = 0$ and $P =Q$.
+\end{proof}
+
+\begin{defn}
+\z{X}. We define $P_X$ by $$P_X = X (X^TX)^-X^T$$
+\end{defn}
+
+\begin{ex}
+\z{X}. Then $P_X$ is well defined. That is, independent of the choice of $(X^TX)^-$.
+\end{ex}
+
+\begin{proof}
+Suppose that $G, H$ are generalized inverses of $X^TX$. By definition, we have 
+\begin{align*}
+X^TXGX^TX = X^TXHX^TX 
+& \Rightarrow XGX^TX = XHX^TX \\
+& \Rightarrow X^TXG^TX^T = X^TXHX^T \\
+& \Rightarrow XG^TX^T = XHX^T \\
+& \Rightarrow XGX^T = XHX^T = P_X
+\end{align*}
+\end{proof}
+
+\begin{note}
+Recall that $X^- = (X^TX)^-X^T$. So that $P_X = XX^-$ is indeed a projection onto $\MC(X)$. Since $P_X$ is symmetric, it is the unique symmetric projection onto $\MC(X)$. 
+\end{note}
+
+\begin{note}
+Recall that $(X^T)^- = X(X^TX)^-$. So that $P_X = (X^T)^-X^T$. A previous exercises tells us that $I-P_X$ is a projection on $\MN(X^T)$. Since $I-P_X$ is symmetric, it is the unique symmetric projection onto $\MN(X^T)$.
+\end{note}
+
+\subsection{Differentiation}
+
+\begin{defn}
+Let $Q:\R^n \rightarrow \R$ given by $b \mapsto Q(b)$. Suppose that $Q \in C^1(\R^n)$.  We define 
+\[ 
+\pdv{Q}{b}= 
+\begin{pmatrix} 
+\pdv{Q}{b_1}  \\
+\vdots\\
+\pdv{Q}{b_n}
+\end{pmatrix}  
+\]
+\end{defn}
+
+\begin{ex}
+Let $a, b  \in \R_n$ and $A \in \MM_{n, n}$. Then \vspace{2mm}
+\begin{enumerate}
+\Item $$\pdv{a^Tb}{b} = a$$ \vspace{2mm}
+\Item $$\pdv{b^T A b}{b} = (A+A^T)b$$
+\end{enumerate} 
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\Item Since $$a^Tb = \sum_{i=1}^n a_ib_i$$ We have that $$\pdv{a^Tb}{b_i} = a_i$$ and therefore $$\frac{\partial a^Tb}{\partial b} = a$$ \vspace{3mm}
+\Item Since 
+\begin{align*}
+b^T A b 
+&= \sum_{i = 1}^n b_i \sum_{j=1}^n A_{i,j}b_j \\
+&= \sum_{i = 1}^n \sum_{j=1}^n b_iA_{i,j}b_j \\
+\end{align*}
+The terms containing $b_i$ are $$A_{i,i}b_i^2 + \sum_{\substack{ j=1 \\ j \neq i}}^n (A_{i,j} + A_{j,i})b_ib_j$$
+This implies that 
+\begin{align*}
+\frac{\partial b^TAb}{\partial b_i} 
+&= 2A_{i,i}b_i + \sum_{\substack{j=1 \\ j\neq i}}^n (A_{i,j}+A_{j,i})b_j\\
+&= \sum_{j=1}^n (A_{i,j}+A^T_{i,j})b_j\\
+&= [(A+A^T)b]_i
+\end{align*}
+So $$\pdv{b^T A b}{b} = (A+A^T)b$$
+\end{enumerate}
+\end{proof} 
+
+\section{The Linear Model}
+\subsection{Model Description}
+\begin{defn}
+Given $y \in \R_m$ a vector of observed responses to the matrix $X \in \MM_{m,n}$ of observed inputs, we will consider the model $$y = Xb +e$$ where $b \in \R_n$ is a vector of unknown parameters and $e \in \R^m$ is a random vector of unobserved errors with zero mean. 
+\end{defn}
+
+\begin{defn}
+For a parameter vector $b \in \R^n$, we have that  $e = y-Xb$. For this reason, $e$ is called the \textbf{residual vector} or simply the ``residuals''.
+\end{defn}
+
+\begin{note}
+The goal will be to find a parameter vector $b \in \R^n$ that makes the causes the residuals to be as small as possible.  
+\end{note}
+
+\subsection{Least Squares Optimization}
+
+\begin{defn}
+We define the \textbf{cost function}, $Q: \R^n \rightarrow \R$ by 
+\begin{align*}
+Q(b) 
+&= \n y - Xb \n ^2 \\
+&= (y - Xb )^T(y - Xb )
+\end{align*}
+\end{defn}
+
+\begin{defn}
+Let $b \in \R^n$. Then $b$ is said to be a \textbf{least squares solution} for the model if $$Q(b) = \inf_{c \in R^{n}} Q(c)$$ 
+\end{defn}
+
+\begin{ex}
+If $b$ is a least squares solution for the model, then $X^TXb = X^Ty$.
+\end{ex}
+
+\begin{proof}
+Suppose that $b$ is a least squares solution for the model, then $Q$ has a local minimum at $b$. Thus $$\frac{\partial Q}{\partial b}(b) = 0$$ By definition, 
+\begin{align*}
+Q(b) 
+&= y^Ty -y^TXb - b^TX^Ty + b^TX^TXb \\
+&= y^Ty -2y^TXb + b^TX^TXb \\ 
+\end{align*}
+Thus 
+\begin{align*}
+0
+&= \frac{\partial Q}{\partial b}(b) \\
+&= -2X^Ty + 2X^TXb
+\end{align*}
+Hence $X^TXb = X^Ty$.
+\end{proof}
+
+\begin{defn}
+For $y \in \R^m$ and $X \in \MM_{m,n}$, we define the \textbf{normal equation} to be $$X^TXb = X^Ty$$
+\end{defn}
+
+\begin{ex}
+The normal equation is consistent.
+\end{ex}
+
+\begin{proof}
+We have that $X^Ty \in \MC(X^T) = \MC(X^TX)$. 
+\end{proof}
+
+\begin{ex}
+Let $b \in \R^n$. Then $b$ is a least squares solution for the model iff $b$ satisfies the normal equation.
+\end{ex}
+
+\begin{proof}
+The previous exercises tells us that if $b$ is a least squares solution for the model, then $b$ satisfies the normal equation. Conversely, suppose that $b$ satisfies the normal equation. Then 
+\begin{align*}
+Q(c) 
+&= (y - Xc )^T(y - Xc ) \\
+&= (y - Xb +Xb -Xc )^T(y - Xb +Xb -Xc ) \\
+&= (y - Xb)^T (y - Xb) - (y - Xb)^T(X(b-c)) - (b-c)^TX^T(y - Xb) + (b-c)^TX^T(X(b-c)) \\
+&= Q(b) -2(b-c)^TX^T(y-Xb) + \n X(b-c) \n^2 \\
+&= Q(b)+ \n X(b-c) \n^2 
+\end{align*}
+Thus $b$ minimizes $Q$.
+\end{proof}
+
+\begin{ex}
+Let $b \in \R^n$ be a least squares solution for the model. Then $\n y \n^2 = \n Xb \n^2 + \n e \n^2$
+\end{ex}
+
+\begin{proof}
+Since $b$ satisfies the normal equation, we have that $X^T(y - Xb) = 0$. Thus 
+\begin{align*}
+Xb \cdot e
+&= b^TX^Te \\
+&= b^TX^T(y - Xb) \\
+&= b^T0 \\
+&=0
+\end{align*}
+So $Xb$ and $e$ are orthogonal. Therefore 
+\begin{align*}
+\n y\n^2 
+&= \n Xb+ e\n^2 \\
+&= \n Xb \n^2 + \n e \n^2
+\end{align*}
+\end{proof}
+
+
+
+
+\end{document}

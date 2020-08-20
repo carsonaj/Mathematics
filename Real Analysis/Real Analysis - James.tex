@@ -8,7 +8,7 @@
 %
 %
 \newif\ifhideproofs
-\hideproofstrue %uncomment to hide proofs
+%\hideproofstrue %uncomment to hide proofs
 %
 %
 %
@@ -49,6 +49,7 @@
 \newcommand{\Q}{\mathbb{Q}}
 \renewcommand{\P}{\mathbb{P}}
 \newcommand{\MA}{\mathcal{A}}
+\newcommand{\MC}{\mathcal{C}}
 \newcommand{\MB}{\mathcal{B}}
 \newcommand{\MF}{\mathcal{F}}
 \newcommand{\MG}{\mathcal{G}}
@@ -81,7 +82,311 @@
 
 \tableofcontents
 
-\section{Measure}
+\section{Algebra and Analysis of Sets}
+
+\subsection{Limits}
+
+\begin{defn}
+Let $X$ be a set and $\MA \subset \MP(X)$. We define $$\inf \MA = \bigcap_{A \in \MA } A ,\hspace{.5cm} \sup \MA = \bigcup_{A \in \MA} A$$
+
+\end{defn}
+
+\begin{defn}
+Let $X$ be a set and $(A_n)_{n \in \N} \subset \MP(X)$ a sequence of subsets. We define
+$$\liminf_{n \rightarrow \infty} A_n = \bigcup_{n = 1}^{\infty} \inf_{k \geq n}A_k, \hspace{.5cm } \limsup_{n \rightarrow \infty} A_n = \bigcap_{n = 1}^{\infty} \sup_{k \geq n}A_k$$
+\end{defn}
+
+\begin{note}\
+\begin{enumerate}
+\item $\liminf\limits_{n \rightarrow \infty} A_n$ is the set of elements that are in all $A_n$ except for finitely many. 
+
+\item $\limsup\limits_{n \rightarrow \infty} A_n$ is the set of elements that are in infinitely many $A_n$.
+\end{enumerate}
+\end{note}
+\begin{ex}
+Let $A_k = [0, \frac{k}{k+1})$. Then 
+\begin{enumerate}
+\item $\inf\limits_{k \geq n}A_k = [0, \frac{n}{n+1})$ \\
+\item $\sup\limits_{k \geq n}A_k = [0,1)$ \\
+\item $\liminf\limits_{n \rightarrow \infty}A_n = [0,1)$ \\
+\item $\liminf\limits_{n \rightarrow \infty}A_n = [0,1)$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+Straightforward.
+\end{proof}
+
+\begin{ex}
+Let $X$ be a set and $(A_n)_{n \in \N} \subset \MP(X)$ a sequence of subsets. Then $$\liminf_{n \rightarrow \infty} A_n \subset \limsup_{n \rightarrow \infty} A_n$$
+\end{ex}
+
+\begin{proof}
+Let $x \in \bigcup\limits_{n=1}^{\infty} \bigcap\limits_{k =n}^{\infty} A_k$. Then there exists $n^* \in \N$ such that for each $k \in \N$, if $k \geq n*$, then $x \in A_k$. Let $n \in \N$. Choose $k = \max\{n^*,n\} \geq n^*$. Then $x \in A_k$. Hence for each $n \in \N$, there exists $k \in \N$ such that $k \geq n$ and $x \in A_k$. So $x \in \bigcap\limits_{n=1}^{\infty} \bigcup\limits_{k=n}^{\infty} A_k$. Thus $\liminf\limits_{n \rightarrow \infty}A_n \subset \limsup\limits_{n \rightarrow \infty}A_n$.
+\end{proof}
+
+\begin{defn}
+Let $X$ be a set and $(A_n)_{n \in \N} \subset \MP(X)$ a sequence of subsets. If $$\liminf_{n \rightarrow \infty} A_n = \limsup_{n \rightarrow \infty} A_n$$ then we define $$\lim_{n \rightarrow \infty}A_n = \liminf_{n \rightarrow \infty} A_n = \limsup_{n \rightarrow \infty} A_n$$ 
+\end{defn}
+
+\begin{ex}
+Let $X$ be a set and $(A_n)_{n \in \N}, (B_n)_{n \in \N} \subset \MP(X)$ sequences of subsets. Suppose that for each $n \in \N$, $A_n \subset A_{n+1}$ and $B_{n+1} \subset B_n$. Then 
+\begin{enumerate}
+\item $\limn A_n = \sup\limits_{n \in \N}A_n = \bigcup\limits_{n=1}^{\infty}A_n$
+\item $\limn B_n = \inf\limits_{n \in \N}B_n = \bigcap\limits_{n=1}^{\infty}B_n$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item Let $n \in \N$. Then 
+\begin{align*}
+\inf\limits_{k \geq n}A_k 
+&= \bigcap\limits_{k=n}^{\infty}A_k \\
+&= A_n
+\end{align*}
+Thus 
+\begin{align*}
+\liminf\limits_{n \rightarrow \infty}A_n 
+&= \bigcup\limits_{n=1}^{\infty} \inf\limits_{k \geq n}A_k \\
+&= \bigcup\limits_{n=1}^{\infty} A_n 
+\end{align*}  
+
+In addition,  
+\begin{align*}
+\sup_{n \geq k} A_k 
+&= \bigcup_{k=n}^{\infty}A_k \\
+&= \bigcup_{k=1}^{\infty}A_k 
+\end{align*}
+
+Therefore 
+\begin{align*}
+\limsup\limits_{n \rightarrow \infty}A_n 
+&= \bigcap\limits_{n=1}^{\infty} \inf\limits_{k \geq n}A_k \\
+&= \bigcup\limits_{n=1}^{\infty} \bigcup_{k=1}^{\infty}A_k  \\
+&= \bigcup_{n=1}^{\infty}A_n
+\end{align*}
+So $$\lim\limits_{n \rightarrow \infty} A_n = \sup_{n \in \N}A_n = \bigcup_{n =1}^{\infty}A_n$$
+
+\item Similar
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $X$ be a set and $(A_n)_{n \in \N} \subset \MP(X)$ a sequence of subsets and $(A_{n_k})_{k \in \N}$ a subsequence of $(A_n)_{n \in \N}$. Then 
+\begin{enumerate}
+\item $\limsup\limits_{k \rightarrow \infty}A_{n_k} \subset \limsup\limits_{n \rightarrow \infty}(A_{n})$
+\item $\liminf \limits_{n \rightarrow \infty} A_{n} \subset \limsup\limits_{k \rightarrow \infty}(A_{n_k})$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item The elements that are in $A_{n_k}$ for infinitely many $k$ are in $A_n$ for infinitely many $n$.
+\item Similar.
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $X$ be a set and $(A_n)_{n \in \N} \subset \MP(X)$ a sequence of subsets, $(A_{n_k})_{k \in \N}$ a subsequence of $(A_n)_{n \in \N}$ and $A \subset X$. If $A_{n_k} \rightarrow A$, then $$\liminf\limits_{n \rightarrow \infty}A_n \subset A \subset \limsup\limits_{n \rightarrow \infty}A_n$$
+\end{ex}
+
+\begin{proof}
+The previous exercises tells us that 
+\begin{align*}
+\liminf\limits_{n \rightarrow \infty}A_n
+& \subset \liminf\limits_{k \rightarrow \infty}A_{n_k} \\
+&= A \\
+&= \limsup\limits_{k \rightarrow \infty}A_{n_k} \\
+& \subset \limsup\limits_{n \rightarrow \infty}A_n
+\end{align*}
+\end{proof}
+
+\begin{ex}
+Let $X$ be a set and $(A_n)_{n \in \N}, (B_n)_{n \in \N} \subset \MP(X)$ sequences of subsets. Suppose that for each $n \in \N$, $A_n \subset B_n$. Then 
+\begin{enumerate}
+\item $\limsup\limits_{n \rightarrow \infty}A_n \subset \limsup\limits_{n \rightarrow \infty}B_n$
+\item $\liminf\limits_{n \rightarrow \infty}A_n \subset \liminf\limits_{n \rightarrow \infty}B_n$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item Let $x \in \limsup\limits_{n \rightarrow \infty}A_n$. Then for infinitely many $n \in \N$, $x \in A_n \subset B_n$. So for infinitely many $n \in \N$, $x \in B_n$. Hence $x \in \limsup\limits_{n \rightarrow \infty}B_n$. Therefore $\limsup\limits_{n \rightarrow \infty}A_n \subset \limsup\limits_{n \rightarrow \infty}B_n$.
+\item Similar.
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let 
+\end{ex}
+
+\begin{ex}
+Let $X$ be a set and $(A_n)_{n \in \N} \subset \MP(X)$ a sequence of subsets. Then 
+\begin{enumerate}
+\item $\limsup\limits_{n \rightarrow \infty}A_n = \bigg(\liminf\limits_{n \rightarrow \infty}A_n^c \bigg)^c$
+\item $\liminf\limits_{n \rightarrow \infty}A_n = \bigg(\limsup\limits_{n \rightarrow \infty}A_n^c \bigg)^c$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item \begin{align*}
+\bigg( \liminf\limits_{n \rightarrow \infty}A_n^c \bigg)^c 
+&= \bigg( \bigcup\limits_{n=1}^{\infty} \bigcap\limits_{k=n}^{\infty}A_k^c \bigg)^c\\
+&= \ \bigcap\limits_{n=1}^{\infty}\bigcup\limits_{k=n}^{\infty}A_k  \\
+&=  \limsup\limits_{n \rightarrow \infty}A_n
+\end{align*}
+\item Similar.
+\end{enumerate}
+\end{proof}\newpage
+
+\begin{ex}
+For $n \in \N$, define $$A_n = \bigg\{ \frac{m}{n}: m \in \N \bigg\}$$ 
+Then
+\begin{enumerate}
+\item $\liminf\limits_{n \rightarrow \infty }A_n = \N$ 
+\item $\limsup\limits_{n \rightarrow \infty }A_n = \Q \cap (0,\infty )$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item For each $x \in \N$ and $n \in \N$, $x = \frac{nx}{n} \in A_n$ Hence $\N \subset \liminf\limits_{n \rightarrow \infty }A_n$. Conversely, let $x \in \liminf\limits_{n \rightarrow \infty }A_n$. Then there exists $n \in \N$ such that for each $k \in \N$, if $k \geq n$, then $x \in A_k$. In particular, $x \in A_n$. Hence there exists $m_n \in \N$ such that $x = \frac{m_n}{n}$. Choose $s,t \in \N$ such that $x= \frac{s}{t}$ and $\gcd(s,t) = 1$. Suppose that $t \neq 1$. Then choose a prime $p > n$. By assumption, $x \in A_p$. Then there exist $m_p \in \N$ such that $x = \frac{m_p}{p}$. Hence $\frac{s}{t} = \frac{m_p}{p}$ and $tm_p = sp$. Since $t \vert sp$ and $\gcd(s,t) = 1$, we see that $t \vert p$. If $t \geq 1$, then $p$ is not prime, a contradiction. So $t = 1$. Hence $x \in \N$. Thus $\liminf\limits_{n \rightarrow \infty }A_n \subset \N$. 
+\item Let $x \in \Q \cap (0, \infty)$. Then there exist $s,t \in \N$ such that $x = \frac{s}{t}$. Define the subsequence $(A_{n_k})_{k \in \N}$ by $A_{n_k} = A_{tk}$. Then for each $k \in \N$, $x = \frac{sk}{tk} \in A_{tk} = A_{n_k}$. Thus $x \in \limsup\limits_{n \rightarrow \infty }A_n$. Conversely, clearly $\limsup\limits_{n \rightarrow \infty }A_n \subset \Q \cap (0, \infty)$ 
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $X$ be a set and $(A_n)_{n \in \N}, (B_n)_{n \in \N} \subset \MP(X)$ sequences of subsets. Then $$\limsup\limits_{n \rightarrow \infty} A_n \cup B_n= \limsup\limits_{n \rightarrow \infty} A_n \cup \limsup\limits_{n \rightarrow \infty} B_n$$
+\end{ex}
+
+\begin{proof}
+Let $x \in \limsup\limits_{n \rightarrow \infty} A_n \cup B_n$. Suppose that $x \not \in \limsup\limits_{n \rightarrow \infty} A_n$. Then there exists $n^* \in \N$ such that for each $k \in \N$ if $ k \geq n^*$, then $x \not \in A_k$. Let $n \in \N$. Then there exists $k$ such that $k \geq \max\{n, n^*\}$ and $x \in A_{k} \cup B_k$. Since $k \geq n^*$, $x \not \in A_{k}$ Thus $x \in B_k$. So for each $n \in \N$, there exists $k \in \N$ such that $k \geq n$ and $x \in B_k$. Therefore $x \in \limsup\limits_{n \rightarrow \infty}  B_n$ and $$\limsup\limits_{n \rightarrow \infty} A_n \cup B_n \subset \limsup\limits_{n \rightarrow \infty} A_n \cup \limsup\limits_{n \rightarrow \infty} B_n$$ Conversely, a previous exercise tells us that $\limsup\limits_{n \rightarrow \infty} A_n \subset \limsup\limits_{n \rightarrow \infty} A_n \cup B_n$ and $\limsup\limits_{n \rightarrow \infty}  B_n \subset \limsup\limits_{n \rightarrow \infty} A_n \cup B_n$. Thus $$ \limsup\limits_{n \rightarrow \infty} A_n \cup \limsup\limits_{n \rightarrow \infty} B_n \subset \limsup\limits_{n \rightarrow \infty} A_n \cup B_n$$
+\end{proof}
+
+\begin{ex}
+Let $X$ be a set and $(A_n)_{n \in \N}, (B_n)_{n \in \N} \subset \MP(X)$ sequences of subsets. Then $$\liminf\limits_{n \rightarrow \infty} A_n \cap B_n= \liminf\limits_{n \rightarrow \infty} A_n \cap \liminf\limits_{n \rightarrow \infty} B_n$$
+\end{ex}
+
+\begin{proof}
+A previous exercise tells us that 
+\begin{align*}
+\liminf\limits_{n \rightarrow \infty} A_n \cap B_n
+&= \bigg( \limsup\limits_{n \rightarrow \infty} A_n^c \cup B_n^c \bigg)^c \\
+&= \bigg( \limsup\limits_{n \rightarrow \infty} A_n^c \cup \limsup\limits_{n \rightarrow \infty}B_n^c \bigg)^c \\
+&= \bigg( \limsup\limits_{n \rightarrow \infty} A_n^c \bigg)^c \cap \bigg( \limsup\limits_{n \rightarrow \infty}B_n^c \bigg)^c \\
+&= \liminf\limits_{n \rightarrow \infty} A_n \cap \liminf\limits_{n \rightarrow \infty}  B_n
+\end{align*}
+\end{proof}
+
+\subsection{Classes of sets}
+
+\begin{defn}
+Let $X$ be a set and $\MA \subset \MP(X)$. Then $\MA$ is said to be an \textbf{algebra} on $X$ if 
+\begin{enumerate}
+\item $\MA \neq \varnothing$
+\item for each $A \in \MA$, $A^c \in \MA$
+\item for each $A,B \in \MA$, $A \cup B \in \MA$
+\end{enumerate}
+\end{defn}
+
+\begin{defn}
+Let $X$ be a set and $\MA \subset \MP(X)$. Then $\MA$ is said to be a $\sigma$\textbf{-algebra} on $X$ if 
+\begin{enumerate}
+\item $\MA \neq \varnothing$
+\item for each $A \in \MA$, $A^c \in \MA$
+\item for each $(A_n)_{n \in \N} \subset \MA$, $\bigcup\limits_{n \in \N}A_n \in \MA$
+\end{enumerate}
+\end{defn}
+
+\begin{ex}
+Let $X$ be a set and $(\MA_i)_{i \in I}$ a collection of $\sig$-algebras (resp. algebra) on $X$. Then $\bigcap\limits_{i \in I}\MA_i$ is a $\sig$-algebra (resp. algebra) on $X$.
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item For each $i \in I$, $X \in \MA_i$. Thus $X \in \bigcap\limits_{i \in I}\MA_i$ and $\bigcap\limits_{i \in I}\MA_i \neq \varnothing$.
+\item Let $A \in \bigcap\limits_{i \in I}\MA_i$. Then for each $i \in I$, $A \in \MA_i$. Hence for each $i \in I$, $A^c \in \MA_i$. Thus $A^c \in \bigcap\limits_{i \in I}\MA_i$. 
+\item Let $(A_n)_{n \in \N} \subset \bigcap\limits_{i \in I}\MA_i$. Then for each $i \in I$, $(A_n)_{n \in \N} \subset \MA_i$. Thus for each $i \in I$, $\bigcup\limits_{n \in \N}A_n \in \MA_i$. So $\bigcup\limits_{n \in \N}A_n \in \bigcap\limits_{i \in I}\MA_i$.
+\end{enumerate}
+\end{proof}
+
+\begin{defn}
+Let $X$ be a set and $\MC \subset \MP(X)$. Put $\MS = \{\MA \subset \MP(X): \MA \text{ is a }\sig\text{-algebra on }X \}$ We define the \textbf{$\sig$-algebra generated by $\MC$} on $X$, $\sig(\MC)$, by $$\sig(\MC) = \bigcap_{\MA \in \MS} \MA $$
+\end{defn}
+
+\begin{note}
+Let $X$ be a set, $\MC \subset \MP(X)$ and $\MA$ a $\sig$-alg on $X$. By definition, if $\MC \subset \MA$, then $\sig(\MC) \subset \MA$.
+\end{note}
+
+\begin{note}
+Let $X$ be a set, $\MT$ an ordered set and $(\MA_t)_{t\in \MT}$ a collection of $\sig$-algebras on $X$. Suppose that for each $s,t \in \MT$, if $s \leq t$, then $\MA_s \subset \MA_t$. If there exists $t \in \MT$ such that $\MA_t = \bigcup\limits_{t \in \MT}\MA_t$, then $\bigcup\limits_{t \in \MT}\MA_t$ is a $\sig$-algebra on $X$. So if $\MT$ is finite or if $(\MA_t)_{t \in \MT}$ termintates, the union is $\sig$-algebra.
+\end{note}
+
+\begin{defn}
+Let $(X,\MT)$ be a topological space. We define the \textbf{Borel $\sig$-algebra} on $X$, $\MB(X)$, to be  $$\MB(X) = \sig(\MT)$$ The sets of $\MB(X)$ are called \textbf{Borel sets}.
+\end{defn}
+
+\begin{ex}
+The Borel $\sigma$-algebra on $\R$ with the standard topology is given by 
+\[
+\MB(\R) =
+\begin{cases}
+\sig(\{(a,b]:a,b \in \R \text{ and } a<b\}) \\
+\sig(\{[a,b]:a,b \in \R \text{ and } a<b\}) \\
+\sig(\{[a,b):a,b \in \R \text{ and } a<b\}) \\
+\sig(\{(a,b):a,b \in \R \text{ and } a<b\}) \\
+\end{cases}
+\]
+\end{ex}
+
+\begin{proof}
+Define 
+\begin{enumerate}
+\item $\MC_{lo} = \{(a,b]:a,b \in \R \text{ and } a<b\}$\\
+\item $\MC_{c} = \{[a,b]:a,b \in \R \text{ and } a<b\}$\\
+\item $\MC_{ro} = \{[a,b):a,b \in \R \text{ and } a<b\}$\\
+\item $\MC_{o} = \{(a,b):a,b \in \R \text{ and } a<b\}$\\
+\end{enumerate} 
+Recall that for each open set $A \subset \R$, there exist $(a_i)_{n \in \N}, (b_i)_{i \in \N} \subset \R$ such that for each $i \in \N$, $a_i < b_i$, for each $i,j \in \N$, if $i \neq j$, then $(a_i,b_i) \cap (a_j, b_j) = \varnothing$ and $A = \bigcup\limits_{i \in \N}(a_i, b_i)$. This implies that $\MB(\R) = \sig(\MC_o)$. \vspace{2mm}\\
+Now, let $a,b \in \R$. Suppose that $a<b$. Then 
+\begin{enumerate}
+\item $[a,b] = \bigcap\limits_{n \in \N}(a- \frac{1}{n}, b]$, so $\sig(\MC_{c}) \subset \sig(\MC_{lo})$\\
+\item $[a,b) = \bigcup\limits_{n \in \N} [a,b-\frac{1}{n}]$, so $\sig(\MC_{ro}) \subset \sig(\MC_{c})$ \\
+\item $(a,b) = \bigcup\limits_{n \in \N} [a+\frac{1}{n},b)$, so $\sig(\MC_{o}) \subset \sig(\MC_{ro})$\\
+\item $(a,b] = \bigcap\limits_{n \in \N} (a,b+\frac{1}{n})$, so $\sig(\MC_{lo}) \subset \sig(\MC_{o})$\\
+\end{enumerate}
+Hence $\MB(\R) = \sig(\MC_o) = \sig(\MC_{ro}) = \sig(\MC_{c}) = \sig(\MC_{lo}) = \sig(\MC_{o})$. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Measures}
 
 \subsection{Product Measures}
 
