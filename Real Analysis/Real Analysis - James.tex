@@ -301,6 +301,26 @@ Let $X$ be a set and $\MA \subset \MP(X)$. Then $\MA$ is said to be a $\sigma$\t
 \end{defn}
 
 \begin{ex}
+Let $X$ be a set and $\MA$ a $\sig$-algebra on $X$. Then 
+\begin{enumerate}
+\item $X, \varnothing \in \MA$
+\item for each $(A_n)_{n \in \N} \subset \MA$, $\bigcap\limits_{n \in \N} \in \MA$
+\item For each $A, B \in \MA$, $A \setminus B \in \MA$  
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item Since $\MA \neq \varnothing$, there exists $A \in \MA$. Then $A^c \in \MA$. Hence $X = A \cup A^c \in \MA$ and $\varnothing = X^c \in \MA$.
+\item Let $(A_n)_{n \in \N} \subset \MA$. Then $(A_n^c)_{n \in \N} \subset MA$. So $\bigcup\limits_{n \in \N}A_n^c \in \MA$. Therefore \begin{align*}
+\bigcap\limits_{n \in \N}A_n 
+&= \bigg(\bigcup\limits_{n \in \N}A_n^c\bigg)^c \in \MA
+\end{align*}
+\item Let $A,B \in \MA$. Then $A \setminus B = A \cap B^c \in \MA$. 
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
 Let $X$ be a set and $(\MA_i)_{i \in I}$ a collection of $\sig$-algebras (resp. algebra) on $X$. Then $\bigcap\limits_{i \in I}\MA_i$ is a $\sig$-algebra (resp. algebra) on $X$.
 \end{ex}
 
@@ -360,8 +380,27 @@ Now, let $a,b \in \R$. Suppose that $a<b$. Then
 Hence $\MB(\R) = \sig(\MC_o) = \sig(\MC_{ro}) = \sig(\MC_{c}) = \sig(\MC_{lo}) = \sig(\MC_{o})$. 
 \end{proof}
 
+\begin{ex}
+Let $X$ be a set. Define $\MA = \{A \in \MA: A \text{ is countable or }A^c  \text{is countable}\}$. Then $\MA$ is a $\sig$-algebra on $X$.
+\end{ex}
 
+\begin{proof}
+\begin{enumerate}
+\item Since $X^c = \varnothing$ is countable, $X \in \MA$.
+\item Let $A \in \MA$. Suppose that $A^c$ is  uncountable. Then by assumption, $A = (A^c)^c$ is countable. Hence $A^c \in \MA$.
+\item Let $(A_n)_{n \in \N} \subset \MA$. Then for each $n \in \N$, $A_n$ is countable or $A_n^c$ is countable. Suppose that $\bigcup\limits_{n \in \N}A_n$ is uncountable. Then there exists $N \in \N$ such that $A_N$ is uncountable. Hence $A_N^c$ is countable. Thus 
+\begin{align*}
+\bigg(\bigcup_{n \in \N}A_n \bigg)^c 
+&= \bigcap_{n \in \N}A_n^c \\
+& \subset A_N^c 
+\end{align*}
+So $\bigg(\bigcup\limits_{n \in \N}A_n \bigg)^c $ is countable and $\bigcup\limits_{n \in \N}A_n \in \MA$. 
+\end{enumerate}
+\end{proof}
 
+\begin{defn}
+Let $X$ be a set and $\MA$ be a $\sig$-algebra on $X$. Then $(X, \MA)$ is called a \textbf{measurable space}.
+\end{defn}
 
 
 
@@ -387,6 +426,122 @@ Hence $\MB(\R) = \sig(\MC_o) = \sig(\MC_{ro}) = \sig(\MC_{c}) = \sig(\MC_{lo}) =
 
 
 \section{Measures}
+
+\subsection{Measures}
+
+\begin{defn}
+Let $(X, \MA)$ be a measurable space and $\mu:\MA \rightarrow \RG$. Then $\mu$ is said to be a \textbf{measure} on $(X, \MA)$ if 
+\begin{enumerate}
+\item there exists $A \in \MA$ such that $\mu(A)< \infty$
+\item for each $(A_n)_{n \in \N} \subset \MA$. If $(A_n)_{n \in \N}$ is disjoint, then $$\mu\bigg(\bigcup_{n \in \N}A_n \bigg) = \sum_{n \in \N}\mu(A_n)$$
+\end{enumerate}
+\end{defn}
+
+\begin{defn}
+Let $(X,\MA)$ be a measurable space and $\mu$ a measure on $(A, \MA)$. Then $(A, \MA, \mu)$ is called a \textbf{measure space}. 
+\end{defn}
+
+\begin{ex}
+Let $(X, \MA, mu)$ be a measure space. Then 
+\begin{enumerate}
+\item (monotonicity): for each $A,B \in \MA$, if $A \subset B$, then $\mu(A) \leq \mu(B)$.
+\item (subadditivity): for each $(A_n)_{n \in \N} \subset \MA$, $$\mu \bigg( \bigcup_{n \in \N} A_n \bigg) \leq \sum_{n \in \N}\mu(A_n)$$
+\item (continuity from below): for each $(A_n)_{n \in \N} \subset \MA$, if for each $n \in \N$, $A_n \subset A_{n+1}$, then $$\mu\bigg(\sup_{n \in \N} A_n\bigg) = \sup_{n \in \N}\mu(A_n)$$
+\item (continuity from above): for each $(A_n)_{n \in \N} \subset \MA$, if for each $n \in \N$, $ A_{n+1} \subset A_n$ and $\mu(A_1) < \infty$, then $$\mu\bigg(\inf_{n \in \N} A_n\bigg) = \inf_{n \in \N}\mu(A_n)$$
+\end{enumerate}
+
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item Let $A, B \in \MA$. Suppose that $A \subset B$. Then 
+\begin{align*}
+\mu(B) 
+&= \mu\bigg((B \cap A) \cup (B \cap A^c)\bigg)\\
+&= \mu(B \cap A) + \mu(B \cap A^c)\\
+&= \mu(A) + \mu(B \cap A^c)\\
+&\geq \mu(A)
+\end{align*}
+\item Let $(A_n)_{n \in \N} \subset \MA$. Define $B_1 = A_1$ and for $n \geq 2$, $B_n = A_n \setminus \bigg( \bigcup\limits_{k=1}^{n-1}A_k \bigg)$. Then $(B_n)_{n \in \N} \subset \MA$, $\bigcup\limits_{n \in \N}B_n = \bigcup\limits_{n \in \N}A_n $, $(B_n)_{n \in \N}$ disjoint and for each $n \in \N$, $B_n \subset A_n$. Thus 
+\begin{align*}
+\mu\bigg(\bigcup_{n \in \N}A_n \bigg)
+&= \mu\bigg(\bigcup_{n \in \N}B_n \bigg)\\
+&= \sum_{n \in \N}\mu(B_n) \\
+&\leq \sum_{n \in \N}\mu(A_n)
+\end{align*} 
+\item Let $(A_n)_{n \in \N} \subset \MA$. Suppose that for each $n \in \N$, $A_n \subset A_{n+1}$. Then for each $n \in \N$, $\mu(A_n) \leq \mu(A_{n+1})$ and $\lim\limits_{n \rightarrow \infty}\mu(A_n) = \sup\limits_{n \in \N} \mu(A_n)$. Recall that $\sup\limits_{n \in \N}A_n = \bigcup\limits_{n \in \N}A_n$. 
+Define $B_1 = A_1$ and for $n \geq 2$, $B_n = A_n \setminus A_{n-1}$. Then $(B_n)_{n \in \N} \subset \MA$, $(B_n)_{n \in \N}$ is disjoint, $\bigcup\limits_{n \in \N}A_n = \bigcup\limits_{n \in \N}B_n$ and for each $n \in \N$, $\bigcup\limits_{n=1}^{k}B_n = A_k$. Then 
+\begin{align*}
+\mu\bigg(\sup_{n \in \N}A_n \bigg)
+&= \mu\bigg(\bigcup_{n \in \N}A_n \bigg) \\
+&= \mu\bigg(\bigcup\limits_{n \in \N}B_n \bigg)\\
+&= \sum_{n \in \N} \mu(B_n) \\
+&= \lim_{k \rightarrow \infty} \sum_{n=1}^k \mu(B_n) \\
+&= \lim_{k \rightarrow \infty} \mu \bigg(\bigcup_{n=1}^k B_n \bigg) \\
+&= \lim_{k \rightarrow \infty} \mu(A_k) \\
+&= \sup_{n \in \N} \mu(A_n)
+\end{align*}
+\item Let $(A_n)_{n \in \N} \subset \MA$. Suppose that for each $n \in \N$, $ A_{n+1} \subset A_n$ and $\mu(A_1) < \infty$. Then for each $n \in \N$ $\mu(A_{n+1}) \leq \mu(A_n) \leq \mu(A_1) < \infty$ and the arithmetic that follows is well defined. Recall that $\inf\limits_{n \in \N}A_n = \bigcap\limits_{n \in \N}A_n$. For each $n\in \N$, define $B_n = A_1 \cap A_n$. Then for each $n \in \N$, $B_n \subset B_{n+1}$ and
+\begin{align*}
+\sup\limits_{n \in \N}B_n 
+&= \bigcup\limits_{n \in \N}B_n \\
+&= A_1 \setminus \ \bigcap\limits_{n \in \N}A_n \\
+&= A_1 \setminus \inf_{n \in \N}A_n
+\end{align*}  
+So $(3)$ implies that
+\begin{align*}
+\sup_{n \in \N}\mu(B_n) 
+&= \mu \bigg(\sup\limits_{n \in \N}B_n \bigg)\\
+&= \mu \bigg(A_1 \setminus \inf_{n \in \N}A_n \bigg)\\
+&= \mu(A_1) - \mu\bigg(\inf_{n \in \N}A_n \bigg)\\
+\end{align*}
+On the other hand, 
+\begin{align*}
+\sup_{n \in \N}\mu(B_n)
+&= \sup_{n \in \N}\mu(A_1 \setminus A_n)\\
+&= \sup_{n \in \N} \bigg[ \mu(A_1) - \mu(A_n) \bigg]\\
+&= \mu(A_1) - \inf_{n \in \N}\mu(A_n)
+\end{align*}
+Therefore $$\mu\bigg(\inf_{n \in \N}A_n \bigg) = \inf_{n \in \N}\mu(A_n)$$
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $(X, \MA, \mu)$ be a measure space, $(A_n)_{n \in \N} \subset \MA$ and $A \in \MA$. Suppose that $\mu\bigg(\sup\limits_{n \in \N}A_n\bigg) < \infty$. Then $A_n \rightarrow A$ implies that $\mu(A_n) \rightarrow \mu(A)$. (Hint: it may be helpful to show that $\limsup\limits_{n \rightarrow \infty}\mu(A_n) \leq \liminf\limits_{n \rightarrow \infty}\mu(A_n)$)
+\end{ex} 
+
+\begin{proof}
+Suppose that $A_n \rightarrow A$. Recall that $\limsup\limits_{n \rightarrow \infty}A_n = \inf\limits_{n \in \N} \bigg(\sup\limits_{k \geq n}A_k\bigg)$. Since, $\mu\bigg(\sup\limits_{k \geq 1}A_k\bigg) < \infty$ and $\bigg(\sup\limits_{k \geq n}A_k \bigg)_{n \in \N}$ is decreasing, the previous exercise tells us that 
+\begin{align*}
+\mu(A)
+&= \mu\bigg(\limsup\limits_{n \rightarrow \infty}A_n \bigg)\\
+&= \inf_{n \in \N}\mu\bigg(\sup_{k \geq n}A_k\bigg) \\
+&= \inf_{n \in \N}\bigg(\sup_{k \geq n}\mu (A_k)\bigg) \\
+&= \limsup_{n \rightarrow \infty}\mu(A_n)
+\end{align*}
+Recall that $\liminf\limits_{n \rightarrow \infty} A_n = \sup\limits_{n \in \N} \bigg( \inf\limits_{k \geq n}A_k \bigg)$. Note that for each $n \in \N$, $\inf\limits_{k \geq n}A_k \subset A_n$, so for each $n \in \N$, $\mu\bigg(\inf\limits_{k \geq n}A_k\bigg) \leq \mu(A_n)$. Since $\bigg(\inf\limits_{k \geq n}A_k\bigg)_{n \in \N}$ is increasing the last exercise tells us that 
+\begin{align*}
+\mu(\limfn A_n)
+&= \sup\limits_{n \in \N} \mu \bigg( \inf\limits_{k \geq n}A_k \bigg) \\
+&= \liminf_{n \rightarrow \infty} \mu \bigg( \inf\limits_{k \geq n}A_k \bigg) \\
+& \leq \liminf_{n \rightarrow \infty} \mu(A_n)
+\end{align*}
+Since $\liminf\limits_{n \rightarrow \infty} A_n = \limsup\limits_{n \rightarrow \infty} A_n$, we have that 
+\begin{align*}
+\limsup_{n \rightarrow \infty}\mu(A_n)
+&= \mu \bigg(\limsup_{n \rightarrow \infty}A_n \bigg) \\
+&= \mu \bigg(\liminf_{n \rightarrow \infty}A_n \bigg) \\
+& \leq \liminf_{n \rightarrow \infty} \mu(A_n)
+\end{align*}
+
+Thus $\mu(A) = \limsup\limits_{n \rightarrow \infty}\mu(A_n) = \liminf\limits_{n \rightarrow \infty}\mu(A_n)$ and $\mu(A_n) \rightarrow \mu(A)$
+\end{proof}
+
+
+
+
+
+
 
 \subsection{Product Measures}
 

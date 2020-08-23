@@ -51,6 +51,16 @@
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 
  
+ 
+ 
+\newcommand\Item[1][]{%
+  \ifx\relax#1\relax  \item \else \item[#1] \fi
+  \abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}} 
+ 
+ 
+ 
+ 
+ 
 \begin{document}
 
 \title{Portfolio Theory Notes}
@@ -59,7 +69,7 @@
 \tableofcontents
 
 \begin{note}
-In these notes we will mostly consider random variables $X$ that model returns. As such we may assume that $X \in L^1(\P)$ and $F_X:\R \rightarrow (0,1)$ is bijective and continuous. We will call such random variabels "nice". The random variable $X$ will usually be taken to mean the return on some portfolio. As such, we will define the loss of $X$ to be $L_X = -X$.
+In these notes we will mostly consider random variables $X$ that model returns. As such we may assume that $X \in L^1(\P)$ and $F_X:\R \rightarrow (0,1)$ is bijective and continuous. We will call such random variables "nice". The random variable $X$ will usually refer to the return on some portfolio. As such, we will define the loss of $X$ to be $L_X = -X$.
 \end{note}
 
 \section{Risk Measures}
@@ -67,17 +77,18 @@ In these notes we will mostly consider random variables $X$ that model returns. 
 \subsection{Value at Risk}
 
 \begin{defn}
-Let $X$ be a nice random variable and $\ep \in (0,1)$. We define the \textbf{value at risk of } $X$ \textbf{at confidence level } $\ep$, denoted by $VaR_{\ep}(X)$, to be 
+Let $X$ be a nice random variable and $\al \in (0,1)$. We define the \textbf{value at risk of } $X$ \textbf{at confidence level } $\al$, denoted by $VaR_{\al}(X)$, to be 
 
 \begin{align*}
-VaR_{\ep}(X) 
-&= F^{-1}_{-X}(\ep)\\
-&= F^{-1}_{L_X}(\ep)
+VaR_{\al}(X) 
+&= F^{-1}_{-X}(\al)\\
+&= F^{-1}_{L_X}(\al)
 \end{align*}
+Thus $$\P(L_X > VaR_{\al}(X)) = 1- \al$$
 \end{defn}
 
 \begin{note}
-If $X$ represents the return of a portfolio, then $Var_{\ep}(X)$ is just a bound such that with probability $\ep$, the loss of the portfolio is not less than the bound.  
+In practice, we take $\al= .95$ or $\al= .99$. 
 \end{note}
 
 \subsection{Estimating the Value at Risk}
@@ -85,19 +96,18 @@ If $X$ represents the return of a portfolio, then $Var_{\ep}(X)$ is just a bound
 \subsection{Average Value at Risk}
 
  \begin{defn}
-Let $X$ be a nice random variable and $\ep \in (0,1)$. We define the \textbf{average value at risk of } $X$ \textbf{with tail probability } $\ep$, denoted by $AVaR_{\ep}(X)$, to be $$AVaR_{\ep}(X) = \frac{1}{1-\ep}\int_{[\ep,\infty)}VaR_p(X)dm(p)$$
+Let $X$ be a nice random variable and $\al\in (0,1)$. We define the \textbf{average value at risk of } $X$ \textbf{with tail probability } $\al$, denoted by $AVaR_{\al}(X)$, to be $$AVaR_{\al}(X) = \frac{1}{1-\al}\int_{[\al,1)}VaR_p(X)dm(p)$$
 \end{defn}
 
 \begin{note}
-If $X$ represents the return on a portfolio, then $AVaR_{\ep}(X)$ is just the average of the $VaR_{p}(X)$ over all $p< \ep$.
+If $X$ represents the return on a portfolio, then $AVaR_{\al}(X)$ is just the average of the $VaR_{p}(X)$ on the interval $(\al, 1]$.
 \end{note}
 
 \begin{ex}
-Let $X$ be a nice random variable and $\ep \in (0,1)$. Then 
+Let $X$ be a nice random variable and $\al\in (0,1)$. Then 
 \begin{align*}
-AVaR_{\ep}(X) 
-&= \E[-X|-X \geq VaR_{\ep}(X)]\\
-&= \E[L_X|L_X \geq Var_{\ep}(X)]
+AVaR_{\al}(X) 
+&= \E[L_X|L_X \geq Var_{\al}(X)]
 \end{align*}
 \end{ex}
 
@@ -117,52 +127,87 @@ Also recall that for an increasing continuous, bijective $F:\R \rightarrow (0,1)
 
 Then  
 \begin{align*}
-\E[L_X |L_X \geq F^{-1}_{L_X}(\ep)] 
-&= \E[L_X|L_X \geq F^{-1}_{L_X}(\ep)] \\ 
-&= \frac{1}{1-\ep}\E [L_X \mathbf{1}_{\{L_X \geq F^{-1}_{L_X}(\ep)\}}] \\ 
-&=  \frac{1}{1-\ep} \int_{\{L_X \geq F_{L_X}^{-1}(\ep)\}}L_X dP \\
-& = \frac{1}{1-\ep} \int_{[F_{L_X}^{-1}(\ep),  \infty)}xd F_{L_X}(x)
+\E[L_X |L_X \geq VaR_{\al}(X)]
+&= \E[L_X|L_X \geq F^{-1}_{L_X}(\al)] \\ 
+&= \frac{1}{1-\al}\E [L_X \mathbf{1}_{\{L_X \geq F^{-1}_{L_X}(\al)\}}] \\ 
+&=  \frac{1}{1-\al} \int_{\{L_X \geq F_{L_X}^{-1}(\al)\}}L_X dP \\
+& = \frac{1}{1-\al} \int_{[F_{L_X}^{-1}(\al),  \infty)}xd F_{L_X}(x)
 \end{align*}
 
 Using the facts recalled earilier, we have  
 \begin{align*}
-\int_{[F_{L_X}^{-1}(\ep),  \infty)}xd F_{L_X}(x) 
-&= \int_{[F_{L_X}^{-1}(\ep),  \infty)}(F^{-1}_{L_X} \circ F_{L_X}) (x)d F_{L_X}(x) \\
-&= \int_{[\ep,  \infty)} F^{-1}_{L_X}(x)dm(x)\\
-&= \int_{[\ep,  \infty)} VaR_{\ep}(X)dm(x)
+\int_{[F_{L_X}^{-1}(\al),  \infty)}xd F_{L_X}(x) 
+&= \int_{[F_{L_X}^{-1}(\al),  \infty)}(F^{-1}_{L_X} \circ F_{L_X}) (x)d F_{L_X}(x) \\
+&= \int_{[\al,  1)} F^{-1}_{L_X}(x)dm(x)\\
+&= \int_{[\al,  1)} VaR_{\al}(X)dm(x)
 \end{align*}
 \end{proof}
 
-\begin{note}
-If $X$ represents the return of a portfolio. We may define the \textbf{loss of} $X$, denoted by $L_X$, to be $L_X = -X$. Then $AVaR_{\ep}(X) = \E[L_X|L_X>VaR_{\ep}(X)]$.  
-\end{note}
+\begin{lem}
+Let $\al \in (0,1)$. Define $f_{\al}: \R \rightarrow \R$ by $$f_\al(\theta) = \theta + \frac{1}{1-\al}\E[(L_X - \theta)^+]$$
+Then $f_\al$ is convex and $$\frac{df_\al}{d \theta}(\theta) = \frac{F_{L_X} - \al}{1-\al}$$
+\end{lem}
+
+\begin{proof} 
+Recall that given $g:\Om \times \R \rightarrow \R$, if for each $\om \in \Om$, $g(\om, \theta)$ is convex in $\theta$, then $\E[g(\cdot, \theta)]$ is convex in theta. For $\om \in \Om, \theta \in \R$, put $$g(\om, \theta) = (L_X(\om) - \theta)^+$$ So $$f_{\al}(\theta) = \theta + \frac{1}{1-\al}\E[g(\theta)]$$ Then for each $\om \in \Om$, $g(\om, \cdot)$ is convex. This implies that for each $\al\in (0,1)$, $f_{\al}$ is convex and therefore continuous. \vspace{3mm}\\ 
+Now Let $\theta, \theta' \in \R$. Suppose that $\theta<\theta'$. Then 
+\begin{align*}
+\frac{f_\al(\theta') - f_\al(\theta)}{\theta' - \theta} 
+&= 1 + \frac{1}{1-\al}\E\bigg[\frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta}\bigg] \\
+\end{align*}
+For $\om \in \Om$, we have that 
+$$\frac{(L_X(\om) - \theta')^+ - (L_X(\om) - \theta)^+}{\theta'-\theta}= 
+\begin{cases}
+-1 &  \theta' \leq L_X(\om) \\
+0 & L_X(\om) \leq  \theta \\
+\ep \in (-1,0) &\theta < L_X(\om) < \theta'
+\end{cases}$$
+This implies that 
+\begin{align*}
+-(F_{L_X}(\theta') - F_{L_X}(\theta))
+&= -\P(\theta < L_X < \theta') \\
+&\leq \E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \mathbf{1}_{L_X \in (\theta, \theta')}\bigg] \\
+&< 0
+\end{align*} 
+Thus there exists $c \in (0, 1)$ such that $$\E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \mathbf{1}_{L_X \in (\theta, \theta')}\bigg] = -c(F_{L_X}(\theta') - F_{L_X}(\theta))$$\vspace{3mm}\\
+In addition, $\P(\theta' \leq L_X(\om)) = 1-F_{L_X}(\theta')$.
+Therefore 
+\begin{align*}
+\E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \bigg]
+&= -(1-F_{L_X}(\theta')) -c(F_{L_X}(\theta') - F_{L_X}(\theta))
+\end{align*}\\
+This implies that $$\lim_{\theta' \rightarrow \theta^+}\E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \bigg] = F_{L_X}(\theta) -1$$\\
+Finally we have that 
+\begin{align*}
+\lim_{\theta' \rightarrow \theta^+} \frac{f_\al(\theta') - f_\al(\theta)}{\theta' - \theta} 
+&= 1 + \frac{1}{1-\al}\lim_{\theta' \rightarrow \theta^+}\E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \bigg] \\
+&= 1 + \frac{F_{L_X}(\theta) -1}{1-\al}\\
+&= \frac{F_{L_X}(\theta) -\al}{1-\al}
+\end{align*}
+The case is similar for the lefthand limit.
+
+\end{proof}
 
 \begin{thm}
-Let $X$ be a nice random variable and $\ep \in (0,1)$. Then $$AVaR_{\ep}(X) = \min_{\theta \in \R} \bigg(\theta + \frac{1}{1-\ep}\E[(-X - \theta)^+]\bigg)$$
+Let $X$ be a nice random variable and $\al\in (0,1)$. Then $$AVaR_{\al}(X) = \min_{\theta \in \R} \bigg(\theta + \frac{1}{1-\al}\E[(L_X - \theta)^+]\bigg)$$
 \end{thm}
 
 \begin{proof} 
-For $\om \in \Om, \theta \in \R$, put $g_{\om}(\theta) = (-X(\om) - \theta)^+$ and for $\theta \in \R, \ep \in (0,1)$, put $f_{\ep}(\theta) = \theta + \frac{1}{1-\ep}\E[g(\theta)]$. Then for each $\om \in \Om$, $g_{\om}$ is convex. This implies that for each $\ep \in (0,1)$, $f_{\ep}$ is convex and therefore continuous.
-
-Let $L = -X$ be the loss of X.  One can show that $$\frac{\partial f_{\ep}}{\partial \theta}(\theta) = \frac{F_L(\theta) -\ep}{1-\ep} $$ The details can be found in \cite{RockUr}, but will be omitted here. Thus $$\lim_{\theta \rightarrow \infty}\frac{\partial f_{\ep}}{\partial \theta}(\theta) = 1$$ and $$\lim_{\theta \rightarrow -\infty} \frac{\partial f_{\ep}}{\partial \theta}(\theta) = - \frac{\ep}{1-\ep} <0$$
-
-This implies that there exists $\theta^* \in \R$ such that $f_{\ep}(\theta^*) = \inf\limits_{\theta \in \R}f_{\ep}(\theta)$
-
-Thus $$\frac{\partial f_{\ep}}{\partial \theta}(\theta^*) = 0$$
-
-which implies that $$F_L(\theta^*) = \ep$$
-
-This implies that $\theta^* = VaR_{\ep}(X)$ Finally, evaluating $f_{\ep}$ at $\theta^*$ shows us that 
+The previous lemma tells us that $$\frac{d f_{\al}}{d \theta}(\theta) = \frac{F_{L_X}(\theta) -\al}{1-\al} $$ For further details, see \cite{RockUr}. Thus $$\lim_{\theta \rightarrow \infty}\frac{d f_{\al}}{d \theta}(\theta) = 1$$ and $$\lim_{\theta \rightarrow -\infty} \frac{d f_{\al}}{d \theta}(\theta) = - \frac{\al}{1-\al} <0$$
+The convexity of $f_{\al}$ implies that there exists $\theta^* \in \R$ such that $f_{\al}(\theta^*) = \inf\limits_{\theta \in \R}f_{\al}(\theta)$
+Thus $$\frac{d f_{\al}}{d \theta}(\theta^*) = 0$$
+which implies that $$F_{L_X}(\theta^*) = \al$$
+By definition, $\theta^* = VaR_{\al}(X)$. Finally, evaluating $f_{\al}$ at $\theta^*$ shows us that 
 
 \begin{align*}
-f_{\ep}(\theta^*)  
-&=  \theta^* + \frac{1}{1- \epsilon}\E[(L - \theta^*)^+]\\
-& = \theta^* + \frac{1}{\P(L>\theta^*)}\E[(L-\theta^*)\mathbf{1}_{\{L>\theta^*\}}] \\
-& = \theta^* + \frac{1}{\P(L>\theta^*)}\E[L\mathbf{1}_{\{L>\theta^*\}}] - \frac{1}{\P(L>\theta^*)}\E[\theta^*\mathbf{1}_{\{L>\theta^*\}}] \\
-& = \theta^* + \frac{1}{\P(L>\theta^*)}\E[L\mathbf{1}_{\{L>\theta^*\}}] - \theta^* \\
-&= \E[L|L> \theta^*] \\
-& = \E[L|L>VaR_{\ep}(X)] \\
-& = AVaR_{\ep}(X)
+f_{\al}(\theta^*)  
+&=  \theta^* + \frac{1}{1- \al}\E[(L_X - \theta^*)^+]\\
+& = \theta^* + \frac{1}{\P(L_X>\theta^*)}\E[(L_X-\theta^*)\mathbf{1}_{\{L_X>\theta^*\}}] \\
+& = \theta^* + \frac{1}{\P(L_X>\theta^*)}\E[L_X\mathbf{1}_{\{L_X>\theta^*\}}] - \frac{1}{\P(L_X>\theta^*)}\E[\theta^*\mathbf{1}_{\{L_X>\theta^*\}}] \\
+& = \theta^* + \frac{1}{\P(L_X>\theta^*)}\E[L_X\mathbf{1}_{\{L_X>\theta^*\}}] - \theta^* \\
+&= \E[L_X|L_X> \theta^*] \\
+& = \E[L_X|L_X>VaR_{\al}(X)] \\
+& = AVaR_{\al}(X)
 \end{align*}
 
 \end{proof}
@@ -170,31 +215,31 @@ f_{\ep}(\theta^*)
 \subsection{Estimating the Value at Risk}
 
 \begin{defn}
-Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\ep \in (0,1)$. Define $$\widehat{VaR_\ep}(X) = $$
+Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\al\in (0,1)$. Define $$\widehat{VaR_\al}(X) = $$
 \end{defn}
 
 \subsection{Estimating the Average Value at Risk}
 
 \begin{defn}
-Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\ep \in (0,1)$. Define $$ \widehat{AVaR_{\ep}(X)} = $$ 
+Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\al\in (0,1)$. Define $$ \widehat{AVaR_{\al}(X)} = $$ 
 \end{defn}
 
 \begin{lem}
-Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\ep \in (0,1)$. Then $\widehat{AVarR_{\ep}(X)}$ is an unbiased estimator for $AVaR_{\ep}(X)$. 
+Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\al\in (0,1)$. Then $\widehat{AVarR_{\al}(X)}$ is an unbiased estimator for $AVaR_{\al}(X)$. 
 \end{lem}
 
 \begin{proof}
-For each $\ep \in (0,1), \om \in \Om$ and $\theta \in \R$, define $$f_{\ep}(\om)(\theta) = \theta + \frac{1}{n (1-\ep)} \sum_{i=1}^n\max(-X_i(\om) - \theta, 0) $$ 
+For each $\al\in (0,1), \om \in \Om$ and $\theta \in \R$, define $$f_{\al}(\om)(\theta) = \theta + \frac{1}{n (1-\al)} \sum_{i=1}^n\max(-X_i(\om) - \theta, 0) $$ 
 
-Note that for each $\ep \in (0,1)$ and $\om \in \Om$, $f_{\ep}(\om)$ is convex and continuous. In this case with no expectation, it is easy to show that $$\lim_{\theta \rightarrow \infty}\frac{\partial f_{\ep}(\om)}{\partial \theta}(\theta) = 1$$
+Note that for each $\al\in (0,1)$ and $\om \in \Om$, $f_{\al}(\om)$ is convex and continuous. In this case with no expectation, it is easy to show that $$\lim_{\theta \rightarrow \infty}\frac{\partial f_{\al}(\om)}{\partial \theta}(\theta) = 1$$
 
 and
  
-$$\lim_{\theta \rightarrow -\infty}\frac{\partial f_{\ep}(\om)}{\partial \theta}(\theta) = -\frac{\ep}{1-\ep} <0$$  
+$$\lim_{\theta \rightarrow -\infty}\frac{\partial f_{\al}(\om)}{\partial \theta}(\theta) = -\frac{\al}{1-\al} <0$$  
 
-So for each $\ep \in (0,1)$ and $\om \in \Om$, $f_{\ep}(\om)$ achieves its minimum at . Then $\{\theta \in \R: f_{\ep}(\om)(\theta)\leq m+1\}$ is bounded
+So for each $\al\in (0,1)$ and $\om \in \Om$, $f_{\al}(\om)$ achieves its minimum at . Then $\{\theta \in \R: f_{\al}(\om)(\theta)\leq m+1\}$ is bounded
 
-Since $f_{\ep}$ is continuous, we have that $$\inf_{\theta \in \R} f_{\ep}(\theta) = \inf_{\theta \in \Q} f_{\ep}(\theta)$$ 
+Since $f_{\al}$ is continuous, we have that $$\inf_{\theta \in \R} f_{\al}(\theta) = \inf_{\theta \in \Q} f_{\al}(\theta)$$ 
 
 which is measurable. 
 
