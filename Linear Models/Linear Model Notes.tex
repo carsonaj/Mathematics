@@ -4,6 +4,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{exercise, chngcntr}
 \usepackage{physics}
+\usepackage{mathtools}
 %
 %
 %
@@ -155,12 +156,109 @@ Let $A \in \MM_{m,n}$ and $G \in \MM_{n,m}$. Then $G$ is said to be a \textbf{ge
 \end{defn}
 
 \begin{thm}
-Let $A \in \MM_{m,n}$. Then there exists $G \in \MM_{n,m}$ such that $G$ is a generalized inverse of $A$. 
+Let $A \in \MM_{m,n}$. Suppose that $rank(A) = r$. Then there exists $P \in \MM_{m,m}, Q \in \MM_{n,n}, C \in \MM_{r,r}$ such that $P,Q,C$ are non-singular, $rank(C) = r$ and 
+\[
+A = P
+\begin{pmatrix}
+C & 0 \\
+0 & 0
+\end{pmatrix}
+Q
+\]
 \end{thm}
 
+\begin{ex}
+Let 
+\[
+A = P
+\begin{pmatrix}
+C & 0 \\
+0 & 0
+\end{pmatrix}
+Q
+\]
+as in the previous theorem and $D \in \MM_{r,m-r}, E \in \MM_{n-r, r}, F \in \MM_{n-r, m-r}$. Put 
+\[
+G = Q^{-1}
+\begin{pmatrix}
+C^{-1} & D \\
+E & F
+\end{pmatrix}
+P^{-1}
+\]
+
+Then $G$ is a generalized inverse of $A$.
+ 
+\end{ex}
+
+\begin{proof}\
+\begin{align*}
+AGA 
+&= \bigg[P
+\begin{pmatrix}
+C &0 \\
+0 & 0
+\end{pmatrix}
+Q \bigg]\bigg[Q^{-1}
+\begin{pmatrix}
+C ^{-1}&D \\
+E & F
+\end{pmatrix}
+P^{-1} \bigg] \bigg[P
+\begin{pmatrix}
+C &0 \\
+0 & 0
+\end{pmatrix}
+Q\bigg] \\
+&= P
+\begin{pmatrix}
+C &0 \\
+0 & 0
+\end{pmatrix}
+\begin{pmatrix}
+C ^{-1}&D \\
+E & F
+\end{pmatrix}
+\begin{pmatrix}
+C &0 \\
+0 & 0
+\end{pmatrix}
+Q\\
+&= P 
+\begin{pmatrix}
+I &CD \\
+0 & 0
+\end{pmatrix}
+\begin{pmatrix}
+C &0 \\
+0 & 0
+\end{pmatrix}
+Q \\
+&= P
+\begin{pmatrix}
+C &0 \\
+0 & 0
+\end{pmatrix}
+Q \\
+&= A
+\end{align*}
+\end{proof}
+
+
 \begin{note}
+The previous exercise and theorem guarantee the existence of a generealized inverse for all matrices.
 We will denote a generalized inverse of $A$ by $A^-$.
 \end{note}
+
+\begin{thm}
+Let $A \in \MM_{m,n}$. Suppose that $rank(A) = r$. Let $P \in \MM_{mm}$, $Q \in \MM_{n,n}$ permutation matrices and $C \in \MM_{r,r}$. Suppose that $rank(C) = r$ and $PAQ = \begin{pmatrix}
+C &D \\
+E &F
+\end{pmatrix}$ Then $Q\begin{pmatrix}
+C^{-1} &0 \\
+0 &0
+\end{pmatrix}P$ is a generalized inverse of $A$. 
+\end{thm}
 
 \begin{ex}
 \z{X}. Then $(X^T)^- = (X^-)^T$.
@@ -205,25 +303,6 @@ From the previous exercise, we have that
 &= \MN(X^-X)
 \end{align*}
 \end{proof}
-\vspace{2mm}
-\begin{defn}
-Let $A \in \MM_{m,n}$ and $b \in \R^m$. Then the system $Ax=b$ is said to be \textbf{consistent} if $b \in \MC(A)$.
-\end{defn}
-
-\begin{ex}
-Let $A \in \MM_{m,n}$ and $b \in \R^m$. If the system $Ax=b$ is consistent, then $x=A^-b$ satisfies $Ax=b$.
-\end{ex}
-
-\begin{proof}
-Suppose that the system $Ax=b$ is consistent. Then $b \in \MC(A)$. So there exists $x^* \in \R^n$ such that $Ax^* = b$. Then 
-\begin{align*}
-A(A^{-} b)
-&= A(A^{-} Ax^*) \\
-&= Ax^* \\
-&= b
-\end{align*}
-Hence $A^- b$ satisfies $Ax=b$.
-\end{proof} 
 \vspace{2mm}
 
 \begin{ex}
@@ -281,11 +360,15 @@ Let $A \in \MM_{m,m}$. If $A$ is idempotent, then $rank(A) = tr(A)$.
 \begin{defn}
 Let $P \in \MM_{m,m}$ and $S \subset \R^m$ a subspace. Then $P$ is said to be a \textbf{projection matrix} onto $S$ if 
 \begin{enumerate}
-\item $\MC(X) = S$ 
 \item $P$ is idempotent
+\item $\MC(X) \subset S$ 
 \item for each $x \in S$, $Px = x$
 \end{enumerate} 
 \end{defn}
+
+\begin{note}
+In the previous definition, (2) and (3) imply that $\MC(X) = S$, so to say that $X$ projects ``onto" S is accurate.
+\end{note}
 
 \begin{ex}
 Let $S \subset \R^m$ and $P,Q$ projection matrices onto $S$. Then $PQ = Q$. 
@@ -300,7 +383,7 @@ Let $x \in \R^m$. Then $Qx \in \MC(Q) = S$. So $PQx = Qx$. Thus $PQ = Q$.
 \end{ex}
 
 \begin{proof}
-A previous exercise tells us that $\MC(XX^-) = \MC(X)$. Another previous exercises tells us that $XX^-$ is idempotent. Let $b \in \MC(X)$. Then there exists $a \in \R^n$ such that $Xa =b$. So 
+A previous exercises tells us that $XX^-$ is idempotent. Another previous exercise tells us that $\MC(XX^-) = \MC(X)$. Let $b \in \MC(X)$. Then there exists $a \in \R^n$ such that $Xa =b$. So 
 \begin{align*}
 XX^-b
 &= XX^- Xa\\ 
@@ -329,7 +412,7 @@ So $\MC(I-X^-X) \subset \MN(X)$. Let $a \in \MN(X)$. Then $Xa =0$ and
 &= a - X^-Xa \\
 &= a
 \end{align*} 
-So $\MN(X) \subset \MC(I-X^-X)$ and therefore $ \MC(I-X^-X) = \MN(X) $.
+So for each $a \in \MN(X)$, $(I-X^-X)a = a$.
 \end{proof}
 
 \begin{ex}
@@ -368,12 +451,306 @@ X^TXGX^TX = X^TXHX^TX
 \end{proof}
 
 \begin{note}
-Recall that $X^- = (X^TX)^-X^T$. So that $P_X = XX^-$ is indeed a projection onto $\MC(X)$. Since $P_X$ is symmetric, it is the unique symmetric projection onto $\MC(X)$. 
+Recall that $X^- = (X^TX)^-X^T$. So that $P_X = XX^-$ is indeed a projection onto $\MC(X)$. Recall that $[(X^TX)^-]^T$ is a gen. inv. of $(X^TX)^T = (X^TX)$. Hence $P_X^T = X[(X^TX)^-]^TX^T = P_X$. Since $P_X$ is symmetric, it is the unique symmetric projection onto $\MC(X)$. 
 \end{note}
 
 \begin{note}
-Recall that $(X^T)^- = X(X^TX)^-$. So that $P_X = (X^T)^-X^T$. A previous exercises tells us that $I-P_X$ is a projection on $\MN(X^T)$. Since $I-P_X$ is symmetric, it is the unique symmetric projection onto $\MN(X^T)$.
+Recall that $(X^T)^- = X(X^TX)^-$. So that $P_X = (X^T)^-X^T$. A previous exercises tells us that $I-P_X$ is a projection on $\MN(X^T)$. Since $I-P_X$ is symmetric, it is the unique symmetric projection onto $\MN(X^T)$. 
 \end{note}
+
+\subsection{Solving Linear Equations}
+
+\begin{defn}
+Let $A \in \MM_{m,n}$ and $b \in \R^m$. Then the system $Ax=b$ is said to be \textbf{consistent} if $b \in \MC(A)$.
+\end{defn}
+
+\begin{ex}
+Let $A \in \MM_{m,n}$ and $G \in \MM_{n,m}$. Then $G = A^-$ iff for each $b \in \MC(A)$, $Gb$ solves $Ax = b$. 
+\end{ex}
+
+\begin{proof}
+Suppose that $G = A^-$. Let $b \in \MC(A)$. Then there exists $x^* \in \R^n$ such that $Ax^* = b$. So
+\begin{align*}
+A(Gb)
+&= AG(Ax^*) \\
+&= (AGA)x^* \\
+&= Ax^* \\
+&= b
+\end{align*}
+So $Gb$ solves $Ax =b$. Conversely, Suppose that for each $b \in \MC(A)$, $Gb$ solves $Ax = b$. Let $z \in \R^n$. So $Az \in \MC(A)$. Then  
+\begin{align*}
+(AGA)z 
+&= A[G(Az)] \\
+&= Az
+\end{align*}
+Since for each $z \in \R^n AGAz = Az$, $AGA = A$ and $G = A^-$.
+\end{proof}
+\vspace{2mm}
+
+\begin{ex}
+Let $b \in \MC(A)$. Then $$\{x \in \R^n: Ax = b\} = \{A^-b+(I-A^-A)z: z \in \R^n \}$$.
+\end{ex}
+
+\begin{proof}
+Let $x \in \{A^-b+(I-A^-A)z: z \in \R^n \}$. Then there exists $z \in \R^n$ such that $x = A^-b+(I-A^-A)z$. Since $(I-A^-A)$ is a projection onto $\MN(A)$, 
+\begin{align*}
+Ax
+&= AA^-b \\
+&= b
+\end{align*}
+So $x \in \{x \in \R^n: Ax = b\}$. Conversely, let $x \in \{x \in \R^n: Ax = b\}$. Then 
+\begin{align*}
+x 
+&= A^-(Ax) + (x - A^-Ax) \\
+&= A^-(b) + (I-A^-A)x \\
+& \in \{A^-b+(I-A^-A)z: z \in \R^n \}
+\end{align*}
+\end{proof}
+
+\subsection{Moore-Penrose Pseudoinverse}
+
+\begin{thm} (Singular Value Decomposition): \\
+Let $A \in \MM_{m,n}$. Suppose that $rank(A) = r$. Then there exist $U \in \MM_{m,m} V \in \MM_{n,n}$, and $D_0 \in \MM_{r,r}$ such that
+\begin{enumerate}
+\item $A = 
+U
+\begin{pmatrix}
+D_0 & 0 \\
+0 & 0
+\end{pmatrix}
+V^T
+$
+\item  
+$U^T
+U = I$
+\item $V^T
+V = I$ 
+\item $D_0 = diagonal(d_1, d_2, \cdots, d_r)$ with $d_1 \geq d_2 \geq \cdots \geq d_r >0$
+\end{enumerate}
+
+\end{thm}
+
+\begin{note}
+Put $D = 
+\begin{pmatrix}
+D_0 & 0 \\
+0 & 0
+\end{pmatrix} \in \MM_{m,n}$ 
+\begin{enumerate}
+\item Since $D_0$ is symmetric, $D^T = 
+\begin{pmatrix}
+D_0 & 0 \\
+0 & 0
+\end{pmatrix}  \in \MM_{n,m}$
+\item Since $D_0$ is diagonal, $D_0^{-1}$ is also diagonal and symmetric
+\end{enumerate}
+\end{note}
+
+\begin{defn}
+Let $A \in \MM_{m,m}$ and $A^+ \in \MM_{n,m}$. Then $A^+$ is said to be a  \textbf{Moore-Penrose pseudoinverse} of $A$ if 
+\begin{enumerate}
+\item $AA^+A = A$
+\item $A^+AA^+ = A^+$
+\item $AA^+$ is symmetric
+\item $A^+A$ is symmetric
+\end{enumerate} 
+\end{defn}
+
+\begin{note}
+We have that $P_X = XX^+ = X(X^TX)^-X^T$. 
+\end{note}
+
+\begin{ex}
+Let $A \in \MM_{m,n}$ and $S,T \in \MM_{n,m}$. If $S$ and $T$ are m-p pseudoinverses of $A$, then $S=T$. 
+\end{ex}
+
+\begin{proof}
+Suppose that $S,T$ satisfy properties (1)-(4). Then 
+\begin{align*}
+S
+&= SAS \\
+&= (SA)^TS \\
+&= A^TS^TS \\
+&= (ATA)^TS^TS \\
+&= A^TT^TA^TS^TS \\
+&= (TA)^T(SA)^TS \\
+&= (TA)(SA)S \\
+&= TA(SAS) \\
+&= TAS
+\end{align*}
+and 
+\begin{align*}
+T 
+&= TAT \\
+&= T(AT)^T \\
+&= TT^TA^T \\
+&= TT^T(ASA)^T \\
+&= TT^TA^TS^TA^T \\
+&= T(AT)^T (AS)^T \\
+&= T(AT) (AS) \\
+&= (TAT)AS \\
+&= TSA 
+\end{align*} 
+
+So $S=T$
+\end{proof}
+
+\begin{ex}
+Let $A \in \MM_{m, n}$ have singular value decomposition $A = UDV^T = U
+\begin{pmatrix}
+D_0 & 0 \\
+0 & 0
+\end{pmatrix}
+V^T$. Define $D^+ = \begin{pmatrix}
+D_0^{-1} & 0 \\
+0 & 0
+\end{pmatrix} \in \MM_{n,m}$. Then $D^+$ is the m-p pseudoinverse of $D$.
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item 
+\begin{align*}
+DD^+D 
+&= \begin{pmatrix}
+D_0 & 0 \\
+0 & 0
+\end{pmatrix} 
+\begin{pmatrix}
+D_0^{-1} & 0 \\
+0 & 0
+\end{pmatrix} 
+\begin{pmatrix}
+D_0 & 0 \\
+0 & 0
+\end{pmatrix} \\
+&= \begin{pmatrix}
+I & 0 \\
+0 & 0
+\end{pmatrix}
+\begin{pmatrix}
+D_0 & 0 \\
+0 & 0
+\end{pmatrix} \\ 
+&= \begin{pmatrix}
+D_0 & 0 \\
+0 & 0
+\end{pmatrix} \\
+&= D
+\end{align*}
+\item Similar to (1).
+\item 
+\begin{align*}
+(DD^{+})^T
+&=\begin{pmatrix}
+I & 0 \\
+0 & 0
+\end{pmatrix}^T \\
+&= \begin{pmatrix}
+I & 0 \\
+0 & 0
+\end{pmatrix} \\
+&= DD^{+}
+\end{align*}
+\item Similar to (3).
+\end{enumerate}
+
+\end{proof}
+
+\begin{ex}
+Let $A \in \MM_{m, n}$ have singular value decomposition $A = UDV^T$. So $A^T \in \MM_{n,m}$ has singular value decomposition $A^T = VD^TU^T$.
+Then $(D^T)^+ = (D^+)^T$
+\end{ex}
+
+\begin{proof}
+Since $D^T = \begin{pmatrix}
+D_0 & 0 \\
+0 & 0
+\end{pmatrix} \in \MM_{n,m}$, we have that $(D^T)^+ = 
+\begin{pmatrix}
+D_0^{-1} & 0 \\
+0 & 0
+\end{pmatrix}
+= (D^+)^T$
+\end{proof}
+
+\begin{ex}
+Let $A \in \MM_{m, n}$ have singular value decomposition $A = UDV^T$. Define $A^+ = VD^+U^T$. Then $A^+$ is the m-p pseudoinverse of $A$.
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item 
+\begin{align*}
+AA^+A 
+&= (UDV^T)(VD^+U^T)(UDV^T) \\
+&= UDD^+DV^T \\
+&= UDV^T \\
+&= A
+\end{align*}
+\item Similar to (1)
+\item 
+\begin{align*}
+(AA^+)^T
+&= \big[(UDV^T)(VD^+U^T)\big]^T\\
+&= (UDD^+U^T)^T \\
+&= U(DD^+)^TU^T \\
+&= U DD^+ U^T \\
+&= (UDV^T)(VD^+U^T) \\
+&= AA^+
+\end{align*}
+\item Similar to (3).
+\end{enumerate}
+\end{proof}
+
+\begin{ex}
+Let $A \in \MM_{m,n}$ have singular value decomposition $A = UDV^T$. Then $(A^T)^+ = (A^+)^T$.
+\end{ex}
+
+\begin{proof} \
+\begin{align*}
+(A^T)^+ 
+&= \big[(UDV^T)^T\big]^+ \\
+&= (VD^TU^T)^+ \\
+&= U(D^T)^+V^T \\
+&= U(D^+)^TV^T \\
+&= (VD^+U^T)^T \\
+&= (A^+)^T
+\end{align*}
+\end{proof}
+\vspace{3mm}
+
+
+\begin{ex} Let $A \in \MM_{m,n}$. Then there exists a unique matrix $A^+ \in \MM_{n,m}$ such that $A^+$ is the m-p pseudoinverse of $A$. 
+\end{ex}
+
+\begin{proof}
+The existence of and uniqueness of $A^+$ are shown in the previous exercises. 
+\end{proof}
+
+\begin{ex}
+Let $A \in \MM_{m,m}$. Then $(A^+)^+ = A$.
+\end{ex}
+
+\begin{proof}
+We observe that $A$ satisfies properties $(1)-(4)$ for $A^+$. By uniqueness, $(A^+)^+ = A$.
+\end{proof}
+
+\begin{ex}
+Let $A \in \MM_{m,n}$ and $b \in \MC(A)$. Pur $S = \{x \in \R^n: Ax= b\}$. Then $$\n A^+b \n = \min_{x \in S}\n x \n$$.
+\end{ex}
+
+\begin{proof} Let $x \in S$. A previous exercise tells us that there exists $z \in \R^n$ such that $x = A^+b + (I-A^+A)z$. Then 
+\begin{align*} 
+\n x \n^2
+&= \n A^+b + (I-A^+A)z \n^2 \\
+&= (A^+b + (I-A^+A)z)^T(A^+b + (I-A^+A)z) \\
+&= \n A^+b \n^2 - 2z^T(I-A^+A)^T(A^+b) + \n (I-A^+A)z \n^2 \\
+&= \n A^+b \n^2 - 2z^T(I-A^+A)A^+b + \n (I-A^+A)z \n^2 \\
+&= \n A^+b \n^2 + \n (I-A^+A)z \n^2 \\
+& \geq \n A^+b \n^2
+\end{align*}
+\end{proof}
 
 \subsection{Differentiation}
 
@@ -452,7 +829,7 @@ If $b$ is a least squares solution for the model, then $X^TXb = X^Ty$.
 \end{ex}
 
 \begin{proof}
-Suppose that $b$ is a least squares solution for the model, then $Q$ has a local minimum at $b$. Thus $$\frac{\partial Q}{\partial b}(b) = 0$$ By definition, 
+Suppose that $b$ is a least squares solution for the model, then $Q$ has a local minimum at $b$. Since $Q$ is convex in $b$, this global minimum is also a local minimum. Thus $$\frac{\partial Q}{\partial b}(b) = 0$$ By definition, 
 \begin{align*}
 Q(b) 
 &= y^Ty -y^TXb - b^TX^Ty + b^TX^TXb \\
