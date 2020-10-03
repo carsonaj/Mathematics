@@ -5,6 +5,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{exercise, chngcntr}
 \usepackage{mathtools}
+\usepackage{comment}
 %
 %
 %
@@ -634,6 +635,71 @@ Thus $\mu(A) = \limsup\limits_{n \rightarrow \infty}\mu(A_n) = \liminf\limits_{n
 
 
 
+\subsection{Outer Measures}
+
+\begin{defn}
+Let $X$ be a set and $\mu* : \MP(X) \rightarrow [0, \infty]$. Then $\mu^*$ is said to be an \textbf{outer measure on X} if 
+\begin{enumerate}
+\item $\mu^*(\varnothing) = 0$
+\item for each $A,B \subset X $, if $A \subset B$, then $\mu^*(A) \leq \mu^*(B)$.
+\item for each $(A_n)_{n \in \N} \subset \MP(X)$, $$\mu^*\big(\bigcup\limits_{n \in \N} A_n\big) \leq \sum\limits_{n \in \N}\mu^*(A_n) $$
+\end{enumerate}
+\end{defn}
+
+\begin{thm}\textbf{Construction of Outer Measures:} \\
+Let $X$ be a set and $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. Define $\mu^*:\MP(X) \rightarrow [0, \infty]$ by $$\mu^*(A) = \inf \bigg \{\sum_{n \in \N}\rho(E_n): (E_n)_{n \in \N} \subset \ME \text{ and }A \subset \bigcup_{n \in \N}E_n \bigg \}$$ Then $\mu^*$ is an outer measure on $X$.
+\end{thm}
+
+\begin{note}
+In particular, for each $A \in \ME$, $\mu^*(A) = \rho(A)$.
+\end{note}
+
+\begin{defn}
+Let $X$ be a set and $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. Let $\mu^*$ be the outer measure on $X$ defined as in the last theorem. Then $\mu^*$ is called the \textbf{outer measure on $X$ induced by $\rho$}.
+\end{defn}
+
+\begin{defn}
+Let $X$ be a set, $\mu^*$ an outer measure on $X$ and $A \subset $X. Then $A$ is said to be $\mu^*$-\textbf{outer measurable} if for each $E \subset X$, $$\mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c)$$ 
+\end{defn}
+
+\begin{thm}
+Let $X$ be a set and $\mu^*$ an outer measure on $X$. Define $\MA = \{A \subset X: A \text{ is }\mu^*\text{-measurable}\}$. Then $\MA$ is a $\sig$-algebra on $X$ and $\mu^*|_{\MA}$ is a complete measure on $(X, \MA)$.
+\end{thm}
+
+\begin{defn}
+Let $X$ be a set, $\MA_0$ be an algebra on $X$ and $\mu_0:\MA_0 \rightarrow [0, \infty]$. Then $\mu_0$ is said to be a \textbf{premeasure on $(X,\MA_0)$} if 
+\begin{enumerate}
+\item there exists $A \in \MA_0$ such that $\mu_0(A)< \infty$
+\item for each $(A_n)_{n \in \N} \subset \MA_0$, if $(A_n)_{n \in \N}$ is disjoint and $\bigcup\limits_{n \in \N}A_n \in \MA_0$, then $$\mu_0(\bigcup_{n\in \N}A_n) = \sum_{n \in \N}\mu_0(A_n)$$
+\end{enumerate}
+\end{defn}
+
+\begin{note}
+The same reasoning applied to measures shows that $\mu_0(\varnothing) = 0$.
+\end{note}
+
+\begin{thm}
+Let $X$ be a set, $\MA_0$ an algebra on $X$, $\mu_0$ a premeasure on $(X,\MA_0)$ and $\mu^*$ the outer measure on $X$ induced by $\mu_0$. Put $\MA = \sig(\MA_0)$. If $\mu_0$ is $\sig$-finite, then there exists a unique measure $\mu$ on $(X, \MA)$ such that $\mu|_{\MA_0} = \mu^*|_{\MA_0} = \mu_0$. 
+\end{thm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -641,15 +707,13 @@ Thus $\mu(A) = \limsup\limits_{n \rightarrow \infty}\mu(A_n) = \liminf\limits_{n
 \subsection{Product Measures}
 
 \begin{defn}
-Let $(X,\MA, \mu), (Y,\MB, \nu)$ be measurable spaces. Put $\ME = \{A \times B: A \in \MA \text{ and } B \in \MB\}$. Then $\ME$ is an elementary family and thus $\MM_0 = \{\bigcup_{i =1}^n M_i: (M_i)_{i=1 }^n \subset \ME \text{ are disjoint}\}$ is an algebra on $X \times Y$. We define $\pi_0: \MM_0 \rightarrow \RG$ by $$\pi_0\bigg(\bigcup_{i=1}^n A_i \times B_i \bigg) = \sum_{i=1}^n\mu(A_i)\nu(B_i)$$ Since $\MA \otimes \MB = \sig(\MM_0)$, we define a product measure $\mu \times \nu$ on $(X \times Y, \MA \otimes \MB)$ to be an extension of $\pi_0$ to $\MA \otimes \MB$. The existence of which is guaranteed by Caratheodory's theorem and on $\MA \otimes \MB$, 
+Let $(X,\MA, \mu), (Y,\MB, \nu)$ be $\sig$-finite measurable spaces. Put $\ME = \{A \times B: A \in \MA \text{ and } B \in \MB\}$. Then $\ME$ is an elementary family and thus $\MM_0 = \{\bigcup_{i =1}^n M_i: (M_i)_{i=1 }^n \subset \ME \text{ are disjoint}\}$ is an algebra on $X \times Y$. We define $\pi_0: \MM_0 \rightarrow \RG$ by $$\pi_0\bigg(\bigcup_{i=1}^n A_i \times B_i \bigg) = \sum_{i=1}^n\mu(A_i)\nu(B_i)$$ Then $\pi_0$ is a premeasure on $(X \times Y, M_0)$. Since $\MA \otimes \MB = \sig(\MM_0)$, we define the \textbf{product measure}, $\mu \times \nu$ on $(X \times Y, \MA \otimes \MB)$, to be the unique extension of $\pi_0$ to $\MA \otimes \MB$. The existence of which is guaranteed by a theorem in the previous section. In particular,
 
 \begin{align*}
 \mu \times \nu(E) 
 &= \inf \bigg\{\sum_{n \in \N}\pi_0(E_i): (E_i)_{i \in \N} \subset \MM_0 \text{ and } E \subset \bigcup_{i \in \N} E_i \bigg\}\\
 &= \inf \bigg\{\sum_{n \in \N}\mu(A_i)\nu(B_i): (A_i \times B_i)_{i \in \N} \subset \ME \text{ and } E \subset \bigcup_{i \in \N} A_i \times B_i \bigg \}
 \end{align*}
-
-If $(X,\MA, \mu)$ and $(Y,\MB, \nu)$ are both sigma finite, then so is $\pi_0$ and thus $\mu \times \nu$ is unique.
 \end{defn}
 
 \section{Integration}
@@ -660,13 +724,13 @@ If $(X,\MA, \mu)$ and $(Y,\MB, \nu)$ are both sigma finite, then so is $\pi_0$ a
 Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is said to be $\MA$-$\MB$ \textbf{measurable} if for each $B \in \MB$, $f^{-1}(B) \in \MA$. When $(Y, \MB) = (\R, \MB(\R))$ we say that $f$ is $\MA$-\textbf{measurbale}. If $(Y,\MB) = (\R, \MB(\R))$ and $(X,\MA) = (\R, \MB(\R))$ or $(\R, \ML)$, then we say that $f$ is \textbf{Borel measurable} or \textbf{Lebsgue measurbale} respectively.
 \end{defn}
 
-\begin{lem}
+\begin{ex}
 Let $(X,\MA), (Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. Then 
 \begin{enumerate}
 \item $\{B \subset Y: f^{-1}(B) \in \MA\}$ is a $\sig$-algebra on $Y$
 \item $\{f^{-1}(B): B \in \MB\}$ is a $\sig$-algebra on $X$
 \end{enumerate}
-\end{lem}
+\end{ex}
 
 \begin{proof}\
 \begin{enumerate}
@@ -675,17 +739,25 @@ Let $(X,\MA), (Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. Then
 \end{enumerate}
 \end{proof}
 
-\begin{lem}
+\begin{ex}
 Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces. Suppose that there exists $\ME \subset Y$ such that $\sig(\ME) = \MB$. Let $f:X \rightarrow Y$. Then $f$ is $\MA$-$\MB$ measurable iff for each $B \in \ME$, $f^{-1}(B) \in \MA$.
-\end{lem}
+\end{ex}
 
 \begin{proof}
 By definition, if $f$ is $\MA$-$\MB$ measurable, then for each $B \in \ME$, $f^{-1}(B) \in \MA$. Conversely, suppose that for each $B \in \ME$, $f^{-1}(B) \in \MA$. The previous lemma tells us that $\ML = \{B \subset Y: f^{-1}(B) \in \MA\}$ is a $\sig$-algebra on $Y$. Since $\ME \subset \ML$, we have that $\MB = \sig(\ME) \subset \ML$. So $f$ is $\MA$-$\MB$ measurable.
 \end{proof}
 
-\begin{cor}
+\begin{ex}
+Let $X,Y$ be sets, $f:X \rightarrow Y$ and $\ME \subset \MP(Y)$. Then $\sig(f^{-1}(\ME)) = f^{-1}(\sig(\ME))$. 
+\end{ex}
+
+\begin{proof}
+Clealy $f^{-1}(\ME) \subset f^{-1}(\sig(\ME))$. Since $f^{-1}(\sig(\ME))$ is a $\sig$-algebra, we have that $\sig(f^{-1}(\ME)) \subset f^{-1}(\sig(\ME))$. Since $f^{-1}(\ME) \subset f^{-1}(\sig(\ME))$, the previous exercise tells us that $f$ is $f^{-1}(\sig(\ME))$-$\sig(\ME)$ measurable. Then $f^{-1}(\sig(\ME)) \subset f^{-1}(\sig(\ME))$. So $\sig(f^{-1}(\ME)) = f^{-1}(\sig(\ME))$.  
+\end{proof}
+
+\begin{ex}
 Let $(X_1,\MT_1), (X_2,\MT_2)$ be topological spaces and $f: X \rightarrow Y$. If $f$ is continuous, then $f$ is $\MB(X)$-$\MB(Y)$ measurable.
-\end{cor}
+\end{ex}
 
 \begin{proof}
 Recall that $\MB(Y) = \sig(\MT_2)$ and continuity tells us that for each $U \in \MT_2$, $f^{-1}(U) \in \MT_1 \subset \MB(X)$. 
@@ -1848,7 +1920,7 @@ If there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that for e
 \end{note}
 
 \begin{thm}
-Let $(X, \MA)$ be a measureable space, $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X,\MA)$. Then there exist unique $\sig$-finite signed measures $\lam$, $\rho$ on $(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that $\rho = f d \mu$ and $f$ is unique $\mu$-a.e.  
+Let $(X, \MA)$ be a measureable space, $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X,\MA)$. Then there exist unique $\sig$-finite signed measures $\lam$, $\rho$ on $(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that $d\rho = f d \mu$ and $f$ is unique $\mu$-a.e.  
 \end{thm}
 
 \begin{defn}
@@ -1921,7 +1993,7 @@ So $\lam = \mu$. This is a contradiction since $\mu \not \perp m$.
 \end{proof}
 
 \begin{ex}
-Let $(X, \MF, \mu)$ be a measure space and $\ME$ a sub $\sig$-alg of $\MF$ and $f \in L^1(\mu)$. Define $\nu: \ME \rightarrow [0,\infty]$ by $\nu(E) = \int_E f d \mu $. Let $\overline{\mu}$ be the restriction of $\mu$ to $\ME$. Define the \textbf{expectation of} $f$ \textbf{given} $\ME$ to be $E[f|\ME] = d\nu / d \overline{\mu}$. Then for each $E \in \ME$, $$\int_E E[f|\ME] d\mu = \int_E f d\mu$$
+Let $(X, \MF, \mu)$ be a measure space and $\ME$ a sub $\sig$-alg of $\MF$ and $f \in L^1(\mu)$. Define $\nu: \ME \rightarrow [0,\infty]$ by $\nu(E) = \int_E f d \mu $. Then $\nu$ is $\sig$-finite. Let $\overline{\mu}$ be the restriction of $\mu$ to $\ME$. So $\nu \ll \overline{\mu}$. Define the \textbf{expectation of} $f$ \textbf{given} $\ME$ to be $E[f|\ME] = d\nu / d \overline{\mu} \in L^1(X, \MF, \overline{\mu})$. Then for each $E \in \ME$, $$\int_E E[f|\ME] d\mu = \int_E f d\mu$$
 \end{ex}
 
 \begin{proof}
@@ -2704,6 +2776,112 @@ Let $(X,\MA)$ and $(Y,\MB)$ be topological spaces and $f:X \rightarrow Y$. Then
 \end{defn}
 
 \section{$L^{p}$ Spaces}
+
+\begin{defn}
+Let $(X, \MA, \mu)$ be a measure space and $p \in (0, \infty]$. Define $ \n \cdot \n_p : L^0(X, \MA, \mu) \rightarrow [0, \infty]$ by $$\n f \n_p = \bigg(\int \vert f \vert^p d\mu \bigg)^{\frac{1}{p}} \hspace{1.5cm}( p < \infty)$$ 
+and 
+$$\n f \n_{\infty} = \inf \bigg \{\lam >0: \mu\big(\{x \in X: \lam < \vert f(x) \vert  \}\big) = 0 \bigg \} $$
+
+
+We define $$L^p(X, \MA, \mu) =  \{f \in L^0(X, \MA, \mu): \n f \n_p < \infty \}$$
+\end{defn}
+
+\begin{thm}{\textbf{Hölder's Inequality:}}
+Let $(X, \MA, \mu)$ be a measure space, $p,q \in [1, \infty)$ and $f,g \in L^0$. Suppose that $\frac{1}{p} + \frac{1}{q} = 1$. Then $$\n fg\n_1 \leq \n f \n_p \n g \n_q$$
+\end{thm}
+
+\begin{ex}\textbf{Minkowski Inequality:}
+Let $(X, \MA, \mu)$ be a measure space, $p \in [1, \infty)$ and $f,g \in L^p$. Then $f+g \in L^p$ and $$\n f+g\n \leq \n f\n_p + \n g\n_p $$
+\end{ex}
+
+\begin{proof}
+Define $\phi:\R \rightarrow \Rg$ by $\phi(x) = \vert x \vert^p$. Then $\phi$ is convex because it is the composition of an increasing convex function with a convex function. By Jensen's inequality, we have that $$\phi\bigg(\frac{1}{2}[f+g] \bigg) \leq \frac{1}{2}[\phi(f)+\phi(g)]$$ 
+This implies that $$\frac{1}{2^p} \vert f+g\vert^p \leq \frac{1}{2}\bigg(\vert f\vert^p +\vert g \vert^p\bigg)$$ 
+Hence 
+\begin{align*}
+\int\vert f + g\vert^p d \mu 
+& \leq 2^{p-1}\int \vert f\vert^p +\vert g\vert^p d\mu \\
+& = 2^{p-1}\bigg(\int \vert f\vert^p d\mu + \int \vert g\vert^p d\mu \bigg) \\
+&= 2^{p-1}\bigg( \n f \n_p^p + \n g \n_p^p\bigg) \\
+& < \infty
+\end{align*}
+So $f+g \in L^p$. Now, it is not hard to see that $|f+g|^p \leq \big( |f| + |g| \big)|f+g|^{p-1}$. Let $q$ be the conjugate of $p$, so that $\frac{1}{p} + \frac{1}{q} = 1$. Then $q(p-1) = p$. We use Hölder's inequality to show that 
+\begin{align*}
+\n f+g \n_p ^p
+&= \int  |f+g|^p d \mu \\
+& \leq \int |f| |f+g|^{p-1} d \mu + \int |g| |f+g|^{p-1} d \mu \\
+& \leq \n f\n_p \bigg(\int |f+g|^{(p-1)q} d\mu\bigg)^{\frac{1}{q}} + \n g\n_p \bigg(\int |f+g|^{(p-1)q}d\mu\bigg)^{\frac{1}{q}} \\
+&= \n f\n_p \bigg(\int |f+g|^{p} d\mu\bigg)^{\frac{1}{q}} + \n g\n_p \bigg(\int |f+g|^{p}d\mu\bigg)^{\frac{1}{q}} \\ 
+&= (\n f\n_p + \n g \n_p) \bigg(\int |f+g|^{p} d\mu\bigg)^{\frac{1}{q}}\\
+&= (\n f \n_p + \n g \n_p) \n f+g \n_p^{p/q}
+\end{align*}
+Since $\n f+g \n_p < \infty$, we see that
+\begin{align*}
+\n f \n_p + \n g \n_p 
+& \geq \n f+g \n_p ^{p - p/q} \\
+&=  \n f+g \n_p ^{p(1 - 1/q)} \\
+&= \n f+g \n_p ^{p/p} \\
+&= \n f+g \n_p
+\end{align*}
+\end{proof}
+
+\begin{ex}
+Let $(X, \MA, \mu)$ be a measure space, $p,q \in (0, \infty]$. Suppose that $\mu(X) < \infty$ and $p < q$. Then $L^q \subset L^p$. In particular, if $\mu(X) = 1$, then for each $f \in L^q$, $\n f\n_p \leq \n f\n_q$.
+\end{ex}
+
+\begin{proof}
+Suppose that $q = \infty$. Let $f \in L^q$. Then
+\begin{align*}
+\n f \n_p 
+&= \bigg(\int \vert f \vert^p d \mu \bigg)^{\frac{1}{p}} \\
+& \leq \bigg(\int \n  f \n_{\infty} ^p d \mu \bigg)^{\frac{1}{p}} \\
+&= \n f \n_{\infty} \mu(X)^{\frac{1}{p}}
+\end{align*} 
+If $q < \infty$, then $\frac{q}{p} > 1$ and the conjugate of $\frac{q}{p}$ is $\frac{1}{1- p/q}$. By Hölder's inequality, we have that 
+\begin{align*}
+\n f \n_p^p 
+&= \n f^p \n_1 \\
+&\leq \n f^p \n_{\frac{q}{p}} \n 1 \n_{\frac{1}{1-p/q}} \\
+&= \bigg(\int |f|^{\frac{pq}{p}} d \mu \bigg)^{\frac{p}{q}} \mu(X)^{1-\frac{p}{q}} \\
+&= \bigg(\int |f|^{q} d \mu \bigg)^{\frac{p}{q}}\mu(X)^{1-\frac{p}{q}} \\
+&= \n f \n_q^p\mu(X)^{1-\frac{p}{q}}
+\end{align*}
+Hence 
+\begin{align*}
+\n f \n_p 
+&\leq \n f \n_q\mu(X)^{\frac{1}{p}-\frac{1}{q}} \\
+&< \infty
+\end{align*}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Functional Analysis}
 
@@ -3813,19 +3991,326 @@ P \bigg( \liminf\limits_{n \rightarrow \infty} X_n > x \bigg)
 \end{align*}
 \end{proof}
 
+
+\begin{defn}
+Let $(\Om, \MF, P)$ be a probability space and $X \in L^+(\Om) \cup L^1$. Define the \textbf{expectation of X}, $E[X]$, to be $$\E[X] = \int X dP$$.
+\end{defn}
+
+
 \subsection{Independence}
 
 \begin{defn}
-Let $(\Om, \MF, P)$ be a probability space and $\MC \subset \MF$. Then $\MC$ is said to be \textbf{independent} if for each $A_1, A_2, \cdots, A_n \in \MC$, $$P \bigg( \bigcap_{k=1}^nA_k\bigg) = \prod_{k=1}^{n}P(A_k)$$
+Let $(\Om, \MF, P)$ be a probability space and $\MC \subset \MF$. Then $\MC$ is said to be \textbf{independent} if for each $(A_i)_{i=1}^n \subset \MC$, $$P \bigg( \bigcap_{k=1}^nA_k\bigg) = \prod_{k=1}^{n}P(A_k)$$
 \end{defn}
 
 \begin{defn}
-Let $(\Om, \MF, P)$ be a probability space and $\MC_1, \MC_2, \cdots, \MC_n \subset \MF$. Then $\MC_1, \MC_2, \cdots, \MC_n $ are said to be \textbf{independent} if for each $A_1 \in \MC_1, A_2 \in \MC_2, \cdots, A_n \in \MC_n$, $A_1, A_2, \cdots, A_n$ are independent. 
+Let $(\Om, \MF, P)$ be a probability space and $\MC_1, \cdots, \MC_n \subset \MF$. Then $\MC_1, \cdots, \MC_n $ are said to be \textbf{independent} if for each $A_1 \in \MC_1,  \cdots, A_n \in \MC_n$, $A_1, \cdots, A_n$ are independent. 
+\end{defn}
+
+\begin{note}
+We will explicitely say that for each $i=1, \cdots , n$, $\MC_i$ is independent when talking about the independence of the elements of $\MC_i$ to avoid ambiguity.
+\end{note}
+
+\begin{defn}
+Let $(\Om, \MF, P)$ be a probability space and $X_1, \cdots, X_2$ random variables on $(\Om, \MF)$. Then $X_1, \cdots, X_n$ are said to be \textbf{independent} if for each $B_1, \cdots, B_n \in \MB(\R)$, $X_1^{-1}B_1, \cdots, X_n^{-1}B_n$ are independent.
+\end{defn}
+
+\begin{ex}
+Let $(\Om, \MF, P)$ be a probability space and $X_1, \cdots, X_n$ random variables on $(\Om, \MF)$. Then $X_1, \cdots, X_n$ are independent iff $\sig(X_1), \cdots, \sig(X_n)$ are independent.
+\end{ex}
+
+\begin{proof}
+Suppose that $X_1, \cdots, X_n$ are independent. Let $A_1, \in \sig(X_1), \cdots, A_n \in \sig(A_n)$. Then for each $i = 1, \cdots, n$, there exists $B_i \in \MB(\R)$ such that $A_i = X_i^{-1}(B_i)$. Then $A_1, \cdots, A_n$ are independent. Hence $\sig(X_1), \cdots, \sig(X_n)$ are independent. Conversely, suppose that $\sig(X_1), \cdots, \sig(X_n)$ are independent. Let $B_1, \cdots, B_n \in \MB(\R)$. Then for each $i = 1, \cdots, n$, $X_i^{-1}B_i \in \sig(X_i)$. Then $X_1^{-1}B_1, \cdots, X_n^{-1}B_n$ are independent. Hence $X_1, \cdots, X_n$ are independent.
+\end{proof}
+
+\begin{ex}
+Let $(\Om, \MF, P)$ be a probability space, $X_1, \cdots, X_n$ random variables on $(\Om, \MF)$ and $\MF_1, \cdots, \MF_n \subset \MF$ a collection of $\sig$-algebras on $\Om$. Suppose that for each $i = 1, \cdots, n$, $X_i$ is $\MF_i$-measurable. If $\MF_1, \cdots, \MF_n$ are independent, then $X_1, \cdots, X_n$ are independent. 
+\end{ex}
+
+\begin{proof}
+For each $i =1, \cdots, n$, $\sig(X_i) \subset \MF_i$. So $\sig(X_1), \cdots, \sig(X_n)$ are independent. Hence $X_1, \cdots, X_n$ are independent.
+\end{proof}
+
+\begin{ex}
+Let $(\Om, \MF, P)$ be a probability space and $\MC_1, \cdots, \MC_n \subset \MF$. Suppose that for each $i = 1, \cdots, n$, $\MC_i$ is a $\pi$-system and $\MC_1, \cdots, \MC_n$ are independent, then $\sig(\MC_1), \cdots, \sig(\MC_n)$ are independent.
+\end{ex}
+
+\begin{proof}
+Let $A_2 \in \MC_2$. Define $\ML = \{A \in \MF: P(A\cap A_2) = P(A)P(A_2)\}$. Then 
+\begin{enumerate}
+\item $\Om \in \ML$
+\item If $A \in \ML$, then 
+\begin{align*}
+P(A^c \cap A_2) 
+&= P(A_2) - P(A_2 \cap A) \\
+&= P(A_2) - P(A_2) P(A) \\
+&= (1- P(A))P(A_2) \\
+&= P(A^c)P(A_2)
+\end{align*}
+So $A^c \in \ML$
+\item If $(B_n)_{n \in \N} \subset \ML$ is disjoint, then 
+\begin{align*}
+P\bigg( \bigg[\bigcup_{n \in \N}B_n \bigg] \cap A_2\bigg) 
+&= P \bigg( \bigcup_{n \in \N}B_n \cap A_2 \bigg) \\
+&= \sum_{n \in \N}P(B_n \cap A_2) \\
+&= \sum_{n \in \N}P(B_n) P(A_2) \\
+&=   \bigg[\sum_{n \in \N}P(B_n)\bigg]P(A_2)  \\
+&=  P\bigg( \bigcup_{n \in \N} A_n\bigg) P(A_2) 
+\end{align*} 
+So $\bigcup\limits_{n \in \N}B_n \in \ML$. 
+\end{enumerate}
+Thus $\ML$ is a $\lam$-system. Since $\MC_1 \subset \ML$ is a $\pi$-system, Dynkin's theorem tells us that $\sig(\MC_1) \subset \ML$. Since $A_2 \in \MC_2$ is arbitrary $\sig(\MC_1)$ and $\MC_2$ are independent. The same reasoning implies that $\sig(\MC_1)$ and $\sig(\MC_2)$ are independent. Let $A_2 \in \MC_1, \cdots, A_n \in \MC_n$ We may do the same process with $$\ML = \bigg \{A \in \MF: P\bigg(A \cap \bigg(\bigcap_{i=2}^n A_i\bigg) \bigg) = P(A)\prod_{i=2}^n P(A_i)\bigg\}$$ and conclude that $\sig(\MC_1), \MC_2, \cdots, \MC_n$ are independent. Which, using the same reasoning would imply that $\sig(\MC_1), \cdots, \sig(\MC_n)$ are independent.
+\end{proof}
+
+\begin{ex}
+Let $(\Om, \MF, P)$ be a probability space, $X_1, \cdots, X_n$ random variables on $(\Om, \MF)$. Then $X_1, \cdots, X_n$ are independent iff for each $x_1, \cdots, x_n \in \R$, $$P(X_1 \leq x_1, \cdots, X_n \leq x_n ) = \prod_{i=1}^nP(X_i \leq x_i)$$
+\end{ex}
+
+\begin{proof}
+Suppose that $X_1, \cdots, X_n$ are independent. Then $\sig(X_1), \cdots, \sig(X_n)$ are independent. Let $x_1, \cdots, x_n \in \R$. Then for each $i=1, \cdots, n$, $\{X_i \leq x_i\} \in \sigma(X_i)$. Hence \\$P(X_1 \leq x_1, \cdots, X_n \leq x_n ) = \prod\limits_{i=1}^nP(X_i \leq x_i)$. Conversely, suppose that for each \\$x_1, \cdots, x_n \in \R$, $P(X_1 \leq x_1, \cdots, X_n \leq x_n ) = \prod\limits_{i=1}^nP(X_i \leq x_i)$. Define $\MC = \{ (-\infty, x]: x \in \R \}$. Then $\MB(\R) = \sig(\MC)$. For each $i =1, \cdots, n$, define $\MC_i = X_i^{-1}\MC$. Then for each $i =1, \cdots, n$, $\MC_i$ is a $\pi$-system and 
+\begin{align*}
+\sig(\MC_i) 
+&= \sig(X^{-1}(\MC)) \\
+&= X_i^{-1}(\sig(\MC)) \\
+&= X_i^{-1}(\MB(\R)) \\
+&= \sig(X_i)
+\end{align*}
+By assumption, $\MC_1, \cdots, \MC_n$ are independent. The previous exercies tells us that $\sig(X_1), \cdots, \sig(X_n)$ are independent. Then $X_1, \cdots, X_n$ are independent. 
+\end{proof}
+
+\begin{ex}
+Let Let $(\Om, \MF, P)$ be a probability space and $X_1, \cdots, X_n$ random variables on $(\Om, \MF)$. Define $X = (X_1, \cdots, X_n)$. If $X_1, \cdots, X_n$ are independent, then $$P_{X} = \prod\limits_{i=1}^nP_{X_i}$$.
+\end{ex}
+
+\begin{proof}
+Let $A_1, \cdots, A_n \in \MB(\R)$. Then 
+\begin{align*}
+P_X(A_1 \times \cdots \times A_n) 
+&= P(X \in A_1 \times \cdots \times \in A_n)\\
+&= P(X_1 \in A_1, \cdots, X_n \in A_n) \\
+&= P(X_1 \in A_1) \cdots P(X_n \in A_n) \\
+&= P_{X_1}(A_1) \cdots P_{X_n}(A_n) \\
+&= \prod_{i=1}^nP_{X_i}(A_1 \times \cdots \times  A_n)
+\end{align*}
+Put $$\MP = \{ A_1 \times \cdots \times A_n: A_1 \in \MB(R), \cdots, A_n \in \MB(R) \}$$ Then $\MP$ is a $\pi$-system and $$\sig(\MP) = \MB(R) \otimes \cdots \otimes \MB(R) = \MB(\R^n)$$
+A previous exercise then tells us that $P_X = \prod\limits_{i=1}^nP_{X_i}$ 
+\end{proof}
+
+\begin{ex}
+Let Let $(\Om, \MF, P)$ be a probability space, $X_1, \cdots, X_n$ random variables on $(\Om, \MF)$ and $f_1, \cdots, f_n: \R \rightarrow \R \in L^0$. Suppose that $f_1 \circ X_1, \cdots, f_n \circ X_n\in L^+(\Om)$ or $f_1 \circ X_1, \cdots, f_n \circ X_n \in L^1(\Om)$. If $X_1, \cdots, X_n$ are independent, then $$E[f_1(X_1) \cdots f_n(X_n)] = \prod_{i=1}^n E[f_i(X_i)]$$
+\end{ex}
+
+\begin{proof}
+Define the random vector $X : \Om \rightarrow \R^n$ by $X = (X_1, \cdots, X_n)$ and $g:\R^n \rightarrow \R$ by $g(x_1, \cdots, x_n) = f_1(x_1) \cdots f_n(x_n)$. Suppose that for each $i = 1, \cdots, n$, $f_i \in L^+(\R)$. Then $g \in L^+(\R^n)$ and by change of variables,  
+\begin{align*}
+E[f_1(X_1) \cdots f_n(X_n)] 
+&= E[g(X)] \\
+&= \int_{\Om} g \circ X dP \\
+&= \int_{\R^n} g(x) dP_X(x) \\
+&= \int_{R^n} g(x) d \prod\limits_{i=1}^nP_{X_i}(x) \\
+&=  \prod_{i=1}^n \int_{\R}f_i(x) d P_{X_i}(x) \\ 
+&= \prod_{i=1}^n \int_{\Om}f_i \circ X d P \\
+&= \prod_{i=1}^n E[f_i(X_i)]
+\end{align*}
+If for each $i = 1, \cdots, n$, $f_i \in L^1(\R, P_{X_i})$, then following the above reasoning with $\vert g \vert $ tells us that $g \in L^1(\R^n, P_X)$ and we use change of variables and Fubini's theorem to get the same result.  
+\end{proof}
+
+\subsection{$L^p$ Spaces for Probability}
+
+\begin{note}
+Recall that for a probability space $(\Om, \MF, P)$ and $1 \leq p \leq q \leq \infty$ we have $L^q \subset L^p$ and for each $X \in L^q, \n X \n_p \leq  \n X\n_q$. Also recall that for $X,Y \in \L^2$, we have that $\n XY \n_1 \leq \n X\n_2 \n X\n_2$.
+\end{note}
+
+\begin{defn}
+Let $(\Om, \MF, P)$ be a probability space and $X \in L^2$. Define the \textbf{variance of X}, $Var(X)$, to be $$Var(X) = \E\big[\big(X-E[X]\big)^2\big]$$.
+\end{defn}
+
+\begin{defn}
+Let $(\Om, \MF, P)$ be a probability space and $X,Y \in L^2$. Define the  
+\end{defn}
+
+
+\begin{defn}
+Let $(\Om, \MF, P)$ be a probability space and $X,Y \in L^2$. Define the \textbf{covariance of $X$ and $Y$}, $Cov(X,Y)$, to be $$Cov(X,Y) = E[(X-E[X])(Y-E[Y])]$$
+\end{defn}
+
+\begin{ex}
+Let $(\Om, \MF, P)$ be a probability space and $X,Y \in L^2$. Then the covariance is well defined and $Cov(X,Y) ^2 \leq Var(X)Var(Y)$
+
+\begin{proof}
+By Holder's inequality, 
+\begin{align*}
+\vert Cov(X,Y) \vert 
+&= \bigg \vert \int (X-E[X])(Y-E[Y]) dP \bigg \vert \\
+&\leq \int \vert (X-E[X])(Y-E[Y]) \vert dP \\
+&= \n (X-E[X])(Y-E[Y]) \n_1 \\
+&\leq \n X-E[X] \n_2 \n (Y-E[Y] \n_2  \\
+&= \bigg(\int \vert X - E[X] \vert^2 dP\bigg)^{\frac{1}{2}} \bigg( \vert Y - E[Y] \vert^2 \bigg)^{\frac{1}{2}} \\
+&= Var(X)^{\frac{1}{2}}Var(Y)^{\frac{1}{2}}
+\end{align*}
+
+So $Cov(X,Y) ^2 \leq Var(X)Var(Y)$.
+\end{proof}
+
+\end{ex}
+
+\begin{ex}
+Let $(\Om, \MF, P)$ be a measure space and $X,Y \in L^2$. Then
+\begin{enumerate}
+\item $Cov(X,Y) = E[XY]-E[X]E[Y]$
+\item If $X,Y$ are independent, then $Cov(X,Y) = 0$
+\item $Var(X) = E[X^2] - E[X]^2$
+\item for each $a,b \in \R$, $Var(aX + b) = a^2Var(X)$.
+\item $Var(X+Y) = Var(X) + Var(Y) + 2 Cov(X,Y)$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item We have that
+\begin{align*}
+Cov(X,Y) 
+&= E[(X-E[X])(Y-E[Y])] \\
+&= E[XY -E[Y]X - E[X]Y + E[X]E[Y]] \\
+&= E[XY] - E[X]E[Y] - E[X]E[Y] + E[X]E[Y] \\ 
+&= E[XY] - E[X]E[Y]
+\end{align*}
+\item Suppose that $X,Y$ are independent. Then $E[XY] = E[X]E[Y]$. Hence 
+\begin{align*}
+Cov(X,Y) 
+&= E[XY] - E[X]E[Y] \\
+&= E[X]E[Y] - E[X]E[Y] \\
+&= 0
+\end{align*}
+\item Part (1) implies that 
+\begin{align*}
+Var(X) 
+&= Cov(X, X) \\
+&= E[X^2] -E[X]^2
+\end{align*}
+\item Let $a,b \in \R$. Then
+\begin{align*}
+Var(aX+b)
+&= E[(aX+b)^2] - E[aX+b]^2 \\
+&= E[a^2X^2 + 2abX +b^2] - (aE[X]+b)^2 \\
+&= a^2E[X^2]+2abE[X] + b^2 - (a^2E[X]^2 +2abE[X]+b^2) \\
+&= a^2(E[X^2]-E[X]^2) \\
+&= a^2Var(X)
+\end{align*} 
+\item We have that 
+\begin{align*}
+Var(X+Y) 
+&= E[(X+Y)^2] - E[X+Y]^2 \\
+&= E[X^2 +2XY + Y^2] -(E[X]+E[Y])^2 \\
+&= E[X^2] + 2E[XY] + E[Y^2] - (E[X]^2 + 2E[X]E[Y] + E[Y]^2) \\
+&= (E[X^2] - E[X]^2) + (E[Y^2]- E[Y]^2) + 2(E[XY] - E[X]E[Y]) \\
+&= Var(X) + Var(Y) + 2Cov(X,Y)
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{defn}
+Let $(\Om, \MF, P)$ be a probability space and $X,Y \in L^2$. The \textbf{correlation of X and Y}, $Cor(X,Y)$, is defined to be $$Cor(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}$$
 \end{defn}
 
 \begin{ex}
 
 \end{ex}
+
+\begin{ex}{Jensen's Inequality}
+Let $(\Om, \MF, P)$ be a probability space, $X \in L^1$ and $\phi:\R \rightarrow \R$. If $\phi$ is convex, then $$\phi(E[X]) \leq E[\phi(X)]$$
+\end{ex}
+
+\begin{proof}
+Put $x_0 = E[X]$. Since $\phi$ is convex, there exist $a,b \in \R$ such that $\phi(x_0) = ax_0+b$ and for each $x \in \R$, $\phi(x) \geq ax+b$. Then \begin{align*}
+E[\phi(X)] 
+&= \int\phi(X) dP \\
+&\geq \int[ aX+b ]dP \\
+&= a\int X dP +b \\
+&= aE[X] +b \\
+&= ax_0+b \\
+&= \phi(x_0) \\
+&= \phi(E[X])
+\end{align*}
+\end{proof}
+
+\begin{ex}{Markov's Inequality:}
+Let $(\Om, \MF, P)$ be a probability space and $X \in L^+$. Then for each $a \in (0,\infty)$, $$P(X \geq a) \leq \frac{E[X]}{a}$$
+\end{ex}
+
+\begin{proof}
+Let $a \in (0,\infty)$. Then $a \mathbf{1}_{\{X \geq a\}} \leq X \mathbf{1}_{\{X \geq a\}}$. Thus 
+\begin{align*}
+a P(X \geq a) 
+&= \int a \mathbf{1}_{\{X \geq a\}} dP\\
+&= \int X \mathbf{1}_{\{X \geq a\}} dP\\
+&\leq \int X dP \\
+&= E[X]
+\end{align*}
+Therefore $$P(X \geq a) \leq \frac{E[X]}{a}$$. 
+\end{proof}
+
+\begin{ex}{Chebychev's Inequality:}
+Let $(\Om, \MF, P)$ be a probability space and $X \in L^2$. Then for each $a \in (0, \infty)$, $$P(\vert X - E[X] \vert \geq a) \leq \frac{Var(X)}{a^2}$$
+\end{ex}
+
+\begin{proof}
+Let $a \in (0, \infty)$. Then 
+\begin{align*}
+P(\vert X - E[X] \vert \geq a) 
+&= P((X - E[X])^2 \geq a^2) \\
+&\leq \frac{E[(X - E[X])^2]}{a^2} \\
+&= \frac{Var(X)}{a^2}  
+\end{align*}
+\end{proof}
+
+\begin{ex}{Chernoff's Bound:}
+Let $(\Om, \MF, P)$ be a probability space and $X \in L^2$. Then for each $a, t \in (0, \infty)$, $$P( X \geq a) \leq e^{-ta}E[e^{tX}]$$
+\end{ex}
+
+\begin{proof}
+Let $a, t \in (0, \infty)$. Then 
+\begin{align*}
+P( X \geq a)
+&= P(tX \geq ta) \\
+&= P(e^{tX} \geq e^{ta}) \\
+& \leq e^{-ta}E[e^{tX}]
+\end{align*}
+\end{proof}
+
+\begin{ex}{Weak Law of Large Numbers:}
+Let $(\Om, \MF, P)$ be a probability space $(X_i)_{i\in \N} \subset L^2$. Suppose that $(X_i)_{i\in \N}$ are iid. Then $$\frac{1}{n}\sum_{i=1}^n X_i \conv{P} E[X_1]$$
+\end{ex}
+
+\begin{proof}
+Put $\mu = E[X_1]$ and $\sig^2 = Var(X_1)$. Then 
+\begin{align*}
+E[\frac{1}{n}\sum_{i=1}^n X_i] 
+&= \frac{1}{n} \sum_{i=1}^nE[X_i] \\
+&= \frac{1}{n} \sum_{i=1}^n \mu \\
+&= \mu
+\end{align*} and 
+\begin{align*}
+Var(\frac{1}{n}\sum_{i=1}^n X_i) 
+&= \frac{1}{n^2} Var(\sum_{i=1}^n X_i) \\
+&= \frac{1}{n^2} \sum_{i=1}^n Var(X_i) \\
+&= \frac{1}{n^2} \sum_{i=1}^n \sig^2 \\
+&= \frac{\sig^2}{n}
+\end{align*}
+Let $\ep >0$. Then 
+\begin{align*}
+P\bigg(\bigg \vert \frac{1}{n} \sum_{i=1}^n X_i - E[X_1] \bigg \vert \geq \ep \bigg) 
+& = P\bigg(\bigg\vert \frac{1}{n} \sum_{i=1}^n X_i - \mu \bigg\vert \geq \ep\bigg) \\
+& = P\bigg(\bigg\vert \frac{1}{n} \sum_{i=1}^n X_i - \E\bigg[\frac{1}{n}\sum_{i=1}^n X_i \bigg] \bigg\vert \geq \ep\bigg) \\ 
+&\leq \frac{Var(\frac{1}{n} \sum_{i=1}^n X_i)}{\ep^2} \\
+& =  \frac{\sig^2 / n}{\ep^2} \\
+&= \frac{\sig^2}{n\ep^2} \rightarrow 0
+\end{align*}
+
+So $$\frac{1}{n}\sum_{i=1}^n X_i \conv{P} E[X_1]$$
+\end{proof}
+
+
 
 
 

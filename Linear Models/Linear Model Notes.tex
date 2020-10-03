@@ -48,6 +48,7 @@
 \newcommand{\Lam}{\Lambda} 
 \newcommand{\ep}{\epsilon}
 \newcommand{\sig}{\sigma} 
+\newcommand{\Sig}{\Sigma}
 \newcommand{\om}{\omega}
 \newcommand{\Om}{\Omega}
 \newcommand{\C}{\mathbb{C}}
@@ -149,6 +150,39 @@ Let $X \in \MM_{m,n}$ and $A,B \in \MM_{n,p}$. Then $X^TXA = X^TXB$ iff $XA = XB
 Clearly if $XA = XB$, then $X^TXA = X^TXB$. Conversely, suppose that $X^TXA = X^TXB$. Then $X^TX(A-B) = 0$. So for  each $i =1, \cdots, p$, $X^TX(A-B)e_i = 0$. Thus for each $i=1, \cdots, p$ $X(A-B)e_i \in \MN(X^T) \cap \MC(X) = \{0\}$. Hence $X(A-B) = 0$ and $XA = XB$. 
 \end{proof}
 
+\begin{thm}
+Let $X \in \MM_{m,n}$. Then $$nullity(X) + rank(X) = n$$.
+\end{thm}
+
+\begin{ex} 
+Let $X \in \MM_{m,n}$. Then
+$$rank(X^T) = rank(X)$$
+\end{ex}
+
+\begin{proof}
+We have that 
+\begin{align*}
+rank(X^T)
+&= rank(X^TX) \\
+&= n - nullity(X^TX) \\
+&= n - nullity(X) \\
+&= rank(X)
+\end{align*}
+\end{proof}
+
+\begin{defn}
+Let $X \in \MM_{m,n}$. Then $X$ is said to have \textbf{full column rank} if $rank(X) = n$
+\end{defn}
+
+\begin{ex}
+Let $X \in \MM_{m,n}$. If $X$ has full column rank, then $$\MN(X) = \{0\}$$
+\end{ex}
+
+\begin{proof}
+Suppose that $X$ has full column rank. Then $rank(X) = n$ Hence $nullity(X) = 0$ and $\MN(X) = \{0\}$.
+\end{proof}
+
+
 \subsection{Generalized Inverses}
 
 \begin{defn}
@@ -247,7 +281,7 @@ Q \\
 
 \begin{note}
 The previous exercise and theorem guarantee the existence of a generealized inverse for all matrices.
-We will denote a generalized inverse of $A$ by $A^-$.
+We will take $G = A^-$ to mean that $G$ is a generalized inverse of $A$. Unless otherwise specified, $A^-$ will refer to a generic generalized inverse of $A$, that is, unless otherwise specified, any statement about $A^-$ will apply to all generalized inverses of $A$.
 \end{note}
 
 \begin{thm}
@@ -257,7 +291,7 @@ E &F
 \end{pmatrix}$ Then $Q\begin{pmatrix}
 C^{-1} &0 \\
 0 &0
-\end{pmatrix}P$ is a generalized inverse of $A$. 
+\end{pmatrix}P = A^-$. 
 \end{thm}
 
 \begin{ex}
@@ -361,7 +395,7 @@ Let $A \in \MM_{m,m}$. If $A$ is idempotent, then $rank(A) = tr(A)$.
 Let $P \in \MM_{m,m}$ and $S \subset \R^m$ a subspace. Then $P$ is said to be a \textbf{projection matrix} onto $S$ if 
 \begin{enumerate}
 \item $P$ is idempotent
-\item $\MC(X) \subset S$ 
+\item $\MC(P) \subset S$ 
 \item for each $x \in S$, $Px = x$
 \end{enumerate} 
 \end{defn}
@@ -436,7 +470,7 @@ Thus $P-Q = 0$ and $P =Q$.
 \end{defn}
 
 \begin{ex}
-\z{X}. Then $P_X$ is well defined. That is, independent of the choice of $(X^TX)^-$.
+\z{X}. Then $P_X$ is well defined, that is, $P_X$ is independent of the choice of $(X^TX)^-$.
 \end{ex}
 
 \begin{proof}
@@ -451,12 +485,76 @@ X^TXGX^TX = X^TXHX^TX
 \end{proof}
 
 \begin{note}
-Recall that $X^- = (X^TX)^-X^T$. So that $P_X = XX^-$ is indeed a projection onto $\MC(X)$. Recall that $[(X^TX)^-]^T$ is a gen. inv. of $(X^TX)^T = (X^TX)$. Hence $P_X^T = X[(X^TX)^-]^TX^T = P_X$. Since $P_X$ is symmetric, it is the unique symmetric projection onto $\MC(X)$. 
+Recall that $X^- = (X^TX)^-X^T$. So that $P_X = XX^-$ is indeed a projection onto $\MC(X)$. Recall that $[(X^TX)^-]^T$ is a generalized inverse of $(X^TX)^T = (X^TX)$. Hence $P_X^T = X[(X^TX)^-]^TX^T = P_X$. Since $P_X$ is symmetric, it is the unique symmetric projection onto $\MC(X)$. 
 \end{note}
 
 \begin{note}
 Recall that $(X^T)^- = X(X^TX)^-$. So that $P_X = (X^T)^-X^T$. A previous exercises tells us that $I-P_X$ is a projection on $\MN(X^T)$. Since $I-P_X$ is symmetric, it is the unique symmetric projection onto $\MN(X^T)$. 
 \end{note}
+
+\begin{ex}
+Let $X_1, X_2 \in \MM_{m,n}$. Suppose that $\MC(X_1) = \MC(X_2)^{\perp}$. Then $P_{X_1}P_{X_2} = P_{X_2}P_{X_1} = 0$.  
+\end{ex}
+
+\begin{proof}
+Since $I-P_{X_1}$ is the unique symmetric projection onto $\MN(X_1^T) = \MC(X_1)^{\perp} = \MC(X_2)$, we have that $I-P_{X_1} = P_{X_2}$. Thus $P_{X_1}P_{X_2} = P_{X_1}(I-P_{X_1}) = 0$. Similarly, $P_{X_2}P_{X_1} = 0$.
+\end{proof}
+
+\begin{ex}
+Let $X \in \MM_{m,n}$. For each $z \in \MN(X^T)$, $P_Xz = 0$.
+\end{ex}
+
+\begin{proof}
+Let $z \in \MN(X^T)$. Then $P_Xz = X(X^TX)^-(X^Tz) = 0$.
+\end{proof}
+
+\begin{ex}
+Let $X_1,X_2 \in \MM_{m,n}$. If $\MC(X_1) \subset \C(X_2)$, then $P_{X_2} - P_{X_1}$ is the unique projection onto $\MC((I-P_{X_1})X_2)$.
+\end{ex}
+
+\begin{proof}
+Clearly $P_{X_2} - P_{X_1}$ is symmetric. Since $\MC(X_1) \subset \C(X_2)$, we have that $P_{X_2}P_{X_1} = P_{X_1}$. Also, by symmetry, 
+\begin{align*}
+(P_{X_1}P_{X_2})^T 
+&= P_{X_2}^TP_{X_1}^T \\
+&= P_{X_2}P_{X_1} \\
+&= P_{X_1} 
+\end{align*} 
+So $P_{X_1}P_{X_2} = P_{X_1}^T = P_{X_1}$. Now we have that
+\begin{enumerate}
+\item 
+\begin{align*}
+(P_{X_2} - P_{X_1})^2
+&= (P_{X_2} - P_{X_1})(P_{X_2} - P_{X_1}) \\
+&= P_{X_2}^2 + P_{X_1}^2 - P_{X_2}P_{X_1} - P_{X_1}P_{X_2} \\
+&= P_{X_2} + P_{X_1} - P_{X_1} - P_{X_1} \\
+&= P_{X_2} - P_{X_1}
+\end{align*}
+So $P_{X_2} - P_{X_1}$ is idempotent.
+\item Let $x \in \R^m$. Then there exist unique $y \in \MC(X_2)$ and $z \in \MC(X_2)^{\perp} = \MN(X_2^T)$ such that $x = y+z$. So there exists $e \in \R^n$ such that $y = X_2e$ Since $z \in \MN(X_2^T)$, $P_{X_2}z = 0$. Then 
+\begin{align*}
+(P_{X_2} - P_{X_1})x
+&= P_{X_2}x- P_{X_1}x \\
+&= P_{X_2}x - P_{X_1}P_{X_2}x \\
+&= y - P_{X_1}y \\
+&= X_2e - P_{X_1}X_2e \\
+&= (I - P_{X_1})X_2e \\
+& \in \MC((I - P_{X_1})X_2)
+\end{align*}
+\item Let $x \in \MC((I - P_{X_1})X_2)$. Then there existe $e \in \R^n$ such that $x = (I - P_{X_1})X_2e$. So 
+\begin{align*}
+(P_{X_2} - P_{X_1})x
+&= P_{X_2}(I - P_{X_1})x \\
+&= P_{X_2}(I - P_{X_1})(I - P_{X_1})X_2e \\
+&= P_{X_2}(I - P_{X_1})X_2e \\
+&= (P_{X_2} - P_{X_1})X_2e \\
+&= P_{X_2}X_2e - P_{X_1}X_2e \\
+&= X_2e - P_{X_1}X_2e \\
+&= (I-P_{X_1})X_2e \\
+&= x
+\end{align*}
+\end{enumerate}
+\end{proof}
 
 \subsection{Solving Linear Equations}
 
@@ -829,7 +927,7 @@ If $b$ is a least squares solution for the model, then $X^TXb = X^Ty$.
 \end{ex}
 
 \begin{proof}
-Suppose that $b$ is a least squares solution for the model, then $Q$ has a local minimum at $b$. Since $Q$ is convex in $b$, this global minimum is also a local minimum. Thus $$\frac{\partial Q}{\partial b}(b) = 0$$ By definition, 
+Suppose that $b$ is a least squares solution for the model, then $Q$ has a global minimum at $b$. Since $Q$ is convex in $b$, this global minimum is also a local minimum. Thus $$\frac{\partial Q}{\partial b}(b) = 0$$ By definition, 
 \begin{align*}
 Q(b) 
 &= y^Ty -y^TXb - b^TX^Ty + b^TX^TXb \\
@@ -894,7 +992,407 @@ So $Xb$ and $e$ are orthogonal. Therefore
 \end{align*}
 \end{proof}
 
+\subsection{Estimation}
+\begin{note}
+In what follows we are considering the model $y = Xb +e$ with $y, e \in \R^n$, $b \in \R^p$, $X \in \MM_{n,p}$ and $\E[e] = 0$.
+\end{note}
 
+\begin{defn}
+Let Then $\lam \in \R^p$. The function $t(y)$ is said to be a linear unbiased estimator for the function $f(b) = \lam^T b$ if there exists $ a \in \R^n$, $c \in \R$ such that $t(y) = c+ a^Ty$ and for each $b \in \R^p$, $\E[t(y)] = \lam^T b$. 
+\end{defn}
 
+\begin{ex}
+Let Then $\lam \in \R^p$ and $ a \in \R^n$, $c \in \R$. Suppose that $t(y) = c+a^Ty$ is an unbiased linear estimator for $f(b) = \lam^T b$. Then $c = 0$ and $\lam = X^Ta$. 
+\end{ex}
+
+\begin{proof}
+We have that for each $b \in \R^p$, 
+\begin{align*}
+\lam^Tb 
+&= \E[c+a^Ty] \\
+&= c + a^T\E[y] \\
+&= c + a^T Xb
+\end{align*}
+Taking $b = 0$, we get that $c =0$. So for each $b \in \R^p$, $\lam^Tb = a^TXb$. This implies that $\lam^T = a^TX$ and $\lam = X^Ta$.
+\end{proof}
+
+\begin{defn}
+Let $\lam \in R^p$. Then the function $f(b) = \lam^T b$ is said to be \textbf{linearly estimable} if there exists a linear, unbiased estimator for $f(b)$. Equivalently, $f(b) = \lam^T b$ is linearly estimable if there exists $a \in \R^n$ such that for each $b \in \R^p$ $\E[a^Ty] = \lambda^Tb$
+\end{defn}
+
+\begin{ex}
+Let $\lam \in \R^p$. Then the following are equivalent: 
+\begin{enumerate}
+\item $f(b) = \lam^T b$ is linearly estimable
+\item $\lam \in \MC(X^T)$
+\item for each $G  \in X^-$ of $X$, $\lam^T = \lam^TGX$
+\item there exists $G \in X^-$  of $X$ such that $\lam^T = \lam^TGX$
+\end{enumerate}
+$f(b) = \lam^T b$ is linearly estimable iff $\lam \in \MC(X^T)$. 
+\end{ex}
+
+\begin{proof} $(1) \Rightarrow (2)$\\
+Suppose that $f(b)$ is linearly estimable. Then there exists $a \in \R^n$ such that for each $b \in \R^p$ $\E[a^Ty] = \lambda^Tb$. Then for each $b \in \R^p$, $$\lambda^Tb = a^T\E[y] = a^TXb$$ Hence $\lam^T = a^TX$ and $X^Ta = \lam$. So $\lam \in \MC(X^T)$. \vspace{4mm} \\
+$(2) \Rightarrow (3)$\\ 
+Suppose that $\lam \in \MC(X^T)$. Let $G \in X^-$. Then $G^T \in (X^T)^-$ Since $\lam \in \MC(X^T)$, there exists $a \in \R^n$ such that $ X^Ta = \lam$. A previous exercise tells us that there exists $z \in \R^n$ such that $$a = G^T \lam + (I-G^TX^T)z$$
+So 
+\begin{align*}
+\lam 
+&= X^Ta \\
+&= X^T \big[ G^T \lam + (I-G^TX^T)z \big] \\
+&= X^TG^T \lam
+\end{align*}
+Hence $\lam^T = \lam^T G X$.\vspace{4mm}\\
+$(3) \Rightarrow (4)$\\
+Trivial.\vspace{4mm}\\
+$(4) \Rightarrow (1)$\\
+Suppose that there exists $G \in X^-$ such that $\lam^T = \lam^T G X$. Choose $a = G^T\lam \in \R^n$. Let $b \in \R^p$. Then 
+\begin{align*}
+E[a^Ty] 
+&= a^T\E[y] \\
+&= \lam^TG\E[y] \\ 
+&= \lam^TGXb \\
+&= \lam^Tb
+\end{align*}
+So $f(b) = \lam^Tb$ is linearly estimable.
+\end{proof}
+
+\begin{defn}
+Let $\hat{b} \in \R^p$ be a least squares solution and $\lam \in \R^n$. Then $\hat{f} = \lam^T \hat{b}$ is said to be a least squares estimator of $f(b) = \lam^T b$. 
+\end{defn}
+
+\begin{ex}
+Let $\hat{b} \in \R^p$ be a least squares solution and $\lam \in \R^p$. Then $\hat{f} = \lam^T \hat{b}$ is the unique least squares estimator of $f(b) = \lam^Tb$ iff $f(b)$ is linearly estimable. 
+\end{ex}
+
+\begin{proof} Suppose that $f(b) = \lam^T b$ is linearly estimable. Then $\lam \in \MC(X^T)$. So there exists $a \in \R^n$ such that $\lam^T = a^TX$. Let $b'$ be a least squares solution. Then there exists $z \in \R^p$ such that $$b' = (X^TX)^-X^Ty + (I-(X^TX)^-(X^TX))z$$ Then 
+\begin{align*}
+\lam^Tb' 
+&= \lam^T\bigg[ (X^TX)^-X^Ty + (I-(X^TX)^-(X^TX))z \bigg] \\
+&= a^TX(X^TX)^-X^Ty + a^TX(I-(X^TX)^-X^TX)z \\
+&= a^TP_Xy + a^T(X-P_XX)z \\
+&= a^TP_Xy
+\end{align*} 
+In particular, $\lam^Tb' = a^TP_Xy = \lam^T\hat{b}$. \vspace{2mm}\\ Conversely, suppose that $\hat{f} = \lambda^T \hat{b}$ is the unique least squares estimator of $f(b) = \lam^T b$. Then for each $z \in \R^p$, $$\lam^T\hat{b} 
+= \lam^T(X^TX)^-X^Ty + \lam^T(I-(X^TX)^-X^TX)z$$
+So for each $z \in \R^p$, $$\lam^T(X^TX)^-X^Ty + \lam^T(I-(X^TX)^-X^TX)z = 0$$ and thus $$\lam^T(I-(X^TX)^-X^TX) = 0$$ Therefore $$ \lam^T = \lam^T(X^TX)^-X^TX$$ Transposing both sides, we obtain that $$\lam = X^TX[(X^TX)^-]^T\lam \in \MC(X^T)$$ So $f(b) = \lam^T b$ is linearly estimable
+\end{proof}
+
+\begin{ex}
+Let $\lam \in \R^p$ and $\hat{b} \in \R^p$ a least squares solution. If $f(b) = \lam^Tb$ is linearly estimable, then the unique least squares estimator $\hat{f} = \lam^T\hat{b}$ of $f(b)$ is a linear unbiased estimator of $f(b)$.
+\end{ex}
+
+\begin{proof}
+Suppose that $f(b) = \lam^Tb$ is linearly estimable. Then there exists $a \in \R^n$ such that $\lam^T = a^TX$. The previous exercise tells us that $$\lam^T\hat{b} = \lam^T(X^TX)^-X^Ty$$ Thus for each $b \in \R^p$,
+\begin{align*}
+\E[\lam^T\hat{b}] 
+&= \E[\lam^T(X^TX)^-X^Ty] \\
+&= \lam^T(X^TX)^-X^T\E[y] \\
+&= \lam^T(X^TX)^-X^TXb \\ 
+&= a^TX(X^TX)^-X^TXb \\
+&= a^TP_XXb \\
+&= a^TXb \\
+&= \lam^T b
+\end{align*}
+\end{proof}
+
+\subsection{Imposing Restictions for a Unique Solution}
+
+\begin{defn} Let $X \in \MM_{n,p}$ with $rank(X) = r$, let $s = p - r$ and $C \in \MM_{s, p}$ with $rank(C) = s$ and $\MC(X^T) \cap \MC(C^T) = \{0\}$ and let $y \in \R^n$. We consider the system 
+$$\begin{pmatrix}
+X^TX \\
+C
+\end{pmatrix} b = 
+\begin{pmatrix}
+X^Ty \\
+0
+\end{pmatrix} $$
+or equivalently the system
+$$\begin{pmatrix}
+X \\
+C
+\end{pmatrix} b = 
+\begin{pmatrix}
+P_Xy \\
+0
+\end{pmatrix} $$
+These systems are the \textbf{ restricted normal equations with restrictions $C$}.
+\end{defn}
+
+\begin{note}
+Requiring $rank(C) = s$ means that the rows of $C$ (i.e. the restrictions) are linearly independent. To have a unique solution to $$\begin{pmatrix}
+X \\
+C
+\end{pmatrix} b = 
+\begin{pmatrix}
+P_Xy \\
+0
+\end{pmatrix} $$ we must have $$\MN\big( \begin{pmatrix}
+X \\
+C
+\end{pmatrix}  \big) = \{0\}$$ or equivalently, $$\MC\big( \begin{pmatrix}
+X^T & C^T
+\end{pmatrix}\big) = \R^p$$
+Since $rank(X^T) = rank(X) = r$, we have that $\MC\big( \begin{pmatrix}
+X^T & C^T
+\end{pmatrix} \big) = \R^p$ iff $\MC(X^T) \cap \MC(C^T) = \{0\}$. 
+\end{note}
+
+\begin{ex}
+Under the assumptions for the restricted normal equations, the following systems are equivalent:
+\begin{enumerate}
+\item $$\begin{pmatrix}
+X^TX \\
+C
+\end{pmatrix} b = 
+\begin{pmatrix}
+X^Ty \\
+0
+\end{pmatrix} $$
+\item $$\begin{pmatrix}
+X^TX \\
+C^TC
+\end{pmatrix} b = 
+\begin{pmatrix}
+X^Ty \\
+0
+\end{pmatrix} $$
+\item $$(X^TX + C^TC)b = X^Ty$$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+$(1) \Rightarrow (2)$ We need to show that for each $b \in \R^p$ $Cb = 0 $ implies that $C^TCb = 0 $. This is immediate since $\MN(C^TC) = \MN(C)$.\vspace{3mm}\\ 
+$(2) \Rightarrow (3)$ Let $b \in \R^p$ be a solution to system (1). Then we have that $$(X^TX + C^TC)b = X^TXb + C^TCb = X^Ty + 0 = X^Ty$$ \vspace{3mm}\\ 
+$(3) \Rightarrow (1)$ Suppose that $(X^TX + C^TC)b = X^Ty$. This implies that $C^TCb = X^T(y - Xb)$. So $$C^TCb \in \MC(C^TC) \cap \MC(X^T) =  \MC(C^T) \cap \MC(X^T)= \{0\}$$ Hence $b \in \MN(C^TC) = \MN(C)$. So $Cb = 0$ and $X^TXb =(X^TX+C^TC)b= X^Ty$, orquivalently, $$\begin{pmatrix}
+X^TX \\
+C
+\end{pmatrix} b = 
+\begin{pmatrix}
+X^Ty \\
+0
+\end{pmatrix} $$
+
+\end{proof}
+
+\begin{ex}
+Under the assumptions for the restricted normal equations, we have the following: 
+\begin{enumerate}
+\item $X^TX +C^TC$ is invertible
+\item $(X^TX +C^TC)^{-1}X^Ty$ is the unique solution to $X^TXb = X^Ty$ and $Cb = 0$.
+\item $(X^TX +C^TC)^{-1}$ is a generalized inverse of $X^TX$
+\item $C(X^TX +C^TC)^{-1}X^T = 0$
+\item $C(X^TX +C^TC)^{-1}C^T = I$
+\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+\begin{enumerate}
+\item \begin{align*}
+\R^p 
+&= \MC\big(\begin{pmatrix}
+X^T & C^T
+\end{pmatrix}\big) \\
+&= \MC\bigg(\begin{pmatrix}
+X^T & C^T
+\end{pmatrix} \begin{pmatrix}
+X \\ C
+\end{pmatrix}\bigg) \\
+&= \MC(X^TX + C^TC)
+\end{align*}
+Since $X^TX + C^TC \in \MM_{p,p}$ and $rank(X^TX + C^TC) = p$, we have that $X^TX + C^TC$ is invertible.
+\item Put $b = (X^TX +C^TC)^{-1}X^Ty$. Then $(X^TX +C^TC)b = X^Ty$. A previous exercise tells us that $b$ is a solution to the system $$\begin{pmatrix}
+X^TX \\
+C
+\end{pmatrix} b = 
+\begin{pmatrix}
+X^Ty \\
+0
+\end{pmatrix} $$ which implies that $X^TXb = X^Ty$ and $Cb=0$.
+\item From (2), we know that $$X^TX\big[ (X^TX +C^TC)^{-1}X^Ty\big] = X^Ty$$ Since $y \in \R^n$ is arbitrary, we have $$X^TX(X^TX +C^TC)^{-1}X^T = X^T$$ Multiplying both sides on the right by $X$ tells us that $(X^TX +C^TC)^{-1}$ is a generalized inverse of $X^TX$. 
+\item From (2), we know that $$C(X^TX +C^TC)^{-1}X^Ty = 0$$ Since $y \in \R^n$ is arbitrary, $$C(X^TX +C^TC)^{-1}X^T = 0$$ 
+\item 
+\end{enumerate}
+\end{proof}
+
+\subsection{Constrained Parameter Space}
+
+\begin{defn}
+Let $P \in \MM_{p, q}$ and $\del \in \R^q$. Suppose that $P$ has full column rank. We define the \textbf{constrained parameter space} $\MT = \{b \in \R^p: P^Tb = \del\}$.
+\end{defn}
+
+\begin{note}
+Since $P$ has full column rank, $\MC(P^T) = \R^q$ and for each $\del \in \R^q$, $P^Tb = \del$ is consistent. We now fix $P, \del$ so that $\MT$ is fixed.
+\end{note}
+
+\begin{defn}
+Let $\lam \in \R^p$. The function $t(y)$ is said to be a \textbf{linear unbiased estimator in $\MT$} for $f(b) = \lam^Tb$ if there exists $a \in \R^n$, $c \in \R$ such that $t(y) = c + a^Ty$ and for each $b \in \MT$, $\E[t(y)] = \lam^Tb$
+\end{defn}
+
+\begin{defn}
+Let $\lam \in \R^p$. The function $f(b) = \lam^Tb$ is said to be \textbf{linearly estimable in $\MT$} if there exists a linear unbiased estimator in $\MT$ for $f(b) = \lam^Tb$. Equivalently $\lam^Tb$ is linearly estimable in $\MT$ if there exist $a \in \R^n$, $c \in \R$ such that for each $b \in \MT$, $\E[c + a^Ty] = \lam^Tb$. 
+\end{defn}
+
+\begin{thm}
+Let $\lam \in \R^p$ and $a \in \R^n$. Then $t(y) = c+a^Ty$ is a linear unbiased estimator for $f(b) = \lam^Tb$ iff if there exists $d \in \R^q$ such that $\lam = X^Ta + Pd$ and $c = d^T \del$. 
+\end{thm}
+
+\begin{defn}
+We define the \textbf{normal equations with restrictions $\MT$} to be 
+$$\begin{pmatrix}
+X^TX & P \\ P^T & 0
+\end{pmatrix} 
+\begin{pmatrix}
+b \\ \theta 
+\end{pmatrix} 
+=
+\begin{pmatrix}
+X^Ty \\ \del
+\end{pmatrix} $$
+\end{defn}
+
+\begin{thm}
+We have the following:
+\begin{enumerate}
+\item The restricted normal equations are consistent. 
+\item Let $\hat{b}$ be the first component of a solution to the restricted normal equations. Then $Q(\hat{b}) = \min\limits_{b \in \MT}Q(b)$.
+\item Let $\hat{b}$ be the first component of a solution to the restricted normal equations and $b \in \MT$. Then $Q(b) = Q(\hat{b})$ iff $b$ is the first component of a solution of to the restricted normal equations.
+\end{enumerate}
+\end{thm}
+
+\subsection{The Gauss-Markov Model}
+\begin{defn}
+Let $X \in \MM_{n,p}$, $y \in \R^n$. We consider the model $y = Xb + e$ where $\E[e] = 0$, $Var(e) = \sig^2I_n$. This model is called the \textbf{Gauss-Markov model}. Note that $E[y] = Xb$ and $Var(y) = \sig^2 I$.
+\end{defn}
+
+\begin{thm}
+Let $a, c \in \R^n$, $A \in \MM_{p,n}$ and $y$ a random vector in $\R^n$. 
+Then 
+\begin{enumerate}
+\item $\E[a^Ty] = a^T\E[y]$ 
+\item $Var(a^Ty) = a^TVar(y)a$
+\item $Cov(a^Ty, c^Ty) = a^TVar(y)c$
+\item $Var(Ay) = A^TVar(y)A $
+\end{enumerate}
+\end{thm}
+
+\begin{ex}
+Let $\lam^T \in \R^p$ and $\hat{b} \in \R^p$ a least squares solution. Suppose that $f(b) = \lam^Tb$ is linearly estimable. Then the unique least squares estimator $\hat{f} = \lam^T\hat{b}$ satisfies $$Var(\hat{f}) = \sig^2 \lam^T(X^TX)^- \lam$$  
+\end{ex}
+
+\begin{proof}
+Uniqueness of $\hat{f}$ tells us that $\hat{f} = \lam^T(X^TX)^-X^Ty$. A previous exercise tells us that for each gen. inv. $X^-$ of $X$, $\lam^T = \lam^TX^-X$. Recall that $(X^TX)^-X^T$ is a gen. inv. of $X$. Then 
+\begin{align*}
+Var(\hat{f}) 
+&= Var(\lam^T(X^TX)^-X^Ty) \\
+&= \lam^T(X^TX)^-X^T Var(y)(\lam^T(X^TX)^-X^T)^T \\
+&= \sig^2\lam^T(X^TX)^-X^T(\lam^T(X^TX)^-X^T)^T \\
+&= \sig^2\lam^T(X^TX)^-\bigg(\lam^T(X^TX)^-X^TX\bigg)^T\\
+&= \sig^2 \lam^T(X^TX)^- (\lam^T)^T\\
+&= \sig^2 \lam^T(X^TX)^-\lam
+\end{align*}
+\end{proof}
+
+\begin{ex}
+Let $\lam \in \R^p$. Suppose that $f(b) = \lam^Tb$ is linearly estimable. Then $\hat{f} = \lam^T\hat{b}$ is the minimum variance linear unbiased estimator for $f(b)$. 
+\end{ex}
+
+\begin{proof}
+Let $t(y) = c+ a^Ty$ be a linear unbiased estimator for $f(b) = \lam^Tb$. Recall that $c = 0$ and $\lam = X^Ta$, $\hat{f} = \lam^T (X^TX)^-X^Ty$ and for each generalized inverse $X^-$ of $X$, $\lam^TX^-X = \lam^T$. Then 
+\begin{align*}
+Var(t(y)) 
+&= Var(a^Ty) \\
+&= Var(\hat{f} + (a^Ty - \hat{f})) \\
+&= Var(\hat{f}) + Var(a^Ty - \hat{f}) + 2Cov(\hat{f}, a^Ty - \hat{f}) 
+\end{align*}
+Now \begin{align*}
+Cov(\hat{f}, a^Ty - \hat{f})
+&= Cov(\lam^T (X^TX)^-X^Ty, a^Ty - \lam^T (X^TX)^-X^Ty) \\
+&= \lam^T (X^TX)^-X^TVar(y)\bigg[a^T - \lam^T (X^TX)^-X^T \bigg]^T \\
+&= \sig^2 \lam^T (X^TX)^-X^T\bigg[a^T - \lam^T (X^TX)^-X^T \bigg]^T \\
+&=\sig^2 \lam^T (X^TX)^-\bigg[a^TX - \lam^T (X^TX)^-X^TX \bigg]^T \\
+&= \sig^2 \lam^T (X^TX)^-\bigg[a^TX - \lam^T (X^TX)^-X^TX \bigg]^T \\
+&= \sig^2 \lam^T (X^TX)^-\bigg[a^TX - \lam^T \bigg]^T \\
+&= \sig^2 \lam^T (X^TX)^-(X^Ta - \lam) \\
+&= 0
+\end{align*}
+Hence $Var(t(y)) = Var(\hat{f}) + Var(a^Ty - \hat{f}) \geq Var(\hat{f})$
+\end{proof}
+
+\begin{thm}\
+\begin{enumerate}
+\item For each $A,B \in \MM_{n,n}$ and $\al \in \R$, $\trace(\al A+B) = \al \trace(A) + \trace(B)$.
+\item For each $A \in \MM_{n,p}$ and $B \in \MM_{p,n}$, $\trace(AB) = \trace(BA)$.
+\item For each random matrix $Z \in \MM_{n,n}$, $\E[\trace(Z)] = \trace(\E[Z])$.
+\end{enumerate} 
+\end{thm}
+
+\begin{ex}
+Let $z \in \R^p$ be a random vector. Suppose that $\E[z] = \mu$ and $Var(z) = \Sigma$. Then for each $A \in \MM_{p,p}$, $$\E[z^TAz] = \mu^T A \mu + \trace(A\Sig)$$
+\end{ex}
+
+\begin{proof}
+Note that $$\E[z^TAz] =  \E[(z-\mu)^TA(z-\mu)] + \E[\mu^TA(z - \mu)] + \E[z^TA\mu] $$
+Observe that
+\begin{align*}
+\E[(z-\mu)^TA(z-\mu)] 
+&= \E[\trace((z-\mu)^TA(z-\mu))] \\
+&= \E[\trace((A(z-\mu)(z-\mu)^T)] \\
+&= \trace(\E[(A(z-\mu)(z-\mu)^T]) \\
+&= \trace (A \E[(z-\mu)(z-\mu)^T]) \\
+&= \trace (A \Sig) \\
+\end{align*}
+and that 
+\begin{align*}
+\E[\mu^TA(z - \mu)]
+&= \E[\mu^TA(z-\mu)] \\
+&= \mu^TA \E[z-\mu] \\
+&= 0 \\
+\end{align*}
+and that 
+\begin{align*}
+\E[z^TA\mu]
+&= \E[z^T]A \mu \\
+&= \mu^T A \mu
+\end{align*}
+Thus $\E[z^TAz] = \mu^T A \mu + \trace(A\Sig)$.
+\end{proof}
+
+\begin{defn}
+Put $\hat{e} = y - \hat{y} = (I-P_X)y$. Then the \textbf{sum of squares error}, $SSE$, is defined to be $SSE = \hat{e}^T\hat{e} = y^T(I-P_X)y$.
+\end{defn}
+
+\begin{ex}
+Let $r = rank(X)$. Define $$\hat{\sig}^2 = \frac{SSE}{n-r}$$ Then $\hat{\sig}^2$ is an unbiased estimator for $\sig^2$. 
+\end{ex}
+
+\begin{proof}
+The previous exercise tells us that 
+\begin{align*}
+\E[SSE] 
+&= \E[y^T(I-P_X)y] \\
+&= b^TX^T(I-P_X)Xb + \sig^2 \trace(I-P_X) \\
+&= \sig^2 \trace(I-P_X) \\
+&= \sig^2 \rank(I-P_X) \\
+&= \sig^2 nullity(X^T) \\
+&= \sig^2(n-r)
+\end{align*}
+
+So $\E[\hat{\sig}^2] = \sig^2$.
+\end{proof}
+
+\subsection{The Aitken Model}
+
+\begin{defn}
+Let $X \in \MM_{n,p}$, $y \in \R^n$ and $V \in \MM_{n,n}$. We consider the model $y = Xb + e$ where $\E[e] = 0$, $Var(e) = \sig^2V$. This model is called the \textbf{Aitken model}. Note that $E[y] = Xb$ and $Var(y) = \sig^2 V$.
+\end{defn}
+
+\begin{defn}
+Let $R \in \MM_{n,n}$. Suppose that $R$ is invertible and $RVR^T = I$ or equivalently, $V = (R^TR)^{-1}$. We define the \textbf{transformed Aitken model} by $z = Ry$, $U = RX$, $f = Re$ so that $$z = Ub + f$$ Note that $$E[z] = RXb = Ub$$ and $$Var(f) = RVar(e)R^T = \sig^2RVR^T = \sig^2I$$ 
+\end{defn}
+
+\begin{defn}
+Under the transformed Aitken model, we can can look for solutions $b \in \R^p$ to the normal equations $$U^TUb = U^Tz$$ When we transform back to the Aitken model, we have the \textbf{Aitken equations} $$X^TV^{-1}Xb = X^TV^{-1}y$$ We denote a solution to the Aitken equations by $\hat{b}_{GLS}$ and a solution to the normal equations by $\hat{b}_{OLS}$
+\end{defn}
 
 \end{document}
