@@ -85,6 +85,9 @@
 \newcommand{\seq}[1]{(x_{#1})_{#1 \in \N}}
 
 \newcommand{\n}{\Vert}
+\DeclareMathOperator*{\diag}{diag}
+\DeclareMathOperator*{\ke}{ker}
+
  
 \begin{document}
 
@@ -613,7 +616,7 @@ x
 
 \subsection{Moore-Penrose Pseudoinverse}
 
-\begin{thm} (Singular Value Decomposition): \\
+\begin{thm} \textbf{Singular Value Decomposition:} \\
 Let $A \in \MM_{m,n}$. Suppose that $rank(A) = r$. Then there exist $U \in \MM_{m,m} V \in \MM_{n,n}$, and $D_0 \in \MM_{r,r}$ such that
 \begin{enumerate}
 \item $A = 
@@ -898,6 +901,65 @@ This implies that
 So $$\pdv{b^T A b}{b} = (A+A^T)b$$
 \end{enumerate}
 \end{proof} 
+
+\subsection{Quadratic Forms and Eigendecomposition}
+
+\begin{defn}
+Let $A \in \MM_{n, n}$. Then $A$ is said to be \textbf{postive semi-definite} if for each $x \in \R^n$, $$x^TAx \geq 0$$ 
+\end{defn}
+
+\begin{defn}
+Let $A \in \MM_{n, n}$. Then $A$ is said to be \textbf{postive-definite} if for each $x \in \R^n$, $x \neq 0$ implies that $$x^TAx > 0$$ 
+\end{defn}
+
+\begin{ex}
+Let $A \in \MM_{n,n}$. If $A$ is positive-definite, then $A$ is invertible.
+\end{ex}
+
+\begin{ex}
+Let $A \in \MM_{n,n}$. Then $A$ is invertible iff for each eigenvalue $\lam$ of $A$, $\lam \neq 0$.
+\end{ex}
+
+\begin{proof}
+Suppose that $A$ is invertible. Let $x \in \R^n$. Suppose that $Ax = 0$. Then $x =0$. So $x$ is not an eigenvector of $A$. So $0$ is not an eigenvalue of $A$. Conversely. Suppose that $A$ is not invertible. Then there exists $x \in \ker A$ such that $x \neq 0$. Then $Ax = 0 = 0x$. So $0$ is an eigenvalue of $A$.  
+\end{proof}
+
+\begin{proof}
+Suppose that $A$ is positive definite. Let $x \in \ker A$. Suppose that $x \neq 0$. Then $x^TAx = x^T0 = 0$, which is a contradiction. Hence $\ke A = \{0\}$. So $\rank(A) = n$ and $A$ is invertible.
+\end{proof}
+
+\begin{ex}
+Let $A \in \MM_{n,n}$. If $A$ is positive semi-definite (respectively positive definite), then the eigenvalues of $A$ are nonnegative (respectively positive). 
+\end{ex}
+
+
+
+\begin{proof}
+Let $\lambda \in \C$ be an eigenvalue of $A$ and $x\ in \R^n$ a corresponding eigenvector. Then $x \neq 0$. So $x^Tx \geq 0$. If $A$ is positive semi-definite, then
+\begin{align*}
+0 
+& \leq x^TAx \\
+&= \lambda x^T x \\
+\end{align*}  
+Hence $\lam \geq 0$. The case is similar for $A$ positive definite.  
+\end{proof}
+
+\begin{defn}
+Let $U \in \MM_{n,n}$. Then $U$ is said to be \textbf{orthogonal} if $U^TU = UU^T = I$
+\end{defn}
+
+\begin{thm}
+Let $A \in \MM_{n,n}$ be a symmetric matrix and $\lam_1, \cdots, \lambda_n$ the eigenvalues of $A$. Then
+\begin{enumerate}
+\item $\lam_1, \cdots, \lambda_n \in \R$ 
+\item for $i,j \in \{1, \cdots, n\}$ if $i \neq j$ and $x_i$, $x_j$ are eigenvectors corresponding to $\lam_i, \lam_j$ respectively, then $x_i^Tx_j = 0$.
+\item there exist $U, D \in \MM_{n,n}$ such that $U$ is orthogonal, $D = \diag(\lam_1, \cdots, \lam_n)$ and  $A = UDU^T$. 
+\end{enumerate} 
+\end{thm}
+
+\begin{note}
+We will be dealing with covariance matrices which are positive semi-definite symmetric matrices and thus have nonnegative eigenvalues.
+\end{note}
 
 \section{The Linear Model}
 \subsection{Model Description}
@@ -1400,5 +1462,186 @@ Let $R \in \MM_{n,n}$. Suppose that $R$ is invertible and $RVR^T = I$ or equival
 \begin{defn}
 Under the transformed Aitken model, we can can look for solutions $b \in \R^p$ to the normal equations $$U^TUb = U^Tz$$ When we transform back to the Aitken model, we have the \textbf{Aitken equations} $$X^TV^{-1}Xb = X^TV^{-1}y$$ We denote a solution to the Aitken equations by $\hat{b}_{GLS}$ and a solution to the normal equations by $\hat{b}_{OLS}$
 \end{defn}
+
+\section{Distribution Theory}
+
+\subsection{Introduction}
+
+\begin{defn}
+Let $x \in \R^p$ be a random vector. Define $m_x: \R^p \rightarrow \RG$ by $$m_x(t) = E[e^{t^Tx}]$$ We call $m_X$ the \textbf{moment generating function of X}.
+\end{defn}
+
+\begin{thm}
+Let $x_1, x_2 \in \R^p$ be random vectors. Then $F_{x_1} = F_{x_2}$ iff $m_{x_1} = m_{x_2}$.
+\end{thm}
+
+\begin{thm}
+Let $x_1 \in \R^{p_1}, \cdots, x_n \in \R^{p_n}$ be random vectors. Put $p = \sum\limits_{i=1}^n p_i$. For $t \in \R^{p}$, we can partition $t$ as $t = (t_1^T, \cdots, t_n^T)^T$ where $t_1 \in \R^{p_1}, \cdots, t_n \in \R^{p_n}$. Put $x = (x_1^T, \cdots, x_n^T)^T$. Then $x_1, \cdots, x_n$ are independent iff for each $t \in \R^p$, $m_x(t) = \prod\limits_{i=1}^nm_{x_i}(t_i)$. 
+\end{thm}
+
+\subsection{Multivariate Normal}
+
+
+
+\begin{defn}
+Let $x \in \R^p$ be a random vector, $\mu \in \R^p$ and $V \in \MM_{p, p}$ be symmetric and positive semi-definite. Then $x$ is said to have a \textbf{multivariate normal distribution with mean $\mu$ and covariance matrix $V$}, denoted $x \sim N_{p}(\mu, V)$, if for each $t \in \R^p$, $m_x(t) = e^{t^T\mu + \frac{1}{2} t^T V t}$.
+\end{defn}
+
+\begin{ex}
+Let $x \sim N_p(\mu, V)$, $a \in \R^q$ and $B \in \MM_{q, p}$. Define the random vector $y \in \R^q$ by  $y = a +Bx$. Then $y \sim N_q(a + B\mu, BVB^T)$. 
+\end{ex}
+
+\begin{proof} 
+for $t \in \R^q$, we have that
+\begin{align*}
+m_y(t)
+&= E[e^{t^Ty}] \\
+&= E[e^{t^T(a+Bx)}] \\
+&= E[e^{t^Ta} + t^TBx] \\
+&= e^{t^Ta}E[e^{t^TBx}] \\
+&= e^{t^Ta}m_x(B^Tt) \\
+&= e^{t^Ta}e^{t^TB\mu + \frac{1}{2} t^TBVB^Tt} \\
+&= e^{t^Ta + t^TB\mu + \frac{1}{2} t^TBVB^Tt} \\
+&= e^{t^T(a + B\mu) + \frac{1}{2} t^TBVB^Tt} \\
+\end{align*}
+So $y \sim N_q(a+B\mu, BVB^T)$.
+\end{proof}
+
+\begin{ex}
+Let $x \in \R^p$ be a multivariate normal random vector. Then any subvector of $x$ is a multivariate normal random vector.
+\end{ex}
+
+\begin{proof}
+Let $x = (x_1, \cdots, x_p)^T$. Suppose that $x \sim N_p(\mu, V)$. Let $x' = (x_{i_1}, \cdots, x_{i_k})$ be a subvector of $x$. So $i_1 < \cdots < i_q$ and $i_1, \cdots, i_q\in \{1, \cdots, p\}$. Choose a matrix $B \in \MM_{q,p}$ such that $x' = Bx$. Then $x' \sim N_q(B\mu, BVB^T)$.
+\end{proof}
+
+\begin{thm}
+Let $x = (x_1^T, \cdots, x_n^T)^T$, $\mu = (\mu_1^T \cdots, \mu_n^T)^T \in \R^p$ and $V = 
+\begin{pmatrix}
+V_{1,1} & \cdots & V_{1,n} \\
+  & \vdots&  \\
+V_{n,1} & \cdots & V_{n,n} 
+\end{pmatrix} \in \MM_{p,p}$ 
+where $x_i, \mu_i \in \R^{p_i}$, $V_{i,j} \in \MM{p_i, p_j}$ and $\sum\limits_{i=1}^n p_i = p$. If $x \sim N_{p}(\mu, V)$ then $x_1, \cdots, x_n$ are independent iff for each $i,j \in \{1, \cdots, n\}$, $i \neq j$ implies that $V_{i,j} = 0$.
+\end{thm}
+
+\begin{ex}
+Let $z = (z_1, \cdots, z_p) \in \R^p$ be a random vector. Then $z \sim N_p(0,I)$ iff for each $i = 1, \cdots, p$, $z_i \sim N_1(0, 1)$ and $z_1, \cdots, z_n$ are independent.
+\end{ex}
+
+\begin{proof}
+Suppose that $z \sim N_p(0,I)$. Since $z_i = e_i^Tz$, the previous results tells us that for each $i = 1, \cdots, p$, $z_i \sim N_1(0, 1)$ and $z_1, \cdots, z_n$ are independent. Conversely, suppose that for each $i = 1, \cdots, p$, $z_i \sim N_1(0, 1)$ and $z_1, \cdots, z_n$ are independent. Then for each $t \in \R^p$, 
+\begin{align*}
+m_z(t) 
+&= \prod_{i=1}^pm_{z_i}(t_i) \\
+&= \prod_{i=1}^p e^{\frac{1}{2}t_i^2} \\
+&= e^{\frac{1}{2}t^Tt}
+\end{align*}
+Thus $z \sim N_p(0, I)$.
+\end{proof}
+
+\begin{ex}
+Let $x \sim N_p(\mu, V), a1, a_2 \in \R^q$, $B_1, B_2 \in \MM_{q,p}, y_1 = a_1 +B_1x$ and $y_2 = a_2 + B_2x$. Then $y_1, y_2$ are independent iff $B_1VB_2^T = 0$. 
+\end{ex}
+
+\begin{proof}
+Put $y = 
+\begin{pmatrix}
+y_1 \\ y_2
+\end{pmatrix}
+$, $a = 
+\begin{pmatrix}
+a_1 \\ a_2
+\end{pmatrix}$ 
+and $B = 
+\begin{pmatrix}
+B_1 \\B_2
+\end{pmatrix}$. Since 
+$y
+= 
+a
++
+B
+x$
+We know that $y \sim N_{2q}(a+B\mu, BVB^T)$. Observe that $BVB^T = 
+\begin{pmatrix}
+B_1VB_1^T & B_1VB_2^T \\
+B_2VB_1^T & B_2VB_2^T
+\end{pmatrix}
+$ A previous result tells us that $y_1, y_2$ are independent iff $B_1VB_2^T = 0$
+\end{proof}
+
+
+\subsection{Chi-Square}
+\begin{defn} Let $u$ be a random variable, $p \in \N$ and $\phi \geq 0$. Then $u$ is said to have a \textbf{$\chi^2$ distribution with $p$ degrees of freedom and noncentrality parameter $\phi$}, denoted $u \sim \chi^2_p(\phi)$, if for each $t \in \R$, $$m_u(t) = (1-2t)^{p/2}e^{2\phi t/(1-2t)}$$ If $\phi=0$, we say that $u$ has a (central) chi-square distribution with $p$ degrees of freedom, denoted $u \sim \chi^2_p$.
+\end{defn}
+
+\begin{ex}
+Let $z \sim N_p(0,I)$. Then $z^Tz \sim \chi^2_p$.
+\end{ex}
+
+\begin{proof}
+One can show that $m_{z_i^2}(t) = (1-2t)^{1/2}$. By independence $$m_{z^Tz}(t) = m_{\sum_{i=1}^p z_i^2}(t) = (1-2t)^{p/2}$$
+\end{proof}
+
+\begin{ex}
+Let $u_1 \sim \chi^2_{p_1}(\phi_1), \cdots, u_n \sim \chi^2_{p_n}(\phi_n)$. Put $u = \sum\limits_{i=1}^n u_i$, $p = \sum\limits_{i=1}^np_i$ and $\phi = \sum\limits_{i=1}^n\phi_i$. If $u_1, \cdots, u_n$ are independent, then $u \sim \chi^2_p(\phi)$. 
+\end{ex}
+
+\begin{proof}
+By independence, we have that for each $t \in \R$, 
+\begin{align*}
+m_u(t) 
+&= \prod\limits_{i=1}^nm_{u_i}(t) \\
+&= \prod\limits_{i=1}^n (1-2t)^{p_i/2}e^{2\phi_i t/(1-2t)} \\
+&= (1-2t)^{p/2}e^{2\phi t/(1-2t)} 
+\end{align*}
+\end{proof}
+
+\begin{thm}
+Let $x \in \R^p$ be a random vector, $\mu \in \R^p$ and $V \in \MM_{p,p}$ positive definite. If $x \sim N_p(\mu, V)$, then $$x^TV^{-1}x \sim \chi^2_p(\mu^TV^{-1}\mu /2)$$
+\end{thm}
+
+\begin{defn}
+Let $p_1, p_2 \in \N$, $\phi \geq 0$, $u_1 \sim \chi^2_{p_1}(\phi)$ and $u_2 \sim \chi^2_{p_2}$. Then $\frac{u_1/p_1}{u_2/p_2}$ is said to have a \textbf{$F$ distribution with noncentrality parameter $\phi$ and $p_1, p_2$ degrees of freedom}, denoted $\frac{u_1/p_1}{u_2/p_2} \sim F_{p_1, p_2}(\phi)$. 
+\end{defn}
+
+\begin{defn}
+Let $\mu \in \R$, $k \in \N$, $u \sim N_1(\mu, 1)$ and $v \sim \chi^2_k$. Then $u/\sqrt{v/k}$ is said to have a \textbf{$t$ distribution with noncentrality parameter $\mu$ and $k$ degrees of freedom}, denoted $u/\sqrt{v/k} \sim t_k(\mu)$. 
+\end{defn}
+
+\subsection{Quadratic Forms}
+
+\begin{ex}
+Let $\mu \in \R^p$ and $A, V \in \MM_{p,p}$. Suppose that $A$ is symmetric, $V$ is nonsingular, $AV$ is idempotent and $rank(AV) = s$. Let $x \sim N_p(\mu, V)$. Then $x^TAx \sim \chi^2_p(\mu A \mu^T/2)$
+\end{ex}
+
+\begin{ex}
+
+\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}

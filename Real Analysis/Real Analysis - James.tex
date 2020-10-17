@@ -1492,8 +1492,12 @@ Let $(X, \MA)$ be a measurable space. For convencience we will define $L^0 = \{f
 \end{defn}
 
 \begin{defn}
-Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Then $f_n$ converges to $f$ \textbf{in measure} if for each $\ep > 0$, $\mu(\{x \in X: |f_n(x) - f(x)| \geq \ep \}) \rightarrow 0$. This is written $f_n \xrightarrow{\mu} f$.
+Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Then $f_n$ converges to $f$ \textbf{in measure}, denoted $f_n \xrightarrow{\mu} f$, if for each $\ep > 0$, $\mu(\{x \in X: |f_n(x) - f(x)| \geq \ep \}) \rightarrow 0$.
 \end{defn}
+
+\begin{note}
+It is useful to observe that $$\bigcup_{\ep >0}\limsup\limits_{n \rightarrow \infty} \{x \in X: |f_n(x) - f(x)| \geq \ep \} = \{x \in X: f_n(x) \not \rightarrow f(x) \}$$ and $$\bigcap_{\ep > 0} \liminf_{n \rightarrow \infty}\{x \in X: |f_n(x) - f(x)| < \ep \} = \{x \in X: f_n(x) \rightarrow f(x) \}$$ 
+\end{note}
 
 \begin{defn}
 Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Then $f_n$ converges to $f$ \textbf{almost uniformly} if for each $\ep >0$, there exists $N \in \MA$ such that $\mu(N) < \ep$ and $f_n \xrightarrow{\text{uni}} f$ on $N^c$. This is written $f_n \xrightarrow{\text{a.u.}} f$.
@@ -1503,9 +1507,20 @@ Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Then $f_n$ converges to $f$ 
 Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. If $f_n \xrightarrow{\mu} f$, then there exists a subsequence $(f_{n_k})_{k \in \N}$ of $(f_n)_{n \in \N}$ such that $f_{n_k} \xrightarrow{\text{a.e.}} f$.
 \end{thm}
 
-\begin{thm}{(Egoroff):}
+\begin{ex}\textbf{Egoroff's Theorem:}
 Suppose that $\mu(X) < \infty$. Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that $f_n \xrightarrow{\text{a.e.}}$. Then $f_n \xrightarrow{\text{a.u.}}f$.
-\end{thm}
+\end{ex}
+
+\begin{proof}
+Let $\ep >0$. For each $n, k \in \N$, define $E_{n, k} = \{x \in X: \vert f_n(x) - f(x) \vert \geq \frac{1}{k} \}$ and $F_{n,k} = \bigcup\limits_{m \geq n}E_{m,k}$. Then $F_{n,k}$ is decreasing in $n$ and $\bigcap\limits_{n \in \N}F_{n,k} \subset \{x: f_n(x) \not \rightarrow f(x)\}$. Thus $\mu(\bigcap\limits_{n \in \N}F_{n,k}) = 0$. Since $\mu(X) < \infty$, $\inf\limits_{n \in \N}\mu(F_{n,k}) = 0$. Hence we may choose a strictly increasing sequence $(n_k)_{k \in \N} \subset \N$ such that  $\mu(F_{n_k,k}) \leq \frac{\ep}{2^{k}}$. Put $N = \bigcup\limits_{k \in \N}F_{n_k,k}$. Then 
+\begin{align*}
+\mu(N) 
+&\leq \sum\limits_{k \in \N}\mu(F_{n_k,k}) \\
+& \leq \sum\limits_{k \in \N} \frac{\ep}{2^k}\\
+& = \ep
+\end{align*} 
+Let $\del > 0$. Choose $K \in \N$ such that $\frac{1}{K} < \del$. Then for each $m \geq n_K$ and $x \in N^c =\bigcap\limits_{k \in \N}\bigcap\limits_{m \geq n_k}E_{m,k}^c$, $|f_m(x)- f(x)| < \frac{1}{K} < \del$. So $f_n \convt{uni} f$ on $N^c$. 
+\end{proof}
 
 \begin{ex}
 Let $(f_n)_{n \in \N} \subset L^1$ and $f \in L^1$. If $f_n \xrightarrow{L^1}f$, then $f_n \conv{\mu} f$.
@@ -1629,6 +1644,28 @@ we have that $f_ng_n \conv{\mu} fg$.
 \end{enumerate}
 
 \end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N}, \subset L^0$ and $f \in L^0$. Suppose that $\mu(X) < \infty$. Then $f_n \conv{\mu}f_n$ iff for each subsequence $(f_{n_k})_{k \in \N}$, there exists a subsequence $(f_{n_{k_j}})_{j \in \N}$ such that $f_{n_{k_j}} \convt{a.e.} f$.
+\end{ex}
+
+\begin{proof}
+Suppose that $f_n \conv{\mu} f$. Let $(f_{n_k})_{k \in \N}$ be a subsequence. Then $f_{n_k} \conv{\mu} f$. By a previous theorem, there exists a subsequence $(f_{n_{k_j}})_{j \in \N}$ such that $f_{n_{k_j}} \convt{a.e.} f$. Conversely, suppose that for each subsequence $(f_{n_k})_{k \in \N}$, there exists a subsequence $(f_{n_{k_j}})_{j \in \N}$ such that $f_{n_{k_j}} \convt{a.e.} f$. Let $\ep >0$. For $n \in \N$, define $E_{n} = \{x \in X: |f_n(x) - f(x) | \geq \ep\}$ and define $E = \{x \in X: f_n(x) \not \rightarrow f(x)\}$. Let $(f_{n_k})_{k \in \N}$ be a subsequence. Choose a subsequence $(f_{n_{k_j}})_{j \in \N}$ such that $f_{n_{k_j}} \convt{a.e.} f$. Since $\bigg \{x \in X: \limsup\limits_{j \rightarrow \infty} \chi_{E_{n_{k_j}}}(x) = 1\bigg \} = \limsup\limits_{j \rightarrow \infty} E_{n_{k_j}} \subset E$ and $\mu(E) = 0$, we have that $\limsup\limits_{j \rightarrow \infty} \chi_{E_{n_{k_j}}} = 0$ a.e. and $\chi_{E_{n_{k_j}}} \convt{a.e} 0$. Since $\mu(X) < \infty$, the dominated convergence theorem implies that 
+\begin{align*}
+\mu(E_{n_{k_j}}) 
+&= \int \chi_{E_{n_{k_j}}} d \mu  \rightarrow 0
+\end{align*} 
+So for each subsequence $(\mu(E_{n_k}))_{k \in \N}$, there exists a subsequence $(\mu(E_{n_{k_j}}))_{j \in \N}$ such that $\mu(E_{n_{k_j}}) \rightarrow 0$. Thus $\mu(E_n) \rightarrow 0$ and $f_n \conv{\mu} f$.
+\end{proof}
+
+\begin{ex}
+Let $(f_n)_{n \in \N}, \subset L^0$, $f \in L^0$ and $\phi: \C \rightarrow \C$. Suppose that $\mu(X) < \infty$. If $\phi$ is continuous and $f_n \conv{\mu} f$, then $\phi \circ f_n \conv{\mu} \phi \circ f$.
+\end{ex}
+
+\begin{proof}
+Suppose that $\phi$ is continuous and $f_n \conv{\mu} f$. Let $(\phi \circ f_{n_k})_{k \in \N}$ be a subsequence of $(\phi \circ f_{n})_{n \in \N}$. Then $(f_{n_k})_{k \in \N}$ is a subsequence of $(f_{n})_{n \in \N}$. Since $f_n \conv{\mu} f$, the previous exercise tells us that there exists a subsequence $(f_{n_{k_j}})_{j \in \N}$ such that $f_{n_{k_j}} \convt{a.e.} f$. A previous exercise implies that $\phi \circ f_{n_{k_j}}\convt{a.e.} \phi \circ f$. The previous exercise implies that $\phi \circ f_{n}\conv{\mu} \phi \circ f$.
+\end{proof}
+
 
 \begin{ex}
 Let $(f_n)_{n \in \N} L^0$ and $f \in L^0$. Suppose that for each $\ep >0$, $$\sum_{n \in \N}\mu(\{x \in X: |f_n(x)-f(x)| > \ep\}) < \infty$$

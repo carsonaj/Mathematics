@@ -50,6 +50,8 @@
 \newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
  
  
  
@@ -69,7 +71,7 @@
 \tableofcontents
 
 \begin{note}
-In these notes we will mostly consider random variables $X$ that model returns. As such we may assume that $X \in L^1(\P)$ and $F_X:\R \rightarrow (0,1)$ is bijective and continuous. We will call such random variables "nice". The random variable $X$ will usually refer to the return on some portfolio. As such, we will define the loss of $X$ to be $L_X = -X$.
+In these notes we will mostly consider a probability space $(\Om, \MF, P)$ and a random variable $X: \Om \rightarrow \R$. We assume that $X \in L^1(P)$ and $F_X:\R \rightarrow (0,1)$ is strictly increasing and continuous. We will call such a random variable "nice". The random variable $X$ will usually refer to the return on some portfolio. As such, we will define the loss of $X$ to be $L_X = -X$.
 \end{note}
 
 \section{Risk Measures}
@@ -84,7 +86,7 @@ VaR_{\al}(X)
 &= F^{-1}_{-X}(\al)\\
 &= F^{-1}_{L_X}(\al)
 \end{align*}
-Thus $$\P(L_X > VaR_{\al}(X)) = 1- \al$$
+Thus $$P(L_X > VaR_{\al}(X)) = 1- \al$$
 \end{defn}
 
 \begin{note}
@@ -107,7 +109,7 @@ If $X$ represents the return on a portfolio, then $AVaR_{\al}(X)$ is just the av
 Let $X$ be a nice random variable and $\al\in (0,1)$. Then 
 \begin{align*}
 AVaR_{\al}(X) 
-&= \E[L_X|L_X \geq Var_{\al}(X)]
+&= E[L_X|L_X \geq Var_{\al}(X)]
 \end{align*}
 \end{ex}
 
@@ -127,9 +129,9 @@ Also recall that for an increasing continuous, bijective $F:\R \rightarrow (0,1)
 
 Then  
 \begin{align*}
-\E[L_X |L_X \geq VaR_{\al}(X)]
-&= \E[L_X|L_X \geq F^{-1}_{L_X}(\al)] \\ 
-&= \frac{1}{1-\al}\E [L_X \mathbf{1}_{\{L_X \geq F^{-1}_{L_X}(\al)\}}] \\ 
+E[L_X |L_X \geq VaR_{\al}(X)]
+&= E[L_X|L_X \geq F^{-1}_{L_X}(\al)] \\ 
+&= \frac{1}{1-\al}E [L_X \mathbf{1}_{\{L_X \geq F^{-1}_{L_X}(\al)\}}] \\ 
 &=  \frac{1}{1-\al} \int_{\{L_X \geq F_{L_X}^{-1}(\al)\}}L_X dP \\
 & = \frac{1}{1-\al} \int_{[F_{L_X}^{-1}(\al),  \infty)}xd F_{L_X}(x)
 \end{align*}
@@ -144,16 +146,16 @@ Using the facts recalled earilier, we have
 \end{proof}
 
 \begin{lem}
-Let $\al \in (0,1)$. Define $f_{\al}: \R \rightarrow \R$ by $$f_\al(\theta) = \theta + \frac{1}{1-\al}\E[(L_X - \theta)^+]$$
-Then $f_\al$ is convex and $$\frac{df_\al}{d \theta}(\theta) = \frac{F_{L_X} - \al}{1-\al}$$
+Let $\al \in (0,1)$. Define $f_{\al}: \R \rightarrow \R$ by $$f_\al(\theta) = \theta + \frac{1}{1-\al}E[(L_X - \theta)^+]$$
+Then $f_\al$ is convex and $$\frac{df_\al}{d \theta}(\theta) = \frac{F_{L_X}(\theta) - \al}{1-\al}$$
 \end{lem}
 
 \begin{proof} 
-Recall that given $g:\Om \times \R \rightarrow \R$, if for each $\om \in \Om$, $g(\om, \theta)$ is convex in $\theta$, then $\E[g(\cdot, \theta)]$ is convex in theta. For $\om \in \Om, \theta \in \R$, put $$g(\om, \theta) = (L_X(\om) - \theta)^+$$ So $$f_{\al}(\theta) = \theta + \frac{1}{1-\al}\E[g(\theta)]$$ Then for each $\om \in \Om$, $g(\om, \cdot)$ is convex. This implies that for each $\al\in (0,1)$, $f_{\al}$ is convex and therefore continuous. \vspace{3mm}\\ 
+Recall that given $g:\Om \times \R \rightarrow \R$, if for each $\om \in \Om$, $g(\om, \theta)$ is convex in $\theta$, then $E[g(\cdot, \theta)]$ is convex in theta. For $\om \in \Om, \theta \in \R$, put $$g(\om, \theta) = (L_X(\om) - \theta)^+$$ So $$f_{\al}(\theta) = \theta + \frac{1}{1-\al}E[g(\cdot, \theta)]$$ Then for each $\om \in \Om$, $g(\om, \cdot)$ is convex. This implies that for each $\al\in (0,1)$, $f_{\al}$ is convex and therefore continuous. \vspace{3mm}\\ 
 Now Let $\theta, \theta' \in \R$. Suppose that $\theta<\theta'$. Then 
 \begin{align*}
 \frac{f_\al(\theta') - f_\al(\theta)}{\theta' - \theta} 
-&= 1 + \frac{1}{1-\al}\E\bigg[\frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta}\bigg] \\
+&= 1 + \frac{1}{1-\al}E\bigg[\frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta}\bigg] \\
 \end{align*}
 For $\om \in \Om$, we have that 
 $$\frac{(L_X(\om) - \theta')^+ - (L_X(\om) - \theta)^+}{\theta'-\theta}= 
@@ -165,22 +167,22 @@ $$\frac{(L_X(\om) - \theta')^+ - (L_X(\om) - \theta)^+}{\theta'-\theta}=
 This implies that 
 \begin{align*}
 -(F_{L_X}(\theta') - F_{L_X}(\theta))
-&= -\P(\theta < L_X < \theta') \\
-&\leq \E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \mathbf{1}_{L_X \in (\theta, \theta')}\bigg] \\
+&= -P(\theta < L_X < \theta') \\
+&\leq E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \mathbf{1}_{L_X \in (\theta, \theta')}\bigg] \\
 &< 0
 \end{align*} 
-Thus there exists $c \in (0, 1)$ such that $$\E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \mathbf{1}_{L_X \in (\theta, \theta')}\bigg] = -c(F_{L_X}(\theta') - F_{L_X}(\theta))$$\vspace{3mm}\\
-In addition, $\P(\theta' \leq L_X(\om)) = 1-F_{L_X}(\theta')$.
+Thus there exists $c \in (0, 1)$ such that $$E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \mathbf{1}_{L_X \in (\theta, \theta')}\bigg] = -c(F_{L_X}(\theta') - F_{L_X}(\theta))$$\vspace{3mm}\\
+In addition, $P(\theta' \leq L_X) = 1-F_{L_X}(\theta')$.
 Therefore 
 \begin{align*}
-\E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \bigg]
-&= -(1-F_{L_X}(\theta')) -c(F_{L_X}(\theta') - F_{L_X}(\theta))
+E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \bigg]
+&= -(1-F_{L_X}(\theta')) -c[F_{L_X}(\theta') - F_{L_X}(\theta)]
 \end{align*}\\
-This implies that $$\lim_{\theta' \rightarrow \theta^+}\E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \bigg] = F_{L_X}(\theta) -1$$\\
+This implies that $$\lim_{\theta' \rightarrow \theta^+}E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \bigg] = F_{L_X}(\theta) -1$$\\
 Finally we have that 
 \begin{align*}
 \lim_{\theta' \rightarrow \theta^+} \frac{f_\al(\theta') - f_\al(\theta)}{\theta' - \theta} 
-&= 1 + \frac{1}{1-\al}\lim_{\theta' \rightarrow \theta^+}\E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \bigg] \\
+&= 1 + \frac{1}{1-\al}\lim_{\theta' \rightarrow \theta^+}E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \bigg] \\
 &= 1 + \frac{F_{L_X}(\theta) -1}{1-\al}\\
 &= \frac{F_{L_X}(\theta) -\al}{1-\al}
 \end{align*}
@@ -189,24 +191,24 @@ The case is similar for the lefthand limit.
 \end{proof}
 
 \begin{thm}
-Let $X$ be a nice random variable and $\al\in (0,1)$. Then $$AVaR_{\al}(X) = \min_{\theta \in \R} \bigg(\theta + \frac{1}{1-\al}\E[(L_X - \theta)^+]\bigg)$$
+Let $X$ be a nice random variable and $\al\in (0,1)$. Then $$VaR_{\al}(X) = \argmin_{\theta \in \R} \bigg(\theta + \frac{1}{1-\al}E[(L_X - \theta)^+]\bigg)$$ and $$AVaR_{\al}(X) = \min_{\theta \in \R} \bigg(\theta + \frac{1}{1-\al}E[(L_X - \theta)^+]\bigg)$$
 \end{thm}
 
 \begin{proof} 
-The previous lemma tells us that $$\frac{d f_{\al}}{d \theta}(\theta) = \frac{F_{L_X}(\theta) -\al}{1-\al} $$ For further details, see \cite{RockUr}. Thus $$\lim_{\theta \rightarrow \infty}\frac{d f_{\al}}{d \theta}(\theta) = 1$$ and $$\lim_{\theta \rightarrow -\infty} \frac{d f_{\al}}{d \theta}(\theta) = - \frac{\al}{1-\al} <0$$
-The convexity of $f_{\al}$ implies that there exists $\theta^* \in \R$ such that $f_{\al}(\theta^*) = \inf\limits_{\theta \in \R}f_{\al}(\theta)$
+Define $f_{\alpha}$ as before. The previous lemma tells us that $$\frac{d f_{\al}}{d \theta}(\theta) = \frac{F_{L_X}(\theta) -\al}{1-\al} $$ Thus $$\lim_{\theta \rightarrow \infty}\frac{d f_{\al}}{d \theta}(\theta) = 1$$ and $$\lim_{\theta \rightarrow -\infty} \frac{d f_{\al}}{d \theta}(\theta) = - \frac{\al}{1-\al} <0$$
+Thus $\lim\limits_{\theta \rightarrow \infty} f_{\alpha}(\theta) = \lim\limits_{\theta \rightarrow -\infty}f_{\al}(\theta) = \infty$. The convexity of $f_{\al}$ implies that there exists a unique $\theta^* \in \R$ such that $f_{\al}(\theta^*) = \inf\limits_{\theta \in \R}f_{\al}(\theta)$
 Thus $$\frac{d f_{\al}}{d \theta}(\theta^*) = 0$$
 which implies that $$F_{L_X}(\theta^*) = \al$$
 By definition, $\theta^* = VaR_{\al}(X)$. Finally, evaluating $f_{\al}$ at $\theta^*$ shows us that 
 
 \begin{align*}
 f_{\al}(\theta^*)  
-&=  \theta^* + \frac{1}{1- \al}\E[(L_X - \theta^*)^+]\\
-& = \theta^* + \frac{1}{\P(L_X>\theta^*)}\E[(L_X-\theta^*)\mathbf{1}_{\{L_X>\theta^*\}}] \\
-& = \theta^* + \frac{1}{\P(L_X>\theta^*)}\E[L_X\mathbf{1}_{\{L_X>\theta^*\}}] - \frac{1}{\P(L_X>\theta^*)}\E[\theta^*\mathbf{1}_{\{L_X>\theta^*\}}] \\
-& = \theta^* + \frac{1}{\P(L_X>\theta^*)}\E[L_X\mathbf{1}_{\{L_X>\theta^*\}}] - \theta^* \\
-&= \E[L_X|L_X> \theta^*] \\
-& = \E[L_X|L_X>VaR_{\al}(X)] \\
+&=  \theta^* + \frac{1}{1- \al}E[(L_X - \theta^*)^+]\\
+& = \theta^* + \frac{1}{P(L_X>\theta^*)}E[(L_X-\theta^*)\mathbf{1}_{\{L_X>\theta^*\}}] \\
+& = \theta^* + \frac{1}{P(L_X>\theta^*)}E[L_X\mathbf{1}_{\{L_X>\theta^*\}}] - \frac{1}{P(L_X>\theta^*)}E[\theta^*\mathbf{1}_{\{L_X>\theta^*\}}] \\
+& = \theta^* + \frac{1}{P(L_X>\theta^*)}E[L_X\mathbf{1}_{\{L_X>\theta^*\}}] - \theta^* \\
+&= E[L_X|L_X> \theta^*] \\
+& = E[L_X|L_X>VaR_{\al}(X)] \\
 & = AVaR_{\al}(X)
 \end{align*}
 
