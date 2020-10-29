@@ -80,14 +80,13 @@
 
 \subsection{Setup}
 \begin{defn}
-Let $\MS$, $\MA$ be finite sets, $(S_t)_{t=0}^{\infty}$ a sequence of $S$-valued random variables. For each $s \in \MS$, let $\MA_s \subset \MA$. For each $s \in \MS$ and $a \in \MA_s$, let $P^a_s: \MS \rightarrow [0,1]$ given by $P^a_s(s') \mapsto P^{a}_{s,s'}$ define a probabilty measure on $\MS$, that is: $$\sum_{s' \in \MS} P^{a}_{s,s'} = 1$$ Suppose that $(S_t)_{t=0}^{\infty}$ satisfies the following markov property: For each $t \in \N_0$, $s', s, s_{t-1}, \cdots, s_0 \in \MS$ and $a \in \MA_s$,
+Let $\MS$, $\MA$ be finite sets, $(S_t)_{t=0}^{\infty}$ a sequence of $S$-valued random variables and $(A_t)_{t=0}^{\infty}$ a sequence of $\MA$-valued random variables. For each $s \in \MS$, let $\MA_s \subset \MA$. For each $s \in \MS$ and $a \in \MA_s$, let $P^a_s: \MS \rightarrow [0,1]$ given by $P^a_s(s') \mapsto P^{a}_{s,s'}$ define a probabilty measure on $\MS$, that is: $$\sum_{s' \in \MS} P^{a}_{s,s'} = 1$$ Suppose that $(S_t)_{t=0}^{\infty}$ satisfies the following markov property: For each $t \in \N_0$, $s', s, s_{t-1}, \cdots, s_0 \in \MS$ and $a \in \MA_{s}, a_{t-1} \in \MA_{s_{t-1}}, \cdots, a_0 \in \MA_{s_0}$,
 \begin{align*}
 \P(S_{t+1} 
-&= s'| S_t =s, S_{t-1} = s_{t-1}, \cdots, S_0=s_0) \\
-&= \P(S_{t+1} = s'| S_t =s) \\
+&= s'| S_t =s, A_t = a, S_{t-1} = s_{t-1}, A_{t-1}=a_{t-1}, \cdots, S_0=s_0, A_0 = a_0) \\
+&= \P(S_{t+1} = s'| S_t =s, A_t = a) \\
 &= P^a_{s, s'}
 \end{align*}
-
 For each $t \in \N_0$, let $v_t: \MS \times \MA \times \MS  \rightarrow \R$ and $\pi_t:\MS \rightarrow \MA$ where for each $s \in \MS$, $\pi_t(s) \in \MA_s$. Define $\pi = (\pi_t)_{t=0}^{\infty}$. Then the tuple $(\MS, \MA, P, v, \pi)$ is said to be a \textbf{Markov decision process} or MDP with states $\MS$, actions $\MA$, transition probabilites $P^a_{s,s'}$, values $(v_t)_{t=0}^{\infty}$ and policy $\pi$.
 \end{defn}
 
@@ -193,7 +192,6 @@ The cost to
 \item  hold one unit of product after demand is 2.
 \item  hold one unit of backlogged product is 3
 \end{enumerate}
-
 Suppose that the terminal cost for each possible amount of inventory is $0$. Find the minimal expected total cost given that we start with no inventory and a minimal policy for ordering inventory.
 \end{exm}
 
@@ -229,11 +227,12 @@ We have $\MS= \{-2, -2, 0, 1, 2\}$, $\MA_s = \{0, 1, \cdots,  2-s\}$, $v_t(s, a,
 \begin{align*}
 &P^4_{-2,-2} = 0, P^4_{-2,-1} = .3, P^4_{-2,0} = .6, P^4_{-2,1} = .1, P^4_{-2,2} = 0 
 \end{align*}
-
 Since our initial inventory is $0$, we wish to find the minimal policy $\pi^*$ and $V^{\pi^*}_0(0)$. Now, using the bellman optimality equation, we know that the maximal policy $$\pi^*_2(s) = \argmin_{a \in \MA_s} \sum_{s' \in \MS} P^a_{s,s'} \bigg[ a + 2\max(0, s')+3\max(0,-s')\bigg]$$ and $$ V^{\pi^*}_{2}(s) = \min_{a \in \MA_s} \sum_{s' \in \MS} P^a_{s,s'} \bigg[ a + 2\max(0, s')+3\max(0,-s')\bigg]$$
 \begin{align*}
 j
 \end{align*}
+
+For $s = -2$, 
 \end{sol}
 
 \end{document}
