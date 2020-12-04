@@ -1,3 +1,8 @@
+
+
+
+
+
 \documentclass[12pt]{amsart}
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
@@ -248,9 +253,7 @@ For a position wave function $\Psi$,
 &= (-i\hbar)\bigg[ x_j \p{x_j}\Psi(x,t)- \Psi(x,t) - x_j \p{x_j}\Psi(x,t)\bigg]\\
 &=i\hbar \Psi(x,t)
 \end{align*}
-
-Hence $[X_j, P_j] = i\hbar$\vspace{.5cm}
-
+Hence $[X_j, P_j] = i\hbar$\vspace{.5cm}\\
 For $i\neq j$, 
 \begin{align*}
 X_iP_j \Psi(x,t)
@@ -335,7 +338,7 @@ and $$F^{-1}\bigg[\p{p_j} \Phi \bigg] = -\frac{i x_j}{\hbar}F[\Psi]$$
 \end{note}
 
 \begin{note}
-Let $Q(X,P)$ be a self-adjoint operator. Then the properties of the Fourier transform inmply that:
+Let $Q(X,P)$ be a self-adjoint operator. Then the properties of the Fourier transform imply that:
 \[
 Q(X,P)=
 \begin{cases}
@@ -400,7 +403,7 @@ If the energy eigenvalues $(E_n)_{n \in \N}$ have degeneracies of degrees $(k_n)
 \end{note}
 
 \begin{defn}
-If the spectrum of the Hamiltonian is discreet, the stationary state with the least energy is called the \textbf{ground state}. The stationary states that are not the ground state are called \textbf{excited states}.
+If the set of eigenvalues (spectrum) of the Hamiltonian is discreet, the stationary state with the least energy is called the \textbf{ground state}. The stationary states that are not the ground state are called \textbf{excited states}.
 \end{defn}
 
 \section{Fundamental Examples in One Dimension}
@@ -638,54 +641,17 @@ If particle one is in state $\psi_0$ at time $t=0$, then the momentum wave funct
 By assumption $$\Psi(x,t) = \psi_0(x)e^{-i \frac{\om}{2}t}$$ Thus $$\Phi(p,t) = \frac{1}{\sqrt{2 \pi \hbar}}\int_{\R}\Psi(x,t)e^{-i\frac{px}{h}}dx$$
 The rest is straightforward.
 \end{proof}
+\newpage
 
-\section{Fundamental Examples in Three Dimensions}
+\section{Spherical Coordinates and Angular Momentum}
+\begin{note}
+In the rest of the notes we will be working in three dimensions. In this section, we develop a method to solve the time independent \sch equation when the potential energy us spherically symmetric. We also develop a theory of orbital and spin angular momentum. 
+\end{note}
 
-\subsection{Spherical Harmonic Oscillator (Cartesian Coordinates)}
 
+\subsection{The Time Independent \sch Equation in Spherical Coordinates}
 \begin{defn}
-The spherical harmonic oscillator (in cartesian coordinates) is defined by the potential energy
-$$V(x,y,z) = x^2 + y^2 + z^2$$
-\end{defn}
-
-\begin{ex}
-In cartesian coordinates, the the stationary states of the harmonic oscillator are given by $$\psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energies $$E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$ where $\psi_{n_x}, \psi_{n_y}, \psi_{n_z}$ are stationary states for the one dimensional harmonic oscillator.
-\end{ex}
-
-\begin{proof}
-We look for solutions of the form $\psi(x,y,z) = \psi_x(x) \psi_y(y) \psi_z(z)$. Plugging this into the time-independent \sch equation, we get $$-\frac{\hbar^2}{2m}\bigg[ \pdv[2]{\psi_x}{x}\psi_y \psi_z + \psi_x \pdv[2]{\psi_y}{y} \psi_z  + \psi_x \psi_y \pdv[2]{\psi_z}{z} \bigg] + \frac{1}{2}m \omega^2(x^2 + y^2 + x^2) \psi = E\psi$$ Dividing both sides by $\psi$ and rearranging, we obtain $$\bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x}\frac{1}{\psi_x} + \frac{1}{2}m \om^2x^2\bigg) + \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y}\frac{1}{\psi_y} + \frac{1}{2}m \om^2y^2\bigg)+ \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z}\frac{1}{\psi_z} + \frac{1}{2}m \om^2z^2\bigg) = E $$ 
-Thus each part is constant and we may write 
-\begin{align*}
--\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x} + \frac{1}{2}m \om^2x^2\psi_x = E_x\psi_x \\ 
--\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y} + \frac{1}{2}m \om^2y^2\psi_y = E_y\psi_y \\
--\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z} + \frac{1}{2}m \om^2z^2\psi_z = E_z\psi_z
-\end{align*}
-
-So we have three one-dimensional harmonic oscillators and we have 
-\begin{align*}
-\psi_x = \psi_{n_x} = \frac{1}{\sqrt{{n_x}!}}(a_+)^{n_x} \psi_0 \text{ and } E_x = E_{n_x} = \hbar \om \bigg( n_x +\frac{1}{2}\bigg)\\
-\psi_y = \psi_{n_y} = \frac{1}{\sqrt{{n_y}!}}(a_+)^{n_y} \psi_0 \text{ and } E_y = E_{n_y} = \hbar \om \bigg( n_y +\frac{1}{2}\bigg)\\
-\psi_z = \psi_{n_z} = \frac{1}{\sqrt{{n_z}!}}(a_+)^{n_z} \psi_0 \text{ and } E_z = E_{n_z} = \hbar \om \bigg( n_z +\frac{1}{2}\bigg)
-\end{align*}
-Thus $$\psi = \psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energy $$E = E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$
-\end{proof}
-
-\begin{ex}
-Show that the degree of degeneracy of $E_n$ is $$deg(E_n) = {n+2 \choose 2}$$
-\end{ex}
-
-\begin{proof}
-Stars and bars
-\end{proof}
-
-\begin{intp}
-The energies of the three-dimensional harmonic oscillator are given by $E_n = \hbar \om \bigg( n + \frac{3}{2}\bigg)$ which correspond to $ n+2 \choose 2$ stationary states.
-\end{intp}
-
-
-\subsection{Spherical Coordinates}
-\begin{defn}
-We now set $n=3$, and work with spherical coordinates $(r, \theta, \phi)$ where $r$ is the distance in from the origin, $0 \leq \theta \leq \pi$ is the angle with initial side on the positive $z$-axis, and $0 \leq \phi < 2\pi$ is the angle in the $x$-$y$ plane with initial side on the positive $x$-axis going towards the positive $y$-axis.
+We will now work with spherical coordinates $(r, \theta, \phi)$ where $r$ is the distance in from the origin, $0 \leq \theta \leq \pi$ is the angle with initial side on the positive $z$-axis, and $0 \leq \phi < 2\pi$ is the angle in the $x$-$y$ plane with initial side on the positive $x$-axis going towards the positive $y$-axis.
 \end{defn}
 
 \begin{prop}
@@ -713,7 +679,7 @@ $$\frac{1}{\Theta}  \sin \theta \frac{d}{d\theta}\bigg( \sin \theta \frac{d\Thet
 \vspace{3mm}
 \Item $$\frac{1}{\Phi} \frac{d^2 \Phi}{d\phi^2} = -m^2$$
 \end{enumerate} \vspace{3mm}
-Equation $(2)$ has the solution $$\Phi(\phi) = e^{im\phi}$$
+This equation is called the \textbf{azimuthal equation} and has the solution $$\Phi(\phi) = e^{im\phi}$$
 Since $(r,\theta, \phi)$ is the same point in space as $(r, \theta, \phi+2 \pi)$, we require that $\Phi(\phi) = \Phi(\phi+2\pi)$. This implies that $m \in \Z$. The integer $m$ is called the \textbf{magnetic quantum number}. \vspace{3mm}\\ 
 If $l \in \N_0$ and $m \leq l$, then equation $(1)$ has the solution $$\Theta(\theta) = AP_l^m(\cos \theta)$$ where $P_l^m$ is the \textbf{associated Legendre} function given by $$P_l^m(x) = (1-x^2)^{\frac{\vert m \vert}{2}}\bigg(\frac{d}{dx} \bigg)^{\vert m \vert} P_l(x)$$ and $P_l(x)$ is the $l^{\text{th}}$ \textbf{Legendre polynomial} defined by $$P_l(x) = \frac{1}{2^l l!} \bigg(\frac{d}{dx} \bigg)^{l}(x^2 -1)^l$$ \vspace{3mm} The angular function $Y^m_l(\theta, \phi) = A_l^m P_l^m(\cos \theta)e^{im\phi}$ may be normalized by setting $$A_l^m = \ep \sqrt{\frac{(2l+1)}{4\pi} \frac{(l-\vert m \vert)!}{(l+ \vert m \vert)!}}$$ where $$\ep = 
 \begin{cases}
@@ -729,121 +695,7 @@ Compute some spherical harmonics.
 \begin{defn}
 If we make the substitution $u(r) = rR(r)$, we may rewrite the radial equation as $$-\frac{\hbar^2}{2m}\frac{d^2u}{dr^2} + \bigg[V+ \frac{\hbar^2}{2m}\frac{l(l+1)}{r^2} \bigg]u = Eu$$ which looks like the one dimensional \sch equation. The function $$V+ \frac{\hbar^2}{2m}\frac{l(l+1)}{r^2}$$ is called the \textbf{effective potential}.
 \end{defn}
-
-\subsection{The Infinite Spherical Box}
-
-\subsection{The Hydrogen Atom}
-
-
-\subsection{Spherical Harmonic Oscillator (Spherical Coordinates)}
-\begin{defn}
-The spherical harmonic oscillator (in spherical coordinates) is defined by the potential energy
-$$V(r) = r^2$$
-\end{defn}
-
-\begin{ex}
-Making the substitution $\kappa = \frac{\sqrt{2mE}}{\hbar}$, we can rewrite the radial equation for the harmonic oscillator as $$\frac{1}{\kap^2}\dv[2]{u}{r} = \bigg[ \frac{\hbar^2 \om^2 (\kap r)^2}{2^2E^2} + \frac{l(l+1)}{(\kap r)^2} - 1\bigg]u$$
-\end{ex}
-
-\begin{proof}
-Straightforward
-\end{proof}
-
-\begin{ex}
-Making the substitution $\rho = \kap r$ and $\rho_0 = \frac{\hbar \om}{2 E}$, we can rewrite the radial equation as $$\frac{1}{\kap^2}\dv[2]{u}{r} = \bigg[ \rho_0^2 \rho^2 + \frac{l(l+1)}{\rho^2} - 1\bigg]u$$
-\end{ex}
-
-\begin{proof}
-Straightforward.
-\end{proof}
-
-\begin{ex}
-We have $$\dv[2]{u}{\rho} = \frac{1}{\kap^2}\dv[2]{u}{r}$$ and thus we may rewrite the radial equation as $$\dv[2]{u}{\rho} = \bigg[ \rho_0^2 \rho^2 + \frac{l(l+1)}{\rho^2} - 1\bigg]u$$
-\end{ex}
-
-\begin{proof}
-Straightforward by chain-rule.
-\end{proof}
-
-\begin{ex}
-As $ \rho \rightarrow \infty$, $u \approx e^{-\frac{\rho_0}{2}\rho^2}$
-\end{ex}
-
-\begin{proof}
-As $\rho \rightarrow \infty$, $$\dv[2]{u}{\rho} \approx \rho_0^2 \rho^2u$$ Trying the function $u(\rho) = e^{-\frac{\rho_0}{2}\rho^2}$, we see that
-\begin{align*}
-\dv[2]{u}{\rho} 
-&= (\rho_0^2 \rho^2 - \rho_0)e^{-\frac{\rho_0}{2}\rho^2}\\
-& \approx \rho_0^2 \rho^2 e^{-\frac{\rho_0}{2}\rho^2} \hspace{.5cm} \text{(as }  \rho  \rightarrow \infty \text{)}\\
-&=  \rho_0^2 \rho^2 u
-\end{align*}
-\end{proof}
-
-\begin{ex}
-As $\rho \rightarrow 0$, $u \approx \rho^{l+1}$
-\end{ex}
-
-\begin{proof}
-As $\rho \rightarrow 0$, $$\dv[2]{u}{\rho} \approx \frac{l(l+1)}{\rho^2}u$$
-Trying the function $u(\rho) = \rho^{l+1}$, we see that 
-\begin{align*}
-\dv[2]{u}{\rho} 
-&= l(l+1)\rho^{l-1}\\
-&= \frac{l(l+1)}{\rho^2}u
-\end{align*}
-\end{proof}
-
-\begin{note}
-We can now, ``glue" these functions together with a third unknown function $v(\rho)$ to obtain the prototype solution $$u(\rho) = \rho^{l+1}e^{-\frac{\rho_0}{2}\rho^2}v(\rho)$$
-\end{note}
-
-\begin{ex}
-Suppose that for some nice function $v(\rho)$, $$u(\rho) = \rho^{l+1}e^{-\frac{\rho_0}{2}\rho^2}v(\rho)$$ Then computing $\dv[2]{u}{\rho}$ and plugging into the radial equation and simplifying, we obtain the relation $$\rho \dv[2]{v}{\rho} +2(l+1 - \rho_0\rho^2)\dv{v}{\rho} + \rho(1-\rho_0(2l+3))v = 0$$
-\end{ex}
-
-\begin{proof}
-Very tedious but straightforward.
-\end{proof}
-
-\begin{ex}
-If $v(\rho)$ can be represented by a power series $$v(\rho) = \sum_{j=0}^{\infty}c_j\rho^j$$ then plugging in $v(\rho)$ into the previous relation combining like terms and solving for the coefficients yields the relations $$c_1 = 0$$ and $$c_{j+2} = \bigg[ \frac{\rho_0(2j+2l+3)-1}{(j+2)(j+2l+3)}\bigg]c_j \hspace{5mm} j \geq 0$$ \vspace{3mm} \\This implies that for each odd $j$, $c_j = 0$. \vspace{3mm}
-\end{ex}
-
-\begin{proof}
-Tedious but straightforward.
-\end{proof}
-
-\begin{ex}
-If for each $j \geq 0$, $c_{2j} \neq 0$, then $v$ behaves asymptotically like $e^{\rho_0\rho^2}$. Thus $u(\rho)$ behaves asymptotically like $\rho^{l+1}e^{\frac{\rho_0}{2}\rho^2}$. This implies that $R(r)$ is not normalizable. Therefore there exists $j_{max} \geq 0$ such that $c_{2j_{max}+2} = 0$ and $v(\rho)$ is a polynomial of degree $2j_{max}$ and consists of only even powers of $\rho$. 
-\end{ex}
-
-\begin{proof}
-As $j \rightarrow \infty$, $c_{j+2} \approx \frac{2 \rho_0}{j}c_j$. Hence $v(\rho)$ behaves asymptotically like 
-\begin{align*}
-\sum_{j=0}^{\infty}\frac{2^j\rho_0^j}{\prod_{k=1}^j2k}\rho^{2j}
-&= \sum_{j=0}^{\infty}\frac{(\sqrt{\rho_0} \rho)^{2j}}{j!}\\
-&= e^{(\sqrt{\rho_0}\rho)^2}\\
-&= e^{\rho_0 \rho^2}
-\end{align*}
-\end{proof}
-
-\begin{ex}
-The energies allowed for this system are $$E_n = \hbar \om \bigg(n+\frac{3}{2} \bigg) \hspace{.5cm}n \in \N_0$$.
-\end{ex}
-
-\begin{proof}
-Using the recursion relation found earlier, we have that $$0 = \bigg[ \frac{\rho_0(2j_{max}+2l+3)-1}{(j_{max}+2)(j_{max}+2l+3)}\bigg]c_{j_{max}} $$ This implies that $$0 = \rho_0(2j_{max}+2l+3)-1$$ and so $$\frac{1}{\rho_0} = 2j_{max} + 2l +3$$ Using the fact that $\rho_0 = \frac{\hbar \om}{2E}$, we solve for $E$ to obtain $$E = \hbar \om \bigg( j_{max} + l + \frac{3}{2}\bigg)$$ Since $j_{max}$ and $l$ may be any non-negative integers, we introduce a non-negative integer $n = j_{max}+l$ and index the allowed energies as $$E_n = \hbar \om\bigg(n+ \frac{3}{2} \bigg) \hspace{.5cm} n \in \N_0$$
-\end{proof}
-
-
-
-
-
-
-
-
-
-
+\newpage
 
 \subsection{Orbital Angular Momentum}
 \begin{defn}
@@ -991,7 +843,7 @@ Therefore $$L^2 = L_+L_- + L_z^2 - \hbar L_z$$
 Suppose that $f$ is simultaneously an eigenfunction of $L^2$ with eigenvalue $\lam$ and an eigenfunction of $L_z$ with eigenvalue $\mu$. Then 
 \begin{enumerate}
 \item $L_+f$ is simultaneously an eigenfunction of $L^2$ with eigenvalue $\lam$ and an eigenfunction of $L_z$ with eigenvalue $\mu + \hbar$
-\item  $L_+f$ is simultaneously an eigenfunction of $L^2$ with eigenvalue $\lam$ and an eigenfunction of $L_z$ with eigenvalue $ \mu - \hbar$
+\item  $L_-f$ is simultaneously an eigenfunction of $L^2$ with eigenvalue $\lam$ and an eigenfunction of $L_z$ with eigenvalue $ \mu - \hbar$
 \end{enumerate}
 \end{ex}
 
@@ -1084,9 +936,305 @@ For $m = -l, -l+1, \cdots l-1, l$ define $f_l^m$ to be the simultaneous eigensta
 Straightforward (and kind of already did it in the last exercise). 
 \end{proof}
 
-\begin{prop}
+\begin{ex}
+For $l \in \N_0$ and $m \in \{-l, -l+1, \cdots, l\}$ we have that 
+\begin{enumerate}
+\item $L_{+} f_l^m = \hbar \sqrt{l(l+1)-m(m + 1)} f_l^{m+ 1}$
+\item $L_{-} f_l^m = \hbar \sqrt{l(l+1)-m(m - 1)} f_l^{m- 1}$
+\end{enumerate}
+\end{ex}
 
+\begin{proof}
+\begin{enumerate}
+\item By definition, there exists $c \in \C$ such that $L^+ f_l^m = c f_l^{m+1}$. Since $L_- = (L_+)^{\dagger}$ and $L_-L_+ = L^2 -L_z^2 -\hbar L_z$, we have that 
+\begin{align*}
+|c|^2 
+&= \l L^+ f_l^m | L^+ f_l^m \r \\
+&= \l f_l^m | L_- L^+ f_l^m \r \\
+&= \l f_l^m | (L^2 -L_z^2 -\hbar L_z) f_l^m \r \\
+&= [\hbar^2l(l+1) - \hbar^2 m^2 - \hbar^2m] \l f_l^m | f_l^m \r \\
+&= \hbar^2[l(l+1) - m(m + 1)] \\
+\end{align*}
+So $c = \hbar\sqrt{l(l+1) - m(m + 1)}$.
+\item Similar to (1).
+\end{enumerate}
+\end{proof}
+
+\begin{prop}
+In spherical coordinates, we may write $$L^2 = \hbar^2\bigg[ \frac{1}{\sin \theta }\p{\theta} \bigg( \sin \theta \p{\theta} \bigg) + \frac{1}{\sin^2 \theta} \pdv[2]{}{\phi}\bigg]$$ and $$L_z = -i\hbar \p{\phi}$$
 \end{prop}
+
+\begin{note}
+Using the relations given above we see that simultaneous eigenstates $f_l^m$ of $L^2$ and $L_z$ satisfy 
+\begin{align*}
+\hbar^2\bigg[ \frac{1}{\sin \theta }\p{\theta} \bigg( \sin \theta \p{\theta} \bigg) + \frac{1}{\sin^2 \theta} \pdv[2]{}{\phi}\bigg] f_l^m 
+&= L^2 f_l^m \\
+&= \hbar^2 l(l+1) f_l^m 
+\end{align*}
+and 
+\begin{align*}
+-i \hbar \p{\phi} f_l^m 
+&= L_z f_l^m \\
+&= \hbar m f_l^m 
+\end{align*}
+which implies that $$-\hbar^2 \pdv[2]{}{\phi}f_l^m  = \hbar^2 m^2 f_l^m $$
+If we recall from earlier, these are just the angular and azimuthal equations respectively. Thus the simultaneous eigenstates of $L^2$ and $L_z$ are $f_l^m = Y_l^m$. Therefore, if $R(r)$ solves the radial equation and is normalized, then the states $R(r)Y_l^m(\theta, \phi)$ are simultaneous eigenstates of $H, L^2$ and $L_z$.
+\end{note}
+\newpage
+
+\subsection{Spin Angular Momentum}
+
+
+\newpage
+
+\section{Fundamental Examples in Three Dimensions}
+\begin{note}
+In this section we will introduce discuss the 3D harmonic oscillator, the hydrogen atom.
+\end{note}
+
+\subsection{Spherical Harmonic Oscillator (Cartesian Coordinates)}
+
+\begin{defn}
+The spherical harmonic oscillator (in cartesian coordinates) is defined by the potential energy
+$$V(x,y,z) = x^2 + y^2 + z^2$$
+\end{defn}
+
+\begin{ex}
+In cartesian coordinates, the the stationary states of the harmonic oscillator are given by $$\psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energies $$E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$ where $\psi_{n_x}, \psi_{n_y}, \psi_{n_z}$ are stationary states for the one dimensional harmonic oscillator.
+\end{ex}
+
+\begin{proof}
+We look for solutions of the form $\psi(x,y,z) = \psi_x(x) \psi_y(y) \psi_z(z)$. Plugging this into the time-independent \sch equation, we get $$-\frac{\hbar^2}{2m}\bigg[ \pdv[2]{\psi_x}{x}\psi_y \psi_z + \psi_x \pdv[2]{\psi_y}{y} \psi_z  + \psi_x \psi_y \pdv[2]{\psi_z}{z} \bigg] + \frac{1}{2}m \omega^2(x^2 + y^2 + x^2) \psi = E\psi$$ Dividing both sides by $\psi$ and rearranging, we obtain $$\bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x}\frac{1}{\psi_x} + \frac{1}{2}m \om^2x^2\bigg) + \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y}\frac{1}{\psi_y} + \frac{1}{2}m \om^2y^2\bigg)+ \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z}\frac{1}{\psi_z} + \frac{1}{2}m \om^2z^2\bigg) = E $$ 
+Thus each part is constant and we may write 
+\begin{align*}
+-\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x} + \frac{1}{2}m \om^2x^2\psi_x = E_x\psi_x \\ 
+-\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y} + \frac{1}{2}m \om^2y^2\psi_y = E_y\psi_y \\
+-\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z} + \frac{1}{2}m \om^2z^2\psi_z = E_z\psi_z
+\end{align*}
+
+So we have three one-dimensional harmonic oscillators and we have 
+\begin{align*}
+\psi_x = \psi_{n_x} = \frac{1}{\sqrt{{n_x}!}}(a_+)^{n_x} \psi_0 \text{ and } E_x = E_{n_x} = \hbar \om \bigg( n_x +\frac{1}{2}\bigg)\\
+\psi_y = \psi_{n_y} = \frac{1}{\sqrt{{n_y}!}}(a_+)^{n_y} \psi_0 \text{ and } E_y = E_{n_y} = \hbar \om \bigg( n_y +\frac{1}{2}\bigg)\\
+\psi_z = \psi_{n_z} = \frac{1}{\sqrt{{n_z}!}}(a_+)^{n_z} \psi_0 \text{ and } E_z = E_{n_z} = \hbar \om \bigg( n_z +\frac{1}{2}\bigg)
+\end{align*}
+Thus $$\psi = \psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energy $$E = E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$
+\end{proof}
+
+\begin{ex}
+Show that the degree of degeneracy of $E_n$ is $$deg(E_n) = {n+2 \choose 2}$$
+\end{ex}
+
+\begin{proof}
+Stars and bars
+\end{proof}
+
+\begin{intp}
+The energies of the three-dimensional harmonic oscillator are given by $E_n = \hbar \om \bigg( n + \frac{3}{2}\bigg)$ which correspond to $ n+2 \choose 2$ stationary states.
+\end{intp}
+
+
+\subsection{The Hydrogen Atom}
+
+\begin{defn}
+We will consider a hydrogen atom consisting of one proton and one electron. We will fix the proton at the origin and investigate the electron. This model is defined by the potential energy of the electron given by $$V(r) = -\frac{e^2}{4\pi \ep_0}\frac{1}{r}$$
+\end{defn}
+
+\begin{note}
+We will walk through the solution to the radial equation. The goal will be to find the asymptotic behavior of $R(r)$ as $r \rightarrow 0$ and $r \rightarrow \infty$ and then glue this behavior together. This is a clever and useful technique that can be utilized in various situations. 
+\end{note}
+
+\begin{ex}
+Since $\sup\limits_{r \in \R} V(r) = 0$, we know that for the bound states of the electron, the energy must satisfy $E < 0$. Making the substitution $$\kappa = \frac{\sqrt{-2mE}}{\hbar}$$ we can rewrite the radial equation as $$\frac{1}{\kappa^2}\dv[2]{u}{r} = \bigg[1 - \frac{me^2}{2\pi\ep_0 \hbar^2 \kappa} \frac{1}{(\kappa r)} + \frac{l(l+1)}{(\kappa r)^2}\bigg]u$$ Then making the substitutions $$\rho = \kappa r \text{ and } \rho_0 = \frac{me^2}{2\pi\ep_0 \hbar^2 \kappa}$$, we can further simplify the radial equation as $$\dv[2]{u}{\rho} = \bigg[ 1 - \frac{\rho_0}{\rho} + \frac{l(l+1)}{\rho^2} \bigg]u$$
+\end{ex}
+
+\begin{proof}
+Straightforward using chain rule.
+\end{proof}
+
+\begin{ex}
+As $\rho \rightarrow \infty$, $u \approx e^{-\rho}$.
+\end{ex}
+
+\begin{proof}
+As $\rho \rightarrow \infty$, $$\dv[2]{u}{\rho} \approx u$$ Trying the function $u(\rho) = e^{-\rho}$, we see that 
+\begin{align*}
+\dv[2]{u}{\rho} 
+&= e^{-\rho} \\
+&= u
+\end{align*}
+\end{proof}
+
+\begin{ex}
+As $\rho \rightarrow 0$, $u \approx \rho^{l+1}$.
+\end{ex}
+
+\begin{proof}
+As $\rho \rightarrow 0$, $$\dv[2]{u}{\rho} \approx \frac{l(l+1)}{\rho^2}u$$ Trying the test function $u(\rho) = \rho^{l+1}$, we see that 
+\begin{align*}
+\dv[2]{u}{\rho}
+&= l(l+1)\rho^{l-1} \\
+&= \frac{l(l+1)}{\rho^2}u
+\end{align*}
+\end{proof}
+
+\begin{note}
+We can now, ``glue" these functions together with a third unknown function $v(\rho)$ to obtain the prototype solution $$u(\rho) = \rho^{l+1}e^{-\rho}v(\rho)$$
+\end{note}
+
+\begin{ex}
+Suppose that for some nice function $v(\rho)$, $$u(\rho) = \rho^{l+1}e^{-\rho}v(\rho)$$ Then computing $\dv[2]{u}{\rho}$ and plugging into the radial equation and simplifying, we obtain the  relation $$\rho \dv[2]{v}{\rho} +2(l+1 - \rho)\dv{v}{\rho} + [\rho_0 - 2(l+1)]v = 0$$
+\end{ex}
+
+\begin{proof}
+Very tedious but straightforward.
+\end{proof}
+
+\begin{ex}
+If $v(\rho)$ can be represented by a power series $$v(\rho) = \sum_{j=0}^{\infty}c_j\rho^j$$ then plugging in $v(\rho)$ into the previous relation combining like terms and solving for the coefficients yields the relation $$c_{j+1} = \bigg[ \frac{2(j+l+1) - \rho_0}{(j+1)(j+2l+2)}\bigg]c_j \hspace{5mm} j \geq 0$$ \vspace{3mm} 
+\end{ex}
+
+\begin{proof}
+Tedious but straightforward.
+\end{proof}
+
+\begin{ex}
+If for each $j \geq 0$, $c_{j} \neq 0$, then $v$ behaves asymptotically like $e^{\rho}$. Thus $u(\rho)$ behaves asymptotically like $\rho^{l+1}e^{\rho}$. This implies that $R(r)$ is not normalizable. Therefore there exists $j_{max} \geq 0$ such that $c_{j_{max}+1} = 0$ and $v(\rho)$ is a polynomial of degree $j_{max}$.
+\end{ex}
+
+\begin{proof}
+Suppose that for each $j \geq 0$, $c_{j} \neq 0$. Then as $j \rightarrow \infty$, $$c_{j+1} \approx \frac{2}{j+1}c_j$$ Thus asymptotically, 
+\begin{align*}
+v(\rho) 
+& \approx c_0\sum_{j=0}^\infty \frac{(2\rho)^j}{j!} \\ 
+&= c_0e^{2\rho}
+\end{align*} 
+This implies that asymptotically, 
+\begin{align*}
+u(\rho)
+&\approx \rho^{l+1}e^{-\rho}e^{2\rho} \\
+&= \rho^{l+1}e^{\rho}
+\end{align*} Therefore asymptotically, $$R(r) = \frac{1}{r}(r\kappa)^{l=1}e^{r\kappa}$$ which blows up as $r \rightarrow \infty$.
+\end{proof}
+
+\begin{ex}
+The allowed energies of the electron are given by $$E_n = - \bigg[\frac{m}{2\hbar^2}\bigg(\frac{e^2}{4 \pi \ep_0}\bigg)^2 \bigg] \frac{1}{n^2} = \frac{E_1}{n^2}, \hspace{.5cm} n \in \N$$
+\end{ex}
+
+\begin{proof}
+Starting with the relation $$0 = \bigg[ \frac{2(j_{max}+l+1) - \rho_0}{(j_{max}+1)(j_{max}+2l+2)}\bigg]c_{j_{max}}$$ we can see that  $$\rho_0 = 2(j_{max} + l + 1)$$ Since $j_{max}$ and $l$ may be any nonnegative integers, we introduce a postitive integer $n = j_{max} + l + 1$. If we know $n$ and $l$, then we know $j_{max}$ and $l$ and vice versa, so it is the same information, but it will help us more neatly index the energies. So we put $\rho_0 = 2n$ and using the fact that $$\kappa^2 = -\frac{2mE}{\hbar^2}\text{ and } \rho_0 = \frac{me^2}{2\pi\ep_0 \hbar^2 \kappa}$$ we solve for $E$ to get that
+\begin{align*}
+E_n 
+&= -\frac{me^4}{8\pi^2 \ep_0^2 \hbar^2 \rho_0^2}\\
+&= -\bigg[\frac{m}{2\hbar^2}\bigg(\frac{e^2}{4 \pi \ep_0}\bigg)^2 \bigg] \frac{1}{n^2}
+\end{align*} 
+\end{proof}
+
+\subsection{Spherical Harmonic Oscillator (Spherical Coordinates)}
+\begin{defn}
+The spherical harmonic oscillator (in spherical coordinates) is defined by the potential energy
+$$V(r) = r^2$$
+\end{defn}
+
+\begin{ex}
+Making the substitution $\kappa = \frac{\sqrt{2mE}}{\hbar}$, we can rewrite the radial equation for the harmonic oscillator as $$\frac{1}{\kap^2}\dv[2]{u}{r} = \bigg[ \frac{\hbar^2 \om^2 (\kap r)^2}{2^2E^2} + \frac{l(l+1)}{(\kap r)^2} - 1\bigg]u$$
+\end{ex}
+
+\begin{proof}
+Straightforward
+\end{proof}
+
+\begin{ex}
+Making the substitution $\rho = \kap r$ and $\rho_0 = \frac{\hbar \om}{2 E}$, we can rewrite the radial equation as $$\frac{1}{\kap^2}\dv[2]{u}{r} = \bigg[ \rho_0^2 \rho^2 + \frac{l(l+1)}{\rho^2} - 1\bigg]u$$
+\end{ex}
+
+\begin{proof}
+Straightforward.
+\end{proof}
+
+\begin{ex}
+We have $$\dv[2]{u}{\rho} = \frac{1}{\kap^2}\dv[2]{u}{r}$$ and thus we may rewrite the radial equation as $$\dv[2]{u}{\rho} = \bigg[ \rho_0^2 \rho^2 + \frac{l(l+1)}{\rho^2} - 1\bigg]u$$
+\end{ex}
+
+\begin{proof}
+Straightforward by chain-rule.
+\end{proof}
+
+\begin{ex}
+As $ \rho \rightarrow \infty$, $u \approx e^{-\frac{\rho_0}{2}\rho^2}$
+\end{ex}
+
+\begin{proof}
+As $\rho \rightarrow \infty$, $$\dv[2]{u}{\rho} \approx \rho_0^2 \rho^2u$$ Trying the function $u(\rho) = e^{-\frac{\rho_0}{2}\rho^2}$, we see that
+\begin{align*}
+\dv[2]{u}{\rho} 
+&= (\rho_0^2 \rho^2 - \rho_0)e^{-\frac{\rho_0}{2}\rho^2}\\
+& \approx \rho_0^2 \rho^2 e^{-\frac{\rho_0}{2}\rho^2} \hspace{.5cm} \text{(as }  \rho  \rightarrow \infty \text{)}\\
+&=  \rho_0^2 \rho^2 u
+\end{align*}
+\end{proof}
+
+\begin{ex}
+As $\rho \rightarrow 0$, $u \approx \rho^{l+1}$
+\end{ex}
+
+\begin{proof}
+Same as in the case of the hydrogen atom.
+\end{proof}
+
+\begin{note}
+Just like in the case of the hydrogen atom, we can ``glue" these functions together with a third unknown function $v(\rho)$ to obtain the prototype solution $$u(\rho) = \rho^{l+1}e^{-\frac{\rho_0}{2}\rho^2}v(\rho)$$
+\end{note}
+
+\begin{ex}
+Suppose that for some nice function $v(\rho)$, $$u(\rho) = \rho^{l+1}e^{-\frac{\rho_0}{2}\rho^2}v(\rho)$$ Then computing $\dv[2]{u}{\rho}$ and plugging into the radial equation and simplifying, we obtain the relation $$\rho \dv[2]{v}{\rho} +2(l+1 - \rho_0\rho^2)\dv{v}{\rho} + \rho(1-\rho_0(2l+3))v = 0$$
+\end{ex}
+
+\begin{proof}
+Very tedious but straightforward.
+\end{proof}
+
+\begin{ex}
+If $v(\rho)$ can be represented by a power series $$v(\rho) = \sum_{j=0}^{\infty}c_j\rho^j$$ then plugging in $v(\rho)$ into the previous relation combining like terms and solving for the coefficients yields the relations $$c_1 = 0$$ and $$c_{j+2} = \bigg[ \frac{\rho_0(2j+2l+3)-1}{(j+2)(j+2l+3)}\bigg]c_j \hspace{5mm} j \geq 0$$ \vspace{3mm} \\This implies that for each odd $j$, $c_j = 0$. \vspace{3mm}
+\end{ex}
+
+\begin{proof}
+Tedious but straightforward.
+\end{proof}
+
+\begin{ex}
+If for each $j \geq 0$, $c_{2j} \neq 0$, then $v$ behaves asymptotically like $e^{\rho_0\rho^2}$. Thus $u(\rho)$ behaves asymptotically like $\rho^{l+1}e^{\frac{\rho_0}{2}\rho^2}$. This implies that $R(r)$ is not normalizable. Therefore there exists $j_{max} \geq 0$ such that $c_{j_{max}+2} = 0$ and $v(\rho)$ is a polynomial of degree $j_{max}$ and consists of only even powers of $\rho$. 
+\end{ex}
+
+\begin{proof}
+As $j \rightarrow \infty$, $c_{j+2} \approx \frac{2 \rho_0}{j}c_j$. Hence $v(\rho)$ behaves asymptotically like 
+\begin{align*}
+\sum_{j=0}^{\infty}\frac{2^j\rho_0^j}{\prod_{k=1}^j2k}\rho^{2j}
+&= \sum_{j=0}^{\infty}\frac{(\sqrt{\rho_0} \rho)^{2j}}{j!}\\
+&= e^{(\sqrt{\rho_0}\rho)^2}\\
+&= e^{\rho_0 \rho^2}
+\end{align*}
+\end{proof}
+
+\begin{ex}
+The energies allowed for this system are $$E_n = \hbar \om \bigg(n+\frac{3}{2} \bigg) \hspace{.5cm}n \in \N_0$$
+\end{ex}
+
+\begin{proof}
+Using the recursion relation found earlier, we have that $$0 = \bigg[ \frac{\rho_0(2j_{max}+2l+3)-1}{(j_{max}+2)(j_{max}+2l+3)}\bigg]c_{j_{max}} $$ This implies that $$0 = \rho_0(2j_{max}+2l+3)-1$$ and so $$\frac{1}{\rho_0} = 2j_{max} + 2l +3$$ Using the fact that $\rho_0 = \frac{\hbar \om}{2E}$, we solve for $E$ to obtain $$E = \hbar \om \bigg( j_{max} + l + \frac{3}{2}\bigg)$$ Since $j_{max}$ and $l$ may be any non-negative integers, we introduce a non-negative integer $n = j_{max}+l$ and index the allowed energies as $$E_n = \hbar \om\bigg(n+ \frac{3}{2} \bigg) \hspace{.5cm} n \in \N_0$$
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
 

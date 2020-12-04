@@ -63,6 +63,9 @@
 \newcommand{\MT}{\mathcal{T}}
 \newcommand{\MM}{\mathcal{M}}
 
+\newcommand{\io}{\text{ i.o.}}
+\newcommand{\ev}{\text{ ev.}}
+
 \newcommand{\RG}{[0,\infty]}
 \newcommand{\Rg}{[0,\infty)}
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
@@ -4347,10 +4350,46 @@ P\bigg(\bigg \vert \frac{1}{n} \sum_{i=1}^n X_i - E[X_1] \bigg \vert \geq \ep \b
 So $$\frac{1}{n}\sum_{i=1}^n X_i \conv{P} E[X_1]$$
 \end{proof}
 
+\subsection{Borel Cantelli Lemma} 
 
+\begin{defn}
+Let $(\Om, \MF, \P)$ be a probability space and $(A_n)_{n \in \N} \subset \MF$. We will define $$P(A_n \io) \coloneqq P(\limsup_{n \rightarrow \infty}A_n) $$ and $$P(A_n \ev) \coloneqq P(\liminf_{n \rightarrow \infty} A_n)$$ to be the \textbf{probability that $A_n$ happens infinitely often} and the \textbf{probability that $A_n$ happens eventually} respectively.  
+\end{defn}
 
+\begin{ex}\textbf{Borel Cantelli Lemma:}
+Let $(\Om, \MF, \P)$ be a probability space and $(A_n)_{n \in \N} \subset \MF$.
+\begin{enumerate}
+\item If $\sum\limits_{n \in \N}P(A_n) < \infty$, then $P(A_n \io) = 0$.
+\item If $(A_n)_{n \in \N}$ are independent and $\sum\limits_{n \in \N} P(A_n) = \infty$, then $P(A_n \io) = 1$  
+\end{enumerate}
+\end{ex}
 
+\begin{proof}\
+\begin{enumerate}
+\item Suppose that $\sum\limits_{n \in \N}P(A_n) < \infty$. Recall that $$\limsup\limits_{n \rightarrow \infty}A_n = \bigg \{\om \in \Om: \sum\limits_{n \in \N}\mathbf{1}_{A_n}(\om) = \infty \bigg \}$$ Then \begin{align*}
+\infty 
+&> \sum_{n \in \N}P(A_n) \\
+&= \sum_{n \in \N} \int \mathbf{1}_{A_n}dP \\
+&= \int \sum_{n \in \N} \mathbf{1}_{A_n}dP \\
+\end{align*}
+Thus $\sum\limits_{n \in \N} \mathbf{1}_{A_n} < \infty$ a.e. and $P(A_n \io) = 0$.
+\item Suppose that $(A_n)_{n \in \N}$ are independent and $\sum\limits_{n \in \N} P(A_n) = \infty$.
+\end{enumerate}
+\end{proof}
 
+\begin{ex}
+Let $(\Om, \MF, \P)$ be a probability space and $(X_n)_{n \in \N} \subset L^0$ and $X \in L^0$. 
+\begin{enumerate}
+\item If there exists $\ep >0 $ such that $\sum\limits_{n \in \N} P(|X_n -X| > \ep) < \infty$, then $X_n \rightarrow X$ a.s.
+\item If $(X_n)_{n \in \N}$ are independent and there exists $\ep >0$ such that $\sum\limits_{n \in \N} P(|X_n -X| > \ep) = \infty$, then $X_n \not \rightarrow X$ a.s.
+\end{enumerate}
+\end{ex}
+
+\begin{proof}
+\begin{enumerate}
+\item 
+\end{enumerate}
+\end{proof}
 
 
 
