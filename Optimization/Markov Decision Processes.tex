@@ -144,21 +144,21 @@ We can define a ``minimal policy" and a ``minimal discounted policy" similarly.
 \[ V_t^{\pi^*}(s) =
 \begin{cases}
  v_n(s) & t = n \\
- \max\limits_{a \in \MA} \sum\limits_{s' \in \MS}P^{a}_{s, s'} \bigg[v_t(s,a, s') + V_{t+1}^{\pi^*}(s')\bigg] & t= 0, 1, \cdots, n-1
+ \max\limits_{a \in \MA_s} \sum\limits_{s' \in \MS}P^{a}_{s, s'} \bigg[v_t(s,a, s') + V_{t+1}^{\pi^*}(s')\bigg] & t= 0, 1, \cdots, n-1
 \end{cases}
 \]
 
-and $$\pi^*_t(s) = \argmax_{a \in \MA} \sum\limits_{s' \in \MS}P^{a}_{s, s'} \bigg[v_t(s, a, s') +  V_{t+1}^{\pi^*}(s')\bigg]$$ 
+and $$\pi^*_t(s) = \argmax_{a \in \MA_s} \sum\limits_{s' \in \MS}P^{a}_{s, s'} \bigg[v_t(s, a, s') +  V_{t+1}^{\pi^*}(s')\bigg]$$ 
 
 \item If $\pi^*$ is a maximal discounted policy, then 
 \[ V_{\gam, t}^{\pi^*}(s) =
 \begin{cases}
  v_n(s) & t = n \\
- \max\limits_{a \in \MA} \sum\limits_{s' \in \MS}P^{a}_{s, s'} \bigg[v_t(s,a, s') + \gam V_{t+1}^{\pi^*}(s')\bigg] & t= 0, 1, \cdots, n-1
+ \max\limits_{a \in \MA_s} \sum\limits_{s' \in \MS}P^{a}_{s, s'} \bigg[v_t(s,a, s') + \gam V_{t+1}^{\pi^*}(s')\bigg] & t= 0, 1, \cdots, n-1
 \end{cases}
 \]
 
-and $$\pi^*_t(s) = \argmax_{a \in \MA} \sum\limits_{s' \in \MS}P^{a}_{s, s'} \bigg[v_t(s, a, s') +  \gam V_{t+1}^{\pi^*}(s')\bigg]$$ 
+and $$\pi^*_t(s) = \argmax_{a \in \MA_s} \sum\limits_{s' \in \MS}P^{a}_{s, s'} \bigg[v_t(s, a, s') +  \gam V_{t+1}^{\pi^*}(s')\bigg]$$ 
 \end{enumerate}
 \end{thm}
 
@@ -225,7 +225,7 @@ We have $\MS= \{-2, -2, 0, 1, 2\}$, $\MA_s = \{0, 1, \cdots,  2-s\}$, $v_t(s, a,
 \end{align*}
 
 \begin{align*}
-&P^4_{-2,-2} = 0, P^4_{-2,-1} = .3, P^4_{-2,0} = .6, P^4_{-2,1} = .1, P^4_{-2,2} = 0 
+&P^4_{-2,-2} = 0, P^4_{-2,-1} = 0, P^4_{-2,0} = .3, P^4_{-2,1} = .6, P^4_{-2,2} = .1 
 \end{align*}
 Since our initial inventory is $0$, we wish to find the minimal policy $\pi^*$ and $V^{\pi^*}_0(0)$. Now, using the bellman optimality equation, we know that the maximal policy $$\pi^*_2(s) = \argmin_{a \in \MA_s} \sum_{s' \in \MS} P^a_{s,s'} \bigg[ a + 2\max(0, s')+3\max(0,-s')\bigg]$$ and $$ V^{\pi^*}_{2}(s) = \min_{a \in \MA_s} \sum_{s' \in \MS} P^a_{s,s'} \bigg[ a + 2\max(0, s')+3\max(0,-s')\bigg]$$
 \begin{align*}
