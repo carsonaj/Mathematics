@@ -192,7 +192,7 @@ The cost to
 \item  hold one unit of product after demand is 2.
 \item  hold one unit of backlogged product is 3
 \end{enumerate}
-Suppose that the terminal cost for each possible amount of inventory is $0$. Find the minimal expected total cost given that we start with no inventory and a minimal policy for ordering inventory.
+Suppose that the terminal cost for each possible amount of inventory is $0$. Find the minimal expected total cost given that we start with full inventory and a minimal policy for ordering inventory.
 \end{exm}
 
 \begin{sol}
@@ -227,12 +227,28 @@ We have $\MS= \{-2, -2, 0, 1, 2\}$, $\MA_s = \{0, 1, \cdots,  2-s\}$, $v_t(s, a,
 \begin{align*}
 &P^4_{-2,-2} = 0, P^4_{-2,-1} = 0, P^4_{-2,0} = .3, P^4_{-2,1} = .6, P^4_{-2,2} = .1 
 \end{align*}
-Since our initial inventory is $0$, we wish to find the minimal policy $\pi^*$ and $V^{\pi^*}_0(0)$. Now, using the bellman optimality equation, we know that the maximal policy $$\pi^*_2(s) = \argmin_{a \in \MA_s} \sum_{s' \in \MS} P^a_{s,s'} \bigg[ a + 2\max(0, s')+3\max(0,-s')\bigg]$$ and $$ V^{\pi^*}_{2}(s) = \min_{a \in \MA_s} \sum_{s' \in \MS} P^a_{s,s'} \bigg[ a + 2\max(0, s')+3\max(0,-s')\bigg]$$
-\begin{align*}
-j
-\end{align*}
-
-For $s = -2$, 
+Since our initial inventory is $2$, we wish to find the minimal policy $\pi^*$ and $V^{\pi^*}_0(2)$. Now, using the bellman optimality equation, we know that the maximal policy $$\pi^*_2(s) = \argmin_{a \in \MA_s} \sum_{s' \in \MS} P^a_{s,s'} \bigg[ a + 2\max(0, s')+3\max(0,-s')\bigg]$$ and $$ V^{\pi^*}_{2}(s) = \min_{a \in \MA_s} \sum_{s' \in \MS} P^a_{s,s'} \bigg[ a + 2\max(0, s')+3\max(0,-s')\bigg]$$
+\newpage
+Doing the math, we get:
+\begin{itemize}
+\item $V^{\pi^*}_{2}(-2) = 4.1$ and $\pi^*_2(-2) = 3$
+\item $V^{\pi^*}_{2}(-1) = 3.1$ and $\pi^*_2(-1) = 2$
+\item $V^{\pi^*}_{2}(0) = 2.1$ and $\pi^*_2(0) = 1$
+\item $V^{\pi^*}_{2}(1) = 1.1$ and $\pi^*_2(1) = 0$
+\item $V^{\pi^*}_{2}(2) = 1.6$ and $\pi^*_2(2) = 0$
+\end{itemize}
+Using the optimality equations again, we have that
+$$\pi^*_1(s) = \argmin_{a \in \MA_s} \sum_{s' \in \MS} P^a_{s,s'} \bigg[ a + 2\max(0, s')+3\max(0,-s')+ V^{\pi^*}_{2}(s')\bigg]$$
+and $$V^{\pi^*}_{1}(s) = \min_{a \in \MA_s} \sum_{s' \in \MS} P^a_{s,s'} \bigg[ a + 2\max(0, s')+3\max(0,-s') + V^{\pi^*}_{2}(s')\bigg]$$
+Doing the math yields:
+\begin{itemize}
+\item $V^{\pi^*}_{1}(-2) = 6.4$ and $\pi^*_1(-2) = 3$
+\item $V^{\pi^*}_{1}(-1) = 5.4$ and $\pi^*_1(-1) = 2$
+\item $V^{\pi^*}_{1}(0) = 4.4$ and $\pi^*_1(0) = 1$
+\item $V^{\pi^*}_{1}(1) = 3.4$ and $\pi^*_1(1) = 0$
+\item $V^{\pi^*}_{1}(2) = 3.05$ and $\pi^*_1(2) = 0$
+\end{itemize}
+Running through the optimality equation again gives: $V_0^{\pi^*}(2) = 5.265$ and $\pi^*_0(2) = 0$
 \end{sol}
 
 \end{document}
