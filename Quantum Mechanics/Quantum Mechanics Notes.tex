@@ -82,6 +82,9 @@
 \newcommand{\MM}{\mathcal{M}}
 \newcommand{\MW}{\mathcal{W}}
 
+\newcommand{\up}{|\uparrow  \r}
+\newcommand{\dn}{|\downarrow  \r}
+
 \renewcommand{\MR}{\mathcal{R}}
 
 
@@ -668,7 +671,7 @@ $$\frac{1}{R} \frac{d}{dr} r^2 \frac{dR}{dr} - \frac{2m}{\hbar^2}r^2(V -E) = l(l
 $$\frac{1}{Y}\bigg[\frac{1}{\sin \theta}\p{\theta} \bigg(\sin \theta \frac{\partial Y}{\partial \theta} \bigg) + \frac{1}{\sin^2 \theta}\frac{\partial^2Y}{\partial \phi^2} \bigg] = -l(l+1)$$
 
 \end{enumerate} \vspace{3mm}
-The number $l$ is called the \textbf{azimuthal quantum number}, equation $(1)$ is called the \textbf{radial equation} and equation $(2)$ is called the \textbf{angular equation}. 
+The number $l$ is called the \textbf{orbital quantum number} (or azimuthal quantum number), equation $(1)$ is called the \textbf{radial equation} and equation $(2)$ is called the \textbf{angular equation}. 
 \end{defn}
 
 \begin{defn}
@@ -980,6 +983,10 @@ and
 which implies that $$-\hbar^2 \pdv[2]{}{\phi}f_l^m  = \hbar^2 m^2 f_l^m $$
 If we recall from earlier, these are just the angular and azimuthal equations respectively. Thus the simultaneous eigenstates of $L^2$ and $L_z$ are $f_l^m = Y_l^m$. Therefore, if $R(r)$ solves the radial equation and is normalized, then the states $R(r)Y_l^m(\theta, \phi)$ are simultaneous eigenstates of $H, L^2$ and $L_z$.
 \end{note}
+
+\begin{note}
+the quantum number $m$ is is dependent on the quantum number $l$. Later we will write $m_l$ to emphasize this, as well as to avoid confusion with mass or other quantum numbers. 
+\end{note}
 \newpage
 
 \section{Fundamental Examples in Three Dimensions}
@@ -1125,6 +1132,10 @@ E_n
 \end{align*} 
 \end{proof}
 
+\begin{note}
+Since $n = j_{max} + l + 1$, $j_{max} \geq 0$ and $n \geq 1$ we know that $l = n - j_{max} - 1 \leq n-1$. Thus the simultaneous eigenstates of $H, L^2, L_z$ are $\psi_{n, l, m}(r, \theta, \phi)R_n(r)Y_l^m$ with $1 \leq n$, $0 \leq l \leq n-1$ and $-l \leq m \leq l$. 
+\end{note}
+
 \subsection{Spherical Harmonic Oscillator (Spherical Coordinates)}
 \begin{defn}
 The spherical harmonic oscillator (in spherical coordinates) is defined by the potential energy
@@ -1220,7 +1231,9 @@ Using the recursion relation found earlier, we have that $$0 = \bigg[ \frac{\rho
 \end{proof}
 \newpage
 
-\section{Spin Angular Momentum and Simple Systems with Multiple Particles}
+\section{Spin}
+
+\subsection{Introduction}
 
 \begin{defn}
 It turns out that there is another inherent quality which all things have which was revealed by experiment. We call this inherent quality \textbf{spin}. In these notes we take as given that the spin of a particle in the $x,y$ and $z$ directions is a measurable quantity which  corresponds to self adjoint operators $S_x, S_y, S_z$ that satisfy the commutation relations: 
@@ -1235,19 +1248,81 @@ With this assumption we can follow the exact same procedure as we did with the o
 \item $S_z |s, m \r = \hbar m |s, m \r$
 \item $S_{\pm}|s, m \r = \hbar\sqrt{s(s+1) - m(m \pm 1)}|s, m \pm 1 \r$
 \end{enumerate} 
-The difference between the simultaneous eigenstates in the spin case and in the orbital case is that in the spin case, the eigenstates are not functions of position.   
+The nonnegative integer $s$ is called the \textbf{spin quantum number}. The difference between the simultaneous eigenstates in the spin case and in the orbital case is that in the spin case, the eigenstates are not functions of position, they are simply a basis of a $2s + 1$ dimensional vector space. The quantum number $s$ is inherent to the type of particle. For example, electrons have spin $s = \frac{1}{2}$, photons have spin $s = 1$. 
 \end{defn}
 
-\newpage
+\begin{defn}
+Consider a particle with spin eigenstates $(| s, m_s\r)_{m_s = -s}^s$ and energy eigenstate $|\psi_n \r_{n=1}^{\infty}$ can be fully described by the tensor product of these two spaces. That 
+\end{defn}
 
+\subsection{Spin $\frac{1}{2}$ Particles}
 
+\begin{defn}
+In the case $s = \frac{1}{2}$, it is easier on the eyes to denote the states $|\frac{1}{2}, \frac{1}{2} \r$ and $|\frac{1}{2}, -\frac{1}{2} \r$ as $\up$ and $\dn$ respectively. We now fix the ordered basis $(\up, \dn)$ and define $\chi_+ = \begin{pmatrix}
+1 \\ 0
+\end{pmatrix}$ and $\chi_- = \begin{pmatrix}
+0 \\ 1
+\end{pmatrix}$.   
+\end{defn}
 
+\begin{ex}
+If we identify the operators in definition $5.1$, then we have that 
+\begin{enumerate}
+\item $S^2 = \frac{3}{4}\hbar^2 \begin{pmatrix}
+1& 0 \\0& 1 
+\end{pmatrix}$
+\item $S_z = \frac{1}{2}\hbar \begin{pmatrix}
+1& 0 \\
+0& -1
+\end{pmatrix}$
+\item $S_{+} = \hbar \begin{pmatrix}
+0 & 1\\
+0 & 0
+\end{pmatrix}$
+\item $S_- = \hbar \begin{pmatrix}
+0 & 0 \\
+1 & 0
+\end{pmatrix}$
+\item $S_x = \frac{1}{2}\hbar \begin{pmatrix}
+0 & 1 \\
+1 & 0
+\end{pmatrix}$ 
+\item $S_y = \frac{1}{2}\hbar \begin{pmatrix}
+0 & -i \\
+i & 0
+\end{pmatrix}$ 
+\end{enumerate}
+\end{ex}
 
+\begin{proof}
+Parts $(1)$ through $(4)$ are straight forward using the properties given in definition $5.1$. For parts $(5)$ and $(6)$, we observe that $S_x = \frac{1}{2}(S_+ +S_-)$ and $S_y = -\frac{i}{2}(S_+ - S_-)$
+\end{proof}
 
+\begin{defn}
+We define the \textbf{Pauli spin matrices} to be $$\sig_x = \begin{pmatrix}
+0 & 1 \\
+1 & 0
+\end{pmatrix}, \hspace{.3cm}
+\sig_y = \begin{pmatrix}
+0 & -i \\
+i & 0
+\end{pmatrix}, \hspace{.3cm}
+\sig_z = \begin{pmatrix}
+1 & 0 \\
+0 & -1
+\end{pmatrix}$$ So that $S_x = \frac{1}{2} \hbar\sig_x$, $S_y = \frac{1}{2} \hbar\sig_y$ and $S_z = \frac{1}{2} \hbar\sig_z$
+\end{defn}
 
+\section{Perturbation Theory}
 
+\section{Multiple Particles}
 
+\subsection{Schrodinger Equation}
+\begin{defn}
+Suppose we have a system consisting of two particles.  
+\end{defn}
 
+\subsection{Exchange Operator}
 
 \end{document}
 
