@@ -1,0 +1,227 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+\usepackage{physics}
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=black,  %choose some color if you want links to stand out
+}
+
+
+%
+%
+%
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+%
+%
+%
+%
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
+
+\newtheorem{thm}{Theorem}[subsection]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}{Conjecture}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{note}[thm]{Note}
+\newtheorem{ex}[thm]{Exercise}
+
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\spn}{span}
+
+\newcommand{\al}{\alpha}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\be}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MI}{\mathcal{I}}
+\newcommand{\MM}{\mathcal{M}}
+
+
+\renewcommand{\r}{\rangle}
+\renewcommand{\l}{\langle}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
+\DeclareMathOperator{\sgn}{sgn}
+
+
+\begin{document}
+	
+	\title{Calculus on Manifolds Notes}
+	\author{Carson James}
+	\maketitle
+	
+	\tableofcontents
+	
+	\section{Review of Multivariable Calculus and Linear Algebra}
+	
+	\subsection{The derivative}
+
+
+	
+	\section{Calculus on Manifolds}
+	
+	\subsection{Submanifolds of $\R^n$}
+	
+	\begin{defn}
+		Let $\Om \subset \R^n$ and $U \subset M$. Then $U$ is said to be \textbf{open} if there exists $U' \subset \R^n$ such that $U'$ is open in $\R^n$ and $U = M \cap U'$.
+	\end{defn}
+	
+	\begin{defn}
+		Define the \textbf{upper half space} of $\R^n$, denoted $\H_n$, by $$\H_n = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n \geq 0\}$$ and define $$\partial\H_n = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n = 0\}$$ 
+	\end{defn}
+
+	\begin{defn}
+		Let $\Om \subset \R^n, U \subset \Om$, $V \subset \H_k$ and $\phi:U \rightarrow V$. Then $\phi$ is said to be a \textbf{coordinate chart} from $\Om$ to $\H_k$ if $U$ is open in $\Om$, $V$ is open in $\H_k$ and $\phi$ is a homeomorphism (that is, $\phi$ is a bijection, continuous and $\phi^{-1}$ is continuous). We will typically denote a chart from $\Om$ to $\H_k$ by the pair $(\phi, U)$. Let $\MA = \{(\phi_{\al}, U_{\al}): \al \in A\}$ be a set of coordinate charts from $\Om$ to $\H_k$ indexed by $A$. Then $\MA$ is said to be a \textbf{smooth $k$-atlas} on $\Om$ if 
+		\begin{enumerate}
+			\item $\Om = \bigcup\limits_{\al \in A} U_{\al}$
+			\item for each $\al, \beta \in A$, $U_{\al} \cap U_{\beta} \neq \varnothing$ implies that $$\phi_2 \circ \phi_1^{-1}: \phi_1(U_{\al} \cap U_{\beta}) \rightarrow \phi_2(U_{\al} \cap U_{\beta})$$ is  smooth
+		\end{enumerate} 
+	If $\MA$ is a smooth $k$-atlas on $\Om$, and $(\phi, U) \in \MA$, then $\phi$ is said to be a \textbf{smooth coordinate chart} from $\Om$ to $\H_k$. 
+	\end{defn}
+
+	\begin{defn}
+		Let $\Om \subset \R^n$ and $\MA$ a smooth $k$-atlas on $\Om$. Then $(\Om, \MA)$ is said to be a $k$-dimensional smooth submanifold of $\R^n$. Define the \textbf{boundary} of $\Om$, denoted $\partial \Om$, by $$\partial \Om = \bigcup_{\substack{\phi \in \MA \\ \phi:U \rightarrow V}} \phi^{-1}(V \cap \partial \H_k) $$
+	\end{defn}
+	
+	\begin{ex}
+		Let $\Om$ be a $k$-dimensional smooth submanifold of $\R^n$. Then $\partial \Om$ is a $k-1$-dimensional smooth manifold of $\R^n$.
+	\end{ex}
+	
+	\begin{defn}
+		Let $\Om$ be a smooth $k$-dimensional smooth submanifold of $\R^n$, $U \subset \Om$ open in $\Om$, $V \subset \H_k$ open in $\H_k$ and $\phi: U \rightarrow V$ a smooth coordinate chart on $\Om$. Then $\phi^{-1}: V \rightarrow U$ is called a \textbf{smooth parametrization} of $\Om$. 
+	\end{defn}
+	
+	\subsection{Differential Forms}
+	
+	\begin{note}
+		The definitions in this section will introduce a very slick book-keeping device for doing calculus on manifolds. Since we are not developing the theory from the ground up, it may feel abstract. Hopefully the many exercises facilitate becoming accostumed to this book-keeping tool.
+	\end{note}
+	
+	\begin{defn}
+		Define $\MI_{k, n} = \{(i_1, i_2, \cdots, i_k) \in \N^k: i_1 < i_2 < \cdots < i_n \leq n \}$. Let $I \in \MI_{k,n}$. Then $I$ is called a \textbf{multi-index}. Recall that $\# \MI_{k,n} = {n \choose k}$.
+	\end{defn}
+	
+	\begin{defn}
+		When working in $\R^n$, we introduce the formal objects $dx_1, dx_2, \cdots, dx_n$. Let $I = (i_1, i_2, \cdots, i_k)\in \MI_{k,n}$ and $\phi: \R^k \rightarrow \R^n$. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We formally define $dx_I = dx_{i_1}\wedge dx_{i_2} \wedge \cdots \wedge dx_{i_k}$ and $\phi_I = (\phi_{i_1}, \phi_{i_2}, \cdots, \phi_{i_k})$.   
+	\end{defn}
+	
+	\begin{defn}
+		Let $k \in \{0, 1, \cdots, n\}$. We define a $C^{\infty}(\R^n)$-module of dimension ${n \choose k}$, denoted $\Gamma^k(\R^n)$ to be 
+		\[
+		\Gamma^k(\R^n) =
+		\begin{cases}
+			C^{\infty}(\R^n) & k = 0 \\
+			\spn \{ dx_I: I \in \MI_{k,n} \} & k \geq 1
+		\end{cases}
+		\]
+		For each $\om \in \Gamma^k(\R^n)$ and $\chi \in \Gamma^l(\R^n)$,   we may form their \textbf{exterior product}, denoted by $\om \wedge \chi \in \Gamma^{k+l}(\R^n)$. Thus the exterior product is a map $\wedge : \Gamma^k(\R^n) \times \Gamma^l(\R^n)\rightarrow \Gamma^{k+l}(\R^n)$. The exterior product is characterized by the following properties:
+		\begin{enumerate}
+			\item the exterior product is bilinear
+			\item for each $\om \in \Gamma^k(\R^n)$ and $\chi \in \Gamma^l(\R^n)$, $\om \wedge \chi = - \chi \wedge \om$ 
+			\item for each $\om \in \Gamma^k(\R^n)$, $\om \wedge \om = 0$
+			\item for each $f \in C^{\infty}(\R^n)$ and $ \om \in \Gamma^k(\R^n)$, $f \wedge \om = f \om$
+		\end{enumerate}
+		We call $\Gamma^k(\R^n)$ the differential $k$-forms on $\R^n$. Let $\om$ be a $k$-form on $\R^n$. If $k \geq 1$, then for each $I \in \MI_{k,n}$, there exists $f_I \in C^{\infty}(\R^n)$ such that $\om = \sum\limits_{I \in \MI_{k,n}} f_I dx_I$
+	\end{defn}
+	
+	
+	\begin{note}
+		The terms $dx_1, dx_2, \cdots, dx_n$ are are a sort of place holder for the coordinates of a point $x = (x_1, x_2, \cdots, x_n) \in \R^n$. When we work with functions $\phi: \R^k \rightarrow \R^n$, we will have different coordinates and to avoid confusion, we will write $\{du_1, du_2, \cdots, du_k\}$ when referencing the coordinates on $\R^k$ and $\{dx_1, dx_2, \cdots, dx_n\}$ when referencing the coordinates on $\R^n$. 
+	\end{note}
+
+	\begin{ex}
+		Let $B = (b_{i,j})$ be an $n\times n$ matrix. Then $$\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg) = (\det B) dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$$
+	\end{ex}
+
+	\begin{proof}
+		First we have $$ (*) \hspace{1cm} \bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg) =\bigg(\sum_{j=1}^n b_{1,j}dx_j\bigg) \wedge \bigg(\sum_{j=1}^n b_{2,j}dx_j\bigg) \wedge \cdots \wedge \bigg(\sum_{j=1}^n b_{n,j}dx_j\bigg)$$ The expression on the right side of $(*)$ is just the sum all terms of the form $$b_{1,j_1}b_{2,j_2} \cdots b_{n,j_n} dx_{j_1}\wedge  dx_{j_2} \wedge \cdots \wedge  dx_{j_n}$$ where $j_k \in \{1,2,\cdots,n\}$. The terms in which for some $j$, $dx_j$ appears more than once in the exterior product are zero. Thus the expression on the right of $(*)$ is just the sum of all terms of the form $$b_{1,\sig(1)}b_{2,\sig(2)} \cdots b_{n,\sig(n)} dx_{\sig(1)}\wedge  dx_{\sig(2)} \wedge \cdots \wedge  dx_{\sig(n)} = \sgn(\sig) b_{1,\sig(1)}b_{2,\sig(2)} \cdots b_{n,\sig(n)} dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$$
+		where $\sig \in S_n$. Explicitely writing this out, we see that 
+		\begin{align*}
+			\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg)
+			&= \bigg(\sum_{j=1}^n b_{1,j}dx_j\bigg) \wedge \bigg(\sum_{j=1}^n b_{2,j}dx_j\bigg) \wedge \cdots \wedge \bigg(\sum_{j=1}^n b_{n,j}dx_j\bigg) \\
+			&= \sum_{\sig \in S_n} \sgn(\sig) b_{1,\sig(1)}b_{2,\sig(2)} \cdots b_{n,\sig(n)} dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n \\
+			&= \bigg( \sum_{\sig \in S_n} \sgn(\sig) b_{1,\sig(1)}b_{2,\sig(2)} \cdots b_{n,\sig(n)}\bigg) dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n \\
+			&= (\det B) dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n
+		\end{align*}
+	\end{proof}
+
+	\begin{defn}
+		Let $f: \R^n \rightarrow \R$ be a $0$-form on $\R^n$. We define a $1$-form, denoted $df$, on $\R^n$ by $$df = \sum_{i = 1}^n \pdv{f}{x_i} dx_i$$
+		Let $\om = \sum\limits_{I \in \MI_{k,n}} f_Idx_I$ be a $k$-form on $\R^n$. We can define a differential $k+1$-form, denoted $d \om$, on $\R^n$ by $$d\om = \sum\limits_{I \in \MI_{k,n}} df_I\wedge dx_I$$  
+	\end{defn}
+
+	\begin{ex}
+		Let $I \in \MI_{k, n}$. Then there is a unique $I_* \in \MI_{n-k, n}$ such that $dx_I \wedge dx_{I_*} = dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$.
+	\end{ex}
+	
+	\begin{defn}
+		We define a linear map $*:\Gamma^k(\R^n) \rightarrow \Gamma^{n-k}(\R^n)$ called the \textbf{Hodge $*$-operator} by $$* \sum\limits_{I \in \MI_{k,n}} f_I dx_I = \sum\limits_{I \in \MI_{k,n}} f_Idx_{I_*}$$
+	\end{defn}
+
+	\begin{defn}
+		Let $\phi: \R^k \rightarrow \R^n$ be smooth. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We define $\phi^*:\Gamma^k(\R^n) \rightarrow \Gamma^k(\R^k)$ via the following properties: 
+		\begin{enumerate}
+			\item for each $0$-form $f$ on $\R^n$, $\phi^*f = f \circ \phi$
+			\item  for $i = 1, \cdots , n$, $\phi^* dx_i = d\phi_i$ 
+			\item for an $s$-form $\om$, and a $t$-form $\chi$ on $\R^n$,  $\phi^* (\om \wedge \chi) = (\phi^*\om) \wedge (\phi^*\chi)$
+			\item for $l$-forms $\om, \chi$ on $\R^n$, $\phi^*(\om + \chi) = \phi^*\om + \phi^*\chi$ 
+		\end{enumerate}
+	\end{defn}
+
+	\begin{ex}
+			Let $\Om \subset \R^n$ be a $k$-dimensional smooth submanifold of $\R^n$, $\phi: U \rightarrow V$ a smooth parametrization of $\Om$, $\om = \sum_{I \in \MI_{k,n}} f_Idx_I$  an $k$-form on $\R^n$. Then $$\phi^* \om = \bigg( \sum_{I \in \MI_{k, n}} f_I \circ \phi \det(D\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k$$ 
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+	
+\end{document}
