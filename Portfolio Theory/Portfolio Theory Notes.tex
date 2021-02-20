@@ -83,7 +83,6 @@ Let $X$ be a nice random variable and $\al \in (0,1)$. We define the \textbf{val
 
 \begin{align*}
 VaR_{\al}(X) 
-&= F^{-1}_{-X}(\al)\\
 &= F^{-1}_{L_X}(\al)
 \end{align*}
 Thus $$P(L_X > VaR_{\al}(X)) = 1- \al$$
@@ -93,22 +92,20 @@ Thus $$P(L_X > VaR_{\al}(X)) = 1- \al$$
 In practice, we take $\al= .95$ or $\al= .99$. 
 \end{note}
 
-\subsection{Estimating the Value at Risk}
-
-\subsection{Average Value at Risk}
+\subsection{Expected Shortfall}
 
  \begin{defn}
-Let $X$ be a nice random variable and $\al\in (0,1)$. We define the \textbf{average value at risk of } $X$ \textbf{with tail probability } $\al$, denoted by $AVaR_{\al}(X)$, to be $$AVaR_{\al}(X) = \frac{1}{1-\al}\int_{[\al,1)}VaR_p(X)dm(p)$$
+Let $X$ be a nice random variable and $\al\in (0,1)$. We define the \textbf{expected shortfall of } $X$ \textbf{with tail probability } $1-\al$, denoted by $ES_{\al}(X)$, to be $$ES_{\al}(X) = \frac{1}{1-\al}\int_{[\al,1)}VaR_p(X)dm(p)$$
 \end{defn}
 
 \begin{note}
-If $X$ represents the return on a portfolio, then $AVaR_{\al}(X)$ is just the average of the $VaR_{p}(X)$ on the interval $(\al, 1]$.
+If $X$ represents the return on a portfolio, then $ES_{\al}(X)$ is just the average of the $VaR_{p}(X)$ on the interval $(\al, 1]$.
 \end{note}
 
 \begin{ex}
 Let $X$ be a nice random variable and $\al\in (0,1)$. Then 
 \begin{align*}
-AVaR_{\al}(X) 
+ES_{\al}(X) 
 &= E[L_X|L_X \geq Var_{\al}(X)]
 \end{align*}
 \end{ex}
@@ -117,31 +114,26 @@ AVaR_{\al}(X)
 Recall that for measurable spaces $(X,\MA)$ and $(Y, \MB)$, a measurable function $f:X \rightarrow Y$ and a measure $\mu:\MA \rightarrow \RG$, we may form the push-foreward measure of $\mu$ by $f$, $f_{*}\mu:\MB \rightarrow \RG$ with the following property: for each $g:Y \rightarrow \C$, $g \in L^1(f_* \mu)$ iff  $g \circ f \in L^1(\mu)$ and for each $B \in \MB$, 
 
 $$\int_{f^{-1}(B)}g \circ f d\mu = \int_B g d f_*\mu$$
-
 Also recall that for an increasing continuous, bijective $F:\R \rightarrow (0,1)$, we may form the Borel measure $\mu_F$ with $\mu_F((a,b]) = F(b)-F(a)$. Then observe that $F_*\mu_F = m$ because
 \begin{align*}
 {F}_{*} \mu_F ((a,b]) 
 &= \mu_F(F^{-1}((a,b]))\\
 &= \mu_F((F^{-1}(a), F^{-1}(b)]) \\ 
-&= F(F^{-1}(a)) - F(F^{-1}(b))\\
+&= F(F^{-1}(b)) - F(F^{-1}(a))\\
 &= b-a
 \end{align*}
-
 Then  
 \begin{align*}
 E[L_X |L_X \geq VaR_{\al}(X)]
 &= E[L_X|L_X \geq F^{-1}_{L_X}(\al)] \\ 
-&= \frac{1}{1-\al}E [L_X \mathbf{1}_{\{L_X \geq F^{-1}_{L_X}(\al)\}}] \\ 
+&= \frac{1}{1-\al}E [L_X I_{\{L_X \geq F^{-1}_{L_X}(\al)\}}] \\ 
 &=  \frac{1}{1-\al} \int_{\{L_X \geq F_{L_X}^{-1}(\al)\}}L_X dP \\
-& = \frac{1}{1-\al} \int_{[F_{L_X}^{-1}(\al),  \infty)}xd F_{L_X}(x)
-\end{align*}
-
-Using the facts recalled earilier, we have  
-\begin{align*}
-\int_{[F_{L_X}^{-1}(\al),  \infty)}xd F_{L_X}(x) 
-&= \int_{[F_{L_X}^{-1}(\al),  \infty)}(F^{-1}_{L_X} \circ F_{L_X}) (x)d F_{L_X}(x) \\
-&= \int_{[\al,  1)} F^{-1}_{L_X}(x)dm(x)\\
-&= \int_{[\al,  1)} VaR_{\al}(X)dm(x)
+&= \frac{1}{1-\al} \int_{[F_{L_X}^{-1}(\al),  \infty)}pd F_{L_X}(p) \\
+&= \frac{1}{1-\al} \int_{[F_{L_X}^{-1}(\al),  \infty)}pd F_{L_X}(p) \\
+&= \frac{1}{1-\al} \int_{[F_{L_X}^{-1}(\al),  \infty)}(F^{-1}_{L_X} \circ F_{L_X}) (p)d F_{L_X}(p) \\
+&= \frac{1}{1-\al} \int_{[\al,  1)} F^{-1}_{L_X}(p)dm(p)\\
+&= \frac{1}{1-\al} \int_{[\al,  1)} VaR_{p}(X)dm(p) \\
+&= ES_{\al}(X)
 \end{align*}
 \end{proof}
 
@@ -168,10 +160,10 @@ This implies that
 \begin{align*}
 -(F_{L_X}(\theta') - F_{L_X}(\theta))
 &= -P(\theta < L_X < \theta') \\
-&\leq E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \mathbf{1}_{L_X \in (\theta, \theta')}\bigg] \\
+&\leq E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} I_{L_X \in (\theta, \theta')}\bigg] \\
 &< 0
 \end{align*} 
-Thus there exists $c \in (0, 1)$ such that $$E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} \mathbf{1}_{L_X \in (\theta, \theta')}\bigg] = -c(F_{L_X}(\theta') - F_{L_X}(\theta))$$\vspace{3mm}\\
+Thus there exists $c \in (0, 1)$ such that $$E\bigg[ \frac{(L_X - \theta')^+ - (L_X - \theta)^+}{\theta'-\theta} I_{L_X \in (\theta, \theta')}\bigg] = -c(F_{L_X}(\theta') - F_{L_X}(\theta))$$\vspace{3mm}\\
 In addition, $P(\theta' \leq L_X) = 1-F_{L_X}(\theta')$.
 Therefore 
 \begin{align*}
@@ -191,7 +183,7 @@ The case is similar for the lefthand limit.
 \end{proof}
 
 \begin{thm}
-Let $X$ be a nice random variable and $\al\in (0,1)$. Then $$VaR_{\al}(X) = \argmin_{\theta \in \R} \bigg(\theta + \frac{1}{1-\al}E[(L_X - \theta)^+]\bigg)$$ and $$AVaR_{\al}(X) = \min_{\theta \in \R} \bigg(\theta + \frac{1}{1-\al}E[(L_X - \theta)^+]\bigg)$$
+Let $X$ be a nice random variable and $\al\in (0,1)$. Then $$VaR_{\al}(X) = \argmin_{\theta \in \R} \bigg(\theta + \frac{1}{1-\al}E[(L_X - \theta)^+]\bigg)$$ and $$ES_{\al}(X) = \min_{\theta \in \R} \bigg(\theta + \frac{1}{1-\al}E[(L_X - \theta)^+]\bigg)$$
 \end{thm}
 
 \begin{proof} 
@@ -204,31 +196,38 @@ By definition, $\theta^* = VaR_{\al}(X)$. Finally, evaluating $f_{\al}$ at $\the
 \begin{align*}
 f_{\al}(\theta^*)  
 &=  \theta^* + \frac{1}{1- \al}E[(L_X - \theta^*)^+]\\
-& = \theta^* + \frac{1}{P(L_X>\theta^*)}E[(L_X-\theta^*)\mathbf{1}_{\{L_X>\theta^*\}}] \\
-& = \theta^* + \frac{1}{P(L_X>\theta^*)}E[L_X\mathbf{1}_{\{L_X>\theta^*\}}] - \frac{1}{P(L_X>\theta^*)}E[\theta^*\mathbf{1}_{\{L_X>\theta^*\}}] \\
-& = \theta^* + \frac{1}{P(L_X>\theta^*)}E[L_X\mathbf{1}_{\{L_X>\theta^*\}}] - \theta^* \\
+& = \theta^* + \frac{1}{P(L_X>\theta^*)}E[(L_X-\theta^*)I_{\{L_X>\theta^*\}}] \\
+& = \theta^* + \frac{1}{P(L_X>\theta^*)}E[L_XI_{\{L_X>\theta^*\}}] - \frac{1}{P(L_X>\theta^*)}E[\theta^*I_{\{L_X>\theta^*\}}] \\
+& = \theta^* + \frac{1}{P(L_X>\theta^*)}E[L_XI_{\{L_X>\theta^*\}}] - \theta^* \\
 &= E[L_X|L_X> \theta^*] \\
 & = E[L_X|L_X>VaR_{\al}(X)] \\
-& = AVaR_{\al}(X)
+& = ES_{\al}(X)
 \end{align*}
 
 \end{proof}
 
-\subsection{Estimating the Value at Risk}
+\section{Estimation of Risk}
+
+\subsection{Estimating the Value at Risk in the IID Case}
 
 \begin{defn}
-Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\al\in (0,1)$. Define $$\widehat{VaR_\al}(X) = $$
+Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\al\in (0,1)$. Define $$\widehat{v}_\al = $$
 \end{defn}
 
-\subsection{Estimating the Average Value at Risk}
+\subsection{Estimating the Expected Shortfall in the IID Case}
 
 \begin{defn}
-Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\al\in (0,1)$. Define $$ \widehat{AVaR_{\al}(X)} = $$ 
+Let $X$ be a nice random random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\al\in (0,1)$. Define $$ \widehat{e}_{\al, n} = \frac{\sum_{i=1}^nL_{X_i}I_{L_{X_i \geq \widehat{v}_{\al}}}}{\sum_{i=1}^nI_{L_X \geq \widehat{v}_{\al}}} $$ 
 \end{defn}
 
 \begin{lem}
-Let $X$ be a random nice random variable, $X_1, \cdots , X_n \stackrel{iid}{\sim} X$ and $\al\in (0,1)$. Then $\widehat{AVarR_{\al}(X)}$ is an unbiased estimator for $AVaR_{\al}(X)$. 
+Let $X$ be a nice random random variable, $X_1, \cdots , X_n
+\stackrel{iid}{\sim} X$ and $\al \in (0,1)$. Then $\widehat{e}_{\al, n} \convt{a.e.} ES_{\al}(X)$.
 \end{lem}
+
+\begin{proof}
+	Since $(L_X)_{i = 1}^n \subset L^1$ are iid, the SLLN tells us that for each $v \in \R$, $$\frac{1}{n}\sum_{i=1}^n L_{X_i}I_{\{L_{X_i} \geq v\}} \convt{a.e.} E[L_XI_{\{X > v\}}]$$
+\end{proof}
 
 \begin{proof}
 For each $\al\in (0,1), \om \in \Om$ and $\theta \in \R$, define $$f_{\al}(\om)(\theta) = \theta + \frac{1}{n (1-\al)} \sum_{i=1}^n\max(-X_i(\om) - \theta, 0) $$ 

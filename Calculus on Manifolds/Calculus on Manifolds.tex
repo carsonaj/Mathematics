@@ -135,8 +135,12 @@
 		Let $\Om$ be a $k$-dimensional smooth submanifold of $\R^n$. Then $\partial \Om$ is a $k-1$-dimensional smooth manifold of $\R^n$.
 	\end{ex}
 	
+	\begin{proof}
+		Straightforward.
+	\end{proof}
+	
 	\begin{defn}
-		Let $\Om$ be a smooth $k$-dimensional smooth submanifold of $\R^n$, $U \subset \Om$ open in $\Om$, $V \subset \H_k$ open in $\H_k$ and $\phi: U \rightarrow V$ a smooth coordinate chart on $\Om$. Then $\phi^{-1}: V \rightarrow U$ is called a \textbf{smooth parametrization} of $\Om$. 
+		Let $\Om$ be a smooth $k$-dimensional smooth submanifold of $\R^n$, $U \subset \Om$ open in $\Om$, $V \subset \H_k$ open in $\H_k$ and $\phi: U \rightarrow V$ a smooth coordinate chart on $\Om$. Then $\phi^{-1}: V \rightarrow U$ is called a \textbf{local smooth parametrization} of $\Om$. 
 	\end{defn}
 	
 	\subsection{Differential Forms}
@@ -199,6 +203,25 @@
 	\end{defn}
 
 	\begin{ex}
+		On $\R^3$, put 
+		\begin{enumerate}
+			\item $\om_0 = f_0$, 
+			\item $\om_1 = f_1 dx_1 + f2 dx_2 + f_2 dx_3$, 
+			\item $\om_2 = f_1dx_2\wedge dx_3 - f_2 dx_1 \wedge dx_3 + f_3 dx_1 \wedge dx_2$
+		\end{enumerate} 
+		Show that
+		\begin{enumerate}
+			\item $d\om_0 = \pdv{f_0}{x_1}dx_1 + \pdv{f_0}{x_2}dx_2 + \pdv{f_0}{x_3}dx_3$
+			\item $d \om_1 = \bigg(\pdv{f_3}{x_2} - \pdv{f_2}{x_3} \bigg) dx_2 \wedge dx_3 + \bigg( \pdv{f_3}{x_1} - \pdv{f_1}{x_3}\bigg)dx_1 \wedge dx_3 + \bigg( \pdv{f_2}{x_1} - \pdv{f_1}{x_2} \bigg) dx_1 \wedge dx_2$
+			\item $d \om_2 = \bigg( \pdv{f_1}{x_1} + \pdv{f_2}{x_2} + \pdv{f_3}{x_3} \bigg) dx_1 \wedge dx_2 \wedge dx_3$ 
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		Straightforward.
+	\end{proof}
+
+	\begin{ex}
 		Let $I \in \MI_{k, n}$. Then there is a unique $I_* \in \MI_{n-k, n}$ such that $dx_I \wedge dx_{I_*} = dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$.
 	\end{ex}
 	
@@ -217,11 +240,50 @@
 	\end{defn}
 
 	\begin{ex}
-			Let $\Om \subset \R^n$ be a $k$-dimensional smooth submanifold of $\R^n$, $\phi: U \rightarrow V$ a smooth parametrization of $\Om$, $\om = \sum_{I \in \MI_{k,n}} f_Idx_I$  an $k$-form on $\R^n$. Then $$\phi^* \om = \bigg( \sum_{I \in \MI_{k, n}} f_I \circ \phi \det(D\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k$$ 
+			Let $\Om \subset \R^n$ be a $k$-dimensional smooth submanifold of $\R^n$, $\phi: U \rightarrow V$ a smooth parametrization of $\Om$, $\om = \sum_{I \in \MI_{k,n}} f_Idx_I$  an $k$-form on $\R^n$. Then $$\phi^* \om = \bigg( \sum_{I \in \MI_{k, n}} (f_I \circ \phi) (\det D\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k$$ 
 	\end{ex}
 
 	\begin{proof}
-		
+		Using the definitions, we see that 
+		\begin{align*}
+			\phi^* \om 
+			&= \phi^*  \sum_{I \in \MI_{k,n}} f_Idx_I \\
+			&= \sum_{I \in \MI_{k,n}} (\phi^*f_I) \phi^*dx_I \\
+			&= \sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  d\phi_I
+		\end{align*}
+	
+	A previous exercise tells us that for each $I \in \MI_{k,n}$,
+	\begin{align*}
+		d \phi_I 
+		&= d\phi_{i_1} \wedge d\phi_{i_2} \wedge \cdots \wedge d \phi_{i_n} \\
+		&= (\sum_{j = 1}^n \pdv{\phi_{i_1}}{u_j} du_j) \wedge (\sum_{j = 1}^n \pdv{\phi_{i_2}}{u_j} du_j) \wedge \cdots \wedge (\sum_{j = 1}^n \pdv{\phi_{i_k}}{u_j} du_j)   \\
+		&= (\det D\phi_I)du_1 \wedge du_2 \wedge \cdots \wedge du_k
+	\end{align*}
+	Therefore 
+	\begin{align*}
+		\phi^* \om
+		&= \sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  d\phi_I \\
+		&= \sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  (\det D\phi_I)du_1 \wedge du_2 \wedge \cdots \wedge du_k \\
+		&= \bigg(\sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  (\det D\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k
+	\end{align*}
 	\end{proof}
 	
+	\subsection{Integration of Differential Forms}
+	
+	\begin{defn}
+		Let $U \subset \R^k$ be open and $\om = f dx_1 \wedge dx_2 \wedge \cdots \wedge dx_k$ a $k$-form on $\R^k$. Define $$\int_U \om = \int_U f dx$$
+	\end{defn}
+	
+	\begin{defn}
+		Let $\Om \subset \R^n$ be a $k$-dimensional oriented smooth submanifold of $\R^n$, $\om$ a $k$-form on $\R^n$ and $\phi: U \rightarrow V$ a local smooth, orientation-preserving parametrization of $\Om$. Define $$\int_V \om = \int_U \phi^*\om $$
+	\end{defn} 
+
+	\begin{ex}
+		
+	\end{ex}
+
+	\begin{thm}{\textbf{(Stokes)}}
+		Let $\Om \subset \R^n$ be a $k$-dimensional oriented smooth submanifold of $\R^n$ and $\om$ a $k-1$-form on $\R^n$. Then $$\int_{\partial \Om} \om = \int_\Om d \om$$
+	\end{thm}
+
 \end{document}
