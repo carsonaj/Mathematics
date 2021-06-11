@@ -41,8 +41,9 @@
 \DeclareMathOperator{\spn}{span}
 
 \newcommand{\al}{\alpha}
+\newcommand{\gam}{\gamma}
 \newcommand{\Gam}{\Gamma}
-\newcommand{\be}{\beta} 
+\newcommand{\bet}{\beta} 
 \newcommand{\del}{\delta} 
 \newcommand{\Del}{\Delta}
 \newcommand{\lam}{\lambda}  
@@ -90,7 +91,7 @@
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
 
 \DeclareMathOperator{\sgn}{sgn}
-
+\DeclareMathOperator{\vspan}{span}
 
 \begin{document}
 	
@@ -105,6 +106,420 @@
 	\subsection{The derivative}
 
 
+\newpage
+	\section{Multilinear Algebra}
+	
+	\begin{note}
+		For the remainder of this section we let $V$ denote an $n$-dimensional vector space with basis $\{e_1, \cdots, e_n\}$ with dual space $V^*$ and dual basis $\{\ep_1, \cdots, \ep_n\}$ defined by $\ep_i(e_j) = \del_{i,j}$.
+	\end{note}
+
+	\subsection{$k$-Forms}
+	
+	\begin{defn}
+		Let $\al: V^k \rightarrow \R$. Then $\alpha$ is said to be \textbf{multilinear} or a \textbf{k-form on V} if for $i \in \{1, \cdots, k\}$, $w \in V$, $c \in \R$ and $v_1, \cdots, v_k \in V$, $$\al(v_1, \cdots, v_i + cw, \cdots, v_k) = \al(v_1, \cdots, v_i, \cdots, v_k) + c\al(v_1, \cdots, w, \cdots, v_k)$$
+		The set of all $k$-forms on $V$ is denoted by $T_k(V)$. Define $L_0(V) = \R$.
+	\end{defn}
+
+	\begin{ex}
+		We have that $T_k(V)$ is a vector space. 
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+
+	\begin{defn}
+		For $\sig \in S_k$ and $\al \in T_k(V)$, define the $\sig \al : V^k \rightarrow \R$ by $$\sig \al(v_1, \cdots, v_k) = \al(v_{\sig(1)}, \cdots, v_{\sig(k)})$$  The map $\al \mapsto \sig \al$ is called the \textbf{permutation action} of $S_k$ on $T_k(V)$
+	\end{defn}
+
+	\begin{ex}
+		The permutation action of $S_k$ on $T_k(V)$ is a group action.
+	\end{ex}
+
+	\begin{proof} \
+		\begin{enumerate}
+			\item Clearly for each $\sig \in S_k$ and $\al \in T_k(V), \sig \al \in T_k(V) $.
+			\item Clearly for each $\al \in T_k(V)$, $e \al = \al$.
+			\item Let $\tau, \sig \in S_k$ and $\al \in T_k(V)$. Then for each $v_1, \cdots, v_k \in V$, 
+			\begin{align*}
+				(\tau \sig) \al(v_1, \cdots, v_k) 
+				&= \al(v_{\tau \sig (1)}, \cdots, v_{\tau \sig (k)}) \\
+				&= \tau \al(v_{ \sig (1)}, \cdots, v_{ \sig (k)}) \\ 
+				&= \tau (\sig \al) (v_1, \cdots, v_k) 
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $\sig \in S_k$. Then $L_{\sig}: T_k(V) \rightarrow T_k(V)$ given by $ L_{\sig}(\al) = \sig \al$ is a linear transformation.
+	\end{ex}
+
+	\begin{proof}
+		Let $\al, \beta \in T_k(V)$, $c \in \R$ and $v_1, \cdots, v_k \in V$. Then 
+		\begin{align*}
+			\sig(c\al + \beta)(v_1, \cdots, v_k) 
+			&= (c\al + \beta)(v_{\sig(1)}, \cdots, v_{\sig(k)}) \\
+			&= c \al(v_{\sig(1)}, \cdots, v_{\sig(k)}) + \beta(v_{\sig(1)}, \cdots, v_{\sig(k)}) \\
+			&= c \sig \al(v_1, \cdots, v_k) + \sig \beta(v_1, \cdots, v_k)
+		\end{align*}
+		So $\sig(c \al + \beta) = c\sig \al + \sig \beta$.
+	\end{proof}
+	
+	\begin{defn}
+		Let $\al$ be a $k$-form on $V$. Then $\al$ is said to be \textbf{symmetric} if for each $\sig \in S_k$, $\sig \al = \al$. and $\al$ is said to be \textbf{alternating} if for each $\sig \in S_k$, $\sig \al = \sgn(\sig) \al$.  The set of symmetric $k$-forms on $V$ is denoted $\Gam_k(V)$ and the set of alternating $k$-forms on $V$ is denoted $\Lam_k(V)$.
+	\end{defn}
+
+	\begin{defn}
+		Define the \textbf{symmetric operator} $S: T_k(V) \rightarrow \Gam_k(V)$ by $$S(\al) = \frac{1}{k!}\sum_{\sig \in S_k} \sig \al$$  Define the \textbf{alternating operator} $A: T_k(V) \rightarrow \Lam_k(V)$ by $$A(\al) = \frac{1}{k!}\sum_{\sig \in S_k} \sgn(\sig)\sig \al$$
+	\end{defn}
+	
+	\begin{ex}\
+		\begin{enumerate}
+			\item For $\al \in T_k(V)$, $S(\al)$ is symmetric.
+			\item For $\al \in T_k(V)$, $A(\al)$ is alternating.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $\al \in T_k(V)$ and $\sig \in S_k$. Then 
+			\begin{align*}
+				\sig S(\al) 
+				&= \sig \bigg[ \frac{1}{k!}\sum_{\tau \in S_k} \tau \al \bigg]\\
+				&= \frac{1}{k!} \sum_{\tau \in S_k} \sig \tau \al \\
+				&= \frac{1}{k!} \sum_{\tau \in S_k} \tau \al \\
+				&= S(\al)
+			\end{align*} 
+			\item Let $\al \in T_k(V)$ and $\sig \in S_k$. Then 
+			\begin{align*}
+				\sig A(\al) 
+				&= \sig \bigg[ \frac{1}{k!}\sum_{\tau \in S_k} \sgn(\tau)\tau \al \bigg] \\
+				&= \frac{1}{k!}\sum_{\tau \in S_k} \sgn(\tau) \sig \tau \al \\
+				&= \frac{1}{k!} \sum_{\tau \in S_k} \sgn(\sig) \sgn(\sig \tau) \sig \tau \al \\
+				&= \sgn(\sig) \frac{1}{k!} \sum_{\tau \in S_k} \sgn(\sig \tau) \sig \tau \al \\
+				&= \sgn(\sig) \frac{1}{k!} \sum_{\tau \in S_k} \sgn(\tau)\tau \al \\
+				&= \sgn(\sig)A(\al)
+			\end{align*} 
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \
+		\begin{enumerate}
+			\item For $\al \in \Gam_k(V)$, $S(\al) = \al$.
+			\item For $\al \in \Lam_k(V)$, $A(\al) = \al$.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $\al \in \Gam_k(V)$. Then 
+			\begin{align*}
+				S(\al) 
+				&= \frac{1}{k!} \sum_{\sig \in S_k} \sig \al \\
+				&= \frac{1}{k!} \sum_{\sig \in S_k} \al \\
+				&= \al
+			\end{align*}
+			\item Let $\al \in \Lam_k(V)$. Then 
+			\begin{align*}
+				A(\al) 
+				&= \frac{1}{k!} \sum_{\sig \in S_k} \sgn(\sig)\sig \al \\
+				&= \frac{1}{k!} \sum_{\sig \in S_k} \sgn(\sig)^2 \al \\
+				&= \al
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		The symmetric operator $S: T_k(V) \rightarrow \Gam_k(V)$ and the alternating operator $A: T_k(V) \rightarrow \Lam_k(V)$ are linear.
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+	
+	\begin{defn}
+		Let $\al \in T_k(V)$ and $\beta \in T_l(V)$. The \textbf{tensor product} of $\al$ and $\beta$ is defined to be the map $\al \otimes \beta \in T_{k+l}(V)$ given by $$\al \otimes \beta (v_1, \cdots, v_k, v_{k+1}, \cdots, v_{k+l}) = \al(v_1, \cdots, v_k) \beta(v_{k+1}, \cdots, v_{k+l})$$  
+		Thus $\otimes: T_k(V) \times T_l(V) \rightarrow T_{k+l}(V)$.
+	\end{defn}
+
+	\begin{ex}
+		The tensor product $\otimes: T_k(V) \times T_l(V) \rightarrow T_{k+l}(V)$ is associative.
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+	
+	\begin{ex}
+		The tensor product $\otimes: T_k(V) \times T_l(V) \rightarrow T_{k+l}(V)$ is bilinear.
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+	
+	\begin{defn}
+		Let $\al \in \Lam_k(V)$ and $\beta \in \Lam_l(V)$. The \textbf{exterior product} of $\al$ and $\beta$ is defined to be the map $\al \wedge \beta \in \Lam_{k+l}(V)$ given by $$\al \wedge \beta = \frac{(k+l)!}{k! l!} A(\al \otimes \beta)$$ 
+		Thus $\wedge: \Lam_k(V) \times \Lam_l(V) \rightarrow \Lam_{k+l}(V)$.
+	\end{defn}
+
+	\begin{ex}
+		Let $\al \in T_k(V)$ and $\beta \in T_l(V)$. Then 
+		\begin{enumerate}
+			\item $A(A(\al) \otimes \beta) = A(\al \otimes \beta)$
+			\item $A(\al \otimes A(\beta)) = A(\al \otimes \beta)$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		First note that if we fix $\mu \in S_{k+1}$, then for each $\tau \in S_k$, choosing $\sig = \mu \tau^{-1}$ yields $\sig \tau = \mu$. For each $\mu \in S_{k+l}$, the map $\phi_{\mu}: S_{k} \rightarrow S_{k+l}$ given by $\phi_{\mu}(\tau) = \mu \tau^{-1}$ is injective. Thus for each $\mu \in S_{k+l}$, we have that $\# \{ (\sig, \tau) \in S_{k+l} \times S_{k}: \mu = \sig \tau \} = k!$ 
+		\begin{enumerate}
+			\item Then
+			\begin{align*}
+				A(A(\al) \otimes \beta)
+				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg [A(\al) \otimes \beta \bigg] \\
+				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg[ \bigg( \frac{1}{k!}\sum_{\tau \in S_{k} } \sgn(\tau) \tau\al \bigg) \otimes \beta \bigg] \\
+				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg[   \frac{1}{k!} \sum_{\tau \in S_{k} } \sgn(\tau) (\tau\al)  \otimes \beta \bigg] \\
+				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg[  \frac{1}{k!} \sum_{\tau \in S_{k} } \sgn(\tau) \tau (\al  \otimes \beta) \bigg] \\
+				&=  \frac{1}{k! (k+l)!}\sum_{\sig \in S_{k+l} } \sum_{\tau \in S_{k} } \sgn(\sig \tau) \sig \tau (\al  \otimes \beta) \\
+				&=  \frac{k!}{k!(k+l)!} \sum_{\mu \in S_{k+l} }  \sgn(\mu) \mu (\al  \otimes \beta)\\
+				&=  \frac{1}{(k+l)!} \sum_{\mu \in S_{k+l} }  \sgn(\mu) \mu (\al  \otimes \beta)\\
+				&= A(\al \otimes \beta)
+			\end{align*} 
+		\item Similar to (1).
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		The exterior product $\wedge: \Lam_k(V) \times \Lam_l(V) \rightarrow \Lam_{k+l}(V)$ is associative. 
+	\end{ex}
+
+	\begin{proof}
+		Let $\al \in \Lam_k(V)$, $\beta \in \Lam_l(V)$ and $\gam \in \Lam_m(V)$. Then 
+		\begin{align*}
+			(\al \wedge \bet) \wedge \gam
+			&= \bigg [ \frac{(k+l)!}{k! l!} A(\al \otimes \beta) \bigg] \wedge \gam \\ 
+			&= \frac{(k+l+m)!}{(k+l)!m!} A \bigg( \bigg [ \frac{(k+l)!}{k! l!} A(\al \otimes \beta) \bigg] \otimes \gam \bigg)  \\ 
+			&= \frac{(k+l+m)!}{(k+l)!m!}  \frac{(k+l)!}{k!l!}A(A(\al \otimes \bet) \otimes \gam) \\
+			&= \frac{(k+l+m)!}{m!}  \frac{1}{k!l!} A((\al \otimes \beta) \otimes \gam) \\
+			&= \frac{(k+l+m)!}{k!(l+m)!}  \frac{(l+m)!}{l!m!} A(\al \otimes (\bet \otimes \gam)) \\
+			&= \frac{(k+l+m)!}{k!(l+m)!}  \frac{(l+m)!}{l!m!} A(\al \otimes A(\bet \otimes \gam)) \\
+			&= \frac{(k+l+m)!}{k!(l+m)!} A(\al \otimes \frac{(l+m)!}{l!m!} A(\bet \otimes \gam)) \\
+			&= \frac{(k+l+m)!}{k!(l+m)!} A(\al \otimes (\bet \wedge \gam)) \\
+			&= \al \wedge (\bet \wedge \gam)) \\
+		\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+		Let $\al_i \in \Lam_{k_i}(V)$ for $i =1, \cdots, m$. Then $$\bigwedge_{i=1}^m \al_i = \frac{(\sum_{i=1}^m k_i)!}{\prod_{i=1}^m k_i!} A \bigg(\bigotimes_{i=1}^m \al_i \bigg)$$
+	\end{ex}
+
+	\begin{proof}
+		To see that the statment is true in the case $m=3$, the proof of the previous exercise tells us that indeed $$\al_1 \wedge \al_2 \wedge \al_3 = \frac{(k_1 + k_2 + k_3)!}{k_1! k_2! k_3!}A(\al_1 \otimes \al_2 \otimes \al_3)$$
+		Now, suppose that the statement is true for each $3 \leq m \leq m_0$. Then the proof of the previous exercise tells us the 
+		\begin{align*}
+			\bigwedge_{i=1}^{m_0 +1} \al_i
+			&= \bigg( \bigwedge_{i=1}^{m_0 -1} \al_i \bigg) \wedge \al_{m_0} \wedge \al_{m_0+1} \\
+			&= \frac{(\sum_{i=1}^{m_0-1} k_i + k_{m_0} + k_{m_0+1})! }{(\sum_{i=1}^{m_0-1} k_i)! k_{m_0}! k_{m_0+1}!} A\bigg( \bigg[ \bigwedge_{i=1}^{m_0-1} \al_i \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
+			&= \frac{(\sum_{i=1}^{m_0-1} k_i + k_{m_0} + k_{m_0+1})! }{(\sum_{i=1}^{m_0-1} k_i)! k_{m_0}! k_{m_0+1}!} A\bigg( \bigg[ \frac{(\sum_{i=1}^{m_0-1} k_i)!}{\prod_{i=1}^{m_0-1} k_i!} A \bigg (\bigotimes_{i=1}^{m_0-1} \al_i \bigg) \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
+			&= \frac{(\sum_{i=1}^{m_0+1} k_i)! }{ \prod_{i=1}^{m_0+1} k_i!}A \bigg( A\bigg [ \bigotimes_{i=1}^{m_0-1} \al_i \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
+			&= \frac{(\sum_{i=1}^{m_0+1} k_i)! }{ \prod_{i=1}^{m_0+1} k_i!}A \bigg( \bigg [ \bigotimes_{i=1}^{m_0-1} \al_i \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
+			&= \frac{(\sum_{i=1}^{m_0+1} k_i)! }{ \prod_{i=1}^{m_0+1} k_i!}A \bigg(  \bigotimes_{i=1}^{m_0+1} \al_i   \bigg) 
+		\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+		Define $\tau \in S_{k+l}$ by 
+		\[\tau = 
+		\begin{pmatrix}
+			1 & 2 & \cdots &l &l+1 & l+2 & \cdots & l+k \\
+			1+k & 2+ k & \cdots & l+k & 1 & 2 & \cdots & k 
+		\end{pmatrix} 
+		\]
+		Then the inversion number of $\tau$ is $kl$.
+		(Hint: inversion number)
+	\end{ex}
+
+	\begin{proof}
+		\begin{align*}
+			N(\tau) 
+			&= \sum_{i = 1}^l k \\
+			&= kl
+		\end{align*}
+		Since $\sgn (\tau) = (-1)^{N(\tau)}$ we know that  $\sgn(\tau) = (-1)^{kl}$.
+	\end{proof}
+
+	
+	\begin{ex}
+		Let $\al \in \Lam_k(V)$, $\beta \in \Lam_l(V)$. Then $$\al \wedge \bet = (-1)^{kl}\bet \wedge \al$$
+	\end{ex}
+
+	\begin{proof}
+		Note that For $\sig \in S_{k+l}$ and $v_1, \cdots, v_{k +l} \in V$, we have that 
+		\begin{align*}
+			\sig \tau (\bet \otimes \al)(v_1, \cdots, v_l, v_{l+1}, \cdots v_{l+k}) 
+			&= \bet \otimes \al(v_{\sig \tau(1)}, \cdots, v_{\sig \tau(l)}, v_{\sig \tau(l+1)}, \cdots v_{\sig \tau(l+k)}) \\
+			&= \bet(v_{\sig \tau(1)}, \cdots, v_{\sig \tau(l)}) \al(v_{\sig \tau(l+1)}, \cdots v_{\sig \tau(l+k)}) \\
+			&= \bet(v_{\sig (1+k)}, \cdots, v_{\sig (l+k)}) \al(v_{\sig (1)}, \cdots v_{\sig (k)})\\ 
+			&= \al(v_{\sig (1)}, \cdots v_{\sig (k)}) \bet(v_{\sig (1+k)}, \cdots, v_{\sig (l+k)}) \\
+			&= \al \otimes \bet (v_{\sig (1)}, \cdots v_{\sig (k)}, v_{\sig (1+k)}, \cdots, v_{\sig (l+k)}) \\
+			&= \sig (\al \otimes \bet) (v_1, \cdots, v_k, v_{1+k}, \cdots v_{l+k})
+		\end{align*}
+		Thus $\sig \tau (\bet \otimes \al) = \sig (\al \otimes \bet)$.
+		Define $\tau$ as in the previous exercise. Then 
+		\begin{align*}
+			\bet \wedge \al
+			&= \frac{(k+l)!}{k!l!}A(\bet \otimes \al) \\
+			&=  \frac{(k+l)!}{k!l!} \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig (\bet \otimes \al) \\
+			&= \frac{(k+l)!}{k!l!} \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig \tau) \sig \tau (\bet \otimes \al) \\
+			&= \sgn(\tau)\frac{(k+l)!}{k!l!} \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig (\al \otimes \bet) \\
+			&= \sgn(\tau)\frac{(k+l)!}{k!l!}  A(\al \otimes \bet) \\
+			&= \sgn(\tau) \al \wedge \bet \\
+			&= (-1)^{kl} \al \wedge \beta
+		\end{align*}
+	 
+	\end{proof}
+
+	\begin{ex}
+		Let $\al_\in \Lam_k(V)$. If $k$ is odd, then $\al \wedge \al = 0$. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $k$ is odd. The previous exercise tells us that 
+		\begin{align*}
+			\al \wedge \al 
+			&= (-1)^{k^2} \al \wedge \al \\
+			&= -\al \wedge \al
+		\end{align*}
+		Thus $\al \wedge \al = 0$.
+	\end{proof}
+	
+	\begin{ex}\textbf{(Fundamental Example)}
+		Let $\al_1, \cdots, \al_m \in \Lam_1(V)$ and $v_1, \cdots, v_m \in V$. Then $$\bigg( \bigwedge_{i=1}^m \al_i \bigg)(v_1, \cdots, v_m) = \det (\al_i (v_j))$$
+	\end{ex}
+
+	\begin{proof}
+		The previous exercises tell us that
+		\begin{align*}
+			\bigg( \bigwedge_{i=1}^m \al_i \bigg)(v_1, \cdots, v_m)
+			&= m! A\bigg( \bigotimes_{i=1}^m \al_i \bigg) (v_1, \cdots, v_m) \\
+			&= m! \bigg[ \frac{1}{m!} \sum_{\sig \in S_{m}} \sgn(\sig) \sig \bigg(\bigotimes_{i=1}^m \al_i \bigg) \bigg] (v_1, \cdots, v_m) \\
+			&= \sum_{\sig \in S_{m}} \sgn(\sig)  \bigg(\bigotimes_{i=1}^m \al_i \bigg) (v_{\sig(1)}, \cdots, v_{\sig(m)}) \\
+			&= \sum_{\sig \in S_{m}} \sgn(\sig)  \prod_{i=1}^m \al_i(v_{\sig(i)})   \\
+			&= \det (\al_i (v_j))
+		\end{align*}
+	\end{proof}
+
+	\begin{defn}
+		Define $\MI_{k} = \{(i_1, i_2, \cdots, i_k) \in \N^k: i_1 < i_2 < \cdots < i_k \leq n \}$. Each element $I \in \MI_{k}$ is called a \textbf{multi-index}. Recall that $\# \MI_{k} = {n \choose k}$. 
+	\end{defn}
+
+	\begin{defn}
+		Let $I = \{(i_1, i_2, \cdots, i_k) \in I_k$. \\ Define $e_I \in V^k$ by $$e_I = (e_{i_1}, \cdots, e_{i_k})$$ Define $\ep_I \in \Lam_k(V)$ by $$ \ep_I = \ep_{i_1} \wedge \cdots, \wedge \ep_{i_k} $$ 
+	\end{defn}
+
+	\begin{defn}
+		 Define the \textbf{permutation action} of $S_k$ on $\MI_k$ by $\sig I = (i_{\sig(1)}, \cdots, i_{\sig(k)})$.
+	\end{defn}
+
+	\begin{ex}
+		The permutation action of $S_k$ on $\MI_k$ is a group action. 
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+
+	\begin{ex}
+		Let $I = (i_1, \cdots, i_k)$ and $J = (j_1, \cdots, j_k) \in \MI_k$. Then $\ep_I(e_J) = \del_{I,J}$.
+	\end{ex}
+
+	\begin{proof}
+		Put $A = \begin{pmatrix}
+			\ep_{i_1}(e_{j_1}) & \cdots & \ep_{i_1}(e_{j_k}) \\
+			& \vdots & \\
+			\ep_{i_k}(e_{j_1}) & \cdots & \ep_{i_k}(e_{j_k}) 
+		\end{pmatrix}$.
+		A previous exercise tells us that $\ep_I(e_J) = \det A$.
+		If $I = J$, then $A = I_{k\times k}$ and therefore $\ep_I(e_J) = 1$. Suppose that $I \neq J$. Put $l_0 = \min \{l: 1 \leq l \leq k, i_l \neq j_l\}$. If $i_{l_0} < j_{l_0}$, then all entries on the $l_0th$ row of $A$ are $0$. If $i_{l_0} > j_{l_0}$, then all entries on the $l_0th$ column of $A$ are $0$.
+	\end{proof}
+
+	\begin{ex}
+		Let $\al , \bet \in \Lam_k(V)$. If for each $I \in \MI_k$, $\al(e_I) = \bet(e_I)$, then $\al = \bet$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that for each $I \in \MI_k$, $\al(e_I) = \bet(e_I)$. Let $v_1, \cdots, v_k \in V$. For $i = 1, \cdots, k$, write $v_i = \sum_{j_i = 1}^n a_{i,j_i}e_{j_i}$. Then 
+		\begin{align*}
+			\al(v_1, \cdots, v_k) 
+			&= \sum_{j_1, \cdots, j_k =1}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \al(e_{j_1}, \cdots, e_{j_k}) \\
+			&= \sum_{j_1 \neq \cdots \neq j_k}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \al(e_{j_1}, \cdots, e_{j_k}) \\
+			&= \sum_{J \in \MI_k} \bigg [ \sum_{\sig \in S_J} \sgn(\sig) \bigg( \prod_{i=1}^k a_{i, \sig(j_i)} \bigg) \bigg] \al(e_J) \\
+			&= \sum_{J \in \MI_k} \bigg [ \sum_{\sig \in S_J} \sgn(\sig) \bigg( \prod_{i=1}^k a_{i, \sig(j_i)} \bigg) \bigg] \bet(e_J) \\
+			&= \sum_{j_1, \cdots, j_k =1}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \bet(e_{j_1}, \cdots, e_{j_k}) \\
+			&= \bet(v_1, \cdots, v_k) 
+		\end{align*}
+	
+	\end{proof}
+
+	\begin{ex}
+		The set $\{\ep_I: I \in \MI_k\}$ is a basis for $\Lam_k(V)$ and $\dim \Lam_k(V) = {n \choose k}$.
+	\end{ex}
+
+	\begin{proof}
+		Let $(a_I)_{I \in \MI_k} \subset \R$. Let $\al = \sum_{I \in \MI_k}a_I \ep_I$. Suppose that $\al = 0$. Then for each $J \in \MI_k$, $\al(e_J) = a_J = 0$. Thus $\{e_I: I \in \MI_k\}$ is linearly independent. Let $\bet \in \Lam_k(V)$. For $I \in \MI_k$, put $b_I = \bet(e_I)$. define $\mu = \sum_{I \in \MI_k} b_I\ep_I$. Then for each $J \in \MI_k$, $\mu(e_J) = b_J = \bet(e_J)$. Hence $\mu = \bet$ and therefore $\bet \in \vspan \{\ep_I:I \in \MI_k\}$.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{$(r,s)$-Tensors}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	\newpage
 	
 	\section{Calculus on Manifolds}
 	
@@ -148,10 +563,6 @@
 	\begin{note}
 		The definitions in this section will introduce a very slick book-keeping device for doing calculus on manifolds. Since we are not developing the theory from the ground up, it may feel abstract. Hopefully the many exercises facilitate becoming accostumed to this book-keeping tool.
 	\end{note}
-	
-	\begin{defn}
-		Define $\MI_{k, n} = \{(i_1, i_2, \cdots, i_k) \in \N^k: i_1 < i_2 < \cdots < i_n \leq n \}$. Let $I \in \MI_{k,n}$. Then $I$ is called a \textbf{multi-index}. Recall that $\# \MI_{k,n} = {n \choose k}$.
-	\end{defn}
 	
 	\begin{defn}
 		When working in $\R^n$, we introduce the formal objects $dx_1, dx_2, \cdots, dx_n$. Let $I = (i_1, i_2, \cdots, i_k)\in \MI_{k,n}$ and $\phi: \R^k \rightarrow \R^n$. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We formally define $dx_I = dx_{i_1}\wedge dx_{i_2} \wedge \cdots \wedge dx_{i_k}$ and $\phi_I = (\phi_{i_1}, \phi_{i_2}, \cdots, \phi_{i_k})$.   
