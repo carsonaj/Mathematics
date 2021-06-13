@@ -95,7 +95,7 @@
 
 \begin{document}
 	
-	\title{Calculus on Manifolds Notes}
+	\title{Differential Geometry}
 	\author{Carson James}
 	\maketitle
 	
@@ -103,8 +103,15 @@
 	
 	\section{Review of Multivariable Calculus and Linear Algebra}
 	
-	\subsection{The derivative}
-
+	\subsection{Differentiation}
+	
+	\begin{defn}
+		Let $n \geq 1$. For $i = 1, \cdots, n$, define $x_i: \R^n \rightarrow \R$ by $x_i(a_1, \cdots, a_n) = a_i$. The functions $(x_i)_{i=1}^n$ are called the \textbf{standard coordinate functions on $\R^n$}. 
+	\end{defn}
+	
+	\begin{defn}
+		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then $f$ is said to be \textbf{partially differentiable with respect to $x_i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he_i) - f(a)}{h}$$ exists. If $f$ is partially differentiable with respect to $x_i$ at $a$, we define the \textbf{partial derivative of $f$ with respect to $x_i$ at $a$}, denoted $$\frac{\partial f}{\partial x_i} (a) \text{, } \eval{\pdv{x_i}}_{a} f \text{, } \partial_{x_i} f (a) \text{ or } \eval{\partial_{x_i}}_{a} f$$ to be the limit above.
+	\end{defn}
 
 \newpage
 	\section{Multilinear Algebra}
@@ -166,11 +173,11 @@
 	\end{proof}
 	
 	\begin{defn}
-		Let $\al$ be a $k$-form on $V$. Then $\al$ is said to be \textbf{symmetric} if for each $\sig \in S_k$, $\sig \al = \al$. and $\al$ is said to be \textbf{alternating} if for each $\sig \in S_k$, $\sig \al = \sgn(\sig) \al$.  The set of symmetric $k$-forms on $V$ is denoted $\Gam_k(V)$ and the set of alternating $k$-forms on $V$ is denoted $\Lam_k(V)$.
+		Let $\al$ be a $k$-form on $V$. Then $\al$ is said to be \textbf{symmetric} if for each $\sig \in S_k$, $\sig \al = \al$. and $\al$ is said to be \textbf{alternating} if for each $\sig \in S_k$, $\sig \al = \sgn(\sig) \al$.  The set of symmetric $k$-forms on $V$ is denoted $\Xi_k(V)$ and the set of alternating $k$-forms on $V$ is denoted $\Lam_k(V)$.
 	\end{defn}
 
 	\begin{defn}
-		Define the \textbf{symmetric operator} $S: T_k(V) \rightarrow \Gam_k(V)$ by $$S(\al) = \frac{1}{k!}\sum_{\sig \in S_k} \sig \al$$  Define the \textbf{alternating operator} $A: T_k(V) \rightarrow \Lam_k(V)$ by $$A(\al) = \frac{1}{k!}\sum_{\sig \in S_k} \sgn(\sig)\sig \al$$
+		Define the \textbf{symmetric operator} $S: T_k(V) \rightarrow \Xi_k(V)$ by $$S(\al) = \frac{1}{k!}\sum_{\sig \in S_k} \sig \al$$  Define the \textbf{alternating operator} $A: T_k(V) \rightarrow \Lam_k(V)$ by $$A(\al) = \frac{1}{k!}\sum_{\sig \in S_k} \sgn(\sig)\sig \al$$
 	\end{defn}
 	
 	\begin{ex}\
@@ -205,14 +212,14 @@
 
 	\begin{ex} \
 		\begin{enumerate}
-			\item For $\al \in \Gam_k(V)$, $S(\al) = \al$.
+			\item For $\al \in \Xi_k(V)$, $S(\al) = \al$.
 			\item For $\al \in \Lam_k(V)$, $A(\al) = \al$.
 		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $\al \in \Gam_k(V)$. Then 
+			\item Let $\al \in \Xi_k(V)$. Then 
 			\begin{align*}
 				S(\al) 
 				&= \frac{1}{k!} \sum_{\sig \in S_k} \sig \al \\
@@ -230,7 +237,7 @@
 	\end{proof}
 
 	\begin{ex}
-		The symmetric operator $S: T_k(V) \rightarrow \Gam_k(V)$ and the alternating operator $A: T_k(V) \rightarrow \Lam_k(V)$ are linear.
+		The symmetric operator $S: T_k(V) \rightarrow \Xi_k(V)$ and the alternating operator $A: T_k(V) \rightarrow \Lam_k(V)$ are linear.
 	\end{ex}
 
 	\begin{proof}
@@ -262,6 +269,14 @@
 		Let $\al \in \Lam_k(V)$ and $\beta \in \Lam_l(V)$. The \textbf{exterior product} of $\al$ and $\beta$ is defined to be the map $\al \wedge \beta \in \Lam_{k+l}(V)$ given by $$\al \wedge \beta = \frac{(k+l)!}{k! l!} A(\al \otimes \beta)$$ 
 		Thus $\wedge: \Lam_k(V) \times \Lam_l(V) \rightarrow \Lam_{k+l}(V)$.
 	\end{defn}
+
+	\begin{ex}
+		The exterior product $\wedge: \Lam_k(V) \times \Lam_l(V) \rightarrow T_{k+l}(V)$ is bilinear.
+	\end{ex}
+	
+	\begin{proof}
+		Clear.
+	\end{proof}
 
 	\begin{ex}
 		Let $\al \in T_k(V)$ and $\beta \in T_l(V)$. Then 
@@ -418,18 +433,6 @@
 		Let $I = \{(i_1, i_2, \cdots, i_k) \in I_k$. \\ Define $e_I \in V^k$ by $$e_I = (e_{i_1}, \cdots, e_{i_k})$$ Define $\ep_I \in \Lam_k(V)$ by $$ \ep_I = \ep_{i_1} \wedge \cdots, \wedge \ep_{i_k} $$ 
 	\end{defn}
 
-	\begin{defn}
-		 Define the \textbf{permutation action} of $S_k$ on $\MI_k$ by $\sig I = (i_{\sig(1)}, \cdots, i_{\sig(k)})$.
-	\end{defn}
-
-	\begin{ex}
-		The permutation action of $S_k$ on $\MI_k$ is a group action. 
-	\end{ex}
-
-	\begin{proof}
-		Clear.
-	\end{proof}
-
 	\begin{ex}
 		Let $I = (i_1, \cdots, i_k)$ and $J = (j_1, \cdots, j_k) \in \MI_k$. Then $\ep_I(e_J) = \del_{I,J}$.
 	\end{ex}
@@ -521,16 +524,87 @@
 
 	\newpage
 	
+	\section{Manifolds}
+	
+	\subsection{Smooth Manifolds}
+	
+	\begin{defn}
+		Define the \textbf{upper half space} of $\R^n$, denoted $\H_n$, by $$\H_n = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n \geq 0\}$$ and define $$\partial\H_n = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n = 0\}$$ 
+		$$(\H^n)^{\circ} = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n > 0\}$$
+	\end{defn}
+	
+	\begin{defn}
+		Let $\Om$ be a topological space.
+		\begin{enumerate}
+			\item Let $n \geq 1$, $U \subset \Om$, $V \subset \H^n$ open and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \textbf{coordinate chart} on $\Om$ if $\phi$ is a homeomorphism. 
+			\item Let $\MA = ((U_a,\phi_{a}))_{a \in A}$ be a collection of coordinate charts on $\Om$. Then $\MA$ is said to be an \textbf{atlas} on $\Om$ if  $\bigcup\limits_{a \in A} U_a = \Om$.
+			\item Let $n \geq 1$. Then $\Om$ is said to be \textbf{locally half Euclidean of dimension $n$} if there exists an atlas $\MA = ((U_a,\phi_{a}))_{a \in A}$ on $\Om$ such that for each $a \in A$, $\phi_a(U_a) \subset \H^n$.
+			\item The space $\Om$ is said to be an \textbf{$n$-dimensional manifold} if $\Om$ is Hausdorff, second countable and locally half Euclidean of dimension $n$. 
+		\end{enumerate}
+	\end{defn}
+
+	\begin{note}
+		For the remainder of this section, we assume $\Om$ is an $n$-dimensional manifold.
+	\end{note}
+
+	\begin{defn}\
+		\begin{enumerate}
+			\item Define the 
+			\textbf{boundary} of $\Om$, denoted $\partial \Om$, by $$\partial \Om = \{p \in \Om: \text{ there exists a chart } (U, \phi) \text{ on } \Om \text{ such that } p \in U \text{ and } \phi(p) \in \partial \H^n\}$$
+			\item Define the 
+			\textbf{interior} of $\Om$, denoted $\Om^{\circ}$, by $$\Om^{\circ} = \Om \setminus \partial \Om$$
+		\end{enumerate}
+	\end{defn}
+
+	\begin{ex}
+		Let $p \in \Om$. Then $p \in \partial \Om$ iff for each chart $(U, \phi)$ on $\Om$, $p \in U$ implies that $\phi(p) \in \partial \H^n$. (Hint: simply connected)
+	\end{ex}
+
+	\begin{proof}
+		Supposet that $p \in \partial \Om$. Then there exists a coordinate chart $(V, \psi)$ on $\Om$ such that $\psi(p) \in \partial \H^n$. Let $(U, \phi)$ be a coordinate chart on $\Om$. Suppose that $p \in U$. Note that $\phi \circ \psi : \psi(V \cap U) \rightarrow \phi(V \cap U)$ is a homeomorphism. Choose open $n$-balls $B_{\phi}$, $B_{\psi} \subset \H^n$ such that $B_{\phi} \subset \phi(V \cap U)$, $B_{\psi} \subset \psi(V \cap U)$, $\phi(p) \in B_{\phi}$ and $\psi(p) \in B_{\psi}$. For the sake of contradiction, suppose that $\phi(p) \not \in \partial \H^n$. Put $ U' = B_{\phi} \setminus \{\phi(p)\}$ and $V' = B_{\psi} \setminus \{\psi(p)\}$. Define $\lam: V' \rightarrow U'$ by $\lam = \phi \circ \psi|_{B_{\psi}}$. Then $\lam$ is a homeomorphism. Note that $V'$ is simply connected and $U'$ is not. This is a contradiction. 
+	\end{proof}
+
+	\begin{ex}
+		If $\partial \Om \neq \varnothing$, then 
+		\begin{enumerate}
+			\item $\partial \Om$ is an $n-1$-dimensional manifold \item $\partial (\partial \Om) = \varnothing$.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		\begin{enumerate}
+			\item Since subspaces of Hausdorff, second countable spaces are Hausdorff and second countable, we need only show that $\partial \Om$ is locally euclidean of dimension $n-1$. Let $p \in \partial \Om$. Then There exists a coordinate chart $(U, \phi)$ on $\Om$ such that $p \in U$ and $\phi(p) \in \partial \H^n$. \\
+			Put $U' = U \cap \partial \Om$. Note that $U'$ is open in $\partial \Om$ and $ \phi(U) \cap \partial \H^n$ is open in $\partial \H^n$. Define  $\phi': U' \rightarrow \phi(U) \cap \partial \H^n$ by $\phi' = \phi|_{U'}$. Then $\phi'$ is a homeomorphism. \\
+			Since $\partial \H^n$ is homeomorphic to $\R^{n-1}$ which is homeomorphic to $(\H^{n-1})^{\circ}$ there exists $\psi: \partial \H^n \rightarrow (\H^{n-1})^{\circ}$ such that $\psi$ is a homeomorphism.\\ 
+			Define $V' = \psi(\phi(U) \cap \partial \H^n)$ and $\psi': \phi(U) \cap \partial \H^n \rightarrow V' $ by and $\psi' = \psi|_{\phi(U) \cap \partial \H^n}$. Then $V'$ is open in $(\H^{n-1})^{\circ}$ and $\psi'$ is a homeomrophism. \\ 
+			Define $\lam : U' \rightarrow V'$ by $\lam = \psi' \circ \phi'$. Then $\lam$ is a homeomorhism and $(U', \lam) $ is a cooridnate chart on $\partial \Om$. So $\partial \Om$ is locally Euclidean of dimension $n-1$.  
+			\item Let $p \in \partial \Om$. Define $(U \cap \partial \Om, \lam \circ \psi)$ as in (1). Since $\lam \circ \psi(p) \in (\H^{n-1})^{\circ}$, we have that $p \in \Om^{\circ}$. Thus $ \partial \Om = (\partial \Om)^{\circ}$ and $\partial (\partial \Om) = \varnothing$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn}\
+		\begin{enumerate}
+			\item Let $(U, \phi), (V, \psi)$ be coordinate charts on $\Om$. Then $(U, \phi)$ and $(V, \psi)$ are said to be \textbf{smoothly compatible} if $$\phi \circ \psi^{-1}: \psi(U \cap V) \rightarrow \phi (U \cap V) \in C^{\infty}(\psi(U \cap V))$$ and $$\psi \circ \phi^{-1}: \phi(U \cap V) \rightarrow \psi (U \cap V \in C^{\infty}(\phi(U \cap V)))$$
+			\item Let $\MA = ((U_a,\phi_{a}))_{a \in A}$ be an atlas on $\Om$. Then $\MA$ is said to be \textbf{smooth} if for each $a,b \in A$, $(U_a,\phi_{a})$ and $(U_b,\phi_{b})$ are smoothly compatible.
+			\item Let $\MA$ be a smooth atlas on $\Om$. Then $\MA$ is said to be \textbf{maximal} if for each smooth atlas $\MB$ on $\Om$, $\MA \subset \MB$ implies that $\MA = \MB$.
+			\item Let $\MA$ be a maximal smooth atlas on $\Om$. Then $(\Om, \MA)$ is said to be a \textbf{smooth $n$-dimensional manifold}. 
+		\end{enumerate}
+	\end{defn}
+
+	
+
+	
+	
+	
+
+	
+	\newpage	
 	\section{Calculus on Manifolds}
 	
 	\subsection{Submanifolds of $\R^n$}
 	
 	\begin{defn}
 		Let $\Om \subset \R^n$ and $U \subset M$. Then $U$ is said to be \textbf{open} if there exists $U' \subset \R^n$ such that $U'$ is open in $\R^n$ and $U = M \cap U'$.
-	\end{defn}
-	
-	\begin{defn}
-		Define the \textbf{upper half space} of $\R^n$, denoted $\H_n$, by $$\H_n = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n \geq 0\}$$ and define $$\partial\H_n = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n = 0\}$$ 
 	\end{defn}
 
 	\begin{defn}
@@ -593,19 +667,20 @@
 	\end{note}
 
 	\begin{ex}
-		Let $B = (b_{i,j})$ be an $n\times n$ matrix. Then $$\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg) = (\det B) dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$$
+		Let $B_{n\times n} = (b_{i,j}) \in \MM(C^{\infty})$ be an $n\times n$ matrix. Then $$\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg) = (\det B) dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$$
 	\end{ex}
 
 	\begin{proof}
-		First we have $$ (*) \hspace{1cm} \bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg) =\bigg(\sum_{j=1}^n b_{1,j}dx_j\bigg) \wedge \bigg(\sum_{j=1}^n b_{2,j}dx_j\bigg) \wedge \cdots \wedge \bigg(\sum_{j=1}^n b_{n,j}dx_j\bigg)$$ The expression on the right side of $(*)$ is just the sum all terms of the form $$b_{1,j_1}b_{2,j_2} \cdots b_{n,j_n} dx_{j_1}\wedge  dx_{j_2} \wedge \cdots \wedge  dx_{j_n}$$ where $j_k \in \{1,2,\cdots,n\}$. The terms in which for some $j$, $dx_j$ appears more than once in the exterior product are zero. Thus the expression on the right of $(*)$ is just the sum of all terms of the form $$b_{1,\sig(1)}b_{2,\sig(2)} \cdots b_{n,\sig(n)} dx_{\sig(1)}\wedge  dx_{\sig(2)} \wedge \cdots \wedge  dx_{\sig(n)} = \sgn(\sig) b_{1,\sig(1)}b_{2,\sig(2)} \cdots b_{n,\sig(n)} dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$$
-		where $\sig \in S_n$. Explicitely writing this out, we see that 
+		Bilinearity of the exterior product implies that
 		\begin{align*}
 			\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg)
-			&= \bigg(\sum_{j=1}^n b_{1,j}dx_j\bigg) \wedge \bigg(\sum_{j=1}^n b_{2,j}dx_j\bigg) \wedge \cdots \wedge \bigg(\sum_{j=1}^n b_{n,j}dx_j\bigg) \\
-			&= \sum_{\sig \in S_n} \sgn(\sig) b_{1,\sig(1)}b_{2,\sig(2)} \cdots b_{n,\sig(n)} dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n \\
-			&= \bigg( \sum_{\sig \in S_n} \sgn(\sig) b_{1,\sig(1)}b_{2,\sig(2)} \cdots b_{n,\sig(n)}\bigg) dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n \\
-			&= (\det B) dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n
-		\end{align*}
+			 &=\bigg(\sum_{j=1}^n b_{1,j}dx_j\bigg) \wedge \bigg(\sum_{j=1}^n b_{2,j}dx_j\bigg) \wedge \cdots \wedge \bigg(\sum_{j=1}^n b_{n,j}dx_j\bigg) \\
+			 &= \sum_{j_1, \cdots, j_n = 1}^n \bigg( \prod_{i=1}^n b_{i, j_i} \bigg) dx_{j_1}\wedge  dx_{j_2} \wedge \cdots \wedge  dx_{j_n} \\
+			 &= \sum_{j_1 \neq \cdots \neq j_n} \bigg( \prod_{i=1}^n b_{i, j_i} \bigg) dx_{j_1}\wedge  dx_{j_2} \wedge \cdots \wedge  dx_{j_n} \\
+			 &= \bigg[ \sum_{\sig \in S_n} \sgn(\sig) \bigg(\prod_{i=1}^n b_{i, \sig(i)} \bigg) \bigg] dx_{1}\wedge  dx_{2} \wedge \cdots \wedge  dx_{n} \\
+			 &= (\det B) dx_{1}\wedge  dx_{2} \wedge \cdots \wedge  dx_{n}
+		\end{align*} 
+		
 	\end{proof}
 
 	\begin{defn}
