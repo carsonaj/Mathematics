@@ -37,9 +37,6 @@
 \newtheorem{note}[thm]{Note}
 \newtheorem{ex}[thm]{Exercise}
 
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\spn}{span}
-
 \newcommand{\al}{\alpha}
 \newcommand{\gam}{\gamma}
 \newcommand{\Gam}{\Gamma}
@@ -90,8 +87,12 @@
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
 
+
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\spn}{span}
 \DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\iso}{Iso}
+\DeclareMathOperator{\id}{id}
 
 \begin{document}
 	
@@ -101,7 +102,32 @@
 	
 	\tableofcontents
 	
-	\section{Review of Multivariable Calculus and Linear Algebra}
+	\section{Review of Basic Definitions and Results}
+
+	\subsection{Set Theory}
+	
+	\begin{defn}
+		Let $\{A_i\}_{i \in I}$ be a collection of sets. The \textbf{disjoint union of} $\{A_i\}_{i \in I}$, denoted $\coprod\limits_{i \in I} A_i$, is defined by $$\coprod_{i \in I}A_i = \bigcup_{i\in I} \{i\} \times A_i$$ Define the \textbf{projection map} $\pi: \coprod\limits_{i \in I}A_i \rightarrow I$ by $$\pi(i, A_i) = i$$
+	\end{defn}
+
+	\begin{defn}
+		Let $A, B$ be sets and $\pi : A \rightarrow B$ and $\sig:B \rightarrow A$. Then $\sig$ is said to be a \textbf{section of $\pi$} if $\pi \circ \sig = \id_B$.
+	\end{defn}
+
+	\begin{ex}
+		Let $\{A_i\}_{i \in I}$ be a collection of sets, $\pi: \coprod\limits_{i \in I} A_i \rightarrow I$ the projection map and $\sig: I \rightarrow \coprod\limits_{i \in I} A_i$. If $\sig$ is a section of $\pi$, then for each $i \in I$, $\sig(i) \in \{i\} \times A_i$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\sig$ is a section of $\pi$. Let $i \in I$. Then there exists $j \in I$ and $a \in A_j$ such that $\sig(i) = (j, a)$. Since $\pi \circ \sig = \id_I$, we have that
+		\begin{align*}
+			i 
+			&= \pi \circ \sig (i) \\
+			&= \pi(j, a) \\
+			&= j
+		\end{align*}
+	So $i = j$ and $\sig(i) = (i, a) \in \{i\} \times A_i$
+	\end{proof}
 	
 	\subsection{Differentiation}
 	
@@ -109,9 +135,75 @@
 		Let $n \geq 1$. For $i = 1, \cdots, n$, define $x_i: \R^n \rightarrow \R$ by $x_i(a_1, \cdots, a_n) = a_i$. The functions $(x_i)_{i=1}^n$ are called the \textbf{standard coordinate functions on $\R^n$}. 
 	\end{defn}
 	
-	\begin{defn}
-		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then $f$ is said to be \textbf{partially differentiable with respect to $x_i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he_i) - f(a)}{h}$$ exists. If $f$ is partially differentiable with respect to $x_i$ at $a$, we define the \textbf{partial derivative of $f$ with respect to $x_i$ at $a$}, denoted $$\frac{\partial f}{\partial x_i} (a) \text{, } \eval{\pdv{x_i}}_{a} f \text{, } \partial_{x_i} f (a) \text{ or } \eval{\partial_{x_i}}_{a} f$$ to be the limit above.
+	\begin{defn} 
+		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then$f$ is said to be \textbf{differentiable with respect to $x_i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he_i) - f(a)}{h}$$ exists. If $f$ is differentiable with respect to $x_i$ at $a$, we define the \textbf{partial derivative of $f$ with respect to $x_i$ at $a$}, denoted $$\frac{\partial f}{\partial x_i} (a) \text{, } \eval{\pdv{x_i}}_{a} f \text{, } \partial_{x_i} f (a) \text{ or } \eval{\partial_{x_i}}_{a} f$$ to be the limit above.
+		
 	\end{defn}
+		
+	\begin{defn}
+		Let $U \subset \R^n$ be open and $f: U \rightarrow \R$. Then $f$ is said to be \textbf{differentiable with respect to $x_i$} if for each $a \in U$, $f$ is differentiable with respect to $x_i$ at $a$.
+	\end{defn}
+
+	\begin{ex}
+		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Suppose that $\frac{\partial ^2 f}{\partial x_i x_j}$ and $\frac{\partial ^2 f}{\partial x_j x_i}$ exist and are continuous at $a$. Then $$\frac{\partial ^2 f}{\partial x_i x_j} (a) = \frac{\partial ^2 f}{\partial x_j x_i} (a)$$
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+
+	\begin{defn}
+		Let $U \subset \R^n$ be open and $f: U \rightarrow \R$. Then $f$ is said to be \textbf{smooth} if for each $i_1, \cdots, i_k \in \{1, \cdots, n\}$, $\frac{\partial^k f}{\partial i_1 \cdots i_k}$ exists and is continuous on $U$.
+	\end{defn}
+
+	\begin{defn}
+		Let $U \subset \R^n$, $f: U \rightarrow \R$. Then $f$ is said to be \textbf{smooth} if there exists $U' 
+		\subset \R^n$ and $f':U' \rightarrow \R$ such that $U \subset U'$, $U'$ is open, $f'|_U = f$ and $f'$ is smooth. The set of smooth functions on $U$ is denoted $C^{\infty}(U)$.
+	\end{defn}
+
+	\begin{defn}
+		Let $U,V \subset \R^n$ and $F: U \rightarrow V$. Then $F$ is said to be a \textbf{diffeomorphism} if $F$ is a homeomorphism and $F, F^{-1}$ are smooth. 
+	\end{defn}
+	
+	\begin{ex}
+		Let $U,V \subset \R^n$ and $F: U \rightarrow V$. Then $F$ is a diffeomorphism iff for each $p \in U$, there exists a relatively open neighborhood $N \subset U$ of $p$ such that $F|_N:N \rightarrow F(N)$ is a diffeomorphism
+	\end{ex}
+	
+	\begin{proof}
+		content...
+	\end{proof}
+
+	\begin{defn} 
+		Let $U \subset \R^n$ and $p \in U$. Then $U$ is said to be \textbf{star-shaped} if for each $q \in U$, $\{p + t(q-p): 0 \leq t \leq 1\} \subset U$.
+	\end{defn}
+
+	\begin{thm} \textbf{(Taylor's Theorem)}
+		Let $U \subset \R^n$ be open, $p \in U$ and $f \in C^{\infty}(U)$. Suppose that $U$ is star-shaped with respect to $p$. Then there exist $g_1, \cdots, g_n \in C^{\infty}(U)$ such that for each $x \in U$, $$f(x) = f(p) + \sum_{i=1}^n (x_i - p_i) g_i(x)$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x_i}}(p)$$
+	\end{thm}
+
+	\begin{proof}
+		Since $U$ is star-shaped, $\{p + t(x-p): 0 \leq t \leq 1\} \subset U$. By the chain rule, 
+		$${\dv{t}}f(p+t(x-p)) = \sum_{i=1}^n {\pdv{f}{x_i}}(p+t(x-p)) (x_i - p_i)$$
+		Integrating both sides with respect to $t$ from $0$ to $1$, we obtain
+		$$f(x) - f(p) = \sum_{i=1}^n (x_i - p_i) \int_{0}^{1}  {\pdv{f}{x_i}}(p+t(x-p)) dt $$
+		For $i \in \{1, \cdots, n\}$, define $g_i \in C^{\infty}(U)$ by $$g_i(x) = \int_{0}^{1}  {\pdv{f}{x_i}}(p+t(x-p)) dt$$
+		Then for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x_i}}(p))$$
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \newpage
 	\section{Multilinear Algebra}
@@ -120,11 +212,11 @@
 		For the remainder of this section we let $V$ denote an $n$-dimensional vector space with basis $\{e_1, \cdots, e_n\}$ with dual space $V^*$ and dual basis $\{\ep_1, \cdots, \ep_n\}$ defined by $\ep_i(e_j) = \del_{i,j}$.
 	\end{note}
 
-	\subsection{$k$-Forms}
+	\subsection{$k$-Tensors}
 	
 	\begin{defn}
-		Let $\al: V^k \rightarrow \R$. Then $\alpha$ is said to be \textbf{multilinear} or a \textbf{k-form on V} if for $i \in \{1, \cdots, k\}$, $w \in V$, $c \in \R$ and $v_1, \cdots, v_k \in V$, $$\al(v_1, \cdots, v_i + cw, \cdots, v_k) = \al(v_1, \cdots, v_i, \cdots, v_k) + c\al(v_1, \cdots, w, \cdots, v_k)$$
-		The set of all $k$-forms on $V$ is denoted by $T_k(V)$. Define $L_0(V) = \R$.
+		Let $\al: V^k \rightarrow \R$. Then $\alpha$ is said to be \textbf{multilinear} or a \textbf{k-tensor on V} if for $i \in \{1, \cdots, k\}$, $w \in V$, $c \in \R$ and $v_1, \cdots, v_k \in V$, $$\al(v_1, \cdots, v_i + cw, \cdots, v_k) = \al(v_1, \cdots, v_i, \cdots, v_k) + c\al(v_1, \cdots, w, \cdots, v_k)$$
+		The set of all $k$-tensors on $V$ is denoted by $T_k(V)$. Define $L_0(V) = \R$.
 	\end{defn}
 
 	\begin{ex}
@@ -173,7 +265,7 @@
 	\end{proof}
 	
 	\begin{defn}
-		Let $\al$ be a $k$-form on $V$. Then $\al$ is said to be \textbf{symmetric} if for each $\sig \in S_k$, $\sig \al = \al$. and $\al$ is said to be \textbf{alternating} if for each $\sig \in S_k$, $\sig \al = \sgn(\sig) \al$.  The set of symmetric $k$-forms on $V$ is denoted $\Xi_k(V)$ and the set of alternating $k$-forms on $V$ is denoted $\Lam_k(V)$.
+		Let $\al \in T_k(V)$. Then $\al$ is said to be \textbf{symmetric} if for each $\sig \in S_k$, $\sig \al = \al$. and $\al$ is said to be \textbf{alternating} if for each $\sig \in S_k$, $\sig \al = \sgn(\sig) \al$.  The set of symmetric $k$-tensors on $V$ is denoted $\Xi_k(V)$ and the set of alternating $k$-tensors on $V$ is denoted $\Lam_k(V)$.
 	\end{defn}
 
 	\begin{defn}
@@ -470,7 +562,7 @@
 	\end{ex}
 
 	\begin{proof}
-		Let $(a_I)_{I \in \MI_k} \subset \R$. Let $\al = \sum_{I \in \MI_k}a_I \ep_I$. Suppose that $\al = 0$. Then for each $J \in \MI_k$, $\al(e_J) = a_J = 0$. Thus $\{e_I: I \in \MI_k\}$ is linearly independent. Let $\bet \in \Lam_k(V)$. For $I \in \MI_k$, put $b_I = \bet(e_I)$. define $\mu = \sum_{I \in \MI_k} b_I\ep_I$. Then for each $J \in \MI_k$, $\mu(e_J) = b_J = \bet(e_J)$. Hence $\mu = \bet$ and therefore $\bet \in \vspan \{\ep_I:I \in \MI_k\}$.
+		Let $(a_I)_{I \in \MI_k} \subset \R$. Let $\al = \sum_{I \in \MI_k}a_I \ep_I$. Suppose that $\al = 0$. Then for each $J \in \MI_k$, $\al(e_J) = a_J = 0$. Thus $\{e_I: I \in \MI_k\}$ is linearly independent. Let $\bet \in \Lam_k(V)$. For $I \in \MI_k$, put $b_I = \bet(e_I)$. define $\mu = \sum_{I \in \MI_k} b_I\ep_I$. Then for each $J \in \MI_k$, $\mu(e_J) = b_J = \bet(e_J)$. Hence $\mu = \bet$ and therefore $\bet \in \spn \{\ep_I:I \in \MI_k\}$.
 	\end{proof}
 	
 	
@@ -487,7 +579,7 @@
 	
 	
 	
-	
+	\newpage
 	
 	\subsection{$(r,s)$-Tensors}
 	
@@ -534,64 +626,245 @@
 	\end{defn}
 	
 	\begin{defn}
-		Let $\Om$ be a topological space.
+		Let $M$ be a topological space.
 		\begin{enumerate}
-			\item Let $n \geq 1$, $U \subset \Om$, $V \subset \H^n$ open and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \textbf{coordinate chart} on $\Om$ if $\phi$ is a homeomorphism. 
-			\item Let $\MA = ((U_a,\phi_{a}))_{a \in A}$ be a collection of coordinate charts on $\Om$. Then $\MA$ is said to be an \textbf{atlas} on $\Om$ if  $\bigcup\limits_{a \in A} U_a = \Om$.
-			\item Let $n \geq 1$. Then $\Om$ is said to be \textbf{locally half Euclidean of dimension $n$} if there exists an atlas $\MA = ((U_a,\phi_{a}))_{a \in A}$ on $\Om$ such that for each $a \in A$, $\phi_a(U_a) \subset \H^n$.
-			\item The space $\Om$ is said to be an \textbf{$n$-dimensional manifold} if $\Om$ is Hausdorff, second countable and locally half Euclidean of dimension $n$. 
+			\item Let $n \geq 1$, $U \subset M$, $V \subset \H^n$ open and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \textbf{coordinate chart} on $M$ if $\phi$ is a homeomorphism. 
+			\item Let $\MA = ((U_a,\phi_{a}))_{a \in A}$ be a collection of coordinate charts on $M$. Then $\MA$ is said to be an \textbf{atlas} on $M$ if  $\bigcup\limits_{a \in A} U_a = M$.
+			\item Let $n \geq 1$. Then $M$ is said to be \textbf{locally half Euclidean of dimension $n$} if there exists an atlas $\MA = ((U_a,\phi_{a}))_{a \in A}$ on $M$ such that for each $a \in A$, $\phi_a(U_a) \subset \H^n$.
+			\item The space $M$ is said to be an \textbf{$n$-dimensional manifold} if $M$ is Hausdorff, second countable and locally half Euclidean of dimension $n$. 
 		\end{enumerate}
 	\end{defn}
 
 	\begin{note}
-		For the remainder of this section, we assume $\Om$ is an $n$-dimensional manifold.
+		For the remainder of this section, we assume $M$ is an $n$-dimensional manifold.
 	\end{note}
 
 	\begin{defn}\
 		\begin{enumerate}
 			\item Define the 
-			\textbf{boundary} of $\Om$, denoted $\partial \Om$, by $$\partial \Om = \{p \in \Om: \text{ there exists a chart } (U, \phi) \text{ on } \Om \text{ such that } p \in U \text{ and } \phi(p) \in \partial \H^n\}$$
+			\textbf{boundary} of $M$, denoted $\partial M$, by $$\partial M = \{p \in M: \text{ there exists a chart } (U, \phi) \text{ on } M \text{ such that } p \in U \text{ and } \phi(p) \in \partial \H^n\}$$
 			\item Define the 
-			\textbf{interior} of $\Om$, denoted $\Om^{\circ}$, by $$\Om^{\circ} = \Om \setminus \partial \Om$$
+			\textbf{interior} of $M$, denoted $M^{\circ}$, by $$M^{\circ} = M \setminus \partial M$$
 		\end{enumerate}
 	\end{defn}
 
 	\begin{ex}
-		Let $p \in \Om$. Then $p \in \partial \Om$ iff for each chart $(U, \phi)$ on $\Om$, $p \in U$ implies that $\phi(p) \in \partial \H^n$. (Hint: simply connected)
+		Let $p \in M$. Then $p \in \partial M$ iff for each chart $(U, \phi)$ on $M$, $p \in U$ implies that $\phi(p) \in \partial \H^n$. (Hint: simply connected)
 	\end{ex}
 
 	\begin{proof}
-		Supposet that $p \in \partial \Om$. Then there exists a coordinate chart $(V, \psi)$ on $\Om$ such that $\psi(p) \in \partial \H^n$. Let $(U, \phi)$ be a coordinate chart on $\Om$. Suppose that $p \in U$. Note that $\phi \circ \psi : \psi(V \cap U) \rightarrow \phi(V \cap U)$ is a homeomorphism. Choose open $n$-balls $B_{\phi}$, $B_{\psi} \subset \H^n$ such that $B_{\phi} \subset \phi(V \cap U)$, $B_{\psi} \subset \psi(V \cap U)$, $\phi(p) \in B_{\phi}$ and $\psi(p) \in B_{\psi}$. For the sake of contradiction, suppose that $\phi(p) \not \in \partial \H^n$. Put $ U' = B_{\phi} \setminus \{\phi(p)\}$ and $V' = B_{\psi} \setminus \{\psi(p)\}$. Define $\lam: V' \rightarrow U'$ by $\lam = \phi \circ \psi|_{B_{\psi}}$. Then $\lam$ is a homeomorphism. Note that $V'$ is simply connected and $U'$ is not. This is a contradiction. 
+		Supposet that $p \in \partial M$. Then there exists a coordinate chart $(V, \psi)$ on $M$ such that $\psi(p) \in \partial \H^n$. Let $(U, \phi)$ be a coordinate chart on $M$. Suppose that $p \in U$. Note that $\phi \circ \psi : \psi(V \cap U) \rightarrow \phi(V \cap U)$ is a homeomorphism. Choose open $n$-balls $B_{\phi}$, $B_{\psi} \subset \H^n$ such that $B_{\phi} \subset \phi(V \cap U)$, $B_{\psi} \subset \psi(V \cap U)$, $\phi(p) \in B_{\phi}$ and $\psi(p) \in B_{\psi}$. For the sake of contradiction, suppose that $\phi(p) \not \in \partial \H^n$. Put $ U' = B_{\phi} \setminus \{\phi(p)\}$ and $V' = B_{\psi} \setminus \{\psi(p)\}$. Define $\lam: V' \rightarrow U'$ by $\lam = \phi \circ \psi|_{B_{\psi}}$. Then $\lam$ is a homeomorphism. Note that $V'$ is simply connected and $U'$ is not. This is a contradiction. 
 	\end{proof}
 
 	\begin{ex}
-		If $\partial \Om \neq \varnothing$, then 
+		If $\partial M \neq \varnothing$, then 
 		\begin{enumerate}
-			\item $\partial \Om$ is an $n-1$-dimensional manifold \item $\partial (\partial \Om) = \varnothing$.
+			\item $\partial M$ is an $n-1$-dimensional manifold \item $\partial (\partial M) = \varnothing$.
 		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}
 		\begin{enumerate}
-			\item Since subspaces of Hausdorff, second countable spaces are Hausdorff and second countable, we need only show that $\partial \Om$ is locally euclidean of dimension $n-1$. Let $p \in \partial \Om$. Then There exists a coordinate chart $(U, \phi)$ on $\Om$ such that $p \in U$ and $\phi(p) \in \partial \H^n$. \\
-			Put $U' = U \cap \partial \Om$. Note that $U'$ is open in $\partial \Om$ and $ \phi(U) \cap \partial \H^n$ is open in $\partial \H^n$. Define  $\phi': U' \rightarrow \phi(U) \cap \partial \H^n$ by $\phi' = \phi|_{U'}$. Then $\phi'$ is a homeomorphism. \\
+			\item Since subspaces of Hausdorff, second countable spaces are Hausdorff and second countable, we need only show that $\partial M$ is locally half euclidean of dimension $n-1$. Let $p \in \partial M$. Then there exists a coordinate chart $(U, \phi)$ on $M$ such that $p \in U$ and $\phi(p) \in \partial \H^n$. \\
+			Put $U' = U \cap \partial M$. Note that $U'$ is open in $\partial M$ and $ \phi(U) \cap \partial \H^n$ is open in $\partial \H^n$. Define  $\phi': U' \rightarrow \phi(U) \cap \partial \H^n$ by $\phi' = \phi|_{U'}$. Then $\phi'$ is a homeomorphism. \\
 			Since $\partial \H^n$ is homeomorphic to $\R^{n-1}$ which is homeomorphic to $(\H^{n-1})^{\circ}$ there exists $\psi: \partial \H^n \rightarrow (\H^{n-1})^{\circ}$ such that $\psi$ is a homeomorphism.\\ 
 			Define $V' = \psi(\phi(U) \cap \partial \H^n)$ and $\psi': \phi(U) \cap \partial \H^n \rightarrow V' $ by and $\psi' = \psi|_{\phi(U) \cap \partial \H^n}$. Then $V'$ is open in $(\H^{n-1})^{\circ}$ and $\psi'$ is a homeomrophism. \\ 
-			Define $\lam : U' \rightarrow V'$ by $\lam = \psi' \circ \phi'$. Then $\lam$ is a homeomorhism and $(U', \lam) $ is a cooridnate chart on $\partial \Om$. So $\partial \Om$ is locally Euclidean of dimension $n-1$.  
-			\item Let $p \in \partial \Om$. Define $(U \cap \partial \Om, \lam \circ \psi)$ as in (1). Since $\lam \circ \psi(p) \in (\H^{n-1})^{\circ}$, we have that $p \in \Om^{\circ}$. Thus $ \partial \Om = (\partial \Om)^{\circ}$ and $\partial (\partial \Om) = \varnothing$.
+			Define $\lam : U' \rightarrow V'$ by $\lam = \psi' \circ \phi'$. Then $\lam$ is a homeomorhism and $(U', \lam) $ is a cooridnate chart on $\partial M$. So $\partial M$ is locally Euclidean of dimension $n-1$.  
+			\item Let $p \in \partial M$. Define $(U \cap \partial M, \lam \circ \psi)$ as in (1). Since $\lam \circ \psi(p) \in (\H^{n-1})^{\circ}$, we have that $p \in M^{\circ}$. Thus $ \partial M = (\partial M)^{\circ}$ and $\partial (\partial M) = \varnothing$.
 		\end{enumerate}
 	\end{proof}
 
 	\begin{defn}\
 		\begin{enumerate}
-			\item Let $(U, \phi), (V, \psi)$ be coordinate charts on $\Om$. Then $(U, \phi)$ and $(V, \psi)$ are said to be \textbf{smoothly compatible} if $$\phi \circ \psi^{-1}: \psi(U \cap V) \rightarrow \phi (U \cap V) \in C^{\infty}(\psi(U \cap V))$$ and $$\psi \circ \phi^{-1}: \phi(U \cap V) \rightarrow \psi (U \cap V \in C^{\infty}(\phi(U \cap V)))$$
-			\item Let $\MA = ((U_a,\phi_{a}))_{a \in A}$ be an atlas on $\Om$. Then $\MA$ is said to be \textbf{smooth} if for each $a,b \in A$, $(U_a,\phi_{a})$ and $(U_b,\phi_{b})$ are smoothly compatible.
-			\item Let $\MA$ be a smooth atlas on $\Om$. Then $\MA$ is said to be \textbf{maximal} if for each smooth atlas $\MB$ on $\Om$, $\MA \subset \MB$ implies that $\MA = \MB$.
-			\item Let $\MA$ be a maximal smooth atlas on $\Om$. Then $(\Om, \MA)$ is said to be a \textbf{smooth $n$-dimensional manifold}. 
+			\item Let $(U, \phi), (V, \psi)$ be coordinate charts on $M$. Then $(U, \phi)$ and $(V, \psi)$ are said to be \textbf{smoothly compatible} if $$\phi \circ \psi^{-1}: \psi(U \cap V) \rightarrow \phi (U \cap V) \text{ is a diffeomorphism}$$ 
+			\item Let $\MA = ((U_a,\phi_{a}))_{a \in A}$ be an atlas on $M$. Then $\MA$ is said to be \textbf{smooth} if for each $a,b \in A$, $(U_a,\phi_{a})$ and $(U_b,\phi_{b})$ are smoothly compatible.
+			\item Let $\MA$ be a smooth atlas on $M$. Then $\MA$ is said to be \textbf{maximal} if for each smooth atlas $\MB$ on $M$, $\MA \subset \MB$ implies that $\MA = \MB$. A maximal smooth atlas on $M$ is called a \textbf{smooth structure on $M$}.
+			\item Let $\MA$ be a smooth structure on $M$. Then $(M, \MA)$ is said to be a \textbf{smooth $n$-dimensional manifold}. 
 		\end{enumerate}
 	\end{defn}
 
+	\begin{ex}
+		Let $\MB$ be a smooth atlas on $M$. Then there exists a unique smooth structure $\MA$ on $M$ such that $\MB \subset \MA$.
+	\end{ex}
+
+	\begin{proof}
+		Define $\MA$ to be the set of all coordinate charts $(U, \phi)$ on $M$ such that for each coordinate chart $(V, \psi) \in \MB$,  $(U, \phi)$ and $(V, \psi) $ are smoothly compatible. \\
+		Clearly $\MB \subset \MA$. \\
+		Let $(U, \phi), (V, \psi) \in \MA$ and $p \in U \cap V$. Then there exists $(W, \chi) \in \MB$ such that $p \in W$. By assumption, $\phi \circ \chi^{-1} : \chi(U \cap W) \rightarrow \phi(U \cap W)$ and $ \chi \circ \psi^{-1} : \psi(W \cap V) \rightarrow \chi(W \cap V)$ are diffeomorphisms. Then $ (\phi \circ \chi^{-1}) \circ (\chi \circ \psi^{-1}) = \phi \circ \psi^{-1}: \psi(U \cap W \cap V) \rightarrow  \phi(U \cap W \cap V) $ is a diffeomorphism.  Since for each $q \in \psi(U \cap V)$, there exits an open neighborhood $N \subset \psi(U \cap V)$ of $q$ on which $\phi \circ \psi^{-1}$ are diffeomorphic, we have that $\phi \circ \psi^{-1}$ is a diffeomorphism on $\psi(U \cap V)$ and therefore $(U, \phi)$ and $ (V, \psi)$ are smoothly compatible. Hence $\MA$ is a smooth atlas.\\
+		To see that $\MA$ is maximal, let $\MB'$ be a smooth atlas on $M$. Suppose that $\MA \subset \MB'$ and let $(U, \phi) \in \MB'$. By definition, for each chart $(V, \psi) \in \MB'$, $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. Since $\MB \subset \MA \subset \MB'$, we have that $(U, \phi) \in \MA$. So $\MA = \MB'$ and $\MA$ is a maximal smooth atlas on $M$.
+	\end{proof}
+
+	\begin{ex}
+		Let $\MA$ be a smooth atlas on $M$. Define $\lam: \partial \H^n \rightarrow \R^{n-1}$ by $\lam(x_1, \cdots, x_{n-1, 0}) = (x_1, \cdots, x_{n-1})$. Put $\MA|_{\partial M} = \{(U \cap \partial M, \lam \circ \phi_{U \cap \partial M}): (U, \phi) \in \MA\}$. Then 
+		\begin{enumerate}
+			\item $\MA|_{\partial M}$ is a smooth atlas on $\partial M$.
+			\item if $ \MA $ is maximal, then $\MA|_{\partial M}$ is maximal.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
 	
+	\begin{note}
+		For the rest of this section, we assume that $(M, \MA)$ is a smooth $n$-dimensional manifold and we denote the standard coordinate functions on $\R^n$ by $u_1, \cdots, u_n$. For a coordinate chart $(U, \phi)$ $\in \MA$ and $i \in \{1, \cdots, n\}$, we will typically denote the $i$th coordinate of $\phi$ by $x_i$, that is,  $x_i = u_i(\phi)$.
+	\end{note}
+	
+	\begin{defn}
+		Let $f: M \rightarrow \R$. Then $f$ is said to be smooth if for each coordinate chart $(U, \phi) \in \MA$, $f \circ \phi^{-1}$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M)$. 
+	\end{defn}
+
+	\begin{ex}
+		We have that $C^{\infty}(M)$ is a vector space.
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+
+	\begin{defn}
+		Let $p \in M$. Define the relation $\sim_p$ on $C^{\infty}(M)$ by $f \sim_p g$ iff there exists an open $U \subset M$ such that $f|_U = g|_U$. Clearly $\sim_p$ is an equivalence relation on $C^{\infty}(M)$. We denote $C^{\infty}(M) / \sim_p$ by $C^{\infty}_p(M)$. For $f \in C^{\infty}(M)$, we define the \textbf{germ of $f$ at $p$} to be the equivalence class of $f$ under $\sim_p$. 
+	\end{defn}
+	
+	\begin{ex}
+		Let $p \in $We have that $C_p^{\infty}(M)$ is a vector space.
+	\end{ex}
+	
+	\begin{proof}
+		Clear.
+	\end{proof}
+
+	\begin{defn}
+		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$, $p \in U$ and $f \in C_p^{\infty}(M)$. For $i \in \{1, \cdots, n\}$, define the partial derivative of $f$ with respect to $x_i$ at $p$, denoted $$\frac{\partial f}{\partial x_i} (p) \text{, } \eval{\pdv{x_i}}_{p} f \text{, } \partial_{x_i} f (p) \text{ or } \eval{\partial_{x_i}}_{p} f$$ by $$ \eval{\pdv{x_i}}_{p} f =  \eval{\pdv{u_i}}_{\phi(p)} f \circ \phi^{-1} $$
+	\end{defn}
+
+	\begin{ex}
+		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $p \in U$. Then for each $i,j \in \{1, \cdots, n\}$, we have that $${\pdv{x_i}{x_j}}(p) = \del_{i,j}$$
+	\end{ex}
+
+	\begin{proof}
+		Let $i,j \in \{1, \cdots, n\}$. Then 
+		\begin{align*}
+			\eval{\pdv{x_j}}_{p} x_i 
+			&=  \eval{\pdv{u_j}}_{\phi(p)} x_i \circ \phi^{-1} \\
+			&= \eval{\pdv{u_j}}_{\phi(p)} u_i \circ \phi \circ \phi^{-1} \\
+			&= \eval{\pdv{u_j}}_{\phi(p)} u_i  \\
+			&= \del_{i,j}
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}\textbf{(Taylor's Theorem)}
+		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$, $p \in U$ and $f \in C^{\infty}_p(M)$. Then there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x_i - x_i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x_i}}_{p} f $$ 
+	\end{ex}
+
+	\begin{proof}
+		Since we are interested in the germ of $f$ at $p$, we may assume that $\phi(U)$ is star-shaped with respect to $\phi(p)$. Let $q \in U$. From Taylor's theorem in section $1$, we know that there exist $g_1', \cdots, g_n' \in C^{\infty}(\phi(U))$ such that for each $q \in U$, $$f \circ \phi^{-1} (\phi(q)) = f \circ \phi^{-1} (\phi(p)) + \sum_{i = 1}^n [u_i \circ \phi(q) - u_i \circ \phi(p)] g_i' (\phi(q))$$ and for each $i \in \{1, \cdots, n\}$, $$g_i'(\phi(p)) = \eval{\pdv{u_i}}_{\phi(p)} f \circ \phi^{-1}$$ 
+		For each $i \in \{1, \cdots, n\}$, define $g_i = g_i' \circ \phi$. Then for each $q \in U$, $$ f (q) = f (p) + \sum_{i = 1}^n [x_i(q) - x_i(p)] g_i(q)$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x_i}}_{p} f $$ 
+	\end{proof}
+
+	\begin{defn}
+		Let $D: C^{\infty}_p(M) \rightarrow \R$ and $p \in M$. Then $D$ is said to be a \textbf{derivation at $p$} if for each $f, g \in C^{\infty}_p(M)$ and $a \in \R$,
+		\begin{enumerate}
+			\item $D(f + cg) = D(f) + c D(g)$ ($D$ is linear) 
+			\item $D(fg) = D(f)g(p) + f(p)D(g)$ ($D$ is Leibnizian)
+		\end{enumerate}
+	\end{defn}
+
+	\begin{defn}
+		Let $p \in M$. The set of derivations at $p$, denoted $T_pM$ is called the \textbf{tangent space of $M$ at $p$}.
+	\end{defn}
+
+	\begin{ex}
+		Let $f \in C^{\infty}_p(M)$ and $D \in T_pM)$. If $f$ is constant, then $Df = 0$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f \equiv 1$. Then $f^2 = f$ and $D(f^2) = 2D(f)$. So $D(f) = 2D(f)$ which implies that $D(f) = 0$. If $f \not \equiv 1$, then there exists $c \in \R$ such that $f \equiv c$. Since $D$ is linear, $D(f) = cD(1) = 0$.
+	\end{proof}
+	
+
+	\begin{ex}
+		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $p \in U$. Then $$ \bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$$ is a basis for $T_pM$ and $\dim T_pM = n$.
+	\end{ex}
+
+	\begin{proof}
+		Clearly $\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \in T_pM$. Let $a_1, \cdots, a_n \in \R$. Suppose that $$D = \sum_{i=1}^n a_i \eval{\pdv{x_i}}_{p} = 0$$
+		Then 
+		\begin{align*}
+			0
+			&= D x_j \\
+			&= \sum_{i=1}^n a_i \eval{\pdv{x_i}}_{p} x_j \\
+			&= a_j
+		\end{align*}
+		Hence $\bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ is independent.\\
+		Now, let $D \in T_pM$ and $f \in \C^{\infty}_p(M)$. By Taylor's theorem, there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x_i - x_i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x_i}}_{p} f $$ Then 
+		\begin{align*}
+			D(f)
+			&= \sum_{i=1}^nD(x_i - x_i(p)) g_i(p) + \sum_{i=1}^n(x_i(p) - x_i(p)) D(g_i) \\
+			&= \sum_{i=1}^nD(x_i)g_i(p) \\
+			&= \sum_{i=1}^nD(x_i)\eval{\pdv{x_i}}_{p} f \\
+			&= \bigg[ \sum_{i=1}^nD(x_i)\eval{\pdv{x_i}}_{p} \bigg] f
+		\end{align*}
+		So $$D = \sum_{i=1}^nD(x_i)\eval{\pdv{x_i}}_{p} $$ and $$D \in \spn \bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$$
+	\end{proof}
+
+	\begin{defn}
+		We define the \textbf{tangent bundle of $M$}, denoted $TM$, by $$TM = \bigcup_{p \in M} T_pM$$ 
+		and we define the \textbf{cotangent bundle of $M$}, denoted $T^*M$, by 
+		$$T^*M = \bigcup_{p \in M} T_p^*M$$
+	\end{defn}
+
+\begin{defn}
+	Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $I = (i_1, \cdots, i_k) \in \MI_k$. For $p \in U$, define $$\eval{\pdv{x_I}}_{p} = \bigg( \eval{\pdv{x_{i_1}}}_{p}, \cdots, \eval{\pdv{x_{i_k}}}_{p} \bigg)$$ and define $$\pdv{x_I}:U \rightarrow TM$$ by $$p \mapsto \eval{\pdv{x_I}}_{p}$$
+\end{defn}
+
+
+	\begin{defn}
+		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$. Then $F$ is said to be \textbf{smooth} if for each $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$, $$\psi \circ F \circ \phi^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$$ is smooth and $F$ is said to be a \textbf{diffeomorphism} if $F$ is a homeomorphism and $F,F^{-1}$ are smooth.
+	\end{defn}
+
+	\begin{ex}
+		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ a diffeomorphism. Then for each $(U, \phi) \in \MA$, $(F(U), \phi \circ F^{-1}) \in \MB$.
+	\end{ex}
+
+	\begin{proof}
+		Let $(V, \psi) \in \MB$. Since $F$ is a diffeomorphism, $$\phi \circ F^{-1} \circ \psi^{-1}: \psi(F(U) \cap V) \rightarrow \phi(U \cap F^{-1}(V))$$ and $$\psi \circ F \circ \phi^{-1}: \phi(F^{-1}(V) \cap U) \rightarrow \psi(V \cap F(U))$$ are smooth. Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
+	\end{proof}
+
+	\begin{defn}
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism and $p \in M$. We define the \textbf{push forward of $F$ at $p$}, denoted $(F_*)_p: T_pM \rightarrow T_{F(p)}N$, by $$\bigg[ (F_*)_p(D) \bigg] (f) = D (f \circ F)$$  for $D \in T_pM$ and $f \in C^{\infty}_{F(p)}(N)$.
+	\end{defn}
+
+	\begin{ex}
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism and $p \in M$. Then $(F_*)_p$ is an isomorphism.
+	\end{ex}
+	
+	\begin{proof}
+		Choose $(U, \phi) \in \MA$ such that $p \in U$. A previous exercise tells us that $(F(U), \phi \circ F^{-1}) \in \MB$. Write $\phi = (x_!, \cdots, x_n)$ and $\phi \circ F^{-1} = (y_1, \cdots, y_n)$. Let $f \in C^{\infty}_{F(p)}(N)$ Then 
+		\begin{align*}
+			\eval{\pdv{y_i}}_{F(p)} f
+			&= 	\eval{\pdv{u_i}}_{\phi \circ F^{-1} (F(p))} f \circ (\phi \circ F^{-1})^{-1} \\
+			&= 	\eval{\pdv{u_i}}_{\phi(p)} f \circ F \circ \phi^{-1} \\
+			&= 	\eval{\pdv{x_i}}_p f \circ F \\
+		\end{align*}
+		Therefore 
+		\begin{align*}
+			\bigg[ (F_*)_p \bigg( \eval{\pdv{x_i}}_p \bigg) \bigg] (f)
+			&= \eval{\pdv{x_i}}_p f \circ F \\
+			&= \eval{\pdv{y_i}}_{F(p)} f 
+		\end{align*}
+	Hence $$(F_*)_p \bigg( \eval{\pdv{x_i}}_p \bigg) = \eval{\pdv{y_i}}_{F(p)}$$ 
+	Since $\bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ is a basis for $T_pM$ and $\bigg \{\eval{\pdv{y_1}}_{F(p)}, \cdots, \eval{\pdv{y_n}}_{F(p)} \bigg \}$ is a basis for $T_{F(p)}N$, $(F_*)_p$ is an isomorphism.
+	\end{proof}
+
+	\begin{defn}
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism. Define the \textbf{push forward of $F$}, denoted $$F_*:M \rightarrow \bigcup_{p \in M} \iso(T_pM, T_{F(p)}N)$$ by $$p \mapsto (F_*)_p$$.
+	\end{defn}
+	
+	
+	
+
+
 
 	
 	
@@ -599,45 +872,55 @@
 
 	
 	\newpage	
-	\section{Calculus on Manifolds}
-	
-	\subsection{Submanifolds of $\R^n$}
+	\subsection{Integration on Manifolds}
 	
 	\begin{defn}
-		Let $\Om \subset \R^n$ and $U \subset M$. Then $U$ is said to be \textbf{open} if there exists $U' \subset \R^n$ such that $U'$ is open in $\R^n$ and $U = M \cap U'$.
+		We define $$\Lam_k (TM) = \bigcup_{p \in M} \Lam_k(T_p M)$$
 	\end{defn}
+	
+	\begin{defn}
+		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then 
+		we define $dx_1, \cdots, dx_n :U \rightarrow \Lam_1 (TU)$,  by $$(dx_i)_p \bigg (\eval{\pdv{x_j}}_{p} \bigg) = \del_{i,j}$$ That is, for each $p \in U$, $\{(dx_1)_p, \cdots, (dx_n)_p\}$ is the dual basis of $\bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ for $T_p^*M$
+	\end{defn}
+	
+	\begin{defn}
+		Let $\om: M \rightarrow \Lam_k (TM)$. Then $\om$ is said to be a \textbf{$k$-form on $M$} if for each $p \in M$, $\om_p \in \Lam_k(T_pM)$.\\
+		Let $(U, \phi)$ be a coordinate chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then $\om$ is said to be a \textbf{smooth on $U$} if for each $I \in \MI_k$, there exist $f_I \in C^{\infty}(U)$ such that $$\om\bigg(\pdv{x_I} \bigg): U \rightarrow \R$$ is smooth.\\
+		
+		$$\om|_U = \sum_{I \in \MI_k} f_I dx_I$$ where for $I = (i_1, \cdots, i_k) \in \MI_k$, $(dx_I)_p = (dx_{i_1})_p \wedge \cdots \wedge (dx_{i_k})_p$.\\
+		If for each $(U, \phi) \in \MA$, $\om$ is smooth on $U$, then $\om$ is said to be a \textbf{differential $k$-form on $M$}. The set of differential $k$-forms on $M$ is denoted $\Psi_k(M)$.\\
+	\end{defn} 
 
-	\begin{defn}
-		Let $\Om \subset \R^n, U \subset \Om$, $V \subset \H_k$ and $\phi:U \rightarrow V$. Then $\phi$ is said to be a \textbf{coordinate chart} from $\Om$ to $\H_k$ if $U$ is open in $\Om$, $V$ is open in $\H_k$ and $\phi$ is a homeomorphism (that is, $\phi$ is a bijection, continuous and $\phi^{-1}$ is continuous). We will typically denote a chart from $\Om$ to $\H_k$ by the pair $(\phi, U)$. Let $\MA = \{(\phi_{\al}, U_{\al}): \al \in A\}$ be a set of coordinate charts from $\Om$ to $\H_k$ indexed by $A$. Then $\MA$ is said to be a \textbf{smooth $k$-atlas} on $\Om$ if 
-		\begin{enumerate}
-			\item $\Om = \bigcup\limits_{\al \in A} U_{\al}$
-			\item for each $\al, \beta \in A$, $U_{\al} \cap U_{\beta} \neq \varnothing$ implies that $$\phi_2 \circ \phi_1^{-1}: \phi_1(U_{\al} \cap U_{\beta}) \rightarrow \phi_2(U_{\al} \cap U_{\beta})$$ is  smooth
-		\end{enumerate} 
-	If $\MA$ is a smooth $k$-atlas on $\Om$, and $(\phi, U) \in \MA$, then $\phi$ is said to be a \textbf{smooth coordinate chart} from $\Om$ to $\H_k$. 
-	\end{defn}
-
-	\begin{defn}
-		Let $\Om \subset \R^n$ and $\MA$ a smooth $k$-atlas on $\Om$. Then $(\Om, \MA)$ is said to be a $k$-dimensional smooth submanifold of $\R^n$. Define the \textbf{boundary} of $\Om$, denoted $\partial \Om$, by $$\partial \Om = \bigcup_{\substack{\phi \in \MA \\ \phi:U \rightarrow V}} \phi^{-1}(V \cap \partial \H_k) $$
-	\end{defn}
-	
-	\begin{ex}
-		Let $\Om$ be a $k$-dimensional smooth submanifold of $\R^n$. Then $\partial \Om$ is a $k-1$-dimensional smooth manifold of $\R^n$.
-	\end{ex}
-	
-	\begin{proof}
-		Straightforward.
-	\end{proof}
-	
-	\begin{defn}
-		Let $\Om$ be a smooth $k$-dimensional smooth submanifold of $\R^n$, $U \subset \Om$ open in $\Om$, $V \subset \H_k$ open in $\H_k$ and $\phi: U \rightarrow V$ a smooth coordinate chart on $\Om$. Then $\phi^{-1}: V \rightarrow U$ is called a \textbf{local smooth parametrization} of $\Om$. 
-	\end{defn}
-	
-	\subsection{Differential Forms}
-	
 	\begin{note}
-		The definitions in this section will introduce a very slick book-keeping device for doing calculus on manifolds. Since we are not developing the theory from the ground up, it may feel abstract. Hopefully the many exercises facilitate becoming accostumed to this book-keeping tool.
+		Observe that $\Om_0(M) = C^{\infty}(M)$.
 	\end{note}
+
+	\begin{defn}
+		Define the \textbf{exterior product} $$\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $$ by $$(\al \wedge \beta)_p = (\al)_p \wedge (\beta)_p$$
+		Define the \textbf{permutation action of $S_k$ on $\Om_k(M)$} by $$(\sig \om)_p = \sig \om_p$$
+	\end{defn}
+
+	\begin{note}
+	All of the results from multilinear algebra apply here.
+	\end{note}
+
 	
+	
+	\begin{defn}
+		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ be a diffeomorphism. Define the \textbf{pullback of $F$}, denoted $F^*: \Om_k(N) \rightarrow \Om_k(M)$ by  $$(F^* \om)_p (D_1, \cdots, D_k) = \om_{F(p)} ((F_*)_p(D_1), \cdots, (F_*)_p(D_k))$$ for $p \in M$ and $D_1, \cdots, D_k \in T_{p}M$
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage.
+	\newpage 
 	\begin{defn}
 		When working in $\R^n$, we introduce the formal objects $dx_1, dx_2, \cdots, dx_n$. Let $I = (i_1, i_2, \cdots, i_k)\in \MI_{k,n}$ and $\phi: \R^k \rightarrow \R^n$. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We formally define $dx_I = dx_{i_1}\wedge dx_{i_2} \wedge \cdots \wedge dx_{i_k}$ and $\phi_I = (\phi_{i_1}, \phi_{i_2}, \cdots, \phi_{i_k})$.   
 	\end{defn}
@@ -645,20 +928,20 @@
 	\begin{defn}
 		Let $k \in \{0, 1, \cdots, n\}$. We define a $C^{\infty}(\R^n)$-module of dimension ${n \choose k}$, denoted $\Gamma^k(\R^n)$ to be 
 		\[
-		\Gamma^k(\R^n) =
+		\Phi_k(\R^n) =
 		\begin{cases}
 			C^{\infty}(\R^n) & k = 0 \\
 			\spn \{ dx_I: I \in \MI_{k,n} \} & k \geq 1
 		\end{cases}
 		\]
-		For each $\om \in \Gamma^k(\R^n)$ and $\chi \in \Gamma^l(\R^n)$,   we may form their \textbf{exterior product}, denoted by $\om \wedge \chi \in \Gamma^{k+l}(\R^n)$. Thus the exterior product is a map $\wedge : \Gamma^k(\R^n) \times \Gamma^l(\R^n)\rightarrow \Gamma^{k+l}(\R^n)$. The exterior product is characterized by the following properties:
+		For each $\om \in \Phi_k(\R^n)$ and $\chi \in \Gamma^l(\R^n)$,   we may form their \textbf{exterior product}, denoted by $\om \wedge \chi \in \Gamma^{k+l}(\R^n)$. Thus the exterior product is a map $\wedge : \Phi_k(\R^n) \times \Gamma^l(\R^n)\rightarrow \Gamma^{k+l}(\R^n)$. The exterior product is characterized by the following properties:
 		\begin{enumerate}
 			\item the exterior product is bilinear
-			\item for each $\om \in \Gamma^k(\R^n)$ and $\chi \in \Gamma^l(\R^n)$, $\om \wedge \chi = - \chi \wedge \om$ 
-			\item for each $\om \in \Gamma^k(\R^n)$, $\om \wedge \om = 0$
-			\item for each $f \in C^{\infty}(\R^n)$ and $ \om \in \Gamma^k(\R^n)$, $f \wedge \om = f \om$
+			\item for each $\om \in \Phi_k(\R^n)$ and $\chi \in \Gamma^l(\R^n)$, $\om \wedge \chi = - \chi \wedge \om$ 
+			\item for each $\om \in \Phi_k(\R^n)$, $\om \wedge \om = 0$
+			\item for each $f \in C^{\infty}(\R^n)$ and $ \om \in \Phi_k(\R^n)$, $f \wedge \om = f \om$
 		\end{enumerate}
-		We call $\Gamma^k(\R^n)$ the differential $k$-forms on $\R^n$. Let $\om$ be a $k$-form on $\R^n$. If $k \geq 1$, then for each $I \in \MI_{k,n}$, there exists $f_I \in C^{\infty}(\R^n)$ such that $\om = \sum\limits_{I \in \MI_{k,n}} f_I dx_I$
+		We call $\Phi_k(\R^n)$ the differential $k$-forms on $\R^n$. Let $\om$ be a $k$-form on $\R^n$. If $k \geq 1$, then for each $I \in \MI_{k,n}$, there exists $f_I \in C^{\infty}(\R^n)$ such that $\om = \sum\limits_{I \in \MI_{k,n}} f_I dx_I$
 	\end{defn}
 	
 	
@@ -667,7 +950,7 @@
 	\end{note}
 
 	\begin{ex}
-		Let $B_{n\times n} = (b_{i,j}) \in \MM(C^{\infty})$ be an $n\times n$ matrix. Then $$\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg) = (\det B) dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$$
+		Let $B_{n\times n} = (b_{i,j}) \in [C^{\infty}(M)]^{n \times n}$ be an $n\times n$ matrix. Then $$\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg) = (\det B) dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$$
 	\end{ex}
 
 	\begin{proof}
@@ -712,11 +995,11 @@
 	\end{ex}
 	
 	\begin{defn}
-		We define a linear map $*:\Gamma^k(\R^n) \rightarrow \Gamma^{n-k}(\R^n)$ called the \textbf{Hodge $*$-operator} by $$* \sum\limits_{I \in \MI_{k,n}} f_I dx_I = \sum\limits_{I \in \MI_{k,n}} f_Idx_{I_*}$$
+		We define a linear map $*:\Phi_k(\R^n) \rightarrow \Gamma^{n-k}(\R^n)$ called the \textbf{Hodge $*$-operator} by $$* \sum\limits_{I \in \MI_{k,n}} f_I dx_I = \sum\limits_{I \in \MI_{k,n}} f_Idx_{I_*}$$
 	\end{defn}
 
 	\begin{defn}
-		Let $\phi: \R^k \rightarrow \R^n$ be smooth. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We define $\phi^*:\Gamma^k(\R^n) \rightarrow \Gamma^k(\R^k)$ via the following properties: 
+		Let $\phi: \R^k \rightarrow \R^n$ be smooth. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We define $\phi^*:\Phi_k(\R^n) \rightarrow \Phi_k(\R^k)$ via the following properties: 
 		\begin{enumerate}
 			\item for each $0$-form $f$ on $\R^n$, $\phi^*f = f \circ \phi$
 			\item  for $i = 1, \cdots , n$, $\phi^* dx_i = d\phi_i$ 
@@ -726,7 +1009,7 @@
 	\end{defn}
 
 	\begin{ex}
-			Let $\Om \subset \R^n$ be a $k$-dimensional smooth submanifold of $\R^n$, $\phi: U \rightarrow V$ a smooth parametrization of $\Om$, $\om = \sum_{I \in \MI_{k,n}} f_Idx_I$  an $k$-form on $\R^n$. Then $$\phi^* \om = \bigg( \sum_{I \in \MI_{k, n}} (f_I \circ \phi) (\det D\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k$$ 
+			Let $M \subset \R^n$ be a $k$-dimensional smooth submanifold of $\R^n$, $\phi: U \rightarrow V$ a smooth parametrization of $M$, $\om = \sum_{I \in \MI_{k,n}} f_Idx_I$  an $k$-form on $\R^n$. Then $$\phi^* \om = \bigg( \sum_{I \in \MI_{k, n}} (f_I \circ \phi) (\det D\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k$$ 
 	\end{ex}
 
 	\begin{proof}
@@ -761,15 +1044,15 @@
 	\end{defn}
 	
 	\begin{defn}
-		Let $\Om \subset \R^n$ be a $k$-dimensional oriented smooth submanifold of $\R^n$, $\om$ a $k$-form on $\R^n$ and $\phi: U \rightarrow V$ a local smooth, orientation-preserving parametrization of $\Om$. Define $$\int_V \om = \int_U \phi^*\om $$
+		Let $M \subset \R^n$ be a $k$-dimensional oriented smooth submanifold of $\R^n$, $\om$ a $k$-form on $\R^n$ and $\phi: U \rightarrow V$ a local smooth, orientation-preserving parametrization of $M$. Define $$\int_V \om = \int_U \phi^*\om $$
 	\end{defn} 
 
 	\begin{ex}
 		
 	\end{ex}
 
-	\begin{thm}{\textbf{(Stokes)}}
-		Let $\Om \subset \R^n$ be a $k$-dimensional oriented smooth submanifold of $\R^n$ and $\om$ a $k-1$-form on $\R^n$. Then $$\int_{\partial \Om} \om = \int_\Om d \om$$
+	\begin{thm}{\textbf{(Stokes Theorem)}}
+		Let $M \subset \R^n$ be a $k$-dimensional oriented smooth submanifold of $\R^n$ and $\om$ a $k-1$-form on $\R^n$. Then $$\int_{\partial M} \om = \int_M d \om$$
 	\end{thm}
 
 \end{document}
