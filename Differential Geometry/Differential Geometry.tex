@@ -71,6 +71,7 @@
 \newcommand{\MT}{\mathcal{T}}
 \newcommand{\MI}{\mathcal{I}}
 \newcommand{\MM}{\mathcal{M}}
+\newcommand{\MX}{\mathcal{X}}
 
 
 \renewcommand{\r}{\rangle}
@@ -107,27 +108,16 @@
 	\subsection{Set Theory}
 	
 	\begin{defn}
-		Let $\{A_i\}_{i \in I}$ be a collection of sets. The \textbf{disjoint union of} $\{A_i\}_{i \in I}$, denoted $\coprod\limits_{i \in I} A_i$, is defined by $$\coprod_{i \in I}A_i = \bigcup_{i\in I} \{i\} \times A_i$$ Define the \textbf{projection map} $\pi: \coprod\limits_{i \in I}A_i \rightarrow I$ by $$\pi(i, A_i) = i$$
+		Let $\{A_i\}_{i \in I}$ be a collection of sets. The \textbf{disjoint union of} $\{A_i\}_{i \in I}$, denoted $\coprod\limits_{i \in I} A_i$, is defined by $$\coprod_{i \in I}A_i = \bigcup_{i\in I} \{i\} \times A_i$$ 
 	\end{defn}
+
+	\begin{note}
+		In these notes, we will identify $\{i\} \times A_i$ and $A_i$.
+	\end{note}
 
 	\begin{defn}
-		Let $A, B$ be sets and $\pi : A \rightarrow B$ and $\sig:B \rightarrow A$. Then $\sig$ is said to be a \textbf{section of $\pi$} if $\pi \circ \sig = \id_B$.
+		Let Let $\{A_i\}_{i \in I}$ be a collection of sets and $\sig: I \rightarrow \coprod\limits_{i \in I} A_i$. Then $\sig$ is said to be a \textbf{section of $\coprod\limits_{i \in I} A_i$} if for each $i \in I$, $\sig(i) \in A_i$.
 	\end{defn}
-
-	\begin{ex}
-		Let $\{A_i\}_{i \in I}$ be a collection of sets, $\pi: \coprod\limits_{i \in I} A_i \rightarrow I$ the projection map and $\sig: I \rightarrow \coprod\limits_{i \in I} A_i$. If $\sig$ is a section of $\pi$, then for each $i \in I$, $\sig(i) \in \{i\} \times A_i$.
-	\end{ex}
-
-	\begin{proof}
-		Suppose that $\sig$ is a section of $\pi$. Let $i \in I$. Then there exists $j \in I$ and $a \in A_j$ such that $\sig(i) = (j, a)$. Since $\pi \circ \sig = \id_I$, we have that
-		\begin{align*}
-			i 
-			&= \pi \circ \sig (i) \\
-			&= \pi(j, a) \\
-			&= j
-		\end{align*}
-	So $i = j$ and $\sig(i) = (i, a) \in \{i\} \times A_i$
-	\end{proof}
 	
 	\subsection{Differentiation}
 	
@@ -723,6 +713,31 @@
 	\end{proof}
 
 	\begin{defn}
+		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$. Then $F$ is said to be \textbf{smooth} if for each $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$, $$\psi \circ F \circ \phi^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$$ is smooth and $F$ is said to be a \textbf{diffeomorphism} if $F$ is a homeomorphism and $F,F^{-1}$ are smooth.
+	\end{defn}
+	
+	\begin{ex}
+		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ a diffeomorphism. Then for each $(U, \phi) \in \MA$, $(F(U), \phi \circ F^{-1}) \in \MB$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $(V, \psi) \in \MB$. Since $F$ is a diffeomorphism, $$\phi \circ F^{-1} \circ \psi^{-1}: \psi(F(U) \cap V) \rightarrow \phi(U \cap F^{-1}(V))$$ and $$\psi \circ F \circ \phi^{-1}: \phi(F^{-1}(V) \cap U) \rightarrow \psi(V \cap F(U))$$ are smooth. Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{The Tangent Space}
+
+	\begin{defn}
 		Let $p \in M$. Define the relation $\sim_p$ on $C^{\infty}(M)$ by $f \sim_p g$ iff there exists an open $U \subset M$ such that $f|_U = g|_U$. Clearly $\sim_p$ is an equivalence relation on $C^{\infty}(M)$. We denote $C^{\infty}(M) / \sim_p$ by $C^{\infty}_p(M)$. For $f \in C^{\infty}(M)$, we define the \textbf{germ of $f$ at $p$} to be the equivalence class of $f$ under $\sim_p$. 
 	\end{defn}
 	
@@ -809,27 +824,16 @@
 	\end{proof}
 
 	\begin{defn}
-		We define the \textbf{tangent bundle of $M$}, denoted $TM$, by $$TM = \bigcup_{p \in M} T_pM$$ 
+		We define the \textbf{tangent bundle of $M$}, denoted $TM$, by $$TM = \coprod_{p \in M} T_pM$$ 
 		and we define the \textbf{cotangent bundle of $M$}, denoted $T^*M$, by 
-		$$T^*M = \bigcup_{p \in M} T_p^*M$$
+		$$T^*M = \coprod_{p \in M} T_p^*M$$
 	\end{defn}
-
-\begin{defn}
-	Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $I = (i_1, \cdots, i_k) \in \MI_k$. For $p \in U$, define $$\eval{\pdv{x_I}}_{p} = \bigg( \eval{\pdv{x_{i_1}}}_{p}, \cdots, \eval{\pdv{x_{i_k}}}_{p} \bigg)$$ and define $$\pdv{x_I}:U \rightarrow TM$$ by $$p \mapsto \eval{\pdv{x_I}}_{p}$$
-\end{defn}
-
 
 	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$. Then $F$ is said to be \textbf{smooth} if for each $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$, $$\psi \circ F \circ \phi^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$$ is smooth and $F$ is said to be a \textbf{diffeomorphism} if $F$ is a homeomorphism and $F,F^{-1}$ are smooth.
+		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $I = (i_1, \cdots, i_k) \in \MI_k$. For $p \in U$, define $$\eval{\pdv{x_I}}_{p} = \bigg( \eval{\pdv{x_{i_1}}}_{p}, \cdots, \eval{\pdv{x_{i_k}}}_{p} \bigg)$$
 	\end{defn}
 
-	\begin{ex}
-		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ a diffeomorphism. Then for each $(U, \phi) \in \MA$, $(F(U), \phi \circ F^{-1}) \in \MB$.
-	\end{ex}
 
-	\begin{proof}
-		Let $(V, \psi) \in \MB$. Since $F$ is a diffeomorphism, $$\phi \circ F^{-1} \circ \psi^{-1}: \psi(F(U) \cap V) \rightarrow \phi(U \cap F^{-1}(V))$$ and $$\psi \circ F \circ \phi^{-1}: \phi(F^{-1}(V) \cap U) \rightarrow \psi(V \cap F(U))$$ are smooth. Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
-	\end{proof}
 
 	\begin{defn}
 		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism and $p \in M$. We define the \textbf{push forward of $F$ at $p$}, denoted $(F_*)_p: T_pM \rightarrow T_{F(p)}N$, by $$\bigg[ (F_*)_p(D) \bigg] (f) = D (f \circ F)$$  for $D \in T_pM$ and $f \in C^{\infty}_{F(p)}(N)$.
@@ -858,9 +862,17 @@
 	\end{proof}
 
 	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism. Define the \textbf{push forward of $F$}, denoted $$F_*:M \rightarrow \bigcup_{p \in M} \iso(T_pM, T_{F(p)}N)$$ by $$p \mapsto (F_*)_p$$.
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism. Define the \textbf{push forward of $F$}, denoted $$F_*:M \rightarrow \coprod_{p \in M} \iso(T_pM, T_{F(p)}N)$$ by $$p \mapsto (F_*)_p$$.
 	\end{defn}
 	
+	\begin{defn}
+		Let $X: M \rightarrow TM$. Then $X$ is said to be a \textbf{vector field on $M$} if for each $p \in M$, $X_p \in T_p M$. Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then $X$ is said to \textbf{smooth on $U$} if there exist $f_1, \cdots, f_n \in C^{\infty}(U)$ such that $$X|_U = \sum_{i=1}^n f_i \pdv{x_i}$$ 
+		Finally, $X$ is said to be \textbf{smooth} if for each $(U, \phi) \in \MA$, $X$ is smooth on $U$. We denote the set of smooth vector fields on $M$ by $\Gam(M)$.
+	\end{defn}
+
+	\begin{defn}
+		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and define $\pdv{x_I} \in \Gam(M)$ by $$p \mapsto \eval{\pdv{x_I}}_{p}$$
+	\end{defn}
 	
 	
 
@@ -875,20 +887,13 @@
 	\subsection{Integration on Manifolds}
 	
 	\begin{defn}
-		We define $$\Lam_k (TM) = \bigcup_{p \in M} \Lam_k(T_p M)$$
-	\end{defn}
-	
-	\begin{defn}
-		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then 
-		we define $dx_1, \cdots, dx_n :U \rightarrow \Lam_1 (TU)$,  by $$(dx_i)_p \bigg (\eval{\pdv{x_j}}_{p} \bigg) = \del_{i,j}$$ That is, for each $p \in U$, $\{(dx_1)_p, \cdots, (dx_n)_p\}$ is the dual basis of $\bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ for $T_p^*M$
+		We define $$\Lam_k (TM) = \coprod_{p \in M} \Lam_k(T_p M)$$
 	\end{defn}
 	
 	\begin{defn}
 		Let $\om: M \rightarrow \Lam_k (TM)$. Then $\om$ is said to be a \textbf{$k$-form on $M$} if for each $p \in M$, $\om_p \in \Lam_k(T_pM)$.\\
-		Let $(U, \phi)$ be a coordinate chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then $\om$ is said to be a \textbf{smooth on $U$} if for each $I \in \MI_k$, there exist $f_I \in C^{\infty}(U)$ such that $$\om\bigg(\pdv{x_I} \bigg): U \rightarrow \R$$ is smooth.\\
-		
-		$$\om|_U = \sum_{I \in \MI_k} f_I dx_I$$ where for $I = (i_1, \cdots, i_k) \in \MI_k$, $(dx_I)_p = (dx_{i_1})_p \wedge \cdots \wedge (dx_{i_k})_p$.\\
-		If for each $(U, \phi) \in \MA$, $\om$ is smooth on $U$, then $\om$ is said to be a \textbf{differential $k$-form on $M$}. The set of differential $k$-forms on $M$ is denoted $\Psi_k(M)$.\\
+		Let $(U, \phi)$ be a coordinate chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then $\om$ is said to be a \textbf{smooth on $U$} if for each $I \in \MI_k$,  The map $$\om\bigg(\pdv{x_I} \bigg): U \rightarrow \R$$ given by $$p \mapsto \om_p \bigg(\eval{\pdv{x_I}}_{p} \bigg)$$ is smooth 
+		and $\om$ is said to be a \textbf{differential $k$-form on $M$} if for each $(U, \phi) \in \MA$, $\om$ is smooth on $U$. The set of differential $k$-forms on $M$ is denoted $\Om_k(M)$.\\
 	\end{defn} 
 
 	\begin{note}
@@ -899,11 +904,30 @@
 		Define the \textbf{exterior product} $$\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $$ by $$(\al \wedge \beta)_p = (\al)_p \wedge (\beta)_p$$
 		Define the \textbf{permutation action of $S_k$ on $\Om_k(M)$} by $$(\sig \om)_p = \sig \om_p$$
 	\end{defn}
-
+	
 	\begin{note}
-	All of the results from multilinear algebra apply here.
+		All of the results from multilinear algebra apply here.
 	\end{note}
 
+	\begin{defn}
+		Let $\om \in \Om_k(M)$. We define the \textbf{exterior derivative of $\om$} by 
+		\begin{enumerate}
+			\item $(d\om)_p (D) = D \om $ for $p \in M$ and $D \in T_pM$
+			\item $d \om $
+		\end{enumerate}
+		$df \in \Om_1(M)$ by $$(df)_p (D) = D f $$ 
+		for $p \in M$ and $D \in T_pM$. 
+	\end{defn}
+
+	\begin{defn}
+		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then 
+		we define $dx_1, \cdots, dx_n :U \rightarrow \Lam_1 (TU)$,  by $$(dx_i)_p \bigg (\eval{\pdv{x_j}}_{p} \bigg) = \del_{i,j}$$ That is, for each $p \in U$, $\{(dx_1)_p, \cdots, (dx_n)_p\}$ is the dual basis of $\bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ for $T_p^*M$\\
+		Define where for $I = (i_1, \cdots, i_k) \in \MI_k$, $(dx_I)_p = (dx_{i_1})_p \wedge \cdots \wedge (dx_{i_k})_p$.\\
+	\end{defn}
+
+	\begin{ex}
+		Let $\om: M \rightarrow \Lam_k(TM)$ be a k-form on $M$ and $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then $\om$ is smooth on $U$ iff for each $I \in \MI_k$ there exist $f_I \in C^{\infty}(U)$ such that $$\om|_U = \sum_{I \in \MI_k} f_I dx_I$$ 
+	\end{ex}
 	
 	
 	\begin{defn}
