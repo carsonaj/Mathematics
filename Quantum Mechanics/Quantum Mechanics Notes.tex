@@ -16,7 +16,8 @@
 \hypersetup{
 	colorlinks=true, %set true if you want colored links
 	linktoc=all,     %set to all if you want both sections and subsections linked
-	linkcolor=black,  %choose some color if you want links to stand out
+	linkcolor=cyan,  %choose some color if you want links to stand out
+	urlcolor=cyan
 }
 
 %
@@ -32,6 +33,7 @@
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}[thm]{Lemma}
+\newtheorem{pos}{Postulate}
 \newtheorem{prop}[thm]{Proposition}
 \newtheorem{cor}[thm]{Corollary}
 \newtheorem{conj}{Conjecture}
@@ -87,7 +89,7 @@
 \newcommand{\MT}{\mathcal{T}}
 \newcommand{\MM}{\mathcal{M}}
 \newcommand{\MW}{\mathcal{W}}
-
+\newcommand{\MH}{\mathcal{H}}
 \newcommand{\up}{|\uparrow  \r}
 \newcommand{\dn}{|\downarrow  \r}
 
@@ -109,6 +111,7 @@
 \DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\E}{\mathbb{E}}
+\DeclareMathOperator{\spn}{span}
  
 \begin{document}
 
@@ -119,301 +122,479 @@
 
 \tableofcontents
 
-\section{Introduction}
-\subsection{Schr\"{o}dinger Equation}
+\section{Mathematical Background}
 
-\begin{note}
-In the introduction, we keep position general with $x \in \R^n$ given by $x = (x_1, \cdots, x_n)$, the usual math notation. The notation in cartesian coordinates changes in three dimensions to $r = (x,y,z)$, the usual physics notation. 
-\end{note}
-
+\subsection{Hilbert Spaces}
 \begin{defn}
-A particle with potential energy $V(x,t)$ is completely decribed by its \textbf{position wavefunction} $\Psi(x,t)$, which satisfies the \textbf{Schr\"{o}dinger equation}: 
-\begin{align*}
-i\hbar \p{t} \Psi 
-&= -\frac{\hbar^2}{2m} \Del \Psi + V \Psi\\
-\end{align*}
-\end{defn}
-
-\begin{intp}
-We interpret $\vert\Psi(x,t)\vert^2$ to be the \textbf{probability density} for the position, $x$, of the particle at time $t$. Therefore, we require that for each $t \in \R$, $$\int_{\R^n}\Psi(x,t)^* \Psi(x,t) dx = 1$$
-\end{intp}
-
-\subsection{Operators}
-
-\begin{defn}
-
-We define the $j^{\text{th}}$ \textbf{position} and \textbf{momentum coordinate operators} $X_j,P_j$, (in position space) by $$X_j \Psi(x,t) = x_j \Psi(x,t)$$ and $$P_j \Psi(x,t) = -i \hbar \p{x_j} \Psi(x,t)$$ 
-We define the \textbf{position} and \textbf{momentum} operators, $X$ and $P$, by $$X = (X_1, X_2, \cdots, X_n)$$ and $$P = (P_1, P_2, \cdots, P_n)$$
-We denote $P \cdot P$ by $P^2$. Note that $$P^2 = -\hbar^2 \Del$$
-If the partical has potential energy $V(x,t)$, we define the \textbf{Hamiltonian} operator, $H$, by $$H = \frac{P^2}{2m} + V$$ Thus the Schr\"{o}dinger equation reads $$i\hbar \p{t}\Psi = H \Psi$$ 
+	Let $H$ be a vector space and $\l \cdot| \cdot\r: G \times H \rightarrow \C$. Then $H$ is said to be an \textbf{inner product space} with inner product $\l \cdot| \cdot\r$ if for each $\Psi_1,\Psi_2,\Psi_3 \in H$and $c \in \C$
+	\begin{enumerate}
+		\item $\l \Psi_1 | \Psi_2 + c\Psi_3\r = \l \Psi_1 | \Psi_2 \r + c\l \Psi_1 | \Psi_3\r $
+		\item $\l \Psi_1 | \Psi_2 \r = \l \Psi_2 | \Psi_1\r^*$
+		\item $\l \Psi_1 | \Psi_1 \r \geq 0$
+		\item if $\l \Psi_1 |\Psi_1 \r = 0$, then $\Psi_1 = 0$.  
+	\end{enumerate}
 \end{defn}
 
 \begin{note}
-If the potential energy doesn't depend on time, we may write $$H = \frac{P^2}{2m} + V(X)$$ meaning Hamiltonian only depends on the position and momentum operators, $X$ and $P$. For the rest of these notes, we assume that the potential energy $V$ does not depend on time.
+	For the rest of this section, we assume that $H$ is an inner product space with inner product $\l \cdot | \cdot \r$.
 \end{note}
 
+\begin{ex}
+	Let $(\Psi_j)_{j =1}^n \subset H$. Then $$\bigg \l \sum_{i=1}^n \Psi_i \bigg| \sum_{j=1}^n \Psi_j \bigg \r = \sum_{i=1}^n \sum_{j=1}^n \l \Psi_i| \Psi_j \r $$
+\end{ex}
+
 \begin{defn}
-Let $A$ and $B$ be operators. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $\Psi_1$, $\Psi_2$, $$\l \Psi_1 \vert A\Psi_2 \r = \l B \Psi_1 \vert \Psi_2 \r$$ i.e. $$\int_{\R^n}\Psi_1^* (A\Psi_2) dx = \int_{\R^n}(B\Psi_1)^* \Psi_2 dx$$ If B is the adjoint of $A$, we write $$B = A^{\dagger}$$
+	Let $\Psi_1, \Psi_2 \in H$ and $S \subset H$. Then $\Psi_1$ and $\Psi_2$ are said to be \textbf{orthogonal} if $\l \Psi_1|\Psi_2\r = 0$ and $S$ is said to be \textbf{orthogonal} if for each $\Psi_1,\Psi_2 \in S$, $\Psi_1,\Psi_2$ are orthogonal. 
 \end{defn}
 
 \begin{ex}
-Let $A$ be an operator, then \begin{enumerate}
-\item for each $\Psi_1, \Psi_2$, $\l A\Psi_1 \vert \Psi_2 \r = \l   \Psi_1 \vert A^{\dagger} \Psi_2 \r$ 
-\item $(A^{\dagger})^{\dagger} = A$
-\end{enumerate}
+	Let $S \subset H$. Suppose that $0 \not \in S$. If $S$ is orthogonal, then $S$ is linearly independent.
 \end{ex}
 
 \begin{proof}
-\begin{enumerate}
-\item For wavefunctions $\Psi_1$, $\Psi_2$, we have
-\begin{align*}
-\l A \Psi_1 \vert \Psi_2 \r
-&= \l \Psi_2 \vert A \Psi_1 \r^*\\
-&= \l A^{\dagger}\Psi_2 \vert  \Psi_1 \r^* \hspace{.5cm} \text{(by definition)}\\
-&= \l  \Psi_1 \vert A^{\dagger}\Psi_2 \r
-\end{align*}
-\item For each $\Psi_1, \Psi_2$, we have that
-\begin{align*}
-\l  A\Psi_1 \vert \Psi_2 \r
-&= \l   \Psi_1 \vert A^{\dagger}\Psi_2 \r \\
-&= \l  (A^{\dagger})^{\dagger} \Psi_1 \vert \Psi_2 \r
-\end{align*}
+	Let $\Psi_1, \cdots, \Psi_n \in S$ and $c_1, \cdots, c_n \in \C$. Suppose that $\sum\limits_{j =1}^n c_j \Psi_j = 0 $. Then 
+	\begin{align*}
+		0
+		&= \bigg \l \sum_{i=1}^n c_i\Psi_i \bigg| \sum_{j=1}^n c_j\Psi_j \bigg \r \\
+		&= \sum_{i=1}^n \sum_{j=1}^n \l \Psi_i| \Psi_j \r \\
+		&= \sum_{j=1}^n  |c_j|^2 \l \Psi_j| \Psi_j \r
+	\end{align*}
+	So for $j = 1 , \cdots, n$, $c_j = 0$ and $S$ is linearly independent.
+\end{proof}
 
-This implies that for each $\Psi_1, \Psi_2$, $$\big \l \big[A-(A^{\dagger})^{\dagger} \big] \Psi_1, \Psi_2 \big \r = 0$$ Therefore for each $\Psi_1$, $$ \big[A-(A^{\dagger})^{\dagger} \big] \Psi_1 = 0$$ Hence $ \l A-(A^{\dagger})^{\dagger}  = 0$ and $A = (A^{\dagger})^{\dagger}$.
-\end{enumerate}
+\begin{proof}
+	Clear.
+\end{proof}
+
+\begin{thm}\textbf{(Cauchy-Schwarz Inequality):} \\
+	Let $\Psi_1,\Psi_2 \in H$. Then $\l \Psi_1|\Psi_2\r^2 \leq \l \Psi_1|\Psi_1 \r \l \Psi_2|\Psi_2 \r$
+\end{thm}
+
+\begin{ex}
+	Define $\|\cdot \| : H \rightarrow \R_{\geq 0}$ by $$\|\Psi_1\| = \l \Psi_1| \Psi_1\r^{1/2}$$ Then $\|\cdot\|$ is a norm on $H$.
+\end{ex}
+
+\begin{proof}
+	The only nontriviality needed to be shown is the triangle inequality. To see this, we observe that 
+	\begin{align*}
+		\| \Psi_1+ \Psi_2 \|^2 
+		&= \l \Psi_1+\Psi_2 | \Psi_1+\Psi_2\r \\
+		&= \l \Psi_1|\Psi_1 \r + \l \Psi_1|\Psi_2\r + \l \Psi_2|\Psi_1 \r + \l \Psi_2|\Psi_2 \r \\
+		&= \|\Psi_1\| + \| \Psi_2 \| + 2 Re(\l \Psi_1|\Psi_2 \r) \\
+		& \leq \|\Psi_1\| + \| \Psi_2 \| + 2| \l \Psi_1|\Psi_2 \r| \\
+		& \leq  \|\Psi_1\| + \| \Psi_2 \| + 2 \| \Psi_1\| \|\Psi_2\| \\ 
+		&= (\|\Psi_1 \| + \| \Psi_2 \|)^2
+	\end{align*}
+	Hence $$\| \Psi_1+ \Psi_2 \| \leq \|\Psi_1 \| + \| \Psi_2 \|$$
 \end{proof}
 
 \begin{defn}
-An linear operator $Q$ is \textbf{self-adjoint} if $$Q = Q^{\dagger}$$
+	S set $S \subset H$ is said to be \textbf{orthonormal} if $S$ is orthogonal and for each $\Psi_1 \in S$, $\|\Psi_1 \| = 1$.
 \end{defn}
 
-\begin{intp}
-For each measurable, observable quantity $\hat{Q}$, there is a self-adjoint operator $Q$ whose eigenvalues are the possible measurment values and whose eigenfunctions are the possible states of the system at measurment.
-\end{intp}
+\begin{defn}
+	Let $H$ be a vector space and $\l \cdot| \cdot\r: G \times H \rightarrow \C$. Then $H$ is said to be a \textbf{Hilbert space} if $H$ is a complete with respect to the norm on $H$ induced by $\l \cdot | \cdot \r$. 
+\end{defn}
 
-\begin{ex}
-The operators $X_j, P_j$ and $H$ are self adjoint. \\Hint: for $H$, use Green's second identity.
+\begin{note}
+	For the rest of this section, we assume that $H$ is a Hilbert space. 
+\end{note}
+
+\begin{ex}\textbf{(Pythagorean theorem):}\\
+	Let $(\Psi_j)_{j \in \N} \subset H$ be an orthogonal set. Suppose that $\sum\limits_{j \in \N} \Psi_j$ converges, then $$\bigg \|\sum\limits_{j \in \N} \Psi_j  \bigg \|^2 = \sum\limits_{j \in \N} \|\Psi_j \|^2$$
 \end{ex}
 
 \begin{proof}
-Since $x_j$ is real, clearly $$\l \Psi_1 \vert X_j \Psi_2 \r = \l X_j\Psi_1 \vert \Psi_2 \r $$ Similarly, we have that 
-\begin{align*}
-\l \Psi_1 \vert P_j \Psi_2 \r
-&=  \int_{\R^n} \Psi_1^* \bigg(-i\hbar\p{x_j} \Psi_2\bigg)dx \\
-&= -i \hbar\int_{\R^n} \Psi_1^*  \bigg(\p{x_j} \Psi_2\bigg)dx\\
-&= i\hbar \int_{\R_n} \bigg( \p{x_j} \Psi_1^* \bigg) \Psi_2 dx \hspace{1cm } \text{(integration by parts)}\\
-&= \int_{\R^n} \bigg( -i \hbar \p{x_j} \Psi_1 \bigg)^* \Psi_2 dx\\
-&= \l P \Psi_1 \vert \Psi_2 \r
-\end{align*}
-
-Finally 
-\begin{align*}
-\l \Psi_1 \vert H \Psi_2 \r - \l H \Psi_1 \vert  \Psi_2 \r
-&= \int_{\R^n} \Psi_1^* \bigg(-\frac{\hbar^2}{2m}\Del \Psi_2 + V \Psi_2\bigg)dx - \int_{\R^n} \bigg(-\frac{\hbar^2}{2m}\Del \Psi_1 + V\Psi_1\bigg)^*  \Psi_2 dx \\
-&= \frac{\hbar^2}{2m}\int_{\R^n} (\Del \Psi_1^* )\Psi_2 - \Psi_1^*(\Del \Psi_2)dx\\
-&= 0 \hspace{1cm} \text{(Green's second identity)}
-\end{align*}
-\end{proof}
-
-\begin{ex}
-Let $Q$ be a self-adjoint operator. Then 
-\begin{enumerate}
-\item the eigenvalues of $Q$ are real.
-\item the eigenfunctions of $Q$ corresponding to distinct eigenvalues are orthogonal.
-\end{enumerate}
-\end{ex}
-
-\begin{proof}
-\ \begin{enumerate}
-\item Let $\lam$ be an eigenvalue of $Q$ with corresponding eigenfunction $\Psi$. Then 
-\begin{align*}
- \lam \l \Psi \vert \Psi\r
-&= \l \Psi \vert Q \Psi\r \\
-&= \l Q \Psi \vert \Psi\r \\
-&= \lam^* \l \Psi \vert \Psi\r
-\end{align*}
-Thus $\lam = \lam^*$ and is real
-
-\item Let $\lam_1$ and $\lam_2$ be eigenvalues of $Q$ with corresponding eigenfunctions $\Psi_1$ and $\Psi_2$. Suppose that $\lam_1 \neq \lam_2$. Then 
-\begin{align*}
-\lam_2 \l \Psi_1 \vert  \Psi_2\r
-&= \l \Psi_1 \vert Q \Psi_2\r\\
-&= \l Q \Psi_1 \vert  \Psi_2\r\\
-&= \lam_1 \l \Psi_1 \vert  \Psi_2\r
-\end{align*}
-So $(\lam_2 - \lam_1)\l \Psi_1 \vert  \Psi_2\r = 0$. Which implies that $\l \Psi_1 \vert  \Psi_2\r=0$
-\end{enumerate}
+	Let $n \in \N$. Then 
+	\begin{align*}
+		\bigg \| \sum\limits_{j = 1}^n  \Psi_j\bigg \|^2
+		&= \bigg \l \sum\limits_{i =1}^n \Psi_i \bigg | \sum\limits_{j =1}^n \Psi_j \bigg \r \\
+		&= \sum\limits_{i =1}^n \sum\limits_{j =1}^n \l \Psi_j | \Psi_j \r \\
+		&= \sum\limits_{j =1}^n \l \Psi_j | \Psi_j \r \\
+		&= \sum\limits_{j =1}^n \| \Psi_j \|^2
+	\end{align*}
+	Since $\| \cdot \|$  is continuous on $H$, we have that 
+	\begin{align*}
+		\bigg \|\sum\limits_{j \in \N} \Psi_j  \bigg \|^2
+		&= \lim_{n \rightarrow \infty} \bigg \|\sum\limits_{j =1}^n \Psi_j  \bigg \|^2 \\
+		&= \limn \sum\limits_{j =1}^n \| \Psi_j \|^2 \\
+		&= \sum\limits_{j \in \N} \|\Psi_j \|^2
+	\end{align*}
 \end{proof}
 
 \begin{defn}
-Let $A$ and $B$ be operators. The \textbf{commutator} of $A$ and $B$, $[A,B]$, is defined by $$[A,B] = AB - BA$$
+	Let $S \subset H$. Then $S$ is said to \textbf{span} $H$ if $\spn S$ is dense in $H$ and $S$ is said to be a \textbf{basis} for $H$ if $S$ spans $H$ and $S$ linearly independent.
+\end{defn}
+
+\begin{defn}
+		Let $A: H \rightarrow H$. Then $A$ is said to be an \textbf{operator} on $H$.
+\end{defn}
+
+\begin{defn}
+	Let $A,B$ be operators on $H$. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $\Psi_1$, $\Psi_2 \in H$, $$\l \Psi_1 \vert A\Psi_2 \r = \l B \Psi_1 \vert \Psi_2 \r$$  If B is the adjoint of $A$, we write $$B = A^{\dagger}$$
 \end{defn}
 
 \begin{ex}
-We have $[X_i, P_j] = \del_{i,j}i\hbar$.
+	Let $A$ be an operator on $H$, then \begin{enumerate}
+		\item for each $\Psi_1, \Psi_2$, $\l A\Psi_1 \vert \Psi_2 \r = \l   \Psi_1 \vert A^{\dagger} \Psi_2 \r$ 
+		\item $(A^{\dagger})^{\dagger} = A$
+	\end{enumerate}
 \end{ex}
 
 \begin{proof}
-For a position wave function $\Psi$, 
-\begin{align*}
-[X_j, P_j]\Psi(x,t)
-&= [x_j, -i\hbar \p{x_j}]\Psi(x,t)\\
-&= (-i\hbar) \bigg[x_j \p{x_j}\Psi(x,t)- \p{x_j}x_j\Psi(x,t)\bigg]\\
-&= (-i\hbar)\bigg[ x_j \p{x_j}\Psi(x,t)- \Psi(x,t) - x_j \p{x_j}\Psi(x,t)\bigg]\\
-&=i\hbar \Psi(x,t)
-\end{align*}
-Hence $[X_j, P_j] = i\hbar$\vspace{.5cm}\\
-For $i\neq j$, 
-\begin{align*}
-X_iP_j \Psi(x,t)
-&= \p{x_j}x_i \Psi(x,t)\\
-& = -i \hbar x_i \p{x_j}\Psi(x,t) \\
-&= P_jX_i \Psi(x,t)
-\end{align*}
-So $$[X_i,P_j] =0 $$
+	\begin{enumerate}
+		\item For wavefunctions $\Psi_1$, $\Psi_2$, we have
+		\begin{align*}
+			\l A \Psi_1 \vert \Psi_2 \r
+			&= \l \Psi_2 \vert A \Psi_1 \r^*\\
+			&= \l A^{\dagger}\Psi_2 \vert  \Psi_1 \r^* \hspace{.5cm} \text{(by definition)}\\
+			&= \l  \Psi_1 \vert A^{\dagger}\Psi_2 \r
+		\end{align*}
+		\item For each $\Psi_1, \Psi_2$, we have that
+		\begin{align*}
+			\l  A\Psi_1 \vert \Psi_2 \r
+			&= \l   \Psi_1 \vert A^{\dagger}\Psi_2 \r \\
+			&= \l  (A^{\dagger})^{\dagger} \Psi_1 \vert \Psi_2 \r
+		\end{align*}
+		
+		This implies that for each $\Psi_1, \Psi_2$, $$\big \l \big[A-(A^{\dagger})^{\dagger} \big] \Psi_1, \Psi_2 \big \r = 0$$ Therefore for each $\Psi_1$, $$ \big[A-(A^{\dagger})^{\dagger} \big] \Psi_1 = 0$$ Hence $ \l A-(A^{\dagger})^{\dagger}  = 0$ and $A = (A^{\dagger})^{\dagger}$.
+	\end{enumerate}
 \end{proof}
 
+\begin{defn}
+	An linear operator $Q$ on $H$ is said to be \textbf{self-adjoint} if $$Q = Q^{\dagger}$$
+\end{defn}
+
 \begin{ex}
-Let $A,B$ and $C$ be operators, then $[AB,C] = A[B,C] + [A,C]B$
+	Let $Q$ be a self-adjoint operator on $H$. Then 
+	\begin{enumerate}
+		\item the eigenvalues of $Q$ are real.
+		\item the eigenvectors of $Q$ corresponding to distinct eigenvalues are orthogonal.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	\ \begin{enumerate}
+		\item Let $\lam$ be an eigenvalue of $Q$ with corresponding eigenfunction $\Psi$. Then 
+		\begin{align*}
+			\lam \l \Psi \vert \Psi\r
+			&= \l \Psi \vert Q \Psi\r \\
+			&= \l Q \Psi \vert \Psi\r \\
+			&= \lam^* \l \Psi \vert \Psi\r
+		\end{align*}
+		Thus $\lam = \lam^*$ and is real
+		
+		\item Let $\lam_1$ and $\lam_2$ be eigenvalues of $Q$ with corresponding eigenfunctions $\Psi_1$ and $\Psi_2$. Suppose that $\lam_1 \neq \lam_2$. Then 
+		\begin{align*}
+			\lam_2 \l \Psi_1 \vert  \Psi_2\r
+			&= \l \Psi_1 \vert Q \Psi_2\r\\
+			&= \l Q \Psi_1 \vert  \Psi_2\r\\
+			&= \lam_1 \l \Psi_1 \vert  \Psi_2\r
+		\end{align*}
+		So $(\lam_2 - \lam_1)\l \Psi_1 \vert  \Psi_2\r = 0$. Which implies that $\l \Psi_1 \vert  \Psi_2\r=0$
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Let $A$ and $B$ be operators. The \textbf{commutator} of $A$ and $B$, $[A,B]$, is defined by $$[A,B] = AB - BA$$
+\end{defn}
+
+\begin{ex}
+	Let $A,B$ and $C$ be operators, then $[AB,C] = A[B,C] + [A,C]B$
 \end{ex}
 
 \begin{proof} We have 
-\begin{align*}
-[AB,C]
-&= ABC - CAB\\
-&= ABC - ACB + ACB -CAB\\
-&= A(BC - CB) + (AC-CA)B\\
-&= A[B,C] + [A,C]B
-\end{align*}
+	\begin{align*}
+		[AB,C]
+		&= ABC - CAB\\
+		&= ABC - ACB + ACB -CAB\\
+		&= A(BC - CB) + (AC-CA)B\\
+		&= A[B,C] + [A,C]B
+	\end{align*}
 \end{proof}
 
-\subsection{Continuity Equation}
-
-\begin{ex}
-If $V$ is real and $\Psi$ satisfies the Schr\"{o}dinger equation, then $$i\hbar \p{t} \Psi^* = -H\Psi^* $$
-\end{ex}
-
-\begin{proof}
-We have that 
-\begin{align*}
-i \hbar \p{t} \Psi^{*} 
-&= \bigg(-i \hbar \p{t} \Psi\bigg)^*\\
-&=\bigg( - \bigg[-\frac{\hbar^2}{2m}\Del \Psi + V \Psi \bigg] \bigg)^*\\
-&= - \bigg[ -\frac{\hbar^2}{2m}\Del \Psi^* + V \Psi^*\bigg]\\
-&= -H \Psi^*
-\end{align*}
-\end{proof}
-
-\begin{ex}
-We have that $$\p{t} (\Psi^* \Psi) + \frac{\hbar}{2mi} \nabla \cdot \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg] = 0 $$
-\end{ex}
-
-\begin{proof}
-\begin{align*}
-\p{t}(\Psi^* \Psi) 
-&= \bigg(\p{t} \Psi^* \bigg) \Psi + \Psi^* \bigg(\p{t} \Psi \bigg)\\
-&= \bigg( \frac{\hbar}{2mi} (\Del \Psi^*) \Psi - \frac{1}{i \hbar }V \Psi^* \Psi\bigg) + \bigg( -\frac{\hbar}{2mi}  \Psi^* (\Del \Psi) + \frac{1}{i \hbar }V \Psi^* \Psi \bigg)\\
-&= \frac{\hbar}{2mi} \bigg[ (\Del \Psi^*) \Psi - \Psi^* (\Del \Psi) \bigg]\\
-&= -\frac{\hbar}{2mi} \bigg[ \Psi^* (\Del \Psi) - (\Del \Psi^*) \Psi\bigg]\\
-&= - \frac{\hbar}{2mi} \nabla \cdot \bigg[\Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi \bigg]
-\end{align*}
-
-Therefore  $$\p{t} (\Psi^* \Psi) + \frac{\hbar}{2mi} \nabla \cdot \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg] = 0 $$
-\end{proof}
-
-\begin{defn}
-We define the \textbf{probability current density}, $j$, of the particle to be $$j = \frac{\hbar}{2mi} \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg]$$ 
-\end{defn}
-\subsection{Position and Momentum Space}
-\begin{defn}
-We define the \textbf{momemtum wavefunction}, $\Phi$, of the particle to be the Fourier transform of the position wavefunction: 
-\begin{align*}
-\Phi(p,t) 
-&= F[\Psi](p,t)\\
-&= \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Psi(x,t)e^{-i \frac{p \cdot x}{\hbar} }dx
-\end{align*}
+\begin{defn}\textbf{(Tensor Product):} \\
+	Let $H_1, H_2$ be Hilbert spaces. Denote the free vector space over $H_1 \times H_2$ by $F(H_1 \times H_2)$. Define the relation $\sim$ on $F(H_1 \times H_2)$ by 
+	\begin{enumerate}
+		\item $(\Psi, \Phi) \sim (\Phi, \Psi)$ (reflexive)
+		\item if $(\Psi_1, \Phi_1) \sim (\Psi_2, \Phi_2)$, then $(\Psi_2, \Phi_2) \sim (\Psi_1, \Psi_1)$ (symmetric)
+		\item if $(\Psi_1, \Phi_1) \sim (\Psi_2, \Phi_2)$ and $(\Psi_2, \Phi_2) \sim (\Psi_3, \Phi_3)$, then $(\Psi_1, \Phi_1) \sim (\Psi_3, \Phi_3)$ (transitive)
+		\item $(\Psi + \lam \Phi, \Xi) \sim  (\Psi, \Xi) + \lam(\Phi, \Xi)$ and $(\Psi, \Phi + \lam \Xi) \sim  (\Psi, \Phi) + \lam (\Psi, \Xi)$ (bilinear)
+	\end{enumerate}
+	We define the \textbf{tensor product} of $H_1$ with $H_2$, denoted $H_1 \otimes H_2$ to be  $$H_1 \otimes H_2 = F(H_2 \times H_2) / \sim$$ We denote the equivalence class of $(\Psi, \Phi)$ in $H_1 \otimes H_2$ by $\Psi \otimes \Phi$. We define $\otimes: H_1 \times H_2 \rightarrow H_1 \otimes H_2$ by $(\Psi, \Phi) \mapsto \Psi \otimes \Phi$.  \vspace{.5cm} \\
+	In summary $$H_1 \otimes H_2 = \spn \{\Psi \otimes \Phi: \Psi \in H_1, \Phi \in H_2\}$$ where $\otimes:H_1 \times H_2 \rightarrow H_1 \otimes H_2$ is bilinear.\vspace{.5cm} \\
+	We define the inner product $\l \cdot | \cdot \r$ on $H_1 \otimes H_2$ by setting $$\l \Psi_1 \otimes \Phi_1| \Psi_2 \otimes \Phi_2 \r = \l  \Psi_1| \Psi_2\r_{H_1} \l  \Phi_1| \Phi_2 \r_{H_2}$$ and extending linearly in the second argument.
+	
 \end{defn}
 
-\begin{note}
-We recall the following facts about Fourier transforms:
-\begin{enumerate}
-\item $$\Phi(p,t) = \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Psi(x,t)e^{-i \frac{p \cdot x}{\hbar} }dx $$ and $$\Psi(x,t) = \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Phi(p,t)e^{i \frac{p \cdot x}{\hbar} }dp $$
+	\begin{note}
+		Typically, unless $H_1$ and $H_2$ are finite dimensional, $H_1 \otimes h_2$ is not complete. For the remainder of these notes, we assume we are working in the completion of $H_1 \otimes H_2$.
+	\end{note}
 
-\item $$F\bigg[\p{x_j} \Psi \bigg] = \frac{i p_j}{\hbar}F[\Psi]$$
-and $$F^{-1}\bigg[\p{p_j} \Phi \bigg] = -\frac{i x_j}{\hbar}F[\Psi]$$
+	\begin{ex}
+		Let $H_1, H_2$ be Hilbert spaces. If $(\Psi_j)_{j\in \N}$ is an orthonormal basis for $H_1$ and $(\Phi_j)_{j \in \N}$ is an orthonormal basis for $H_2$, then $(\Psi_i \otimes \Phi_j)_{i,j \in \N}$ is an orthonormal basis for $H_1 \otimes H_2$. 
+	\end{ex}
 
-\item $$\int_{\R^n} \Psi_1^* \Psi_2 dx = \int_{\R^n} F[\Psi_1]^* F[\Psi_2]dx$$
-\end{enumerate}
-\end{note}
+	\begin{proof}
+		Clear.
+	\end{proof}
 
-\begin{note}
-Let $Q(X,P)$ be a self-adjoint operator. Then the properties of the Fourier transform imply that:
-\[
-Q(X,P)=
-\begin{cases}
-Q(x, -i\hbar \nabla) & \text{(position space)}\\
-Q(i\hbar \nabla, p) & \text{(momentum space)}
-\end{cases}
-\]
-\end{note}
+	\begin{note}
+		If $H_1$ and $H_2$ are function spaces over sets $S_1$ and $S_2$ respectively, then $H_1 \otimes H_2$ is a function space over $S_1 \times S_2$ with $f_1 \otimes f_2(s_1, s_2) = f_1(s_1)f_2(s_2)$.
+	\end{note}
 
-\begin{ex}
-If $\Psi$ satisfies the Schr\"{o}dinger equation, then $\Phi$ satisfies $$i\hbar \p{t}\Phi = \frac{p^2}{2m}\Phi + V(i \hbar \nabla)\Phi$$
-\end{ex}
+\subsection{Permutation Groups}
 
-\begin{proof}
-Starting with the Schr\"{o}dinger equation, we have 
-\begin{align*}
-i\hbar \p{t} \Psi 
-&= \bigg[\frac{P^2}{2m} + V(X)\bigg] \Psi\\
-&= \bigg[\frac{-\hbar^2}{2m}\Del + V(x)\bigg] \Psi \hspace{1cm} \text{(position space)}
-\end{align*} 
-Taking Fourier transforms of both sides, we see that 
-\begin{align*}
-i\hbar \p{t} \Phi 
-&= \bigg[\frac{P^2}{2m} + V(X)\bigg] \Phi\\
-&= \bigg[\frac{p^2}{2m} + V(i \hbar \nabla)\bigg] \Phi \hspace{1cm} \text{(position space)}
-\end{align*} 
-\end{proof}
+
+\newpage 
+
+\section{Postulates of Quantum Mechanics}
+
+\subsection{First Postulate}
+\begin{pos}
+	Associated to any isolated physical system is a Hilbert space. The state space of the system is a subset of the unit sphere in the corresponding Hilbert space. All states which are unit modulus scalar multiples (rotations) of each other are identified.
+\end{pos}
+
+\begin{defn}
+	We will typically denote the state of a system conatinaing $N$ particles at any given time by a \textbf{position wavefunction}  $\Psi: \R^{3N + 1} \rightarrow \C$.
+\end{defn}
 
 \begin{intp}
-We interpret $\vert \Phi (p,t) \vert^2$ to be the probability density for the momentum, $p$, of the particle at time $t$.  
+	Writing $r_i = (x_i, y_i, z_i)$ and $r = (r_1, \cdots, r_N)$, we interpret $\vert\Psi(r_1, \cdots, r_N,t)\vert^2$ to be the \textbf{joint probability density} for the positions $r_1, \cdots, r_N$, of the particles at time $t$. Therefore, we require that for each $t \in \R$, $$\int_{\R^{3N}}\Psi(r,t)^* \Psi(r,t) dr = 1$$
+	We assume that $\Psi \in C^1$ with existing second partials and for each $t \in \R$, $\Psi(r, t) \rightarrow 0$ as $\|r\| \rightarrow \infty$.
 \end{intp}
 
-\begin{note}
-For a self-adjoint operator $Q(X,P)$, the expected value of $Q$,  is given by 
+\subsection{Second Postulate}
 
-\[ 
-\l Q \r = 
-\begin{cases}
-\l \Psi(x,t) \vert Q(x, -i\hbar \nabla) \Psi(x,t)\r & \hspace{1cm} \text{(position space)}\\
-\l \Phi(p,t) \vert Q(i\hbar \nabla, p) \Phi(p,t) \r & \hspace{1cm} \text{(momentum space)}\\
-\end{cases}
-\]
-\end{note}
+\begin{pos}
+	For each observable quantity of an isolated system, there exists a corresponding self-adjoint operator whose eigenstates span the Hilbert space and whose eigenvalues consist of all possible  measurements of the observable quantity. If two operators commute, there exists a set of simultaneous eigenstates of the two operators that span the Hilbert space.
+\end{pos}
 
-\subsection{Stationary States}
 \begin{defn}
-When the potential energy $V$ doesn't depend on time, we look for solutions to the \sch equation of the form $$\Psi(x,t) = \psi(x) \varphi(t)$$ With a closer look, we find that
-
-\begin{enumerate}
-\item $H\psi = E \psi$
-\item $\varphi(t) = e^{-i\frac{E}{\hbar}t}$
-\end{enumerate}
-Statement $(1)$ is referred to as the \textbf{time-independent \sch equation}. Eigenfuntions of the Hamiltonian operator are called \textbf{stationary states}. If the possible eigenvalues for the Hamiltonian operator are discreet $(E_n)_{n\in \N}$ with stationary states $(\psi_n)_{n \in \N}$, then the general solution to the \sch equation is $$\Psi(x,t) = \sum_{n \in \N} c_n \psi_n(x) e^{-i\frac{E_n}{\hbar}t}$$ where $$c_n = \int_{\R^n}\psi_n^*(x) \Psi(x,0)dx$$
+	The \textbf{$x$-component position operator of the $j$th particle}, denoted $X_j$, is defined by $$X_j\Psi(r, t) = x_j\Psi(r, t)$$
+	(we define the $y$-component and $z$-component position operators of the $j$th particle similarly)
+\end{defn}
+	
+\begin{defn}
+	The \textbf{$x$-component momentum operator of the $j$th particle}, denoted $P_{x_j}$, is defined by $$P_{x_j} \Psi(r, t) = -i\hbar \pdv{x_j} \Psi(r, t)$$
+	(we define the $y$-component and $z$-component momentum operators of the $j$th particle similarly)
 \end{defn}
 
 \begin{defn}
-An energy eiganvalue $E_n$ of $H$ is said to have a \textbf{degeneracy of degree} $k$ if it corresponds to $k$ orthonomal stationary states. 
+	For a system of $N$ particles with masses $m_1, \cdots, m_N$ and potential energy $V(r_1, \cdots, r_N, t)$ we define the \textbf{Hamiltonian} operator, denoted $H$, by $$H =   \sum_{j=1}^N  -\frac{\hbar^2}{2m_i}\Del_j  + V$$ where $$\Del_j  = \pdv[2]{}{x_j} + \pdv[2]{}{y_j} + \pdv[2]{}{z_j}$$
 \end{defn}
 
-\begin{note}
-If the energy eigenvalues $(E_n)_{n \in \N}$ have degeneracies of degrees $(k_n)_{n \in \N}$ with corresponding orthonormal stationary states $(\psi_{n,j})_{j=1}^{k_n}$ and $$\Psi(x,t) = \sum_{n \in \N} \sum_{j =1}^{k_n}c_{n,j} \psi_{n,j}(x)e^{-i \frac{E_n}{\hbar}t}$$ Then the probability of measuring the energy $E_n$ is $$\P(E_n) = \sum_{j=1}^{k_n} \vert c_{n,j}\vert^2$$
-\end{note}
+\begin{ex} 
+	We have that
+	\begin{enumerate}
+		\item $X_j$ is self-adjoint
+		\item $P_{x_j}$ is self-adjoint
+		\item $H$ is self-adjoint (Hint: use \href{https://en.wikipedia.org/wiki/Green%27s_identities}{Green's second identity})
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Clear since $x_j$ is real.
+		\item We have that 
+		\begin{align*}
+			\l \Psi_1 \vert P_{x_j} \Psi_2 \r
+			&=  \int_{\R^{3N}} \Psi_1^* \bigg(-i\hbar\p{x_j} \Psi_2\bigg)dx \\
+			&= -i \hbar\int_{\R^{3N}} \Psi_1^*  \bigg(\p{x_j} \Psi_2\bigg)dx\\
+			&= i\hbar \int_{\R_n} \bigg( \p{x_j} \Psi_1^* \bigg) \Psi_2 dx \hspace{1cm } \text{(integration by parts)}\\
+			&= \int_{\R^{3N}} \bigg( -i \hbar \p{x_j} \Psi_1 \bigg)^* \Psi_2 dx\\
+			&= \l P_{x_j} \Psi_1 \vert \Psi_2 \r
+		\end{align*}
+		\item Finally, we have that
+		\begin{align*}
+			\l \Psi_1 \vert H \Psi_2 \r - \l H \Psi_1 \vert  \Psi_2 \r
+			&= \int_{\R^{3N}} \Psi_1^* (H \Psi_2) dx - \int_{\R^{3N}} ( H \Psi_1 )^*  \Psi_2 dx \\
+			&= \int_{\R^{3N}} \Psi_1^* \bigg( \sum_{j=1}^N  -\frac{\hbar^2}{2m_j}\Del_j \Psi_2 \bigg) -  \bigg(\sum_{j=1}^N  -\frac{\hbar^2}{2m_j}\Del_j \Psi_1 \bigg)^*  \Psi_2 dx \\
+			&= \sum_{j=1}^N \frac{\hbar^2}{2m_j}\int_{\R^{3N}} (\Del \Psi_1^* )\Psi_2 - \Psi_1^*(\Del \Psi_2)dx\\
+			&= 0 \hspace{1cm} \text{(Green's second identity)}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	We have that 
+	\begin{enumerate}
+		\item $[X_i, P_{x_j}] = \del_{i,j}i\hbar$
+		\item $[Y_i, P_{x_j}] = 0$ (and similar for any other mix of $x,y$ and $z$)
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item For a position wave function $\Psi$, 
+		\begin{align*}
+			[X_j, P_j]\Psi(r,t)
+			&= \bigg[x_j, -i\hbar \p{x_j} \bigg]\Psi(r,t)\\
+			&= (-i\hbar) \bigg[x_j \p{x_j}\Psi(r,t)- \p{x_j}x_j\Psi(r,t)\bigg]\\
+			&= (-i\hbar)\bigg[ x_j \p{x_j}\Psi(r,t)- \Psi(r,t) - x_j \p{x_j}\Psi(r,t)\bigg]\\
+			&=i\hbar \Psi(r,t)
+		\end{align*}
+		Hence $[X_j, P_{x_j}] = i\hbar$\vspace{.5cm}\\
+		For $i\neq j$, 
+		\begin{align*}
+			X_iP_{x_j} \Psi(r,t)
+			&= \p{x_j}x_i \Psi(r,t)\\
+			& = -i \hbar x_i \p{x_j}\Psi(r,t) \\
+			&= P_{x_j}X_i \Psi(r,t)
+		\end{align*}
+		So $$[X_i,P_{x_j}] =0 $$
+		\item For a position wave function $\Psi$, 
+		\begin{align*}
+			[Y_i, P_{x_j}]\Psi(r,t)
+			&= \bigg[y_i, -i\hbar \p{x_j}\bigg]\Psi(r,t)\\
+			&= (-i\hbar) \bigg[y_i \p{x_j}\Psi(r,t)- \p{x_j}y_i\Psi(r,t)\bigg]\\
+			&= (-i\hbar) \bigg[y_i \p{x_j}\Psi(r,t)- y_i\p{x_j}\Psi(r,t)\bigg]\\
+			&= 0
+		\end{align*}
+		
+	\end{enumerate}
+\end{proof}
+
+\subsection{Third Postulate}
+	\begin{note}
+		Let $A$ be a self-adjoint operator corresponding to an observable quantity of the system with eigenvalues $(\lam_{n})_{n \in \N}$ of degeneracy $(k_n)_{n \in \N}$. The second postulate tells us that we are given a spanning set $(\Psi_{n,j})_{n \in \N,j \leq k_n}$ of eigenstates with $(\Psi_{n,j})_{j-1}^n$ a basis for the eigenspace of $\lam_n$. Using the Gram-Schmidt process within each eigenspace of $\lam_n$, we may assume that $(\Psi_{n,j})_{n \in \N,j \leq k_n}$ is an orthonormal basis for the Hilbert space. In these notes, we assume that our spanning set of eigenstates is orthonormal (this happens often in practice). 
+	\end{note}
+
+	\begin{pos}
+		Let $A$ be a self-adjoint operator corresponding to an observable quantity of the system with eigenvalues $(\lam_{n})_{n \in \N}$ of degeneracy $(k_n)_{n \in \N}$ and an orthonormal basis of eigenstates $(\Psi_{n,j})_{n \in \N,j \leq k_n}$ for the Hilbert space with $(\Psi_{n,j})_{j =1}^{k_n}$ a basis for the eigenspace of $\lam_n$ and $\Psi = \sum_{n \in \N} \sum_{j = 1}^{k_n} c_{n,j} \Psi_{n,j}$ the state of the system. Then upon measurement,
+		\begin{enumerate}
+			\item  the probability of measuring $\lam_n$, denoted $P(\lam_n)$, is given by  $$P(\lam_n) = \sum_{j=1}^{k_n} |c_{n,j}|^2$$
+			\item if $\lam_n$ is measured, then the state of the system collapses to the state $$ \bigg( \frac{1}{\sum_{j=1}^{k_n} |c_{n,j}|^2} \bigg)^{1/2} \sum_{j=1}^{k_n}c_{n,j} \Psi_{n,j}$$ 
+		\end{enumerate}
+	\end{pos}
+
+
+\subsection{Fourth Postulate}
+\begin{pos}
+	If the state space for system $S_1$ is a subset of the hilbert space $H_1$ and the state space for system $S_2$ is a subset of the hilbert space $H_2$, then the state space for the composite system of $S_1$ with $S_2$ is a subset of the tensor product $H_1 \otimes H_2$. The state $\Psi_1 \otimes \Psi_2$ corresponds to the first system being in state $\Psi_1$ and the second system being in state $\Psi_2$. 
+\end{pos}
+
+\begin{ex}
+	Let $A$ be an operator corresponding to an observable quantity of the first component system with an orthonormal basis of eigenstates $(\Psi_{j})_{j \in \N}$, $B$ an operator corresponding to an observable quantity of the first component system with an orthonormal basis of eigenstates $(\Phi_{k})_{k \in \N}$. Then $A \otimes B$ corresponds to an observable quantity of the composite system with an orthonormal basis of eigenstates $(\Psi_{k} \otimes \Phi_k)_{j,k \in \N}$. Let $\Xi = \sum\limits_{j \in \N} \sum\limits_{k \in \N} c_{j,k}\Psi_{j} \otimes \Phi_k$, be the state of the composite system. Upon measurement of the observable quantity of the composite system corresponding to $A \otimes B$. Then 
+\end{ex}
 
 \begin{defn}
-If the set of eigenvalues (spectrum) of the Hamiltonian is discreet, the stationary state with the least energy is called the \textbf{ground state}. The stationary states that are not the ground state are called \textbf{excited states}.
+	Consider two systems, $S_1$ and $S_2$ with each consisting of a single particle where the statespaces of $S_1$ and  $S_2$ are a subset of Hilbert spaces $H_1$ and $H_2$ respectively. The state of the composite system is said to be an \textbf{entangled state} if it cannot be expressed in the form $\Psi_1 \otimes \Psi_2$ for any $\Psi_1 \in H_1$ or $\Psi_2 \in H_2$. In this case, the two particles are said to be \textbf{entangled}.
 \end{defn}
+
+\begin{ex}
+	Suppose we have a composite system of two identical particles whose component systems are each contained in a $2$ dimensional hilbert space with orthonormal basis $\{| 0\r, | 1\r\}$. Then the state $$\frac{1}{\sqrt{2}}| 0 \r \otimes | 0 \r + \frac{1}{\sqrt{2}}| 1 \r \otimes | 1 \r$$ is an entangled state.
+\end{ex}
+
+\begin{proof}
+	Suppose there exist $c_1, \cdots, c_4 \in \C$ such that $$\frac{1}{\sqrt{2}}| 0 \r \otimes | 0 \r + \frac{1}{\sqrt{2}}| 1 \r \otimes | 1 \r = (c_1 | 0 \r + c_2| 1 \r) \otimes (c_3 | 0 \r + c_3| 1 \r)$$
+	Since $$(c_1 | 0 \r + c_2| 1 \r) \otimes (c_3 | 0 \r + c_3| 1 \r) = c_1c_3 | 0 \r \otimes | 0 \r + c_1c_4| 0 \r \otimes | 1 \r + c_2c_3| 1 \r \otimes | 0 \r + c_2c_4| 1 \r \otimes | 1 \r$$ we know that $c_1c_4 =  0$. So $c_1 =0 $ or $c_4 =0$. This is a contradiction.
+\end{proof}
+
+\begin{ex}
+	
+\end{ex}
+
+\subsection{Fifth Postulate}
+	\begin{defn}
+		The \textbf{\sch equation} is the linear partial differential equation given by $$i \hbar \pdv{t} \Psi = H \Psi$$
+	\end{defn}
+	
+	\begin{pos}
+		The time evolution of an isolated system is described by the \sch equation.
+	\end{pos}
+
+	\begin{ex}
+		Suppose that the potential energy $V$ doesn't depend on time. Let $\Psi$ be a solution to the \sch equation. If there exist $\psi, \varphi$ such that $$\Psi(r,t) = \psi(r) \varphi(t)$$ Then $\Psi$ is an eigenstate of $H$ and there exists $E \in \R$ such that $H\psi = E \psi$ and $\varphi(t) = e^{-i\frac{E}{\hbar}t}$.
+	\end{ex}
+
+	\begin{proof}
+		Plugging $\Psi = \psi \varphi$ into the \sch equation, we get that
+		$$i \hbar \psi \dv{t}\varphi = \varphi H\psi$$
+		So $$i \hbar \frac{1}{\varphi} \dv{t} \varphi = \frac{1}{\psi} H \psi $$ Since the left side only depends on time and the right side does not depend on time, both sides are constant functions. So there exists $E \in \C$ such that $$(1) \hspace{.5cm} H\psi = E\psi$$ and $$ (2) \hspace{.5cm} \frac{1}{\varphi}\dv{t}\varphi = -i \frac{E}{\hbar}  $$ Equation (1) implies that 
+		\begin{align*}
+			H \Psi 
+			&= H(\psi \varphi ) \\
+			&= \varphi H \psi \\
+			&= \varphi E \psi \\
+			&= E \Psi 
+		\end{align*}
+	So that $\Psi$ is an eigenstate of $H$. Since $H$ is self-adjoint, $E \in \R$. Equation (2) then implies that $\varphi(t) = e^{-i\frac{E}{\hbar}t}$
+	\end{proof}
+
+	\begin{note}
+		For the remainder of these notes, we assume that the potential energy $V$ of the system is independent of time. 
+	\end{note}
+
+	\begin{defn}
+		In the situation of the previous exercise, since we identify states that are rotations of each other, the the state is not changing over time. Thus we call $\Psi$ a \textbf{stationary state} of $H$. 
+	\end{defn}
+
+	\begin{note}
+		By the \href{https://en.wikipedia.org/wiki/Sturm%E2%80%93Liouville_theory}{Sturm-Liouville theory}, the stationary states form an orthonormal basis, so in practice, we can solve the time-independent \sch equation, append the time dependencies to obtain the stationary states and then be use those to represent a general state of the system. 
+	\end{note}
+
+	\begin{defn}
+		A stationary state of the system is called a \textbf{ground state} if the corresponding energy eigenvalue is minimal. All other stationary states are called \textbf{excited states}.
+	\end{defn}
+
+	\begin{ex}
+		If $V$ is real and $\Psi$ satisfies the Schr\"{o}dinger equation, then $$i\hbar \p{t} \Psi^* = -H\Psi^* $$
+	\end{ex}
+	
+	\begin{proof}
+		We have that 
+		\begin{align*}
+			i \hbar \p{t} \Psi^{*} 
+			&= \bigg(-i \hbar \p{t} \Psi\bigg)^*\\
+			&=( - H \Psi )^*\\
+			&= -H \Psi^*
+		\end{align*}
+	\end{proof}
+	
+	\begin{defn}
+		Consider a system consisting of one particle with mass $m$ with a potential energy $V$. We define the \textbf{probability current density}, $j$, of the particle to be $$j = \frac{\hbar}{2mi} \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg]$$ 
+	\end{defn}
+	
+	\begin{ex}\textbf{(Continuity Equation):}\\ 
+		We have that $$\p{t} (\Psi^* \Psi) +  \nabla \cdot j = 0 $$
+	\end{ex}
+	
+	\begin{proof}
+		\begin{align*}
+			\p{t}(\Psi^* \Psi) 
+			&= \bigg(\p{t} \Psi^* \bigg) \Psi + \Psi^* \bigg(\p{t} \Psi \bigg)\\
+			&= -\frac{1}{i\hbar}(H\Psi^*) \Psi + \frac{1}{i\hbar} \Psi^* (H\Psi) \\
+			&= \bigg( \frac{\hbar}{2mi} (\Del \Psi^*) \Psi - \frac{1}{i \hbar }V \Psi^* \Psi\bigg) + \bigg( -\frac{\hbar}{2mi}  \Psi^* (\Del \Psi) + \frac{1}{i \hbar }V \Psi^* \Psi \bigg)\\
+			&= \frac{\hbar}{2mi} \bigg[ (\Del \Psi^*) \Psi - \Psi^* (\Del \Psi) \bigg]\\
+			&= -\frac{\hbar}{2mi} \bigg[ \Psi^* (\Del \Psi) - (\Del \Psi^*) \Psi\bigg]\\
+			&= - \frac{\hbar}{2mi} \nabla \cdot \bigg[\Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi \bigg]\\
+			&= -\nabla \cdot j
+		\end{align*}
+		
+		Therefore  $$\p{t} (\Psi^* \Psi) + \frac{\hbar}{2mi} \nabla \cdot \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg] = 0 $$
+	\end{proof}
+
+	
+
+	
+	
+	
+	
+	
+	\newpage
+	
+	
+
+
+
+
+
+\newpage
+
+
+
+
 
 \section{Fundamental Examples in One Dimension}
 
@@ -485,6 +666,7 @@ and (after normalizing) our stationary states are
 \end{cases}
 \]
 \end{proof}
+
 
 \subsection{The Harmonic Oscillator}
 
@@ -1321,14 +1503,109 @@ i & 0
 
 \section{Perturbation Theory}
 
-\section{Multiple Particles}
+\section{Multiple Identical Particles}
 
-\subsection{Schrodinger Equation}
+\begin{note}
+	For the remainder of this section, we consider a system of $N$ identical particles and we assume that the potential energy of the system, $V(r_1, \cdots, r_N)$, is symmetric in $r_1, \cdots, r_N$. 
+\end{note}
+
+\subsection{Bosons and Fermions}
+
+\begin{thm}
+	The wave function $\Psi(r_1, \cdots, r_N)$ of a system is either symmetric or alternating in $r_1, \cdots, r_N$ and is whether it is symmetric or alternating depends only on the type of particle that populates the system.
+\end{thm}
+
 \begin{defn}
-Suppose we have a system consisting of two particles.  
+	The particles in a system are called \textbf{bosons} if the wave function is symmetric and the particles are called \textbf{fermions} if the wave function is alternating. 
 \end{defn}
 
-\subsection{Exchange Operator}
+\begin{defn}
+	Let $(\Psi_j)_{j \in \N}$ be a orthonormal basis of stationary states for a single-particle component system. For $k =1, \cdots, N$, let $\Psi_{j_k} \in (\Psi_j)_{j \in \N}$ (not necessarily distinct) be the state that particle $k$. For $j \in \N$, define $n_j$ to be the number of particles in state $\Psi_j$.
+\end{defn}
 
+
+\begin{proof}
+	
+\end{proof}
+
+\begin{ex}
+	Show that 
+\end{ex}
+
+\begin{defn}
+	
+\end{defn}
+
+
+\newpage
+\section{Extra}
+
+\subsection{Position and Momentum Space}
+\begin{defn}
+	We define the \textbf{momemtum wavefunction}, $\Phi$, of the particle to be the Fourier transform of the position wavefunction: 
+	\begin{align*}
+		\Phi(p,t) 
+		&= F[\Psi](p,t)\\
+		&= \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Psi(x,t)e^{-i \frac{p \cdot x}{\hbar} }dx
+	\end{align*}
+\end{defn}
+
+\begin{note}
+	We recall the following facts about Fourier transforms:
+	\begin{enumerate}
+		\item $$\Phi(p,t) = \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Psi(x,t)e^{-i \frac{p \cdot x}{\hbar} }dx $$ and $$\Psi(x,t) = \frac{1}{(2 \pi \hbar)^{n/2}} \int_{\R ^n}\Phi(p,t)e^{i \frac{p \cdot x}{\hbar} }dp $$
+		
+		\item $$F\bigg[\p{x_j} \Psi \bigg] = \frac{i p_j}{\hbar}F[\Psi]$$
+		and $$F^{-1}\bigg[\p{p_j} \Phi \bigg] = -\frac{i x_j}{\hbar}F[\Psi]$$
+		
+		\item $$\int_{\R^n} \Psi_1^* \Psi_2 dx = \int_{\R^n} F[\Psi_1]^* F[\Psi_2]dx$$
+	\end{enumerate}
+\end{note}
+
+\begin{note}
+	Let $Q(X,P)$ be a self-adjoint operator. Then the properties of the Fourier transform imply that:
+	\[
+	Q(X,P)=
+	\begin{cases}
+		Q(x, -i\hbar \nabla) & \text{(position space)}\\
+		Q(i\hbar \nabla, p) & \text{(momentum space)}
+	\end{cases}
+	\]
+\end{note}
+
+\begin{ex}
+	If $\Psi$ satisfies the Schr\"{o}dinger equation, then $\Phi$ satisfies $$i\hbar \p{t}\Phi = \frac{p^2}{2m}\Phi + V(i \hbar \nabla)\Phi$$
+\end{ex}
+
+\begin{proof}
+	Starting with the Schr\"{o}dinger equation, we have 
+	\begin{align*}
+		i\hbar \p{t} \Psi 
+		&= \bigg[\frac{P^2}{2m} + V(X)\bigg] \Psi\\
+		&= \bigg[\frac{-\hbar^2}{2m}\Del + V(x)\bigg] \Psi \hspace{1cm} \text{(position space)}
+	\end{align*} 
+	Taking Fourier transforms of both sides, we see that 
+	\begin{align*}
+		i\hbar \p{t} \Phi 
+		&= \bigg[\frac{P^2}{2m} + V(X)\bigg] \Phi\\
+		&= \bigg[\frac{p^2}{2m} + V(i \hbar \nabla)\bigg] \Phi \hspace{1cm} \text{(position space)}
+	\end{align*} 
+\end{proof}
+
+\begin{intp}
+	We interpret $\vert \Phi (p,t) \vert^2$ to be the probability density for the momentum, $p$, of the particle at time $t$.  
+\end{intp}
+
+\begin{note}
+	For a self-adjoint operator $Q(X,P)$, the expected value of $Q$,  is given by 
+	
+	\[ 
+	\l Q \r = 
+	\begin{cases}
+		\l \Psi(x,t) \vert Q(x, -i\hbar \nabla) \Psi(x,t)\r & \hspace{1cm} \text{(position space)}\\
+		\l \Phi(p,t) \vert Q(i\hbar \nabla, p) \Phi(p,t) \r & \hspace{1cm} \text{(momentum space)}\\
+	\end{cases}
+	\]
+\end{note}
 \end{document}
 
