@@ -51,6 +51,7 @@
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
 
+
 \newcommand{\sch}{Schr\"{o}dinger }
 
 \newcommand\Item[1][]{%
@@ -58,6 +59,7 @@
   \abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 
 \newcommand{\al}{\alpha}
+\newcommand{\bet}{\beta}
 \newcommand{\Gam}{\Gamma}
 \newcommand{\gam}{\gamma}
 \newcommand{\be}{\beta} 
@@ -67,6 +69,7 @@
 \newcommand{\Lam}{\Lambda} 
 \newcommand{\ep}{\epsilon}
 \newcommand{\sig}{\sigma} 
+\newcommand{\Sig}{\Sigma}
 \newcommand{\om}{\omega}
 \newcommand{\Om}{\Omega}
 \newcommand{\C}{\mathbb{C}}
@@ -85,6 +88,7 @@
 \newcommand{\MN}{\mathcal{N}}
 \newcommand{\MS}{\mathcal{S}}
 \newcommand{\MP}{\mathcal{P}}
+\newcommand{\MQ}{\mathcal{Q}}
 \newcommand{\ME}{\mathcal{E}}
 \newcommand{\MT}{\mathcal{T}}
 \newcommand{\MM}{\mathcal{M}}
@@ -95,7 +99,7 @@
 
 \renewcommand{\MR}{\mathcal{R}}
 
-
+\newcommand{\da}{^{\dagger}}
 \newcommand{\RG}{[0,\infty]}
 \newcommand{\Rg}{[0,\infty)}
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
@@ -112,7 +116,9 @@
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\E}{\mathbb{E}}
 \DeclareMathOperator{\spn}{span}
- 
+\DeclareMathOperator{\alt}{Alt}
+\DeclareMathOperator{\sym}{Sym}
+\DeclareMathOperator{\sgn}{sgn}
 \begin{document}
 
 \title{Quantum Mechanics Notes}
@@ -122,42 +128,63 @@
 
 \tableofcontents
 
+\section{Motivation}
+The framework of classical mechanics is an early model that was developed to fit with some observations of the physical world, most notably, gravitation. In essense, the evolution through time of a physical system consisting of a particle is modeled by a \textbf{position function}, $x:\R \rightarrow \R^{3}$, which gives the positions in $\R^3$ of the particle at a given time. This position function is completely determined by
+\begin{enumerate}
+	\item a second order differential equation
+	\item initial conditions on $x, x'$
+\end{enumerate}
+This framework agreed with many observations taken in the physical world, but not all. The more recent framework of quantum mechanics was developed to fit with some more recent observations of the physical world, most notably, the \href{https://en.wikipedia.org/wiki/Double-slit_experiment}{double slit experiment}. This experiment has been reproduced with many different small particles including, electrons and atoms. In each case, an wave-like interferene pattern has been observed. This may prompted the observers to wonder if particles should be modeled by a wave instead of a point. Quantum mechanics was essentially born out of this one idea. \vspace{.5cm} \\
+To treat a particle with mass $m$ in one dimenseion with position $x \in \R$ with potential  energy $V(x)$ like a wave instead of a point, let us imagine the position can be described by a wave function. There are many complicated functions that model different types of waves, but a simple and general one which was used in electromagnetism was the plane wave $$\Psi(x,t) = Ae^{i(k x - \om t)}$$ Starting with this trial function and some facts about the energy of waves, one can \href{https://www.youtube.com/watch?v=IsX5iUKNT2k}{derive the \sch equation} $$i\hbar \pdv{t} \Psi =  -\frac{\hbar^2}{2m} \pdv[2]{x} \Psi + V \Psi$$
+When treating a particle as a wave, 
+
+
+
+
 \section{Mathematical Background}
+
+\begin{note}
+	I feel that the ``bra-ket" notation is harder to read so I want to avoid it in these notes. Therefore the hilbert space treatment might align more with something you would find in a math book rather than a physics book, but some notation will be the same and several different conventions have been taken than those typically found in a mathematics treatment. 
+\end{note}
 
 \subsection{Hilbert Spaces}
 \begin{defn}
-	Let $H$ be a vector space and $\l \cdot| \cdot\r: G \times H \rightarrow \C$. Then $H$ is said to be an \textbf{inner product space} with inner product $\l \cdot| \cdot\r$ if for each $\Psi_1,\Psi_2,\Psi_3 \in H$and $c \in \C$
+	Let $\MH$ be a vector space and $\l \cdot, \cdot\r: \MH \times \MH \rightarrow \C$. Then $\MH$ is said to be an \textbf{inner product space} with inner product $\l \cdot, \cdot\r$ if for each $\psi_1,\psi_2,\psi_3 \in \MH$and $c \in \C$
 	\begin{enumerate}
-		\item $\l \Psi_1 | \Psi_2 + c\Psi_3\r = \l \Psi_1 | \Psi_2 \r + c\l \Psi_1 | \Psi_3\r $
-		\item $\l \Psi_1 | \Psi_2 \r = \l \Psi_2 | \Psi_1\r^*$
-		\item $\l \Psi_1 | \Psi_1 \r \geq 0$
-		\item if $\l \Psi_1 |\Psi_1 \r = 0$, then $\Psi_1 = 0$.  
+		\item $\l \psi_1 , \psi_2 + c\psi_3\r = \l \psi_1 , \psi_2 \r + c\l \psi_1 , \psi_3\r $
+		\item $\l \psi_1 , \psi_2 \r = \l \psi_2 , \psi_1\r^*$
+		\item $\l \psi_1 , \psi_1 \r \geq 0$
+		\item if $\l \psi_1 ,\psi_1 \r = 0$, then $\psi_1 = 0$.  
 	\end{enumerate}
 \end{defn}
 
 \begin{note}
-	For the rest of this section, we assume that $H$ is an inner product space with inner product $\l \cdot | \cdot \r$.
+	Typically in mathematics, the conjugate of $z$ is denoted by $ \bar{z}$ and the inner product is linear in the first argumemnt, but we will adopt the notation $z^*$ for the conjugat of $z$ the convention that the inner prduct is linear in the second argument from physics. In my opinion, linearity in the second argument makes for smoother notation.
+\end{note}
+
+\begin{note}
+	For the rest of this section, we assume that $\MH$ is an inner product space with inner product $\l \cdot , \cdot \r$.
 \end{note}
 
 \begin{ex}
-	Let $(\Psi_j)_{j =1}^n \subset H$. Then $$\bigg \l \sum_{i=1}^n \Psi_i \bigg| \sum_{j=1}^n \Psi_j \bigg \r = \sum_{i=1}^n \sum_{j=1}^n \l \Psi_i| \Psi_j \r $$
+	Let $(\psi_j)_{j =1}^n \subset \MH$. Then $$\bigg \l \sum_{i=1}^n \psi_i , \sum_{j=1}^n \psi_j \bigg \r = \sum_{i=1}^n \sum_{j=1}^n \l \psi_i , \psi_j \r $$
 \end{ex}
 
 \begin{defn}
-	Let $\Psi_1, \Psi_2 \in H$ and $S \subset H$. Then $\Psi_1$ and $\Psi_2$ are said to be \textbf{orthogonal} if $\l \Psi_1|\Psi_2\r = 0$ and $S$ is said to be \textbf{orthogonal} if for each $\Psi_1,\Psi_2 \in S$, $\Psi_1,\Psi_2$ are orthogonal. 
+	Let $\psi_1, \psi_2 \in \MH$ and $S \subset \MH$. Then $\psi_1$ and $\psi_2$ are said to be \textbf{orthogonal} if $\l \psi_1,\psi_2\r = 0$ and $S$ is said to be \textbf{orthogonal} if for each $\psi_1,\psi_2 \in S$, $\psi_1,\psi_2$ are orthogonal. 
 \end{defn}
 
 \begin{ex}
-	Let $S \subset H$. Suppose that $0 \not \in S$. If $S$ is orthogonal, then $S$ is linearly independent.
+	Let $S \subset \MH$. Suppose that $0 \not \in S$. If $S$ is orthogonal, then $S$ is linearly independent.
 \end{ex}
 
 \begin{proof}
-	Let $\Psi_1, \cdots, \Psi_n \in S$ and $c_1, \cdots, c_n \in \C$. Suppose that $\sum\limits_{j =1}^n c_j \Psi_j = 0 $. Then 
+	Let $\psi_1, \cdots, \psi_n \in S$ and $c_1, \cdots, c_n \in \C$. Suppose that $\sum\limits_{j =1}^n c_j \psi_j = 0 $. Then 
 	\begin{align*}
 		0
-		&= \bigg \l \sum_{i=1}^n c_i\Psi_i \bigg| \sum_{j=1}^n c_j\Psi_j \bigg \r \\
-		&= \sum_{i=1}^n \sum_{j=1}^n \l \Psi_i| \Psi_j \r \\
-		&= \sum_{j=1}^n  |c_j|^2 \l \Psi_j| \Psi_j \r
+		&= \bigg \l \sum_{i=1}^n c_i\psi_i , \sum_{j=1}^n c_j\psi_j \bigg \r \\
+		&= \sum_{i=1}^n \sum_{j=1}^n \l \psi_i, \psi_j \r \\
+		&= \sum_{j=1}^n  |c_j|^2 \l \psi_j, \psi_j \r
 	\end{align*}
 	So for $j = 1 , \cdots, n$, $c_j = 0$ and $S$ is linearly independent.
 \end{proof}
@@ -167,106 +194,139 @@
 \end{proof}
 
 \begin{thm}\textbf{(Cauchy-Schwarz Inequality):} \\
-	Let $\Psi_1,\Psi_2 \in H$. Then $\l \Psi_1|\Psi_2\r^2 \leq \l \Psi_1|\Psi_1 \r \l \Psi_2|\Psi_2 \r$
+	Let $\psi_1,\psi_2 \in \MH$. Then $\l \psi_1,\psi_2\r^2 \leq \l \psi_1,\psi_1 \r \l \psi_2,\psi_2 \r$
 \end{thm}
 
 \begin{ex}
-	Define $\|\cdot \| : H \rightarrow \R_{\geq 0}$ by $$\|\Psi_1\| = \l \Psi_1| \Psi_1\r^{1/2}$$ Then $\|\cdot\|$ is a norm on $H$.
+	Define $\|\cdot \| : \MH \rightarrow \R_{\geq 0}$ by $$\|\psi_1\| = \l \psi_1, \psi_1\r^{1/2}$$ Then $\|\cdot\|$ is a norm on $\MH$.
 \end{ex}
 
 \begin{proof}
 	The only nontriviality needed to be shown is the triangle inequality. To see this, we observe that 
 	\begin{align*}
-		\| \Psi_1+ \Psi_2 \|^2 
-		&= \l \Psi_1+\Psi_2 | \Psi_1+\Psi_2\r \\
-		&= \l \Psi_1|\Psi_1 \r + \l \Psi_1|\Psi_2\r + \l \Psi_2|\Psi_1 \r + \l \Psi_2|\Psi_2 \r \\
-		&= \|\Psi_1\| + \| \Psi_2 \| + 2 Re(\l \Psi_1|\Psi_2 \r) \\
-		& \leq \|\Psi_1\| + \| \Psi_2 \| + 2| \l \Psi_1|\Psi_2 \r| \\
-		& \leq  \|\Psi_1\| + \| \Psi_2 \| + 2 \| \Psi_1\| \|\Psi_2\| \\ 
-		&= (\|\Psi_1 \| + \| \Psi_2 \|)^2
+		\| \psi_1+ \psi_2 \|^2 
+		&= \l \psi_1+\psi_2 , \psi_1+\psi_2\r \\
+		&= \l \psi_1,\psi_1 \r + \l \psi_1,\psi_2\r + \l \psi_2,\psi_1 \r + \l \psi_2,\psi_2 \r \\
+		&= \|\psi_1\| + \| \psi_2 \| + 2 Re(\l \psi_1,\psi_2 \r) \\
+		& \leq \|\psi_1\| + \| \psi_2 \| + 2| \l \psi_1 , \psi_2 \r| \\
+		& \leq  \|\psi_1\| + \| \psi_2 \| + 2 \| \psi_1\| \|\psi_2\| \\ 
+		&= (\|\psi_1 \| + \| \psi_2 \|)^2
 	\end{align*}
-	Hence $$\| \Psi_1+ \Psi_2 \| \leq \|\Psi_1 \| + \| \Psi_2 \|$$
+	Hence $$\| \psi_1+ \psi_2 \| \leq \|\psi_1 \| + \| \psi_2 \|$$
 \end{proof}
 
 \begin{defn}
-	S set $S \subset H$ is said to be \textbf{orthonormal} if $S$ is orthogonal and for each $\Psi_1 \in S$, $\|\Psi_1 \| = 1$.
+	S set $S \subset \MH$ is said to be \textbf{orthonormal} if $S$ is orthogonal and for each $\psi_1 \in S$, $\|\psi_1 \| = 1$.
 \end{defn}
 
 \begin{defn}
-	Let $H$ be a vector space and $\l \cdot| \cdot\r: G \times H \rightarrow \C$. Then $H$ is said to be a \textbf{Hilbert space} if $H$ is a complete with respect to the norm on $H$ induced by $\l \cdot | \cdot \r$. 
+	Let $\MH$ be a vector space and $\l \cdot , \cdot\r: \MH \times \MH \rightarrow \C$. Then $\MH$ is said to be a \textbf{Hilbert space} if $\MH$ is a complete with respect to the norm on $\MH$ induced by $\l \cdot , \cdot \r$. 
 \end{defn}
 
 \begin{note}
-	For the rest of this section, we assume that $H$ is a Hilbert space. 
+	For the rest of this section, we assume that $\MH$ is a Hilbert space. 
 \end{note}
 
 \begin{ex}\textbf{(Pythagorean theorem):}\\
-	Let $(\Psi_j)_{j \in \N} \subset H$ be an orthogonal set. Suppose that $\sum\limits_{j \in \N} \Psi_j$ converges, then $$\bigg \|\sum\limits_{j \in \N} \Psi_j  \bigg \|^2 = \sum\limits_{j \in \N} \|\Psi_j \|^2$$
+	Let $(\psi_j)_{j \in \N} \subset \MH$ be an orthogonal set. Suppose that $\sum\limits_{j \in \N} \psi_j$ converges, then $$\bigg \|\sum\limits_{j \in \N} \psi_j  \bigg \|^2 = \sum\limits_{j \in \N} \|\psi_j \|^2$$
 \end{ex}
 
 \begin{proof}
 	Let $n \in \N$. Then 
 	\begin{align*}
-		\bigg \| \sum\limits_{j = 1}^n  \Psi_j\bigg \|^2
-		&= \bigg \l \sum\limits_{i =1}^n \Psi_i \bigg | \sum\limits_{j =1}^n \Psi_j \bigg \r \\
-		&= \sum\limits_{i =1}^n \sum\limits_{j =1}^n \l \Psi_j | \Psi_j \r \\
-		&= \sum\limits_{j =1}^n \l \Psi_j | \Psi_j \r \\
-		&= \sum\limits_{j =1}^n \| \Psi_j \|^2
+		\bigg \| \sum\limits_{j = 1}^n  \psi_j\bigg \|^2
+		&= \bigg \l \sum\limits_{i =1}^n \psi_i , \sum\limits_{j =1}^n \psi_j \bigg \r \\
+		&= \sum\limits_{i =1}^n \sum\limits_{j =1}^n \l \psi_j , \psi_j \r \\
+		&= \sum\limits_{j =1}^n \l \psi_j , \psi_j \r \\
+		&= \sum\limits_{j =1}^n \| \psi_j \|^2
 	\end{align*}
-	Since $\| \cdot \|$  is continuous on $H$, we have that 
+	Since $\| \cdot \|$  is continuous on $\MH$, we have that 
 	\begin{align*}
-		\bigg \|\sum\limits_{j \in \N} \Psi_j  \bigg \|^2
-		&= \lim_{n \rightarrow \infty} \bigg \|\sum\limits_{j =1}^n \Psi_j  \bigg \|^2 \\
-		&= \limn \sum\limits_{j =1}^n \| \Psi_j \|^2 \\
-		&= \sum\limits_{j \in \N} \|\Psi_j \|^2
+		\bigg \|\sum\limits_{j \in \N} \psi_j  \bigg \|^2
+		&= \lim_{n \rightarrow \infty} \bigg \|\sum\limits_{j =1}^n \psi_j  \bigg \|^2 \\
+		&= \limn \sum\limits_{j =1}^n \| \psi_j \|^2 \\
+		&= \sum\limits_{j \in \N} \|\psi_j \|^2
 	\end{align*}
 \end{proof}
 
 \begin{defn}
-	Let $S \subset H$. Then $S$ is said to \textbf{span} $H$ if $\spn S$ is dense in $H$ and $S$ is said to be a \textbf{basis} for $H$ if $S$ spans $H$ and $S$ linearly independent.
+	Let $S \subset \MH$. Then $S$ is said to \textbf{span} $\MH$ if $\spn S$ is dense in $\MH$ and $S$ is said to be a \textbf{basis} for $\MH$ if $S$ spans $\MH$ and $S$ linearly independent.
 \end{defn}
 
 \begin{defn}
-		Let $A: H \rightarrow H$. Then $A$ is said to be an \textbf{operator} on $H$.
+	Let $A: \MH \rightarrow \MH$. Then $A$ is said to be an \textbf{operator} on $\MH$.
 \end{defn}
 
-\begin{defn}
-	Let $A,B$ be operators on $H$. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $\Psi_1$, $\Psi_2 \in H$, $$\l \Psi_1 \vert A\Psi_2 \r = \l B \Psi_1 \vert \Psi_2 \r$$  If B is the adjoint of $A$, we write $$B = A^{\dagger}$$
+\begin{defn}\textbf{(Adjoint of an Operator):} \\
+	Let $A,B$ be operators on $\MH$. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $\psi_1$, $\psi_2 \in \MH$, $$\l \psi_1 , A\psi_2 \r = \l B \psi_1 , \psi_2 \r$$  If B is the adjoint of $A$, we write $$B = A^{\dagger}$$
 \end{defn}
+
+\begin{note}
+	In mathematics, the adjoint of $A$ is typically denoted by $A^*$, but we will adopt the notation of $A^{\dagger}$ from physics.
+\end{note}
 
 \begin{ex}
-	Let $A$ be an operator on $H$, then \begin{enumerate}
-		\item for each $\Psi_1, \Psi_2$, $\l A\Psi_1 \vert \Psi_2 \r = \l   \Psi_1 \vert A^{\dagger} \Psi_2 \r$ 
+	Let $A$ and $B$ be operators on $\MH$ and $\lam \in \C$, then \begin{enumerate}
 		\item $(A^{\dagger})^{\dagger} = A$
+		\item $(A + B)^{\dagger} = A^{\dagger} + B^{\dagger}$
+		\item $(AB)^{\dagger} = B^{\dagger}A^{\dagger}$
+		\item $(\lam A)^{\dagger} = \lam^*A^{\dagger}$
+		\item $A$ and $B$ commute iff $A^{\dagger}$ and $B^{\dagger}$ commute.
 	\end{enumerate}
 \end{ex}
 
-\begin{proof}
+\begin{proof} Let $\psi_1$, $\psi_2 \in \MH$. Then
 	\begin{enumerate}
-		\item For wavefunctions $\Psi_1$, $\Psi_2$, we have
+		\item 
 		\begin{align*}
-			\l A \Psi_1 \vert \Psi_2 \r
-			&= \l \Psi_2 \vert A \Psi_1 \r^*\\
-			&= \l A^{\dagger}\Psi_2 \vert  \Psi_1 \r^* \hspace{.5cm} \text{(by definition)}\\
-			&= \l  \Psi_1 \vert A^{\dagger}\Psi_2 \r
+			\l A \psi_1 , \psi_2 \r
+			&= \l \psi_2 , A \psi_1 \r^*\\
+			&= \l A^{\dagger}\psi_2 ,  \psi_1 \r^* \hspace{.5cm} \text{(by definition)}\\
+			&= \l  \psi_1 , A^{\dagger}\psi_2 \r
 		\end{align*}
-		\item For each $\Psi_1, \Psi_2$, we have that
+		\item 
 		\begin{align*}
-			\l  A\Psi_1 \vert \Psi_2 \r
-			&= \l   \Psi_1 \vert A^{\dagger}\Psi_2 \r \\
-			&= \l  (A^{\dagger})^{\dagger} \Psi_1 \vert \Psi_2 \r
+			\l \psi_1 , (A+B) \psi_2 \r 
+			&= \l \psi_1 , A \psi_2 \r + \l \psi_1 , B \psi_2 \r \\
+			&= \l A^{\dagger} \psi_1 , \psi_2 \r + \l B^{\dagger} \psi_1 , \psi_2 \r \\
+			&= \l (A^{\dagger} + B^{\dagger})  \psi_1 , \psi_2 \r  \\
 		\end{align*}
-		
-		This implies that for each $\Psi_1, \Psi_2$, $$\big \l \big[A-(A^{\dagger})^{\dagger} \big] \Psi_1, \Psi_2 \big \r = 0$$ Therefore for each $\Psi_1$, $$ \big[A-(A^{\dagger})^{\dagger} \big] \Psi_1 = 0$$ Hence $ \l A-(A^{\dagger})^{\dagger}  = 0$ and $A = (A^{\dagger})^{\dagger}$.
+		\item 
+		\begin{align*}
+			\l \psi_1 , AB \psi_2 \r  
+			&= \l A^{\dagger}\psi_1 , B \psi_2 \r \\
+			&= \l B^{\dagger} A^{\dagger} \psi_1 , \psi_2 \r 
+		\end{align*}
+		\item 
+		\begin{align*}
+			\l \psi_1 , \lam A \psi_2 \r 
+			&= \lam \l \psi_1 , A \psi_2 \r \\
+			&= \lam \l A^{\dagger}\psi_1 , \psi_2 \r \\
+			&= \l \lam^* A^{\dagger} \psi_1 , \psi_2 \r 
+		\end{align*}
+		\item If $A$ and $B$ commute, then 
+		\begin{align*}
+			A^{\dagger}B^{\dagger}
+			&= (BA)^{\dagger} \\
+			&= (AB)^{\dagger} \\
+			&= B^{\dagger}A^{\dagger}
+		\end{align*}
+		Conversely, if $A^{\dagger}$ and $B^{\dagger}$ commute then 
+		\begin{align*}
+			AB
+			&= (B^{\dagger}A^{\dagger})^{\dagger} \\
+			&= (A^{\dagger}B^{\dagger})^{\dagger} \\
+			&= BA
+		\end{align*}
 	\end{enumerate}
 \end{proof}
 
 \begin{defn}
-	An linear operator $Q$ on $H$ is said to be \textbf{self-adjoint} if $$Q = Q^{\dagger}$$
+	An linear operator $Q$ on $\MH$ is said to be \textbf{self-adjoint} if $$Q = Q^{\dagger}$$
 \end{defn}
 
 \begin{ex}
-	Let $Q$ be a self-adjoint operator on $H$. Then 
+	Let $Q$ be a self-adjoint operator on $\MH$. Then 
 	\begin{enumerate}
 		\item the eigenvalues of $Q$ are real.
 		\item the eigenvectors of $Q$ corresponding to distinct eigenvalues are orthogonal.
@@ -275,100 +335,422 @@
 
 \begin{proof}
 	\ \begin{enumerate}
-		\item Let $\lam$ be an eigenvalue of $Q$ with corresponding eigenfunction $\Psi$. Then 
+		\item Let $\lam$ be an eigenvalue of $Q$ with corresponding eigenvector $\psi$. Then 
 		\begin{align*}
-			\lam \l \Psi \vert \Psi\r
-			&= \l \Psi \vert Q \Psi\r \\
-			&= \l Q \Psi \vert \Psi\r \\
-			&= \lam^* \l \Psi \vert \Psi\r
+			\lam \l \psi , \psi\r
+			&= \l \psi , Q \psi\r \\
+			&= \l Q \psi , \psi\r \\
+			&= \lam^* \l \psi , \psi\r
 		\end{align*}
 		Thus $\lam = \lam^*$ and is real
 		
-		\item Let $\lam_1$ and $\lam_2$ be eigenvalues of $Q$ with corresponding eigenfunctions $\Psi_1$ and $\Psi_2$. Suppose that $\lam_1 \neq \lam_2$. Then 
+		\item Let $\lam_1$ and $\lam_2$ be eigenvalues of $Q$ with corresponding eigenvectors $\psi_1$ and $\psi_2$. Suppose that $\lam_1 \neq \lam_2$. Then 
 		\begin{align*}
-			\lam_2 \l \Psi_1 \vert  \Psi_2\r
-			&= \l \Psi_1 \vert Q \Psi_2\r\\
-			&= \l Q \Psi_1 \vert  \Psi_2\r\\
-			&= \lam_1 \l \Psi_1 \vert  \Psi_2\r
+			\lam_2 \l \psi_1 ,  \psi_2\r
+			&= \l \psi_1 , Q \psi_2\r\\
+			&= \l Q \psi_1 ,  \psi_2\r\\
+			&= \lam_1 \l \psi_1 ,  \psi_2\r
 		\end{align*}
-		So $(\lam_2 - \lam_1)\l \Psi_1 \vert  \Psi_2\r = 0$. Which implies that $\l \Psi_1 \vert  \Psi_2\r=0$
+		So $(\lam_2 - \lam_1)\l \psi_1 ,  \psi_2\r = 0$. Which implies that $\l \psi_1 ,  \psi_2\r=0$
 	\end{enumerate}
 \end{proof}
 
+\begin{ex}
+	Let $A, B$ be self-adjoint operators on $\MH$ and $ \lam \in \R$. If $A$ and $B$ commute and then $\lam AB$ is self-adjoint.
+\end{ex}
+
+\begin{proof}
+	\begin{align*}
+		(\lam AB)^{\dagger}
+		&= \lam^* (AB)^{\dagger} \\
+		&= \lam B^{\dagger} A^{\dagger} \\
+		&= \lam B A \\
+		&= \lam AB
+	\end{align*}
+\end{proof}
+
+\begin{defn}\textbf{(Adjoint of a Vector):} \\
+	Let $\psi \in \MH$. We define the \textbf{adjoint} of $\psi$, denoted $\psi^{\dagger}: \MH \rightarrow \C$, by $\psi^{\dagger} \phi = \l \psi, \phi\r$. 
+\end{defn}
+
+\begin{note}
+	In mathematics, where linearity of the inner product is in the first argument, $\psi^{\dagger}$ is typically referred to by $u_{\psi} \in \MH^{*} $ where $u_{\psi}(\phi) = \l \phi, \psi\r$. In physics, where the inner product with linearity in the second argument, $\psi^{\dagger} \phi$ is usually written in the so-called ``bra-ket" notation as $\l \psi | \phi \r$ which works smoothly since it aligns with the linearity of $u_{\psi}(\phi_1 + \lam \phi_2)$ and the conjugate-linearity of $u_{\psi_1 + \lam \psi_2}(\phi)$. In this way, it generalizes the notation for $\l x, y\r = x^T y$ for $\R^n$ to $\l x, y\r = x\da y\da$ for $\C^n$. 
+\end{note}
+
+\begin{ex}
+	Let $\psi, \phi \in \H$ and $ \lam \in \C$. Then 
+	\begin{enumerate}
+		\item $(\psi + \phi){\da} =  \psi\da + \phi\da$
+		\item $(\lam \psi)\da = \lam^* \psi\da$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	Clear.
+\end{proof}
+
 \begin{defn}
+	Let $\psi, \phi \in \MH$ and $A$ an operator on $\MH$. We define 
+	\begin{enumerate}
+		\item the linear functional on $\MH$, $\psi \da A: \MH \rightarrow \C $ by $(\psi \da A) \al = \psi \da (A \al)$
+		\item the operator on $\MH$, $\psi \phi \da : \MH \rightarrow \MH$ by $(\psi \phi \da) \al = (\phi\da \al) \psi$
+	\end{enumerate}
+\end{defn}
+
+\begin{ex}
+	Let $A$ be an operator on $\MH$ and $\psi \in \MH$. Then $$(A \psi)\da = \psi \da A\da $$
+\end{ex}
+
+\begin{proof}
+	Let $\phi \in \MH$. Then 
+	\begin{align*}
+		(A\psi)\da	\phi 
+		&= \l A\psi, \phi \r \\
+		&= \l \psi, A\da \phi \r \\
+		&= \psi \da A\da \phi 
+	\end{align*}
+\end{proof}
+
+\begin{defn}\textbf{(Commutator):} \\
 	Let $A$ and $B$ be operators. The \textbf{commutator} of $A$ and $B$, $[A,B]$, is defined by $$[A,B] = AB - BA$$
 \end{defn}
 
 \begin{ex}
-	Let $A,B$ and $C$ be operators, then $[AB,C] = A[B,C] + [A,C]B$
+	Let $A,B$ and $C$ be operators, then 
+	\begin{enumerate}
+		\item $[AB,C] = A[B,C] + [A,C]B$
+		\item $[A, BC] = B[A, C] + [A,B]C$
+	\end{enumerate}
 \end{ex}
 
-\begin{proof} We have 
-	\begin{align*}
-		[AB,C]
-		&= ABC - CAB\\
-		&= ABC - ACB + ACB -CAB\\
-		&= A(BC - CB) + (AC-CA)B\\
-		&= A[B,C] + [A,C]B
-	\end{align*}
+\begin{proof} \
+	\begin{enumerate}
+		\item 
+		\begin{align*}
+			[AB,C]
+			&= ABC - CAB\\
+			&= ABC - ACB + ACB -CAB\\
+			&= A(BC - CB) + (AC-CA)B\\
+			&= A[B,C] + [A,C]B
+		\end{align*}
+		\item Similar to (1).
+	\end{enumerate}
 \end{proof}
 
-\begin{defn}\textbf{(Tensor Product):} \\
-	Let $H_1, H_2$ be Hilbert spaces. Denote the free vector space over $H_1 \times H_2$ by $F(H_1 \times H_2)$. Define the relation $\sim$ on $F(H_1 \times H_2)$ by 
-	\begin{enumerate}
-		\item $(\Psi, \Phi) \sim (\Phi, \Psi)$ (reflexive)
-		\item if $(\Psi_1, \Phi_1) \sim (\Psi_2, \Phi_2)$, then $(\Psi_2, \Phi_2) \sim (\Psi_1, \Psi_1)$ (symmetric)
-		\item if $(\Psi_1, \Phi_1) \sim (\Psi_2, \Phi_2)$ and $(\Psi_2, \Phi_2) \sim (\Psi_3, \Phi_3)$, then $(\Psi_1, \Phi_1) \sim (\Psi_3, \Phi_3)$ (transitive)
-		\item $(\Psi + \lam \Phi, \Xi) \sim  (\Psi, \Xi) + \lam(\Phi, \Xi)$ and $(\Psi, \Phi + \lam \Xi) \sim  (\Psi, \Phi) + \lam (\Psi, \Xi)$ (bilinear)
-	\end{enumerate}
-	We define the \textbf{tensor product} of $H_1$ with $H_2$, denoted $H_1 \otimes H_2$ to be  $$H_1 \otimes H_2 = F(H_2 \times H_2) / \sim$$ We denote the equivalence class of $(\Psi, \Phi)$ in $H_1 \otimes H_2$ by $\Psi \otimes \Phi$. We define $\otimes: H_1 \times H_2 \rightarrow H_1 \otimes H_2$ by $(\Psi, \Phi) \mapsto \Psi \otimes \Phi$.  \vspace{.5cm} \\
-	In summary $$H_1 \otimes H_2 = \spn \{\Psi \otimes \Phi: \Psi \in H_1, \Phi \in H_2\}$$ where $\otimes:H_1 \times H_2 \rightarrow H_1 \otimes H_2$ is bilinear.\vspace{.5cm} \\
-	We define the inner product $\l \cdot | \cdot \r$ on $H_1 \otimes H_2$ by setting $$\l \Psi_1 \otimes \Phi_1| \Psi_2 \otimes \Phi_2 \r = \l  \Psi_1| \Psi_2\r_{H_1} \l  \Phi_1| \Phi_2 \r_{H_2}$$ and extending linearly in the second argument.
-	
+\begin{defn}\textbf{(Tensor Product):} \\ 
+	Let $\MH_1, \MH_2$ be Hilbert spaces. Define $$\otimes: \MH_1 \times \MH_2 \rightarrow \C^{\MH_1 \times \MH_2} ,\hspace{.5cm} (\psi, \phi) \mapsto \psi \otimes \phi$$ by $$\psi \otimes \phi(x,y) = \l x, \psi  \r \l y, \phi\r$$ 
 \end{defn}
 
-	\begin{note}
-		Typically, unless $H_1$ and $H_2$ are finite dimensional, $H_1 \otimes h_2$ is not complete. For the remainder of these notes, we assume we are working in the completion of $H_1 \otimes H_2$.
-	\end{note}
+\begin{note}
+	For the remainder of this section, we assume that $\MH_1$ and $\MH_2$ are Hilbert spaces.
+\end{note}
+
+\begin{ex}
+	We have that $\otimes: \MH_1 \times \MH_2 \rightarrow \C^{\MH_1 \times \MH_2}$ is bilinear.
+\end{ex}
+
+\begin{proof}
+	Clear.
+\end{proof}
+
+\begin{defn}
+	Define $T(\MH_1, \MH_2) = \spn \{\psi \otimes \phi: \psi \in \MH_1 \text{ and } \phi \in \MH_2\}$ and define $\l \cdot, \cdot \r : T(\MH_1, \MH_2) \rightarrow \C $ by $$\l \psi_1 \otimes \phi_1 , \psi_2 \otimes \phi_2 \r = \l \psi_1, \psi_2 \r \l \phi_1 ,  \phi_1\r$$ and extending sesquilinearly so that $$ \l \sum_{i=1}^m \al_i \psi_i \otimes \phi_i , \sum_{j=1}^n \beta_j \Xi_j \otimes \Gam_j\r = \sum_{i=1}^m \sum_{j=1}^n \al_i^* \beta_j \l \psi_i \otimes \phi_i,  \Xi_j \otimes \Gam_j \r$$
+\end{defn}
+
+\begin{ex}
+	We have that  $\l \cdot, \cdot \r : T(\MH_1, \MH_2) \rightarrow \C $ is an inner product on $T(\MH_1, \MH_2)$.
+\end{ex}
+
+\begin{proof} 
+	Clear.
+\end{proof}
+
+\begin{defn}
+	Define $\MH_1 \otimes \MH_2$ to be the completion of $T(\MH_1, \MH_2)$.
+\end{defn}
+	
 
 	\begin{ex}
-		Let $H_1, H_2$ be Hilbert spaces. If $(\Psi_j)_{j\in \N}$ is an orthonormal basis for $H_1$ and $(\Phi_j)_{j \in \N}$ is an orthonormal basis for $H_2$, then $(\Psi_i \otimes \Phi_j)_{i,j \in \N}$ is an orthonormal basis for $H_1 \otimes H_2$. 
+		Let $\MH_1, \MH_2$ be Hilbert spaces. If $(\psi_j)_{j\in \N}$ is an orthonormal basis for $\MH_1$ and $(\phi_j)_{j \in \N}$ is an orthonormal basis for $\MH_2$, then $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is an orthonormal basis for $\MH_1 \otimes \MH_2$. 
 	\end{ex}
 
 	\begin{proof}
-		Clear.
+		Since 
+		\begin{align*}
+			\l \psi_{i_1} \otimes \phi_{j_1} , \psi_{i_2} \otimes \phi_{j_2} \r 
+			&= \l \psi_{i_1} , \psi_{i_2} \r \l \phi_{j_1} , \phi_{j_2} \r \\
+			&= \del_{i_1, i_2} \del_{j_1, j_2}
+		\end{align*}
+		we have that $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is orthonormal. Let $\psi = \sum\limits_{i \in \N} a_i \psi_i \in \MH_1$ and $\phi = \sum\limits_{j \in \N} b_j \phi_j \in \MH_2$. Then $\phi \otimes \psi = \sum\limits_{i \in \N} \sum\limits_{j \in \N} a_ib_j \psi_i \otimes \phi_j$, so $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is a dense subset of $T(\MH_1, \MH_2)$, which is dense in $\MH_1 \otimes \MH_2$. Hence $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is dense in $\MH_1 \otimes \MH_2$ and is a basis.
 	\end{proof}
 
 	\begin{note}
-		If $H_1$ and $H_2$ are function spaces over sets $S_1$ and $S_2$ respectively, then $H_1 \otimes H_2$ is a function space over $S_1 \times S_2$ with $f_1 \otimes f_2(s_1, s_2) = f_1(s_1)f_2(s_2)$.
+		If $\MH_1$ and $\MH_2$ are function spaces over sets $S_1$ and $S_2$ respectively, then $\MH_1 \otimes \MH_2$ can be identified with the function space over $S_1 \times S_2$ given by  $f_1 \otimes f_2(s_1, s_2) = f_1(s_1)f_2(s_2)$.
 	\end{note}
 
-\subsection{Permutation Groups}
+	\begin{defn}
+		Let $A$ and $B$ be operators on $\MH_1$ and $\MH_2$ respectively. We define the operator $A \otimes B$ on $\MH_1 \otimes \MH_2$ by setting $$A \otimes B (\psi \otimes \phi) = A \psi \otimes B \phi$$ and extending linearly to $T(\MH_1, \MH_2)$ and then extending continuously to $\MH_1 \otimes \MH_2$
+	\end{defn}
 
+\newpage
+\subsection{Permutation Groups} 
+
+\begin{defn}
+	We define $S_n$ to be the set of bijections from $\{1, \cdots, n\}$ to itself. $\sig \in S_n$. There are two common ways to represent $\sig$. 
+	\begin{enumerate}
+		\item The \textbf{functional representation} of $\sig$ is obtained by writing
+		$$\begin{pmatrix}
+			1 & 2 & \cdots & n \\
+			\sig(1) & \sig(2) & \cdots & \sig(n)\\
+		\end{pmatrix}$$
+	\item The \textbf{cyclical representation} of $\sig$ is obtained by first partitioning $\{1, \cdots, n\}$ into the orbits under the subgroup $\l \sig \r < S_n$. Let $\{\l \sig \r i_1, \cdots , \l \sig \r i_k\}$ be the orbits of $\{1, \cdots, n\}$ under $\l \sig \r$ with $|\l \sig \r i_j| = n_j$. Then we represent $\sig$ by
+	$$(i_1 , \sig(i_1) , \cdots , \sig^{n_1-1}(i_1)) \cdots (i_k , \sig(i_k) , \cdots , \sig^{n_k-1}(i_k)) $$
+	\end{enumerate}
+\end{defn}
+
+\begin{defn}
+	Let $\sig \in S_n$. Then $\sig$ is said to be a \textbf{transposition} if the cyclical representation of $\sig$ is of the form $$\sig = (i,j)$$
+	That is, $\sig$ transposes $i$ and $j$, leaving everything else untouched. 
+\end{defn}
+
+\begin{ex}
+	Let $\sig \in S_n$. Then there exist transpositions $\tau_1, \cdots, \tau_k$ such that $\sig = \prod_{j=1}^k \tau_j$.
+\end{ex}
+
+\begin{proof}
+	A cycle (an orbit) $(i_1, \cdots, i_k)$ can be written $$(i_1, \cdots, i_k) = (i_1, i_2)(i_2, i_3), \cdots, (i_{k-1}, i_k)$$ then just do this for each disjoint cycle in the cyclical representation of $\sig$.
+\end{proof}
+
+\begin{thm}
+	The number of transpositions of a permutation is invariante under different cyclical representation.
+\end{thm}
+
+\begin{defn}
+	For $\sig \in S_n$, let $m_{\sig}$ be the number of transpositions in $\sig$. Define $\sgn: S_n \rightarrow \{1, -1\}$ by $$\sgn(\sig) = (-1)^{m_{\sig}} $$
+\end{defn}
+
+\begin{thm}
+	The function $\sgn: S_n \rightarrow \{1, -1\}$ is a homomorphism.
+\end{thm}
+
+
+\begin{note}
+	For the remainder of our discussion on permutation groups, we fix a nonempty set $X$.
+\end{note}
+
+\begin{defn}
+	Define the \textbf{permutation action of $S_n$ on $\C^{X^n}$} to be the map $$S_n \times \C^{X^n} \rightarrow \C^{X^n}, \hspace{ .5cm } (\sig, f) \mapsto \sig f$$  given by $$\sig f(x_1, \cdots, c_n) = f(x_{\sig(1)}, \cdots, x_{\sig(n)})$$
+\end{defn}
+
+\begin{ex}
+	The permutation action of $S_n$ on $\C^{X^n}$ is a group action.
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Clearly $e f = f$
+		\item Let $\sig, \tau \in S_n$ and $f \in \C^{X^n}$. Then 
+		\begin{align*}
+			 (\sig \tau) f(x_1, \cdots, x_n)
+			&= f(x_{\sig \tau(1)}, \cdots, x_{\sig \tau(n)}) \\
+			&= \sig f(x_{\tau(1)}, \cdots, x_{\tau (n)}) \\
+			&= \sig (\tau f)(x_1, \cdots, x_n)
+		\end{align*}
+	So $(\sig \tau) f = \sig(\tau f)$
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $\sig \in S_n$, $f,g \in \C^{X^n}$ and $\lam \in \C$. Then 
+	$$\sig(f+ \lam g) = \sig f + \lam \sig g$$
+\end{ex}
+
+\begin{proof}
+	Clear.
+\end{proof}
+
+\begin{defn}
+	Let $f \in \C^{X^n}$. Then 
+	\begin{enumerate}
+		\item $f$ is said to be \textbf{symmetric} if for each $\sig \in S_n$, $$\sig f = f$$ 
+		\item $f$ is said to be \textbf{alternating} if for each $\sig \in S_n$, $$\sig f = \sgn(\sig) f$$
+	\end{enumerate}
+\end{defn}
+
+\begin{defn}
+	We define the \textbf{symmetric  operator} on $\C^{X^n}$, denoted $\sym: \C^{X^n} \rightarrow \C^{X^n}$, by $$\sym f = \sum_{\sig \in S_n}  \sig f$$
+\end{defn}
+
+\begin{defn}
+	Define $\Xi_n(X) = \{f \in \C^{X^n}: f \text{ is symmetric}\}$ and $\Lam_n(X) = \{f \in \C^{X^n}: f \text{ is alternating}\}$ 
+\end{defn}
+
+\begin{defn}
+	We define the \textbf{alternating operator} on $\C^{X^n}$, denoted $\alt: \C^{X^n} \rightarrow \C^{X^n}$, by $$\alt f = \sum_{\sig \in S_n}\sgn(\sig)  \sig f$$
+\end{defn}
+
+\begin{ex}
+	Let $f \in \C^{X^n}$. Then 
+	\begin{enumerate}
+		\item $\sym f$ is symmetric 
+		\item $\alt f$ is alternating.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}Let $\sig \in S_n$. Since $\tau \mapsto \sig \tau$ is an automorphism, we have that
+	\begin{enumerate}
+		\item 
+		\begin{align*}
+			\sig \sym f 
+			&= \sig \sum_{\tau \in S_n}  \tau f \\
+			&=  \sum_{\tau \in S_n}  \sig \tau f \\
+			&=  \sum_{\tau \in S_n}  \tau f \\ 
+			&= \sym f
+		\end{align*}
+		\item 
+		\begin{align*}
+			\sig \alt f 
+			&= \sig \sum_{\tau \in S_n}  \sgn(\tau) \tau f \\
+			&=  \sum_{\tau \in S_n} \sgn(\tau) \sig \tau f \\
+			&=  \sgn(\sig) \sum_{\tau \in S_n} \sgn(\sig \tau) \sig \tau f \\ 
+			&= \sgn(\sig) \sum_{\tau \in S_n} \sgn( \tau) \tau f \\ 
+			&= \sgn(\sig)\alt f
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $f \in \C^{X^n}$. Then
+	\begin{enumerate}
+		\item $f$ is symmetric implies that $\sym f = n! f$
+		\item  $f$ is alternating implies that $\alt f = n! f$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Suppose that $f$ is symmetric. Then 
+		\begin{align*}
+			\sym f 
+			&= \sum_{\sig \in S_n} \sig f \\
+			&= \sum_{\sig \in S_n} f \\
+			&= n! f
+		\end{align*}
+	\item Suppose that $f$ is alternating. Then 
+	\begin{align*}
+		\alt f 
+		&= \sum_{\sig \in S_n} \sgn(\sig) \sig f \\
+		&= \sum_{\sig \in S_n} \sgn(\sig)^2 f \\
+		&= \sum_{\sig \in S_n}  f \\
+		&= n! f
+	\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	The operators $Sym: \C^{X^n} \rightarrow \C^{X^n}$ and $\alt: \C^{X^n} \rightarrow \C^{X^n}$ are linear.
+\end{ex}
+
+\begin{proof} 
+	In the symmetric case, we have that
+	\begin{align*}
+		\sym(f+ \lam g) 
+		&= \sum_{\sig \in S_n}  \sig (f+ \lam g) \\
+		&= \sum_{\sig \in S_n}  \sig f + \lam \sig g \\
+		&= \sum_{\tau \in S_n}  \sig f + \lam \sum_{\sig \in S_n}  \sig g \\
+		&= \sym f + \lam \sym g
+	\end{align*}
+	In the alternating case, we have that
+	\begin{align*}
+		\alt(f+ \lam g) 
+		&= \sum_{\sig \in S_n}  \sgn(\sig) \sig (f+ \lam g) \\
+		&= \sum_{\sig \in S_n}  \sgn(\sig) \sig f + \lam \sgn(\sig) \sig g \\
+		&= \sum_{\sig \in S_n}  \sgn(\sig) \sig f + \lam  \sum_{\sig \in S_n}  \sgn(\sig) \sig g \\
+		&= \alt f + \lam \alt g
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	For each $f \in L^2(\R^n)$ and $\sig$ in $S_n$, $\sig f \in L^2(\R^n)$ and $\| \sig f \| = \| f \|$. Therefore the map $$L^2(\R^n) \rightarrow L^2(\R^n) \hspace{.5cm} f \mapsto \sig f$$ is an isometry.
+\end{ex}
+
+\begin{proof}
+	Let $f \in L^2(\R^n)$ and $\sig \in S_n$. Define $T: \R^n \rightarrow \R^n$ by $T(x_1, \cdots, x_n) = (x_{\sig(1)}, \cdots, x_{\sig(n)})$. Then $\det T \in \{1, -1\}$ and $ |\sig f|^2 = |f \circ T|^2$. So 
+	\begin{align*}
+		\int |\sig f|^2 
+		&= \int |f \circ T|^2 \\
+		&= |\det T| \int |f|^2 \\
+		&=  \int |f|^2
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	The operators $Sym: L^2(\R^n) \rightarrow L^2(\R^n)$ and $\alt: L^2(\R^n) \rightarrow L^2(\R^n)$ are continuos.
+\end{ex}
+
+\begin{proof}
+	In the symmetric case, we have that 
+	\begin{align*}
+		\| \sym f- \sym g\| 
+		&= \bigg \| \sum_{\sig \in S_n} \sig f - \sum_{\sig \in S_n} \sig g \bigg\| \\
+		&= \bigg \| \sum_{\sig \in S_n} \sig (f-g)  \bigg \|  \\
+		& \leq \sum_{\sig \in S_n} \| \sig (f-g)  \| \\
+		&= \leq \sum_{\sig \in S_n} \| (f-g)  \| \\
+		&= n! \| (f-g)  \|
+	\end{align*}
+	The alternating case is similar.
+\end{proof}
+
+\begin{ex}
+	Let $\psi \in \C^{X^n}$ and  $\MA \subset \C^{X^n}$. If $\psi \in \spn \MA$, then $\sym \psi \in \spn \sym \MA $ and $\alt \psi \in \spn \alt \MA $
+\end{ex}
+
+\begin{proof}
+	Suppose that $\psi \in \spn \MA$. Then there exist $\psi_1, \cdots, \psi_n \in \MA$ and $c_1, \cdots, c_n \in \C$ such that $\psi = \sum\limits_{j =1}^n c_j \psi_j$. Then $$\sym \psi = \sum\limits_{j =1}^n c_j \sym \psi_j \in \spn \sym \MA$$ and $$\alt \psi = \sum\limits_{j =1}^n c_j \sym \alt_j \in \spn \alt \MA$$ 
+\end{proof}
+
+
+\begin{ex}
+	\item Let $\psi_1, \cdots, \psi_n \in \C^{X}$ and $\sig \in S_n$. Then $$ \sig \psi_1 \otimes \cdots \otimes \psi_n = \psi_{\sig^{-1}(1)} \otimes \cdots \otimes \psi_{\sig^{-1}(n)}$$
+\end{ex}
+
+\begin{proof}
+	\begin{align*}
+		\sig \psi_1 \otimes \cdots \otimes \psi_n(x_1, \cdots, x_n) 
+		&=  \psi_1 \otimes \cdots \otimes \psi_n(x_{\sig(1)}, \cdots, x_{\sig(n)}) \\
+		&= \psi_1(x_{\sig(1)}) \cdots \psi_n(x_{\sig(n)}) \\
+		&= \psi_{\sig^{-1}(1)}(x_1) \cdots \psi_{\sig^{-1}(n)}(x_n) \\
+		&= \psi_{\sig^{-1}(1)} \otimes \cdots \otimes \psi_{\sig^{-1}(n)}(x_1, \cdots, x_n)
+	\end{align*} 
+\end{proof}
 
 \newpage 
 
 \section{Postulates of Quantum Mechanics}
 
-\subsection{First Postulate}
+\begin{note}
+	In this section, we fix an isolated physical system $\MS$.
+\end{note}
+
+\subsection{First Postulate}\textbf{(State Space):}
 \begin{pos}
-	Associated to any isolated physical system is a Hilbert space. The state space of the system is a subset of the unit sphere in the corresponding Hilbert space. All states which are unit modulus scalar multiples (rotations) of each other are identified.
+	Associated to $\MS$ is a Hilbert space $\MH$. The state space of the system is described by $$\Sigma_{\MH} = \{\psi \in \MH: \|\psi\| = 1\}$$ We define an equivalence relation $\sim$ on $\Sig_{\MH}$ by $\psi_1 \sim \psi_2$ if there exists $\theta \in [0, 2\pi)$ such that $\psi_1 = e^{i \theta} \psi_2$. For an isolated system of $N$ particles, we define $$\MH = C^2_{0}(\R^{3N}) \cap L^2(\R^{3N}) $$ and define $$\l \psi_1, \psi_2 \r = \int_{\R^{3N}} \psi_1(r)^* \psi_2(r) dr$$  \hspace{.5cm}\\
+	There exists $\Psi: \R^{3N +1} \rightarrow \C$ with $(r, t) \mapsto \Psi(r,t)$ associated to the system $\MS$ such that $\Psi$ has a continuous partial in the time variable and that for each $t \in \R$, the state of $\MS$ is given by $\Psi(\cdot, t) \in \Sig_{\MH}$. The function $\Psi$ is called the \textbf{position wavefunction} for $\MS$. Writing $r_i = (x_i, y_i, z_i)$ and $r = (r_1, \cdots, r_N)$, we interpret $|\Psi(r_1, \cdots, r_N,t)|^2$ to be the \textbf{joint probability density} for the positions $r_1, \cdots, r_N$, of the $N$ particles at time $t$. \\
 \end{pos}
 
-\begin{defn}
-	We will typically denote the state of a system conatinaing $N$ particles at any given time by a \textbf{position wavefunction}  $\Psi: \R^{3N + 1} \rightarrow \C$.
-\end{defn}
+\begin{note}
+	By $\psi \in C^2_0$, we mean that $\psi$ has continuous $2$nd partials and $\psi(r) \rightarrow 0$ as $\|r\| \rightarrow \infty$. When the potential energy of the system takes on values of $\pm \infty$, we may relax the above restrictions and require that $\psi$ has existing $2$nd partials. 
+\end{note}
 
-\begin{intp}
-	Writing $r_i = (x_i, y_i, z_i)$ and $r = (r_1, \cdots, r_N)$, we interpret $\vert\Psi(r_1, \cdots, r_N,t)\vert^2$ to be the \textbf{joint probability density} for the positions $r_1, \cdots, r_N$, of the particles at time $t$. Therefore, we require that for each $t \in \R$, $$\int_{\R^{3N}}\Psi(r,t)^* \Psi(r,t) dr = 1$$
-	We assume that $\Psi \in C^1$ with existing second partials and for each $t \in \R$, $\Psi(r, t) \rightarrow 0$ as $\|r\| \rightarrow \infty$.
-\end{intp}
-
-\subsection{Second Postulate}
+\subsection{Second Postulate}\textbf{(Observable Quantities):}
 
 \begin{pos}
-	For each observable quantity of an isolated system, there exists a corresponding self-adjoint operator whose eigenstates span the Hilbert space and whose eigenvalues consist of all possible  measurements of the observable quantity. If two operators commute, there exists a set of simultaneous eigenstates of the two operators that span the Hilbert space.
+	For each observable quantity $\MQ$ of $\MS$, there exists a corresponding self-adjoint operator $Q$ whose eigenstates span $\MH$ and whose eigenvalues consist of all possible  measurements of $\MQ$. Let $\MA$ and $\MB$ be two observable quantities with corresponding self-adjoint operators $A$ and $B$. If $A$ and $B$ commute, then there exists a set of simultaneous eigenstates of $A$ and $B$ that span $\MH$.
 \end{pos}
+
+\begin{note}
+	Let $A$ be a self-adjoint operator corresponding to an observable quantity $\MA$ of the system $\MS$ with eigenvalues $(\lam_{n})_{n \in \N}$ of degeneracy $(k_n)_{n \in \N}$. The second postulate tells us that we are given a spanning set $(\psi_{n,j})_{n \in \N,j \leq k_n}$ of eigenstates with $(\psi_{n,j})_{j-1}^n$ spanning the eigenspace of $\lam_n$. Using the Gram-Schmidt process within each eigenspace of $\lam_n$, we may assume that $(\psi_{n,j})_{n \in \N,j \leq k_n}$ is an orthonormal basis for $\MH$. In these notes, we assume that our spanning set of eigenstates is orthonormal (this happens often in practice). 
+\end{note}
 
 \begin{defn}
 	The \textbf{$x$-component position operator of the $j$th particle}, denoted $X_j$, is defined by $$X_j\Psi(r, t) = x_j\Psi(r, t)$$
@@ -398,19 +780,19 @@
 		\item Clear since $x_j$ is real.
 		\item We have that 
 		\begin{align*}
-			\l \Psi_1 \vert P_{x_j} \Psi_2 \r
-			&=  \int_{\R^{3N}} \Psi_1^* \bigg(-i\hbar\p{x_j} \Psi_2\bigg)dx \\
-			&= -i \hbar\int_{\R^{3N}} \Psi_1^*  \bigg(\p{x_j} \Psi_2\bigg)dx\\
-			&= i\hbar \int_{\R_n} \bigg( \p{x_j} \Psi_1^* \bigg) \Psi_2 dx \hspace{1cm } \text{(integration by parts)}\\
-			&= \int_{\R^{3N}} \bigg( -i \hbar \p{x_j} \Psi_1 \bigg)^* \Psi_2 dx\\
-			&= \l P_{x_j} \Psi_1 \vert \Psi_2 \r
+			\l \Psi_1 , P_{x_j} \Psi_2 \r
+			&=  \int_{\R^{3N}} \Psi_1^* \bigg(-i\hbar\p{x_j} \Psi_2\bigg)dr \\
+			&= -i \hbar\int_{\R^{3N}} \Psi_1^*  \bigg(\p{x_j} \Psi_2\bigg)dr\\
+			&= i\hbar \int_{\R_n} \bigg( \p{x_j} \Psi_1^* \bigg) \Psi_2 dr \hspace{1cm } \text{(integration by parts)}\\
+			&= \int_{\R^{3N}} \bigg( -i \hbar \p{x_j} \Psi_1 \bigg)^* \Psi_2 dr\\
+			&= \l P_{x_j} \Psi_1 , \Psi_2 \r
 		\end{align*}
 		\item Finally, we have that
 		\begin{align*}
-			\l \Psi_1 \vert H \Psi_2 \r - \l H \Psi_1 \vert  \Psi_2 \r
-			&= \int_{\R^{3N}} \Psi_1^* (H \Psi_2) dx - \int_{\R^{3N}} ( H \Psi_1 )^*  \Psi_2 dx \\
-			&= \int_{\R^{3N}} \Psi_1^* \bigg( \sum_{j=1}^N  -\frac{\hbar^2}{2m_j}\Del_j \Psi_2 \bigg) -  \bigg(\sum_{j=1}^N  -\frac{\hbar^2}{2m_j}\Del_j \Psi_1 \bigg)^*  \Psi_2 dx \\
-			&= \sum_{j=1}^N \frac{\hbar^2}{2m_j}\int_{\R^{3N}} (\Del \Psi_1^* )\Psi_2 - \Psi_1^*(\Del \Psi_2)dx\\
+			\l \Psi_1 , H \Psi_2 \r - \l H \Psi_1 ,  \Psi_2 \r
+			&= \int_{\R^{3N}} \Psi_1^* (H \Psi_2) dr - \int_{\R^{3N}} ( H \Psi_1 )^*  \Psi_2 dr \\
+			&= \int_{\R^{3N}} \Psi_1^* \bigg( \sum_{j=1}^N  -\frac{\hbar^2}{2m_j}\Del_j \Psi_2 \bigg) -  \bigg(\sum_{j=1}^N  -\frac{\hbar^2}{2m_j}\Del_j \Psi_1 \bigg)^*  \Psi_2 dr \\
+			&= \sum_{j=1}^N \frac{\hbar^2}{2m_j}\int_{\R^{3N}} (\Del_j \Psi_1^* )\Psi_2 - \Psi_1^*(\Del_j \Psi_2)dr\\
 			&= 0 \hspace{1cm} \text{(Green's second identity)}
 		\end{align*}
 	\end{enumerate}
@@ -455,57 +837,29 @@
 	\end{enumerate}
 \end{proof}
 
-\subsection{Third Postulate}
-	\begin{note}
-		Let $A$ be a self-adjoint operator corresponding to an observable quantity of the system with eigenvalues $(\lam_{n})_{n \in \N}$ of degeneracy $(k_n)_{n \in \N}$. The second postulate tells us that we are given a spanning set $(\Psi_{n,j})_{n \in \N,j \leq k_n}$ of eigenstates with $(\Psi_{n,j})_{j-1}^n$ a basis for the eigenspace of $\lam_n$. Using the Gram-Schmidt process within each eigenspace of $\lam_n$, we may assume that $(\Psi_{n,j})_{n \in \N,j \leq k_n}$ is an orthonormal basis for the Hilbert space. In these notes, we assume that our spanning set of eigenstates is orthonormal (this happens often in practice). 
-	\end{note}
+\subsection{Third Postulate}\textbf{(Measurement):}
+	
 
 	\begin{pos}
-		Let $A$ be a self-adjoint operator corresponding to an observable quantity of the system with eigenvalues $(\lam_{n})_{n \in \N}$ of degeneracy $(k_n)_{n \in \N}$ and an orthonormal basis of eigenstates $(\Psi_{n,j})_{n \in \N,j \leq k_n}$ for the Hilbert space with $(\Psi_{n,j})_{j =1}^{k_n}$ a basis for the eigenspace of $\lam_n$ and $\Psi = \sum_{n \in \N} \sum_{j = 1}^{k_n} c_{n,j} \Psi_{n,j}$ the state of the system. Then upon measurement,
+		Let $A$ be a self-adjoint operator corresponding to an observable quantity $\MA$ of $\MS$ with eigenvalues $(\lam_{n})_{n \in \N}$ of degeneracy $(k_n)_{n \in \N}$ and an orthonormal basis of eigenstates $(\psi_{n,j})_{n \in \N,j \leq k_n}$ for $\MH$ with $(\psi_{n,j})_{j =1}^{k_n}$ a basis for the eigenspace of $\lam_n$ and $\psi = \sum_{n \in \N} \sum_{j = 1}^{k_n} c_{n,j} \psi_{n,j}$ the state of the system. Then upon measurement,
 		\begin{enumerate}
 			\item  the probability of measuring $\lam_n$, denoted $P(\lam_n)$, is given by  $$P(\lam_n) = \sum_{j=1}^{k_n} |c_{n,j}|^2$$
-			\item if $\lam_n$ is measured, then the state of the system collapses to the state $$ \bigg( \frac{1}{\sum_{j=1}^{k_n} |c_{n,j}|^2} \bigg)^{1/2} \sum_{j=1}^{k_n}c_{n,j} \Psi_{n,j}$$ 
+			\item if $\lam_n$ is measured, then the state of the system collapses to the state $$ \bigg( \frac{1}{\sum_{j=1}^{k_n} |c_{n,j}|^2} \bigg)^{1/2} \sum_{j=1}^{k_n}c_{n,j} \psi_{n,j}$$ 
 		\end{enumerate}
 	\end{pos}
 
 
 \subsection{Fourth Postulate}
-\begin{pos}
-	If the state space for system $S_1$ is a subset of the hilbert space $H_1$ and the state space for system $S_2$ is a subset of the hilbert space $H_2$, then the state space for the composite system of $S_1$ with $S_2$ is a subset of the tensor product $H_1 \otimes H_2$. The state $\Psi_1 \otimes \Psi_2$ corresponds to the first system being in state $\Psi_1$ and the second system being in state $\Psi_2$. 
-\end{pos}
-
-\begin{ex}
-	Let $A$ be an operator corresponding to an observable quantity of the first component system with an orthonormal basis of eigenstates $(\Psi_{j})_{j \in \N}$, $B$ an operator corresponding to an observable quantity of the first component system with an orthonormal basis of eigenstates $(\Phi_{k})_{k \in \N}$. Then $A \otimes B$ corresponds to an observable quantity of the composite system with an orthonormal basis of eigenstates $(\Psi_{k} \otimes \Phi_k)_{j,k \in \N}$. Let $\Xi = \sum\limits_{j \in \N} \sum\limits_{k \in \N} c_{j,k}\Psi_{j} \otimes \Phi_k$, be the state of the composite system. Upon measurement of the observable quantity of the composite system corresponding to $A \otimes B$. Then 
-\end{ex}
-
-\begin{defn}
-	Consider two systems, $S_1$ and $S_2$ with each consisting of a single particle where the statespaces of $S_1$ and  $S_2$ are a subset of Hilbert spaces $H_1$ and $H_2$ respectively. The state of the composite system is said to be an \textbf{entangled state} if it cannot be expressed in the form $\Psi_1 \otimes \Psi_2$ for any $\Psi_1 \in H_1$ or $\Psi_2 \in H_2$. In this case, the two particles are said to be \textbf{entangled}.
-\end{defn}
-
-\begin{ex}
-	Suppose we have a composite system of two identical particles whose component systems are each contained in a $2$ dimensional hilbert space with orthonormal basis $\{| 0\r, | 1\r\}$. Then the state $$\frac{1}{\sqrt{2}}| 0 \r \otimes | 0 \r + \frac{1}{\sqrt{2}}| 1 \r \otimes | 1 \r$$ is an entangled state.
-\end{ex}
-
-\begin{proof}
-	Suppose there exist $c_1, \cdots, c_4 \in \C$ such that $$\frac{1}{\sqrt{2}}| 0 \r \otimes | 0 \r + \frac{1}{\sqrt{2}}| 1 \r \otimes | 1 \r = (c_1 | 0 \r + c_2| 1 \r) \otimes (c_3 | 0 \r + c_3| 1 \r)$$
-	Since $$(c_1 | 0 \r + c_2| 1 \r) \otimes (c_3 | 0 \r + c_3| 1 \r) = c_1c_3 | 0 \r \otimes | 0 \r + c_1c_4| 0 \r \otimes | 1 \r + c_2c_3| 1 \r \otimes | 0 \r + c_2c_4| 1 \r \otimes | 1 \r$$ we know that $c_1c_4 =  0$. So $c_1 =0 $ or $c_4 =0$. This is a contradiction.
-\end{proof}
-
-\begin{ex}
-	
-\end{ex}
-
-\subsection{Fifth Postulate}
 	\begin{defn}
-		The \textbf{\sch equation} is the linear partial differential equation given by $$i \hbar \pdv{t} \Psi = H \Psi$$
+		Given the hamiltonian $H$ of the system $\MS$, the \textbf{\sch equation} is the linear partial differential equation given by $$i \hbar \pdv{t} \Psi = H \Psi$$
 	\end{defn}
 	
 	\begin{pos}
-		The time evolution of an isolated system is described by the \sch equation.
+		Let $\Psi$ be the wave function of the system $S$. Then $\Psi$ satisfies the \sch equation.
 	\end{pos}
 
 	\begin{ex}
-		Suppose that the potential energy $V$ doesn't depend on time. Let $\Psi$ be a solution to the \sch equation. If there exist $\psi, \varphi$ such that $$\Psi(r,t) = \psi(r) \varphi(t)$$ Then $\Psi$ is an eigenstate of $H$ and there exists $E \in \R$ such that $H\psi = E \psi$ and $\varphi(t) = e^{-i\frac{E}{\hbar}t}$.
+		Suppose that the potential energy $V$ is independent of time. Let $\Psi$ be a solution to the \sch equation. If there exist $\psi, \varphi$ such that $$\Psi(r,t) = \psi(r) \varphi(t)$$ Then for each $t \in \R$, $\Psi(\cdot, t)$ is an eigenstate of $H$ and there exists $E \in \R$ such that $H\psi = E \psi$ and $\varphi(t) = e^{-i\frac{E}{\hbar}t}$.
 	\end{ex}
 
 	\begin{proof}
@@ -519,7 +873,7 @@
 			&= \varphi E \psi \\
 			&= E \Psi 
 		\end{align*}
-	So that $\Psi$ is an eigenstate of $H$. Since $H$ is self-adjoint, $E \in \R$. Equation (2) then implies that $\varphi(t) = e^{-i\frac{E}{\hbar}t}$
+	So that $\psi$ is an eigenstate of $H$. Since $H$ is self-adjoint, $E \in \R$. Equation (2) then implies that $\varphi(t) = e^{-i\frac{E}{\hbar}t}$
 	\end{proof}
 
 	\begin{note}
@@ -527,12 +881,13 @@
 	\end{note}
 
 	\begin{defn}
-		In the situation of the previous exercise, since we identify states that are rotations of each other, the the state is not changing over time. Thus we call $\Psi$ a \textbf{stationary state} of $H$. 
+		In the situation of the previous exercise, since we identify states that are rotations of each other, the the state is not changing over time. Thus we call $\Psi$ a \textbf{stationary state} of $\MS$. 
 	\end{defn}
 
 	\begin{note}
-		By the \href{https://en.wikipedia.org/wiki/Sturm%E2%80%93Liouville_theory}{Sturm-Liouville theory}, the stationary states form an orthonormal basis, so in practice, we can solve the time-independent \sch equation, append the time dependencies to obtain the stationary states and then be use those to represent a general state of the system. 
+		By the \href{https://en.wikipedia.org/wiki/Sturm%E2%80%93Liouville_theory}{Sturm-Liouville theory}, the stationary states obtained from separation of variables span the whole solution space. In practice, we solve the time-independent \sch equation, for an orthonormal basis of eigenstates of $H$, say $(\psi_{j})_{j \in \N}$ and their corresponding eigenvalues, say $(E_{j})_{j \in \N}$. Then any valid wave function for the system is of the form $$\Psi(r,t) = \sum_{j \in \N} c_j e^{-i \frac{E}{\hbar}t} \psi(r)$$ where $\sum\limits_{j \in \N} \|c_j\|^2 = 1$.
 	\end{note}
+
 
 	\begin{defn}
 		A stationary state of the system is called a \textbf{ground state} if the corresponding energy eigenvalue is minimal. All other stationary states are called \textbf{excited states}.
@@ -551,31 +906,58 @@
 			&= -H \Psi^*
 		\end{align*}
 	\end{proof}
-	
-	\begin{defn}
-		Consider a system consisting of one particle with mass $m$ with a potential energy $V$. We define the \textbf{probability current density}, $j$, of the particle to be $$j = \frac{\hbar}{2mi} \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg]$$ 
-	\end{defn}
-	
-	\begin{ex}\textbf{(Continuity Equation):}\\ 
-		We have that $$\p{t} (\Psi^* \Psi) +  \nabla \cdot j = 0 $$
+
+		\begin{ex}
+		Let $\Psi$ be a solution to the \sch equation. If $\Psi(\cdot, 0) \in \Sig_{\MH}$, then $\Psi$ is a valid wavefunction for $\MS$, that is, for each $t \in \R$, $$\| \Psi(\cdot, t) \| = 1$$
 	\end{ex}
 	
 	\begin{proof}
+		From previous exercises and the \sch equation, we know that $H$ is self-adjoint, $$\pdv{t} \Psi = -\frac{i}{\hbar} H\Psi \hspace{.2cm} \text{ and } \hspace{.2cm} \pdv{t} \Psi^* = \frac{i}{\hbar} H\Psi^*$$  
 		\begin{align*}
-			\p{t}(\Psi^* \Psi) 
-			&= \bigg(\p{t} \Psi^* \bigg) \Psi + \Psi^* \bigg(\p{t} \Psi \bigg)\\
-			&= -\frac{1}{i\hbar}(H\Psi^*) \Psi + \frac{1}{i\hbar} \Psi^* (H\Psi) \\
-			&= \bigg( \frac{\hbar}{2mi} (\Del \Psi^*) \Psi - \frac{1}{i \hbar }V \Psi^* \Psi\bigg) + \bigg( -\frac{\hbar}{2mi}  \Psi^* (\Del \Psi) + \frac{1}{i \hbar }V \Psi^* \Psi \bigg)\\
-			&= \frac{\hbar}{2mi} \bigg[ (\Del \Psi^*) \Psi - \Psi^* (\Del \Psi) \bigg]\\
-			&= -\frac{\hbar}{2mi} \bigg[ \Psi^* (\Del \Psi) - (\Del \Psi^*) \Psi\bigg]\\
-			&= - \frac{\hbar}{2mi} \nabla \cdot \bigg[\Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi \bigg]\\
-			&= -\nabla \cdot j
+			\pdv{t}\|\Psi\|^2
+			&= \pdv{t} \int_{\R^{3N}} \Psi^* \Psi dr \\
+			&= \int_{\R^{3N}} \pdv{t} \bigg(\Psi^* \Psi \bigg) dr \\
+			&= \int_{\R^{3N}} \bigg(\pdv{t} \Psi^* \bigg) \Psi dr + \int_{\R^{3N}} \Psi^*\bigg( \pdv{t} \Psi \bigg) dr \\
+			&= \frac{i}{\hbar} \bigg[ \int_{\R^{3N}} (H \Psi^*)  \Psi dr - \int_{\R^{3N}} \Psi^* (H \Psi)  dr \bigg] \\
+			&= \frac{i}{\hbar} \bigg[ \int_{\R^{3N}} (H \Psi)^*  \Psi dr - \int_{\R^{3N}} \Psi^* (H \Psi)  dr \bigg]\\
+			&= \frac{i}{\hbar} \bigg[ \l H \Psi , \Psi\r - \l \Psi , H \Psi\r \bigg]\\
+			&= \frac{i}{\hbar} \bigg[ \l \Psi , H\Psi\r - \l \Psi , H \Psi\r \bigg] \\
+			&\equiv 0
 		\end{align*}
-		
-		Therefore  $$\p{t} (\Psi^* \Psi) + \frac{\hbar}{2mi} \nabla \cdot \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg] = 0 $$
+		So for each $t \in \R$, $$\| \Psi(\cdot, t) \| = \| \Psi(\cdot, 0) \| = 1$$
+		which implies that  for each $t \in \R$, $\Psi(\cdot, t) \in \Sig_{\MH}$. Therefore $\Psi$ is a valid wavefunction.
 	\end{proof}
 
+	\subsection{Fifth Postulate}
+	\begin{pos}
+		Suppose that we partition $\MS$ into two subsystems $\MS_1$ and $\MS_2$ with associated Hilbert spaces $\MH_1$ and $\MH_2$. Then $\MH = \MH_1 \otimes \MH_2$. 
+	\end{pos}
+
+	\begin{note}
+		This is actually just a provable fact about certain multivariable functions, but I wanted to make the assumption explicit. The idea is that two one-particle, one-dimensional systems $S_1$ and $S_2$ are described by wave functions $\psi_1, \psi_2 \in C_0(\R, \C)$. The wave function for the composite system $\MS$ is described by a wave function $\psi  \in C_0(\R^2, \C)$. \\ 
+		Then the Stone–Weierstrass theorem tells us that $\MA = \spn \{p \otimes q: p,q \in C_0(\R, \C)\}$ is dense in $C_0(\R^2, \C) = C_0(\R, \C) \otimes C_0(\R, \C)$ with respect to $\|\cdot\|_{\infty}$ which implies that $\MA \cap L^2(\R^2)$ is dense in $C_0(\R^2, \C) \cap L^2(\R^2)$ with respect to $\|\cdot\|_{2}$ as well. So essentially our state space for $\MS$ is $\Sig_{C_0(\R, \C)^{\otimes 2}}$
+	\end{note}
 	
+	\begin{ex}
+		Let $A_1$ and $A_2$ be operators corresponding to the same observable quantity in systems $S_1$ and $S_2$ respectively. Suppose that $A_1$ and $A_2$ each have an orthonormal basis of eigenstates given by $(\psi_{j})_{j \in \N}$ and $(\psi_{j})_{j \in \N}$ respectively. Then $A_1 \otimes I +$ corresponds to an observable quantity of the composite system with an orthonormal basis of eigenstates $(\Psi_{k} \otimes \phi_k)_{j,k \in \N}$. Let $\Xi = \sum\limits_{j \in \N} \sum\limits_{k \in \N} c_{j,k}\Psi_{j} \otimes \Phi_k$, be the state of the composite system. Upon measurement of the observable quantity of the composite system corresponding to $A \otimes B$. Then 
+	\end{ex}
+	
+	\begin{defn}
+		Consider two systems, $S_1$ and $S_2$ with each consisting of a single particle where the statespaces of $S_1$ and  $S_2$ are a subset of Hilbert spaces $H_1$ and $H_2$ respectively. The state of the composite system is said to be an \textbf{entangled state} if it cannot be expressed in the form $\Psi_1 \otimes \Psi_2$ for any $\Psi_1 \in H_1$ or $\Psi_2 \in H_2$. In this case, the two particles are said to be \textbf{entangled}.
+	\end{defn}
+	
+	\begin{ex}
+		Suppose we have a composite system of two identical particles whose component systems are each contained in a $2$ dimensional hilbert space with orthonormal basis $\{| 0\r, | 1\r\}$. Then the state $$\frac{1}{\sqrt{2}}| 0 \r \otimes | 0 \r + \frac{1}{\sqrt{2}}| 1 \r \otimes | 1 \r$$ is an entangled state.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose there exist $c_1, \cdots, c_4 \in \C$ such that $$\frac{1}{\sqrt{2}}| 0 \r \otimes | 0 \r + \frac{1}{\sqrt{2}}| 1 \r \otimes | 1 \r = (c_1 | 0 \r + c_2| 1 \r) \otimes (c_3 | 0 \r + c_3| 1 \r)$$
+		Since $$(c_1 | 0 \r + c_2| 1 \r) \otimes (c_3 | 0 \r + c_3| 1 \r) = c_1c_3 | 0 \r \otimes | 0 \r + c_1c_4| 0 \r \otimes | 1 \r + c_2c_3| 1 \r \otimes | 0 \r + c_2c_4| 1 \r \otimes | 1 \r$$ we know that $c_1c_4 =  0$. So $c_1 =0 $ or $c_4 =0$. This is a contradiction.
+	\end{proof}
+	
+	\begin{ex}
+		
+	\end{ex}
 
 	
 	
@@ -596,7 +978,13 @@
 
 
 
-\section{Fundamental Examples in One Dimension}
+\section{One Particle in One Dimension}
+
+\subsection{Parity}
+
+\begin{defn}
+	
+\end{defn}
 
 \subsection{The Infinite Square Well}
 
@@ -632,9 +1020,10 @@ V_\al(x) =
 \al & x \in I_3
 \end{cases}
 \]
-
-For the potential energy $V_\al$, in sections $I_1, I_3$ the \sch equation may be written as $$\dv[2]{\psi}{x} = \frac{2m}{\hbar^2}(\al-E)\psi$$ Assuming $\al > E$, we may write $l = \frac{\sqrt{2m(\al-E)}}{\hbar}$ and substitute to get $$\dv[2]{\psi}{x} = l^2\psi$$ \\Thus in region $I_1$, $\psi_1(x) = Ae^{lx} + Be^{-lx}$ and in region $I_3$, $\psi_3(x) = Fe^{lx} + Ge^{-lx}$. Since $e^{-lx}$ blows up as $x \rightarrow - \infty$, $B=0$. Since $e^{lx}$ blows up as $x \rightarrow  \infty$, $F=0$. \vspace{4mm}\\
-In section $I_2$, the \sch equation may be written as $$\dv[2]{\psi}{x} = -\frac{2mE}{\hbar^2}\psi$$ We write $k = \frac{\sqrt{2mE}}{\hbar}$ and substitute to get $$\dv[2]{\psi}{x} = -k^2\psi$$  
+Let $\psi_1$, $\psi_2$ and  $\psi_3$ be solutions to the time-independent \sch equation in regions $I_1$, $I_2$ and $I_3$ respectively. \\
+For the potential energy $V_\al$, in sections $I_1, I_3$ the time-independent \sch equation may be written as $$\dv[2]{\psi}{x} = \frac{2m}{\hbar^2}(\al-E)\psi$$ Assuming $\al > E$, we may write $$l = \frac{\sqrt{2m(\al-E)}}{\hbar} >0$$ and substitute to get $$\dv[2]{\psi}{x} = l^2\psi$$ \\
+Thus in region $I_1$, $\psi_1(x) = Ae^{lx} + Be^{-lx}$ and in region $I_3$, $\psi_3(x) = Fe^{lx} + Ge^{-lx}$. Since $e^{-lx}$ blows up as $x \rightarrow - \infty$, $B=0$. Since $e^{lx}$ blows up as $x \rightarrow  \infty$, $F=0$. \vspace{4mm}\\
+In section $I_2$, the \sch equation may be written as $$\dv[2]{\psi}{x} = -\frac{2mE}{\hbar^2}\psi$$ We write $$k = \frac{\sqrt{2mE}}{\hbar} >0$$ and substitute to get $$\dv[2]{\psi}{x} = -k^2\psi$$  
 Hence in region $I_2$, $\psi_2(x) = C\sin(kx) + D \cos(kx)$. \vspace{.4cm}\\
 So far we have 
 \[
@@ -645,7 +1034,6 @@ C\sin(kx) + D \cos(kx)  & x \in I_2 \\
 Ge^{-lx} & x \in I_3
 \end{cases}
 \]
-
 To find possible wavefunctions $\psi$ for the infinite potential, we let $\al \rightarrow \infty$. As $\al \rightarrow \infty$, we have that $l \rightarrow \infty$. Hence $\psi_1 \rightarrow 0$ and $\psi_3 \rightarrow 0$. So for the infinite potential, 
 \[
 \psi(x)= 
@@ -654,8 +1042,7 @@ C\sin(kx) + D \cos(kx)  & x \in (0,a) \\
 0 & x \not \in (0,a)
 \end{cases}
 \] 
-
-By continuity at the points $x=0$ and $x=a$, we see that $0 = C\sin(0) + D \cos(0)$ which imples that $D= 0$ and $0 = C\sin(ka)$ which yields various solutions $$k_n = \frac{n \pi}{a} \hspace{.5cm} n \in \Z$$
+By continuity at the the point $x=0$, we see that $0 = C\sin(0) + D \cos(0)$ which imples that $D= 0$, By continuity at the the point $x=a$, we see that $0 = C\sin(ka)$ which yields discrete values of $k$: $$k_n = \frac{n \pi}{a} \hspace{.5cm} n \in \Z$$
 To avoid non-normalizable solutions or linearly dependent solutions, we restrict $n \in \N$. Our energies are then $$E_n = \frac{\hbar^2k_n^2}{2m} = \frac{\hbar^2n^2 \pi^2}{2ma^2} \hspace{.4cm} n \in \N$$
 and (after normalizing) our stationary states are 
 \[
@@ -681,12 +1068,12 @@ The adjoint of the lowering operator is the raising operator: $$(a_-)^{\dagger} 
 \begin{proof}
 Let $\Psi_1$, $\Psi_2$ be wavefunctions. Since $X,P$ are self-adjoint, we have that
 \begin{align*}
-\l \Psi_1 \vert a_- \Psi_2\r
-&= \frac{1}{\sqrt{2 \hbar m \om}} \l\Psi_1 \vert (m\om X +iP) \Psi_2 \r \\
-&= \frac{1}{\sqrt{2 \hbar m \om}}\bigg[ m \om \l\Psi_1 \vert X \Psi_2 \r +i \l \Psi_1 \vert  P \Psi_2 \r \bigg] \\
-&= \frac{1}{\sqrt{2 \hbar m \om}}\bigg[  \l m \om X \Psi_1 \vert \Psi_2 \r + \l -i P \Psi_1 \vert \Psi_2 \r \bigg] \\
-&= \frac{1}{\sqrt{2 \hbar m \om}}  \l (m \om X -iP)\Psi_1 \vert \Psi_2 \r  \\
-&= \l a_+ \Psi_1 \vert \Psi_2\r 
+\l \Psi_1 , a_- \Psi_2\r
+&= \frac{1}{\sqrt{2 \hbar m \om}} \l\Psi_1 , (m\om X +iP) \Psi_2 \r \\
+&= \frac{1}{\sqrt{2 \hbar m \om}}\bigg[ m \om \l\Psi_1 , X \Psi_2 \r +i \l \Psi_1 ,  P \Psi_2 \r \bigg] \\
+&= \frac{1}{\sqrt{2 \hbar m \om}}\bigg[  \l m \om X \Psi_1 , \Psi_2 \r + \l -i P \Psi_1 , \Psi_2 \r \bigg] \\
+&= \frac{1}{\sqrt{2 \hbar m \om}}  \l (m \om X -iP)\Psi_1 , \Psi_2 \r  \\
+&= \l a_+ \Psi_1 , \Psi_2\r 
 \end{align*}
 \end{proof}
 
@@ -760,17 +1147,17 @@ We have that
 
 \begin{proof}\
 \begin{enumerate}
-\item The simple differential equation $a_-\psi_0 = 0$ has the solution $$\psi_0 = Ae^{-\frac{m \om}{2 \hbar}x^2}$$ Thus $$\vert \psi_0\vert^2 = \vert A \vert^2 e^{-\frac{m \om}{ \hbar}x^2}$$ If we normalize this function, we obtain $$\psi_0= \bigg( \frac{m \om}{ \pi \hbar} \bigg)^{\frac{1}{4}} e^{-\frac{m \om}{2 \hbar}x^2}$$
+\item The simple differential equation $a_-\psi_0 = 0$ has the solution $$\psi_0 = Ae^{-\frac{m \om}{2 \hbar}x^2}$$ Thus $$| \psi_0|^2 = | A |^2 e^{-\frac{m \om}{ \hbar}x^2}$$ If we normalize this function, we obtain $$\psi_0= \bigg( \frac{m \om}{ \pi \hbar} \bigg)^{\frac{1}{4}} e^{-\frac{m \om}{2 \hbar}x^2}$$
 \item It is tedious but straightforward to show that $$H\psi_0 = \frac{1}{2}\hbar \om\psi_0$$
 \item Clear by definition.
 \item Clear by previous exercise.
 \end{enumerate} 
 \end{proof}
 
-\begin{ex}
-\begin{enumerate}\
-\item $\psi_{n+1} = \frac{1}{\sqrt{n+1}} a_+\psi_n $
-\item $\psi_{n-1} = \frac{1}{\sqrt{n}} a_- \psi_n $
+\begin{ex} We have that
+\begin{enumerate}
+\item  $$\psi_{n+1} = \frac{1}{\sqrt{n+1}} a_+\psi_n $$
+\item $$\psi_{n-1} = \frac{1}{\sqrt{n}} a_- \psi_n $$
 
 \end{enumerate}
 Hint: use the adjoint-ness of $a_-$ and $a_+$
@@ -788,13 +1175,13 @@ a_-a_+\psi_n
 Since $\psi_{n+1} = ca_+\psi_{n}$, we have that
 \begin{align*}
 1
-&=\l \psi_{n+1}\vert \psi_{n+1}\r\\
-&=\l c a_+\psi_n \vert ca_+\psi_n\r\\
-&= \vert c\vert^2 \l a_+ \psi_n\vert a_+ \psi_n \r\\
-&= \vert c\vert^2 \l a_- a_+\psi_n \vert \psi_n \r\\
-&= \vert c\vert^2 \l (n+1)\psi_n \vert \psi_n \r\\
-&= \vert c\vert^2  (n+1) \l \psi_n \vert \psi_n \r\\
-&= \vert c\vert^2  (n+1)\\
+&=\l \psi_{n+1}, \psi_{n+1}\r\\
+&=\l c a_+\psi_n , ca_+\psi_n\r\\
+&= |c|^2 \l a_+ \psi_n, a_+ \psi_n \r\\
+&= |c|^2 \l a_- a_+\psi_n , \psi_n \r\\
+&= |c|^2 \l (n+1)\psi_n , \psi_n \r\\
+&= |c|^2  (n+1) \l \psi_n , \psi_n \r\\
+&= |c|^2  (n+1)\\
 \end{align*}
 So $c = \frac{1}{\sqrt{n+1}}$\vspace{2mm}
 
@@ -834,13 +1221,54 @@ The rest is straightforward.
 \end{proof}
 \newpage
 
-\section{Spherical Coordinates and Orbital Angular Momentum}
-\begin{note}
-In the rest of the notes we will be working in three dimensions. In this section, we develop a method to solve the time independent \sch equation when the potential energy us spherically symmetric. We also develop a theory of orbital angular momentum and see how it relates to the time independent \sch equation. 
-\end{note}
+\section{One Particle in Three Dimensions}
+
+\subsection{Infinite Square Well}
+
+\subsection{Spherical Harmonic Oscillator (Cartesian Coordinates)}
+
+\begin{defn}
+	The spherical harmonic oscillator (in cartesian coordinates) is defined by the potential energy
+	$$V(x,y,z) = x^2 + y^2 + z^2$$
+\end{defn}
+
+\begin{ex}
+	In cartesian coordinates, the the stationary states of the harmonic oscillator are given by $$\psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energies $$E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$ where $\psi_{n_x}, \psi_{n_y}, \psi_{n_z}$ are stationary states for the one dimensional harmonic oscillator.
+\end{ex}
+
+\begin{proof}
+	We look for solutions of the form $\psi(x,y,z) = \psi_x(x) \psi_y(y) \psi_z(z)$. Plugging this into the time-independent \sch equation, we get $$-\frac{\hbar^2}{2m}\bigg[ \pdv[2]{\psi_x}{x}\psi_y \psi_z + \psi_x \pdv[2]{\psi_y}{y} \psi_z  + \psi_x \psi_y \pdv[2]{\psi_z}{z} \bigg] + \frac{1}{2}m \omega^2(x^2 + y^2 + x^2) \psi = E\psi$$ Dividing both sides by $\psi$ and rearranging, we obtain $$\bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x}\frac{1}{\psi_x} + \frac{1}{2}m \om^2x^2\bigg) + \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y}\frac{1}{\psi_y} + \frac{1}{2}m \om^2y^2\bigg)+ \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z}\frac{1}{\psi_z} + \frac{1}{2}m \om^2z^2\bigg) = E $$ 
+	Thus each part is constant and we may write 
+	\begin{align*}
+		-\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x} + \frac{1}{2}m \om^2x^2\psi_x = E_x\psi_x \\ 
+		-\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y} + \frac{1}{2}m \om^2y^2\psi_y = E_y\psi_y \\
+		-\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z} + \frac{1}{2}m \om^2z^2\psi_z = E_z\psi_z
+	\end{align*}
+	
+	So we have three one-dimensional harmonic oscillators and we have 
+	\begin{align*}
+		\psi_x = \psi_{n_x} = \frac{1}{\sqrt{{n_x}!}}(a_+)^{n_x} \psi_0 \text{ and } E_x = E_{n_x} = \hbar \om \bigg( n_x +\frac{1}{2}\bigg)\\
+		\psi_y = \psi_{n_y} = \frac{1}{\sqrt{{n_y}!}}(a_+)^{n_y} \psi_0 \text{ and } E_y = E_{n_y} = \hbar \om \bigg( n_y +\frac{1}{2}\bigg)\\
+		\psi_z = \psi_{n_z} = \frac{1}{\sqrt{{n_z}!}}(a_+)^{n_z} \psi_0 \text{ and } E_z = E_{n_z} = \hbar \om \bigg( n_z +\frac{1}{2}\bigg)
+	\end{align*}
+	Thus $$\psi = \psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energy $$E = E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$
+\end{proof}
+
+\begin{ex}
+	Show that the degree of degeneracy of $E_n$ is $$deg(E_n) = {n+2 \choose 2}$$
+\end{ex}
+
+\begin{proof}
+	Stars and bars
+\end{proof}
+
+\begin{intp}
+	The energies of the three-dimensional harmonic oscillator are given by $E_n = \hbar \om \bigg( n + \frac{3}{2}\bigg)$ which correspond to $ n+2 \choose 2$ stationary states.
+\end{intp} 
 
 
 \subsection{The Time Independent \sch Equation in Spherical Coordinates}
+
 \begin{defn}
 We will now work with spherical coordinates $(r, \theta, \phi)$ where $r$ is the distance in from the origin, $0 \leq \theta \leq \pi$ is the angle with initial side on the positive $z$-axis, and $0 \leq \phi < 2\pi$ is the angle in the $x$-$y$ plane with initial side on the positive $x$-axis going towards the positive $y$-axis.
 \end{defn}
@@ -872,7 +1300,7 @@ $$\frac{1}{\Theta}  \sin \theta \frac{d}{d\theta}\bigg( \sin \theta \frac{d\Thet
 \end{enumerate} \vspace{3mm}
 This equation is called the \textbf{azimuthal equation} and has the solution $$\Phi(\phi) = e^{im\phi}$$
 Since $(r,\theta, \phi)$ is the same point in space as $(r, \theta, \phi+2 \pi)$, we require that $\Phi(\phi) = \Phi(\phi+2\pi)$. This implies that $m \in \Z$. The integer $m$ is called the \textbf{magnetic quantum number}. \vspace{3mm}\\ 
-If $l \in \N_0$ and $m \leq l$, then equation $(1)$ has the solution $$\Theta(\theta) = AP_l^m(\cos \theta)$$ where $P_l^m$ is the \textbf{associated Legendre} function given by $$P_l^m(x) = (1-x^2)^{\frac{\vert m \vert}{2}}\bigg(\frac{d}{dx} \bigg)^{\vert m \vert} P_l(x)$$ and $P_l(x)$ is the $l^{\text{th}}$ \textbf{Legendre polynomial} defined by $$P_l(x) = \frac{1}{2^l l!} \bigg(\frac{d}{dx} \bigg)^{l}(x^2 -1)^l$$ \vspace{3mm} The angular function $Y^m_l(\theta, \phi) = A_l^m P_l^m(\cos \theta)e^{im\phi}$ may be normalized by setting $$A_l^m = \ep \sqrt{\frac{(2l+1)}{4\pi} \frac{(l-\vert m \vert)!}{(l+ \vert m \vert)!}}$$ where $$\ep = 
+If $l \in \N_0$ and $m \leq l$, then equation $(1)$ has the solution $$\Theta(\theta) = AP_l^m(\cos \theta)$$ where $P_l^m$ is the \textbf{associated Legendre} function given by $$P_l^m(x) = (1-x^2)^{\frac{, m ,}{2}}\bigg(\frac{d}{dx} \bigg)^{, m ,} P_l(x)$$ and $P_l(x)$ is the $l^{\text{th}}$ \textbf{Legendre polynomial} defined by $$P_l(x) = \frac{1}{2^l l!} \bigg(\frac{d}{dx} \bigg)^{l}(x^2 -1)^l$$ \vspace{3mm} The angular function $Y^m_l(\theta, \phi) = A_l^m P_l^m(\cos \theta)e^{im\phi}$ may be normalized by setting $$A_l^m = \ep \sqrt{\frac{(2l+1)}{4\pi} \frac{(l-, m ,)!}{(l+ , m ,)!}}$$ where $$\ep = 
 \begin{cases}
 (-1)^m & m \geq 0\\
 1 & m < 0
@@ -951,11 +1379,11 @@ We have that
 
 \begin{proof} Let $\Psi_1, \Psi_2$ be wave functions. Since $X_i$ and $P_j$ are self-adjoint and commute for $i \neq j$, we have that
 \begin{align*}
-\l \Psi_1 \vert L_x \Psi_2\r
-&= \l \Psi_1 \vert YP_z \Psi_2\r - \l \Psi_1 \vert ZP_y \Psi_2\r\\
-&= \l P_zY\Psi_1 \vert  \Psi_2\r - \l P_yZ \Psi_1 \vert \Psi_2\r \\
-&= \l YP_z \Psi_1 \vert  \Psi_2\r - \l ZP_y \Psi_1 \vert \Psi_2\r \\
-&= \l L_x\Psi_1 \vert \Psi_2\r 
+\l \Psi_1 , L_x \Psi_2\r
+&= \l \Psi_1 , YP_z \Psi_2\r - \l \Psi_1 , ZP_y \Psi_2\r\\
+&= \l P_zY\Psi_1 ,  \Psi_2\r - \l P_yZ \Psi_1 , \Psi_2\r \\
+&= \l YP_z \Psi_1 ,  \Psi_2\r - \l ZP_y \Psi_1 , \Psi_2\r \\
+&= \l L_x\Psi_1 , \Psi_2\r 
 \end{align*} \\
 So $L_x$ is self-adjoint. The case is similar for $L_y$ and $L_z$
 \end{proof}
@@ -978,12 +1406,12 @@ The lowering operator is the adjoint of the raising operator: $$L_- = (L_+)^{\da
 
 \begin{proof} Let $\Psi_1, \Psi_2$ be wavefunctions. Then 
 \begin{align*}
-\l \Psi_1 \vert L_+ \Psi_2 \r
-&=  \l \Psi_1 \vert L_x \Psi_2 \r + i\l \Psi_1 \vert L_y \Psi_2 \r \\
-&= \l L_x \Psi_1 \vert \Psi_2 \r + i\l L_y \Psi_1 \vert  \Psi_2 \r \\
-&= \l L_x \Psi_1 \vert \Psi_2 \r + \l -i L_y \Psi_1 \vert  \Psi_2 \r \\
-&= \l (L_x -iL_y)\Psi_1 \vert \Psi_2 \r\\
-&= \l L_- \Psi_1 \vert \Psi_2 \r
+\l \Psi_1 , L_+ \Psi_2 \r
+&=  \l \Psi_1 , L_x \Psi_2 \r + i\l \Psi_1 , L_y \Psi_2 \r \\
+&= \l L_x \Psi_1 , \Psi_2 \r + i\l L_y \Psi_1 ,  \Psi_2 \r \\
+&= \l L_x \Psi_1 , \Psi_2 \r + \l -i L_y \Psi_1 ,  \Psi_2 \r \\
+&= \l (L_x -iL_y)\Psi_1 , \Psi_2 \r\\
+&= \l L_- \Psi_1 , \Psi_2 \r
 \end{align*}
 Hence $L_- = (L_+)^{\dagger}$.
 \end{proof}
@@ -1113,7 +1541,7 @@ So $-l = l-N$ and $l = \frac{N}{2}$. Thus $l \in \frac{1}{2}\N_0$.
 \end{proof}
 
 \begin{defn}
-For $m = -l, -l+1, \cdots l-1, l$ define $f_l^m$ to be the simultaneous eigenstate of $L^2$ and $L_z$ given by $$f_l^m = \l L_-^{l-m}f_t \vert L_-^{l-m}f_t \r^{-\frac{1}{2}}  L_-^{l-m}f_t$$ 
+For $m = -l, -l+1, \cdots l-1, l$ define $f_l^m$ to be the simultaneous eigenstate of $L^2$ and $L_z$ given by $$f_l^m = \l L_-^{l-m}f_t , L_-^{l-m}f_t \r^{-\frac{1}{2}}  L_-^{l-m}f_t$$ 
 \end{defn}
 
 \begin{ex}We have that
@@ -1176,52 +1604,6 @@ If we recall from earlier, these are just the angular and azimuthal equations re
 the quantum number $m$ is is dependent on the quantum number $l$. Later we will write $m_l$ to emphasize this, as well as to avoid confusion with mass or other quantum numbers. 
 \end{note}
 \newpage
-
-\section{Fundamental Examples in Three Dimensions}
-\begin{note}
-In this section we will introduce discuss the 3D harmonic oscillator and the hydrogen atom.
-\end{note}
-
-\subsection{Spherical Harmonic Oscillator (Cartesian Coordinates)}
-
-\begin{defn}
-The spherical harmonic oscillator (in cartesian coordinates) is defined by the potential energy
-$$V(x,y,z) = x^2 + y^2 + z^2$$
-\end{defn}
-
-\begin{ex}
-In cartesian coordinates, the the stationary states of the harmonic oscillator are given by $$\psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energies $$E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$ where $\psi_{n_x}, \psi_{n_y}, \psi_{n_z}$ are stationary states for the one dimensional harmonic oscillator.
-\end{ex}
-
-\begin{proof}
-We look for solutions of the form $\psi(x,y,z) = \psi_x(x) \psi_y(y) \psi_z(z)$. Plugging this into the time-independent \sch equation, we get $$-\frac{\hbar^2}{2m}\bigg[ \pdv[2]{\psi_x}{x}\psi_y \psi_z + \psi_x \pdv[2]{\psi_y}{y} \psi_z  + \psi_x \psi_y \pdv[2]{\psi_z}{z} \bigg] + \frac{1}{2}m \omega^2(x^2 + y^2 + x^2) \psi = E\psi$$ Dividing both sides by $\psi$ and rearranging, we obtain $$\bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x}\frac{1}{\psi_x} + \frac{1}{2}m \om^2x^2\bigg) + \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y}\frac{1}{\psi_y} + \frac{1}{2}m \om^2y^2\bigg)+ \bigg(-\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z}\frac{1}{\psi_z} + \frac{1}{2}m \om^2z^2\bigg) = E $$ 
-Thus each part is constant and we may write 
-\begin{align*}
--\frac{\hbar^2}{2m}\pdv[2]{\psi_x}{x} + \frac{1}{2}m \om^2x^2\psi_x = E_x\psi_x \\ 
--\frac{\hbar^2}{2m}\pdv[2]{\psi_y}{y} + \frac{1}{2}m \om^2y^2\psi_y = E_y\psi_y \\
--\frac{\hbar^2}{2m}\pdv[2]{\psi_z}{z} + \frac{1}{2}m \om^2z^2\psi_z = E_z\psi_z
-\end{align*}
-
-So we have three one-dimensional harmonic oscillators and we have 
-\begin{align*}
-\psi_x = \psi_{n_x} = \frac{1}{\sqrt{{n_x}!}}(a_+)^{n_x} \psi_0 \text{ and } E_x = E_{n_x} = \hbar \om \bigg( n_x +\frac{1}{2}\bigg)\\
-\psi_y = \psi_{n_y} = \frac{1}{\sqrt{{n_y}!}}(a_+)^{n_y} \psi_0 \text{ and } E_y = E_{n_y} = \hbar \om \bigg( n_y +\frac{1}{2}\bigg)\\
-\psi_z = \psi_{n_z} = \frac{1}{\sqrt{{n_z}!}}(a_+)^{n_z} \psi_0 \text{ and } E_z = E_{n_z} = \hbar \om \bigg( n_z +\frac{1}{2}\bigg)
-\end{align*}
-Thus $$\psi = \psi_{n_x, n_y, n_z}(x,y,z) = \psi_{n_x}(x)\psi_{n_y}(y)\psi_{n_z}(z)$$ with energy $$E = E_{n_x,n_y, n_z} = \hbar \om \bigg (n_x + n_y + n_z + \frac{3}{2} \bigg)$$
-\end{proof}
-
-\begin{ex}
-Show that the degree of degeneracy of $E_n$ is $$deg(E_n) = {n+2 \choose 2}$$
-\end{ex}
-
-\begin{proof}
-Stars and bars
-\end{proof}
-
-\begin{intp}
-The energies of the three-dimensional harmonic oscillator are given by $E_n = \hbar \om \bigg( n + \frac{3}{2}\bigg)$ which correspond to $ n+2 \choose 2$ stationary states.
-\end{intp}
 
 
 \subsection{The Hydrogen Atom}
@@ -1501,23 +1883,107 @@ i & 0
 \end{pmatrix}$$ So that $S_x = \frac{1}{2} \hbar\sig_x$, $S_y = \frac{1}{2} \hbar\sig_y$ and $S_z = \frac{1}{2} \hbar\sig_z$
 \end{defn}
 
-\section{Perturbation Theory}
+
+
+\newpage
 
 \section{Multiple Identical Particles}
 
-\begin{note}
-	For the remainder of this section, we consider a system of $N$ identical particles and we assume that the potential energy of the system, $V(r_1, \cdots, r_N)$, is symmetric in $r_1, \cdots, r_N$. 
-\end{note}
-
 \subsection{Bosons and Fermions}
 
+\begin{defn}
+	A particle is called a 
+	\begin{enumerate}
+		\item \textbf{boson} if it has integer spin 
+		\item \textbf{fermion} if it has half-integer spin
+	\end{enumerate}
+\end{defn}
+
+\begin{note}
+	For the remainder of this section, we assume the system $\MS$ consists of $N$ identical particles with mass $m$ and we assume that the potential energy of the system, $V(r_1, \cdots, r_N)$, is symmetric in $r_1, \cdots, r_N$. 
+\end{note}
+
 \begin{thm}
-	The wave function $\Psi(r_1, \cdots, r_N)$ of a system is either symmetric or alternating in $r_1, \cdots, r_N$ and is whether it is symmetric or alternating depends only on the type of particle that populates the system.
+	If the particles in $\MS$ are bosons then the wave function of $\MS$ is symmetric. If the particles in $\MS$ are fermions then the wave function of $\MS$ is alternating.
 \end{thm}
 
-\begin{defn}
-	The particles in a system are called \textbf{bosons} if the wave function is symmetric and the particles are called \textbf{fermions} if the wave function is alternating. 
-\end{defn}
+\begin{ex}
+	Suppose that $\Psi$ is a wavefunction for $\MS$. Then 
+	\begin{enumerate}
+		\item for $\sig \in S_N$ and $i \in \{1, \cdots, N\}$, $\Del_i \sig \Psi = \sig \Del_{\sig(i)} \Psi$
+		\item for each $\sig \in S_N$, $\sig H \Psi= H \sig \Psi$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Clear.
+		\item We have that 
+		\begin{align*}
+			H \sig \Psi
+			&= -\frac{\hbar^2}{2m}\sum_{j=1}^N \Del_j (\sig \Psi)    + V \sig \Psi \\
+			&= -\frac{\hbar^2}{2m}\sum_{j=1}^N \sig \Del_{\sig(j)} \Psi   + \sig (V \Psi) \hspace{.5cm} \text{($V$ is symmetric)}\\ 
+			&=  \sig \bigg[ -\frac{\hbar^2}{2m}  \sum_{j=1}^N  \Del_{\sig(j)} \Psi   +  V \Psi \bigg] \\ 
+			&= \sig \bigg[-\frac{\hbar^2}{2m}  \sum_{j=1}^N  \Del_j \Psi   +  V \Psi \bigg] \\ 
+			&= \sig H \Psi
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	If $\Psi$ is a solution to the \sch equation, then $\sym \Psi$ and $\alt \Psi$ are solutions to the \sch equation.
+\end{ex}
+
+\begin{proof}
+	In the symmetric case, we have that
+	\begin{align*}
+		H \sym \Psi 
+		&= H \sum_{\sig \in S_N}\sig \Psi \\
+		&= \sum_{\sig \in S_N} H \sig \Psi \\
+		&= \sum_{\sig \in S_N} \sig H \Psi \\
+		&= \sum_{\sig \in S_N}\sig \bigg( i\hbar \pdv{t} \Psi \bigg) \\
+		&= i\hbar \pdv{t} \bigg[ \sum_{\sig \in S_N}\sig \Psi \bigg]  \\
+		&= i\hbar \pdv{t} \sym \Psi
+	\end{align*}
+	Similarly, in the alternating case, we have that
+	\begin{align*}
+		H \alt \Psi 
+		&= H \sum_{\sig \in S_N}\sgn(\sig) \sig \Psi \\
+		&= \sum_{\sig \in S_N} \sgn(\sig) H \sig \Psi \\
+		&= \sum_{\sig \in S_N} \sgn(\sig) \sig H \Psi \\
+		&= \sum_{\sig \in S_N}\sgn(\sig) \sig  \bigg( i\hbar \pdv{t} \Psi \bigg) \\
+		&= i\hbar \pdv{t}  \bigg[ \sum_{\sig \in S_N}\sgn(\sig) \sig \Psi \bigg] \\
+		&= i\hbar \pdv{t} \alt \Psi
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	If $\psi \in \MH$ is an eigenvector of $H$ with eigenvalue $E$, then $\sym \psi$ and $\alt \psi$ are eigenvectors of $H$ with eigenvalues $E$.
+\end{ex}
+
+\begin{proof}
+	In the symmetric case, we have that
+	\begin{align*}
+		H \sym \psi 
+		&= H \sum_{\sig \in S_N}\sig \psi \\
+		&= \sum_{\sig \in S_N} H \sig \psi \\
+		&= \sum_{\sig \in S_N} \sig H \psi \\
+		&= \sum_{\sig \in S_N}\sig E \psi \\
+		&= E\sum_{\sig \in S_N}\sig E \psi \\
+		&= E \sym \psi
+	\end{align*}
+	Similarly, in the alternating case, we have that
+	\begin{align*}
+		H \alt \psi 
+		&= H \sum_{\sig \in S_N}\sgn(\sig) \sig \psi \\
+		&= \sum_{\sig \in S_N} \sgn(\sig) H \sig \psi \\
+		&= \sum_{\sig \in S_N} \sgn(\sig) \sig H \psi \\
+		&= \sum_{\sig \in S_N}\sgn(\sig) \sig  E \psi \\
+		&= E  \sum_{\sig \in S_N}\sgn(\sig) \sig \psi \\
+		&= E \alt \psi
+	\end{align*}
+\end{proof}
+
 
 \begin{defn}
 	Let $(\Psi_j)_{j \in \N}$ be a orthonormal basis of stationary states for a single-particle component system. For $k =1, \cdots, N$, let $\Psi_{j_k} \in (\Psi_j)_{j \in \N}$ (not necessarily distinct) be the state that particle $k$. For $j \in \N$, define $n_j$ to be the number of particles in state $\Psi_j$.
@@ -1536,9 +2002,38 @@ i & 0
 	
 \end{defn}
 
+\newpage
+
+\section{Perturbation Theory}
+
 
 \newpage
 \section{Extra}
+
+\subsection{continutiy eqaution}
+
+\begin{defn}
+	Consider a system consisting of one particle with mass $m$ with a potential energy $V$. We define the \textbf{probability current density}, $j$, of the particle to be $$j = \frac{\hbar}{2mi} \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg]$$ 
+\end{defn}
+
+\begin{ex}\textbf{(Continuity Equation):}\\ 
+	We have that $$\p{t} (\Psi^* \Psi) +  \nabla \cdot j = 0 $$
+\end{ex}
+
+\begin{proof}
+	\begin{align*}
+		\p{t}(\Psi^* \Psi) 
+		&= \bigg(\p{t} \Psi^* \bigg) \Psi + \Psi^* \bigg(\p{t} \Psi \bigg)\\
+		&= -\frac{1}{i\hbar}(H\Psi^*) \Psi + \frac{1}{i\hbar} \Psi^* (H\Psi) \\
+		&= \bigg( \frac{\hbar}{2mi} (\Del \Psi^*) \Psi - \frac{1}{i \hbar }V \Psi^* \Psi\bigg) + \bigg( -\frac{\hbar}{2mi}  \Psi^* (\Del \Psi) + \frac{1}{i \hbar }V \Psi^* \Psi \bigg)\\
+		&= \frac{\hbar}{2mi} \bigg[ (\Del \Psi^*) \Psi - \Psi^* (\Del \Psi) \bigg]\\
+		&= -\frac{\hbar}{2mi} \bigg[ \Psi^* (\Del \Psi) - (\Del \Psi^*) \Psi\bigg]\\
+		&= - \frac{\hbar}{2mi} \nabla \cdot \bigg[\Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi \bigg]\\
+		&= -\nabla \cdot j
+	\end{align*}
+	
+	Therefore  $$\p{t} (\Psi^* \Psi) + \frac{\hbar}{2mi} \nabla \cdot \bigg[ \Psi^* (\nabla \Psi) - (\nabla \Psi^*) \Psi\bigg] = 0 $$
+\end{proof}
 
 \subsection{Position and Momentum Space}
 \begin{defn}
@@ -1593,7 +2088,7 @@ i & 0
 \end{proof}
 
 \begin{intp}
-	We interpret $\vert \Phi (p,t) \vert^2$ to be the probability density for the momentum, $p$, of the particle at time $t$.  
+	We interpret $, \Phi (p,t) ,^2$ to be the probability density for the momentum, $p$, of the particle at time $t$.  
 \end{intp}
 
 \begin{note}
@@ -1602,8 +2097,8 @@ i & 0
 	\[ 
 	\l Q \r = 
 	\begin{cases}
-		\l \Psi(x,t) \vert Q(x, -i\hbar \nabla) \Psi(x,t)\r & \hspace{1cm} \text{(position space)}\\
-		\l \Phi(p,t) \vert Q(i\hbar \nabla, p) \Phi(p,t) \r & \hspace{1cm} \text{(momentum space)}\\
+		\l \Psi(x,t) , Q(x, -i\hbar \nabla) \Psi(x,t)\r & \hspace{1cm} \text{(position space)}\\
+		\l \Phi(p,t) , Q(i\hbar \nabla, p) \Phi(p,t) \r & \hspace{1cm} \text{(momentum space)}\\
 	\end{cases}
 	\]
 \end{note}
