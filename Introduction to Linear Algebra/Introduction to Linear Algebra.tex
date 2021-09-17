@@ -1,0 +1,225 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=black,  %choose some color if you want links to stand out
+}
+
+
+%
+%
+%
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+%
+%
+%
+%
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
+
+\newtheorem{thm}{Theorem}[subsection]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{defn}[definition]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Note}[subsection]
+\newtheorem{note}[remark]{Note}
+
+\theoremstyle{definition}
+\newtheorem{ex}[definition]{Exercise}
+
+
+
+\DeclareMathOperator{\supp}{supp}
+
+\newcommand{\al}{\alpha}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\be}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MI}{\mathcal{I}}
+
+\newcommand{\io}{\text{ i.o.}}
+\newcommand{\ev}{\text{ ev.}}
+\renewcommand{\r}{\rangle}
+\renewcommand{\l}{\langle}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\spn}{span}
+
+
+
+\begin{document}
+	
+	\title{Introduction to Commutative Algebra}
+	\author{Carson James}
+	\maketitle
+	
+	\tableofcontents
+	
+	\newpage
+	
+	\section*{Preface}
+	\begin{flushleft}
+		This aim of this book is to help students develope a basic grasp of the theory of integration. A typical student's first exposure to integration is in the context of the Darboux integral. This integral is applicable to a relatively small class of complex-valued functions of one or more real variables. Although this is integral is of critical importance, it is not sufficient for many purposes. Extending the Darboux integral to the Lebesgue integral, we can define a notion of integration for certain complex-valued functions on more general spaces, like for example topological spaces. To do so, we must first develop some measure theory, which is useful in its own right. Further extending the Lebesgue integral to the Bochner integral, we can define a notion of integration for certain vector valued functions. 
+	\end{flushleft}
+
+	\vspace{.2cm}
+
+	\begin{flushleft}
+		The target audience of this book is composed of those who wish to deepen their understanding of integration beyond the Darboux integral. In practice, a basic understanding of the integral would benefit anyone who works with integration and limits in more exotic spaces. For example, students of statistics, physics and disciplines which utilize numerical solutions to differential equations would benefit greatly from a deeper understanding of the integral. 
+	\end{flushleft}
+	
+	
+	\newpage
+	
+	\section{Rings}
+	
+	\begin{defn}
+	Let $R$ be a set and $+, *: R \times R 				
+	\rightarrow R$ (we write $a+b$ and 
+	$ab$ in place of $+(a,b)$ and $*(a,b)$ respectively).
+	Then $R$ is said to be a \textbf{ring} if 
+	\begin{enumerate}
+	\item $R$ is an abelian group with respect to $+$.
+	 The identity element with respect to $+$ is denoted
+	 by $0$.
+	\item $R$ is a monoid with respect to $*$. The  
+	identity element respect to $*$ is denoted $1$. 
+	\item $R$ is commutative with respect to $*$.
+	\item $*$ distributes over $+$.
+	\end{enumerate}
+	\end{defn}
+	
+	\begin{defn}
+	Let $R$ be a ring and $I \subset R$. Then $I$ is said 
+	to be an \textbf{ideal} of $R$ if for each $a \in R$ and $x,y \in I$,
+	\begin{enumerate}
+	\item  $x + y \in I$
+	\item  $ax \in I$
+	\end{enumerate}
+	\end{defn}
+	
+	\begin{defn}
+	Let $R$ be a ring and $A,B \subset R$. We define the \textbf{product} of $A$ and $B$, denoted $AB$, to be $$AB = \bigg \{\sum_{i=1}^n a_ib_i: a_i \in A, b_i \in B, n \in \N \bigg \}$$
+	\end{defn}	
+	
+	\begin{ex}
+	Let $R$ be a ring and $I \subset R$. Then $I$ is an ideal of $R$ iff $RI \subset I$. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $RI \subset I$. Let $a \in R$ and $x,y \in I$. Then by assumption $x + y = 1x + 1y \in I$ and $ax \in I$. So $I$ is an ideal of $R$\\
+	Conversely, suppose that $I$ is an ideal of $R$. Let $a_1, \cdots, a_n \in R$ and $x_1, \cdots, x_n \in I$. Then by assumption, for each $i = 1, \cdots, n$, $a_ix_i \in I$ and therefore $\sum\limits_{i=1}^n a_ib_i \in I$. Hence $RI \subset I$.
+	\end{proof}
+	
+	\section{Modules}
+	
+	\subsection{Modules}
+	
+	\begin{defn}
+	Let $R$ be a ring, $M$ an abelian group and $*: R 
+	\times M \rightarrow M$ (we write $rx$ in place of 
+	$*(r,x)$). Then $M$ is said to be an 
+	\textbf{$R$-module}
+	if for each $r,s \in R$ and $x,y \in M$
+	\begin{enumerate}
+	\item $r(x+y) = rx + ry$
+	\item $(r+s)x = rx + sx$
+	\item $(rs)x = r(sx)$
+	\item $1x = x$ 
+	\end{enumerate}
+	\end{defn}
+	
+	\begin{note}
+	For the remainder of this section, we assume that $R$ is a ring. 
+	\end{note}
+	
+	\begin{defn}
+	Let $M$ an $R$-module and $N \subset M$. Then $N$ is said to be a \textbf{submodule} of $M$ if for each $r \in R$ and $x,y \in N$, we have that $rx \in N$ and $x+y \in N$.
+	\end{defn}
+	
+	\begin{defn}
+	Let $M$ be an $R$-module. We define $\MS(M) = \{N \subset M: N \text{ is a submodule of }M\}$.
+	\end{defn}	
+	
+	\begin{defn}
+	Let $M$ be an $R$-module and $A \subset M$. We define the \textbf{submodule of $M$ generated by $A$}, denoted $\spn(A)$, to be $$\spn(A) = \bigcap_{N \in \MS(M)} N$$ 
+	\end{defn}
+	
+	\begin{ex}
+	Let $M$ be an $R$-module and $A \subset M$. Then 
+	$\spn(A) \in \MS(M)$
+	\end{ex}
+	
+	\begin{proof}
+	Let $r \in R$ and $x,y \in \spn(A)$. Basic group theory tells us that $\spn(A)$ is a subgroup of $M$. So $x+y \in \spn(A)$. For $N \in \MS(M)$, by definition we have $x \in N$ and therefore $rx \in N$. So $rx \in \spn(A)$. Hence $\spn(A)$ is a submodule of $M$.
+	\end{proof}
+	
+	\begin{ex}
+	Let $M$ be an $R$-module and $A \subset M$. If $A \neq \varnothing$, then $$\spn(A) = \bigg \{\sum\limits_{i=1}^n r_ia_i: r_i \in R, a_i \in A, n \in \N \bigg \}$$
+	\end{ex}
+	
+	\begin{proof}
+	Clearly 
+	\end{proof}
+	
+	
+	
+	
+	
+	
+\end{document}
