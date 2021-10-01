@@ -1,6 +1,7 @@
 \documentclass[12pt]{amsart}
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+\usepackage{physics}
 
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
@@ -82,7 +83,7 @@
 \newcommand{\MI}{\mathcal{I}}
 
 \newcommand{\io}{\text{ i.o.}}
-\newcommand{\ev}{\text{ ev.}}
+%\newcommand{\ev}{\text{ ev.}}
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
 
@@ -151,6 +152,8 @@
 	\end{proof}
 	
 	\section{Metric Spaces}
+	
+	\subsection{Introduction}
 	
 	\newpage
 	
@@ -236,9 +239,9 @@
 	
 	
 	
-		\section{Functional Analysis}
 	
-	\subsection{Normed Vector Spaces}
+	\section{Banach Spaces}
+	\subsection{Introduction}
 	\begin{note}
 		In the following, we will consider vector spaces over $\C$. There are analogous results for real vector spaces as well, just replace every $\C$ with $\R$.
 	\end{note}
@@ -676,30 +679,18 @@
 		\end{enumerate}
 	\end{proof}
 
-	\subsection{$l^p$ Spaces}
 	
-	\begin{defn}
-		
-		Let $p \in [1, \infty] \cup \{0\}$. We define 
-		\[
-		l^p(\N) = 
-		\begin{cases}
-			\C^{\N} & p=0 \\
-			\bigg \{f \in l^0(\N): \sum\limits_{n \in \N} |f(n)|^p < \infty \bigg\} & p \in [1, \infty) \\
-			\bigg \{f \in l^0(\N): \sup\limits_{n \in \N}|f(n)| < \infty \bigg \} & p = \infty
-		\end{cases}\]
-		So $l^0(\N)$ consists of the sequences in $\C$ and $l^{\infty}(\N)$ consists of the bounded sequences in $\C$. 
-		
-		For $p \in [1, \infty]$, we define $\| \cdot \|_p : l^p(\N) \rightarrow [0, \infty)$ by 
-		\[
-		\|f\|_p = 
-		\begin{cases}
-			\bigg( \sum\limits_{n \in \N} |f(n)|^p \bigg)^{1/p} & p \in [1, \infty) \\
-			\sup\limits_{n \in \N}|f(n)| & p = \infty
-		\end{cases}
-		\]
-	\end{defn}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	
@@ -1137,20 +1128,6 @@
 	\begin{proof}
 		Suppose that for each $f \in Y^*$, $f \circ T \in X^*$. Let $x \in X$, 
 	\end{proof}
-	
-	
-	\subsection{Hilbert Spaces}
-	
-	\begin{defn}
-		Let $H$ be a vector space and $\l \cdot, \cdot \r: H \rightarrow \C$. Then $\l \cdot, \cdot \r$ is said to be an \textbf{inner product} on $H$ if for each $x,y,z \in H$and $c \in \C$
-		\begin{enumerate}
-			\item $\l x , y + cz\r = \l x , y \r + c\l x , z\r $
-			\item $\l x , y \r = \l y , x\r^*$
-			\item $\l x , x \r \geq 0$
-			\item if $\l x ,x \r = 0$, then $x = 0$.  
-		\end{enumerate}
-	\end{defn}
-
 
 
 	\subsection{Banach Algebras}
@@ -1180,7 +1157,7 @@
 	\end{ex}
 	
 	\begin{proof}
-		Let $(S_1,T_1) \in X \times X$ and $\ep > 0$. Choose $\del = \min\{\frac{\ep}{2(\|S_1 \|+ \|T_1 \|+1)}, \frac{\sqrt{\ep}}{\sqrt{2}}\}$. Let $(S_2, T_2) \in X \times X$. Suppose that $$\|(S_1, T_1) = (S_2, T_2) \|= \max \{ \|S_2 -S_2 \|, \|T_1 - T_2 \|\} < \del$$. Then 
+		Let $(S_1,T_1) \in X \times X$ and $\ep > 0$. Choose $\del = \min\{\frac{\ep}{2(\|S_1 \|+ \|T_1 \|+1)}, \frac{\sqrt{\ep}}{\sqrt{2}}\}$. Let $(S_2, T_2) \in X \times X$. Suppose that $$\|(S_1, T_1) = (S_2, T_2) \|= \max \{ \|S_2 -S_2 \|, \|T_1 - T_2 \|\} < \del$$ Then 
 		\begin{align*}
 			\|S_1T_1 - S_2T_2 \|
 			&= \|S_1T_1 - S_2T_1 +S_2T_1 - S_2T_2 \|\\
@@ -1192,6 +1169,123 @@
 			&= \ep
 		\end{align*}
 	\end{proof}
+	
+	\newpage
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Differentiability}
+	
+	\begin{defn}
+	Let $X$ be a banach space, $A \subset X$ open, $f:A \rightarrow \R$, $a \in A, b \in X$. Define $T = \{ t \in \R: a+tb \in A\}$, which is an open neighborhood of $a$, and $g: T \rightarrow \R$ by $g(t) = f(a +tb)$. Then $f$ is said to be 
+	\begin{enumerate}
+	\item \textbf{right-hand-differentiable} at $a$ in the direction $b$ if $g$ is differentiable from the right at $t=0$, i.e. if
+	$$  g'(0^+) =  \lim_{t \rightarrow 0^+} \frac{f(a +tb) - f(a)}{t}$$
+	exists
+	
+	\item \textbf{left-hand-differentiable} at $a$ in the direction $b$ if $g$ is differentiable from the left at $t=0$, i.e. if 
+	$$  g'(0^-) =  \lim_{t \rightarrow 0^-} \frac{f(a +tb) - f(a)}{t}$$
+	exists
+	
+	\item \textbf{differentiable} at $a$ in the direction $b$ if  $g$ is differentiable at $t=0$, i.e. if
+	$$  g'(0) =  \lim_{t \rightarrow 0} \frac{f(a +tb) - f(a)}{t}$$
+	exists
+	\end{enumerate}
+	\end{defn}	
+	
+	\begin{defn}
+	Let $f:X \rightarrow \R$ and $x \in X$. Then $f$ is said to be \textbf{Gateaux differentiable} at $x$ if for each $x \in A$, 
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{$l^p$ Spaces}
+	
+	\begin{defn}
+		
+		Let $p \in [1, \infty] \cup \{0\}$. We define 
+		\[
+		l^p(\N) = 
+		\begin{cases}
+			\C^{\N} & p=0 \\
+			\bigg \{f \in l^0(\N): \sum\limits_{n \in \N} |f(n)|^p < \infty \bigg\} & p \in [1, \infty) \\
+			\bigg \{f \in l^0(\N): \sup\limits_{n \in \N}|f(n)| < \infty \bigg \} & p = \infty
+		\end{cases}\]
+		So $l^0(\N)$ consists of the sequences in $\C$ and $l^{\infty}(\N)$ consists of the bounded sequences in $\C$. 
+		
+		For $p \in [1, \infty]$, we define $\| \cdot \|_p : l^p(\N) \rightarrow [0, \infty)$ by 
+		\[
+		\|f\|_p = 
+		\begin{cases}
+			\bigg( \sum\limits_{n \in \N} |f(n)|^p \bigg)^{1/p} & p \in [1, \infty) \\
+			\sup\limits_{n \in \N}|f(n)| & p = \infty
+		\end{cases}
+		\]
+	\end{defn}
 	\newpage
 	
 	\newpage
@@ -1199,6 +1293,137 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Hilbert Spaces}
+	
+	\begin{defn}
+		Let $H$ be a vector space and $\l \cdot, \cdot \r: H \rightarrow \C$. Then $\l \cdot, \cdot \r$ is said to be an \textbf{inner product} on $H$ if for each $x,y,z \in H$and $c \in \C$
+		\begin{enumerate}
+			\item $\l x , y + cz\r = \l x , y \r + c\l x , z\r $
+			\item $\l x , y \r = \l y , x\r^*$
+			\item $\l x , x \r \geq 0$
+			\item if $\l x ,x \r = 0$, then $x = 0$.  
+		\end{enumerate}
+	\end{defn}
+	
+	
+	\section{Convexity}
+	
+	\subsection{Introduction}
+	
+	\begin{note}
+	For the remainder of this section, we assume $X$ is a real Banach space. 
+	\end{note}	
+	
+	\begin{defn}
+	Let $A \subset X$ and $x,y \in A$. We define the \textbf{line segment} between $x$ and $y$, denoted $l_{x,y}$, to be $$l_{x,y} = \{tx + (1-t)y : t \in [0,1] \}$$
+	\end{defn}
+
+	\begin{defn}
+	Let $A \subset X$. Then $A$ is said to be $\textbf{convex}$ if for each $x, y \in A$, $l_{x,y} \subset A$. 
+	\end{defn}	
+	
+	\begin{note} 
+	For the remainder of this section, we assume that $A \subset X$ is convex.
+	\end{note}
+	
+	\begin{defn}
+	Let $f:A \rightarrow \R$. Then $f$ is said to be  \textbf{convex} if for each $x,y \in A$, $t \in [0,1]$, $$f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)$$ We define $$\MC(A) = \{f:A \rightarrow \R: f \text{ is convex}\}$$ 
+	\end{defn}
+	
+	\begin{ex}
+	Let $f,g:A \rightarrow \R$ and $\lam \geq 0$. If $f,g$ are convex, then 
+	\begin{enumerate}
+	\item $f+ g$ is convex 
+	\item $\lam f$ is convex
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ and $g$ are convex. Let $x,y \in A$ and $t \in [0,1]$. Then 
+	\begin{align*}
+	(f + \lam g)(tx + (1-t)y) 
+	&= f(tx + (1-t)y) + \lam g(tx + (1-t)y) \\
+	& \leq tf(x) + (1-t)f(y) +  t \lam g(x) + (1-t)\lam g(y) \\
+	&= t(f(x) + \lam g(x)) + (1-t)(f(y) + \lam g(y))\\
+	& = t(f + \lam g)(x) + (1-t)(f + \lam g)(y)
+\end{align*}		 
+	\end{proof}
+	
+	\begin{ex}
+	Let $f:\R \rightarrow \R$ and $g: A \rightarrow \R$. If $f$ is convex and increasing and $g$ is convex, then $f \circ g$ is convex.
+	\end{ex}	
+	
+	\begin{proof}
+	Let $t \in [0,1]$ and $x, y \in A$. Then convexity of $g$ implies that $$g(tx +(1-t)y) \leq tg(x) + (1-t)g(y)$$ and we have
+	\begin{align*}
+	f\circ g(tx +(1-t)y) 
+	&= f(g(tx +(1-t)y)) \\
+	& \leq f(tg(x) + (1-t)g(y)) \hspace{2cm} (f \text{ increasing)}\\
+	& \leq tf(g(x)) + (1-t)f(g(y)) \hspace{2cm}  (f \text{ convex)}\\	
+	&= tf \circ g(x) + (1-t)f \circ g(y)
+\end{align*}	 
+So $f \circ g$ is convex.
+	\end{proof}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\begin{ex}
+	Let $A \subset \R$ and $f:A \rightarrow \R$. Then $f$ is convex iff for each $x,y \in A$, if $x \neq y$  then for each $z \in l_{x,y}$, $$f(z) \leq f(x) + \frac{f(y) - f(x)}{y-x}(z-x)$$ that is, between $x$ and $y$, the graph of $f$ lies below its secant line. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ is convex. Let $x,y \in A$. Suppose that $x \neq y$. Let $z \in l_{x,y}$. Then there exists $t \in [0,1]$ such that $z = tx + (1-t)y$. Define $s:\R \rightarrow \R$ by $$s(z) = f(x) + \frac{f(y) - f(x)}{y-x}(z-x)$$ 
+	Then 
+	\begin{align*}
+	s(z) 
+	&= f(x) + \frac{f(y) - f(x)}{y-x}(z-x) \\
+	&= f(x) + \frac{f(y) - f(x)}{y-x}(tx + (1-t)y -x) \\
+	&= f(x) + \frac{f(y) - f(x)}{y-x}((1-t)y - (1-t)x) \\
+	&= f(x) + \frac{f(y) - f(x)}{y-x}(1-t)(y - x) \\
+	&= f(x) + (f(y) - f(x))(1-t) \\
+	&= tf(x) + f(y)(1-t) \\
+	& \geq f(tx + (1-t)y) \hspace{2cm} \text{(by convex ity)}\\ 
+	& = f(z)	
+	\end{align*}
+	Conversely, suppose that for each $x,y \in A$, if $x \neq y$  then for each $z \in l_{x,y}$, $$f(z) \leq f(x) + \frac{f(y) - f(x)}{y-x}(z-x)$$ 
+	Let $x, y \in A$. Suppose that $x \neq y$. Define $s:\R \rightarrow \R$ as above. Then similarly, $s(z) =  tf(x) + f(y)(1-t)$. Let $t \in [0,1]$. Put $z = tx + (1-t)y \in l_{x,y}$. By assumption, 
+	\begin{align*}
+	f(tx + (1-t)y) 
+	&= f(z) \\
+	& \leq s(z) \\
+	&= tf(x) + f(y)(1-t)
+	\end{align*}
+	If $x = y$, then $f(tx + (1-t)y) = tf(x) + (1-t)f(y)$. So $f$ is convex.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a Banach space, $(S, \MS, \mu)$ a measure space, $A \subset X$, $K \in L^0(A, \R)$ and $\Lam \subset L^0(S, A) \cap \{f:S \rightarrow A:  K \circ f \in L^1(\mu) \}$. Suppose that $A$ and $\Lam$ are convex. Define $\phi: \Lam \rightarrow \R$ by $$\phi f = \int K\circ f d \mu $$
+	If $K$ is convex, then $\phi$ is convex. 
+	\end{ex}	
 	
 	
 \end{document}

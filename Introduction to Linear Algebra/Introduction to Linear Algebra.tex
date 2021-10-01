@@ -45,9 +45,6 @@
 \newtheorem{ex}[definition]{Exercise}
 
 
-
-\DeclareMathOperator{\supp}{supp}
-
 \newcommand{\al}{\alpha}
 \newcommand{\Gam}{\Gamma}
 \newcommand{\be}{\beta} 
@@ -99,6 +96,9 @@
 
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Img}{Im}
+
 
 
 
@@ -132,13 +132,14 @@
 	Let $R$ be a set and $+, *: R \times R 				
 	\rightarrow R$ (we write $a+b$ and 
 	$ab$ in place of $+(a,b)$ and $*(a,b)$ respectively).
-	Then $R$ is said to be a \textbf{ring} if 
+	Then $R$ is said to be a \textbf{ring} if for each 
+	$a,b,c \in R$,
 	\begin{enumerate}
 	\item $R$ is an abelian group with respect to $+$.
 	 The identity element with respect to $+$ is denoted
 	 by $0$.
 	\item $R$ is a monoid with respect to $*$. The  
-	identity element respect to $*$ is denoted $1$. 
+	identity element of $R$ with respect to $*$ is denoted $1$. 
 	\item $R$ is commutative with respect to $*$.
 	\item $*$ distributes over $+$.
 	\end{enumerate}
@@ -171,22 +172,60 @@
 	\subsection{Modules}
 	
 	\begin{defn}
-	Let $R$ be a ring, $M$ an abelian group and $*: R 
+	Let $R$ be a ring, $M$ a set, $+: M\times M \rightarrow M$ and $*: R 
 	\times M \rightarrow M$ (we write $rx$ in place of 
 	$*(r,x)$). Then $M$ is said to be an 
 	\textbf{$R$-module}
-	if for each $r,s \in R$ and $x,y \in M$
+	if 
 	\begin{enumerate}
-	\item $r(x+y) = rx + ry$
-	\item $(r+s)x = rx + sx$
-	\item $(rs)x = r(sx)$
-	\item $1x = x$ 
+	\item $M$ is an abelian group with respect to $+$. The identity element of $M$ with respect to $+$ is denoted by 0.
+	\item for each $r \in R$, $*(r, \cdot)$ is a group endomorphism of $M$
+	\item for each $x \in M$, $*(\cdot, x)$ is a group homomorphism from $R$ to $M$
+	\item $*$ is a monoid action of $R$ on $M$
 	\end{enumerate}
 	\end{defn}
 	
 	\begin{note}
 	For the remainder of this section, we assume that $R$ is a ring. 
 	\end{note}
+	
+	\newpage
+	\begin{ex}
+	Let $M$ be an $R$-module. Then for each $r \in R$ and $x \in M$, 
+	\begin{enumerate}
+	\item $r0 = 0$
+	\item $0x = 0$
+	\item $(-1)x = -x$
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} Let $r \in R$ and $x \in M$. Then 
+	\begin{enumerate}
+	\item 
+	\begin{align*}
+	r0 
+	&= r(0+0) \\
+	&= r0 + r0
+	\end{align*} 
+	which implies that $r0 = 0$.
+	\item 
+	\begin{align*}
+	0x 
+	&= (0+0)x \\
+	&= 0x + 0x
+	\end{align*} 
+	which implies that $0x = 0$.
+	\item 
+	\begin{align*}
+	(-1)x + x 
+	&= (-1)x + 1x \\ 
+	&= (-1 + 1)x \\
+	&= 0x \\
+	&= 0
+	\end{align*}
+	which implies that $(-1)x = -x$.
+	\end{enumerate}
+	\end{proof}
 	
 	\begin{defn}
 	Let $M$ an $R$-module and $N \subset M$. Then $N$ is said to be a \textbf{submodule} of $M$ if for each $r \in R$ and $x,y \in N$, we have that $rx \in N$ and $x+y \in N$.
@@ -195,6 +234,85 @@
 	\begin{defn}
 	Let $M$ be an $R$-module. We define $\MS(M) = \{N \subset M: N \text{ is a submodule of }M\}$.
 	\end{defn}	
+	
+	\begin{ex}
+	Let $M$ be an $R$-module and $N \in \MS(M)$. Then $N$ is a subgroup of $M$.
+	\end{ex}
+	
+	\begin{proof}
+	Let $x,y \in M$. Then $x-y = 1x + (-1)y \in N$. So $N$ is a subgroup of $M$.
+	\end{proof}
+	
+	\begin{defn}
+	Let $M$ be an $R$-module and $N \in \MS(M)$. We define  
+	\begin{enumerate}
+	\item $M/N = \{x + N: x \in M\}$ 
+	\item $+: M/N \times M/N \rightarrow M/N$ by $$(x+N) + (y+N) = (x+y) + N$$
+	\item $*: R \times M/N \rightarrow M/N$ by $$r(x+N) = (rx) + N$$
+	\end{enumerate}
+	Under these operations (see next exercise), $M/N$ is an $R$-module known as the \textbf{quotient module} of $M$ by $N$.
+	\end{defn}	
+	
+	\begin{ex} 
+	Let $M$ be an $R$-module and $N \in \MS(M)$. Then
+	\begin{enumerate}
+	\item the monoid action defined above is well defined
+	\item the quotient $M/N$ is an $R$-module
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item Let $r \in R$ and $x +N, y +N \in M/N $. Recall from group theory that $x + N = y + N$ iff $x-y \in N$. Suppose that $x + N = y + N$. Then $x - y \in N$ and there exists $n \in N$ such that $x-y = n$. Therefore
+	\begin{align*}
+	rx - ry 
+	&= r(x-y) \\
+	&= rn \\
+	&\in N
+	\end{align*}
+	So $rx + N = ry + N$.
+	\item Properties $(1)$ - $(4)$ in the definition of a module are easily shown to be satisfied for $M/N$ since they are true for $M$.
+	\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+	Let $M$ and $N$ be $R$-modules and $\phi:M \rightarrow N$. Then $\phi$ is said to be a \textbf{module homomorphism} if for each $r \in R$ and $x,y \in M$
+	\begin{enumerate}
+	\item $\phi(rx) = r\phi(x)$
+	\item $\phi(x+y) = \phi(x) + \phi(y)$
+	\end{enumerate}
+	\end{defn}	
+	
+	\begin{ex}
+	Let $M$ and $N$ be $R$-modules and $\phi:M \rightarrow N$. Then $\phi$ is a  iff for each $r \in R$ and $x,y \in M$, $\phi(x+ry) = \phi(x) + r \phi(y)$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex}
+	Let $M$ and $N$ be $R$-modules and $\phi:M \rightarrow N$ a homomorphism. Then 
+	\begin{enumerate}
+	\item $\ker \phi$ is a submodule of $M$
+	\item $ \Img \phi$ is a submodule of $N$ 
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+	Let $r \in R$, $x,y \in \ker \phi$ and $w,z \in \Img \phi$. Then 
+	\begin{enumerate}
+	\item 
+	\begin{align*}
+	\phi(rx) 
+	&= r\phi(x) \\
+	&=r 0 \\
+	&= 0
+\end{align*}	
+	So $rx \in \ker \phi$. Group theory tells us that $\ker \phi$ is a subgroup of $M$, so $x+y \in \ker \phi$. Hence $\ker \phi$ is a submodule of $M$. 
+	\item Similar.
+	\end{enumerate}
+	\end{proof}
 	
 	\begin{defn}
 	Let $M$ be an $R$-module and $A \subset M$. We define the \textbf{submodule of $M$ generated by $A$}, denoted $\spn(A)$, to be $$\spn(A) = \bigcap_{N \in \MS(M)} N$$ 
@@ -216,6 +334,65 @@
 	\begin{proof}
 	Clearly 
 	\end{proof}
+	
+	\begin{defn}
+	Let $M$
+	\end{defn}
+	
+	
+	
+	\section{Appendix}
+	\subsection{Monoids}
+	
+	\begin{defn}
+	Let $G$ be a set and $*: G \times G \rightarrow G$ (we write $ab$ in place of $*(a,b)$). Then 
+	\begin{enumerate}
+	\item $*$ is called a \textbf{binary operation} on $G$	
+	\item $*$ is said to be \textbf{associative}	if for each $x,y,z \in G$, $(xy)z = x(yz)$
+	\item $*$ is said to be \textbf{commutative} if for each $x,y \in G$, $xy = yx$ 
+	\end{enumerate}
+	\end{defn}
+	
+	\begin{defn}
+	Let $G$ be a set, $*: G \times G \rightarrow G$, $e,x,y \in G$. Then $e$ is said to be an \textbf{identity element} if for each $x \in G$, $ex = xe = x$.
+	\end{defn}
+	
+	\begin{defn}
+	Let $G$ be a set and $*: G \times G \rightarrow G$. Then $G$ is said to be a \textbf{monoid} if 
+	\begin{enumerate}
+	\item $*$ is associative
+	\item there exits $e \in G$ such that $e$ is an identity element.
+	\end{enumerate}
+	\end{defn}	
+	
+	\begin{ex}
+	Let $G$ be a monoid. Then the identity element is unique.
+	\end{ex}
+	
+	\begin{proof}
+	Let $e, f \in G$. Suppose that $e$ and $f$ are identity elements. Then $e = ef = f$.
+	\end{proof}
+	
+	\begin{note}
+	Unless otherwise specified, we will denote the identity element of a monoid by $e$.
+	\end{note}
+	
+	\begin{defn}
+	Let $G$ be a monoid, $X$ a set and $*: G \times X \rightarrow X$ (we write $gx$ in place of $*(g,x)$). Then $*$ is said to be a \textbf{monoid action} of $G$ on $X$ if for each $g,h \in G$ and $x \in X$,
+	\begin{enumerate}
+	\item $(gh)x = g(hx)$
+	\item $ex = x$
+	\end{enumerate}
+	\end{defn}
+	
+
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
