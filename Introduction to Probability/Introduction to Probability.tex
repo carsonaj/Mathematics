@@ -247,11 +247,11 @@
 	\end{proof}
 	
 	\begin{defn}
-		Let $(\Om, \MF)$ be a measurable space and $X:\Om \rightarrow \R$. Then $X$ is said to be a \textbf{random variable} on $(\Om, \MF)$ if $X$ is $\MF$-$\MB(R)$ measurable. 
+		Let $(\Om, \MF, P)$ be a probability space and $X:\Om \rightarrow \R^n$. Then $X$ is said to be a \textbf{random vector} on $(\Om, \MF)$ if $X$ is $\MF$-$\MB(\R^n)$ measurable. If $n = 1$, then $X$ is said to be a \textbf{random variable}. We define $$L_n^0(\Om, \MF, P) = \{X:\Om \rightarrow \R^n: X \text{ is a random vector}\}$$ and $$L_n^p(\Om, \MF, P) = \bigg \{X \in L_n^0: \int \|X\|^p dP < \infty \bigg \} $$ 
 	\end{defn}
 	
 	\begin{defn}
-		Let $(\Om, \MF, P)$ be a probability space and $X$ a random variable on $(\Om,\MF)$. We define the \textbf{probability distribution} of $X$, $P_X:\MB(R) \rightarrow [0,1]$, to be the measure $$P_X = X_*P$$ so that for each $A \in \MB(\R)$, $$P_X(A) = P(X^{-1}(F))$$ \\ We define the \textbf{probability distribution function} of $X$, $F_X:\R \rightarrow [0,1]$, to be $$F_X = F_{P_X}$$
+		Let $(\Om, \MF, P)$ be a probability space and $X$ a random variable on $(\Om,\MF)$. We define the \textbf{probability distribution} of $X$, $P_X:\MB(R) \rightarrow [0,1]$, to be the measure $$P_X = X_*P$$ That is, for each $A \in \MB(\R)$, $$P_X(A) = P(X^{-1}(F))$$ \\ We define the \textbf{probability distribution function} of $X$, $F_X:\R \rightarrow [0,1]$, to be $$F_X = F_{P_X}$$
 	\end{defn}
 	
 	\begin{defn}
@@ -633,12 +633,47 @@
 	\newpage
 	
 	
-	\section{Conditional Expectation}
+	\section{Conditional Expectation and Probability}
 	
-	\subsection{Regular Conditional Probability}
+	\subsection{Conditional Expectation}
+	
+	\begin{ex}
+	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $P_{\MG} = P|_{\MG}$ and $Q: \MG \rightarrow [0,\infty)$ by $Q(G) = \int_G X d P $. Then $Q$ is finite. and $Q \ll P_{\MG}$. 
+	\end{ex}	
+	
+	\begin{proof}
+	Since $X \in L^1$, for each $G \in \MG$, 
+	\begin{align*}
+	|Q(G)|
+	&= \bigg| \int_G X dP \bigg| \\
+	& \leq \int_G |X| dP \\
+	& < \infty
+	\end{align*}
+	So $Q$ is finite. Let $G \in \MG$. Suppose that $P_{\MG}(G) = 0$. By definition then, $P(G) = 0$. So $Q(G) = 0$ and $Q \ll P_{\MG}$.
+	\end{proof}
+	
+	\begin{defn}
+	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X, Y \in L^1(\Om, \MF, P)$. Then $Y $ is said to be a \textbf{conditional expectation of $X$ given $\MG$} if 
+	\begin{enumerate}
+	\item $Y$ is $\MG$-measurable
+	\item for each $G \in \MG$, 
+	$$\int_G Y dP = \int_G X dP$$ 
+	\end{enumerate}	 
+	To denote this, we write $Y = E[X|\MG]$
+	\end{defn}		
+	
+	\begin{ex}
+	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $Q$ and $P_{\MG}$ as in the previous exercise. Define $Y = dQ/dP_{\MG}$. Then $Y$ is a conditional expectation of $X$ given $\MG$.
+	\end{ex}
+	
+	\begin{proof}
+		By definition of the Radon-Nikodym derivative, $Y$ is $\MG$-measurable and by the Radon-Nikodym theorem, $X \in L^1(\Om, \MF, P)$ imples that $Y \in L^1(\Om, \MG, P_{\MG})$. An exercies in section $3.3$ of \cite{imi}, implies that for each $G \in \MG$ $$\int_G Y dP = \int_G X dP$$
+	\end{proof}	
+	
+	
 	
 	\begin{ex}\textbf{(Doob–Dynkin Lemma)} \\
-	Let $\Om$ be a nonempty set, $(\Om', \MF')$ a measurable space $X: \Om \rightarrow \Om'$ and $X: \Om \rightarrow \R^n$. Suppose that $\Img X \in \MF'$. Then $Z$ is $\sig(X)$-$\MB(\R^n)$ measurable iff there exists $\phi:\Om' \rightarrow \R^n$ such that $\phi$ is $\MF'$-$\MB(\R^n)$ measurable and $Z = \phi \circ X$.
+	Let $\Om$ be a nonempty set, $(\Om', \MF')$ a measurable space $X: \Om \rightarrow \Om'$ and $Z: \Om \rightarrow \R^n$. Suppose that $\Img X \in \MF'$. Then $Z$ is $\sig(X)$-$\MB(\R^n)$ measurable iff there exists $\phi:\Om' \rightarrow \R^n$ such that $\phi$ is $\MF'$-$\MB(\R^n)$ measurable and $Z = \phi \circ X$.
 	\end{ex}
 	
 	\begin{proof}
@@ -663,58 +698,78 @@
 	\end{align*}
 	Thus we may define $\phi:\Om' \rightarrow \R$ by $$\phi = \lim_{j \rightarrow \infty} \phi_j 1_{\Img X}$$
 	Then $\phi$ is measurable since $\Img X \in \MF'$ and $Z = \phi \circ X$. For $n \geq 1$, we may write $Z = (Z_1, \cdots, Z_n)$ where for each $i =1, \cdots, n$, $Z_i$ is $\sig(X)$-$\MB(\R)$ measurable and apply the result from above to obtain $ \phi = (\phi_1, \cdots, \phi_n)$ where for each $i =1, \cdots, n$, $\phi_i$ is $\MF'$-$\MB(\R)$ measurable and $Z_i = \phi_i \circ X$. Then $Z = \phi \circ X$.
-	\end{proof}	
+	\end{proof}		
+	
+	\subsection{Conditional Probability}
 	
 	\begin{defn}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$ and $P_{Y|X}: \R^n  \times \MF \rightarrow [0,1]$. Then $P_{Y|X}$ is said to be a \textbf{regular conditional probability distribution of $Y$ given $X$} if 
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$ and $Q: \R^n  \times \MF \rightarrow [0,1]$. Then $Q$ is said to be a \textbf{conditional probability distribution of $X$ given $Y$} if 
 	\begin{enumerate}
-	\item for each $A \in \MF$, $P_{Y|X}(\cdot, A)$ is $\MB(\R^n)$-measurable
-	\item for $P_X$-a.e. $x \in \R^n$, $P_{Y|X}(x, \cdot)$ is a probability measure on $(\Om, \MF)$
-	\item for each $A,B \in \MF$, $$\int_B P_{Y|X}(x, A) dP_X(x) = P(Y \in A, X \in B)$$ 
+	\item for each $A \in \MF$, $Q(\cdot, A)$ is $\MB(\R^n)$-measurable
+	\item for $P_Y$-a.e. $y \in \R^n$, $Q(y, \cdot)$ is a probability measure on $(\Om, \MF)$
+	\item for each $A,B \in \MF$, $$\int_B Q(y, A) dP_Y(y) = P(X \in A, Y \in B)$$ 
 	\end{enumerate}
 	\end{defn}
 	
 	\begin{ex}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$ and $Q: \R^n \times \MF \rightarrow [0,1]$. Suppose that for each $A \in \MF$, $Q(\cdot, A)$ is $\MB(\R^n)$-measurable, for $P_X$-a.e. $x \in \R^n$, $P_{Y|X}(x, \cdot)$ is a probability measure on $(\Om, \MF)$ and $Q(X, A) = P(Y \in A|X)$ a.e. Then $Q$ is a regular conditional probability of $Y$ given $X$.
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$ and $Q: \R^n \times \MF \rightarrow [0,1]$. Suppose that for each $A \in \MF$, $Q(\cdot, A)$ is $\MB(\R^n)$-measurable, for $P_Y$-a.e. $y \in \R^n$, $P_{X|Y}(y, \cdot)$ is a probability measure on $(\Om, \MF)$ and $Q(Y, A) = P(X \in A|Y)$ a.e. Then $Q$ is a conditional probability of $X$ given $Y$.
 	\end{ex}	
 	
-	\begin{proof}\
-	\begin{enumerate}
-	\item By assumption, for each $A \in \MF$, $Q(\cdot, A)$ is $\MB(\R^n)$-measurable.
-	\item By assumption, for $P_X$-a.e. $x \in \R^n$, $P_{Y|X}(x, \cdot)$ is a probability measure on $(\Om, \MF)$
-	\item Let $A,B \in \MF$. Then
+	\begin{proof}
+	By assumption, for each $A \in \MF$, $Q(\cdot, A)$ is $\MB(\R^n)$-measurable and for $P_Y$-a.e. $y \in \R^n$, $Q(y, \cdot)$ is a probability measure on $(\Om, \MF)$. Let $A,B \in \MF$. Then
 	\begin{align*}
-	\int_B Q(x, A) dP_X(x)
-	&= \int_{X^{-1}(B)} Q(X(\om), A) dP(\om) \\
-	&= \int_{X^{-1}(B)}  P(Y \in A|X) dP \\
-	&= \int_{X^{-1}(B)}  E[1_{Y^{-1}(A)}|X] dP \\
-	&= \int_{X^{-1}(B)}  1_{Y^{-1}(A)} dP \\
-	&= \int 1_{Y^{-1}(A)}  1_{X^{-1}(B)} dP \\
-	&= \int 1_{Y^{-1}(A) \cap X^{-1}(B)} dP \\
-	&= P(Y \in A, X \in B)
+	\int_B Q(y, A) dP_Y(y)
+	&= \int_{Y^{-1}(B)} Q(Y(\om), A) dP(\om) \\
+	&= \int_{Y^{-1}(B)}  P(X \in A|Y) dP \\
+	&= \int_{Y^{-1}(B)}  E[1_{X^{-1}(A)}|Y] dP \\
+	&= \int_{Y^{-1}(B)}  1_{X^{-1}(A)} dP \\
+	&= \int 1_{X^{-1}(A)}  1_{Y^{-1}(B)} dP \\
+	&= \int 1_{X^{-1}(A) \cap Y^{-1}(B)} dP \\
+	&= P(X \in A, Y \in B)
 	\end{align*}
-	\end{enumerate}
-	So $Q$ is a conditional probability of $Y$ given $X$.
+	So $Q$ is a conditional probability distribution of $X$ given $Y$.
 	\end{proof}
 	
+	\begin{defn}
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$ and $\mu$ a $\sig$-finite measure on $(\R^n, \MB(\R^n))$. Suppose that $P_X, P_Y \ll \mu$. Then $P_{X,Y} \ll \mu^2$. Let $f_X = dP_X/d \mu$, $f_Y = dP_Y/d \mu$ and $f_{X,Y} = dP_{X,Y}/d \mu^2$. Define $f_{X|Y}: \R^n \times \R^n$ by 
+	\[
+	\begin{cases}
+	f_{X|Y}(x,y) = \frac{f_{X,Y}(x,y)}{f_Y(y)},& y \in \supp Y \\
+	0, &y \not \in \supp Y 
+	\end{cases}
+	\] 
+	Then $f_{X|Y}$ is called the \textbf{conditional probability density of $X$ given $Y$}.
+	\end{defn}	
+	
 	\begin{ex}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$. Suppose that $\Img X \in \MB(\R^n)$. Then there exists a regular conditional probability distribution of $Y$ given $X$. 
-	\end{ex}
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$ and $\mu$ a $\sig$-finite measure on $(\R^n, \MB(\R^n))$. Suppose that $P_X, P_Y \ll \mu$. Define $Q: \R^n \times \MF \rightarrow [0,1]$ by 
+	$$Q(y, A) = \int_A f_{X|Y}(x,y) d\mu(x)$$ 
+	Then $Q$ is a conditional probability distribution of $X$ given $Y$.
+	\end{ex}	
 	
 	\begin{proof}
-	Note that for each $A \in \MF$, $P(Y \in A|X): \Om \rightarrow [0,1]$ is $\sig(X)$-measurable. So the Doob-Dynkin lemma tells us that there exists $\phi_A: \R^n \rightarrow [0,1]$ such that $\phi_A$ is $\MB(\R^n)$-measurable and $\phi_A \circ X = P(Y \in A|X)$. Define $P_{Y|X}: \R^n  \times \MF \rightarrow [0,1]$ by $$P_{Y|X}(x, A) = \phi_A(x)$$ 
-	Then the previous exercise implies that $P_{Y|X}$ is a regular regular conditional probability distribution of $Y$ given $X$.
+	By the Fubini-Tonelli Theorem, for each $A \in \MF$, $Q(\cdot, A)$ is $\MB(\R^n)$-measurable and for $P_Y$-a.e. $y \in \R^n$, $Q(y, \cdot)$ is a probability measure on $(\Om, \MF)$. Let $A, B \in \MF$. Then 
+	\begin{align*}
+	\int_B Q(y, A) dP_Y(y)
+	&= \int_B \bigg[ \int_A f_{X|Y}(x,y) d\mu(x) \bigg] dP_Y(y) \\
+	&= \int_{B \cap \supp Y} \bigg[ \int_{A \cap \supp Y} \frac{f_{X,Y}(x,y)}{f_Y(y)} d\mu(x) f_Y(y) \bigg] d \mu(y) \\
+	&= \int_{B \cap \supp Y}  \bigg[\int_A f_{X,Y}(x,y) d\mu(x) \bigg] d \mu(y) \\
+	&= P(X \in A, Y \in B \cap \supp Y) \\
+	&= P(X \in A, Y \in B) \\	
+	\end{align*}
 	\end{proof}
 	
-	\begin{ex}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$
-	\end{ex}
+	\begin{thm}
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$. Suppose that $\Img X \in \MB(\R^n)$. Then there exists a conditional probability distribution of $Y$ given $X$. 
+	\end{thm}
+	
+	
 	
 	\section{Markov Chains}	
 
 	
 	\begin{defn}
-	Let $(\Om, \MF, P)$ be a probability space and $(X_n)_{n \in \N_0}$ be a a sequence of random vectors on $(\Om, \MF)$. Then $(X_n)_{n \in \N_0}$ is said to be a \textbf{homogeneous Markov chain} if for each $A \in \MF$ and $n \in \N$, $P(X_n \in A| X_1, \cdots, X_{n-1}) = P(X_1 \in A| X_{0})$ a.e. 
+	Let $(\Om, \MF, P)$ be a probability space and $(X_n)_{n \in \N_0} \in L_n^0$. Then $(X_n)_{n \in \N_0}$ is said to be a \textbf{homogeneous Markov chain} if for each $A \in \MF$ and $n \in \N$, $P(X_n \in A| X_1, \cdots, X_{n-1}) = P(X_1 \in A| X_{0})$ a.e. 
 	\end{defn}
 	
 \end{document}

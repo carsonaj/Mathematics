@@ -1724,6 +1724,30 @@
 		
 	\end{proof}
 	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. Define $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$. Then $f \in L^1(X, \MA, \mu)$ and for each $B \in \MB$, $$\int_B f d \mu_{\MB} = \int_B f d \mu$$
+	\end{ex}
+	
+	\begin{proof}
+	Clearly $f$ is $\MA$-measurable. If $f$ is simple. Then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ and for each $i \in \{1, \cdots, n\}$, $\mu(B_i) = \mu_{\MB}(B_i) < \infty$. So $f \in L^1(X, \MA, \mu)$ and 
+	\begin{align*}
+	\int_B f d \mu_{\MB} 
+	&= \int_B \sum_{i=1}^n b_i \chi_{B_i} d\mu_{\MB} \\
+	&= \sum_{i=1}^n b_i \mu_{\MB}(B_i \cap B)\\
+	&= \sum_{i=1}^n b_i \mu(B_i \cap B)\\
+	&= \int_B \sum_{i=1}^n b_i\chi_{B_i} d \mu \\
+	&= \int_B f d \mu
+	\end{align*}
+	If $f \geq 0$, then there exist $(\phi_n)_{n \in \N} \subset S^+(X, \MB)$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \convt{p.w.} f$. Then monotone convergence implies that for each $B \in \MB$,
+	\begin{align*}
+	\int_B f d\mu_{\MB} 
+	&= \limn \int_B \phi_n d\mu_{\MB} \\
+	&= \limn \int_B \phi_n d \mu \\
+	&= \int_B f d\mu
+	\end{align*}
+	The statement also holds for general $f \in L^1(X, \MB, \mu_B)$, by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
+	\end{proof}
+	
 	\subsection{Integration on Product Spaces}
 	
 	\begin{defn}
@@ -2145,7 +2169,7 @@
 	\end{proof}
 	
 	\begin{thm}{Hahn Decomposition:}
-		Let $\nu$ be a signed measure on $(X, \MA)$. Then there exist $P,N \in \MA$ such that $P$ is positive, $N$ is negative, $X = N \cup P$ and $N \cap P = \varnothing$. Furthermore, these two sets are unique in the following sense: For any $P',N' \in \MA$, if $N,P$ satisfy the properties above, $P' \Delta P = N' \Delta N$ is null.
+		Let $\nu$ be a signed measure on $(X, \MA)$. Then there exist $P,N \in \MA$ such that $P$ is positive, $N$ is negative, $X = N \cup P$ and $N \cap P = \varnothing$. Furthermore, these two sets are unique in the following sense: For any $P',N' \in \MA$, if $N,P$ satisfy the properties above, $P' \Delta P = N' \Delta N$ is $\nu$-null.
 	\end{thm}
 	
 	\begin{defn}
@@ -2191,7 +2215,6 @@
 			& \geq \nu^+(E \cap P)\\
 			& = \nu^+(E)
 		\end{align*} 
-		
 		Similarly $\mu(E \cap N) \geq \nu^-(E \cap N)$ and $\mu(E) \geq \nu^-(E)$.
 	\end{proof}
 	
@@ -2419,21 +2442,6 @@
 			
 			So $\lam = \mu$. This is a contradiction since $\mu \not \perp m$.
 		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex}
-		Let $(X, \MF, \mu)$ be a measure space and $\ME$ a sub $\sig$-alg of $\MF$ and $f \in L^1(\mu)$. Define $\nu: \ME \rightarrow [0,\infty]$ by $\nu(E) = \int_E f d \mu $. Then $\nu$ is $\sig$-finite. Let $\overline{\mu}$ be the restriction of $\mu$ to $\ME$. So $\nu \ll \overline{\mu}$. Define the \textbf{expectation of} $f$ \textbf{given} $\ME$ to be $E[f|\ME] = d\nu / d \overline{\mu} \in L^1(X, \MF, \overline{\mu})$. Then for each $E \in \ME$, $$\int_E E[f|\ME] d\mu = \int_E f d\mu$$
-	\end{ex}
-	
-	\begin{proof}
-		Let $E \in \ME$. By definition, 
-		\begin{align*}
-			\int_E E[f|\ME] d\mu 
-			&= \int_E d\nu / d \overline{\mu} d\mu \\
-			&= \int_E d\nu / d \overline{\mu} d \overline{\mu} \hspace{1cm} \text{(since $E \in \ME$)} \\
-			&= \nu(E)\\
-			&= \int_E f d \mu
-		\end{align*}
 	\end{proof}
 	
 	\subsection{Complex Measures}
