@@ -82,6 +82,9 @@
 \newcommand{\MM}{\mathcal{M}}
 \newcommand{\MI}{\mathcal{I}}
 
+\newcommand{\ui}{[0,1]}
+\newcommand{\p}{\partial}
+
 \newcommand{\io}{\text{ i.o.}}
 %\newcommand{\ev}{\text{ ev.}}
 \renewcommand{\r}{\rangle}
@@ -89,6 +92,8 @@
 
 \newcommand{\RG}{[0,\infty]}
 \newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ru}{(\infty, \infty]}
+\newcommand{\Rd}{[\infty, \infty)}
 \newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
 
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
@@ -97,6 +102,8 @@
 \newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
+\newcommand{\lsc}{l.s.c. }
 
 \DeclareMathOperator{\sgn}{sgn}
 
@@ -188,6 +195,18 @@
 	\section{Topology}
 	
 	\begin{defn}
+	Let $X$ be a topological space and $S,N \subset X$. Then $N$ is said to be a \textbf{neighborhood} of $S$ if there exists $U \subset X$ such that $U$ is open and $S \subset U \subset N$. For $S \in X$, we denote the set of neighborhoods of $S$ by $\MN_S$ 
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a topological space and $A \subset X$. Then $A$ is open iff for each $a \in A$, there exists $U_a \in \MN_a$ such that $U_a$ is an open of $a$ and $U_a \subset A$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $A$ is open. Let $a \in A$. Then $A \in \MN_a$, $A$ is an open and $A \subset A$. Conversely, suppose that or each $a \in A$, there exists $U_a \in \MN_a$ such that $U_a$ is open and $U_a \subset A$. Then $A = \bigcup\limits_{a \in A}U_a$ is open. 
+	\end{proof}
+	
+	\begin{defn}
 		Let $(X,\MA)$ and $(Y,\MB)$ be topological spaces and $f:X \rightarrow Y$. Then 
 		\begin{enumerate}
 			\item $f$ is said to be \textbf{continuous} if for each $B \in \MB$, $f^{-1}(B) \in \MA$.
@@ -210,10 +229,51 @@
 		\end{enumerate} 
 	\end{proof}
 	
+	
+	
+	\subsection{Semi-continuity}
+	
+	\begin{defn}
+	Let $X$ be a topological space, $f: X \rightarrow \Ru$ and $x_0 \in X$. Then $f$ is said to be \textbf{lower semicontinuous (l.s.c.) at $x_0$} if $$\liminf_{x \rightarrow x_0}f(x) \geq f(x_0)$$ and $f$ is said to be \textbf{lower semicontinuous (l.s.c.)} if for each $x_0 \in X$, $f$ is lower semicontinuous at $x_0$. 
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a topological space and $f: X \rightarrow \Ru$. Then $f$ is \lsc iff for each $\al \in \R$, $f^{-1}((\al, \infty])$ is open. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ is \lsc Let $\al \in \R$ and $x_0 \in f^{-1}(\al, \infty]$. Put $\ep = f(x_0) - \al$. By definition, $$\sup_{V \in N_{x_0}} \inf_{x \in V \setminus \{x_0\}} f(x) \geq f(x_0)$$ Choose $V_{\ep} \in N_{x_0}$ such that 
+	\begin{align*}
+	\inf_{x \in V_{\ep}} f(x)  
+	&> f(x_0) - \ep \\
+	&= \al
+\end{align*}
+Then $V_{\ep}^o \in \MN_{x_0}$ is open and 
+	\begin{align*}
+		V_{\ep}^o 
+		& \subset V_{\ep} \\
+		&\subset f^{-1}((\al, \infty])
+	\end{align*} 
+	So $f^{-1}((\al, \infty])$ is open. \\
+	Conversely, suppose that for each $\al \in \R$, $f^{-1}((\al, \infty])$ is open. Let $x_0 \in X$. Put $\al = f(x_0)$. For $n \in \N$, define $V_n = f^{-1}((f(x_0)-1/n, \infty]) $. Then for each $n \in \N$, $V_n \in \MN_{x_0}$ and 
+	\begin{align*}
+	\liminf_{x \rightarrow x_0} f(x) 
+	&= \sup_{V \in \MN_{x_0}} \inf_{x \in V \setminus \{x_0\}} f(x) \\
+	& \geq \sup_{n \in \N} \inf_{x \in V_n \setminus \{x_0\}} f(x) \\
+	& \geq \sup_{n \in \N} f(x_0)-1/n \\
+	&= f(x_0) \\
+	\end{align*}
+	So $f$ is \lsc
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
-	
-	
-	
 	
 	
 	
@@ -1216,21 +1276,28 @@
 	Let $X$ be a banach space, $A \subset X$ open, $f:A \rightarrow \R$, $a \in A, b \in X$. Define $T = \{ t \in \R: a+tb \in A\}$, which is an open neighborhood of $a$, and $g: T \rightarrow \R$ by $g(t) = f(a +tb)$. Then $f$ is said to be 
 	\begin{enumerate}
 	\item \textbf{right-hand-differentiable} at $a$ in the direction $b$ if $g$ is differentiable from the right at $t=0$, i.e. if
-	$$  g'(0^+) =  \lim_{t \rightarrow 0^+} \frac{f(a +tb) - f(a)}{t}$$
-	exists
+	$$  g'_+(0) =  \lim_{t \rightarrow 0^+} \frac{f(a +tb) - f(a)}{t}$$
+	exists. If $f$ is right-hand-differentiable at $a$ in the direction $b$, we define the \textbf{right-hand derivative} of $f$ at $a$ in the direction $b$ by $$d_+ f(a; b) = g'_+(0)$$ 
 	
 	\item \textbf{left-hand-differentiable} at $a$ in the direction $b$ if $g$ is differentiable from the left at $t=0$, i.e. if 
-	$$  g'(0^-) =  \lim_{t \rightarrow 0^-} \frac{f(a +tb) - f(a)}{t}$$
-	exists
+	$$  g'_-(0) =  \lim_{t \rightarrow 0^-} \frac{f(a +tb) - f(a)}{t}$$
+	exists. If $f$ is left-hand-differentiable at $a$ in the direction $b$, we define the \textbf{left-hand derivative} of $f$ at $a$ in the direction $b$ by $$d_- f(a; b) = g'_-(0)$$
 	
 	\item \textbf{differentiable} at $a$ in the direction $b$ if  $g$ is differentiable at $t=0$, i.e. if
 	$$  g'(0) =  \lim_{t \rightarrow 0} \frac{f(a +tb) - f(a)}{t}$$
-	exists
+	exists. If $f$ is differentiable at $a$ in the direction $b$, we define the \textbf{derivative} of $f$ at $a$ in the direction $b$ by $$d f(a; b) = g'(0)$$
 	\end{enumerate}
 	\end{defn}	
 	
 	\begin{defn}
-	Let $f:X \rightarrow \R$ and $x \in X$. Then $f$ is said to be \textbf{Gateaux differentiable} at $x$ if for each $x \in A$, 
+	Let $X$ be a banach space, $A \subset X$ open, $f:A \rightarrow \R$ and $a \in A.$ Then $f$ is said to be 
+	\begin{enumerate}
+	\item \textbf{right-hand Gateaux differentiable} at $a$ if for each $b \in X$, $d_+ f(a; b)$ exits. We define the \textbf{right-hand Gateaux derivative} of $f$ at $a$, denoted $d_+ f(a) : X \rightarrow \R$, to be $$d_+ f(a)(b) = d_+ f(a;b)$$ 
+	
+	\item \textbf{left-hand Gateaux differentiable} at $a$ if for each $b \in X$, $d_- f(a; b)$ exits. We define the \textbf{left-hand Gateaux derivative} of $f$ at $a$, denoted $d_- f(a) : X \rightarrow \R$, to be $$d_- f(a)(b) = d_- f(a;b)$$
+	
+	\item \textbf{Gateaux differentiable} at $a$ if for each $b \in X$, $d f(a; b)$ exits. We define the \textbf{Gateaux derivative} of $f$ at $a$, denoted $d f(a) : X \rightarrow \R$, to be $$d f(a)(b) = d f(a;b)$$
+	\end{enumerate}
 	\end{defn}
 	
 	
@@ -1319,31 +1386,50 @@
 	\section{Convexity}
 	
 	\subsection{Introduction}
-	
+
 	\begin{note}
-	For the remainder of this section, we assume $X$ is a real Banach space. 
-	\end{note}	
-	
-	\begin{defn}
-	Let $A \subset X$ and $x,y \in A$. We define the \textbf{line segment} between $x$ and $y$, denoted $l_{x,y}$, to be $$l_{x,y} = \{tx + (1-t)y : t \in [0,1] \}$$
-	\end{defn}
+	In this section, we assume all vector spaces are real.
+	\end{note}
 
 	\begin{defn}
-	Let $A \subset X$. Then $A$ is said to be $\textbf{convex}$ if for each $x, y \in A$, $l_{x,y} \subset A$. 
+	Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be $\textbf{convex}$ if for each $x, y \in A$, and $t \in [0,1]$,  $tx + (1-t)y \in A$. 
 	\end{defn}	
 	
-	\begin{note} 
-	For the remainder of this section, we assume that $A \subset X$ is convex.
-	\end{note}
-	
 	\begin{defn}
-	Let $f:A \rightarrow \R$. Then $f$ is said to be  \textbf{convex} if for each $x,y \in A$, $t \in [0,1]$, $$f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)$$ We define $$\MC(A) = \{f:A \rightarrow \R: f \text{ is convex}\}$$ 
+	Let $X$ be a vector space and $f:A \rightarrow \Ru$. Then $f$ is said to be \textbf{convex} if for each $x,y \in A$, $t \in \ui$, $$f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)$$
 	\end{defn}
 	
 	\begin{ex}
-	Let $f,g:A \rightarrow \R$ and $\lam \geq 0$. If $f,g$ are convex, then 
+	Let $X$ be a vector space, $f \in X^*$ and $g: X \rightarrow \Ru$ constant. Then $f$ and $g$ are convex. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $x, y \in X$ and $t \in \ui$. Put $c = g(0)$. Then $$f(tx + (1-t)y) = tf(x) + (1-t)f(y)$$ and 
+		\begin{align*}
+		g(tx + (1-t)y) 
+		&= c\\ 
+		&= tc + (1-t)c \\
+		&= tg(x) + (1-t)g(y)
+		\end{align*}
+		So $f$ and $g$ are convex.
+	\end{proof}		
+	
+	\begin{defn}
+	Let $f: X \rightarrow \Ru$. Then $f$ is said to be \textbf{affine} if there exists $\phi \in X^*$, $a \in R$ constant such that $f = \phi + a$.
+	\end{defn}
+	
+	\begin{ex}
+	Let $f: X \rightarrow \Ru$. If $f$ is affine, then $f$ is convex.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ is affine. Then there exists $\phi \in X^*$, $a \in R$ constant such that $f = \phi + a$. Then $\phi$ is convex and $g: X \rightarrow \Ru$ defined by $g(x) = a$ is convex. So $f = \phi + g$ is convex.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a vector space, $A \subset X$ convex, $f,g:A \rightarrow \Ru$ and $\lam \geq 0$. If $f,g$ are convex, then 
 	\begin{enumerate}
-	\item $f+ g$ is convex 
+	\item $f + g$ is convex 
 	\item $\lam f$ is convex
 	\end{enumerate}
 	\end{ex}
@@ -1360,7 +1446,7 @@
 	\end{proof}
 	
 	\begin{ex}
-	Let $f:\R \rightarrow \R$ and $g: A \rightarrow \R$. If $f$ is convex and increasing and $g$ is convex, then $f \circ g$ is convex.
+	Let $X$ be a vector space, $A \subset X$ convex, $f:\R \rightarrow \Ru$ and $g: A \rightarrow \R$. If $f$ is convex and increasing and $g$ is convex, then $f \circ g$ is convex.
 	\end{ex}	
 	
 	\begin{proof}
@@ -1374,29 +1460,127 @@
 \end{align*}	 
 So $f \circ g$ is convex.
 	\end{proof}
-
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	\begin{defn}
+	Let $X, Y$ be vector spaces, $A \subset X \oplus Y$. For $y \in Y$, define $$A^y = \{x \in X: (x,y) \in A \}$$ and $f^y:A^y \rightarrow \Ru$ by $$f^y(x) = f(x,y)$$
+	\end{defn}
 	
 	\begin{ex}
-	Let $A \subset \R$ and $f:A \rightarrow \R$. Then $f$ is convex iff for each $x,y \in A$, if $x \neq y$  then for each $z \in l_{x,y}$, $$f(z) \leq f(x) + \frac{f(y) - f(x)}{y-x}(z-x)$$ that is, between $x$ and $y$, the graph of $f$ lies below its secant line. 
+	Let $X, Y$ be vector spaces, $A \subset X \oplus Y$ convex and $f:A \rightarrow \Ru$ convex. Then for each $y \in \pi_2(A)$,
+	\begin{enumerate}
+	\item $A^y$ is convex 
+	\item $f^y$ is convex  
+	\end{enumerate}	  
+	where $\pi_2: X\times Y \rightarrow Y$, the canonical projection of $X \times Y$ onto $Y$ given by $\pi_2(x,y) = y$.
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $f$ is convex. Let $x,y \in A$. Suppose that $x \neq y$. Let $z \in l_{x,y}$. Then there exists $t \in [0,1]$ such that $z = tx + (1-t)y$. Define $s:\R \rightarrow \R$ by $$s(z) = f(x) + \frac{f(y) - f(x)}{y-x}(z-x)$$ 
+	Let $y \in \pi_2(A)$, $x_1, x_2 \in A^y$ and $t \in [0,1]$. Then by definition, $(x_1, y)$, $(x_2, y) \in A$.
+	\begin{enumerate}
+	\item  Convexity of $A$ implies that $(tx_1 + (1-t)x_2, y) \in A$. Hence $tx_1 + (1-t)x_2 \in A^y$ and $A^y$ is convex. 
+	\item Convexity of $f$ implies that 
+	\begin{align*}
+	f^y(tx_1 + (1-t)x_2)
+	&= f(tx_1 + (1-t)x_2, y) \\
+	&= f(t(x_1, y) + (1-t)(x_2,y)) \\
+	& \leq tf(x_1, y) + (1-t) f(x_2,y) \\
+	&= tf^y(x_1) + (t-t)f^y(x_2)
+\end{align*}	  
+	and so $f^y$ is convex.
+	\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$, $Y$ be vector spaces and $A\subset X, B \subset Y$. If $A$ and $B$ are convex, then $A \times B \subset X \oplus Y$ is convex.
+	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $A$ and $B$ are convex. Let $(x_1,y_1), (x_2,y_2) \in A \times B$ and $t \in [0,1]$. Convexity of $A$ and $B$ implies that $tx_1 + (1-t)x_2 \in A$ and $ty_1 + (1-t)y_2 \in B$. Therefore 
+	\begin{align*}
+	t(x_1,y_1) + (1-t)(x_2,y_2) 
+	&= (tx_1 + (1-t)x_2, ty_1 + (1-t)y_2) \\
+	& \in A \times B
+\end{align*}	 
+	\end{proof}
+	
+	\begin{ex}
+	Let $X, Y$ be vector spaces and $A \subset X$, $B \subset Y$ convex (implying that $A \times B$ is convex)  and $f:A \times B \rightarrow \Ru$ convex. Suppose that for each $y \in B$, $\{f(x, y): x \in A\}$ is bounded below. Then $\inf\limits_{y \in B}f^y$ is convex
+	\end{ex}
+	
+	\begin{proof}
+	Put $g = \inf\limits_{y \in B}f^y$. 
+	Let $x_1, x_2 \in A$, $y_1, y_2 \in B$ and $t \in [0,1]$. Put $y'= ty_1 + (1-t)y_2$. Then convexity of $f$ implies that
+	\begin{align*}
+	g(tx_1 + (1-t)x_2) 
+	& \leq f^{y'}(tx_1 + (1-t)x_2) \\
+	&= f(tx_1 + (1-t)x_2, ty_1 + (1-t)y_2)\\
+	&= f(t(x_1,y_1) + (1-t)(x_2, y_2)) \\
+	& \leq tf(x_1, y_1) + (1-t)f(x_2, y_2) \\
+	&= tf^{y_1}(x_1) + (1-t)f^{y_2}(x_2) \\
+	\end{align*}
+	Since $y_1 \in B$ is arbitrary, we have that $$g(tx_1 + (1-t)x_2) \leq tg(x_1) + (1-t)f^{y_2}(x_2)$$ Similarly, since $y_2 \in B$ is arbitrary, we have that $$g(tx_1 + (1-t)x_2) \leq tg(x_1) + (1-t)g(x_2)$$ and $f$ is convex.
+	\end{proof}	
+
+	\begin{ex}
+	Let $X$ be a vector space, $A \subset X$ convex and $ (f_{\lam})_{\lam \in \Lam} \subset \Ru^A$. Suppose that for each $\lam \in \Lam$, $f_\lam$ is convex. Then $\sup\limits_{\lam \in \Lam}f_\lam$ is convex.
+	\end{ex}
+	
+	\begin{proof}
+	Define $f = \sup\limits_{\lam \in \Lam} f_{\lam}$. Let $x, y \in A$, $t \in [0,1]$ and $\lam \in \Lam$. Then \begin{align*}
+	f_\lam(tx + (1-t)y) 
+	&\leq tf_\lam (x) + (1-t)f_\lam(y) \\
+	& \leq tf(x) + (1-t)f(y) 
+\end{align*}	
+	Since $\lam \in \Lam$ is arbitrary, $f(tx + (1-t)y) \leq tf(x) + (1-t)f(y) $. 
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Conjugacy}
+	
+	\begin{defn}
+	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \Ru$. Define $f^*: X^* \rightarrow \Ru$ by $$f^*(\phi) = \sup_{x \in A} \bigg[ \phi(x) - f(x) \bigg] $$ 
+	If $X$ is a Hilbert space, we may define $f^*: X \rightarrow \Ru$ via the Riesz representation theorem by $$ f^*(y) = \sup_{x \in A} \bigg[ \l y, x \r - f(x) \bigg] $$
+	\end{defn} 
+	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \Ru$. Then $f^*$ is convex. 
+	\end{ex}
+	
+	\begin{proof}
+		For $x \in A$, define $g_x: X^* \rightarrow \Rd$ by $g_x(\phi) = \phi(x) - f(x)$. Then for each $x \in A$, $g_x$ is convex since it is affine. Thus $f^* = \sup\limits_{x \in A} g_x$		 
+is convex.  
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \Ru$. Then for each $x \in X$ and $\phi \in X^*$, $f(x) \geq \phi(x) - f^*(\phi)$.	
+	\end{ex}
+	
+	\begin{proof}
+	Clear
+	\end{proof}
+	
+	\begin{ex}
+	
+	\end{ex}
+	
+	\subsection{Differentiability}
+	
+	\begin{ex}
+	Let $A \subset \R$ be convex and $f:A \rightarrow \R$. Then $f$ is convex iff for each $x,y \in A$, if $x \neq y$  then for each $z \in [x,y]$, $$f(z) \leq f(x) + \frac{f(y) - f(x)}{y-x}(z-x)$$ that is, between $x$ and $y$, the graph of $f$ lies below its secant line. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ is convex. Let $x,y \in A$. Suppose that $x \neq y$. Define $s:\R \rightarrow \R$ by $$s(z) = f(x) + \frac{f(y) - f(x)}{y-x}(z-x)$$  Let $z \in [x,y]$. Then there exists $t \in [0,1]$ such that $z = tx + (1-t)y$. 
 	Then 
 	\begin{align*}
 	s(z) 
@@ -1406,11 +1590,11 @@ So $f \circ g$ is convex.
 	&= f(x) + \frac{f(y) - f(x)}{y-x}(1-t)(y - x) \\
 	&= f(x) + (f(y) - f(x))(1-t) \\
 	&= tf(x) + f(y)(1-t) \\
-	& \geq f(tx + (1-t)y) \hspace{2cm} \text{(by convex ity)}\\ 
+	& \geq f(tx + (1-t)y) \hspace{2cm} \text{(by convexity)}\\ 
 	& = f(z)	
 	\end{align*}
-	Conversely, suppose that for each $x,y \in A$, if $x \neq y$  then for each $z \in l_{x,y}$, $$f(z) \leq f(x) + \frac{f(y) - f(x)}{y-x}(z-x)$$ 
-	Let $x, y \in A$. Suppose that $x \neq y$. Define $s:\R \rightarrow \R$ as above. Then similarly, $s(z) =  tf(x) + f(y)(1-t)$. Let $t \in [0,1]$. Put $z = tx + (1-t)y \in l_{x,y}$. By assumption, 
+	Conversely, suppose that for each $x,y \in A$, if $x \neq y$  then for each $z \in [x,y]$, $$f(z) \leq f(x) + \frac{f(y) - f(x)}{y-x}(z-x)$$ 
+	Let $x, y \in A$. Suppose that $x \neq y$. Define $s:\R \rightarrow \R$ as above. Let $t \in [0,1]$. Put $z = tx + (1-t)y \in (x,y) \in [x,y]$. Then as shown previously, $s(z) =  tf(x) + f(y)(1-t)$. By assumption, 
 	\begin{align*}
 	f(tx + (1-t)y) 
 	&= f(z) \\
@@ -1420,10 +1604,37 @@ So $f \circ g$ is convex.
 	If $x = y$, then $f(tx + (1-t)y) = tf(x) + (1-t)f(y)$. So $f$ is convex.
 	\end{proof}
 	
+	
+	\begin{defn}
+	Let 
+	\end{defn}
+	
+	\begin{defn}
+	$\partial f$
+	\end{defn}	
+	
+	\begin{ex}
+	
+	\end{ex}
+	
+	
+	\subsection{Functional Optimization}
 	\begin{ex}
 	Let $X$ be a Banach space, $(S, \MS, \mu)$ a measure space, $A \subset X$, $K \in L^0(A, \R)$ and $\Lam \subset L^0(S, A) \cap \{f:S \rightarrow A:  K \circ f \in L^1(\mu) \}$. Suppose that $A$ and $\Lam$ are convex. Define $\phi: \Lam \rightarrow \R$ by $$\phi f = \int K\circ f d \mu $$
-	If $K$ is convex, then $\phi$ is convex. 
+	Then $K$ is convex implies that $\phi$ is convex. 
 	\end{ex}	
 	
+	\begin{proof}
+	Suppose that $K$ is convex. Let $t \in \ui$ and $f, g \in \Lam$. Convexity of $K$ implies that for each $s \in S$, $$K[tf(s) + (1-t)g(s)] \leq tK[f(s)] + (1-t)K[g(s)]$$ So $$K \circ [tf +(1-t)g] \leq t K \circ f + (1-t) K \circ g$$
+	Therefore 
+	\begin{align*}
+	\phi[tf + (1-t) g]
+	&= \int K \circ [tf +(1-t)g] d \mu \\
+	& \leq  \int t K \circ f + (1-t) K \circ g d \mu \\
+	&= t \int K \circ f d\mu + (1-t) \int K \circ g d \mu \\
+	&= t \phi f + (1-t) \phi g
+	\end{align*}
+	and $\phi$ is convex.
+	\end{proof}
 	
 \end{document}

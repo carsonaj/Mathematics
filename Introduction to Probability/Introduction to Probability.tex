@@ -703,16 +703,33 @@
 	\subsection{Conditional Probability}
 	
 	\begin{defn}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$ and $Q: \R^n  \times \MF \rightarrow [0,1]$. Then $Q$ is said to be a \textbf{conditional probability distribution of $X$ given $Y$} if 
+	Let $(A, \MA)$ be a measurable space, $(B, \MB, P_Y)$ a probability space and $Q:B \times \MA \rightarrow [0,1]$. Then $Q$ is said to be a \textbf{stochastic transition kernel from $(B, \MB, P)$ to $(A, \MA)$} if 
 	\begin{enumerate}
-	\item for each $A \in \MF$, $Q(\cdot, A)$ is $\MB(\R^n)$-measurable
-	\item for $P_Y$-a.e. $y \in \R^n$, $Q(y, \cdot)$ is a probability measure on $(\Om, \MF)$
+	\item for each $E \in \MA$, $Q(\cdot, E)$ is $\MB$-measurable
+	\item for $P$-a.e. $b \in B$, $Q(b, \cdot)$ is a probability measure on $(A, \MA)$
+	\end{enumerate}
+	\end{defn}	
+	
+	\begin{defn}
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in L_n^0(\Om, \MF, \P)$ and $Q: \R^n  \times \MF \rightarrow [0,1]$. Then $Q$ is said to be a \textbf{conditional probability distribution of $X$ given $Y$} if 
+	\begin{enumerate}
+	\item $Q$ is a stochastic transition kernel from $(\R^n, \MB(\R^n), P_Y)$ to $(\R^n, \MB(\R^n))$
 	\item for each $A,B \in \MF$, $$\int_B Q(y, A) dP_Y(y) = P(X \in A, Y \in B)$$ 
 	\end{enumerate}
 	\end{defn}
 	
+	\begin{note}
+	It is helpful to connect this notion of conditional probability with the elementary one by writing $Q(y, A) = P(X \in A| Y = y)$. If $P_Y \ll \mu$, then property $(2)$ in the definition becomes 
+	\begin{align*}
+	P(X \in A, Y \in B)  
+	&=  \int_B Q(y, A) dP_Y(y) \\
+	&= \int_B P(X \in A|Y=y) f_Y(y)d \mu(y) \\
+\end{align*}	 
+	as in a first course on probability.
+	\end{note}	
+	
 	\begin{ex}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$ and $Q: \R^n \times \MF \rightarrow [0,1]$. Suppose that for each $A \in \MF$, $Q(\cdot, A)$ is $\MB(\R^n)$-measurable, for $P_Y$-a.e. $y \in \R^n$, $P_{X|Y}(y, \cdot)$ is a probability measure on $(\Om, \MF)$ and $Q(Y, A) = P(X \in A|Y)$ a.e. Then $Q$ is a conditional probability of $X$ given $Y$.
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in L_n^0$ and $Q: \R^n \times \MF \rightarrow [0,1]$. Suppose that for each $A \in \MF$, $Q(\cdot, A)$ is $\MB(\R^n)$-measurable, for $P_Y$-a.e. $y \in \R^n$, $P_{X|Y}(y, \cdot)$ is a probability measure on $(\Om, \MF)$ and $Q(Y, A) = P(X \in A|Y)$ a.e. Then $Q$ is a conditional probability of $X$ given $Y$.
 	\end{ex}	
 	
 	\begin{proof}
@@ -731,10 +748,11 @@
 	\end{proof}
 	
 	\begin{defn}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$ and $\mu$ a $\sig$-finite measure on $(\R^n, \MB(\R^n))$. Suppose that $P_X, P_Y \ll \mu$. Then $P_{X,Y} \ll \mu^2$. Let $f_X = dP_X/d \mu$, $f_Y = dP_Y/d \mu$ and $f_{X,Y} = dP_{X,Y}/d \mu^2$. Define $f_{X|Y}: \R^n \times \R^n$ by 
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in L_n^0$ and $\mu$ a $\sig$-finite measure on $(\R^n, \MB(\R^n))$. Suppose that $P_X, P_Y \ll \mu$. Then $P_{X,Y} \ll \mu^2$. Let $f_X = dP_X/d \mu$, $f_Y = dP_Y/d \mu$ and $f_{X,Y} = dP_{X,Y}/d \mu^2$. Define $f_{X|Y}: \R^n \times \R^n$ by 
 	\[
+	f_{X|Y}(x,y) = 
 	\begin{cases}
-	f_{X|Y}(x,y) = \frac{f_{X,Y}(x,y)}{f_Y(y)},& y \in \supp Y \\
+	\frac{f_{X,Y}(x,y)}{f_Y(y)},& y \in \supp Y \\
 	0, &y \not \in \supp Y 
 	\end{cases}
 	\] 
@@ -742,7 +760,7 @@
 	\end{defn}	
 	
 	\begin{ex}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$ and $\mu$ a $\sig$-finite measure on $(\R^n, \MB(\R^n))$. Suppose that $P_X, P_Y \ll \mu$. Define $Q: \R^n \times \MF \rightarrow [0,1]$ by 
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in L_n^0$ and $\mu$ a $\sig$-finite measure on $(\R^n, \MB(\R^n))$. Suppose that $P_X, P_Y \ll \mu$. Define $Q: \R^n \times \MF \rightarrow [0,1]$ by 
 	$$Q(y, A) = \int_A f_{X|Y}(x,y) d\mu(x)$$ 
 	Then $Q$ is a conditional probability distribution of $X$ given $Y$.
 	\end{ex}	
@@ -760,7 +778,7 @@
 	\end{proof}
 	
 	\begin{thm}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in \R^n$ random vectors on $(\Om, \MF)$. Suppose that $\Img X \in \MB(\R^n)$. Then there exists a conditional probability distribution of $Y$ given $X$. 
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in L_n^1(\Om, \MF, \P)$. Suppose that $\Img X \in \MB(\R^n)$. Then there exists a conditional probability distribution of $Y$ given $X$. 
 	\end{thm}
 	
 	
