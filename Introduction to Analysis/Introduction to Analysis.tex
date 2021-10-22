@@ -106,6 +106,7 @@
 \newcommand{\lsc}{l.s.c. }
 
 \DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\spn}{span}
 
 
 
@@ -775,8 +776,20 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{note}
 	
 	\begin{thm}\textbf{Hahn-Banach Theorem:}
-		Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional, $M \subset X$ a subspace and $f:M \rightarrow C$ a linear functional. If for each $x \in M$, $\vert f(x) \vert \leq p(x)$, then there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $\vert F(x) \vert \leq p(x)$ and $F|_{M}=f$.
+		Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional, $M \subset X$ a subspace and $f:M \rightarrow \C$ a linear functional. If for each $x \in M$, $ f(x)  \leq p(x)$, then there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $F(x) \leq p(x)$ and $F|_{M}=f$.
 	\end{thm}
+	
+	\begin{ex}
+	Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional. Then there exists a linear function $F: X \rightarrow \C$ such that for each $x \in X$, $F(x) \leq p(x)$.
+	\end{ex}
+	
+	\begin{proof}
+	Take $M = \{0\}$ and $f \equiv 0$ and apply the Hahn-Banach theorem.
+	\end{proof}	
+	
+	\begin{thm}\textbf{Complex Hahn-Banach Theorem:}
+		Let $X$ be a vector space, $p:X \rightarrow \R$ a seminorm, $M \subset X$ a subspace and $f:M \rightarrow \C$ a linear functional. If for each $x \in M$, $\vert f(x) \vert \leq p(x)$, then there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $\vert F(x) \vert \leq p(x)$ and $F|_{M}=f$.
+	\end{thm}	
 	
 	\begin{ex}
 		Let $X$ be a normed vector space, $M \subset X$ a subspace and $f \in M^*$. Then there exists $F \in X^*$ such that $\|F \|= \|f \|$ and $F|_M = f$.  
@@ -1272,8 +1285,16 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	\subsection{Differentiability}
 	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open, $f:A \rightarrow \R$ convex, $a \in A$ and $b \in X$. Define $T = \{ t \in \R: a+tb \in A\}$. Then $T$ is an open neighborhood of $0$. 
+	\end{ex}
+	
+	\begin{proof}
+	Continuity of scalar multiplication and addition implies that $T$ is an open neighborhood of $0$.
+	\end{proof}
+	
 	\begin{defn}
-	Let $X$ be a banach space, $A \subset X$ open, $f:A \rightarrow \R$, $a \in A, b \in X$. Define $T = \{ t \in \R: a+tb \in A\}$, which is an open neighborhood of $a$, and $g: T \rightarrow \R$ by $g(t) = f(a +tb)$. Then $f$ is said to be 
+	Let $X$ be a banach space, $A \subset X$ open, $f:A \rightarrow \R$, $a \in A, b \in X$. Define $T = \{ t \in \R: a+tb \in A\}$, which is an open neighborhood of $0$, and $g: T \rightarrow \R$ by $g(t) = f(a +tb)$. Then $f$ is said to be 
 	\begin{enumerate}
 	\item \textbf{right-hand-differentiable} at $a$ in the direction $b$ if $g$ is differentiable from the right at $t=0$, i.e. if
 	$$  g'_+(0) =  \lim_{t \rightarrow 0^+} \frac{f(a +tb) - f(a)}{t}$$
@@ -1288,6 +1309,10 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	exists. If $f$ is differentiable at $a$ in the direction $b$, we define the \textbf{derivative} of $f$ at $a$ in the direction $b$ by $$d f(a; b) = g'(0)$$
 	\end{enumerate}
 	\end{defn}	
+	
+	\begin{ex}
+	Let 
+	\end{ex}
 	
 	\begin{defn}
 	Let $X$ be a banach space, $A \subset X$ open, $f:A \rightarrow \R$ and $a \in A.$ Then $f$ is said to be 
@@ -1381,6 +1406,340 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 			\item if $\l x ,x \r = 0$, then $x = 0$.  
 		\end{enumerate}
 	\end{defn}
+	
+	
+	 
+	\begin{ex}
+	Let $(x_j)_{j =1}^n \subset H$. Then $$\bigg \l \sum_{i=1}^n x_i , \sum_{j=1}^n x_j \bigg \r = \sum_{i=1}^n \sum_{j=1}^n \l x_i , x_j \r $$
+\end{ex}
+
+\begin{proof}
+Clear.
+\end{proof}
+
+\begin{defn}
+	Let $\psi_1, \psi_2 \in H$ and $S \subset H$. Then $\psi_1$ and $\psi_2$ are said to be \textbf{orthogonal} if $\l \psi_1,\psi_2\r = 0$ and $S$ is said to be \textbf{orthogonal} if for each $\psi_1,\psi_2 \in S$, $\psi_1,\psi_2$ are orthogonal. 
+\end{defn}
+
+%\begin{ex}
+%	Let $S \subset H$. Suppose that $0 \not \in S$. If $S$ is orthogonal, then $S$ is linearly independent.
+%\end{ex}
+%
+%\begin{proof}
+%	Let $\psi_1, \cdots, \psi_n \in S$ and $c_1, \cdots, c_n \in \C$. Suppose that $\sum\limits_{j =1}^n c_j \psi_j = 0 $. Then 
+%	\begin{align*}
+%		0
+%		&= \bigg \l \sum_{i=1}^n c_i\psi_i , \sum_{j=1}^n c_j\psi_j \bigg \r \\
+%		&= \sum_{i=1}^n \sum_{j=1}^n \l \psi_i, \psi_j \r \\
+%		&= \sum_{j=1}^n  |c_j|^2 \l \psi_j, \psi_j \r
+%	\end{align*}
+%	So for $j = 1 , \cdots, n$, $c_j = 0$ and $S$ is linearly independent.
+%\end{proof}
+%
+%\begin{proof}
+%	Clear.
+%\end{proof}
+%
+%\begin{thm}\textbf{(Cauchy-Schwarz Inequality):} \\
+%	Let $\psi_1,\psi_2 \in H$. Then $\l \psi_1,\psi_2\r^2 \leq \l \psi_1,\psi_1 \r \l \psi_2,\psi_2 \r$
+%\end{thm}
+%
+%\begin{ex}
+%	Define $\|\cdot \| : H \rightarrow \R_{\geq 0}$ by $$\|\psi_1\| = \l \psi_1, \psi_1\r^{1/2}$$ Then $\|\cdot\|$ is a norm on $H$.
+%\end{ex}
+%
+%\begin{proof}
+%	The only nontriviality needed to be shown is the triangle inequality. To see this, we observe that 
+%	\begin{align*}
+%		\| \psi_1+ \psi_2 \|^2 
+%		&= \l \psi_1+\psi_2 , \psi_1+\psi_2\r \\
+%		&= \l \psi_1,\psi_1 \r + \l \psi_1,\psi_2\r + \l \psi_2,\psi_1 \r + \l \psi_2,\psi_2 \r \\
+%		&= \|\psi_1\| + \| \psi_2 \| + 2 Re(\l \psi_1,\psi_2 \r) \\
+%		& \leq \|\psi_1\| + \| \psi_2 \| + 2| \l \psi_1 , \psi_2 \r| \\
+%		& \leq  \|\psi_1\| + \| \psi_2 \| + 2 \| \psi_1\| \|\psi_2\| \\ 
+%		&= (\|\psi_1 \| + \| \psi_2 \|)^2
+%	\end{align*}
+%	Hence $$\| \psi_1+ \psi_2 \| \leq \|\psi_1 \| + \| \psi_2 \|$$
+%\end{proof}
+%
+%\begin{defn}
+%	S set $S \subset H$ is said to be \textbf{orthonormal} if $S$ is orthogonal and for each $\psi_1 \in S$, $\|\psi_1 \| = 1$.
+%\end{defn}
+%
+%\begin{defn}
+%	Let $H$ be a vector space and $\l \cdot , \cdot\r: H \times H \rightarrow \C$. Then $H$ is said to be a \textbf{Hilbert space} if $H$ is a complete with respect to the norm on $H$ induced by $\l \cdot , \cdot \r$. 
+%\end{defn}
+%
+%\begin{note}
+%	For the rest of this section, we assume that $H$ is a Hilbert space. 
+%\end{note}
+%
+%\begin{ex}\textbf{(Pythagorean theorem):}\\
+%	Let $(\psi_j)_{j \in \N} \subset H$ be an orthogonal set. Suppose that $\sum\limits_{j \in \N} \psi_j$ converges, then $$\bigg \|\sum\limits_{j \in \N} \psi_j  \bigg \|^2 = \sum\limits_{j \in \N} \|\psi_j \|^2$$
+%\end{ex}
+%
+%\begin{proof}
+%	Let $n \in \N$. Then 
+%	\begin{align*}
+%		\bigg \| \sum\limits_{j = 1}^n  \psi_j\bigg \|^2
+%		&= \bigg \l \sum\limits_{i =1}^n \psi_i , \sum\limits_{j =1}^n \psi_j \bigg \r \\
+%		&= \sum\limits_{i =1}^n \sum\limits_{j =1}^n \l \psi_j , \psi_j \r \\
+%		&= \sum\limits_{j =1}^n \l \psi_j , \psi_j \r \\
+%		&= \sum\limits_{j =1}^n \| \psi_j \|^2
+%	\end{align*}
+%	Since $\| \cdot \|$  is continuous on $H$, we have that 
+%	\begin{align*}
+%		\bigg \|\sum\limits_{j \in \N} \psi_j  \bigg \|^2
+%		&= \lim_{n \rightarrow \infty} \bigg \|\sum\limits_{j =1}^n \psi_j  \bigg \|^2 \\
+%		&= \limn \sum\limits_{j =1}^n \| \psi_j \|^2 \\
+%		&= \sum\limits_{j \in \N} \|\psi_j \|^2
+%	\end{align*}
+%\end{proof}
+%
+%\begin{defn}
+%	Let $S \subset H$. Then $S$ is said to \textbf{span} $H$ if $\spn S$ is dense in $H$ and $S$ is said to be a \textbf{basis} for $H$ if $S$ spans $H$ and $S$ linearly independent.
+%\end{defn}
+%
+%\begin{defn}
+%	Let $A: H \rightarrow H$. Then $A$ is said to be an \textbf{operator} on $H$.
+%\end{defn}
+%
+%\begin{defn}\textbf{(Adjoint of an Operator):} \\
+%	Let $A,B$ be operators on $H$. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $\psi_1$, $\psi_2 \in H$, $$\l \psi_1 , A\psi_2 \r = \l B \psi_1 , \psi_2 \r$$  If B is the adjoint of $A$, we write $$B = A^{*}$$
+%\end{defn}
+%
+%\begin{note}
+%	In mathematics, the adjoint of $A$ is typically denoted by $A^*$, but we will adopt the notation of $A^{*}$ from physics.
+%\end{note}
+%
+%\begin{ex}
+%	Let $A$ and $B$ be operators on $H$ and $\lam \in \C$, then \begin{enumerate}
+%		\item $(A^{*})^{*} = A$
+%		\item $(A + B)^{*} = A^{*} + B^{*}$
+%		\item $(AB)^{*} = B^{*}A^{*}$
+%		\item $(\lam A)^{*} = \lam^*A^{*}$
+%		\item $A$ and $B$ commute iff $A^{*}$ and $B^{*}$ commute.
+%	\end{enumerate}
+%\end{ex}
+%
+%\begin{proof} Let $\psi_1$, $\psi_2 \in H$. Then
+%	\begin{enumerate}
+%		\item 
+%		\begin{align*}
+%			\l A \psi_1 , \psi_2 \r
+%			&= \l \psi_2 , A \psi_1 \r^*\\
+%			&= \l A^{*}\psi_2 ,  \psi_1 \r^* \hspace{.5cm} \text{(by definition)}\\
+%			&= \l  \psi_1 , A^{*}\psi_2 \r
+%		\end{align*}
+%		\item 
+%		\begin{align*}
+%			\l \psi_1 , (A+B) \psi_2 \r 
+%			&= \l \psi_1 , A \psi_2 \r + \l \psi_1 , B \psi_2 \r \\
+%			&= \l A^{*} \psi_1 , \psi_2 \r + \l B^{*} \psi_1 , \psi_2 \r \\
+%			&= \l (A^{*} + B^{*})  \psi_1 , \psi_2 \r  \\
+%		\end{align*}
+%		\item 
+%		\begin{align*}
+%			\l \psi_1 , AB \psi_2 \r  
+%			&= \l A^{*}\psi_1 , B \psi_2 \r \\
+%			&= \l B^{*} A^{*} \psi_1 , \psi_2 \r 
+%		\end{align*}
+%		\item 
+%		\begin{align*}
+%			\l \psi_1 , \lam A \psi_2 \r 
+%			&= \lam \l \psi_1 , A \psi_2 \r \\
+%			&= \lam \l A^{*}\psi_1 , \psi_2 \r \\
+%			&= \l \lam^* A^{*} \psi_1 , \psi_2 \r 
+%		\end{align*}
+%		\item If $A$ and $B$ commute, then 
+%		\begin{align*}
+%			A^{*}B^{*}
+%			&= (BA)^{*} \\
+%			&= (AB)^{*} \\
+%			&= B^{*}A^{*}
+%		\end{align*}
+%		Conversely, if $A^{*}$ and $B^{*}$ commute then 
+%		\begin{align*}
+%			AB
+%			&= (B^{*}A^{*})^{*} \\
+%			&= (A^{*}B^{*})^{*} \\
+%			&= BA
+%		\end{align*}
+%	\end{enumerate}
+%\end{proof}
+%
+%\begin{defn}
+%	An linear operator $Q$ on $H$ is said to be \textbf{self-adjoint} if $$Q = Q^{*}$$
+%\end{defn}
+%
+%\begin{ex}
+%	Let $Q$ be a self-adjoint operator on $H$. Then 
+%	\begin{enumerate}
+%		\item the eigenvalues of $Q$ are real.
+%		\item the eigenvectors of $Q$ corresponding to distinct eigenvalues are orthogonal.
+%	\end{enumerate}
+%\end{ex}
+%
+%\begin{proof}
+%	\ \begin{enumerate}
+%		\item Let $\lam$ be an eigenvalue of $Q$ with corresponding eigenvector $\psi$. Then 
+%		\begin{align*}
+%			\lam \l \psi , \psi\r
+%			&= \l \psi , Q \psi\r \\
+%			&= \l Q \psi , \psi\r \\
+%			&= \lam^* \l \psi , \psi\r
+%		\end{align*}
+%		Thus $\lam = \lam^*$ and is real
+%		
+%		\item Let $\lam_1$ and $\lam_2$ be eigenvalues of $Q$ with corresponding eigenvectors $\psi_1$ and $\psi_2$. Suppose that $\lam_1 \neq \lam_2$. Then 
+%		\begin{align*}
+%			\lam_2 \l \psi_1 ,  \psi_2\r
+%			&= \l \psi_1 , Q \psi_2\r\\
+%			&= \l Q \psi_1 ,  \psi_2\r\\
+%			&= \lam_1 \l \psi_1 ,  \psi_2\r
+%		\end{align*}
+%		So $(\lam_2 - \lam_1)\l \psi_1 ,  \psi_2\r = 0$. Which implies that $\l \psi_1 ,  \psi_2\r=0$
+%	\end{enumerate}
+%\end{proof}
+%
+%\begin{ex}
+%	Let $A, B$ be self-adjoint operators on $H$ and $ \lam \in \R$. If $A$ and $B$ commute and then $\lam AB$ is self-adjoint.
+%\end{ex}
+%
+%\begin{proof}
+%	\begin{align*}
+%		(\lam AB)^{*}
+%		&= \lam^* (AB)^{*} \\
+%		&= \lam B^{*} A^{*} \\
+%		&= \lam B A \\
+%		&= \lam AB
+%	\end{align*}
+%\end{proof}
+%
+%\begin{defn}\textbf{(Adjoint of a Vector):} \\
+%	Let $\psi \in H$. We define the \textbf{adjoint} of $\psi$, denoted $\psi^{*}: H \rightarrow \C$, by $\psi^{*} \phi = \l \psi, \phi\r$. 
+%\end{defn}
+%
+%\begin{note}
+%	In mathematics, where linearity of the inner product is in the first argument, $\psi^{*}$ is typically referred to by $u_{\psi} \in H^{*} $ where $u_{\psi}(\phi) = \l \phi, \psi\r$. In physics, where the inner product with linearity in the second argument, $\psi^{*} \phi$ is usually written in the so-called ``bra-ket" notation as $\l \psi | \phi \r$ which works smoothly since it aligns with the linearity of $u_{\psi}(\phi_1 + \lam \phi_2)$ and the conjugate-linearity of $u_{\psi_1 + \lam \psi_2}(\phi)$. In this way, it generalizes the notation for $\l x, y\r = x^T y$ for $\R^n$ to $\l x, y\r = x^*y^*$ for $\C^n$. 
+%\end{note}
+%
+%\begin{ex}
+%	Let $\psi, \phi \in \H$ and $ \lam \in \C$. Then 
+%	\begin{enumerate}
+%		\item $(\psi + \phi){^*} =  \psi^*+ \phi^*$
+%		\item $(\lam \psi)^* = \lam^* \psi^*$
+%	\end{enumerate}
+%\end{ex}
+%
+%\begin{proof}
+%	Clear.
+%\end{proof}
+%
+%\begin{defn}
+%	Let $\psi, \phi \in H$ and $A$ an operator on $H$. We define 
+%	\begin{enumerate}
+%		\item the linear functional on $H$, $\psi ^*A: H \rightarrow \C $ by $(\psi ^*A) \al = \psi ^*(A \al)$
+%		\item the operator on $H$, $\psi \phi ^*: H \rightarrow H$ by $(\psi \phi \da) \al = (\phi^*\al) \psi$
+%	\end{enumerate}
+%\end{defn}
+%
+%\begin{ex}
+%	Let $A$ be an operator on $H$ and $\psi \in H$. Then $$(A \psi)^*= \psi ^*A^*$$
+%\end{ex}
+%
+%\begin{proof}
+%	Let $\phi \in H$. Then 
+%	\begin{align*}
+%		(A\psi)\da	\phi 
+%		&= \l A\psi, \phi \r \\
+%		&= \l \psi, A^*\phi \r \\
+%		&= \psi ^*A^*\phi 
+%	\end{align*}
+%\end{proof}
+%
+%\begin{defn}\textbf{(Commutator):} \\
+%	Let $A$ and $B$ be operators. The \textbf{commutator} of $A$ and $B$, $[A,B]$, is defined by $$[A,B] = AB - BA$$
+%\end{defn}
+%
+%\begin{ex}
+%	Let $A,B$ and $C$ be operators, then 
+%	\begin{enumerate}
+%		\item $[AB,C] = A[B,C] + [A,C]B$
+%		\item $[A, BC] = B[A, C] + [A,B]C$
+%	\end{enumerate}
+%\end{ex}
+%
+%\begin{proof} \
+%	\begin{enumerate}
+%		\item 
+%		\begin{align*}
+%			[AB,C]
+%			&= ABC - CAB\\
+%			&= ABC - ACB + ACB -CAB\\
+%			&= A(BC - CB) + (AC-CA)B\\
+%			&= A[B,C] + [A,C]B
+%		\end{align*}
+%		\item Similar to (1).
+%	\end{enumerate}
+%\end{proof}
+%
+%\begin{defn}\textbf{(Tensor Product):} \\ 
+%	Let $H_1, H_2$ be Hilbert spaces. Define $$\otimes: H_1 \times H_2 \rightarrow \C^{H_1 \times H_2} ,\hspace{.5cm} (\psi, \phi) \mapsto \psi \otimes \phi$$ by $$\psi \otimes \phi(x,y) = \l x, \psi  \r \l y, \phi\r$$ 
+%\end{defn}
+%
+%\begin{note}
+%	For the remainder of this section, we assume that $H_1$ and $H_2$ are Hilbert spaces.
+%\end{note}
+%
+%\begin{ex}
+%	We have that $\otimes: H_1 \times H_2 \rightarrow \C^{H_1 \times H_2}$ is bilinear.
+%\end{ex}
+%
+%\begin{proof}
+%	Clear.
+%\end{proof}
+%
+%\begin{defn}
+%	Define $T(H_1, H_2) = \spn \{\psi \otimes \phi: \psi \in H_1 \text{ and } \phi \in H_2\}$ and define $\l \cdot, \cdot \r : T(H_1, H_2) \rightarrow \C $ by $$\l \psi_1 \otimes \phi_1 , \psi_2 \otimes \phi_2 \r = \l \psi_1, \psi_2 \r \l \phi_1 ,  \phi_1\r$$ and extending sesquilinearly so that $$ \l \sum_{i=1}^m \al_i \psi_i \otimes \phi_i , \sum_{j=1}^n \beta_j \Xi_j \otimes \Gam_j\r = \sum_{i=1}^m \sum_{j=1}^n \al_i^* \beta_j \l \psi_i \otimes \phi_i,  \Xi_j \otimes \Gam_j \r$$
+%\end{defn}
+%
+%\begin{ex}
+%	We have that  $\l \cdot, \cdot \r : T(H_1, H_2) \rightarrow \C $ is an inner product on $T(H_1, H_2)$.
+%\end{ex}
+%
+%\begin{proof} 
+%	Clear.
+%\end{proof}
+%
+%\begin{defn}
+%	Define $H_1 \otimes H_2$ to be the completion of $T(H_1, H_2)$.
+%\end{defn}
+%	
+%
+%	\begin{ex}
+%		Let $H_1, H_2$ be Hilbert spaces. If $(\psi_j)_{j\in \N}$ is an orthonormal basis for $H_1$ and $(\phi_j)_{j \in \N}$ is an orthonormal basis for $H_2$, then $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is an orthonormal basis for $H_1 \otimes H_2$. 
+%	\end{ex}
+%
+%	\begin{proof}
+%		Since 
+%		\begin{align*}
+%			\l \psi_{i_1} \otimes \phi_{j_1} , \psi_{i_2} \otimes \phi_{j_2} \r 
+%			&= \l \psi_{i_1} , \psi_{i_2} \r \l \phi_{j_1} , \phi_{j_2} \r \\
+%			&= \del_{i_1, i_2} \del_{j_1, j_2}
+%		\end{align*}
+%		we have that $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is orthonormal. Let $\psi = \sum\limits_{i \in \N} a_i \psi_i \in H_1$ and $\phi = \sum\limits_{j \in \N} b_j \phi_j \in H_2$. Then $\phi \otimes \psi = \sum\limits_{i \in \N} \sum\limits_{j \in \N} a_ib_j \psi_i \otimes \phi_j$, so $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is a dense subset of $T(H_1, H_2)$, which is dense in $H_1 \otimes H_2$. Hence $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is dense in $H_1 \otimes H_2$ and is a basis.
+%	\end{proof}
+%
+%	\begin{note}
+%		If $H_1$ and $H_2$ are function spaces over sets $S_1$ and $S_2$ respectively, then $H_1 \otimes H_2$ can be identified with the function space over $S_1 \times S_2$ given by  $f_1 \otimes f_2(s_1, s_2) = f_1(s_1)f_2(s_2)$.
+%	\end{note}
+%
+%	\begin{defn}
+%		Let $A$ and $B$ be operators on $H_1$ and $H_2$ respectively. We define the operator $A \otimes B$ on $H_1 \otimes H_2$ by setting $$A \otimes B (\psi \otimes \phi) = A \psi \otimes B \phi$$ and extending linearly to $T(H_1, H_2)$ and then extending continuously to $H_1 \otimes H_2$
+%	\end{defn}
+
+\newpage
 	
 	
 	\section{Convexity}
@@ -1576,17 +1935,37 @@ is convex.
 	\subsection{Differentiability}
 	
 	\begin{ex}
-	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $x_0 \in A$ and $x \in X$. Then there exists $t_0 > 0$ such that 
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $x_0 \in A$ and $x \in X$. Define $T = \{ t \in \R: x_0+tx \in A\}$. Then there exist $a, b \in (0, \infty]$ such that $T = (-a, b)$.
+	\end{ex}
+	
+	\begin{proof}
+	Continuity of scalar multiplication and addition implies that $T$ is an open neighborhood of $0$. Let $t > 0$ and $s \in [0,t]$. Then $\frac{s}{t} \in [0, 1]$ and by convexity of $A$, $x_0 + tx \in A$ implies that
+	\begin{align*}
+	x_0 + sx 
+	&= \frac{s}{t}(x_0 + tx) + \bigg(1-\frac{s}{t} \bigg )x_0\\
+	& \in A
+	\end{align*} 
+	Thus $[0,t] \subset T$. Similarly, $x_0 - tx \in A$ implies that $[-t, 0] \subset T$. \\
+	Define $a,b \in (0, \infty]$ by $a = \sup \{t > 0: x_0 -tx \in A\}$ and $b = \sup\{t > 0: x_0 +tx \in A\}$. Then $(-a, b) = T$.
+	\end{proof}
+	
+	\begin{defn}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $x_0 \in A$ and $x \in X$. Define $T$ as in the previous exercise and choose $t_0 >0$ such that $(-t_0, t_0) \subset T$. For $t \in (0,t_0)$, define the difference quotient $q: (-t_0, t_0) \setminus \{0\} \rightarrow \R$ by$$q(t) = \frac{f(x_0 + tx) - f(x_0)}{t}$$ 
+	\end{defn}	
+	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $x_0 \in A$ and $x \in X$. Define $t_0$ as above.
+	Then
 	\begin{enumerate}
-	\item the right-hand difference quotient $$q(t) = \frac{f(x_0 + tx) - f(x_0)}{t}$$ is increasing on $(0, t_0)$
-	\item the left-hand difference quotient $$q(-t) = \frac{f(x_0 - tx) - f(x_0)}{-t}$$ is decreasing on $(0, t_0)$
+	\item $q(t)$ is increasing on $(0, t_0)$
+	\item $q(-t)$ decreasing on $(0, t_0)$
 \end{enumerate}	 
 	 (\textbf{Hint:} As an example, look at the graph of $f(x) = x^2$. For the algebra, start at the desired end inequality and work backwards) 
 	\end{ex}	
 	
 	\begin{proof}
 	\begin{enumerate}
-	\item Since $A$ is open, there exists $\del >0$ such that $B(x_0, \del) \subset A$. Let $0 < s \leq t$. Choose $t_0 = \frac{\del}{\|x\| + 1}$. Suppose that $t < t_0$. Then $x_0 +sx$, $x_0 + tx \in B(x_0, \del) \subset A$. Note that since $0 < s \leq t$, $\frac{s}{t} \in (0, 1]$ and $1- \frac{s}{t} = \frac{t-s}{t} \in (0, 1]$. Note that since $B(x_0, \del)$ is convex, we have that $$ \bigg( \frac{t-s}{t} \bigg) x_0 +  \bigg(\frac{s}{t} \bigg) (x_0 + tx) \in B(x_0, \del) \subset A$$
+	Let $s, t \in (0, t_0)$ and suppose that $s \leq t$. Then $x_0 +sx$, $x_0 + tx \in A$. Note that since $0 < s \leq t$, $\frac{s}{t} \in (0, 1]$ and $1- \frac{s}{t} = \frac{t-s}{t} \in (0, 1]$. Also, since $A$ is convex, we have that $$ \bigg( \frac{t-s}{t} \bigg) x_0 +  \bigg(\frac{s}{t} \bigg) (x_0 + tx)  \in A$$
 	Convexity of $f$ implies that 
 	\begin{align*}
 	f(x_0 + sx)
@@ -1595,14 +1974,20 @@ is convex.
 	\end{align*}
 	This implies that $$tf(x_0 + sx) \leq (t-s) f(x_0) + s f(x_0 + tx)$$
 	and after rearranging, we get $$t f(x_0 + sx) - tf(x_0) \leq s f(x_0 + tx) - sf(x_0)$$
-	and so finally, dividing both sides by $st$, we obtain $$ \frac{f(x_0 + sx) - f(x_0)}{s} \leq \frac{f(x_0 + tx) - f(x_0)}{t} $$
+	and so finally, dividing both sides by $st$, we obtain 
+	\begin{align*}
+	q(s)
+	&= \frac{f(x_0 + sx) - f(x_0)}{s} \\
+	& \leq \frac{f(x_0 + tx) - f(x_0)}{t} \\
+	&= q(t) 
+	\end{align*}
 	as desired.
 	\item Similar to $(1)$.
 	\end{enumerate}
 	\end{proof}
 	
 	\begin{ex}
-	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $x_0 \in A$ and $x \in X$. Then there exists $t_0 > 0$ such that for each $t \in (0, t_0)$, $$q(-t) \leq q(t)$$ (\textbf{Hint:} for sufficiently small $t$, convexity of $f$ implies that $f(x_0) \leq \frac{1}{2} f(x_0 - 2tx) + \frac{1}{2} f(x_0 + 2tx)$)
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $x_0 \in A$ and $x \in X$. Define $t_0$ as before. Then for each $t \in (0, t_0)$, $$q(-t) \leq q(t)$$ (\textbf{Hint:} for sufficiently small $t$, convexity of $f$ implies that $f(x_0) \leq \frac{1}{2} f(x_0 - 2tx) + \frac{1}{2} f(x_0 + 2tx)$)
 	\end{ex}
 	
 	\begin{proof}
@@ -1639,10 +2024,8 @@ is convex.
 	\item By definition, we have 
 	\begin{align*}
 	d^-f(x_0)(x)
-	&= \sup_{t \in (0, t_0)} q(-t; x) \\
-	&= \sup_{t \in (0, t_0)} \frac{f(x_0 + -tx) - f(x_0)}{-t} \\
-	&= - \inf_{t \in (0, t_0)} \frac{f(x_0 + -tx) - f(x_0)}{t} \\
-	&= - \inf_{t \in (0, t_0)} q(t; -x) \\
+	&= \lim_{t \rightarrow 0^+} \frac{f(x_0 + -tx) - f(x_0)}{-t} \\
+	&= - \lim_{t \rightarrow 0^+} \frac{f(x_0 + -tx) - f(x_0)}{t} \\
 	&= - d^+f(x_0)(-x)
 	\end{align*}
 	\end{enumerate}
@@ -1653,15 +2036,42 @@ is convex.
 	\end{ex}	
 	
 	\begin{proof}
-	
+	Let $x,y \in X$ and $k \geq 0$. If $k = 0$, then clearly
+	\begin{align*}
+	d^+f(x_0)(kx)
+	&= k d^+(x_0)(x)
+	\end{align*}
+	If $k >0$. Then 
+	\begin{align*}
+	d^+f(x_0)(kx)
+	&= \lim_{t \rightarrow 0^+} \frac{f(x_0 + tkx) - f(x_0)}{t} \\
+	&= k\lim_{t \rightarrow 0^+} \frac{f(x_0 + tkx) - f(x_0)}{tk}\\
+	&= kd^+f(x_0)(x)
+	\end{align*}
+	Define $t_0 >0$ as before and let $t \in (0, \frac{t_0}{2})$. Note that $$x_0 + tx + ty = \frac{1}{2}(x_0 + 2tx) + \frac{1}{2}(x_0 + 2ty)$$ 
+	Convexity of $f$ implies that $$f(x_0 + tx + ty) \leq \frac{1}{2}f(x_0 + 2tx) + \frac{1}{2}f(x_0 + 2ty)$$
+	which implies that $$\frac{f(x_0 + tx + ty) - f(x_0)}{t} \leq \frac{f(x_0 + 2tx) - f(x_0)}{2t} + \frac{f(x_0 + 2ty) - f(x_0)}{2t}$$
+	Therefore 
+	\begin{align*}
+	d^+f(x_0)(x+y) 
+	&= \lim_{t \rightarrow 0^+} \frac{f(x_0 + t(x + y)) - f(x_0)}{t} \\
+	&= \lim_{t \rightarrow 0^+} \frac{f(x_0 + tx + ty) - f(x_0)}{t} \\
+	& \leq \lim_{t \rightarrow 0^+} \bigg[ \frac{f(x_0 + 2tx) - f(x_0)}{2t} + \frac{f(x_0 + 2ty) - f(x_0)}{2t} \bigg ] \\
+	&= \lim_{t \rightarrow 0^+}  \frac{f(x_0 + 2tx) - f(x_0)}{2t} + \lim_{t \rightarrow 0^+} \frac{f(x_0 + 2ty) - f(x_0)}{2t} \\
+	&= d^+f(x_0)(x) + d^+f(x_0)(y) 
+	\end{align*}
 	\end{proof}
 	
+	\begin{defn}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. We define the \textbf{subdifferential of $f$ at $x_0$}, denoted $\p f(x_0)$, to be $$\p f(x_0) = \{ \phi \in X^*: \text{for each } x \in X, f(x_0) + \phi(x-x_0) \leq f(x)\}$$
+	\end{defn}
+	
 	\begin{ex}
-	Let $X$ be a Banach space, $A \subset X$ open and convex and $f:A \rightarrow \R$ convex. Then for each $x_0 \in A$, $d_+(x_0): X \rightarrow \R$ exists and is a sublinear functional.
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then $\p f(x_0) \neq \varnothing$.
 	\end{ex}
 	
 	\begin{proof}
-	Let $x_0 \in A$ and $x \in X$. Let $0< s < t$ and suppose that 
+	Let $x_0 \in A$. Note that The Hahn banach theorem implies that there exists $\phi \in X^*$ such that $\phi \leq d^+(x_0)$
 	\end{proof}
 	
 	
