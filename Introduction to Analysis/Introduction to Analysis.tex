@@ -757,7 +757,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 
 	
-	\subsection{Linear Functionals}
+	\subsection{Linear and Sublinear Functionals}
 	
 	\begin{defn}
 		Let $X$ be a normed vector space and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear and $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
@@ -771,21 +771,109 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		\end{enumerate}  
 	\end{defn}
 	
-	\begin{note}
+	\begin{ex}
 		Let $X$ be a vector space and $\|\cdot \|: X \rightarrow \Rg$ be a seminorm, then $\|\cdot \|$ is a sublinear functional.
-	\end{note}
+	\end{ex}
+	
+	\begin{proof}
+	Clear
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then for each $x, y \in X$
+	\begin{enumerate}
+	\item $-p(-x) \leq p(x)$
+	\item $- p(y-x) \leq p(x) - p(y) \leq p(x-y)$
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+	Let $x, y \in X$.
+	\begin{enumerate}
+	\item We have
+	\begin{align*}
+	0
+	&= p(0) \\ 
+	&= p(x - x) \\
+	& \leq p(x) + p(-x)
+	\end{align*}
+	So $-p(-x) \leq p(x)$.
+	\item We have
+	\begin{align*}
+	p(x)
+	&= p(x -y + y) \\
+	& \leq p(x-y) + p(y)
+	\end{align*}
+	So $p(x) - p(y) \leq p(x-y)$. Switching $x$ and $y$ gives us $p(y) - p(x) \leq p(y-x)$ and multiplying both sides by $-1$ yields $-p(y-x) \leq p(x) - p(y)$ \\ 
+	Putting these two together, we see that $$-p(y-x) \leq p(x) - p(y) \leq p(x-y)$$
+	\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is said to be \textbf{bounded} if there exists $M >0$ such that for each $x \in X$, $p(x) \leq M\|x\|$. 
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is bounded iff $p$ is Lipschitz. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $p$ is bounded. Then there exists $M >0$ such that for each $x \in X$, $p(x) \leq M\|x\|$. Let $x, y \in X$. Then the previous exercise implies that 
+	\begin{align*}
+	-M\|x-y\| 
+	&= -M\|y-x\| \\
+	& \leq -p(y-x) \\
+	& \leq p(x)-p(y) \\
+	& \leq p(x-y) \\
+	& \leq M \| x-y\| 
+	\end{align*}
+	So that $$|p(x) - p(y)| \leq  M\|x-y\|$$
+	and $p$ is Lipschitz.
+	Conversely, suppose that $p$ is Lipschitz. Then there exists $M >0 $ such that for each $x ,y \in X$, $|p(x) - p(y)| \leq  M\|x-y\|$. Let $x \in X$. Then 
+	\begin{align*}
+	p(x) 
+	& \leq |p(x)| \\
+	& = |p(x) - p(0)| \\
+	& \leq M\|x - 0\| \\
+	  & \leq M\|x\| 
+	\end{align*}
+	So $p$ is bounded.
+	\end{proof}
 	
 	\begin{thm}\textbf{Hahn-Banach Theorem:}
-		Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional, $M \subset X$ a subspace and $f:M \rightarrow \C$ a linear functional. If for each $x \in M$, $ f(x)  \leq p(x)$, then there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $F(x) \leq p(x)$ and $F|_{M}=f$.
+		Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional, $M \subset X$ a subspace and $f:M \rightarrow \R$ a linear functional. If for each $x \in M$, $ f(x)  \leq p(x)$, then there exists a linear functional $F:X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$ and $F|_{M}=f$.
 	\end{thm}
 	
 	\begin{ex}
-	Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional. Then there exists a linear function $F: X \rightarrow \C$ such that for each $x \in X$, $F(x) \leq p(x)$.
+	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then there exists a linear function $F: X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$.
 	\end{ex}
 	
 	\begin{proof}
 	Take $M = \{0\}$ and $f \equiv 0$ and apply the Hahn-Banach theorem.
 	\end{proof}	
+	
+	\begin{ex}
+	Let $X$ be a Banach space and $p:X \rightarrow \R$ a bounded sublinear functional. Then there exists $\phi \in X^*$ such that for each $x \in X$, $\phi(x) \leq p(x)$.
+	\end{ex}
+	
+	\begin{proof}
+	The previous exercises imply that $p$ is Lipschitz and that there exists $phi: X \rightarrow \R$ such that $\phi$ is linear and $\phi \leq p$. Since $p$ is Lipschitz, there exists $M >0$ such that for each $x \in X$, $|p(x)| \leq M \|x\|$. Let $x \in X$. Then 
+	\begin{align*}
+	\phi(x) 
+	&\leq p(x) \\
+	&\leq |p(x)| \\
+	&\leq M \|x\| 
+	\end{align*}
+	and therefore  
+	\begin{align*}
+	- M \|x\| 
+	&= -M \|-x\| \\
+	& \leq -p(-x) \\
+	& \leq - \phi(-x) \\
+	&= \phi(x) 
+	\end{align*}
+	So that $|\phi(x)| \leq  M\|x\|$ and $\phi \in X^*$.
+	\end{proof}
 	
 	\begin{thm}\textbf{Complex Hahn-Banach Theorem:}
 		Let $X$ be a vector space, $p:X \rightarrow \R$ a seminorm, $M \subset X$ a subspace and $f:M \rightarrow \C$ a linear functional. If for each $x \in M$, $\vert f(x) \vert \leq p(x)$, then there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $\vert F(x) \vert \leq p(x)$ and $F|_{M}=f$.
@@ -1970,6 +2058,46 @@ So $f \circ g$ is convex.
 	Since $\lam \in \Lam$ is arbitrary, $f(tx + (1-t)y) \leq tf(x) + (1-t)f(y) $. 
 	\end{proof}
 	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then $f$ is locally Lipschitz at $x_0$. (\textbf{Hint:} Given $x_1, x_2$ near $x_0$ Choose a $z$ near $x_0$ s.t. $x_1$ is a convex combination of $x_2$ and $z$. Then repeat but with $x_2$ as a convex combination of $x_1$ and $z$)
+	\end{ex}
+	
+	\begin{proof}
+	By continuity, $f$ is locally bounded at $x_0$. So there exist $M, \del >0$ such that $B(x_0, \del) \subset A$ and for each $x \in B(x_0, \del)$, $|f(x)| \leq M$. Put $\del' = \frac{\del}{2}$ and choose $U = B(x_0, \del')$. Then $U \subset A$, $U$ is open and $U \in N_{x_0}$. \\
+	Let $x_1, x_2 \in U$. Suppose that $x_1 \neq x_2$. Define $\al = \|x_1 - x_2\| >0$, $p = \frac{\al}{\al + \del'}$, $q = 1-p$ and $z = p^{-1}(x_1 - qx_2)$. Then $x_1 = pz + qx_2$ and 
+	\begin{align*}
+	\|z - x_1\| 
+	&= \|(p^{-1} - 1)x_1 - p^{-1}qx_2\| \\
+	&= \frac{1-p}{p} \al \\
+	&= \frac{\del'}{\al} \al \\
+	&= \del ' 
+	\end{align*}
+	Therefore 
+	\begin{align*}
+	\|z - x_0\| 
+	& \leq \|z - x_1\| + \|x_1 - x_0\| \\
+	& <  \del '  + \del '  \\
+	&= \del
+\end{align*}	  
+	So $z \in B(x_0, \del)$, which implies that 
+	\begin{align*}
+	f(z) - f(x_2) 
+	& \leq |f(z) - f(x_2)|\\ 
+	&\leq |f(z)| + |f(x_2)| \\
+	&\leq 2M
+\end{align*}		
+	Since $x_1 = pz + qx_2$, convexity of $f$ implies that $f(x_1) \leq pf(z) + qf(x_2)$. Hence 
+	\begin{align*}
+	f(x_1) - f(x_2) 
+	& \leq pf(z) -pf(x_2) \\
+	&= p(f(z) - f(x_2)) \\
+	& \leq p 2M \\
+	&= \frac{\al}{\al + \del'} 2M \\
+	& \leq \al 2M \\
+	&= 2M \|x_1 - x_2 \|
+	\end{align*}
+	Similarly, choosing $z = p^{-1}(x_2 - qx_1)$, yields $f(x_2) - f(x_1) \leq 2M \|x_1 - x_2 \|$ which implies that $$|f(x_1) - f(x_2)| \leq 2M \|x_1 - x_2 \|$$ and $f$ is Lipschitz on $U$. 
+ 	\end{proof}
 
 		
 	
@@ -2117,16 +2245,37 @@ So $f \circ g$ is convex.
 	\end{proof}
 	
 	\begin{ex}
-	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then $f$ is locally Lipschitz at $x_0$.
-	\end{ex}
-	
-	\begin{ex}
-	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then $d^+f(x_0)$ is continuous. 
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then $d^+f(x_0)$ is Lipschitz (equivalently bounded). 
 	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $f$ is continuous at $x_0$. A previous exercise about convex functions tells us that $f$ is locally Lipschitz at $x_0$, so there exists $\del,M >0$ such that for each $x_1, x_2 \in B(x_0, \del)$, $|f(x_1) - f(x_2)| \leq M\|x_1 - x_2\|$. Let $x \in X$ and define $t_0 = \frac{\del}{\|x\| + 1}$ so that for each $t \in (0, t_0)$,
+	\begin{align*}
+	\|(x_0 +tx) - x_0\|
+	& = t\|x\| \\
+	& \leq t_0 \| x\| \\
+	&= \frac{\del \| x\|}{\|x\| + 1} \\
+	& < \del
+	\end{align*}  
+	and $x_0 +tx \in B(x_0, \del)$.
+	Then for each $t \in (0, t_0)$, 
+	\begin{align*}
+	d^+f(x_0)(x) 
+	& \leq \frac{f(x_0 + tx) - f(x_0)}{t} \\
+	& \leq \frac{|f(x_0 + tx) - f(x_0)|}{t} \\
+	& \leq t^{-1}M \| (x_0 + tx) - x_0\| \\
+	&= M\|x\|
+	\end{align*}
+	Thus $d^+f(x_0)$ is a bounded sublinear functional and  a previous exercise in the section on sublinear functionals implies this is eqivalent to $d^+f(x_0)$ being Lipschitz.
+	\end{proof}
 	
 	\begin{ex}
 	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then there exists $\phi \in X^*$ such that $\phi \leq df(x_0)$.
 	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $f$ is continuous at $x_0$. The previous exercise implies that $d^+f(x_0)$ is Lipschitz (equivalently bounded). A previous exercise in the section discussing sublinear functionals tells us that boundedness of $d^+f(x_0)$ implies that there exists $\phi \in X^*$ such that $\phi \leq d^+f(x_0)$.
+	\end{proof}
 	
 	\begin{defn}
 	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. We define the \textbf{subdifferential of $f$ at $x_0$}, denoted $\p f(x_0)$, to be $$\p f(x_0) = \{ \phi \in X^*: \text{for each } x \in X, f(x_0) + \phi(x-x_0) \leq f(x)\}$$
@@ -2137,7 +2286,14 @@ So $f \circ g$ is convex.
 	\end{ex}
 	
 	\begin{proof}
-	Let $x_0 \in A$. Note that The Hahn banach theorem implies that there exists $\phi \in X^*$ such that $\phi \leq d^+(x_0)$
+	Suppose that $f$ is continuous at $x_0$. The previous exercise tells us that there exists $\phi \in X^*$ such that $\phi \leq d^+f(x_0)$. Let $x \in X$. Define $T = \{t \in \R: x_0 + t(x-x_0) \in A\}$ similarly to earlier. Clearly $1 \in T$ and  
+	\begin{align*}
+	\phi(x-x_0) 
+	& \leq d^+f(x_0)(x - x_0) \\
+	&= \inf_{t \in (0,1]} \frac{f(x_0 + t(x-x_0)) - f(x_0)}{t} \\
+	& \leq f(x) - f(x_0)
+	\end{align*}
+	Then $f(x_0) + \phi(x-x_0) \leq f(x)$.
 	\end{proof}
 	
 	
