@@ -1,6 +1,6 @@
 \documentclass[12pt]{amsart}
 \usepackage[margin=1in]{geometry} 
-\usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+\usepackage{amsmath,amsthm,amssymb,setspace, mathtools, enumitem}
 \usepackage{physics}
 
 \usepackage{color}   %May be necessary if you want to color links
@@ -347,7 +347,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 	
 	\begin{defn}
-		Let $X,Y$ be a normed vector spaces. A linear map $T:X \rightarrow Y$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x \in X$, $\|Tx \|\leq C \|x \|$.
+		Let $X,Y$ be a normed vector spaces. A linear map $T:X \rightarrow Y$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x \in X$, $$\|Tx \|\leq C \|x \|$$ We define $$L(X,Y) = \{T:X \rightarrow Y: T \text{ is bounded}\}$$
 	\end{defn}
 	
 	\begin{ex}
@@ -403,7 +403,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 	
 	\begin{defn}
-		Let $X,Y$ be normed vector spaces. Define $L(X,Y) = \{T:X \rightarrow Y: T \text{ is bounded}\}$. Define $\|\cdot\|: L(X,Y)\rightarrow \Rg$ by $$\|T\| = \inf \{C \geq 0: \text{for each }x \in X\text{, } \|Tx \|\leq C\|x\|\}$$ We call $\|\cdot \|$ the \textbf{operator norm on $L(X,Y)$}
+		Let $X,Y$ be normed vector spaces. Define $\|\cdot\|: L(X,Y)\rightarrow \Rg$ by $$\|T\| = \inf \{C \geq 0: \text{for each }x \in X\text{, } \|Tx \|\leq C\|x\|\}$$ We call $\|\cdot \|$ the \textbf{operator norm on $L(X,Y)$}
 	\end{defn}
 	
 	\begin{ex}
@@ -759,9 +759,16 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	\subsection{Linear and Sublinear Functionals}
 	
-	\begin{defn}
-		Let $X$ be a normed vector space and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear and $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
+	\begin{defn}\
+		\begin{enumerate}
+		\item Let $X$ be a $\C$-vector space and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
+		\item If $X$ is a normed $\C$-vector space, then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
+		\end{enumerate}
 	\end{defn}
+	
+	\begin{note}
+	We define $X^*$ similarly when $X$ is an $\R$-vector space or normed $\R$-vector space.
+	\end{note}
 	
 	\begin{defn}
 		Let $X$ be a normed vector space and $p:X \rightarrow \R$. Then $p$ is said to be a \textbf{sublinear functional} if for each $x,y \in X$, $\lam \geq 0$, 
@@ -810,11 +817,11 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 	
 	\begin{defn}
-	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is said to be \textbf{bounded} if there exists $M >0$ such that for each $x \in X$, $p(x) \leq M\|x\|$. 
+	Let $X$ be a normed vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is said to be \textbf{bounded} if there exists $M >0$ such that for each $x \in X$, $p(x) \leq M\|x\|$. 
 	\end{defn}
 	
 	\begin{ex}
-	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is bounded iff $p$ is Lipschitz. 
+	Let $X$ be a normed vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is bounded iff $p$ is Lipschitz. 
 	\end{ex}
 	
 	\begin{proof}
@@ -845,19 +852,89 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{thm}
 	
 	\begin{ex}
-	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then there exists a linear function $F: X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$.
+	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then there exists $F: X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$.
 	\end{ex}
 	
 	\begin{proof}
 	Take $M = \{0\}$ and $f \equiv 0$ and apply the Hahn-Banach theorem.
 	\end{proof}	
 	
+	\begin{ex}\textbf{Equivalency of linearity (General Case)}
+	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then the following are equivalent:
+	\begin{enumerate}
+	\item there exists a unique $F \in X^*$ such that $F \leq p$
+	\item for each $x \in X$, $-p(-x) = p(x)$
+	\item $p$ is linear
+\end{enumerate}	
+\textbf{Hint:} If there exists $x \in X$ such that $-p(-x) \neq p(x)$, define $f_1,f_2 :\spn(x) \rightarrow \R$ by $f_1(tx) = t p(x)$ and $f_2(tx) = -tp(-x)$
+	\end{ex}	
+	
+	\begin{proof} \
+	\begin{itemize}
+	\item $(1) \Rightarrow (2)$: \\ 
+	Suppose that there exists a unique $F \in X^*$ such that $F \leq p$. For the sake of contradiction, suppose that there exists $x \in X$ such that $-p(-x) \neq p(x)$. Define $f_1,f_2: \spn(x) \rightarrow \R$ by $$f_1(tx) = t p(x)$$ and $$f_2(tx) = -tp(-x)$$ Let $y \in \spn(x)$. Then there exists $t \in \R$ such that $y = tx$. Then for each $k \in \R$,
+	\begin{align*}
+	f_1(ky)
+	&= f_1(ktx) \\
+	&= ktp(x) \\
+	&= k f_1(tx) \\
+	&= k f_1(y)
+	\end{align*}
+	Similarly, $f_2(ky) = kf_2(y)$ and so $f_1, f_2 \in \spn(x)^*$. 
+	If $t \geq 0$, then 
+	\begin{align*}
+	f_1(y) 
+	&= f_1(tx) \\
+	&= tp(x) \\
+	&= p(tx) \\
+	&= p(y) 
+	\end{align*}
+	If $t <0$, then 	
+	\begin{align*}
+	f_1(y) 
+	&= f_1(tx) \\
+	&= tp(x) \\
+	&= -|t|p(x) \\
+	&= -p(|t|x) \\
+	&= -p(-tx) \\
+	& \leq p(tx) \\
+	&= p(y)  
+	\end{align*}
+	So $f_1 \leq p$ on $\spn(x)$. Similarly, $f_2 \leq p$ on $\spn(x)$. The Hahn-Banach theorem implies that there exist $F_1, F_2 \in X^*$ such that $F_1, F_2 \leq p$ and $F_1 = f_1, F_2 = f_2$ on $\spn(x)$. By the assumption of uniqueness, $F_1 = F_2$. This is a contradiction since 
+	\begin{align*}
+	F_1(x) 
+	&= p(x) \\
+	& \neq -p(-x) \\
+	& = F_2(x) 
+	\end{align*}		
+So for each $x \in X$, $-p(-x) = p(x)$. 
+	\item $(2) \Rightarrow (3)$: \\
+	Suppose that for each $x \in X$, $-p(-x) = p(x)$. The previous exercise implies that there exists $F \in X^*$ such that $F \leq p$. Let $x \in X$. Then 
+	\begin{align*}
+	-F(x) 
+	&= F(-x) \\
+	& \leq p(-x) \\
+	&= -p(x)
+\end{align*}	
+	So $p(x) \leq F(x)$ and $p \leq F$. Therefore $p = F$ and $p$ is linear.  
+	\item $(3) \Rightarrow (1)$: \\ 
+	Suppose that $p$ is linear. Let $F \in X^*$. Suppose that $F \leq p$. Let $x \in X$. Then as in the case for $(2) \Rightarrow (3)$, we have that
+	\begin{align*}
+	-F(x) 
+	&= F(-x) \\
+	& \leq p(-x) \\
+	&= -p(x)
+	\end{align*}	 
+	which implies that $p = F$. So $p$ is the unique linear function $F \in X^*$ such that $F \leq p$.
+	\end{itemize}
+	\end{proof}
+	
 	\begin{ex}
-	Let $X$ be a Banach space and $p:X \rightarrow \R$ a bounded sublinear functional. Then there exists $\phi \in X^*$ such that for each $x \in X$, $\phi(x) \leq p(x)$.
+	Let $X$ be a normed vector space, $p:X \rightarrow \R$ a bounded sublinear functional and $\phi:X \rightarrow \R$ a linear functional. If $\phi \leq p$, then $\phi \in X^*$. 
 	\end{ex}
 	
 	\begin{proof}
-	The previous exercises imply that $p$ is Lipschitz and that there exists $phi: X \rightarrow \R$ such that $\phi$ is linear and $\phi \leq p$. Since $p$ is Lipschitz, there exists $M >0$ such that for each $x \in X$, $|p(x)| \leq M \|x\|$. Let $x \in X$. Then 
+	Since $p$ is Lipschitz, there exists $M >0$ such that for each $x \in X$, $|p(x)| \leq M \|x\|$. Let $x \in X$. Then 
 	\begin{align*}
 	\phi(x) 
 	&\leq p(x) \\
@@ -873,6 +950,27 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	&= \phi(x) 
 	\end{align*}
 	So that $|\phi(x)| \leq  M\|x\|$ and $\phi \in X^*$.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a normed vector space and $p:X \rightarrow \R$ a bounded sublinear functional. Then there exists $\phi \in X^*$ such that for each $x \in X$, $\phi(x) \leq p(x)$.
+	\end{ex}
+	
+	\begin{proof}
+	A previous exercise implies there exists $\phi: X \rightarrow \R$ such that $\phi$ is linear and $\phi \leq p$. The previous exercise implies that $\phi \in X^*$.
+	\end{proof}
+	
+	\begin{ex}\textbf{Equivalency of linearity (Bounded Case)}
+	Let $X$ be a normed vector space and $p:X \rightarrow \R$ a bounded sublinear functional. Then the following are equivalent:
+	\begin{enumerate}
+	\item there exists a unique $\phi \in X^*$ such that $\phi \leq p$
+	\item for each $x \in X$, $-p(-x) = p(x)$
+	\item $p$ is linear
+\end{enumerate}	
+	\end{ex}
+	
+	\begin{proof}
+	Basically the same as last time.
 	\end{proof}
 	
 	\begin{thm}\textbf{Complex Hahn-Banach Theorem:}
@@ -1891,7 +1989,7 @@ So $\| cx \| = |c|\|x\|$
 	\end{defn}	
 	
 	\begin{defn}
-	Let $X$ be a vector space and $f:A \rightarrow \Ru$. Then $f$ is said to be \textbf{convex} if for each $x,y \in A$, $t \in \ui$, $$f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)$$
+	Let $X$ be a vector space and $f:A \rightarrow R$. Then $f$ is said to be \textbf{convex} if for each $x,y \in A$, $t \in \ui$, $$f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)$$
 	\end{defn}
 	
 	\begin{ex}
@@ -1924,7 +2022,7 @@ So $\| cx \| = |c|\|x\|$
 	\end{proof}	
 	
 	\begin{ex}
-	Let $X$ be a vector space, $f \in X^*$ and $g: X \rightarrow \Ru$ constant. Then $f$ and $g$ are convex. 
+	Let $X$ be a vector space, $f \in X^*$ and $g: X \rightarrow \R$ constant. Then $f$ and $g$ are convex. 
 	\end{ex}
 	
 	\begin{proof}
@@ -1938,20 +2036,8 @@ So $\| cx \| = |c|\|x\|$
 		So $f$ and $g$ are convex.
 	\end{proof}		
 	
-	\begin{defn}
-	Let $f: X \rightarrow \Ru$. Then $f$ is said to be \textbf{affine} if there exists $\phi \in X^*$, $a \in R$ constant such that $f = \phi + a$.
-	\end{defn}
-	
 	\begin{ex}
-	Let $f: X \rightarrow \Ru$. If $f$ is affine, then $f$ is convex.
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $f$ is affine. Then there exists $\phi \in X^*$, $a \in R$ constant such that $f = \phi + a$. Then $\phi$ is convex and $g: X \rightarrow \Ru$ defined by $g(x) = a$ is convex. So $f = \phi + g$ is convex.
-	\end{proof}
-	
-	\begin{ex}
-	Let $X$ be a vector space, $A \subset X$ convex, $f,g:A \rightarrow \Ru$ and $\lam \geq 0$. If $f,g$ are convex, then 
+	Let $X$ be a vector space, $A \subset X$ convex, $f,g:A \rightarrow \R$ and $\lam \geq 0$. If $f,g$ are convex, then 
 	\begin{enumerate}
 	\item $f + g$ is convex 
 	\item $\lam f$ is convex
@@ -1969,8 +2055,21 @@ So $\| cx \| = |c|\|x\|$
 \end{align*}		 
 	\end{proof}
 	
+	
+	\begin{defn}
+	Let $X$ be a vector space and $f: X \rightarrow \R$. Then $f$ is said to be \textbf{affine} if there exists $\phi \in X^*$, $a \in R$ constant such that $f = \phi + a$.\\
+	\end{defn}
+	
 	\begin{ex}
-	Let $X$ be a vector space, $A \subset X$ convex, $f:\R \rightarrow \Ru$ and $g: A \rightarrow \R$. If $f$ is convex and increasing and $g$ is convex, then $f \circ g$ is convex.
+	Let $X$ be a vector space and $f: X \rightarrow \R$. If $f$ is affine, then $f$ is convex.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ is affine. Then there exists $\phi \in X^*$, $a \in R$ constant such that $f = \phi + a$. Then $\phi$ is convex and $g: X \rightarrow \R$ defined by $g(x) = a$ is convex. So $f = \phi + g$ is convex.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a vector space, $A \subset X$ convex, $f:\R \rightarrow \R$ and $g: A \rightarrow \R$. If $f$ is convex and increasing and $g$ is convex, then $f \circ g$ is convex.
 	\end{ex}	
 	
 	\begin{proof}
@@ -1986,11 +2085,11 @@ So $f \circ g$ is convex.
 	\end{proof}
 	
 	\begin{defn}
-	Let $X, Y$ be vector spaces, $A \subset X \oplus Y$. For $y \in Y$, define $$A^y = \{x \in X: (x,y) \in A \}$$ and $f^y:A^y \rightarrow \Ru$ by $$f^y(x) = f(x,y)$$
+	Let $X, Y$ be vector spaces, $A \subset X \oplus Y$. For $y \in Y$, define $$A^y = \{x \in X: (x,y) \in A \}$$ and $f^y:A^y \rightarrow \R$ by $$f^y(x) = f(x,y)$$
 	\end{defn}
 	
 	\begin{ex}
-	Let $X, Y$ be vector spaces, $A \subset X \oplus Y$ convex and $f:A \rightarrow \Ru$ convex. Then for each $y \in \pi_2(A)$,
+	Let $X, Y$ be vector spaces, $A \subset X \oplus Y$ convex and $f:A \rightarrow \R$ convex. Then for each $y \in \pi_2(A)$,
 	\begin{enumerate}
 	\item $A^y$ is convex 
 	\item $f^y$ is convex  
@@ -2028,7 +2127,7 @@ So $f \circ g$ is convex.
 	\end{proof}
 	
 	\begin{ex}
-	Let $X, Y$ be vector spaces and $A \subset X$, $B \subset Y$ convex (implying that $A \times B$ is convex)  and $f:A \times B \rightarrow \Ru$ convex. Suppose that for each $y \in B$, $\{f(x, y): x \in A\}$ is bounded below. Then $\inf\limits_{y \in B}f^y$ is convex
+	Let $X, Y$ be vector spaces and $A \subset X$, $B \subset Y$ convex (implying that $A \times B$ is convex)  and $f:A \times B \rightarrow \R$ convex. Suppose that for each $y \in B$, $\{f(x, y): x \in A\}$ is bounded below. Then $\inf\limits_{y \in B}f^y$ is convex
 	\end{ex}
 	
 	\begin{proof}
@@ -2046,7 +2145,7 @@ So $f \circ g$ is convex.
 	\end{proof}	
 
 	\begin{ex}
-	Let $X$ be a vector space, $A \subset X$ convex and $ (f_{\lam})_{\lam \in \Lam} \subset \Ru^A$. Suppose that for each $\lam \in \Lam$, $f_\lam$ is convex. Then $\sup\limits_{\lam \in \Lam}f_\lam$ is convex.
+	Let $X$ be a vector space, $A \subset X$ convex and $ (f_{\lam})_{\lam \in \Lam} \subset \R^A$. Suppose that for each $\lam \in \Lam$, $f_\lam$ is convex. Then $\sup\limits_{\lam \in \Lam}f_\lam$ is convex.
 	\end{ex}
 	
 	\begin{proof}
@@ -2245,6 +2344,20 @@ So $f \circ g$ is convex.
 	\end{proof}
 	
 	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. Then for each $x \in X$, $$d^+f(x_0)(x-x_0) \leq f(x) - f(x_0)$$
+	\end{ex}	
+	
+	\begin{proof}
+	Let $x \in X$. Define $T = \{t \in \R: x_0 + t(x-x_0) \in A\}$ similarly to earlier. Clearly $1 \in T$ and  
+	\begin{align*}
+	\phi(x-x_0) 
+	& \leq d^+f(x_0)(x - x_0) \\
+	&= \inf_{t \in (0,1]} \frac{f(x_0 + t(x-x_0)) - f(x_0)}{t} \\
+	& \leq f(x) - f(x_0)
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
 	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then $d^+f(x_0)$ is Lipschitz (equivalently bounded). 
 	\end{ex}	
 	
@@ -2286,26 +2399,73 @@ So $f \circ g$ is convex.
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $f$ is continuous at $x_0$. The previous exercise tells us that there exists $\phi \in X^*$ such that $\phi \leq d^+f(x_0)$. Let $x \in X$. Define $T = \{t \in \R: x_0 + t(x-x_0) \in A\}$ similarly to earlier. Clearly $1 \in T$ and  
+	Suppose that $f$ is continuous at $x_0$. The previous exercise tells us that there exists $\phi \in X^*$ such that $\phi \leq d^+f(x_0)$. Let $x \in X$. A previous exercise implies that
 	\begin{align*}
 	\phi(x-x_0) 
 	& \leq d^+f(x_0)(x - x_0) \\
-	&= \inf_{t \in (0,1]} \frac{f(x_0 + t(x-x_0)) - f(x_0)}{t} \\
 	& \leq f(x) - f(x_0)
 	\end{align*}
 	Then $f(x_0) + \phi(x-x_0) \leq f(x)$.
 	\end{proof}
 	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $\phi \in X^*$ and $x_0 \in A$. Then for each $x \in X$, $$\phi(x-x_0) \leq f(x) - f(x_0)$$ iff  $$\phi \leq d^+f(x_0)$$
+	\end{ex}	
+	
+	\begin{proof}
+	Suppose that for each $x \in X$, $\phi(x-x_0) \leq f(x) - f(x_0)$. Let $x \in X$. Define $t_0$ as before. Then for each $t \in (0, t_0)$, 
+	\begin{align*}
+	t\phi(x)
+	&= \phi((x_0 + tx) - x_0) \\
+	& \leq f(x_0 + tx) - f(x_0)
+	\end{align*}	 
+	This implies that $\phi(x) \leq d^+f(x_0)(x)$.
+	Conversely, suppose that $\phi \leq d^+f(x_0)$. Let $x \in X$. A previous exercise implies that, 
+	\begin{align*}
+	\phi(x-x_0) 
+	& \leq d^+f(x_0)(x-x_0) \\
+	&\leq f(x) - f(x_0)
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then the following are equivalent:
+	\begin{enumerate}
+	\item $f$ is Gateaux differentiable at $x_0$    
+	\item $d^+f(x_0)$ is linear 
+	\item $|\p f(x_0)| = 1$
+	\end{enumerate}
+	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $f$ is continuous at $x_0$. Then $d^+f(x_0)$ is Lipschitz and bounded.
+	\begin{itemize}
+	\item $(1) \Rightarrow (2)$: \\ 
+	Suppose that $f$ is Gateaux differentiable at $x_0$. Let $x \in X$. Then a previous exercise implies that 
+	\begin{align*}
+	-df^+(x_0)(-x) 
+	&= df^-f(x_0)(x) \\
+	&= df^+f(x_0)(x)
+	\end{align*}
+	An exercise in the section on sublinear functionals implies that $df^+f(x_0)$ is linear.
+	\item $(2) \Rightarrow (3)$: \\  
+	Suppose that $df^+f(x_0)$ is linear. Let $\phi \in \p f(x_0)$. The previous exercise implies that $\phi \leq df^+f(x_0)$. Equivalence of linearity in the section on sublinear functionals implies that $d^+f(x_0) = \phi$. 
+	\item $(3) \Rightarrow (1)$: \\  
+	Suppose that $|\p f(x_0)| = 1$. Since $\p f(x_0) = \{ \phi \in X^*: \phi \leq d^+ f(x_0) \}$, equivalence of linearity in the section on sublinear functionals implies that $d^+ f(x_0)$ is linear. This implies that $d^+ f(x_0) = d^- f(x_0)$ and which implies that $f$ equivalent to Gateaux differentiable at $x_0$.
+	\end{itemize}
+	\end{proof}
+	
+	
 	
 	\newpage \subsection{Conjugacy}
 	
 	\begin{defn}
-	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \Ru$. Define $f^*: X^* \rightarrow \Ru$ by $$f^*(\phi) = \sup_{x \in A} \bigg[ \phi(x) - f(x) \bigg] $$ 
-	If $X$ is a Hilbert space, we may define $f^*: X \rightarrow \Ru$ via the Riesz representation theorem by $$ f^*(y) = \sup_{x \in A} \bigg[ \l y, x \r - f(x) \bigg] $$
+	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Define $A^* \subset X^*$ and $f^*: A^* \rightarrow \R$ by $$A^* = \bigg \{\phi \in X^*: \sup_{x \in A} \bigg[ \phi(x) - f(x) \bigg] < \infty \bigg  \}$$ and $$f^*(\phi) = \sup_{x \in A} \bigg[ \phi(x) - f(x) \bigg] $$ 
+	If $X$ is a Hilbert space, we may define $A^* \subset X$ and $f^*: A^* \rightarrow \R$ via the Riesz representation theorem by $$A^* = \bigg \{y \in X: \sup_{x \in A} \bigg[ \l y, x \r - f(x) \bigg] < \infty \bigg  \}$$ and $f^*: A^* \rightarrow \R$ and $$ f^*(y) = \sup_{x \in A} \bigg[ \l y, x \r - f(x) \bigg] $$
 	\end{defn} 
 	
 	\begin{ex}
-	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \Ru$. Then $f^*$ is convex. 
+	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Then $f^*$ is convex. 
 	\end{ex}
 	
 	\begin{proof}
@@ -2314,7 +2474,7 @@ is convex.
 	\end{proof}
 	
 	\begin{ex}
-		Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \Ru$. Then for each $x \in X$ and $\phi \in X^*$, $f(x) \geq \phi(x) - f^*(\phi)$.	
+		Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Then for each $x \in X$ and $\phi \in X^*$, $f(x) \geq \phi(x) - f^*(\phi)$.	
 	\end{ex}
 	
 	\begin{proof}
