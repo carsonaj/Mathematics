@@ -2430,14 +2430,13 @@ So $f \circ g$ is convex.
 	\end{proof}
 	
 	\begin{ex}
-	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. Then for each $x \in X$, $$d^+f(x_0)(x-x_0) \leq f(x) - f(x_0)$$
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. Then for each $x \in A$, $$d^+f(x_0)(x-x_0) \leq f(x) - f(x_0)$$
 	\end{ex}	
 	
 	\begin{proof}
-	Let $x \in X$. Define $T = \{t \in \R: x_0 + t(x-x_0) \in A\}$ similarly to earlier. Clearly $1 \in T$ and  
+	Let $x \in A$. Define $T = \{t \in \R: x_0 + t(x-x_0) \in A\}$ similarly to earlier. Clearly $1 \in T$ and  
 	\begin{align*}
-	\phi(x-x_0) 
-	& \leq d^+f(x_0)(x - x_0) \\
+	d^+f(x_0)(x - x_0) 
 	&= \inf_{t \in (0,1]} \frac{f(x_0 + t(x-x_0)) - f(x_0)}{t} \\
 	& \leq f(x) - f(x_0)
 	\end{align*}
@@ -2469,7 +2468,7 @@ So $f \circ g$ is convex.
 	\end{proof}
 	
 	\begin{ex}
-	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then there exists $\phi \in X^*$ such that $\phi \leq df(x_0)$.
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then there exists $\phi \in X^*$ such that $\phi \leq d^+f(x_0)$.
 	\end{ex}	
 	
 	\begin{proof}
@@ -2477,7 +2476,7 @@ So $f \circ g$ is convex.
 	\end{proof}
 	
 	\begin{defn}
-	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. We define the \textbf{subdifferential of $f$ at $x_0$}, denoted $\p f(x_0)$, to be $$\p f(x_0) = \{ \phi \in X^*: \text{for each } x \in X, f(x_0) + \phi(x-x_0) \leq f(x)\}$$
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. We define the \textbf{subdifferential of $f$ at $x_0$}, denoted $\p f(x_0)$, to be $$\p f(x_0) = \{ \phi \in X^*: \text{for each } x \in A, f(x_0) + \phi(x-x_0) \leq f(x)\}$$
 	\end{defn}
 	
 	\begin{ex}
@@ -2485,7 +2484,7 @@ So $f \circ g$ is convex.
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $f$ is continuous at $x_0$. The previous exercise tells us that there exists $\phi \in X^*$ such that $\phi \leq d^+f(x_0)$. Let $x \in X$. A previous exercise implies that
+	Suppose that $f$ is continuous at $x_0$. The previous exercise tells us that there exists $\phi \in X^*$ such that $\phi \leq d^+f(x_0)$. Let $x \in A$. A previous exercise implies that
 	\begin{align*}
 	\phi(x-x_0) 
 	& \leq d^+f(x_0)(x - x_0) \\
@@ -2495,23 +2494,30 @@ So $f \circ g$ is convex.
 	\end{proof}
 	
 	\begin{ex}
-	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $\phi \in X^*$ and $x_0 \in A$. Then for each $x \in X$, $$\phi(x-x_0) \leq f(x) - f(x_0)$$ iff  $$\phi \leq d^+f(x_0)$$
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $\phi \in X^*$ and $x_0 \in A$. Then 
+	\begin{enumerate}
+	\item for each $x \in A$, $$\phi(x-x_0) \leq f(x) - f(x_0)$$ iff  $$\phi \leq d^+f(x_0)$$ 
+	\item  $\p f(x_0) = \{ \phi \in X^*: \phi \leq d^+ f(x_0)\}$
+	\end{enumerate}
 	\end{ex}	
 	
-	\begin{proof}
-	Suppose that for each $x \in X$, $\phi(x-x_0) \leq f(x) - f(x_0)$. Let $x \in X$. Define $t_0$ as before. Then for each $t \in (0, t_0)$, 
+	\begin{proof}\
+	\begin{enumerate}
+	\item Suppose that for each $x \in A$, $\phi(x-x_0) \leq f(x) - f(x_0)$. Let $x \in X$. Define $t_0$ as before. Then for each $t \in (0, t_0)$, 
 	\begin{align*}
 	t\phi(x)
 	&= \phi((x_0 + tx) - x_0) \\
 	& \leq f(x_0 + tx) - f(x_0)
 	\end{align*}	 
-	This implies that $\phi(x) \leq d^+f(x_0)(x)$.
-	Conversely, suppose that $\phi \leq d^+f(x_0)$. Let $x \in X$. A previous exercise implies that, 
+	This implies that $\phi(x) \leq d^+f(x_0)(x)$.\\
+	Conversely, suppose that $\phi \leq d^+f(x_0)$. Let $x \in A$. A previous exercise implies that, 
 	\begin{align*}
 	\phi(x-x_0) 
 	& \leq d^+f(x_0)(x-x_0) \\
 	&\leq f(x) - f(x_0)
 	\end{align*}
+	\item Clear.
+	\end{enumerate}
 	\end{proof}
 	
 	\begin{ex}
@@ -2537,10 +2543,30 @@ So $f \circ g$ is convex.
 	\item $(2) \Rightarrow (3)$: \\  
 	Suppose that $df^+f(x_0)$ is linear. Let $\phi \in \p f(x_0)$. The previous exercise implies that $\phi \leq df^+f(x_0)$. Equivalence of linearity in the section on sublinear functionals implies that $d^+f(x_0) = \phi$. 
 	\item $(3) \Rightarrow (1)$: \\  
-	Suppose that $|\p f(x_0)| = 1$. Since $\p f(x_0) = \{ \phi \in X^*: \phi \leq d^+ f(x_0) \}$, equivalence of linearity in the section on sublinear functionals implies that $d^+ f(x_0)$ is linear. This implies that $d^+ f(x_0) = d^- f(x_0)$ and which implies that $f$ equivalent to Gateaux differentiable at $x_0$.
+	Suppose that $|\p f(x_0)| = 1$. Since $\p f(x_0) = \{ \phi \in X^*: \phi \leq d^+ f(x_0) \}$, equivalence of linearity in the section on sublinear functionals implies that $d^+ f(x_0)$ is linear. This implies that $d^+ f(x_0) = d^- f(x_0)$ and which implies that $f$ is Gateaux differentiable at $x_0$.
 	\end{itemize}
 	\end{proof}
 	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then $f$ has a global minimum at $x_0$ iff $0 \in \p f(x_0)$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ has a global minimum at $x_0$ iff $0 \in \p f(x_0)$ Let $x \in X$. Then 
+	\begin{align*}
+	d^+f(x_0)(x) 
+	&= \lim_{t \rightarrow 0^+} \frac{f(x_0 + tx) - f(x_0)}{t} \\
+	& \geq 0
+	\end{align*}
+	So $0 \leq df^+(x_0)$ and $0 \in \p f(x_0)$.\\
+	Conversely, suppose that $0 \in \p f(x_0)$. Let $x \in A$. Then 
+	\begin{align*}
+	0
+	& = 0(x - x_0) \\
+	& \leq f(x) - f(x_0)
+	\end{align*}
+	So that $f(x_0) \leq f(x)$ which implies that $f$ has a global minimum at $x_0$.
+	\end{proof}
 	
 	
 	\newpage \subsection{Conjugacy}
