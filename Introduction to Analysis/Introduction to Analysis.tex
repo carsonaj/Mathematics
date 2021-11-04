@@ -1492,8 +1492,16 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\end{enumerate}
 	\end{defn}	
 	
+	\begin{ex}
+	Let $X, Y$ be Banach spaces, $A \subset X$ open, $f:A \rightarrow \R$ and $x_0 \in A$. Then $df(x_0; 0) = 0$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
 	\begin{defn}
-	Let $X,Y$ be a Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$ and $x_0 \in A$. Then $f$ is said to be 
+	Let $X,Y$ be Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$ and $x_0 \in A$. Then $f$ is said to be 
 	\begin{enumerate}
 	\item \textbf{right-hand Gateaux differentiable} at $x_0$ if for each $x \in X$, $d^+ f(x_0; x)$ exits. We define the \textbf{right-hand Gateaux derivative} of $f$ at $x_0$, denoted $d^+ f(x_0) : X \rightarrow \R$, to be $$d^+ f(x_0)(x) = d^+ f(x_0;x)$$ 
 	
@@ -1502,6 +1510,61 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\item \textbf{Gateaux differentiable} at $x_0$ if for each $x \in X$, $d f(x_0; x)$ exits. We define the \textbf{Gateaux derivative} of $f$ at $x_0$, denoted $d f(x_0) : X \rightarrow \R$, to be $$d f(x_0)(x) = d f(x_0;x)$$
 	\end{enumerate}
 	\end{defn}
+	
+	\begin{ex}
+	Let $X, Y$ be Banach spaces, $A \subset X$ open, $f,g :A \rightarrow Y$, $\lam \in \C$ and $x_0 \in A$. If $f, g$ are Gateaux differentiable at $x_0$, then $f + \lam g$ Gateaux differentiable at $x_0$ and $d[f+\lam g](x_0) = df(x_0) + \lam dg(x_0)$.
+	\end{ex}
+	
+	\begin{proof}
+	Similar to the case of the derivative from Calc I. 
+	\end{proof}		
+	
+	\begin{ex}
+	Let $X, Y$ be Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$ and $x_0 \in A$. Suppose that $f$ is Gateaux differentiable at $x_0$. Then for each $\lam \in \C$ and $x \in X$, $$df(x_0)(\lam x) = \lam df(x_0)(x) \in X^*$$
+	\end{ex}
+	
+	\begin{proof}
+	Let $\lam \in \C$ and $x \in X$. Then 
+	\begin{align*}
+	df(x_0)(\lam x) 
+	&= \lim_{t \rightarrow 0} \frac{f(x_0 + t \lam x) - f(x_0)}{t} \\
+	&= \lim_{t \rightarrow 0} \lam \frac{f(x_0 + t \lam x) - f(x_0)}{\lam t} \\
+	&= \lam \lim_{t \rightarrow 0}  \frac{f(x_0 + t \lam x) - f(x_0)}{\lam t} \\
+	&= \lam \lim_{t \rightarrow 0}  \frac{f(x_0 + t x) - f(x_0)}{t} \\
+	&= \lam df(x_0)(x) 
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open, $f:A \rightarrow \R$ and $x_0 \in A$. If $f$ is Gateaux differentiable at $x_0$ and $f$ has a local extremum at $x_0$, then $df(x_0) = 0$.
+	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $f$ is Gateaux differentiable at $x_0$ and $f$ has a local minimum at $x_0$. Then there exists $\del >0 $ such that $B(x_0, \del) \subset A$ and for each $y \in B(x_0, \del)$, $f(x_0) \leq f(y)$. \\
+	For the sake of contradiction, suppose that $df(x_0) \neq 0$. Then there exists $x \in X$ such that $x \neq 0$ and $df(x_0)(x) \neq 0$. \\
+	First, suppose that $df(x_0)(x) < 0$. Choose $\ep = -df(x_0)(x) >0$. Then there exists $t_0 >0$ such that for each $t \in B^*(0, t_0)$, $x_0 + tx \in B(x_0, \del)$ and $$\bigg | \frac{f(x_0 + tx) - f(x_0)}{t} - df(x_0)(x) \bigg | < \ep$$ 
+	This implies that for each $t \in B^*(0, t_0)$,
+	\begin{align*}
+	\frac{f(x_0 + tx) - f(x_0)}{t}  
+	&< \ep + df(x_0)(x) \\
+	&= 0
+	\end{align*} 
+	and hence $f(x_0 + tx) < f(x_0)$, which is a contradiction. \\
+	Now, suppose that $df(x_0)(x) > 0$. Then 
+	\begin{align*}
+	df(x_0)(-x) 
+	&= -df(x_0)(x) \\
+	& < 0
+	\end{align*}
+	Similarly to above, this implies that there exists $t_0 >0$ such that for each $t \in B^*(0, t_0)$, $x_0 - tx \in B(x_0, \del)$ and $f(x_0 - tx) < f(x_0)$ which is a contradiction. So $df(x_0)(x) = 0$ and $df(x_0) = 0$. \\
+	If $f$ has a local maximum at $x_0$, then $-f$ has a local minimum at $x_0$. Then 
+	\begin{align*}
+	df(x_0)
+	&= -d[-f](x_0) \\
+	&= -0 \\
+	&= 0
+\end{align*}	 
+	\end{proof}
 	
 	\begin{ex}
 	Let $X,Y$ be a normed vector spaces and $\phi: X \rightarrow Y$ linear. If $\phi(h) = o(h)$ as $h \rightarrow 0$, then $\phi = 0$. 
@@ -1548,6 +1611,18 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	Since $x \in X$ is arbitrary, $f$ is Gateaux differentiable at $x_0$ and $df(x_0) = Df(x_0)$.
 	\end{proof}
 	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open, $f:A \rightarrow \R$ and $x_0 \in A$. If $f$ is Frechet differentiable at $x_0$ and $f$ has a local extremum at $x_0$, then $df(x_0) = 0$.
+	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $f$ is Frechet differentiable at $x_0$ and $f$ has a local extremum at $x_0$, then $df(x_0) = 0$. Two previous exercises imply that $f$ is Gateaux differentiable at $x_0$ and 
+	\begin{align*}
+	Df(x_0) 
+	&= df(x_0) \\
+	&= 0
+	\end{align*}	
+	\end{proof}
 	
 	
 	
