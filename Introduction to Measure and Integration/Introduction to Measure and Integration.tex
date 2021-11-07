@@ -1173,6 +1173,8 @@
 		\end{enumerate}
 	\end{thm}
 	
+	\newpage
+	
 	\subsection{Integration of Nonnegative Functions}
 	
 	\begin{defn}
@@ -3254,17 +3256,15 @@
 	
 	
 	
-	
+	\newpage
 	
 	
 	\section{$L^{p}$ Spaces}
 	
 	\begin{defn}
-		Let $(X, \MA, \mu)$ be a measure space and $p \in (0, \infty]$. Define $  \| \cdot \|_p : L^0(X, \MA, \mu) \rightarrow [0, \infty]$ by $$\|f \|_p = \bigg(\int \vert f \vert^p d\mu \bigg)^{\frac{1}{p}} \hspace{1.5cm}( p < \infty)$$ 
+		Let $(X, \MA, \mu)$ be a measure space and $p \in [1, \infty]$. Define $  \| \cdot \|_p : L^0(X, \MA, \mu) \rightarrow [0, \infty]$ by $$\|f \|_p = \bigg(\int \vert f \vert^p d\mu \bigg)^{\frac{1}{p}} \hspace{1.5cm}( p < \infty)$$ 
 		and 
 		$$\|f \|_{\infty} = \inf \bigg \{\lam >0: \mu\big(\{x \in X: \lam < \vert f(x) \vert  \}\big) = 0 \bigg \} $$
-		
-		
 		We define $$L^p(X, \MA, \mu) =  \{f \in L^0(X, \MA, \mu): \|f \|_p < \infty \}$$
 	\end{defn}
 	
@@ -3273,7 +3273,7 @@
 	\end{thm}
 	
 	\begin{ex}\textbf{Minkowski Inequality:}
-		Let $(X, \MA, \mu)$ be a measure space, $p \in [1, \infty)$ and $f,g \in L^p$. Then $f+g \in L^p$ and $$\|f+g\|\leq \|f\|_p + \|g\|_p $$
+		Let $(X, \MA, \mu)$ be a measure space, $p \in [1, \infty)$ and $f,g \in L^p$. Then $f+g \in L^p$ and $$\|f+g\|_p  \leq \|f\|_p + \|g\|_p $$
 	\end{ex}
 	
 	\begin{proof}
@@ -3970,15 +3970,254 @@
 	
 	
 	
-	\section{Bochner Integral}
+	\section{The Bochner Integral}
+	
+	\subsection{Introduction}
+	
+	\begin{defn}	
+	Let $(X, \MA, \mu)$ be a measure space and $Y$ a Banach space. We define $$L_Y^0(X, \MA) = \bigg \{ f:X \rightarrow Y: f \text{ is } (\MA, \MB(Y)) \text{-measurable}\bigg \}$$ 
+	\end{defn}
 	
 	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space and $Y$ a Banach space. Then $L_Y^0(X, \MA)$ is a vector space.
+	\end{ex}
 	
-	\end{ex}	
+	\begin{proof}
+	Let $f, g \in L_Y^0(X, \MA)$ and $\lam \in \C$. By definition, $f$ and $g$ are measurable. Note that addition and scalar multiplication by $\lam$ are continuous and hence measurable and the map $\phi: X \rightarrow Y^{\oplus 2}$ defined by $\phi = (f, g)$ is measurable. Since $f+\lam g $ is a composition of these maps, $f + \lam g$ is measurable and therefore $f + \lam g \in L_Y^0(X, \MA)$. Clearly constant maps are measurable and hence $0 \in L_Y^0(X, \MA)$. So $L_Y^0(X, \MA)$ is a vector space. 
+	\end{proof}
 	
 	\begin{defn}
-	Let $X$
+		Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space and $p \in [1, \infty]$. Define $  \| \cdot \|_p : L_Y^0(X, \MA, \mu) \rightarrow [0, \infty]$ by $$\|f \|_p = \bigg(\int  \|f\|^p d\mu \bigg)^{\frac{1}{p}} \hspace{1.5cm}( p < \infty)$$ 
+		and 
+		$$\|f \|_{\infty} = \inf \bigg \{\lam >0: \mu\big(\{x \in X: \lam < \|f(x)\|  \}\big) = 0 \bigg \} $$
+		We define $$L_Y^p(X, \MA, \mu) =  \{f \in L_Y^0(X, \MA, \mu): \|f \|_p < \infty \}$$
+	\end{defn}	
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space and $p \in [1, \infty]$. Then $L_Y^p(X, \MA, \mu)$ is a subspace of $L_Y^0(X, \MA, \mu)$. 
+	\end{ex}
+	
+	\begin{proof}Let $f, g \in L^p_YX, \MA, \mu)$ and $\lam \in \C$. Then $\|f\|_p, \|g\|_p < \infty$.
+	\begin{enumerate}
+	\item Clearly $\|\lam f\|_p = |\lam|\|f\|_p < \infty$.
+	So $\lam f \in L^p_Y$.
+	\item Let $\|\cdot \|'_p: L^0(X, \MA, \mu) \rightarrow \RG$ denote the usual $L^p$ norm. Since $\|f + g\| \leq \|f\| + \|g\|$, we have that 
+	\begin{align*}
+	\|f+g\|_p 
+	&= \| \|f+g\| \|'_p \\
+	& \leq \|\|f\| + \|g\| \|'_p \\
+	& \leq  \|\|f\| \|'_p + \|\|g\| \|'_p \\
+	&= \|f \|_p + \|g\|_p \\
+	& < \infty
+\end{align*}	
+So $f+g \in L^p_Y$.
+	\end{enumerate}
+	Hence $L^p_Y$ is a subspace.
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space and $p \in [1, \infty]$. Then 
+	\begin{enumerate}
+	\item $\|\cdot\|_p$ is a seminorm on $L^p_Y(X, \MA, \mu)$
+	\item if we identify functions that are equal $\mu$-a.e., then $\|\cdot\|_p$ is a norm on $L^p_Y(X, \MA, \mu)$
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} 
+	Let $f, g \in L^p_YX, \MA, \mu)$ and $\lam \in \C$. 
+	\begin{enumerate}
+	\item The previous exercise implies that, $\|\lam f\|_p = |\lam|\|f\|_p$ and $\|f+g\|_p \leq \|f\|_p + \|g \|_p$. So $\|\cdot\|_p$ is a seminorm on $L_Y^p$.
+	\item If $f = 0$ $\mu$-a.e., then $\|f\| = 0$  $\mu$-a.e. Hence
+	\begin{align*}
+	\|f\|_p 
+	&= \|\|f\|\|'_p \\
+	&= 0
+\end{align*}
+	So if we identify functions that are equal $\mu$-a.e., $\|\cdot\|_p$ becomes a norm on $L^p_Y$. 	  
+	\end{enumerate}
+	\end{proof}
+	
+	\begin{note}
+	So for $(f_n)_{n \in \N} \subset L^p_Y$ and $f \in L^p_Y$, $$f_n \conv{L^p_Y} f \text{ iff } \int \|f_n - f\|^p \rightarrow 0$$ 
+	\end{note}
+	
+	\begin{defn}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space and $\phi: X \rightarrow Y$. Then $\phi$ is said to be \textbf{simple} if $\phi$ is measurable, $\phi(X)$ is finite and for each $y \in \phi(X) \setminus \{0\}$, $\mu(\phi^{-1}(y)) < \infty$. If $\phi$ is simple then the \textbf{standard representation of $\phi$} is defined to be the sum $$\phi = \sum\limits_{j=1}^n \chi_{E_j}y_j$$ where $(y_j)_{j=1}^n = \phi(X)$ and for each $j \in \{1, \cdots, n\}$, $E_j = \phi^{-1}(y_j)$. We define $$S_Y(X, \MA, \mu) = \{f \in L_Y^0(X, \MA): f \text{ is simple}\}$$
 	\end{defn}
+	
+	\begin{note}
+	If $\phi = \sum\limits_{j=1}^n \chi_{E_j}y_j$ is in the standard representation, then $(E_j)_{j=1}^n$ are disjoint and $\bigcup\limits_{j=1}^n E_j = X$.
+	\end{note}
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space and $Y$ a Banach space. Then $S_Y(X, \MA, \mu)$ is a subspace of $L_Y^0(X, \MA)$
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{note}
+	For the remainder of this section, we will use the shorthand notation $L^0_Y, L^p_Y$ and $S_Y$ unless the context underlying measure space $(X, \MA, \mu)$ is unclear.
+	\end{note}
+	
+	\begin{defn}
+	Let $(X, \MA, \mu)$ be a measure space and $Y$ a Banach space. Let $\phi \in S_Y$. Write $\phi = \sum\limits_{j=1}^n\chi_{E_j}y_j$ in the standard representation. With the convention that $\infty \cdot 0_Y = 0_Y$, we define $$\int \phi d\mu = \sum\limits_{j=1}^n \mu(E_j)y_j $$ For $A \in \MA$, define  $$\int_A \phi d \mu = \int \chi_A \phi d\mu \\$$
+	\end{defn}
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space, $\phi \in S_Y$ and $A \in \MA$. Write $\phi = \sum\limits_{j=1}^n\chi_{E_j}y_j$ in the standard representation. Then $$\int_A \phi d\mu = \sum_{j=1}^n \mu(A \cap E_j)y_j$$
+	\end{ex}
+	
+	\begin{proof}
+	Note that $\chi_A \phi = \sum\limits_{j=1}^n\chi_{A \cap E_j}y_j$.
+	\end{proof}		
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space, $\phi, \psi \in S_Y$ and $\lam \in \C$. Then $$\int \phi + \lam \psi d\mu = \int \phi d \mu + \lam \int \psi d\mu $$
+	\end{ex}
+	
+	\begin{proof}
+	If $\lam =0$, then the result clearly holds. Suppose that $\lam \neq 0$.	Write $\phi = \sum\limits_{j=1}^n\chi_{A_j}a_j$ and $\psi = \sum\limits_{j=k}^m\chi_{B_k}b_k$ in the standard representation. Put $$L = \{(j,k) \in \N^2: j \leq n, k \leq m, \text{ and } A_j \cap B_k \neq \varnothing\}$$ Then the standard representation of $\phi + \lam \psi$ is given by  $\phi + \lam \psi = \sum\limits_{(j,k) \in L} \chi_{A_j \cap B_k}(a_j + \lam b_k)$.
+	So 
+	\begin{align*}
+	\int \phi + \lam \psi d \mu 
+	&= \int \sum_{(j,k) \in L} \chi_{A_j \cap B_k}(a_j + \lam b_k) d \mu \\
+	&= \sum_{(j,k) \in L} \mu(A_j \cap B_k)(a_j + \lam b_k) \\
+	&= \sum_{j = 1}^n \sum_{k=1}^m \mu(A_j \cap B_k)(a_j + \lam b_k)  \\ 
+	&= \sum_{j = 1}^n \sum_{k=1}^m \mu(A_j \cap B_k)a_j + \lam \sum_{j = 1}^n \sum_{k=1}^m \mu(A_j \cap B_k) b_k \\
+	&= \sum_{j = 1}^n \mu(A_j)a_j +  \lam\sum_{k=1}^m \mu(B_k) b_k \\
+	&= \int \phi d \mu + \lam \int \psi d\mu 
+	\end{align*}
+	\end{proof}
+
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space, $\phi \in S_Y$. Then $$\bigg \| \int \phi d\mu   \bigg \|  \leq \int \|\phi \| d \mu$$
+	\end{ex}
+	
+	\begin{proof}
+	Write $\phi = \sum\limits_{j=1}^n\chi_{E_j}y_j$ in the standard representation. Note that $\|\phi \| = \sum\limits_{j=1}^n\chi_{E_j} \|y_j\|$. Then 
+	\begin{align*}
+	\bigg \|  \int \phi d\mu  \bigg \| 
+	&=  \bigg \|  \int \sum\limits_{j=1}^n\chi_{E_j}y_j  d\mu  \bigg \| \\
+	&= \bigg \| \sum\limits_{j=1}^n \mu(E_j)y_j \bigg \| \\
+	& \leq \sum\limits_{j=1}^n \mu(E_j) \|y_j \| \\
+	&= \int \sum\limits_{j=1}^n \|y_j \| \chi_{E_j} d \mu \\
+	&= \int \|\phi \| d\mu
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space, $f \in L^1_Y$ and $(\phi_n)_{n \in \N} \subset S_Y$. If $\phi_n \conv{L^1_Y} f$, then $\limn \int \phi_n d\mu $ exists.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $\phi \conv{L^1_Y} f$. Then by definition, $$\int \|\phi_n -f\| d\mu \rightarrow 0$$ Let $m,n \in \N$. Then 
+	\begin{align*}
+	\bigg \|\int \phi_m d\mu - \int \phi_n d\mu \bigg \| 
+	&= \bigg \| \int \phi_m  - \phi_n d\mu  \bigg \| \\
+	& \leq  \int \|\phi_m  - \phi_n\| d \mu \\
+	& \leq \int \|\phi_m  - f \| d \mu + \int \|f  - \phi_n\| d \mu
+	\end{align*}
+	Hence $( \int \phi_n  d \mu)_{n \in \N} \subset Y$ is Cauchy and $\lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ exists.
+\end{proof}		
+
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space, $f \in L^1_Y$ and $(\phi_n)_{n \in \N}, (\psi_n)_{n \in \N} \subset S_Y$. If $\phi_n \conv{L^1_Y} f$ and $\psi_n \conv{L^1_Y} f$, then $\lim\limits_{n \rightarrow \infty} \int \phi_n d\mu = \lim\limits_{n \rightarrow \infty} \int \psi_n d\mu$
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $\phi_n \conv{L^1_Y} f$ and $\psi_n \conv{L^1_Y} f$. Let $\ep >0$. By defintion, there exist $N_1 \in \N$ such that for each $n \in \N$, $ n \geq N_1$ implies that $\int \|\phi_n - f\| d\mu < \frac{\ep}{6}$ and $\int \|\psi_n - f\| d\mu < \frac{\ep}{6}$. Similarly to the previous exercise we have that for each $n \in \N$, $n \geq N_1$ implies that
+	\begin{align*}
+	\bigg \| \int \phi_n d\mu  - \int \psi_n d \mu \bigg \|
+	&= \bigg \| \int \phi_n - \psi_n d\mu \bigg \| \\
+	& \leq \int \| \phi_n - \psi_n \| d\mu \\
+	& \leq  \int \| \phi_n -f \| d \mu + \int \| f - \psi_n \| d\mu 	\\
+	& <  \frac{\ep}{6} + < \frac{\ep}{6} \\
+	&= \frac{\ep}{3}
+	\end{align*}	 
+Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi} = \lim\limits_{n \rightarrow \infty} \int \psi_n d\mu$. Then there exists $N_2 \in \N$ such that for each $n \in \N$, if $ n \geq N_2$, then $$\bigg \| \int \phi_n d\mu - I_\phi \bigg \| < \frac{\ep}{3}$$ and $$\bigg \| \int \psi_n d\mu - I_\psi \bigg \| < \frac{\ep}{3}$$ 
+	Choose $N = \max(N_1, N_2)$. Then for each $n \in \N$, $n \geq N$ implies that
+	\begin{align*}
+	\|I_\phi - I_\psi\| 
+	& \leq \bigg \|I_\phi - \int \phi_n d\mu \bigg \| + \bigg \| \int \phi_n d\mu - \int \psi_n d\mu \bigg \| +  \bigg \| \int \psi_n d\mu - I_\psi \bigg \| \\
+	& = < \frac{\ep}{3} + < \frac{\ep}{3} + < \frac{\ep}{3} \\
+	&= \ep
+	\end{align*}
+	Since $\ep >0$ is arbitrary, $I_\phi = I_\psi$.
+	\end{proof}
+	
+	\begin{ex}
+	Let $Y$ be a Banach space and $(y_n)_{n \in \N} \subset Y$ a countable dense subset. For $\ep >0$ and $n \in \N$, define $$B^{\ep}_n = \{y \in Y: \|y - y_n\| < \ep \| y_n \| \}$$ Then for each $\ep > 0$, $$Y \setminus \{ 0 \} \subset \bigcup\limits_{n \in \N}B^{\ep}_n$$
+	\end{ex}	
+	
+	\begin{proof}
+	Let $\ep >0$. For the sake of contradiction, suppose that $Y \setminus \{ 0 \} \not \subset \bigcup\limits_{n \in \N}B^{\ep}_n$. Then there exists $y \in Y$ such that $y \neq 0$ and for each $n \in \N$, $\|y- y_n\| \geq \ep \|y_n\|$. Since $(y_n)_{n \in \N}$ is dense in $Y$, there exists a subsequence $(y_{n_j})_{j \in \N} \subset (y_n)_{n \in \N}$ such that for each $j \in \N$, $\|y_{n_j} - y\| < 2^{-j}$. Then for each $j \in \N$,
+	\begin{align*}
+	\|y_{n_j}\| 
+	& \leq  \ep^{-1}\|y- y_{n_j}\| \\
+	& < \ep^{-1}2^{-j}
+	\end{align*}
+	So that $y_{n_j} \rightarrow y$ and $y_{n_j} \rightarrow 0$. Since $y \neq 0$, this is a contradiction and thus $$Y \setminus \{ 0 \} \subset \bigcup\limits_{n \in \N}B^{\ep}_n$$
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space and $f \in L^1_Y(X, \MA, \mu)$. Then there exists $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \convt{a.e.} f$ and $\phi_n \conv{L_Y^1} f$.\\
+	\textbf{Hint:} Choose a countable dense subset $(y_n)_{n \in \N} \subset Y$ and define 
+	\begin{itemize}
+	\item $A_1^j = B^{1/j}_1$ 
+	\item $A_n^j = B^{1/j}_n \setminus \bigg( \bigcup \limits_{k=1}^{n-1} B^{1/j}_k\bigg)$ 
+	\item $E_n^j = f^{-1}(A^j_n)$ 
+	\item $\phi_j = \sum\limits_{n \in \N}\chi_{E_n^j}y_n$
+	\end{itemize}
+	\end{ex}
+	
+	\begin{proof}
+	
+\end{proof}		
+	
+	\begin{defn}\textbf{Bochner Integral:}\\
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space and $f \in L^1_Y$. Then there exists $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \convt{a.e.} f$ and $\phi_n \conv{L_Y^1} f$. Then the \textbf{Bochner integral of $f$} with respect to $\mu$, denoted $\int f d\mu$, is defined to be $$\int f d\mu = \limn \int \phi_n d\mu$$ 
+	\end{defn}
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space, $f,g \in L^1_Y$ and $\lam \in \C$. Then $$\int f+\lam g d\mu = \int f d \mu + \lam \int g d\mu$$
+	\end{ex}
+	
+	\begin{proof}
+	Choose $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \conv{L^1_Y} f$ and $(\psi_n)_{n \in \N} \subset S_Y$ such that $\psi_n \conv{L^1_Y} g$. Since addition and  scalar multiplication are continuous, $\phi_n + \lam \psi_n \conv{L^1_Y} f+\lam g$. By definition, we have that $$\int \phi_n + \lam \psi_n  d\mu \rightarrow \int f+\lam g d\mu $$ $$\int \phi_n d\mu \rightarrow \int f d\mu$$ and $$ \int \psi_n d\mu \rightarrow \int g d\mu$$ 
+	Hence 
+	\begin{align*}
+	\int f+ \lam g d\mu 
+	&= \limn \int \phi_n + \lam \psi_n  d\mu \\
+	&= \limn \int \phi_n d\mu + \lam \limn \int \psi_n  d\mu \\
+	&= \int f d\mu + \lam \int g d\mu
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space and $f \in L^1_Y$. Then $$\bigg \|\int f d\mu \bigg \| \leq \int \|f\| d\mu$$ That is, the Bochner integral $I: L^1_Y \rightarrow Y$ given by $$If = \int f d\mu$$ is a bounded linear map with $\|I\| \leq 1$.
+	\end{ex}
+	
+	\begin{proof}
+	Choose $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \conv{L^1_Y} f$. Then 
+	\begin{align*}
+	\bigg | \int \| \phi_n \| d \mu - \int \| f\| d\mu \bigg |
+	&= \bigg | \int \| \phi_n \| - \| f\| d\mu \bigg | \\
+	& \leq \int |\| \phi_n \| - \| f\| | d\mu \\
+	& \leq  \int \| \phi_n - f\| d\mu \\
+	& \rightarrow 0
+	\end{align*}
+	So  $$ \int \| \phi_n \| d \mu \rightarrow  \int \| f \| d \mu$$
+	By continuity of $\|\cdot\|:Y \rightarrow \Rg$,
+	\begin{align*}
+	\bigg \| \int f d\mu \bigg \|
+	&= \bigg \| \limn \int \phi_n d\mu \bigg \| \\
+	&= \limn  \bigg \| \int \phi_n d\mu \bigg \| \\
+	& \leq \limn \int \| \phi_n \| d \mu \\
+	&= \int \| f \| d\mu  
+	\end{align*}
+	\end{proof}
 	
 	
 	
