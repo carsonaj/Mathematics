@@ -3983,7 +3983,7 @@
 	\end{ex}
 	
 	\begin{proof}
-	Let $f, g \in L_Y^0(X, \MA)$ and $\lam \in \C$. By definition, $f$ and $g$ are measurable. Note that addition and scalar multiplication by $\lam$ are continuous and hence measurable and the map $\phi: X \rightarrow Y^{\oplus 2}$ defined by $\phi = (f, g)$ is measurable. Since $f+\lam g $ is a composition of these maps, $f + \lam g$ is measurable and therefore $f + \lam g \in L_Y^0(X, \MA)$. Clearly constant maps are measurable and hence $0 \in L_Y^0(X, \MA)$. So $L_Y^0(X, \MA)$ is a vector space. 
+	Let $f, g \in L_Y^0(X, \MA)$ and $\lam \in \C$. By definition, $f$ and $g$ are measurable. Since $f+\lam g $ is a composition of measurable maps, $f + \lam g$ is measurable. Therefore $f + \lam g \in L_Y^0(X, \MA)$. Clearly constant maps are measurable and hence $0 \in L_Y^0(X, \MA)$. So $L_Y^0(X, \MA)$ is a vector space. 
 	\end{proof}
 	
 	\begin{defn}
@@ -4148,11 +4148,11 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	\end{proof}
 	
 	\begin{ex}
-	Let $Y$ be a Banach space and $(y_n)_{n \in \N} \subset Y$ a countable dense subset. For $\ep >0$ and $n \in \N$, define $$B^{\ep}_n = \{y \in Y: \|y - y_n\| < \ep \| y_n \| \}$$ Then for each $\ep > 0$, $$Y \setminus \{ 0 \} \subset \bigcup\limits_{n \in \N}B^{\ep}_n$$
+	Let $Y$ be a Banach space and $(y_n)_{n \in \N} \subset Y$ a countable dense subset. For $\ep >0$ and $n \in \N$, define $$B^{\ep}_n = \{y \in Y: \|y - y_n\| < \ep \| y_n \| \}$$ Then for each $\ep > 0$, $$U \setminus \{ 0 \} \subset \bigcup\limits_{n \in \N}B^{\ep}_n$$
 	\end{ex}	
 	
 	\begin{proof}
-	Let $\ep >0$. For the sake of contradiction, suppose that $Y \setminus \{ 0 \} \not \subset \bigcup\limits_{n \in \N}B^{\ep}_n$. Then there exists $y \in Y$ such that $y \neq 0$ and for each $n \in \N$, $\|y- y_n\| \geq \ep \|y_n\|$. Since $(y_n)_{n \in \N}$ is dense in $Y$, there exists a subsequence $(y_{n_j})_{j \in \N} \subset (y_n)_{n \in \N}$ such that for each $j \in \N$, $\|y_{n_j} - y\| < 2^{-j}$. Then for each $j \in \N$,
+	Let $\ep >0$. For the sake of contradiction, suppose that $Y\setminus \{ 0 \} \not \subset \bigcup\limits_{n \in \N}B^{\ep}_n$. Then there exists $y \in Y$ such that $y \neq 0$ and for each $n \in \N$, $\|y- y_n\| \geq \ep \|y_n\|$. Since $(y_n)_{n \in \N}$ is dense in $Y$, there exists a subsequence $(y_{n_j})_{j \in \N} \subset (y_n)_{n \in \N}$ such that for each $j \in \N$, $\|y_{n_j} - y\| < 2^{-j}$. Then for each $j \in \N$,
 	\begin{align*}
 	\|y_{n_j}\| 
 	& \leq  \ep^{-1}\|y- y_{n_j}\| \\
@@ -4163,10 +4163,10 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	
 	\begin{ex}
 	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space and $f \in L^1_Y(X, \MA, \mu)$. Then there exists $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \convt{a.e.} f$ and $\phi_n \conv{L_Y^1} f$.\\
-	\textbf{Hint:} Choose a countable dense subset $(y_n)_{n \in \N} \subset Y$ and define 
+	\textbf{Hint:} Choose a countable dense subset $(y_n)_{n \in \N} \subset f(X)$ and define 
 	\begin{itemize}
 	\item $A_1^j = B^{1/j}_1$ 
-	\item $A_n^j = B^{1/j}_n \setminus \bigg( \bigcup \limits_{k=1}^{n-1} B^{1/j}_k\bigg)$ 
+	\item $A_n^j = B^{1/j}_n  \setminus \bigg( \bigcup \limits_{k=1}^{n-1} B^{1/j}_k \bigg)$ 
 	\item $E_n^j = f^{-1}(A^j_n)$ 
 	\item $\phi_j = \sum\limits_{n \in \N}\chi_{E_n^j}y_n$
 	\end{itemize}
@@ -4177,7 +4177,7 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 \end{proof}		
 	
 	\begin{defn}\textbf{Bochner Integral:}\\
-	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space and $f \in L^1_Y$. Then there exists $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \convt{a.e.} f$ and $\phi_n \conv{L_Y^1} f$. Then the \textbf{Bochner integral of $f$} with respect to $\mu$, denoted $\int f d\mu$, is defined to be $$\int f d\mu = \limn \int \phi_n d\mu$$ 
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space and $f:X \rightarrow Y$. Then $f$ is said to be \textbf{Bochner} integrable if $f \in L^1_Y$. If $f$ is Bochner integrable, then there exists $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \convt{a.e.} f$ and $\phi_n \conv{L_Y^1} f$ and the \textbf{Bochner integral of $f$} with respect to $\mu$, denoted $\int f d\mu$, is defined to be $$\int f d\mu = \limn \int \phi_n d\mu$$ 
 	\end{defn}
 	
 	\begin{ex}

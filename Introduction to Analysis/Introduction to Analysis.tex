@@ -1684,12 +1684,51 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\begin{defn}
 	Let $X, Y$ be a Banach spaces, $A \subset X$ open and $f:A \rightarrow Y$. Then $f$ is said to be \textbf{Frechet differentiable} (or \textbf{$1$-st order Frechet differentiable}) if for each $x \in A$, $f$ is Frechet differentiable at $x$. \\
 	If $f$ is Frechet differentiable, we define the \textbf{(first order) Frechet derivative of $f$}, denoted $D^{(1)}f:A \rightarrow L(X, Y)$, by $x \mapsto D^{(1)}f(x)$. We define higher order Frechet derivatives inductively: \\
-	Let $x_0 \in A$ and $n \geq 2$.  Then $f$ is said to be \textbf{$n$-th order Frechet differentiable at $x_0$} if $f$ is $(n-1)$-th order Frechet differentiable and $D^{n-1}f$ is Frechet differentiable at $x_0$. If $f$ is $n$-th order Frechet differentiable at $x_0$, we define $D^nf(x_0) \in L^n(\bigoplus\limits_{i=1}^n X, Y)$ by 
-	$D^nf(x_0) = D[D^{n-1}f](x_0)$. Finally, $f$ is said to be \textbf{$n$-th order Frechet differentiable} if $f$ is $(n-1)$-th order Frechet differentiable and for each $x \in A$, $D^{n-1}f$ is Frechet differentiable at $x$. If $f$ is $n$-th order Frechet differentiable, we define the \textbf{$n$-th order Frechet derivative of $f$}, denoted $D^nf:A \rightarrow  L^n(\bigoplus\limits_{i=1}^n X, Y)$ by $D^nf = D[D^{n-1}f]$.
+	Let $x_0 \in A$ and $n \geq 2$.  Then $f$ is said to be \textbf{$n$-th order Frechet differentiable at $x_0$} if $f$ is $(n-1)$-th order Frechet differentiable and $D^{n-1}f$ is Frechet differentiable at $x_0$. If $f$ is $n$-th order Frechet differentiable at $x_0$, we define $D^nf(x_0) \in L^n( X, Y)$ by 
+	$D^nf(x_0) = D[D^{n-1}f](x_0)$. Finally, $f$ is said to be \textbf{$n$-th order Frechet differentiable} if $f$ is $(n-1)$-th order Frechet differentiable and for each $x \in A$, $D^{n-1}f$ is Frechet differentiable at $x$. If $f$ is $n$-th order Frechet differentiable, we define the \textbf{$n$-th order Frechet derivative of $f$}, denoted $D^nf:A \rightarrow  L^n(X, Y)$ by $D^nf = D[D^{n-1}f]$.
 	\end{defn}	
 	
+	\begin{ex}\textbf{Fundamental Theorem of Calculus:}\\
+	Let $Y$ be a separable Banach space, $f:[a,b] \rightarrow Y$ continuous and $c \in Y$. Then $f$ is Bochner integrable and the map $F: (a,b) \rightarrow Y$ defined by $$F(x) = \int_{[0, x]}f dm + c$$ is Frechet differentiable and for each $x_0 \in (a,b)$, $$Df(x_0)(h) = f(x_0)h$$
+	\end{ex}
+	
+	\begin{proof}
+	Continuity implies that $f \in L_Y^0$ and 
+	\begin{align*}
+	\int \| f \| dm 
+	&\leq \| f\|_{\infty}(b-a) \\
+	&< \infty
+\end{align*}
+	so that $f \in L^1_Y$ and $f$ is Bochner integrable. 	Let $x_0 \in (a,b)$ and $h \in (0, b-x_0)$. Then continuity implies that
+	\begin{align*}
+	\frac{1}{\|h\|} \bigg | \int_{[x_0, x_0 + h]}f - f(x_0) dm \bigg |
+	& \leq  \frac{1}{\|h\|} \max_{x \in [x_0, x_0+h]} |f(x) - f(x_0)| \|h\| \\
+	&= \max_{x \in [x_0, x_0+h]} |f(x) - f(x_0)| \\
+	& \rightarrow 0  \text{ as } h \rightarrow 0
+\end{align*}	  
+So $$\int_{[x_0, x_0 + h]}f - f(x_0) dm = o(h) \hspace{1cm}\text{ as }h \rightarrow 0$$ 
+	Therefore 
+	\begin{align*}
+	F(x_0 + h)
+	&= \int_{[a, x_0 + h]} f dm + c \\
+	&= \int_{[a, x_0]} f dm + c + \int_{[x_0, x_0 + h]} fdm \\
+	&= \int_{[a, x_0]} f dm + c + f(x_0)h + \int_{[x_0, x_0 + h]} f - f(x_0) dm \\ 
+	&= F(x_0 + h) + f(x_0)h + o(\|h\|) \hspace{1cm }\text{ as } h \rightarrow 0\\
+	\end{align*}
+	So $F$ is Frechet differentiable at $x_0$ and $DF(x_0)(h) = f(x_0)h$.
+	\end{proof}
+	
 	\begin{ex}
-		Let $X, Y$ be a Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$, $x_0 \in A$ and $n \in \N$. Then $f$ is $n$-th  order Frechet differentiable at $x_0$ iff for each $i \in \{1, \cdots, n\}$, there exists $\phi_i \in L^i(\bigoplus\limits_{j=1}^i X, Y)$ such that $$f(x + h) = \sum_{i=1}^n \phi_i(h, \cdots, h) + o(\|h\|^n)$$
+	
+	\end{ex}
+	
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	\begin{ex}
+		Let $X, Y$ be a Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$, $x_0 \in A$ and $n \in \N$. If $Y$ is separable, then $f$ is $n$-th  order Frechet differentiable at $x_0$ iff for each $j \in \{1, \cdots, n\}$, there exists $\phi_j \in L^j(X, Y)$ such that $$f(x + h) = \sum_{j=1}^n \phi_j(h, \cdots, h) + o(\|h\|^n)$$
 	\end{ex}
 	
 	\begin{proof}
