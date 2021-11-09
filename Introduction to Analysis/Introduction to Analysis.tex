@@ -316,9 +316,17 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Let $X$ be a normed vector space and $(x_i)_{i=1}^n \subset X$. The series $\sum_{i =1}^{\infty}x_i$ is said to \textbf{converge} if the sequence $s_n := \sum_{i=1}^n x_i$ converges. The series $\sum_{i =1}^{\infty}x_i$ is said to \textbf{converge absolutely} if $\sum_{i\in \N}\|x_i \|< \infty$.
 	\end{defn}
 	
-	\begin{thm}
-		Let $X$ be a normed vector space. Then $X$ is complete iff for each $\seq{x}{i} \subset X$, $\sum_{i =1}^{\infty}x_i$ converges absolutely implies that $\sum_{i=1}^{\infty}x_i$ converges. 
-	\end{thm}
+	\begin{ex}
+		Let $X$ be a normed vector space. Then $X$ is complete iff for each $\seq{x}{i} \subset X$, $\sum_{i =1}^{\infty}x_i$ converges absolutely implies that $\sum_{i=1}^{\infty}x_i$ converges. \\
+		\textbf{Hint:} Given a Cauchy sequence $(x_n)_{n \in \N}$, obtain a subsequence $(x_{n_j})_{j \in \N} \subset (x_n)_{n \in \N}$ such that for each $j \in \N$, $\|x_{n_{j+1}} - x_{n_{j}}\| < 2^{-j}$. Define a new sequence $(y_j)_{j \in \N} \subset X$ by 
+		\[
+		y_j = 
+		\begin{cases}
+		x_{n_1} & j =1 \\  
+		x_{n_j} - x_{n_{j-1}} & j \geq 2	
+		\end{cases}
+		\] 
+	\end{ex}
 	
 	\begin{proof}
 		Suppose that $X$ is complete. Let $\seq{x}{i} \subset X$. Suppose that $\sum_{i=1}^{\infty}x_i$ converges absolutely. Let $\ep >0$. Choose $N \in \N$ such that for each $m,n \in \N$, if $m, n \geq N$ and $m< n$, then $\sum_{m+1}^n \|x_i \|< \ep$. Let $m, n \in \N$. Suppose that $m<n$. Then 
@@ -330,8 +338,8 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 			& < \ep
 		\end{align*}
 		
-		Thus $(s_n)_{n \in N}$ is cauchy. Since $X$ is complete, $\sum_{i=1}^{\infty}x_i$ converges. \\
-		Conversely, Suppose that for each $\seq{x}{i} \subset X$, $\sum_{i =1}^{\infty}x_i$ converges absolutely implies that $\sum_{i=1}^{\infty}x_i$ converges. Let $\seq{x}{i} \subset X$ be cauchy. Proceed inductively to create a strictly increasing sequence $(n_i)_{i \in \N} \subset \N$ such that for each $m, n \in \N$, if $m,n \geq n_i$, then $ \|x_m-x_n \|< 2^{-i}$. Define $(y_i)_{i \in \N} \subset X$ by 
+		Thus $(s_n)_{n \in N}$ is Cauchy. Since $X$ is complete, $\sum_{i=1}^{\infty}x_i$ converges. \\
+		Conversely, Suppose that for each $\seq{x}{i} \subset X$, $\sum_{i =1}^{\infty}x_i$ converges absolutely implies that $\sum_{i=1}^{\infty}x_i$ converges. Let $\seq{x}{i} \subset X$ be Cauchy. Proceed inductively to create a strictly increasing sequence $(n_i)_{i \in \N} \subset \N$ such that for each $m, n \in \N$, if $m,n \geq n_i$, then $ \|x_m-x_n \|< 2^{-i}$. Define $(y_i)_{i \in \N} \subset X$ by 
 		\[ y_i = \begin{cases}
 			x_{n_1} & i=1 \\
 			x_{n_i} - x_{n_{i-1}} & i \geq 2\\
@@ -341,8 +349,8 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		\begin{align*}
 			\sum_{i \in \N} \|y_i \|
 			&= \|x_{n_1} \|+ \sum_{i \in \N} \|x_{n_i}-x_{n_{i-1}} \|\\
-			& \leq \|x_{n_1} \|+ \sum_{i \in \N}2^{-i}\\
-			& = \|x_{n_1} \|+1
+			& \leq \|x_{n_1} \|+ 2\sum_{i \in \N}2^{-i}\\
+			& = \|x_{n_1} \|+2
 		\end{align*}
 		Hence $(x_{n_k})_{k \in \N} = (\sum_{i=1}^k y_i)_{i\in \N}$ converges. Since $(x_i)_{i \in \N}$ is cauchy and has a convergent subsequence, it converges. So $X$ is complete.
 	\end{proof}
@@ -1522,7 +1530,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	
 	
 	
-	\subsection{Differentiability}
+	\subsection{Differentiation}
 	
 	\begin{note}
 	In this section, we assume all Banach spaces to be over $\R$. 
@@ -1651,6 +1659,22 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\end{defn}
 	
 	\begin{ex}
+	Let $X, Y$ be a banach spaces, $A \subset X$ open, $f,g:A \rightarrow Y$, $\lam \in \R$ and $x_0 \in A$. If $f$ and $g$ are Frechet differentiable at $x_0$, then $f+ \lam g$ is Frechet differentiable at $x_0$ and $D(f+\lam g)(x_0) = Df(x_0) + \lam Dg(x_0)$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ and $g$ are Frechet differentiable at $x_0$. Then $$f(x_0 + h) = f(x_0) + Df(x_0)(h) + o(\|h\| ) \hspace{.5cm} \text{ as } h \rightarrow 0$$  and $$g(x_0 + h) = g(x_0) + Dg(x_0)(h) + o(\|h\| ) \hspace{.5cm} \text{ as } h \rightarrow 0$$  
+	This implies that 
+	\begin{align*}
+	(f+\lam g)(x_0 + h) 
+	&= f(x_0 + h) +\lam g(x_0 + h) \\
+	&= f(x_0) + Df(x_0)(h) + o(\|h\| ) + \lam g(x_0) + \lam Dg(x_0)(h) + o(\|h\| ) \\
+	&= (f+\lam g)(x_0) + [Df(x_0)+ \lam Dg(x_0)](h) + o(\|h\|) \hspace{.5cm} \text{ as } h \rightarrow 0
+	\end{align*}
+	Since $Df(x_0)+\lam Dg(x_0) \in L(X,Y)$, $f+\lam g$ is Frechet differentiable at $x_0$ and $D(f+\lam g)(x_0) = Df(x_0) + \lam Dg(x_0)$. 
+	\end{proof}
+	
+	\begin{ex}
 	Let $X, Y$ be a banach spaces, $A \subset X$ open, $f:A \rightarrow Y$ and $x_0 \in A$. If $f$ is Frechet differentiable at $x_0$, then $f$ is Gateaux differentiable at $x_0$ and $df(x_0) = Df(x_0)$.
 	\end{ex}
 	
@@ -1700,7 +1724,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	
 	\begin{ex}\textbf{Mean Value Theorem:}\\
 	Let $X, Y$ be a Banach spaces, $A \subset X$ open and convex and $f:A \rightarrow Y$. If $f$ is Frechet differentiable, then for each $x,y \in A$, there exists $t \in (0,1)$ such that $$\|f(x) - f(y)\| \leq \|Df(tx + (1-t)y)\|\|x-y\|$$
-	\textbf{Hint:} For $x,y \in A$ with $f(x) \neq f(y)$, using a Hahn-Banach argument, find $\lam \in Y^*$ such that $\|lam\| = 1 $ and $\lam (f(x - f(y)) = \|f(x) - f(y)\|$.
+	\textbf{Hint:} For $x,y \in A$ with $f(x) \neq f(y)$, using a Hahn-Banach argument, find $\lam \in Y^*$ such that $\|\lam\| = 1 $ and $\lam (f(x - f(y)) = \|f(x) - f(y)\|$.
 	\end{ex}
 	
 	\begin{proof}
@@ -1709,7 +1733,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\begin{align*}
 	g'(t) 
 	&= Dg(t)(1)\\
-	&= \lam \circ Df(tx+(1-t)y)(x-y)
+	&= \lam \circ Df(tx+(1-t)y)((x-y))
 	\end{align*}
 	The mean value theorem implies that there exists $t \in (0,1)$ such that 
 	\begin{align*}
@@ -1743,76 +1767,77 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\end{proof}
 	
 	\begin{ex}
-	Let $Y$ be a separable Banach space, $f:[a,b] \rightarrow Y$ continuous, $G: (a,b) \rightarrow Y$ Frechet differentiable and $c \in Y$. Then 
-	\begin{enumerate}
-	\item $f$ is Bochner integrable 
-	\item the map $F: (a,b) \rightarrow Y$ defined by $$F(x) = \int_{[a, x]}f dm + c$$ is continuously Frechet differentiable and for each $x_0 \in (a,b)$, $$DF(x_0)(h) = f(x_0)h$$
-	\item for each $x,y \in (a,b)$, if $x < y$, then $$F(y)-F(x) = \int_{(x,y]}DF(x)(1)dm(x)$$
-	\item If $DG = DF$, then $F-G$ is constant.
-	\end{enumerate}
+	Let $X, Y$ be a Banach spaces, $A \subset X$ open and convex and $f,g:A \rightarrow Y$. Suppose that $f$ and $g$ are Frechet differentiable. If $Df = Dg$, then there exists $c \in Y$ such that $f = g+c$.
 	\end{ex}
 	
 	\begin{proof}
-	\begin{enumerate}
-	\item Continuity implies that $f \in L_Y^0$ and 
+		Suppose that $Df = Dg$. Then $D(f-g) = 0$ and the previous exercise implies that $f -g$ is constant.
+	\end{proof}		
+	
+	\begin{ex}
+	Let $Y$ be a separable Banach space, $f:[a,b] \rightarrow Y$ continuous so that $f$ is Bochner-integrable. Define $F:(a,b) \rightarrow Y$ by  $$F(x) = \int_{(a, x]}f dm$$ Then $F \in C^1_Y((a,b))$ and for each $x_0 \in (a,b)$ and $h \in \R$, $DF(x_0)(h) = hf(x_0)$ 
+	\end{ex}
+	
+	\begin{proof}
+	Let $x_0 \in (a,b)$ and $h \in (0, b-x_0)$. Then continuity implies that
 	\begin{align*}
-	\int \| f \| dm 
-	&\leq \| f\|_{\infty}(b-a) \\
-	&< \infty
-\end{align*}
-	so that $f \in L^1_Y$ and $f$ is Bochner integrable.
-	\item Let $x_0 \in (a,b)$ and $h \in (0, b-x_0)$. Then continuity implies that
-	\begin{align*}
-	\frac{1}{\|h\|} \bigg | \int_{[x_0, x_0 + h]}f - f(x_0) dm \bigg |
-	& \leq  \frac{1}{\|h\|} \max_{x \in [x_0, x_0+h]} |f(x) - f(x_0)| \|h\| \\
+	\frac{1}{\|h\|} \bigg | \int_{(x_0, x_0 + h]}f - f(x_0) dm \bigg |
+	& \leq  \frac{1}{\|h\|} \max_{x \in (x_0, x_0+h]} |f(x) - f(x_0)| \|h\| \\
 	&= \max_{x \in [x_0, x_0+h]} |f(x) - f(x_0)| \\
 	& \rightarrow 0  \text{ as } h \rightarrow 0
 \end{align*}	  
-So $$\int_{[x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rightarrow 0$$ 
+So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rightarrow 0$$ 
 	Therefore 
 	\begin{align*}
 	F(x_0 + h)
-	&= \int_{[a, x_0 + h]} f dm + c \\
-	&= \int_{[a, x_0]} f dm + c + \int_{[x_0, x_0 + h]} fdm \\
-	&= \int_{[a, x_0]} f dm + c + f(x_0)h + \int_{[x_0, x_0 + h]} f - f(x_0) dm \\ 
-	&= F(x_0 + h) + f(x_0)h + o(\|h\|) \hspace{1cm }\text{ as } h \rightarrow 0\\
+	&= \int_{(a, x_0 + h]} f dm  \\
+	&= \int_{(a, x_0]} f dm + \int_{(x_0, x_0 + h]} fdm \\
+	&= \int_{(a, x_0]} f dm + hf(x_0) + \int_{(x_0, x_0 + h]} f - f(x_0) dm \\ 
+	&= F(x_0 + h) + hf(x_0) + o(\|h\|) \hspace{1cm }\text{ as } h \rightarrow 0\\
 	\end{align*}
-	The case is similar for $h \in (x_0 - b, 0)$. So $F$ is Frechet differentiable at $x_0$ and $DF(x_0)(h) = f(x_0)h$.
-	\item Let $x,y \in (a,b)$. Suppose that $x < y$. Then \begin{align*}
-	F(y) - F(x) 
-	&= \int_{(x,y]} f(x) dm(x) \\
-	&= \int_{(x,y]} DF(x)(1) dm(x)
+	The case is similar for $h \in (x_0 - b, 0)$. Since the map $h \mapsto f(x_0)h$ is bounded, $F$ is Frechet differentiable at $x_0$ and $DF(x_0)(h) = f(x_0)h$.
+	Let $x,y \in (a,b)$ and $h \in \R$. Then 
+	\begin{align*}
+	\|(DF(x)- DF(y))(h)\| 
+	&= \|DF(x)(h) - DF(y)(h)\| \\
+	&=  \|hf(x) - hf(y)\| \\
+	&= \|h(f(x) - f(y))\| \\
+	&= \|f(x) - f(y)\||h|
 	\end{align*}
-	\item Suppose that $DG = DF$. Then $D(F-G) = 0$. A previous exercise implies that $F - G$ is constant.
-	\end{enumerate}
+	So $\|DF(x) - DF(y)\| \leq \|f(x) - f(y)\|$. Then continuity of $f$ implies continuity of $DF$. Hence $F \in C^1_Y(a,b)$.
 	\end{proof}
 	
 	\begin{ex}\textbf{Fundamental Theorem of Calculus:}
 	Let $Y$ be a separable Banach space and $f \in C^1_Y(a,b)$. Then for each $x, x_0 \in (a,b)$, $x_0 < x$ implies that 
 	\begin{enumerate}
-	\item the map $Df(\cdot)(1): [x_0,x] \rightarrow Y$ is Bochner integrable 
-	\item  $$f(x) - f(x_0) = \int_{[x_0, x]}Df(t)(1)dm(t)$$ 
+	\item $Df(\cdot)(1)$ is Bochner integrable on $(x_0, x]$ 
+	\item  $$f(x) - f(x_0) = \int_{(x_0, x]}Df(t)(1)dm(t)$$ 
 	\end{enumerate}
 	\end{ex}
 
 	\begin{proof}
-	Let $x, x_0 \in (a,b)$ and suppose that $x_0 < x$. 
 	\begin{enumerate}
-	\item Since $Df: (a,b) \rightarrow Y$ is continuous, $Df(\cdot)(1): [x_0,x] \rightarrow Y$ is continuous and by the previous exercise, Bochner integrable. 
-	\item Define $g: [x_0,x] \rightarrow Y$ by $$g(t) = \int_{[x_0, t]}Df(t)(1)dm(t)$$
-	Then the previous exercise implies that $g$ is Frechet differentiable and for each $t \in (x_0, x)$ and $h \in \R$, 
+	\item Since $Df: (a,b) \rightarrow Y$ is continuous and for each $x,y \in (a,b)$, 
+	\begin{align*}
+	\|Df(x)(1) - Df(y)(1)\| 
+	&= \|(Df(x) - Df(y))(1)\| \\
+	& \leq \|Df(x) - Df(y)\|
+\end{align*}
+	and we have that $Df(\cdot)(1):(a,b) \rightarrow Y$ is continuous. Let $x, x_0 \in (a,b)$. Suppose that $x_0 < x$. Choose $c,d \in (a,b)$ such that $a < c < x_0< x< d < b$. Then $Df(\cdot)(1)$ is continuous on $[c,d]$ and hence Bochner-integrable on $(c,d]$ and $(x_0,x]$. 
+	\item Define $g: (c,d) \rightarrow Y$ by $$g(\xi) = \int_{(c, \xi]}Df(t)(1)dm(t)$$
+	Then the previous exercise implies that $g \in C^1_Y$  and for each $t \in (c, d)$ and $h \in \R$, 
 	\begin{align*}
 	Dg(t)(h) 
-	&= Df(t)(1)h \\
+	&= hDf(t)(1) \\
 	&= Df(t)(h)
 	\end{align*}
-	The previous exercise implies that $f-g$ is constant on $(x_0, x)$ so there exists $c \in Y$ such that $f=g+c$ on $(x_0, x)$. Since $f-g$ is continous, $f-g = c$ on $[x_0, x]$. Then 
+	A previous exercise implies that there exists $c \in Y$ such that $f = g + c$ on $(c, d)$. Then 
 	\begin{align*}
 	f(x) - f(x_0)
 	&= g(x)+c - (g(x_0)+c) \\
 	&= g(x) - g(x_0) \\
-	&= g(x) \\
-	&= \int_{[x_0, x]}Df(t)(1)dm(t)
+	&= \int_{(c, x]}Df(t)(1)dm(t) - \int_{(c, x_0]}Df(t)(1)dm(t)\\
+	&= \int_{(x_0, x]}Df(t)(1)dm(t)
 	\end{align*}
 	\end{enumerate}
 	\end{proof}
@@ -1820,7 +1845,7 @@ So $$\int_{[x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	
 	
 	\begin{ex}
-		Let $X, Y$ be a Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$, $x_0 \in A$ and $n \in \N$. If $Y$ is separable, then $f$ is $n$-th  order Frechet differentiable at $x_0$ iff for each $j \in \{1, \cdots, n\}$, there exists $\phi_j \in L^j(X, Y)$ such that $$f(x + h) = \sum_{j=1}^n \phi_j(h, \cdots, h) + o(\|h\|^n)$$
+		Let $X, Y$ be a Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$, $x_0 \in A$ and $n \in \N$. If $Y$ is separable, then $f$ is $n$-th  order Frechet differentiable at $x_0$ iff for each $j \in \{1, \cdots, n\}$, there exists $\phi_j \in L^j(X, Y)$ such that $$f(x + h) = f(x) + \sum_{j=1}^n \phi_j(h, \cdots, h) + o(\|h\|^n)\hspace{1cm }\text{ as } h \rightarrow 0$$
 	\end{ex}
 	
 	\begin{proof}
@@ -1852,32 +1877,7 @@ So $$\int_{[x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	
 	
 	
-	
-	
-	\subsection{$l^p$ Spaces}
-	
-	\begin{defn}
-		
-		Let $p \in [1, \infty] \cup \{0\}$. We define 
-		\[
-		l^p(\N) = 
-		\begin{cases}
-			\C^{\N} & p=0 \\
-			\bigg \{f \in l^0(\N): \sum\limits_{n \in \N} |f(n)|^p < \infty \bigg\} & p \in [1, \infty) \\
-			\bigg \{f \in l^0(\N): \sup\limits_{n \in \N}|f(n)| < \infty \bigg \} & p = \infty
-		\end{cases}\]
-		So $l^0(\N)$ consists of the sequences in $\C$ and $l^{\infty}(\N)$ consists of the bounded sequences in $\C$. 
-		
-		For $p \in [1, \infty]$, we define $\| \cdot \|_p : l^p(\N) \rightarrow [0, \infty)$ by 
-		\[
-		\|f\|_p = 
-		\begin{cases}
-			\bigg( \sum\limits_{n \in \N} |f(n)|^p \bigg)^{1/p} & p \in [1, \infty) \\
-			\sup\limits_{n \in \N}|f(n)| & p = \infty
-		\end{cases}
-		\]
-	\end{defn}
-	\newpage
+
 	
 	\newpage
 	
@@ -2494,7 +2494,7 @@ So $f \circ g$ is convex.
 	
 	
 	
-	\subsection{Differentiability}
+	\subsection{Differentiation}
 	
 	\begin{ex}
 	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $x_0 \in A$ and $x \in X$. Define $T = \{ t \in \R: x_0+tx \in A\}$. Then there exist $a, b \in (0, \infty]$ such that $T = (-a, b)$.
