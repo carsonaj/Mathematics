@@ -126,7 +126,7 @@
 	\end{defn}
 	
 	\begin{defn} 
-		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then$f$ is said to be \textbf{differentiable with respect to $x_i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he_i) - f(a)}{h}$$ exists. If $f$ is differentiable with respect to $x_i$ at $a$, we define the \textbf{partial derivative of $f$ with respect to $x_i$ at $a$}, denoted $$\frac{\partial f}{\partial x_i} (a) \text{, } \eval{\pdv{x_i}}_{a} f \text{, } \partial_{x_i} f (a) \text{ or } \eval{\partial_{x_i}}_{a} f$$ to be the limit above.
+		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then$f$ is said to be \textbf{differentiable with respect to $x_i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he_i) - f(a)}{h}$$ exists. If $f$ is differentiable with respect to $x_i$ at $a$, we define the \textbf{partial derivative of $f$ with respect to $x_i$ at $a$}, denoted $$\frac{\partial f}{\partial x_i} (a) \text{ or } \eval{\pdv{x_i}}_{a} f $$ to be the limit above.
 		
 	\end{defn}
 		
@@ -172,8 +172,8 @@
 	\end{thm}
 
 	\begin{proof}
-		Since $U$ is star-shaped, $\{p + t(x-p): 0 \leq t \leq 1\} \subset U$. By the chain rule, 
-		$${\dv{t}}f(p+t(x-p)) = \sum_{i=1}^n {\pdv{f}{x_i}}(p+t(x-p)) (x_i - p_i)$$
+		Let $x \in U$. Since $U$ is star-shaped with respect to $p$, $\{p + t(x-p): 0 \leq t \leq 1\} \subset U$. By the chain rule, 
+		$${\dv{t}} \bigg[ f(p+t(x-p)) \bigg] = \sum_{i=1}^n {\pdv{f}{x_i}}(p+t(x-p)) (x_i - p_i)$$
 		Integrating both sides with respect to $t$ from $0$ to $1$, we obtain
 		$$f(x) - f(p) = \sum_{i=1}^n (x_i - p_i) \int_{0}^{1}  {\pdv{f}{x_i}}(p+t(x-p)) dt $$
 		For $i \in \{1, \cdots, n\}$, define $g_i \in C^{\infty}(U)$ by $$g_i(x) = \int_{0}^{1}  {\pdv{f}{x_i}}(p+t(x-p)) dt$$
@@ -779,8 +779,7 @@
 			&= \eval{\pdv{u_i}}_{\psi(p)} f \circ \psi^{-1} \\
 			&= \eval{\pdv{u_i}}_{\psi(p)} f \circ \phi^{-1} \circ h \\
 			&= \sum_{j=1}^n \bigg( \eval{\pdv{u_j}}_{h \circ \psi (p)} f \circ \phi^{-1} \bigg)  \bigg( \eval{\pdv{u_i}}_{\psi(p)} h_j \bigg) \\
-			&= \sum_{j=1}^n \bigg( \eval{\pdv{u_j}}_{\phi (p)} f \circ \phi^{-1}  \bigg) \bigg( \eval{\pdv{u_i}}_{\psi(p)} h_j \circ \psi \circ \psi^{-1} \bigg) \\
-			&= \sum_{j=1}^n  \bigg( \eval{\pdv{u_j}}_{\phi (p)} f \circ \phi^{-1}\bigg)  \bigg( \eval{\pdv{u_i}}_{\psi(p)} x_j \circ \psi^{-1} \bigg)\\
+			&= \sum_{j=1}^n \bigg( \eval{\pdv{u_j}}_{\phi (p)} f \circ \phi^{-1}  \bigg) \bigg( \eval{\pdv{u_i}}_{\psi(p)} x_j \circ \psi^{-1} \bigg) \\
 			&= \sum_{j=1}^n \bigg( \eval{\pdv{x_j}}_{p} f \bigg)  \bigg(   \eval{\pdv{y_i}}_{p} x_j  \bigg)\\
 		\end{align*}
 	\end{proof}
@@ -807,7 +806,7 @@
 	\end{defn}
 
 	\begin{ex}
-		Let $f \in C^{\infty}_p(M)$ and $D \in T_pM)$. If $f$ is constant, then $Df = 0$.
+		Let $f \in C^{\infty}_p(M)$ and $D \in T_pM$. If $f$ is constant, then $Df = 0$.
 	\end{ex}
 
 	\begin{proof}
@@ -843,8 +842,35 @@
 
 
 	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism and $p \in M$. We define the \textbf{push forward of $F$ at $p$}, denoted $(F_*)_p: T_pM \rightarrow T_{F(p)}N$, by $$\bigg[ (F_*)_p(D) \bigg] (f) = D (f \circ F)$$  for $D \in T_pM$ and $f \in C^{\infty}_{F(p)}(N)$.
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. We define the \textbf{push forward of $F$ at $p$}, denoted $(F_*)_p: T_pM \rightarrow T_{F(p)}N$, by $$\bigg[ (F_*)_p(D) \bigg] (f) = D (f \circ F)$$  for $D \in T_pM$ and $f \in C^{\infty}_{F(p)}(N)$.
 	\end{defn}
+	
+	\begin{ex}
+	Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. Then $(F_*)_p$ is well defined.
+	\end{ex}
+	
+	\begin{proof}
+	Let $D \in T_pM$, $f,g \in C_{F(p)}^{\infty}(N)$ and $c \in \R$. Then 
+	\begin{enumerate}
+	\item 
+	\begin{align*}
+		(F_*)_p(D)(f+cg) 
+		&= D((f+cg) \circ F) \\
+		&= D(f \circ F + c g \circ F) \\
+		&= D(f \circ F) + cD(g \circ F) \\
+		&= (F_*)_p(D)(f) + c (F_*)_p(D)(g)
+	\end{align*}
+	\item 
+	\begin{align*}
+	(F_*)_p(D)(fg) 
+	&= D (fg \circ F) \\
+	&= D((f \circ F)* (g \circ F)) \\
+	&= D(f \circ F)*(g \circ F)(p) +  (f \circ F)(p)* D(g \circ F) \\
+	&= (F_*)_p(D)(f) * g(F(p)) + f(F(p))*(F_*)_p(D)(g) \\
+	\end{align*}
+	\end{enumerate}
+	So that $(F_*)_p(D) \in T_{F(p)}N$
+	\end{proof}
 
 	\begin{ex}
 		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism and $p \in M$. Then $(F_*)_p$ is an isomorphism.
