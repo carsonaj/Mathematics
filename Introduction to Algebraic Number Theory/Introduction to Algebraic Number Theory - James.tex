@@ -1,0 +1,214 @@
+
+\documentclass[12pt]{amsart}
+ \usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts,setspace}
+\usepackage[shortlabels]{enumitem}
+
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=black,  %choose some color if you want links to stand out
+	urlcolor=cyan
+}
+
+
+%
+%
+%
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+%
+%
+%
+%
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
+
+
+
+
+
+\newtheorem{thm}{Theorem}[subsection]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{defn}[definition]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Note}[subsection]
+\newtheorem{note}[remark]{Note}
+
+\theoremstyle{definition}
+\newtheorem{ex}[definition]{Exercise}
+
+
+
+
+
+
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MM}{\mathcal{M}}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+ 
+\begin{document}
+
+\title{Introduction to Algebraic Number Theory}
+\author{Carson James}
+\maketitle
+
+\tableofcontents
+
+\section{Algebraic Integers}
+
+In the following section, $K$ is taken to be a number field and thus a subfield of $\overline{\Q}$
+
+\begin{defn}
+Let $\al \in K$. Then $\al$ is said to be an \textbf{algebraic integer} if there exists $f(x) \in \Z[x]$ such that $f(x)$ is monic and $p(\al) = 0$. Define $O_K = \{\al \in K: \al \text{ is an algebraic integer}\}$.
+\end{defn}
+
+\begin{thm}
+Let $\al \in K$. Then $\al$ is an algebraic integer iff $m_{\al, \Q}(x) \in \Z[x]$.
+\end{thm}
+
+\begin{proof}
+If $m_{\al, \Q}(x) \in \Z[x]$, then clearly $\al$ is an algebraic integer.\vspace{2mm}
+
+Conversely, suppose that $\al$ is an algebraic integer. There exists $f(x) \in \Z[x]$ such that $f(x)$ is monic and $f(\al)=0$. Since $\Z[x]$ is a unique factorization domain and $f(x)$ is not a unit and nonzero, there exist irreducible polynomials $(p_i(x))_{i=1}^n \subset \Z[x]$ such that $f(x) = \prod\limits_{i=1}^np_i(x)$. Since $f(x)$ is monic, for each $i \in \{1,2,\cdots,n\}$, we may take $p_i(x)$ to be monic. Then there exists $k \in \{1,2,\cdots,n\}$ such that $p_k(\al)=0$. Then $m_{\al, \Q}(x)|p_k(x)$ in $\Q[x]$. Thus $p_k(x)=m_{\al, \Q}(x)$. Since $p_k(x)$ is monic and irreducible in $\Z[x]$, it is irreducible in $\Q[x]$. Thus $m_{\al, \Q}(x)=p_k(x)$. 
+\end{proof} 
+
+\begin{lem}
+Let $M$ be a finitely generated $\Z$-submodule of $K$. Then $M$ is free. 
+\end{lem}
+
+\begin{proof}
+Since $M$ is finitely genereated and torsion-free, the fundamental theorem of finitetly generated abelian groups shows that $M$ is free.
+\end{proof}
+
+\begin{note}
+The previous result says that anytime we consider $M$, a finitely generated $\Z$-submodule of $K$, we may choose a basis for $M$. 
+\end{note}
+
+\begin{thm}
+Let $\al \in K$. Then $\al \in O_K$ iff there exists a finitely generated $\Z$-submodule $M$ of $K$ such that $\al M \subset M$. 
+\end{thm}
+
+\begin{proof}
+Suppose that $\al \in O_K$. Then there exist $(a_{i})_{i=0}^{n-1} \subset \Z$ such that such that $\al^n + a_{n-1}\al^{n-1}+ \cdots+a_1\al + a_0 = 0$. Then $M = (1, \al, \al^2, \cdots, \al^{n-1})$ is a finitely generated $\Z$-submodule of $K$ and $\al M \subset M$.
+
+Conversely, Suppose that there exists a finitely generated $\Z$-submodule $M$ of $K$ such that $\al M \subset M$. Choose a basis $a=\{\al_1, \al_2, \cdots, \al_n\}$ of $M$. Thus for each $i,j \in \{1,2,\cdots, n\}$, there exists $a_{i,j} \in \Z$ such that $\al \al_j = \sum\limits_{i=1}^na_{i,j}\al_i$. Define $T:M \rightarrow M$ by $T(x) = \al x$. Then $T$ is a linear with matrix representation $[T]_a = (a_{i,j})$ and eigen-value $\al$. Thus $f(x) = \det(xI-T) \in \Z$ is a monic polynomial with root $\al$. So $\al \in O_K$.   
+\end{proof}
+
+\begin{thm}
+Let $\al, \beta \in O_K$. Then $\al + \beta \in O_K$ and $\al \beta \in O_K$.
+\end{thm}
+
+\begin{proof}
+Since $\al,\beta \in O_K$, there exist finitely generated $\Z$-submodules $M$ and $N$ of $K$ such that $\al M \subset M$ and $\beta N \subset N$. Choose finite sets $X,Y \subset K$ such that $M = (X)$ and $N=(Y)$. Then $MN = (XY)$ is finitely generated. Let $x \in X$ and $y \in Y$. Then $(\al+\beta)(xy) = (\al x)y+x(\beta y)$ and $(\al \beta)(xy) = (\al x)(\beta y)$. Since $\al x \in M$ and $\beta y \in N$, we have that $(\al+\beta)(xy) \in MN$ and $(\al \beta)(xy) \in MN$. Hence $(\al + \beta)MN \subset MN$, $(\al \beta)MN \subset MN$ and thus $\al+\beta, \al \beta \in O_K$
+\end{proof}
+
+\begin{cor}
+We have that $O_K$ is a ring.
+\end{cor}
+
+\begin{lem}
+Let $\al \in O_K$, $(\al_i)_{i=1}$ the conjugates of $\al$, $L = \Q(\al_1, \al_2, \cdots, \al_n)$ and $\sig: K \hookrightarrow \overline{\Q}$ an embedding. Then $\sig(\al) \in O_L$
+\end{lem}
+
+\begin{proof}
+Since $\al \in O_L$, there exists $f(x) \in \Z[x]$ such that $f(x)$ is monic and $f(\al)=0$. Since $\sig$ permutes $(\al_i)_{i=1}$, $\sig(\al) \in L$. Since $\sig$ fixes $\Q$ we haver that
+\begin{align*}
+f(\sig(\al)) 
+&= \sig(f(\al))\\
+&=0
+\end{align*}
+
+so $\sig(\al) \in O_L$.
+\end{proof}
+
+\begin{lem}
+We have that $O_K \cap \Q = \Z$
+\end{lem}
+
+\begin{proof}
+Clearly $\Z \subset O_K \cap \Q$. Let $\al \in O_K \cap \Q$. If $\al=0$, then $\al \in \Z$. Suppose that $\al \neq 0$. Since $\al \in \Q$, there exists $a,b \in \Z\setminus\{0\}$ such that $\gcd(a,b) =1$ and $\al = ab^{-1}$. Since $\al \in O_K$, there exist $a_0, a_1, \cdots, a_{n-1} \in \Z$ such that $\al^n + a_{n-1}\al^{n-1} + \cdots + a_1\al + a_0=0$. The rational root theorem says that $b|1$, so $b\in \Z^{\times}$ and thus $\al \in \Z$.
+\end{proof}
+
+\begin{lem}
+Let $\al \in O_K$, $(\al_i)_{i=1}^n \subset \overline{\Q}$ the conjugates of $\al$ and $f(X_1, X_2,\cdots, X_n) \in \Z[X_1, X_2,\cdots, X_n]$ a symmetric polynomial. Then $f(\al_1, \al_2, \cdots, \al_n) \in \Z$.
+
+\begin{proof}
+Since $O_K$ is a ring, it is clear that $f(\al_1, \al_2, \cdots, \al_n) \in O_K$. Let $L = \Q(\al_1, \al_2, \cdots, \al_n)$. Since $O_L$ is a ring and for each embedding $\sig : K \hookrightarrow \overline{\Q}$ and $i \in \{1,2,\cdots,n\}$, $\sig(\al_i) \in O_L$, we know that for each embedding $\sig : K \hookrightarrow \overline{\Q}$, $\sig(f(\al_1, \al_2, \cdots, \al_n)) \in O_L$. For each embedding $\sig : K \hookrightarrow \overline{\Q}$, there exists $\tau_\sig \in S_n$ such that for each $i \in \{1,2,\cdots, n\}$, $\sig(\al_i) = \al_{\tau_{\sig}(i)}$. So for each embedding $\sig : K \hookrightarrow \overline{\Q}$, we have
+\begin{align*}
+\sig(f(\al_1, \al_2, \cdots, \al_n))
+&= f(\sig(\al_1),\sig(\al_2), \cdots, \sig(\al_n)) \\
+&= f(\al_{\tau_{\sig}(1)}, \al_{\tau_{\sig}(2)},\cdots, \al_{\tau_{\sig}(n)})\\
+&= f(\al_1, \al_2, \cdots, \al_n) \\
+\end{align*}
+
+which implies that $f(\al_1, \al_2, \cdots, \al_n) \in \Q$. Since $\Q \cap O_L = \Z$, we have that $f(\al_1, \al_2, \cdots, \al_n) \in \Z$.
+\end{proof}
+\end{lem}
+
+\begin{thm}
+Let $\al \in K$. Then there exists $c \in \Z$ such that $c\al \in O_K$.
+\end{thm}
+
+\begin{proof}
+Consider $m_{\al, \Q}(x) = x^n + a_{n-1}x^{n-1} + \cdots + a_0 \in \Q[x]$. For each $i \in \{1,2,\cdots,n-1\}$, there exist $b_i, c_i \in Z$ such that $c_i \neq 0$ and $a_i=b_ic_i^{-1}$. Define $c = \text{lcm} \{c_i:i=1,2,\cdots,n-1\} \in \Z$ and $f(x) = c^nm_{\al,\Q}(c^{-1}x) = x^n + a_{n-1}cx^{n-1} + \cdots+ a_1c^{n-1}x + a_0c^n \in \Z[x]$. Then $f(x)$ is monic and $f(c\al) =0$. So $c \al \in O_K$. 
+\end{proof}
+
+\begin{cor}
+Let $K$ be a number field. Then there exists $\al \in O_K$ such that $K=\Q(\al)$. 
+\end{cor}
+
+\begin{proof}
+Since $K$ is a finite extension of $\Q$, there exists $\theta \in K$ such that $K = \Q(\theta)$. Then the previous result tells us that there exists $c \in \Z$ such that $c\theta \in O_K$. Choose $\al = c\theta$. Then $K = \Q(\theta) = \Q(\al)$.
+\end{proof}
+
+\end{document}
