@@ -1573,7 +1573,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\end{defn}
 	
 	\begin{defn}
-Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$ is said to be \textbf{Gateaux differentiable} if for each $x \in A$, $f$ is Gateaux differentiable at $x$. 
+Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$ is said to be \textbf{Gateaux differentiable} if for each $x \in A$, $f$ is Gateaux differentiable at $x$. If $f$ is Gateaux differentiable, we define $df:A \rightarrow Y^X$ by $x_0 \mapsto df(x_0)$.
 \end{defn}	
 	
 	\begin{ex}
@@ -1585,7 +1585,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\end{proof}		
 	
 	\begin{ex}
-	Let $X, Y$ be Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$ and $x_0 \in A$. Suppose that $f$ is Gateaux differentiable at $x_0$. Then for each $\lam \in \R$ and $x \in X$, $$df(x_0)(\lam x) = \lam df(x_0)(x) \in X^*$$
+	Let $X, Y$ be Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$ and $x_0 \in A$. Suppose that $f$ is Gateaux differentiable at $x_0$. Then for each $\lam \in \R$ and $x \in X$, $$df(x_0)(\lam x) = \lam df(x_0)(x)$$
 	\end{ex}
 	
 	\begin{proof}
@@ -1598,6 +1598,32 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	&= \lam \lim_{t \rightarrow 0}  \frac{f(x_0 + t x) - f(x_0)}{t} \\
 	&= \lam df(x_0)(x) 
 	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset \R$ open, $f:A \rightarrow \R$ and $x_0 \in A$. Suppose that $f$ is Gateaux differentiable at $x_0$. Then $df(x_0) \in L(\R,Y)$.
+	\end{ex}
+	
+	\begin{proof}
+	Let $x,y ,lam \in \R$. 
+	\begin{enumerate}
+	\item The previous exercise implies 
+	\begin{align*}
+	df(x_0)(x + \lam y) 
+	&= df(x_0)((x+\lam y)1)  \\
+	&= (x+\lam y)df(x_0)(1) \\
+	&= xdf(x_0)(1) + \lam y df(x_0)(1) \\
+	&= df(x_0)(x) + \lam df(x_0)(y)
+	\end{align*}
+	So $df(x_0):\R \rightarrow Y$ is linear.
+	\item Since 
+	\begin{align*}
+	\|df(x_0)(x)\| 
+	&= \|xdf(x_0)(1)\| \\
+	&= |x| \|df(x_0)(1)\| \\
+	\end{align*}	
+	We have that $df(x_0):\R \rightarrow Y$ is bounded with $\|df(x_0)\| \leq \|df(x_0)(1)\|$. 
+	\end{enumerate}
 	\end{proof}
 	
 	\begin{ex}
@@ -1630,17 +1656,6 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	&= 0
 \end{align*}	 
 	\end{proof}
-	
-	
-	\begin{defn}
-	Let $Y$ be a Banach space, $A \subset \R$ open, $f:A \rightarrow Y$ and $x_0 \in A$. Suppose that $f$ is Gateaux differentiable at $x_0$. We define 
-	\begin{align*}
-	f'(x_0) 
-	&= \lim_{t \rightarrow 0} \frac{f(x_0 + t) - f(x_0)}{t} \\
-	&= df(x_0)(1)
-	\end{align*}
-	If $f$ is Gateaux differentiable, we define $f':A \rightarrow Y$ by $x \mapsto f'(x)$. 
-	\end{defn}	
 	
 	\begin{ex}
 	Let $X,Y$ be a normed vector spaces and $\phi: X \rightarrow Y$ linear. If $\phi(h) = o(\|h\|)$ as $h \rightarrow 0$, then $\phi = 0$. 
@@ -1717,11 +1732,13 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\end{proof}
 	
 	\begin{ex}
-	Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$ is differentiable iff $f$ is Frechet differentiable and for each $x_0 \in A$ and $h \in \R$ $$Df(x_0)(h) = hf'(x_0) $$
+	Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$ is differentiable iff $f$ is Frechet differentiable.
 	\end{ex}
 	
 	\begin{proof}
-	Clear.
+	Suppose that $f$ is Gateaux differentiable. Let $x_0 \in A$. A previous exercise implies that $df(x_0) \in L(\R, Y)$. By defintion, $$  \lim_{h \rightarrow 0} \bigg \| \frac{f(x_0 + h) - f(x_0)}{h} - df(x_0)(1) \bigg \| = 0$$ 
+	This is equivalent to saying that $$f(x_0 + h) = f(x_0) + df(x_0)(h) + o(|h|) \hspace{.5cm} \text{ as } h \rightarrow 0$$
+	So $f$ is Frechet differentiable at $x_0$ and $Df(x_0) = df(x_0)$.
 	\end{proof}
 	
 	\begin{note}
@@ -1735,7 +1752,42 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	$$D^nf(x_0) = D[D^{n-1}f](x_0)$$ 
 	Finally, $f$ is said to be \textbf{$n$-th order Frechet differentiable} if $f$ is $(n-1)$-th order Frechet differentiable and for each $x \in A$, $D^{n-1}f$ is Frechet differentiable at $x$. If $f$ is $n$-th order Frechet differentiable, we define the \textbf{$n$-th order Frechet derivative of $f$}, denoted $D^nf:A \rightarrow  L^n(X, Y)$ by $$D^nf = D[D^{n-1}f]$$ \\
 	If $f$ is $n$-th order differentiable, then $f$ is said to be \textbf{continuously $n$-th order differentiable} if $D^nf$ is continuous. We define $$C^n_Y(A) = \{f:A \rightarrow Y: f \text{ is continuously $n$-th order differentiable}\}$$
+	\end{defn}		
+	
+	\begin{defn}
+	Let $Y$ be a Banach space, $A \subset \R$ open, $f:A \rightarrow Y$ and $x_0 \in A$. Suppose that $f$ is Frechet differentiable at $x_0$. We define 
+	\begin{align*}
+	f'(x_0) 
+	&= \lim_{t \rightarrow 0} \frac{f(x_0 + t) - f(x_0)}{t} \\
+	&= df(x_0)(1) \\
+	&= Df(x_0)(1)
+	\end{align*}
+	If $f$ is Frechet differentiable, we define $f':A \rightarrow Y$ by $x \mapsto f'(x)$. 
+	Continuing inductively, if $f^{(n)}$ is Frechet differentiable, we define $f^{(n+1)}:A \rightarrow Y$ by $$f^{(n+1)} = [f^{(n)}]'$$ 
 	\end{defn}	
+	
+	\begin{ex}
+	Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. If $f$ is $n$-th order Frechet differentiable, then for each $x_0 \in A$ and $k \in \{1, \cdots, n\}$, $f^{(k)}(x_0) = D^kf(x_0)(1^{\oplus k})$
+	\end{ex}
+	
+	\begin{proof}
+	Let $x_0 \in A$. We proceed by induction. The base case is true by definition. Let $k \in \{1, \cdots, n\}$. Suppose the claim is true for $k-1$. Then $$f^{(k-1)}(x_0) = D^{k-1}f(x_0)(1^{\oplus (k-1)})$$
+	Since $f$ is $n$-th order Frechet differentiable, $$D^{k-1}f(x_0+h) = D^{k-1}f(x_0) + D^kf(x_0)(h) + o(\|h\|) \hspace{.5cm} \text{ as } h \rightarrow 0$$ 
+	This implies that 
+	\begin{align*}
+	f^{(n-1)}(x_0+h) 
+	&=  D^{k-1}f(x_0+h)(1^{\oplus (k-1)}) \\
+	&= D^{k-1}f(x_0)(1^{\oplus (k-1)}) + D^kf(x_0)(h)(1^{\oplus (k-1)}) + o(\|h\|) \hspace{.5cm} \text{ as } h \rightarrow 0
+	\end{align*}
+	Therefore for each $h \in \R$, $$Df^{(n-1)}(x_0)(h) = D^kf(x_0)(h)(1^{\oplus (k-1)})$$
+	and by definition,
+	\begin{align*}
+	f^{(k)}(x_0) 
+	&= [f^{(k-1)}]'(x_0) \\
+	&= Df^{(k-1)}(x_0)(1) \\
+	&=  D^kf(x_0)(1^{\oplus (k)})
+	\end{align*}
+	\end{proof}
 	
 	\begin{ex}\textbf{Mean Value Theorem:}\\
 	Let $X, Y$ be a Banach spaces, $A \subset X$ open and convex and $f:A \rightarrow Y$. If $f$ is Frechet differentiable, then for each $x,y \in A$, there exists $t \in (0,1)$ such that $$\|f(x) - f(y)\| \leq \|Df(tx + (1-t)y)\|\|x-y\|$$
@@ -1790,7 +1842,31 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\end{proof}		
 	
 	\begin{ex}
-	Let $Y$ be a separable Banach space, $f:[a,b] \rightarrow Y$ continuous so that $f$ is Bochner-integrable. Define $F:(a,b) \rightarrow Y$ by  $$F(x) = \int_{(a, x]}f dm$$ Then $F \in C^1_Y((a,b))$ and for each $x_0 \in (a,b)$ and $h \in \R$, $DF(x_0)(h) = hf(x_0)$ 
+	Let $X, Y$ be a Banach spaces, $A \subset \R$ open and $f:A \rightarrow Y$. Suppose that $f$ is Frechet differentiable. Then $f' \in C_Y(A)$ iff $f \in C^1_Y(A)$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f' \in C_Y(A)$. Let $x,y \in A$ and $h \in \R$. Then 
+	\begin{align*}
+	\|(Df(x)- Df(y))(h)\| 
+	&= \|Df(x)(h) - Df(y)(h)\| \\
+	&=  \|hf'(x) - hf'(y)\| \\
+	&= \|h(f'(x) - f'(y))\| \\
+	&= \|f'(x) - f'(y)\||h|
+	\end{align*}
+	So $\|Df(x) - Df(y)\| \leq \|f'(x) - f'(y)\|$. Hence continuity of $f'$ implies continuity of $Df$ and $f \in C^1_Y(A)$.
+	Conversely, suppose that $f \in C^1_Y(A)$. Let $x,y \in A$. Then 
+	\begin{align*}
+	\|f'(x) - f'(y)\| 
+	&= \|Df(x)(1) - Df(y)(1)\| \\
+	&= \|(Df(x) - Df(y))(1)\| \\
+	& \leq \| Df(x) - Df(y)\|
+	\end{align*}
+	Hence continuity of $Df$ implies continuity of $f'$ and $f' \in C_Y(A)$.
+	\end{proof}
+	
+	\begin{ex}
+	Let $Y$ be a separable Banach space, $f:[a,b] \rightarrow Y$ continuous so that $f$ is Bochner-integrable. Define $F:(a,b) \rightarrow Y$ by  $$F(x) = \int_{(a, x]}f dm$$ Then $F \in C^1_Y((a,b))$ and for each $x_0 \in (a,b)$ and $F'(x_0) = f(x_0)$.
 	\end{ex}
 	
 	\begin{proof}
@@ -1808,68 +1884,58 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	&= \int_{(a, x_0 + h]} f dm  \\
 	&= \int_{(a, x_0]} f dm + \int_{(x_0, x_0 + h]} fdm \\
 	&= \int_{(a, x_0]} f dm + hf(x_0) + \int_{(x_0, x_0 + h]} f - f(x_0) dm \\ 
-	&= F(x_0 + h) + hf(x_0) + o(\|h\|) \hspace{1cm }\text{ as } h \rightarrow 0\\
+	&= F(x_0 ) + hf(x_0) + o(\|h\|) \hspace{1cm }\text{ as } h \rightarrow 0\\
 	\end{align*}
-	The case is similar for $h \in (x_0 - b, 0)$. Since the map $h \mapsto f(x_0)h$ is bounded, $F$ is Frechet differentiable at $x_0$ and $DF(x_0)(h) = f(x_0)h$.
-	Let $x,y \in (a,b)$ and $h \in \R$. Then 
-	\begin{align*}
-	\|(DF(x)- DF(y))(h)\| 
-	&= \|DF(x)(h) - DF(y)(h)\| \\
-	&=  \|hf(x) - hf(y)\| \\
-	&= \|h(f(x) - f(y))\| \\
-	&= \|f(x) - f(y)\||h|
-	\end{align*}
-	So $\|DF(x) - DF(y)\| \leq \|f(x) - f(y)\|$. Then continuity of $f$ implies continuity of $DF$. Hence $F \in C^1_Y(a,b)$.
+	The case is similar for $h \in (x_0 - b, 0)$. Since the map $h \mapsto f(x_0)h$ is bounded, $F$ is Frechet differentiable at $x_0$ and $DF(x_0)(h) = f(x_0)h$. This implies that $F'(x_0) = f(x_0)$ and the previous exercise implies tells us that continuity of $f$ implies continuity of $DF$. So $F \in C^1_Y(A)$.
 	\end{proof}
 	
 	\begin{ex}\textbf{Fundamental Theorem of Calculus:}
 	Let $Y$ be a separable Banach space and $f \in C^1_Y(a,b)$. Then for each $x, x_0 \in (a,b)$, $x_0 < x$ implies that 
 	\begin{enumerate}
-	\item $Df(\cdot)(1)$ is Bochner integrable on $(x_0, x]$ 
-	\item  $$f(x) - f(x_0) = \int_{(x_0, x]}Df(t)(1)dm(t)$$ 
+	\item $f'$ is Bochner integrable on $(x_0, x]$ 
+	\item  $$f(x) - f(x_0) = \int_{(x_0, x]}f'dm$$ 
 	\end{enumerate}
 	\end{ex}
 
 	\begin{proof}
 	\begin{enumerate}
-	\item Since $Df: (a,b) \rightarrow Y$ is continuous and for each $x,y \in (a,b)$, 
-	\begin{align*}
-	\|Df(x)(1) - Df(y)(1)\| 
-	&= \|(Df(x) - Df(y))(1)\| \\
-	& \leq \|Df(x) - Df(y)\|
-\end{align*}
-	and we have that $Df(\cdot)(1):(a,b) \rightarrow Y$ is continuous. Let $x, x_0 \in (a,b)$. Suppose that $x_0 < x$. Choose $c,d \in (a,b)$ such that $a < c < x_0< x< d < b$. Then $Df(\cdot)(1)$ is continuous on $[c,d]$ and hence Bochner-integrable on $(c,d]$ and $(x_0,x]$. 
-	\item Define $g: (c,d) \rightarrow Y$ by $$g(\xi) = \int_{(c, \xi]}Df(t)(1)dm(t)$$
-	Then the previous exercise implies that $g \in C^1_Y$  and for each $t \in (c, d)$ and $h \in \R$, 
+	\item Since $f \in C^1_Y(a,b)$, a previous exercise tells us that $f' \in C_Y(a,b)$. Let $x, x_0 \in (a,b)$. Suppose that $x_0 < x$. Choose $c,d \in (a,b)$ such that $a < c < x_0< x< d < b$. Then $f'$ is continuous on $[c,d]$ and hence Bochner-integrable on $(c,d]$ and $(x_0,x]$. 
+	\item Define $g: (c,d) \rightarrow Y$ by $$g(\xi) = \int_{(c, \xi]}f'dm$$
+	Then the previous exercise implies that $g \in C^1_Y(c,d)$ and for each $t \in (c, d)$, $g'(t) = f'(t)$. Let $t \in (c,d)$ and $h \in \R$. Then
 	\begin{align*}
 	Dg(t)(h) 
-	&= hDf(t)(1) \\
+	&= hg'(t) \\
+	&= hf'(t) \\
 	&= Df(t)(h)
 	\end{align*}
-	A previous exercise implies that there exists $c \in Y$ such that $f = g + c$ on $(c, d)$. Then 
+	So $Dg = Df$ on $(c,d)$. A previous exercise implies that there exists $c \in Y$ such that $f = g + c$ on $(c, d)$. Then 
 	\begin{align*}
 	f(x) - f(x_0)
 	&= g(x)+c - (g(x_0)+c) \\
 	&= g(x) - g(x_0) \\
-	&= \int_{(c, x]}Df(t)(1)dm(t) - \int_{(c, x_0]}Df(t)(1)dm(t)\\
-	&= \int_{(x_0, x]}Df(t)(1)dm(t)
+	&= \int_{(c, x]}f'dm - \int_{(c, x_0]}f'dm\\
+	&= \int_{(x_0, x]}f'dm
 	\end{align*}
 	\end{enumerate}
 	\end{proof}
 	
 	
-	
 	\begin{ex}
-		Let $X, Y$ be a Banach spaces. Suppose $Y$ is separable. Let $A \subset X$ open, $f:A \rightarrow Y$, $x_0 \in A$ and $n \in \N$. If $f \in C^n_Y(A)$, then for each $x \in A$ $$f(x + h) = f(x) + \sum_{j=1}^n \phi_j(h, \cdots, h) + o(\|h\|^n)\hspace{1cm }\text{ as } h \rightarrow 0$$
+	Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. If $g$ is $n$-th order Frechet differentiable, then 
+	$$\dv{t} \sum_{k=0}^{n-1} \frac{(1-t)^k}{k!}g^{(k)}(t) = \frac{(1-t)^{n-1}}{(n-1)!}g^{(n)}(t)$$
 	\end{ex}
 	
 	\begin{proof}
-	
+	Clear.
 	\end{proof}
 	
+	\begin{ex}\textbf{Taylor's Theorem:}\\
+	Let $Y$ be a separable Banach space, $A \subset X$ open and convex, $f\in C^n_Y(A)$ and $x_0 \in A$. Then $$f(x_0 + h) = \sum_{k=0}^n D^k f(x_0)(h^{\oplus k}) + o(\|h\|^n) \hspace{1cm }\text{ as } h \rightarrow 0$$
+	\textbf{Hint:} Define $g: (0,1) \rightarrow Y$ by $$g(t) = f(x_0 +t h)$$ Then use the FTC and previous exercise.
+	\end{ex}
 	
 	
-	
+
 	
 	
 	
