@@ -1977,6 +1977,8 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	
 	\section{Hilbert Spaces}
 	
+	\subsection{Introduction}
+	
 	\begin{defn}
 		Let $H$ be a vector space and $\l \cdot, \cdot \r: H \rightarrow \C$. Then $\l \cdot, \cdot \r$ is said to be an \textbf{inner product} on $H$ if for each $x,y,z \in H$and $c \in \C$
 		\begin{enumerate}
@@ -1987,7 +1989,9 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 		\end{enumerate}
 	\end{defn}
 	
-	
+	\begin{note}
+	In mathematics, inner products are traditionally defined to be linear in the first argument. However, in my opinion, the physics tradition of defining inner products to be linear in the second argument makes more sense.
+	\end{note}
 	 
 	\begin{ex}
 	Let $H$ be an inner product space, $(x_j)_{j =1}^n$, $(y_j)_{j =1}^n \subset H$ and $(\al_j)_{j=1}^n$, $(\be_j)_{j=1}^n \subset \C$. Then $$\bigg \l \sum_{i=1}^n \al_i x_i , \sum_{j=1}^n \be_j y_j \bigg \r = \sum_{i=1}^n \sum_{j=1}^n \al_i^*\be_j \l x_i , y_j \r $$
@@ -2001,13 +2005,37 @@ Clear.
 Let $H$ be an inner product space. Define the \textbf{induced norm}, denoted $\|\cdot \|: H \rightarrow \C$, by $$\|x\| = \l x, x\r^{\frac{1}{2}}$$
 \end{defn}
 
+\begin{ex} \textbf{Cauchy-Schwarz Inequality}\\
+Let $H$ be an inner product space. Then for each $x,y \in H$, $| \l x, y\r | \leq \|x\| \| y\|$ and $| \l x, y\r | = \|x\| \| y\|$ iff $x \in \spn(y)$. \\
+\textbf{Hint:} For $x, y \in H$, put $z = \sgn\l x, y \r^*y$ and Consider $f: \R \rightarrow \Rg$ defined by $f(t) = \|x - tz\|^2$
+\end{ex}
+
+\begin{proof}
+Let $x,y \in H$. If $y = 0$, then the claim holds trivially. Suppose that $y \neq 0$. Put $z = \sgn\l x, y \r^*y$. So $\l x, z\r = |\l x,y \r |$ and $\|z\| = \|y\|$. Define $f: \R \rightarrow \Rg$ by $$f(t) = \|x - tz\|^2$$. Then for each $t \in \R$, 
+\begin{align*}
+0 
+& \leq f(t) \\
+&=  \|x - tz\|^2 \\
+&= \|x\|^2 + |t|^2\|z\|^2 - 2 \Re(t \l x,z \r) \\
+&= \|x\|^2 + t^2\|y\|^2 - 2 t |\l x,y \r| \\
+\end{align*} 
+Thus $f$ is a quadratic with a minimum at $t_0 = \frac{|\l x, y \r|}{\|y\|^2}$. Hence 
+\begin{align*}
+0 
+&\leq f(t_0) \\
+&= \|x\|^2 +  \frac{|\l x, y \r|}{\|y\|^2} - 2\frac{|\l x, y \r|}{\|y\|^2} \\
+& = \|x\|^2 -  \frac{|\l x, y \r|}{\|y\|^2}
+\end{align*}
+Which implies that $$| \l x, y\r |^2 \leq \|x\|^2 \| y\|^2$$ and hence the claim holds. Clearly if $x \in \spn(y)$, then equality holds. Conversely, if equality holds, then $x-z = 0$ which implies that $x \in spn(y)$.
+\end{proof}
+
 \begin{ex}
 Let $H$ be an inner product space. Then the induced norm, $\| \cdot\|: H \rightarrow \C$, is a norm. 
 \end{ex}
 
 \begin{proof}Let $x,y \in H$ and $c \in \C$. Then
 \begin{enumerate}
-\item $\| x + y\|$
+\item By definition, if $\|x\| = 0$, then $\l x, x \r =0$, which implies that $x =0$.
 \item Note that 
 \begin{align*}
 \| cx \|^2 
@@ -2016,92 +2044,81 @@ Let $H$ be an inner product space. Then the induced norm, $\| \cdot\|: H \righta
 &= |c|^2\| x \|^2
 \end{align*}
 So $\| cx \| = |c|\|x\|$
+\item The Cauchy-Schwarz inequality implies that
+\begin{align*}
+\|x + y\|^2 
+&= \|x\|^2 + \|y\|^2 + 2 \Re(\l x, y\r) \\
+& \leq \|x\|^2 + \|y\|^2 + 2 |\l x, y\r | \\
+& \leq \|x\|^2 + \|y\|^2 + 2 \|x\| \|y\| \\
+&= (\|x\| + \|y\|)^2
+\end{align*}
+Hence $\|x + y\| \leq \|x\| + \|y\|$.
 \end{enumerate}
 \end{proof}
 
 \begin{defn}
-	Let $x_1, x_2 \in H$ and $S \subset H$. Then $x_1$ and $x_2$ are said to be \textbf{orthogonal} if $\l x_1,x_2\r = 0$ and $S$ is said to be \textbf{orthogonal} if for each $x_1,x_2 \in S$, $x_1,x_2$ are orthogonal. 
+	Let $H$ be an inner product space, $x, y \in H$ and $S \subset H$. Then
+	\begin{enumerate}
+	\item $x$ and $y$ are said to be \textbf{orthogonal} if $\l x,y\r = 0$. 
+	\item $S$ is said to be \textbf{orthogonal} if for each $x,y \in S$, $x,y$ are orthogonal. 
+	\end{enumerate}
 \end{defn}
 
-%\begin{ex}
-%	Let $S \subset H$. Suppose that $0 \not \in S$. If $S$ is orthogonal, then $S$ is linearly independent.
-%\end{ex}
-%
-%\begin{proof}
-%	Let $x_1, \cdots, \psi_n \in S$ and $c_1, \cdots, c_n \in \C$. Suppose that $\sum\limits_{j =1}^n c_j \psi_j = 0 $. Then 
-%	\begin{align*}
-%		0
-%		&= \bigg \l \sum_{i=1}^n c_i\psi_i , \sum_{j=1}^n c_j\psi_j \bigg \r \\
-%		&= \sum_{i=1}^n \sum_{j=1}^n \l \psi_i, \psi_j \r \\
-%		&= \sum_{j=1}^n  |c_j|^2 \l \psi_j, \psi_j \r
-%	\end{align*}
-%	So for $j = 1 , \cdots, n$, $c_j = 0$ and $S$ is linearly independent.
-%\end{proof}
-%
-%\begin{proof}
-%	Clear.
-%\end{proof}
-%
-%\begin{thm}\textbf{(Cauchy-Schwarz Inequality):} \\
-%	Let $x_1,x_2 \in H$. Then $\l x_1,x_2\r^2 \leq \l x_1,x_1 \r \l x_2,x_2 \r$
-%\end{thm}
-%
-%\begin{ex}
-%	Define $\|\cdot \| : H \rightarrow \R_{\geq 0}$ by $$\|x_1\| = \l x_1, x_1\r^{1/2}$$ Then $\|\cdot\|$ is a norm on $H$.
-%\end{ex}
-%
-%\begin{proof}
-%	The only nontriviality needed to be shown is the triangle inequality. To see this, we observe that 
-%	\begin{align*}
-%		\| x_1+ x_2 \|^2 
-%		&= \l x_1+x_2 , x_1+x_2\r \\
-%		&= \l x_1,x_1 \r + \l x_1,x_2\r + \l x_2,x_1 \r + \l x_2,x_2 \r \\
-%		&= \|x_1\| + \| x_2 \| + 2 Re(\l x_1,x_2 \r) \\
-%		& \leq \|x_1\| + \| x_2 \| + 2| \l x_1 , x_2 \r| \\
-%		& \leq  \|x_1\| + \| x_2 \| + 2 \| x_1\| \|x_2\| \\ 
-%		&= (\|x_1 \| + \| x_2 \|)^2
-%	\end{align*}
-%	Hence $$\| x_1+ x_2 \| \leq \|x_1 \| + \| x_2 \|$$
-%\end{proof}
-%
-%\begin{defn}
-%	S set $S \subset H$ is said to be \textbf{orthonormal} if $S$ is orthogonal and for each $x_1 \in S$, $\|x_1 \| = 1$.
-%\end{defn}
-%
-%\begin{defn}
-%	Let $H$ be a vector space and $\l \cdot , \cdot\r: H \times H \rightarrow \C$. Then $H$ is said to be a \textbf{Hilbert space} if $H$ is a complete with respect to the norm on $H$ induced by $\l \cdot , \cdot \r$. 
-%\end{defn}
-%
+\begin{ex}
+	Let $H$ be an inner product space and $S \subset H$. Suppose that $0 \not \in S$. If $S$ is orthogonal, then $S$ is linearly independent.
+\end{ex}
+
+\begin{proof}
+	Let $x_1, \cdots, x_n \in S$ and $c_1, \cdots, c_n \in \C$. Suppose that $\sum\limits_{j =1}^n c_j x_j = 0 $. Then 
+	\begin{align*}
+		0
+		&= \bigg \l \sum_{i=1}^n c_i x_i , \sum_{j=1}^n c_jx_j \bigg \r \\
+		&= \sum_{i=1}^n \sum_{j=1}^n \l x_i, x_j \r \\
+		&= \sum_{j=1}^n  |c_j|^2 \l x_j, x_j \r
+	\end{align*}
+	So for $j = 1 , \cdots, n$, $c_j = 0$ and $S$ is linearly independent.
+\end{proof}
+
+\begin{defn}
+	Let $H$ be a Hilbert space and $S \subset H$. Then $S$ is said to be \textbf{orthonormal} if $S$ is orthogonal and for each $x \in S$, $\|x \| = 1$.
+\end{defn}
+
+\begin{defn}
+	Let $H$ be an inner product space. Then $H$ is said to be a \textbf{Hilbert space} if $H$ is a complete with respect to the induced norm on $H$.
+\end{defn}
+
 %\begin{note}
 %	For the rest of this section, we assume that $H$ is a Hilbert space. 
 %\end{note}
-%
-%\begin{ex}\textbf{(Pythagorean theorem):}\\
-%	Let $(\psi_j)_{j \in \N} \subset H$ be an orthogonal set. Suppose that $\sum\limits_{j \in \N} \psi_j$ converges, then $$\bigg \|\sum\limits_{j \in \N} \psi_j  \bigg \|^2 = \sum\limits_{j \in \N} \|\psi_j \|^2$$
-%\end{ex}
-%
-%\begin{proof}
-%	Let $n \in \N$. Then 
-%	\begin{align*}
-%		\bigg \| \sum\limits_{j = 1}^n  \psi_j\bigg \|^2
-%		&= \bigg \l \sum\limits_{i =1}^n \psi_i , \sum\limits_{j =1}^n \psi_j \bigg \r \\
-%		&= \sum\limits_{i =1}^n \sum\limits_{j =1}^n \l \psi_j , \psi_j \r \\
-%		&= \sum\limits_{j =1}^n \l \psi_j , \psi_j \r \\
-%		&= \sum\limits_{j =1}^n \| \psi_j \|^2
-%	\end{align*}
-%	Since $\| \cdot \|$  is continuous on $H$, we have that 
-%	\begin{align*}
-%		\bigg \|\sum\limits_{j \in \N} \psi_j  \bigg \|^2
-%		&= \lim_{n \rightarrow \infty} \bigg \|\sum\limits_{j =1}^n \psi_j  \bigg \|^2 \\
-%		&= \limn \sum\limits_{j =1}^n \| \psi_j \|^2 \\
-%		&= \sum\limits_{j \in \N} \|\psi_j \|^2
-%	\end{align*}
-%\end{proof}
-%
-%\begin{defn}
-%	Let $S \subset H$. Then $S$ is said to \textbf{span} $H$ if $\spn S$ is dense in $H$ and $S$ is said to be a \textbf{basis} for $H$ if $S$ spans $H$ and $S$ linearly independent.
-%\end{defn}
-%
+
+\begin{ex}\textbf{(Pythagorean theorem):}\\
+	Let $H$ be a Hilbert space and $(x_j)_{j \in \N} \subset H$ an orthogonal set. Suppose that $\sum\limits_{j \in \N} x_j$ converges, then $$\bigg \|\sum\limits_{j \in \N} x_j  \bigg \|^2 = \sum\limits_{j \in \N} \|x_j \|^2$$
+\end{ex}
+
+\begin{proof}
+	Let $n \in \N$. Then 
+	\begin{align*}
+		\bigg \| \sum\limits_{j = 1}^n  x_j\bigg \|^2
+		&= \bigg \l \sum\limits_{i =1}^n x_i , \sum\limits_{j =1}^n x_j \bigg \r \\
+		&= \sum\limits_{i =1}^n \sum\limits_{j =1}^n \l x_j , x_j \r \\
+		&= \sum\limits_{j =1}^n \l x_j , x_j \r \\
+		&= \sum\limits_{j =1}^n \| x_j \|^2
+	\end{align*}
+	Since $\| \cdot \|$  is continuous on $H$, we have that 
+	\begin{align*}
+		\bigg \|\sum\limits_{j \in \N} x_j  \bigg \|^2
+		&= \lim_{n \rightarrow \infty} \bigg \|\sum\limits_{j =1}^n x_j  \bigg \|^2 \\
+		&= \limn \sum\limits_{j =1}^n \| x_j \|^2 \\
+		&= \sum\limits_{j \in \N} \|x_j \|^2
+	\end{align*}
+\end{proof}
+
+\begin{defn}
+	Let $H$ be a Hilbert space and $S \subset H$. Then $S$ is said to \textbf{span} $H$ if $\spn S$ is dense in $H$ and $S$ is said to be a \textbf{basis} for $H$ if $S$ spans $H$ and $S$ linearly independent.
+\end{defn}
+
+\subsection{Operators}
+
 %\begin{defn}
 %	Let $A: H \rightarrow H$. Then $A$ is said to be an \textbf{operator} on $H$.
 %\end{defn}
@@ -2184,12 +2201,12 @@ So $\| cx \| = |c|\|x\|$
 %
 %\begin{proof}
 %	\ \begin{enumerate}
-%		\item Let $\lam$ be an eigenvalue of $Q$ with corresponding eigenvector $\psi$. Then 
+%		\item Let $\lam$ be an eigenvalue of $Q$ with corresponding eigenvector $x$. Then 
 %		\begin{align*}
-%			\lam \l \psi , \psi\r
-%			&= \l \psi , Q \psi\r \\
-%			&= \l Q \psi , \psi\r \\
-%			&= \lam^* \l \psi , \psi\r
+%			\lam \l x , x\r
+%			&= \l x , Q x\r \\
+%			&= \l Q x , x\r \\
+%			&= \lam^* \l x , x\r
 %		\end{align*}
 %		Thus $\lam = \lam^*$ and is real
 %		
@@ -2219,18 +2236,18 @@ So $\| cx \| = |c|\|x\|$
 %\end{proof}
 %
 %\begin{defn}\textbf{(Adjoint of a Vector):} \\
-%	Let $\psi \in H$. We define the \textbf{adjoint} of $\psi$, denoted $\psi^{*}: H \rightarrow \C$, by $\psi^{*} \phi = \l \psi, \phi\r$. 
+%	Let $x \in H$. We define the \textbf{adjoint} of $x$, denoted $x^{*}: H \rightarrow \C$, by $x^{*} \phi = \l x, \phi\r$. 
 %\end{defn}
 %
 %\begin{note}
-%	In mathematics, where linearity of the inner product is in the first argument, $\psi^{*}$ is typically referred to by $u_{\psi} \in H^{*} $ where $u_{\psi}(\phi) = \l \phi, \psi\r$. In physics, where the inner product with linearity in the second argument, $\psi^{*} \phi$ is usually written in the so-called ``bra-ket" notation as $\l \psi | \phi \r$ which works smoothly since it aligns with the linearity of $u_{\psi}(\phi_1 + \lam \phi_2)$ and the conjugate-linearity of $u_{x_1 + \lam x_2}(\phi)$. In this way, it generalizes the notation for $\l x, y\r = x^T y$ for $\R^n$ to $\l x, y\r = x^*y^*$ for $\C^n$. 
+%	In mathematics, where linearity of the inner product is in the first argument, $x^{*}$ is typically referred to by $u_{x} \in H^{*} $ where $u_{x}(\phi) = \l \phi, x\r$. In physics, where the inner product with linearity in the second argument, $x^{*} \phi$ is usually written in the so-called ``bra-ket" notation as $\l x | \phi \r$ which works smoothly since it aligns with the linearity of $u_{x}(\phi_1 + \lam \phi_2)$ and the conjugate-linearity of $u_{x_1 + \lam x_2}(\phi)$. In this way, it generalizes the notation for $\l x, y\r = x^T y$ for $\R^n$ to $\l x, y\r = x^*y^*$ for $\C^n$. 
 %\end{note}
 %
 %\begin{ex}
-%	Let $\psi, \phi \in \H$ and $ \lam \in \C$. Then 
+%	Let $x, \phi \in \H$ and $ \lam \in \C$. Then 
 %	\begin{enumerate}
-%		\item $(\psi + \phi){^*} =  \psi^*+ \phi^*$
-%		\item $(\lam \psi)^* = \lam^* \psi^*$
+%		\item $(x + \phi){^*} =  x^*+ \phi^*$
+%		\item $(\lam x)^* = \lam^* x^*$
 %	\end{enumerate}
 %\end{ex}
 %
@@ -2239,24 +2256,24 @@ So $\| cx \| = |c|\|x\|$
 %\end{proof}
 %
 %\begin{defn}
-%	Let $\psi, \phi \in H$ and $A$ an operator on $H$. We define 
+%	Let $x, \phi \in H$ and $A$ an operator on $H$. We define 
 %	\begin{enumerate}
-%		\item the linear functional on $H$, $\psi ^*A: H \rightarrow \C $ by $(\psi ^*A) \al = \psi ^*(A \al)$
-%		\item the operator on $H$, $\psi \phi ^*: H \rightarrow H$ by $(\psi \phi \da) \al = (\phi^*\al) \psi$
+%		\item the linear functional on $H$, $x ^*A: H \rightarrow \C $ by $(x ^*A) \al = x ^*(A \al)$
+%		\item the operator on $H$, $x \phi ^*: H \rightarrow H$ by $(x \phi \da) \al = (\phi^*\al) x$
 %	\end{enumerate}
 %\end{defn}
 %
 %\begin{ex}
-%	Let $A$ be an operator on $H$ and $\psi \in H$. Then $$(A \psi)^*= \psi ^*A^*$$
+%	Let $A$ be an operator on $H$ and $x \in H$. Then $$(A x)^*= x ^*A^*$$
 %\end{ex}
 %
 %\begin{proof}
 %	Let $\phi \in H$. Then 
 %	\begin{align*}
-%		(A\psi)\da	\phi 
-%		&= \l A\psi, \phi \r \\
-%		&= \l \psi, A^*\phi \r \\
-%		&= \psi ^*A^*\phi 
+%		(Ax)\da	\phi 
+%		&= \l Ax, \phi \r \\
+%		&= \l x, A^*\phi \r \\
+%		&= x ^*A^*\phi 
 %	\end{align*}
 %\end{proof}
 %
@@ -2287,7 +2304,7 @@ So $\| cx \| = |c|\|x\|$
 %\end{proof}
 %
 %\begin{defn}\textbf{(Tensor Product):} \\ 
-%	Let $H_1, H_2$ be Hilbert spaces. Define $$\otimes: H_1 \times H_2 \rightarrow \C^{H_1 \times H_2} ,\hspace{.5cm} (\psi, \phi) \mapsto \psi \otimes \phi$$ by $$\psi \otimes \phi(x,y) = \l x, \psi  \r \l y, \phi\r$$ 
+%	Let $H_1, H_2$ be Hilbert spaces. Define $$\otimes: H_1 \times H_2 \rightarrow \C^{H_1 \times H_2} ,\hspace{.5cm} (x, \phi) \mapsto x \otimes \phi$$ by $$x \otimes \phi(x,y) = \l x, x  \r \l y, \phi\r$$ 
 %\end{defn}
 %
 %\begin{note}
@@ -2303,7 +2320,7 @@ So $\| cx \| = |c|\|x\|$
 %\end{proof}
 %
 %\begin{defn}
-%	Define $T(H_1, H_2) = \spn \{\psi \otimes \phi: \psi \in H_1 \text{ and } \phi \in H_2\}$ and define $\l \cdot, \cdot \r : T(H_1, H_2) \rightarrow \C $ by $$\l x_1 \otimes \phi_1 , x_2 \otimes \phi_2 \r = \l x_1, x_2 \r \l \phi_1 ,  \phi_1\r$$ and extending sesquilinearly so that $$ \l \sum_{i=1}^m \al_i \psi_i \otimes \phi_i , \sum_{j=1}^n \beta_j \Xi_j \otimes \Gam_j\r = \sum_{i=1}^m \sum_{j=1}^n \al_i^* \beta_j \l \psi_i \otimes \phi_i,  \Xi_j \otimes \Gam_j \r$$
+%	Define $T(H_1, H_2) = \spn \{x \otimes \phi: x \in H_1 \text{ and } \phi \in H_2\}$ and define $\l \cdot, \cdot \r : T(H_1, H_2) \rightarrow \C $ by $$\l x_1 \otimes \phi_1 , x_2 \otimes \phi_2 \r = \l x_1, x_2 \r \l \phi_1 ,  \phi_1\r$$ and extending sesquilinearly so that $$ \l \sum_{i=1}^m \al_i x_i \otimes \phi_i , \sum_{j=1}^n \beta_j \Xi_j \otimes \Gam_j\r = \sum_{i=1}^m \sum_{j=1}^n \al_i^* \beta_j \l x_i \otimes \phi_i,  \Xi_j \otimes \Gam_j \r$$
 %\end{defn}
 %
 %\begin{ex}
@@ -2320,17 +2337,17 @@ So $\| cx \| = |c|\|x\|$
 %	
 %
 %	\begin{ex}
-%		Let $H_1, H_2$ be Hilbert spaces. If $(\psi_j)_{j\in \N}$ is an orthonormal basis for $H_1$ and $(\phi_j)_{j \in \N}$ is an orthonormal basis for $H_2$, then $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is an orthonormal basis for $H_1 \otimes H_2$. 
+%		Let $H_1, H_2$ be Hilbert spaces. If $(x_j)_{j\in \N}$ is an orthonormal basis for $H_1$ and $(\phi_j)_{j \in \N}$ is an orthonormal basis for $H_2$, then $(x_i \otimes \phi_j)_{i,j \in \N}$ is an orthonormal basis for $H_1 \otimes H_2$. 
 %	\end{ex}
 %
 %	\begin{proof}
 %		Since 
 %		\begin{align*}
-%			\l \psi_{i_1} \otimes \phi_{j_1} , \psi_{i_2} \otimes \phi_{j_2} \r 
-%			&= \l \psi_{i_1} , \psi_{i_2} \r \l \phi_{j_1} , \phi_{j_2} \r \\
+%			\l x_{i_1} \otimes \phi_{j_1} , x_{i_2} \otimes \phi_{j_2} \r 
+%			&= \l x_{i_1} , x_{i_2} \r \l \phi_{j_1} , \phi_{j_2} \r \\
 %			&= \del_{i_1, i_2} \del_{j_1, j_2}
 %		\end{align*}
-%		we have that $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is orthonormal. Let $\psi = \sum\limits_{i \in \N} a_i \psi_i \in H_1$ and $\phi = \sum\limits_{j \in \N} b_j \phi_j \in H_2$. Then $\phi \otimes \psi = \sum\limits_{i \in \N} \sum\limits_{j \in \N} a_ib_j \psi_i \otimes \phi_j$, so $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is a dense subset of $T(H_1, H_2)$, which is dense in $H_1 \otimes H_2$. Hence $(\psi_i \otimes \phi_j)_{i,j \in \N}$ is dense in $H_1 \otimes H_2$ and is a basis.
+%		we have that $(x_i \otimes \phi_j)_{i,j \in \N}$ is orthonormal. Let $x = \sum\limits_{i \in \N} a_i x_i \in H_1$ and $\phi = \sum\limits_{j \in \N} b_j \phi_j \in H_2$. Then $\phi \otimes x = \sum\limits_{i \in \N} \sum\limits_{j \in \N} a_ib_j x_i \otimes \phi_j$, so $(x_i \otimes \phi_j)_{i,j \in \N}$ is a dense subset of $T(H_1, H_2)$, which is dense in $H_1 \otimes H_2$. Hence $(x_i \otimes \phi_j)_{i,j \in \N}$ is dense in $H_1 \otimes H_2$ and is a basis.
 %	\end{proof}
 %
 %	\begin{note}
@@ -2338,7 +2355,7 @@ So $\| cx \| = |c|\|x\|$
 %	\end{note}
 %
 %	\begin{defn}
-%		Let $A$ and $B$ be operators on $H_1$ and $H_2$ respectively. We define the operator $A \otimes B$ on $H_1 \otimes H_2$ by setting $$A \otimes B (\psi \otimes \phi) = A \psi \otimes B \phi$$ and extending linearly to $T(H_1, H_2)$ and then extending continuously to $H_1 \otimes H_2$
+%		Let $A$ and $B$ be operators on $H_1$ and $H_2$ respectively. We define the operator $A \otimes B$ on $H_1 \otimes H_2$ by setting $$A \otimes B (x \otimes \phi) = A x \otimes B \phi$$ and extending linearly to $T(H_1, H_2)$ and then extending continuously to $H_1 \otimes H_2$
 %	\end{defn}
 
 \newpage
