@@ -1990,7 +1990,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	\end{defn}
 	
 	\begin{note}
-	In mathematics, inner products are traditionally defined to be linear in the first argument. However, in my opinion, the physics tradition of defining inner products to be linear in the second argument makes more sense.
+	In mathematics, inner products are conventionally defined to be linear in the first argument. However, in my opinion, the convention in physics of defining inner products to be linear in the second argument makes more sense.
 	\end{note}
 	 
 	\begin{ex}
@@ -2064,39 +2064,12 @@ Hence $\|x + y\| \leq \|x\| + \|y\|$.
 	\end{enumerate}
 \end{defn}
 
-\begin{ex}
-	Let $H$ be an inner product space and $S \subset H$. Suppose that $0 \not \in S$. If $S$ is orthogonal, then $S$ is linearly independent.
-\end{ex}
-
-\begin{proof}
-	Let $x_1, \cdots, x_n \in S$ and $c_1, \cdots, c_n \in \C$. Suppose that $\sum\limits_{j =1}^n c_j x_j = 0 $. Then 
-	\begin{align*}
-		0
-		&= \bigg \l \sum_{i=1}^n c_i x_i , \sum_{j=1}^n c_jx_j \bigg \r \\
-		&= \sum_{i=1}^n \sum_{j=1}^n \l x_i, x_j \r \\
-		&= \sum_{j=1}^n  |c_j|^2 \l x_j, x_j \r
-	\end{align*}
-	So for $j = 1 , \cdots, n$, $c_j = 0$ and $S$ is linearly independent.
-\end{proof}
-
-\begin{defn}
-	Let $H$ be a Hilbert space and $S \subset H$. Then $S$ is said to be \textbf{orthonormal} if $S$ is orthogonal and for each $x \in S$, $\|x \| = 1$.
-\end{defn}
-
-\begin{defn}
-	Let $H$ be an inner product space. Then $H$ is said to be a \textbf{Hilbert space} if $H$ is a complete with respect to the induced norm on $H$.
-\end{defn}
-
-%\begin{note}
-%	For the rest of this section, we assume that $H$ is a Hilbert space. 
-%\end{note}
-
 \begin{ex}\textbf{(Pythagorean theorem):}\\
-	Let $H$ be a Hilbert space and $(x_j)_{j \in \N} \subset H$ an orthogonal set. Suppose that $\sum\limits_{j \in \N} x_j$ converges, then $$\bigg \|\sum\limits_{j \in \N} x_j  \bigg \|^2 = \sum\limits_{j \in \N} \|x_j \|^2$$
+	Let $H$ be an inner product space and $(x_j)_{j =1}^n \subset H$ an orthogonal set. Then $$\bigg \|\sum\limits_{j = 1}^n x_j  \bigg \|^2 = \sum\limits_{j =1}^n \|x_j \|^2$$
 \end{ex}
 
 \begin{proof}
-	Let $n \in \N$. Then 
+	We have that
 	\begin{align*}
 		\bigg \| \sum\limits_{j = 1}^n  x_j\bigg \|^2
 		&= \bigg \l \sum\limits_{i =1}^n x_i , \sum\limits_{j =1}^n x_j \bigg \r \\
@@ -2104,205 +2077,246 @@ Hence $\|x + y\| \leq \|x\| + \|y\|$.
 		&= \sum\limits_{j =1}^n \l x_j , x_j \r \\
 		&= \sum\limits_{j =1}^n \| x_j \|^2
 	\end{align*}
-	Since $\| \cdot \|$  is continuous on $H$, we have that 
+\end{proof}
+
+\begin{ex}
+	Let $H$ be an inner product space and $S \subset H$. Suppose that $0 \not \in S$. If $S$ is orthogonal, then $S$ is linearly independent.
+\end{ex}
+
+\begin{proof}
+	Let $x_1, \cdots, x_n \in S$ and $c_1, \cdots, c_n \in \C$. Suppose that $\sum\limits_{j =1}^n c_j x_j = 0 $. Since $(c_j x_j)_{j=1}^n$ is orthogonal, the Pythagorean theorem implies that 
 	\begin{align*}
-		\bigg \|\sum\limits_{j \in \N} x_j  \bigg \|^2
-		&= \lim_{n \rightarrow \infty} \bigg \|\sum\limits_{j =1}^n x_j  \bigg \|^2 \\
-		&= \limn \sum\limits_{j =1}^n \| x_j \|^2 \\
-		&= \sum\limits_{j \in \N} \|x_j \|^2
+		0
+		&= \bigg \| \sum_{i=1}^n c_i x_i \bigg \| \\
+		&= \sum_{j=1}^n  |c_j|^2 \| x_j\| 
 	\end{align*}
+	So for each $j \in \{ 1 , \cdots, n\}$, $c_j = 0$ and $S$ is linearly independent.
 \end{proof}
 
 \begin{defn}
-	Let $H$ be a Hilbert space and $S \subset H$. Then $S$ is said to \textbf{span} $H$ if $\spn S$ is dense in $H$ and $S$ is said to be a \textbf{basis} for $H$ if $S$ spans $H$ and $S$ linearly independent.
+	Let $H$ be an inner product space and $S \subset H$. Then $S$ is said to be \textbf{orthonormal} if $S$ is orthogonal and for each $x \in S$, $\|x \| = 1$.
 \end{defn}
 
-\subsection{Operators}
+\begin{ex}\textbf{Bessel's Inequality:}\\
+Let $H$ be an inner product space and $S \subset H$. If $S$ is orthonormal, then for each $x \in H$, $$\sum_{u \in S} | \l u, x \r |^2  \leq \|x\|$$
+and in particular, $\{u \in S: \l u, x\r \neq 0\}$ is countable.
+\end{ex}
 
-%\begin{defn}
-%	Let $A: H \rightarrow H$. Then $A$ is said to be an \textbf{operator} on $H$.
-%\end{defn}
-%
-%\begin{defn}\textbf{(Adjoint of an Operator):} \\
-%	Let $A,B$ be operators on $H$. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $x_1$, $x_2 \in H$, $$\l x_1 , Ax_2 \r = \l B x_1 , x_2 \r$$  If B is the adjoint of $A$, we write $$B = A^{*}$$
-%\end{defn}
-%
-%\begin{note}
-%	In mathematics, the adjoint of $A$ is typically denoted by $A^*$, but we will adopt the notation of $A^{*}$ from physics.
-%\end{note}
-%
-%\begin{ex}
-%	Let $A$ and $B$ be operators on $H$ and $\lam \in \C$, then \begin{enumerate}
-%		\item $(A^{*})^{*} = A$
-%		\item $(A + B)^{*} = A^{*} + B^{*}$
-%		\item $(AB)^{*} = B^{*}A^{*}$
-%		\item $(\lam A)^{*} = \lam^*A^{*}$
-%		\item $A$ and $B$ commute iff $A^{*}$ and $B^{*}$ commute.
-%	\end{enumerate}
-%\end{ex}
-%
-%\begin{proof} Let $x_1$, $x_2 \in H$. Then
-%	\begin{enumerate}
-%		\item 
-%		\begin{align*}
-%			\l A x_1 , x_2 \r
-%			&= \l x_2 , A x_1 \r^*\\
-%			&= \l A^{*}x_2 ,  x_1 \r^* \hspace{.5cm} \text{(by definition)}\\
-%			&= \l  x_1 , A^{*}x_2 \r
-%		\end{align*}
-%		\item 
-%		\begin{align*}
-%			\l x_1 , (A+B) x_2 \r 
-%			&= \l x_1 , A x_2 \r + \l x_1 , B x_2 \r \\
-%			&= \l A^{*} x_1 , x_2 \r + \l B^{*} x_1 , x_2 \r \\
-%			&= \l (A^{*} + B^{*})  x_1 , x_2 \r  \\
-%		\end{align*}
-%		\item 
-%		\begin{align*}
-%			\l x_1 , AB x_2 \r  
-%			&= \l A^{*}x_1 , B x_2 \r \\
-%			&= \l B^{*} A^{*} x_1 , x_2 \r 
-%		\end{align*}
-%		\item 
-%		\begin{align*}
-%			\l x_1 , \lam A x_2 \r 
-%			&= \lam \l x_1 , A x_2 \r \\
-%			&= \lam \l A^{*}x_1 , x_2 \r \\
-%			&= \l \lam^* A^{*} x_1 , x_2 \r 
-%		\end{align*}
-%		\item If $A$ and $B$ commute, then 
-%		\begin{align*}
-%			A^{*}B^{*}
-%			&= (BA)^{*} \\
-%			&= (AB)^{*} \\
-%			&= B^{*}A^{*}
-%		\end{align*}
-%		Conversely, if $A^{*}$ and $B^{*}$ commute then 
-%		\begin{align*}
-%			AB
-%			&= (B^{*}A^{*})^{*} \\
-%			&= (A^{*}B^{*})^{*} \\
-%			&= BA
-%		\end{align*}
-%	\end{enumerate}
-%\end{proof}
-%
-%\begin{defn}
-%	An linear operator $Q$ on $H$ is said to be \textbf{self-adjoint} if $$Q = Q^{*}$$
-%\end{defn}
-%
-%\begin{ex}
-%	Let $Q$ be a self-adjoint operator on $H$. Then 
-%	\begin{enumerate}
-%		\item the eigenvalues of $Q$ are real.
-%		\item the eigenvectors of $Q$ corresponding to distinct eigenvalues are orthogonal.
-%	\end{enumerate}
-%\end{ex}
-%
-%\begin{proof}
-%	\ \begin{enumerate}
-%		\item Let $\lam$ be an eigenvalue of $Q$ with corresponding eigenvector $x$. Then 
-%		\begin{align*}
-%			\lam \l x , x\r
-%			&= \l x , Q x\r \\
-%			&= \l Q x , x\r \\
-%			&= \lam^* \l x , x\r
-%		\end{align*}
-%		Thus $\lam = \lam^*$ and is real
-%		
-%		\item Let $\lam_1$ and $\lam_2$ be eigenvalues of $Q$ with corresponding eigenvectors $x_1$ and $x_2$. Suppose that $\lam_1 \neq \lam_2$. Then 
-%		\begin{align*}
-%			\lam_2 \l x_1 ,  x_2\r
-%			&= \l x_1 , Q x_2\r\\
-%			&= \l Q x_1 ,  x_2\r\\
-%			&= \lam_1 \l x_1 ,  x_2\r
-%		\end{align*}
-%		So $(\lam_2 - \lam_1)\l x_1 ,  x_2\r = 0$. Which implies that $\l x_1 ,  x_2\r=0$
-%	\end{enumerate}
-%\end{proof}
-%
-%\begin{ex}
-%	Let $A, B$ be self-adjoint operators on $H$ and $ \lam \in \R$. If $A$ and $B$ commute and then $\lam AB$ is self-adjoint.
-%\end{ex}
-%
-%\begin{proof}
-%	\begin{align*}
-%		(\lam AB)^{*}
-%		&= \lam^* (AB)^{*} \\
-%		&= \lam B^{*} A^{*} \\
-%		&= \lam B A \\
-%		&= \lam AB
-%	\end{align*}
-%\end{proof}
-%
-%\begin{defn}\textbf{(Adjoint of a Vector):} \\
-%	Let $x \in H$. We define the \textbf{adjoint} of $x$, denoted $x^{*}: H \rightarrow \C$, by $x^{*} \phi = \l x, \phi\r$. 
-%\end{defn}
-%
-%\begin{note}
-%	In mathematics, where linearity of the inner product is in the first argument, $x^{*}$ is typically referred to by $u_{x} \in H^{*} $ where $u_{x}(\phi) = \l \phi, x\r$. In physics, where the inner product with linearity in the second argument, $x^{*} \phi$ is usually written in the so-called ``bra-ket" notation as $\l x | \phi \r$ which works smoothly since it aligns with the linearity of $u_{x}(\phi_1 + \lam \phi_2)$ and the conjugate-linearity of $u_{x_1 + \lam x_2}(\phi)$. In this way, it generalizes the notation for $\l x, y\r = x^T y$ for $\R^n$ to $\l x, y\r = x^*y^*$ for $\C^n$. 
-%\end{note}
-%
-%\begin{ex}
-%	Let $x, \phi \in \H$ and $ \lam \in \C$. Then 
-%	\begin{enumerate}
-%		\item $(x + \phi){^*} =  x^*+ \phi^*$
-%		\item $(\lam x)^* = \lam^* x^*$
-%	\end{enumerate}
-%\end{ex}
-%
-%\begin{proof}
-%	Clear.
-%\end{proof}
-%
-%\begin{defn}
-%	Let $x, \phi \in H$ and $A$ an operator on $H$. We define 
-%	\begin{enumerate}
-%		\item the linear functional on $H$, $x ^*A: H \rightarrow \C $ by $(x ^*A) \al = x ^*(A \al)$
-%		\item the operator on $H$, $x \phi ^*: H \rightarrow H$ by $(x \phi \da) \al = (\phi^*\al) x$
-%	\end{enumerate}
-%\end{defn}
-%
-%\begin{ex}
-%	Let $A$ be an operator on $H$ and $x \in H$. Then $$(A x)^*= x ^*A^*$$
-%\end{ex}
-%
-%\begin{proof}
-%	Let $\phi \in H$. Then 
-%	\begin{align*}
-%		(Ax)\da	\phi 
-%		&= \l Ax, \phi \r \\
-%		&= \l x, A^*\phi \r \\
-%		&= x ^*A^*\phi 
-%	\end{align*}
-%\end{proof}
-%
-%\begin{defn}\textbf{(Commutator):} \\
-%	Let $A$ and $B$ be operators. The \textbf{commutator} of $A$ and $B$, $[A,B]$, is defined by $$[A,B] = AB - BA$$
-%\end{defn}
-%
-%\begin{ex}
-%	Let $A,B$ and $C$ be operators, then 
-%	\begin{enumerate}
-%		\item $[AB,C] = A[B,C] + [A,C]B$
-%		\item $[A, BC] = B[A, C] + [A,B]C$
-%	\end{enumerate}
-%\end{ex}
-%
-%\begin{proof} \
-%	\begin{enumerate}
-%		\item 
-%		\begin{align*}
-%			[AB,C]
-%			&= ABC - CAB\\
-%			&= ABC - ACB + ACB -CAB\\
-%			&= A(BC - CB) + (AC-CA)B\\
-%			&= A[B,C] + [A,C]B
-%		\end{align*}
-%		\item Similar to (1).
-%	\end{enumerate}
-%\end{proof}
-%
+\begin{proof}
+Suppose that $S$ is orthonormal. Let $x \in H$ and $F \subset S$ finite. Then the Pythagorean theorem implies that  
+\begin{align*}
+0 
+& \leq \bigg \|x - \sum_{u \in F} \l u, x \r u \bigg \|^2 \\
+&= \|x\|^2 + \bigg \| \sum_{u \in F} \l u, x \r u \bigg \|^2 - 2\Re \bigg \l x, \sum_{u \in F} \l u, x \r u \bigg \r  \\
+&= \|x\|^2 +  \sum_{u \in F} |\l u, x \r|^2 \|u\|^2 - 2 \sum_{u \in F} | \l u, x \r|^2  \\
+&= \|x\|^2 -  \sum_{u \in F} |\l u, x \r|^2 
+\end{align*}
+So $$\sum_{u \in F} | \l u, x \r |^2  \leq \|x\|$$
+By definition of the sum, $$\sum_{u \in S} | \l u, x \r |^2  \leq \|x\|$$
+Basic integration theory then tells us that $\{u \in S: \l u, x\r \neq 0\}$ is countable.
+\end{proof}
+
+\begin{defn}
+	Let $H$ be an inner product space. Then $H$ is said to be a \textbf{Hilbert space} if $H$ is a complete with respect to the induced norm on $H$.
+\end{defn}
+
+\begin{ex}
+
+\end{ex}
+
+\begin{defn}
+	Let $H$ be a Hilbert space and $S \subset H$. Then $S$ is said to be an \textbf{orthonormal basis of $H$} if $S$
+\end{defn}
+
+
+
+
+
+\newpage
+
+\subsection{Operators on Hilbert Spaces}
+
+\begin{defn}\textbf{(Adjoint of an Operator):} \\
+	Let $H$ be a Hilbert space and $A,B \in L(H)$. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $x_1$, $x_2 \in H$, $$\l x_1 , Ax_2 \r = \l B x_1 , x_2 \r$$  In this case, we write $$B = A^{*}$$
+\end{defn}
+
+\begin{note}
+	In physics, the adjoint of $A$ is typically denoted by $A^{\dagger}$.
+\end{note}
+
+\begin{ex}
+	Let $H$ be a Hilbert space, $A, B \in L(H)$ and $\lam \in \C$, then \begin{enumerate}
+		\item $(A^{*})^{*} = A$
+		\item $(A + B)^{*} = A^{*} + B^{*}$
+		\item $(AB)^{*} = B^{*}A^{*}$
+		\item $(\lam A)^{*} = \lam^*A^{*}$
+		\item $A$ and $B$ commute iff $A^{*}$ and $B^{*}$ commute.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof} Let $x_1$, $x_2 \in H$. Then
+	\begin{enumerate}
+		\item 
+		\begin{align*}
+			\l A x_1 , x_2 \r
+			&= \l x_2 , A x_1 \r^*\\
+			&= \l A^{*}x_2 ,  x_1 \r^* \hspace{.5cm} \text{(by definition)}\\
+			&= \l  x_1 , A^{*}x_2 \r
+		\end{align*}
+		\item 
+		\begin{align*}
+			\l x_1 , (A+B) x_2 \r 
+			&= \l x_1 , A x_2 \r + \l x_1 , B x_2 \r \\
+			&= \l A^{*} x_1 , x_2 \r + \l B^{*} x_1 , x_2 \r \\
+			&= \l (A^{*} + B^{*})  x_1 , x_2 \r  \\
+		\end{align*}
+		\item 
+		\begin{align*}
+			\l x_1 , AB x_2 \r  
+			&= \l A^{*}x_1 , B x_2 \r \\
+			&= \l B^{*} A^{*} x_1 , x_2 \r 
+		\end{align*}
+		\item 
+		\begin{align*}
+			\l x_1 , \lam A x_2 \r 
+			&= \lam \l x_1 , A x_2 \r \\
+			&= \lam \l A^{*}x_1 , x_2 \r \\
+			&= \l \lam^* A^{*} x_1 , x_2 \r 
+		\end{align*}
+		\item If $A$ and $B$ commute, then 
+		\begin{align*}
+			A^{*}B^{*}
+			&= (BA)^{*} \\
+			&= (AB)^{*} \\
+			&= B^{*}A^{*}
+		\end{align*}
+		Conversely, if $A^{*}$ and $B^{*}$ commute then 
+		\begin{align*}
+			AB
+			&= (B^{*}A^{*})^{*} \\
+			&= (A^{*}B^{*})^{*} \\
+			&= BA
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Let $H$ be a Hilbert space and $Q \in L(H)$. Then $Q$ is said to be \textbf{self-adjoint} if $$Q = Q^{*}$$
+\end{defn}
+
+\begin{ex}
+	Let $H$ be a Hilbert space and $Q \in L(H)$. If $Q$ is a self-adjoint then 
+	\begin{enumerate}
+		\item the eigenvalues of $Q$ are real.
+		\item the eigenvectors of $Q$ corresponding to distinct eigenvalues are orthogonal.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	Suppose that $Q$ is self-adjoint.
+	\begin{enumerate}
+		\item Let $\lam$ be an eigenvalue of $Q$ with corresponding eigenvector $x$. Then 
+		\begin{align*}
+			\lam \l x , x\r
+			&= \l x , Q x\r \\
+			&= \l Q x , x\r \\
+			&= \lam^* \l x , x\r
+		\end{align*}
+		Thus $\lam = \lam^*$ and is real
+		
+		\item Let $\lam_1$ and $\lam_2$ be eigenvalues of $Q$ with corresponding eigenvectors $x_1$ and $x_2$. Suppose that $\lam_1 \neq \lam_2$. Then 
+		\begin{align*}
+			\lam_2 \l x_1 ,  x_2\r
+			&= \l x_1 , Q x_2\r\\
+			&= \l Q x_1 ,  x_2\r\\
+			&= \lam_1 \l x_1 ,  x_2\r
+		\end{align*}
+		So $(\lam_2 - \lam_1)\l x_1 ,  x_2\r = 0$. Which implies that $\l x_1 ,  x_2\r=0$
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $H$ be a Hilbert space, $A, B \in L(H)$ and $ \lam \in \R$. Suppose that $A, B$ are self-adjoint. If $A$ and $B$ commute and then $\lam AB$ is self-adjoint.
+\end{ex}
+
+\begin{proof}
+	\begin{align*}
+		(\lam AB)^{*}
+		&= \lam^* (AB)^{*} \\
+		&= \lam B^{*} A^{*} \\
+		&= \lam B A \\
+		&= \lam AB
+	\end{align*}
+\end{proof}
+
+\begin{defn}\textbf{(Adjoint of a Vector):} \\
+	Let $H$ be a Hilbert space and $x \in H$. We define the \textbf{adjoint} of $x$, denoted $x^* \in H^*$, by $x^* y = \l x, y \r$. 
+\end{defn}
+
+\begin{note}
+	In mathematics, where linearity of the inner product is in the first argument, $x^{*}$ is typically referred to by $u_{x} \in H^{*} $ where $u_{x}(y) = \l y, x\r$. In physics, where the inner product with linearity in the second argument, $x^{*} \phi$ is usually written in the so-called ``bra-ket" notation as $\l x | \phi \r$ which works smoothly since it aligns with the linearity of $u_{x}(\phi_1 + \lam \phi_2)$ and the conjugate-linearity of $u_{x_1 + \lam x_2}(\phi)$. In this way, it generalizes the notation for $\l x, y\r = x^T y$ for $\R^n$ to $\l x, y\r = x^*y^*$ for $\C^n$. 
+\end{note}
+
+\begin{ex}
+	Let $H$ be a Hilbert space, $x, y \in H$ and $\lam \in \C$. Then 
+	\begin{enumerate}
+		\item $(x + y)^* =  x^* + y^*$
+		\item $(\lam x)^* = \lam^* x^*$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	Clear.
+\end{proof}
+
+\begin{defn}
+	Let $H$ be a Hilbert space, $x, y \in H$ and $A \in L(H)$. We define 
+	\begin{enumerate}
+		\item $x^* A \in H^*$ by $(x^*A) y = x^*(A y)$
+		\item $x y^* \in L(H)$ by $(x y^*) z = (y^*z) x$
+	\end{enumerate}
+\end{defn}
+
+\begin{ex}
+	Let $H$ be a Hilbert space, $A \in L(H)$ and $x \in H$. Then $$(A x)^*= x^*A^*$$
+\end{ex}
+
+\begin{proof}
+	Let $y \in H$. Then 
+	\begin{align*}
+		(Ax)^*	y 
+		&= \l Ax, y \r \\
+		&= \l x, A^* y \r \\
+		&= x^*A^* y
+	\end{align*}
+\end{proof}
+
+\begin{defn}\textbf{(Commutator):} \\
+	Let $H$ be a Hilbert space and $A, B \in L(H)$. The \textbf{commutator} of $A$ and $B$, denoted $[A,B]$, is defined by $$[A,B] = AB - BA$$
+\end{defn}
+
+\begin{ex}
+	Let $H$ be a Hilbert space and $A,B, C \in L(H)$. Then 
+	\begin{enumerate}
+		\item $[AB,C] = A[B,C] + [A,C]B$
+		\item $[A, BC] = B[A, C] + [A,B]C$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof} \
+	\begin{enumerate}
+		\item 
+		\begin{align*}
+			[AB,C]
+			&= ABC - CAB\\
+			&= ABC - ACB + ACB -CAB\\
+			&= A(BC - CB) + (AC-CA)B\\
+			&= A[B,C] + [A,C]B
+		\end{align*}
+		\item Similar to (1).
+	\end{enumerate}
+\end{proof}
+
 %\begin{defn}\textbf{(Tensor Product):} \\ 
 %	Let $H_1, H_2$ be Hilbert spaces. Define $$\otimes: H_1 \times H_2 \rightarrow \C^{H_1 \times H_2} ,\hspace{.5cm} (x, \phi) \mapsto x \otimes \phi$$ by $$x \otimes \phi(x,y) = \l x, x  \r \l y, \phi\r$$ 
 %\end{defn}
@@ -2933,7 +2947,36 @@ is convex.
 	and $\phi$ is convex.
 	\end{proof}
 	
+	\newpage
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\section{Appendix}
+	
+	\subsection{Summation}
+	
+	\begin{defn}
+		Let $f:X \rightarrow \Rg$, Then we define $$\sum_{x \in X} f(x) := \sup_{\substack{F \subset X \\ F \text{ finite}}} \sum_{x \in F} f(x)$$ This definition coincides with the usual notion of summation when $X$ is countable. For $f:X \rightarrow \C$, we can write $f = g +ih$ where $g,h:X \rightarrow \R$. If $$\sum_{x \in X}|f(x)| < \infty,$$ then the same is true for $g^+,g^-,h^+,h^-$. In this case, we may define $$\sum_{x \in X} f(x)$$ in the obvious way.
+	\end{defn} 
+	
+	The following note justifies the notation $\sum_{x \in X}f(x)$ where $f:X \rightarrow \C$.
+	
+	\begin{note}
+		Let $f:X \rightarrow \C$ and $\al:X \rightarrow X$ a bijection. If $\sum_{x \in X}|f(x)|< \infty$, then $\sum_{x \in X}f( \al (x)) = \sum_{x \in X}f(x) $.
+	\end{note}
+	
+	\newpage	
 	
 	\subsection{Asymptotic Notation}
 	
