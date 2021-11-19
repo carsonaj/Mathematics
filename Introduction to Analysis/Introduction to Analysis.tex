@@ -2122,11 +2122,79 @@ Basic integration theory then tells us that $\{u \in S: \l u, x\r \neq 0\}$ is c
 \end{defn}
 
 \begin{ex}
-
+Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. Then the followong are equivalent: 
+\begin{enumerate}
+\item For each $x \in H$, if for each $u \in S$, $\l u, x \r = 0$, then $x =0$.
+\item For each $x \in H$, there exist $(u_j)_{j\in \N} \subset S$ such that $x = \sum\limits_{j \in \N} \l u_j, x\r u_j$ and for each $u \not \in (u_j)_{j\in \N}$, $\l u, x\r =0$.
+\item For each $x \in H$, $\|x\|^2 = \sum\limits_{u \in S} | \l u, x \r |^2$.
+\end{enumerate}
 \end{ex}
 
+\begin{proof}\
+\begin{itemize}
+		\item $(1) \implies (2)$:\\
+		Suppose that for each $x \in H$, if for each $u \in S$, $\l u, x \r = 0$, then $x =0$. Let $x \in H$. Put $S_{*} = \{u \in S: \l u, x \r \neq 0 \}$. The previous exercise implies that $S_{*}$ is countable. Write $S_* = (u_j)_{j=1}^n$. The previous exercise tells us that $\sum\limits_{j \in \N} |\l u_j, x \r|^2 \leq \|x\|^2$ and hence converges. Thus for $\ep >0$, there exist $N \in \N$ such that for each  $m,n \in \N$, $m, n \geq N$ implies that if $m < n$, then $$\sum_{m+1}^{n} |\l u_j, x \r |^2 < \ep$$
+		Define $(y_n)_{n \in \N} \subset H$ by $$y_n = \sum_{j=1}^{n} \l u_j, x \r u_j$$ 
+		Then for each $m,n \in \N$, $m, n \geq N$ implies that if $m < n$, then 
+		\begin{align*}
+		\|y_n - y_m\|^2 
+		& = \bigg \|\sum_{1}^{n} \l u_j, x \r u_j  - \sum_{1}^{m} \l u_j, x \r u_j  \bigg \|^2 \\
+		&= \bigg \|\sum_{m+1}^{n} \l u_j, x \r u_j \bigg \|^2 \\
+		&= \sum_{m+1}^{n} |\l u_j, x \r |^2 \\
+		& < \ep
+		\end{align*}
+		So $(y_n)_{n \in \N}$ is Cauchy. Since $H$ is complete, there exists $y \in H$ such that $y_n \rightarrow y$. By definition, $$y = \sum\limits_{j \in \N}\l u_j, x \r u_j $$
+		Continuity of $\l \cdot, \cdot\r: H \times H \rightarrow \C$ implies that 
+		\begin{enumerate}
+		\item for each $u \in S \setminus  S_*$, 
+		\begin{align*}
+		\l u, x - y\r 
+		&= \l u, x \r  - \l u, y \r \\
+		&=  \l u, x \r - \limn \l u, y_n\r \\
+		&=  \l u, x \r - \limn \sum_{j=1}^n \l u_j, x\r \l u, u_j \r \\
+		&= 0 - 0 \\
+		&=0
+		\end{align*}
+		\item for each $k \in \N$, 
+		\begin{align*}
+		\l u_k, x - y\r 
+		&= \l u_k, x \r  - \l u_k, y \r \\
+		&= \l u_k, x \r - \limn \l u_k, y_n\r \\
+		&= \l u_k, x \r - \limn \sum_{j=1}^n \l u_j, x\r \l u_k, u_j \r \\
+		&= \l u_k, x \r  - \l u_k, x\r \\
+		&= 0
+		\end{align*}
+		\end{enumerate}
+		So for each $u \in S$, $\l u, x-y\r =0$. By assumption, $x-y = 0$ and hence 
+		$$x = \sum\limits_{j \in \N}\l u_j, x \r u_j$$
+		
+		\item $(2) \implies (3)$:\\
+		Suppose that for each $x \in H$, there exist $(u_j)_{j\in \N} \subset S$ such that $x = \sum\limits_{j \in \N} \l u_j, x\r u_j$ and for each $u \not \in (u_j)_{j\in \N}$, $\l u, x\r =0$. Then continuity of $\|\cdot\|:H \rightarrow \Rg$ implies that
+		\begin{align*}
+		\|x\|^2 
+		&= \bigg \|  \limn \sum_{j=1}^n \l u_j, x\r u_j \bigg \|^2 \\
+		&= \limn \bigg \|\sum_{j=1}^n \l u_j, x\r u_j \bigg \|^2 \\
+		&= \limn \sum_{j=1}^n |\l u_j, x\r |^2 \\
+		&= \sum_{j \in \N}|\l u_j, x\r |^2  \\
+		&= \sum_{u \in S}|\l u, x\r |^2 
+		\end{align*}
+		\item $(3) \implies (4)$:\\
+		Suppose that for each $x \in H$, $\|x\|^2 = \sum\limits_{u \in S} | \l u, x \r |^2$. Let $x \in H$. Suppose that for each $u \in S$, $\l u,x \r = 0$. Then 
+		\begin{align*}
+		\| x\|^2 
+		&= \sum_{u \in S}  | \l u, x \r |^2 \\
+		&= 0
+		\end{align*}
+		So $x =0$
+\end{itemize}
+\end{proof}
+
 \begin{defn}
-	Let $H$ be a Hilbert space and $S \subset H$. Then $S$ is said to be an \textbf{orthonormal basis of $H$} if $S$
+	Let $H$ be a Hilbert space and $S \subset H$. Then $S$ is said to be an \textbf{orthonormal basis of $H$} if 
+	\begin{enumerate}
+	\item $S$ is orthonormal
+	\item for each $x \in H$, if for each $u \in S$, $\l u, x \r = 0$, then $x =0$
+	\end{enumerate}
 \end{defn}
 
 
@@ -2135,7 +2203,7 @@ Basic integration theory then tells us that $\{u \in S: \l u, x\r \neq 0\}$ is c
 
 \newpage
 
-\subsection{Operators on Hilbert Spaces}
+\subsection{Operators and Functionals}
 
 \begin{defn}\textbf{(Adjoint of an Operator):} \\
 	Let $H$ be a Hilbert space and $A,B \in L(H)$. Then $B$ is said to be the \textbf{adjoint} of $A$ if for each $x_1$, $x_2 \in H$, $$\l x_1 , Ax_2 \r = \l B x_1 , x_2 \r$$  In this case, we write $$B = A^{*}$$
