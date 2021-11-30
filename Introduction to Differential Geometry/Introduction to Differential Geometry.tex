@@ -83,6 +83,8 @@
 \newcommand{\MX}{\mathcal{X}}
 
 
+\newcommand{\p}{\partial}
+
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
 
@@ -112,7 +114,7 @@
 	
 	\tableofcontents
 	
-	\section{Review of Basic Definitions and Results}
+	\section{Fundamental Definitions and Results}
 
 	\subsection{Set Theory}
 	
@@ -160,18 +162,6 @@
 		\subset \R^n$ and $f':U' \rightarrow \R$ such that $U \subset U'$, $U'$ is open, $f'|_U = f$ and $f'$ is smooth. The set of smooth functions on $U$ is denoted $C^{\infty}(U)$.
 	\end{defn}
 
-	\begin{defn}
-		Let $U,V \subset \R^n$ and $F: U \rightarrow V$. Then $F$ is said to be a \textbf{diffeomorphism} if $F$ is a homeomorphism and $F, F^{-1}$ are smooth. 
-	\end{defn}
-	
-	\begin{ex}
-		Let $U,V \subset \R^n$ and $F: U \rightarrow V$. Then $F$ is a diffeomorphism iff for each $p \in U$, there exists a relatively open neighborhood $N \subset U$ of $p$ such that $F|_N:N \rightarrow F(N)$ is a diffeomorphism
-	\end{ex}
-	
-	\begin{proof}
-		content...
-	\end{proof}
-
 	\begin{defn} 
 		Let $U \subset \R^n$ and $p \in U$. Then $U$ is said to be \textbf{star-shaped} if for each $q \in U$, $\{p + t(q-p): 0 \leq t \leq 1\} \subset U$.
 	\end{defn}
@@ -189,6 +179,36 @@
 		Then for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x_i}}(p))$$
 	\end{proof}
 
+	
+	\subsection{Smooth Maps}
+	\begin{defn}
+	Let $U \subset \R^n$ and $F: U \rightarrow \R^m$. Let $x_1, \cdots, x_n$ be the standard coordinate functions on $\R^n$ and $y_1, \cdots, y_m$ be the standard coordinate functions on $\R^m$. For $i \in \{1, \cdots, m\}$, we define the \textbf{$i$th component of $F$}, denoted $F_i: U \rightarrow \R$, by $$F_i = y_i \circ F$$ 
+	Thus $F = (F_1, \cdots, F_m)$
+	\end{defn}
+	
+	\begin{defn}
+	Let $U \subset \R^n$ and $F: U \rightarrow \R^m$. Then $F$ is said to be \textbf{smooth} if for each $i \in \{1, \cdots, m\}$, the $i$th component of $F$, $F_i: U \rightarrow \R$, is smooth.
+	\end{defn}
+
+	\begin{defn}
+		Let $U \subset \R^n$ and $V \subset \R^m$ and $F: U \rightarrow V$. Then $F$ is said to be a  \textbf{diffeomorphism} if $F$ is a homeomorphism and $F, F^{-1}$ are smooth. 
+	\end{defn}
+	
+	\begin{defn}
+	Let $U \subset \R^n$ be open, $p \in U$ and $F: U \rightarrow \R^m$. We define the \textbf{Jacobian of $F$ at $p$}, denoted $\frac{\p F}{\p x}(p) \in \R^{m \times n}$, by $$\bigg (\frac{\p F}{\p x}(p) \bigg )_{i,j} = \frac{\p F_i}{\p x_j}$$
+	\end{defn}
+	
+	\begin{ex}\textbf{Inverse Function Theorem:}\\
+	Let $U,V \subset \R^n$ be open and $F: U \rightarrow V$.
+	\end{ex}
+	
+	\begin{ex}
+		Let $U,V \subset \R^n$ and $F: U \rightarrow V$. Then $F$ is a diffeomorphism iff for each $p \in U$, there exists a relatively open neighborhood $N \subset U$ of $p$ such that $F|_N:N \rightarrow F(N)$ is a diffeomorphism
+	\end{ex}
+	
+	\begin{proof}
+		content...
+	\end{proof}
 
 
 
@@ -625,11 +645,11 @@
 	\end{defn}
 	
 	\begin{defn}
-		Let $M$ be a topological space.
+		Let $M$ be a topological space and $n \geq 1$.
 		\begin{enumerate}
-			\item Let $n \geq 1$, $U \subset M$, $V \subset \H^n$ open and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \textbf{coordinate chart} on $M$ if $\phi$ is a homeomorphism. 
+			\item Let $U \subset M$, $V \subset \H^n$ open and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \textbf{coordinate chart} on $M$ if $\phi$ is a homeomorphism. 
 			\item Let $\MA = ((U_a,\phi_{a}))_{a \in A}$ be a collection of coordinate charts on $M$. Then $\MA$ is said to be an \textbf{atlas} on $M$ if  $\bigcup\limits_{a \in A} U_a = M$.
-			\item Let $n \geq 1$. Then $M$ is said to be \textbf{locally half Euclidean of dimension $n$} if there exists an atlas $\MA = ((U_a,\phi_{a}))_{a \in A}$ on $M$ such that for each $a \in A$, $\phi_a(U_a) \subset \H^n$.
+			\item The space $M$ is said to be \textbf{locally half Euclidean of dimension $n$} if there exists an atlas $\MA = ((U_a,\phi_{a}))_{a \in A}$ on $M$ such that for each $a \in A$, $\phi_a(U_a) \subset \H^n$.
 			\item The space $M$ is said to be an \textbf{$n$-dimensional manifold} if $M$ is Hausdorff, second countable and locally half Euclidean of dimension $n$. 
 		\end{enumerate}
 	\end{defn}
@@ -709,6 +729,11 @@
 		For the rest of this section, we assume that $(M, \MA)$ is a smooth $n$-dimensional manifold and we denote the standard coordinate functions on $\R^n$ by $u_1, \cdots, u_n$. For a coordinate chart $(U, \phi)$ $\in \MA$ and $i \in \{1, \cdots, n\}$, we will typically denote the $i$th coordinate of $\phi$ by $x_i$, that is,  $x_i = u_i(\phi)$.
 	\end{note}
 	
+	\newpage 
+	
+	
+	\subsection{Smooth Maps}	
+	
 	\begin{defn}
 		Let $f: M \rightarrow \R$. Then $f$ is said to be smooth if for each coordinate chart $(U, \phi) \in \MA$, $f \circ \phi^{-1}$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M)$. 
 	\end{defn}
@@ -730,11 +755,22 @@
 	\end{ex}
 	
 	\begin{proof}
-		Let $(V, \psi) \in \MB$. Since $F$ is a diffeomorphism, $$\phi \circ F^{-1} \circ \psi^{-1}: \psi(F(U) \cap V) \rightarrow \phi(U \cap F^{-1}(V))$$ and $$\psi \circ F \circ \phi^{-1}: \phi(F^{-1}(V) \cap U) \rightarrow \psi(V \cap F(U))$$ are smooth. Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
+		Let $(V, \psi) \in \MB$. 
+		\begin{enumerate}
+		\item Since $\phi$ and $F^{-1}$ are homeomorphisms, $\phi \circ F^{-1}: F(U) \cap V \rightarrow \phi(U \cap F^{-1}(V))$ is a homeomorphism
+		\item Since $F$ is a diffeomorphism, $$\phi \circ F^{-1} \circ \psi^{-1}: \psi(F(U) \cap V) \rightarrow \phi(U \cap F^{-1}(V))$$ and $$\psi \circ F \circ \phi^{-1}: \phi(F^{-1}(V) \cap U) \rightarrow \psi(V \cap F(U))$$ are smooth. 
+		\end{enumerate}
+		
+		Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
 	\end{proof}
 
+	\begin{ex}
+	Let $(M, \MA)$ be smooth $m$-dimensional manifold, $(N, \MB)$ a smooth $n$-dimensional manifold and $F: M \rightarrow N$. If $F$ is a diffeomorphism, then $m = n$.
+	\end{ex}
 
-
+	\begin{proof}
+	Suppose that $F$ is a diffeomorphism. Let $(U, \phi) \in \MA$. The previous exercise implies that $(F(U), \phi \circ F^{-1}) \in \MB$.  	
+	\end{proof}
 
 
 
@@ -793,7 +829,7 @@
 		\end{align*}
 	\end{proof}
 
-	\begin{ex}\textbf{(Taylor's Theorem)}
+	\begin{ex}\textbf{Taylor's Theorem:}\\
 		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$, $p \in U$ and $f \in C^{\infty}_p(M)$. Then there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x_i - x_i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x_i}}_{p} f $$ 
 	\end{ex}
 
@@ -803,90 +839,89 @@
 	\end{proof}
 
 	\begin{defn}
-		Let $D: C^{\infty}_p(M) \rightarrow \R$ and $p \in M$. Then $D$ is said to be a \textbf{derivation at $p$} if for each $f, g \in C^{\infty}_p(M)$ and $a \in \R$,
+		Let $p \in M$ and $v: C^{\infty}_p(M) \rightarrow \R$. Then $v$ is said to be \textbf{Leibnizian} if for each $f,g \in  C^{\infty}_p(M)$, $$v(fg) = v(f)g(p) + f(p)v(g)$$ and $v$ is said to be a \textbf{derivation at $p$} if for each $f, g \in C^{\infty}_p(M)$ and $a \in \R$,
 		\begin{enumerate}
-			\item $D(f + cg) = D(f) + c D(g)$ ($D$ is linear) 
-			\item $D(fg) = D(f)g(p) + f(p)D(g)$ ($D$ is Leibnizian)
+			\item $v$ is linear 
+			\item $v$ is Leibnizian
 		\end{enumerate}
-	\end{defn}
-
-	\begin{defn}
-		Let $p \in M$. The set of derivations at $p$, denoted $T_pM$ is called the \textbf{tangent space of $M$ at $p$}.
+		We define the \textbf{tangent space of $M$ at $p$}, denoted $T_pM$, by $$T_pM = \{ v: C^{\infty}_p(M) \rightarrow \R: v \text{ is a derivation at }p\}$$
 	\end{defn}
 
 	\begin{ex}
-		Let $f \in C^{\infty}_p(M)$ and $D \in T_pM$. If $f$ is constant, then $Df = 0$.
+		Let $f \in C^{\infty}_p(M)$ and $v \in T_pM$. If $f$ is constant, then $vf = 0$.
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $f \equiv 1$. Then $f^2 = f$ and $D(f^2) = 2D(f)$. So $D(f) = 2D(f)$ which implies that $D(f) = 0$. If $f \not \equiv 1$, then there exists $c \in \R$ such that $f \equiv c$. Since $D$ is linear, $D(f) = cD(1) = 0$.
+		Suppose that $f \equiv 1$. Then $f^2 = f$ and $v(f^2) = 2v(f)$. So $v(f) = 2v(f)$ which implies that $v(f) = 0$. If $f \not \equiv 1$, then there exists $c \in \R$ such that $f \equiv c$. Since $v$ is linear, $v(f) = cv(1) = 0$.
 	\end{proof}
-	
 
 	\begin{ex}
 		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $p \in U$. Then $$ \bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$$ is a basis for $T_pM$ and $\dim T_pM = n$.
 	\end{ex}
 
 	\begin{proof}
-		Clearly $\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \in T_pM$. Let $a_1, \cdots, a_n \in \R$. Suppose that $$D = \sum_{i=1}^n a_i \eval{\pdv{x_i}}_{p} = 0$$
+		Clearly $\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \in T_pM$. Let $a_1, \cdots, a_n \in \R$. Suppose that $$v = \sum_{i=1}^n a_i \eval{\pdv{x_i}}_{p} = 0$$
 		Then 
 		\begin{align*}
 			0
-			&= D x_j \\
+			&= v x_j \\
 			&= \sum_{i=1}^n a_i \eval{\pdv{x_i}}_{p} x_j \\
 			&= a_j
 		\end{align*}
 		Hence $\bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ is independent.\\
-		Now, let $D \in T_pM$ and $f \in \C^{\infty}_p(M)$. By Taylor's theorem, there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x_i - x_i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x_i}}_{p} f $$ Then 
+		Now, let $v \in T_pM$ and $f \in \C^{\infty}_p(M)$. By Taylor's theorem, there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x_i - x_i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x_i}}_{p} f $$ Then 
 		\begin{align*}
-			D(f)
-			&= \sum_{i=1}^nD(x_i - x_i(p)) g_i(p) + \sum_{i=1}^n(x_i(p) - x_i(p)) D(g_i) \\
-			&= \sum_{i=1}^nD(x_i)g_i(p) \\
-			&= \sum_{i=1}^nD(x_i)\eval{\pdv{x_i}}_{p} f \\
-			&= \bigg[ \sum_{i=1}^nD(x_i)\eval{\pdv{x_i}}_{p} \bigg] f
+			v(f)
+			&= \sum_{i=1}^nv(x_i - x_i(p)) g_i(p) + \sum_{i=1}^n(x_i(p) - x_i(p)) v(g_i) \\
+			&= \sum_{i=1}^nv(x_i)g_i(p) \\
+			&= \sum_{i=1}^nv(x_i)\eval{\pdv{x_i}}_{p} f \\
+			&= \bigg[ \sum_{i=1}^nv(x_i)\eval{\pdv{x_i}}_{p} \bigg] f
 		\end{align*}
-		So $$D = \sum_{i=1}^nD(x_i)\eval{\pdv{x_i}}_{p} $$ and $$D \in \spn \bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$$
+		So $$v = \sum_{i=1}^nv(x_i)\eval{\pdv{x_i}}_{p} $$ and $$v \in \spn \bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$$
 	\end{proof}
 
 
 
 	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. We define the \textbf{push forward of $F$ at $p$}, denoted $(F_*)_p: T_pM \rightarrow T_{F(p)}N$, by $$\bigg[ (F_*)_p(D) \bigg] (f) = D (f \circ F)$$  for $D \in T_pM$ and $f \in C^{\infty}_{F(p)}(N)$.
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. We define the \textbf{differential of $F$ at $p$}, denoted $dF_p: T_pM \rightarrow T_{F(p)}N$, by $$\bigg[ dF_p(v) \bigg] (f) = v (f \circ F)$$  for $v \in T_pM$ and $f \in C^{\infty}_{F(p)}(N)$.
 	\end{defn}
 	
+	
+	
 	\begin{ex}
-	Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. Then $(F_*)_p$ is well defined.
+	Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. Then $dF_p$ is well defined.
 	\end{ex}
 	
 	\begin{proof}
-	Let $D \in T_pM$, $f,g \in C_{F(p)}^{\infty}(N)$ and $c \in \R$. Then 
+	Let $v \in T_pM$, $f,g \in C_{F(p)}^{\infty}(N)$ and $c \in \R$. Then 
 	\begin{enumerate}
 	\item 
 	\begin{align*}
-		(F_*)_p(D)(f+cg) 
-		&= D((f+cg) \circ F) \\
-		&= D(f \circ F + c g \circ F) \\
-		&= D(f \circ F) + cD(g \circ F) \\
-		&= (F_*)_p(D)(f) + c (F_*)_p(D)(g)
+		dF_p(v)(f+cg) 
+		&= v((f+cg) \circ F) \\
+		&= v(f \circ F + c g \circ F) \\
+		&= v(f \circ F) + cv(g \circ F) \\
+		&= dF_p(v)(f) + c dF_p(v)(g)
 	\end{align*}
+	So $dF_p(v)$ is linear.
 	\item 
 	\begin{align*}
-	(F_*)_p(D)(fg) 
-	&= D (fg \circ F) \\
-	&= D((f \circ F)* (g \circ F)) \\
-	&= D(f \circ F)*(g \circ F)(p) +  (f \circ F)(p)* D(g \circ F) \\
-	&= (F_*)_p(D)(f) * g(F(p)) + f(F(p))*(F_*)_p(D)(g) \\
+	dF_p(v)(fg) 
+	&= v (fg \circ F) \\
+	&= v((f \circ F)* (g \circ F)) \\
+	&= v(f \circ F)*(g \circ F)(p) +  (f \circ F)(p)* v(g \circ F) \\
+	&= dF_p(v)(f) * g(F(p)) + f(F(p))*dF_p(v)(g) \\
 	\end{align*}
 	\end{enumerate}
-	So that $(F_*)_p(D) \in T_{F(p)}N$
+	So $dF_p(v)$ is Leibnizian and hence $dF_p(v) \in T_{F(p)}N$
 	\end{proof}
 
 	\begin{ex}
-		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism and $p \in M$. Then $(F_*)_p$ is an isomorphism.
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism and $p \in M$. Then $dF_p$ is an isomorphism.
 	\end{ex}
 	
 	\begin{proof}
-		Choose $(U, \phi) \in \MA$ such that $p \in U$. A previous exercise tells us that $(F(U), \phi \circ F^{-1}) \in \MB$. Write $\phi = (x_!, \cdots, x_n)$ and $\phi \circ F^{-1} = (y_1, \cdots, y_n)$. Let $f \in C^{\infty}_{F(p)}(N)$ Then 
+		Since $F$ is a homeomorphism, $\dim N = n$. Choose $(U, \phi) \in \MA$ such that $p \in U$. A previous exercise tells us that $(F(U), \phi \circ F^{-1}) \in \MB$. Write $\phi = (x_1, \cdots, x_n)$ and $\phi \circ F^{-1} = (y_1, \cdots, y_n)$. Let $f \in C^{\infty}_{F(p)}(N)$ Then 
 		\begin{align*}
 			\eval{\pdv{y_i}}_{F(p)} f
 			&= 	\eval{\pdv{u_i}}_{\phi \circ F^{-1} (F(p))} f \circ (\phi \circ F^{-1})^{-1} \\
@@ -895,16 +930,16 @@
 		\end{align*}
 		Therefore 
 		\begin{align*}
-			\bigg[ (F_*)_p \bigg( \eval{\pdv{x_i}}_p \bigg) \bigg] (f)
+			\bigg[ dF_p \bigg( \eval{\pdv{x_i}}_p \bigg) \bigg] (f)
 			&= \eval{\pdv{x_i}}_p f \circ F \\
 			&= \eval{\pdv{y_i}}_{F(p)} f 
 		\end{align*}
-	Hence $$(F_*)_p \bigg( \eval{\pdv{x_i}}_p \bigg) = \eval{\pdv{y_i}}_{F(p)}$$ 
-	Since $\bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ is a basis for $T_pM$ and $\bigg \{\eval{\pdv{y_1}}_{F(p)}, \cdots, \eval{\pdv{y_n}}_{F(p)} \bigg \}$ is a basis for $T_{F(p)}N$, $(F_*)_p$ is an isomorphism.
+	Hence $$dF_p \bigg( \eval{\pdv{x_i}}_p \bigg) = \eval{\pdv{y_i}}_{F(p)}$$ 
+	Since $\bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ is a basis for $T_pM$ and $\bigg \{\eval{\pdv{y_1}}_{F(p)}, \cdots, \eval{\pdv{y_n}}_{F(p)} \bigg \}$ is a basis for $T_{F(p)}N$, $dF_p$ is an isomorphism.
 	\end{proof}
 
 	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism. Define the \textbf{push forward of $F$}, denoted $$F_*:M \rightarrow \coprod_{p \in M} \iso(T_pM, T_{F(p)}N)$$ by $$p \mapsto (F_*)_p$$
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism. Define the \textbf{push forward of $F$}, denoted $$F_*:M \rightarrow \coprod_{p \in M} \iso(T_pM, T_{F(p)}N)$$ by $$p \mapsto dF_p$$
 	\end{defn}
 	
 		\begin{defn}
@@ -927,7 +962,8 @@
 	\begin{proof}
 		Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \eval{\pdv{x_{1}}}_{p}, \cdots, \eval{\pdv{x_{n}}}_{p} \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f_i(p) \eval{\pdv{x_i}}_{p}$. Let $j \in \{1, \cdots, n\}$. Since $X$ is smooth, the map 
 		\begin{align*}
-			p \mapsto X_p(x_j)
+			p 
+			& \mapsto X_p(x_j) \\
 			&= \sum\limits_{i=1}^n f_i(p) {\pdv{x_j}{x_i}}(p) \\
 			&= f_j(p) \\
 		\end{align*} is smooth.
@@ -1064,7 +1100,7 @@
 	
 	
 	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ be a diffeomorphism. Define the \textbf{pullback of $F$}, denoted $F^*: \Om_k(N) \rightarrow \Om_k(M)$ by  $$(F^* \om)_p (D_1, \cdots, D_k) = \om_{F(p)} ((F_*)_p(D_1), \cdots, (F_*)_p(D_k))$$ for $\om \in \Om_k(N)$, $p \in M$ and $D_1, \cdots, D_k \in T_{p}M$
+		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ be a diffeomorphism. Define the \textbf{pullback of $F$}, denoted $F^*: \Om_k(N) \rightarrow \Om_k(M)$ by  $$(F^* \om)_p (v_1, \cdots, v_k) = \om_{F(p)} (dF_p(v_1), \cdots, dF_p(v_k))$$ for $\om \in \Om_k(N)$, $p \in M$ and $v_1, \cdots, v_k \in T_{p}M$
 	\end{defn}
 
 	
@@ -1168,7 +1204,7 @@
 	\end{defn}
 
 	\begin{ex}
-			Let $M \subset \R^n$ be a $k$-dimensional smooth submanifold of $\R^n$, $\phi: U \rightarrow V$ a smooth parametrization of $M$, $\om = \sum_{I \in \MI_{k,n}} f_Idx_I$  an $k$-form on $\R^n$. Then $$\phi^* \om = \bigg( \sum_{I \in \MI_{k, n}} (f_I \circ \phi) (\det D\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k$$ 
+			Let $M \subset \R^n$ be a $k$-dimensional smooth submanifold of $\R^n$, $\phi: U \rightarrow V$ a smooth parametrization of $M$, $\om = \sum_{I \in \MI_{k,n}} f_Idx_I$  an $k$-form on $\R^n$. Then $$\phi^* \om = \bigg( \sum_{I \in \MI_{k, n}} (f_I \circ \phi) (\det v\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k$$ 
 	\end{ex}
 
 	\begin{proof}
@@ -1185,14 +1221,14 @@
 		d \phi_I 
 		&= d\phi_{i_1} \wedge d\phi_{i_2} \wedge \cdots \wedge d \phi_{i_n} \\
 		&= (\sum_{j = 1}^n \pdv{\phi_{i_1}}{u_j} du_j) \wedge (\sum_{j = 1}^n \pdv{\phi_{i_2}}{u_j} du_j) \wedge \cdots \wedge (\sum_{j = 1}^n \pdv{\phi_{i_k}}{u_j} du_j)   \\
-		&= (\det D\phi_I)du_1 \wedge du_2 \wedge \cdots \wedge du_k
+		&= (\det v\phi_I)du_1 \wedge du_2 \wedge \cdots \wedge du_k
 	\end{align*}
 	Therefore 
 	\begin{align*}
 		\phi^* \om
 		&= \sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  d\phi_I \\
-		&= \sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  (\det D\phi_I)du_1 \wedge du_2 \wedge \cdots \wedge du_k \\
-		&= \bigg(\sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  (\det D\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k
+		&= \sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  (\det v\phi_I)du_1 \wedge du_2 \wedge \cdots \wedge du_k \\
+		&= \bigg(\sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  (\det v\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k
 	\end{align*}
 	\end{proof}
 	

@@ -354,9 +354,12 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		\end{align*}
 		Hence $(x_{n_k})_{k \in \N} = (\sum_{i=1}^k y_i)_{i\in \N}$ converges. Since $(x_i)_{i \in \N}$ is cauchy and has a convergent subsequence, it converges. So $X$ is complete.
 	\end{proof}
+	\newpage
+	
+	\subsection{Linear and Multilinear Maps}
 	
 	\begin{defn}
-		Let $X,Y$ be a normed vector spaces. A linear map $T:X \rightarrow Y$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x \in X$, $$\|Tx \|\leq C \|x \|$$ We define $$L(X,Y) = \{T:X \rightarrow Y: T \text{ is bounded}\}$$
+		Let $X,Y$ be a normed vector spaces. A linear map $T:X \rightarrow Y$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x \in X$, $$\|Tx \|\leq C \|x \|$$ We define $$L(X,Y) = \{T:X \rightarrow Y: T \text{ is linear and bounded}\}$$
 	\end{defn}
 	
 	\begin{ex}
@@ -484,6 +487,30 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 	
 	\begin{ex}
+		Let $X,Y,Z$ be normed vector spaces, $T \in L(X,Y)$ and $S \in L(Y,Z)$. Define $ST:X \rightarrow Z$ by $STx = S(Tx)$. Then $ST \in L(X,Z)$ and $\|ST \|\leq \|S \|\|T \|$. 
+	\end{ex}
+	
+	\begin{proof}
+		Clearly $ST$ is linear. Let $x \in X$. Then 
+		\begin{align*}
+			\|ST x \|
+			& = \|S(Tx) \|\\
+			& \leq \|S \|\|Tx \|\\
+			& \leq \|S \|\|T \|\|x \|
+		\end{align*}
+		
+		So $\|ST \|\leq \|S \|\|T \|$.
+	\end{proof}
+	
+	\begin{defn}
+		Let $X,Y$ be a normed vector spaces and $T \in L(X,Y)$. Then $T$ is said to be \textbf{invertible} or an \textbf{isomorphism} if $T$ is a bijection and $T^{-1} \in L(Y,X)$.
+	\end{defn}
+	
+	\begin{defn}
+		Let $X$ be a normed vector space. Define $GL(X) := \{T \in L(X,X): T \text{ is invertible}\}$.
+	\end{defn}
+	
+	\begin{ex}
 		Let $X$ be a normed vector space. Then addition and scalar multiplication are continuous on $X \times X$ and $\|\cdot \|:X \rightarrow \Rg$ is continuous.
 	\end{ex}
 	
@@ -550,6 +577,49 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Let $\ep >0 $. Choose $N \in \N$ such that for each $m, n \in \N$ if $n,m \geq N$, then $\|T_n - T_m \|< \ep$. Then for each $n \in \N$ if $n \geq N$, then for each $x \in X$, $$\|(T_n-T_m)x\|\leq \|(T_n-T_m)\|\|x \|< \ep \|x\|$$ Combining this with the previous fact, we see that for each $n \in N$, if $n \geq N$, then for each $x \in X$, $$\|(T_n -T) x\|\leq \ep \|x \|$$ In particular, for each $n \in \N$, if $n \geq N$, then $$ \|T_n -T \|= \sup\limits_{\|x \|= 1}\|(T_n - T)x \|\leq \ep$$ This implies that $T_n$ converges to $T$ in $L(X,Y)$. 
 		Since $$\big\vert \|T_n \|- \|T \|\big \vert \leq \|T_n - T \|$$ it is clear that $\limn \|T_n \|= \|T \|$
 	\end{proof}
+	
+	\begin{defn}
+	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \prod\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then $T$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x_1, \cdots, x_n \in X$, $$\|T(x_1, \cdots, x_n)\| \leq C \|x_1\| \cdots \|x_n\|$$
+	We define $$L^n \bigg(\prod_{j=1}^n X_j, Y\bigg ) = \bigg\{T: \prod\limits_{i=1}^n X_i \rightarrow Y: T \text{ is multilinear and bounded}\bigg \}$$ 
+	If $X_1, \cdots, X_n = X$, we write $L^n(X,Y)$ in place of $L^n ( X^n, Y) $
+	\end{defn}
+	
+	\begin{ex}
+	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \prod\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then the following are equivalent:
+	\begin{enumerate}
+	\item 
+	\item 
+	\item
+	\end{enumerate}
+	\end{ex}
+	
+	
+	\newpage
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Quotient Spaces}	
 	
 	\begin{defn}
 		Let $X$ be a normed vector space and $M \subset X$ a closed subspace. Define $\|\cdot\|:X/M \rightarrow \Rg$ by $$\|x+M\| := \inf_{y \in M}\|x+y\|$$
@@ -698,95 +768,51 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Let $x,y \in \overline{M}$ and $\al \in \C$. Then there exist sequences $(x_n)_{n \in \N} \subset M$ and $(y_n)_{n \in \N} \subset M$ such that $x_n \conv{} x$ and $y_n \conv{} y$. Since $M$ is a subspace, $(x_n +y_n)_{n \in \N} \subset M$ and $(\al x_n)_{n \in \N} \subset M$. Since addition and scalar multiplication are continuous, we have that $x_n + y_n \conv{} x+y$ and $\al x_n \conv{} \al x$. Thus $x+y \in \overline{M}$ and $\al x \in \overline{M}$ and hence $\overline{M}$ is a subspace.
 	\end{proof}
 	
-	\begin{ex}
-		Let $X,Y,Z$ be normed vector spaces, $T \in L(X,Y)$ and $S \in L(Y,Z)$. Define $ST:X \rightarrow Z$ by $STx = S(Tx)$. Then $ST \in L(X,Z)$ and $\|ST \|\leq \|S \|\|T \|$. 
-	\end{ex}
+	\newpage
 	
-	\begin{proof}
-		Clearly $ST$ is linear. Let $x \in X$. Then 
-		\begin{align*}
-			\|ST x \|
-			& = \|S(Tx) \|\\
-			& \leq \|S \|\|Tx \|\\
-			& \leq \|S \|\|T \|\|x \|
-		\end{align*}
-		
-		So $\|ST \|\leq \|S \|\|T \|$.
-	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Direct Sums}
 	
 	\begin{defn}
-		Let $X,Y$ be a normed vector spaces and $T \in L(X,Y)$. Then $T$ is said to be \textbf{invertible} or an \textbf{isomorphism} if $T$ is a bijection and $T^{-1} \in L(Y,X)$.
+	Let $X_1, \cdots, X_n$ be Banach spaces and $p \in [1, \infty]$. We define $\| \cdot \|_p : \bigoplus\limits_{j=1}^n X_j \rightarrow \Rg$ by $$\|(x_j)_{j=1}^n\|_p = \|(\|x_j\|)_{j=1}^n \|_{\R^n, p}$$
 	\end{defn}
 	
-	\begin{defn}
-		Let $X$ be a Banach space. Define $GL(X) := \{T \in L(X,X): T \text{ is invertible}\}$.
-	\end{defn}
-	
-	\begin{ex}
-		Let $X$ be a Banach space. Then 
-		\begin{enumerate}
-			\item For each $T \in L(X,X)$, if $\|I- T \|< 1$, then $T$ is invertible and $$T^{-1} = \sum_{n=0}^{\infty}(I-T)^n$$
-			\item For each $S,T \in L(X,X)$, if $S$ is invertible and $\|S-T \|< \|S^{-1} \|^{-1}$, then $T$ is invertible. 
-			\item $GL(X)$ is open.
-		\end{enumerate}
+	\begin{ex}	
+	Let $X_1, \cdots, X_n$ be Banach spaces. Then 
+	\begin{enumerate}
+	\item for each $p \in [1, \infty]$, $\|\cdot\|_p:\bigoplus\limits_{j=1}^n X_j \rightarrow \Rg$ is a norm on $\bigoplus\limits_{j=1}^n X_j$
+	\item  $\{\|\cdot \|_p:  p \in [1, \infty]\}$ are equivalent. 
+	\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
-		\begin{enumerate}
-			\item Let $T \in L(X,X)$. Suppose that $\|I-T \|< 1$. Then $$\sum_{n=0}^{\infty} \|(I -T)^n \| \leq \sum_{n=0}^{\infty} \|I -T \|^{n} < \infty$$ Since $X$ is a complete, so is $L(X,X)$ and thus $\sum\limits_{n=0}^{\infty}(I-T)^n$ converges in $L(X,X)$.\\
-			Define $(S_k)_{k=0}^{\infty} \subset L(X,X)$ and $S \in L(X,X)$ by $S_k = \sum\limits_{n=0}^{k} (I-T)^n$ and \\ $S = \sum\limits_{n=0}^{\infty}(I-T)^n$. Then for each $k \in \N$,
-			\begin{align*}
-				S_k T
-				&= S_k - S_k(I-T) \\
-				&= (I-T)^0 - (I-T)^{k+1} \\
-				&= I - (I-T)^{k+1}
-			\end{align*}
-			and $\|S_kT - I \|\leq \|I-T \|^{k+1}$. Since multiplication on Banach algebras is continuous, we have that $$ST = (\lim_{k \rightarrow \infty} S_k)T = \lim\limits_{k \rightarrow \infty}S_kT = I$$
-			Similarly $TS = I$. Thus $T$ is invertible and $T^{-1} = S \in L(X,X)$. \vspace{.5cm}\\
-			\item  Let $S, T \in L(X,X)$. Suppose that $S$ is invertible and $\|S-T \|< \|S^{-1} \|^{-1}$. Then 
-			\begin{align*}
-				\|I - S^{-1}T \|
-				& = \|S^{-1}(S - T) \|\\
-				& \leq \|S^{-1} \|\|S -T \|\\
-				&< 1
-			\end{align*}
-			So $S^{-1}T$ is invertible. Thus $T = S (S^{-1}T)$ is invertible. \vspace{.5cm}\\
-			\item Let $T \in GL(X)$. Choose $\del = \|T^{-1}\|^{-1}$. By (2), $B(T, \del) \subset GL(X)$.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{defn}
-	Let $(X_n)_{n \in \N}$ be a collection of normed vector spaces. Put $X = \bigoplus\limits_{n \in \N} X_n$. Let $p \in [1, \infty]$ and define $\| \cdot \|_p: X \rightarrow \Rg$ by 
-	\[
-	\|(x_n)_{n \in \N}\|_p =
-	\begin{cases}
-	\bigg( \sum\limits_{n \in \N} \|x_n\|^p \bigg)^{1/p} & p < \infty \\
-	\sup\limits_{n \in \N} \|x_n\| & p = \infty
-	\end{cases}
-	\] 
-	We define $${\bigoplus_{n \in \N}}^pX_n = \{x \in X: \|x\|_p < \infty \}$$ and $${\bigoplus_{n \in \N}}^0X_n = \bigg \{x \in {\bigoplus_{n \in \N}}^{\infty}X_n: \lim_{n \rightarrow \infty} \|x_n\| = 0 \bigg \}$$
-	\end{defn}
-	
-	\begin{ex}
-	Let $(X_n)_{n \in \N}$ be a collection of Banach spaces. Then for each $p \in [1, \infty] \cup \{0\}$, ${\bigoplus\limits_{n \in \N}}^pX_n$ is a Banach space.
-	\end{ex}
-
-	\begin{defn}
-	Let $X_1, \cdots, X_n, Y$ be vector spaces and $T: \bigoplus\limits_{i=1}^n X_i \rightarrow Y$. Then $T$ is said to be \textbf{multilinear} if for each $x_1 \in X_1, \cdots, x_n \in X_n$, and $i \in \{1, \cdots, n\}$ the maps $T_i:X_i \rightarrow Y$ defined by $$T_i(x) = T(x_1, \cdots, x_{i-1}, x, x_{i+1}, \cdots, x_n)$$ are linear. 
-	\end{defn}
-	
-	\begin{defn}
-	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \bigoplus\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then $T$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x_1, \cdots, x_n \in X$, $$\|T(x_1, \cdots, x_n)\| \leq C \|x_1\| \cdots \|x_n\|$$
-	\end{defn}
-	
-	\begin{ex}
-	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \bigoplus\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then the following are equivalent:
 	\begin{enumerate}
+	\item Let $p \in [1, \infty]$.
 	\item 
-	\item 
-	\item
 	\end{enumerate}
-	\end{ex}
+\end{proof}		
+
+
+	
+	
+	
 
 
 
@@ -810,6 +836,10 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	
 	
+	
+	
+	
+	
 
 	
 
@@ -818,13 +848,13 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	\begin{defn}\
 		\begin{enumerate}
-		\item Let $X$ be a $\C$-vector space and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
-		\item If $X$ is a normed $\C$-vector space, then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
+		\item Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
+		\item If $X$ is a normed vector space over $\C$, then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
 		\end{enumerate}
 	\end{defn}
 	
 	\begin{note}
-	We define $X^*$ similarly when $X$ is an $\R$-vector space or normed $\R$-vector space.
+	We define $X^*$ similarly when $X$ is an vector space or normed vector space over $\R$.
 	\end{note}
 	
 	\begin{defn}
@@ -1451,34 +1481,121 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\newpage
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	\subsection{Banach Algebras}
 	
 	\begin{defn}
-		Let $X$ be a Banach space and an associative algebra. Then $X$ is said to be a \textbf{Banach algebra} if for each $S,T \in X$, $\|ST \|\leq \|S \|\|T \|$. If there exists $I \in X$ such that $I \neq 0$ and for each $T \in X$, $IT = TI = T$, then $X$ is said to be \textbf{unital} with identity $I$. An element $T \in X$ is said to be \textbf{invertible} if there exists $S \in X$ such that $TS=ST = I$.
+		Let $X$ be a Banach space and an associative algebra. Then $X$ is said to be a \textbf{Banach algebra} if for each $S,T \in X$, $\|ST \|\leq \|S \|\|T \|$. 
 	\end{defn}
 	
+	\begin{defn}
+	Let $X$ be a Banach algebra and $I \in X$. Then $I$ is said to be an \textbf{identity} if for each $T \in X$, $IT = TI = T$. 
+	\end{defn}
+	
+	\begin{defn}
+	Let $X$ be a Banach algebra. and $I \in X$. Then $I$ is said to be an \textbf{identity} if $I \neq 0$ and for each $T \in X$, $IT = TI = T$.
+	\end{defn}
+	
+	\begin{defn}
+	Let $X$ be a Banach algebra. Then $X$ is said to be \textbf{unital} if there exists $I \in X$ such that $I$ is an identity.
+	\end{defn}	
+		
+		\begin{ex}
+		Let $X$ be a unital Banach algebra. Then there exists a unique $I \in X$ such that $I$ is an identity.
+		\end{ex} 
+		
+		\begin{proof}
+		Clear.
+		\end{proof}
+		
+		\begin{note}
+		We denote the unique identity element by $I$.
+		\end{note}
+		
+		\begin{defn}
+		Let $X$ be a unital Banach algebra and $T,S \in X$. Then $S$ is said to be an 
+		\textbf{inverse} of $T$ if $TS=ST = I$.
+		\end{defn}
+
+		\begin{defn}
+		Let $X$ be a unital Banach algebra and $T \in X$. 			Then $T$ is said to be 
+		\textbf{invertible} if there exists $S \in X$ such 		that $S$ is an inverse of $T$.
+		\end{defn}
+		
+		\begin{ex}
+		Let $X$ be a unital Banach algebra and $T \in X$. If $T$ is invertible, then there exists a unique $S \in X$ such that $S$ is an inverse of $T$.
+		\end{ex}
+		
+		\begin{proof}
+		Clear.
+		\end{proof}
+		
+		\begin{note}
+		We denote the unique inverse of $T$ by $T^{-1}$.
+		\end{note}
+		
+			
+	\begin{ex}\textbf{Fundamental Example:} \\
+	Let $X$ be a Banach space. Then $GL(X)$ is a unital Banach algebra.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+		
+		\begin{defn}
+		Let $X$ be a unital Banach algebra. We define $GL(X) = \{T \in X: T \text{ is invertible}\}$.
+		\end{defn}
+		
+		\begin{ex}
+		Let $X$ be a unital Banach algebra. Then $GL(X)$ is a group.  
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
 	\begin{ex}
-		Let $X$ be a unital Banach algebra. Then $\|I \|\leq 1$. 
+		Let $X$ be a unital Banach algebra. Then $1 \leq \|I \|$. 
 	\end{ex}
 	
 	\begin{proof}
 		Since $I \neq 0$, $\|I \|\neq 0$. By definition, $$\|I \|= \|I I \|\leq \|I \|\|I \|$$ Hence $1 \leq \|I \|$.
 	\end{proof}
 	
-	\begin{note}
-		If $X$ is a Banach space, then a previous exercise implies that $L(X,X)$ equipped with composition is a unital Banach algebra where $I$ is the identity operator. It is easy to see that $\|I \|=1$.
-	\end{note}
-	
-	\begin{note}
-		Let $X$ be a  Banach algebra. Then the set of invertible elements in $X$ is a group.  
-	\end{note}
-	
 	\begin{ex}
 		Let $X$ be a Banach algebra. Then mulitplication is continuous. 
 	\end{ex}
 	
 	\begin{proof}
-		Let $(S_1,T_1) \in X \times X$ and $\ep > 0$. Choose $\del = \min\{\frac{\ep}{2(\|S_1 \|+ \|T_1 \|+1)}, \frac{\sqrt{\ep}}{\sqrt{2}}\}$. Let $(S_2, T_2) \in X \times X$. Suppose that $$\|(S_1, T_1) = (S_2, T_2) \|= \max \{ \|S_2 -S_2 \|, \|T_1 - T_2 \|\} < \del$$ Then 
+		Let $(S_1,T_1) \in X \times X$ and $\ep > 0$. Choose $\del = \min\{\frac{\ep}{2(\|S_1 \|+ \|T_1 \|+1)}, \frac{\sqrt{\ep}}{\sqrt{2}}\}$. Let $(S_2, T_2) \in X \times X$. Suppose that 
+		$$\|(S_1, T_1) - (S_2, T_2) \|= \max \{ \|S_2 -S_2 \|, \|T_1 - T_2 \|\} < \del$$ 
+		Then 
 		\begin{align*}
 			\|S_1T_1 - S_2T_2 \|
 			&= \|S_1T_1 - S_2T_1 +S_2T_1 - S_2T_2 \|\\
@@ -1491,12 +1608,55 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 		\end{align*}
 	\end{proof}
 	
+	
+	\begin{ex}
+		Let $X$ be a unital Banach algebra. Then 
+		\begin{enumerate}
+			\item For each $T \in X$, if $\|I- T \|< 1$, then $T \in GL(X)$ and $$T^{-1} = \sum_{n=0}^{\infty}(I-T)^n$$
+			\item For each $S,T \in X$, if $S \in GL(X)$  and $\|S-T \|< \|S^{-1} \|^{-1}$, then $T \in GL(X)$. 
+			\item $GL(X)$ is open.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $T \in X$. Suppose that $\|I-T \|< 1$. Then $$\sum_{n=0}^{\infty} \|(I -T)^n \| \leq \sum_{n=0}^{\infty} \|I -T \|^{n} < \infty$$ Since $X$ is a complete, $\sum\limits_{n=0}^{\infty}(I-T)^n$ converges in $X$.\\
+			Define $(S_k)_{k=0}^{\infty} \subset X$ and $S \in X$ by $S_k = \sum\limits_{n=0}^{k} (I-T)^n$ and \\ $S = \sum\limits_{n=0}^{\infty}(I-T)^n$. Then for each $k \in \N$,
+			\begin{align*}
+				S_k T
+				&= S_k - S_k(I-T) \\
+				&= (I-T)^0 - (I-T)^{k+1} \\
+				&= I - (I-T)^{k+1}
+			\end{align*}
+			and $\|S_kT - I \|\leq \|I-T \|^{k+1}$. Since multiplication on Banach algebras is continuous, we have that $$ST = (\lim_{k \rightarrow \infty} S_k)T = \lim\limits_{k \rightarrow \infty}S_kT = I$$
+			Similarly $TS = I$. Thus $T \in GL(X)$ and $T^{-1} = S \in X$. \vspace{.5cm}\\
+			\item  Let $S, T \in X$. Suppose that $S \in GL(X)$ and $\|S-T \|< \|S^{-1} \|^{-1}$. Then 
+			\begin{align*}
+				\|I - S^{-1}T \|
+				& = \|S^{-1}(S - T) \|\\
+				& \leq \|S^{-1} \|\|S -T \|\\
+				&< 1
+			\end{align*}
+			So $S^{-1}T \in GL(X)$. Thus $T = S (S^{-1}T) \in GL(X)$. \vspace{.5cm}\\
+			\item Let $T \in GL(X)$. Choose $\del = \|T^{-1}\|^{-1}$. By (2), $B(T, \del) \subset GL(X)$.
+		\end{enumerate}
+	\end{proof}	
+	
+	
+	
 	\newpage
 	
 	
 	
 	
+	\begin{note}
+		If $X$ is a Banach space, then a previous exercise implies that $L(X,X)$ equipped with composition is a unital Banach algebra where $I$ is the identity operator. It is easy to see that $\|I \|=1$.
+	\end{note}
 	
+	
+	
+	
+	\newpage
 	
 	
 	

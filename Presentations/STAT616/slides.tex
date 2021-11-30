@@ -1,0 +1,333 @@
+\documentclass[notheorems]{beamer}
+
+\usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+\usepackage{physics}
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=black,  %choose some color if you want links to stand out
+	urlcolor=cyan
+}
+
+
+%
+%
+%
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+%
+%
+%
+%
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
+
+\newtheorem{thm}{Theorem}[subsection]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}{Conjecture}
+\newtheorem{res}[thm]{Result}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{defn}[definition]{Definition}
+
+
+\theoremstyle{definition}
+\newtheorem{ex}[definition]{Exercise}
+\newtheorem{rem}[definition]{Remark}
+
+\newcommand{\al}{\alpha}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\be}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MI}{\mathcal{I}}
+
+\newcommand{\ui}{[0,1]}
+\newcommand{\p}{\partial}
+
+\newcommand{\io}{\text{ i.o.}}
+%\newcommand{\ev}{\text{ ev.}}
+\renewcommand{\r}{\rangle}
+\renewcommand{\l}{\langle}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ru}{(\infty, \infty]}
+\newcommand{\Rd}{[\infty, \infty)}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
+\newcommand{\lsc}{l.s.c. }
+
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\iso}{Iso}
+\DeclareMathOperator{\id}{id}
+
+
+%Information to be included in the title page:
+\title{Gradient Descent in Hilbert Space}
+\author{Carson James}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Outline}
+	\begin{enumerate}
+	\item Banach Spaces
+		\begin{itemize}
+		\item bounded linear maps
+		\item Frechet differentiation
+		\end{itemize}
+	\item Calculus 
+		\begin{itemize}
+		\item tools
+		\item results
+		\end{itemize}
+	\item Hilbert Spaces
+		\begin{itemize}
+		\item Riesz representation theorem
+		\item gradients
+		\end{itemize}
+	\item Convex Analysis 
+		\begin{itemize}
+		\item results for Frechet differentiable functions
+		\end{itemize}
+	\item Reproducing Kernel Hilbert Spaces
+		\begin{itemize}
+		\item representer theorem
+		\end{itemize}
+	\item Applications to Gaussian Processes
+	\begin{itemize}
+		\item predictive posterior 
+		\end{itemize}
+	
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Banach Spaces}
+	
+	\begin{defn}
+		Let $X,Y$ be a normed vector spaces and $T:X \rightarrow Y$ a linear map. Then $T$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x \in X$, $$\|Tx \|\leq C \|x \|$$ We define $$L(X,Y) = \{T:X \rightarrow Y: T \text{ is linear and bounded}\}$$
+	\end{defn}
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\begin{frame}
+	
+	\begin{defn}
+		Let $X_1, \cdots, X_n$ and $Y$ be a normed vector spaces and $T:\prod\limits_{j=1}^n X_j \rightarrow Y$ a multilinear linear map. Then $T$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $(x_j)_{j=1}^n \in \prod\limits_{j=1}^n X_j$, $$\|T(x_1, \cdots, x_n) \|\leq C \|x_1 \| \cdots \|x_n\|$$ 
+		We define $$L^n\bigg(\prod_{j=1}^n X_j,Y\bigg) = \{T:X \rightarrow Y: T \text{ is multilinear and bounded}\}$$ 
+		If $X_1, \cdots, X_n = X$, we write $L^n(X,Y)$ in place of  $L^n(\prod_{j=1}^n X_j,Y)$.
+	\end{defn}
+	
+	\end{frame}
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\begin{frame}
+	
+	\begin{rem}
+	
+	Let $X$ and $Y$ be normed vector spaces. We may identify $L(X, L(X, \cdots, L(X, Y)) \cdots)$ and $L^n(X, Y)$ via the isometric isomorphism given by $\phi \mapsto \psi_{\phi}$ where $$\psi_{\phi}(x_1, x_2, \cdots, x_n) = \phi(x_1)(x_2),\cdots,(x_n)$$ 
+	\end{rem}
+
+	\begin{defn}
+	Let $X$ be a normed vector space over $\R$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \R)$. Let $T: X \rightarrow \R$. Then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in X^*$.
+	\end{defn}
+	
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+
+	\begin{defn}
+		Let $X$ be a normed vector space. Then $X$ is said to be a \textbf{Banach space} if $X$ is complete.  
+	\end{defn}
+
+	\begin{defn}
+	Let $X, Y$ be a banach spaces, $A \subset X$ open, $f:A \rightarrow Y$ and $x_0 \in A$. Then $f$ is said to be \textbf{Frechet differentiable at $x_0$} if there exists $Df(x_0) \in L(X,Y)$ such that, $$f(x_0 + h) = f(x_0) + Df(x_0)(h) + o(\|h\| ) \hspace{.5cm} \text{ as } h \rightarrow 0$$  
+	If $f$ is Frechet differentiable at $x_0$, we define the \textbf{Frechet derivative of $f$ at $x_0$} to be $Df(x_0)$.
+	We say that $f$ is \textbf{Frechet differentiable} (or \textbf{$1$-st order Frechet differentiable}) if for each $x_0 \in A$, $f$ is Frechet differentiable at $x_0$. \\
+	If $f$ is Frechet differentiable, we define the \textbf{Frechet derivative} of $f$, denoted $Df: A \rightarrow L(X,Y)$, by $$x \mapsto Df(x)$$
+	\end{defn}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+\begin{defn}
+Let $X, Y$ be a banach spaces, $A \subset X$ open, $f:A \rightarrow Y$. We define \textbf{$n$-th} order Frechet differentiablility inductively. \\
+Since $f$  
+\end{defn}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Calculus}
+
+\begin{rem}
+The various tools used to obtain the main calculus results are the following:
+	\begin{itemize}
+	\item Frechet derivative 
+	\item Hahn-Banach theorem (not introduced)
+	\item Bochner Integral (not introduced)
+	\end{itemize}
+\end{rem}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Convex Analysis}
+
+\begin{res}
+The various tools used to obtain the main convex analysis results are the following:
+	\begin{itemize}
+	\item 
+	\item Frechet derivative 
+	\item Hahn-Banach theorem (not introduced)
+	\item Bochner Integral (not introduced)
+	\end{itemize}
+\end{res}
+\end{frame}
+
+
+
+\end{document}
