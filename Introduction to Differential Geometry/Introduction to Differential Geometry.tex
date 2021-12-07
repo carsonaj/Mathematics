@@ -210,6 +210,47 @@
 		content...
 	\end{proof}
 
+\newpage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Topology}
+
+\begin{defn}
+Let $(X, \T_X), (Y, \MT_Y)$ be topological spaces and $f:X\rightarrow Y$. Then $f$ is said to be \textbf{continuous} if for each $U \in \MT$, $f^{-1}(U) \in \MT_X$.
+\end{defn}
+
+\begin{defn}
+Let $(X, \MT_X), (Y, \MT_Y)$ be topological spaces and $f:X\rightarrow Y$. Then $f$ is said to be a homeomorphism if $f$ is a bijection and $f, f^{-1}$ are continuous. 
+\end{defn}
+
+\begin{defn}
+Let $X, Y$ be topological spaces. Then $X$ and $Y$ are said to be \textbf{homeomorphic} if there exists $f:X \rightarrow Y$ such that $f$ is a homeomorphism. If $X$ and $Y$ are homeomorphic, we write $X \cong Y$. 
+\end{defn}
+
+\begin{thm}
+Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
+\end{thm}
+
+
+
+
+
+
+
+
 
 
 
@@ -672,7 +713,7 @@
 	\end{ex}
 
 	\begin{proof}
-		Supposet that $p \in \partial M$. Then there exists a coordinate chart $(V, \psi)$ on $M$ such that $\psi(p) \in \partial \H^n$. Let $(U, \phi)$ be a coordinate chart on $M$. Suppose that $p \in U$. Note that $\phi \circ \psi : \psi(V \cap U) \rightarrow \phi(V \cap U)$ is a homeomorphism. Choose open $n$-balls $B_{\phi}$, $B_{\psi} \subset \H^n$ such that $B_{\phi} \subset \phi(V \cap U)$, $B_{\psi} \subset \psi(V \cap U)$, $\phi(p) \in B_{\phi}$ and $\psi(p) \in B_{\psi}$. For the sake of contradiction, suppose that $\phi(p) \not \in \partial \H^n$. Put $ U' = B_{\phi} \setminus \{\phi(p)\}$ and $V' = B_{\psi} \setminus \{\psi(p)\}$. Define $\lam: V' \rightarrow U'$ by $\lam = \phi \circ \psi|_{B_{\psi}}$. Then $\lam$ is a homeomorphism. Note that $V'$ is simply connected and $U'$ is not. This is a contradiction. 
+		Supposet that $p \in \partial M$. Then there exists a coordinate chart $(V, \psi)$ on $M$ such that $\psi(p) \in \partial \H^n$. Let $(U, \phi)$ be a coordinate chart on $M$. Suppose that $p \in U$. Note that $\phi \circ \psi^{-1} : \psi(V \cap U) \rightarrow \phi(V \cap U)$ is a homeomorphism. Choose open $n$-balls $B_{\phi}$, $B_{\psi} \subset \H^n$ such that $B_{\phi} \subset \phi(V \cap U)$, $B_{\psi} \subset \psi(V \cap U)$, $\phi(p) \in B_{\phi}$ and $\psi(p) \in B_{\psi}$. For the sake of contradiction, suppose that $\phi(p) \not \in \partial \H^n$. Put $ U' = B_{\phi} \setminus \{\phi(p)\}$ and $V' = B_{\psi} \setminus \{\psi(p)\}$. Define $\lam: V' \rightarrow U'$ by $\lam = \phi \circ \psi|_{B_{\psi}}$. Then $\lam$ is a homeomorphism. Note that $V'$ is simply connected and $U'$ is not. This is a contradiction. 
 	\end{proof}
 
 	\begin{ex}
@@ -769,7 +810,13 @@
 	\end{ex}
 
 	\begin{proof}
-	Suppose that $F$ is a diffeomorphism. Let $(U, \phi) \in \MA$. The previous exercise implies that $(F(U), \phi \circ F^{-1}) \in \MB$.  	
+	Suppose that $F$ is a diffeomorphism. Let $(U, \phi) \in \MA$. The previous exercise implies that $(F(U), \phi \circ F^{-1}) \in \MB$. Then 
+	\begin{align*}
+	\phi(U)
+	&= \phi \circ F^{-1}(F(U)) \\
+	&= \subset \H^n
+	\end{align*}	 
+By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{proof}
 
 
@@ -783,7 +830,7 @@
 	\subsection{The Tangent Space}
 
 	\begin{defn}
-		Let $p \in M$. Define the relation $\sim_p$ on $C^{\infty}(M)$ by $f \sim_p g$ iff there exists an open $U \subset M$ such that $f|_U = g|_U$. Clearly $\sim_p$ is an equivalence relation on $C^{\infty}(M)$. We denote $C^{\infty}(M) / \sim_p$ by $C^{\infty}_p(M)$. For $f \in C^{\infty}(M)$, we define the \textbf{germ of $f$ at $p$} to be the equivalence class of $f$ under $\sim_p$. 
+		Let $p \in M$. Define the relation $\sim_p$ on $C^{\infty}(M)$ by $f \sim_p g$ iff there exists $U \in \MN_p$ such that $U$ is open and $f|_U = g|_U$. Clearly $\sim_p$ is an equivalence relation on $C^{\infty}(M)$. We denote $C^{\infty}(M) / \sim_p$ by $C^{\infty}_p(M)$. For $f \in C^{\infty}(M)$, we define the \textbf{germ of $f$ at $p$} to be the equivalence class of $f$ under $\sim_p$. 
 	\end{defn}
 	
 	\begin{ex}
@@ -820,7 +867,7 @@
 	\begin{proof}
 		Put $h = \phi \circ \psi^{-1}$ and write $h = (h_1, \cdots, h_n)$. Then $\phi = h \circ \psi$ and $\psi^{-1} = \phi^{-1} \circ h$. By definition and the chain rule, we have that 
 		\begin{align*}
-		\eval{\pdv{y_i}_{p}} f 
+		\eval{\pdv{y_i}}_{p} f 
 			&= \eval{\pdv{u_i}}_{\psi(p)} f \circ \psi^{-1} \\
 			&= \eval{\pdv{u_i}}_{\psi(p)} f \circ \phi^{-1} \circ h \\
 			&= \sum_{j=1}^n \bigg( \eval{\pdv{u_j}}_{h \circ \psi (p)} f \circ \phi^{-1} \bigg)  \bigg( \eval{\pdv{u_i}}_{\psi(p)} h_j \bigg) \\
@@ -917,11 +964,11 @@
 	\end{proof}
 
 	\begin{ex}
-		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism and $p \in M$. Then $dF_p$ is an isomorphism.
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. If $F$ is a diffeomorphism, then $dF_p$ is an isomorphism.
 	\end{ex}
 	
 	\begin{proof}
-		Since $F$ is a homeomorphism, $\dim N = n$. Choose $(U, \phi) \in \MA$ such that $p \in U$. A previous exercise tells us that $(F(U), \phi \circ F^{-1}) \in \MB$. Write $\phi = (x_1, \cdots, x_n)$ and $\phi \circ F^{-1} = (y_1, \cdots, y_n)$. Let $f \in C^{\infty}_{F(p)}(N)$ Then 
+		Suppose that $F$ is a diffeomorphism. Since $F$ is a homeomorphism, $\dim N = n$. Choose $(U, \phi) \in \MA$ such that $p \in U$. A previous exercise tells us that $(F(U), \phi \circ F^{-1}) \in \MB$. Write $\phi = (x_1, \cdots, x_n)$ and $\phi \circ F^{-1} = (y_1, \cdots, y_n)$. Let $f \in C^{\infty}_{F(p)}(N)$ Then 
 		\begin{align*}
 			\eval{\pdv{y_i}}_{F(p)} f
 			&= 	\eval{\pdv{u_i}}_{\phi \circ F^{-1} (F(p))} f \circ (\phi \circ F^{-1})^{-1} \\
@@ -948,15 +995,67 @@
 		$$T^*M = \coprod_{p \in M} T_p^*M$$
 	\end{defn}
 	
+	
+	\newpage	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Submanifolds}
+	
+	\newpage
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Fields and Forms}
+	\subsection{Vector Fields}
+	
 	\begin{defn}
 		Let $X: M \rightarrow TM$. Then $X$ is said to be a \textbf{vector field on $M$} if for each $p \in M$, $X_p \in T_p M$. \\
-		For $f \in \C^{\infty}(M)$ we define $Xf : M \rightarrow \R$ by $$(Xf)_p = X_p(f)$$ 
-		Finally, $X$ is said to be \textbf{smooth} if for each $f \in \C^{\infty}(M)$, $Xf$ is smooth.\\
+		For $f \in \C^{\infty}(M)$, we define $Xf : M \rightarrow \R$ by $$(Xf)_p = X_p(f)$$ 
+		and $X$ is said to be \textbf{smooth} if for each $f \in \C^{\infty}(M)$, $Xf$ is smooth.\\
 		We denote the set of smooth vector fields on $M$ by $\Gam(M)$.
 	\end{defn}
 
+	\begin{defn}
+	Let $f \in C^{\infty}(M)$ and $X,Y \in \Gam(M)$. We define 
+	\begin{itemize}
+	\item $fX \in \Gam(M)$ by $$(fX)_p = f(p)X_p$$
+	\item $X+Y \in \Gam(M)$ by $$(X+Y)_p = X_p+Y_p$$
+	\end{itemize}
+	\end{defn}
+
 	\begin{ex}
-		Let $X \in \Gam(M)$ and $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then there exist $f_1, \cdots, f_n \in C^{\infty}(U)$ such that for each $p \in U$, $$X_p = \sum_{i=1}^n f_i(p) \eval{\pdv{x_i}}_{p}$$ 
+		Let $X \in \Gam(M)$ and $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then there exist $f_1, \cdots, f_n \in C^{\infty}(U)$ such that $$X|_U = \sum_{i=1}^n f_i \pdv{x_i}$$ 
 	\end{ex}
 
 	\begin{proof}
@@ -969,14 +1068,48 @@
 		\end{align*} is smooth.
 	\end{proof}
 	
+	\begin{ex}
+	Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then for each $i \in \{1, \cdots, n\}$, $$\pdv{x_i} \in \Gam(U)$$
+	\end{ex}
+	
+	\begin{proof}
+	Let $i \in \{1, \cdots, n\}$ and $f \in C^{\infty}(M)$. Define $g: M \rightarrow \R$ by $g = \pdv{x_i} f$. Let $(V, \psi) \in \MA$. Then for each $x \in \psi(U \cap V)$, 
+	\begin{align*}
+	g \circ \psi^{-1}(x) 
+	&= \eval{\pdv{x_i}}_{\psi^{-1}(x)}f \\
+	&= \eval{\pdv{u_i}}_{\phi \circ \psi^{-1}(x)}f \circ \phi^{-1}  \\
+	&= \pdv{u_i}(f \circ \phi^{-1}) \circ (\phi \circ \psi^{-1}) \\
+\end{align*}	 
+	Since $f \circ \phi^{-1}$ and $\phi \circ \psi^{-1}$ are smooth, $g \circ \psi^{-1}$ is smooth and hence $g$ is smooth. Since $f \in C^{\infty}(M)$ was arbitrary, by definition, $\pdv{x_i}$ is smooth. 
+	\end{proof}
 	\newpage
 	
-	\subsection{Submanifolds}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Tensor Fields}
+	
+	
 	
 	
 
 	
 	
+
+
+
 
 
 
@@ -986,7 +1119,7 @@
 
 	
 	\newpage	
-	\subsection{Integration on Manifolds}
+	\subsection{Differential Forms}
 	
 	\begin{defn}
 		We define $$\Lam_k (TM) = \coprod_{p \in M} \Lam_k(T_p M)$$
@@ -995,7 +1128,7 @@
 	\begin{defn}
 		Let $\om: M \rightarrow \Lam_k (TM)$. Then $\om$ is said to be a \textbf{$k$-form on $M$} if for each $p \in M$, $\om_p \in \Lam_k(T_pM)$.\\
 		For each $X_1, \cdots, X_k \in \Gam(M)$, we define $\om(X_1, \cdots, X_k) : M \rightarrow \R$ by $$\om(X_1, \cdots, X_k)_p = \om_p({X_1}_p, \cdots, {X_k}_p)$$
-		Finally, $\om$ is said to be \textbf{smooth} if for each $X_1, \cdots, X_k \in \Gam(M)$, $\om(X_1, \cdots, X_k)$ is smooth.\\
+		and $\om$ is said to be \textbf{smooth} if for each $X_1, \cdots, X_k \in \Gam(M)$, $\om(X_1, \cdots, X_k)$ is smooth.\\
 		The set of smooth $k$-forms on $M$ is denoted $\Om_k(M)$.\\
 	\end{defn} 
 
@@ -1030,9 +1163,11 @@
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in U$ and $i,j \in \{1, \cdots, n\}$. Then 
+		Let $p \in U$ and $i,j \in \{1, \cdots, n\}$. Then  by defintion,
 		\begin{align*}
-			(dx_i)_p \bigg (\eval{\pdv{x_j}}_{p} \bigg ) 
+			\bigg[ dx_i \bigg (\pdv{x_j} \bigg ) \bigg]_p 
+			&= \bigg( \pdv{x_j} x_i \bigg )_p \\
+			&= (dx_i)_p \bigg (\eval{\pdv{x_j}}_{p} \bigg ) \\
 			&= \eval{\pdv{x_j}}_{p} x_i \\
 			&= \del_{i,j} \\
 		\end{align*}
