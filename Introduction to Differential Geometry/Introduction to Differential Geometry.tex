@@ -268,15 +268,47 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \newpage
 	\section{Multilinear Algebra}
 	
-	\begin{note}
-		For the remainder of this section we let $V$ denote an $n$-dimensional vector space with basis $\{e_1, \cdots, e_n\}$ with dual space $V^*$ and dual basis $\{\ep_1, \cdots, \ep_n\}$ defined by $\ep_i(e_j) = \del_{i,j}$.
-	\end{note}
-
-	\subsection{$k$-Tensors}
+	\subsection{Introduction}
 	
 	\begin{defn}
-		Let $\al: V^k \rightarrow \R$. Then $\alpha$ is said to be \textbf{multilinear} or a \textbf{k-tensor on V} if for $i \in \{1, \cdots, k\}$, $w \in V$, $c \in \R$ and $v_1, \cdots, v_k \in V$, $$\al(v_1, \cdots, v_i + cw, \cdots, v_k) = \al(v_1, \cdots, v_i, \cdots, v_k) + c\al(v_1, \cdots, w, \cdots, v_k)$$
-		The set of all $k$-tensors on $V$ is denoted by $T_k(V)$. Define $L_0(V) = \R$.
+	Let $V_1, \dots, V_k, W$ be vector spaces and $\al : \prod_{i=1}^n V_i \rightarrow W$. Then $\al$ is said to be \textbf{multilinear} if for each $i \in \{1, \cdots, k\}$, $v \in V$, $c \in \R$ and $v_1, \cdots, v_k \in V$, $$\al(v_1, \cdots, v_i + cv, \cdots, v_k) = \al(v_1, \cdots, v_i, \cdots, v_k) + c\al(v_1, \cdots, v, \cdots, v_k)$$
+	We define $$L(V_1, \dots, V_k; W) = \{\al : \prod_{i=1}^n V_i \rightarrow W: \al \text{ is multilinear}\}$$ 
+	\end{defn}
+	
+
+	\begin{defn}
+		Let Let $V_1, \cdots, V_k, W_1, \cdots, W_l$ be vector spaces, $\al \in L(V_1, \dots, V_k; \R)$ and $\bet \in L(W_1, \dots, W_l; \R)$. We define the \textbf{tensor product} of $\al$ and $\beta$, denoted $\al \otimes \beta \in L(V_1, \dots, V_k, W_1, \dots, W_l; \R)$, by $$\al \otimes \beta (v_1, \cdots, v_k, w_{1}, \cdots, w_{l}) = \al(v_1, \cdots, v_k) \beta(w_{1}, \cdots, w_{l})$$  
+		Thus $$\otimes: L(V_1, \dots, V_k; \R) \times L(W_1, \dots, W_l; \R) \rightarrow L(V_1, \dots, V_k, W_1, \dots, W_l; \R)$$
+	\end{defn}
+
+	\begin{ex}
+		The tensor product $$\otimes: L(V_1, \dots, V_k; \R) \times L(W_1, \dots, W_l; \R) \rightarrow L(V_1, \dots, V_k, W_1, \dots, W_l; \R)$$ is associative.
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+	
+	\begin{ex}
+		The tensor product $$\otimes: L(V_1, \dots, V_k; \R) \times L(W_1, \dots, W_l; \R) \rightarrow L(V_1, \dots, V_k, W_1, \dots, W_l; \R)$$ is bilinear.
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}	
+	
+	\begin{defn}
+	
+	\end{defn}
+
+	\subsection{$k$-Tensors}	
+	
+	\begin{note}
+		For the remainder of this section we let $V$ denote an $n$-dimensional vector space with basis $\{e_1, \cdots, e_n\}$ with dual space $V^*$ and dual basis $\{\ep_1, \cdots, \ep_n\}$ defined by $\ep_i(e_j) = \del_{i,j}$. 
+	\end{note}
+	
+	\begin{defn}
+		Let $\al: V^k \rightarrow \R$. Then $\alpha$ is said to be a \textbf{k-tensor on V} if $\al \in L(V, \dots, V; \R)$. The set of all $k$-tensors on $V$ is denoted by $T_k(V)$. Define $L_0(V) = \R$.
 	\end{defn}
 
 	\begin{ex}
@@ -397,27 +429,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{defn}
-		Let $\al \in T_k(V)$ and $\beta \in T_l(V)$. The \textbf{tensor product} of $\al$ and $\beta$ is defined to be the map $\al \otimes \beta \in T_{k+l}(V)$ given by $$\al \otimes \beta (v_1, \cdots, v_k, v_{k+1}, \cdots, v_{k+l}) = \al(v_1, \cdots, v_k) \beta(v_{k+1}, \cdots, v_{k+l})$$  
-		Thus $\otimes: T_k(V) \times T_l(V) \rightarrow T_{k+l}(V)$.
-	\end{defn}
-
-	\begin{ex}
-		The tensor product $\otimes: T_k(V) \times T_l(V) \rightarrow T_{k+l}(V)$ is associative.
-	\end{ex}
-
-	\begin{proof}
-		Clear.
-	\end{proof}
-	
-	\begin{ex}
-		The tensor product $\otimes: T_k(V) \times T_l(V) \rightarrow T_{k+l}(V)$ is bilinear.
-	\end{ex}
-
-	\begin{proof}
-		Clear.
-	\end{proof}
-	
-	\begin{defn}
 		Let $\al \in \Lam_k(V)$ and $\beta \in \Lam_l(V)$. The \textbf{exterior product} of $\al$ and $\beta$ is defined to be the map $\al \wedge \beta \in \Lam_{k+l}(V)$ given by $$\al \wedge \beta = \frac{(k+l)!}{k! l!} A(\al \otimes \beta)$$ 
 		Thus $\wedge: \Lam_k(V) \times \Lam_l(V) \rightarrow \Lam_{k+l}(V)$.
 	\end{defn}
@@ -522,7 +533,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{ex}
 
 	\begin{proof}
-		Note that For $\sig \in S_{k+l}$ and $v_1, \cdots, v_{k +l} \in V$, we have that 
+		Define $\tau \in S_{k+l}$ as in the previous exercise. Note that For $\sig \in S_{k+l}$ and $v_1, \cdots, v_{k +l} \in V$, we have that 
 		\begin{align*}
 			\sig \tau (\bet \otimes \al)(v_1, \cdots, v_l, v_{l+1}, \cdots v_{l+k}) 
 			&= \bet \otimes \al(v_{\sig \tau(1)}, \cdots, v_{\sig \tau(l)}, v_{\sig \tau(l+1)}, \cdots v_{\sig \tau(l+k)}) \\
@@ -532,8 +543,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			&= \al \otimes \bet (v_{\sig (1)}, \cdots v_{\sig (k)}, v_{\sig (1+k)}, \cdots, v_{\sig (l+k)}) \\
 			&= \sig (\al \otimes \bet) (v_1, \cdots, v_k, v_{1+k}, \cdots v_{l+k})
 		\end{align*}
-		Thus $\sig \tau (\bet \otimes \al) = \sig (\al \otimes \bet)$.
-		Define $\tau$ as in the previous exercise. Then 
+		Thus $\sig \tau (\bet \otimes \al) = \sig (\al \otimes \bet)$. Then 
 		\begin{align*}
 			\bet \wedge \al
 			&= \frac{(k+l)!}{k!l!}A(\bet \otimes \al) \\
@@ -548,7 +558,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{ex}
-		Let $\al_\in \Lam_k(V)$. If $k$ is odd, then $\al \wedge \al = 0$. 
+		Let $\al \in \Lam_k(V)$. If $k$ is odd, then $\al \wedge \al = 0$. 
 	\end{ex}
 
 	\begin{proof}
@@ -643,7 +653,9 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	\subsection{$(r,s)$-Tensors}
 	
-	
+	\begin{defn}
+	Let $\al: (V^*)^r \times V^s \rightarrow \R$. Then $\al$ is said to be an $(r,s)$-tensor on $V$ if $\al \in L(V^*, \dots, V^*, V, \dots, V; \R)$. The set of all $(r,s)$-tensors on $V$ is denoted $T^r_s(V)$.
+	\end{defn}
 	
 	
 	
@@ -899,7 +911,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $f \equiv 1$. Then $f^2 = f$ and $v(f^2) = 2v(f)$. So $v(f) = 2v(f)$ which implies that $v(f) = 0$. If $f \not \equiv 1$, then there exists $c \in \R$ such that $f \equiv c$. Since $v$ is linear, $v(f) = cv(1) = 0$.
+		Suppose that $f = 1$. Then $f^2 = f$ and $v(f^2) = 2v(f)$. So $v(f) = 2v(f)$ which implies that $v(f) = 0$. If $f \neq 1$, then there exists $c \in \R$ such that $f = c$. Since $v$ is linear, $v(f) = cv(1) = 0$.
 	\end{proof}
 
 	\begin{ex}
@@ -1053,19 +1065,27 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\item $X+Y \in \Gam(M)$ by $$(X+Y)_p = X_p+Y_p$$
 	\end{itemize}
 	\end{defn}
+	
+	\begin{ex}
+	The set $\Gam(M)$ is a $C^{\infty}(M)$-module.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
 
 	\begin{ex}
-		Let $X \in \Gam(M)$ and $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then there exist $f_1, \cdots, f_n \in C^{\infty}(U)$ such that $$X|_U = \sum_{i=1}^n f_i \pdv{x_i}$$ 
+		Let $X \in \Gam(M)$ and $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then $$X|_U = \sum_{i=1}^n (Xx_i) \pdv{x_i}$$ 
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \eval{\pdv{x_{1}}}_{p}, \cdots, \eval{\pdv{x_{n}}}_{p} \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f_i(p) \eval{\pdv{x_i}}_{p}$. Let $j \in \{1, \cdots, n\}$. Since $X$ is smooth, the map 
+		Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \eval{\pdv{x_{1}}}_{p}, \cdots, \eval{\pdv{x_{n}}}_{p} \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f_i(p) \eval{\pdv{x_i}}_{p}$. Let $j \in \{1, \cdots, n\}$. Then,
 		\begin{align*}
-			p 
-			& \mapsto X_p(x_j) \\
+			X_p(x_j) 
 			&= \sum\limits_{i=1}^n f_i(p) {\pdv{x_j}{x_i}}(p) \\
 			&= f_j(p) \\
-		\end{align*} is smooth.
+		\end{align*} 
+		Hence $Xx_j = f_j$ and $X|_U = \sum\limits_{i=1}^n (Xx_i) \pdv{x_i}$.
 	\end{proof}
 	
 	\begin{ex}
@@ -1082,7 +1102,6 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 \end{align*}	 
 	Since $f \circ \phi^{-1}$ and $\phi \circ \psi^{-1}$ are smooth, $g \circ \psi^{-1}$ is smooth and hence $g$ is smooth. Since $f \in C^{\infty}(M)$ was arbitrary, by definition, $\pdv{x_i}$ is smooth. 
 	\end{proof}
-	\newpage
 	
 	
 	
@@ -1096,23 +1115,6 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	
 	
-	
-	
-	
-	\subsection{Tensor Fields}
-	
-	
-	
-	
-
-	
-	
-
-
-
-
-
-
 	
 	
 	
@@ -1135,6 +1137,22 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\begin{note}
 		Observe that $\Om_0(M) = C^{\infty}(M)$.
 	\end{note}
+	
+	\begin{defn}
+	Let $f \in C^{\infty}(M)$ and $\al, \bet \in \Om_k(M)$. We define 
+	\begin{itemize}
+	\item $f \al \in \Om_k(M)$ by $$(f\al)_p = f(p)\al_p$$
+	\item $\al+\bet \in \Om_k(M)$ by $$(\al+\bet)_p = \al_p+\bet_p$$
+	\end{itemize}
+	\end{defn}	
+	
+	\begin{ex}
+	The set $\Om_k(M)$ is a $C^{\infty}(M)$-module.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
 
 	\begin{defn}
 		Define the \textbf{exterior product} $$\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $$ by $$(\al \wedge \beta)_p = (\al)_p \wedge (\beta)_p$$
@@ -1142,24 +1160,34 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{defn}
 	
 	\begin{note}
-		All of the results from multilinear algebra apply here.
-	\end{note}
-
-	\begin{note}
 		For $f \in \Om_0(M)$ and $\al \in \Om_k(M)$, we have that $f \wedge \al = f \al$.
+	\end{note}
+	
+	\begin{ex}
+	The exterior product $\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $ is $C^{\infty}(M)$-bilinear.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{note}
+		All of the results from multilinear algebra apply here.
 	\end{note}
 
 	\begin{defn}
 		We define the \textbf{exterior derivative} $d: \Om_k(M) \rightarrow \Om_{k+1}(M)$ inductively by 
 		\begin{enumerate}
+			\item $d(d \al) = 0$ for $\al \in \Om_p(M)$
 			\item $df(X) = Xf$ for $f \in \Om_0(M)$
-			\item $d(\al \wedge \bet) = d\al \wedge \bet + (-1)^p \al \wedge d\bet$ for $al \in \Om_p(M)$ and $\bet \in \Om_q(M)$
+			\item $d(\al \wedge \bet) = d\al \wedge \bet + (-1)^p \al \wedge d\bet$ for $\al \in \Om_p(M)$ and $\bet \in \Om_q(M)$
 			\item extending linearly
 		\end{enumerate}
 	\end{defn}
 
 	\begin{ex}
-		Let $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then on $U$, for each $i,j \in \{1, \cdots, n\}$, $$dx_i\bigg(\pdv{x_j} \bigg) \equiv \del_{i,j}$$
+		Let $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then on $U$, for each $i,j \in \{1, \cdots, n\}$, $$dx_i\bigg(\pdv{x_j} \bigg) = \del_{i,j}$$ 
+		In particular, for each $p \in U$, $\{(dx_1)_p, \cdots, (dx_n)_p \}$ is the dual basis to $\bigg \{ \eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ and $T_p^*M = \spn\{(dx_1)_p, \cdots, (dx_n)_p\}$.
 	\end{ex}
 
 	\begin{proof}
@@ -1167,18 +1195,13 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 		\begin{align*}
 			\bigg[ dx_i \bigg (\pdv{x_j} \bigg ) \bigg]_p 
 			&= \bigg( \pdv{x_j} x_i \bigg )_p \\
-			&= (dx_i)_p \bigg (\eval{\pdv{x_j}}_{p} \bigg ) \\
 			&= \eval{\pdv{x_j}}_{p} x_i \\
 			&= \del_{i,j} \\
 		\end{align*}
 	\end{proof}
 
-	\begin{note}
-		The previous exercise tells us that for each $p \in U$, $\{(dx_1)_p, \cdots, (dx_n)_p \}$ is the dual basis to $\bigg \{ \eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$.
-	\end{note}
-
 	\begin{ex}
-		Let $f \in C^{\infty}(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then on $U$, $df = \sum_{i=1}^n \pdv{f}{x_i} dx_i$
+		Let $f \in C^{\infty}(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then on $U$, $df|_U = \sum_{i=1}^n \pdv{f}{x_i} dx_i$
 	\end{ex}
 
 	\begin{proof}
@@ -1194,11 +1217,29 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 			&= \eval{\pdv{x_j}}_{p} f \\ 
 			&= {\pdv{f}{x_j}}(p)\\
 		\end{align*}
-		So $$(df)_p = \sum\limits_{i=1}^n {\pdv{f}{x_j}}(p)(dx_i)_p$$ and therefore on $U$, we have that $$df = \sum\limits_{i=1}^n {\pdv{f}{x_i}}dx_i$$
+		So $a_j(p) = {\pdv{f}{x_j}}(p)$ and $$(df)_p = \sum\limits_{i=1}^n {\pdv{f}{x_j}}(p)(dx_i)_p$$
+		Therefore $$df|_U = \sum\limits_{i=1}^n {\pdv{f}{x_i}}dx_i$$
 	\end{proof}
+	
+	\begin{ex}
+	Let $f \in \Om_0(M)$. If $f$ is constant, then $df = 0$. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ is constant. Let $p \in M$. Choose $(U, \phi) \in \MA$ such that $p \in U$. Write $\phi = (x_1, \dots, x_n)$. Then for each $i \in \{1, \dots, n\}$, $$\eval{\pdv{x_i}}_p f = 0$$ This implies that 
+	\begin{align*}
+	(df)_p 
+	&= \sum\limits_{i=1}^n {\pdv{f}{x_j}}(p)(dx_i)_p \\
+	&= 0
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	
+	\end{ex}
 
 	\begin{defn}
-		Let $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$ and $I = (i_1, \cdots, i_k) \in \MI_k$. We define $$dx_I = dx_{i_1} \wedge \cdots \wedge dx_{i_k} \in \Om_k(M)$$ 
+		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $I = (i_1, \cdots, i_k) \in \MI_k$. We define $$dx_I = dx_{i_1} \wedge \cdots \wedge dx_{i_k} \in \Om_k(M)$$ 
 		and we define $$\pdv{x_I}= \bigg(\pdv{x_{i_1}}, \cdots, \pdv{x_{i_k}} \bigg)$$
 
 	\end{defn}
@@ -1241,6 +1282,23 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Tensor Fields}
 	
 	
 	
