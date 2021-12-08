@@ -514,6 +514,18 @@ The idea is as follows. If $f:H \rightarrow \R$ is Frechet differentiable. Then 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Convex Analysis}
 
 \subsection{Results}
@@ -723,6 +735,58 @@ Hence $$\nabla L(f_0) = 2\bigg [ \sum_{j=1}^n (f_0(t_j)- y_j) K_{t_j} + \lam f_0
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+\section{Applications to Gaussian Processes}
+\begin{frame}
+\frametitle{Applications to Gaussian Processes}
+\begin{rem}
+Let $T$ be a set and $x = (x_j)_{j=1}^n \in T^n$, $y = (y_j)_{j=1}^n \in \R^n$. From Gaussian processes, we know that if 
+\begin{align*}
+y_i &= f(x_i) + \ep_i \\
+\ep_i &\sim N(0, \sig^2) \\
+f &\sim GP(0, c)
+\end{align*}
+Then $$f|x, y \sim GP(\tilde{\mu}, \tilde{c})$$ where $$\tilde{\mu}(t) = c(t, x)[c(x,x) + \sig^2I]^{-1}y$$ and $$\tilde{c}(s,t) = c(s,t) - c(s,x)[c(x,x) + \sig^2 I]^{-1}c(x,t)$$
+
+\end{rem}
+\end{frame}
+
+\begin{frame}
+\begin{rem}
+If $c(x,x) + \sig^2I$ is too costly to invert, we may set up the following convex optimization problem to approximate the posterior mean and posterior covariance functions:
+$$\hat{h}(t) = \argmin_{h \in H} \sum_{j=1}^n (y_j - h(t_j))^2 + \sig^2 \|h\|_H$$ where $H$ is the RKHS corresponding to the p.d. kernel $c$
+\end{rem}
+\end{frame}
+
+
+\begin{frame}
+\section{References}
+\frametitle{References}
+
+\begin{itemize}
+\item \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{analysis notes}
+
+\item \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{integration notes}
+
+\item \href{https://en.wikipedia.org/wiki/Reproducing_kernel_Hilbert_space}{RKHS's}
+
+\item \href{https://en.wikipedia.org/wiki/Representer_theorem}{Representer Theorem}
+\end{itemize}
+
+
+
+
+\end{frame}
 
 
 \end{document}
