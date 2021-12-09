@@ -142,14 +142,14 @@
 
 \twocolumn[
 
-\aistatstitle{Short Application of Optimization on RKHS}
+\aistatstitle{An Overview of Gradient Descent in Reproducing Kernel Hilbert Spaces}
 
-\aistatsauthor{ Carson James }
+\aistatsauthor{Carson James}
 
-\aistatsaddress{ Texas A&M University } ]
+\aistatsaddress{Texas A&M University} ]
 
 \begin{abstract}
-  This report will give an overview of various tools used to perform gradient descent in the context of reproducing kernel hilbert spaces and will present an application to Gaussian processes. 
+  This report will give an overview of various tools used to perform gradient descent in the context of reproducing kernel Hilbert spaces and will present an application to Gaussian processes. 
 \end{abstract}
 
 \section{Banach Spaces}
@@ -395,7 +395,7 @@ Then $$f|x, y \sim GP(\tilde{\mu}, \tilde{c})$$ where $$\tilde{\mu}(t) = c(t, x)
 If $(c(x,x) + \sig^2I)^{-1}$ is too expensive to compute, we may set up the following convex optimization problems to approximate the posterior mean and posterior covariance functions via our gradient descent algorithm:
 \begin{itemize}
 \item $$\tilde{\mu}(t) = \argmin_{f \in H} \sum_{j=1}^n (y_j - f(t_j))^2 + \sig^2 \|h\|_H$$ 
-\item Fixing $t \in T$, $$\hat{c}(\cdot, t) = \argmin_{f \in H} \sum_{j=1}^n (c(x_j, t) - f(t_j))^2 + \sig^2 \|h\|_H$$
+\item Fixing $t \in T$, $$\hat{c}(\cdot, t) = \argmin_{f \in H} \sum_{j=1}^n (c(t_j, t) - f(t_j))^2 + \sig^2 \|h\|_H$$
 \end{itemize}
 where $H$ is the RKHS corresponding to the p.d. kernel $c$. \\
 The first optimization problem lets us approximate $\tilde{\mu}$ directly by gradient descent and the second optimization problem lets us approximate $\tilde{c}(t)$ by finding $\hat{c}(\cdot, t)$ via gradient descent and the computing $\tilde{c}(s, t) = c(s, t) - \hat{c}(\cdot, t)$.
