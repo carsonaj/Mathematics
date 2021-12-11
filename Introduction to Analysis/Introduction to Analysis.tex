@@ -2316,6 +2316,10 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	Then $\phi(h) - \psi(h) = o(h)$. Since $\phi - \psi$ is linear, the previous exercise implies that $\phi = \psi$.
 	\end{proof}
 	
+	\begin{note}
+	Recall that for Banach spaces $X$ and $Y$, there isomorphic isometry $$L(X, L(X, \cdots, L(X, Y)) \cdots) \rightarrow L^n(X, Y)$$ given by $\phi \mapsto \psi_{\phi}$ where $$\psi_{\phi}(x_1, x_2, \cdots, x_n) = \phi(x_1)(x_2),\cdots,(x_n)$$
+	\end{note}	
+	
 	\begin{defn}\textbf{Frechet Derivative:} \\
 	Let $X, Y$ be a banach spaces, $A \subset X$ open, $f:A \rightarrow Y$ and $x_0 \in A$. 
 	\begin{enumerate}
@@ -2392,10 +2396,6 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	So $f$ is Frechet differentiable at $x_0$ and $Df(x_0) = df(x_0)$.
 	\end{proof}
 	
-	\begin{note}
-	Recall that for Banach spaces $X$ and $Y$, there isomorphic isometry $L(X, L(X, \cdots, L(X, Y)) \cdots) \rightarrow L^n(X, Y)$ given by $\phi \mapsto \psi_{\phi}$ where $$\psi_{\phi}(x_1, x_2, \cdots, x_n) = \phi(x_1)(x_2),\cdots,(x_n)$$
-	\end{note}	
-	
 	\newpage
 	\subsection{The Calc I Derivative}
 	\begin{defn}\textbf{Calc I Derivative:}\\
@@ -2447,8 +2447,8 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	
 	
 	\begin{ex}
-	Let $X,Y$ be Banach spaces, $A \subset X$ open, $f \in C^n(A, Y), x_0 \in A$ and $h \in X$. Suppose $B(x_0, \del) \subset A$ and $\|h\|<\del$. Define $c:(0,1) \rightarrow X$ by $$c(t) = x_0 + th$$ and $g:(0,1) \rightarrow Y$ by $$g = f \circ c$$
-	Then for each $k \in \{1 \dots, n\}$, $$g^{(k)}(t) = D^kf(x_0 + th)(h^{\oplus k})$$
+	Let $X,Y$ be Banach spaces, $A \subset X$ open, $f \in C^n(A, Y), x_0 \in A$, and $h \in X$. Suppose that $\{x_0 +tx:T \in [0,1]\} \subset A$. Define and $g:(0,1) \rightarrow Y$ by $$g(t) = f(x_0 + th)$$
+	Then for each $k \in \{1 \dots, n\}$ and $t \in (0,1)$, $$g^{(k)}(t) = D^kf(x_0 + th)(h^{\oplus k})$$
 	\end{ex}
 	
 	\begin{proof}
@@ -2583,7 +2583,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	\end{proof}
 	
 	\begin{ex}\textbf{Fundamental Theorem of Calculus:}
-	Let $Y$ be a separable Banach space and $f \in C^1_Y(a,b)$. Then for each $x, x_0 \in (a,b)$, $x_0 < x$ implies that 
+	Let $Y$ be a separable Banach space and $f \in C^1((a,b), Y)$. Then for each $x, x_0 \in (a,b)$, $x_0 < x$ implies that 
 	\begin{enumerate}
 	\item $f'$ is Bochner integrable on $(x_0, x]$ 
 	\item  $$f(x) - f(x_0) = \int_{(x_0, x]}f'dm$$ 
@@ -2592,7 +2592,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 
 	\begin{proof}
 	\begin{enumerate}
-	\item Since $f \in C^1_Y(a,b)$, a previous exercise tells us that $f' \in C_Y(a,b)$. Let $x, x_0 \in (a,b)$. Suppose that $x_0 < x$. Choose $c,d \in (a,b)$ such that $a < c < x_0< x< d < b$. Then $f'$ is continuous on $[c,d]$ and hence Bochner-integrable on $(c,d]$ and $(x_0,x]$. 
+	\item Since $f \in C^1((a,b), Y)$, a previous exercise tells us that $f' \in C_Y(a,b)$. Let $x, x_0 \in (a,b)$. Suppose that $x_0 < x$. Choose $c,d \in (a,b)$ such that $a < c < x_0< x< d < b$. Then $f'$ is continuous on $[c,d]$ and hence Bochner-integrable on $(c,d]$ and $(x_0,x]$. 
 	\item Define $g: (c,d) \rightarrow Y$ by $$g(\xi) = \int_{(c, \xi]}f'dm$$
 	Then the previous exercise implies that $g \in C^1_Y(c,d)$ and for each $t \in (c, d)$, $g'(t) = f'(t)$. Let $t \in (c,d)$ and $h \in \R$. Then
 	\begin{align*}
@@ -2625,9 +2625,19 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	
 	
 	\begin{ex}\textbf{Taylor's Theorem:}\\
-	Let $X$ be a Banach space, $Y$ a separable Banach space, $A \subset X$ open and convex, $f\in C^n(A, Y)$ and $x_0 \in A$. Then $$f(x_0 + h) = \sum_{k=0}^n \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + o(\|h\|^n) \hspace{1cm }\text{ as } h \rightarrow 0$$
-	\textbf{Hint:} Define $g: (0,1) \rightarrow Y$ by $$g(t) = f(x_0 +t h)$$ Then use the previous two exercises and the fundamental theorem of calculus.
+	Let $X$ be a Banach space, $Y$ a separable Banach space, $A \subset X$ open and convex, $f\in C^n(A, Y)$, $x_0 \in A$, and $h \in X$. Suppose $x_0 + h \in A$. Then $$f(x_0 + h) = \sum_{k=0}^{n-1} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + R(x_0;h)$$ where $$R(x_0;h) = \frac{1}{(n-1)!}\int_{(0,1)} (1-t)^{n-1}D^nf(x_0 + th)(h^{\oplus n})d m(t)$$
+	\textbf{Hint:} Define $g: (0,1) \rightarrow Y$ by $$g(t) = f(x_0 +t h)$$ Then use the previous exercise and the fundamental theorem of calculus.
 	\end{ex}
+	
+	\begin{proof}
+	For each $k \in \{1, \dots, n\}$, a previous exercise implies that $g^{(k)}(t) = D^kf(x_0 + th)(h^{\oplus k})$, so $g^{(k)}(0) = D^kf(x_0)(h^{\oplus k})$. The previous exercise and the fundamental theorem of calculus tell us that 
+	\begin{align*}
+	f(x_0 +h) - \sum_{k=0}^{n-1} \frac{1}{k!}D^kf(x_0)(h^{\oplus k})
+	&= g(1) - \sum_{k=0}^{n-1} \frac{1}{k!}g^{(k)}(0)\\
+	&= \int_{(0,1)} \bigg [\dv{t} \sum_{k=0}^{n-1} \frac{(1-t)^k}{k!}g^{(k)}(t)\bigg ] dm(t) \\
+	&= \int_{(0,1)} \frac{(1-t)^{n-1}}{(n-1)!}g^{(n)}(t) dm(t)
+	\end{align*}	 
+	\end{proof}
 	
 	
 
@@ -2676,6 +2686,31 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	\begin{defn}
 	Let $X$ be a vector space and $f:A \rightarrow R$. Then $f$ is said to be \textbf{convex} if for each $x,y \in A$, $t \in \ui$, $$f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)$$
 	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, and $f: A \rightarrow \R$. Suppose that $f$ is Frechet differentiable. Then $f$ is convex (resp. strictly convex) iff for each $x \in A$, $f(y) \geq f(x) + Df(x)(y-x)$  (resp. $>$).
+	\end{ex}	
+	
+	\begin{proof}
+	
+	\end{proof}		
+		
+		
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, and $f \in C^2(A)$. Then $f$ is convex (resp. strictly convex) iff for each $x \in A$, $D^2f(x)$ is positive semidefinite (resp. positive definite)
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that for each $x \in A$, $D^2f(x)$ is positive semidefinite. Let $x, y \in A$. Put $h = y-x$. Taylor's theorem implies that 
+	\begin{align*}
+	f(y) - f(x)
+	&= f(x+h) - f(x) \\ 
+	&= Df(x)(h) + \int_{(0,1)} (1-t)D^2f(x + th)(h, h)d m(t) \\
+	& \geq Df(x)(h) \\
+	&= Df(x)(y-x)  
+	\end{align*}
+	So $f$ is convex. Conversely, suppose that $f$ is convex.
+	\end{proof}
 	
 	\begin{ex}
 	Let $X$ be a vector space, $f \in X^*$ and $g: X \rightarrow \R$ constant. Then $f$ and $g$ are convex. 
@@ -2878,22 +2913,25 @@ So $f \circ g$ is convex.
 	Similarly, choosing $z = p^{-1}(x_2 - qx_1)$, yields $f(x_2) - f(x_1) \leq 2M \|x_1 - x_2 \|$ which implies that $$|f(x_1) - f(x_2)| \leq 2M \|x_1 - x_2 \|$$ and $f$ is Lipschitz on $U$. 
  	\end{proof}
 
-		
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	\newpage
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\subsection{Differentiation}
+	\subsection{The Subdifferential}
 	
 	\begin{ex}
 	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $x_0 \in A$ and $x \in X$. Define $T = \{ t \in \R: x_0+tx \in A\}$. Then there exist $a, b \in (0, \infty]$ such that $T = (-a, b)$.
@@ -3070,7 +3108,7 @@ So $f \circ g$ is convex.
 	Suppose that $f$ is continuous at $x_0$. The previous exercise implies that $d^+f(x_0)$ is Lipschitz (equivalently bounded). A previous exercise in the section discussing sublinear functionals tells us that boundedness of $d^+f(x_0)$ implies that there exists $\phi \in X^*$ such that $\phi \leq d^+f(x_0)$.
 	\end{proof}
 	
-	\begin{defn}
+	\begin{defn}\textbf{Subdifferential:}\\
 	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. We define the \textbf{subdifferential of $f$ at $x_0$}, denoted $\p f(x_0)$, to be $$\p f(x_0) = \{ \phi \in X^*: \text{for each } x \in A, f(x_0) + \phi(x-x_0) \leq f(x)\}$$
 	\end{defn}
 	
@@ -3164,7 +3202,9 @@ So $f \circ g$ is convex.
 	\end{proof}
 	
 	
-	\newpage \subsection{Conjugacy}
+	
+	\newpage 
+	\subsection{Conjugacy}
 	
 	\begin{defn}
 	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Define $A^* \subset X^*$ and $f^*: A^* \rightarrow \R$ by $$A^* = \bigg \{\phi \in X^*: \sup_{x \in A} \bigg[ \phi(x) - f(x) \bigg] < \infty \bigg  \}$$ and $$f^*(\phi) = \sup_{x \in A} \bigg[ \phi(x) - f(x) \bigg] $$ 
