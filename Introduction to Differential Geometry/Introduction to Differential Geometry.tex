@@ -38,10 +38,7 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
 \newtheorem{defn}[definition]{Definition}
-
-\theoremstyle{remark}
-\newtheorem{remark}{Note}[subsection]
-\newtheorem{note}[remark]{Note}
+\newtheorem{note}[definition]{Note}
 
 \theoremstyle{definition}
 \newtheorem{ex}[definition]{Exercise}
@@ -79,8 +76,12 @@
 \newcommand{\ME}{\mathcal{E}}
 \newcommand{\MT}{\mathcal{T}}
 \newcommand{\MI}{\mathcal{I}}
+\newcommand{\MJ}{\mathcal{J}}
 \newcommand{\MM}{\mathcal{M}}
 \newcommand{\MX}{\mathcal{X}}
+
+\newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
+\newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
 
 
 \newcommand{\p}{\partial}
@@ -270,56 +271,181 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \newpage
 	\section{Multilinear Algebra}
 	
-	\subsection{Introduction}
+	\subsection{$(r,s)$-Tensors}
 	
 	\begin{defn}
 	Let $V_1, \dots, V_k, W$ be vector spaces and $\al : \prod_{i=1}^n V_i \rightarrow W$. Then $\al$ is said to be \textbf{multilinear} if for each $i \in \{1, \cdots, k\}$, $v \in V$, $c \in \R$ and $v_1, \cdots, v_k \in V$, $$\al(v_1, \cdots, v_i + cv, \cdots, v_k) = \al(v_1, \cdots, v_i, \cdots, v_k) + c\al(v_1, \cdots, v, \cdots, v_k)$$
-	We define $$L(V_1, \dots, V_k; W) = \{\al : \prod_{i=1}^n V_i \rightarrow W: \al \text{ is multilinear}\}$$ 
-	\end{defn}
-	
-
-	\begin{defn}
-		Let Let $V_1, \cdots, V_k, W_1, \cdots, W_l$ be vector spaces, $\al \in L(V_1, \dots, V_k; \R)$ and $\bet \in L(W_1, \dots, W_l; \R)$. We define the \textbf{tensor product} of $\al$ and $\beta$, denoted $\al \otimes \beta \in L(V_1, \dots, V_k, W_1, \dots, W_l; \R)$, by $$\al \otimes \beta (v_1, \cdots, v_k, w_{1}, \cdots, w_{l}) = \al(v_1, \cdots, v_k) \beta(w_{1}, \cdots, w_{l})$$  
-		Thus $$\otimes: L(V_1, \dots, V_k; \R) \times L(W_1, \dots, W_l; \R) \rightarrow L(V_1, \dots, V_k, W_1, \dots, W_l; \R)$$
-	\end{defn}
-
-	\begin{ex}
-		The tensor product $$\otimes: L(V_1, \dots, V_k; \R) \times L(W_1, \dots, W_l; \R) \rightarrow L(V_1, \dots, V_k, W_1, \dots, W_l; \R)$$ is associative.
-	\end{ex}
-
-	\begin{proof}
-		Clear.
-	\end{proof}
-	
-	\begin{ex}
-		The tensor product $$\otimes: L(V_1, \dots, V_k; \R) \times L(W_1, \dots, W_l; \R) \rightarrow L(V_1, \dots, V_k, W_1, \dots, W_l; \R)$$ is bilinear.
-	\end{ex}
-
-	\begin{proof}
-		Clear.
-	\end{proof}	
-	
-	\begin{defn}
-	
-	\end{defn}
-
-	\subsection{$k$-Tensors}	
+	We define $$L(V_1, \dots, V_k; W) = \bigg \{\al : \prod_{i=1}^n V_i \rightarrow W: \al \text{ is multilinear} \bigg\}$$ 
+	\end{defn}	
 	
 	\begin{note}
-		For the remainder of this section we let $V$ denote an $n$-dimensional vector space with basis $\{e_1, \cdots, e_n\}$ with dual space $V^*$ and dual basis $\{\ep_1, \cdots, \ep_n\}$ defined by $\ep_i(e_j) = \del_{i,j}$. 
-	\end{note}
+		For the remainder of this section we let $V$ denote an $n$-dimensional vector space with basis $\{e_1, \cdots, e_n\}$ with dual space $V^*$ and dual basis $\{\ep_1, \cdots, \ep_n\}$ defined by $\ep_i(e_j) = \del_{i,j}$. We identify $V$ with $V^{**}$ by the isomorphism $V \rightarrow V^{**}$ defined by $v \mapsto \hat{v}$ where $\hat{v}(\al) = \al(v)$ for each $\al \in V^*$. 
+	\end{note}	
 	
 	\begin{defn}
-		Let $\al: V^k \rightarrow \R$. Then $\alpha$ is said to be a \textbf{k-tensor on V} if $\al \in L(V, \dots, V; \R)$. The set of all $k$-tensors on $V$ is denoted by $T_k(V)$. Define $L_0(V) = \R$.
+	Let $\al: (V^*)^r \times V^s \rightarrow \R$. Then $\al$ is said to be an $(r,s)$-tensor on $V$ if $\al \in L(\underbrace{V^*, \dots, V^*}_{r}, \underbrace{V, \dots, V}_{s}; \R)$. The set of all $(r,s)$-tensors on $V$ is denoted $T^r_s(V)$. \\
+	When $r=s=0$, we set $T^r_s = \R$.
 	\end{defn}
-
+	
 	\begin{ex}
-		We have that $T_k(V)$ is a vector space. 
+		We have that $T^r_s(V)$ is a vector space. 
 	\end{ex}
 
 	\begin{proof}
 		Clear.
 	\end{proof}
+	
+	\begin{ex}
+	Under the identification of $V$ with $V^{**}$ as noted above, we have that $V = T^1_0(V)$. 
+	\end{ex}
+	
+	\begin{proof}
+	By definition,
+	\begin{align*}
+	V 
+	&= V^{**} \\
+	&= L(V^*; \R) \\
+	&= T^1_0(V)
+	\end{align*}
+	\end{proof}
+	
+	\begin{defn}
+	Let $\al \in \Tn{1}$ and $\bet \in \Tn{2}$. We define the \textbf{tensor product of $\al$ with $\bet$}, denoted $\al \otimes \beta \in T^{r_1+r_2}_{s_1+s_2}(V)$, by $$\al \otimes \bet (v^*, w^*, v, w) = \al(v^*, v) \bet(w^*, w)$$ for each $v^* \in (V^*)^{r_1}$, $w^* \in (V^*)^{r_2}$, $v \in V^{s_1}$ and $w \in V^{s_2}$.\\
+	When $r_1=s_1=r_2=s_2= 0$ (so that $\al, \bet \in \R$), we set $\al \otimes \bet = \al \bet$.
+	\end{defn}
+	
+	\begin{defn}
+	We define the \textbf{tensor product}, denoted $\otimes : \Tn{1} \times  \Tn{2} \rightarrow \Tnp$ by $$(\al, \bet) \mapsto \al \otimes \beta $$   
+	\end{defn}
+	
+	\begin{ex}
+	The tensor product $\otimes : \Tn{1} \times  \Tn{2} \rightarrow \Tnp$ is well defined. 
+	\end{ex}
+	
+	\begin{proof}
+	Tedious but straightforward.
+\end{proof}	
+	
+	\begin{ex}
+	The tensor product $\otimes : \Tn{1} \times  \Tn{2} \rightarrow \Tnp$ is associative. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $\al \in \Tn{1}$, $\bet \in \Tn{2}$ and $\gam \in \Tn{3}$. Then for each $u^* \in (V^*)^{r_1}, v^* \in (V^*)^{r_2}, w^* \in (V^*)^{r_3}, u \in V^{s_1}, v \in V^{s_2}, w \in V^{s_3}$,  
+	\begin{align*}
+	(\al \otimes \bet) \otimes \gam (u^*, v^*, w^*, u, v, w) 
+	&= (\al \otimes \bet) (u^*, v^*, u, v) \gam (w^*, w) \\
+	&= [\al(u^*, u) \bet(v^*, v)] \gam(w^*, w) \\
+	&= \al(u^*, u) [\bet(v^*, v) \gam(w^*, w)] \\
+	&= \al(u^*, u) (\bet \otimes \gam) (v^*, w^*, v, w) \\
+	&= \al \otimes (\bet \otimes \gam)(u^*, v^*, w^*, u, v, w) 
+	\end{align*}
+	So that $$(\al \otimes \bet) \otimes \gam = \al \otimes (\bet \otimes \gam)$$
+\end{proof}		
+	
+	\begin{ex}
+	The tensor product $\otimes : \Tn{1} \times  \Tn{2} \rightarrow \Tnp$ is bilinear. 
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item Linearity in the first argument:\\
+	Let $\al, \bet \in \Tn{1}$, $ \gam \in \Tn{2}, \lam \in \R$, $v^* \in (V^*)^{r_1}$, $w^* \in (V^*)^{r_2}$, $v in V^{s_1}$ and $w \in V^{s_2}$. To see that the tensor product is linear in the first argument, we note that  
+	\begin{align*}
+	[(\al + \lam \bet) \otimes \gam] (v^*, w^*, v, w) 
+	&= (\al + \lam \bet)(v^*, v) \gam(w^*, w) \\
+	&= [\al(v^*, v) + \lam \bet (v^*, v)] \gam (w^*, w) \\
+	&= \al(v^*, v) \gam (w^*, w) + \lam \bet (v^*, v) \gam (w^*, w) \\
+	&= \al \otimes \gam (v^*, w^*, v, w)  + \lam (\bet \otimes \gam) (v^*, w^*, v, w) \\
+	&= [\al \otimes \gam + \lam (\bet \otimes \gam)] (v^*, w^*, v, w) 
+	\end{align*}
+	So that $$(\al + \lam \bet) \otimes \gam = \al \otimes \gam + \lam (\bet \otimes \gam)$$
+	\item Linearity in the second argument:\\
+	Similar to $(1)$.
+	\end{enumerate}
+\end{proof}			
+	
+	
+	\begin{defn}\
+		\begin{enumerate}
+		\item Define $\MI_{\otimes k} = \{(i_1, i_2, \cdots, i_k) \in \N^k: i_1,  \cdots,  i_k \leq n \}$. Each element $I \in \MI_{k}$ is called an \textbf{unordered multi-index of length $k$}. Recall that $\# \MI_{\otimes k} = n^k$. \\
+		\item Define $\MI_{\wedge k} = \{(i_1, i_2, \cdots, i_k) \in \N^k: i_1 < i_2 < \cdots < i_k \leq n \}$. Each element $I \in \MI_{k}$ is called an \textbf{ordered multi-index of length $k$}. Recall that $\# \MI_{\wedge k} = {n \choose k}$. 
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{note}
+	For the remainder of this section we will write $\MI_k$ in place of $\MI_{\otimes k}$.
+	\end{note}
+
+	\begin{defn}
+		Let $I = \{(i_1, i_2, \cdots, i_k) \in \MI_k$. \\ 
+		\begin{enumerate}
+		\item Define $\ep_I \in (V^*)^k$ and $e_I \in V^k$  by  $$\ep_I = (\ep_{i_1}, \cdots, \ep_{i_k})$$ 
+		and 
+		$$e_I = (e_{i_1}, \cdots, e_{i_k})$$ 
+		\item Define $e_{\otimes I} \in T^k_0(V)$ and $\ep_{\otimes I} \in T^0_k(V)$ by 
+		$$e_{\otimes I} = e_{i_1} \otimes \cdots \otimes e_{i_k})$$ 
+		and 
+		$$\ep_{\otimes I} = \ep_{i_1} \otimes \cdots \otimes \ep_{i_k}$$
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{ex}
+	Let $\al, \bet \in T^r_s(V)$. If for each $I \in \MI_r, J \in \MI_s$, $\al(\ep_I, e_J) = \bet(\ep_I, e_J)$, then $\al = \bet$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that for each $I \in \MI_r, J \in \MI_s$, $\al(\ep_I, e_J) = \bet(\ep_I, e_J)$. Let $v^*_1, \dots, v^*_r \in V^*$ and $v_1, \dots, v_s \in V$. For each $i \in \{1, \dots, r\}$ and $j \in \{1, \dots, s\}$, write $$v^*_i = \sum\limits_{k_i = 1}^n a_{i, k_i} \ep_{k_i}$$ and $$v_j = \sum\limits_{l_j = 1}^n b_{j, l_j} e_{l_j}$$
+	Then 
+	\begin{align*}
+	\al(v^*_1, \dots, v^*_r, v_1, \dots, v_s)
+	&= \sum_{k_1, \dots, k_r =1}^n \sum_{l_1, \dots, l_s = 1}^n \prod_{i=1}^r \prod_{j=1}^s a_{i, k_i} b_{j, l_j} \al(\ep_{k_1}, \dots, \ep_{k_r}, e_{l_1}, \cdots, e_{l_s}) \\
+	&= \sum_{k_1, \dots, k_r =1}^n \sum_{l_1, \dots, l_s = 1}^n \prod_{i=1}^r \prod_{j=1}^s a_{i, k_i} b_{j, l_j} \bet(\ep_{k_1}, \dots, \ep_{k_r}, e_{l_1}, \cdots, e_{l_s}) \\
+	&= \bet(v^*_1, \dots, v^*_r, v_1, \dots, v_s)
+	\end{align*}
+	So that $\al = \bet$.
+	\end{proof}
+		
+	\begin{ex}
+	Let $I, K \in \MI_r$  and $J, L \in \MI_s$. Then $e_{\otimes I} \otimes \ep_{\otimes J}(\ep_K, e_L) = \del_{I,K} \del_{J,L}$. 
+	\end{ex}	
+	
+	\begin{proof}
+	Write $I = (i_1, \dots, i_r), K=(k_1, \dots, k_r)$ and $J = (j_1, \dots, j_s), L = (l_1, \dots, l_s)$. Then 
+	\begin{align*}
+	e_{\otimes I} \otimes \ep_{\otimes J}(\ep_K, e_L) 
+	&= e_{\otimes I}(\ep_K)\ep_{\otimes J}(e_L) \\
+	&= e_{i_1}\otimes \dots \otimes e_{i_r}(\ep_{k_1}, \dots, \ep_{k_r}) \ep_{j_1}\otimes \dots \otimes \ep_{j_s}(e_{l_1}, \dots, e_{l_s}) \\
+	&=\bigg[\prod_{m=1}^r e_{i_m}(\ep_{k_m}) \bigg] \bigg[ \prod_{n=1}^s  \ep_{j_n}(e_{l_n}) \bigg] \\
+	&= \bigg[\prod_{m=1}^r \del_{i_m, k_m} \bigg] \bigg[ \prod_{n=1}^s  \del_{j_n, l_n} \bigg] \\
+	&= \del_{I,K}\del_{J,L}
+	\end{align*}
+\end{proof}		
+		
+	\begin{ex}
+		The set $\{e_{\otimes I} \otimes \ep_{\otimes J}: I \in \MI_r, J \in \MI_s\}$ is a basis for $T^r_s(V)$ and $\dim T^r_s(V) = {n^{r+s}}$.
+	\end{ex}
+
+	\begin{proof}
+		Let $(a_{I,J})_{I \in \MI_r, J \in \MI_s} \subset \R$. Let $\al = \sum\limits_{(I,J) \in \MI_r \times \MI_s} a_{I,J} e_{\otimes I} \otimes  \ep_{\otimes J}$. 
+		Suppose that $\al = 0$. Then for each $(I,J) \in \MI_r \times \MI_s$, $\al(\ep_I, e_J) = a_{I,J} = 0$. Thus $\{e_{\otimes I} \otimes \ep_{\otimes J}: I \in \MI_r, J \in \MI_s\}$ is linearly independent. Let $\bet \in T^r_s(V)$. For $(I,J) \in \MI_r \times \MI_s$, put $b_{I,J} = \bet(\ep_J, e_I)$. Define $\mu = \sum\limits_{(I,J) \in \MI_r \times \MI_s} b_{I,J} e_{\otimes I} \otimes \ep_{\otimes J} \in T^r_s(V)$. Then for each $(I,J) \in \MI_r \times \MI_s$, $\mu(\ep_I, e_J) = b_{I,J} = \bet(\ep_I, e_J)$. Hence $\mu = \bet$ and therefore $\bet \in \spn \{e_{\otimes I} \otimes \ep_{\otimes J} \}$.
+	\end{proof}		
+		
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{$k$-Tensors}	
+	
+	\begin{defn}
+		Let $\al: V^k \rightarrow \R$. Then $\alpha$ is said to be a \textbf{k-tensor on V} if $\al \in T^0_k(V)$. We will write $T_k(V)$ in place of $T^0_k(V)$.
+	\end{defn}
 
 	\begin{defn}
 		For $\sig \in S_k$ and $\al \in T_k(V)$, define the $\sig \al : V^k \rightarrow \R$ by $$\sig \al(v_1, \cdots, v_k) = \al(v_{\sig(1)}, \cdots, v_{\sig(k)})$$  The map $\al \mapsto \sig \al$ is called the \textbf{permutation action} of $S_k$ on $T_k(V)$
@@ -589,16 +715,16 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{align*}
 	\end{proof}
 
-	\begin{defn}
-		Define $\MI_{k} = \{(i_1, i_2, \cdots, i_k) \in \N^k: i_1 < i_2 < \cdots < i_k \leq n \}$. Each element $I \in \MI_{k}$ is called a \textbf{multi-index}. Recall that $\# \MI_{k} = {n \choose k}$. 
-	\end{defn}
+	\begin{note}
+		Recall that $\MI_{\wedge k} = \{(i_1, i_2, \cdots, i_k) \in \N^k: i_1 < i_2 < \cdots < i_k \leq n \}$ and that $\# \MI_{\wedge k} = {n \choose k}$. For the remainder of this section, we will write $\MI_k$ in place of $\MI_{\wedge k}$.
+	\end{note}
 
 	\begin{defn}
-		Let $I = \{(i_1, i_2, \cdots, i_k) \in I_k$. \\ Define $e_I \in V^k$ by $$e_I = (e_{i_1}, \cdots, e_{i_k})$$ Define $\ep_I \in \Lam_k(V)$ by $$ \ep_I = \ep_{i_1} \wedge \cdots, \wedge \ep_{i_k} $$ 
+		Let $I = \{(i_1, i_2, \cdots, i_k) \in \MI_k$. \\ Define $\ep_{\wedge I} \in \Lam_k(V)$ by $$ \ep_{\wedge I} = \ep_{i_1} \wedge \cdots, \wedge \ep_{i_k} $$ 
 	\end{defn}
 
 	\begin{ex}
-		Let $I = (i_1, \cdots, i_k)$ and $J = (j_1, \cdots, j_k) \in \MI_k$. Then $\ep_I(e_J) = \del_{I,J}$.
+		Let $I = (i_1, \cdots, i_k)$ and $J = (j_1, \cdots, j_k) \in \MI_k$. Then $\ep_{\wedge I} (e_J) = \del_{I,J}$.
 	\end{ex}
 
 	\begin{proof}
@@ -607,7 +733,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			& \vdots & \\
 			\ep_{i_k}(e_{j_1}) & \cdots & \ep_{i_k}(e_{j_k}) 
 		\end{pmatrix}$.
-		A previous exercise tells us that $\ep_I(e_J) = \det A$.
+		A previous exercise tells us that $\ep_{\wedge I} (e_J) = \det A$.
 		If $I = J$, then $A = I_{k\times k}$ and therefore $\ep_I(e_J) = 1$. Suppose that $I \neq J$. Put $l_0 = \min \{l: 1 \leq l \leq k, i_l \neq j_l\}$. If $i_{l_0} < j_{l_0}$, then all entries on the $l_0th$ row of $A$ are $0$. If $i_{l_0} > j_{l_0}$, then all entries on the $l_0th$ column of $A$ are $0$.
 	\end{proof}
 
@@ -630,11 +756,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{ex}
-		The set $\{\ep_I: I \in \MI_k\}$ is a basis for $\Lam_k(V)$ and $\dim \Lam_k(V) = {n \choose k}$.
+		The set $\{\ep_{\wedge I} : I \in \MI_k\}$ is a basis for $\Lam_k(V)$ and $\dim \Lam_k(V) = {n \choose k}$.
 	\end{ex}
 
 	\begin{proof}
-		Let $(a_I)_{I \in \MI_k} \subset \R$. Let $\al = \sum_{I \in \MI_k}a_I \ep_I$. Suppose that $\al = 0$. Then for each $J \in \MI_k$, $\al(e_J) = a_J = 0$. Thus $\{e_I: I \in \MI_k\}$ is linearly independent. Let $\bet \in \Lam_k(V)$. For $I \in \MI_k$, put $b_I = \bet(e_I)$. define $\mu = \sum_{I \in \MI_k} b_I\ep_I$. Then for each $J \in \MI_k$, $\mu(e_J) = b_J = \bet(e_J)$. Hence $\mu = \bet$ and therefore $\bet \in \spn \{\ep_I:I \in \MI_k\}$.
+		Let $(a_I)_{I \in \MI_k} \subset \R$. Let $\al = \sum\limits_{I \in \MI_k}a_I \ep_{\wedge I} $. Suppose that $\al = 0$. Then for each $J \in \MI_k$, $\al(e_J) = a_J = 0$. Thus $\{\ep_{\wedge I} : I \in \MI_k\}$ is linearly independent. Let $\bet \in \Lam_k(V)$. For $I \in \MI_k$, put $b_I = \bet(e_I)$. Define $\mu = \sum\limits_{I \in \MI_k} b_I\ep_{\wedge I} \in \Lam_k(V)$. Then for each $J \in \MI_k$, $\mu(e_J) = b_J = \bet(e_J)$. Hence $\mu = \bet$ and therefore $\bet \in \spn \{\ep_{\wedge I} :I \in \MI_k\}$.
 	\end{proof}
 	
 	
@@ -646,18 +772,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	
-	
-	
-	
-	
-	
-	\newpage
-	
-	\subsection{$(r,s)$-Tensors}
-	
-	\begin{defn}
-	Let $\al: (V^*)^r \times V^s \rightarrow \R$. Then $\al$ is said to be an $(r,s)$-tensor on $V$ if $\al \in L(V^*, \dots, V^*, V, \dots, V; \R)$. The set of all $(r,s)$-tensors on $V$ is denoted $T^r_s(V)$.
-	\end{defn}
 	
 	
 	
@@ -1102,6 +1216,8 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	
 	\section{Tensor Fields}
+
+	
 	\subsection{Vector Fields}
 	
 	\begin{defn}
@@ -1171,6 +1287,13 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
 
 	
 	\newpage	
@@ -1182,7 +1305,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	\begin{defn}
 		Let $\om: M \rightarrow \Lam_k (TM)$. Then $\om$ is said to be a \textbf{$k$-form on $M$} if for each $p \in M$, $\om_p \in \Lam_k(T_pM)$.\\
-		For each $X_1, \cdots, X_k \in \Gam(M)$, we define $\om(X_1, \cdots, X_k) : M \rightarrow \R$ by $$\om(X_1, \cdots, X_k)_p = \om_p({X_1}_p, \cdots, {X_k}_p)$$
+		For each $X_1, \cdots, X_k \in \Gam(M)$, we define $\om(X_1, \cdots, X_k) : M \rightarrow \R$ by $$\om(X_1, \cdots, X_k)_p = \om_p({X_1}(p), \cdots, {X_k}(p))$$
 		and $\om$ is said to be \textbf{smooth} if for each $X_1, \cdots, X_k \in \Gam(M)$, $\om(X_1, \cdots, X_k)$ is smooth.\\
 		The set of smooth $k$-forms on $M$ is denoted $\Om_k(M)$.\\
 	\end{defn} 
@@ -1209,7 +1332,6 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 
 	\begin{defn}
 		Define the \textbf{exterior product} $$\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $$ by $$(\al \wedge \beta)_p = (\al)_p \wedge (\beta)_p$$
-		Define the \textbf{permutation action of $S_k$ on $\Om_k(M)$} by $$(\sig \om)_p = \sig \om_p$$
 	\end{defn}
 	
 	\begin{note}
@@ -1217,11 +1339,42 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{note}
 	
 	\begin{ex}
-	The exterior product $\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $ is $C^{\infty}(M)$-bilinear.
+	The exterior product $\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $ is well defined.
 	\end{ex}
 	
 	\begin{proof}
-	Clear.
+	Let $\al \in \Om_k(M)$, $\beta \in \Om_l(M)$, $(X_i)_{i=1}^k \subset \Gam(M)$, $(Y_j)_{i=1}^l \subset \Gam(M)$ and $p \in M$. Then 
+	\begin{align*}
+	\al \wedge \bet (X_1, \dots, X_{k+l})_p
+	&= (\al \wedge \bet)_p ({X_1}(p), \cdots, {X_{k+l}}(p)) \\
+	&= \frac{(k+l)!}{k! l!} A(\al_p \otimes \beta_p)({X_1}(p), \cdots, {X_{k+l}}(p)) \\
+	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig)\sig (\al_p \otimes \bet_p) ({X_1}(p), \cdots, {X_{k+l}}(p)) \\
+	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig)(\al_p \otimes \bet_p) (X_{\sig(1)}(p), \cdots, X_{\sig(k+l)}(p)) \\
+	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \al_p(X_{\sig(1)}(p), \dots,X_{\sig(k)}(p)) \bet(X_{\sig(k+1)(p)}, \dots X_{\sig(k+l)}(p)) \\
+	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \al_p(X_{\sig(1)}(p), \dots,X_{\sig(k)}(p)) \bet(X_{\sig(k+1)(p)}, \dots X_{\sig(k+l)}(p)) \\
+	\end{align*}	 
+	\end{proof}
+	
+	\begin{ex}
+	The exterior product $\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $ is $C^{\infty}(M)$-bilinear.
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item 
+	$C^{\infty}(M)$-linearity in the first argument:\\
+	Let $\al \in \Om_k(M)$, $\bet, \gam \in \Om_l(M)$, $f \in C^{\infty}(M)$ and $p \in M$. Bilinearity of $\wedge: \Lam_k(T_pM) \times \Lam_l(T_pM) \rightarrow \Lam_{k+l}(T_pM)$ implies that
+	\begin{align*}
+	[(\bet + f \gam ) \wedge \al]_p 
+	&= (\bet + f \gam)_p \wedge \al_p  \\
+	&=(\bet_p + f(p) \gam_p) \wedge \al_p \\
+	&= \bet_p \wedge \al_p + f(p)( \gam_p \wedge \al_p) \\
+	&=  [\bet \wedge \al + f (\gam \wedge \al)]_p \\
+	\end{align*}
+	So that $$(\bet + f \gam ) \wedge \al = \bet \wedge \al  + f  (\gam \wedge \al)$$ and $\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $ is $C^{\infty}(M)$-linear in the first argument. 
+	\item $C^{\infty}(M)$-linearity in the second argument:\\
+	Similar to $(1)$.
+	\end{enumerate}
 	\end{proof}
 	
 	\begin{note}
@@ -1254,7 +1407,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{proof}
 
 	\begin{ex}
-		Let $f \in C^{\infty}(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then on $U$, $df|_U = \sum_{i=1}^n \pdv{f}{x_i} dx_i$
+		Let $f \in C^{\infty}(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then $$df|_U = \sum_{i=1}^n \pdv{f}{x_i} dx_i$$
 	\end{ex}
 
 	\begin{proof}
@@ -1296,19 +1449,25 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 		and we define $$\pdv{x_I}= \bigg(\pdv{x_{i_1}}, \cdots, \pdv{x_{i_k}} \bigg)$$
 
 	\end{defn}
+	
+	\begin{note} We have that
+	\begin{enumerate}
+	\item  $$d x_I \bigg ( \pdv{x_J} \bigg) = \del_{I,J}$$
+	\item Since $\pdv{x_I} \in \Gam(U)^k$, by definition, for each $\om \in \Om_k(U)$, $$\om \bigg(\pdv{x_I} \bigg) \in C^{\infty}(U)$$
+	\end{enumerate}
+	\end{note}
 
 	\begin{ex}
-		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then there exists $(f_I)_{I \in \MI_k} \subset C^{\infty}(U)$ such that for each $p \in U$, $$\om_p = \sum_{I \in \MI_k}f_I(p) (dx_I)_p$$
+		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then $$\om = \sum_{I \in \MI_k}\om \bigg(\pdv{x_I} \bigg) dx_I$$
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in U$. For each $I \in \MI_k$, put $$f_I(p) = \om_p \bigg (  \eval{\pdv{x_I}}_{p} \bigg) \in \R$$ 
-		Since $\{(dx_I)_p: I \in \MI_k\}$ is a basis for $\Lam_k(T_pM)$, we have that $\om_p = \sum\limits_{I \in \MI_k} f_I(p) (dx_I)_p$. Since $\om$ is smooth, we have that for each $J \in \MI_k$, 
+		Let $p \in U$. Since $\{(dx_I)_p: I \in \MI_k\}$ is a basis for $\Lam_k(T_pM)$, there exists $(f_I(p))_{I \in \MI} \subset \R$ such that $\om_p = \sum\limits_{I \in \MI_k} f_I(p) (dx_I)_p$. So for each $J \in \MI_k$, 
 		\begin{align*}
 			\om\bigg (\pdv{x_J} \bigg ) 
-			&= \sum\limits_{I \in \MI_k} f_I dx_I \bigg (\pdv{x_J} \bigg) \\
+			&= \sum\limits_{I \in \MI_k} f_I dx_I \bigg (\pdv{x_J} \bigg )  \\
 			&= f_J
-		\end{align*} is smooth.
+		\end{align*} 
 	\end{proof}
 
 	\begin{ex}
@@ -1332,26 +1491,29 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ be a diffeomorphism. Define the \textbf{pullback of $F$}, denoted $F^*: \Om_k(N) \rightarrow \Om_k(M)$ by  $$(F^* \om)_p (v_1, \cdots, v_k) = \om_{F(p)} (dF_p(v_1), \cdots, dF_p(v_k))$$ for $\om \in \Om_k(N)$, $p \in M$ and $v_1, \cdots, v_k \in T_{p}M$
 	\end{defn}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
 	
 	
 	
 	
 	\newpage
-	\subsection{Tensor Fields}
+	\subsection{$(r,s)$-Tensor Fields}
+	
+	\begin{defn}
+	We define $$T_k (TM) = \coprod_{p \in M} \Lam_k(T_p M)$$
+	\end{defn}
+	
+	\begin{defn}
+	Define the \textbf{tensor product} $$\otimes: T^{k_1}_{l_1}(M) \times T^{k_2}_{l_2}(M) \rightarrow \Om_{k+l}(M) $$ by $$(\al \wedge \beta)_p = (\al)_p \wedge (\beta)_p$$
+	\end{defn}
 	
 	
 	
@@ -1360,8 +1522,15 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	
 	
-	\newpage.
+	
+	
+	
+	
+	
+	
+	
 	\newpage 
+	\section{Extra}
 	\begin{defn}
 		When working in $\R^n$, we introduce the formal objects $dx_1, dx_2, \cdots, dx_n$. Let $I = (i_1, i_2, \cdots, i_k)\in \MI_{k,n}$ and $\phi: \R^k \rightarrow \R^n$. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We formally define $dx_I = dx_{i_1}\wedge dx_{i_2} \wedge \cdots \wedge dx_{i_k}$ and $\phi_I = (\phi_{i_1}, \phi_{i_2}, \cdots, \phi_{i_k})$.   
 	\end{defn}
