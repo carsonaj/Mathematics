@@ -136,20 +136,20 @@
 	\subsection{Differentiation}
 	
 	\begin{defn}
-		Let $n \geq 1$. For $i = 1, \cdots, n$, define $x_i: \R^n \rightarrow \R$ by $x_i(a_1, \cdots, a_n) = a_i$. The functions $(x_i)_{i=1}^n$ are called the \textbf{standard coordinate functions on $\R^n$}. 
+		Let $n \geq 1$. For $i = 1, \cdots, n$, define $x^i: \R^n \rightarrow \R$ by $x^i(a_1, \cdots, a_n) = a_i$. The functions $(x^i)_{i=1}^n$ are called the \textbf{standard coordinate functions on $\R^n$}. 
 	\end{defn}
 	
 	\begin{defn} 
-		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then $f$ is said to be \textbf{differentiable with respect to $x_i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he_i) - f(a)}{h}$$ exists. If $f$ is differentiable with respect to $x_i$ at $a$, we define the \textbf{partial derivative of $f$ with respect to $x_i$ at $a$}, denoted $$\frac{\partial f}{\partial x_i} (a) \text{ or } \eval{\pdv{x_i}}_{a} f $$ to be the limit above.
+		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then $f$ is said to be \textbf{differentiable with respect to $x^i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he^i) - f(a)}{h}$$ exists. If $f$ is differentiable with respect to $x^i$ at $a$, we define the \textbf{partial derivative of $f$ with respect to $x^i$ at $a$}, denoted $$\frac{\partial f}{\partial x^i} (a) \text{ or } \eval{\pdv{x^i}}_{a} f $$ to be the limit above.
 		
 	\end{defn}
 		
 	\begin{defn}
-		Let $U \subset \R^n$ be open and $f: U \rightarrow \R$. Then $f$ is said to be \textbf{differentiable with respect to $x_i$} if for each $a \in U$, $f$ is differentiable with respect to $x_i$ at $a$.
+		Let $U \subset \R^n$ be open and $f: U \rightarrow \R$. Then $f$ is said to be \textbf{differentiable with respect to $x^i$} if for each $a \in U$, $f$ is differentiable with respect to $x^i$ at $a$.
 	\end{defn}
 
 	\begin{ex}
-		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Suppose that $\frac{\partial ^2 f}{\partial x_i x_j}$ and $\frac{\partial ^2 f}{\partial x_j x_i}$ exist and are continuous at $a$. Then $$\frac{\partial ^2 f}{\partial x_i x_j} (a) = \frac{\partial ^2 f}{\partial x_j x_i} (a)$$
+		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Suppose that $\frac{\partial ^2 f}{\partial x^i x^j}$ and $\frac{\partial ^2 f}{\partial x^j x^i}$ exist and are continuous at $a$. Then $$\frac{\partial ^2 f}{\partial x^i x^j} (a) = \frac{\partial ^2 f}{\partial x^j x^i} (a)$$
 	\end{ex}
 
 	\begin{proof}
@@ -170,27 +170,27 @@
 	\end{defn}
 
 	\begin{thm} \textbf{(Taylor's Theorem)}
-		Let $U \subset \R^n$ be open, $p \in U$ and $f \in C^{\infty}(U)$. Suppose that $U$ is star-shaped with respect to $p$. Then there exist $g_1, \cdots, g_n \in C^{\infty}(U)$ such that for each $x \in U$, $$f(x) = f(p) + \sum_{i=1}^n (x_i - p_i) g_i(x)$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x_i}}(p)$$
+		Let $U \subset \R^n$ be open, $p \in U$ and $f \in C^{\infty}(U)$. Suppose that $U$ is star-shaped with respect to $p$. Then there exist $g_1, \cdots, g_n \in C^{\infty}(U)$ such that for each $x \in U$, $$f(x) = f(p) + \sum_{i=1}^n (x^i - p^i) g_i(x)$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x^i}}(p)$$
 	\end{thm}
 
 	\begin{proof}
 		Let $x \in U$. Since $U$ is star-shaped with respect to $p$, $\{p + t(x-p): 0 \leq t \leq 1\} \subset U$. By the chain rule, 
-		$${\dv{t}} \bigg[ f(p+t(x-p)) \bigg] = \sum_{i=1}^n {\pdv{f}{x_i}}(p+t(x-p)) (x_i - p_i)$$
+		$${\dv{t}} \bigg[ f(p+t(x-p)) \bigg] = \sum_{i=1}^n {\pdv{f}{x^i}}(p+t(x-p)) (x^i - p^i)$$
 		Integrating both sides with respect to $t$ from $0$ to $1$, we obtain
-		$$f(x) - f(p) = \sum_{i=1}^n (x_i - p_i) \int_{0}^{1}  {\pdv{f}{x_i}}(p+t(x-p)) dt $$
-		For $i \in \{1, \cdots, n\}$, define $g_i \in C^{\infty}(U)$ by $$g_i(x) = \int_{0}^{1}  {\pdv{f}{x_i}}(p+t(x-p)) dt$$
-		Then for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x_i}}(p))$$
+		$$f(x) - f(p) = \sum_{i=1}^n (x^i - p^i) \int_{0}^{1}  {\pdv{f}{x^i}}(p+t(x-p)) dt $$
+		For $i \in \{1, \cdots, n\}$, define $g_i \in C^{\infty}(U)$ by $$g_i(x) = \int_{0}^{1}  {\pdv{f}{x^i}}(p+t(x-p)) dt$$
+		Then for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x^i}}(p))$$
 	\end{proof}
 
 	
 	\subsection{Smooth Maps}
 	\begin{defn}
-	Let $U \subset \R^n$ and $F: U \rightarrow \R^m$. Let $x_1, \cdots, x_n$ be the standard coordinate functions on $\R^n$ and $y_1, \cdots, y_m$ be the standard coordinate functions on $\R^m$. For $i \in \{1, \cdots, m\}$, we define the \textbf{$i$th component of $F$}, denoted $F_i: U \rightarrow \R$, by $$F_i = y_i \circ F$$ 
+	Let $U \subset \R^n$ and $F: U \rightarrow \R^m$. Let $x^1, \cdots, x^n$ be the standard coordinate functions on $\R^n$ and $y_1, \cdots, y_m$ be the standard coordinate functions on $\R^m$. For $i \in \{1, \cdots, m\}$, we define the \textbf{$i$th component of $F$}, denoted $F^i: U \rightarrow \R$, by $$F^i = y^i \circ F$$ 
 	Thus $F = (F_1, \cdots, F_m)$
 	\end{defn}
 	
 	\begin{defn}
-	Let $U \subset \R^n$ and $F: U \rightarrow \R^m$. Then $F$ is said to be \textbf{smooth} if for each $i \in \{1, \cdots, m\}$, the $i$th component of $F$, $F_i: U \rightarrow \R$, is smooth.
+	Let $U \subset \R^n$ and $F: U \rightarrow \R^m$. Then $F$ is said to be \textbf{smooth} if for each $i \in \{1, \cdots, m\}$, the $i$th component of $F$, $F^i: U \rightarrow \R$, is smooth.
 	\end{defn}
 
 	\begin{defn}
@@ -198,7 +198,7 @@
 	\end{defn}
 	
 	\begin{defn}
-	Let $U \subset \R^n$ be open, $p \in U$ and $F: U \rightarrow \R^m$. We define the \textbf{Jacobian of $F$ at $p$}, denoted $\frac{\p F}{\p x}(p) \in \R^{m \times n}$, by $$\bigg (\frac{\p F}{\p x}(p) \bigg )_{i,j} = \frac{\p F_i}{\p x_j}$$
+	Let $U \subset \R^n$ be open, $p \in U$ and $F: U \rightarrow \R^m$. We define the \textbf{Jacobian of $F$ at $p$}, denoted $\frac{\p F}{\p x}(p) \in \R^{m \times n}$, by $$\bigg (\frac{\p F}{\p x}(p) \bigg )_{i,j} = \frac{\p F^i}{\p x^j}$$
 	\end{defn}
 	
 	\begin{ex}\textbf{Inverse Function Theorem:}\\
@@ -279,7 +279,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}	
 	
 	\begin{note}
-		For the remainder of this section we let $V$ denote an $n$-dimensional vector space with basis $\{e_1, \cdots, e_n\}$ with dual space $V^*$ and dual basis $\{\ep_1, \cdots, \ep_n\}$ defined by $\ep_i(e_j) = \del_{i,j}$. We identify $V$ with $V^{**}$ by the isomorphism $V \rightarrow V^{**}$ defined by $v \mapsto \hat{v}$ where $\hat{v}(\al) = \al(v)$ for each $\al \in V^*$. 
+		For the remainder of this section we let $V$ denote an $n$-dimensional vector space with basis $\{e^1, \cdots, e^n\}$ with dual space $V^*$ and dual basis $\{\ep_1, \cdots, \ep_n\}$ defined by $\ep^i(e^j) = \del_{i,j}$. We identify $V$ with $V^{**}$ by the isomorphism $V \rightarrow V^{**}$ defined by $v \mapsto \hat{v}$ where $\hat{v}(\al) = \al(v)$ for each $\al \in V^*$. 
 	\end{note}	
 	
 	\begin{defn}
@@ -380,55 +380,55 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{defn}
 		Let $I = \{(i_1, i_2, \cdots, i_k) \in \MI_k$. \\ 
 		\begin{enumerate}
-		\item Define $\ep_I \in (V^*)^k$ and $e_I \in V^k$  by  $$\ep_I = (\ep_{i_1}, \cdots, \ep_{i_k})$$ 
+		\item Define $\ep^I \in (V^*)^k$ and $e_I \in V^k$  by  $$\ep^I = (\ep^{i_1}, \cdots, \ep^{i_k})$$ 
 		and 
-		$$e_I = (e_{i_1}, \cdots, e_{i_k})$$ 
-		\item Define $e_{\otimes I} \in T^k_0(V)$ and $\ep_{\otimes I} \in T^0_k(V)$ by 
-		$$e_{\otimes I} = e_{i_1} \otimes \cdots \otimes e_{i_k})$$ 
+		$$e^I = (e^{i_1}, \cdots, e^{i_k})$$ 
+		\item Define $e^{\otimes I} \in T^k_0(V)$ and $\ep^{\otimes I} \in T^0_k(V)$ by 
+		$$e^{\otimes I} = e^{i_1} \otimes \cdots \otimes e^{i_k}$$ 
 		and 
-		$$\ep_{\otimes I} = \ep_{i_1} \otimes \cdots \otimes \ep_{i_k}$$
+		$$\ep^{\otimes I} = \ep^{i_1} \otimes \cdots \otimes \ep^{i_k}$$
 		\end{enumerate}
 	\end{defn}
 	
 	\begin{ex}
-	Let $\al, \bet \in T^r_s(V)$. If for each $I \in \MI_r, J \in \MI_s$, $\al(\ep_I, e_J) = \bet(\ep_I, e_J)$, then $\al = \bet$.
+	Let $\al, \bet \in T^r_s(V)$. If for each $I \in \MI_r, J \in \MI_s$, $\al(\ep^I, e^J) = \bet(\ep^I, e^J)$, then $\al = \bet$.
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that for each $I \in \MI_r, J \in \MI_s$, $\al(\ep_I, e_J) = \bet(\ep_I, e_J)$. Let $v^*_1, \dots, v^*_r \in V^*$ and $v_1, \dots, v_s \in V$. For each $i \in \{1, \dots, r\}$ and $j \in \{1, \dots, s\}$, write $$v^*_i = \sum\limits_{k_i = 1}^n a_{i, k_i} \ep_{k_i}$$ and $$v_j = \sum\limits_{l_j = 1}^n b_{j, l_j} e_{l_j}$$
+	Suppose that for each $I \in \MI_r, J \in \MI_s$, $\al(\ep^I, e^J) = \bet(\ep^I, e^J)$. Let $v^*_1, \dots, v^*_r \in V^*$ and $v_1, \dots, v_s \in V$. For each $i \in \{1, \dots, r\}$ and $j \in \{1, \dots, s\}$, write $$v^*_i = \sum\limits_{k_i = 1}^n a_{i, k_i} \ep^{k_i}$$ and $$v_j = \sum\limits_{l_j = 1}^n b_{j, l_j} e^{l_j}$$
 	Then 
 	\begin{align*}
 	\al(v^*_1, \dots, v^*_r, v_1, \dots, v_s)
-	&= \sum_{k_1, \dots, k_r =1}^n \sum_{l_1, \dots, l_s = 1}^n \prod_{i=1}^r \prod_{j=1}^s a_{i, k_i} b_{j, l_j} \al(\ep_{k_1}, \dots, \ep_{k_r}, e_{l_1}, \cdots, e_{l_s}) \\
-	&= \sum_{k_1, \dots, k_r =1}^n \sum_{l_1, \dots, l_s = 1}^n \prod_{i=1}^r \prod_{j=1}^s a_{i, k_i} b_{j, l_j} \bet(\ep_{k_1}, \dots, \ep_{k_r}, e_{l_1}, \cdots, e_{l_s}) \\
+	&= \sum_{k_1, \dots, k_r =1}^n \sum_{l_1, \dots, l_s = 1}^n \prod_{i=1}^r \prod_{j=1}^s a_{i, k_i} b_{j, l_j} \al(\ep^{k_1}, \dots, \ep^{k_r}, e^{l_1}, \cdots, e^{l_s}) \\
+	&= \sum_{k_1, \dots, k_r =1}^n \sum_{l_1, \dots, l_s = 1}^n \prod_{i=1}^r \prod_{j=1}^s a_{i, k_i} b_{j, l_j} \bet(\ep^{k_1}, \dots, \ep^{k_r}, e^{l_1}, \cdots, e^{l_s}) \\
 	&= \bet(v^*_1, \dots, v^*_r, v_1, \dots, v_s)
 	\end{align*}
 	So that $\al = \bet$.
 	\end{proof}
 		
 	\begin{ex}
-	Let $I, K \in \MI_r$  and $J, L \in \MI_s$. Then $e_{\otimes I} \otimes \ep_{\otimes J}(\ep_K, e_L) = \del_{I,K} \del_{J,L}$. 
+	Let $I, K \in \MI_r$  and $J, L \in \MI_s$. Then $e^{\otimes I} \otimes \ep^{\otimes J}(\ep^K, e^L) = \del_{I,K} \del_{J,L}$. 
 	\end{ex}	
 	
 	\begin{proof}
 	Write $I = (i_1, \dots, i_r), K=(k_1, \dots, k_r)$ and $J = (j_1, \dots, j_s), L = (l_1, \dots, l_s)$. Then 
 	\begin{align*}
-	e_{\otimes I} \otimes \ep_{\otimes J}(\ep_K, e_L) 
-	&= e_{\otimes I}(\ep_K)\ep_{\otimes J}(e_L) \\
-	&= e_{i_1}\otimes \dots \otimes e_{i_r}(\ep_{k_1}, \dots, \ep_{k_r}) \ep_{j_1}\otimes \dots \otimes \ep_{j_s}(e_{l_1}, \dots, e_{l_s}) \\
-	&=\bigg[\prod_{m=1}^r e_{i_m}(\ep_{k_m}) \bigg] \bigg[ \prod_{n=1}^s  \ep_{j_n}(e_{l_n}) \bigg] \\
+	e^{\otimes I} \otimes \ep^{\otimes J}(\ep^K, e^L) 
+	&= e^{\otimes I}(\ep^K)\ep^{\otimes J}(e^L) \\
+	&= e^{i_1}\otimes \dots \otimes e^{i_r}(\ep^{k_1}, \dots, \ep^{k_r}) \ep^{j_1}\otimes \dots \otimes \ep^{j_s}(e^{l_1}, \dots, e^{l_s}) \\
+	&=\bigg[\prod_{m=1}^r e^{i_m}(\ep^{k_m}) \bigg] \bigg[ \prod_{n=1}^s  \ep^{j_n}(e^{l_n}) \bigg] \\
 	&= \bigg[\prod_{m=1}^r \del_{i_m, k_m} \bigg] \bigg[ \prod_{n=1}^s  \del_{j_n, l_n} \bigg] \\
 	&= \del_{I,K}\del_{J,L}
 	\end{align*}
 \end{proof}		
 		
 	\begin{ex}
-		The set $\{e_{\otimes I} \otimes \ep_{\otimes J}: I \in \MI_r, J \in \MI_s\}$ is a basis for $T^r_s(V)$ and $\dim T^r_s(V) = {n^{r+s}}$.
+		The set $\{e^{\otimes I} \otimes \ep^{\otimes J}: I \in \MI_r, J \in \MI_s\}$ is a basis for $T^r_s(V)$ and $\dim T^r_s(V) = {n^{r+s}}$.
 	\end{ex}
 
 	\begin{proof}
-		Let $(a_{I,J})_{I \in \MI_r, J \in \MI_s} \subset \R$. Let $\al = \sum\limits_{(I,J) \in \MI_r \times \MI_s} a_{I,J} e_{\otimes I} \otimes  \ep_{\otimes J}$. 
-		Suppose that $\al = 0$. Then for each $(I,J) \in \MI_r \times \MI_s$, $\al(\ep_I, e_J) = a_{I,J} = 0$. Thus $\{e_{\otimes I} \otimes \ep_{\otimes J}: I \in \MI_r, J \in \MI_s\}$ is linearly independent. Let $\bet \in T^r_s(V)$. For $(I,J) \in \MI_r \times \MI_s$, put $b_{I,J} = \bet(\ep_J, e_I)$. Define $\mu = \sum\limits_{(I,J) \in \MI_r \times \MI_s} b_{I,J} e_{\otimes I} \otimes \ep_{\otimes J} \in T^r_s(V)$. Then for each $(I,J) \in \MI_r \times \MI_s$, $\mu(\ep_I, e_J) = b_{I,J} = \bet(\ep_I, e_J)$. Hence $\mu = \bet$ and therefore $\bet \in \spn \{e_{\otimes I} \otimes \ep_{\otimes J} \}$.
+		Let $(a^I_J)_{I \in \MI_r, J \in \MI_s} \subset \R$. Let $\al = \sum\limits_{(I,J) \in \MI_r \times \MI_s} a^I_J e^{\otimes I} \otimes  \ep^{\otimes J}$. 
+		Suppose that $\al = 0$. Then for each $(I,J) \in \MI_r \times \MI_s$, $\al(\ep^I, e^J) = a^I_J = 0$. Thus $\{e^{\otimes I} \otimes \ep^{\otimes J}: I \in \MI_r, J \in \MI_s\}$ is linearly independent. Let $\bet \in T^r_s(V)$. For $(I,J) \in \MI_r \times \MI_s$, put $b^I_J = \bet(\ep^J, e^I)$. Define $\mu = \sum\limits_{(I,J) \in \MI_r \times \MI_s} b^I_J e^{\otimes I} \otimes \ep^{\otimes J} \in T^r_s(V)$. Then for each $(I,J) \in \MI_r \times \MI_s$, $\mu(\ep^I, e^J) = b^I_J = \bet(\ep^I, e^J)$. Hence $\mu = \bet$ and therefore $\bet \in \spn \{e^{\otimes I} \otimes \ep^{\otimes J} \}$.
 	\end{proof}		
 		
 		
@@ -720,47 +720,47 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{note}
 
 	\begin{defn}
-		Let $I = \{(i_1, i_2, \cdots, i_k) \in \MI_k$. \\ Define $\ep_{\wedge I} \in \Lam_k(V)$ by $$ \ep_{\wedge I} = \ep_{i_1} \wedge \cdots, \wedge \ep_{i_k} $$ 
+		Let $I = \{(i_1, i_2, \cdots, i_k) \in \MI_k$. \\ Define $\ep^{\wedge I} \in \Lam_k(V)$ by $$ \ep^{\wedge I} = \ep^{i_1} \wedge \cdots \wedge \ep^{i_k} $$ 
 	\end{defn}
 
 	\begin{ex}
-		Let $I = (i_1, \cdots, i_k)$ and $J = (j_1, \cdots, j_k) \in \MI_k$. Then $\ep_{\wedge I} (e_J) = \del_{I,J}$.
+		Let $I = (i_1, \cdots, i_k)$ and $J = (j_1, \cdots, j_k) \in \MI_k$. Then $\ep^{\wedge I} (e^J) = \del_{I,J}$.
 	\end{ex}
 
 	\begin{proof}
 		Put $A = \begin{pmatrix}
-			\ep_{i_1}(e_{j_1}) & \cdots & \ep_{i_1}(e_{j_k}) \\
+			\ep^{i_1}(e^{j_1}) & \cdots & \ep^{i_1}(e^{j_k}) \\
 			& \vdots & \\
-			\ep_{i_k}(e_{j_1}) & \cdots & \ep_{i_k}(e_{j_k}) 
+			\ep^{i_k}(e^{j_1}) & \cdots & \ep^{i_k}(e^{j_k}) 
 		\end{pmatrix}$.
-		A previous exercise tells us that $\ep_{\wedge I} (e_J) = \det A$.
-		If $I = J$, then $A = I_{k\times k}$ and therefore $\ep_I(e_J) = 1$. Suppose that $I \neq J$. Put $l_0 = \min \{l: 1 \leq l \leq k, i_l \neq j_l\}$. If $i_{l_0} < j_{l_0}$, then all entries on the $l_0th$ row of $A$ are $0$. If $i_{l_0} > j_{l_0}$, then all entries on the $l_0th$ column of $A$ are $0$.
+		A previous exercise tells us that $\ep^{\wedge I} (e^J) = \det A$.
+		If $I = J$, then $A = I_{k\times k}$ and therefore $\ep^I(e^J) = 1$. Suppose that $I \neq J$. Put $l_0 = \min \{l: 1 \leq l \leq k, i_l \neq j_l\}$. If $i_{l_0} < j_{l_0}$, then all entries on the $l_0th$ row of $A$ are $0$. If $i_{l_0} > j_{l_0}$, then all entries on the $l_0th$ column of $A$ are $0$.
 	\end{proof}
 
 	\begin{ex}
-		Let $\al , \bet \in \Lam_k(V)$. If for each $I \in \MI_k$, $\al(e_I) = \bet(e_I)$, then $\al = \bet$.
+		Let $\al , \bet \in \Lam_k(V)$. If for each $I \in \MI_k$, $\al(e^I) = \bet(e^I)$, then $\al = \bet$.
 	\end{ex}
 
 	\begin{proof}
-		Suppose that for each $I \in \MI_k$, $\al(e_I) = \bet(e_I)$. Let $v_1, \cdots, v_k \in V$. For $i = 1, \cdots, k$, write $v_i = \sum_{j_i = 1}^n a_{i,j_i}e_{j_i}$. Then 
+		Suppose that for each $I \in \MI_k$, $\al(e^I) = \bet(e^I)$. Let $v_1, \cdots, v_k \in V$. For $i = 1, \cdots, k$, write $v_i = \sum_{j_i = 1}^n a_{i,j_i}e^{j_i}$. Then 
 		\begin{align*}
 			\al(v_1, \cdots, v_k) 
-			&= \sum_{j_1, \cdots, j_k =1}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \al(e_{j_1}, \cdots, e_{j_k}) \\
-			&= \sum_{j_1 \neq \cdots \neq j_k}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \al(e_{j_1}, \cdots, e_{j_k}) \\
-			&= \sum_{J \in \MI_k} \bigg [ \sum_{\sig \in S_J} \sgn(\sig) \bigg( \prod_{i=1}^k a_{i, \sig(j_i)} \bigg) \bigg] \al(e_J) \\
-			&= \sum_{J \in \MI_k} \bigg [ \sum_{\sig \in S_J} \sgn(\sig) \bigg( \prod_{i=1}^k a_{i, \sig(j_i)} \bigg) \bigg] \bet(e_J) \\
-			&= \sum_{j_1, \cdots, j_k =1}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \bet(e_{j_1}, \cdots, e_{j_k}) \\
+			&= \sum_{j_1, \cdots, j_k =1}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \al(e^{j_1}, \cdots, e^{j_k}) \\
+			&= \sum_{j_1 \neq \cdots \neq j_k}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \al(e^{j_1}, \cdots, e^{j_k}) \\
+			&= \sum_{J \in \MI_k} \bigg [ \sum_{\sig \in S_J} \sgn(\sig) \bigg( \prod_{i=1}^k a_{i, \sig(j_i)} \bigg) \bigg] \al(e^J) \\
+			&= \sum_{J \in \MI_k} \bigg [ \sum_{\sig \in S_J} \sgn(\sig) \bigg( \prod_{i=1}^k a_{i, \sig(j_i)} \bigg) \bigg] \bet(e^J) \\
+			&= \sum_{j_1, \cdots, j_k =1}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \bet(e^{j_1}, \cdots, e^{j_k}) \\
 			&= \bet(v_1, \cdots, v_k) 
 		\end{align*}
 	
 	\end{proof}
 
 	\begin{ex}
-		The set $\{\ep_{\wedge I} : I \in \MI_k\}$ is a basis for $\Lam_k(V)$ and $\dim \Lam_k(V) = {n \choose k}$.
+		The set $\{\ep^{\wedge I} : I \in \MI_k\}$ is a basis for $\Lam_k(V)$ and $\dim \Lam_k(V) = {n \choose k}$.
 	\end{ex}
 
 	\begin{proof}
-		Let $(a_I)_{I \in \MI_k} \subset \R$. Let $\al = \sum\limits_{I \in \MI_k}a_I \ep_{\wedge I} $. Suppose that $\al = 0$. Then for each $J \in \MI_k$, $\al(e_J) = a_J = 0$. Thus $\{\ep_{\wedge I} : I \in \MI_k\}$ is linearly independent. Let $\bet \in \Lam_k(V)$. For $I \in \MI_k$, put $b_I = \bet(e_I)$. Define $\mu = \sum\limits_{I \in \MI_k} b_I\ep_{\wedge I} \in \Lam_k(V)$. Then for each $J \in \MI_k$, $\mu(e_J) = b_J = \bet(e_J)$. Hence $\mu = \bet$ and therefore $\bet \in \spn \{\ep_{\wedge I} :I \in \MI_k\}$.
+		Let $(a_I)_{I \in \MI_k} \subset \R$. Let $\al = \sum\limits_{I \in \MI_k}a_I \ep^{\wedge I} $. Suppose that $\al = 0$. Then for each $J \in \MI_k$, $\al(e^J) = a_J = 0$. Thus $\{\ep^{\wedge I} : I \in \MI_k\}$ is linearly independent. Let $\bet \in \Lam_k(V)$. For $I \in \MI_k$, put $b_I = \bet(e^I)$. Define $\mu = \sum\limits_{I \in \MI_k} b_I\ep^{\wedge I} \in \Lam_k(V)$. Then for each $J \in \MI_k$, $\mu(e^J) = b_J = \bet(e^J)$. Hence $\mu = \bet$ and therefore $\bet \in \spn \{\ep^{\wedge I} :I \in \MI_k\}$.
 	\end{proof}
 	
 	
@@ -895,7 +895,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{note}
-		For the rest of this section, we assume that $(M, \MA)$ is a smooth $n$-dimensional manifold and we denote the standard coordinate functions on $\R^n$ by $u_1, \cdots, u_n$. For a coordinate chart $(U, \phi)$ $\in \MA$ and $i \in \{1, \cdots, n\}$, we will typically denote the $i$th coordinate of $\phi$ by $x_i$, that is,  $x_i = u_i(\phi)$.
+		For the rest of this section, we assume that $(M, \MA)$ is a smooth $n$-dimensional manifold and we denote the standard coordinate functions on $\R^n$ by $u^1, \cdots, u^n$. For a coordinate chart $(U, \phi)$ $\in \MA$ and $i \in \{1, \cdots, n\}$, we will typically denote the $i$th coordinate of $\phi$ by $x^i$, that is,  $x^i = u^i(\phi)$.
 	\end{note}
 	
 	\newpage 
@@ -1021,47 +1021,47 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{proof}
 
 	\begin{defn}
-		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$, $p \in U$ and $f \in C_p^{\infty}(M)$. For $i \in \{1, \cdots, n\}$, define the partial derivative of $f$ with respect to $x_i$ at $p$, denoted $$\frac{\partial f}{\partial x_i} (p) \text{, } \eval{\pdv{x_i}}_{p} f \text{, } \partial_{x_i} f (p) \text{ or } \eval{\partial_{x_i}}_{p} f$$ by $$ \eval{\pdv{x_i}}_{p} f =  \eval{\pdv{u_i}}_{\phi(p)} f \circ \phi^{-1} $$
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C_p^{\infty}(M)$. For $i \in \{1, \cdots, n\}$, define the partial derivative of $f$ with respect to $x^i$ at $p$, denoted $$\frac{\partial f}{\partial x^i} (p) \text{, } \eval{\pdv{x^i}}_{p} f \text{, } \partial_{x^i} f (p) \text{ or } \eval{\partial_{x^i}}_{p} f$$ by $$ \eval{\pdv{x^i}}_{p} f =  \eval{\pdv{u^i}}_{\phi(p)} f \circ \phi^{-1} $$
 	\end{defn}
 
 	\begin{ex}
-		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $p \in U$. Then for each $i,j \in \{1, \cdots, n\}$, we have that $${\pdv{x_i}{x_j}}(p) = \del_{i,j}$$
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then for each $i,j \in \{1, \cdots, n\}$, we have that $${\pdv{x^i}{x^j}}(p) = \del_{i,j}$$
 	\end{ex}
 
 	\begin{proof}
 		Let $i,j \in \{1, \cdots, n\}$. Then 
 		\begin{align*}
-			\eval{\pdv{x_j}}_{p} x_i 
-			&=  \eval{\pdv{u_j}}_{\phi(p)} x_i \circ \phi^{-1} \\
-			&= \eval{\pdv{u_j}}_{\phi(p)} u_i \circ \phi \circ \phi^{-1} \\
-			&= \eval{\pdv{u_j}}_{\phi(p)} u_i  \\
+			\eval{\pdv{x^j}}_{p} x^i 
+			&=  \eval{\pdv{u^j}}_{\phi(p)} x^i \circ \phi^{-1} \\
+			&= \eval{\pdv{u^j}}_{\phi(p)} u^i \circ \phi \circ \phi^{-1} \\
+			&= \eval{\pdv{u^j}}_{\phi(p)} u^i  \\
 			&= \del_{i,j}
 		\end{align*}
 	\end{proof}
 
 	\begin{ex} \textbf{(Change of Coordinates):}
-		Let $(U, \phi), (V, \psi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $\psi = (y_1, \cdots, y_n)$, $p \in U \cap V$ and $f \in C_p^{\infty}(M)$. Then for each $i \in \{1, \cdots, n\}$, we have $${\pdv{f}{y_i}}(p) = \sum_{j =1}^n {\pdv{f}{x_j}}(p)   {\pdv{x_j}{y_i}}(p) $$
+		Let $(U, \phi), (V, \psi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$, $p \in U \cap V$ and $f \in C_p^{\infty}(M)$. Then for each $i \in \{1, \cdots, n\}$, we have $${\pdv{f}{y^i}}(p) = \sum_{j =1}^n {\pdv{f}{x^j}}(p)   {\pdv{x^j}{y^i}}(p) $$
 	\end{ex}
 
 	\begin{proof}
 		Put $h = \phi \circ \psi^{-1}$ and write $h = (h_1, \cdots, h_n)$. Then $\phi = h \circ \psi$ and $\psi^{-1} = \phi^{-1} \circ h$. By definition and the chain rule, we have that 
 		\begin{align*}
-		\eval{\pdv{y_i}}_{p} f 
-			&= \eval{\pdv{u_i}}_{\psi(p)} f \circ \psi^{-1} \\
-			&= \eval{\pdv{u_i}}_{\psi(p)} f \circ \phi^{-1} \circ h \\
-			&= \sum_{j=1}^n \bigg( \eval{\pdv{u_j}}_{h \circ \psi (p)} f \circ \phi^{-1} \bigg)  \bigg( \eval{\pdv{u_i}}_{\psi(p)} h_j \bigg) \\
-			&= \sum_{j=1}^n \bigg( \eval{\pdv{u_j}}_{\phi (p)} f \circ \phi^{-1}  \bigg) \bigg( \eval{\pdv{u_i}}_{\psi(p)} x_j \circ \psi^{-1} \bigg) \\
-			&= \sum_{j=1}^n \bigg( \eval{\pdv{x_j}}_{p} f \bigg)  \bigg(   \eval{\pdv{y_i}}_{p} x_j  \bigg)\\
+		\eval{\pdv{y^i}}_{p} f 
+			&= \eval{\pdv{u^i}}_{\psi(p)} f \circ \psi^{-1} \\
+			&= \eval{\pdv{u^i}}_{\psi(p)} f \circ \phi^{-1} \circ h \\
+			&= \sum_{j=1}^n \bigg( \eval{\pdv{u^j}}_{h \circ \psi (p)} f \circ \phi^{-1} \bigg)  \bigg( \eval{\pdv{u^i}}_{\psi(p)} h_j \bigg) \\
+			&= \sum_{j=1}^n \bigg( \eval{\pdv{u^j}}_{\phi (p)} f \circ \phi^{-1}  \bigg) \bigg( \eval{\pdv{u^i}}_{\psi(p)} x^j \circ \psi^{-1} \bigg) \\
+			&= \sum_{j=1}^n \bigg( \eval{\pdv{x^j}}_{p} f \bigg)  \bigg(   \eval{\pdv{y^i}}_{p} x^j  \bigg)\\
 		\end{align*}
 	\end{proof}
 
 	\begin{ex}\textbf{Taylor's Theorem:}\\
-		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$, $p \in U$ and $f \in C^{\infty}_p(M)$. Then there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x_i - x_i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x_i}}_{p} f $$ 
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C^{\infty}_p(M)$. Then there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x^i - x^i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x^i}}_{p} f $$ 
 	\end{ex}
 
 	\begin{proof}
-		Since we are interested in the germ of $f$ at $p$, we may assume that $\phi(U)$ is star-shaped with respect to $\phi(p)$. Let $q \in U$. From Taylor's theorem in section $1$, we know that there exist $\tilde{g_1}, \cdots, \tilde{g_n} \in C^{\infty}(\phi(U))$ such that for each $q \in U$, $$f \circ \phi^{-1} (\phi(q)) = f \circ \phi^{-1} (\phi(p)) + \sum_{i = 1}^n [u_i \circ \phi(q) - u_i \circ \phi(p)] \tilde{g_i} (\phi(q))$$ and for each $i \in \{1, \cdots, n\}$, $$\tilde{g_i}(\phi(p)) = \eval{\pdv{u_i}}_{\phi(p)} f \circ \phi^{-1}$$ 
-		For each $i \in \{1, \cdots, n\}$, define $g_i = \tilde{g_i} \circ \phi$. Then for each $q \in U$, $$ f (q) = f (p) + \sum_{i = 1}^n [x_i(q) - x_i(p)] g_i(q)$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x_i}}_{p} f $$ 
+		Since we are interested in the germ of $f$ at $p$, we may assume that $\phi(U)$ is star-shaped with respect to $\phi(p)$. Let $q \in U$. From Taylor's theorem in section $1$, we know that there exist $\tilde{g_1}, \cdots, \tilde{g_n} \in C^{\infty}(\phi(U))$ such that for each $q \in U$, $$f \circ \phi^{-1} (\phi(q)) = f \circ \phi^{-1} (\phi(p)) + \sum_{i = 1}^n [u^i \circ \phi(q) - u^i \circ \phi(p)] \tilde{g_i} (\phi(q))$$ and for each $i \in \{1, \cdots, n\}$, $$\tilde{g_i}(\phi(p)) = \eval{\pdv{u^i}}_{\phi(p)} f \circ \phi^{-1}$$ 
+		For each $i \in \{1, \cdots, n\}$, define $g_i = \tilde{g_i} \circ \phi$. Then for each $q \in U$, $$ f (q) = f (p) + \sum_{i = 1}^n [x^i(q) - x^i(p)] g_i(q)$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x^i}}_{p} f $$ 
 	\end{proof}
 
 	\begin{defn}
@@ -1082,28 +1082,28 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{proof}
 
 	\begin{ex}
-		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $p \in U$. Then $$ \bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$$ is a basis for $T_pM$ and $\dim T_pM = n$.
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then $$ \bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$$ is a basis for $T_pM$ and $\dim T_pM = n$.
 	\end{ex}
 
 	\begin{proof}
-		Clearly $\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \in T_pM$. Let $a_1, \cdots, a_n \in \R$. Suppose that $$v = \sum_{i=1}^n a_i \eval{\pdv{x_i}}_{p} = 0$$
+		Clearly $\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \in T_pM$. Let $a_1, \cdots, a_n \in \R$. Suppose that $$v = \sum_{i=1}^n a_i \eval{\pdv{x^i}}_{p} = 0$$
 		Then 
 		\begin{align*}
 			0
-			&= v x_j \\
-			&= \sum_{i=1}^n a_i \eval{\pdv{x_i}}_{p} x_j \\
+			&= v x^j \\
+			&= \sum_{i=1}^n a_i \eval{\pdv{x^i}}_{p} x^j \\
 			&= a_j
 		\end{align*}
-		Hence $\bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ is independent.\\
-		Now, let $v \in T_pM$ and $f \in \C^{\infty}_p(M)$. By Taylor's theorem, there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x_i - x_i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x_i}}_{p} f $$ Then 
+		Hence $\bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ is independent.\\
+		Now, let $v \in T_pM$ and $f \in \C^{\infty}_p(M)$. By Taylor's theorem, there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x^i - x^i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x^i}}_{p} f $$ Then 
 		\begin{align*}
 			v(f)
-			&= \sum_{i=1}^nv(x_i - x_i(p)) g_i(p) + \sum_{i=1}^n(x_i(p) - x_i(p)) v(g_i) \\
-			&= \sum_{i=1}^nv(x_i)g_i(p) \\
-			&= \sum_{i=1}^nv(x_i)\eval{\pdv{x_i}}_{p} f \\
-			&= \bigg[ \sum_{i=1}^nv(x_i)\eval{\pdv{x_i}}_{p} \bigg] f
+			&= \sum_{i=1}^nv(x^i - x^i(p)) g_i(p) + \sum_{i=1}^n(x^i(p) - x^i(p)) v(g_i) \\
+			&= \sum_{i=1}^nv(x^i)g_i(p) \\
+			&= \sum_{i=1}^nv(x^i)\eval{\pdv{x^i}}_{p} f \\
+			&= \bigg[ \sum_{i=1}^nv(x^i)\eval{\pdv{x^i}}_{p} \bigg] f
 		\end{align*}
-		So $$v = \sum_{i=1}^nv(x_i)\eval{\pdv{x_i}}_{p} $$ and $$v \in \spn \bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$$
+		So $$v = \sum_{i=1}^nv(x^i)\eval{\pdv{x^i}}_{p} $$ and $$v \in \spn \bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$$
 	\end{proof}
 
 
@@ -1147,96 +1147,191 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that $F$ is a diffeomorphism. Since $F$ is a homeomorphism, $\dim N = n$. Choose $(U, \phi) \in \MA$ such that $p \in U$. A previous exercise tells us that $(F(U), \phi \circ F^{-1}) \in \MB$. Write $\phi = (x_1, \cdots, x_n)$ and $\phi \circ F^{-1} = (y_1, \cdots, y_n)$. Let $f \in C^{\infty}_{F(p)}(N)$ Then 
+		Suppose that $F$ is a diffeomorphism. Since $F$ is a homeomorphism, $\dim N = n$. Choose $(U, \phi) \in \MA$ such that $p \in U$. A previous exercise tells us that $(F(U), \phi \circ F^{-1}) \in \MB$. Write $\phi = (x^1, \cdots, x^n)$ and $\phi \circ F^{-1} = (y^1, \cdots, y^n)$. Let $f \in C^{\infty}_{F(p)}(N)$ Then 
 		\begin{align*}
-			\eval{\pdv{y_i}}_{F(p)} f
-			&= 	\eval{\pdv{u_i}}_{\phi \circ F^{-1} (F(p))} f \circ (\phi \circ F^{-1})^{-1} \\
-			&= 	\eval{\pdv{u_i}}_{\phi(p)} f \circ F \circ \phi^{-1} \\
-			&= 	\eval{\pdv{x_i}}_p f \circ F \\
+			\eval{\pdv{y^i}}_{F(p)} f
+			&= 	\eval{\pdv{u^i}}_{\phi \circ F^{-1} (F(p))} f \circ (\phi \circ F^{-1})^{-1} \\
+			&= 	\eval{\pdv{u^i}}_{\phi(p)} f \circ F \circ \phi^{-1} \\
+			&= 	\eval{\pdv{x^i}}_p f \circ F \\
 		\end{align*}
 		Therefore 
 		\begin{align*}
-			\bigg[ dF_p \bigg( \eval{\pdv{x_i}}_p \bigg) \bigg] (f)
-			&= \eval{\pdv{x_i}}_p f \circ F \\
-			&= \eval{\pdv{y_i}}_{F(p)} f 
+			\bigg[ dF_p \bigg( \eval{\pdv{x^i}}_p \bigg) \bigg] (f)
+			&= \eval{\pdv{x^i}}_p f \circ F \\
+			&= \eval{\pdv{y^i}}_{F(p)} f 
 		\end{align*}
-	Hence $$dF_p \bigg( \eval{\pdv{x_i}}_p \bigg) = \eval{\pdv{y_i}}_{F(p)}$$ 
-	Since $\bigg \{\eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ is a basis for $T_pM$ and $\bigg \{\eval{\pdv{y_1}}_{F(p)}, \cdots, \eval{\pdv{y_n}}_{F(p)} \bigg \}$ is a basis for $T_{F(p)}N$, $dF_p$ is an isomorphism.
+	Hence $$dF_p \bigg( \eval{\pdv{x^i}}_p \bigg) = \eval{\pdv{y^i}}_{F(p)}$$ 
+	Since $\bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ is a basis for $T_pM$ and $\bigg \{\eval{\pdv{y^1}}_{F(p)}, \cdots, \eval{\pdv{y^n}}_{F(p)} \bigg \}$ is a basis for $T_{F(p)}N$, $dF_p$ is an isomorphism.
 	\end{proof}
 
 	\begin{defn}
 		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism. Define the \textbf{push forward of $F$}, denoted $$F_*:M \rightarrow \coprod_{p \in M} \iso(T_pM, T_{F(p)}N)$$ by $$p \mapsto dF_p$$
 	\end{defn}
 	
-		\begin{defn}
-		We define the \textbf{tangent bundle of $M$}, denoted $TM$, by $$TM = \coprod_{p \in M} T_pM$$ 
-		and we define the \textbf{cotangent bundle of $M$}, denoted $T^*M$, by 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{The Cotangent Space}	
+	
+	
+	\begin{defn}
+	Let $p \in M$. We define the \textbf{cotangent space of $M$ at $p$}, denoted $T^*_pM$, by $$T^*_pM = (T_pM)^*$$
+	\end{defn}
+	
+	\begin{defn}
+	Let $f \in C^{\infty}(M)$. We define the \textbf{differential of $f$ at $p$}, denoted $df_p:T_pM \rightarrow \R$, by $$df_p(v) = vf$$
+	\end{defn}
+	
+	\begin{ex}
+	Let $f \in C^{\infty}(M)$ and $p \in M$. Then $df_p \in T^*_pM$.
+	\end{ex}
+	
+	\begin{proof}
+	Let $v_1, v_2 \in T_pM$ and $\lam \in \R$. Then 
+	\begin{align*}
+	df_p(v_1 + \lam v_2) 
+	&= (v_1 + \lam v_2) f \\
+	&= v_1 f + \lam v_2 f \\
+	&= df_p(v_1) + \lam df_p(v_2)
+	\end{align*}
+	So that $df_p$ is linear and hence $df_p \in T^*_pM$.
+	\end{proof}
+	
+	\begin{ex}
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then for each $i,j \in \{1, \cdots, n\}$, $$dx^i_p \bigg(\eval{\pdv{x^j}}_p \bigg) = \del_{i,j}$$ 
+		In particular, $\{dx^1_p, \cdots, dx^n_p \}$ is the dual basis to $\bigg \{ \eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ and $T_p^*M = \spn\{dx^1_p, \cdots, dx^n_p\}$.
+	\end{ex}
+
+	\begin{proof}
+		Let $i,j \in \{1, \cdots, n\}$. Then  by defintion,
+		\begin{align*}
+			\bigg[ dx^i_p \bigg (\eval{\pdv{x^j}}_{p} \bigg ) \bigg]_p 
+			&= \eval{\pdv{x^j}}_{p} x^i \\
+			&= \del_{i,j} \\
+		\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+		Let $f \in C^{\infty}(M)$, $(U, \phi)$ a chart on $M$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then $$df_p = \sum_{i=1}^n {\pdv{f}{x^i}}(p) {dx^i}_p$$
+	\end{ex}
+
+	\begin{proof}
+		 Since $\{dx^1_p, \cdots, dx^n_p\}$ is a basis for $T^*_pM$, for each there exist $a_1(p), \cdots, a_n(p) \in \R$ such that $df_p = \sum\limits_{i=1}^n a_i(p)dx^i_p$. Therefore, we have that 
+		\begin{align*}
+			df_p \bigg(\eval{\pdv{x^j}}_{p} \bigg) 
+			&= \sum\limits_{i=1}^n a_i(p)dx^i_p \bigg(\eval{\pdv{x^j}}_{p} \bigg)  \\
+			&=  a_j(p)
+		\end{align*}
+		By definition, we have that 
+		\begin{align*}
+			df_p\bigg(\eval{\pdv{x^j}}_{p} \bigg) 
+			&= \eval{\pdv{x^j}}_{p} f \\ 
+			&= {\pdv{f}{x^j}}(p)\\
+		\end{align*}
+		So $a_j(p) = {\pdv{f}{x^j}}(p)$ and $$df_p = \sum\limits_{i=1}^n {\pdv{f}{x^j}}(p)dx^i_p$$
+	\end{proof}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Submanifolds}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Tensor Fields}
+	
+	\subsection{Tensor Bundles}
+	
+	\begin{defn}
+		We define 
+		\begin{enumerate}
+		\item the \textbf{tangent bundle of $M$}, denoted $TM$, by $$TM = \coprod_{p \in M} T_pM$$ 
+		\item the \textbf{cotangent bundle of $M$}, denoted $T^*M$, by 
 		$$T^*M = \coprod_{p \in M} T_p^*M$$
+		\item the \textbf{$(r,s)$-tensor bundle of $M$}, denoted $T^r_sM$
+	$$T^r_s M = \coprod_{p \in M} T^r_s(T_p M)$$
+		\end{enumerate}
 	\end{defn}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\subsection{Submanifolds}
-	
-	\newpage
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\section{Tensor Fields}
-
-	
 	\subsection{Vector Fields}
 	
 	\begin{defn}
 		Let $X: M \rightarrow TM$. Then $X$ is said to be a \textbf{vector field on $M$} if for each $p \in M$, $X_p \in T_p M$. \\
 		For $f \in \C^{\infty}(M)$, we define $Xf : M \rightarrow \R$ by $$(Xf)_p = X_p(f)$$ 
 		and $X$ is said to be \textbf{smooth} if for each $f \in \C^{\infty}(M)$, $Xf$ is smooth.\\
-		We denote the set of smooth vector fields on $M$ by $\Gam(M)$.
+		We denote the set of smooth vector fields on $M$ by $\Gam^1(M)$.
 	\end{defn}
 
 	\begin{defn}
-	Let $f \in C^{\infty}(M)$ and $X,Y \in \Gam(M)$. We define 
+	Let $f \in C^{\infty}(M)$ and $X,Y \in \Gam^1(M)$. We define 
 	\begin{itemize}
-	\item $fX \in \Gam(M)$ by $$(fX)_p = f(p)X_p$$
-	\item $X+Y \in \Gam(M)$ by $$(X+Y)_p = X_p+Y_p$$
+	\item $fX \in \Gam^1(M)$ by $$(fX)_p = f(p)X_p$$
+	\item $X+Y \in \Gam^1(M)$ by $$(X+Y)_p = X_p+Y_p$$
 	\end{itemize}
 	\end{defn}
 	
 	\begin{ex}
-	The set $\Gam(M)$ is a $C^{\infty}(M)$-module.
+	The set $\Gam^1(M)$ is a $C^{\infty}(M)$-module.
 	\end{ex}
 	
 	\begin{proof}
@@ -1244,33 +1339,169 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{proof}
 
 	\begin{ex}
-		Let $X \in \Gam(M)$ and $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then $$X|_U = \sum_{i=1}^n (Xx_i) \pdv{x_i}$$ 
+		Let $X \in \Gam^1(M)$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then $$X|_U = \sum_{i=1}^n (Xx^i) \pdv{x^i}$$ 
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \eval{\pdv{x_{1}}}_{p}, \cdots, \eval{\pdv{x_{n}}}_{p} \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f_i(p) \eval{\pdv{x_i}}_{p}$. Let $j \in \{1, \cdots, n\}$. Then,
+		Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f_i(p) \eval{\pdv{x^i}}_{p}$. Let $j \in \{1, \cdots, n\}$. Then,
 		\begin{align*}
-			X_p(x_j) 
-			&= \sum\limits_{i=1}^n f_i(p) {\pdv{x_j}{x_i}}(p) \\
+			X_p(x^j) 
+			&= \sum\limits_{i=1}^n f_i(p) {\pdv{x^j}{x^i}}(p) \\
 			&= f_j(p) \\
 		\end{align*} 
-		Hence $Xx_j = f_j$ and $X|_U = \sum\limits_{i=1}^n (Xx_i) \pdv{x_i}$.
+		Hence $Xx^j = f_j$ and $X|_U = \sum\limits_{i=1}^n (Xx^i) \pdv{x^i}$.
 	\end{proof}
 	
 	\begin{ex}
-	Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$. Then for each $i \in \{1, \cdots, n\}$, $$\pdv{x_i} \in \Gam(U)$$
+	Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then for each $i \in \{1, \cdots, n\}$, $$\pdv{x^i} \in \Gam(U)$$
 	\end{ex}
 	
 	\begin{proof}
-	Let $i \in \{1, \cdots, n\}$ and $f \in C^{\infty}(M)$. Define $g: M \rightarrow \R$ by $g = \pdv{x_i} f$. Let $(V, \psi) \in \MA$. Then for each $x \in \psi(U \cap V)$, 
+	Let $i \in \{1, \cdots, n\}$ and $f \in C^{\infty}(M)$. Define $g: M \rightarrow \R$ by $g = \pdv{x^i} f$. Let $(V, \psi) \in \MA$. Then for each $x \in \psi(U \cap V)$, 
 	\begin{align*}
 	g \circ \psi^{-1}(x) 
-	&= \eval{\pdv{x_i}}_{\psi^{-1}(x)}f \\
-	&= \eval{\pdv{u_i}}_{\phi \circ \psi^{-1}(x)}f \circ \phi^{-1}  \\
-	&= \pdv{u_i}(f \circ \phi^{-1}) \circ (\phi \circ \psi^{-1}) \\
+	&= \eval{\pdv{x^i}}_{\psi^{-1}(x)}f \\
+	&= \eval{\pdv{u^i}}_{\phi \circ \psi^{-1}(x)}f \circ \phi^{-1}  \\
+	&= \pdv{u^i}[f \circ \phi^{-1}] ( \phi \circ \psi^{-1} (x))\\
 \end{align*}	 
-	Since $f \circ \phi^{-1}$ and $\phi \circ \psi^{-1}$ are smooth, $g \circ \psi^{-1}$ is smooth and hence $g$ is smooth. Since $f \in C^{\infty}(M)$ was arbitrary, by definition, $\pdv{x_i}$ is smooth. 
+	Since $f \circ \phi^{-1}$ and $\phi \circ \psi^{-1}$ are smooth, $g \circ \psi^{-1}$ is smooth and hence $g$ is smooth. Since $f \in C^{\infty}(M)$ was arbitrary, by definition, $\pdv{x^i}$ is smooth. 
 	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{$1$-Forms}
+	
+	\begin{defn}
+		Let $\om: M \rightarrow T^*M$. Then $\om$ is said to be a \textbf{$1$-form on $M$} if for each $p \in M$, $\om_p \in T^*_p M$. \\
+		For each $X \in \Gam^1(M)$, we define $\om(X) : M \rightarrow \R$ by $$\om(X)_p = \om_p(X_p)$$
+		and $\om$ is said to be \textbf{smooth} if for each $X \in \Gam^1(M)$, $\om(X)$ is smooth. \\
+		The set of smooth $1$-forms on $M$ is denoted $\Gam_1(M)$.\\
+	\end{defn}
+
+	\begin{defn}
+	Let $f \in C^{\infty}(M)$ and $\al,\bet \in \Gam^1(M)$. We define 
+	\begin{itemize}
+	\item $f\al \in \Gam_1(M)$ by $$(f\om)_p = f(p)\om_p$$
+	\item $\al+\bet \in \Gam^1(M)$ by $$(\al+\bet)_p = \al_p+\bet_p$$
+	\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+	The set $\Gam_1(M)$ is a $C^{\infty}(M)$-module.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	
+	\begin{ex}
+	
+	\end{ex}
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{$(r,s)$-Tensor Fields}
+	
+	\begin{defn}
+		Let $\al: M \rightarrow T^r_sM$. Then $\al$ is said to be a \textbf{$(r,s)$-tensor field on $M$} if for each $p \in M$, $\al_p \in T^r_s(T_pM)$. \\
+		For each $\om \in \Gam_1(M)^r$ and $X \in \Gam^1(M)^s$, we define $\al(\om, X) : M \rightarrow \R$ by $$\al(\om, X)_p = \al_p(\om_p, X_p)$$
+		and $\al$ is said to be \textbf{smooth} if for each $\om \in \Gam_1(M)^r$ and $X \in \Gam^1(M)^s$, $\al(\om, X)$ is smooth. \\
+		The set of smooth $(r,s)$-tensor fields on $M$ is denoted $\Gam^r_s(M)$.\\
+	\end{defn}
+
+	\begin{defn}
+	Let $f \in C^{\infty}(M)$ and $\al,\bet \in \Gam^r_s(M)$. We define 
+	\begin{itemize}
+	\item $f\al: M \rightarrow T^r_sM$ by $$(f\om)_p = f(p)\om_p$$
+	\item $\al+\bet:  M \rightarrow T^r_sM$ by $$(\al+\bet)_p = \al_p+\bet_p$$
+	\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+	Let $f \in C^{\infty}(M)$ and $\al,\bet \in \Gam^r_s(M)$. Then
+	\begin{enumerate}
+	\item $f\al \in \Gam^r_s(M)$ by $$(f\om)_p = f(p)\om_p$$
+	\item $\al+\bet \in \Gam^r_s(M)$ by $$(\al+\bet)_p = \al_p+\bet_p$$
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex}
+	The set $\Gam^r_s(M)$ is a $C^{\infty}(M)$-module.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn}
+	Let $\al_1 \in \Gam^{r_1}_{s_1}(M)$ and $\al_2 \in \Gam^{r_2}_{s_2}(M)$. We define the \textbf{tensor product of $\al$ with $\bet$}, denoted $\al \otimes \bet : M \rightarrow T^{r_1 + r_2}_{s_1 + s_2}M$, by $$(\al \otimes \bet)_p = \al_p \otimes \bet_p$$
+	\end{defn}
+	
+	\begin{ex}
+	Let $\al_1 \in \Gam^{r_1}_{s_1}(M)$ and $\al_2 \in \Gam^{r_2}_{s_2}(M)$. Then $\al_1 \otimes \al_2 \in \Gam^{r_1 + r_2}_{s_1 + s_2}(M)$
+	\end{ex}
+	
+	\begin{proof}
+	Let $\om_1 \in \Gam_1(M)^{r_1}$, $\om_2 \in \Gam_1(M)^{r_2}$, $X_1 \in \Gam^1(M)^{s_1}$ and $X_2 \in \Gam^1(M)^{s_2}$. By definition,
+	$$\al_1 \otimes \al_2 (\om_1, \om_2, X_1, X_2) = \al_1(\om_1, X_1) \al_2(\om_2, X_2)$$
+	This implies that $\al_1 \otimes \al_2$ is smooth since $\al_1$ and $\al_2$ are smooth by assumption.
+	\end{proof}
+	
+	\begin{defn}
+	We define the \textbf{tensor product}, denoted $\otimes : \Gam^{r_1}_{s_1}(M) \times \Gam^{r_2}_{s_2}(M) \rightarrow \Gam^{r_1+r_2}_{s_1+s_2}(M)$ by $$(\al_1, \al_2) \mapsto \al_1 \otimes \al_2 $$
+	\end{defn}	
+	
+	\begin{ex}
+		Let $\al \in \Gam^r_s(M)$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then there exist $(f^I_J)_{I \in \MI_r, J \in \MI_s} \subset C^{\infty}(M)$ such that $$\al|_U = \sum_{(I,J) \in \MI_r \times \MI_s} f^I_J \partial_{x^{\otimes I}} \otimes dx^{\otimes J}$$ 
+	\end{ex}
+
+	\begin{proof}
+		Let $p \in M$. Then $\om_p \in T^r_s(T_pM)$ and $\bigg \{\partial_{x^{\otimes I}}|_p \otimes dx^{\otimes J}_p \bigg \}$ is a basis of $T^r_s(T_pM)$. So there exist $(f^I_J(p))_{I \in \MI_r, J \in \MI_s } \subset \R$ such that $$\om_p = \sum\limits_{(I,J) \in \MI_r \times \MI_s } f^I_J(p) \partial_{x^{\otimes I}}|_p \otimes dx^{\otimes J}_p $$
+		Let $(K,L) \in \MI_r \times \MI_s$. Then 
+		\begin{align*}
+		\al_p(dx^K_p, \partial_{x^L}|_p) 
+		&=  \sum\limits_{(I,J) \in \MI_r \times \MI_s } f^I_J(p) \partial_{x^{\otimes I}}|_p \otimes dx^{\otimes J}_p(dx^K_p, \partial_{x^L}|_p) \\
+		&= \sum\limits_{(I,J) \in \MI_r \times \MI_s } f^I_J(p) \partial_{x^{\otimes I}}|_p (dx^K_p) dx^{\otimes J}_p(\partial_{x^L}|_p)  \\
+		&= f^K_L(p)
+		\end{align*}
+		By assumption, the map $p \mapsto \al(dx^K, \partial_{x^L})_p$ is smooth, so that $f^K_L \in C^{\infty}(U)$.
+	
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -1305,8 +1536,8 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	\begin{defn}
 		Let $\om: M \rightarrow \Lam_k (TM)$. Then $\om$ is said to be a \textbf{$k$-form on $M$} if for each $p \in M$, $\om_p \in \Lam_k(T_pM)$.\\
-		For each $X_1, \cdots, X_k \in \Gam(M)$, we define $\om(X_1, \cdots, X_k) : M \rightarrow \R$ by $$\om(X_1, \cdots, X_k)_p = \om_p({X_1}(p), \cdots, {X_k}(p))$$
-		and $\om$ is said to be \textbf{smooth} if for each $X_1, \cdots, X_k \in \Gam(M)$, $\om(X_1, \cdots, X_k)$ is smooth.\\
+		For each $X_1, \cdots, X_k \in \Gam^1(M)$, we define $\om(X_1, \cdots, X_k) : M \rightarrow \R$ by $$\om(X_1, \cdots, X_k)_p = \om_p({X_1}(p), \cdots, {X_k}(p))$$
+		and $\om$ is said to be \textbf{smooth} if for each $X_1, \cdots, X_k \in \Gam^1(M)$, $\om(X_1, \cdots, X_k)$ is smooth.\\
 		The set of smooth $k$-forms on $M$ is denoted $\Om_k(M)$.\\
 	\end{defn} 
 
@@ -1343,7 +1574,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{ex}
 	
 	\begin{proof}
-	Let $\al \in \Om_k(M)$, $\beta \in \Om_l(M)$, $(X_i)_{i=1}^k \subset \Gam(M)$, $(Y_j)_{i=1}^l \subset \Gam(M)$ and $p \in M$. Then 
+	Let $\al \in \Om_k(M)$, $\beta \in \Om_l(M)$, $(x^i)_{i=1}^k \subset \Gam^1(M)$, $(y^j)_{i=1}^l \subset \Gam^1(M)$ and $p \in M$. Then 
 	\begin{align*}
 	\al \wedge \bet (X_1, \dots, X_{k+l})_p
 	&= (\al \wedge \bet)_p ({X_1}(p), \cdots, {X_{k+l}}(p)) \\
@@ -1392,39 +1623,39 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{defn}
 
 	\begin{ex}
-		Let $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then on $U$, for each $i,j \in \{1, \cdots, n\}$, $$dx_i\bigg(\pdv{x_j} \bigg) = \del_{i,j}$$ 
-		In particular, for each $p \in U$, $\{(dx_1)_p, \cdots, (dx_n)_p \}$ is the dual basis to $\bigg \{ \eval{\pdv{x_1}}_{p}, \cdots, \eval{\pdv{x_n}}_{p} \bigg \}$ and $T_p^*M = \spn\{(dx_1)_p, \cdots, (dx_n)_p\}$.
+		Let $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then on $U$, for each $i,j \in \{1, \cdots, n\}$, $$dx^i\bigg(\pdv{x^j} \bigg) = \del_{i,j}$$ 
+		In particular, for each $p \in U$, $\{dx^1_p, \cdots, dx^n_p \}$ is the dual basis to $\bigg \{ \eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ and $T_p^*M = \spn\{dx^1_p, \cdots, dx^n_p\}$.
 	\end{ex}
 
 	\begin{proof}
 		Let $p \in U$ and $i,j \in \{1, \cdots, n\}$. Then  by defintion,
 		\begin{align*}
-			\bigg[ dx_i \bigg (\pdv{x_j} \bigg ) \bigg]_p 
-			&= \bigg( \pdv{x_j} x_i \bigg )_p \\
-			&= \eval{\pdv{x_j}}_{p} x_i \\
+			\bigg[ dx^i \bigg (\pdv{x^j} \bigg ) \bigg]_p 
+			&= \bigg( \pdv{x^j} x^i \bigg )_p \\
+			&= \eval{\pdv{x^j}}_{p} x^i \\
 			&= \del_{i,j} \\
 		\end{align*}
 	\end{proof}
 
 	\begin{ex}
-		Let $f \in C^{\infty}(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then $$df|_U = \sum_{i=1}^n \pdv{f}{x_i} dx_i$$
+		Let $f \in C^{\infty}(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then $$df|_U = \sum_{i=1}^n \pdv{f}{x^i} dx^i$$
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in U$. Since $\{dx_1, \cdots, dx_n\}$ is a basis for $\Lam(T_pM)$, for each there exist $a_1(p), \cdots, a_n(p) \in \R$ such that $(df)_p = \sum\limits_{i=1}^n a_i(p)(dx_i)_p$. Therefore, we have that 
+		Let $p \in U$. Since $\{dx^1, \cdots, dx^n\}$ is a basis for $\Lam(T_pM)$, for each there exist $a_1(p), \cdots, a_n(p) \in \R$ such that $df_p = \sum\limits_{i=1}^n a_i(p)dx^i_p$. Therefore, we have that 
 		\begin{align*}
-			(df)_p \bigg(\eval{\pdv{x_j}}_{p} \bigg) 
-			&= \sum\limits_{i=1}^n a_i(p)(dx_i)_p \bigg(\eval{\pdv{x_j}}_{p} \bigg)  \\
+			df_p \bigg(\eval{\pdv{x^j}}_{p} \bigg) 
+			&= \sum\limits_{i=1}^n a_i(p)dx^i_p \bigg(\eval{\pdv{x^j}}_{p} \bigg)  \\
 			&=  a_j(p)
 		\end{align*}
 		By definition, we have that 
 		\begin{align*}
-			(df)_p\bigg(\eval{\pdv{x_j}}_{p} \bigg) 
-			&= \eval{\pdv{x_j}}_{p} f \\ 
-			&= {\pdv{f}{x_j}}(p)\\
+			df_p\bigg(\eval{\pdv{x^j}}_{p} \bigg) 
+			&= \eval{\pdv{x^j}}_{p} f \\ 
+			&= {\pdv{f}{x^j}}(p)\\
 		\end{align*}
-		So $a_j(p) = {\pdv{f}{x_j}}(p)$ and $$(df)_p = \sum\limits_{i=1}^n {\pdv{f}{x_j}}(p)(dx_i)_p$$
-		Therefore $$df|_U = \sum\limits_{i=1}^n {\pdv{f}{x_i}}dx_i$$
+		So $a_j(p) = {\pdv{f}{x^j}}(p)$ and $$df_p = \sum\limits_{i=1}^n {\pdv{f}{x^j}}(p)dx^i_p$$
+		Therefore $$df|_U = \sum\limits_{i=1}^n {\pdv{f}{x^i}}dx^i$$
 	\end{proof}
 	
 	\begin{ex}
@@ -1432,10 +1663,10 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $f$ is constant. Let $p \in M$. Choose $(U, \phi) \in \MA$ such that $p \in U$. Write $\phi = (x_1, \dots, x_n)$. Then for each $i \in \{1, \dots, n\}$, $$\eval{\pdv{x_i}}_p f = 0$$ This implies that 
+	Suppose that $f$ is constant. Let $p \in M$. Choose $(U, \phi) \in \MA$ such that $p \in U$. Write $\phi = (x_1, \dots, x_n)$. Then for each $i \in \{1, \dots, n\}$, $$\eval{\pdv{x^i}}_p f = 0$$ This implies that 
 	\begin{align*}
-	(df)_p 
-	&= \sum\limits_{i=1}^n {\pdv{f}{x_j}}(p)(dx_i)_p \\
+	df_p 
+	&= \sum\limits_{i=1}^n {\pdv{f}{x^j}}(p)dx^i_p \\
 	&= 0
 	\end{align*}
 	\end{proof}
@@ -1445,43 +1676,43 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{ex}
 
 	\begin{defn}
-		Let $(U, \phi) \in \MA$ with $\phi = (x_1, \cdots, x_n)$ and $I = (i_1, \cdots, i_k) \in \MI_k$. We define $$dx_I = dx_{i_1} \wedge \cdots \wedge dx_{i_k} \in \Om_k(M)$$ 
-		and we define $$\pdv{x_I}= \bigg(\pdv{x_{i_1}}, \cdots, \pdv{x_{i_k}} \bigg)$$
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $I = (i_1, \cdots, i_k) \in \MI_k$. We define $$dx^i = dx_{i_1} \wedge \cdots \wedge dx_{i_k} \in \Om_k(M)$$ 
+		and we define $$\pdv{x^i}= \bigg(\pdv{x_{i_1}}, \cdots, \pdv{x_{i_k}} \bigg)$$
 
 	\end{defn}
 	
 	\begin{note} We have that
 	\begin{enumerate}
-	\item  $$d x_I \bigg ( \pdv{x_J} \bigg) = \del_{I,J}$$
-	\item Since $\pdv{x_I} \in \Gam(U)^k$, by definition, for each $\om \in \Om_k(U)$, $$\om \bigg(\pdv{x_I} \bigg) \in C^{\infty}(U)$$
+	\item  $$d x^i \bigg ( \pdv{x^j} \bigg) = \del_{I,J}$$
+	\item Since $\pdv{x^i} \in \Gam(U)^k$, by definition, for each $\om \in \Om_k(U)$, $$\om \bigg(\pdv{x^i} \bigg) \in C^{\infty}(U)$$
 	\end{enumerate}
 	\end{note}
 
 	\begin{ex}
-		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. Then $$\om = \sum_{I \in \MI_k}\om \bigg(\pdv{x_I} \bigg) dx_I$$
+		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then $$\om = \sum_{I \in \MI_k}\om \bigg(\pdv{x^i} \bigg) dx^i$$
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in U$. Since $\{(dx_I)_p: I \in \MI_k\}$ is a basis for $\Lam_k(T_pM)$, there exists $(f_I(p))_{I \in \MI} \subset \R$ such that $\om_p = \sum\limits_{I \in \MI_k} f_I(p) (dx_I)_p$. So for each $J \in \MI_k$, 
+		Let $p \in U$. Since $\{dx^i_p: I \in \MI_k\}$ is a basis for $\Lam_k(T_pM)$, there exists $(f_I(p))_{I \in \MI} \subset \R$ such that $\om_p = \sum\limits_{I \in \MI_k} f_I(p) dx^i_p$. So for each $J \in \MI_k$, 
 		\begin{align*}
-			\om\bigg (\pdv{x_J} \bigg ) 
-			&= \sum\limits_{I \in \MI_k} f_I dx_I \bigg (\pdv{x_J} \bigg )  \\
+			\om\bigg (\pdv{x^j} \bigg ) 
+			&= \sum\limits_{I \in \MI_k} f_I dx^i \bigg (\pdv{x^j} \bigg )  \\
 			&= f_J
 		\end{align*} 
 	\end{proof}
 
 	\begin{ex}
-		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x_1, \cdots, x_n)$. If $\om = \sum\limits_{I \in \MI_k}f_I dx_I$, then $$d \om  = \sum_{I \in \MI_k} \sum_{i =1}^n \pdv{f_I}{x_i} dx_i \wedge dx_I$$.
+		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. If $\om = \sum\limits_{I \in \MI_k}f_I dx^i$, then $$d \om  = \sum_{I \in \MI_k} \sum_{i =1}^n \pdv{f_I}{x^i} dx^i \wedge dx^i$$.
 	\end{ex}
 
 	\begin{proof}
 		First we note that
 		\begin{align*}
-			d(f_I dx_I) 
-			&= df_I \wedge dx_I + (-1)^0 f d(dx_I) \\
-			&= df_I \wedge dx_I \\
-			&= \bigg( \sum\limits_{i=1}^n \pdv{f_I}{x_i}dx_i  \bigg) \wedge dx_I \\
-			&= \sum\limits_{i=1}^n {\pdv{f_I}{x_i}}dx_i \wedge dx_I \\
+			d(f_I dx^i) 
+			&= df_I \wedge dx^i + (-1)^0 f d(dx^i) \\
+			&= df_I \wedge dx^i \\
+			&= \bigg( \sum\limits_{i=1}^n \pdv{f_I}{x^i}dx^i  \bigg) \wedge dx^i \\
+			&= \sum\limits_{i=1}^n {\pdv{f_I}{x^i}}dx^i \wedge dx^i \\
 		\end{align*}
 		Then we extend linearly.
 	\end{proof}
@@ -1504,16 +1735,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	
 	
-	\newpage
-	\subsection{$(r,s)$-Tensor Fields}
 	
-	\begin{defn}
-	We define $$T_k (TM) = \coprod_{p \in M} \Lam_k(T_p M)$$
-	\end{defn}
-	
-	\begin{defn}
-	Define the \textbf{tensor product} $$\otimes: T^{k_1}_{l_1}(M) \times T^{k_2}_{l_2}(M) \rightarrow \Om_{k+l}(M) $$ by $$(\al \wedge \beta)_p = (\al)_p \wedge (\beta)_p$$
-	\end{defn}
 	
 	
 	
@@ -1532,7 +1754,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\newpage 
 	\section{Extra}
 	\begin{defn}
-		When working in $\R^n$, we introduce the formal objects $dx_1, dx_2, \cdots, dx_n$. Let $I = (i_1, i_2, \cdots, i_k)\in \MI_{k,n}$ and $\phi: \R^k \rightarrow \R^n$. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We formally define $dx_I = dx_{i_1}\wedge dx_{i_2} \wedge \cdots \wedge dx_{i_k}$ and $\phi_I = (\phi_{i_1}, \phi_{i_2}, \cdots, \phi_{i_k})$.   
+		When working in $\R^n$, we introduce the formal objects $dx^1, dx_2, \cdots, dx^n$. Let $I = (i_1, i_2, \cdots, i_k)\in \MI_{k,n}$ and $\phi: \R^k \rightarrow \R^n$. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We formally define $dx^i = dx_{i_1}\wedge dx_{i_2} \wedge \cdots \wedge dx_{i_k}$ and $\phi_I = (\phi_{i_1}, \phi_{i_2}, \cdots, \phi_{i_k})$.   
 	\end{defn}
 	
 	\begin{defn}
@@ -1541,7 +1763,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 		\Phi_k(\R^n) =
 		\begin{cases}
 			C^{\infty}(\R^n) & k = 0 \\
-			\spn \{ dx_I: I \in \MI_{k,n} \} & k \geq 1
+			\spn \{ dx^i: I \in \MI_{k,n} \} & k \geq 1
 		\end{cases}
 		\]
 		For each $\om \in \Phi_k(\R^n)$ and $\chi \in \Gamma^l(\R^n)$,   we may form their \textbf{exterior product}, denoted by $\om \wedge \chi \in \Gamma^{k+l}(\R^n)$. Thus the exterior product is a map $\wedge : \Phi_k(\R^n) \times \Gamma^l(\R^n)\rightarrow \Gamma^{k+l}(\R^n)$. The exterior product is characterized by the following properties:
@@ -1551,23 +1773,23 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 			\item for each $\om \in \Phi_k(\R^n)$, $\om \wedge \om = 0$
 			\item for each $f \in C^{\infty}(\R^n)$ and $ \om \in \Phi_k(\R^n)$, $f \wedge \om = f \om$
 		\end{enumerate}
-		We call $\Phi_k(\R^n)$ the differential $k$-forms on $\R^n$. Let $\om$ be a $k$-form on $\R^n$. If $k \geq 1$, then for each $I \in \MI_{k,n}$, there exists $f_I \in C^{\infty}(\R^n)$ such that $\om = \sum\limits_{I \in \MI_{k,n}} f_I dx_I$
+		We call $\Phi_k(\R^n)$ the differential $k$-forms on $\R^n$. Let $\om$ be a $k$-form on $\R^n$. If $k \geq 1$, then for each $I \in \MI_{k,n}$, there exists $f_I \in C^{\infty}(\R^n)$ such that $\om = \sum\limits_{I \in \MI_{k,n}} f_I dx^i$
 	\end{defn}
 	
 	
 	\begin{note}
-		The terms $dx_1, dx_2, \cdots, dx_n$ are are a sort of place holder for the coordinates of a point $x = (x_1, x_2, \cdots, x_n) \in \R^n$. When we work with functions $\phi: \R^k \rightarrow \R^n$, we will have different coordinates and to avoid confusion, we will write $\{du_1, du_2, \cdots, du_k\}$ when referencing the coordinates on $\R^k$ and $\{dx_1, dx_2, \cdots, dx_n\}$ when referencing the coordinates on $\R^n$. 
+		The terms $dx^1, dx_2, \cdots, dx^n$ are are a sort of place holder for the coordinates of a point $x = (x_1, x_2, \cdots, x_n) \in \R^n$. When we work with functions $\phi: \R^k \rightarrow \R^n$, we will have different coordinates and to avoid confusion, we will write $\{du^1, du_2, \cdots, du_k\}$ when referencing the coordinates on $\R^k$ and $\{dx^1, dx_2, \cdots, dx^n\}$ when referencing the coordinates on $\R^n$. 
 	\end{note}
 
 	\begin{ex}
-		Let $B_{n\times n} = (b_{i,j}) \in [C^{\infty}(M)]^{n \times n}$ be an $n\times n$ matrix. Then $$\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg) = (\det B) dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$$
+		Let $B_{n\times n} = (b_{i,j}) \in [C^{\infty}(M)]^{n \times n}$ be an $n\times n$ matrix. Then $$\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx^j\bigg) = (\det B) dx^1 \wedge dx_2 \wedge \cdots \wedge dx^n$$
 	\end{ex}
 
 	\begin{proof}
 		Bilinearity of the exterior product implies that
 		\begin{align*}
-			\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx_j\bigg)
-			 &=\bigg(\sum_{j=1}^n b_{1,j}dx_j\bigg) \wedge \bigg(\sum_{j=1}^n b_{2,j}dx_j\bigg) \wedge \cdots \wedge \bigg(\sum_{j=1}^n b_{n,j}dx_j\bigg) \\
+			\bigwedge_{i=1}^n \bigg(\sum_{j=1}^n b_{i,j}dx^j\bigg)
+			 &=\bigg(\sum_{j=1}^n b_{1,j}dx^j\bigg) \wedge \bigg(\sum_{j=1}^n b_{2,j}dx^j\bigg) \wedge \cdots \wedge \bigg(\sum_{j=1}^n b_{n,j}dx^j\bigg) \\
 			 &= \sum_{j_1, \cdots, j_n = 1}^n \bigg( \prod_{i=1}^n b_{i, j_i} \bigg) dx_{j_1}\wedge  dx_{j_2} \wedge \cdots \wedge  dx_{j_n} \\
 			 &= \sum_{j_1 \neq \cdots \neq j_n} \bigg( \prod_{i=1}^n b_{i, j_i} \bigg) dx_{j_1}\wedge  dx_{j_2} \wedge \cdots \wedge  dx_{j_n} \\
 			 &= \bigg[ \sum_{\sig \in S_n} \sgn(\sig) \bigg(\prod_{i=1}^n b_{i, \sig(i)} \bigg) \bigg] dx_{1}\wedge  dx_{2} \wedge \cdots \wedge  dx_{n} \\
@@ -1577,22 +1799,22 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{proof}
 
 	\begin{defn}
-		Let $f: \R^n \rightarrow \R$ be a $0$-form on $\R^n$. We define a $1$-form, denoted $df$, on $\R^n$ by $$df = \sum_{i = 1}^n \pdv{f}{x_i} dx_i$$
-		Let $\om = \sum\limits_{I \in \MI_{k,n}} f_Idx_I$ be a $k$-form on $\R^n$. We can define a differential $k+1$-form, denoted $d \om$, on $\R^n$ by $$d\om = \sum\limits_{I \in \MI_{k,n}} df_I\wedge dx_I$$  
+		Let $f: \R^n \rightarrow \R$ be a $0$-form on $\R^n$. We define a $1$-form, denoted $df$, on $\R^n$ by $$df = \sum_{i = 1}^n \pdv{f}{x^i} dx^i$$
+		Let $\om = \sum\limits_{I \in \MI_{k,n}} f_Idx^i$ be a $k$-form on $\R^n$. We can define a differential $k+1$-form, denoted $d \om$, on $\R^n$ by $$d\om = \sum\limits_{I \in \MI_{k,n}} df_I\wedge dx^i$$  
 	\end{defn}
 
 	\begin{ex}
 		On $\R^3$, put 
 		\begin{enumerate}
 			\item $\om_0 = f_0$, 
-			\item $\om_1 = f_1 dx_1 + f2 dx_2 + f_2 dx_3$, 
-			\item $\om_2 = f_1dx_2\wedge dx_3 - f_2 dx_1 \wedge dx_3 + f_3 dx_1 \wedge dx_2$
+			\item $\om_1 = f_1 dx^1 + f2 dx_2 + f_2 dx_3$, 
+			\item $\om_2 = f_1dx_2\wedge dx_3 - f_2 dx^1 \wedge dx_3 + f_3 dx^1 \wedge dx_2$
 		\end{enumerate} 
 		Show that
 		\begin{enumerate}
-			\item $d\om_0 = \pdv{f_0}{x_1}dx_1 + \pdv{f_0}{x_2}dx_2 + \pdv{f_0}{x_3}dx_3$
-			\item $d \om_1 = \bigg(\pdv{f_3}{x_2} - \pdv{f_2}{x_3} \bigg) dx_2 \wedge dx_3 + \bigg( \pdv{f_3}{x_1} - \pdv{f_1}{x_3}\bigg)dx_1 \wedge dx_3 + \bigg( \pdv{f_2}{x_1} - \pdv{f_1}{x_2} \bigg) dx_1 \wedge dx_2$
-			\item $d \om_2 = \bigg( \pdv{f_1}{x_1} + \pdv{f_2}{x_2} + \pdv{f_3}{x_3} \bigg) dx_1 \wedge dx_2 \wedge dx_3$ 
+			\item $d\om_0 = \pdv{f_0}{x_1}dx^1 + \pdv{f_0}{x_2}dx_2 + \pdv{f_0}{x_3}dx_3$
+			\item $d \om_1 = \bigg(\pdv{f_3}{x_2} - \pdv{f_2}{x_3} \bigg) dx_2 \wedge dx_3 + \bigg( \pdv{f_3}{x_1} - \pdv{f_1}{x_3}\bigg)dx^1 \wedge dx_3 + \bigg( \pdv{f_2}{x_1} - \pdv{f_1}{x_2} \bigg) dx^1 \wedge dx_2$
+			\item $d \om_2 = \bigg( \pdv{f_1}{x_1} + \pdv{f_2}{x_2} + \pdv{f_3}{x_3} \bigg) dx^1 \wedge dx_2 \wedge dx_3$ 
 		\end{enumerate}
 	\end{ex}
 
@@ -1601,33 +1823,33 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{proof}
 
 	\begin{ex}
-		Let $I \in \MI_{k, n}$. Then there is a unique $I_* \in \MI_{n-k, n}$ such that $dx_I \wedge dx_{I_*} = dx_1 \wedge dx_2 \wedge \cdots \wedge dx_n$.
+		Let $I \in \MI_{k, n}$. Then there is a unique $I_* \in \MI_{n-k, n}$ such that $dx^i \wedge dx_{I_*} = dx^1 \wedge dx_2 \wedge \cdots \wedge dx^n$.
 	\end{ex}
 	
 	\begin{defn}
-		We define a linear map $*:\Phi_k(\R^n) \rightarrow \Gamma^{n-k}(\R^n)$ called the \textbf{Hodge $*$-operator} by $$* \sum\limits_{I \in \MI_{k,n}} f_I dx_I = \sum\limits_{I \in \MI_{k,n}} f_Idx_{I_*}$$
+		We define a linear map $*:\Phi_k(\R^n) \rightarrow \Gamma^{n-k}(\R^n)$ called the \textbf{Hodge $*$-operator} by $$* \sum\limits_{I \in \MI_{k,n}} f_I dx^i = \sum\limits_{I \in \MI_{k,n}} f_Idx_{I_*}$$
 	\end{defn}
 
 	\begin{defn}
 		Let $\phi: \R^k \rightarrow \R^n$ be smooth. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We define $\phi^*:\Phi_k(\R^n) \rightarrow \Phi_k(\R^k)$ via the following properties: 
 		\begin{enumerate}
 			\item for each $0$-form $f$ on $\R^n$, $\phi^*f = f \circ \phi$
-			\item  for $i = 1, \cdots , n$, $\phi^* dx_i = d\phi_i$ 
+			\item  for $i = 1, \cdots , n$, $\phi^* dx^i = d\phi_i$ 
 			\item for an $s$-form $\om$, and a $t$-form $\chi$ on $\R^n$,  $\phi^* (\om \wedge \chi) = (\phi^*\om) \wedge (\phi^*\chi)$
 			\item for $l$-forms $\om, \chi$ on $\R^n$, $\phi^*(\om + \chi) = \phi^*\om + \phi^*\chi$ 
 		\end{enumerate}
 	\end{defn}
 
 	\begin{ex}
-			Let $M \subset \R^n$ be a $k$-dimensional smooth submanifold of $\R^n$, $\phi: U \rightarrow V$ a smooth parametrization of $M$, $\om = \sum_{I \in \MI_{k,n}} f_Idx_I$  an $k$-form on $\R^n$. Then $$\phi^* \om = \bigg( \sum_{I \in \MI_{k, n}} (f_I \circ \phi) (\det v\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k$$ 
+			Let $M \subset \R^n$ be a $k$-dimensional smooth submanifold of $\R^n$, $\phi: U \rightarrow V$ a smooth parametrization of $M$, $\om = \sum_{I \in \MI_{k,n}} f_Idx^i$  an $k$-form on $\R^n$. Then $$\phi^* \om = \bigg( \sum_{I \in \MI_{k, n}} (f_I \circ \phi) (\det v\phi_I)\bigg)du^1 \wedge du_2 \wedge \cdots \wedge du_k$$ 
 	\end{ex}
 
 	\begin{proof}
 		Using the definitions, we see that 
 		\begin{align*}
 			\phi^* \om 
-			&= \phi^*  \sum_{I \in \MI_{k,n}} f_Idx_I \\
-			&= \sum_{I \in \MI_{k,n}} (\phi^*f_I) \phi^*dx_I \\
+			&= \phi^*  \sum_{I \in \MI_{k,n}} f_Idx^i \\
+			&= \sum_{I \in \MI_{k,n}} (\phi^*f_I) \phi^*dx^i \\
 			&= \sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  d\phi_I
 		\end{align*}
 	
@@ -1635,22 +1857,22 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\begin{align*}
 		d \phi_I 
 		&= d\phi_{i_1} \wedge d\phi_{i_2} \wedge \cdots \wedge d \phi_{i_n} \\
-		&= (\sum_{j = 1}^n \pdv{\phi_{i_1}}{u_j} du_j) \wedge (\sum_{j = 1}^n \pdv{\phi_{i_2}}{u_j} du_j) \wedge \cdots \wedge (\sum_{j = 1}^n \pdv{\phi_{i_k}}{u_j} du_j)   \\
-		&= (\det v\phi_I)du_1 \wedge du_2 \wedge \cdots \wedge du_k
+		&= (\sum_{j = 1}^n \pdv{\phi_{i_1}}{u^j} du^j) \wedge (\sum_{j = 1}^n \pdv{\phi_{i_2}}{u^j} du^j) \wedge \cdots \wedge (\sum_{j = 1}^n \pdv{\phi_{i_k}}{u^j} du^j)   \\
+		&= (\det v\phi_I)du^1 \wedge du_2 \wedge \cdots \wedge du_k
 	\end{align*}
 	Therefore 
 	\begin{align*}
 		\phi^* \om
 		&= \sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  d\phi_I \\
-		&= \sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  (\det v\phi_I)du_1 \wedge du_2 \wedge \cdots \wedge du_k \\
-		&= \bigg(\sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  (\det v\phi_I)\bigg)du_1 \wedge du_2 \wedge \cdots \wedge du_k
+		&= \sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  (\det v\phi_I)du^1 \wedge du_2 \wedge \cdots \wedge du_k \\
+		&= \bigg(\sum_{I \in \MI_{k,n}} (f_I \circ  \phi)  (\det v\phi_I)\bigg)du^1 \wedge du_2 \wedge \cdots \wedge du_k
 	\end{align*}
 	\end{proof}
 	
 	\subsection{Integration of Differential Forms}
 	
 	\begin{defn}
-		Let $U \subset \R^k$ be open and $\om = f dx_1 \wedge dx_2 \wedge \cdots \wedge dx_k$ a $k$-form on $\R^k$. Define $$\int_U \om = \int_U f dx$$
+		Let $U \subset \R^k$ be open and $\om = f dx^1 \wedge dx_2 \wedge \cdots \wedge dx_k$ a $k$-form on $\R^k$. Define $$\int_U \om = \int_U f dx$$
 	\end{defn}
 	
 	\begin{defn}
