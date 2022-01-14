@@ -29,18 +29,15 @@
 \let\endproof\endhide
 \fi
 
-\newtheorem{thm}{Theorem}[subsection]
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{conj}{Conjecture}
-
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
 \newtheorem{defn}[definition]{Definition}
 \newtheorem{note}[definition]{Note}
-
-\theoremstyle{definition}
+\newtheorem{thm}[definition]{Theorem}
+\newtheorem{lem}[definition]{Lemma}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem{cor}[definition]{Corollary}
+\newtheorem{conj}[definition]{Conjecture}
 \newtheorem{ex}[definition]{Exercise}
 
 \newcommand{\al}{\alpha}
@@ -79,6 +76,17 @@
 \newcommand{\MJ}{\mathcal{J}}
 \newcommand{\MM}{\mathcal{M}}
 \newcommand{\MX}{\mathcal{X}}
+
+\newcommand{\tMA}{\tilde{\MA}}
+\newcommand{\tMB}{\tilde{\MB}}
+
+
+\newcommand{\tU}{\tilde{U}}
+\newcommand{\tV}{\tilde{V}}
+\newcommand{\tphi}{\tilde{\phi}}
+\newcommand{\tpsi}{\tilde{\psi}}
+\newcommand{\tF}{\tilde{F}}
+
 
 \newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
 \newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
@@ -121,22 +129,31 @@
 	
 	\begin{defn}
 		Let $\{A_i\}_{i \in I}$ be a collection of sets. The \textbf{disjoint union of} $\{A_i\}_{i \in I}$, denoted $\coprod\limits_{i \in I} A_i$, is defined by $$\coprod_{i \in I}A_i = \bigcup_{i\in I} \{i\} \times A_i$$ 
+		We define the \textbf{natural projection map}, denoted $\pi: \coprod\limits_{i \in I} A_i \rightarrow I$, by $\pi(i, a) = i$.
+	\end{defn}
+
+	\begin{defn}
+		Let Let $\{A_i\}_{i \in I}$ be a collection of sets and $\sig: I \rightarrow \coprod\limits_{i \in I} A_i$. Then $\sig$ is said to be a \textbf{section of $\coprod\limits_{i \in I} A_i$} if $$\pi \circ \sig = \id_I$$
 	\end{defn}
 
 	\begin{note}
 		In these notes, we will identify $\{i\} \times A_i$ and $A_i$.
 	\end{note}
 
-	\begin{defn}
-		Let Let $\{A_i\}_{i \in I}$ be a collection of sets and $\sig: I \rightarrow \coprod\limits_{i \in I} A_i$. Then $\sig$ is said to be a \textbf{section of $\coprod\limits_{i \in I} A_i$} if for each $i \in I$, $\sig(i) \in A_i$.
-	\end{defn}
+	\begin{ex}
+		Let $\{A_i\}_{i \in I}$ be a collection of sets and $\sig: I \rightarrow \coprod\limits_{i \in I} A_i$. Then $\sig$ is a section of $\coprod\limits_{i \in I} A_i$ iff for each $i \in I$, $\sig(i) \in A_i$
+	\end{ex}
+	
+	\begin{proof}
+		Clear.
+	\end{proof}
 	
 	\section{Calculus}
 	
 	\subsection{Differentiation}
 	
 	\begin{defn}
-		Let $n \geq 1$. For $i = 1, \cdots, n$, define $x^i: \R^n \rightarrow \R$ by $x^i(a_1, \cdots, a_n) = a_i$. The functions $(x^i)_{i=1}^n$ are called the \textbf{standard coordinate functions on $\R^n$}. 
+		Let $n \geq 1$. For $i = 1, \cdots, n$, define $x^i: \R^n \rightarrow \R$ by $x^i(a^1, \cdots, a^n) = a^i$. The functions $(x^i)_{i=1}^n$ are called the \textbf{standard coordinate functions on $\R^n$}. 
 	\end{defn}
 	
 	\begin{defn} 
@@ -169,9 +186,9 @@
 		Let $U \subset \R^n$ and $p \in U$. Then $U$ is said to be \textbf{star-shaped} if for each $q \in U$, $\{p + t(q-p): 0 \leq t \leq 1\} \subset U$.
 	\end{defn}
 
-	\begin{thm} \textbf{(Taylor's Theorem)}
+	\begin{ex} \textbf{Taylor's Theorem:}\\
 		Let $U \subset \R^n$ be open, $p \in U$ and $f \in C^{\infty}(U)$. Suppose that $U$ is star-shaped with respect to $p$. Then there exist $g_1, \cdots, g_n \in C^{\infty}(U)$ such that for each $x \in U$, $$f(x) = f(p) + \sum_{i=1}^n (x^i - p^i) g_i(x)$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x^i}}(p)$$
-	\end{thm}
+	\end{ex}
 
 	\begin{proof}
 		Let $x \in U$. Since $U$ is star-shaped with respect to $p$, $\{p + t(x-p): 0 \leq t \leq 1\} \subset U$. By the chain rule, 
@@ -198,7 +215,7 @@
 	\end{defn}
 	
 	\begin{defn}
-	Let $U \subset \R^n$ be open, $p \in U$ and $F: U \rightarrow \R^m$. We define the \textbf{Jacobian of $F$ at $p$}, denoted $\frac{\p F}{\p x}(p) \in \R^{m \times n}$, by $$\bigg (\frac{\p F}{\p x}(p) \bigg )_{i,j} = \frac{\p F^i}{\p x^j}$$
+	Let $U \subset \R^n$ be open, $p \in U$ and $F: U \rightarrow \R^m$. We define the \textbf{Jacobian of $F$ at $p$}, denoted $\frac{\p F}{\p x}(p) \in \R^{m \times n}$, by $$\bigg (\frac{\p F}{\p x}(p) \bigg )_{i,j} = \frac{\p F^i}{\p x^j}(p)$$
 	\end{defn}
 	
 	\begin{ex}\textbf{Inverse Function Theorem:}\\
@@ -699,7 +716,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Thus $\al \wedge \al = 0$.
 	\end{proof}
 	
-	\begin{ex}\textbf{(Fundamental Example)}
+	\begin{ex}\textbf{Fundamental Example:}\\
 		Let $\al_1, \cdots, \al_m \in \Lam_1(V)$ and $v_1, \cdots, v_m \in V$. Then $$\bigg( \bigwedge_{i=1}^m \al_i \bigg)(v_1, \cdots, v_m) = \det (\al_i (v_j))$$
 	\end{ex}
 
@@ -816,7 +833,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{defn}
 		Let $M$ be a topological space and $n \geq 1$.
 		\begin{enumerate}
-			\item Let $U \subset M$, $V \subset \H^n$ open and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \textbf{coordinate chart} on $M$ if $\phi$ is a homeomorphism. 
+			\item Let $U \subset M$ and $V \subset \H^n$ be open and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \textbf{coordinate chart} on $M$ if $\phi$ is a homeomorphism. 
 			\item Let $\MA = ((U_a,\phi_{a}))_{a \in A}$ be a collection of coordinate charts on $M$. Then $\MA$ is said to be an \textbf{atlas} on $M$ if  $\bigcup\limits_{a \in A} U_a = M$.
 			\item The space $M$ is said to be \textbf{locally half Euclidean of dimension $n$} if there exists an atlas $\MA = ((U_a,\phi_{a}))_{a \in A}$ on $M$ such that for each $a \in A$, $\phi_a(U_a) \subset \H^n$.
 			\item The space $M$ is said to be an \textbf{$n$-dimensional manifold} if $M$ is Hausdorff, second countable and locally half Euclidean of dimension $n$. 
@@ -861,6 +878,10 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\item Let $p \in \partial M$. Define $(U \cap \partial M, \lam \circ \psi)$ as in (1). Since $\lam \circ \psi(p) \in (\H^{n-1})^{\circ}$, we have that $p \in M^{\circ}$. Thus $ \partial M = (\partial M)^{\circ}$ and $\partial (\partial M) = \varnothing$.
 		\end{enumerate}
 	\end{proof}
+
+	\begin{thm}
+		Let $(M, \MA)$ be an $m$-dimensional manifold, $(N, \MB)$ a $n$-dimensional manifold and $F: M \rightarrow N$. If $F$ is a homeomorphism, then $m = n$.
+	\end{thm}
 
 	\begin{defn}\
 		\begin{enumerate}
@@ -916,8 +937,30 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$. Then $F$ is said to be \textbf{smooth} if for each $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$, $$\psi \circ F \circ \phi^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$$ is smooth and $F$ is said to be a \textbf{diffeomorphism} if $F$ is a homeomorphism and $F,F^{-1}$ are smooth.
+		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$. Then $F$ is said to be 
+		\begin{itemize}
+		\item \textbf{smooth} if for each $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$, $$\psi \circ F \circ \phi^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$$ is smooth 
+		\item a \textbf{diffeomorphism} if $F$ is a bijection and $F,F^{-1}$ are smooth.
+		\end{itemize}
 	\end{defn}
+	
+	\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifold and $F: M \rightarrow N$. If $F$ is smooth, then $F$ is continuous. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $F$ is smooth. Let $p \in M$. Choose $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$ and $F(p) \in V$. Put $\tU = U \cap F^{-1}(V)$ and $\tV = F(U) \cap V$. \\
+	Define $\tphi: \tU \rightarrow \phi(\tU)$ and $\tpsi: \tV \rightarrow \psi(\tV)$ by $$\tphi = \phi|_{\tU}, \hspace{.2cm} \tphi = \psi|_{\tV}$$ Then $\tphi$ and $\tpsi$ are homeomorphisms, $p \in \tU$ and $F(\tU) \subset \tV$. Define $\tF: \phi(\tU) \rightarrow \psi(\tV) $ by $$ \tF = \tpsi \circ F \circ \tphi^{-1}$$  
+	By definition, $\tF$ is smooth and therefore continuous. Since $\phi$ and $\psi$ are homeomorphisms and $F|_{\tU} = \tpsi^{-1} \circ \tF \circ \tphi$, we have that $F|_{\tU}$ is continuous. In particular, $F$ is continuous at $p$ and since $p \in M$ is arbitrary, $F$ is continuous.
+	\end{proof}
+	
+	\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifold and $F: M \rightarrow N$. If $F$ is a diffeomorphism, then $F$ is a homeomorphism. 
+	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $F$ is a diffeomorphism. By definition, $F$ and  $F^{-1}$ are smooth. The previous exercise implies that $F$ and $F^{-1}$ are continuous. Hence $F$  is a homeomorphism. 
+	\end{proof}
 	
 	\begin{ex}
 		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ a diffeomorphism. Then for each $(U, \phi) \in \MA$, $(F(U), \phi \circ F^{-1}) \in \MB$.
@@ -933,22 +976,12 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
 	\end{proof}
 
-	\begin{ex}
-	Let $(M, \MA)$ be smooth $m$-dimensional manifold, $(N, \MB)$ a smooth $n$-dimensional manifold and $F: M \rightarrow N$. If $F$ is a diffeomorphism, then $m = n$.
-	\end{ex}
 
-	\begin{proof}
-	Suppose that $F$ is a diffeomorphism. Let $(U, \phi) \in \MA$. The previous exercise implies that $(F(U), \phi \circ F^{-1}) \in \MB$. Then 
-	\begin{align*}
-	\phi(U)
-	&= \phi \circ F^{-1}(F(U)) \\
-	&= \subset \H^n
-	\end{align*}	 
-By definition, $\phi(U) \subset H^m$. So $m = n$.
-	\end{proof}
+	\begin{defn}
+		Let $(N, \MB)$ be a smooth  $n$-dimensional manifold, $F: M \rightarrow N$ smooth and $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$. For $i \in \{1, \dots, n\}$, We define the \textbf{$i$-th component of $F$ with respect to $(V, \psi)$},  denoted $F^i: V \rightarrow \R$, by $$F^i = y^i \circ F$$  
+	\end{defn}
 
-
-
+	
 
 
 
@@ -1021,7 +1054,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{proof}
 
 	\begin{defn}
-		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C_p^{\infty}(M)$. For $i \in \{1, \cdots, n\}$, define the partial derivative of $f$ with respect to $x^i$ at $p$, denoted $$\frac{\partial f}{\partial x^i} (p) \text{, } \eval{\pdv{x^i}}_{p} f \text{, } \partial_{x^i} f (p) \text{ or } \eval{\partial_{x^i}}_{p} f$$ by $$ \eval{\pdv{x^i}}_{p} f =  \eval{\pdv{u^i}}_{\phi(p)} f \circ \phi^{-1} $$
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C_p^{\infty}(M)$. For $i \in \{1, \cdots, n\}$, define the partial derivative of $f$ with respect to $x^i$ at $p$, denoted $$\frac{\partial f}{\partial x^i} (p) \text{, } \eval{\pdv{x^i}}_{p} f \text{, } \partial_{x^i} f (p) \text{ or } \partial_{x^i}|_p f$$ by $$ \eval{\pdv{x^i}}_{p} f =  \eval{\pdv{u^i}}_{\phi(p)} f \circ \phi^{-1} $$
 	\end{defn}
 
 	\begin{ex}
@@ -1039,7 +1072,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 		\end{align*}
 	\end{proof}
 
-	\begin{ex} \textbf{(Change of Coordinates):}
+	\begin{ex} \textbf{Change of Coordinates:}\\
 		Let $(U, \phi), (V, \psi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$, $p \in U \cap V$ and $f \in C_p^{\infty}(M)$. Then for each $i \in \{1, \cdots, n\}$, we have $${\pdv{f}{y^i}}(p) = \sum_{j =1}^n {\pdv{f}{x^j}}(p)   {\pdv{x^j}{y^i}}(p) $$
 	\end{ex}
 
@@ -1164,10 +1197,43 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	Since $\bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ is a basis for $T_pM$ and $\bigg \{\eval{\pdv{y^1}}_{F(p)}, \cdots, \eval{\pdv{y^n}}_{F(p)} \bigg \}$ is a basis for $T_{F(p)}N$, $dF_p$ is an isomorphism.
 	\end{proof}
 
+	\begin{ex}
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth, $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^m)$, $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$  and $p \in U$. Define the ordered bases $B_\phi = \bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^m}}_{p} \bigg \}$ and $B_{\psi} = \bigg \{\eval{\pdv{y^1}}_{F(p)}, \cdots, \eval{\pdv{y^n}}_{F(p)} \bigg \}$ .
+		Then the matrix representation of $dF_p$ with respect to the bases
+		$B_{\phi}$ and $B_{\psi}$ is $$ dF_p^{i,j} =  {\pdv{F^i}{x^j}}(p)$$
+	\end{ex}
+
+	\begin{proof}
+		Let $(dF_p)_{B_\phi, B_{\psi}} = (a_{i,j})_{i,j} \in \R^{m \times n}$. Then for each $j \in \{1, \dots, m\}$, $$dF_p \bigg(\eval{\pdv{x^j}}_p\bigg) = \sum_{i=1}^n a_{i,j}\eval{ \pdv{y^i}}_{F(p)}$$
+		This implies that 
+		\begin{align*}
+			dF_p \bigg(\eval{\pdv{x^j}}_p\bigg) (y^k )
+			&=   \sum_{i=1}^n a_{i,j}\eval{ \pdv{y^i}}_{F(p)} (y^k) \\
+			&= \sum_{i=1}^n a_{i,j} \del_{i,k} \\
+			&= a_{k, j}
+		\end{align*}
+		By definition, 
+		\begin{align*}
+			dF_p \bigg(\eval{\pdv{x^j}}_p\bigg) (y^k )
+			&=  \eval{\pdv{x^j}}_p y^k \circ F \\
+			&= \eval{\pdv{x^j}}_p F^k \\
+			&= {\pdv{F^k}{x^j}}(p)
+		\end{align*}
+	\end{proof}
+	
+	
+	
+
+	\newpage
+
 	\begin{defn}
 		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism. Define the \textbf{push forward of $F$}, denoted $$F_*:M \rightarrow \coprod_{p \in M} \iso(T_pM, T_{F(p)}N)$$ by $$p \mapsto dF_p$$
 	\end{defn}
 	
+	
+
+
+
 	
 	
 	
@@ -1261,11 +1327,115 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	
 	
+	\newpage
+	\subsection{Maps of Full Rank}
+	
+	\begin{defn}
+		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map and $p \in M$. We define the \textbf{rank of F at $p$}, denoted $\rank_p F$, by $\rank_p F = \rank dF_p$. We say that $F$ has \textbf{constant rank} if for each $p, q \in M$, $\rank_p F = \rank_q F$. If $F$ has constant rank, we define the \textbf{rank of $F$}, denoted $\rank F$, by $\rank F = \rank_p F$.
+		
+	\end{defn}
+	
+	\begin{defn}
+		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. Then $F$ is said to be 
+		\begin{itemize}
+		
+			\item an \textbf{immersion} if for each $p \in M$, $dF_p:T_pM\rightarrow T_{F(p)}N$ is injective
+			\item a \textbf{submersion} if for each $p \in M$, $dF_p:T_pM\rightarrow T_{F(p)}N$ is surjective
+		\end{itemize}
+	\end{defn}
+	
+	\begin{defn}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F:M \rightarrow N$ smooth. Then $F$ is said to be an \textbf{embedding} if 
+	\begin{enumerate}
+	\item $F$ is an immersion
+	\item $F:M \rightarrow F(M)$ is a homeomorphism.
+\end{enumerate}	 
+	\end{defn}	
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	\newpage
 	\subsection{Submanifolds}
 	
+
+	\begin{defn}
+		Let $(M, \MA)$ and  $(N, \MB)$ be smooth manifolds. Suppose that $M \subset N$. Then $(M, \MA)$ is said to be 
+		\begin{enumerate}
+		\item an \textbf{immersed submanifold} of $(N, \MB)$ if $\id:M \rightarrow N$ is a smooth immersion
+		\item an \textbf{embedded submanifold} of $(N, \MB)$ if $\id:M \rightarrow N$ is a smooth embedding
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{note}
+	Essentially, embedded submanifolds are immersed submanifolds with the subspace topology.
+	\end{note}
+	
+	\begin{note}
+	For the remainder of this section, we assume that $k \leq n$.
+	\end{note}
+	
+	\begin{defn}
+	Let $U \subset \R^n$ and $S \subset U$. Then $S$ is said to be a \textbf{$k$-slice} of $U$ if $S = \{u \in U: u^{k+1}, \dots, u^{n} = 0\}$.
+	\end{defn}	
+	
+	\begin{ex}
+	Let $U \subset \R^n$ and $S \subset U$. Suppose that $S$ is a $k$-slice of $U$. Define $\pi: \R^n \rightarrow \R^k$ by $$\pi(u^1, \dots, u^k, \dots, u^n) = (u^1, \dots, u^k)$$ Then $\pi|_{S} \rightarrow \pi(S)$ is a diffeomorphism.
+	\end{ex}	
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	\begin{defn}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ and $S \subset U$. Then $S$ is said to be a \textbf{$k$-slice} of $U$ if $\phi(S)$ is a $k$-slice of $\phi(U)$.
+	\end{defn}	
+	
+	\begin{defn}
+	Let $(M, \MA)$ be a smooth manifold, $S \subset M$ and $(U, \phi) \in \MA$. Then $(U, \phi)$ is said to be a \textbf{$k$-slice chart for $S$} if $U \cap S$ is a $k$-slice of $U$.
+	\end{defn}	
+	
+	\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $S \subset M$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^n)$. If $(U, \phi)$ is a $k$-slice chart for $S$, then $\phi|_S = (x^1|_S, \dots, x^k|_S, 0, \dots, 0)$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear. 
+	\end{proof}
+	
+	\begin{defn}
+	Let $(M, \MA)$ be a smooth manifold and $S \subset M$. Then $S$ is said to satisfy the \textbf{local $k$-slice condition} if for each $p \in S$, there exists $(U, \phi) \in \MA$ such that $p \in U$ and $(U, \phi)$ is a $k$-slice chart of $S$.
+	\end{defn}
+	
+	\begin{ex}
+	Let $(M, \MA)$ be a smooth $n$-dimensional manifold and $S \subset M$. If $S$ satisfies the local $k$-slice condition, then there exists a unique smooth structure $\tMA$ on $S$ such that $S$ is an embedded submanifold of $M$.
+	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $S$ satisfies the local $k$-slice condition. Define $\pi: \R^n \rightarrow \R^k$ as above For $(U, \phi) \in \MA$, define $\tU = U \cap S$ and $\tphi: \tU \rightarrow \R^k$ by $\tphi = \pi \circ \phi|_{\tU}$
+	\end{proof}
+	
+	
+	\begin{ex}
+	Let $(M, \MA)$ and  $(N, \MB)$ be smooth manifolds. Suppose that $M \subset N$ and $M$ is an embedded submanifold. Then 
+	\end{ex}	
+	
+	\begin{defn}
+	
+	\end{defn}	
+	
+	\begin{ex}
+	
+	\end{ex}	
 	
 	
 	
@@ -1275,27 +1445,124 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	
 	
+
 	
+	\newpage
+	\section{Vector Bundles and Tensor Fields}
 	
+	\subsection{The Vector Bundle}
 	
+	\begin{defn}
+		Let $E$, $M$ and $F$ be topological spaces and $\pi: E \rightarrow M$ a continuous surjection, $U \subset M$ open and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \textbf{local trivialization of $E$ over $U$}  if 
+		\begin{enumerate}
+			\item $\Phi$ is a homeomorphism
+			\item $\pi_U \circ \Phi = \pi|_{\pi^{-1}(U)}$ (where $\pi_U: U \times F \rightarrow U$ denotes projection onto $U$)
+		\end{enumerate}
+	\end{defn}
+
+
+	\begin{ex}
+		Let $E$, $M$ and $F$ be topological spaces and $\pi: E \rightarrow M$ a continuous surjection and $(U, \Phi)$ a local trivialization of $E$ over $U$. Then for each $A \subset U$, $$\Phi ( \pi^{-1}(A)) = A \times F$$
+	\end{ex}
 	
+	\begin{proof}
+		Property $(2)$ implies that
+		\begin{align*}
+			\Phi (\pi^{-1}(A))
+			&= \Phi \circ (\pi_U \circ \Phi)^{-1}(A)] \\
+			&= \Phi \circ {\Phi}^{-1} (\pi_U^{-1}(A)) \\
+			&= \pi_U^{-1}(A)) \\
+			&= A \times F
+		\end{align*}
+	\end{proof}
+
 	
+	\begin{defn}
+		Let $E$ and $M$ be topological spaces and $\pi: E \rightarrow M$ a continuous surjection. Suppose that
+		\begin{enumerate}
+			\item for each $p \in M$, $\pi^{-1}(\{p\})$ is a $n$-dimensional real vector space.
+			\item for each $p \in M$, there exist open $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times \R^n$ such that $(U, \Phi)$ is a local trivialization of $E$ over $U$.
+			\item for each $p \in M$, $$\Phi|_{\pi^{-1}(\{p\})}: \pi^{-1}(\{p\}) \rightarrow \{p\} \times \R^n$$ is an isomorphism. 
+				
+		\end{enumerate}
 	
+	Then $(E, M, \pi)$ is said to be a \textbf{vector bundle of rank $n$}.
+	\end{defn}
+
+	\begin{thm}
+		
+	\end{thm}
 	
 	
 	\newpage
-	\section{Tensor Fields}
-	
-	\subsection{Tensor Bundles}
 	
 	\begin{defn}
-		We define 
-		\begin{enumerate}
-		\item the \textbf{tangent bundle of $M$}, denoted $TM$, by $$TM = \coprod_{p \in M} T_pM$$ 
+		We define the \textbf{tangent bundle of $M$}, denoted $TM$, by $$TM = \coprod_{p \in M} T_pM$$ 
+		We denote the natrual projection map by $\pi: TM \rightarrow M$.
+	\end{defn}
+	
+	\begin{defn}
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^2)$. Define $\tilde{U} \subset TM$ and $\tilde{\phi}: \tilde{U} \rightarrow \phi(U) \times \R^{n}$ by  
+		\begin{itemize}
+			\item $\tU = \pi^{-1}(U)$
+			\item 
+			\begin{align*}
+				\tphi \bigg(\sum\limits_{i =1}^n v^i \eval{\pdv{x^i}}_p \bigg) 
+				&= (\phi(p), v) \\
+				&= (x^1(p), \dots, x^n(p), v^1, \dots, v^n) \\
+, 			\end{align*}
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^2)$. Then $\tphi:\tU \rightarrow \phi(U) \times \R$ is a bijection. 
+	\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{The cotangent Bundle}
+	
+	\begin{defn}
+		We define the \textbf{cotangent bundle of $M$}, denoted $T^*M$, by 
+		$$T^*M = \coprod_{p \in M} T_p^*M$$ 
+	\end{defn}
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{The $(r,s)$-Tensor Bundle}
+	
+	\begin{defn}
+	\begin{enumerate}
 		\item the \textbf{cotangent bundle of $M$}, denoted $T^*M$, by 
 		$$T^*M = \coprod_{p \in M} T_p^*M$$
-		\item the \textbf{$(r,s)$-tensor bundle of $M$}, denoted $T^r_sM$
+		\item the \textbf{$(r,s)$-tensor bundle of $M$}, denoted $T^r_sM$, by
 	$$T^r_s M = \coprod_{p \in M} T^r_s(T_p M)$$
+	\item the \textbf{$k$-alternating tensor bundle of $M$}, denoted $\Lam_k(M)$, by
+	$$\Lam_kM = \coprod_{p \in M} \Lam_k(T_pM)$$
 		\end{enumerate}
 	\end{defn}
 	
@@ -1343,10 +1610,10 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f_i(p) \eval{\pdv{x^i}}_{p}$. Let $j \in \{1, \cdots, n\}$. Then,
+		Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f^i(p) \eval{\pdv{x^i}}_{p}$. Let $j \in \{1, \cdots, n\}$. Then,
 		\begin{align*}
 			X_p(x^j) 
-			&= \sum\limits_{i=1}^n f_i(p) {\pdv{x^j}{x^i}}(p) \\
+			&= \sum\limits_{i=1}^n f^i(p) {\pdv{x^j}{x^i}}(p) \\
 			&= f_j(p) \\
 		\end{align*} 
 		Hence $Xx^j = f_j$ and $X|_U = \sum\limits_{i=1}^n (Xx^i) \pdv{x^i}$.
@@ -1468,6 +1735,72 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{defn}	
 	
 	\begin{ex}
+	The tensor product $\otimes : \Gam^{r_1}_{s_1}(M) \times \Gam^{r_2}_{s_2}(M) \rightarrow \Gam^{r_1+r_2}_{s_1+s_2}(M)$ is associative.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex}
+	The tensor product $\otimes : \Gam^{r_1}_{s_1}(M) \times \Gam^{r_2}_{s_2}(M) \rightarrow \Gam^{r_1+r_2}_{s_1+s_2}(M)$ is $C^{\infty}(M)$-bilinear.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn}
+	Let $(N, \MB)$ be a smooth manifold, $F:M \rightarrow N$ a smooth map and $\al \in \Gam^0_k(N)$. We define the \textbf{pullback of $\al$ by $F$}, denoted $F^*\al \in \Gam^0_k(M)$, by  $$(F^*\al)_p(v_1, \dots, v_k) = \al_{F(p)} (dF_p(v_1), \dots, dF_p(v_k))$$ for $p \in M$ and $v_1, \dots, v_k \in T_pM$
+	\end{defn}
+
+	\begin{ex}
+	Let $(M, \MA)$, $(N, \MB)$ and $(L, \MC)$ be smooth manifolds, $F:M \rightarrow N$ and $G:N \rightarrow L$ smooth maps, $\al \in \Gam^0_k(N)$, $\bet  \in \Gam^0_l(N)$, $\gam \in \Gam^0_k(L)$ and $f \in C^{\infty}(N)$. Then 
+	\begin{enumerate}
+	\item $F^*(f \al) = (f \circ F) F^* \al$
+	\item $F^*(\al \otimes \bet) = F^*\al \otimes F^* \bet$
+	\item $F^*(\al + \bet) = F^* \al + F^* \bet $
+	\item $(G \circ F)^*\gam = F^*(G^* \gam)$
+	\item $id_N^* \al = \al$
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item 
+	\begin{align*}
+	[F^*(f \al)]_p(v_1, \dots, v_k) 
+	&= (f \al )_{F(p)}(dF_p(v_1), \dots, dF_p(v_k)) \\
+	&= f (F(p)) \al_{F(p)} (dF_p(v_1), \dots, dF_p(v_k)) \\
+	&= (f \circ F)(p) (F^*\al)_p(v_1, \dots, v_k)
+	\end{align*}
+	So that $F^*(f \al) = (f \circ F) F^* \al$
+	\item 
+	\begin{align*}
+		F^*
+	\end{align*}
+	\end{enumerate}
+	
+	\end{proof}
+	
+	
+	
+	
+	
+	\begin{defn}
+	
+	\end{defn}
+
+	
+	\begin{ex}
+	
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	\begin{ex}
 		Let $\al \in \Gam^r_s(M)$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then there exist $(f^I_J)_{I \in \MI_r, J \in \MI_s} \subset C^{\infty}(M)$ such that $$\al|_U = \sum_{(I,J) \in \MI_r \times \MI_s} f^I_J \partial_{x^{\otimes I}} \otimes dx^{\otimes J}$$ 
 	\end{ex}
 
@@ -1484,7 +1817,9 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	\end{proof}
 	
+	\begin{defn}
 	
+	\end{defn}	
 	
 	
 	
@@ -1536,30 +1871,28 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	
 	\begin{defn}
 		Let $\om: M \rightarrow \Lam_k (TM)$. Then $\om$ is said to be a \textbf{$k$-form on $M$} if for each $p \in M$, $\om_p \in \Lam_k(T_pM)$.\\
-		For each $X_1, \cdots, X_k \in \Gam^1(M)$, we define $\om(X_1, \cdots, X_k) : M \rightarrow \R$ by $$\om(X_1, \cdots, X_k)_p = \om_p({X_1}(p), \cdots, {X_k}(p))$$
-		and $\om$ is said to be \textbf{smooth} if for each $X_1, \cdots, X_k \in \Gam^1(M)$, $\om(X_1, \cdots, X_k)$ is smooth.\\
+		For each $X \in \Gam^1(M)^k$, we define $\om(X) : M \rightarrow \R$ by $$\om(X)_p = \om_p(X_p)$$
+		and $\om$ is said to be \textbf{smooth} if for each $X \in \Gam^1(M)^k$, $\om(X)$ is smooth.\\
 		The set of smooth $k$-forms on $M$ is denoted $\Om_k(M)$.\\
 	\end{defn} 
 
 	\begin{note}
-		Observe that $\Om_0(M) = C^{\infty}(M)$.
+		Observe that 
+		\begin{enumerate}
+		\item $\Om_k(M) \subset \Gamma^0_k(M)$
+		\item $\Om_0(M) = C^{\infty}(M)$
+		\end{enumerate}
 	\end{note}
 	
-	\begin{defn}
-	Let $f \in C^{\infty}(M)$ and $\al, \bet \in \Om_k(M)$. We define 
-	\begin{itemize}
-	\item $f \al \in \Om_k(M)$ by $$(f\al)_p = f(p)\al_p$$
-	\item $\al+\bet \in \Om_k(M)$ by $$(\al+\bet)_p = \al_p+\bet_p$$
-	\end{itemize}
-	\end{defn}	
-	
 	\begin{ex}
-	The set $\Om_k(M)$ is a $C^{\infty}(M)$-module.
+	The set $\Om_k(M)$ is a $C^{\infty}(M)$-submodule of $\Gam^0_k(M)$.
 	\end{ex}
 	
 	\begin{proof}
 	Clear.
 	\end{proof}
+
+	
 
 	\begin{defn}
 		Define the \textbf{exterior product} $$\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $$ by $$(\al \wedge \beta)_p = (\al)_p \wedge (\beta)_p$$
@@ -1642,10 +1975,10 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in U$. Since $\{dx^1, \cdots, dx^n\}$ is a basis for $\Lam(T_pM)$, for each there exist $a_1(p), \cdots, a_n(p) \in \R$ such that $df_p = \sum\limits_{i=1}^n a_i(p)dx^i_p$. Therefore, we have that 
+		Let $p \in U$. Since $\{dx^1, \cdots, dx^n\}$ is a basis for $\Lam(T_pM)$, for each there exist $a_1(p), \cdots, a_n(p) \in \R$ such that $df_p = \sum\limits_{i=1}^n a^i(p)dx^i_p$. Therefore, we have that 
 		\begin{align*}
 			df_p \bigg(\eval{\pdv{x^j}}_{p} \bigg) 
-			&= \sum\limits_{i=1}^n a_i(p)dx^i_p \bigg(\eval{\pdv{x^j}}_{p} \bigg)  \\
+			&= \sum\limits_{i=1}^n a^i(p)dx^i_p \bigg(\eval{\pdv{x^j}}_{p} \bigg)  \\
 			&=  a_j(p)
 		\end{align*}
 		By definition, we have that 
@@ -1845,7 +2178,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 	\end{ex}
 
 	\begin{proof}
-		Using the definitions, we see that 
+		By definition,  
 		\begin{align*}
 			\phi^* \om 
 			&= \phi^*  \sum_{I \in \MI_{k,n}} f_Idx^i \\
@@ -1883,7 +2216,7 @@ By definition, $\phi(U) \subset H^m$. So $m = n$.
 		
 	\end{ex}
 
-	\begin{thm}{\textbf{(Stokes Theorem)}}
+	\begin{thm}\textbf{Stokes Theorem:}\\
 		Let $M \subset \R^n$ be a $k$-dimensional oriented smooth submanifold of $\R^n$ and $\om$ a $k-1$-form on $\R^n$. Then $$\int_{\partial M} \om = \int_M d \om$$
 	\end{thm}
 
