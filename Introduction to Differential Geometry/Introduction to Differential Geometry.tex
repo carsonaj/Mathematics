@@ -211,8 +211,16 @@
 	\end{defn}
 
 	\begin{defn}
-		Let $U \subset \R^n$ and $V \subset \R^m$ and $F: U \rightarrow V$. Then $F$ is said to be a  \textbf{diffeomorphism} if $F$ is a homeomorphism and $F, F^{-1}$ are smooth. 
+		Let $U \subset \R^n$ and $V \subset \R^m$ and $F: U \rightarrow V$. Then $F$ is said to be a  \textbf{diffeomorphism} if $F$ is a bijection and $F, F^{-1}$ are smooth. 
 	\end{defn}
+	
+	\begin{ex}
+	Let $U \subset \R^n$ and $V \subset \R^m$ and $F: U \rightarrow V$. If $F$ is a diffeomorphism, then $F$ is a homeomorphism.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $F$ is a diffeomorphism. By definition, $F$ is a bijection and $F$ and $F^{-1}$ are smooth. Thus, $F$ and $F^{-1}$ are continuous and $F$ is a homeomorphism.
+	\end{proof}
 	
 	\begin{defn}
 	Let $U \subset \R^n$ be open, $p \in U$ and $F: U \rightarrow \R^m$. We define the \textbf{Jacobian of $F$ at $p$}, denoted $\frac{\p F}{\p x}(p) \in \R^{m \times n}$, by $$\bigg (\frac{\p F}{\p x}(p) \bigg )_{i,j} = \frac{\p F^i}{\p x^j}(p)$$
@@ -834,8 +842,8 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Let $M$ be a topological space and $n \geq 1$.
 		\begin{enumerate}
 			\item Let $U \subset M$ and $V \subset \H^n$ be open and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \textbf{coordinate chart} on $M$ if $\phi$ is a homeomorphism. 
-			\item Let $\MA = ((U_a,\phi_{a}))_{a \in A}$ be a collection of coordinate charts on $M$. Then $\MA$ is said to be an \textbf{atlas} on $M$ if  $\bigcup\limits_{a \in A} U_a = M$.
-			\item The space $M$ is said to be \textbf{locally half Euclidean of dimension $n$} if there exists an atlas $\MA = ((U_a,\phi_{a}))_{a \in A}$ on $M$ such that for each $a \in A$, $\phi_a(U_a) \subset \H^n$.
+			\item Let $\MA$ be a collection of coordinate charts on $M$. Then $\MA$ is said to be an \textbf{atlas} on $M$ if  $\bigcup\limits_{(U,\phi) \in \MA} U = M$.
+			\item The space $M$ is said to be \textbf{locally half Euclidean of dimension $n$} if there exists an atlas $\MA$ on $M$ such that for each $(U,\phi) \in \MA$, $\phi(U) \subset \H^n$.
 			\item The space $M$ is said to be an \textbf{$n$-dimensional manifold} if $M$ is Hausdorff, second countable and locally half Euclidean of dimension $n$. 
 		\end{enumerate}
 	\end{defn}
@@ -1348,10 +1356,13 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F:M \rightarrow N$ smooth. Then $F$ is said to be an \textbf{embedding} if 
 	\begin{enumerate}
 	\item $F$ is an immersion
-	\item $F:M \rightarrow F(M)$ is a homeomorphism.
+	\item $F:M \rightarrow F(M)$. 
 \end{enumerate}	 
 	\end{defn}	
 
+	\begin{note}
+	Here the topology on $F(M)$ is the subspace topology.
+	\end{note}
 	
 
 	
@@ -1393,7 +1404,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{ex}	
 	
 	\begin{proof}
-	
+	Clear.
 	\end{proof}
 	
 	\begin{defn}
@@ -1417,17 +1428,23 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 	
 	\begin{ex}
-	Let $(M, \MA)$ be a smooth $n$-dimensional manifold and $S \subset M$. If $S$ satisfies the local $k$-slice condition, then there exists a unique smooth structure $\tMA$ on $S$ such that $S$ is an embedded submanifold of $M$.
+	Let $(M, \MA)$ be a smooth $n$-dimensional manifold and $S \subset M$ a subspace. If $S$ satisfies the local $k$-slice condition, then there exists a smooth structure $\tMA$ on $S$ such that $(S, \tMA)$ is an embedded submanifold of $M$.
 	\end{ex}	
 	
 	\begin{proof}
-	Suppose that $S$ satisfies the local $k$-slice condition. Define $\pi: \R^n \rightarrow \R^k$ as above For $(U, \phi) \in \MA$, define $\tU = U \cap S$ and $\tphi: \tU \rightarrow \R^k$ by $\tphi = \pi \circ \phi|_{\tU}$
+	Suppose that $S$ satisfies the local $k$-slice condition. Define $\pi: \R^n \rightarrow \R^k$ as above Let $(U, \phi) \in \MA$. Suppose that $(U, \phi)$ is a $k$-slice chart for $S$. Define $\tU = U \cap S$ and $\tphi: \tU \rightarrow \pi \circ \phi(\tU)$ by $$\tphi = \pi \circ \phi|_{\tU}$$ By definition, $\phi(\tU)$ is a $k$-slice of $\phi(U)$. A previous exercise implies that $\pi|_{\phi(\tU)} \rightarrow \pi \circ \phi(\tU)$ is a diffeomorphism and hence a homeomorphism. Thus $\tphi$ is a homeomorphism.\\
+	Define $$\tMB = \{(\tU, \tphi): (U, \phi) \text{ is a $k$-slice for $S$} \}$$
+	Let $p \in S$. By assumption, there exists $(U, \phi) \in \MA$ such that $p \in U$ and $(U, \phi)$ is a $k$-slice chart of $S$. Then $(\tU, \tphi) \in \tMB$ and $\MA$ is an atlas on $S$. By construction of $\tMB$, $S$ is locally half Euclidean of dimension $k$.  Since $M$ is second countable Hausdorff, so is $S$ in the subspace topology. Thus $(S, \tMB)$ is a $k$-dimensional manifold.
+	Let $(\tU, \tphi)$, $(\tV, \tpsi) \in \tMB$. Then
+	$$\tphi \circ \tpsi^{-1}|_{\tU \cap \tV} = \pi|_{\phi(\tU \cap \tV)} \circ \phi|_{\tU \cap \tV} \circ \psi|_{\tU \cap \tV}^{-1} \circ \pi|_{\psi(\tU \cap \tV)}^{-1} $$
+	which is a diffeomorphism. So $(\tU, \tphi)$ and $(\tV, \tpsi)$ smoothly compatible. Hence $\tMB$ is smooth. An exercise in section 4.1 implies that there exists a unique smooth structure $\tMA$ on $S$ such that $\tMB \subset \tMA$. So $(S, \tMA)$ is a smooth $k$-dimensional manifold.\\
+	Clearly $\id: S \rightarrow S$ is a homeomorphism. Let $(V, \psi) \in \MA$ and $(\tU, \tphi) \in \tMA$. 
+	
+	\textbf{Finish!!}
 	\end{proof}
 	
 	
-	\begin{ex}
-	Let $(M, \MA)$ and  $(N, \MB)$ be smooth manifolds. Suppose that $M \subset N$ and $M$ is an embedded submanifold. Then 
-	\end{ex}	
+	
 	
 	\begin{defn}
 	
