@@ -1,0 +1,201 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+\usepackage{physics}
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=black,  %choose some color if you want links to stand out
+	urlcolor=cyan
+}
+
+
+%
+%
+%
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+%
+%
+%
+%
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{defn}[definition]{Definition}
+\newtheorem{note}[definition]{Note}
+\newtheorem{thm}[definition]{Theorem}
+\newtheorem{lem}[definition]{Lemma}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem{cor}[definition]{Corollary}
+\newtheorem{conj}[definition]{Conjecture}
+\newtheorem{ex}[definition]{Exercise}
+\newtheorem{exm}[definition]{Example}
+
+\newcommand{\al}{\alpha}
+\newcommand{\gam}{\gamma}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\bet}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MI}{\mathcal{I}}
+\newcommand{\MJ}{\mathcal{J}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MX}{\mathcal{X}}
+
+\newcommand{\tMA}{\tilde{\MA}}
+\newcommand{\tMB}{\tilde{\MB}}
+
+
+\newcommand{\tU}{\tilde{U}}
+\newcommand{\tV}{\tilde{V}}
+\newcommand{\tphi}{\tilde{\phi}}
+\newcommand{\tpsi}{\tilde{\psi}}
+\newcommand{\tF}{\tilde{F}}
+
+
+\newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
+\newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
+
+
+\newcommand{\p}{\partial}
+
+\renewcommand{\r}{\rangle}
+\renewcommand{\l}{\langle}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
+
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\iso}{Iso}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Aut}{Aut}
+
+\begin{document}
+	
+	\title{Introduction to Networks}
+	\author{Carson James}
+	\maketitle
+	
+	\tableofcontents
+	
+	\section{Setup}
+	\begin{defn}
+	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a continuous group action.  
+	Suppose that for each $g \in G$, the map $x \mapsto g \cdot x$ is an isometry. We define 
+	$\bar{d}: M / G \rightarrow \Rg$ by 
+	\begin{align*}
+	\bar{d}(o_x, o_y) 
+	&= \inf_{\substack{a \in o_x \\ b \in o_y}} d(a,b) \\
+	&= \inf_{g \in G} d(g \cdot x, y)
+	\end{align*}
+	
+	\end{defn}
+	
+	
+	
+	\begin{ex}
+	If for each $x \in M$, $o_x$ is closed, then $\bar{d}$ is a metric.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that for each $x \in M$, $o_x$ is closed. We need only show that for each $x,y \in M$, $\bar{d}(o_x , o_y) = 0$ implies that $o_x = o_y$. Suppose that $\bar{d}(o_x , o_y) = 0$. Then $\inf\limits_{ g \in G} d(g \cdot x, y) = 0$. Hence there exists $(g_n)_{n \in N} \subset G$ such that $g_n \cdot x \rightarrow y$. Since $(g_n \cdot x)_{n \in \N} \subset o_x$ and $o_x$ is closed, $y \in o_x$. Thus $o_x = o_y$. 
+	\end{proof}
+	
+	\begin{exm}
+	Consider the metric space $(\C, \| cdot |)$, topological group $(S^1, |\cdot|)$ and  the (right) action $x \cdot u = xu$. Then the orbits are concentric cirles, which are closed. 
+	\end{exm}
+	
+	\begin{exm}
+	Consider the metric space $(\C^{n \times d}, \|\cdot\|_F)$, topological group $(U(d), \|\cdot\|_F)$ and  the (right) action $X \cdot U = XU$
+	\end{exm}
+	
+	\begin{defn}
+	Let $(X, \MA, \mu)$ be a measure space. Define $\| \cdot \|_*: L^1(X, \MA, \mu) \rightarrow \Rg$ by  
+	 $$\| f \|_* = \sup_{A \in \MA} \bigg | \int_A f d\mu \bigg |$$ 
+	\end{defn}
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space. Then $\| \cdot \|_*$ is a norm on $L^1(X, \MA, \mu)$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn}
+	Let $(X, \MA, \mu)$ be a measure space. Suppose that $X$ is a compact metric space. Put $\Aut(X) = \{\sig:X\rightarrow X: \sig is a homeomorphism\}$. We metrize $\Aut(X)$ with uniform convergence. It is known that this topology is equivalent to the compact-open topology. Define $$\Aut(X, \MA, \mu) = \{\sig \in \Aut(X): \sig_* \mu = \mu\}$$ So that $(\Aut(X, \MA, \mu), \|\cdot\|_{u} )$ is a subspace of $(\Aut(X), \|\cdot\|_{u})$.
+	\end{defn}
+	
+	\begin{ex}
+	With the setup as above, $(\Aut(X, \MA, \mu), \|\cdot\|_{u} )$ is a topological group.
+	\end{ex}
+	
+	\begin{proof}
+	IDK just a guess.
+	\end{proof}
+	
+	\begin{exm}
+	With the setup as before, define the (right) group action \\ $\cdot: (L^1(X, \MA, \mu), \|\cdot\|_*) \times \Aut(X, \MA, \mu) \rightarrow (L^1(X, \MA, \mu), \|\cdot\|_*) $ by $f \cdot \sig = f \circ \sig$. Then for each $\sig \in \Aut(X, \MA, \mu)$, the map $f \mapsto f \cdot \sig$ is an isometry. 
+	\end{exm}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex}
+	With the setup from above, the orbits are closed
+	\end{ex}
+	
+	\begin{proof}
+	IDK, would like to show.
+	\end{proof}
+	
+	
+\end{document}
