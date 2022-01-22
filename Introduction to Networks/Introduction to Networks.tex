@@ -88,6 +88,11 @@
 \newcommand{\tpsi}{\tilde{\psi}}
 \newcommand{\tF}{\tilde{F}}
 
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
 
 \newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
 \newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
@@ -104,10 +109,7 @@
 
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
 \newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
-\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
-\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
-\newcommand{\conv}[1]{\xrightarrow{#1}} 
-\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
 
 
 \DeclareMathOperator{\supp}{supp}
@@ -127,7 +129,7 @@
 	
 	\section{Setup}
 	\begin{defn}
-	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a continuous group action.  
+	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a group action.  
 	Suppose that for each $g \in G$, the map $x \mapsto g \cdot x$ is an isometry. We define 
 	$\bar{d}: M / G \rightarrow \Rg$ by 
 	\begin{align*}
@@ -145,11 +147,11 @@
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that for each $x \in M$, $o_x$ is closed. We need only show that for each $x,y \in M$, $\bar{d}(o_x , o_y) = 0$ implies that $o_x = o_y$. Suppose that $\bar{d}(o_x , o_y) = 0$. Then $\inf\limits_{ g \in G} d(g \cdot x, y) = 0$. Hence there exists $(g_n)_{n \in N} \subset G$ such that $g_n \cdot x \rightarrow y$. Since $(g_n \cdot x)_{n \in \N} \subset o_x$ and $o_x$ is closed, $y \in o_x$. Thus $o_x = o_y$. 
+	Suppose that for each $x \in M$, $o_x$ is closed. We need only show that for each $x,y \in M$, $\bar{d}(o_x , o_y) = 0$ implies that $o_x = o_y$. Suppose that $\bar{d}(o_x , o_y) = 0$. Then $\inf\limits_{ g \in G} d(g \cdot x, y) = 0$. Hence there exists $(\tau_n)_{n \in N} \subset G$ such that $\tau_n \cdot x \rightarrow y$. Since $(\tau_n \cdot x)_{n \in \N} \subset o_x$ and $o_x$ is closed, $y \in o_x$. Thus $o_x = o_y$. 
 	\end{proof}
 	
 	\begin{exm}
-	Consider the metric space $(\C, \| cdot |)$, topological group $(S^1, |\cdot|)$ and  the (right) action $x \cdot u = xu$. Then the orbits are concentric cirles, which are closed. 
+	Consider the metric space $(\C, | \cdot |)$, topological group $(S^1, | \cdot |)$ and  the (right) action $x \cdot u = xu$. Then the orbits are concentric cirles, which are closed. 
 	\end{exm}
 	
 	\begin{exm}
@@ -170,15 +172,47 @@
 	\end{proof}
 	
 	\begin{defn}
-	Let $(X, \MA, \mu)$ be a measure space. Suppose that $X$ is a compact metric space. Put $\Aut(X) = \{\sig:X\rightarrow X: \sig is a homeomorphism\}$. We metrize $\Aut(X)$ with uniform convergence. It is known that this topology is equivalent to the compact-open topology. Define $$\Aut(X, \MA, \mu) = \{\sig \in \Aut(X): \sig_* \mu = \mu\}$$ So that $(\Aut(X, \MA, \mu), \|\cdot\|_{u} )$ is a subspace of $(\Aut(X), \|\cdot\|_{u})$.
+	Let $(X, \MA, \mu)$ be a measure space. Suppose that $X$ is a compact metric space. Put $\Aut(X) = \{\sig:X\rightarrow X: \sig \text{ is a homeomorphism} \}$. We metrize $\Aut(X)$ with uniform convergence $d_u$. It is known that this topology is equivalent to the compact-open topology.
 	\end{defn}
 	
 	\begin{ex}
-	With the setup as above, $(\Aut(X, \MA, \mu), \|\cdot\|_{u} )$ is a topological group.
+	With the setup as above, $(\Aut(X), d_{u} )$ is a topological group.
 	\end{ex}
 	
 	\begin{proof}
-	IDK just a guess.
+	Let $(\sig_n)_{n \in \N}, (\tau_n)_{n \in \N} \subset \Aut(X)$ and $\sig,\tau \in \Aut(X)$. Suppose that $\sig_n \convt{u} \sig$ and $\tau_n \convt{u} \tau$.
+	\begin{enumerate}
+	\item Let $\ep >0$. Since $X$ is compact and $\sig$ is continuous, $\sig$ is uniformly continuous. Then there exists $\del >0$ such that for each $x, y \in X$, $d(x,y) < \del$ implies that $d(\sig(x), \sig(y)) \leq \ep/2$.  Choose $N_\sig \in \N$ such that for each $n \in \N$, $ n \geq \N$ implies that $d_u(\sig_n, \sig) < \ep/2$. Choose $N_\tau \in \N$ such that for each $n \in \N$, $ n \geq \N$ implies that $d_u(\tau_n, \tau) < \del$. Put $N = \max(N_\sig, N_\tau)$. Let $n \in \N$ and $x \in X$. Suppose that $n \geq N$. Then 
+	\begin{align*}
+		d(\sig_n \circ \tau_n (x) ,\sig \circ \tau (x) ) 
+		&\leq  d(\sig_n(\tau_n(x)),  \sig(\tau_n(x))) + d( \sig(\tau_n (x)), \sig( \tau (x))) \\
+		& < \ep / 2 +\ep / 2 \\
+		&= \ep 
+	\end{align*}
+	So $d_u(\sig_n \circ \tau_n, \sig\circ \tau) \leq \ep$ and $\circ: \Aut(X)^2 \rightarrow \Aut(X)$ is continuous. 
+	\item Suppose that $\sig = \id_X$. Let $\ep >0$. Then there exists $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $d_u(\sig_n, \id_X) < \ep$. Let $n \in \N$. Suppose that $n \geq N$. Then 
+	\begin{align*}
+	\sup_{x \in X} d(\sig^{-1}_n(x), x) 
+	&= \sup_{x \in \sig_n(X)}d(\sig^{-1}_n(x), x) \\
+	&= \sup_{x \in X}d(\sig^{-1}_n(\sig_n(x)), \sig_n(x)) \\
+	&= \sup_{x \in X}d(x, \sig_n(x)) \\
+	&< \ep
+	\end{align*}
+	So $\sig^{-1}_n \convt{u} \id_X$. Now suppose that $\sig \neq \id_X$. Since $\sig_n \convt{u} \sig$, part $(1)$ implies that $\sig^{-1} \circ \sig_n \convt{u} \id_X$. Applying the result from above, we get that $\sig_n^{-1} \circ \sig \convt{u} \id_X$. Applying part $(1)$ again implies that $\sig_n^{-1}  \convt{u}  \sig^{-1}$. So the map $\sig \mapsto \sig^{-1}$ is continuous. 
+	\end{enumerate}
+	Hence $\Aut(X)$ is a topological group. 
+	\end{proof}
+	
+	\begin{defn}
+	Define $$\Aut(X, \MA, \mu) = \{\sig \in \Aut(X): \sig_* \mu = \mu\}$$ So that $(\Aut(X, \MA, \mu), d_{u} )$ is a subspace of $(\Aut(X), d_{u})$.
+	\end{defn}
+	
+	\begin{ex}
+	We have that $\Aut(X, \MA, \mu)$ is a closed subgroup of $\Aut(X)$.
+	\end{ex}
+	
+	\begin{proof}
+	Still working on this. It is clearly a subgroup. I think $\mu$ needs to be a Radon measure to work well with uniform convergence of $f_n$.
 	\end{proof}
 	
 	\begin{exm}
@@ -194,7 +228,7 @@
 	\end{ex}
 	
 	\begin{proof}
-	IDK, would like to show.
+	IDK, would like to show. I think I can show $\Aut(X, \MA, \mu)$ is compact, then since the action is continuous, for fixed $f$, the map $\sig \mapsto f \circ \sig$ is continuous and hence $o_f$ is compact??
 	\end{proof}
 	
 	
