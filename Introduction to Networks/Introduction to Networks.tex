@@ -155,7 +155,7 @@
 	\end{exm}
 	
 	\begin{exm}
-	Consider the metric space $(\C^{n \times d}, \|\cdot\|_F)$, topological group $(U(d), \|\cdot\|_F)$ and  the (right) action $X \cdot U = XU$
+	Consider the metric space $(\C^{n \times d}, \|\cdot\|_F)$, topological group $(U_d, \|\cdot\|_F)$ and  the (right) action $X \cdot U = XU$
 	\end{exm}
 	
 	\begin{defn}
@@ -172,7 +172,7 @@
 	\end{proof}
 	
 	\begin{defn}
-	Let $(X, \MA, \mu)$ be a measure space. Suppose that $X$ is a compact metric space. Put $\Aut(X) = \{\sig:X\rightarrow X: \sig \text{ is a homeomorphism} \}$. We metrize $\Aut(X)$ with uniform convergence $d_u$. It is known that this topology is equivalent to the compact-open topology.
+	Let $(X, d)$ be a compact space. Define $$\Aut(X) = \{\sig:X\rightarrow X: \sig \text{ is a homeomorphism} \}$$ We metrize $\Aut(X)$ with uniform convergence $d_u$. It is known that this topology is equivalent to the compact-open topology.
 	\end{defn}
 	
 	\begin{ex}
@@ -180,43 +180,24 @@
 	\end{ex}
 	
 	\begin{proof}
-	Let $(\sig_n)_{n \in \N}, (\tau_n)_{n \in \N} \subset \Aut(X)$ and $\sig,\tau \in \Aut(X)$. Suppose that $\sig_n \convt{u} \sig$ and $\tau_n \convt{u} \tau$.
-	\begin{enumerate}
-	\item Let $\ep >0$. Since $X$ is compact and $\sig$ is continuous, $\sig$ is uniformly continuous. Then there exists $\del >0$ such that for each $x, y \in X$, $d(x,y) < \del$ implies that $d(\sig(x), \sig(y)) \leq \ep/2$.  Choose $N_\sig \in \N$ such that for each $n \in \N$, $ n \geq \N$ implies that $d_u(\sig_n, \sig) < \ep/2$. Choose $N_\tau \in \N$ such that for each $n \in \N$, $ n \geq \N$ implies that $d_u(\tau_n, \tau) < \del$. Put $N = \max(N_\sig, N_\tau)$. Let $n \in \N$ and $x \in X$. Suppose that $n \geq N$. Then 
-	\begin{align*}
-		d(\sig_n \circ \tau_n (x) ,\sig \circ \tau (x) ) 
-		&\leq  d(\sig_n(\tau_n(x)),  \sig(\tau_n(x))) + d( \sig(\tau_n (x)), \sig( \tau (x))) \\
-		& < \ep / 2 +\ep / 2 \\
-		&= \ep 
-	\end{align*}
-	So $d_u(\sig_n \circ \tau_n, \sig\circ \tau) \leq \ep$ and $\circ: \Aut(X)^2 \rightarrow \Aut(X)$ is continuous. 
-	\item Suppose that $\sig = \id_X$. Let $\ep >0$. Then there exists $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $d_u(\sig_n, \id_X) < \ep$. Let $n \in \N$. Suppose that $n \geq N$. Then 
-	\begin{align*}
-	\sup_{x \in X} d(\sig^{-1}_n(x), x) 
-	&= \sup_{x \in \sig_n(X)}d(\sig^{-1}_n(x), x) \\
-	&= \sup_{x \in X}d(\sig^{-1}_n(\sig_n(x)), \sig_n(x)) \\
-	&= \sup_{x \in X}d(x, \sig_n(x)) \\
-	&< \ep
-	\end{align*}
-	So $\sig^{-1}_n \convt{u} \id_X$. Now suppose that $\sig \neq \id_X$. Since $\sig_n \convt{u} \sig$, part $(1)$ implies that $\sig^{-1} \circ \sig_n \convt{u} \id_X$. Applying the result from above, we get that $\sig_n^{-1} \circ \sig \convt{u} \id_X$. Applying part $(1)$ again implies that $\sig_n^{-1}  \convt{u}  \sig^{-1}$. So the map $\sig \mapsto \sig^{-1}$ is continuous. 
-	\end{enumerate}
-	Hence $\Aut(X)$ is a topological group. 
+	Please see section on topological groups: \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Analysis Notes}
 	\end{proof}
 	
 	\begin{defn}
-	Define $$\Aut(X, \MA, \mu) = \{\sig \in \Aut(X): \sig_* \mu = \mu\}$$ So that $(\Aut(X, \MA, \mu), d_{u} )$ is a subspace of $(\Aut(X), d_{u})$.
+	Let $(X,d)$ be a compact metric space and $\mu: \MB(X) \rightarrow \R$ a Borel measure. Define $$\Aut(X, \MB(X), \mu) = \{\sig \in \Aut(X): \sig_* \mu = \mu\}$$ 
+	So that $(\Aut(X, \MB(X), \mu), d_{u} )$ is a subspace of $(\Aut(X), d_{u})$.
 	\end{defn}
 	
 	\begin{ex}
-	We have that $\Aut(X, \MA, \mu)$ is a closed subgroup of $\Aut(X)$.
+	Let $(X,d)$ be a compact metric space and $\mu: \MB(X) \rightarrow \R$ an outer-regular Borel measure. Then $\Aut(X, \MB(X), \mu)$ is a closed subgroup of $\Aut(X)$.
 	\end{ex}
 	
 	\begin{proof}
-	Still working on this. It is clearly a subgroup. I think $\mu$ needs to be a Radon measure to work well with uniform convergence of $f_n$.
+	Please see section on topological groups: \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Analysis Notes}
 	\end{proof}
 	
 	\begin{exm}
-	With the setup as before, define the (right) group action \\ $\cdot: (L^1(X, \MA, \mu), \|\cdot\|_*) \times \Aut(X, \MA, \mu) \rightarrow (L^1(X, \MA, \mu), \|\cdot\|_*) $ by $f \cdot \sig = f \circ \sig$. Then for each $\sig \in \Aut(X, \MA, \mu)$, the map $f \mapsto f \cdot \sig$ is an isometry. 
+	With the setup as before, define the (right) group action \\ $\cdot: (L^1(X, \MB(X), \mu), \|\cdot\|_*) \times \Aut(X, \MB(X), \mu) \rightarrow (L^1(X, \MB(X), \mu), \|\cdot\|_*) $ by $f \cdot \sig = f \circ \sig$. Then for each $\sig \in \Aut(X, \MB(X), \mu)$, the map $f \mapsto f \cdot \sig$ is an isometry. 
 	\end{exm}
 	
 	\begin{proof}
@@ -228,7 +209,7 @@
 	\end{ex}
 	
 	\begin{proof}
-	IDK, would like to show. I think I can show $\Aut(X, \MA, \mu)$ is compact, then since the action is continuous, for fixed $f$, the map $\sig \mapsto f \circ \sig$ is continuous and hence $o_f$ is compact??
+	IDK, would like to show. I think I can show $\Aut(X, \MB(X), \mu)$ is compact and that the action is continuous. This would immediately imply that the orbits are closed. 
 	\end{proof}
 	
 	
