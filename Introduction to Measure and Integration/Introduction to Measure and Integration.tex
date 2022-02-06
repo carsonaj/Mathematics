@@ -28,21 +28,15 @@
 \let\endproof\endhide
 \fi
 
-\newtheorem{thm}{Theorem}[subsection]
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{conj}{Conjecture}
-
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
 \newtheorem{defn}[definition]{Definition}
-
-\theoremstyle{remark}
-\newtheorem{remark}{Note}[subsection]
-\newtheorem{note}[remark]{Note}
-
-\theoremstyle{definition}
+\newtheorem{note}[definition]{Note}
+\newtheorem{thm}[definition]{Theorem}
+\newtheorem{lem}[definition]{Lemma}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem{cor}[definition]{Corollary}
+\newtheorem{conj}[definition]{Conjecture}
 \newtheorem{ex}[definition]{Exercise}
 
 
@@ -97,6 +91,8 @@
 \newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
+\newcommand{\loc}{\text{loc}}
 
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\spn}{span}
@@ -3257,9 +3253,9 @@
 	
 	
 	\newpage
-	
-	
 	\section{$L^{p}$ Spaces}
+	
+	\subsection{Introduction}
 	
 	\begin{defn}
 		Let $(X, \MA, \mu)$ be a measure space and $p \in [1, \infty]$. Define $  \| \cdot \|_p : L^0(X, \MA, \mu) \rightarrow [0, \infty]$ by $$\|f \|_p = \bigg(\int \vert f \vert^p d\mu \bigg)^{\frac{1}{p}} \hspace{1.5cm}( p < \infty)$$ 
@@ -3344,22 +3340,7 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -3369,15 +3350,7 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	\newpage
 	\section{Radon Measures}
 	\begin{thm}
 		Let $G$ be a locally compact group 
@@ -3386,17 +3359,17 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	\section{Haar Measure}
 	
 	\subsection{Topological Groups}
@@ -3428,7 +3401,7 @@
 	\end{defn}
 	
 	\begin{defn}
-		Let $G$ be a topological group and $\phi:G \rightarrow G$. Then $\phi$ is said to be an automorphism of $G$ if $\phi$ is a homomorphism and a homeomorphism. We define $Aut(G) = \{\phi:G \rightarrow G: \phi \text{ is an automorphism}\}$
+		Let $G$ be a topological group and $\phi:G \rightarrow G$. Then $\phi$ is said to be an automorphism of $G$ if $\phi$ is a homomorphism and a homeomorphism. We define $$Aut(G) = \{\phi:G \rightarrow G: \phi \text{ is an automorphism}\}$$
 	\end{defn}
 	
 	\begin{defn}
@@ -3966,10 +3939,62 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
+	\subsection{The Convolution}	
+	\begin{note}
+	For the remainder of the section, we fix a locally compact abelian group $G$ and a Haar measure $\mu$ on $G$. 
+	\end{note}
+	
+	\begin{defn}
+	Let $f, g \in L^1(\mu)$. We define the \textbf{convolution of $f$ with $g$}, denoted $f * g: G \rightarrow \C$, by $$ f * g(x) = \int_X f(x-y)g(y) d\mu(y)$$
+	\end{defn}
+	
+	\begin{ex}
+	Let $f, g \in L^1(\mu)$. Then $f * g \in L^1(\mu)$. 
+	\end{ex}
+	
+	\begin{proof}
+	By Tonelli's theorem, 
+	\begin{align*}
+	\int_X |f *g| d\mu 
+	&\leq \int_X \bigg[  \int_X |f(x-y)g(y)| d\mu(y) \bigg] d\mu(x) \\
+	&= \int_X |g(y)| \bigg[  \int_X |f(x-y)| d\mu(y) \bigg] d\mu(x) \\
+	&=  \|f\|_1 \int_X |g(y)| d\mu(x) \\
+	&= \|f\|_1 \|g\|_1\\
+	& < \infty
+	\end{align*}
+	\end{proof}
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\section{The Bochner Integral}
 	
 	\subsection{Introduction}

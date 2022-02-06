@@ -119,15 +119,81 @@
 	\section{The Fourier Transform on $\R^n$}	
 
 
+
 	\subsection{Schwartz Space}
 	\begin{defn}
-	Let $f \in C^{\infty}(\R^n)$ and $\al, \bet \in \N_0^n$. We define $$\|f\|_{\al, \bet} = \sup_{x \in \R^n} |(1+x^{\bet}) \p^{\al}f (x)|$$
-	We define Schwartz space, denoted $\MS$, by $$\MS = \{f \in C^{\infty}(\R^n): \text{ for each $\al$, $\bet \in \N_0^n$, } \|f\|_{\al, \bet} < \infty\}$$
-	\end{defn}
-
-	\subsection{The Convolution}
-		
+	Let $\al \in \N_0^n$ and $x, y \in \R^n$. We define 
+	\begin{enumerate}
+	\item $\l x , y\r  = \sum_{j}x_jy_j$
+	\item $|x| = \l x, x\r^{1/2}$
+	\item $x^\al = x_1^{\al_1}\cdots x_n^{\al_n}$
+	\item $\p^{\al} = \p_{x_1}^{\al_1} \cdots \p_{x_n}^{\al_n}$
+	\end{enumerate}
+	\end{defn}	
 	
+	\begin{defn}
+	Let $f \in C^{\infty}(\R^n)$,$\al \in \N_0^n$ and $N \in \N_0$. We define $$\|f\|_{\al, N} = \sup_{x \in \R^n} (1+|x|^N) |\p^{\al}f (x) |$$
+	We define Schwartz space, denoted $\MS$, by $$\MS = \{f \in C^{\infty}(\R^n): \text{ for each $\al \in \N_0^n$, $N \in \N_0$, } \|f\|_{\al, N} < \infty\}$$
+	\end{defn}
+	
+	\begin{ex}
+	For each $f \in \MS$ and $\al \in \N_0^n$, $\p^\al f \in L^1(\R^n)$.
+	\end{ex}
+	
+	\begin{proof}
+	Let $f \in \MS$, $\al \in \N_0^n$. Then there exists $C \geq 0$ such that for each $x \in \R^n$, $$| \p^{\al} f(x)| \leq C(1+|x|^{2})^{-1}$$
+	Define $g:\R^n \rightarrow \Rg$ defined by $g(x) = (1+|x|^{2})^{-1}$. Then $g \in L^1(\R^n)$ which implies that $\p^{\al} f \in L^1(\R^n)$.
+	\end{proof}
+	
+	\begin{defn}
+	
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{The Convolution}
+	\begin{defn}
+	Let $f, g \in L^1(\R^n)$. We define the \textbf{convolution of $f$ with $g$}, denoted $f * g: \R^n \rightarrow \C$, by $$ f * g(x) = \int_{\R^n} f(x-y)g(y) dm(y)$$
+	\end{defn}
+	
+	\begin{ex}
+	Let $f, g \in L^1(\R^n)$. Then $f * g \in L^1(\R^n)$. 
+	\end{ex}
+	
+	\begin{proof}
+	By Tonelli's theorem, 
+	\begin{align*}
+	\int_{\R^n} |f *g| dm 
+	&\leq \int_{\R^n} \bigg[  \int_{\R^n} |f(x-y)g(y)| dm(y) \bigg] dm(x) \\
+	&= \int_{\R^n} |g(y)| \bigg[  \int_{\R^n} |f(x-y)| dm(y) \bigg] dm(x) \\
+	&=  \|f\|_1 \int_{\R^n} |g(y)| dm(x) \\
+	&= \|f\|_1 \|g\|_1\\
+	& < \infty
+	\end{align*}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\subsection{The Fourier Transform on $L^1(\R^n)$}
 	
 	\begin{defn}
