@@ -1,7 +1,6 @@
 \documentclass[12pt]{amsart}
 \usepackage[margin=1in]{geometry} 
-\usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
-
+\usepackage{amsmath,amsthm,amssymb,setspace, mathtools, enumitem}
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
 \hypersetup{
@@ -27,26 +26,22 @@
 \let\endproof\endhide
 \fi
 
-\newtheorem{thm}{Theorem}[subsection]
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{conj}{Conjecture}
-
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
 \newtheorem{defn}[definition]{Definition}
-
-\theoremstyle{remark}
-\newtheorem{remark}{Note}[subsection]
-\newtheorem{note}[remark]{Note}
-
-\theoremstyle{definition}
+\newtheorem{note}[definition]{Note}
+\newtheorem{thm}[definition]{Theorem}
+\newtheorem{lem}[definition]{Lemma}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem{cor}[definition]{Corollary}
+\newtheorem{conj}[definition]{Conjecture}
 \newtheorem{ex}[definition]{Exercise}
 
 
 
 \DeclareMathOperator{\supp}{supp}
+
+\renewcommand{\Re}{\text{Re}}
 
 \newcommand{\al}{\alpha}
 \newcommand{\Gam}{\Gamma}
@@ -61,7 +56,6 @@
 \newcommand{\Om}{\Omega}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\N}{\mathbb{N}}
-\newcommand{\E}{\mathbb{E}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\T}{\mathbb{T}}
@@ -80,6 +74,8 @@
 \newcommand{\MT}{\mathcal{T}}
 \newcommand{\MM}{\mathcal{M}}
 \newcommand{\MI}{\mathcal{I}}
+
+\newcommand{\E}{\text{E}}
 
 \newcommand{\io}{\text{ i.o.}}
 \newcommand{\ev}{\text{ ev.}}
@@ -783,11 +779,89 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\section{Markov Chains}	
 
 	
 	\begin{defn}
 	Let $(\Om, \MF, P)$ be a probability space and $(X_n)_{n \in \N_0} \in L_n^0$. Then $(X_n)_{n \in \N_0}$ is said to be a \textbf{homogeneous Markov chain} if for each $A \in \MF$ and $n \in \N$, $P(X_n \in A| X_1, \cdots, X_{n-1}) = P(X_1 \in A| X_{0})$ a.e. 
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Stochastic Integration}
+	\begin{ex}
+	Let $(\Om, \MF, P)$ be a probability space, $X$ a set $\MA_0$ an algebra, $\mu_0:\MA_0 \rightarrow \C$ and $B:\MA_0 \rightarrow L^2(\Om, \MF, P)$. 
+	Suppose that 
+	\begin{enumerate}
+	\item $B(\varnothing) = 0$
+	\item for each $E, F \in \MA_0$, if $E \cap F = \varnothing$, then $B(E \cup F) = B(E) + B(F)$
+	\item $\E [B(E)B(F)^*] = \mu_0(E \cap F)$
+	\end{enumerate}
+	Then 
+	\begin{enumerate}
+	\item for each $E \in \MA_0$, $\mu_0(E) = \E[|B(E)|^2]$.
+	\item for each $E \in \MA_0$, $0 \leq \mu_0(E) < \infty$ 
+	\item for each $E, F \in \MA_0$, if $E \cap F = \varnothing$, then $\mu_0(E \cup F) = \mu_0(E) + \mu_0(F)$
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item Clear 
+	\item Clear
+	\item Let $E, F \in \MA_0$. Suppose that $E \cap F = \varnothing$. Then 
+	\begin{align*}
+	\E[B(E)B(F)^*] 
+	&= \mu_0(E \cap F) \\
+	&= \mu_0(\varnothing) \\
+	&= \E[|B(\varnothing)|^2] \\
+	&= \E[0] \\
+	&= 0
+	\end{align*}
+	This implies that 
+	\begin{align*}
+	\mu_0(E \cup F) 
+	&= \E[|B(E \cup F)|^2] \\
+	&= \E[|B(E) + B(F)|^2] \\
+	&= \E[|B(E)|^2] + \E[|B(F)|^2] + 2 \Re \E[B(E)B(F)^*] \\
+	&= \mu_0(E) + \mu_0(F) +0  \\
+	&=  \mu_0(E) + \mu_0(F) 
+	\end{align*}
+	\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+	Let $(\Om, \MF, P)$ be a probability space, $X$ a set $\MA_0$ an algebra, $\mu_0:\MA_0 \rightarrow \Rg$ a premeasure and $B:\MA_0 \rightarrow L^2(\Om, \MF, P)$. 
+	Suppose that 
+	\begin{enumerate}
+	\item $B(\varnothing) = 0$
+	\item for each $E, F \in \MA_0$, if $E \cap F = \varnothing$, then $B(E \cup F) = B(E) + B(F)$
+	\item $\E [B(E)B(F)^*] = \mu_0(E \cap F)$
+	\end{enumerate}
+	Then $B$ is said to be a \textbf{stochastic premeasure with sturcture $\mu_0$}
+	
 	\end{defn}
 	
 \end{document}

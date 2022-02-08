@@ -697,13 +697,65 @@
 	\subsection{Classes of sets}
 	
 	\begin{defn}
-		Let $X$ be a set and $\MA \subset \MP(X)$. Then $\MA$ is said to be an \textbf{algebra} on $X$ if 
+	Let $X$ be a set and $\ME \subset \MP(X)$. Then $X$ is said to be an \textbf{elementary family on X} if 
+	\begin{enumerate}
+	\item $\varnothing \in \ME$
+	\item for each $A, B \in \ME$, $A \cap B \in \ME$
+	\item for each $A \in \ME$, there exist $(A_j)_{j=1}^n \subset \ME$ such that  $(A_j)_{j=1}^n $ is disjoint and $A^c = \bigcup\limits_{j=1}^n A_j$
+	\end{enumerate}
+	\end{defn}
+	
+	\begin{ex}
+	Define $$\ME = \{(a,b]: a,b \in \overline{\R}\}$$ where we take $(a, \infty] = (a, \infty)$. Then $\ME$ is an elementary family on $\R$
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item $\varnothing = (0,0] \in \ME$
+	\item Let $a_1, a_2, b_1, b_2 \in \overline{\R}$. Then 
+	\[
+	(a_1, b_1] \cap  (a_2, b_2] =
+	\begin{cases}
+	\varnothing  & b_1 \leq a_2 \\
+	(a_2, b_1] & b_1 > a_2 
+	\end{cases} 
+	\]
+	So $(a_1, b_1] \cap  (a_2, b_2] \in \ME$.
+	\item Let $a, b \in \R$. Suppose that $a < b$. Then $(a,b]^c = (-\infty, a] \cup (b, \infty) \in \ME$. 
+	\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a set and $\MA_0 \subset \MP(X)$. Then $\MA_0$ is said to be an \textbf{algebra} on $X$ if 
 		\begin{enumerate}
-			\item $\MA \neq \varnothing$
-			\item for each $A \in \MA$, $A^c \in \MA$
-			\item for each $A,B \in \MA$, $A \cup B \in \MA$
+			\item $\MA_0 \neq \varnothing$
+			\item for each $A \in \MA_0$, $A^c \in \MA_0$
+			\item for each $A,B \in \MA_0$, $A \cup B \in \MA_0$
 		\end{enumerate}
 	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a set and $\ME$ an elementary family on $X$. Define $$\MA^{\ME}_0 = \bigg \{ \bigcup_{j=1}^n A_j: (A_j)_{j=1}^n \text{ is disjoint and } (A_j)_{j=1}^n \subset \ME \bigg \}$$ Then $\MA^{\ME}_0$ is an algebra on $X$.
+	\end{ex}	
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item By definition, $\varnothing \in \ME \subset \MA^{\ME}_0$. So $\MA^{\ME}_0 \neq \varnothing$. 
+	\item Let $A \in \MA^{\ME}_0$, there exists $(A_j)_{j=1}^n \subset \ME$ such that $(A_j)_{j=1}^n$ is disjoint and $A = \bigcup\limits_{j =1}^n A_j$. By definition of $\ME$, for each $j \in \{1, \ldots, n\}$, there exist $(B_{j,k})_{k=1}^{n_j} \subset \ME$ such that $(B_{j,k})_{k=1}^{n_j}$ is disjoint and $A_j^c = \bigcup\limits_{k=1}^{n_j}B_{j,k}$. Then 
+	\begin{align*}
+	A^c 
+	&= \bigcap_{j=1}^n A_j^c \\
+	&= \bigcap_{j=1}^n \bigg( \bigcup\limits_{k=1}^{n_j}B_{j,k} \bigg)\\
+	&= \bigcup\\
+\end{align*}	 
+	\item Let $A, B \in \MA^{\ME}_0$. Then there exist $(A_j)_{j=1}^n, (B_j)_{j=1}^m \subset \ME$ such that $A = \bigcup\limits_{j=1}^n A_j$ and  $B = \bigcup\limits_{j=1}^m B_j$. Then 
+	\begin{align*}
+	A \cup B 
+	&=  \bigg( \bigcup\limits_{j=1}^n A_j \bigg) \cup \bigg( \bigcup\limits_{j=1}^m B_j \bigg) \\
+	\end{align*}
+	\end{enumerate}
+	\textbf{FINISH!}
+	\end{proof}
 	
 	\begin{defn}
 		Let $X$ be a set and $\MA \subset \MP(X)$. Then $\MA$ is said to be a $\sigma$\textbf{-algebra} on $X$ if 
@@ -879,7 +931,7 @@
 	
 	
 	
-	
+	\newpage
 	\subsection{Measures}
 	
 	\begin{defn}
@@ -1023,7 +1075,7 @@
 	
 	
 	
-	
+	\newpage
 	\subsection{Outer Measures}
 	
 	\begin{defn}
@@ -1092,7 +1144,7 @@
 	
 	
 	
-	
+	\newpage
 	\subsection{Product Measures}
 	
 	\begin{defn}
@@ -1747,6 +1799,18 @@
 	The statement also holds for general $f \in L^1(X, \MB, \mu_B)$, by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
 	\end{proof}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\subsection{Integration on Product Spaces}
 	
 	\begin{defn}

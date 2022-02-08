@@ -122,7 +122,10 @@
 	
 	\section{Introduction}
 	\begin{defn}
-		We define $$\MD(\R^n) = \{f \in L^1(\R^d) : f \geq 0 \text{ and } \|f\|_1 = 1\}$$
+		Let $A \in \MB(R^d)$ and $\Theta \neq \varnothing$. Suppose that $m(A) > 0$. We define 
+		$$\MD(A) = \{f \in L^1(A) : f \geq 0 \text{ and } \|f\|_1 = 1\}$$ 
+		and for $\theta \in \Theta$, we define
+		$$\MD(A|\theta) = \{f: A \times \Theta \rightarrow \R : f(\cdot| \theta) \in \MD(A)\}$$
 	\end{defn}
 	
 	\section{Sampling}
@@ -131,29 +134,71 @@
 	
 	\subsection{Conditional Chain Sampling}
 	\begin{defn}
-	Let $A \subset \R$ be open, $a = (a_1, \dots, a_n) \in A$. Define $$A_1 = \{x_1 \in \R: (x_1, a_2, \dots, a_n) \in A\}$$ Let $f_1 \in \MD(A_1)$ and $a'_1 \sim f_1$. For $j \in \{2, \cdots, n\}$, define $\tau_j: \R \rightarrow \R^n$, $A_j$, choose $f_j$ and sample $a'_j$ inductively by 
-	$$\tau_j(x) = (a'_1, \dots, a'_{j-1}, x_j, a_{j+1}, \dots, a_n)$$  
-	$$A_j = \tau_j^{-1}(A)$$ 
-	$$f_j \in \MD(A_j)$$ 
+	Let $A \subset \R^d$ be open, $a = (a_1, \dots, a_d) \in A$. Define $\tau_1:\R \rightarrow \R^d$ and $A_1 \subset \R$ by 
+	\begin{itemize}
+	\item $\tau_1(x) = (x, a_2, \ldots, a_d)$
+	\item $A_1 = \tau_1^{-1}(A)$
+\end{itemize}	 
+	Choose $f_1 \in \MD(A_1)$ and sample $b_1 \sim f_1$. For $j \in \{2, \cdots, d\}$, define $\tau_j: \R \rightarrow \R^n$, $A_j$, choose $f_j$ and sample $b_j$ inductively by 
+	\begin{itemize}
+	\item setting $\tau_j(x) = (b_1, \dots, b_{j-1}, x_j, a_{j+1}, \dots, a_d)$  
+	\item setting $A_j = \tau_j^{-1}(A)$
+	\item choosing $f_j \in \MD(A_j|b_1, \ldots, b_{j-1})$
 	and
-	$$a'_j \sim f_j$$ 
+	setting $b_j \sim f_j$ 
+	\end{itemize}
 	Note that $\tau_j$ is continuous which implies that $A_j = \tau_j^{-1}(A)$ is open.
 	
 	\end{defn}	
 	
 	\begin{ex}
-	Let $A \subset \R$ be open and $a = (a_1, \dots, a_n) \in A$. Define $A_j$, $f_j$ and $a'_j$ as above and define $a' \in A$ and $f: A \rightarrow \R$ by $$a' = (a'_1, \dots, a'_n)$$ and  $$f(x_1, \dots, x_n) = \prod_{j=1}^nf_j(x_j)$$ 
-	Then $f \in \MD(A)$ and $a' \sim f$.
+	Let $A \subset \R$ be open and $a = (a_1, \dots, a_d) \in A$. Define $A_j$, $f_j$ and $b_j$ as above and define $b \in A$ and $f: A \rightarrow \R$ by $$b = (b_1, \dots, b_d)$$ and  $$f(x_1, \dots, x_d) = \prod_{j=1}^nf_j(x_j)$$ 
+	Then 
+	\begin{enumerate}
+	\item $f \in \MD(A)$ 
+	\item $b \sim f$
+	\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}
-	Fubini's theorem implies that 
+	\begin{enumerate}
+	\item Fubini's theorem implies that 
 	\begin{align*}
-	\int_A f dm^n 
-	&= \int f_1(x_1) \bigg( \int f_2(x_2) \bigg( \dots \int f_n(x_n) dm(x_n) \dots \bigg) dm(x_2) \bigg) dm(x_1) \\
+	\int_A f dm^d
+	&= \int f_1(x_1) \bigg[ \int f_2(x_2) \bigg[ \dots \bigg[ \int f_d(x_d) dm(x_d) \bigg] \dots \bigg] dm(x_2) \bigg] dm(x_1) \\
 	&= 1
+	\end{align*} 
+	\item We observe that 
+	\begin{align*}
+	[b] 
+	&= [b_d| b_{d-1}, \ldots, b_1][b_{d-1}| b_{d-2}, \ldots, b_1] \cdots [b_1] \\
+	&= f_d(b_d) \cdots f_1(b_1) \\
+	&= f(b)
 	\end{align*}
+	
+	\end{enumerate}
 	\end{proof}
+	
+	\begin{ex}
+	Set $A = B^d(0, 1) \cap [0,1]^d$ (the first orthant of the unit $d$-ball) and $a = 0$. Then $A_1 = (0,1)$. Choose $f_1 = 1_{(0,1)}$ and sample $b_1 \sim f_1$. For each $j \in \{2, \ldots, d\}$, set $$s_j = \sqrt{1 - \sum_{k=1}^{j-1} b^2_k}$$ 
+	Then for each $j \in \{2, \ldots, d\}$, $$A_j = ( 0, s_j)$$ 
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex}
+	Continuing from the previous problem, for each $j \in \{2, \ldots, d\}$, choose $f_j = s_j^{-1}1_{(0, s_j )}$. Then $f	 = \bigg( \prod_{j=2}^ds^{-1}_j \bigg) 1_{\prod_{j=2}^d (0, s_j)}$. 
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn}
+	Now make $f_j \sim GP(\mu_j, c_j)$. 	
+	\end{defn}
 	
 	\subsection{Importance Sampling}
 	
