@@ -28,21 +28,15 @@
 \let\endproof\endhide
 \fi
 
-\newtheorem{thm}{Theorem}[subsection]
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{conj}{Conjecture}
-
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
 \newtheorem{defn}[definition]{Definition}
-
-\theoremstyle{remark}
-\newtheorem{remark}{Note}[subsection]
-\newtheorem{note}[remark]{Note}
-
-\theoremstyle{definition}
+\newtheorem{note}[definition]{Note}
+\newtheorem{thm}[definition]{Theorem}
+\newtheorem{lem}[definition]{Lemma}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem{cor}[definition]{Corollary}
+\newtheorem{conj}[definition]{Conjecture}
 \newtheorem{ex}[definition]{Exercise}
 
 
@@ -161,12 +155,30 @@
 	
 	\newpage
 	\subsection{The Convolution}
+	
+	\begin{ex}
+	Let $f, g \in L^1(\R^n)$. Define $h \in L^0(\R^n \times \R^n)$ by $h(x,y) = f(x-y)g(y)$. Then $h \in L^1(m^2)$ and the function $$x \mapsto \int f(x-y)g(y) dm(y)$$ is well defined in $L^1(\R^n)$.
+	\end{ex}	
+	
+	\begin{proof}
+	By Tonelli's theorem, 
+	\begin{align*}
+	\int_{\R^n \times \R^n} |h| dm^2
+	&= \int_{\R^n} \bigg[  \int_{\R^n} |f(x-y)g(y)| dm(y) \bigg] dm(x) \\
+	&= \int_{\R^n} |g(y)| \bigg[  \int_{\R^n} |f(x-y)| dm(y) \bigg] dm(x) \\
+	&=  \|f\|_1 \int_{\R^n} |g(y)| dm(x) \\
+	&= \|f\|_1 \|g\|_1\\
+	& < \infty
+	\end{align*}
+	By Fubini's theorem, the map $$x \mapsto \int f(x-y)g(y) dm(y)$$ is defined a.e.
+	\end{proof}
+	
 	\begin{defn}
 	Let $f, g \in L^1(\R^n)$. We define the \textbf{convolution of $f$ with $g$}, denoted $f * g: \R^n \rightarrow \C$, by $$ f * g(x) = \int_{\R^n} f(x-y)g(y) dm(y)$$
 	\end{defn}
 	
 	\begin{ex}
-	Let $f, g \in L^1(\R^n)$. Then $f * g \in L^1(\R^n)$. 
+	Let $f, g \in L^1(\R^n)$. Then $f * g \in L^1(\R^n)$ and $\|f *g\|_1 \leq \|f\|_1 \|g\|_1$. 
 	\end{ex}
 	
 	\begin{proof}
@@ -181,11 +193,45 @@
 	\end{align*}
 	\end{proof}
 	
+	\begin{ex}
+	Let $f, g, h \in L^1(\R^n)$. Then $(f * g) * h = f * (g * h)$. 
+	\end{ex}
 	
+	\begin{proof}
+	Let $x \in \R^n$. Then using the substitution $z \mapsto z-y$ and Fubini's theorem, we obtain
+	\begin{align*}
+	(f*g)*h(x) 
+	&= \int f * g(x - y) h (y) dm(y) \\
+	&= \int \bigg[ \int f(x-y-z) g(z) dm(z)  \bigg] h(y) dm(y) \\
+	&= \int \bigg[ \int f(x-z) g(z - y) dm(z)  \bigg] h(y) dm(y) \\
+	&= \int \bigg[ \int f(x-z) g(z - y)  h(y)dm(z)  \bigg]  dm(y) \\
+	&= \int \bigg[ \int f(x-z) g(z - y)  h(y) dm(y)  \bigg] dm(z) \\
+	&= \int f(x-z) \bigg[ \int g(z - y)  h(y) dm(y)  \bigg] dm(z) \\
+	&= \int f(x-z) g*h(z) dm(z) \\
+	&= f*(g*h)(z)
+	\end{align*}
+	So $(f*g)*h = f*(g*h)$. 
+	\end{proof}
 	
+	\begin{ex}
+	Let $f, g \in L^1(\R^n)$. Then $f * g = g* f$. 
+	\end{ex}	
 	
+	\begin{proof}
+	Let $x \in \R^n$. Using the transformation $y \mapsto x-y$, we obtain that 
+	\begin{align*}
+	f*g(x)
+	&= \int f(x-y) g(y) dm(y) \\
+	&= \int f(y) g(x-y) dm(y) \\
+	&= \int g(x-y) f(y) dm(y) \\
+	&= g *f(x)
+	\end{align*}
+	So $f * g = g* f$.
+	\end{proof}
 	
-	
+	\begin{note}
+	To summarize, $(L^1(\R^n), *)$ is a commutative Banach algebra.
+	\end{note}
 	
 	
 	

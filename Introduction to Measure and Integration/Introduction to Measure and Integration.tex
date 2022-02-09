@@ -81,6 +81,8 @@
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
 
+\newcommand{\p}{\partial}
+
 \newcommand{\RG}{[0,\infty]}
 \newcommand{\Rg}{[0,\infty)}
 \newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
@@ -1460,7 +1462,7 @@
 	\end{proof}
 	
 	\begin{thm}{Dominated Convergence}
-		Let $(f_n)_{n \in \N} \subset L^1$, $f$ measurable and $g \in L^1$. Suppose that $f_n \xrightarrow{\text{a.e.}} f$ and for each $n \in \N$, $|f_n| \leq g_n$. Then $f \in L^1$ and $\int f_n \rightarrow \int f$. 
+		Let $(f_n)_{n \in \N} \subset L^1$, $f$ measurable and $g \in L^1$. Suppose that $f_n \xrightarrow{\text{a.e.}} f$ and for each $n \in \N$, $|f_n| \leq g_n$. Then $f \in L^1$ and $$\int_X f_n \rightarrow \int_X f$$ 
 	\end{thm}
 	
 	\begin{ex}
@@ -1667,11 +1669,28 @@
 	\end{proof}
 	
 	\begin{ex}
-		Denote by $\del_x$ the point mass measure at $x \in X$ on  measurable space $(X, \MP(X))$. Let $f:X \rightarrow \C$. Then $$\int f d \del_x = f(x)$$  
+		Let $x \in X$ and denote by $\del_x$ the point mass measure at $x \in X$ on  measurable space $(X, \MP(X))$. Let $f:X \rightarrow \C$. Then $$\int f d \del_x = f(x)$$  
 	\end{ex}
 	
 	\begin{proof}
-		First assume that $f$ is simple. Then there exist $a_1, a_2, \cdots, a_n \in \C$ and $E_1, E_2, \cdots , E_n \in \MP (X)$ such that $f = \sum_{i = 1}^n a_i\chi_{E_i}$ Thus $\int f d\del_x = f(x)$. Now assume that $f$, which is measurable by choice of $\sig$-algebra, satisfies $f(X) \subset \Rg$. Choose a sequence $(\phi_n)_{n \in \N} \subset L^+$ such that for each $n \in \N$, $\phi_n$ is simple, $\phi_n \leq \phi_{n+1}$ and $\phi_n \xrightarrow{\text{p.w}} f$. From before, we see that for each $n \in \N$, $\int \phi_n d\del_x = \phi_n(x)$. Monotone convergence tells us that $\int f d\del_x = f(x)$. Now just extend to complex valued functions.
+		First assume that $f$ is simple. Then there exist $(a_j)_{j=1}^n \subset \C$ and $(E_j)_{j=1}^n \subset \MP(X)$ such that $(E_j)_{j=1}^n$ is disjoint and $f = \sum_{i = 1}^n a_i\chi_{E_i}$. Choose $j^* \in \{1, \ldots, n\}$ such that $x \in E_{j^*}$. Thus 
+		\begin{align*}
+		\int f d\del_x 
+		&= \int \sum_{j=1}^n c_j \chi_{E_j} d \del_x \\
+		&= \sum_{j=1}^n c_j \del_x(E_j) \\
+		&= c_j \del_x(E_{j^*}) \\
+		&= c_j \\
+		&= f(x)
+		\end{align*} 
+		Now for $f \in L^+$, choose a sequence $(\phi_n)_{n \in \N} \subset S^+$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1}$ and $\phi_n \xrightarrow{\text{p.w}} f$. Then monotone convergence implies that 
+		\begin{align*}
+		\int f d \del_x 
+		&= \int \limn \phi_n  \del_x \\
+		&= \limn \int \phi_n \del_x \\
+		&= \limn \phi_n(x) \\
+		&= f(x) 
+		\end{align*}
+		Now just extend to complex valued functions.
 		
 	\end{proof}
 	
@@ -1679,8 +1698,7 @@
 		Denote by $\#$ the counting measure on the measurable space $(X, \MP(X))$. Let $f:X \rightarrow \C$ and suppose that $f \in L^1$. Then $$\int f d\# = \sum_{x \in X}f(x).$$ In particular, if $f$ is integrable, then $\{x \in X: f(x) \neq 0\}$ is countable.
 	\end{ex}
 	
-	\begin{proof}
-		Please refer to the definition of the sum in the appendix. First suppose that $f(X) \subset \Rg$. For $n \in \N$, put $X_n = \{x \in X: f(x) > 1/n\}$ and define $X^* = \{x \in X: f(x) > 0\}$, $X_0 = \{x \in X: f(x) = 0\}$ Then $X^* = \bigcup\limits_{n \in \N}X_n$. Since $f \in L^1$, we have that for each $n \in \N$,
+	\begin{proof} Please refer to the definition of the sum in the appendix. First suppose that $f(X) \subset \Rg$. For $n \in \N$, put $X_n = \{x \in X: f(x) > 1/n\}$ and define $X^* = \{x \in X: f(x) > 0\}$, $X_0 = \{x \in X: f(x) = 0\}$ Then $X^* = \bigcup\limits_{n \in \N}X_n$. Since $f \in L^1$, we have that for each $n \in \N$,
 		\begin{align*}
 			\infty 
 			&> \int f d\#\\
@@ -1730,6 +1748,29 @@
 		\end{align*} 
 		
 		So that $\mu(N_n) = 0$. Thus for each $n \in \N$, $\mu(N_n) = 0$ which implies $\mu(N) = 0$. Therefore $f \leq g$ a.e. as required. 
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space and $f:X \times \R \rightarrow \C$. Suppose that for each $t \in \R$, $f(\cdot, t) \in L^1(\mu)$. Define $F: \R \rightarrow \R$ by 
+	$$F(t) = \int_X f(x, t) d\mu(x)$$ 
+	\begin{enumerate}
+	\item Suppose that there exists $g \in L^1(\mu)$ such that for each $(x, t) \in X \times \R$, $|f(x,t)| \leq g(x)$. Let $t_0 \in \R$. If for each $x \in X$, $f(x, \cdot)$ is continuous at $t_0$, then $F$ is continuous at $t_0$. 
+ 	\item Suppose that $\p f / \p t$ exits and there exists $g \in L^1(\mu)$ such that for each $(x, t) \in X \times \R$, $|\p f / \p t(x,t) | \leq g(x)$. Then $F$ is differentiable and for each $t \in \R$, $$F'(t) = \int_X \frac{\p f}{\p t}(x, t) d \mu(x)$$
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item Suppose that for each $x \in X$, $f(x, \cdot)$ is continuous at $t_0$. Let $(t_n) \subset \R$. Suppose that $t_n \rightarrow t_0$. Then $f(\cdot , t_n) \convt{p.w.} f(\cdot, t_0)$. Since for each $n \in \N$, $|f(x,t_n)| \leq g(x)$, the dominated convergence theorem implies that $F(t_n) \rightarrow F(t_0)$.
+	\item Let $t_0 \in \R$. Choose $(t_n)_{n \in \N}$ such that $ t_n \rightarrow t_0$ and for each $n \in \N$, $t_n < t_0$. For $n \in \N$, define $h_n:X \rightarrow \R$ by $$h_n(x) = \frac{f(x,t_n) - f(x, t_0)}{t_n - t_0}$$ So $h_n(\cdot) \convt{p.w.} \p f / \p t (\cdot, t_0)$. The mean value theorem implies that for each $x \in X$ and $n \in \N$, there exists $c_{n,x} \in (t_n,t_0)$ such that $h_n(x) = \p f / \p t (x, c_{n,x})$. Then for each $n \in \N$, $|h_n| \leq g$. The dominated convergence theorem then implies that $\p f / \p t (\cdot, t_0) \in L^1(\mu)$ and 
+	\begin{align*}
+	\int \frac{\p f }{\p t} (x, t_0) d\mu(x) 
+	&=  \limn \int_X h_n d\mu  \\
+	&= \limn \frac{F(t_n) - F(t_0)}{t_n - t_0} \\
+	&= F'(t_0^-) 	
+	\end{align*}
+	So that $F$ is differentiable at $t_0$ from the left. Similarly, $F$ is differentiable at $t_0$ from the right. 
+	\end{enumerate}
 	\end{proof}
 	
 	\begin{defn}
@@ -1833,7 +1874,7 @@
 		Let $(X,\MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces. Then for each $E \in \MA \otimes \MB$, the maps $\phi:X \rightarrow \RG$ and $\psi: Y \rightarrow \RG$ defined by $\phi(x) = \nu(E_x)$ and $\psi(y) = \mu(E^y)$ are $\MA$-measurable and $\MB$-measurable, respectively and $$\mu \times \nu(E) = \int_X \nu(E_x)d\mu(x) = \int_Y \mu(E^y)d\nu(y)$$ 
 	\end{thm}
 	
-	\begin{thm}{Fubini, Tonelli:}
+	\begin{thm}\textbf{Fubini, Tonelli:}
 		Let $(X,\MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces. 
 		
 		\begin{enumerate}
@@ -3204,7 +3245,8 @@
 	\end{ex}
 	
 	\begin{proof}
-		Let $(q_n)_{n\in \N}$ be an ennumeration of $\Q$. Define $F:\R \rightarrow \R$ by $$F =\sum_{n\in \N} 2^{-n}\chi_{[q_n, \infty)}$$. Equivalently, if we define $S_x=\{n \in \N: q_n \leq x\}$, then we may write $$F(x) = \sum_{n \in S_x}2^{-n}$$\\ Let $x, y \in \R$. Suppose that $x < y$. Then $S_x \subsetneq S_y$. So $F(x)<F(y)$ and therefore $F$ is strictly increasing.\\ 
+		Let $(q_n)_{n\in \N}$ be an ennumeration of $\Q$. Define $F:\R \rightarrow \R$ by $$F =\sum_{n\in \N} 2^{-n}\chi_{[q_n, \infty)}$$ 
+		Equivalently, if we define $S_x=\{n \in \N: q_n \leq x\}$, then we may write $$F(x) = \sum_{n \in S_x}2^{-n}$$\\ Let $x, y \in \R$. Suppose that $x < y$. Then $S_x \subsetneq S_y$. So $F(x)<F(y)$ and therefore $F$ is strictly increasing.\\ 
 		For each $x,y \in R$ with $x<y$, define $S_{x,y}= \{n \in \N:x< q_n \leq y\}$. Note that $\lim\limits_{y\rightarrow x^+}\min(S_{x,y}) = \infty$ and if $y \in \R \setminus \Q$, then $\lim\limits_{x\rightarrow y^-}\min(S_{x,y}) = \infty$.\\
 		Now, let $x \in \R$ and $\ep>0$. Choose $N \in \N$ such that $\sum\limits_{n = N}^{\infty}2^{-n}<\ep$. Choose $\del>0$ such that $\min (S_{x,x+\del}) \geq N$.  Let $y \in [x,\infty)$. Suppose that $|x-y| < \del$. Then 
 		\begin{align*}
@@ -3396,7 +3438,42 @@
 		\end{align*}
 	\end{proof}
 	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ and $(Y, \MB, \nu)$ be $\sig$-finite measure spaces and $K\in L^0(X \times Y)$. Suppose that there exists $C > 0$ such that for $\mu$-a.e $x \in X$, $$\int_Y |K(x, y)| d \nu(y) < C$$ and for $\nu$-a.e $y \in Y$, $$\int_X |K(x, y)| d \mu(x) < C$$
+	Let $f \in L^p(\nu)$.
+	\begin{enumerate}
+	\item Then for $\mu$-a.e. $x \in X$, $$\int_Y K(x,y) f(y) d \nu(y)$$ exists. \\
+	\textbf{Hint:} Note that $|K(x, y) f(y)| = (|K(x,y)|^{1/q})(|K(x,y)|^{1/p}|f(y)|)$
+	\item Define $Tf \in L^0(X)$ by $$Tf(x) = \int_Y K(x, y) f(y)d \nu(y)$$ Then $Tf \in L^p(\mu)$ and $\|Tf\|_p \leq C\|f\|_p$. 
+	\end{enumerate}
+	\end{ex}
 	
+	\begin{proof}Let $p,q \in (0,\infty)$ be conjugate.
+	\begin{enumerate}
+	\item Define $h \in L^0(X \times Y)$ by $h(x,y) = K(x, y) f(y)$. By assumption, there exists $N \in \MA$ such that $\mu(N) = 0$ and  $$\bigg \{x \in X: \int_Y |K(x, y)| d \nu(y) < C \bigg\} \subset N_X$$ 
+	Let $x \in N^c$. Then Holder's inequality implies that
+	\begin{align*}
+	\int_Y |h(x,y)| d\nu(y) 
+	&= \int_Y (|K(x,y)|^{1/q})(|K(x,y)|^{1/p}|f(y)|) d\nu(y) \\
+	& \leq \bigg( \int_Y |K(x,y)| d \nu(y) \bigg)^{1/q} \bigg( \int_Y |K(x,y)||f(y)|^p d\nu(y) \bigg)^{1/p} \\
+	& \leq C^{1/q} \bigg( \int_Y |K(x,y)||f(y)|^p d\nu(y) \bigg)^{1/p}
+	\end{align*}
+	Tonelli's theorem implies that the map $$x \mapsto \int_Y |h(x,y)| d\nu(y) $$ is measurable and that  
+	\begin{align*}
+	\int_X \bigg[ \int_Y |h(x,y)| d\nu(y) \bigg]^p d\mu(x) 
+	&\leq  C^{p/q}  \int_X \bigg[ \int_Y |K(x,y)||f(y)|^p d\nu(y) \bigg] d\mu(x) \\
+	&= C^{p/q}  \int_Y \bigg[ \int_X |K(x,y)||f(y)|^p d\mu(x) \bigg] d\nu(y) \\
+	&= C^{p/q}  \int_Y \bigg[ \int_X |K(x,y)| d\mu(x) \bigg] |f(y)|^p d\nu(y) \\
+	& \leq C^{1 + p/q} \int_Y |f(y)|^p  d\nu(y) \\
+	& = C^{1 + p/q} \|f\|_p^p
+	\end{align*}
+	So for $\mu$-a.e. $x \in X$, $$\int_Y |h(x,y)| d\nu(y) < \infty$$ which implies that for $\mu$-a.e. $x \in X$, $h(x, \cdot) \in L^1(\nu)$. Therefore, for $\mu$-a.e. $x \in X$, $$\int_Y h(x,y) d\nu(y)$$ exists. The case is similar when $p \in \{1, \infty\}$.
+	\item Let $x \in X$. Then $$|Tf(x)| \leq \int_Y |K(x,y)f(y)| d \nu(y)$$ which implies that $$|Tf(x)|^p \leq \bigg( \int_Y |K(x,y)f(y)| d \nu(y) \bigg)^p$$
+	By part $(1)$, $$\int_X |Tf|^p d\mu \leq C^{1+p/q}\|f\|_p^p$$ 
+	So $Tf \in L^p(\mu)$ and $\|Tf\|_p \leq C\|f\|_p$.
+	The case is similar when $p \in \{1, \infty\}$.
+	\end{enumerate}
+	\end{proof}
 	
 	
 	
@@ -3916,6 +3993,18 @@
 		\end{align*} If $G$ is unimodular, then $\mu(Eg) = \mu(E)$ and $\Del(c_g) = 1$. Conversely, if $\ker \Del|_H = H$, then $\mu(E) = \mu(Eg)$ and $G$ is unimodular.
 	\end{proof}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\subsection{Fundamental Examples}		
 	
 	\begin{note}
@@ -4197,7 +4286,7 @@ So $f+g \in L^p_Y$.
 	\end{proof}
 	
 	\begin{ex}
-	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space, $f \in L^1_Y$ and $(\phi_n)_{n \in \N} \subset S_Y$. If $\phi_n \conv{L^1_Y} f$, then $\limn \int \phi_n d\mu $ exists.
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space, $f \in L^1_Y$ and $(\phi_n)_{n \in \N} \subset S_Y$. If $\phi_n \conv{L^1_Y} f$, then $$\limn \int \phi_n d\mu $$ exists.
 	\end{ex}
 	
 	\begin{proof}
@@ -4212,7 +4301,7 @@ So $f+g \in L^p_Y$.
 \end{proof}		
 
 	\begin{ex}
-	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space, $f \in L^1_Y$ and $(\phi_n)_{n \in \N}, (\psi_n)_{n \in \N} \subset S_Y$. If $\phi_n \conv{L^1_Y} f$ and $\psi_n \conv{L^1_Y} f$, then $\lim\limits_{n \rightarrow \infty} \int \phi_n d\mu = \lim\limits_{n \rightarrow \infty} \int \psi_n d\mu$
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a Banach space, $f \in L^1_Y$ and $(\phi_n)_{n \in \N}, (\psi_n)_{n \in \N} \subset S_Y$. If $\phi_n \conv{L^1_Y} f$ and $\psi_n \conv{L^1_Y} f$, then $$\lim\limits_{n \rightarrow \infty} \int \phi_n d\mu = \lim\limits_{n \rightarrow \infty} \int \psi_n d\mu$$
 	\end{ex}
 	
 	\begin{proof}
@@ -4308,20 +4397,12 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	\end{align*}
 	\end{proof}
 	
-	Continuity implies that $f \in L_Y^0$ and 
-	\begin{align*}
-	\int \| f \| dm 
-	&\leq \| f\|_{\infty}(b-a) \\
-	&< \infty
-\end{align*}
-	so that $f \in L^1_Y$ and $f$ is Bochner integrable.
-	
 	\begin{ex}
 	Let $Y$ be a separable Banach space and $f:[a,b] \rightarrow Y$ continuous. Then $f$ is Banach-integrable.
 	\end{ex}
 	
 	\begin{proof}
-	Continuity implies that $f \in L_Y^0$ and 
+	Continuity implies that $f \in L_Y^{\infty}$ and 
 	\begin{align*}
 	\int \| f \| dm 
 	&\leq \| f\|_{\infty}(b-a) \\
