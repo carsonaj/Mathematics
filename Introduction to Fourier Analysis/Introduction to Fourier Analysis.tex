@@ -94,6 +94,8 @@
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
 
+\newcommand{\loc}{\text{loc}}
+
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\spn}{span}
 
@@ -110,7 +112,7 @@
 	\newpage
 	
 	
-	\section{The Fourier Transform on $\R^n$}	
+	\section{Fourier Analysis on $\R^n$}	
 
 
 
@@ -120,6 +122,7 @@
 	\begin{enumerate}
 	\item $\l x , y\r  = \sum_{j}x_jy_j$
 	\item $|x| = \l x, x\r^{1/2}$
+	\item $|\al| = \al_1 + \cdots + \al_n$
 	\item $x^\al = x_1^{\al_1}\cdots x_n^{\al_n}$
 	\item $\p^{\al} = \p_{x_1}^{\al_1} \cdots \p_{x_n}^{\al_n}$
 	\end{enumerate}
@@ -155,13 +158,17 @@
 	
 	\newpage
 	\subsection{The Convolution}
+	\begin{defn}
+	Let $f, g \in L^0(\R^n)$. If for a.e. $x \in \R^n$, $$\int_{\R^n} |f(x-y)g(y)| dm(y) < \infty$$  
+	we define the \textbf{convolution of $f$ with $g$}, denoted $f * g: \R^n \rightarrow \C$, by $$ f * g(x) = \int_{\R^n} f(x-y)g(y) dm(y)$$
+	\end{defn}
 	
 	\begin{ex}
-	Let $f, g \in L^1(\R^n)$. Define $h \in L^0(\R^n \times \R^n)$ by $h(x,y) = f(x-y)g(y)$. Then $h \in L^1(m^2)$ and the function $$x \mapsto \int f(x-y)g(y) dm(y)$$ is well defined in $L^1(\R^n)$.
+	Let $f, g \in L^1(\R^n)$. Then $f * g \in L^1(\R^n)$ and $\|f * g\|_1 \leq \|f\|_1 \|g\|_1$. 
 	\end{ex}	
 	
 	\begin{proof}
-	By Tonelli's theorem, 
+	Define $h \in L^0(\R^n \times \R^n)$ by $h(x,y) = f(x-y)g(y)$. Tonelli's theorem implies that, 
 	\begin{align*}
 	\int_{\R^n \times \R^n} |h| dm^2
 	&= \int_{\R^n} \bigg[  \int_{\R^n} |f(x-y)g(y)| dm(y) \bigg] dm(x) \\
@@ -170,31 +177,19 @@
 	&= \|f\|_1 \|g\|_1\\
 	& < \infty
 	\end{align*}
-	By Fubini's theorem, the map $$x \mapsto \int f(x-y)g(y) dm(y)$$ is defined a.e.
-	\end{proof}
-	
-	\begin{defn}
-	Let $f, g \in L^1(\R^n)$. We define the \textbf{convolution of $f$ with $g$}, denoted $f * g: \R^n \rightarrow \C$, by $$ f * g(x) = \int_{\R^n} f(x-y)g(y) dm(y)$$
-	\end{defn}
-	
-	\begin{ex}
-	Let $f, g \in L^1(\R^n)$. Then $f * g \in L^1(\R^n)$ and $\|f *g\|_1 \leq \|f\|_1 \|g\|_1$. 
-	\end{ex}
-	
-	\begin{proof}
-	By Tonelli's theorem, 
+	Then $h \in L^1(\R^n \times \R^n)$. Fubini's theorem implies that $f * g \in L^1(\R^n)$. Clearly 
 	\begin{align*}
-	\int_{\R^n} |f *g| dm 
-	&\leq \int_{\R^n} \bigg[  \int_{\R^n} |f(x-y)g(y)| dm(y) \bigg] dm(x) \\
-	&= \int_{\R^n} |g(y)| \bigg[  \int_{\R^n} |f(x-y)| dm(y) \bigg] dm(x) \\
-	&=  \|f\|_1 \int_{\R^n} |g(y)| dm(x) \\
-	&= \|f\|_1 \|g\|_1\\
-	& < \infty
+	\|f *g\|_1 
+	& \leq \int_{\R^n \times \R^n} |h| dm^2 \\
+	& \leq \|f\|_1 \|g\|_1
 	\end{align*}
 	\end{proof}
 	
+	
+	
 	\begin{ex}
-	Let $f, g, h \in L^1(\R^n)$. Then $(f * g) * h = f * (g * h)$. 
+	Let $f, g, h \in L^1(\R^n)$. Then $(f * g) * h = f * (g * h)$. \\
+	\textbf{Hint:} use the substitution $z \mapsto z-y$
 	\end{ex}
 	
 	\begin{proof}
@@ -234,8 +229,69 @@
 	\end{note}
 	
 	
+	\begin{ex} \textbf{Young's Inequality:} \\
+	Let $p \in [1,\infty]$, $f \in L^1$ and $g \in L^p$. Then $f*g \in L^p$ and $\|f *g\|_p \leq \|f\|_1\|g\|_p$. 
+	\end{ex}
 	
+	\begin{proof}
+	Define $K \in L^0(\R^n \times \R^n)$ by $K(x,y) = f(x-y)$. Since for each $x,y \in \R^n$, 
+	\begin{align*}
+	\int|K(x,y)|dm(x) 
+	&= \int|K(x,y)|dm(y) \\
+	&= \|f\|_p
+	\end{align*} 
+	an exercise in section $5.1$ of 
+	\href{https://github.com/carsonaj/Mathematics/blob/master/Introduction%20to%20Measure%20and%20Integration/Introduction%20to%20Measure%20and%20Integration.pdf}{Introduction to Measure and Integration}
+	implies that $f*g \in L^p$ and $\|f *g\|_p \leq \|f\|_1\|g\|_p$.
+	\end{proof}
 	
+	\begin{ex}
+	Let $p, q \in [1, \infty]$ be conjugate, $f \in L^p(\R^n)$ and $g \in L^q(\R^n)$. Then 
+	\begin{enumerate}
+	\item for each $x \in \R^n$, $f * g(x)$ exists. 
+	\item $\|f*g\|_u \leq \|f\|_p \|g\|_q $
+	\item 
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+	\begin{enumerate}
+	\item Let $x \in \R^n$. Holder's inequality implies that 
+	\begin{align*}
+	\int_{\R^n}|f(x-y)g(y)| dm(y) 
+	& \leq \|f\|_p \|g\|_q 
+	\end{align*}
+	Then $f*g(x)$ exists. 
+	\item Let $x \in \R^n$. Then in part $(1)$ we showed that  
+	\begin{align*}
+	|f*g(x)| 
+	&= \bigg| \int_{\R^n} f(x - y)g(y) dm(y)\bigg| \\
+	&\leq  \int_{\R^n} |f(x-y)g(y)| dm(y) \\
+	& \leq \|f\|_p \|g\|_q
+	\end{align*}
+	Since $x \in \R^n$ is arbitrary, $\|f*g\|_u \leq \|f\|_p \|g\|_q $.
+	\item 
+	\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+	Let $f \in L^1(\R^n)$, $k \in \N$ and $g \in C^k(\R^n)$. Suppose that for each $\al \in \N_0^n$, $|\al| \leq k$ implies that $\p^{\al} g \in L^{\infty}$. Then for each $\al \in \N_0^n$, $|\al| \leq k$ implies that $f *  g \in C^{k}$ and $$\p^{\al}(f*g) = f*\p^{\al}g$$
+	\end{ex}
+	
+	\begin{proof}
+	Let $\al \in \N_0^n$. Suppose that $|\al| = 1$. Define $h \in L^0(\R^n \times \R^n)$ by $h(x,y) = g(x-y)f(y)$. Young's inequality imples that for a.e. $ x \in \R^n$, $h(x, \cdot) \in L^1(m)$. For each $y \in \R^n$, $\p^{\al} h (\cdot,y) = \p^{\al}g(\cdot -y)f(y)$ and for each $x,y \in \R^n$, $|\p^{\al} h (x,y)| \leq \|\p^{\al} g\|_{\infty}|f(y)| \in L^1(\R^n)$. An exercise in section $3.3$ of 
+	\href{https://github.com/carsonaj/Mathematics/blob/master/Introduction%20to%20Measure%20and%20Integration/Introduction%20to%20Measure%20and%20Integration.pdf}{Introduction to Measure and Integration} 
+	implies that for a.e. $x \in \R^n$, $\p^{\al} (g*f)(x)$ exists and 
+	\begin{align*}
+	\p^{\al} (f*g)(x) 
+	&= \p^{\al} (g * f)(x) \\
+	&= \p^{\al}\int_{\R^n} h(x,y) dm(y) \\
+	&= \int_{\R^n} \p^{\al} g(x -y)f(y) dm(y) \\
+	&= (\p^{\al} g) * f (x) \\
+	&=  f * (\p^{\al} g) (x)   
+	\end{align*}	 
+	Now proceed by induction on $|\al|$.
+	\end{proof}
 	
 	
 	
@@ -243,8 +299,49 @@
 	\subsection{The Fourier Transform on $L^1(\R^n)$}
 	
 	\begin{defn}
+	
+	\end{defn}	
+	
+	\begin{ex}
+	Let $\phi:\R \rightarrow S^1$ be a measurable homomorphism. 
+	\begin{enumerate}
+	\item Then $\phi \in L^1_{\loc}(\R^n)$ and there exists $a \in \R$ such that $$\int_{(0,a]}\phi dm \neq 0$$
+	\item Define $$c = \bigg[ \int_{(0,a]}\phi dm \bigg]^{-1}$$ 
+	Then  For each $x \in \R$, $$\phi(x) = c\int_{(x, x+a]}\phi dm$$ 
+	\item $\phi$ is differentiable and for each $x \in \R$, $\phi'(x) = c(\phi(x+a) - \phi(x))$
+	\item Define $b = c(\phi(a) - 1)$ and $g \in C(\R)$ by $g(x) = e^{bx} \phi(x)$. Then $g$ is constant and there exists $\xi \in \R$ such that $b = 2 \pi i \xi $
+	\end{enumerate}
+	\end{ex}	
+	
+	\begin{proof}
+	\begin{enumerate}
+	\item Let $K \subset \R$ be compact. Then $$\int_K |\phi| dm = m(K) < \infty$$ So $\phi \in L^1_{\loc}(\R^n)$. For the sake of contradiction, suppose that for each $a \in \R$, $$\int_{(0,a]}\phi dm = 0$$ 
+	Then the FTC implies that $\phi = 0$ a.e., which is a contradiction. So there exists $a \in \R$ such that $$\int_{(0,a]}\phi dm \neq 0$$
+	\item Then 
+	\begin{align*}
+	\phi(x) 
+	&= c \int_{(0,a]} \phi(x)\phi(t) dm(t) \\
+	&= c \int_{(0,a]} \phi(x+t) dm(t) \\
+	&= c \int_{(x,x+a]} \phi dm 
+	\end{align*}
+	\item Define $f \in C^1(\R)$ by $$f(x) = \int_{(0, x]} \phi dm$$ Then 
+	\begin{align*}
+	\phi(x) 
+	&= c \int_{(x,x+a]} \phi dm \\
+	&= c(f(x+a) - f(x))
+	\end{align*}
+	Now use the FTC.
+	\item 
+	\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+	Then there exists $\xi \in \R^n$ such that for each $x \in \R^n$, $\phi(x) = e^{2 \pi i \l \xi, x\r}$. 
+	\end{ex}
+	
+	\begin{defn}
 	Let $f \in L^1(\R^n)$. We define the \textbf{Fourier transform of $f$}, denoted $\hat{f}: \R^n \rightarrow \C$ by 
-	$$\hat{f}(\xi) = \frac{1}{(2 \pi)^{n / 2}} \int_{\R^n} f(x) e^{-i}$$
+	$$\hat{f}(\xi) = \frac{1}{(2 \pi)^{n / 2}} \int_{\R^n} f(x) e^{- 2 \pi i \l \xi , x\r} dm(x)$$
 	\end{defn}
 	
 	
