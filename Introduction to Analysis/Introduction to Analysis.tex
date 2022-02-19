@@ -102,9 +102,11 @@
 \DeclareMathOperator{\spn}{span}
 \DeclareMathOperator{\iso}{Iso}
 \DeclareMathOperator{\id}{id}
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator{\argmax}{arg\,max}
+\DeclareMathOperator{\argmin}{arg\,min}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Sym}{Sym}
 
 
 \begin{document}
@@ -156,7 +158,57 @@
 		\end{enumerate}
 	\end{proof}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\section{Metric Spaces}
+	\subsection{Introduction}
+	\begin{defn}
+	Let $M$ be a set and $d: M \times M \rightarrow \R$. Then $d$ is said to be a \textbf{metric on $M$} if for each $x,y,z \in M$, 
+	\begin{enumerate}
+	\item $d(x,y) = 0 iff x = y$
+	\item $d(x, y) \leq d(x, z) + d(z, y)$
+\end{enumerate}	 
+	\end{defn}	
+	
+	\begin{ex}
+	Let $M$ be a set and $d: M \times M \rightarrow \R$ a metric on $M$. Then for each $x,y \in M$, $d(x,y) \geq 0$. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $x, y, z \in M$. Then $d(x,z) \leq d(x, y) + d(y,z)$. This implies that $d(x,z) - d(x, y) \leq d(y, z)$. Since $z$ is arbitrary, taking $z=x$, we obtain 
+	\begin{align*}
+	d(x,x) - d(x, y) \leq d(y, x)
+	& \implies - d(x, y) \leq d(x, y) \\
+	& \implies 0 \leq 2 d(x,y) \\
+	& \implies d(x,y) \geq 0
+	\end{align*}
+	\end{proof}		
+	
+	\begin{defn}
+	Let $M$ be a set and $d: M \times M \rightarrow \Rg$ a metric. Then $(M, d)$ is called a \textbf{metric space}.
+	\end{defn}	
+	
+	
+	\begin{defn}
+	Let $(M,d)$ be a metric space. Then $(M,d)$ is said to be a \textbf{Polish space} if $(M,d)$ is complete and separable. 
+	\end{defn}
+	
+	
 	
 	\begin{ex}
 	Let $(X, d)$ be a compact metric space, $E \subset X$ closed, $U \subset X$ open. Suppose that $E \subset U$. Then there exists $\del >0$ such that for each $x \in E$, $B(x, \del) \subset U$.
@@ -174,6 +226,10 @@
 \end{align*}	  
 	So $y \neq w$. Since and $y \in U^c$ and $w \in B(x, \del)$ are arbitrary, $B(x, \del) \subset U$.
 	\end{proof}
+	
+	\begin{defn}
+	Let $X$ be a set, $(M, d)$ a metrix space and $B(S, M) = \{f: S \rightarrow M: f \text{ is bounded} \}$. We define the \textbf{supremum metric}, denoted $d_u:B(S,M) \times B(S,M) \rightarrow \Rg$, by $$d_u(f, g) = \sup_{x \in X}d(f(x), g(x)) $$ 
+	\end{defn}
 	
 	\begin{defn}
 	Let $(X, d)$ be a metric space. Define
@@ -200,38 +256,18 @@
 	which is a contradiction. So $w \in f_n(U)$. Hence $B(f(x), \del) \subset f_n(U)$
 	\end{proof}
 	
-	\subsection{Introduction}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	\newpage
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	\section{Topology}
 	
 	\begin{defn}
@@ -867,10 +903,10 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\subsection{Linear and Sublinear Functionals}
 	
 	\begin{defn}\
-		\begin{enumerate}
+		\begin{itemize}
 		\item Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
-		\item If $X$ is a normed vector space over $\C$, then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
-		\end{enumerate}
+		\item Let $X$ be a normed vector space over $\C$, and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
+		\end{itemize}
 	\end{defn}
 	
 	\begin{note}
@@ -878,7 +914,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{note}
 	
 	\begin{defn}
-		Let $X$ be a normed vector space and $p:X \rightarrow \R$. Then $p$ is said to be a \textbf{sublinear functional} if for each $x,y \in X$, $\lam \geq 0$, 
+		Let $X$ be a vector space and $p:X \rightarrow \R$. Then $p$ is said to be a \textbf{sublinear functional} if for each $x,y \in X$, $\lam \geq 0$, 
 		\begin{enumerate}
 			\item $p(x+y) \leq p(x) + p(y)$
 			\item $p(\lam x ) = \lam p(x)$
@@ -886,11 +922,53 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{defn}
 	
 	\begin{ex}
-		Let $X$ be a vector space and $\|\cdot \|: X \rightarrow \Rg$ be a seminorm, then $\|\cdot \|$ is a sublinear functional.
+		Let $X$ be a vector space and $p: X \rightarrow \R$ be a sublinear functional. Then $p(0) = 0$.
+	\end{ex}
+	
+	\begin{proof} Set $\lam = 0$. Then 
+	\begin{align*}
+	0
+	&= \lam p(0) \\
+	&= p(\lam 0) \\
+	&= p(0)
+	\end{align*}
+	\end{proof}
+	
+	\begin{proof}
+	Clear
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a vector space and $p:X \rightarrow \R$. Then $ p$ is said to be a \textbf{seminorm} if for each $x,y \in X$, $\lam \in \R$, 
+		\begin{enumerate}
+			\item $p(x+y) \leq p(x) + p(y)$
+			\item $p(\lam x) = |\lam| p(x)$
+		\end{enumerate}  
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a vector space and $p: X \rightarrow \R$ be a seminorm, then $p$ is a sublinear functional.
 	\end{ex}
 	
 	\begin{proof}
 	Clear
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a vector space and $p: X \rightarrow \R$ be a seminorm. Then $p \geq 0$. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $x \in X$. Then 
+	\begin{align*}
+	0 
+	&= p(0) \\ 
+	&= p(x - x) \\
+	&\leq  p(x) + p(-x) \\
+	&= p(x) + p(x) \\
+	&= 2p(x)
+	\end{align*}
+	So $p(x) \geq 0$.
 	\end{proof}
 	
 	\begin{ex}
@@ -959,7 +1037,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{thm}
 	
 	\begin{ex}
-	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then there exists $F: X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$.
+	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then there exists a linear functional $F: X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$.
 	\end{ex}
 	
 	\begin{proof}
@@ -978,7 +1056,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	\begin{proof} \
 	\begin{itemize}
-	\item $(1) \Rightarrow (2)$: \\ 
+	\item $(1) \implies (2)$: \\ 
 	Suppose that there exists a unique $F \in X^*$ such that $F \leq p$. For the sake of contradiction, suppose that there exists $x \in X$ such that $-p(-x) \neq p(x)$. Define $f_1,f_2: \spn(x) \rightarrow \R$ by $$f_1(tx) = t p(x)$$ and $$f_2(tx) = -tp(-x)$$ Let $y \in \spn(x)$. Then there exists $t \in \R$ such that $y = tx$. Then for each $k \in \R$,
 	\begin{align*}
 	f_1(ky)
@@ -1024,8 +1102,8 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	&= -p(x)
 \end{align*}	
 	So $p(x) \leq F(x)$ and $p \leq F$. Therefore $p = F$ and $p$ is linear.  
-	\item $(3) \Rightarrow (1)$: \\ 
-	Suppose that $p$ is linear. Let $F \in X^*$. Suppose that $F \leq p$. Let $x \in X$. Then as in the case for $(2) \Rightarrow (3)$, we have that
+	\item $(3) \implies (1)$: \\ 
+	Suppose that $p$ is linear. Let $F \in X^*$. Suppose that $F \leq p$. Let $x \in X$. Then as in the case for $(2) \implies (3)$, we have that
 	\begin{align*}
 	-F(x) 
 	&= F(-x) \\
@@ -3188,7 +3266,7 @@ So $f \circ g$ is convex.
 	\begin{proof}
 	Suppose that $f$ is continuous at $x_0$. Then $d^+f(x_0)$ is Lipschitz and bounded.
 	\begin{itemize}
-	\item $(1) \Rightarrow (2)$: \\ 
+	\item $(1) \implies (2)$: \\ 
 	Suppose that $f$ is Gateaux differentiable at $x_0$. Let $x \in X$. Then a previous exercise implies that 
 	\begin{align*}
 	-df^+(x_0)(-x) 
@@ -3196,9 +3274,9 @@ So $f \circ g$ is convex.
 	&= df^+f(x_0)(x)
 	\end{align*}
 	An exercise in the section on sublinear functionals implies that $df^+f(x_0)$ is linear.
-	\item $(2) \Rightarrow (3)$: \\  
+	\item $(2) \implies (3)$: \\  
 	Suppose that $df^+f(x_0)$ is linear. Let $\phi \in \p f(x_0)$. The previous exercise implies that $\phi \leq df^+f(x_0)$. Equivalence of linearity in the section on sublinear functionals implies that $d^+f(x_0) = \phi$. 
-	\item $(3) \Rightarrow (1)$: \\  
+	\item $(3) \implies (1)$: \\  
 	Suppose that $\# \p f(x_0) = 1$. Since $\p f(x_0) = \{ \phi \in X^*: \phi \leq d^+ f(x_0) \}$, equivalence of linearity in the section on sublinear functionals implies that $d^+ f(x_0)$ is linear. This implies that $d^+ f(x_0) = d^- f(x_0)$ and which implies that $f$ is Gateaux differentiable at $x_0$.
 	\end{itemize}
 	\end{proof}
@@ -3325,8 +3403,14 @@ is convex.
 	Let $G$ be a group and $\tau$ a topology on $G$. Then $(G, \tau)$ is said to be a \textbf{topological group} if the maps $(g,h) \mapsto gh$ and $g \mapsto g^{-1}$ are continuous. 
 	\end{defn}	
 	
+	\subsection{Automorphism Groups of Metric Spaces}
+	
+	\begin{defn}
+	Let $(X, \tau)$ be a topological space. Define $$\Aut(X) = \{\sig:X\rightarrow X: \sig \text{ is a homeomorphism} \}$$ 
+	\end{defn}	
+	
 	\begin{ex}
-	We have that $(\Aut(X), d_{u} )$ is a topological group.
+	Let $(X, d)$ be a compact metric space. Then $(\Aut(X), d_{u} )$ is a topological group.
 	\end{ex}
 	
 	\begin{proof}
@@ -3354,33 +3438,157 @@ is convex.
 	\end{proof}
 	
 	\begin{defn}
-	Let $(X,d)$ be a compact metric space and $\mu: \MB(X) \rightarrow \R$ a Borel measure. Define $$\Aut(X, \MB(X), \mu) = \{\sig \in \Aut(X): \sig_* \mu = \mu\}$$ 
-	So that $(\Aut(X, \MB(X), \mu), d_{u} )$ is a subspace of $(\Aut(X), d_{u})$.
+	Let $(X, d)$ be a metric space. Define 
+	$$\Aut(X, d) = \{\sig:X\rightarrow X: \sig \text{ is an isometric isomorphism} \}$$  
 	\end{defn}
 	
 	\begin{ex}
-	Let $(X,d)$ be a compact metric space and $\mu: \MB(X) \rightarrow \R$ an outer-regular Borel measure. Then $\Aut(X, \MB(X), \mu)$ is a closed subgroup of $\Aut(X)$.
+	Let $(X, d)$ be a compact metric space. Then $(\Aut(X, d), d_u)$ is a compact subgroup of $(\Aut(X), d_u)$.
 	\end{ex}
 	
 	\begin{proof}
-	It is clear that $\Aut(X, \MB(X), \mu)$ is a subgroup of $\Aut(X)$. Let $(\sig_n)_{n \in \N} \subset \Aut(X, \MB(X), \mu)$ and $\sig \in \Aut(X)$. Suppose that $\sig_n \rightarrow \sig$. Let $E \subset X$ be closed, $U \subset X$ open and suppose that $E \subset U$. An exercise in the section on metric spaces tells us that there exists $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $\sig(E) \subset \sig_n(U)$. Then 
+	Clearly, $(\Aut(X, d), d_u)$ is a topological subgroup. To show compactness, use the Arzela Ascoli theorem.
+	\end{proof}
+	
+	\begin{defn}
+	Let $(X, \tau)$ be a topological space and $\mu: \MB(X) \rightarrow \R$ a Borel measure. Define $$\Aut(X, \mu) = \{\sig \in \Aut(X): \sig_* \mu = \mu\}$$ 
+	\end{defn}	
+	
+	\begin{ex}
+	Let $(X,d)$ be a compact metric space and $\mu: \MB(X) \rightarrow \R$ an outer-regular Borel measure. Then $\Aut(X, \mu)$ is a closed subgroup of $\Aut(X)$.
+	\end{ex}
+	
+	\begin{proof}
+	It is clear that $\Aut(X, \mu)$ is a subgroup of $\Aut(X)$. Let $(\sig_n)_{n \in \N} \subset \Aut(X, \MB(X), \mu)$ and $\sig \in \Aut(X)$. Suppose that $\sig_n \convt{u} \sig$. Let $E \subset X$ be closed, $U \subset X$ open and suppose that $E \subset U$. An exercise in the section on metric spaces tells us that there exists $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $\sig(E) \subset \sig_n(U)$. Then 
 	\begin{align*}
 	\mu(\sig(E)) 
 	&\leq \mu(\sig_N(U)) \\
 	&= \mu(U) 
 	\end{align*}
-	Therefore, since $\mu$ is out regular, $\mu(\sig(E)) \leq \mu(E)$. Since $\sig_n^{-1} \rightarrow \sig^{-1}$, we may apply the above argument to obtain that 
+	Therefore, since $\mu$ is outer regular, $\mu(\sig(E)) \leq \mu(E)$. Since $\sig_n^{-1} \rightarrow \sig^{-1}$, we may apply the above argument to obtain that 
 	\begin{align*}
 	\mu(E) 
 	&= \mu(\sig^{-1}(\sig (E))) \\
 	&\leq  \mu(\sig(E))
 \end{align*}	 
-Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\sig^{-1}$, we see that $\mu(E) = \mu(\sig^{-1}(E))$. Since $E \subset X$ is an arbitrary closed set and $\MB(X) = \sig(E \subset X: E \text{ is closed})$, we have that $\mu = \sig_*\mu$. Thus $\sig \in \Aut(X, \MB(X), \mu)$ which implies that $\Aut(X, \MB(X), \mu)$ is closed. 
+Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\sig^{-1}$, we see that $\mu(E) = \mu(\sig^{-1}(E))$. Since $E \subset X$ is an arbitrary closed set and $\MB(X) = \sig(E \subset X: E \text{ is closed})$, we have that $\mu = \sig_*\mu$. Thus $\sig \in \Aut(X, \mu)$ which implies that $\Aut(X, \mu)$ is closed. 
+	\end{proof}
+	
+	\begin{defn}
+	Let $(X,d)$ be a compact metric space and $\mu: \MB(X) \rightarrow \R$ an outer-regular Borel measure. Define $\Aut(X, d, \mu) = \Aut(X, d) \cap \Aut(X, \mu)$.
+	\end{defn}
+	
+	\begin{ex}
+	Let $(X,d)$ be a compact metric space and $\mu: \MB(X) \rightarrow \R$ an outer-regular Borel measure. Then $\Aut(X, d, \mu)$ is compact.
+	\end{ex}
+	
+	\begin{proof}
+	Since $\Aut(X, d)$ is compact and $\Aut(X, \mu)$ is closed, $\Aut(X, d, \mu)$ is compact.
 	\end{proof}
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Group Actions on Metric Spaces}
+	
+	\begin{defn}
+	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a group action. We define 
+	$\bar{d}: M / G \rightarrow \Rg$ by 
+	$$\bar{d}(o_x, o_y) = \inf_{\substack{a \in o_x \\ b \in o_y}} d(a,b) $$
+	\end{defn}
+	
+	\begin{ex}
+	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a group action. Suppose that for each $g \in G$, the map $x \mapsto g \cdot x$ is an isometry. Then for each $x, y \in M$, $$\bar{d}(o_x, o_y) = \inf_{g \in G} d(g \cdot x, y)$$
+	\end{ex}
+	
+	\begin{proof}
+	Let $x, y \in M$, $a \in o_x$ and $b \in o_y$. Then there exists there exists $g_x, g_y \in G$ such that $a = g_x \cdot g$ and $b = g_y \cdot y$. Set $g = g_y^{-1}g_x$. Since the map $z \mapsto g_y^{-1} \cdot z$ is an isometry, 
+	\begin{align*}
+	d(a,b) 
+	&= d(g_x \cdot x, g_y \cdot y) \\
+	&= d(g_y^{-1}g_x \cdot x, y)\\
+	&= d(g\cdot x, y)
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a group action. Suppose that for each $g \in G$, the map $x \mapsto g \cdot x$ is an isometry. If for each $x \in M$, $o_x$ is closed, then $\bar{d}$ is a metric.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that for each $x \in M$, $o_x$ is closed. We need only show that for each $x,y \in M$, $\bar{d}(o_x , o_y) = 0$ implies that $o_x = o_y$. Suppose that $\bar{d}(o_x , o_y) = 0$. Then $\inf\limits_{ g \in G} d(g \cdot x, y) = 0$. Hence there exists $(\tau_n)_{n \in N} \subset G$ such that $\tau_n \cdot x \rightarrow y$. Since $(\tau_n \cdot x)_{n \in \N} \subset o_x$ and $o_x$ is closed, $y \in o_x$. Thus $o_x = o_y$. 
+	\end{proof}
+	
+	\begin{ex}
+	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a group action. Suppose that for each $g \in G$, the map $x \mapsto g \cdot x$ is an isometry, $G$ is compact and for each $x \in M$, the map $g \mapsto g \cdot x$ is continuous. Then $\bar{d}: M/ G \rightarrow \Rg$ is a metric. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $x \in M$. Since $G$ is compact and the map $g \mapsto g \cdot x$ is continuous, $o_x = G \cdot x$ is compact and therefore closed. The previous exercise implies that $\bar{d}$ is a metric.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Fundamental Examples}
+	\begin{ex}
+	Consider the metric space $(\C^{n \times d}, \|\cdot\|_F)$, topological group $(U_d, \|\cdot\|_F)$ and  the (right) action $X \cdot U = XU$. Then this action is continuous, $U_d$ is compact and for each $U \in U_d$, the map $X \mapsto XU$ is an isometry. Thus $\bar{d}$ is a metric on $\C^{n \times d}/ U_d$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}		
+	
+	\begin{defn}
+	Let $(X, \MA, \mu)$ be a measure space. Define $\| \cdot \|_*: L^1(\mu) \rightarrow \Rg$ by  
+	 $$\| f \|_* = \sup_{A \in \MA} \bigg | \int_A f d\mu \bigg |$$ 
+	\end{defn}
+	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space. Then $\| \cdot \|_*$ is a norm on $L^1(\mu)$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a compact metric space and $\mu:\MB(X) \rightarrow \RG$ a Borel measure. Define the (right) group action \\ $\cdot: (L^1(\mu), \|\cdot\|_*) \times \Aut(X, \mu) \rightarrow (L^1(\mu), \|\cdot\|_*) $ by $$f \cdot \sig = f \circ \sig$$ Then for each $\sig \in \Aut(X, \mu)$, the map $f \mapsto f \cdot \sig$ is an isometry. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $\sig \in \Aut(X, \mu)$ and $f \in L^1(\mu)$. 
+Then 
+	\begin{align*}
+	\|f \cdot \sig\|_* 
+	&= \sup_{A \in \MA} \bigg | \int_A f \circ \sig d\mu \bigg | \\
+	&= \sup_{A \in \MA} \bigg | \int_{\sig(A)} f d \sig_* \mu \bigg | \\
+	&= \sup_{A \in \MA} \bigg | \int_{\sig(A)} f d \mu \bigg | \\
+	&= \sup_{A \in \MA} \bigg | \int_{A} f d \mu \bigg | \\
+	&= \|f\|_* 
+	\end{align*}	 
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X,d)$ be a compact metric space and $\mu: \MB(X) \rightarrow \R$ an outer-regular Borel measure. Then 
+	\end{ex}
 	
 	
 	

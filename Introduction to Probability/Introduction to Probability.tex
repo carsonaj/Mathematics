@@ -586,44 +586,64 @@
 		So $$\frac{1}{n}\sum_{i=1}^n X_i \conv{P} E[X_1]$$
 	\end{proof}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\subsection{Borel Cantelli Lemma} 
 	
-	\begin{defn}
-		Let $(\Om, \MF, \P)$ be a probability space and $(A_n)_{n \in \N} \subset \MF$. We will define $$P(A_n \io) \coloneqq P(\limsup_{n \rightarrow \infty}A_n) $$ and $$P(A_n \ev) \coloneqq P(\liminf_{n \rightarrow \infty} A_n)$$ to be the \textbf{probability that $A_n$ happens infinitely often} and the \textbf{probability that $A_n$ happens eventually} respectively.  
-	\end{defn}
-	
 	\begin{ex}\textbf{Borel Cantelli Lemma:}
-		Let $(\Om, \MF, \P)$ be a probability space and $(A_n)_{n \in \N} \subset \MF$.
+		Let $(\Om, \MF, P)$ be a probability space and $(A_n)_{n \in \N} \subset \MF$.
 		\begin{enumerate}
-			\item If $\sum\limits_{n \in \N}P(A_n) < \infty$, then $P(A_n \io) = 0$.
-			\item If $(A_n)_{n \in \N}$ are independent and $\sum\limits_{n \in \N} P(A_n) = \infty$, then $P(A_n \io) = 1$  
+			\item If $\sum\limits_{n \in \N}P(A_n) < \infty$, then $P(\limpn A_n) = 0$.
+			\item If $(A_n)_{n \in \N}$ are independent and $\sum\limits_{n \in \N} P(A_n) = \infty$, then $P( \limpn A_n) = 1$  
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Suppose that $\sum\limits_{n \in \N}P(A_n) < \infty$. Recall that $$\limsup\limits_{n \rightarrow \infty}A_n = \bigg \{\om \in \Om: \sum\limits_{n \in \N}\mathbf{1}_{A_n}(\om) = \infty \bigg \}$$ Then \begin{align*}
+			\item Suppose that $\sum\limits_{n \in \N}P(A_n) < \infty$. Recall that $$\limsup\limits_{n \rightarrow \infty}A_n = \bigg \{\om \in \Om: \sum\limits_{n \in \N}1_{A_n}(\om) = \infty \bigg \}$$ Then \begin{align*}
 				\infty 
 				&> \sum_{n \in \N}P(A_n) \\
-				&= \sum_{n \in \N} \int \mathbf{1}_{A_n}dP \\
-				&= \int \sum_{n \in \N} \mathbf{1}_{A_n}dP \\
+				&= \sum_{n \in \N} \int 1_{A_n}dP \\
+				&= \int \sum_{n \in \N} 1_{A_n}dP \\
 			\end{align*}
-			Thus $\sum\limits_{n \in \N} \mathbf{1}_{A_n} < \infty$ a.e. and $P(A_n \io) = 0$.
+			Thus $\sum \limits_{n \in \N} 1_{A_n} < \infty$ a.e. and $P(\limpn A_n) = 0$.
 			\item Suppose that $(A_n)_{n \in \N}$ are independent and $\sum\limits_{n \in \N} P(A_n) = \infty$.
 		\end{enumerate}
 	\end{proof}
 	
 	\begin{ex}
-		Let $(\Om, \MF, \P)$ be a probability space and $(X_n)_{n \in \N} \subset L^0$ and $X \in L^0$. 
+		Let $(\Om, \MF, P)$ be a probability space and $(X_n)_{n \in \N} \subset L^0$ and $X \in L^0$. 
 		\begin{enumerate}
-			\item If there exists $\ep >0 $ such that $\sum\limits_{n \in \N} P(|X_n -X| > \ep) < \infty$, then $X_n \rightarrow X$ a.s.
-			\item If $(X_n)_{n \in \N}$ are independent and there exists $\ep >0$ such that $\sum\limits_{n \in \N} P(|X_n -X| > \ep) = \infty$, then $X_n \not \rightarrow X$ a.s.
+			\item If for each $\ep >0 $, $\sum\limits_{n \in \N} P(|X_n -X| \geq \ep) < \infty$, then $X_n \rightarrow X$ a.e.
+			\item If $(X_n)_{n \in \N}$ are independent and there exists $\ep >0$ such that $\sum\limits_{n \in \N} P(|X_n -X| \geq \ep) = \infty$, then $X_n \not \rightarrow X$ a.e.
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
-			\item 
+			\item For $\ep>0$ and $n \in \N$, set $A_n(\ep) = \{\om \in \Om: |X_n(\om) - X(\om)| \geq \ep\}$. Suppose that for each $\ep >0 $, $\sum\limits_{n \in \N} P(|X_n - X| \geq \ep) < \infty$.  The Borel-Cantelli lemma implies that for each $m \in \N$,  $$P(\limpn A_n(1/m)) = 0$$
+			 Let $\om \in \Om$. Then $X_n(\om) \not \rightarrow X(\om)$ iff $$\om \in \bigcup_{m \in \N} \limpn A_n(1/m)$$ 
+		So 
+		\begin{align*}
+		P(X_n \not \rightarrow X)
+		&= P\bigg( \bigcup_{m \in \N} \limpn A_n(1/m) \bigg) \\
+		&\leq \sum_{m \in \N}P(\limpn A_n(1/m)) \\
+		&= 0
+\end{align*}		 
+	Hence $X_n \rightarrow X$ a.e.
+	\item 
 		\end{enumerate}
 	\end{proof}
 	\newpage
@@ -707,7 +727,7 @@
 	\end{defn}	
 	
 	\begin{defn}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in L_n^0(\Om, \MF, \P)$ and $Q: \R^n  \times \MF \rightarrow [0,1]$. Then $Q$ is said to be a \textbf{conditional probability distribution of $X$ given $Y$} if 
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in L_n^0(\Om, \MF, P)$ and $Q: \R^n  \times \MF \rightarrow [0,1]$. Then $Q$ is said to be a \textbf{conditional probability distribution of $X$ given $Y$} if 
 	\begin{enumerate}
 	\item $Q$ is a stochastic transition kernel from $(\R^n, \MB(\R^n), P_Y)$ to $(\R^n, \MB(\R^n))$
 	\item for each $A,B \in \MF$, $$\int_B Q(y, A) dP_Y(y) = P(X \in A, Y \in B)$$ 
@@ -774,7 +794,7 @@
 	\end{proof}
 	
 	\begin{thm}
-	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in L_n^1(\Om, \MF, \P)$. Suppose that $\Img X \in \MB(\R^n)$. Then there exists a conditional probability distribution of $Y$ given $X$. 
+	Let $(\Om, \MF, P)$ be a probability space, $X,Y \in L_n^1(\Om, \MF, P)$. Suppose that $\Img X \in \MB(\R^n)$. Then there exists a conditional probability distribution of $Y$ given $X$. 
 	\end{thm}
 	
 	
