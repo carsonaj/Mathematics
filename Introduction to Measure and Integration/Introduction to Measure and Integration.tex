@@ -950,6 +950,27 @@
 	\end{defn}
 	
 	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space, $A$ and index set and $(E_{\al})_{\al \in A} \subset \MA$. Suppose that $\mu(X) < \infty$ and $(E_\al)_{\al \in A }$ is disjoint. Then $\{\al \in A: \mu(E_{\al}) >0\}$ is countable.\\
+	\textbf{Hint:} set $A_n = \{\al \in A: \mu(E_{\al}) \geq 1/n \}$ 
+	\end{ex}
+	
+	\begin{proof}
+	For $n \in \N$, set $A_n = \{\al \in A: \mu(E_{\al}) \geq 1/n \}$ and define $ A_> = \{\al \in A: \mu(E_{\al}) >0\}$ . Then 
+	$$A_> = \bigcup_{n \in \N}A_n$$
+	For the sake of contradiction, suppose that 
+	$A_>$ is uncountable. Then there exists $N \in \N$ such that $A_N$ is uncountable. So there exists a sequence $(\al_j)_{j \in \N} \subset A_N$. Then 
+	\begin{align*}
+	\infty 
+	& > \mu(X) \\
+	& \geq \mu \bigg( \bigcup_{j \in \N} E_{\al_{j}} \bigg) \\
+	&= \sum_{j \in \N} \mu(E_{\al_j}) \\
+	& \geq \sum_{j \in \N} \frac{1}{N} \\
+	&= \infty
+	\end{align*} 
+	which is a contradiction. So $A_>$ is countable.
+	\end{proof}
+	
+	\begin{ex}
 		Let $(X, \MA, mu)$ be a measure space. Then 
 		\begin{enumerate}
 			\item (monotonicity): for each $A,B \in \MA$, if $A \subset B$, then $\mu(A) \leq \mu(B)$.
@@ -1731,7 +1752,7 @@
 		Denote by $\#$ the counting measure on the measurable space $(X, \MP(X))$. Let $f:X \rightarrow \C$ and suppose that $f \in L^1$. Then $$\int f d\# = \sum_{x \in X}f(x).$$ In particular, if $f$ is integrable, then $\{x \in X: f(x) \neq 0\}$ is countable.
 	\end{ex}
 	
-	\begin{proof} Please refer to the definition of the sum in the appendix. First suppose that $f(X) \subset \Rg$. For $n \in \N$, put $X_n = \{x \in X: f(x) > 1/n\}$ and define $X^* = \{x \in X: f(x) > 0\}$, $X_0 = \{x \in X: f(x) = 0\}$ Then $X^* = \bigcup\limits_{n \in \N}X_n$. Since $f \in L^1$, we have that for each $n \in \N$,
+	\begin{proof} Please refer to the definition of the sum in the appendix. First suppose that $f(X) \subset \Rg$. For $n \in \N$, put $X_n = \{x \in X: f(x) > 1/n\}$ and define $X_+ = \{x \in X: f(x) > 0\}$, $X_0 = \{x \in X: f(x) = 0\}$ Then $X_+ = \bigcup\limits_{n \in \N}X_n$. Since $f \in L^1$, we have that for each $n \in \N$,
 		\begin{align*}
 			\infty 
 			&> \int f d\#\\
@@ -1739,24 +1760,23 @@
 			&\geq \frac{1}{n} \#(X_n).
 		\end{align*}
 		
-		Thus for each $n \in \N$, $X_n$ is finite and $X^*$ is countable. Thus there exists $\{x_n\}_{n \in \N} \subset X$ such that $X^* = \{x_n\}_{n \in \N}$. For $n \in \N$, define $E_n = \{x_1, x_2, \cdots, x_n\}$ and 
+		Thus for each $n \in \N$, $X_n$ is finite and $X_+$ is countable. Thus there exists $\{x_n\}_{n \in \N} \subset X$ such that $X_+ = \{x_n\}_{n \in \N}$. For $n \in \N$, define $E_n = \{x_1, x_2, \cdots, x_n\}$ and 
 		\begin{align*}
 			f_n 
 			&= f \chi_{E_n}\\
 			&= \sum_{i = 1}^n f(x_i)\chi_{\{x_i\}}
 		\end{align*}
 		
-		Then $f_n \xrightarrow{\text{p.w.}} f\chi_{X^*} = f$ and for each $n \in \N, f_n \leq f_{n+1}$. So
+		Then $f_n \xrightarrow{\text{p.w.}} f\chi_{X_+} = f$ and for each $n \in \N, f_n \leq f_{n+1}$. So
 		\begin{align*}
 			\int f 
 			&= \sup_{n \in \N} \int f_n\\
 			&= \sup_{n \in \N} \sum_{i =1}^n f(x_i)\\
-			&= \sum_{x \in X^*} f(x)\\
+			&= \sum_{x \in X_+} f(x)\\
 			&=\sum_{x \in X} f(x).
 		\end{align*} 
 		
 		For $f:X \rightarrow \C$, our $L^1$ assumption and the result above tell us that $$\sum_{x \in X}|f(x)| < \infty.$$ Thus writing $f = g+ih$, we see that the same is true for $f^+,f^-,g^+,g^-$. Simply using the definitions of the sum and the integral, as well as the result from above, we have that $$\int fd\# = \sum_{x \in X}f(x).$$
-		
 	\end{proof}
 	
 	\begin{ex}
@@ -3591,7 +3611,7 @@
 	\newpage
 	\section{Radon Measures}
 	
-	\subsection{The Riesz-Markov-Kakutani  Representation Theorem}
+	\subsection{Radon Measures in LCH Spaces}
 	
 	\begin{defn}
 	Let $X$ be a LCH space, $\mu: \MB(X) \rightarrow \RG$ and $E \in \MB(X)$ a Borel measure. Then $\mu$ is said to be 
@@ -3726,14 +3746,55 @@
 	
 	
 	\begin{ex}
-	Let $X$ be a LCH space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. Define $$\MN_{\mu} = \{U \subset X: U \text{ is open and } \mu(U) = 0\}$$ and $$N_{\mu} = \bigcup_{U \in \MN_{\mu}} U$$ 
-	Then $N_{\mu}$ is open and $\mu(N_{\mu}) = 0$.
+	Let $X$ be a LCH space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. Set $$\MN_{\mu} = \{U \subset X: U \text{ is open and } \mu(U) = 0\}$$ and $$N_{\mu} = \bigcup_{U \in \MN_{\mu}} U$$ 
+	Then $N_{\mu}$ is open, $N_{\mu}^c$ is closed and $\mu(N_{\mu}) = 0$.\\
+	\textbf{Hint:} use inner regularity and compactness
 	\end{ex}
 	
 	\begin{proof}
-	
+	Since $N_{\mu}$ is the union of open sets, it is open and $N_{\mu}^c$ is closed since $N_{\mu}$ is open. Let $K \subset N_{\mu}$. Suppose that $K$ is compact. Then $\MN_{\mu}$ is an open cover for $K$. So there exist $U_1, \ldots, U_n \in \MN_{\mu}$ such that $$K \subset \bigcup_{j=1}^n U_j$$ 
+	This implies that 
+	\begin{align*}
+	\mu(K) 
+	&\leq \mu\bigg( \bigcup_{j=1}^n U_j \bigg) \\
+	& \leq \sum_{j=1}^n \mu(U_j) \\
+	&= 0
+	\end{align*}
+	Inner regularity implies that 
+	\begin{align*}
+	\mu(N_{\mu}) 
+	&= \sup \{ \mu(K): K \subset N_{\mu} \text{ and $K$ is compact}\} \\
+	&= 0
+	\end{align*}
 	\end{proof}
 	
+	\begin{defn}
+	Let $X$ be a LCH space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. Define $\MN_{\mu}$ and $N_{\mu}$ as in the previous exercise. We define the \textbf{support of $\mu$}, denoted $\supp(\mu)$, by $$\supp(\mu) = N_{\mu}^c $$
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a LCH space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MA$. If $\mu(E) < \infty$, then for each $\ep >0$, there exist $U, V \in \MA$ such that $U$ and $V$ are open, $U \setminus E \subset V$ and $\mu(V) < \ep$. \\
+	\textbf{Hint:} apply outer regularity twice
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $\mu(E) < \infty$. Let $\ep >0$. Outer regularity implies that there exists $U \in \MA$ such that $U$ is open, $E \subset U$ and $\mu(U) < \mu(E) + \ep$. Then 
+	\begin{align*}
+	\mu(U \setminus E) 
+	&= \mu(U ) - \mu(U \cap E) \\
+	&= \mu(U) - \mu(E) \\
+	& < \ep
+	\end{align*}
+	Outer regularity implies that there exists $V \in \MA$ such that $V$ is open, $U \setminus E \subset V$ and $\mu(V) < \ep$.
+\end{proof}		
+	
+	\begin{ex}
+	Let $X$ be a LCH space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MA$. If $E$ is $\sig$-finite, then $\mu$ is inner regular on $E$. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $E$ is $\sig$-finite. Then there exist 
+	\end{proof}
 	
 	\begin{defn}
 	
@@ -3743,10 +3804,19 @@
 	
 	\end{ex}
 	
-	\begin{thm}
-		Let $G$ be a locally compact group 
-	\end{thm}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage 
+	\subsection{Radon Measures in Locally Compact Metric spaces}
 	
 	
 	
