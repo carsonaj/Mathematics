@@ -3611,20 +3611,30 @@
 	\newpage
 	\section{Radon Measures}
 	
-	\subsection{Radon Measures in LCH Spaces}
+	\subsection{Radon Measures on LCH Spaces}
 	
 	\begin{defn}
-	Let $X$ be a LCH space, $\mu: \MB(X) \rightarrow \RG$ and $E \in \MB(X)$ a Borel measure. Then $\mu$ is said to be 
+	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Borel measure and $E \in \MB(X)$ . Then $\mu$ is said to be 
 	\begin{enumerate}
 	\item \textbf{inner regular on $E$} if
 	$$\mu(E) = \sup \{ \mu(K): K \subset E \text{ and $K$ is compact}\}$$
 	\item \textbf{outer regular on $E$} if
 	$$\mu(E) = \inf \{ \mu(U): E \subset U \text{ and $U$ is open}\}$$
+	\item \textbf{regular on $E$} if $\mu$ is inner regular on $E$ and $\mu$ is outer regular on $E$
 	\end{enumerate}
 	\end{defn}
 	
 	\begin{defn}
-	Let $X$ be a LCH space, $\mu: \MB(X) \rightarrow \RG$ and $E \in \MB(X)$. Then $\mu$ is said to be a \textbf{Radon measure} if for each $E \in \MB(X)$, 
+	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Borel measure. Then $\mu$ is said to be 
+	\begin{enumerate}
+	\item  \textbf{inner regular} if for each $E \in \MA$, $\mu$ is inner regular on $E$
+	\item  \textbf{outer regular} if for each $E \in \MA$, $\mu$ is outer regular on $E$
+	\item  \textbf{regular} if for each $E \in \MA$, $\mu$ is regular on $E$
+	\end{enumerate}
+	\end{defn}
+	
+	\begin{defn}
+	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ and $E \in \MB(X)$. Then $\mu$ is said to be a \textbf{Radon measure} if for each $E \in \MB(X)$, 
 	\begin{enumerate}
 	\item $E$ is compact implies that $\mu(E) < \infty$
 	\item $\mu$ is outer regular on $E$
@@ -3633,7 +3643,60 @@
 	\end{defn}
 	
 	\begin{ex}
-	Let $X$ be a LCH space, $\mu:\MB(X) \rightarrow \RG$ a Radon measure and $f \in C_c(X)$. Then for each $p \in [1, \infty]$, $f \in L^p(\mu)$.
+	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MA$. If $\mu(E) < \infty$, then for each $\ep >0$, 
+	\begin{enumerate}
+	\item there exists $U \in \MB(X)$ such that $U$ is open, $E \subset U$ and $\mu(U \setminus E) < \ep$ 
+	\item there exists $C \in \MB(X)$ such that $C$ is compact, $C \subset U$ and $\mu(U) - \ep < \mu(C)$ 
+	\item there exists $V \in \MB(X)$ such that $U$ and $V$ are open, $U \setminus E \subset V$ and $\mu(V) < \ep$ 
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $\mu(E) < \infty$. Let $\ep >0$. 
+	\begin{enumerate}
+	\item Outer regularity om $E$ implies that there exists $U \in \MB(X)$ such that $U$ is open, $E \subset U$ and $\mu(U \setminus E) < \ep$. 
+	\item Inner regularity on $U$ implies that there exists $C \in \MB(X)$ such that $C$ is compact, $C \subset U$ and $\mu(U) - \ep < \mu(C) $.
+	\item Outer regularity on $U \setminus E$ implies that there exists $V \in \MB(X)$ such that $U$ and $V$ are open, $U \setminus E \subset V$ and $\mu(V) < \ep$.
+	\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MA$. Suppose that $\mu(E) < \infty$. Let $\ep >0$. Define $U$, $C$ and $V$ as in the previous exercise. Set $K = C \setminus V$. Then $K$ is compact, $K \subset E$ and $\mu(K) > \mu(E) - 2 \ep$ 
+	\end{ex}
+	
+	\begin{proof}
+	Since $C$ is closed and $V$ is open, $C \setminus V =  C \cap V^c$ is closed. Since $C$ is compact and $C \setminus V \subset C$, we have that $K = C \setminus V $ is compact.
+	Set algebra implies that
+	\begin{align*}
+	K
+	&= C \cap V^c \\
+	& \subset U \cap V^c \\
+	& \subset U \cap (U^c \cup E) \\
+	&= (U \cap U^c) \cup (U \cap E) \\
+	&=  U \cap E \\
+	& \subset E
+	\end{align*}
+	The previous exercise implies that 
+	\begin{align*}
+	\mu(K)
+	&= \mu(C \cap V^c) \\
+	&= \mu(C) - \mu(C \cap V) \\
+	&> \mu(U) - \ep - \mu(V) \\
+	&> \mu(E) - 2 \ep
+	\end{align*}
+	\end{proof}		
+	
+	\begin{ex}
+	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MB(X)$. If $E$ is $\sig$-finite, then $\mu$ is inner regular on $E$. \\
+	\textbf{Hint:} use the previous exercise
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $E$ is $\sig$-finite. If $\mu(E) < \infty$, the previous exercise implies that for each $\ep > 0 $, there exists $K \in \MB(X)$ such that $K$ is compact, $E \subset K$ and $\mu(K) > \mu(E) - \ep$. Hence $\mu$ is inner regular on $E$. If $\mu(E) = \infty$, then $\sig$-finiteness implies that there exists $(E_j)_{j \in \N} \subset \MB(X)$ such that $E = \bigcup\limits_{j \in N} E_j$, for each $j \in \N$, $\mu(E_j) < \infty$ and $\mu(E_j) \rightarrow \infty$. 
+	\end{proof}		
+	
+	\begin{ex}
+	Let $X$ be a topological space, $\mu:\MB(X) \rightarrow \RG$ a Radon measure and $f \in C_c(X)$. Then for each $p \in [1, \infty]$, $f \in L^p(\mu)$.
 	\end{ex}
 	
 	\begin{proof}
@@ -3647,11 +3710,11 @@
 	\end{proof}
 	
 	\begin{defn}
-	Let $X$ be a LCH space and $I: C_c(X) \rightarrow \C$ a linear functional. Then $I$ is said to be \textbf{positive} if for each $f \in C_c(X, \R)$, $f \geq 0 $ implies that $I(f) \geq 0$.
+	Let $X$ be a topological space and $I: C_c(X) \rightarrow \C$ a linear functional. Then $I$ is said to be \textbf{positive} if for each $f \in C_c(X, \R)$, $f \geq 0 $ implies that $I(f) \geq 0$.
 	\end{defn}
 	
 	\begin{ex}
-	Let $X$ be a LCH space, $I: C_c(X) \rightarrow \C$ a positive linear functional and $f,g \in C_c(X, \R)$. If $f \geq g$, then $I(f) \geq I (g)$.  
+	Let $X$ be a topological space, $I: C_c(X) \rightarrow \C$ a positive linear functional and $f,g \in C_c(X, \R)$. If $f \geq g$, then $I(f) \geq I (g)$.  
 	\end{ex}	
 	
 	\begin{proof}
@@ -3771,22 +3834,6 @@
 	\begin{defn}
 	Let $X$ be a LCH space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. Define $\MN_{\mu}$ and $N_{\mu}$ as in the previous exercise. We define the \textbf{support of $\mu$}, denoted $\supp(\mu)$, by $$\supp(\mu) = N_{\mu}^c $$
 	\end{defn}
-	
-	\begin{ex}
-	Let $X$ be a LCH space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MA$. If $\mu(E) < \infty$, then for each $\ep >0$, there exist $U, V \in \MA$ such that $U$ and $V$ are open, $U \setminus E \subset V$ and $\mu(V) < \ep$. \\
-	\textbf{Hint:} apply outer regularity twice
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $\mu(E) < \infty$. Let $\ep >0$. Outer regularity implies that there exists $U \in \MA$ such that $U$ is open, $E \subset U$ and $\mu(U) < \mu(E) + \ep$. Then 
-	\begin{align*}
-	\mu(U \setminus E) 
-	&= \mu(U ) - \mu(U \cap E) \\
-	&= \mu(U) - \mu(E) \\
-	& < \ep
-	\end{align*}
-	Outer regularity implies that there exists $V \in \MA$ such that $V$ is open, $U \setminus E \subset V$ and $\mu(V) < \ep$.
-\end{proof}		
 	
 	\begin{ex}
 	Let $X$ be a LCH space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MA$. If $E$ is $\sig$-finite, then $\mu$ is inner regular on $E$. 
