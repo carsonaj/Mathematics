@@ -1275,25 +1275,25 @@
 	\end{thm}
 	
 	\begin{ex}
-		Let $\mu_1, \mu_2$ be measures on $(X, \MA)$ and $f \in L^+$. Then $$\int f d (\mu_1 + \mu_2) = \int f d\mu_1 + \int f d\mu_2$$.  
+		Let $\mu_1, \mu_2$ be measures on $(X, \MA)$, $\lam \geq 0$ and $f \in L^+$. Then $$\int f d (\mu_1 + \lam \mu_2) = \int f d\mu_1 + \lam \int f d\mu_2$$.  
 	\end{ex}
 	
 	\begin{proof}
 		Suppose that $f$ is simple. Then there exist $(a_n)_{i=1}^n \subset \Rg$ and $(E_i)_{i=1}^n \subset \MA$ such that $f = \sum\limits_{i =1}^n a_i \chi_{E_i}$. Then 
 		\begin{align*}
-			\int f d(\mu_1 + \mu_2) 
-			&= \sum\limits_{i =1}^n a_i (\mu_1 + \mu_2)(E_i)\\
-			&= \sum\limits_{i =1}^n a_i (\mu_1(E_i) + \mu_2(E_i))\\
-			&= \sum\limits_{i =1}^n a_i \mu_1(E_i) + a_i \mu_2(E_i)\\
-			&= \int f d\mu_1 + \int f d\mu_2
+			\int f d(\mu_1 + \lam \mu_2) 
+			&= \sum\limits_{i =1}^n a_i (\mu_1 + \lam \mu_2)(E_i)\\
+			&= \sum\limits_{i =1}^n a_i (\mu_1(E_i) + \lam \mu_2(E_i))\\
+			&= \sum\limits_{i =1}^n a_i \mu_1(E_i) + \lam \sum\limits_{i =1}^n a_i   \mu_2(E_i)\\
+			&= \int f d\mu_1 + \lam \int f d\mu_2
 		\end{align*}
 		
 		Now for a general $f$, choose $(\phi_n)_{n \in \N} \subset S^+$ such that $\phi_n \rightarrow f$ pointwise and for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$. Then monotone convergence tells us that 
 		\begin{align*}
-			\int f d(\mu_1 + \mu_2) 
-			&= \limn \int \phi_n d(\mu_1 + \mu_2)\\
-			&= \limn \int \phi_n d \mu_1 + \limn \int \phi_n d \mu_2 \\
-			&= \int f d \mu_1 + \int f d \mu_2
+			\int f d(\mu_1 + \lam \mu_2) 
+			&= \limn \int \phi_n d(\mu_1 + \lam \mu_2)\\
+			&= \limn \int \phi_n d \mu_1 + \limn \lam \int \phi_n d \mu_2 \\
+			&= \int f d \mu_1 +  \lam \int f d \mu_2
 		\end{align*}
 		
 	\end{proof}
@@ -2058,6 +2058,20 @@
 		\end{align*} 
 	\end{proof}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\subsection{Convergence}
 	
 	\begin{defn}
@@ -2111,7 +2125,7 @@
 	\end{proof}
 	
 	\begin{ex}
-		Suppose $\mu(X) < \infty$. Define $d:L^0 \times L^0 \rightarrow \Rg$ by $$d(f,g) = \int \frac{|f-g|}{1+|f-g|} \hspace{5mm} f,g \in L^0$$
+		Let $(X, \MA, \mu)$ be a measure space. Suppose $\mu(X) < \infty$. Define $d:L^0 \times L^0 \rightarrow \Rg$ by $$d(f,g) = \int \frac{|f-g|}{1+|f-g|} d \mu $$
 		Then $d$ is a metric on $L^0$ if we identify functions that are equal a.e. and convergence in this metric is equivalent to convergence in measure. Note that for each $f,g \in L^0$, $d(f,g) \leq \mu(X)$.
 	\end{ex} 
 	
@@ -2138,7 +2152,7 @@
 	\end{proof}
 	
 	\begin{ex}
-		Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that for each $n \in \N$, $f_n \geq 0$ and $f_n \conv{\mu} f$. Then $f \geq 0$ a.e. and $\int f \leq \limfn \int f_n$. 
+		Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that for each $n \in \N$, $f_n \geq 0$ and $f_n \conv{\mu} f$. Then $f \geq 0$ a.e. and $$\int f d\mu \leq \limfn \int f_n d\mu $$
 	\end{ex}
 	
 	\begin{proof}
@@ -2488,10 +2502,10 @@
 	\end{proof}
 	
 	\begin{ex}
-		Let $\mu$ be a positive measure on $(X, \MA)$ and $f \in L^0(X, \MA)$ extended $\mu$-integrable. Define $\nu$ on $(X, \MA)$ by $\nu(E) = \int_E f d \mu$. Then
+		Let $\mu$ be a positive measure on $(X, \MA)$ and $f \in L^0(X, \MA)$ extended $\mu$-integrable. Define $\nu$ on $(X, \MA)$ by $$\nu(E) = \int_E f d \mu$$ Then
 		\begin{enumerate}
 			\item $\nu$ is a signed measure
-			\item for each $E\in \MA$, $|\nu|(E) = \int_E|f|d\mu$.
+			\item for each $E\in \MA$, $$|\nu|(E) = \int_E|f|d\mu$$
 		\end{enumerate} 
 	\end{ex}
 	
@@ -2671,7 +2685,7 @@
 		\end{enumerate}
 	\end{thm}
 	
-	\begin{defn}Let $(X,\MA)$ be a measurable space and $\nu = \nu_1 + i \nu_2$ a complex measure on $(X, \MA)$. Define $\mu = |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$ and thus There exists $f \in L^1(\mu)$ such that $d\nu = f d\mu$. Define $|\nu|: \MA \rightarrow \Rg$ by $|\nu|(E) = \int_E |f|d\mu$ for each $E \in \MA$. We call $|\nu|$ the \textbf{total variation of $\nu$}. 
+	\begin{defn}Let $(X,\MA)$ be a measurable space and $\nu = \nu_1 + i \nu_2$ a complex measure on $(X, \MA)$. Define $\mu = |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$ and thus there exists $f \in L^1(\mu)$ such that $d\nu = f d\mu$. Define $|\nu|: \MA \rightarrow \Rg$ by $|\nu|(E) = \int_E |f|d\mu$ for each $E \in \MA$. We call $|\nu|$ the \textbf{total variation of $\nu$}. 
 	\end{defn}
 	
 	\begin{ex}
@@ -2727,8 +2741,13 @@
 		So $\vert c \nu \vert = \vert c \vert \vert  \nu \vert$.
 	\end{proof}
 
+	\begin{defn}
+	Let $(X, \MA)$ be a measurable space. Define $$M(X, \MA) = \{\mu:\MA \rightarrow \C: \mu \text{ is a complex measure}\}$$
+	\end{defn}
+
 	\begin{ex}
-		Let $M(X, \MA)$ denote the set of complex measures on the measurable space $(X, \MA)$. Define $\|\cdot \|: M(X, \MA) \rightarrow \Rg$ by $\|\mu \|= \vert \mu \vert (X)$. Then $\|\cdot \|$ is a norm on $M(X, \MA)$. 
+	Define $\|\cdot \|: M(X, \MA) \rightarrow \Rg$ by $$\|\mu \|= \vert \mu \vert (X)$$ 
+	Then $\|\cdot \|$ is a norm on $M(X, \MA)$. 
 	\end{ex}
 	
 	\begin{proof}
@@ -2736,12 +2755,12 @@
 	\end{proof}
 	
 	\begin{ex}
-		Let $(X, \MA)$ be a measurable space and $\nu$ a complex measure on $(X, \MA)$. Then 
+		Let $(X, \MA)$ be a measurable space and $\nu \in M(X, \MA)$. Then 
 		
 		\begin{enumerate}
 			\item for each $E \in \MA$, $|\nu(E)| \leq |\nu|(E)$. 
 			\item $\nu \ll |\nu|$ and $\big|d \nu /d |\nu|\big| = 1$ $|\nu|$-a.e.
-			\item $L^1(\nu) = L^1(|\nu|)$ and for each $g \in L^1(\nu)$, $|\int g d\nu| \leq \int |g|d |\nu|$
+			\item $L^1(\nu) = L^1(|\nu|)$ and for each $g \in L^1(\nu)$, $$ \bigg|\int g d\nu \bigg| \leq \int |g|d |\nu|$$
 		\end{enumerate}
 	\end{ex}
 	
@@ -2819,7 +2838,14 @@
 		\end{enumerate}
 	\end{proof}
 
+
+	\begin{ex}
+	Let $(X, \MA)$ be a measurable space, $\mu_1, \mu_2 \in M(X, \MA)$ and $\lam \in \C$. Then for each $f \in L^1(\mu_1 + \lam \mu_2)$, $$\int f d(\mu_1 + \lam \mu_2) = \int f d \mu_1 + \lam \int f d\mu_2$$
+	\end{ex}
 	
+	\begin{proof}
+	Clear by an exercise in section $3.2$.
+	\end{proof}
 	
 	
 	
@@ -3611,7 +3637,7 @@
 	\newpage
 	\section{Radon Measures}
 	
-	\subsection{Radon Measures on LCH Spaces}
+	\subsection{Introduction}
 	
 	\begin{defn}
 	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Borel measure and $E \in \MB(X)$ . Then $\mu$ is said to be 
@@ -3629,7 +3655,7 @@
 	\begin{enumerate}
 	\item  \textbf{inner regular} if for each $E \in \MA$, $\mu$ is inner regular on $E$
 	\item  \textbf{outer regular} if for each $E \in \MA$, $\mu$ is outer regular on $E$
-	\item  \textbf{regular} if for each $E \in \MA$, $\mu$ is regular on $E$
+	\item  \textbf{regular} if $\mu$ is inner regular and $\mu$ is outer regular
 	\end{enumerate}
 	\end{defn}
 	
@@ -3643,7 +3669,34 @@
 	\end{defn}
 	
 	\begin{ex}
-	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MA$. If $\mu(E) < \infty$, then for each $\ep >0$, 
+	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. Set $$\MN_{\mu} = \{U \subset X: U \text{ is open and } \mu(U) = 0\}$$ and $$N_{\mu} = \bigcup_{U \in \MN_{\mu}} U$$ 
+	Then $N_{\mu}$ is open, $N_{\mu}^c$ is closed and $\mu(N_{\mu}) = 0$.\\
+	\textbf{Hint:} use inner regularity and compactness
+	\end{ex}
+	
+	\begin{proof}
+	Since $N_{\mu}$ is the union of open sets, it is open and $N_{\mu}^c$ is closed since $N_{\mu}$ is open. Let $K \subset N_{\mu}$. Suppose that $K$ is compact. Since $\MN_{\mu}$ is an open cover for $K$, there exist $U_1, \ldots, U_n \in \MN_{\mu}$ such that $$K \subset \bigcup_{j=1}^n U_j$$ 
+	This implies that 
+	\begin{align*}
+	\mu(K) 
+	&\leq \mu\bigg( \bigcup_{j=1}^n U_j \bigg) \\
+	& \leq \sum_{j=1}^n \mu(U_j) \\
+	&= 0
+	\end{align*}
+	Inner regularity implies that 
+	\begin{align*}
+	\mu(N_{\mu}) 
+	&= \sup \{ \mu(K): K \subset N_{\mu} \text{ and $K$ is compact}\} \\
+	&= 0
+	\end{align*}
+	\end{proof}
+	
+	\begin{defn}
+	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. Define $\MN_{\mu}$ and $N_{\mu}$ as in the previous exercise. We define the \textbf{support of $\mu$}, denoted $\supp(\mu)$, by $$\supp(\mu) = N_{\mu}^c $$
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MB(X)$. If $\mu(E) < \infty$, then for each $\ep >0$, 
 	\begin{enumerate}
 	\item there exists $U \in \MB(X)$ such that $U$ is open, $E \subset U$ and $\mu(U \setminus E) < \ep$ 
 	\item there exists $C \in \MB(X)$ such that $C$ is compact, $C \subset U$ and $\mu(U) - \ep < \mu(C)$ 
@@ -3692,15 +3745,41 @@
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $E$ is $\sig$-finite. If $\mu(E) < \infty$, the previous exercise implies that for each $\ep > 0 $, there exists $K \in \MB(X)$ such that $K$ is compact, $E \subset K$ and $\mu(K) > \mu(E) - \ep$. Hence $\mu$ is inner regular on $E$. If $\mu(E) = \infty$, then $\sig$-finiteness implies that there exists $(E_j)_{j \in \N} \subset \MB(X)$ such that $E = \bigcup\limits_{j \in N} E_j$, for each $j \in \N$, $\mu(E_j) < \infty$ and $\mu(E_j) \rightarrow \infty$. 
+	Suppose that $E$ is $\sig$-finite. \\
+	If $\mu(E) < \infty$, the previous exercise implies that for each $\ep > 0 $, there exists $K \in \MB(X)$ such that $K$ is compact, $E \subset K$ and $\mu(K) > \mu(E) - \ep$. Hence $\mu$ is inner regular on $E$. \\
+	If $\mu(E) = \infty$, then $\sig$-finiteness implies that there exists $(E_j)_{j \in \N} \subset \MB(X)$ such that $E = \bigcup\limits_{j \in N} E_j$, for each $j \in \N$, $\mu(E_j) < \infty$ and $\mu(E_j) \rightarrow \infty$. Let $N \in \N$. Choose $J \in \N$ such that $\mu(E_J) > N$. The above argument implies that there exists $K \in \MB(X)$ such that $K$ is compact, $K \subset E_J \subset E$ and $\mu(K) > N$. So 
+	\begin{align*}
+	\mu(E)
+	&= \infty \\
+	&= \sup_{\substack{ K \subset E \\ \text{ $K$ is compact}}} \mu(K)
+	\end{align*}	 
+and $\mu$ is inner regular on $E$.  
 	\end{proof}		
 	
 	\begin{ex}
-	Let $X$ be a topological space, $\mu:\MB(X) \rightarrow \RG$ a Radon measure and $f \in C_c(X)$. Then for each $p \in [1, \infty]$, $f \in L^p(\mu)$.
+	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. If $\mu$ is $\sig$-finite, then $\mu$ is regular.
 	\end{ex}
 	
 	\begin{proof}
-	Let $p \in [1, \infty]$. Then $|f|^p \in C_c(X)$ and 
+	Clear by previous exercise.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. If $X$ is $\sig$-compact, then $\mu$ is $\sig$-finite. The previous exercise implies that $\mu$ is regular. 
+	\end{ex}
+	
+	\begin{proof}
+	If $X$ is $\sig$-compact, then $\mu$ is $\sig$-finite. Hence $\mu$ is regular.
+	\end{proof}
+	
+		
+	
+	\begin{ex}
+	Let $X$ be a topological space and $\mu:\MB(X) \rightarrow \RG$ a Radon measure. Then for each $p \in [1, \infty]$, $C_c(X) \subset L^p(\mu)$.
+	\end{ex}
+	
+	\begin{proof}
+	Let $p \in [1, \infty]$ and $f \in C_c(X)$. Then $|f|^p \in C_c(X)$ and 
 	\begin{align*}
 	\|f\|_p 
 	&= \int |f|^p d\mu \\
@@ -3708,6 +3787,20 @@
 	& < \infty
 \end{align*}	 
 	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage	
+	\subsection{Representation Theorems}
 	
 	\begin{defn}
 	Let $X$ be a topological space and $I: C_c(X) \rightarrow \C$ a linear functional. Then $I$ is said to be \textbf{positive} if for each $f \in C_c(X, \R)$, $f \geq 0 $ implies that $I(f) \geq 0$.
@@ -3725,6 +3818,8 @@
 	&\geq 0
 	\end{align*}
 	\end{proof}
+	
+	
 	
 	\begin{ex}
 	Let $X$ be a LCH space, $I: C_c(X) \rightarrow \C$ a positive linear functional. Then for each $K \subset X$, $K $ is compact implies that there exists $C_K \geq 0$ such that for each$f \in C_c(X)$, if $\supp(f) \subset K$, then $I(f) \leq C_K \|f\|_{\infty}$.\\
@@ -3807,44 +3902,50 @@
 \end{enumerate}	 
 	\end{thm}
 	
-	
-	\begin{ex}
-	Let $X$ be a LCH space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. Set $$\MN_{\mu} = \{U \subset X: U \text{ is open and } \mu(U) = 0\}$$ and $$N_{\mu} = \bigcup_{U \in \MN_{\mu}} U$$ 
-	Then $N_{\mu}$ is open, $N_{\mu}^c$ is closed and $\mu(N_{\mu}) = 0$.\\
-	\textbf{Hint:} use inner regularity and compactness
-	\end{ex}
-	
-	\begin{proof}
-	Since $N_{\mu}$ is the union of open sets, it is open and $N_{\mu}^c$ is closed since $N_{\mu}$ is open. Let $K \subset N_{\mu}$. Suppose that $K$ is compact. Then $\MN_{\mu}$ is an open cover for $K$. So there exist $U_1, \ldots, U_n \in \MN_{\mu}$ such that $$K \subset \bigcup_{j=1}^n U_j$$ 
-	This implies that 
-	\begin{align*}
-	\mu(K) 
-	&\leq \mu\bigg( \bigcup_{j=1}^n U_j \bigg) \\
-	& \leq \sum_{j=1}^n \mu(U_j) \\
-	&= 0
-	\end{align*}
-	Inner regularity implies that 
-	\begin{align*}
-	\mu(N_{\mu}) 
-	&= \sup \{ \mu(K): K \subset N_{\mu} \text{ and $K$ is compact}\} \\
-	&= 0
-	\end{align*}
-	\end{proof}
+	\begin{note}
+	Let $X$ be a topological space. Recall from section $(4.3)$ that we define $$M(X) = \{\mu:\MB(X) \rightarrow \C: \mu \text{ is a complex measure}\}$$ and that $\mu \mapsto |\mu|(X)$ is a norm on $M(X)$. 
+	\end{note}		
 	
 	\begin{defn}
-	Let $X$ be a LCH space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. Define $\MN_{\mu}$ and $N_{\mu}$ as in the previous exercise. We define the \textbf{support of $\mu$}, denoted $\supp(\mu)$, by $$\supp(\mu) = N_{\mu}^c $$
+	Let $X$ be a topological space. For $\mu \in M(X)$, define $I_{\mu} :C_0(X) \rightarrow \C$ by $$I_{\mu} (f) = \int f d\mu$$.
 	\end{defn}
 	
 	\begin{ex}
-	Let $X$ be a LCH space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MA$. If $E$ is $\sig$-finite, then $\mu$ is inner regular on $E$. 
+	Let $X$ be a topological space. For each $\mu \in M(X)$, $I_\mu \in C_0(X)^*$.
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $E$ is $\sig$-finite. Then there exist 
+	Let $\mu \in M(X)$ and $f \in C_0(X)$. An exercise in section $(4.3)$ implies that 
+	\begin{align*}
+	|I_{\mu}(f)| 
+	&= \bigg| \int f d\mu \bigg| \\
+	& \leq \int |f| d |\mu| \\
+	& \leq \| \mu \| \|f\|_{\infty}
+	\end{align*}
+	So $I_{\mu}$ is bounded and $I_{\mu} \in C_0(X)^*$.
 	\end{proof}
 	
-	\begin{defn}
+	\begin{thm}
+	Let $I \in C_0(X, \R)^*$, then there exist positive linear functionals $I^+, I^- \in C_0(X, \R)^*$ such that $I = I^+ - I^-$
+	\end{thm}
 	
+	\begin{ex}
+	Let $X$ be a LCH space. Then the map $ \phi: M(X) \rightarrow C_0(X)^*$ given by $\phi(\mu) = I_{\mu}$ is a linear surjection.
+	\end{ex}
+	
+	\begin{proof}
+	An exercise in section $(4.3)$ implies that $\phi$ is linear. Let $I \in C_0(X)^*$. Then there exists positive linear functionals $I^{\pm}$, $J^{\pm} \in C_0(X)^*$ such that $I = I^+ - I^- + i(J^+ - J^-)$. The first representation theorem implies that there exist Radon measures $\mu^{\pm}$, $\nu^{\pm}$ such that $I^{\pm} = I_{\mu^{\pm}}$ and $J^{\pm} = I_{\mu^{\pm}}$. Set $\mu = \mu^+ - \mu^- +i(\nu^+ - \nu ^-)$. Then $I = \phi(\mu)$
+	\end{proof}
+	
+	\begin{thm}\textbf{Representation Theorem 2:}\\
+	Let $X$ be a LCH space. Then the map $\phi: M(X) \rightarrow C_0(X)^*$ given by $\phi(\mu) = I_{\mu}$ is an isometric isomorphism. 
+	\end{thm}
+	
+	
+	
+	
+	\begin{defn}
+	Let $X$ be a LCH space, $(\mu_n)_{n \in \N} \subset M(X)$ and $\mu \in M(X)$. Then $\mu_n$ is said to \textbf{converge in weak-*}, denoted $\mu_n \conv{w^*}\mu$, if $I_{\mu_n} \conv{w^*} I_{\mu}$, i.e. for each $f \in C_0(X)$, $$\int f d\mu_n \rightarrow \int f d\mu$$
 	\end{defn}
 	
 	\begin{ex}
@@ -3860,11 +3961,7 @@
 	
 	
 	
-	
-	
-	\newpage 
-	\subsection{Radon Measures in Locally Compact Metric spaces}
-	
+
 	
 	
 	
