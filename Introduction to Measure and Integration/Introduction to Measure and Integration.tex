@@ -1520,9 +1520,28 @@
 		$|Re(f)|, |Im(f)| \leq |f| \leq |Re(f)| + |Im(f)|$
 	\end{proof}
 	
-	\begin{thm}{Dominated Convergence}
-		Let $(f_n)_{n \in \N} \subset L^1$, $f$ measurable and $g \in L^1$. Suppose that $f_n \xrightarrow{\text{a.e.}} f$ and for each $n \in \N$, $|f_n| \leq g_n$. Then $f \in L^1$ and $$\int_X f_n \rightarrow \int_X f$$ 
-	\end{thm}
+	\begin{ex}\textbf{Dominated Convergence Theorem:}\\
+	\lex{00000}
+		Let $(f_n)_{n \in \N} \subset L^0$, $f \in L^0$ and $g \in L^1$. Suppose that $f_n \convt{a.e.} f$ and there exists $g \in L^1$ such that for each $n \in \N$, $|f_n| \leq g$. Then $f \in L^1$ and $$\int_X |f_n - f| d\mu \rightarrow 0$$ \\
+		\textbf{Hint:} Fatou's lemma
+	\end{ex}
+	
+	\begin{proof}
+	Continuity imples that $|f| \leq g$ a.e. Since 
+	\begin{align*}
+	|f_n - f| 
+	&\leq |f_n| + |f| \\
+	&\leq 2g
+	\end{align*}	 
+	Fatou's lemma implies that 
+	\begin{align*}
+	\int 2g d\mu 
+	&= \int \limfn (2g - |f_n - f|) d \mu \\
+	&\leq \limfn \int 2g - |f_n - f| d \mu  \\
+	&= \int 2g d \mu - \limpn \int |f_n -f| d\mu \\
+	\end{align*}
+	Hence $$ \limpn \int |f_n -f| d\mu \leq 0 $$ and thus $$\int |f_n -f| d\mu \rightarrow 0$$
+	\end{proof}
 	
 	\begin{ex} \lex{00000} 
 		Let $\mu_1, \mu_2$ be measures on $(X, \MA)$. Then
@@ -1870,7 +1889,7 @@
 			&= M, \\
 		\end{align*}  
 		which is a contradiction. Hence for each $\ep >0$, there exists $K \in \N$ such that for each $f \in \MF$, $\mu(\{|f| > K\}) < \ep$. Since $\mu(\{|f| > k\})$ is a decreasing sequence in $k$, we have that $\lim\limits_{k \rightarrow \infty} \sup\limits_{f \in \MF} \mu(\{|f| > k\}) = 0$. Now, let $\ep > 0$. Choose $\del >0$ as in (2). Choose $K \in \N$ such that for each $k \in \N$, if $k \geq K$, then for each $f \in \MF$, $\mu(\{|f| > k\}) < \del$. Then for each $k \in \N$, if $k \geq K$, then for each $f \in \MF$, 
-		$$\int_{\{|f| > k\}} |f| < \ep.$$ Thus $\lim\limits_{k \rightarrow \infty} \sup\limits_{f \in \MF} \int_{\{|f|>k\}} |f| = 0$ as required.
+		$$\int_{\{|f| > k\}} |f| < \ep.$$ Thus $$\lim\limits_{k \rightarrow \infty} \sup\limits_{f \in \MF} \int_{\{|f|>k\}} |f| = 0$$ as required.
 		
 	\end{proof}
 	
@@ -1879,7 +1898,13 @@
 	\end{ex}
 	
 	\begin{proof}
-	Clearly $f$ is $\MA$-measurable. If $f$ is simple. Then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ and for each $i \in \{1, \cdots, n\}$, $\mu(B_i) = \mu_{\MB}(B_i) < \infty$. So $f \in L^1(X, \MA, \mu)$ and 
+	Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
+	\begin{align*}
+	\infty 
+	&> \mu_{\MB}(B_i) \\
+	&= \mu(B_i)
+	\end{align*}
+	So $f \in L^1(X, \MA, \mu)$ and 
 	\begin{align*}
 	\int_B f d \mu_{\MB} 
 	&= \int_B \sum_{i=1}^n b_i \chi_{B_i} d\mu_{\MB} \\
@@ -1898,7 +1923,14 @@
 	The statement also holds for general $f \in L^1(X, \MB, \mu_B)$, by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
 	\end{proof}
 	
+	\begin{defn}
+	Let $(X, \MA, \mu)$ be a measure space. Define $\| \cdot \|_*: L^1(\mu) \rightarrow \Rg$ by  
+	 $$\| f \|_* = \sup_{A \in \MA} \bigg | \int_A f d\mu \bigg |$$ 
+	\end{defn}
 	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space. Then $\| \cdot \|_*$ is a norm on $L^1(\mu)$ and there exists $C >0$ such that $C\|\cdot\|_1 \leq \|\cdot\|_* \leq \| \cdot \|_1$.
+	\end{ex}
 	
 	
 	
@@ -2116,8 +2148,25 @@
 	\end{proof}
 	
 	\begin{note}
-		It is useful to observe that $$\bigcup_{\ep >0}\limsup\limits_{n \rightarrow \infty} \{x \in X: |f_n(x) - f(x)| \geq \ep \} = \{x \in X: f_n(x) \not \rightarrow f(x) \}$$ and $$\bigcap_{\ep > 0} \liminf_{n \rightarrow \infty}\{x \in X: |f_n(x) - f(x)| < \ep \} = \{x \in X: f_n(x) \rightarrow f(x) \}$$ 
+		It is useful to observe that 
+		$$\bigcup_{\ep >0}\limsup\limits_{n \rightarrow \infty} \{x \in X: |f_n(x) - f(x)| \geq \ep \} = \{x \in X: f_n(x) \not \rightarrow f(x) \}$$ 
+		and 
+		$$\bigcap_{\ep > 0} \liminf_{n \rightarrow \infty}\{x \in X: |f_n(x) - f(x)| < \ep \} = \{x \in X: f_n(x) \rightarrow f(x) \}$$ 
 	\end{note}
+	
+	\begin{ex}
+	Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that $f_n \convt{a.e.} f$. Then $f_n \conv{\mu} f$. 
+	\end{ex}
+	
+	\begin{proof}
+	For $n \in \N$ and $\ep >0$, set $$E_{n, \ep} = \{x \in X: |f_n(x) - f(x)| \geq \ep\}$$
+	As noted above, 
+	\begin{align*}
+	\{x \in X: f_n(x) \not \rightarrow f(x)\} 
+	&= \bigcup_{\ep >0}\limsup\limits_{n \rightarrow \infty} E_{n, \ep} \\
+	&= \bigcup_{\ep >0} \bigcap_{N \in \N} \bigcup_{n \geq N}E_{n, \ep}
+	\end{align*}
+	\end{proof}
 	
 	\begin{ex} \lex{35003} 
 		Let $(f_n)_{n \in \N} \subset L^0$. Suppose that $(f_n)_{n \in \N}$ is Cauchy in measure. 
@@ -2128,23 +2177,72 @@
 		and 
 		$$F_k = \bigcup_{j \geq k}E_j$$
 		Then for each $i,j, k \in \N$, $\mu(F_k) \leq 2^{1-k}$ $i \geq j \geq k$ implies that for each $x \in F_k^c$, $$|f_{n_i}(x) - f_{n_j}(x)| \leq 2^{1-k}$$ 
-		So for each $k \in \N$, $(f_{n_j})_{j \in \N}$  is Cauchy on $F_k$. \\
+		So for each $k \in \N$, $(f_{n_j})_{j \in \N}$  is pointwise Cauchy on $F_k^c$. \\
 		\textbf{Hint:} get a telescoping sum via the triangle inequality 
 		\item Set $$F = \bigcap_{k \in \N} F_k$$ 
-		Then $\mu(F) = 0$ and there exists $f \in L^0$ such that $f_{n_j} \convt{a.e.} f$. \\
-		\textbf{Hint:} $\limsup\limits_{j \rightarrow \infty} E_j$
-		\item 
+		Then $\mu(F) = 0$ and there exists $f \in L^0$ such that $f_{n_j} \convt{a.e.} f$.  
+		\item Finally, $f_{n_j} \conv{\mu} f$, $f_n \conv{\mu} f$ and for each $g \in L^0$, if $f_n \conv{\mu} g$, then $f = g$ a.e \\
+		\textbf{Hint:} consider showing $\{x \in X: |f_{n_k}(x) - f(x)| \geq \ep\} \subset F_k$ 
 		\end{enumerate}  
 	\end{ex}
 	
 	\begin{proof}\
 	\begin{enumerate}
-	\item 
-	\item 
-	\item 
-	\item 
-	\item 
+	\item By definition, for each $j \in \N$, there exists $N_j \in \N$ such that for each $n,m \in \N$, $n,m \geq N_j$ implies that 
+	$$\mu(\{x \in X: |f_n(x) - f_m(x)| \geq 2^{-j} \}) < 2^{-j}$$ 
+	Thus we may obtain a subsequence $(f_{n_j})$ such that for each $j \in \N$, 
+	$$\mu(\{x \in X: |f_{n_j}(x) - f_{n_{j+1}}(x)| \geq 2^{-j}\}) < 2^{-j}$$
+	\item Let $k \in \N$. Part $(1)$ implies that 
+	\begin{align*}
+	\mu(F_k) 
+	&\leq \sum_{j \geq k}2^{-j} \\
+	&= 2^{1-k}\sum_{j \geq 1}2^{-j}  \\
+	&= 2^{1-k}
+	\end{align*}
+	Let $i, j \in \N$. Suppose that $i \geq j \geq k$. Let $x \in F_k^c$. Then 
+	\begin{align*}
+	|f_{n_i}(x) - f_{n_j}(x)| 
+	& \leq \sum_{l = j}^{i-1} |f_{n_{l+1}}(x) - f_{n_l}(x)| \\
+	& < \sum_{l = j}^{i-1} 2^{-l} \\
+	& <  \sum_{l \geq j} 2^{-l} \\
+	&= 2^{1 - j} \\
+	& \leq 2^{1 - k}	 
+	\end{align*}
+	Let $\ep >0$. Choose $k \in \N$ such that $2^{1-k} < \ep$. Then for each $i,j \in \N$, $i,j \geq k$ implies that 
+	\begin{align*}
+	|f_{n_i}(x) - f_{n_j}(x)| 
+	&< 2^{1-k} \\
+	&< \ep 
+	\end{align*}
+	So $(f_{n_j})_{j \in \N}$ is pointwise Cauchy on $F_k^c$
+	\item Since $\mu(F_1) \leq 1$, and $F = \inf\limits_{k \in \N}F_k$, we have that
+	\begin{align*}
+	\mu(F) 
+	&= \inf_{k \in \N} \mu(F_k) \\
+	&\leq \inf_{k \in \N} 2^{1-k} \\
+	&= 0
+	\end{align*}
+	Since for each $k \in \N$, $(f_{n_j})_{j \in \N}$ is pointwise Cauchy on $F^c_k$, $(f_{n_j})_{j \in \N}$ is pointwise Cauchy on $F^c$. Then $(f_{n_j}\chi_{F^c})_{j \in \N}$ is pointwise Cauchy. \\
+	Define $f: X \rightarrow \C$ pointwise by $$f = \lim_{j \rightarrow \infty}f_{n_j}\chi_{F^c} $$
+	Then $f \in L^0$ since $(f_{n_j}\chi_{F^c})_{j \in \N} \subset L^0$ and $f_{n_j}\chi_{F^c} \convt{p.w.} f$. Since $\mu(F) = 0$ and $\{x \in X: f_{n_j}(x) \not \rightarrow f(x)\} \subset F$, we have that $f_{n_j} \convt{a.e.} f$.\\
+	\item For $n,m \in \N$ and $\ep >0$, set 
+	$$A_{n, \ep} = \{x \in X: |f_n(x) - f(x) |\geq \ep \}$$ 
+	and 
+	$$B_{m, n, \ep} = \{x \in X: |f_m(x) - f_n(x)| \geq \ep\}$$ 
+	Let $\ep, \del>0$. Choose $k \in \N$ such that $2^{3-k} < \ep$ and $\mu(F_k) < \del$. Let $x \in F_k^c$. Since $f_{n_j}(x) \rightarrow f(x)$, there exists $J \in \N$ such that $J \geq k$ and for each $j \in \N$, $j \geq J$ implies that $|f_{n_j}(x) - f(x)| < 2^{1-k}$. Let $l \in \N$. Suppose that $l \geq k$. Then part $(2)$ implies that
+	\begin{align*}
+	|f_{n_l}(x) - f(x)| 
+	& \leq |f_{n_l}(x) - f_{n_k}(x)| + |f_{n_k}(x) - f_{n_J}(x)| + |f_{n_J}(x) + f(x)| \\
+	&\leq 2^{1-k} + 2^{1-k}  + 2^{1-k} \\
+	&\leq 2^{3-k} \\
+	&< \ep
+	\end{align*}
+	So $x \in A_{n_l, \ep}^c$. Hence $A_{n_l, \ep} \subset F_k$ and $\mu(A_{n_l}, \ep) < \del$. So $f_{n_j} \conv{\mu} f$. \\
+	Similarly to proof of \rex{35002.1}, we have that 
+	for each $\ep>0$ and $j \in \N$, 
+	$$\mu(A_{n, \ep}) \leq \mu(B_{n, n_j, \frac{\ep}{2}}) + \mu(A_{n_j, \frac{\ep}{2}})$$   
 	\end{enumerate}
+	So $f_n \conv{\mu} f$. 
 	\end{proof}
 	
 	\begin{ex} \lex{35003.1} 
@@ -2169,11 +2267,12 @@
 	\end{defn}	
 	
 	\begin{ex} \lex{35005} \textbf{Egoroff's Theorem:}
-		Suppose that $\mu(X) < \infty$. Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that $f_n \xrightarrow{\text{a.e.}}$. Then $f_n \xrightarrow{\text{a.u.}}f$.
+		Suppose that $\mu(X) < \infty$. Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that $f_n \convt{a.e.} f$. Then $f_n \convt{a.u.} f$.
 	\end{ex}
 	
 	\begin{proof}
-		Let $\ep >0$. For each $n, k \in \N$, define $E_{n, k} = \{x \in X: \vert f_n(x) - f(x) \vert \geq \frac{1}{k} \}$ and $F_{n,k} = \bigcup\limits_{m \geq n}E_{m,k}$. Then $F_{n,k}$ is decreasing in $n$ and $\bigcap\limits_{n \in \N}F_{n,k} \subset \{x: f_n(x) \not \rightarrow f(x)\}$. Thus $\mu(\bigcap\limits_{n \in \N}F_{n,k}) = 0$. Since $\mu(X) < \infty$, $\inf\limits_{n \in \N}\mu(F_{n,k}) = 0$. Hence we may choose a strictly increasing sequence $(n_k)_{k \in \N} \subset \N$ such that  $\mu(F_{n_k,k}) \leq \frac{\ep}{2^{k}}$. Put $N = \bigcup\limits_{k \in \N}F_{n_k,k}$. Then 
+		Let $\ep >0$. For each $n, k \in \N$, define $E_{n, k} = \{x \in X: \vert f_n(x) - f(x) \vert \geq \frac{1}{k} \}$ and $F_{n,k} = \bigcup\limits_{m \geq n}E_{m,k}$. Then $F_{n,k}$ is decreasing in $n$ and $$\bigcap\limits_{n \in \N}F_{n,k} \subset \{x: f_n(x) \not \rightarrow f(x)\}$$ 
+		Thus $\mu(\bigcap\limits_{n \in \N}F_{n,k}) = 0$. Since $\mu(X) < \infty$, $\inf\limits_{n \in \N}\mu(F_{n,k}) = 0$. Hence we may choose a strictly increasing sequence $(n_k)_{k \in \N} \subset \N$ such that  $\mu(F_{n_k,k}) \leq \frac{\ep}{2^{k}}$. Put $N = \bigcup\limits_{k \in \N}F_{n_k,k}$. Then 
 		\begin{align*}
 			\mu(N) 
 			&\leq \sum\limits_{k \in \N}\mu(F_{n_k,k}) \\
@@ -4799,6 +4898,20 @@ So $f+g \in L^p_Y$.
 	If $\phi = \sum\limits_{j=1}^n \chi_{E_j}y_j$ is in the standard representation, then $(E_j)_{j=1}^n$ are disjoint and $\bigcup\limits_{j=1}^n E_j = X$.
 	\end{note}
 	
+	\begin{ex}
+	Let $(X, \MA, \mu)$ be a measure space and $Y$ a Banach space. Then $S_Y \subset L^1_Y$. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $\phi \in S_Y$. Write $\phi = \sum\limits_{j=1}^n \chi_{E_j}y_j$ in the standard representation. Then $\|\phi\| = \sum\limits_{j=1}^n \|y_j\|\chi_{E_j}$. By definition, for each $j \in \{1, \cdots, n\}$, $y_j \neq 0$ implies that $\mu(E_j) < \infty$. Then 
+	\begin{align*}
+	\int \|\phi\| d\mu 
+	&= \sum\limits_{j=1}^n \|y_j\| \mu(E_j) \\
+	&< \infty
+	\end{align*}
+	So $\phi \in L^1_Y$.
+	\end{proof}
+	
 	\begin{ex} \lex{00000} 
 	Let $(X, \MA, \mu)$ be a measure space and $Y$ a Banach space. Then $S_Y(X, \MA, \mu)$ is a subspace of $L_Y^0(X, \MA)$
 	\end{ex}
@@ -4927,7 +5040,7 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 \end{proof}		
 	
 	\begin{defn} \ld{00000} \textbf{Bochner Integral:}\\
-	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space and $f:X \rightarrow Y$. Then $f$ is said to be \textbf{Bochner} integrable if $f \in L^1_Y$. If $f$ is Bochner integrable, then there exists $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \convt{a.e.} f$ and $\phi_n \conv{L_Y^1} f$ and the \textbf{Bochner integral of $f$} with respect to $\mu$, denoted $\int f d\mu$, is defined to be $$\int f d\mu = \limn \int \phi_n d\mu$$ 
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space and $f:X \rightarrow Y$. Then $f$ is said to be \textbf{Bochner} integrable if $f \in L^1_Y$. If $f$ is Bochner integrable, then there exists $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \convt{a.e.} f$ and $\phi_n \conv{L_Y^1} f$ and the \textbf{Bochner integral of $f$} with respect to $\mu$, denoted $$\int f d\mu$$ is defined to be $$\int f d\mu = \limn \int \phi_n d\mu$$ 
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
@@ -4983,15 +5096,78 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	so that $f \in L^1_Y$ and $f$ is Bochner integrable.
 \end{proof}			
 	
-	\begin{ex} \lex{00000} 
-	
+	\begin{ex} \textbf{Dominated Convergence Theorem:}\\ \lex{00000} 
+	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space, $(f_n)_{n \in \N} \subset L^1_Y$ and $f \in L^0_Y$. Suppose that $f_n \convt{a.e.} f$ and there exists $g \in L^1_Y$ such that for each $n \in \N$, $\|f_n\| \leq g$. Then $f \in L^1_Y$ and $f_n \conv{L^1} f$. 
 	\end{ex}
 	
 	\begin{proof}
+	Same as before
+	\end{proof}		
 	
-\end{proof}		
+	\begin{ex} \lex{00000} 
+	Let $(X, \MA, \mu)$ be a measure space, $Y,Z$ separable Banach spaces and $f \in L^1_Y$ and $T \in L(Y,Z)$. Then $T \circ f \in L^1_Z$ and $$\int T \circ f d \mu = T\bigg( \int f d\mu \bigg)$$
+	\end{ex}
+	
+	\begin{note}
+	The statement remains true if $T$ is continuous and conjugate-linear. 
+	\end{note}
+	
+	\begin{proof}
+	Suppose that $f \in S_Y$. Write $f = \sum\limits_{j=1}^n \chi_{E_j}y_j $ in the standard representation. Then $T \circ f = \sum\limits_{j=1}^n \chi_{E_j}T(y_j)$  and 
+	\begin{align*}
+	\int T \circ f d \mu 
+	&= \sum\limits_{j=1}^n \mu(E_j)T(y_j) \\
+	&= T \bigg(\sum\limits_{j=1}^n \mu(E_j)y_j \bigg) \\
+	&= T \bigg( \int f d\mu \bigg)
+	\end{align*}
+	
+	For $f \in L^1_Y$, choose $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \convt{a.e.} f$ and $\phi_n \conv{L^1_Y} f$. Then 
+	\begin{align*}
+	\|T \circ \phi_n - T \circ f\| 
+	&= \|T \circ (\phi_n - f)\| \\
+	& \leq \|T\| \|\phi_n - f\|
+	\end{align*}
+	So $T \circ \phi_n \convt{a.e.} T \circ f$ and $T \circ \phi_n \conv{L^1_Z} T \circ f $. Thus 
+	\begin{align*}
+	\int T \circ f d\mu 
+	&= \limn \int T \circ \phi_n d\mu \\
+	&= \limn T \bigg( \int \phi_n d\mu \bigg) \\
+	&= T \bigg( \limn \int \phi_n d\mu \bigg) \\
+	&= T \bigg( \int f d\mu  \bigg)
+	\end{align*}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	\newpage
+	\subsection{Applications to Hilbert Spaces}	
+	
+	\begin{ex} \lex{00000} 
+	Let $(X, \MA, \mu)$ be a measure space, $H$ a separable Hilbert space, $f \in L^1_H$ and $a \in H$. Then $$\int \l f(x), a \r d\mu(x) = \bigg \l \int f(x) d \mu(x) , a\bigg \r$$ 
+	\end{ex}	
+	
+	\begin{proof}
+	Define $T \in L^*(H, \C)$ by $T(x) = \l x, a \r$ and apply a previous exercise.
+	\end{proof}
+	
+	
+	
+	
 	
 	
 	
@@ -5020,7 +5196,7 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	
 	
 
-	
+	\newpage
 	\section{Appendix}
 	
 	\subsection{Summation}

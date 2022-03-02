@@ -97,6 +97,9 @@
 
 \newcommand{\lsc}{l.s.c. }
 
+\newcommand{\as}[1]{\overset{#1}{\sim}}
+\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
+
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\spn}{span}
@@ -180,7 +183,7 @@
 	\begin{defn}
 	Let $M$ be a set and $d: M \times M \rightarrow \R$. Then $d$ is said to be a \textbf{metric on $M$} if for each $x,y,z \in M$, 
 	\begin{enumerate}
-	\item $d(x,y) = 0 iff x = y$
+	\item $d(x,y) = 0$ iff $x = y$
 	\item $d(x, y) \leq d(x, z) + d(z, y)$
 \end{enumerate}	 
 	\end{defn}	
@@ -202,6 +205,34 @@
 	\begin{defn}
 	Let $M$ be a set and $d: M \times M \rightarrow \Rg$ a metric. Then $(M, d)$ is called a \textbf{metric space}.
 	\end{defn}	
+	
+	\begin{defn}
+	Let $(M,d)$ be a metric space and $A,B \subset M$. We define the \textbf{distance between $A$ and $B$}, denoted $d(A,B)$, by $$d(A,B) = \inf_{\substack{a \in A \\ b \in B}} d(a,b)$$
+	\end{defn}
+	
+	\begin{ex}
+	Let $(M,d)$ be a metric space. Then for each $A,B \subset M$ and $c \in M$, $$d(A,B) \leq d(A,c) + d(c, B)$$
+	\end{ex}
+	
+	\begin{proof}
+	Let $A,B \subset M$, $c \in M$ and $\ep>0$. Choose $a \in A$ and $b \in B$ such that $d(a,c) < d(A,c)+ \ep/2$ and  $d(c,b) < d(c,B)+ \ep/2$. Then 
+	\begin{align*}
+	d(A,B) 
+	&\leq d(a,b) \\
+	&\leq d(a,c) + d(c,b) \\
+	&< d(A,c) + \frac{\ep}{2} + d(c,B) + \frac{\ep}{2} \\
+	&= d(A,c) + d(c,B) + \ep
+	\end{align*}
+	Since $\ep >0$ is arbitrary, $d(A,B) \leq d(A,c) + d(c,B)$.
+	\end{proof}
+	
+	\begin{defn}
+	Let $M$ be a set, $d_1, d_2: M \times M \rightarrow \Rg$ metrics on $M$ and $p$ a property. Then $d_1$ and $d_2$ are said to be \textbf{$p$-equivalent} if $\id_M: (M, d_1) \rightarrow (M, d_2)$ and $\id_M: (M, d_2) \rightarrow (M, d_1)$ have property $p$. We say that $d_1$ and $d_2$ are \textbf{topologically equivalent} when $p$ is the property of being continuous. We say that $d_1$ and $d_2$ are \textbf{equivalent} when $p$ is the property of being Lipschitz.
+	\end{defn}	
+	
+	\begin{ex}
+	
+	\end{ex}
 	
 	
 	\begin{defn}
@@ -694,7 +725,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		\end{enumerate} 
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
 			\item  Let $x, y \in X$ and $\al \in \C$. Suppose that $x+M =y+M$. Then there exists $m \in M$ such that $x=y+m$. Since $M$ is a subspace, the map $T:M \rightarrow M$ given by $Tx = x+m$ is a bijection. So $$\inf_{z \in M} \|y+m+z \|= \inf_{z \in M} \|y+z \|$$ which implies that 
 			\begin{align*}
@@ -1032,7 +1063,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	So $p$ is bounded.
 	\end{proof}
 	
-	\begin{thm}\textbf{Hahn-Banach Theorem:}
+	\begin{thm}\textbf{Hahn-Banach Theorem}\\
 		Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional, $M \subset X$ a subspace and $f:M \rightarrow \R$ a linear functional. If for each $x \in M$, $ f(x)  \leq p(x)$, then there exists a linear functional $F:X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$ and $F|_{M}=f$.
 	\end{thm}
 	
@@ -1145,7 +1176,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	A previous exercise implies there exists $\phi: X \rightarrow \R$ such that $\phi$ is linear and $\phi \leq p$. The previous exercise implies that $\phi \in X^*$.
 	\end{proof}
 	
-	\begin{ex}\textbf{Equivalency of linearity (Bounded Case)}
+	\begin{ex}\textbf{Equivalency of linearity (Bounded Case)}\\
 	Let $X$ be a normed vector space and $p:X \rightarrow \R$ a bounded sublinear functional. Then the following are equivalent:
 	\begin{enumerate}
 	\item there exists a unique $\phi \in X^*$ such that $\phi \leq p$
@@ -1158,7 +1189,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	Basically the same as last time.
 	\end{proof}
 	
-	\begin{thm}\textbf{Complex Hahn-Banach Theorem:}
+	\begin{thm}\textbf{Complex Hahn-Banach Theorem}\\
 		Let $X$ be a vector space, $p:X \rightarrow \R$ a seminorm, $M \subset X$ a subspace and $f:M \rightarrow \C$ a linear functional. If for each $x \in M$, $\vert f(x) \vert \leq p(x)$, then there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $\vert F(x) \vert \leq p(x)$ and $F|_{M}=f$.
 	\end{thm}	
 	
@@ -3465,7 +3496,7 @@ is convex.
 	&\leq \mu(\sig_N(U)) \\
 	&= \mu(U) 
 	\end{align*}
-	Therefore, since $\mu$ is outer regular, $\mu(\sig(E)) \leq \mu(E)$. Since $\sig_n^{-1} \rightarrow \sig^{-1}$, we may apply the above argument to obtain that 
+	Therefore, since $\mu$ is outer regular, $\mu(\sig(E)) \leq \mu(E)$. Since $\sig_n^{-1} \convt{u} \sig^{-1}$, we may apply the above argument to obtain that 
 	\begin{align*}
 	\mu(E) 
 	&= \mu(\sig^{-1}(\sig (E))) \\
@@ -3499,43 +3530,162 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	\newpage
 	\subsection{Group Actions on Metric Spaces}
 	
+	\begin{note}
+	For a set $X$, a group $G$ and a (left) group action $\phi: G \times X \rightarrow X$, we will write $\phi(g, x)$ as $g \cdot x$. We denote the projection map by $\pi: X \rightarrow X/G$.
+	\end{note}	
+	
 	\begin{defn}
-	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a group action. We define 
-	$\bar{d}: M / G \rightarrow \Rg$ by 
-	$$\bar{d}(o_x, o_y) = \inf_{\substack{a \in o_x \\ b \in o_y}} d(a,b) $$
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ a group action. We define 
+	$d_*: X/G \times X / G \rightarrow \Rg$ by 
+	$$d_*(o_x, o_y) = \inf_{\substack{a \in o_x \\ b \in o_y}} d(a,b) $$
+	\end{defn}
+	
+	\begin{defn}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ a group action. Then $\phi$ is said to be an \textbf{isometric group action} if for each $g \in G$, the map $x \mapsto g \cdot x$ is an isometry. 
 	\end{defn}
 	
 	\begin{ex}
-	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a group action. Suppose that for each $g \in G$, the map $x \mapsto g \cdot x$ is an isometry. Then for each $x, y \in M$, $$\bar{d}(o_x, o_y) = \inf_{g \in G} d(g \cdot x, y)$$
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Then for each $x, y \in X$, $$d_*(o_x, o_y) = \inf_{g \in G} d(g \cdot x, y)$$
 	\end{ex}
 	
 	\begin{proof}
-	Let $x, y \in M$, $a \in o_x$ and $b \in o_y$. Then there exists there exists $g_x, g_y \in G$ such that $a = g_x \cdot g$ and $b = g_y \cdot y$. Set $g = g_y^{-1}g_x$. Since the map $z \mapsto g_y^{-1} \cdot z$ is an isometry, 
+	Let $x, y \in X$, $a \in o_x$ and $b \in o_y$. Then there exists there exists $g_x, g_y \in G$ such that $a = g_x \cdot x$ and $b = g_y \cdot y$. Set $g = g_y^{-1}g_x$. Since the map $z \mapsto g_y^{-1} \cdot z$ is an isometry, 
 	\begin{align*}
 	d(a,b) 
 	&= d(g_x \cdot x, g_y \cdot y) \\
 	&= d(g_y^{-1}g_x \cdot x, y)\\
 	&= d(g\cdot x, y)
 	\end{align*}
+	Let $\ep >0$. Then there exist $a^* \in o_x$ and $b^* \in o_y$ such that $d(a^*,b^*) < d_*(o_x,o_y) + \ep$. The above argument implies that that there exists $g^* \in G$ such that 
+	\begin{align*} 
+	\inf_{g \in G} d(g \cdot x, y) 
+	& \leq d(g^* \cdot x, y) \\
+	&= d(a^*, b^*) \\
+	& < d_*(o_x, o_y) + \ep
+\end{align*}	 
+	Since $\ep >0$ is arbitrary, $$\inf_{g \in G} d(g \cdot x, y) \leq d_*(o_x, o_y)$$
+	Conversely, since $\{(g \cdot x, y): g \in G\} \subset \{(a,b): a \in o_x, b \in o_y\}$, we have that 
+	$$\inf_{g \in G} d(g \cdot x, y) \geq d_*(o_x, o_y)$$ 
 	\end{proof}
 	
 	\begin{ex}
-	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a group action. Suppose that for each $g \in G$, the map $x \mapsto g \cdot x$ is an isometry. If for each $x \in M$, $o_x$ is closed, then $\bar{d}$ is a metric.
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Then for each $x, y, z \in X$, $$d_*(o_x, o_y) \leq d_*(o_x, o_z) + d_*(o_z, o_y)$$
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that for each $x \in M$, $o_x$ is closed. We need only show that for each $x,y \in M$, $\bar{d}(o_x , o_y) = 0$ implies that $o_x = o_y$. Suppose that $\bar{d}(o_x , o_y) = 0$. Then $\inf\limits_{ g \in G} d(g \cdot x, y) = 0$. Hence there exists $(\tau_n)_{n \in N} \subset G$ such that $\tau_n \cdot x \rightarrow y$. Since $(\tau_n \cdot x)_{n \in \N} \subset o_x$ and $o_x$ is closed, $y \in o_x$. Thus $o_x = o_y$. 
+	Let $x, y, z \in X$. An exercise in section $(2.1)$ implies that $d(o_x, o_y) \leq d(o_x, z) + d(z, o_y)$. The previous exercise implies that 
+	\begin{align*}
+	d(o_x, z) 
+	&= \inf_{a \in o_x} d(a, z) \\
+	&= \inf_{g \in G} d(g \cdot x, z) \\
+	&= d_*(o_x, o_z)
+	\end{align*}
+	Similarly, $d(z, o_y) = d_*(o_z, o_y)$. Then 
+	\begin{align*}
+	d(o_x, o_y) 
+	&\leq d(o_x, z) + d(z, o_y) \\
+	&= d_*(o_x, o_z) + d_*(o_z, o_y)
+	\end{align*}
 	\end{proof}
 	
 	\begin{ex}
-	Let $(M, d)$ be a metric space, $(G, \tau)$ a topological group, and $\cdot: G \times M \rightarrow M$ a group action. Suppose that for each $g \in G$, the map $x \mapsto g \cdot x$ is an isometry, $G$ is compact and for each $x \in M$, the map $g \mapsto g \cdot x$ is continuous. Then $\bar{d}: M/ G \rightarrow \Rg$ is a metric. 
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. If for each $x \in X$, $o_x$ is closed, then for each $x, y \in X$, $d_*(o_x, o_y) =0$ implies that $o_x = o_y$.
 	\end{ex}
 	
 	\begin{proof}
-	Let $x \in M$. Since $G$ is compact and the map $g \mapsto g \cdot x$ is continuous, $o_x = G \cdot x$ is compact and therefore closed. The previous exercise implies that $\bar{d}$ is a metric.
+	Suppose that for each $x \in X$, $o_x$ is closed. Let $x,y \in X$. Suppose that $d_*(o_x , o_y) = 0$. Then $\inf\limits_{ g \in G} d(g \cdot x, y) = 0$. Hence there exists $(g_n)_{n \in N} \subset G$ such that $g_n \cdot x \rightarrow y$. Since $(g_n \cdot x)_{n \in \N} \subset o_x$ and $o_x$ is closed, $y \in o_x$. Thus $o_x = o_y$. 
 	\end{proof}
 	
+	\begin{ex}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. If for each $x \in X$, $o_x$ is closed, then $d_*$ is a metric on $X/G$.
+	\end{ex}
 	
+	\begin{proof}
+	Clear by preceeding exercises.
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, d)$ be a metric space, $(G, \tau)$ a topological group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $G$ is compact and for each $x \in X$, the map $g \mapsto g \cdot x$ is continuous. Then $d_*$ is a metric on $X/G$. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $x \in X$. Since $G$ is compact and the map $g \mapsto g \cdot x$ is continuous, $o_x = G \cdot x$ is compact and therefore closed. The previous exercise implies that $d_*$ is a metric.
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $d_*$ is a metric on $X/G$. Then the projection map $\pi: X \rightarrow X/G$ is Lipschitz and therefore continuous.
+	\end{ex}
+	
+	\begin{proof}
+	Let $x,y \in X$. Then
+	\begin{align*}
+	d_*(\pi(x), \pi(y)) 
+	&= d_*(o_x, o_y) \\
+	&= \inf_{g \in G} d(g \cdot x, y)\\
+	& \leq d(x,y)  \\
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $d_*$ is a metric on $X/G$. Let $(x_n)_{n \in \N} \subset X$ and $x \in X$. Then $o_{x_n} \conv{d_*} o_x$ iff there exists a sequence $(g_n)_{n \in \N}$ such that $g_n \cdot x_n \conv{d} x$.
+	\end{ex}
+	
+	\begin{proof} 
+	Suppose that $o_{x_n} \conv{d_*} o_x$. For $n \in \N$, choose $g_n \in G$ such that $d(g_n \cdot x_n, x) < d(o_{x_n}, o_x) + 2^{-n}$. Then $d(g_n \cdot x_n, x) \rightarrow 0$ and $g_n \cdot x_n \conv{d_*} x$.  \\
+	Conversely, suppose that that there exists a sequence $(g_n)_{n \in \N}$ such that $g_n \cdot x_n \conv{d} x$. Since $\pi:X \rightarrow X/G$ is continuous, we have that
+	\begin{align*}
+	g_n \cdot x_n \conv{d} x
+	& \implies \pi(g_n \cdot x_n) \conv{d_*} \pi(x)\\
+	& \implies o_{x_n}  \conv{d_*} o_x
+	\end{align*}
+	\end{proof}		
+	
+	\begin{ex}
+	Let $X$ be a set, $d_1, d_2: X^2 \rightarrow \Rg$ metrics, $G$ a group and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $d_1$ and $d_2$ are topologically equivalent. 
+	\begin{enumerate}
+	\item Then ${d_1}_*$ is a metric on $X/G$ iff ${d_2}_*$ is a metric on $X/G$
+	\item If ${d_1}_*$ and ${d_2}_*$ are metrics, then ${d_1}_*$ and ${d_2}_*$ are topologically equivalent. 
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item 
+	\begin{itemize}
+	\item $\implies$ Suppose that ${d_1}_*$ is a metric. Let $x,y \in X$. Suppose that ${d_2}_*(o_x, o_y) = 0$. Then there exist $(g_n)_{n \in \N} \subset G$ such that $d_2(g_n \cdot x, y) \rightarrow 0$. Since $d_1$ and $d_2$ are topologically equivalent, $d_1(g_n \cdot x, y) \rightarrow 0$. Thus ${d_1}_*(o_x, o_y) = 0$. Since ${d_1}_*$ is a metric, $o_x = o_y$. Hence ${d_2}_*$ is a metric. 
+	\item $\impliedby$ Similar.
+	\end{itemize}
+	\item Suppose that ${d_1}_*$ and ${d_2}_*$ are metrics. Let $(o_{x_n})_{n \in \N} \subset X/G$ and $o_x \in X/G$. 
+	\begin{itemize}
+	\item Suppose that $o_{x_n} \conv{{d_1}_*} o_x$. Then there exists a sequence $(g_n)_{n \in \N}$ such that $g_n \cdot x_n \conv{d_1} x$. Since $d_1$ and $d_2$ are topologically equivalent, $g_n \cdot x_n \conv{d_2} x$. This implies that $o_{x_n} \conv{{d_2}_*} o_x$. 
+	\item Suppose that $o_{x_n} \conv{{d_2}_*} o_x$. Then similarly to above, $o_{x_n} \conv{{d_1}_*} o_x$.
+	\end{itemize}
+	\end{enumerate}
+	\end{proof}	
+	
+	\begin{ex}
+	Let $X$ be a set, $d_1, d_2: X^2 \rightarrow \Rg$ metrics on $X$, $G$ a group and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $d_1$ and $d_2$ are equivalent. If ${d_1}_*$ and ${d_2}_*$ are metrics, then ${d_1}_*$ and ${d_2}_*$ are equivalent.
+	\end{ex}
+	
+	\begin{proof} Suppose that ${d_1}_*$ and ${d_2}_*$  are metrics. Since $d_1$ $d_2$ are equivalent, there exist $C_1, C_2 >0$ such that for each $x,y \in X$, $C_1d_1(x,y) \leq d_2(x,y) \leq C_2d_1(x,y)$. Let $x,y \in X$. Then
+	\begin{align*}
+	C_1{d_1}_*(o_x, o_y) 
+	&= C_1 \inf_{g \in G} d_1(g \cdot x, y) \\
+	&=  \inf_{g \in G} C_1 d_1(g \cdot x, y) \\
+	&\leq \inf_{g \in G} d_2(g \cdot x, y) \\
+	&= {d_2}_*(o_x, o_y) \\
+	\end{align*}	 
+	and 
+	\begin{align*}
+	{d_2}_*(o_x, o_y) 
+	&= \inf_{g \in G} d_2(g \cdot x, y) \\	
+	& \leq \inf_{g \in G} C_2 d_1(g \cdot x, y) \\
+	&= C_2 \inf_{g \in G}  d_1(g \cdot x, y) \\
+	&= C_2 {d_1}_*(o_x, o_y)
+	\end{align*}
+	So that $C_1 {d_1}_* \leq {d_2}_* \leq C_2 {d_1}_*$
+	\end{proof}
+
 	
 	
 	
@@ -3549,40 +3699,28 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	\newpage
 	\subsection{Fundamental Examples}
 	\begin{ex}
-	Consider the metric space $(\C^{n \times d}, \|\cdot\|_F)$, topological group $(U_d, \|\cdot\|_F)$ and  the (right) action $X \cdot U = XU$. Then this action is continuous, $U_d$ is compact and for each $U \in U_d$, the map $X \mapsto XU$ is an isometry. Thus $\bar{d}$ is a metric on $\C^{n \times d}/ U_d$.
+	Consider the metric space $(\C^{n \times d}, \|\cdot\|_F)$, topological group $(U_d, \|\cdot\|_F)$ and  the (right) action $X \cdot U = XU$. Then this action is continuous, $U_d$ is compact and for each $U \in U_d$, the map $X \mapsto XU$ is an isometry. Thus $d_*$ is a metric on $\C^{n \times d}/ U_d$.
 	\end{ex}
 	
 	\begin{proof}
 	Clear.
 	\end{proof}		
 	
-	\begin{defn}
-	Let $(X, \MA, \mu)$ be a measure space. Define $\| \cdot \|_*: L^1(\mu) \rightarrow \Rg$ by  
-	 $$\| f \|_* = \sup_{A \in \MA} \bigg | \int_A f d\mu \bigg |$$ 
-	\end{defn}
-	
 	\begin{ex}
-	Let $(X, \MA, \mu)$ be a measure space. Then $\| \cdot \|_*$ is a norm on $L^1(\mu)$.
-	\end{ex}
-	
-	\begin{proof}
-	Clear.
-	\end{proof}
-	
-	\begin{ex}
-	Let $X$ be a compact metric space and $\mu:\MB(X) \rightarrow \RG$ a Borel measure. Define the (right) group action \\ $\cdot: (L^1(\mu), \|\cdot\|_*) \times \Aut(X, \mu) \rightarrow (L^1(\mu), \|\cdot\|_*) $ by $$f \cdot \sig = f \circ \sig$$ Then for each $\sig \in \Aut(X, \mu)$, the map $f \mapsto f \cdot \sig$ is an isometry. 
+	Let $X$ be a compact metric space and $\mu:\MB(X) \rightarrow \RG$ a Borel measure. Define the (right) group action $L^1(\mu) \times \Aut(X, \mu) \rightarrow L^1(\mu) $ by $$f \cdot \sig = f \circ \sig$$ Then for each $\sig \in \Aut(X, \mu)$, the map $f \mapsto f \cdot \sig$ is an isometry. 
 	\end{ex}
 	
 	\begin{proof}
 	Let $\sig \in \Aut(X, \mu)$ and $f \in L^1(\mu)$. 
 Then 
 	\begin{align*}
-	\|f \cdot \sig\|_* 
-	&= \sup_{A \in \MA} \bigg | \int_A f \circ \sig d\mu \bigg | \\
-	&= \sup_{A \in \MA} \bigg | \int_{\sig(A)} f d \sig_* \mu \bigg | \\
-	&= \sup_{A \in \MA} \bigg | \int_{\sig(A)} f d \mu \bigg | \\
-	&= \sup_{A \in \MA} \bigg | \int_{A} f d \mu \bigg | \\
-	&= \|f\|_* 
+	\|f \cdot \sig\|_1
+	&=  \int_X |f \circ \sig| d\mu \\
+	&=  \int_X |f| \circ \sig d\mu \\
+	&=  \int_{\sig(X)} |f| d \sig_* \mu  \\
+	&=  \int_{\sig(X)} |f| d \mu \\
+	&=  \int_{X} |f| d \mu \\
+	&= \|f\|_1 
 	\end{align*}	 
 	\end{proof}
 	
