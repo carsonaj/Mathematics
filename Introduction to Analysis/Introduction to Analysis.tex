@@ -443,10 +443,11 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 	\newpage
 	
-	\subsection{Linear and Multilinear Maps}
+	\subsection{Linear Maps}
 	
 	\begin{defn}
 		Let $X,Y$ be a normed vector spaces. A linear map $T:X \rightarrow Y$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x \in X$, $$\|Tx \|\leq C \|x \|$$ We define $$L(X,Y) = \{T:X \rightarrow Y: T \text{ is linear and bounded}\}$$
+		When $X=Y$, we write $L(X)$.
 	\end{defn}
 	
 	\begin{ex}
@@ -465,14 +466,14 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Thus $$\|Tx \|< \frac{2 s}{r} \|x \|= C \|x \|$$ So $T$ is bounded. 
 	\end{proof}
 	
-	\begin{thm}
+	\begin{ex}
 		Let $X,Y$ be normed vector spaces and $T:X \rightarrow Y$ a linear map. Then the following are equivalent:
 		\begin{enumerate}
 			\item $T$ is continuous
 			\item $T$ is continuous at $x=0$
 			\item $T$ is bounded
 		\end{enumerate}
-	\end{thm}
+	\end{ex}
 	
 	\begin{proof}\
 		\begin{itemize}
@@ -610,7 +611,6 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 			& < 2\del \\
 			&= \ep
 		\end{align*} 
-		
 		Hence addition is uniformly continuous. \vspace{1cm}\\ Let $(\lam_1,x_1) \in \C \times X$ and $\ep >0$. Choose $\del = \min\{\frac{\ep}{2(\vert \lam_1 \vert + \|x_1 \|+ 1)}, \frac{\sqrt{\ep}}{\sqrt{2}}\}$. Let $(\lam_2, x_2) \in \C \times X$. Suppose that $\|(\lam_1, x_1)-(\lam_2,x_2) \| = \max\{\vert \lam_1-\lam_2 \vert , \|x_1 - x_2 \|\} < \del$. Then 
 		\begin{align*}
 			\|\lam_1x_1 - \lam_2x_2 \|
@@ -665,20 +665,89 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Since $$\big\vert \|T_n \|- \|T \|\big \vert \leq \|T_n - T \|$$ it is clear that $\limn \|T_n \|= \|T \|$
 	\end{proof}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Multilinear Maps}	
 	\begin{defn}
 	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \prod\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then $T$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x_1, \cdots, x_n \in X$, $$\|T(x_1, \cdots, x_n)\| \leq C \|x_1\| \cdots \|x_n\|$$
 	We define $$L^n (X_1, \dots, X_n; Y) = \bigg\{T: \prod\limits_{i=1}^n X_i \rightarrow Y: T \text{ is multilinear and bounded}\bigg \}$$ 
-	If $X_1, \cdots, X_n = X$, we write $L^n(X,Y)$ in place of $L^n (X, \dots, X; Y) $
+	If $X_1 = \cdots = X_n = X$, we write $L^n(X,Y)$ in place of $L^n (X, \dots, X; Y) $. If $X_1 = \cdots = X_n = Y =  X$, we write $L^n(X)$.
 	\end{defn}
+	
+	\begin{ex}
+	Let $X_1, X_2, Y$ be normed vector spaces and $T_1 \in L(X_1, L(X_2, Y))$. Define $T:X_1 \times X_2 \rightarrow Y$ by $T(x_1, x_2) = T_1(x_1)(x_2)$. Then $T \in L^2(X_1, X_2; Y)$.  
+	\end{ex}
+	
+	\begin{proof}
+	It is straightforward to show that $T$ is multilinear. For $x_1 \in X_1$ and $x_2 \in X_2$, 
+	\begin{align*}
+	\|T(x_1, x_2)\| 
+	&= \|T_1(x_1)(x_2)\| \\
+	& \leq \|T_1(x_1)\| \|x_2\| \\
+	& \leq \|T_1\| \|x_1\| \|x_2\|
+	\end{align*}
+	So $T \in L^2(X_1, X_2;Y)$.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X_1, X_2, Y$ be normed vector spaces and $T \in L^2(X_1, X_2; Y)$. Define the map $T_1 : X_1 \rightarrow  Y^{X_2}$ by  $T_1(x_1)(\cdot) = T(x_1, \cdot)$. Then $T_1 \in L(X_1, L(X_2, Y))$.
+	\end{ex}
+	
+	\begin{proof}
+	Let $x_1 \in X_1$. By definition, $T_1(x_1)$ is linear. Since $T$ is bounded, there exists $C \geq 0$ such that for each $a_1 \in X_1$, $a_2 \in X_2$, $T(a_1, a_2) \leq C\|a_1\| \|a_2\|$. Then for each $x_2 \in X_2$,
+	\begin{align*}
+	\| T_1(x_1)(x_2) \|
+	&= \|T(x_1, x_2) \| \\
+	&\leq (C\|x_1\|) \|x_2\| 
+	\end{align*}
+	So $T_1(x_1) \in L(X_2,Y)$ with $\|T_1(x_1)\| \leq C\|x_1\|$. Since $x_1 \in X_1$ was arbitrary, $T_1: X_1 \rightarrow L(X,Y)$. By definition, $T_1$ is linear. The preceeding argument tells us that for each $x_1 \in X_1$, $$\|T_1(x_1)\| \leq C\|x_1\|$$ 
+	So $T_1 \in L(X_1, L(X_2, Y))$ with $\|T_1\| \leq C$.  
+	\end{proof}		
 	
 	\begin{ex}
 	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \prod\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then the following are equivalent:
 	\begin{enumerate}
-	\item 
-	\item 
-	\item
-	\end{enumerate}
+			\item $T$ is continuous
+			\item $T$ is continuous at $x=(0, \ldots, 0)$
+			\item $T$ is bounded
+		\end{enumerate}
 	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+		\item $(1) \implies (2)$:\\
+		Trivial
+		\item $(2) \implies (3)$:\\ Suppose that $T$ is continuous at $x = (0, \ldots, 0)$. Let $(x_1, \ldots, x_n) \in \prod_{j=1}^nX_j$. Then $T(x_1, \ldots, x_{n-1}, \cdot) \in L(X_n, Y)$. Hence there exists $C_n \geq 0$ such that for each $a_n \in X_n$, $T(x_1, \ldots, x_{n-1}, a_n) \leq C_n\|x_n\|$. Continuing inductively, there exist $C_1, \ldots, C_{n-1}$ such that  
+		
+		\end{itemize}
+		
+	\end{proof}
+	
+	
+	\begin{defn}
+	Let $X_1, \cdots, X_n, Y$ be normed vector spaces
+	\end{defn}
+	
+	
+	\begin{ex}
+	Let $X_1, \cdots, X_n, Y$ be normed vector spaces. Define a map $\phi: L^2(X_1, X_2;Y) \rightarrow L(X_1, L(X_2, Y))$ by $\phi(T)(x_1)(x_2) = T(x_1, x_2)$. Then $T$ is an isometric isomorphism.
+	\end{ex}
+	
+	\begin{proof}
+	. 
+	\end{proof}
 	
 	
 	\newpage
