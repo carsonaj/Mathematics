@@ -1000,7 +1000,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 
 	
-	\subsection{Linear and Sublinear Functionals}
+	\subsection{The Hahn-Banach Theorem}
 	
 	\begin{defn}\
 		\begin{itemize}
@@ -2597,7 +2597,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\end{proof}
 	
 	\begin{ex}
-	Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$ is differentiable iff $f$ is Frechet differentiable.
+	Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$ is Gateaux differentiable iff $f$ is Frechet differentiable.
 	\end{ex}
 	
 	\begin{proof}
@@ -2842,21 +2842,39 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	
 	
 	\begin{ex}\textbf{Taylor's Theorem:}\\
-	Let $X$ be a Banach space, $Y$ a separable Banach space, $A \subset X$ open and convex, $f\in C^n(A, Y)$, $x_0 \in A$, and $h \in X$. Suppose $x_0 + h \in A$. Then $$f(x_0 + h) = \sum_{k=0}^{n-1} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + R(x_0;h)$$ where $$R(x_0;h) = \frac{1}{(n-1)!}\int_{(0,1)} (1-t)^{n-1}D^nf(x_0 + th)(h^{\oplus n})d m(t)$$
+	Let $X$ be a Banach space, $Y$ a separable Banach space, $A \subset X$ open and convex, $f\in C^{n+1}(A, Y)$, $x_0 \in A$, and $h \in X$. Suppose $x_0 + h \in A$. Then $$f(x_0 + h) = \sum_{k=0}^{n} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + R(x_0;h)$$ 
+	where $$R(x_0;h) = \frac{1}{n!}\int_{(0,1)} (1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)})d m(t)$$
+	and $R(x_0, h) = o(\|h\|^{n})$ as $h \rightarrow 0$.\\
 	\textbf{Hint:} Define $g: (0,1) \rightarrow Y$ by $$g(t) = f(x_0 +t h)$$ Then use the previous exercise and the fundamental theorem of calculus.
 	\end{ex}
 	
 	\begin{proof}
-	For each $k \in \{1, \dots, n\}$, a previous exercise implies that $g^{(k)}(t) = D^kf(x_0 + th)(h^{\oplus k})$, so $g^{(k)}(0) = D^kf(x_0)(h^{\oplus k})$. The previous exercise and the fundamental theorem of calculus tell us that 
+	For each $k \in \{1, \dots, n+1\}$, a previous exercise implies that $g^{(k)}(t) = D^kf(x_0 + th)(h^{\oplus k})$, so $g^{(k)}(0) = D^kf(x_0)(h^{\oplus k})$. The previous exercise and the fundamental theorem of calculus tell us that 
 	\begin{align*}
-	f(x_0 +h) - \sum_{k=0}^{n-1} \frac{1}{k!}D^kf(x_0)(h^{\oplus k})
-	&= g(1) - \sum_{k=0}^{n-1} \frac{1}{k!}g^{(k)}(0)\\
-	&= \int_{(0,1)} \bigg [\dv{t} \sum_{k=0}^{n-1} \frac{(1-t)^k}{k!}g^{(k)}(t)\bigg ] dm(t) \\
-	&= \int_{(0,1)} \frac{(1-t)^{n-1}}{(n-1)!}g^{(n)}(t) dm(t)
-	\end{align*}	 
+	f(x_0 +h) - \sum_{k=0}^{n} \frac{1}{k!}D^kf(x_0)(h^{\oplus k})
+	&= g(1) - \sum_{k=0}^{n} \frac{1}{k!}g^{(k)}(0)\\
+	&= \int_{(0,1)} \bigg [\dv{t} \sum_{k=0}^{n} \frac{(1-t)^k}{k!}g^{(k)}(t)\bigg ] dm(t) \\
+	&= \int_{(0,1)} \frac{(1-t)^{n}}{n!}g^{(n+1)}(t) dm(t)
+	\end{align*}	
+	Note that $$\frac{1}{n+1} = \frac{1}{n!}\int_{(0,1)} (1-t)^{n} dm(t)$$ 
+	Since $D^{n+1}f$ is continuous at $x_0$, there exists $\del_1 >0$ such that for each $h \in B(0, \del_1)$, 
+	$$\|D^{n+1} f(x_0+h) - D^{n+1}f(x_0)\| < 1 $$  
+	Let $\ep >0$. Choose $\del_2 >0$ such that $$\frac{1}{n+1} \bigg( \|D^{n+1}f(x_0 )\|  +  1 \bigg) \del_2 < \ep$$ Set $\del = \min(\del_1, \del_2)$. Let $h \in B(0, \del)$. Then
+	\begin{align*}
+	\|R(x_0;h)\| 
+	&= \bigg \| \int_{(0,1)} \frac{1}{n!}\int_{(0,1)} (1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)})d m(t) \bigg\| \\
+	&\leq \frac{1}{n!}\int_{(0,1)} \|(1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)}) \|dm(t)\\
+	&\leq \frac{1}{n+1} \max_{t \in [0,1]}\|D^{n+1}f(x_0 + th)\| \|h\|^{n+1}  \\
+	&\leq \frac{1}{n+1}  \bigg(\|D^{n+1}f(x_0 )\| +  \max_{t \in [0,1]} \|D^n f(x_0+th) - D^{n+1}f(x_0)\| \bigg)\|h\|^{n+1}  \\
+	&< \frac{1}{n+1}\bigg(\|D^{n+1}f(x_0 )\|  +  1 \bigg)\|h\|^{n+1}  \\
+	&<\ep \|h\|^n
+	\end{align*}
+	So $R(x_0, h) = o(\|h\|^{n})$ as $h \rightarrow 0$.
 	\end{proof}
 	
+	\begin{ex}
 	
+	\end{ex}
 
 	
 	
@@ -3833,7 +3851,7 @@ Then
 	\subsection{Asymptotic Notation}
 	
 	\begin{defn}
-	Let $X$ be a topological space, $Y, Z$ be normed vector spaces, $f:X \rightarrow Y$, $g: X \rightarrow Z$ and $x_0 \in X \cup \{\infty\}$. Then we write $$f = o(g) \hspace{.5cm} \text{ as } x \rightarrow x_0$$ if for each $\ep >0$, there exists $U \in \MN_{x_0}$ such that $U$ is open and for each $x \in U$, $$\|f(x)\| \leq \ep\|g(x)\|$$
+	Let $X$ be a topological space, $Y, Z$ be normed vector spaces, $f:X \rightarrow Y$, $g: X \rightarrow Z$ and $x_0 \in X \cup \{\infty\}$. Then we write $$f = o(g) \hspace{.5cm} \text{ as } x \rightarrow x_0$$ if for each $\ep >0$, there exists $U \in \MN_{x_0}$ such that $U$ is open and for each $x \in U$, $$\|f(x)\|_u \leq \ep\|g(x)\|_u$$
 	\end{defn}
 	
 	\begin{ex}
