@@ -245,7 +245,7 @@
 	&= \|f\|_p
 	\end{align*} 
 	an exercise in section $5.1$ of 
-	\href{https://github.com/carsonaj/Mathematics/blob/master/Introduction%20to%20Measure%20and%20Integration/Introduction%20to%20Measure%20and%20Integration.pdf}{Introduction to Measure and Integration}
+	\cite{measure}
 	implies that $f*g \in L^p$ and $\|f *g\|_p \leq \|f\|_1\|g\|_p$.
 	\end{proof}
 	
@@ -284,7 +284,7 @@
 	
 	\begin{proof}
 	Let $\al \in \N_0^n$. Suppose that $|\al| = 1$. Define $h \in L^0(\R^n \times \R^n)$ by $h(x,y) = g(x-y)f(y)$. Young's inequality imples that for a.e. $ x \in \R^n$, $h(x, \cdot) \in L^1(m)$. For each $y \in \R^n$, $\p^{\al} h (\cdot,y) = \p^{\al}g(\cdot -y)f(y)$ and for each $x,y \in \R^n$, $|\p^{\al} h (x,y)| \leq \|\p^{\al} g\|_{\infty}|f(y)| \in L^1(\R^n)$. An exercise in section $3.3$ of 
-	\href{https://github.com/carsonaj/Mathematics/blob/master/Introduction%20to%20Measure%20and%20Integration/Introduction%20to%20Measure%20and%20Integration.pdf}{Introduction to Measure and Integration} 
+	\cite{measure}
 	implies that for a.e. $x \in \R^n$, $\p^{\al} (g*f)(x)$ exists and 
 	\begin{align*}
 	\p^{\al} (f*g)(x) 
@@ -306,7 +306,7 @@
 	
 	
 	\newpage
-	\subsection{The Fourier Transform on $L^1(\R^n)$}
+	\subsection{The Fourier Transform}
 	
 	\begin{defn}
 	
@@ -315,7 +315,7 @@
 	\begin{ex}
 	\lex{300} Let $\phi:\R \rightarrow S^1$ be a measurable homomorphism. 
 	\begin{enumerate}
-	\item Then $\phi \in L^1_{\loc}(\R^n)$ and there exists $a > 0$ such that $$\int_{(0,a]}\phi dm \neq 0$$
+	\item Then $\phi \in L^1_{\loc}(\R)$ and there exists $a > 0$ such that $$\int_{(0,a]}\phi dm \neq 0$$
 	\item Define $$c = \bigg[ \int_{(0,a]}\phi dm \bigg]^{-1}$$ 
 	Then  For each $x \in \R$, $$\phi(x) = c\int_{(x, x+a]}\phi dm$$ 
 	\item $\phi \in C^{\infty}(\R)$ and $\phi' = c(\phi(a) - 1)\phi$
@@ -325,7 +325,7 @@
 	
 	\begin{proof}\
 	\begin{enumerate}
-	\item Let $K \subset \R$ be compact. Then $$\int_K |\phi| dm = m(K) < \infty$$ So $\phi \in L^1_{\loc}(\R^n)$. For the sake of contradiction, suppose that for each $a >0$, $$\int_{(0,a]}\phi dm = 0$$ 
+	\item Let $K \subset \R$ be compact. Then $$\int_K |\phi| dm = m(K) < \infty$$ So $\phi \in L^1_{\loc}(\R)$. For the sake of contradiction, suppose that for each $a >0$, $$\int_{(0,a]}\phi dm = 0$$ 
 	Then the FTC implies that $\phi = 0$ a.e. on $\Rg$, which is a contradiction. So there exists $a > 0$ such that $$\int_{(0,a]}\phi dm \neq 0$$
 	\item For $x \in \R$, 
 	\begin{align*}
@@ -368,7 +368,7 @@
 	\end{ex}	
 	
 	\begin{proof}
-	When done in the category of measurable groups, an exercise in the section on direct products of groups of \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction%20to%20Group%20Theory/Introduction%20to%20Group%20Theory.pdf}{Introduction to Group Theory}
+	When done in the category of measurable groups, an exercise in the section on direct products of groups of \cite{groups}
 	implies that there exist measurable homomorphism $(\phi_{j})_{j=1}^n \subset (S^1)^{\R}$ such that $\phi = \bigotimes_{j=1}^n \phi_j$. The previous exercise imples that there exist $\xi \in \R^n$ such that for each $x \in \R^n$, $\phi_j(x_j) = e^{2 \pi i \xi_j x_j}$. Then for each $x \in \R^n$, 
 	\begin{align*}
 	\phi(x)
@@ -384,8 +384,72 @@
 	$$\hat{f}(\xi) = \frac{1}{(2 \pi)^{n / 2}} \int_{\R^n} f(x) e^{- 2 \pi i \l \xi , x\r} dm(x)$$
 	\end{defn}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\section{Fourier Analysis on LCA Groups}
 	
+	
+	
+
+	\subsection{The Convolution}	
+	\begin{note}
+	For the remainder of the section, we fix a locally compact abelian group $G$ and a Haar measure $\mu$ on $G$. 
+	\end{note}
+	
+	\begin{defn} \ld{00000} 
+	Let $f, g \in L^1(\mu)$. We define the \textbf{convolution of $f$ with $g$}, denoted $f * g: G \rightarrow \C$, by $$ f * g(x) = \int_X f(x-y)g(y) d\mu(y)$$
+	\end{defn}
+	
+	\begin{ex} \lex{00000} 
+	Let $f, g \in L^1(\mu)$. Then $f * g \in L^1(\mu)$. 
+	\end{ex}
+	
+	\begin{proof}
+	By Tonelli's theorem, 
+	\begin{align*}
+	\int_X |f *g| d\mu 
+	&\leq \int_X \bigg[  \int_X |f(x-y)g(y)| d\mu(y) \bigg] d\mu(x) \\
+	&= \int_X |g(y)| \bigg[  \int_X |f(x-y)| d\mu(y) \bigg] d\mu(x) \\
+	&=  \|f\|_1 \int_X |g(y)| d\mu(x) \\
+	&= \|f\|_1 \|g\|_1\\
+	& < \infty
+	\end{align*}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\begin{thebibliography}{4}
+\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
+
+\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Fourier\%20Analysis/Introduction\%20to\%20Fourier\%20Analysis.pdf}{Introduction to Fourier Analysis}
+
+	
+\bibitem{groups} \href{https://github.com/carsonaj/Mathematics/tree/master/Introduction\%20to\%20Group\%20Theory}{Introduction to Group Theory}
+
+\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
+
+
+\end{thebibliography}
 	
 	
 	

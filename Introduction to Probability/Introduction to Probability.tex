@@ -7,6 +7,7 @@
 	colorlinks=true, %set true if you want colored links
 	linktoc=all,     %set to all if you want both sections and subsections linked
 	linkcolor=black,  %choose some color if you want links to stand out
+	urlcolor=cyan
 }
 
 
@@ -39,9 +40,8 @@
 
 
 
-\DeclareMathOperator{\supp}{supp}
 
-\renewcommand{\Re}{\text{Re}}
+
 
 \newcommand{\al}{\alpha}
 \newcommand{\Gam}{\Gamma}
@@ -81,6 +81,7 @@
 \newcommand{\ev}{\text{ ev.}}
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
+\renewcommand{\Re}{\text{Re}}
 
 \newcommand{\RG}{[0,\infty]}
 \newcommand{\Rg}{[0,\infty)}
@@ -96,6 +97,10 @@
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\spn}{span}
 \DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Sym}{Sym}
 
 
 
@@ -107,11 +112,14 @@
 	
 	\tableofcontents
 	
-	\section{Introduction}
 	
-	\subsection{Purpose}
 	
-	\section{Probability Framework}
+	
+	
+	
+	
+	\newpage
+	\section{Basic Probability}
 	
 	\section{Probability}
 	\subsection{Distributions}
@@ -656,6 +664,98 @@
 	
 	
 	
+
+
+
+
+
+
+
+
+	\newpage	
+	\section{Probability on locally compact Groups}
+	
+	\begin{note}
+	In this section, familiarity with Haar measure will be assumed. This section is intended as a continuation of section $7$ of \cite{measure}.
+	\end{note}
+	
+	
+	\subsection{Action on Probability Measures}
+	
+	\begin{note}
+	Please see section $7.1$ of \cite{measure} for necessary background. 
+	\end{note}
+
+	\begin{ex}
+	Let $G$ be a locally compact group, $\mu$ a left Haar measure on $G$ and $P \in \MP(G)$. If $P \ll \mu$, then ${l_g}_*P \ll \mu$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $P \ll \mu$. Let $A \in \MB(G)$. Then
+	\begin{align*}
+	\mu(A) = 0 
+	&\implies \mu(g^{-1}A) = 0 \\
+	&\implies P(g^{-1}A) = 0 \\
+	&\implies P(l_{g^{-1}}(A)) = 0 \\
+	&\implies P(l_{g}^{-1}(A)) = 0 \\
+	&\implies {l_g}_*P(A) = 0 \\
+	\end{align*}
+	So ${l_g}_*P \ll \mu$.
+	\end{proof}
+
+	\begin{defn}
+	Let $G$ be a locally compact group and $\mu$ a left Haar measure on $G$. Define $\MP_{\mu} \subset \MP(G)$ by $$\MP_{\mu} = \{P \in \MP(G):P \ll \mu\}$$
+	We define an action $\phi:G \times X \rightarrow X$ by $$g \cdot P = {l_g}_*P$$ 
+	\end{defn}	
+	
+	\begin{ex}
+	Let $G$ be a locally compact group, $\mu$ a left Haar measure on $G$, $P \in \MP_{\mu}$ and $g \in G$. Then $f_{g \cdot P} = L_gf_P$ $\mu$-a.e. 
+	\end{ex}
+	
+	\begin{proof}
+	Set $f = \frac{d P}{d\mu}$. Let $A \in \MB(X)$. Then 
+	\begin{align*}
+	\int_A L_g f d\mu
+	&= \int_A f \circ l_{g}^{-1} \,d\mu \\
+	&= \int_A f \circ l_g^{-1} \, d\mu \\
+	&= \int_{l_g^{-1}(A)} f \, d ({l_g^{-1}}_* \mu) \\
+	&= \int_{l_g^{-1}(A)} f \, d ({l_{g^{-1}}}_* \mu) \\
+	&= \int_{l_g^{-1}(A)} f \, d \mu \\
+	&= P(l_g^{-1}(A)) \\
+	&= {l_g}_*P(A) \\
+	&= g \cdot P(A)
+	\end{align*}
+	Since $A$ is arbitrary, uniqueness implies that 
+	$$ \frac{d (g \cdot P)}{d\mu} =  L_g \frac{d P}{d\mu}$$
+	\end{proof}
+	
+	\begin{note}
+	The next exercise generalizes the notion of a scale-family.
+	\end{note}
+	
+	\begin{ex}
+	Let $(\Om, \MF, P)$ be a probability space, $G$ a locally compact group, $\mu$ a left Haar measure on $G$, $X \in L^0_G$ and $g \in G$. If $P_X \ll \mu$, then $f_{gX} = L_g f_X$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $P_X \ll \mu$. Let $A \in \MB(G)$. Then 
+	\begin{align*}
+	P_{gX}(A) 
+	&= P(gX \in A) \\
+	&= P(X \in g^{-1}A) \\
+	&= P_X(g^{-1}A) \\
+	&= P_X(l_g^{-1}(A)) \\
+	&= {l_g}_*P_X(A) \\
+	&= g \cdot P_X(A)
+	\end{align*}
+	The previous exercise tells us that $f_{gX} = L_g f_X$.
+	\end{proof}
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -920,5 +1020,28 @@
 	Then $B$ is said to be a \textbf{stochastic premeasure with sturcture $\mu_0$}
 	
 	\end{defn}
+	
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	\newpage
+	\begin{thebibliography}{4}
+\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
+	
+\bibitem{groups} \href{https://github.com/carsonaj/Mathematics/tree/master/Introduction\%20to\%20Group\%20Theory}{Introduction to Group Theory}
+
+\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
+
+
+\end{thebibliography}
+	
 	
 \end{document}
