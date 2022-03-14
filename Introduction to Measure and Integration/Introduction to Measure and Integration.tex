@@ -73,6 +73,12 @@
 \newcommand{\MM}{\mathcal{M}}
 \newcommand{\MI}{\mathcal{I}}
 
+\newcommand{\dm}{\, d m}
+\newcommand{\dmu}{\, d \mu}
+\newcommand{\dnu}{\, d \nu}
+\newcommand{\dlam}{\, d \lambda}
+
+
 \newcommand{\io}{\text{ i.o.}}
 \newcommand{\ev}{\text{ ev.}}
 \renewcommand{\r}{\rangle}
@@ -1211,17 +1217,32 @@
 		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is said to be $\MA$-$\MB$ \textbf{measurable} if for each $B \in \MB$, $f^{-1}(B) \in \MA$. When $(Y, \MB) = (\R, \MB(\R))$ we say that $f$ is $\MA$-\textbf{measurbale}. If $(Y,\MB) = (\R, \MB(\R))$ and $(X,\MA) = (\R, \MB(\R))$ or $(\R, \ML)$, then we say that $f$ is \textbf{Borel measurable} or \textbf{Lebsgue measurbale} respectively.
 	\end{defn}
 	
+	\begin{defn}
+	Let $(X, \MA)$ and $(Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. We define the 
+	\begin{enumerate}
+	\item \textbf{push-forward of $\MA$}, denoted $f_*\MA$, by 
+	$$f_*\MA = \{B \subset Y: f^{-1}(B) \in \MA\}$$ 
+	\item  \textbf{pull-back of $\MB$}, denoted $f^*\MB$, by  
+	$$f^*\MB = \{f^{-1}(B):  B \in \MB \}$$
+	\end{enumerate}
+	\end{defn}
+	
 	\begin{ex} \lex{00000} 
 		Let $(X,\MA), (Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. Then 
 		\begin{enumerate}
-			\item $\{B \subset Y: f^{-1}(B) \in \MA\}$ is a $\sig$-algebra on $Y$
-			\item $\{f^{-1}(B): B \in \MB\}$ is a $\sig$-algebra on $X$
+			\item $f_*\MA$ is a $\sig$-algebra on $Y$
+			\item $f^*\MB$ is a $\sig$-algebra on $X$
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Define $\ML = \{B \subset Y: f^{-1}(B) \in \MA\}$.  Clearly $Y \in \ML$. Let $B \in \ML$. Then $f^{-1}(B) \in \MA$. Hence $$f^{-1}(B^c) = (f^{-1}(B))^c \in \MA$$ Thus $B^c \in \ML$. Now, let $(B_n)_{n \in \N} \subset \ML$. Then for each $n \in \N$, $f^{-1}(B_n) \in \MA$. Thus $$f^{-1}\bigg(\bigcup_{n \in \N} B_n \bigg) = \bigcup_{n \in \N} f^{-1}(B_n) \in \MA$$ Hence $\bigcup\limits_{n \in \N} B_n \in \ML$.
+			\item 
+			\begin{itemize}
+			\item Since $f^{-1}(Y) = X \in \MA$, $Y \in f_*\MA$ and $f_*\MA \neq \varnothing$. 
+			\item Let $B \in f_*\MA$. Then $f^{-1}(B) \in \MA$. Hence $$f^{-1}(B^c) = (f^{-1}(B))^c \in \MA$$ Thus $B^c \in f_*\MA$. 
+			\item Now, let $(B_n)_{n \in \N} \subset f_*\MA$. Then for each $n \in \N$, $f^{-1}(B_n) \in \MA$. Thus $$f^{-1}\bigg(\bigcup_{n \in \N} B_n \bigg) = \bigcup_{n \in \N} f^{-1}(B_n) \in \MA$$ Hence $\bigcup\limits_{n \in \N} B_n \in f_*\MA$.
+			\end{itemize}
 			\item Similar to (1).
 		\end{enumerate}
 	\end{proof}
@@ -1231,7 +1252,7 @@
 	\end{ex}
 	
 	\begin{proof}
-		By definition, if $f$ is $\MA$-$\MB$ measurable, then for each $B \in \ME$, $f^{-1}(B) \in \MA$. Conversely, suppose that for each $B \in \ME$, $f^{-1}(B) \in \MA$. The previous lemma tells us that $\ML = \{B \subset Y: f^{-1}(B) \in \MA\}$ is a $\sig$-algebra on $Y$. Since $\ME \subset \ML$, we have that $\MB = \sig(\ME) \subset \ML$. So $f$ is $\MA$-$\MB$ measurable.
+		By definition, if $f$ is $\MA$-$\MB$ measurable, then for each $B \in \ME$, $f^{-1}(B) \in \MA$. Conversely, suppose that for each $B \in \ME$, $f^{-1}(B) \in \MA$. The previous exercise tells us that $f_*\MA$ is a $\sig$-algebra on $Y$. Since $\ME \subset f_*\MA$, we have that $\MB = \sig(\ME) \subset f_*\MA$. So $f$ is $\MA$-$\MB$ measurable.
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
@@ -2456,11 +2477,11 @@
 	
 	
 	\newpage
-	\section{Differentiation}
+	\section{Signed and Complex Measures}
 	
 	\subsection{Signed Measures}
 	
-	\begin{defn} \ld{00000} 
+	\begin{defn} \ld{41001} 
 		Let $(X, \MA)$ be a measurable space and $\nu : \MA \rightarrow [-\infty, \infty]$. Then $\nu$ is said to be a \textbf{signed measure} if 
 		\begin{enumerate}
 			\item for each $E \in \MA$, $\nu(E) < \infty$ or for each $E \in \MA$, $\nu(E) > -\infty$.
@@ -2469,7 +2490,7 @@
 		\end{enumerate}
 	\end{defn}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{41002} 
 		Let $\nu: \MA \rightarrow \RG$ be a signed measure and $(E_n)_{n \in \N}$, $(F_n)_{n \in \N} \subset \MA$. If $(E_n)_{n \in \N}$ is increasing, then $\nu(\bigcup\limits_{n \in \N} E_n) = \limn \nu(E_n)$. If $(F_n)_{n \in \N}$ is decreasing and $|\nu(E_1)| < \infty$, then $\nu(\bigcap\limits_{n \in \N} F_n) = \limn \nu(F_n)$. 
 	\end{ex}
 	
@@ -2496,11 +2517,11 @@
 		Since $|\nu(F_1)| < \infty$, we see that $\nu(\bigcap\limits_{n \in \N} F_n) = \limn \nu(F_n)$.
 	\end{proof}
 	
-	\begin{defn} \ld{00000} 
+	\begin{defn} \ld{41003} 
 		Let $(X, \MA)$ be a measurable space and $\nu: \MA \rightarrow [-\infty, \infty]$ a signed measure and $E \in \MA$. Then $E$ is said to be $\nu$-\textbf{positive}, $\nu$-\textbf{negative} and $\nu$-\textbf{null} if for each $F \in \MA$, $F \subset E$ implies that $\nu(F) \geq 0$, $\nu(F) \leq 0$, $\nu(F) = 0$ respectively.
 	\end{defn}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{41004} 
 		Let $E \subset \MA$. If $E$ is positive, negative or null, then for each $F \in \MA$, if $F \subset E$, then $F$ is positive, negative or null respectively.
 	\end{ex}
 	
@@ -2508,7 +2529,7 @@
 		Clear
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{41005} 
 		Let $(E_n)_{n \in \N} \subset \MA$ be positive, negative or null. Then $\bigcup\limits_{n \in \N} E_n$ is positive, negative or null respectively. 
 	\end{ex}
 	
@@ -2529,11 +2550,11 @@
 		Let $\nu$ be a signed measure on $(X, \MA)$. Then there exist $P,N \in \MA$ such that $P$ is positive, $N$ is negative, $X = N \cup P$ and $N \cap P = \varnothing$. Furthermore, these two sets are unique in the following sense: For any $P',N' \in \MA$, if $N,P$ satisfy the properties above, $P' \Delta P = N' \Delta N$ is $\nu$-null.
 	\end{thm}
 	
-	\begin{defn} \ld{00000} 
+	\begin{defn} \ld{41006} 
 		Let $\nu$ be a signed measure on $(X, \MA)$ and $P,N \in \MA$. Then $P$ and $N$ are said to form a \textbf{Hahn decomposition} of $X$ with respect to $\nu$ if $P,N$ satisfy the results in the above theorem.
 	\end{defn}
 	
-	\begin{defn} \ld{00000} 
+	\begin{defn} \ld{41007} 
 		Let $\mu, \nu$ be signed measures on $(X, \MA)$. Then $\mu$ and $\nu$ are said to be \textbf{mutually singular} if there exist $E, F \in \MA$ such that $X = E \cup F$, $E \cap F = \varnothing$ and $E$ is $\mu$-null and $F$ is $\nu$-null. We will denote this by $\mu \perp \nu$.
 	\end{defn}
 	
@@ -2545,15 +2566,15 @@
 		Choose a Hahn decomposition $P,N$ of $X$ with respect to $\nu$. Define $\nu^+, \nu^-$ by $\nu^+(E)= \nu(E \cap P)$ and $\nu^-(E) = \nu(E \cap N)$.
 	\end{proof}
 	
-	\begin{defn} \ld{00000} 
-		Let $\nu$ be a signed measure on $(X, \MA)$. Then $\nu^+$ and $\nu^-$ from the last theorem are called the \textbf{positive} and \textbf{negative variations} of $\nu$ respectively. We define the \textbf{total variation} measure $|\nu|$ on $(X, \MA)$ by $|\nu| = \nu^+ + \nu^-$. 
+	\begin{defn} \ld{41008} 
+		Let $\nu$ be a signed measure on $(X, \MA)$. Then $\nu^+$ and $\nu^-$ from the last theorem are called the \textbf{positive} and \textbf{negative variations} of $\nu$ respectively. We define the \textbf{total variation of $\nu$}, denoted $|\nu|:\MA \rightarrow [0, \infty]$ by $$|\nu| = \nu^+ + \nu^-$$ 
 	\end{defn}
 	
-	\begin{defn} \ld{00000} 
+	\begin{defn} \ld{41009} 
 		Let $\nu$ be a signed measure on $(X,\MA)$. Then $\nu$ is said to be $\sig$-finite if $|\nu|$ is $\sig$-finite.
 	\end{defn}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{41010} 
 		Let $\nu$ be a signed measure and $\lam, \mu$ positive measures on $(X,\MA)$. Suppose that $\nu = \lam - \mu$. Then $\lam \geq \nu^+$ and $\mu \geq \nu^-$.
 	\end{ex}
 	
@@ -2575,7 +2596,7 @@
 		Similarly $\mu(E \cap N) \geq \nu^-(E \cap N)$ and $\mu(E) \geq \nu^-(E)$.
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{41011} 
 		Let $\nu_1, \nu_2$ be signed measures on $(X, \MA)$. Suppose that $\nu_1 + \nu_2$ is a signed measure. Then $|\nu_1 + \nu_2| \leq |\nu_1|+ |\nu_2|$. (Hint: use the last exercise)
 	\end{ex}
 	
@@ -2600,11 +2621,11 @@
 		Recall that a previous exercise from the section on complex valued functions tells us that $L^1(|\nu|) = L^1(\nu^+) \cap L^1(\nu^-)$.
 	\end{note}
 	
-	\begin{defn} \ld{00000} 
+	\begin{defn} \ld{41012} 
 		Let $\nu$ be a signed measure on $(X, \MA)$. Then we define $L^1(\nu) = L^1(|\nu|)$. For $f \in L^1(\nu)$, we define $$\int f d \nu = \int f d \nu^+ - \int f d\nu^-$$
 	\end{defn}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{41013} 
 		Let $\nu_1, \nu_2$ be signed measures on $(X, \MA)$. Suppose that $\nu_1 + \nu_2$ is a signed measure. Then 
 		$L^1(\nu_1)\cap L^1(\nu_2) \subset L^1(\nu_1 + \nu_2)$
 	\end{ex}
@@ -2618,7 +2639,7 @@
 		\end{align*}
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{41014} 
 		Let $\nu, \mu$ be signed measures on $(X,\MA)$ and $E \in \MA$. Then 
 		\begin{enumerate}
 			\item $E$ is $\nu$-null iff $|\nu|(E) = 0$
@@ -2635,11 +2656,11 @@
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{41015} 
 		Let $\nu$ be a signed measure on $(X, \MA)$. Then 
 		\begin{enumerate}
 			\item for $f \in L^1(\nu)$, $|\int f d \nu| \leq \int |f| d |\nu|$
-			\item if $\nu$ is finite, then for each $E \in \MA$, $|\nu|(E) = \sup \{|\int_E f d \nu |: f  \text{ is measurable and } |f| \leq 1 \}$
+			\item if $\nu$ is finite, then for each $E \in \MA$, $$|\nu|(E) = \sup \bigg\{\bigg|\int_E f d \nu \bigg|: f  \text{ is measurable and } |f| \leq 1 \bigg \}$$
 		\end{enumerate}
 	\end{ex}
 	
@@ -2674,7 +2695,7 @@
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{41016} 
 		Let $\mu$ be a positive measure on $(X, \MA)$ and $f \in L^0(X, \MA)$ extended $\mu$-integrable. Define $\nu$ on $(X, \MA)$ by $$\nu(E) = \int_E f d \mu$$ Then
 		\begin{enumerate}
 			\item $\nu$ is a signed measure
@@ -2714,26 +2735,11 @@
 			\end{align*}
 			So the sum $\sum_{n \in \N} \nu(E_n)$ converges absolutely and $\nu$ is a signed measure. 
 			
-			\item Put $P = \{x \in X: f(x) \geq 0\}$ and $N = \{x \in X: f(x) < 0\}$. Then $P,N$ form a Hahn decomposition of $X$ with respect to $\nu$. Thus for $E \in \MA$, $$\nu^+(E) = \int_{E \cap P} f d \mu = \int_E f^+ d \mu$$ and $$\nu^-(E) = \int_{E \cap N} f d \mu = \int_E f^- d \mu$$. So for $E \in \MA$, $$|\nu|(E) = \int_E f^+ d\mu + \int_E f^- d\mu = \int_E |f| d\mu$$
+			\item Put $P = \{x \in X: f(x) \geq 0\}$ and $N = \{x \in X: f(x) < 0\}$. Then $P,N$ form a Hahn decomposition of $X$ with respect to $\nu$. Thus for $E \in \MA$, 
+			$$\nu^+(E) = \int_{E \cap P} f d \mu = \int_E f^+ d \mu$$ and $$\nu^-(E) = \int_{E \cap N} f d \mu = \int_E f^- d \mu$$
+			 So for $E \in \MA$, $$|\nu|(E) = \int_E f^+ d\mu + \int_E f^- d\mu = \int_E |f| d\mu$$
 		\end{enumerate}
 	\end{proof}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\subsection{The Lebesgue-Radon-Nikodym Theorem}
 	
 	\begin{defn} \ld{00000} 
 		Let $(X, \MA)$ be a measureable space, $\nu$ be a signed measure on $(X, \MA)$ and $\mu$ a measure on $(X,\MA)$. Then $\nu$ is said to be \textbf{absolutely continuous} with respect to $\mu$, denoted $\nu \ll \mu$, if for each $E \in \MA$, $\mu(E) = 0$ implies that $\nu(E) =0$. 
@@ -2830,7 +2836,7 @@
 	\newpage	
 	\subsection{Complex Measures}
 	
-	\begin{defn} \ld{00000} 
+	\begin{defn} \ld{43001} 
 		Let $(X, \MA)$ be a measurable space and $\nu:\MA \rightarrow \C$. Then $\nu$ is said to be a \textbf{complex measure} if 
 		\begin{enumerate}
 			\item $\nu (\varnothing) = 0$
@@ -2838,31 +2844,65 @@
 		\end{enumerate}
 	\end{defn}
 	
+	\begin{defn} \ld{43002} 
+	Let $(X, \MA)$ be a measurable space. We define $$\MM(X, \MA) = \{\mu:\MA \rightarrow \C: \mu \text{ is a complex measure}\}$$
+	When $X$ is a topological space, we write $\MM(X)$ in place of $\MM(X, \MB(X))$.
+	\end{defn}
+	
 	\begin{note}
 		We use the same definitions for mutual orthogonality and absolute continuity when discussing complex measures instead of signed measures.
 	\end{note}
 	
-	\begin{defn} \ld{00000} 
-		Let $(X,\MA)$ be a measurable space and $\nu = \nu_1 + i\nu_2$ a complex measure on $(X,\MA)$. We define $L^1(\nu) = L^1(\nu_1)\cap L^1(\nu_2)$. For $f \in L^1(\nu)$, we define $$\int f d\nu = \int fd\nu_1 + i \int f d \nu_2$$
+	\begin{defn} \ld{43003} 
+		Let $(X,\MA)$ be a measurable space and $\nu \in \MM(X, \MA)$ with $\nu = \nu_1 + i\nu_2$. We define $L^1(\nu) = L^1(\nu_1)\cap L^1(\nu_2)$. For $f \in L^1(\nu)$, we define $$\int f d\nu = \int fd\nu_1 + i \int f d \nu_2$$
 	\end{defn}
 	
-	\begin{thm}
-		Let $(X,\MA)$ be a measurable space, $\nu$ a complex measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X, \MA)$. Then there exists a  complex measure $\lambda$ on $(X, \MA)$ and $f \in L^1(\mu)$ such that $\lam \perp \mu$ and $d \nu = d \lam + f d\mu$ and such that for each complex measure $\lam '$ on $(X, \MA)$, $f' \in L^1(\mu)$, if $\nu = d \lam '+ f'd \mu$, then $\lam = \lam '$ and $f = f'$  $\mu$-a.e.
+	\begin{thm}\textbf{Lebesgue-Radon-Nikodym Theorem:}\\
+		Let $(X,\MA)$ be a measurable space, $\nu \in \MM(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X, \MA)$. Then there exists unique $\lam$, $\rho \in \MM(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists $f \in L^1(\mu)$ such that $d\rho = f d \mu$ and $f$ is unique $\mu$-a.e.  
 	\end{thm}
 	
-	\begin{thm}
-		Let $\nu$ be a complex measure on $(X, \MA)$ and $\mu$, $\lam$ $\sig$-finite measures on $(X,\MA)$. Suppose that $\nu \ll \mu$ and $\mu \ll \lam$. Then 
+	\begin{ex} \lex{43003.2}
+		Let $\nu \in \MM(X, \MA)$ and $\mu$, $\lam$ $\sig$-finite measures on $(X,\MA)$. Suppose that $\nu \ll \mu$ and $\mu \ll \lam$. Then 
 		\begin{enumerate}
 			\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and $$\int g d\nu = \int g \frac{d\nu}{d\mu} d\mu$$
 			\item $\nu \ll \lam$ and $$\frac{d \nu}{d\lam} = \frac{d \nu}{d\mu} \frac{d\mu}{d\lam} \hspace{4mm} \lam \text{-a.e.}$$
 		\end{enumerate}
-	\end{thm}
+	\end{ex}
 	
-	\begin{defn} \ld{00000} Let $(X,\MA)$ be a measurable space and $\nu = \nu_1 + i \nu_2$ a complex measure on $(X, \MA)$. Define $\mu = |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$ and thus there exists $f \in L^1(\mu)$ such that $d\nu = f d\mu$. Define $|\nu|: \MA \rightarrow \Rg$ by $|\nu|(E) = \int_E |f|d\mu$ for each $E \in \MA$. We call $|\nu|$ the \textbf{total variation of $\nu$}. 
+	\begin{defn} \ld{43004} 
+	Let $(X,\MA)$ be a measurable space and $\nu \in \MM(X,\MA)$ with $ \nu = \nu_1 + i \nu_2$. Define $\mu = |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$ and thus there exists $f \in L^1(\mu)$ such that $d\nu = f d\mu$. We define the \textbf{total variation of $\nu$}, denoted $|\nu|: \MA \rightarrow \Rg$, by $$|\nu|(E) = \int_E |f|d\mu$$ 
 	\end{defn}
 	
-	\begin{ex} \lex{00000} 
-		Let $\nu$ be a complex measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measures on $(X,\MA)$. If $\nu \ll \mu$, then $\{x \in X: d\nu / d \mu(x) = 0 \}$ is $\nu$-null.
+	\begin{ex} \lex{43004.5} 
+	Let $(X,\MA)$ be a measurable space, $\nu \in \MM(X,\MA)$ and $\lam$ a $\sig$-finite measure on $(X, \MA)$. Suppose that $\nu \ll \lam$. Set $g = d\nu / d\lam$. Then for each $E \in \MA$, $$|\nu|(E) = \int_E |g| d\lam$$
+	\end{ex}
+	
+	\begin{proof}
+	Write $\nu = \nu_1 + i \nu_2$. Then $\nu_1, \nu_2 \ll \lam$. Set $f_1 = d\nu_1 / d\lam$ and $f_2 = d\nu_2 / d\lam$. Then \rex{41016} implies that $d|\nu_1| = |f_1|d\lam$ and $d|\nu_2| = |f_2|d\lam$. Set $\mu = |\nu_1| + |\nu_2|$ and $f = d\nu / d\mu$ as in \rd{43004}. Then by construction, 
+	\begin{align*}
+	d\mu
+	&= d|\nu_1| + d|\nu_2| \\
+	&= |f_1|d\lam + |f_2|d\lam \\
+	&= (|f_1| + |f_2|) d\lam
+	\end{align*}
+	So that $\mu \ll \lam$ with $d\mu / d \lam = |f_1| + |f_2|$. Then \rex{43003.2} implies that $\nu \ll \lam$ with 
+	\begin{align*}
+	\frac{d\nu}{d\lam} 
+	&= \frac{d\nu}{d\mu} \frac{d\mu}{d\lam}\\
+	&= f(|f_1|+|f_2|) \\
+	&= g
+	\end{align*}
+	and for each $E \in \MA$, 
+	\begin{align*}
+	|\nu|(E) 
+	&= \int_E |f| d \, \mu \\
+	&= \int_E |f| (|f_1| + |f_2|) \, d\lam \\
+	&= \int_E|g| \, d\lam 
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex} \lex{43005} 
+		Let $\nu \in \MM(X, \MA)$ and $\mu$ a $\sig$-finite measures on $(X,\MA)$. If $\nu \ll \mu$, then $\{x \in X: d\nu / d \mu(x) = 0 \}$ is $\nu$-null.
 	\end{ex}
 	
 	\begin{proof}
@@ -2874,8 +2914,8 @@
 		\end{align*} 
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
-		Let $(X, \MA)$ be a measurable space and $\nu = \nu_1 + i\nu_2$ a complex measure on $(X, \MA)$. Then $|\nu_1|, |\nu_2| \leq |\nu| \leq |\nu_1| + |\nu_2|$.
+	\begin{ex} \lex{43006} 
+		Let $(X, \MA)$ be a measurable space and $\nu \in \MM(X, \MA)$ with $\nu = \nu_1 + i\nu_2$. Then $|\nu_1|, |\nu_2| \leq |\nu| \leq |\nu_1| + |\nu_2|$.
 		
 	\end{ex}
 	
@@ -2899,8 +2939,8 @@
 		\end{align*}
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
-		Let  $(X, \MA)$ be a measurable space, $\nu$ a complex measure on $(X, \MA)$ and $c \in \C$. Then $\vert c \nu \vert = \vert c \vert \vert \nu \vert$.
+	\begin{ex} \lex{43007} 
+		Let  $(X, \MA)$ be a measurable space, $\nu \in \MM(X, \MA)$ and $c \in \C$. Then $\vert c \nu \vert = \vert c \vert \vert \nu \vert$.
 	\end{ex}
 	
 	\begin{proof}
@@ -2914,21 +2954,17 @@
 		So $\vert c \nu \vert = \vert c \vert \vert  \nu \vert$.
 	\end{proof}
 
-	\begin{defn} \ld{00000} 
-	Let $(X, \MA)$ be a measurable space. Define $$M(X, \MA) = \{\mu:\MA \rightarrow \C: \mu \text{ is a complex measure}\}$$
-	\end{defn}
-
-	\begin{ex} \lex{00000} 
-	Define $\|\cdot \|: M(X, \MA) \rightarrow \Rg$ by $$\|\mu \|= \vert \mu \vert (X)$$ 
-	Then $\|\cdot \|$ is a norm on $M(X, \MA)$. 
+	\begin{ex} \lex{43008} 
+	Define $\|\cdot \|: \MM(X, \MA) \rightarrow \Rg$ by $$\|\mu \|= \vert \mu \vert (X)$$ 
+	Then $\|\cdot \|$ is a norm on $\MM(X, \MA)$. 
 	\end{ex}
 	
 	\begin{proof}
-		Let $\mu, \nu \in M(X, \MA)$ and $\al \in \C$. The previous exercises tell us that $\vert \mu + \nu \vert \leq \vert \mu \vert + \vert \nu \vert$ and $\vert \al \mu \vert = \vert \al \vert \vert \mu \vert$. So clearly $\|\mu + \nu \|\leq \|\mu \|+ \|\nu \|$ and $\|c \mu \|= \vert c \vert \|\mu \|$. If $\|\mu \|= 0$, then $X$ is $\mu$-null and $\mu$ is the zero measure.
+		Let $\mu, \nu \in \MM(X, \MA)$ and $\al \in \C$. The previous exercises tell us that $\vert \mu + \nu \vert \leq \vert \mu \vert + \vert \nu \vert$ and $\vert \al \mu \vert = \vert \al \vert \vert \mu \vert$. So clearly $\|\mu + \nu \|\leq \|\mu \|+ \|\nu \|$ and $\|c \mu \|= \vert c \vert \|\mu \|$. If $\|\mu \|= 0$, then $X$ is $\mu$-null and $\mu$ is the zero measure.
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
-		Let $(X, \MA)$ be a measurable space and $\nu \in M(X, \MA)$. Then 
+	\begin{ex} \lex{43009} 
+		Let $(X, \MA)$ be a measurable space and $\nu \in \MM(X, \MA)$. Then 
 		
 		\begin{enumerate}
 			\item for each $E \in \MA$, $|\nu(E)| \leq |\nu|(E)$. 
@@ -2958,7 +2994,6 @@
 			Hence $|f| = |g||f|$ $\mu$-a.e. Since $|\nu| \ll \mu$, $|f| = |g||f|$ $|\nu|$-a.e.
 			
 			A previous exercise tells us that $|f| \neq 0$ $|\nu|$-a.e. Thus $|g|=1$ $|\nu|$-a.e.\\
-			
 			\item Write $\nu = \nu_1 + i\nu_2$ and $f = f_1 + if_2$. First we observe that
 			\begin{align*}
 				L^1(\nu)
@@ -2967,7 +3002,6 @@
 				&= L^1(|\nu_1| + |\nu_2|)\\
 				&= L^1(\mu)
 			\end{align*}
-			
 			The previous exercise tells us that 
 			\begin{align*}
 				|\nu_1|, |\nu_2| 
@@ -2975,7 +3009,6 @@
 				&\leq |\nu_1|+ |\nu_2| \\
 				&= \mu
 			\end{align*}
-			
 			Let $g \in L^1(\mu)$. Then 
 			\begin{align*}
 				\int |g| d |\nu| 
@@ -2983,23 +3016,19 @@
 				&< \infty
 			\end{align*}
 			So $g \in L^1(|\nu|)$.
-			
 			Conversely, let $g \in L^1(|\nu|)$. Then 
 			\begin{align*}
 				\int |g| d|\nu_1|, \int |g| d |\nu_2| 
 				& \leq \int |g|d |\nu|\\
 				& < \infty
 			\end{align*}
-			
 			So 
 			\begin{align*}
 				\int |g| d\mu
 				& =\int |g| d|\nu_1| + \int |g| d |\nu_2| \\
 				& < \infty
 			\end{align*}
-			
 			and $g \in L^1(\mu)$. Hence $L^1(\nu) = L^1(|\nu|)$. 
-			
 			Now, let $g \in L^1(\nu) = L^1(|\nu|)$, then 
 			\begin{align*}
 				\bigg| \int g d\nu \bigg| 
@@ -3012,8 +3041,8 @@
 	\end{proof}
 
 
-	\begin{ex} \lex{00000} 
-	Let $(X, \MA)$ be a measurable space, $\mu_1, \mu_2 \in M(X, \MA)$ and $\lam \in \C$. Then for each $f \in L^1(\mu_1 + \lam \mu_2)$, $$\int f d(\mu_1 + \lam \mu_2) = \int f d \mu_1 + \lam \int f d\mu_2$$
+	\begin{ex} \lex{43010} 
+	Let $(X, \MA)$ be a measurable space, $\mu_1, \mu_2 \in \MM(X, \MA)$ and $\lam \in \C$. Then for each $f \in L^1(\mu_1 + \lam \mu_2)$, $$\int f d(\mu_1 + \lam \mu_2) = \int f d \mu_1 + \lam \int f d\mu_2$$
 	\end{ex}
 	
 	\begin{proof}
@@ -3026,7 +3055,53 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
+	\subsection{Weak Convergence of Measures}	
+	
+	\begin{defn}
+	Let $X$ be a topological space. For $f \in C_b(X)$, define $\lam_f: \MM(X) \rightarrow \C$ by $$\lam_f(\mu) = \int f \dmu$$.
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a topological space. For each $f \in C_b(X)$, $\lam_f \in \MM(X)^*$. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $f \in C_b(X)$ and $\mu \in \MM(X)$. Then 
+	\begin{align*}
+	|\lam_f(\mu)| 
+	&= \bigg | \int f \dmu \bigg| \\
+	&\leq \int |f| \, d |\mu| \\
+	& \leq \|f\|_u \|\mu\|
+	\end{align*}
+	
+	\rex{43010} implies that $lam_f$ is linear. So $\lam_f \in \MM(X)^*$.
+	\end{proof}
+	
+	\begin{defn}
+	Let $X$ be a topological space. We define the \textbf{weak topology on $\MM(X)$} to be the weak topology generated by $\{\lam_f \in \MM(X)^*: f \in C_b(X) \}$. 
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Applications to Differentiation}
 	\subsection{Differentiation on $\R^n$}
 	
 	\begin{defn} \ld{00000} 
@@ -3077,7 +3152,7 @@
 	\end{ex}
 	
 	\begin{proof}
-		Since $||f||_1 >0$, there exists $R>0$ such that $\int_{B(0,R)}|f|dm >0$. Recall that there exists $K>0$ such that for each $x \in R^n$ and $r>0$, $m(B(x,r)) = Kr^n$ Choose $$C = \frac{\int_{B(0,R)}|f|dm}{K2^n}$$. Let $x \in \R^n$. Suppose that $|x|>R$. Then $B(0,R) \subset B(x,2|x|)$. Thus 
+		Since $||f||_1 >0$, there exists $R>0$ such that $\int_{B(0,R)}|f|dm >0$. Recall that there exists $K>0$ such that for each $x \in R^n$ and $r>0$, $m(B(x,r)) = Kr^n$. Choose $$C = \frac{1}{K2^n}\int_{B(0,R)}|f| \, dm$$. Let $x \in \R^n$. Suppose that $|x|>R$. Then $B(0,R) \subset B(x,2|x|)$. Thus 
 		\begin{align*}
 			Hf(x) 
 			&\geq \frac{1}{m(B(x,2|x|))}\int_{B(x,2|x|)}|f|dm\\
@@ -3106,7 +3181,8 @@
 	\end{proof}
 	
 	\begin{thm}
-		Let $f \in \Ll$, then for a.e. $x \in \R^n$, $$\lim_{r \rightarrow 0} Af(x,r) =f(x)$$. Equivalently, for a.e. $x \in \R^n$, $$ \lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}[f(y)-f(x)]dm(y)\bigg] =0$$
+		Let $f \in \Ll$, then for a.e. $x \in \R^n$, $$\lim_{r \rightarrow 0} Af(x,r) =f(x)$$ 
+		Equivalently, for a.e. $x \in \R^n$, $$ \lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}[f(y)-f(x)]dm(y)\bigg] =0$$
 	\end{thm}
 	
 	\begin{note}
@@ -3646,6 +3722,16 @@
 	
 	
 	
+	\newpage
+	\subsection{Weak Differentiation}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -4023,7 +4109,7 @@ and $\mu$ is inner regular on $E$.
 	Then 
 	\begin{enumerate}
 	\item for each $U \subset X$, $U$ is open implies that $$\mu(U) = \sup \{I(f): f \in C_c(X) \text{ and } f \prec U \}$$ 
-	\item $\mu$ is unique
+	\item $\mu$ is the unique Radon measure such that for each $f \in C_c(X)$, $$I(f) = \int f d \, \mu$$
 \end{enumerate}	 
 	\end{ex}
 	
@@ -4048,14 +4134,14 @@ and $\mu$ is inner regular on $E$.
 	& \leq \sup \{I(f): f \in C_c(X) \text{ and } f \prec U \} \\
 	&\leq \mu(U)
 	\end{align*}
-	\item Let $\nu: \MB(X) \rightarrow \RG$ be a Radon measure. Suppose that for each $f \in C_c(X)$, $$I(f) = \int f d\mu$$
+	\item Let $\nu: \MB(X) \rightarrow \RG$ be a Radon measure. Suppose that for each $f \in C_c(X)$, $$I(f) = \int f d\nu$$
 	Part $(1)$ implies that for each $U \subset X$, if $U$ is open, then 
 	\begin{align*}
-	\nu(E) 
+	\nu(U) 
 	&= \sup \{I(f): f \in C_c(X) \text{ and } f \prec U \} \\
-	&= \mu(E)
+	&= \mu(U)
 \end{align*}		
-	Inner regularity implies that for each $E \in \MB(X)$, 
+	Outer regularity implies that for each $E \in \MB(X)$, 
 	\begin{align*}
 	\nu(E) 
 	&= \inf \{\nu(U): E \subset U \text{ and $U$ is open}\} \\
@@ -4076,19 +4162,19 @@ and $\mu$ is inner regular on $E$.
 	\end{thm}
 	
 	\begin{note}
-	Let $X$ be a topological space. Recall from section $(4.3)$ that we define $$M(X) = \{\mu:\MB(X) \rightarrow \C: \mu \text{ is a complex measure}\}$$ and that $\mu \mapsto |\mu|(X)$ is a norm on $M(X)$. 
+	Let $X$ be a topological space. Recall from section $(4.3)$ that we define $$\MM(X) = \{\mu:\MB(X) \rightarrow \C: \mu \text{ is a complex measure}\}$$ and that $\mu \mapsto |\mu|(X)$ is a norm on $\MM(X)$. 
 	\end{note}		
 	
 	\begin{defn} \ld{00000} 
-	Let $X$ be a topological space. For $\mu \in M(X)$, define $I_{\mu} :C_0(X) \rightarrow \C$ by $$I_{\mu} (f) = \int f d\mu$$.
+	Let $X$ be a topological space. For $\mu \in \MM(X)$, define $I_{\mu} :C_0(X) \rightarrow \C$ by $$I_{\mu} (f) = \int f d\mu$$.
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
-	Let $X$ be a topological space. For each $\mu \in M(X)$, $I_\mu \in C_0(X)^*$.
+	Let $X$ be a topological space. For each $\mu \in \MM(X)$, $I_\mu \in C_0(X)^*$.
 	\end{ex}
 	
 	\begin{proof}
-	Let $\mu \in M(X)$ and $f \in C_0(X)$. An exercise in section $(4.3)$ implies that 
+	Let $\mu \in \MM(X)$ and $f \in C_0(X)$. An exercise in section $(4.3)$ implies that 
 	\begin{align*}
 	|I_{\mu}(f)| 
 	&= \bigg| \int f d\mu \bigg| \\
@@ -4103,7 +4189,7 @@ and $\mu$ is inner regular on $E$.
 	\end{thm}
 	
 	\begin{ex} \lex{00000} 
-	Let $X$ be a LCH space. Then the map $ \phi: M(X) \rightarrow C_0(X)^*$ given by $\phi(\mu) = I_{\mu}$ is a linear surjection.
+	Let $X$ be a LCH space. Then the map $ \phi: \MM(X) \rightarrow C_0(X)^*$ given by $\phi(\mu) = I_{\mu}$ is a linear surjection.
 	\end{ex}
 	
 	\begin{proof}
@@ -4111,14 +4197,14 @@ and $\mu$ is inner regular on $E$.
 	\end{proof}
 	
 	\begin{thm}\textbf{Representation Theorem 2:}\\
-	Let $X$ be a LCH space. Then the map $\phi: M(X) \rightarrow C_0(X)^*$ given by $\phi(\mu) = I_{\mu}$ is an isometric isomorphism. 
+	Let $X$ be a LCH space. Then the map $\phi: \MM(X) \rightarrow C_0(X)^*$ given by $\phi(\mu) = I_{\mu}$ is an isometric linear isomorphism. 
 	\end{thm}
 	
 	
 	
 	
 	\begin{defn} \ld{00000} 
-	Let $X$ be a LCH space, $(\mu_n)_{n \in \N} \subset M(X)$ and $\mu \in M(X)$. Then $\mu_n$ is said to  \textbf{converge to $\mu$ in weak-*}, denoted $\mu_n \conv{w^*}\mu$, if $I_{\mu_n} \conv{w^*} I_{\mu}$, i.e. for each $f \in C_0(X)$, $$\int f d\mu_n \rightarrow \int f d\mu$$
+	Let $X$ be a LCH space, $(\mu_n)_{n \in \N} \subset \MM(X)$ and $\mu \in \MM(X)$. Then $\mu_n$ is said to  \textbf{converge to $\mu$ in weak-*}, denoted $\mu_n \conv{w^*}\mu$, if $I_{\mu_n} \conv{w^*} I_{\mu}$, i.e. for each $f \in C_0(X)$, $$\int f d\mu_n \rightarrow \int f d\mu$$
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
@@ -4679,6 +4765,76 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	
+	\subsection{Action on Measures}
+	\begin{ex}
+	Let $G$ be a locally compact group, $\mu$ a left Haar measure on $G$ and $\nu \in \MM(G)$. If $\nu \ll \mu$, then ${l_g}_*\nu \ll \mu$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $\nu \ll \mu$. Let $A \in \MB(G)$. Then
+	\begin{align*}
+	\mu(A) = 0 
+	&\implies \mu(g^{-1}A) = 0 \\
+	&\implies \nu(g^{-1}A) = 0 \\
+	&\implies \nu(l_{g^{-1}}(A)) = 0 \\
+	&\implies \nu(l_{g}^{-1}(A)) = 0 \\
+	&\implies {l_g}_*\nu(A) = 0 \\
+	\end{align*}
+	So ${l_g}_*\nu \ll \mu$.
+	\end{proof}
+
+	\begin{defn}
+	Let $G$ be a locally compact group and $\mu$ a left Haar measure on $G$. Define $\MM_{\mu} \subset \MM(G)$ by $$\MM_{\mu} = \{\nu \in \MM(G):\nu \ll \mu\}$$
+	We define an action $\phi:G \times \MM_{\mu} \rightarrow \MM_{\mu}$ by $$g \cdot \nu = {l_g}_*\nu$$ 
+	\end{defn}	
+	
+	\begin{ex}
+	Let $G$ be a locally compact group, $\mu$ a $\sig$-finite left Haar measure on $G$, $\nu \in \MM_{\mu}$ and $g \in G$. Then $$ \frac{d (g \cdot \nu)}{d\mu} =  L_g \frac{d \nu}{d\mu}$$
+	\end{ex}
+	
+	\begin{proof}
+	Set $f = d \nu/ d \mu$. Let $A \in \MB(X)$. Then 
+	\begin{align*}
+	\int_A L_g f d\mu
+	&= \int_A f \circ l_{g}^{-1} \,d\mu \\
+	&= \int_A f \circ l_g^{-1} \, d\mu \\
+	&= \int_{l_g^{-1}(A)} f \, d ({l_g^{-1}}_* \mu) \\
+	&= \int_{l_g^{-1}(A)} f \, d ({l_{g^{-1}}}_* \mu) \\
+	&= \int_{l_g^{-1}(A)} f \, d \mu \\
+	&= \nu(l_g^{-1}(A)) \\
+	&= {l_g}_*\nu(A) \\
+	&= g \cdot \nu(A)
+	\end{align*}
+	Since $A$ is arbitrary, uniqueness implies that 
+	$$ \frac{d (g \cdot \nu)}{d\mu} =  L_g \frac{d \nu}{d\mu}$$
+	\end{proof}
+	
+	\begin{ex}
+	Let $G$ be a locally compact group, $\mu$ a $\sig$-finite left Haar measure on $G$, $\nu \in \MM_{\mu}$ and $g \in G$. Then $\|g \cdot \nu\| = \|\nu\|$. 
+	\end{ex}
+	
+	\begin{proof}
+	\rex{43004.5} implies that
+	\begin{align*}
+	\|g \cdot \nu\| 
+	&= \int \bigg | \frac{d (g \cdot \nu)}{d\mu} \bigg | d\mu \\
+	&=  \int \bigg | L_g \frac{d \nu}{d\mu} \bigg | d\mu \\
+	&= \int L_g \bigg | \frac{d \nu}{d\mu} \bigg | d\mu \\
+	&= \int \bigg | \frac{d \nu}{d\mu} \bigg | d\mu \\
+	&= \|\nu\|
+	\end{align*}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	\newpage
 	\section{The Bochner Integral}
@@ -4921,11 +5077,12 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-	Let $(X, \MA, \mu)$ be a measure space, $Y$ a separable Banach space and $f \in L^1_Y$. Then $$\bigg \|\int f d\mu \bigg \| \leq \int \|f\| d\mu$$ That is, the Bochner integral $I: L^1_Y \rightarrow Y$ given by $$If = \int f d\mu$$ is a bounded linear map with $\|I\| \leq 1$.
+	Let $(X, \MA, \mu)$ be a measure space and $Y$ a separable Banach space. Define $I: L^1_Y \rightarrow Y$ by $$If = \int f d\mu$$
+	Then $I \in L(L^1_Y, Y)$ and $\|I\| \leq 1$.
 	\end{ex}
 	
 	\begin{proof}
-	Choose $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \conv{L^1_Y} f$. Then 
+	Let $f \in L^1_Y$. Choose $(\phi_n)_{n \in \N} \subset S_Y$ such that $\phi_n \conv{L^1_Y} f$. Then 
 	\begin{align*}
 	\bigg | \int \| \phi_n \| d \mu - \int \| f\| d\mu \bigg |
 	&= \bigg | \int \| \phi_n \| - \| f\| d\mu \bigg | \\
@@ -4936,13 +5093,16 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	So  $$ \int \| \phi_n \| d \mu \rightarrow  \int \| f \| d \mu$$
 	By continuity of $\|\cdot\|:Y \rightarrow \Rg$,
 	\begin{align*}
-	\bigg \| \int f d\mu \bigg \|
+	\|I f\|
+	& = \bigg \| \int f d\mu \bigg \| \\
 	&= \bigg \| \limn \int \phi_n d\mu \bigg \| \\
 	&= \limn  \bigg \| \int \phi_n d\mu \bigg \| \\
 	& \leq \limn \int \| \phi_n \| d \mu \\
-	&= \int \| f \| d\mu  
+	&= \int \| f \| d\mu  \\
+	&= \|f\|_1
 	\end{align*}
 	\end{proof}
+
 	
 	\begin{ex} \lex{00000} 
 	Let $Y$ be a separable Banach space and $f:[a,b] \rightarrow Y$ continuous. Then $f$ is Banach-integrable.
@@ -4963,7 +5123,21 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	\end{ex}
 	
 	\begin{proof}
-	Same as before
+	Since $f_n \convt{a.e.} f$, $\|f\| \leq g$ a.e. and $f \in L^1_Y$. Also, 
+	\begin{align*}
+	\|f_n - f\| 
+	&\leq \|f_n\| + \|f\| \\
+	& \leq 2g \text{ a.e.}
+	\end{align*}
+	Hence $2g - \|f_n - f\| \geq 0$ a.e.
+	Fatou's lemma implies that 
+	\begin{align*}
+	\int 2g \dmu 
+	&= \int \limfn(2g - \|f_n - f\|) \dmu \\
+	&\leq \limfn \bigg[ \int 2g - \|f_n - f\| \dmu \bigg] \\
+	&= \int 2g \dmu - \limpn \int \|f_n - f\| \dmu
+\end{align*}	 
+	Hence $$0 \leq \limpn \int \|f_n - f\| \dmu \leq 0$$  and $f_n \conv{L^1_Y} f$.
 	\end{proof}		
 	
 	\begin{ex} \lex{00000} 
@@ -4999,6 +5173,33 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	\end{align*}
 	\end{proof}
 	
+	\begin{note}
+	Recall that for a function $f:X \times Y \rightarrow Z$, $x \in X$ and $y \in Y$, the functions $f_x:Y \rightarrow Z$ and $f^y:X \rightarrow Z$ are defined by $f_x(y) = f(x,y)$ and $f^y(x) = f(x,y)$.
+	\end{note}
+	
+	\begin{ex} \lex{00000} 
+	Let $(X, \MA, \mu)$ be a measure space,  $Y$ a Banach space, $Z$ a separable Banach space, $A \subset Y$ open and $f:X \times A \rightarrow Z$. Suppose that for each $y \in A$, $f^y \in L^1_Z(\mu)$. Define $F: Y \rightarrow Z$ by 
+	$$F(y) = \int_X f^y \dmu $$ 
+	\begin{enumerate}
+	\item Suppose that there exists $g \in L^1(\mu)$ such that for each $(x, y) \in X \times A$, $\|f(x,y)\| \leq g(x)$. Let $y_0 \in A$. If for each $x \in X$, $f_x$ is continuous at $y_0$, then $F$ is continuous at $y_0$. 
+ 	\item Suppose that for each $x \in X$, $f_x:A \rightarrow Z$ is Gateaux differentiable and there exists $g \in L^1(\mu)$ such that for each $(x, y) \in X \times A$,$h \in Y$,  $| df_x(y)(h) | \leq g(x)$. Then $F$ is Gateaux differentiable and for each $y \in A$, $h \in Y$, $$dF(y)(h) = \int_X df_x(y)(h) \dmu(x)$$
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item Suppose that for each $x \in X$, $f_x$ is continuous at $y_0$. Let $(y_n) \subset A$. Suppose that $y_n \rightarrow y_0$. Then $f^{y_n} \convt{p.w.} f^{y_0}$. Since for each $n \in \N$, $|f^{y_n}| \leq g$, the dominated convergence theorem implies that $F(y_n) \rightarrow F(y_0)$.
+	\item Let $y_0 \in \R$. Choose $(y_n)_{n \in \N}$ such that $ y_n \rightarrow y_0$ and for each $n \in \N$, $y_n \neq y_0$. For $n \in \N$, define $h_n:X \rightarrow \R$ by $$h_n(x) = \frac{f(x,t_n) - f(x, t_0)}{t_n - t_0}$$ So $h_n(\cdot) \convt{p.w.} \p f / \p t (\cdot, t_0)$. The mean value theorem implies that for each $x \in X$ and $n \in \N$, there exists $c_{n,x} \in (t_n,t_0)$ such that $h_n(x) = \p f / \p t (x, c_{n,x})$. Then for each $n \in \N$, $|h_n| \leq g$. The dominated convergence theorem then implies that $\p f / \p t (\cdot, t_0) \in L^1(\mu)$ and 
+	\begin{align*}
+	\int \frac{\p f }{\p t} (x, t_0) d\mu(x) 
+	&=  \limn \int_X h_n d\mu  \\
+	&= \limn \frac{F(t_n) - F(t_0)}{t_n - t_0} \\
+	&= F'(t_0^-) 	
+	\end{align*}
+	So that $F$ is differentiable at $t_0$ from the left. Similarly, $F$ is differentiable at $t_0$ from the right. 
+	\end{enumerate}
+	\textbf{FINISH!!!}
+	\end{proof}
 	
 	
 	
