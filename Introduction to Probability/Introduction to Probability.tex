@@ -103,6 +103,12 @@
 \DeclareMathOperator{\Sym}{Sym}
 
 
+\newcommand{\dm}{\, d m}
+\newcommand{\dmu}{\, d \mu}
+\newcommand{\dnu}{\, d \nu}
+\newcommand{\dlam}{\, d \lambda}
+\newcommand{\dP}{\, d P}
+
 
 \begin{document}
 	
@@ -750,44 +756,10 @@
 	
 	\newpage
 	\section{Conditional Expectation and Probability}
+	
 	\subsection{Conditional Expectation}
 	
-	\begin{ex}
-	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $P_{\MG} = P|_{\MG}$ and $Q: \MG \rightarrow [0,\infty)$ by $Q(G) = \int_G X d P $. Then $Q$ is finite. and $Q \ll P_{\MG}$. 
-	\end{ex}	
-	
-	\begin{proof}
-	Since $X \in L^1$, for each $G \in \MG$, 
-	\begin{align*}
-	|Q(G)|
-	&= \bigg| \int_G X dP \bigg| \\
-	& \leq \int_G |X| dP \\
-	& < \infty
-	\end{align*}
-	So $Q$ is finite. Let $G \in \MG$. Suppose that $P_{\MG}(G) = 0$. By definition then, $P(G) = 0$. So $Q(G) = 0$ and $Q \ll P_{\MG}$.
-	\end{proof}
-	
-	\begin{defn}
-	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X, Y \in L^1(\Om, \MF, P)$. Then $Y $ is said to be a \textbf{conditional expectation of $X$ given $\MG$} if 
-	\begin{enumerate}
-	\item $Y$ is $\MG$-measurable
-	\item for each $G \in \MG$, 
-	$$\int_G Y dP = \int_G X dP$$ 
-	\end{enumerate}	 
-	To denote this, we write $Y = E[X|\MG]$
-	\end{defn}		
-	
-	\begin{ex}
-	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $Q$ and $P_{\MG}$ as in the previous exercise. Define $Y = dQ/dP_{\MG}$. Then $Y$ is a conditional expectation of $X$ given $\MG$.
-	\end{ex}
-	
-	\begin{proof}
-		By definition of the Radon-Nikodym derivative, $Y$ is $\MG$-measurable and by the Radon-Nikodym theorem, $X \in L^1(\Om, \MF, P)$ imples that $Y \in L^1(\Om, \MG, P_{\MG})$. An exercies in section $3.3$ of \cite{imi}, implies that for each $G \in \MG$ $$\int_G Y dP = \int_G X dP$$
-	\end{proof}	
-	
-	
-	
-	\begin{ex}\textbf{(Doob–Dynkin Lemma)} \\
+	\begin{ex}\textbf{Doob–Dynkin Lemma:} \\
 	Let $\Om$ be a nonempty set, $(\Om', \MF')$ a measurable space $X: \Om \rightarrow \Om'$ and $Z: \Om \rightarrow \R^n$. Suppose that $\Img X \in \MF'$. Then $Z$ is $\sig(X)$-$\MB(\R^n)$ measurable iff there exists $\phi:\Om' \rightarrow \R^n$ such that $\phi$ is $\MF'$-$\MB(\R^n)$ measurable and $Z = \phi \circ X$.
 	\end{ex}
 	
@@ -813,7 +785,45 @@
 	\end{align*}
 	Thus we may define $\phi:\Om' \rightarrow \R$ by $$\phi = \lim_{j \rightarrow \infty} \phi_j 1_{\Img X}$$
 	Then $\phi$ is measurable since $\Img X \in \MF'$ and $Z = \phi \circ X$. For $n \geq 1$, we may write $Z = (Z_1, \cdots, Z_n)$ where for each $i =1, \cdots, n$, $Z_i$ is $\sig(X)$-$\MB(\R)$ measurable and apply the result from above to obtain $ \phi = (\phi_1, \cdots, \phi_n)$ where for each $i =1, \cdots, n$, $\phi_i$ is $\MF'$-$\MB(\R)$ measurable and $Z_i = \phi_i \circ X$. Then $Z = \phi \circ X$.
-	\end{proof}		
+	\end{proof}			
+	
+	\begin{ex}
+	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $P_{\MG} = P|_{\MG}$ and $Q: \MG \rightarrow [0,\infty)$ by $Q(G) = \int_G X d P $. Then $Q \ll P_{\MG}$. 
+	\end{ex}	
+	
+	\begin{proof}
+	Let $G \in \MG$. Suppose that $P_{\MG}(G) = 0$. By definition, $P(G) = 0$. So $Q(G) = 0$ and $Q \ll P_{\MG}$.
+	\end{proof}
+	
+	\begin{defn} 
+	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X, Y \in L^1(\Om, \MF, P)$. Then $Y $ is said to be a \textbf{conditional expectation of $X$ given $\MG$} if 
+	\begin{enumerate}
+	\item $Y$ is $\MG$-measurable
+	\item for each $G \in \MG$, 
+	$$\int_G Y dP = \int_G X dP$$ 
+	\end{enumerate}	 
+	To denote this, we write $Y = E[X|\MG]$
+	\end{defn}		
+	
+	\begin{ex}\textbf{Existence of Conditional Expectation:}\\
+	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $Q$ and $P_{\MG}$ as in the previous exercise. Define $Y = dQ/dP_{\MG}$. Then $Y$ is a conditional expectation of $X$ given $\MG$.
+	\end{ex}
+	
+	\begin{proof}
+		The Radon-Nikodym theorem implies that $Y$ is $\MG$-measurable. Since $Q$ is finite, so is $|Q|$. Since $d|Q| = |Y|\dP$, we have that $Y \in L^1(\Om, \MG, P_{\MG})$. An exercise in section $3.3$ of \cite{measure}, implies that for each $G \in \MG$ 
+		\begin{align*}
+		\int_G Y \dP 
+		&= \int_G Y \dP_{\MG} \\
+		&= Q(G) \\
+		&= \int_G X \dP
+\end{align*}					
+	\end{proof}	
+	
+	\begin{ex}
+	Let $(\Om, \MF, P)$ be a probability space, $(S, \MS)$ a measurable space, $X \in L^1(\Om, \MF, P)$ and $\Theta \in L^0_S(\Om, \MF)$. Suppose that for each $\theta \in S$, $\{\theta\} \in \MS$. Then there exists $h \in L^0(S, \MS)$ such that for each $B \in \MS$, 
+	$$\int_{\Theta^{-1} (B)} X \dP = \int_{B} h \dP_{\Theta}$$
+	\end{ex}
+	
 	
 	\subsection{Conditional Probability}
 	

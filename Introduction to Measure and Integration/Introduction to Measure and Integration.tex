@@ -768,7 +768,7 @@
 	&=  \bigg( \bigcup\limits_{j=1}^n A_j \bigg) \cup \bigg( \bigcup\limits_{j=1}^m B_j \bigg) \\
 	\end{align*}
 	\end{enumerate}
-	\textbf{FINISH!}
+	\textbf{FINISH!!!}
 	\end{proof}
 	
 	\begin{defn} \ld{00000} 
@@ -879,24 +879,32 @@
 	\end{proof}
 	
 	\begin{defn} \ld{00000} 
-		Let $X$ be a set, $\MC \subset \MP(X)$ and $A \subset X$. We define $$\MC \cap A \coloneqq \{S \cap A: S \in \MC\}$$ 
+		Let $X$ be a set, $\MC \subset \MP(X)$ and $E \subset X$. We define $\MC \cap E \subset \MP(X)$ by $$\MC \cap E = \{S \cap E: S \in \MC\}$$ 
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
-		Let $X$ be a set, $\MC \subset \MP(X)$ and $A \subset X$. Then 
-		$\sig(\MC) \cap A$ is a $\sig$-algebra on $A$. 
+		Let $X$ be a set, $\MA$ a $\sig$-algebra on $X$ and $E \subset X$. Then 
+		$\MA \cap E$ is a $\sig$-algebra on $E$. 
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Clearly $\varnothing, A \in \sig(\MC) \cap A$.
-			\item Let $B \in \sig(\MC) \cap A$. Then there exists $S \in \sig(\MC)$ such that $B = S \cap A$. Then $S^c \in \sig(\MC)$. Thus $$A \setminus B = S^c \cap A \in \sig(\MC) \cap A$$
-			\item Let $(B_n)_{n \in \N} \subset \sig(\MC) \cap A$. Then for each $n \in \N$, there exists $S_n \in \sig(\MC)$ such that $B_n = S_n \cap A$. So $\bigcup\limits_{n \in \N}S_n \in \sig(\MC)$. Hence 
+			\item Clearly $\varnothing, E \in \MA \cap E$.
+			\item Let $B \in \MA \cap E$. Then there exists $A \in \MA$ such that $B = A \cap E$. Since $A^c \in \MA$, we have that 
+			\begin{align*}
+			E \setminus B 
+			&= E \cap (A \cap E)^c \\
+			&= E \cap (A^c \cup E^c) \\
+			&= (E \cap A^c) \cup (E \cap E^c) \\
+			&= A^c \cap E \\
+			&\in \MA \cap E
+			\end{align*}
+			\item Let $(B_n)_{n \in \N} \subset \MA \cap E$. Then for each $n \in \N$, there exists $A_n \in \MA$ such that $B_n = A_n \cap A$. So $\bigcup\limits_{n \in \N}A_n \in \MA$. Hence 
 			\begin{align*}
 				\bigcup_{n \in \N}(B_n) 
-				&= \bigcup_{n \in \N}(S_n \cap A) \\
-				&= \bigg( \bigcup_{n \in \N}S_n \bigg) \cap A \\
-				& \in \sig(\MC) \cap A
+				&= \bigcup_{n \in \N}(A_n \cap E) \\
+				&= \bigg( \bigcup_{n \in \N}A_n \bigg) \cap E \\
+				& \in \MA \cap E
 			\end{align*}
 		\end{enumerate}
 	\end{proof}
@@ -906,10 +914,16 @@
 		Then $\MG$ is a $\sig$-algebra on $X$. 
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
 			\item Clearly $\varnothing, X \in \MG$. 
-			\item Let $S \in \MG$. Then $S \cap A \in \sig_A(\MC \cap A)$. Hence $A \setminus (S \cap A)  = S^c \cap A \in \sig_A(\MC \cap A)$. So $S^c \in \MG$. 
+			\item Let $S \in \MG$. Then $S \cap A \in \sig_A(\MC \cap A)$. Hence 
+	\begin{align*}
+	S^c \cap A 
+	&= A \setminus (S \cap A)  \\
+	& \in \sig_A(\MC \cap A)
+\end{align*}				
+			 So $S^c \in \MG$. 
 			\item Let $(S_n)_{n \in \N} \subset \MG$. Then for each $n \in \N$, $S_n \cap A \in \sig_A(\MC \cap A)$. Thus $$\bigg( \bigcup_{n \in \N} S_n \bigg) \cap A = \bigcup\limits_{n \in \N}(S_n \cap A) \in \sig_A(\MC \cap A)$$ Thus $\bigcup\limits_{n \in \N} S_n \in \MG$.
 		\end{enumerate}
 	\end{proof}
@@ -1227,6 +1241,10 @@
 	\end{enumerate}
 	\end{defn}
 	
+	\begin{note}
+	It is also common to write $\sig(f)$ or $f^{-1}(\MB)$ in place of $f^*\MB$.
+	\end{note}	
+	
 	\begin{ex} \lex{00000} 
 		Let $(X,\MA), (Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. Then 
 		\begin{enumerate}
@@ -1288,8 +1306,102 @@
 		\end{enumerate}
 	\end{thm}
 	
-	\newpage
+	\begin{ex}
+	Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces and $f: X \rightarrow Y$. If $f$ is $\MA$-$\MB$ measurable iff $f$ is $\MA$-$\MB \cap f(X)$ measurable.
+	\end{ex}	
 	
+	\begin{proof}
+	Suppose that $f$ is $\MA$-$\MB$ measurable. Let $E \in \MB \cap f(X)$. Then there exists $B \in \MB$ such that $E = B \cap f(X)$. Then 
+	\begin{align*}
+	f^{-1}(E)
+	&= f^{-1}(B \cap f(X)) \\
+	&= f^{-1}(B) \cap f^{-1}(f(X)) \\
+	&= f^{-1}(B) \cap X \\
+	&= f^{-1}(B) \\
+	& \in \MA
+	\end{align*}
+	Conversely, suppose that $f$ is  $\MA$-$\MB \cap f(X)$ measurable. Let $B \in \MB$. Then as before, 
+	\begin{align*}
+	f^{-1}(B) 
+	&= f^{-1}(B \cap f(X))  \\
+	& \in \MA 
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}\textbf{Doob-Dynkin Lemma:} \\
+	Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$.
+	Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists $\phi: f(X_1) \rightarrow X_3$ such that $\phi$ is $\MA_2 \cap f(X_1)$ - $\MA_3$ measurable and $g = \phi \circ f$. \\
+	\textbf{Hint:} For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. Set $\phi(y) = t$ for $y \in B_t \cap f(X_1)$ and $t \in g(X_1)$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that there exists $\phi: f(X_1) \rightarrow X_3$ such that $\phi$ is $\MA_2 \cap f(X_1)$ - $\MA_3$ measurable and $g = \phi \circ f$. A previous exercise implies that $f$ is $f^* \MA_2$ - $\MA_2 \cap f(X_1)$ measurable. Then $g = \phi \circ f$ is $f^*\MA_2$-$\MA_3$ measurable.  \\
+	Conversely, suppose that $g$ is $f^*\MA_2$-$\MA_3$ measurable. For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. \\
+	Note that 
+	\begin{itemize}
+	\item for $t_1, t_2 \in g(X_1)$, 
+	\begin{align*}
+	f^{-1}(B_{t_1} \cap B_{t_2}) 
+	&= A_{t_1} \cap A_{t_2} \\
+	&= g^{-1}(\{t_1\} \cap \{t_2\}) \\
+	&= \varnothing
+	\end{align*}	 
+	So $B_{t_1} \cap B_{t_2} \subset f(X^1)^c$ and
+	\begin{align*}
+	(B_{t_1} \cap f(X_1)) \cap  (\cap B_{t_2} \cap f(X_1))
+	&= (B_{t_1} \cap B_{t_2} \cap f(X_1) \\
+	& \subset f(X^1)^c \cap f(X_1) \\
+	&= \varnothing
+	\end{align*}
+	\item we have that 
+	\begin{align*}
+	f^{-1} \bigg( \bigcup_{t \in g(X_1)} B_t\bigg) 
+	&=  \bigcup_{t \in g(X_1)} A_t \\
+	&= \bigcup_{t \in g(X_1)} g^{-1}(\{t\}) \\
+	&= g^{-1}(g(X_1)) \\
+	&= X_1
+	\end{align*}
+	So $f(X_1) \subset \bigcup\limits_{t \in g(X_1)} B_t$ and 
+	\begin{align*}
+	f(X_1) 
+	&= f(X_1) \cap \bigg(\bigcup\limits_{t \in g(X_1)} B_t  \bigg) \\
+	&= \bigcup\limits_{t \in g(X_1)} B_t \cap f(X_1)
+	\end{align*}
+	\end{itemize}
+	Therefore $(B_t \cap f(X_1))_{t \in g(X_1)}$ is a partition of $f(X_1)$ and $(A_t)_{t \in g(X_1)}$ is a partion of $X_1$. Define $\phi:f(X_1) \rightarrow X_3$ by $\phi(y) = t$ for $y \in B_t \cap f(X_1)$ and $t \in g(X_1)$. So $\phi(f(X_1)) = g(X_1)$. Since for each $t \in g(X_1)$ and $x \in A_t$, $f(x) \in B_t$ and $g(x) = t$, we have that $\phi \circ f (x) = t = g(x)$. So $\phi \circ f = g$. \\
+	Let $C \in \MA_3$. Choose $B \in \MA_2$ such that $g^{-1}(C) = f^{-1}(B)$. \\
+	Let $y \in \phi^{-1}(C) \subset f(X_1)$. Set $t = \phi(y) \in C$ and choose $x \in X_1$ such that $y = f(x)$. Since 
+	\begin{align*}
+	g(x) 
+	&= \phi \circ f (x) \\
+	&= \phi(y) \\
+	&= t \\
+	&\in C
+\end{align*}		
+	 $x \in g^{-1}(C) = f^{-1}(B)$. Therefore, $y = f(x) \in B \cap f(X_1)$. So $\phi^{-1}(C) \subset B \cap f(X_1)$. \\
+	Let $y \in B \cap f(X_1)$. Choose $x \in X_1$ such that $f(x) = y$. Then $x \in f^{-1}(B) = g^{-1}(C)$. So 
+	\begin{align*}
+	\phi(y) 
+	&= \phi \circ f (x) \\
+	&= g(x) \\
+	&\in C
+	\end{align*}	 and $y \in \phi^{-1}(C)$. So $B \cap f(X_1) \subset \phi^{-1}(C)$. 
+	Hence $\phi^{-1}(C) = B \cap f(X_1) \in \MA_2 \cap f(X_1)$ and $\phi$ is $\MA_2 \cap f(X_1)$ - $\MA_3$ measurable.
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	\newpage	
 	\subsection{Integration of Nonnegative Functions}
 	
 	\begin{defn} \ld{00000} 
@@ -1725,7 +1837,7 @@
 		Let $f \in L^1$. 
 		\begin{enumerate}
 			\item If $f$ is bounded, then for each $\ep >0$, there exists $\del >0$ such that for each $E \in \MA$, if $\mu(E) < \del$, then $\int_E |f| < \ep $.
-			\item The same conclusion holds for $f$ unbounded.
+			\item The same conclusion holds for general $f \in L^1$.
 		\end{enumerate} 
 	\end{ex}
 	
@@ -2679,8 +2791,8 @@
 			
 			\item Let $E \in \MA$. Let $f:X \rightarrow \R$ be measurable and suppose that $|f| \leq 1$. Since $\nu$ is finite, so is $|\nu|$ and thus $f \in L^1(\nu)$. Then (1) tells us that 
 			\begin{align*}
-				|\int_E f d \nu| 
-				& \leq \int_E |f| d |\nu|\\
+				\bigg |\int_E f \dnu \bigg| 
+				& \leq \int_E |f| \, d |\nu|\\
 				& \leq |\nu|(E) 
 			\end{align*}
 			
