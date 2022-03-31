@@ -759,33 +759,19 @@
 	
 	\subsection{Conditional Expectation}
 	
-	\begin{ex}\textbf{Doob–Dynkin Lemma:} \\
-	Let $\Om$ be a nonempty set, $(\Om', \MF')$ a measurable space $X: \Om \rightarrow \Om'$ and $Z: \Om \rightarrow \R^n$. Suppose that $\Img X \in \MF'$. Then $Z$ is $\sig(X)$-$\MB(\R^n)$ measurable iff there exists $\phi:\Om' \rightarrow \R^n$ such that $\phi$ is $\MF'$-$\MB(\R^n)$ measurable and $Z = \phi \circ X$.
-	\end{ex}
+	\begin{defn} 
+	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X, Y \in L^1(\Om, \MF, P)$. Then $Y $ is said to be a \textbf{conditional expectation of $X$ given $\MG$} if 
+	\begin{enumerate}
+	\item $Y$ is $\MG$-measurable
+	\item for each $G \in \MG$, 
+	$$\int_G Y \dP = \int_G X \dP$$ 
+	\end{enumerate}	 
+	To denote this, we write $Y = E[X|\MG]$
+	\end{defn}		
 	
-	\begin{proof}
-	Suppose that there exists $\phi:\Om' \rightarrow \R^n$ such that $\phi$ is $\MF'$-$\MB(\R^n)$ measurable and $Z = Y \circ X$. Since $X$ is $\sig(X)$-$\MF'$ measurable, $Z = \phi \circ X$ is $\sig(X)$-$\MB(\R^n)$ measurable.
-	Conversely, suppose that $Z$ is $\sig(X)$-$\MB(\R^n)$ measurable. For now, suppose that $n =1$ and $Z$ is simple. Then there exists a partition $(A_i)_{i=1}^k \subset \sig(X)$ of $\Om$ and $(a_i)_{i =1}^k \in \R$ such that 
-	$$Z = \sum_{i=1}^k a_i 1_{A_i}$$ 
-	By definition of $\sig(X)$, there exists a partition $(B_i)_{i=1}^k \subset \MF'$ such that for each $i = 1, \cdots, k$, $A_i = X^{-1}(B_i)$. Define 
-	$$\phi = \sum_{i=1}^k a_i 1_{B_i}$$ 
-	Since $(B_i)_{i=1}^k$ partitions $\Om'$, 
-	\begin{align*}
-	\phi \circ X 
-	&= \sum_{i=1}^k a_i 1_{X^{-1}(B_i)} \\
-	&= \sum_{i=1}^k a_i 1_{A_i} \\
-	&= Z
-	\end{align*}
-	More generally, if $Z$ is $\sig(X)$-$\MB(\R)$ measurable, there exits a sequence $(Z_j)_{j \in \N}$ of simple $\sig(X)$-$\MB(\R)$ measurable functions such that for each $j \in N$ $0 \leq |Z_j| \leq |Z_{j+1}| \leq |Z| $ and $Z_j \convt{p.w.} Z$. \vspace{0cm} \\ Therefore, as shown previously, there exists a sequence $(\phi_j)_{j \in \N}$ of $\MF'$-$\MB(\R)$-measurable simple functions such that for each $j \in \N$, $Z_j = \phi_j \circ X$. Let $b \in \Img X$. Then there exists $a \in \Om$ such that $X(a) = b$. So 
-	\begin{align*}
-	\phi_j(b) 
-	&= \phi_j \circ X(a) \\
-	&= Z_j(a) \\
-	& \rightarrow Z(a) 
-	\end{align*}
-	Thus we may define $\phi:\Om' \rightarrow \R$ by $$\phi = \lim_{j \rightarrow \infty} \phi_j 1_{\Img X}$$
-	Then $\phi$ is measurable since $\Img X \in \MF'$ and $Z = \phi \circ X$. For $n \geq 1$, we may write $Z = (Z_1, \cdots, Z_n)$ where for each $i =1, \cdots, n$, $Z_i$ is $\sig(X)$-$\MB(\R)$ measurable and apply the result from above to obtain $ \phi = (\phi_1, \cdots, \phi_n)$ where for each $i =1, \cdots, n$, $\phi_i$ is $\MF'$-$\MB(\R)$ measurable and $Z_i = \phi_i \circ X$. Then $Z = \phi \circ X$.
-	\end{proof}			
+	\begin{note}
+	Let $(\Om, \MF, P)$ be a probability space, $(S, \MS)$ a measurable space, $X \in L^1(\Om, \MF, P)$ and $Y \in L^0_S(\Om, \MF)$. We typically denote $E[X| Y^*\MS]$ by $E[X|Y]$.
+	\end{note}
 	
 	\begin{ex}
 	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $P_{\MG} = P|_{\MG}$ and $Q: \MG \rightarrow [0,\infty)$ by $Q(G) = \int_G X d P $. Then $Q \ll P_{\MG}$. 
@@ -794,16 +780,6 @@
 	\begin{proof}
 	Let $G \in \MG$. Suppose that $P_{\MG}(G) = 0$. By definition, $P(G) = 0$. So $Q(G) = 0$ and $Q \ll P_{\MG}$.
 	\end{proof}
-	
-	\begin{defn} 
-	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X, Y \in L^1(\Om, \MF, P)$. Then $Y $ is said to be a \textbf{conditional expectation of $X$ given $\MG$} if 
-	\begin{enumerate}
-	\item $Y$ is $\MG$-measurable
-	\item for each $G \in \MG$, 
-	$$\int_G Y dP = \int_G X dP$$ 
-	\end{enumerate}	 
-	To denote this, we write $Y = E[X|\MG]$
-	\end{defn}		
 	
 	\begin{ex}\textbf{Existence of Conditional Expectation:}\\
 	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $Q$ and $P_{\MG}$ as in the previous exercise. Define $Y = dQ/dP_{\MG}$. Then $Y$ is a conditional expectation of $X$ given $\MG$.
@@ -819,10 +795,28 @@
 \end{align*}					
 	\end{proof}	
 	
-	\begin{ex}
-	Let $(\Om, \MF, P)$ be a probability space, $(S, \MS)$ a measurable space, $X \in L^1(\Om, \MF, P)$ and $\Theta \in L^0_S(\Om, \MF)$. Suppose that for each $\theta \in S$, $\{\theta\} \in \MS$. Then there exists $h \in L^0(S, \MS)$ such that for each $B \in \MS$, 
-	$$\int_{\Theta^{-1} (B)} X \dP = \int_{B} h \dP_{\Theta}$$
-	\end{ex}
+	\begin{defn}
+	Let $(\Om, \MF, P)$ be a probability space, $(S, \MS)$ a measurable space, $X \in L^1(\Om, \MF, P)$ and $Y \in L^0_S(\Om, \MF)$. Let $\phi \in L^0(Y(\Om), \MS \cap Y(\Om))$. Then $\phi$ is said to be a \textbf{conditional expectation function of $X$ given $Y$} if for each $B \in \MS \cap Y(\Om)$, $$\int_{Y^{-1}(B)} X \dP = \int_{B} \phi \dP_Y$$
+	To denote this, we write $\phi(y) = E[X|Y = y]$.
+	\end{defn}
+	
+	
+	
+	\begin{ex} \textbf{Existence of Conditional Expectation Function:} \\
+	Let $(\Om, \MF, P)$ be a probability space, $(S, \MS)$ a measurable space, $X \in L^1(\Om, \MF, P)$ and $Y \in L^0_S(\Om, \MF)$. Suppose that for each $y \in S$, $\{y\} \in \MS$. Then there exists $\phi \in L^0(Y(S), \MS \cap Y(\Om))$ such that $\phi$ is a conditional expectation function of $X$ given $Y$.\\
+	\textbf{Hint:} Doob-Dynkin lemma
+	\end{ex}	
+	
+	\begin{proof}
+	Since $E[X| Y] \in L^0(\Om, Y^*\MS)$, the Doob-Dynkin lemma implies that there exists $\phi \in L^0(Y(\Om), \MS \cap Y(\Om))$ such that $\phi \circ Y = E[X|Y]$. Let $B \in \MS \cap Y(\Om)$. Then 
+	\begin{align*}
+	\int_B \phi \dP_Y
+	&= \int_{Y^{-1}(B)} \phi \circ Y \dP \\
+	&= \int_{Y^{-1}(B)} E[X|Y] \dP \\
+	&= \int_{Y^{-1}(B)} X \dP \\
+	\end{align*}
+	\end{proof}
+	
 	
 	
 	\subsection{Conditional Probability}
