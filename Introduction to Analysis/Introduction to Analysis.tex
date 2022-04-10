@@ -272,6 +272,22 @@
 	
 	
 	\begin{defn} \ld{}
+		Let $X, Y$ be metric spaces and $T : X \rightarrow Y$. Then $T$ is said to be an \textbf{isometry} if for each $x_1, x_2 \in X$, $d( Tx_1, Tx_2) = d(x_1,x_2) $.
+	\end{defn}
+	
+	\begin{ex} \lex{}
+		Let $X,Y$ be metric spaces and $T:X \rightarrow Y$ and isometry. Then $T$ is injective.
+	\end{ex}
+	
+	\begin{proof}
+		Let $x_1, x_2 \in X$. Suppose that $Tx_1=Tx_2$. Then $0= d( Tx_1, Tx_2) = d(x_1,x_2)$. So $x_1 = x_2$. Hence $T$ is injective.
+	\end{proof}
+	
+	\begin{note}
+		Let $X,Y$ be metric spaces and $T:X \rightarrow Y$ an isometry. Then $T$ is clearly continuous. If $T$ is surjective, then $T^{-1}$ is an isometry and therefore continuous. Hence $T$ is a homeomorphism.
+	\end{note}
+	
+	\begin{defn} \ld{}
 	Let $(M,d)$ be a metric space. Then $(M,d)$ is said to be a \textbf{Polish space} if $(M,d)$ is complete and separable. 
 	\end{defn}
 	
@@ -850,6 +866,14 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		When $X=Y$, we write $L(X)$.
 	\end{defn}
 	
+	\begin{defn}
+	Let $X$ be a normed vector space over $\C$, and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
+	\end{defn}
+	
+	\begin{note}
+	We define $X^*$ similarly when $X$ is a normed vector space over $\R$.
+	\end{note}
+	
 	\begin{ex} \lex{42002}
 	Set $X = C^{1}([0,1])$ and $Y = C([0,1])$. Equip both $X$ and $Y$ with the sup norm. Define $T:X \rightarrow Y$ by $Tf = f'$. Then $T$ is not bounded.
 	\end{ex}
@@ -1076,158 +1100,175 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
-	\subsection{Multilinear Maps}	
-	\begin{defn} \ld{43001}
-	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \prod\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then $T$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x_1, \cdots, x_n \in X$, $$\|T(x_1, \cdots, x_n)\| \leq C \|x_1\| \cdots \|x_n\|$$
-	We define $$L^n (X_1, \dots, X_n; Y) = \bigg\{T: \prod\limits_{i=1}^n X_i \rightarrow Y: T \text{ is multilinear and bounded}\bigg \}$$ 
-	If $X_1 = \cdots = X_n = X$, we write $L^n(X,Y)$ in place of $L^n (X, \dots, X; Y) $. If $X_1 = \cdots = X_n = Y =  X$, we write $L^n(X)$.
+	\subsection{Direct Sums}
+	
+	\begin{defn} \ld{}
+	Let $X, Y$ be normed vector spaces and $p \in [1, \infty]$. Let $\| \cdot \|'_p: \R^2 \rightarrow [0, \infty)$ denote the usual $l^p$ norm. We define $\| \cdot \|_p : X \oplus Y \rightarrow \Rg$ by $$\|(x, y) \|_p = \|( \|x\|, \| y \|) \|'_ p$$
 	\end{defn}
 	
-	\begin{note}
-	For the remainder of this section we will primarily consider $L^2(X_1, X_2; Y)$ to avoid notational clutter, but all results immediately generalize to $L^n(X_1, \ldots, X_n;Y)$
-	\end{note}
-	
-	\begin{ex} \lex{43002}
-	Let $X_1, X_2$ and $Y$ be normed vector spaces and $T: X_1 \times X_2 \rightarrow Y$ bilinear. Then the following are equivalent:
+	\begin{ex} \lex{}	
+	Let $X, Y$  be normed vector spaces. Then 
 	\begin{enumerate}
-			\item $T$ is continuous
-			\item $T$ is continuous at $(0,0)$
-			\item $T$ is bounded
-		\end{enumerate}
+	\item for each $p \in [1, \infty]$, $\|\cdot\|_p: X \oplus Y \rightarrow \Rg$ is a norm on $X \oplus Y$
+	\item  $\{\|\cdot \|_p:  p \in [1, \infty]\}$ are equivalent. 
+	\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
-		\begin{itemize}
-		\item $(1) \implies (2)$:\\
-		Trivial
-		\item  $(2) \implies (3)$:\\ 
-		Suppose that $T$ is continuous at $(0, 0)$. For the sake of contradiction, suppose that $T$ is not bounded. Then for each $C \geq 0$, there exist $(x_1, x_2) \in X_1 \times X_2$ such that $\|T(x_1, x_2)\| \geq C\|x_1\| \|x_2\|$. Hence there exist $(a_n)_{n \in \N} \subset X_1$ and $(b_n)_{n \in \N} \subset X_2$ such that for each $n \in \N$, $ \| T(a_n, b_n) \| \geq n^2 \|a_n\| \|b_n\|$. Hence for each $n \in \N$, $\|a_n\|$, $\|b_n\|geq 0$. Define $$(a'_n)_{n \in \N} \subset X_1$$ and $(b'_n)_{n \in \N} \subset X_2$ by $a_n' = \frac{a_n}{n\|a_n\|}$ and $b_n' = \frac{b_n}{n\|b_n\|}$. Then $(a_n', b_n') \rightarrow (0,0)$. Continuiuty implies that $T(a_n',b_n') \rightarrow 0$. By construction, for each $n \in \N$,
-		\begin{align*}
-		\|T(a_n',b_n')\| 
-		&= \frac{1}{n^2 \|a_n\| \|b_n\|} T(a_n, b_n) \\
-		& \geq \frac{n^2 \|a_n\| \|b_n\|}{n^2 \|a_n\| \|b_n\|} \\
-		&= 1
-		\end{align*}
-		which is a contradiction. So $T$ is bounded.
-		\item  $(3) \implies (1)$:\\ 
-		Suppose that $T$ is bounded. Then there exists $C > 0$ such that for each $(x_1, x_2) \in X_1 \times X_2$, $\| T(x_1, x_2) \| \leq C\|x_1\| \|x_2\|$. Let $(a, b) \in X_1 \times X_2$ and $(a_n, b_n)_{n \in \N} \subset X_1 \times X_2$. Suppose that $(a_n, b_n) \rightarrow (a,b)$. Then $a_n \rightarrow a$, $b_n \rightarrow b$ and $(a_n)_{n \in \N}$, $(b_n)_{n \in \N}$ are bounded. So there exists $B \geq 0$ such that for each $n \in \N$ $\|b_n\| \leq B$. Hence 
-		\begin{align*}
-		\|T(a_n,b_n) - T(a,b) \|
-		&= \|T(a_n,b_n) - T(a, b_n) + T(a, b_n) - T(a,b) \| \\
-		& \leq \|T(a_n,b_n) - T(a, b_n) \| + \|T(a, b_n) - T(a,b) \| \\
-		&= \|T(a_n - a,b_n) \| + \|T(a, b_n - b)\| \\
-		& \leq C(\|a_n - a\| \|b_n\| + \|a\|\|b_n - b\|) \\
-		& \leq C(\|a_n - a\| B + \|a\|\|b_n - b\|) \\
-		& \rightarrow 0
-		\end{align*}
-		Thus $T$ is continuous. 
-		\end{itemize}
-	\end{proof}
-	
-	\begin{defn} \ld{43005}
-	Let $X_1, X_2$ and $Y$ be normed vector spaces and $T \in L^2(X_1, X_2;Y)$. We define the \textbf{operator norm} on $L^2(X_1, X_2;Y)$, denoted $\|\cdot\|: L^2(X_1, X_2; Y) \rightarrow [0, \infty)$, by  $$\|T\| =  \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$$
-	\end{defn}
-	
-	\begin{ex} \lex{42006}
-		Let $X_1, X_2$ and $Y$ be normed vector spaces. If $X_1 \neq \{0\}$ and $ X_2 \neq \{0\}$, then the operater norm on $L(X,Y)$ is given by: 
-		\begin{enumerate}
-			\item $\|T\| = \sup\limits_{\|x_1\|=1 ,\|x_2\| = 1 }\|T(x_1, x_2)\|$
-			\item $\|T\| = \sup\limits_{x_1 \neq 0, x_2 \neq 0 } \|x_1\|^{-1} \|x_2\|^{-1}\|T(x_1, x_2)\|$
-			\item $\|T\| = \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$
-		\end{enumerate}
+	\begin{enumerate}
+	\item Let $p \in [1, \infty]$, $(x_1,y_1), (x_2,y_2) \in X \oplus Y$ and $\lam \in \C$.
+	\begin{itemize}
+	\item Clearly if $(x_1, y_1) = (0,0)$, then $\|S\|_p = 0$. Conversely, suppose that $\|(x_1, y_1)\|_p = 0$. Then $\|x_1\| = 0$ and $\|y_1\| = 0$. So $x_1 = 0$ and $y_1 = 0$. Therefore $S = 0$. 
+	\item 
+	\begin{align*}
+	\|\lam (x_1, y_1)\|_p
+	&= \|(\|\lam x_1\|, \|\lam y_1\|)\|_p' \\
+	&= \|(|\lam|\| x_1\|, |\lam|\|y_1 \|)\|_p' \\
+	&= \||\lam| (\| x_1\|,\|y_1\| )\|_p' \\
+	&= |\lam| \|(\| x_1\|,\|y_1\|)\|_p' \\
+	&= |\lam| \| (x_1, y_1)\|_p
+	\end{align*}
+	\item 
+	\begin{align*}
+	\|(x_1, y_1) + (x_2, y_2)\|_p
+	&= \|(\|x_1 + x_2\|, \|y_1 + y_2\|)\|_p' \\
+	&\leq \|(\|x_1\| + \|x_2\|, \|y_1\| + \|y_2\|)\|_p' \\
+	&= \|(\|x_1\|, \|y_1\|) + (\|x_2\|, \|y_2\|)\|_p' \\
+	&\leq \|(\|x_1\|, \|y_1\|)\|_p' + \|(\|x_2\|, \|y_2\|)\|_p' \\
+	&= \|(x_1, y_1)\|_p + \|(x_2, y_2)\|_p \\ 
+	\end{align*}
+	\end{itemize}
+	\item All norms on $\R^2$ are equivalent.
+	\end{enumerate}
+\end{proof}		
+
+\begin{ex} \lex{}	
+	Let $X, Y$ be Banach spaces. Then $X \oplus Y$ equipped with $\|\cdot \|_p:X \oplus Y \rightarrow [0, \infty)$ is a Banach space. 
 	\end{ex}
 	
-	\begin{proof} Since $X_1 \neq \{0\}$ and $ X_2 \neq \{0\}$, the supremums in (1) and (2) are well defined. Let $T \in L^2(X_1, X_2; Y)$. Bilinearity of $T$ implies that the sets over which the supremums are taken in (1) and (2) are the same. So (1) and (2) are equal.\\
-		Now, set 
-		$$M = \sup\limits_{\|x_1\|=1 ,\|x_2\| = 1 }\|T(x_1, x_2)\|$$ 
-		and 
-		$$m = \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$$ 
-		Let $(x_1,x_2) \in X_1 \times X_2$. If $\|x_1 \|=0$ or $\|x_2 \|=0$, then $T(x_1, x_2) = 0$ and $\|T(x_1, x_2) \|\leq M \|x_1 \| \|x_2\|$. Suppose that $\|x_1 \| \neq 0$ and $ \|x_2\|\neq 0$. Then 
-		\begin{align*}
-			\|T(x_1, x_2)\|
-			&= \bigg(\big\|T(\|x_1\|^{-1} x_1, \|x_2\|^{-1} x_2 )\big\|\bigg)\|x_1 \| \|x_2\|\\
-			& \leq M \|x_1\| \|x_2\|
-		\end{align*}
-		Hence $M \in \{C \geq 0: \text{ for each }x \in X\text{, } \|Tx \|\leq C \|x \|\}$ and $m \leq M$.
-		Let $C \in \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$. Suppose that $\|x_1 \|=1$ and $\|x_2\| = 1$. Then $\| T (x_1, x_2) \| \leq C \|x_1 \| \|x_2 \|= C$. So $M \leq C$. Therefore $M \leq m$. So $M=m$ and the supremum in (1) is the same as the infimum in (3). 
+	\begin{proof}
+	
 	\end{proof}
 	
 	\begin{ex}
-	Let $X_1, X_2$ and $Y$ be normed vector spaces. Then $\|\cdot\|: L^2(X_1, X_2; Y) \rightarrow [0, \infty)$ is a norm. 
+	Let $X, Y$ and $Z$ be Banach spaces and $p \in [0, \infty]$. Equip $Y \oplus Z$ with $\|\cdot\|_p$. Let $T \in L(X, Y \oplus Z)$ with $T = (T_Y, T_Z)$. Then $T_Y \in L(X, Y)$ and $T_Z \in L(X, Z)$.
 	\end{ex}
 	
 	\begin{proof}
-	
+	Let $x \in X$. Then $\|T_Y(x)\|, \|T_Z(x)\| \leq $
+	\\ \textbf{FINISH!!!}
 	\end{proof}
+
+	\begin{defn}
+	Let $X, Y$ and $Z$ be Banach spaces and $p \in [0, \infty]$. Let $\| \cdot \|'_p: \R^2 \rightarrow [0, \infty)$ denote the usual $l^p$ norm. Equip $Y \oplus Z$ with $\|\cdot\|_p$. Let $T \in L(X, Y \oplus Z)$ with $T = (T_Y, T_Z)$. Define $\|\cdot \|_p: L(X, Y \oplus Z) \rightarrow \Rg$ by $$\|T\|_p = \|(\|T_Y\|, \|T_Z\|)\|_p'$$
+	\end{defn}
 	
-	\begin{ex} \lex{43003}
-	Let $X_1, X_2, Y$ be normed vector spaces and $T_1 \in L(X_1, L(X_2, Y))$. Define $T:X_1 \times X_2 \rightarrow Y$ by $T(x_1, x_2) = T_1(x_1)(x_2)$. Then $T \in L^2(X_1, X_2; Y)$.  
+	\begin{ex}
+	Let $X, Y$ and $Z$ be Banach spaces and $p \in [0, \infty]$. Then $\|\cdot \|_p: L(X, Y \oplus Z) \rightarrow \Rg$ is a norm on $L(X, Y \oplus Z)$. 
 	\end{ex}
 	
 	\begin{proof}
-	It is straightforward to show that $T$ is multilinear. For $x_1 \in X_1$ and $x_2 \in X_2$, 
+	Let $\lam \in \C$ and $S, T \in L(X, Y \oplus Z)$ with $S= (S_Y, S_Z)$ and $T = (T_Y, T_Z)$. 
+	\begin{itemize}
+	\item Clearly if $S = 0$, then $\|S\|_p = 0$. Conversely, suppose that $\|S\|_p = 0$. Then $\|S_Y\| = 0$ and $\|S_Z\| = 0$. So $S_Y = 0$ and $S_Z = 0$. Therefore $S = 0$. 
+	\item 
 	\begin{align*}
-	\|T(x_1, x_2)\| 
-	&= \|T_1(x_1)(x_2)\| \\
-	& \leq \|T_1(x_1)\| \|x_2\| \\
-	& \leq \|T_1\| \|x_1\| \|x_2\|
+	\|\lam S\|_p
+	&= \|(\|\lam S_Y\|, \|\lam S_Z\|)\|_p' \\
+	&= \|(|\lam|\| S_Y\|, |\lam|\|S_Z \|)\|_p' \\
+	&= \||\lam| (\| S_Y\|,\|S_Z\| )\|_p' \\
+	&= |\lam| \|(\| S_Y\|,\|S_Z\|)\|_p' \\
+	&= |\lam| \| S\|_p
 	\end{align*}
-	So $T \in L^2(X_1, X_2;Y)$.
-	\end{proof}
-	
-	\begin{ex} \lex{43004}
-	Let $X_1, X_2, Y$ be normed vector spaces and $T \in L^2(X_1, X_2; Y)$. Define the map $T_1 : X_1 \rightarrow  Y^{X_2}$ by  $T_1(x_1)(\cdot) = T(x_1, \cdot)$. Then $T_1 \in L(X_1, L(X_2, Y))$.
-	\end{ex}
-	
-	\begin{proof}
-	Let $x_1 \in X_1$. By definition of $T$, $T_1(x_1)$ is linear. Since $T$ is bounded, there exists $C \geq 0$ such that for each $a_1 \in X_1$, $a_2 \in X_2$, $T(a_1, a_2) \leq C\|a_1\| \|a_2\|$. Then for each $x_2 \in X_2$,
+	\item 
 	\begin{align*}
-	\| T_1(x_1)(x_2) \|
-	&= \|T(x_1, x_2) \| \\
-	&\leq (C\|x_1\|) \|x_2\| 
+	\|S + T\|_p
+	&= \|(\|S_Y + T_Y\|, \|S_Z + T_Z\|)\|_p' \\
+	&\leq \|(\|S_Y\| + \|T_Y\|, \|S_Z\| + \|T_Z\|)\|_p' \\
+	&= \|(\|S_Y\|, \|S_Z\|) + (\|T_Y\|, \|T_Z\|)\|_p' \\
+	&\leq \|(\|S_Y\|, \|S_Z\|)\|_p' + \|(\|T_Y\|, \|T_Y\|)\|_p' \\
+	&= \|S\|_p + \|T\|_p \\ 
 	\end{align*}
-	So $T_1(x_1) \in L(X_2,Y)$ with $\|T_1(x_1)\| \leq C\|x_1\|$. Since $x_1 \in X_1$ was arbitrary, $T_1: X_1 \rightarrow L(X,Y)$. By definition of $T$, $T_1$ is linear. The preceeding argument tells us that for each $x_1 \in X_1$, $$\|T_1(x_1)\| \leq C\|x_1\|$$ 
-	So $T_1 \in L(X_1, L(X_2, Y))$ with $\|T_1\| \leq C$.  
-	\end{proof}	
+	\end{itemize}
+	So $\|\cdot \|_p: L(X, Y \oplus Z) \rightarrow \Rg$ is a norm on $L(X, Y \oplus Z)$. 
+	\end{proof}
 	
 	
-	
-	
-	\begin{ex} \lex{43005}
-	Let $X_1, X_2$ be normed vector spaces. Define a map $\phi: L^2(X_1, X_2;Y) \rightarrow L(X_1, L(X_2, Y))$ by $\phi(T)(x_1)(x_2) = T(x_1, x_2)$. Then $T$ is an isometric isomorphism.
+	\begin{ex}
+	Let $X, Y$ and $Z$ be Banach spaces and $p \in [0, \infty]$. Equip $Y \oplus Z$ with $\|\cdot\|_p$. Let $T \in L(X, Y \oplus Z)$ with $T = (T_Y, T_Z)$. Then $\|T\|\leq 2^{1/p}\|T\|_p$.
 	\end{ex}
 	
 	\begin{proof}
-	. 
+	Let $x \in X$. If $p < \infty$, then
+	\begin{align*}
+	\|T(x)\|_p
+	&= \|(T_Y(x), T_Z(x))\|_p \\
+	& \|( \|T_Y(x)\|, \|T_Z(x)\|)\|_p' \\
+	&=  \bigg(\|T_Y(x) \|^p +  \|T_Z(x) \|^p \bigg)^{1/p} \\
+	& \leq \bigg(\|T_Y\|^p\|x\|^p +  \|T_Z\|^p\|x\|^p \bigg)^{1/p} \\
+	& \leq \bigg[ (\|T_Y\|^p+ \|T_Z\|^p)\|x\|^p +  (\|T_Y\|^p + \|T_Z\|^p)\|x\|^p \bigg ]^{1/p} \\
+	&= \bigg[ 2(\|T_Y\|^p + \|T_Z\|^p)\|x\|^p \bigg ]^{1/p} \\
+	&= 2^{1/p}\|T\|_p\|x\| \\
+	\end{align*}
+	Hence $\|T\| \leq 2^{1/p}\|T\|_p$
+	If $p = \infty$, then 
+	\begin{align*}
+	\|T(x)\|_{\infty} 
+	&= \max(\|T_Y(x) \|, \|T_Z(x)\|) \\
+	& \leq \max(\|T_Y\|\|x \|, \|T_Z\|\|x\|) \\
+	& \leq \max \bigg[ \max (\|T_Y\|, \|T_Z\|)\|x \|, \max(\|T_Y\| ,\|T_Z\|)\|x\| \bigg] \\
+	&= \max(\|T_Y\| ,\|T_Z\|) \|x\|\\
+	&= \|T\|_{\infty} \|x\|
+	\end{align*}
+	Hence 
+	\begin{align*}
+	\|T\| 
+	& \leq \|T\|_{\infty} \\
+	&= 2^{1/\infty}\|T\|_{\infty}
+	\end{align*}
 	\end{proof}
+	
+	\begin{ex}
+	Let $X$ and $X_1, \cdots, X_n$ be Banach spaces and $p \in [0, \infty]$. Equip $\bigoplus\limits_{j=1}^n X_j$ with $\|\cdot\|_p$. Let $T \in L(X, \bigoplus\limits_{j=1}^n X_j)$. Then $\|T\|\leq n^{1/p}\|T\|_p$.
+	\end{ex}
+	
+	\begin{proof}
+	Similar to the previous exercise.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	\newpage
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	\subsection{Quotient Spaces}	
 	
 	\begin{defn} \ld{}
@@ -1386,131 +1427,9 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\subsection{Direct Sums}
-	
-	\begin{defn} \ld{}
-	Let $X, Y$ be normed vector spaces and $p \in [1, \infty]$. Let $\| \cdot \|'_p: \R^2 \rightarrow [0, \infty)$ denote the usual $l^p$ norm. We define $\| \cdot \|_p : X \oplus Y \rightarrow \Rg$ by $$\|(x, y) \|_p = \|( \|x\|, \| y \|) \|'_ p$$
-	\end{defn}
-	
-	\begin{ex} \lex{}	
-	Let $X, Y$  be normed vector spaces. Then 
-	\begin{enumerate}
-	\item for each $p \in [1, \infty]$, $\|\cdot\|_p: X \oplus Y \rightarrow \Rg$ is a norm on $X \oplus Y$
-	\item  $\{\|\cdot \|_p:  p \in [1, \infty]\}$ are equivalent. 
-	\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-	\begin{enumerate}
-	\item Clear since $\| \cdot \|'_p$ is a norm on $\R^n$.
-	\item All norms on $\R^2$ are equivalent.
-	\end{enumerate}
-\end{proof}		
-	
-	\begin{ex} \lex{}	
-	Let $X, Y$ be Banach spaces. Then $X \oplus Y$ equipped with $\|\cdot \|_p:X \oplus Y \rightarrow [0, \infty)$ is a Banach space. 
-	\end{ex}
-	
-	\begin{proof}
-	
-	\end{proof}
-
-
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\subsection{Tensor Products}
-	
-	\begin{defn}
-	Let $X, Y$ and $Z$ be normed vector spaces and $\phi \in L^2(X,Y ; Z) $. Then $(Z, \phi)$ is said to be a \textbf{tensor product} of $X$ with $Y$ if for each normed vector space $W$ and $\psi \in L^2(X,Y;W)$, there exists a unique $\psi' \in L(Z, W)$ such that $\psi' \circ \phi = \psi$, i.e. such that the following diagram commutes: 
-	\[ \begin{tikzcd}
-	X \times Y \arrow[r, "\phi"] \arrow[dr, "\psi"'] 	
-	& Z  \arrow[d, "\psi'"] \\
-	& W 
-\end{tikzcd}
-	\]
-	If $(Z, \phi)$ is a tensor product of $X$ with $Y$. We write $Z = X \otimes Y$ and for each $x\in X$, $y \in Y$, we write $\phi(x,y) = x \otimes y$.
-	\end{defn}	
-	
-	\begin{ex} \textbf{Uniqueness:}\\
-	Let $X, Y$ and $Z$ be normed vector spaces and $\phi \in L^2(X,Y ; Z)$. Suppose that $(Z, \phi)$ is a tensor product of $X$ with $Y$. Then $(Z, \phi)$ is unique up to isomorphism. 
-	\end{ex}
-	
-	\begin{proof}
-	Let $W$ be a normed vector space and $\psi \in  L^2(X,Y ; W)$. Suppose that $(W, \psi)$ is a tensor product of $X$ with $Y$. Since $(Z, \phi)$ is a tensor product of $X$ with $Y$, there exists a unique $\psi' \in L(Z, W)$ such that $\psi' \circ \phi = \psi$. Since $(W, \psi)$ is a tensor product of $X$ with $Y$, there exists a unique $\phi' \in L(W,Z)$ such that $\phi' \circ \psi = \phi$. Thus the following diagram commutes: 
-	\[ \begin{tikzcd}
-	& W  \arrow[d, "\phi'"] \\
-	X \times Y \arrow[r, "\phi"] \arrow[dr, "\psi"'] \arrow[ur, "\psi"]	
-	& Z  \arrow[d, "\psi'"] \\
-	& W 
-\end{tikzcd}
-	\]
-	On the other hand, since $(W, \psi)$ is a tensor product of $X$ with $Y$, there exists a unique $\Psi \in L(W)$ such that $\Psi \circ \psi = \psi$. Thus the following diagram commutes:  
-	\[ \begin{tikzcd}
-	X \times Y \arrow[r, "\psi"] \arrow[dr, "\psi"'] 	
-	& W  \arrow[d, "\Psi"] \\
-	& W 
-\end{tikzcd}
-	\]
-	Since $I_W \in L(W)$ and $I_W \circ \psi = \psi$, uniqueness of $\Psi$ implies that $\Psi = I_W$. 
-	From the first diagram, we see that $\psi' \circ \phi'$ satisfies $(\psi' \circ \phi') \circ \psi  = \psi$. Since $\psi' \circ \phi' \in L(W)$, uniqueness of $\Psi$ implies that $\Psi = \psi' \circ \phi'$. Thus $\psi' \circ \phi'  = I_W$. \\
-	Similarly, we could have initially considered the following diagram: 
-	\[ \begin{tikzcd}
-	& Z  \arrow[d, "\psi'"] \\
-	X \times Y \arrow[r, "\psi"] \arrow[dr, "\phi"'] \arrow[ur, "\phi"]	
-	& W  \arrow[d, "\phi'"] \\
-	& Z
-\end{tikzcd}
-	\]
-	Playing a similar game, we could use the fact that there exists a unique $\Phi \in L(Z)$ such that $\Phi \circ \phi = \phi$ to obtain the following diagram:
-	\[ \begin{tikzcd}
-	X \times Y \arrow[r, "\phi"] \arrow[dr, "\phi"'] 	
-	& Z  \arrow[d, "\Phi"] \\
-	& Z 
-\end{tikzcd}
-	\]
-	As before, uniqueness enables us to conclude that $\phi' \circ \psi' = I_Z$. Thus $\psi'$ and $\phi'$ are isomorphisms and $Z \cong W$.
-	\end{proof}
-	
-	\begin{defn}
-	\textbf{projection norm}
-	\end{defn}
-	
-	\begin{ex} \textbf{Existence:} \\
-	Let $X$ and $Y$ be normed vector spaces. Define $\phi \in L^2(X, Y; L^2(X,Y;\C)^*)$ by $\phi(x,y)(A) = A(x,y)$. Set $Z = \spn \phi(X \times Y)$. Then $(Z, \phi)$ is a tensor product of $X$ with $Y$.
-	\end{ex}
-	
-	\begin{proof}
-	
-	\end{proof}
 
 
 
-
-
-
-
-
-
-	
-	
-	
 	
 	
 	
@@ -1531,14 +1450,11 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\subsection{The Hahn-Banach Theorem}
 	
 	\begin{defn} \ld{}\
-		\begin{itemize}
-		\item Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
-		\item Let $X$ be a normed vector space over $\C$, and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
-		\end{itemize}
+	 Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{algebraic dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
 	\end{defn}
 	
 	\begin{note}
-	We define $X^*$ similarly when $X$ is an vector space or normed vector space over $\R$.
+	We define $X^*$ similarly when $X$ is a vector space  over $\R$.
 	\end{note}
 	
 	\begin{defn} \ld{}
@@ -1806,7 +1722,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\end{ex}
 	
 	\begin{proof}
-		Define $f:M+\C x \rightarrow \C$ as above. Clearly $f$ is linear and $f|M = 0$. Let $m \in M$ and $\lam \in \C$. If $\lam = 0$, then $\vert f(m +\lam x) \vert = 0 \leq \|m+ \lam x \|$. Suppose that $\lam \neq 0$. Then 
+		Define $f:M+\C x \rightarrow \C$ as above. Clearly $f$ is linear and $f|_M = 0$. Let $m \in M$ and $\lam \in \C$. If $\lam = 0$, then $\vert f(m +\lam x) \vert = 0 \leq \|m+ \lam x \|$. Suppose that $\lam \neq 0$. Then 
 		\begin{align*}
 			\vert f(m+\lam x) \vert 
 			& = \vert \lam \vert \|x+M \|\\
@@ -1836,6 +1752,14 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 		So $f \in (\C x)^*$ and $\|f \|= 1$. By a previous exercise, there exists $F \in X^*$ such that $\|F \|= \|f \|=1$ and $F|_{\C x} = f$. 
 	\end{proof}
 	
+	\begin{ex}
+	Let $X$ be a normed vector space and $x \in X$. Then $x = 0$ iff for each $\phi \in X^*$, $\phi(x) = 0$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear by previous exercise.
+\end{proof}		
+		
 	\begin{ex} \lex{}
 		Let $X$ be a normed vector space. Then $X^*$ separates the points of $X$. 
 	\end{ex}
@@ -1844,21 +1768,6 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 		Let $x, y \in X$. Suppose that $x \neq y$. Then $x-y \neq 0$. The previous exercies implies that there exists $F \in X^*$ such that $\|F \|= 1$ and $$F(x) - F(y) = F(x-y) = \|x-y \|\neq 0$$ Thus $F(x) \neq F(y)$ and $X^*$ separates the points of $X$.
 	\end{proof}
 	
-	\begin{defn} \ld{}
-		Let $X, Y$ be metric spaces and $T : X \rightarrow Y$. Then $T$ is said to be an \textbf{isometry} if for each $x_1, x_2 \in X$, $d( Tx_1, Tx_2) = d(x_1,x_2) $.
-	\end{defn}
-	
-	\begin{ex} \lex{}
-		Let $X,Y$ be metric spaces and $T:X \rightarrow Y$ and isometry. Then $T$ is injective.
-	\end{ex}
-	
-	\begin{proof}
-		Let $x_1, x_2 \in X$. Suppose that $Tx_1=Tx_2$. Then $0= d( Tx_1, Tx_2) = d(x_1,x_2)$. So $x_1 = x_2$. Hence $T$ is injective.
-	\end{proof}
-	
-	\begin{note}
-		Let $X,Y$ be metric spaces and $T:X \rightarrow Y$ an isometry. Then $T$ is clearly continuous. If $T$ is surjective, then $T^{-1}$ is an isometry and therefore continuous. Hence $T$ is a homeomorphism.
-	\end{note}
 	
 	\begin{ex} \lex{}
 		Let $X$ be a normed vector space and $x \in X$. Define $\hat{x}:X^* \rightarrow \C$ by $\hat{x}(f) = f(x)$. Then $\hat{x} \in X^{**}$ and $\|\hat{x} \|= \|x \|$.
@@ -2031,8 +1940,347 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 		
 	\end{proof}
 	
-	\newpage
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Multilinear Maps}	
+	\begin{defn} \ld{43001}
+	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \prod\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then $T$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x_1, \cdots, x_n \in X$, $$\|T(x_1, \cdots, x_n)\| \leq C \|x_1\| \cdots \|x_n\|$$
+	We define $$L^n (X_1, \dots, X_n; Y) = \bigg\{T: \prod\limits_{i=1}^n X_i \rightarrow Y: T \text{ is multilinear and bounded}\bigg \}$$ 
+	If $X_1 = \cdots = X_n = X$, we write $L^n(X,Y)$ in place of $L^n (X, \dots, X; Y) $. If $X_1 = \cdots = X_n = Y =  X$, we write $L^n(X)$.
+	\end{defn}
+	
+	\begin{note}
+	For the remainder of this section we will primarily consider $L^2(X_1, X_2; Y)$ to avoid notational clutter, but all results immediately generalize to $L^n(X_1, \ldots, X_n;Y)$
+	\end{note}
+	
+	\begin{ex} \lex{43002}
+	Let $X_1, X_2$ and $Y$ be normed vector spaces and $T: X_1 \times X_2 \rightarrow Y$ bilinear. Then the following are equivalent:
+	\begin{enumerate}
+			\item $T$ is continuous
+			\item $T$ is continuous at $(0,0)$
+			\item $T$ is bounded
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+		\item $(1) \implies (2)$:\\
+		Trivial
+		\item  $(2) \implies (3)$:\\ 
+		Suppose that $T$ is continuous at $(0, 0)$. For the sake of contradiction, suppose that $T$ is not bounded. Then for each $C \geq 0$, there exist $(x_1, x_2) \in X_1 \times X_2$ such that $\|T(x_1, x_2)\| \geq C\|x_1\| \|x_2\|$. Hence there exist $(a_n)_{n \in \N} \subset X_1$ and $(b_n)_{n \in \N} \subset X_2$ such that for each $n \in \N$, $ \| T(a_n, b_n) \| \geq n^2 \|a_n\| \|b_n\|$. Hence for each $n \in \N$, $\|a_n\|$, $\|b_n\|geq 0$. Define $$(a'_n)_{n \in \N} \subset X_1$$ and $(b'_n)_{n \in \N} \subset X_2$ by $a_n' = \frac{a_n}{n\|a_n\|}$ and $b_n' = \frac{b_n}{n\|b_n\|}$. Then $(a_n', b_n') \rightarrow (0,0)$. Continuiuty implies that $T(a_n',b_n') \rightarrow 0$. By construction, for each $n \in \N$,
+		\begin{align*}
+		\|T(a_n',b_n')\| 
+		&= \frac{1}{n^2 \|a_n\| \|b_n\|} T(a_n, b_n) \\
+		& \geq \frac{n^2 \|a_n\| \|b_n\|}{n^2 \|a_n\| \|b_n\|} \\
+		&= 1
+		\end{align*}
+		which is a contradiction. So $T$ is bounded.
+		\item  $(3) \implies (1)$:\\ 
+		Suppose that $T$ is bounded. Then there exists $C > 0$ such that for each $(x_1, x_2) \in X_1 \times X_2$, $\| T(x_1, x_2) \| \leq C\|x_1\| \|x_2\|$. Let $(a, b) \in X_1 \times X_2$ and $(a_n, b_n)_{n \in \N} \subset X_1 \times X_2$. Suppose that $(a_n, b_n) \rightarrow (a,b)$. Then $a_n \rightarrow a$, $b_n \rightarrow b$ and $(a_n)_{n \in \N}$, $(b_n)_{n \in \N}$ are bounded. So there exists $B \geq 0$ such that for each $n \in \N$ $\|b_n\| \leq B$. Hence 
+		\begin{align*}
+		\|T(a_n,b_n) - T(a,b) \|
+		&= \|T(a_n,b_n) - T(a, b_n) + T(a, b_n) - T(a,b) \| \\
+		& \leq \|T(a_n,b_n) - T(a, b_n) \| + \|T(a, b_n) - T(a,b) \| \\
+		&= \|T(a_n - a,b_n) \| + \|T(a, b_n - b)\| \\
+		& \leq C(\|a_n - a\| \|b_n\| + \|a\|\|b_n - b\|) \\
+		& \leq C(\|a_n - a\| B + \|a\|\|b_n - b\|) \\
+		& \rightarrow 0
+		\end{align*}
+		Thus $T$ is continuous. 
+		\end{itemize}
+	\end{proof}
+	
+	\begin{defn} \ld{43005}
+	Let $X_1, X_2$ and $Y$ be normed vector spaces and $T \in L^2(X_1, X_2;Y)$. We define the \textbf{operator norm} on $L^2(X_1, X_2;Y)$, denoted $\|\cdot\|: L^2(X_1, X_2; Y) \rightarrow [0, \infty)$, by  $$\|T\| =  \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$$
+	\end{defn}
+	
+	\begin{ex} \lex{42006}
+		Let $X_1, X_2$ and $Y$ be normed vector spaces. If $X_1 \neq \{0\}$ and $ X_2 \neq \{0\}$, then the operater norm on $L(X,Y)$ is given by: 
+		\begin{enumerate}
+			\item $\|T\| = \sup\limits_{\|x_1\|=1 ,\|x_2\| = 1 }\|T(x_1, x_2)\|$
+			\item $\|T\| = \sup\limits_{x_1 \neq 0, x_2 \neq 0 } \|x_1\|^{-1} \|x_2\|^{-1}\|T(x_1, x_2)\|$
+			\item $\|T\| = \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} Since $X_1 \neq \{0\}$ and $ X_2 \neq \{0\}$, the supremums in (1) and (2) are well defined. Let $T \in L^2(X_1, X_2; Y)$. Bilinearity of $T$ implies that the sets over which the supremums are taken in (1) and (2) are the same. So (1) and (2) are equal.\\
+		Now, set 
+		$$M = \sup\limits_{\|x_1\|=1 ,\|x_2\| = 1 }\|T(x_1, x_2)\|$$ 
+		and 
+		$$m = \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$$ 
+		Let $(x_1,x_2) \in X_1 \times X_2$. If $\|x_1 \|=0$ or $\|x_2 \|=0$, then $T(x_1, x_2) = 0$ and $\|T(x_1, x_2) \|\leq M \|x_1 \| \|x_2\|$. Suppose that $\|x_1 \| \neq 0$ and $ \|x_2\|\neq 0$. Then 
+		\begin{align*}
+			\|T(x_1, x_2)\|
+			&= \bigg(\big\|T(\|x_1\|^{-1} x_1, \|x_2\|^{-1} x_2 )\big\|\bigg)\|x_1 \| \|x_2\|\\
+			& \leq M \|x_1\| \|x_2\|
+		\end{align*}
+		Hence $M \in \{C \geq 0: \text{ for each }x \in X\text{, } \|Tx \|\leq C \|x \|\}$ and $m \leq M$.
+		Let $C \in \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$. Suppose that $\|x_1 \|=1$ and $\|x_2\| = 1$. Then $\| T (x_1, x_2) \| \leq C \|x_1 \| \|x_2 \|= C$. So $M \leq C$. Therefore $M \leq m$. So $M=m$ and the supremum in (1) is the same as the infimum in (3). 
+	\end{proof}
+	
+	\begin{ex}
+	Let $X_1, X_2$ and $Y$ be normed vector spaces. Then $\|\cdot\|: L^2(X_1, X_2; Y) \rightarrow [0, \infty)$ is a norm. 
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	\begin{ex} \lex{43003}
+	Let $X_1, X_2, Y$ be normed vector spaces and $T_1 \in L(X_1, L(X_2, Y))$. Define $T:X_1 \times X_2 \rightarrow Y$ by $T(x_1, x_2) = T_1(x_1)(x_2)$. Then $T \in L^2(X_1, X_2; Y)$.  
+	\end{ex}
+	
+	\begin{proof}
+	It is straightforward to show that $T$ is multilinear. For $x_1 \in X_1$ and $x_2 \in X_2$, 
+	\begin{align*}
+	\|T(x_1, x_2)\| 
+	&= \|T_1(x_1)(x_2)\| \\
+	& \leq \|T_1(x_1)\| \|x_2\| \\
+	& \leq \|T_1\| \|x_1\| \|x_2\|
+	\end{align*}
+	So $T \in L^2(X_1, X_2;Y)$.
+	\end{proof}
+	
+	\begin{ex} \lex{43004}
+	Let $X_1, X_2, Y$ be normed vector spaces and $T \in L^2(X_1, X_2; Y)$. Define the map $T_1 : X_1 \rightarrow  Y^{X_2}$ by  $T_1(x_1)(\cdot) = T(x_1, \cdot)$. Then $T_1 \in L(X_1, L(X_2, Y))$.
+	\end{ex}
+	
+	\begin{proof}
+	Let $x_1 \in X_1$. By definition of $T$, $T_1(x_1)$ is linear. Since $T$ is bounded, there exists $C \geq 0$ such that for each $a_1 \in X_1$, $a_2 \in X_2$, $T(a_1, a_2) \leq C\|a_1\| \|a_2\|$. Then for each $x_2 \in X_2$,
+	\begin{align*}
+	\| T_1(x_1)(x_2) \|
+	&= \|T(x_1, x_2) \| \\
+	&\leq (C\|x_1\|) \|x_2\| 
+	\end{align*}
+	So $T_1(x_1) \in L(X_2,Y)$ with $\|T_1(x_1)\| \leq C\|x_1\|$. Since $x_1 \in X_1$ was arbitrary, $T_1: X_1 \rightarrow L(X,Y)$. By definition of $T$, $T_1$ is linear. The preceeding argument tells us that for each $x_1 \in X_1$, $$\|T_1(x_1)\| \leq C\|x_1\|$$ 
+	So $T_1 \in L(X_1, L(X_2, Y))$ with $\|T_1\| \leq C$.  
+	\end{proof}	
+	
+	
+	
+	
+	\begin{ex} \lex{43005}
+	Let $X_1, X_2$ be normed vector spaces. Define a map $\phi: L^2(X_1, X_2;Y) \rightarrow L(X_1, L(X_2, Y))$ by $\phi(T)(x_1)(x_2) = T(x_1, x_2)$. Then $T$ is an isometric isomorphism.
+	\end{ex}
+	
+	\begin{proof}
+	. 
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Tensor Products}
+	
+	\begin{defn}
+	Let $X, Y$ and $Z$ be Banach spaces and $\phi \in L^2(X,Y ; Z) $. Then $(Z, \phi)$ is said to be a \textbf{tensor product} of $X$ with $Y$ if 
+	\begin{enumerate}
+	\item $\spn \phi(X \times Y)$ is dense in $Z$
+	\item for each Banach space $W$ and $\psi \in L^2(X,Y;W)$, there exists a unique $\psi' \in L(Z, W)$ such that $\psi' \circ \phi = \psi$, i.e. such that the following diagram commutes: 
+	\[ \begin{tikzcd}
+	X \times Y \arrow[r, "\phi"] \arrow[dr, "\psi"'] 	
+	& Z  \arrow[d, "\psi'"] \\
+	& W 
+\end{tikzcd}
+	\]
+	\end{enumerate}
+	If $(Z, \phi)$ is a tensor product of $X$ with $Y$. We often write $Z = X \otimes Y$ and for each $x\in X$, $y \in Y$, we often write $\phi(x,y) = x \otimes y$.
+	\end{defn}	
+	
+	\begin{ex}
+	Let $X$ and $Y$ be Banach spaces, $U \subset X$ and $V \subset Y$. Set $W = \{u \otimes v: u \in U \text{ and } v \in V\} \subset X \otimes Y$. If $U$ and $V$ are linearly independent, then $W$ is linearly independent.\\
+	\textbf{Hint:} For $\phi \in X^*$, $\psi \in Y^*$, define $T \in L^2(X, Y; \C)$ by $T(x,y) = \phi(x)\psi(y)$.
+	\end{ex}	
+	
+	\begin{proof}
+	Let $w = \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} u \otimes v$. Suppose that $w = 0$. Let $\phi \in X^*$ and $\psi \in Y^*$. Define $T \in L^2(X, Y; \C)$ by $T(x,y) = \phi(x)\psi(y)$. By definition of the tensor product, there exists a unique $T' \in L(X \otimes Y, \C)$ such that for each $x \in X$ and $y \in Y$, $T'(x \otimes y) = T(x,y)$. Then 
+	\begin{align*}
+	0 
+	&= T'(w) \\
+	&= T'(\sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} u \otimes v) \\
+	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} T'(u \otimes v) \\
+	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} T(u, v) \\
+	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} \phi(u)\psi(v) \\
+	&= \phi\bigg( \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v}  \psi(v) u \bigg)
+	\end{align*}
+	Since $\phi \in X^*$ is arbitary, a previous exercise in the section on linear functionals implies that 
+	\begin{align*}
+	0 
+	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v}  \psi(v) u \\
+	&= \sum\limits_{u \in U} \bigg (\sum\limits_{v \in V}\lam_{u,v}  \psi(v)  \bigg) u
+	\end{align*}
+	Linear independence of $U$ implies that for each $u \in U$, 
+	\begin{align*}
+	0 
+	&= \sum\limits_{v \in V}\lam_{u,v}  \psi(v) \\
+	&= \psi \bigg( \sum\limits_{v \in V}\lam_{u,v}  v \bigg )
+	\end{align*}
+	Since $\psi \in Y^*$ is arbitary, for each $u \in U$, $$\sum\limits_{v \in V}\lam_{u,v}  v = 0$$
+	Linear independence of $V$ implies that for each $u \in U, v \in V$, $\lam_{u,v} = 0$. Hence $W$ is linearly independent. 
+	\end{proof}
+	
+	\begin{ex} \textbf{Uniqueness:}\\
+	Let $X, Y$ and $Z$ be Banach spaces and $\phi \in L^2(X,Y ; Z)$. Suppose that $(Z, \phi)$ is a tensor product of $X$ with $Y$. Then $(Z, \phi)$ is unique up to isomorphism. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $W$ be a Banach space and $\psi \in  L^2(X,Y ; W)$. Suppose that $(W, \psi)$ is a tensor product of $X$ with $Y$. Since $(Z, \phi)$ is a tensor product of $X$ with $Y$, there exists a unique $\psi' \in L(Z, W)$ such that $\psi' \circ \phi = \psi$. Since $(W, \psi)$ is a tensor product of $X$ with $Y$, there exists a unique $\phi' \in L(W,Z)$ such that $\phi' \circ \psi = \phi$. Thus the following diagram commutes: 
+	\[ \begin{tikzcd}
+	& W  \arrow[d, "\phi'"] \\
+	X \times Y \arrow[r, "\phi"] \arrow[dr, "\psi"'] \arrow[ur, "\psi"]	
+	& Z  \arrow[d, "\psi'"] \\
+	& W 
+\end{tikzcd}
+	\]
+	On the other hand, since $(W, \psi)$ is a tensor product of $X$ with $Y$, there exists a unique $\Psi \in L(W)$ such that $\Psi \circ \psi = \psi$. Thus the following diagram commutes:  
+	\[ \begin{tikzcd}
+	X \times Y \arrow[r, "\psi"] \arrow[dr, "\psi"'] 	
+	& W  \arrow[d, "\Psi"] \\
+	& W 
+\end{tikzcd}
+	\]
+	Since $I_W \in L(W)$ and $I_W \circ \psi = \psi$, uniqueness of $\Psi$ implies that $\Psi = I_W$. 
+	From the first diagram, we see that $\psi' \circ \phi'$ satisfies $(\psi' \circ \phi') \circ \psi  = \psi$. Since $\psi' \circ \phi' \in L(W)$, uniqueness of $\Psi$ implies that $\Psi = \psi' \circ \phi'$. Thus $\psi' \circ \phi'  = I_W$. \\
+	Similarly, we could have initially considered the following diagram: 
+	\[ \begin{tikzcd}
+	& Z  \arrow[d, "\psi'"] \\
+	X \times Y \arrow[r, "\psi"] \arrow[dr, "\phi"'] \arrow[ur, "\phi"]	
+	& W  \arrow[d, "\phi'"] \\
+	& Z
+\end{tikzcd}
+	\]
+	Playing a similar game, we could use the fact that there exists a unique $\Phi \in L(Z)$ such that $\Phi \circ \phi = \phi$ to obtain the following diagram:
+	\[ \begin{tikzcd}
+	X \times Y \arrow[r, "\phi"] \arrow[dr, "\phi"'] 	
+	& Z  \arrow[d, "\Phi"] \\
+	& Z 
+\end{tikzcd}
+	\]
+	As before, uniqueness enables us to conclude that $\phi' \circ \psi' = I_Z$. Thus $\psi'$ and $\phi'$ are isomorphisms and $Z \cong W$.
+	\end{proof}
+	
+	\begin{defn}
+	Let $X$ and $Y$ be Banach spaces. For $x \in X$ and $y \in Y$, define $x \otimes y \in L(L^2(X,Y;\C)^*, \C)$ by $x \otimes y( T) = T(x,y)$. Set $X \otimes^{\text{alg}} Y = \spn \{ x \otimes y: x \in X \text{ and } y \in Y \}$. 
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ and $Y$ be Banach spaces. Then the map $\otimes : X \times Y \rightarrow X \otimes^{\text{alg}} Y$ is bilinear.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn}\textbf{The Projective Norm:} \\
+	Define $\|\cdot \|_{\pi}:X \otimes^{\text{alg}} Y \rightarrow \Rg$ by $$\|u\|_{\pi} = \inf \bigg \{ \sum_{j=1}^n \|x_j\| \|y_j\|: (x_j)_{j=1}^n \subset X \text{, }  (y_j)_{j=1}^n \subset Y \text{ and } u = \sum_{j=1}^n x_j \otimes y_j  \bigg \}$$
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ and $Y$ be Banach spaces. Then $\| \cdot \|_{\pi}: X \otimes^{\text{alg}} Y \rightarrow \Rg$ is a norm on $X \otimes^{\text{alg}} Y$.
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{itemize}
+	\item Let $\lam \in \C$, $u \in X \otimes^{\text{alg}} Y$. If $\lam = 0$, then $\lam u = 0  u = 0 \otimes 0$ and clearly $\|\lam u\|_{\pi} = 0 = |\lam|\|u\|_{\pi}$. Suppose that $\lam \neq 0$. Let $\ep >0$. Then there exist $(x_j)_{j=1}^n \subset X$ and $(y_j)_{j=1}^n \subset Y$ such that $u = \sum\limits_{j=1}^n x_j \otimes y_j $ and $\sum\limits_{j=1}^n \|x_j\| \|y_j\| < \|u\|_{\pi} + \ep/|\lam| $. Then $\lam u = \sum\limits_{j=1}^n (\lam x_j) \otimes y_j $.
+	Therefore
+	\begin{align*}
+	\|\lam u\|_{\pi} 
+	& \leq \sum\limits_{j=1}^n \|\lam x_j\| \|y_j\| \\
+	& \leq |\lam| \sum\limits_{j=1}^n \| x_j\| \|y_j\| \\
+	& < |\lam| \bigg( \|u\|_{\pi} + \frac{\ep}{|\lam|} \bigg) \\
+	& = |\lam| \|u\|_{\pi} + \ep
+	\end{align*}
+	Since $\ep >0$ is arbitrary, $\|\lam u\|_{\pi} \leq |\lam| \|u\|_{\pi} $. For the sake of contradiction, suppose that $\|\lam u\|_{\pi} < |\lam| \|u\|_{\pi} $. Then there exists $(x_j)_{j=1}^n \subset X$ and $(y_j)_{j=1}^n \subset Y$ such that $\lam u = \sum\limits_{j=1}^n x_j \otimes y_j $ and $\sum\limits_{j=1}^n \|x_j\| \|y_j\| < |\lam| \|u\|_{\pi}$. Hence $u = \sum\limits_{j=1}^n (\lam^{-1}x_j) \otimes y_j$. This implies that 
+	\begin{align*}
+	\|u \|_{\pi} 
+	& \leq \sum\limits_{j=1}^n \|\lam^{-1}x_j\| \|y_j\| \\
+	&= |\lam |^{-1}\sum\limits_{j=1}^n \|x_j\| \|y_j\| \\
+	&< |\lam |^{-1} |\lam| \|u\|_{\pi} \\
+	&= \|u\|_{\pi}
+	\end{align*}
+	which is a contradiction. Therefore $\|\lam u\|_{\pi} \geq |\lam| \|u\|_{\pi}$ which implies that $\|\lam u\|_{\pi} = |\lam| \|u\|_{\pi}$
+	\item Let $u, v \in X \otimes^{\text{alg}} Y$ and $\ep >0$. Then there exist $(x_j)_{j=1}^n$, $(a_k)_{k=1}^m \subset X$ and $(y_j)_{j=1}^n$, $(b_k)_{k=1}^m \subset Y$ such that $u = \sum\limits_{j=1}^n x_j \otimes y_j $, $v = \sum\limits_{k=1}^m a_k \otimes b_k $, $\sum\limits_{j=1}^n \|x_j\| \|y_j\| < \|u\|_{\pi} + \ep/2$ and $\sum\limits_{k=1}^m \|a_k\| \|b_k\| < \|u\|_{\pi} + \ep/2$. Then $u+v = \sum\limits_{j=1}^n x_j \otimes y_j + \sum\limits_{k=1}^m a_k \otimes b_k $ which implies that 
+	\begin{align*}
+	\|u + v\|_{\pi} 
+	& \leq \sum\limits_{j=1}^n \|x_j\| \|y_j\| + \sum\limits_{k=1}^m \|a_k\| \|b_k\| \\
+	&< \|u\|_{\pi} + \ep/2 + \|v\|_{\pi} + \ep/2 \\
+	&= \|u\|_{\pi} + \|v\|_{\pi} + \ep
+	\end{align*}
+	Since $\ep >0$ is arbitrary, $\|u + v\|_{\pi} \leq \|u\|_{\pi} + \|v\|_{\pi}$.
+	\item Let $u \in X \otimes^{\text{alg}} Y$. Suppose that $\|u\| = 0$. \\
+	\textbf{FINISH!!!}
+	\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \textbf{Existence:} \\
+	Let $X$ and $Y$ be Banach spaces. Then $X \otimes Y$ exists.\\
+	\textbf{Hint:} For $x \in X$ and $y \in Y$, define $x \otimes y \in L(L^2(X,Y;\C)^*, \C)$ by $x \otimes y( T) = T(x,y)$.
+	\end{ex}
+	
+	\begin{proof}
+	For $x \in X$ and $y \in Y$, define $x \otimes y \in L(L^2(X,Y;\C)^*, \C)$ by $x \otimes y( T) = T(x,y)$. Set $X \otimes^{\text{alg}} Y = \spn \{ x \otimes y: x \in X \text{ and } y \in Y \}$
+	\end{proof}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\subsection{The Baire Category and Closed Graph Theorems}
 	
 	\begin{thm}
