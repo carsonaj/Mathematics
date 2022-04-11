@@ -8,6 +8,7 @@
 	colorlinks=true, %set true if you want colored links
 	linktoc=all,     %set to all if you want both sections and subsections linked
 	linkcolor=black,  %choose some color if you want links to stand out
+	urlcolor=cyan
 }
 
 
@@ -27,27 +28,26 @@
 \let\endproof\endhide
 \fi
 
-\newtheorem{thm}{Theorem}[subsection]
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{conj}{Conjecture}
-
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
 \newtheorem{defn}[definition]{Definition}
-
-\theoremstyle{remark}
-\newtheorem{remark}{Note}[subsection]
-\newtheorem{note}[remark]{Note}
-
-\theoremstyle{definition}
+\newtheorem{note}[definition]{Note}
+\newtheorem{thm}[definition]{Theorem}
+\newtheorem{lem}[definition]{Lemma}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem{cor}[definition]{Corollary}
+\newtheorem{conj}[definition]{Conjecture}
 \newtheorem{ex}[definition]{Exercise}
 
 
+
+\DeclareMathOperator{\supp}{supp}
+
+\newcommand{\p}{\partial}
+
 \newcommand{\al}{\alpha}
 \newcommand{\Gam}{\Gamma}
-\newcommand{\be}{\beta} 
+\newcommand{\bet}{\beta} 
 \newcommand{\del}{\delta} 
 \newcommand{\Del}{\Delta}
 \newcommand{\lam}{\lambda}  
@@ -94,17 +94,26 @@
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
 
+\newcommand{\loc}{\text{loc}}
+
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\spn}{span}
-\DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\Img}{Im}
 
+\newcommand{\Hom}{\text{Hom}}
+
+
+
+\newcommand{\lex}[1]{\label{ex:#1}}
+\newcommand{\ld}[1]{\label{defn:#1}}
+\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
+\newcommand{\rd}[1]{Definition \ref{defn:#1}}
 
 
 
 \begin{document}
 	
-	\title{Introduction to Commutative Algebra}
+	\title{Introduction to Algebra}
 	\author{Carson James}
 	\maketitle
 	
@@ -112,20 +121,95 @@
 	
 	\newpage
 	
-	\section*{Preface}
-	\begin{flushleft}
-		This aim of this book is to help students develope a basic grasp of the theory of integration. A typical student's first exposure to integration is in the context of the Darboux integral. This integral is applicable to a relatively small class of complex-valued functions of one or more real variables. Although this is integral is of critical importance, it is not sufficient for many purposes. Extending the Darboux integral to the Lebesgue integral, we can define a notion of integration for certain complex-valued functions on more general spaces, like for example topological spaces. To do so, we must first develop some measure theory, which is useful in its own right. Further extending the Lebesgue integral to the Bochner integral, we can define a notion of integration for certain vector valued functions. 
-	\end{flushleft}
-
-	\vspace{.2cm}
-
-	\begin{flushleft}
-		The target audience of this book is composed of those who wish to deepen their understanding of integration beyond the Darboux integral. In practice, a basic understanding of the integral would benefit anyone who works with integration and limits in more exotic spaces. For example, students of statistics, physics and disciplines which utilize numerical solutions to differential equations would benefit greatly from a deeper understanding of the integral. 
-	\end{flushleft}
+	
+	\section{Groups}
+	
+	\subsection{Direct Products}
+	
+	\begin{defn}
+	Let $G,H$ be groups. Define a product $*:(G \times H) \times (G \times H) \rightarrow G \times H$ by 
+	$$(x_1,y_1) * (x_2, y_2) = (x_1x_2, y_1y_2)$$
+	Then $(G \times H, *)$ is called the \textbf{direct product of $G$ and $H$}.
+	\end{defn}	
+	
+	\begin{ex}
+	\lex{1} Let $G,H$ be groups. Then the direct product $G \times H$ is a group.
+	\end{ex}
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn} 
+	Let $G,H$ be groups. Define $\pi_G :G \times H \rightarrow G$ and $\pi_H :G \times H \rightarrow H$ by $\pi_G(x,y) = x$ and $\pi_H(x,y) = y$.  Then $\pi_G$ and $\pi_H$ are respectively called the \textbf{projection maps onto $G$ and $H$}.
+	\end{defn}	
+	
+	\begin{ex}
+	\lex{2} Let $G,H$ be groups. Then 
+	\begin{enumerate}
+	\item $\pi_G: G \times H \rightarrow G$ and $\pi_H : G \times H \rightarrow H$ are homomorphisms
+	\item $\ker \pi_G \cong H$ and $\ker \pi_H \cong G$
+\end{enumerate}	 
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item Clear
+	\item Define $\iota_G:G \rightarrow \ker \pi_H$ by $$\iota_G(x) = (x, e_H)$$ Then $\iota_G$ is an isomorphism. Similarly, we can define $\iota_H:H \rightarrow \ker \pi_G$ and show that it is an isomorphism.
+	\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+	Let $G,H, K$ be groups, $\phi \in \Hom(G,K)$ and $\psi \in \Hom(H, K)$. We define $\phi \times \psi: G \times H \rightarrow K$ by $\phi \times \psi(x,y) = \phi(x) \psi(y)$ 
+	\end{defn}	
+	
+	\begin{ex}
+	\lex{3} Let $G,H, K$ be groups, $\phi \in \Hom(G,K)$ and $\psi \in \Hom(H, K)$. If $K$ is abelian, then $\phi \times \psi \in Hom(G \times H,K)$.
+	\end{ex}
+	
+	\begin{proof}
+	Let $x_1, x_2 \in G$ and $y_1, y_2 \in H$. Then 
+	\begin{align*}
+	\phi \times \psi[(x_1, y_1)(x_2, y_2)] 
+	&= \phi \times \psi (x_1x_2, y_1y_2) \\
+	&= \phi(x_1x_2) \psi(y_1y_2) \\
+	&= \phi(x_1)\phi(x_2)\psi(y_1)\psi(y_2) \\
+	&= \phi(x_1)\psi(y_1)\phi(x_2)\psi(y_2) \\
+	&= [\phi \times \psi(x_1, y_1)] [\phi \times \psi(x_2, y_2) ]
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	\lex{4} Let $G,H, K$ be groups and $\phi \in \Hom(G \times H, K)$. Then there exist $\phi_G \in \Hom(G,K)$, $\phi_H \in \Hom(H, K)$ such that $\phi_G \times \phi_H = \phi$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $K$ is abelian. Define $\iota_G \in \Hom(G, \ker \pi_H)$ and $\iota_H \in \Hom(H, \ker \pi_G)$ as in part $(2)$ of \rex{2} Define $\phi_G \in \Hom(G, K)$ and $\phi_H \in \Hom(H,K)$ by  $\phi_G = \phi \circ \iota_G$ and $\phi_H = \phi \circ \iota_H $. Let $(x,y) \in G \times H$. Then 
+	\begin{align*}
+	\phi_G \times \phi_H(x,y) 
+	&= \phi_G(x) \phi_H(y) \\
+	&= \phi \circ \iota_G(x) \phi \circ \iota_H(y) \\
+	&= \phi(x, e_H)\phi(e_G, y) \\
+	&= \phi(x,y) \\
+	\end{align*}
+	So $\phi = \phi_G \times \phi_H$
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	\newpage
-	
 	\section{Rings}
 	
 	\begin{defn}
@@ -167,9 +251,32 @@
 	Conversely, suppose that $I$ is an ideal of $R$. Let $a_1, \cdots, a_n \in R$ and $x_1, \cdots, x_n \in I$. Then by assumption, for each $i = 1, \cdots, n$, $a_ix_i \in I$ and therefore $\sum\limits_{i=1}^n a_ib_i \in I$. Hence $RI \subset I$.
 	\end{proof}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage	
 	\section{Modules}
 	
-	\subsection{Modules}
+	\subsection{Introduction}
 	
 	\begin{defn}
 	Let $R$ be a ring, $M$ a set, $+: M\times M \rightarrow M$ and $*: R 
@@ -186,10 +293,9 @@
 	\end{defn}
 	
 	\begin{note}
-	For the remainder of this section, we assume that $R$ is a ring. 
+	For the remainder of this section, we assume that $R$ is a commutative ring. 
 	\end{note}
 	
-	\newpage
 	\begin{ex}
 	Let $M$ be an $R$-module. Then for each $r \in R$ and $x \in M$, 
 	\begin{enumerate}
@@ -341,6 +447,56 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Fields}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Vector Spaces}
+	
 	\section{Appendix}
 	\subsection{Monoids}
 	
@@ -385,7 +541,15 @@
 	\end{enumerate}
 	\end{defn}
 	
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
