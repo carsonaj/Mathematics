@@ -866,14 +866,6 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		When $X=Y$, we write $L(X)$.
 	\end{defn}
 	
-	\begin{defn}
-	Let $X$ be a normed vector space over $\C$, and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
-	\end{defn}
-	
-	\begin{note}
-	We define $X^*$ similarly when $X$ is a normed vector space over $\R$.
-	\end{note}
-	
 	\begin{ex} \lex{42002}
 	Set $X = C^{1}([0,1])$ and $Y = C([0,1])$. Equip both $X$ and $Y$ with the sup norm. Define $T:X \rightarrow Y$ by $Tf = f'$. Then $T$ is not bounded.
 	\end{ex}
@@ -1457,6 +1449,14 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	We define $X^*$ similarly when $X$ is a vector space  over $\R$.
 	\end{note}
 	
+	\begin{defn}
+	Let $X$ be a normed vector space over $\C$, and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
+	\end{defn}
+	
+	\begin{note}
+	We define $X^*$ similarly when $X$ is a normed vector space over $\R$.
+	\end{note}
+	
 	\begin{defn} \ld{}
 		Let $X$ be a vector space and $p:X \rightarrow \R$. Then $p$ is said to be a \textbf{sublinear functional} if for each $x,y \in X$, $\lam \geq 0$, 
 		\begin{enumerate}
@@ -1663,7 +1663,13 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\end{ex}
 	
 	\begin{proof}
-	Since $p$ is Lipschitz, there exists $M >0$ such that for each $x \in X$, $|p(x)| \leq M \|x\|$. Let $x \in X$. Then 
+	Since $p$ is Lipschitz, there exists $M >0$ such that for each $x \in X$, 
+	\begin{align*}
+	p(x) 
+	&\leq |p(x)| \\
+	&\leq M \|x\|
+	\end{align*}
+	Let $x \in X$. Then 
 	\begin{align*}
 	\phi(x) 
 	&\leq p(x) \\
@@ -1965,7 +1971,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\begin{defn} \ld{43001}
 	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \prod\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then $T$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x_1, \cdots, x_n \in X$, $$\|T(x_1, \cdots, x_n)\| \leq C \|x_1\| \cdots \|x_n\|$$
 	We define $$L^n (X_1, \dots, X_n; Y) = \bigg\{T: \prod\limits_{i=1}^n X_i \rightarrow Y: T \text{ is multilinear and bounded}\bigg \}$$ 
-	If $X_1 = \cdots = X_n = X$, we write $L^n(X,Y)$ in place of $L^n (X, \dots, X; Y) $. If $X_1 = \cdots = X_n = Y =  X$, we write $L^n(X)$.
+	If $X_1 = \cdots = X_n = X$, we write $L^n(X,Y)$ in place of $L^n (X, \dots, X; Y) $. If $X_1 = \cdots = X_n = Y =  X$, we write $L^n(X)$. 
 	\end{defn}
 	
 	\begin{note}
@@ -2086,9 +2092,30 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	. 
 	\end{proof}
 	
+	\begin{defn}
+	Let $X_1, X_2$ be normed vector spaces, $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$. Define $\phi_1 \otimes \phi_2: X_1 \times X_2$ by $\phi_1 \otimes \phi_2(x_1, x_2) = \phi_1(x_1)\phi_2(x_2)$. 
+	\end{defn}
 	
+	\begin{ex}
+	Let $X_1, X_2$ be normed vector spaces, $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$. Then $\phi_1 \otimes \phi_2 \in L^2(X_1, X_2; \C)$.
+	\end{ex}
 	
+	\begin{proof}
+	Clear.
+	\end{proof}
 	
+	\begin{ex}
+	Let $X_1, X_2$ be normed vector spaces and $(x_1, x_2) \in X_1 \times X_2$. If for each $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$, $\phi_1 \otimes \phi_2 (x_1, x_2) = 0$, then $x_1 = 0$ or $x_2 = 0$. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $x_1 \neq 0$ and $x_2 \neq 0$. The previous section implies that there exist $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$ such that $\phi_1(x_1) = \|x_1\| \neq 0$ and $\phi_2(x_2) = \|x_2\| \neq 0$. Then 
+	\begin{align*}
+	\phi_1 \otimes \phi_2 (x_1, x_2) 
+	& = \phi_1(x_1) \phi_2(x_2) \\
+	& \neq 0
+	\end{align*}
+	\end{proof}
 	
 	
 	
@@ -2110,7 +2137,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\subsection{Tensor Products}
 	
 	\begin{note}
-	This section assumes familiarity with the algebraic tensor product of two vector spaces. See section ??? of \cite{???} for details. 
+	This section assumes familiarity with the algebraic tensor product of two vector spaces. See section ??? of \cite{algebra} for details. 
 	\end{note}	
 	
 	\begin{defn}
@@ -2200,9 +2227,22 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	As before, uniqueness enables us to conclude that $\phi' \circ \psi' = I_Z$. Thus $\psi'$ and $\phi'$ are isomorphisms and $Z \cong W$.
 	\end{proof}
 	
+	
+	\begin{note}
+	The following definitions and exercises will cover the explicit construction of a tensor product of Banach spaces.
+	\end{note}	
+	
 	\begin{defn}
-	Let $X$ and $Y$ be Banach spaces. Define $X \otimes^{\text{alg}} Y = \spn \{ x \otimes y: x \in X \text{ and } y \in Y \}$ to be the algebraic tensor product of $X$ with $Y$ (see section ??? of \cite[?] for details). 
+	Let $X$ and $Y$ be Banach spaces. Define $X \otimes^{\text{alg}} Y = \spn \{ x \otimes y: x \in X \text{ and } y \in Y \}$ to be the algebraic tensor product of $X$ with $Y$ (see section ??? of \cite{algebra} for details). 
 	\end{defn}
+	
+	\begin{ex}
+	Let $X$ and $Y$ be Banach spaces and $x \otimes y \in X \otimes^{\text{alg}} Y$. If for each $\phi \in X^*$ and $\psi \in Y^*$, $\phi \otimes \psi(x,y) = 0$, then $x \otimes y = 0$.
+	\end{ex}
+	
+	\begin{proof}
+	The previous section tells us that for each $\phi \in X^*$ and $\psi \in Y^*$, $\phi \otimes psi(x,y) = 0$, then $x = 0$ or $y = 0$. This implies that $x \otimes y = 0$.
+	\end{proof}
 	
 	\begin{defn}\textbf{The Projective Norm:} \\
 	Define $\|\cdot \|_{\pi}:X \otimes^{\text{alg}} Y \rightarrow \Rg$ by $$\|u\|_{\pi} = \inf \bigg \{ \sum_{j=1}^n \|x_j\| \|y_j\|: (x_j)_{j=1}^n \subset X \text{, }  (y_j)_{j=1}^n \subset Y \text{ and } u = \sum_{j=1}^n x_j \otimes y_j  \bigg \}$$
@@ -2240,18 +2280,27 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	&= \|u\|_{\pi} + \|v\|_{\pi} + \ep
 	\end{align*}
 	Since $\ep >0$ is arbitrary, $\|u + v\|_{\pi} \leq \|u\|_{\pi} + \|v\|_{\pi}$.
-	\item Let $u \in X \otimes^{\text{alg}} Y$. Suppose that $\|u\| = 0$. \\
-	\textbf{FINISH!!!}
+	\item Let $u \in X \otimes^{\text{alg}} Y$. Suppose that $\|u\| = 0$. Let $\phi \in X^*$ and $\psi \in Y^*$ and $\ep >0$. Then there exist $(x_j)_{j=1}^n \subset X$ and $(y_j)_{j=1}^n \subset Y$ such that $u = \sum\limits_{j=1}^n x_j \otimes y_j $ and $$\sum\limits_{j=1}^n \|x_j\| \|y_j\| < \frac{\ep}{\|\phi\| \|\psi\| + 1}$$
+	Then 
+	\begin{align*}
+	\sum_{j=1}^n |\phi \otimes \psi(x_j,y_j)|
+	&=  \sum_{j=1}^n |\phi(x_j)\psi(y_j)| \\
+	& \leq  \sum_{j=1}^n \|\phi\|\|x_j\| \|\psi\|\|y_j\| \\
+	&= \|\phi\|\|\psi\|\sum_{j=1}^n \|x_j\| \|y_j\| \\
+	& < \|\phi\|\|\psi\|\frac{\ep}{\|\phi\| \|\psi\| + 1} \\
+	& < \ep
+	\end{align*}
+	Then for each $j \in \{1, \ldots, n\}$, $|\phi \otimes \psi(x_j,y_j)| < \ep$.
+	\textbf{FINISH!!!} Try using sequences and continuity and a common refinement of representation and averaging
 	\end{itemize}
 	\end{proof}
 	
 	\begin{ex} \textbf{Existence:} \\
-	Let $X$ and $Y$ be Banach spaces. Then $X \otimes Y$ exists.\\
-	\textbf{Hint:} For $x \in X$ and $y \in Y$, define $x \otimes y \in L(L^2(X,Y;\C)^*, \C)$ by $x \otimes y( T) = T(x,y)$.
+	
 	\end{ex}
 	
 	\begin{proof}
-	For $x \in X$ and $y \in Y$, define $x \otimes y \in L(L^2(X,Y;\C)^*, \C)$ by $x \otimes y( T) = T(x,y)$. Set $X \otimes^{\text{alg}} Y = \spn \{ x \otimes y: x \in X \text{ and } y \in Y \}$
+	
 	\end{proof}	
 	
 	
@@ -3158,7 +3207,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 \end{defn}	
 	
 	\begin{ex} \lex{61004}
-	Let $X, Y$ be Banach spaces, $A \subset X$ open, $f,g :A \rightarrow Y$, $\lam \in \R$ and $x_0 \in A$. If $f, g$ are Gateaux differentiable at $x_0$, then $f + \lam g$ Gateaux differentiable at $x_0$ and $d[f+\lam g](x_0) = df(x_0) + \lam dg(x_0)$.
+	Let $X, Y$ be Banach spaces, $A \subset X$ open, $f,g :A \rightarrow Y$, $\lam \in \R$ and $x_0 \in A$. If $f, g$ are Gateaux differentiable at $x_0$, then $f + \lam g$ is Gateaux differentiable at $x_0$ and $d[f+\lam g](x_0) = df(x_0) + \lam dg(x_0)$.
 	\end{ex}
 	
 	\begin{proof}
@@ -3407,11 +3456,11 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\end{proof}
 	
 	\begin{ex}\lex{62004.5}
-	Let $X, Y$ be a banach spaces, $A \subset X$ open, $f:A \rightarrow Y$ and $x_0 \in A$. If $f$ is Frechet differentiable at $x_0$, then $f$ is continuous at $x_0$. This implies that $f(x) \rightarrow f(x_0)$ as $x \rightarrow x_0$ and therefore $f$ is continuous.
+	Let $X, Y$ be a banach spaces, $A \subset X$ open, $f:A \rightarrow Y$ and $x_0 \in A$. If $f$ is Frechet differentiable at $x_0$, then $f$ is continuous at $x_0$. 
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $f$ is Frechet differentiable at $x_0$. Then $f(x) - f(x_0) = Df(x_0)(x - x_0) + o(\|x - x_0\|)$ as $x \rightarrow x_0$. Hence $\|f(x) - f(x_0)\| \leq \| Df(x_0)\| \|x - x_0 \| + o(\|x - x_0\|)$ as $x \rightarrow x_0$.
+	Suppose that $f$ is Frechet differentiable at $x_0$. Then $f(x) - f(x_0) = Df(x_0)(x - x_0) + o(\|x - x_0\|)$ as $x \rightarrow x_0$. Hence $\|f(x) - f(x_0)\| \leq \| Df(x_0)\| \|x - x_0 \| + o(\|x - x_0\|)$ as $x \rightarrow x_0$. This implies that $f(x) \rightarrow f(x_0)$ as $x \rightarrow x_0$ and therefore $f$ is continuous at $x_0$.
 	\end{proof}
 	
 	\begin{ex} \lex{62005}
@@ -3429,11 +3478,11 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\end{proof}
 	
 	\begin{ex} \lex{62006}
-	Let $X$ be a Banach space, $A \subset X$ open, $f:A \rightarrow \R$ and $x_0 \in A$. If $f$ is Frechet differentiable at $x_0$ and $f$ has a local extremum at $x_0$, then $df(x_0) = 0$.
+	Let $X$ be a Banach space, $A \subset X$ open, $f:A \rightarrow \R$ and $x_0 \in A$. If $f$ is Frechet differentiable at $x_0$ and $f$ has a local extremum at $x_0$, then $Df(x_0) = 0$.
 	\end{ex}	
 	
 	\begin{proof}
-	Suppose that $f$ is Frechet differentiable at $x_0$ and $f$ has a local extremum at $x_0$, then $df(x_0) = 0$. Two previous exercises imply that $f$ is Gateaux differentiable at $x_0$ and 
+	Suppose that $f$ is Frechet differentiable at $x_0$ and $f$ has a local extremum at $x_0$. Two previous exercises imply that $f$ is Gateaux differentiable at $x_0$ and 
 	\begin{align*}
 	Df(x_0) 
 	&= df(x_0) \\
@@ -3567,7 +3616,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	
 	
 	\begin{ex} \lex{}
-	Let $X,Y$ be Banach spaces, $A \subset X$ open, $f \in C^n(A, Y), x_0 \in A$, and $h \in X$. Suppose that $\{x_0 +tx:T \in [0,1]\} \subset A$. Define and $g:(0,1) \rightarrow Y$ by $$g(t) = f(x_0 + th)$$
+	Let $X,Y$ be Banach spaces, $A \subset X$ open, $f \in C^n(A, Y), x_0 \in A$, and $h \in X$. Suppose that $\{x_0 +th: t \in [0,1]\} \subset A$. Define and $g:(0,1) \rightarrow Y$ by $$g(t) = f(x_0 + th)$$
 	Then for each $k \in \{1 \dots, n\}$ and $t \in (0,1)$, $$g^{(k)}(t) = D^kf(x_0 + th)(h^{\oplus k})$$
 	\end{ex}
 	
@@ -3790,23 +3839,27 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	\end{ex}
 	
 	\begin{proof}
+	Let $h \in X$. Suppose that $x_0 + h \in A$. Define $g: (0,1) \rightarrow Y$ by 
+	$$g(t) = f(x_0 +t h)$$ 
 	For each $k \in \{1, \dots, n+1\}$, a previous exercise implies that $g^{(k)}(t) = D^kf(x_0 + th)(h^{\oplus k})$, so $g^{(k)}(0) = D^kf(x_0)(h^{\oplus k})$. The previous exercise and the fundamental theorem of calculus tell us that 
 	\begin{align*}
 	f(x_0 +h) - \sum_{k=0}^{n} \frac{1}{k!}D^kf(x_0)(h^{\oplus k})
 	&= g(1) - \sum_{k=0}^{n} \frac{1}{k!}g^{(k)}(0)\\
 	&= \int_{(0,1)} \bigg [\dv{t} \sum_{k=0}^{n} \frac{(1-t)^k}{k!}g^{(k)}(t)\bigg ] dm(t) \\
-	&= \int_{(0,1)} \frac{(1-t)^{n}}{n!}g^{(n+1)}(t) dm(t)
+	&= \int_{(0,1)} \frac{(1-t)^{n}}{n!}g^{(n+1)}(t) dm(t) \\
+	&= \frac{1}{n!}\int_{(0,1)} (1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)})d m(t) \\
+	&= R(x_0;h)
 	\end{align*}	
 	Note that $$\frac{1}{n+1} = \frac{1}{n!}\int_{(0,1)} (1-t)^{n} dm(t)$$ 
-	Since $D^{n+1}f$ is continuous at $x_0$, there exists $\del_1 >0$ such that for each $h \in B(0, \del_1)$, 
+	Since $D^{n+1}f$ is continuous at $x_0$, there exists $\del_1 >0$ such that for each $h \in B(0, \del_1)$, $x_0 + h \in A$ and 
 	$$\|D^{n+1} f(x_0+h) - D^{n+1}f(x_0)\| < 1 $$  
 	Let $\ep >0$. Choose $\del_2 >0$ such that $$\frac{1}{n+1} \bigg( \|D^{n+1}f(x_0 )\|  +  1 \bigg) \del_2 < \ep$$ Set $\del = \min(\del_1, \del_2)$. Let $h \in B(0, \del)$. Then
 	\begin{align*}
 	\|R(x_0;h)\| 
 	&= \bigg \| \int_{(0,1)} \frac{1}{n!}\int_{(0,1)} (1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)})d m(t) \bigg\| \\
 	&\leq \frac{1}{n!}\int_{(0,1)} \|(1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)}) \|dm(t)\\
-	&\leq \frac{1}{n+1} \max_{t \in [0,1]}\|D^{n+1}f(x_0 + th)\| \|h\|^{n+1}  \\
-	&\leq \frac{1}{n+1}  \bigg(\|D^{n+1}f(x_0 )\| +  \max_{t \in [0,1]} \|D^n f(x_0+th) - D^{n+1}f(x_0)\| \bigg)\|h\|^{n+1}  \\
+	&\leq \max_{t \in [0,1]}\|D^{n+1}f(x_0 + th)\| \|h\|^{n+1} \frac{1}{n!}\int_{(0,1)} (1-t)^{n} dm(t)  \\
+	&\leq \frac{1}{n+1}  \bigg(\|D^{n+1}f(x_0 )\| +  \max_{t \in [0,1]} \|D^{n+1} f(x_0+th) - D^{n+1}f(x_0)\| \bigg)\|h\|^{n+1}  \\
 	&< \frac{1}{n+1}\bigg(\|D^{n+1}f(x_0 )\|  +  1 \bigg)\|h\|^{n+1}  \\
 	&<\ep \|h\|^n
 	\end{align*}
@@ -3814,8 +3867,19 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	\end{proof}
 	
 	\begin{ex} \lex{}
-	
+	Let $X$ be a Banach space, $A \subset X$ open and convex and $f\in C^{2}(A)$, $x_0 \in A$. If $f$ has a local minimum at $x_0$, then $D^2f(x_0)$ is positive semidefinite.   
 	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ has a local minimum at $x_0$, then $Df(x_0) = 0$. Let $x \in X$. Then 
+	\begin{align*}
+	0 
+	& \leq f(x+h) - f(x_0) \\
+	&= D^2f(x_0) +o(\|h\|^2)
+	\end{align*}
+	\textbf{FINISH!!!}
+	 Set Choose Taylor's theorem implies that 
+	\end{proof}
 
 	
 	
@@ -3862,15 +3926,10 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	\begin{defn} \ld{}
 	Let $X$ be a vector space and $f:A \rightarrow R$. Then $f$ is said to be \textbf{convex} if for each $x,y \in A$, $t \in \ui$, $$f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)$$
 	\end{defn}
-		
-	\begin{ex} \lex{}
-	Let $X$ be a Banach space, $A \subset X$ open and convex, and $f \in C^2(A)$. Then $f$ is convex (resp. strictly convex) iff for each $x \in A$, $D^2f(x)$ is positive semidefinite (resp. positive definite).\\
-	\textbf{Hint:} For $x,y \in X$, consider the function $g:(0,1) \rightarrow \R$ given by  $g(t) = f(tx + (1-t)y)$
-	\end{ex}
 	
-	\begin{proof}
-	
-	\end{proof}
+	\begin{defn} \ld{}
+	Let $X$ be a vector space and $f:A \rightarrow R$. Then $f$ is said to be \textbf{strictly convex} if for each $x,y \in A$, $t \in (0,1)$, $x \neq y$ implies that $$f(tx + (1-t)y) < tf(x) + (1-t)f(y)$$
+	\end{defn}
 	
 	\begin{ex} \lex{}
 	Let $X$ be a vector space, $f \in X^*$ and $g: X \rightarrow \R$ constant. Then $f$ and $g$ are convex. 
@@ -3940,14 +3999,14 @@ So $f \circ g$ is convex.
 	\end{ex}	
 	
 	\begin{proof}
-	If $f$ has a global minimum point at $x_0$, then $f$ has a local minimum point at $x_0$. Conversely, suppose that $f$ has a local minimum point at $x_0$. Then there exists $\del >0$ such that for each $x \in B(x_0, \del)$, $f(x_0) \leq f(x)$. For the sake of contradiction, suppose that $f$ does not have a global minimum point at $x_0$. Then there exits $x' \in A$ such that $f(x') < f(x_0)$. Put $t_0 = \min(\frac{\del}{\|x' - x_0\| + 1}, 1) >0$. Let $t \in (0, t_0)$, then
+	If $f$ has a global minimum point at $x_0$, then $f$ has a local minimum point at $x_0$. Conversely, suppose that $f$ has a local minimum point at $x_0$. Then there exists $\del >0$ such that for each $x \in B(x_0, \del) \cap A$, $f(x_0) \leq f(x)$. For the sake of contradiction, suppose that $f$ does not have a global minimum point at $x_0$. Then there exits $x' \in A$ such that $f(x') < f(x_0)$. Put $t_0 = \min(\frac{\del}{\|x' - x_0\| + 1}, 1) >0$. Let $t \in (0, t_0)$, then
 	\begin{align*}
 	\|(tx' + (1-t)x_0) - x_0\| 
 	&= t\|x' -x_0 \| \\
 	& <   \frac{\|x' -x_0 \|\del}{\|x' -x_0\| + 1} \\
 	& < \del
 	\end{align*} 
-	so that $tx' + (1-t)x_0 \in B(x_0, \del)$ and hence $f(x_0) \leq f(tx' + (1-t)x_0)$.  Therefore  
+	so that $tx' + (1-t)x_0 \in B(x_0, \del) \cap A$ and hence $f(x_0) \leq f(tx' + (1-t)x_0)$.  Therefore  
 	\begin{align*}
 	f(x_0) 
 	& \leq f(tx' + (1-t)x_0) \\
@@ -3957,6 +4016,21 @@ So $f \circ g$ is convex.
 	\end{align*}
 	which is a contradiction. Hence $f$ has a global minimum point at $x_0$.
 	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a vector space, $A \subset X$ convex, $f:A \rightarrow \R$ strictly convex. Then $f$ has at most one local minimum point.
+	\end{ex}
+	
+	\begin{proof}
+	For the sake of contradiction suppose that $f$ has at least two local minimum points. Choose $x_0, x_1 \in A$ such that $x_0 \neq x_1$ and $f$ has a local minimum point at $x_0$ and $x_1$. The previous exercise implies that $f$ has a global minimum point at $x_0$ and $x_1$. This implies $f(x_0) = f(x_1)$. Set $t = 1/2$. Strict convexity implies that 
+	\begin{align*}
+	f(tx_0 + (1-t)x_1) 
+	&< tf(x_0) + (1-t)f(x_1)  \\
+	&= f(x_0) 
+	\end{align*}
+	which is a contradiction since $f$ has a global minimum point at $x_0$.
+	\end{proof}
+
 	
 	\begin{defn} \ld{}
 	Let $X, Y$ be vector spaces, $A \subset X \oplus Y$. For $y \in Y$, define $$A^y = \{x \in X: (x,y) \in A \}$$ and $f^y:A^y \rightarrow \R$ by $$f^y(x) = f(x,y)$$
@@ -4031,6 +4105,9 @@ So $f \circ g$ is convex.
 	Since $\lam \in \Lam$ is arbitrary, $f(tx + (1-t)y) \leq tf(x) + (1-t)f(y) $. 
 	\end{proof}
 	
+	
+	
+	
 	\begin{ex} \lex{}
 	Let $X$ be a normed vector space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then $f$ is locally Lipschitz at $x_0$. \\
 	\textbf{Hint:} Given $x_1, x_2$ near $x_0$ Choose a $z$ near $x_0$ s.t. $x_1$ is a convex combination of $x_2$ and $z$. Then repeat but with $x_2$ as a convex combination of $x_1$ and $z$
@@ -4074,7 +4151,7 @@ So $f \circ g$ is convex.
  	\end{proof}
 
 
-
+	
 	
 	
 	
@@ -4340,6 +4417,21 @@ So $f \circ g$ is convex.
 	\end{itemize}
 	\end{proof}
 	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f,g:A \rightarrow \R$ convex, $\lam \geq 0$ and $x_0 \in A$. Then $$\p f(x_0) + \lam \p g(x_0) \subset \p[f + \lam g](x_0)$$
+	\end{ex}
+	
+	\begin{proof}
+	Let $\zeta \in \p f(x_0) + \lam \p g(x_0)$. Then there exist $\phi \in \p f(x_0)$ and $\psi \in \p g(x_0)$ such that $\zeta = \phi + \lam \psi$. A previous exercise implies that $\phi \leq d^+f(x_0)$ and $\lam \psi \leq \lam d^+g(x_0) = d^+[\lam g](x_0)$. Hence 
+	\begin{align*}
+	\zeta
+	&= \phi + \lam \psi \\
+	&\leq d^+f(x_0) + d^+[\lam g](x_0) \\
+	&= d^+[f + \lam g](x_0)
+	\end{align*}
+	So $\zeta \in \p [f+\lam g](x_0)$
+	\end{proof}
+	
 	\begin{ex} \lex{}
 	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then $f$ has a global minimum point at $x_0$ iff $0 \in \p f(x_0)$.
 	\end{ex}
@@ -4361,7 +4453,38 @@ So $f \circ g$ is convex.
 	So that $f(x_0) \leq f(x)$ which implies that $f$ has a global minimum point at $x_0$.
 	\end{proof}
 	
+	\begin{ex}
+	et $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is Frechet differentiable at $x_0$, then $\p f(x_0) = \{Df(x_0)\}$. 
+	\end{ex}	
 	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. Suppose that $f$ is Frechet differentiable at $x_0$. If $Df(x_0) = 0$, then $f$ has a local minimum point at $x_0$. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $Df(x_0) = 0$. Since $\p f(x_0) = \{Df(x_0)\}$, a previous exercise implies that $f$ has a global minimum point at $x_0$. 
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. Suppose that $f$ is Frechet differentiable at $x_0$. Then for each $x \in A$, $f(x) \geq f(x_0) + Df(x_0)(x - x_0)$
+	\end{ex}
+	
+	\begin{proof}
+	Since $Df(x_0) \in \p f(x_0)$, for each $x \in A$, $Df(x_0)(x - x_0) \leq f(x) - f(x_0)$.
+	\end{proof}
+	
+	\begin{ex} \lex{}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, and $f \in C^2(A)$. Then $f$ is convex (resp. strictly convex) iff for each $x_0 \in A$, $D^2f(x_0)$ is positive semidefinite (resp. positive definite).\\
+	\textbf{Hint:} Define $g:A \rightarrow \R$ by $g(x) = f(x) - Df(x_0)(x - x_0)$ and show $g$ is convex and use Taylor's Theorem
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ is convex. Let $x_0 \in X$. Define $g:A \rightarrow \R$ by $g(x) = f(x) - Df(x_0)(x - x_0)$. Since $g$ is the sum of a convex function and an affine function, $g$ is convex. Since $f \in C^2(A)$, we have that $g \in C^2(A)$ and it is straightforward to show that for each $x \in A$, $Dg(x) = Df(x) - Df(x_0)$ and $D^2g(x) = D^2f(x)$. In particular, $Dg(x_0) = 0$. Hence $g$ has a global minimum point at $x_0$. 
+	\end{proof}
 	
 	\newpage 
 	\subsection{Conjugacy}
@@ -4814,9 +4937,14 @@ Then
 	
 	\newpage
 	\begin{thebibliography}{4}
-\bibitem{groups} \href{https://github.com/carsonaj/Mathematics/tree/master/Introduction\%20to\%20Group\%20Theory}{Introduction to Group Theory}
+\bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
+
+\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
+
+\bibitem{foranal}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Fourier\%20Analysis/Introduction\%20to\%20Fourier\%20Analysis.pdf}{Introduction to Fourier Analysis}
 
 \bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
+
 
 
 \end{thebibliography}

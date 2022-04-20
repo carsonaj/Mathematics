@@ -1231,6 +1231,15 @@
 		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is said to be $\MA$-$\MB$ \textbf{measurable} if for each $B \in \MB$, $f^{-1}(B) \in \MA$. When $(Y, \MB) = (\R, \MB(\R))$ we say that $f$ is $\MA$-\textbf{measurbale}. If $(Y,\MB) = (\R, \MB(\R))$ and $(X,\MA) = (\R, \MB(\R))$ or $(\R, \ML)$, then we say that $f$ is \textbf{Borel measurable} or \textbf{Lebsgue measurbale} respectively.
 	\end{defn}
 	
+	\begin{defn} \ld{00000} 
+		Let $(X, \MA, \mu)$ be a measure space and $(Y, \MB)$ a measurable space. Define 
+		\begin{itemize}
+		\item $L^{+}(X, \MA, \mu) = \{f:X \rightarrow \RG : f \text{ is measurable}\}$
+		\item $L^0(X, \MA, \mu) = \{f:X \rightarrow \C : f \text{ is measurable}\}$ 
+		\item $L_Y^{0}(X, \MA, \mu) = \{f:X \rightarrow Y : f \text{ is measurable}\}$
+		\end{itemize}
+	\end{defn}
+	
 	\begin{defn}
 	Let $(X, \MA)$ and $(Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. We define the 
 	\begin{enumerate}
@@ -1403,10 +1412,6 @@
 	
 	\newpage	
 	\subsection{Integration of Nonnegative Functions}
-	
-	\begin{defn} \ld{00000} 
-		Let $(X, \MA, \mu)$ be a measure space. Define $$L^{+}(X, \MA, \mu) = \{f:X \rightarrow \RG : f \text{ is measurable}\}$$ We will typically just write $L^{+}$.
-	\end{defn}
 	
 	\begin{thm}\textbf{Monotone Convergence Theorem:} 
 		Let $(f_n)_{n \in \N} \subset L^+$. Suppose that for each $n \in \N$, $f_n \leq f_{n+1}$. Then $$\sup_{n \in \N} \int f_n = \int \sup_{n \in \N} f_n$$.
@@ -2166,7 +2171,7 @@
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
 			\item First suppose that $f$, $g$ are simple. Then there exist $(A_i)_{i=1}^n \subset \MA$, $(B_j)_{j=1}^m \subset \MB$ and $(a_i)_{i=1}^n, (b_i)_{j=1}^m \subset \C$ such that $f = \sum_{i=1}^n a_i \chi_{A_i}$ and $g = \sum_{j=1}^m b_j \chi_{B_j}$. Then $h = \sum_{i=1}^n \sum_{j=1}^m a_i b_j \chi_{A_i \times B_j}$. So $h$ is $\MA \otimes \MB$-measurable. For general $f,g$, there exist $(f_n)_{n \in \N} \subset S(X, \MA)$ and $(g_n)_{n \in \N} \subset S(Y, \MB)$ such that $f_n \rightarrow f$ pointwise, $g_n \rightarrow g$ pointwise and for each $n \in \N$, $|f_n| \leq |f_{n+1}| \leq |f|$ and $|g_n| \leq |g_{n+1}| \leq |g|$. For $n \in \N$, define $h_n \in S(X \times Y, \MA \otimes \MB)$ by $h_n = f_n g_n$. Then $h_n \rightarrow h$ pointwise and for each $n \in \N$, $|h_n| \leq |h_{n+1}| \leq |h|$. Thus $h$ is $\MA \otimes \MB$-measurable.
 			
@@ -2245,13 +2250,20 @@
 	\subsection{Modes of Convergence}
 	
 	\begin{defn} \ld{35001} 
-		Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Then $(f_n)_{n \in \N}$ is said to \textbf{converge to $f$ in measure}, denoted $f_n \xrightarrow{\mu} f$, if for each $\ep > 0$, $$\mu(\{x \in X: |f_n(x) - f(x)| \geq \ep \}) \rightarrow 0 \hspace{.2cm }\text{ as } n \rightarrow \infty$$
+		Let $(X, \MA, \mu)$ be a measure space, $(Y,d)$ a metric space, $(f_n)_{n \in \N} \subset L_Y^0(X, \MA, \mu)$ and $f \in L_Y^0(X, \MA, \mu)$. Then $(f_n)_{n \in \N}$ is said to \textbf{converge to $f$ in measure}, denoted $f_n \xrightarrow{\mu} f$, if for each $\ep > 0$, $$\mu(\{x \in X: d(f_n(x), f(x)) \geq \ep \}) \rightarrow 0 \hspace{.2cm }\text{ as } n \rightarrow \infty$$
 	\end{defn}
 	
 	\begin{defn} \ld{35002} 
 	Let $(f_n)_{n \in \N} \subset L^0$. Then $(f_n)_{n \in \N}$ is said to be \textbf{Cauchy in measure} if for each $\ep >0$, $$\mu(\{x \in X: |f_n(x) - f_m(x)| \geq \ep \}) \rightarrow 0 \hspace{.2cm }\text{ as } n,m \rightarrow \infty$$ 
 	i.e. for each $\ep, \del >0$, there exists $N \in \N$ such that for each $n,m \in \N$, $n,m \geq N$ implies that $\mu(\{x \in X: |f_n(x) - f_m(x)| \geq \ep \}) < \del$.
 	\end{defn}
+	
+	\begin{note}
+		It is useful to observe that 
+		$$\bigcup_{\ep >0}\limsup\limits_{n \rightarrow \infty} \{x \in X: |f_n(x) - f(x)| \geq \ep \} = \{x \in X: f_n(x) \not \rightarrow f(x) \}$$ 
+		and 
+		$$\bigcap_{\ep > 0} \liminf_{n \rightarrow \infty}\{x \in X: |f_n(x) - f(x)| < \ep \} = \{x \in X: f_n(x) \rightarrow f(x) \}$$ 
+	\end{note}
 	
 	\begin{ex} \lex{35002.1} 
 	Let $(X, \MA, \mu)$ be a measure space, $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. If $f_n \conv{\mu} f$, then $(f_n)_{n \in \N}$ is Cauchy in measure.
@@ -2280,25 +2292,31 @@
 	and $(f_n)_{n \in \N}$ is Cauchy in measure.
 	\end{proof}
 	
-	\begin{note}
-		It is useful to observe that 
-		$$\bigcup_{\ep >0}\limsup\limits_{n \rightarrow \infty} \{x \in X: |f_n(x) - f(x)| \geq \ep \} = \{x \in X: f_n(x) \not \rightarrow f(x) \}$$ 
-		and 
-		$$\bigcap_{\ep > 0} \liminf_{n \rightarrow \infty}\{x \in X: |f_n(x) - f(x)| < \ep \} = \{x \in X: f_n(x) \rightarrow f(x) \}$$ 
-	\end{note}
-	
 	\begin{ex}
-	Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that $f_n \convt{a.e.} f$. Then $f_n \conv{\mu} f$. 
+	Let $(f_n)_{n \in \N} \subset L^0$ and $f, g \in L^0$. Suppose that $f_n \conv{\mu} f$ and $f_n \conv{\mu} g$. Then $f = g$ a.e. 
 	\end{ex}
 	
 	\begin{proof}
-	For $n \in \N$ and $\ep >0$, set $$E_{n, \ep} = \{x \in X: |f_n(x) - f(x)| \geq \ep\}$$
-	As noted above, 
+	Set $B = \{x \in X: |f(x) - g(x)|  \geq 0\}$ and for $n, k \in \N$, set 
+	\begin{itemize}
+	\item $B_k = \{x \in X: |f(x) - g(x)| \geq  \frac{1}{k}\}$
+	\item $A_{f,n,k} = \{x \in X: |f_n(x) - f(x)| \geq  \frac{1}{k}\}$
+	\item $A_{g,n,k} = \{x \in X: |f_n(x) - g(x)| \geq  \frac{1}{k}\}$
+	\end{itemize} 
+	As in the proof of \rex{35002.1}, for each $n, k \in \N$
+	$$\mu(B_k) \leq \mu(A_{f,n,2k}) + \mu(A_{g, n, 2k})$$ 
+	Let $\ep >0$. Convergence in measure implies that for each $k \in \N$, there exists $N_k \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $\mu(A_{f,n,2k}), \mu(A_{g,n,2k}) < \ep 2^{-(1+k)}$.
+	Then 
 	\begin{align*}
-	\{x \in X: f_n(x) \not \rightarrow f(x)\} 
-	&= \bigcup_{\ep >0}\limsup\limits_{n \rightarrow \infty} E_{n, \ep} \\
-	&= \bigcup_{\ep >0} \bigcap_{N \in \N} \bigcup_{n \geq N}E_{n, \ep}
-	\end{align*}
+	\mu(B)
+	&= \mu \bigg( \bigcup_{k \in \N} B_k \bigg) \\
+	& \leq \sum_{k \in \N} \mu(B_k) \\
+	& \leq  \sum_{k \in \N}\mu(A_{f,N_k,2k}) + \sum_{k \in \N}\mu(A_{g, N_k, 2k}) \\
+	&\leq  \sum_{k \in \N} \ep 2^{-(1+k)} + \sum_{k \in \N} \ep 2^{-(1+k)} \\
+	&= \frac{\ep}{2} + \frac{\ep}{2} \\
+	&= \ep
+\end{align*}	 
+	Since $\ep >0$ is arbitrary, $\mu(B) = 0$ and $f = g$ a.e.
 	\end{proof}
 	
 	\begin{ex} \lex{35003} 
@@ -2309,13 +2327,13 @@
 		$$E_j = \{x \in X: |f_{n_j}(x) - f_{n_{j+1}}(x)| \geq 2^{-j}\}$$
 		and 
 		$$F_k = \bigcup_{j \geq k}E_j$$
-		Then for each $i,j, k \in \N$, $\mu(F_k) \leq 2^{1-k}$ $i \geq j \geq k$ implies that for each $x \in F_k^c$, $$|f_{n_i}(x) - f_{n_j}(x)| \leq 2^{1-k}$$ 
-		So for each $k \in \N$, $(f_{n_j})_{j \in \N}$  is pointwise Cauchy on $F_k^c$. \\
+		Then $(F_k)_{k \in \N}$ is decreasing and for each $k \in \N$, $\mu(F_k) \leq 2^{1-k}$ and for each $i, j, k \in \N$, $i \geq j \geq k$ implies that for each $x \in F_k^c$, $$|f_{n_i}(x) - f_{n_j}(x)| \leq 2^{1-k}$$ 
+		So for each $k \in \N$, $(f_{n_j})_{j \in \N}$  is uniformly Cauchy on $F_k^c$ and therefore $(f_{n_j})_{j \in \N}$  is pointwise Cauchy on $F_k^c$. \\
 		\textbf{Hint:} get a telescoping sum via the triangle inequality 
 		\item Set $$F = \bigcap_{k \in \N} F_k$$ 
 		Then $\mu(F) = 0$ and there exists $f \in L^0$ such that $f_{n_j} \convt{a.e.} f$.  
-		\item Finally, $f_{n_j} \conv{\mu} f$, $f_n \conv{\mu} f$ and for each $g \in L^0$, if $f_n \conv{\mu} g$, then $f = g$ a.e \\
-		\textbf{Hint:} consider showing $\{x \in X: |f_{n_k}(x) - f(x)| \geq \ep\} \subset F_k$ 
+		\item Finally, $f_{n_j} \conv{\mu} f$, $f_n \conv{\mu} f$ \\
+		\textbf{Hint:} consider showing $\{x \in X: |f_{n_k}(x) - f(x)| \geq \ep\} \subset F_k$ and use something similar to the proof of \rex{35002.1}
 		\end{enumerate}  
 	\end{ex}
 	
@@ -2323,9 +2341,9 @@
 	\begin{enumerate}
 	\item By definition, for each $j \in \N$, there exists $N_j \in \N$ such that for each $n,m \in \N$, $n,m \geq N_j$ implies that 
 	$$\mu(\{x \in X: |f_n(x) - f_m(x)| \geq 2^{-j} \}) < 2^{-j}$$ 
-	Thus we may obtain a subsequence $(f_{n_j})$ such that for each $j \in \N$, 
+	Setting $n_1 = N_1$ and for $j \geq 2$, setting $n_j = \max (n_{j-1}+1, N_j)$, we may obtain a subsequence $(f_{n_j})$ such that for each $j \in \N$, 
 	$$\mu(\{x \in X: |f_{n_j}(x) - f_{n_{j+1}}(x)| \geq 2^{-j}\}) < 2^{-j}$$
-	\item Let $k \in \N$. Part $(1)$ implies that 
+	\item Clearly $(F_k)_{k \in \N}$ is decreasing. Let $k \in \N$. Part $(1)$ implies that 
 	\begin{align*}
 	\mu(F_k) 
 	&\leq \sum_{j \geq k}2^{-j} \\
@@ -2341,14 +2359,14 @@
 	&= 2^{1 - j} \\
 	& \leq 2^{1 - k}	 
 	\end{align*}
-	Let $\ep >0$. Choose $k \in \N$ such that $2^{1-k} < \ep$. Then for each $i,j \in \N$, $i,j \geq k$ implies that 
+	Let $\ep >0$. Choose $k' \in \N$ such that $k' \geq k$ and $2^{1-k'} < \ep$. Let $i,j \in \N$. Suppose that $i,j \geq k'$. Let $x \in F_k^c \subset F_{k'}^c$. Then 
 	\begin{align*}
 	|f_{n_i}(x) - f_{n_j}(x)| 
-	&< 2^{1-k} \\
+	&< 2^{1-k'} \\
 	&< \ep 
 	\end{align*}
-	So $(f_{n_j})_{j \in \N}$ is pointwise Cauchy on $F_k^c$
-	\item Since $\mu(F_1) \leq 1$, and $F = \inf\limits_{k \in \N}F_k$, we have that
+	So $(f_{n_j})_{j \in \N}$ is uniformly Cauchy on $F_k^c$
+	\item Since $\mu(F_1) < \infty $, $(F_k)_{k \in \N}$ is decreasing and $F = \inf\limits_{k \in \N}F_k$, we have that
 	\begin{align*}
 	\mu(F) 
 	&= \inf_{k \in \N} \mu(F_k) \\
@@ -2362,39 +2380,35 @@
 	$$A_{n, \ep} = \{x \in X: |f_n(x) - f(x) |\geq \ep \}$$ 
 	and 
 	$$B_{m, n, \ep} = \{x \in X: |f_m(x) - f_n(x)| \geq \ep\}$$ 
-	Let $\ep, \del>0$. Choose $k \in \N$ such that $2^{3-k} < \ep$ and $\mu(F_k) < \del$. Let $x \in F_k^c$. Since $f_{n_j}(x) \rightarrow f(x)$, there exists $J \in \N$ such that $J \geq k$ and for each $j \in \N$, $j \geq J$ implies that $|f_{n_j}(x) - f(x)| < 2^{1-k}$. Let $l \in \N$. Suppose that $l \geq k$. Then part $(2)$ implies that
+	Let $\ep, \del>0$. Choose $k \in \N$ such that $2^{2-k} < \ep$ and $\mu(F_k) < \del$. Let $x \in F_k^c$. Since $f_{n_j}(x) \rightarrow f(x)$, there exists $J \in \N$ such that $J \geq k$ and for each $j \in \N$, $j \geq J$ implies that $|f_{n_j}(x) - f(x)| < 2^{1-k}$. Let $l \in \N$. Suppose that $l \geq k$. Then part $(2)$ implies that
 	\begin{align*}
 	|f_{n_l}(x) - f(x)| 
-	& \leq |f_{n_l}(x) - f_{n_k}(x)| + |f_{n_k}(x) - f_{n_J}(x)| + |f_{n_J}(x) + f(x)| \\
-	&\leq 2^{1-k} + 2^{1-k}  + 2^{1-k} \\
-	&\leq 2^{3-k} \\
+	& \leq |f_{n_l}(x) - f_{n_J}(x)| + |f_{n_J}(x) - f(x)| \\
+	&\leq 2^{1-k} + 2^{1-k}  \\
+	&\leq 2^{2-k} \\
 	&< \ep
 	\end{align*}
-	So $x \in A_{n_l, \ep}^c$. Hence $A_{n_l, \ep} \subset F_k$ and $\mu(A_{n_l}, \ep) < \del$. So $f_{n_j} \conv{\mu} f$. \\
-	Similarly to proof of \rex{35002.1}, we have that 
-	for each $\ep>0$ and $j \in \N$, 
-	$$\mu(A_{n, \ep}) \leq \mu(B_{n, n_j, \frac{\ep}{2}}) + \mu(A_{n_j, \frac{\ep}{2}})$$   
+	So $x \in A_{n_l, \ep}^c$. Hence $A_{n_l, \ep} \subset F_k$ and $\mu(A_{n_l, \ep}) < \del$. So $f_{n_j} \conv{\mu} f$. \\
+	Let $\ep >0$, $\del > 0$. Since $(f_n)_{n \in \N}$ is Cauchy in measure, there exists $J_1 \in \N$ such that for each $m,n \in \N$ $m,n \geq J_1$ implies that $\mu(B_{m,n, \frac{\ep}{2}}) < \frac{\del}{2}$. Since $f_{n_j} \conv{\mu} f$, there exists $J_2$ such that for each $j \in \N$, $j \geq J_2$ implies that $\mu(A_{n_j, \frac{\ep}{2}}) < \frac{\del}{2}$. Set $J = \max(J_1, J_2)$. Let $j \in \N$. Suppose that $j \geq J$. Since $n_j \geq j$, the proof of \rex{35002.1} implies that, 
+	\begin{align*}
+	\mu(A_{j, \ep}) 
+	&\leq \mu(B_{j, n_j, \frac{\ep}{2}}) + \mu(A_{n_j, \frac{\ep}{2}}) \\
+	&< \frac{\del}{2} + \frac{\del}{2} \\
+	&= \del
+\end{align*}		
+	So that $f_n \conv{\mu} f$.
 	\end{enumerate}
-	So $f_n \conv{\mu} f$. 
-	\textbf{FINISH!!!}
 	\end{proof}
 	
 	\begin{ex} \lex{35003.1} 
 		Let $(f_n)_{n \in \N} \subset L^0$. If $(f_n)_{n \in \N}$ is Cauchy in measure, then there exists a $f \in L^0$ and a subsequence $(f_{n_j})_{j \in \N} \subset (f_n)_{n \in \N}$ such that $f_n \conv{\mu} f$ and $f_{n_j} \convt{a.e.} f$. \\
-		In addition, for each $g \in L^0$, if $f_n \conv{\mu} g$, then $f = g$ a.e.
 	\end{ex}
 	
 	\begin{proof}
 	Previous exercise.
 	\end{proof}
 	
-	\begin{ex} \lex{35003.2} 
-		Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. If $f_n \xrightarrow{\mu} f$, then there exists a subsequence $(f_{n_k})_{k \in \N}$ of $(f_n)_{n \in \N}$ such that $f_{n_k} \xrightarrow{\text{a.e.}} f$.
-	\end{ex}
 	
-	\begin{proof}
-	Since $f_n \conv{\mu} f$, $(f_n)_{n \in \N}$ is Cauchy in measure. The previous exercise implies that there exists a subsequence $(f_{n_k})_{k \in \N} \subset (f_n)_{n \in \N}$ such that $f_{n_k} \convt{a.e.} f$.
-	\end{proof}
 	
 	\begin{defn} \ld{35004} 
 		 Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Then $(f_n)_{n \in \N}$ is said to \textbf{converge to $f$ almost uniformly}, denoted $f_n \xrightarrow{\text{a.u.}} f$, if for each $\ep >0$, there exists $N \in \MA$ such that $\mu(N) < \ep$ and $f_n \convt{u} f$ on $N^c$. 
@@ -2405,8 +2419,8 @@
 	\end{ex}
 	
 	\begin{proof}
-		Let $\ep >0$. For each $n, k \in \N$, define $E_{n, k} = \{x \in X: \vert f_n(x) - f(x) \vert \geq \frac{1}{k} \}$ and $F_{n,k} = \bigcup\limits_{m \geq n}E_{m,k}$. Then $F_{n,k}$ is decreasing in $n$ and $$\bigcap\limits_{n \in \N}F_{n,k} \subset \{x: f_n(x) \not \rightarrow f(x)\}$$ 
-		Thus $\mu(\bigcap\limits_{n \in \N}F_{n,k}) = 0$. Since $\mu(X) < \infty$, $\inf\limits_{n \in \N}\mu(F_{n,k}) = 0$. Hence we may choose a strictly increasing sequence $(n_k)_{k \in \N} \subset \N$ such that  $\mu(F_{n_k,k}) \leq \frac{\ep}{2^{k}}$. Put $N = \bigcup\limits_{k \in \N}F_{n_k,k}$. Then 
+		For each $n, k \in \N$, define $E_{n, k} = \{x \in X: \vert f_n(x) - f(x) \vert \geq \frac{1}{k} \}$ and $F_{n,k} = \bigcup\limits_{m \geq n}E_{m,k}$. Then $F_{n,k}$ is decreasing in $n$ and $$\bigcap\limits_{n \in \N}F_{n,k} \subset \{x: f_n(x) \not \rightarrow f(x)\}$$ 
+		Thus $\mu(\bigcap\limits_{n \in \N}F_{n,k}) = 0$. Since $\mu(X) < \infty$, $\inf\limits_{n \in \N}\mu(F_{n,k}) = 0$. Let $\ep >0$. We may choose a strictly increasing sequence $(n_k)_{k \in \N} \subset \N$ such that  $\mu(F_{n_k,k}) \leq \frac{\ep}{2^{k}}$. Put $N = \bigcup\limits_{k \in \N}F_{n_k,k}$. Then 
 		\begin{align*}
 			\mu(N) 
 			&\leq \sum\limits_{k \in \N}\mu(F_{n_k,k}) \\
@@ -3176,6 +3190,12 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
 	\newpage
 	\subsection{Weak Convergence of Measures}	
 	
@@ -3531,11 +3551,11 @@
 	\end{defn}
 	
 	\begin{defn} \ld{00000} 
-		Let $a,b \in \R$ and $F:[a,b] \rightarrow \C$. Define $G_F:\R \rightarrow \C$ by $G_F = F(a)\chi_{(-\infty,a)} + F\chi_{[a,b]}+F(b)\chi_{(b,\infty)}$. Then $F$ is said to have \textbf{bounded variation on $[a,b]$} if $G_F \in BV$. The \textbf{total variation of $F$ on $[a,b]$}, denoted by $TV(F, [a,b])$, is defined to be $TV(F, [a,b]) = TV(G_F)$ We define $BV([a,b]) = \{F:[a,b] \rightarrow \C: TV(F, [a,b]) < \infty\}$.
+		Let $F:[a,b] \rightarrow \C$. Define $G_F:\R \rightarrow \C$ by $G_F = F(a)\chi_{(-\infty,a)} + F\chi_{[a,b]}+F(b)\chi_{(b,\infty)}$. Then $F$ is said to have \textbf{bounded variation on $[a,b]$} if $G_F \in BV$. The \textbf{total variation of $F$}, denoted $TV(F)$, is defined to be $TV(F) = TV(G_F)$ We define $BV(a,b) = \{F:[a,b] \rightarrow \C: TV(F) < \infty\}$.
 	\end{defn}
 	
 	\begin{note}
-		Equivalently, $TV(F, [a,b]) = \sup \big \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset [a,b] \text{ is increasing, } x_0=a \text{, and } x_n=b\big \}$ and $F \in BV([a,b])$ iff $TV(F, [a,b]) < \infty$. In general, 
+		Equivalently, $TV(F) = \sup \big \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset [a,b] \text{ is increasing, } x_0=a \text{, and } x_n=b\big \}$ and $F \in BV(a,b)$ iff $TV(F) < \infty$. In general, 
 	\end{note}
 	
 	\begin{ex} \lex{00000} 
@@ -3569,7 +3589,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $F:\R \rightarrow \C$. If $F$ is differentiable and $F'$ is bounded on $[a,b]$, then, $F \in BV([a,b])$. 
+		Let $F:\R \rightarrow \C$. If $F$ is differentiable and $F'$ is bounded on $[a,b]$, then, $F \in BV(a,b)$. 
 	\end{ex}
 	
 	\begin{proof}
@@ -3581,53 +3601,53 @@
 			&=M(b-a)
 		\end{align*}
 		
-		Hence $TV(F, [a,b]) \leq M(b-a)$.
+		Hence $TV(F) \leq M(b-a)$.
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
 		Define $F,G:\R \rightarrow \R$ by 
 		\[ F(x) = \begin{cases}
-			x^2sin(x^{-1}) & x \neq 0\\
+			x^2 \sin(x^{-1}) & x \neq 0\\
 			0 & x=0\\
 		\end{cases}$$ and $$G(x)=
 		\begin{cases}
-			x^2sin(x^{-2}) & x \neq 0\\
+			x^2 \sin(x^{-2}) & x \neq 0\\
 			0 & x=0
 		\end{cases}
 		\]
 		
-		Then $F$ and $G$ are differentiable, $F \in BV([-1,1])$ and $G \not \in BV([-1,1])$.
+		Then $F$ and $G$ are differentiable, $F \in BV(-1,1)$ and $G \not \in BV(-1,1)$.
 	\end{ex}
 	
 	\begin{proof}
 		On $\R \setminus \{0\}$, 
 		\begin{align*}
 			F'(x) 
-			&= 2xsin(x^{-1})-sin(x^{-1})\\
-			&= sin(x^{-1})(2x-1)
+			&= 2x \sin(x^{-1})- \sin(x^{-1})\\
+			&= \sin(x^{-1})(2x-1)
 		\end{align*} We see that $F$ is also differentiable at $x=0$ since 
 		\begin{align*}
 			F'(0) 
 			&= \lim_{x \rightarrow 0} \frac{F(x)-F(0)}{x-0}\\
-			&= \lim_{x \rightarrow 0} \frac{x^2sin(x^{-1})}{x}\\
-			&= \lim_{x \rightarrow 0} xsin(x^{-1})\\
+			&= \lim_{x \rightarrow 0} \frac{x^2 \sin(x^{-1})}{x}\\
+			&= \lim_{x \rightarrow 0} x \sin(x^{-1})\\
 			&=0
 		\end{align*}
 		
-		Therefore for each $x \in [-1,1]$, $|F'(x)| \leq 3$. Which by a previous exercise implies that $F \in BV([-1,1])$.
+		Therefore for each $x \in [-1,1]$, $|F'(x)| \leq 3$. Which by a previous exercise implies that $F \in BV(-1,1)$.
 		
 		On $\R \setminus \{0\}$, 
 		\begin{align*}
 			G'(x)
-			&= 2xsin(x^{-2})-\frac{2sin(x^{-2})}{x}\\
-			&= sin(x^{-2})(2x-\frac{2}{x})
+			&= 2x \sin(x^{-2})-\frac{2 \sin(x^{-2})}{x}\\
+			&= \sin(x^{-2})(2x-\frac{2}{x})
 		\end{align*}
 		We see that $G$ is also differentiable at $x=0$ since 
 		\begin{align*}
 			G'(0) 
 			&= \lim_{x \rightarrow 0} \frac{G(x)-G(0)}{x-0}\\
-			&= \lim_{x \rightarrow 0} \frac{x^2sin(x^{-2})}{x}\\
-			&= \lim_{x \rightarrow 0} xsin(x^{-2})\\
+			&= \lim_{x \rightarrow 0} \frac{x^2 \sin(x^{-2})}{x}\\
+			&= \lim_{x \rightarrow 0} x \sin(x^{-2})\\
 			&=0
 		\end{align*}
 		
@@ -3651,7 +3671,7 @@
 		Therefore $G \not \in BV([-1,1])$.
 	\end{proof}
 	
-	\begin{ex} \lex{00000}  The following is stated for $BV$, but is also true for $BV([a,b])$.
+	\begin{ex} \lex{00000}  The following is stated for $BV$, but is also true for $BV(a,b)$.
 		
 		\begin{enumerate} 
 			\item For each $F,G \in BV$, $T_{F+G} \leq T_F + T_G$ and therefore $BV$ is a vector space. 
@@ -3676,7 +3696,8 @@
 			\end{align*}
 			Since $\ep >0$ is arbitrary, $T_{F+G}(x) \leq T_F(x)+T_G(x)$. Therefore $TV(F+G) \leq TV(F)+TV(G)<\infty$. Thus $F+G \in BV$. It is straight forward to verify the other requirements needed to show that $BV$ is a vector space.
 			
-			\item Let $F: \R \rightarrow \C$. Write $F=F_1+iF_2$ with $F_1, F_2:\R \rightarrow \R$. Suppose that $F \in BV$. Note that for each $x_1,x_2 \in \R$ and $j =1,2$, $|F_j(x_1)-F_j(x_2)| \leq |F(x_1)-F(x_2)|$. Let $x\in \R$ and $(x_i)_{i=0}^n \subset \R$. Suppose that $(x_i)_{i=0}^n$ is increasing and $x_n=x$. Then for $j=1,2$ $$\sum_{i=1}^n|F_j(x_i)-F_j(x_{i-1})| \leq \sum_{i=1}^n|F(x_i)-F(x_{i-1})|$$. 
+			\item Let $F: \R \rightarrow \C$. Write $F=F_1+iF_2$ with $F_1, F_2:\R \rightarrow \R$. Suppose that $F \in BV$. Note that for each $x_1,x_2 \in \R$ and $j =1,2$, $|F_j(x_1)-F_j(x_2)| \leq |F(x_1)-F(x_2)|$. Let $x\in \R$ and $(x_i)_{i=0}^n \subset \R$. Suppose that $(x_i)_{i=0}^n$ is increasing and $x_n=x$. Then for $j=1,2$ 
+			$$\sum_{i=1}^n|F_j(x_i)-F_j(x_{i-1})| \leq \sum_{i=1}^n|F(x_i)-F(x_{i-1})|$$
 			Thus for $j=1,2$ we have that $T_{F_j}(x) \leq T_F(x)$ which implies that $Re(f),Im(F) \in BV$. Conversely, Suppose that $Re(f), Im(F) \in BV$. Then $F=Re(f)+iIm(f) \in BV$ by (1).
 			\item Suppose that $F \in BV$. Choose $F_1=\frac{1}{2}(T_F-F)$ and $F_2=\frac{1}{2}(T_F+F)$. Then $F_1,F_2$ are bounded, increasing and $F=F_1+F_2$. Conversely, if there exist $F_1,F_2:\R \rightarrow \R$ such that $F_1,F_2$ are bounded, increasing and $F=F_1-F_2$, then $F_1, F_2 \in BV$. By (1) $F \in BV$.
 			\item This is clear by previous results and (3)
@@ -3699,23 +3720,49 @@
 	\end{thm}
 	
 	\begin{thm}
-		Let $F \in NBV$. Then $F' \in L^1(m)$, $\mu_F \perp m$ iff $F' =0$ a.e. and $\mu_F \ll m$ iff for each $x \in \R$, $\int_{(-\infty, x]}F'dm = F(x)$
+		Let $F \in NBV$. Then $F' \in L^1(m)$, $\mu_F \perp m$ iff $F' =0$ a.e. and $\mu_F \ll m$ iff for each $x \in \R$, $$\int_{(-\infty, x]}F'dm = F(x)$$
 	\end{thm}
 	
 	\begin{defn} \ld{00000} 
-		Let $F: \R \rightarrow \C$. Then $F$ is said to be \textbf{absolutely continuous} if for each $\ep>0$, there exists $\del>0$ such that for each $((a_i, b_i))_{i=1}^n \subset \MB(\R)$, $\sum_{i=1}^n b_i-a_i < \del$ implies that $\sum_{i=1}^n|F(b_i)-F(a_i)| < \ep$.
+		Let $F: \R \rightarrow \C$. Then $F$ is said to be \textbf{absolutely continuous} if for each $\ep>0$, there exists $\del>0$ such that for each disjoint $((a_i, b_i))_{i=1}^n \subset \MB(\R)$, $\sum_{i=1}^n b_i-a_i < \del$ implies that $\sum_{i=1}^n|F(b_i)-F(a_i)| < \ep$.
 	\end{defn}
 	
 	\begin{defn} \ld{00000} 
-		Let $F: [a,b] \rightarrow \C$. Then $F$ is said to be \textbf{absolutely continuous on $[a,b]$} if for each $\ep>0$, there exists $\del>0$ such that for each $((a_i, b_i))_{i=1}^n \subset \MB([a,b])$, $\sum_{i=1}^n b_i-a_i < \del$ implies that $\sum_{i=1}^n|F(b_i)-F(a_i)| < \ep$.
+		Let $F: [a,b] \rightarrow \C$. Then $F$ is said to be \textbf{absolutely continuous} if for each $\ep>0$, there exists $\del>0$ such that for each disjoint $((a_i, b_i))_{i=1}^n \subset \MB([a,b])$, $\sum_{i=1}^n b_i-a_i < \del$ implies that $\sum_{i=1}^n|F(b_i)-F(a_i)| < \ep$.
 	\end{defn}
 	
-	\begin{prop}
-		Let $F:[a,b] \rightarrow \C$. If $F$ is absolutely continuous on $[a,b]$, then $F \in BV[a,b]$.
-	\end{prop}
+	\begin{ex} \lex{00000} 
+		Let $F:[a,b] \rightarrow \C$. If $F$ is absolutely continuous, then $F \in BV$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $F$ is absolutely continuous. Then for each $j \in \N$, there exists $\del >0$ such that for each disjoint $((a_i, b_i))_{i=1}^n \subset \MB([a,b])$, $\sum\limits_{i=1}^n b_i-a_i < \del$ implies that $\sum\limits_{i=1}^n|F(b_i)-F(a_i)| < 1$ \\
+	Define Choose $n^* \in \N$ such that $(b-a)/n < \del$ and define $(x^*_j)_{j=0}^{n^*} \subset [a,b]$ by 
+	$$x^*_j = a + \frac{b-a}{n}j$$ 
+	Let $(x_j)_{j=1}^n \subset [a,b]$ be increasing. Consider the refinement 
+	$$(x'_j)_{j=0}^{n'} = (x_j)_{j=0}^n \cup (x^*_j)_{j=0}^{n^*}$$ 
+	For $j \in \{1, \ldots, n\}$, set $k_0 = 0$ and $k_j = \max \{k: x'_k \in [x^*_{j-1}, x^*_j] \}$. Then for each $k \in \{k_{j-1} + 1, \ldots, k_j\}$, $x'_k - x_{k-1}' < \del$. Then 
+	\begin{align*}
+	\sum_{j=1}^{n'} |F(x'_j) - F(x'_{j-1})| 
+	&= \sum_{j=1}^n \sum_{k=k_{j-1}+1}^{k_j} |F(x'_k) - F(x'_{k-1})|  \\
+	&< \sum_{j=1}^n 1  \\
+	&= n
+	\end{align*}
+	So $TV(F) \leq n < \infty$ and $F \in BV$. 
+	\end{proof}
+	
+	\begin{ex}
+	There exists $F:\R \rightarrow \C$ such that $F$ is absolutely continuous and $F \not \in BV$. 
+	\end{ex}	
+	
+	\begin{proof}
+	Define $F: \R \rightarrow \C$ by $F(x) = x$. 
+	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $F: \R \rightarrow \C$. Suppose that there exists $f \in L^1(m)$ such that $F(x) = \int_{(-\infty, x}fdm$. Then $F \in NBV$.
+		Let $F: \R \rightarrow \C$. Suppose that there exists $f \in L^1(m)$ such that for each $x \in \R$,
+		$$F(x) = \int_{(-\infty, x]}fdm$$ 
+		Then $F \in NBV$.
 	\end{ex}
 	
 	\begin{proof}
@@ -3739,8 +3786,10 @@
 		Let $F:[a,b] \rightarrow \C$. The following are equivalent:
 		\begin{enumerate}
 			\item $F$ is absolutely continuous on $[a,b]$.
-			\item there exists $f \in L^1([a,b], m)$ such that for each $x \in [a,b]$, $F(x)-F(a)= \int_{(a,x]}fdm$
-			\item $F$ is differentiable a.e. on $[a,b]$, $F' \in L^1([a,b], m)$ and for each $x \in [a,b]$, $F(x)-F(a)=\int_{(a,x]}F'dm$
+			\item there exists $f \in L^1([a,b], m)$ such that for each $x \in [a,b]$, 
+			$$F(x)-F(a)= \int_{(a,x]}fdm$$
+			\item $F$ is differentiable a.e. on $[a,b]$, $F' \in L^1([a,b], m)$ and for each $x \in [a,b]$, 
+			$$F(x)-F(a)=\int_{(a,x]}F'dm$$
 		\end{enumerate}
 	\end{ex}
 	
@@ -5447,9 +5496,15 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	\end{note}
 	
 	\begin{thebibliography}{4}
-\bibitem{groups} bibliographic information
-\bibitem{cite_key2} bibliographic information
-...
+	
+\bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
+
+\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
+
+\bibitem{foranal}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Fourier\%20Analysis/Introduction\%20to\%20Fourier\%20Analysis.pdf}{Introduction to Fourier Analysis}
+
+\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
+
 \end{thebibliography}
 	
 \end{document}
