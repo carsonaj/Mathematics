@@ -240,7 +240,11 @@
 	\end{proof}
 	
 	\begin{defn} \ld{}
-	Let $M$ be a set, $d_1, d_2: M \times M \rightarrow \Rg$ metrics on $M$ and $p$ a property. Then $d_1$ and $d_2$ are said to be \textbf{$p$-equivalent} if $\id_M: (M, d_1) \rightarrow (M, d_2)$ and $\id_M: (M, d_2) \rightarrow (M, d_1)$ have property $p$. We say that $d_1$ and $d_2$ are \textbf{topologically equivalent} when $p$ is the property of being continuous. We say that $d_1$ and $d_2$ are \textbf{equivalent} when $p$ is the property of being Lipschitz.
+	Let $M$ be a set, $d_1, d_2: M \times M \rightarrow \Rg$ metrics on $M$. Then $d_1$ and $d_2$ are said to be 
+	\begin{itemize}
+	\item \textbf{topologically equivalent} if for each $(x_n)_{n \in \N} \subset M$ and $x \in M$, $x_n \conv{d_1} x$ iff $x_n \conv{d_2} x$ 
+	\item\textbf{equivalent} if there exist $A, B > 0$ such that $$A d_1 \leq d_2 \leq B d_1$$
+\end{itemize}		
 	\end{defn}	
 	
 	\begin{defn} \ld{}
@@ -311,8 +315,16 @@
 	\end{proof}
 	
 	\begin{defn} \ld{}
-	Let $X$ be a set, $(M, d)$ a metrix space and $B(S, M) = \{f: S \rightarrow M: f \text{ is bounded} \}$. We define the \textbf{supremum metric}, denoted $d_u:B(S,M) \times B(S,M) \rightarrow \Rg$, by $$d_u(f, g) = \sup_{x \in X}d(f(x), g(x)) $$ 
+	Let $S$ be a set, $(M, d)$ a metric space and $B(S, M) = \{f: S \rightarrow M: f \text{ is bounded} \}$. We define the \textbf{supremum metric}, denoted $d_u:B(S,M) \times B(S,M) \rightarrow \Rg$, by $$d_u(f, g) = \sup_{x \in X}d(f(x), g(x)) $$ 
 	\end{defn}
+	
+	\begin{ex} \lex{211111111}
+	Let $X$ be a set, $(Y, d_Y)$, $(Z, d_Z)$ metric spaces, $(f_n)_{n \in \N} \subset B(X, Y)$, $f \in B(X, Y)$ and $g \in C(Y, Z)$. Suppose that $g$ is uniformly continuous. If $f_n \convt{u} f$, then $g \circ f_n \convt{u} g \circ f$. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f_n \convt{u} f$. Let $\ep >0$. Uniform continuity of $g$ implies that there exists $\del >0$ such that for each $y_1, y_2 \in Y$, $d_Y(y_1, y_2) < \del$ implies that $d_Z(g(y_1), g(y_2)) < \ep/2$.  Uniform convergence implies that there exists $N \in \N$ such that for each $n \in \N$, $n \geq \N$ implies that $d_u(f_n, f) < \del/2$. Let $n \in \N$. Suppose that $n \geq N$. Let $x \in X$. Then $d_Y(f_n(x), f(x)) < \del$. This implies that $d_Z(g(f_n(x)), g(f(x))) < \ep/2$. Hence $\sup\limits_{x \in X} d_Z(g \circ f_n(x), g \circ f(x)) \leq \ep/2$. Thus $d_u(g \circ f_n , g \circ f) < \ep$. So $g \circ f_n \convt{u} g \circ f$.
+	\end{proof}
 	
 	\begin{defn} \ld{}
 	Let $(X, d)$ be a metric space. Define
@@ -1992,11 +2004,11 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 		\item $(1) \implies (2)$:\\
 		Trivial
 		\item  $(2) \implies (3)$:\\ 
-		Suppose that $T$ is continuous at $(0, 0)$. For the sake of contradiction, suppose that $T$ is not bounded. Then for each $C \geq 0$, there exist $(x_1, x_2) \in X_1 \times X_2$ such that $\|T(x_1, x_2)\| \geq C\|x_1\| \|x_2\|$. Hence there exist $(a_n)_{n \in \N} \subset X_1$ and $(b_n)_{n \in \N} \subset X_2$ such that for each $n \in \N$, $ \| T(a_n, b_n) \| \geq n^2 \|a_n\| \|b_n\|$. Hence for each $n \in \N$, $\|a_n\|$, $\|b_n\|geq 0$. Define $$(a'_n)_{n \in \N} \subset X_1$$ and $(b'_n)_{n \in \N} \subset X_2$ by $a_n' = \frac{a_n}{n\|a_n\|}$ and $b_n' = \frac{b_n}{n\|b_n\|}$. Then $(a_n', b_n') \rightarrow (0,0)$. Continuiuty implies that $T(a_n',b_n') \rightarrow 0$. By construction, for each $n \in \N$,
+		Suppose that $T$ is continuous at $(0, 0)$. For the sake of contradiction, suppose that $T$ is not bounded. Then for each $C \geq 0$, there exist $(x_1, x_2) \in X_1 \times X_2$ such that $\|T(x_1, x_2)\| > C\|x_1\| \|x_2\|$. Hence there exist $(a_n)_{n \in \N} \subset X_1$ and $(b_n)_{n \in \N} \subset X_2$ such that for each $n \in \N$, $ \| T(a_n, b_n) \| > n^2 \|a_n\| \|b_n\|$. Hence for each $n \in \N$, $\|a_n\|$, $\|b_n\| > 0$. Define $$(a'_n)_{n \in \N} \subset X_1$$ and $(b'_n)_{n \in \N} \subset X_2$ by $a_n' = \frac{a_n}{n\|a_n\|}$ and $b_n' = \frac{b_n}{n\|b_n\|}$. Then $(a_n', b_n') \rightarrow (0,0)$. Continuiuty implies that $T(a_n',b_n') \rightarrow 0$. By construction, for each $n \in \N$,
 		\begin{align*}
 		\|T(a_n',b_n')\| 
 		&= \frac{1}{n^2 \|a_n\| \|b_n\|} T(a_n, b_n) \\
-		& \geq \frac{n^2 \|a_n\| \|b_n\|}{n^2 \|a_n\| \|b_n\|} \\
+		& > \frac{n^2 \|a_n\| \|b_n\|}{n^2 \|a_n\| \|b_n\|} \\
 		&= 1
 		\end{align*}
 		which is a contradiction. So $T$ is bounded.
@@ -2430,7 +2442,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 				& \leq \vert x-\frac{1}{2} \vert + \frac{1}{n}
 			\end{align*}
 			Thus $0 \leq f_n - f \leq \frac{1}{n} $. This implies that $f_n \convt{u} f$. Since $f \not \in X$, $X$ is not complete. \vspace{.5cm}\\
-			\item Let $(f_n)_{n \in \N} \subset X$, $f \in X$ and $g \in Y$. Suppose that $f_n \convt{u} f$ and $Tf_n \convt{u} g$. Let $x \in [0,1]$. Then $f_n(x) \conv{} f(x)$ and $f_n(0) \conv{} f(0)$ and $f_n' \conv{u} g$. Applying the DCT to this sequence of integrable functions that converges uniformly to an integrable function on a finite measure space (a previous exercise) we have that
+			\item Let $(f_n)_{n \in \N} \subset X$, $f \in X$ and $g \in Y$. Suppose that $f_n \convt{u} f$ and $Tf_n \convt{u} g$. Let $x \in [0,1]$. Then $f_n(x) \conv{} f(x)$ and $f_n(0) \conv{} f(0)$ and $f_n' \convt{u} g$. Applying the DCT to this sequence of integrable functions that converges uniformly to an integrable function on a finite measure space (a previous exercise) we have that
 			\begin{align*}
 				f_n(x) - f_n(0) 
 				&= \int_{[0,x]} f_n' dm \\
@@ -4835,7 +4847,7 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	\end{ex}
 	
 	\begin{proof} 
-	Suppose that $o_{x_n} \conv{d_*} o_x$. For $n \in \N$, choose $g_n \in G$ such that $d(g_n \cdot x_n, x) < d(o_{x_n}, o_x) + 2^{-n}$. Then $d(g_n \cdot x_n, x) \rightarrow 0$ and $g_n \cdot x_n \conv{d_*} x$.  \\
+	Suppose that $o_{x_n} \conv{d_*} o_x$. For $n \in \N$, choose $g_n \in G$ such that $d(g_n \cdot x_n, x) < d(o_{x_n}, o_x) + 2^{-n}$. Then $d(g_n \cdot x_n, x) \rightarrow 0$ and $g_n \cdot x_n \conv{d} x$.  \\
 	Conversely, suppose that that there exists a sequence $(g_n)_{n \in \N}$ such that $g_n \cdot x_n \conv{d} x$. Since $\pi:X \rightarrow X/G$ is continuous, we have that
 	\begin{align*}
 	g_n \cdot x_n \conv{d} x
@@ -4903,7 +4915,12 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	\newpage
 	\subsection{Fundamental Examples}
 	\begin{ex} \lex{}
-	Consider the metric space $(\C^{n \times d}, \|\cdot\|_F)$, topological group $(U_d, \|\cdot\|_F)$ and  the (right) action $X \cdot U = XU$. Then this action is continuous, $U_d$ is compact and for each $U \in U_d$, the map $X \mapsto XU$ is an isometry. Thus $d_*$ is a metric on $\C^{n \times d}/ U_d$.
+	Consider the metric space $(\C^{n \times d}, \|\cdot\|_F)$, topological group $(U_d, \|\cdot\|_F)$ and  the (right) action $\phi: X \times U_d \rightarrow X$ by $X \cdot U = XU$. Then 
+	\begin{enumerate}
+	\item $\phi$ is a continuous isometric group action 
+	\item $U_d$ is compact 
+	\item $d_*$ is a metric on $\C^{n \times d}/ U_d$
+	\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}
@@ -4911,7 +4928,7 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	\end{proof}		
 	
 	\begin{ex} \lex{}
-	Let $X$ be a compact metric space and $\mu:\MB(X) \rightarrow \RG$ a Borel measure. Define the (right) group action $L^1(\mu) \times \Aut(X, \mu) \rightarrow L^1(\mu) $ by $$f \cdot \sig = f \circ \sig$$ Then for each $\sig \in \Aut(X, \mu)$, the map $f \mapsto f \cdot \sig$ is an isometry. 
+	Let $X$ be a compact metric space and $\mu:\MB(X) \rightarrow \RG$ a Borel measure. Define the (right) group action $\phi: L^1(\mu) \times \Aut(X, \mu) \rightarrow L^1(\mu) $ by $$f \cdot \sig = f \circ \sig$$ Then $\phi$ is an isometric group action. 
 	\end{ex}
 	
 	\begin{proof}
@@ -4929,13 +4946,43 @@ Then
 	\end{proof}
 	
 	\begin{ex} \lex{}
-	Let $(X,d)$ be a compact metric space and $\mu: \MB(X) \rightarrow \R$ an outer-regular Borel measure. Then 
+	Let $X$ be a compact metric space and $\mu:\MB(X) \rightarrow \RG$ a Radon measure. Define the (right) group action $\phi: L^1(\mu) \times \Aut(X, \mu) \rightarrow L^1(\mu) $ by 
+	$$f \cdot \sig = f \circ \sig$$	
+	Then for each $f \in L^1(\mu)$, the map $\sig \mapsto  f \cdot \sig$ is continuous.  
 	\end{ex}
 	
+	\begin{proof}
+	Let $f \in L^1(\mu)$, $(\sig_n)_{n \in \N} \subset \Aut(X, \mu)$ and $\sig \in \Aut(X, \mu)$. Suppose that $\sig_n \convt{u} \sig$. Since $\mu$ is Radon, $C_c(X)$ is dense in $L^1(\mu)$ and therefore, there exists $\phi \in C_c(X)$ such that $\|\phi - f\| < \ep/3$. Since $\phi$ is uniformly continuous, \rex{211111111} implies that $\phi \circ \sig_n \convt{u} \phi \circ \sig$. So there exists $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $d_u(\phi \circ \sig_n, \phi \circ \sig) < \ep/3$. Let $n \in \N$. Suppose that $n \geq \N$. Then 
+	\begin{align*}
+	\|f \circ \sig_n - f \circ \sig\|_1 
+	&\leq \|f \circ \sig_n - \phi \circ \sig_n \|_1 + \|\phi \circ \sig_n - \phi \circ \sig\|_1 + \|\phi \circ \sig - f \circ \sig\|_1 \\
+	& = \|(f - \phi) \circ \sig_n \|_1 + \|\phi \circ \sig_n - \phi \circ \sig\|_1 + \|(\phi - f) \circ \sig\|_1 \\
+	&= \|f - \phi  \|_1 + \|\phi \circ \sig_n - \phi \circ \sig\|_1 + \|\phi - f \|_1 \\
+	&< \frac{\ep}{3} + \frac{\ep}{3} + \frac{\ep}{3} \\
+	&= \ep
+	\end{align*}
+	So that $f \circ \sig_n \convt{u} f \circ \sig$ which implies that the map $\sig \mapsto  f \cdot \sig$ is continuous. 
+	\end{proof}
 	
+	\begin{ex} \lex{}
+	Let $X$ be a compact metric space and $\mu:\MB(X) \rightarrow \RG$ a Radon measure. Define the (right) group action $\phi: L^1(\mu) \times \Aut(X, \mu) \rightarrow L^1(\mu) $ by 
+	$$f \cdot \sig = f \circ \sig$$	
+	Then 
+	\begin{enumerate}
+	\item $\phi$ is an isometric group action 
+	\item $\Aut(X, d, \mu)$ is compact 
+	\item for each $f \in L^1(\mu)$, the map $\sig \mapsto  f \cdot \sig$ is continuous.  
+	\item $d_*$ is a metric on $L^1(\mu) / \Aut(X, d, \mu)$
+	\end{enumerate}
+	\end{ex}
 	
+	\begin{proof}
+	Clear by the preceeding exercises.
+	\end{proof}
 	
-	
+	\begin{note}
+	The cut distance for graphons is a specific case of this orbit space distance.
+	\end{note}
 	
 	
 	
