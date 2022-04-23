@@ -1978,156 +1978,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	
 	
 	
-	\newpage
-	\subsection{Multilinear Maps}	
-	\begin{defn} \ld{43001}
-	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \prod\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then $T$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x_1, \cdots, x_n \in X$, $$\|T(x_1, \cdots, x_n)\| \leq C \|x_1\| \cdots \|x_n\|$$
-	We define $$L^n (X_1, \dots, X_n; Y) = \bigg\{T: \prod\limits_{i=1}^n X_i \rightarrow Y: T \text{ is multilinear and bounded}\bigg \}$$ 
-	If $X_1 = \cdots = X_n = X$, we write $L^n(X,Y)$ in place of $L^n (X, \dots, X; Y) $. If $X_1 = \cdots = X_n = Y =  X$, we write $L^n(X)$. 
-	\end{defn}
 	
-	\begin{note}
-	For the remainder of this section we will primarily consider $L^2(X_1, X_2; Y)$ to avoid notational clutter, but all results immediately generalize to $L^n(X_1, \ldots, X_n;Y)$
-	\end{note}
-	
-	\begin{ex} \lex{43002}
-	Let $X_1, X_2$ and $Y$ be normed vector spaces and $T: X_1 \times X_2 \rightarrow Y$ bilinear. Then the following are equivalent:
-	\begin{enumerate}
-			\item $T$ is continuous
-			\item $T$ is continuous at $(0,0)$
-			\item $T$ is bounded
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{itemize}
-		\item $(1) \implies (2)$:\\
-		Trivial
-		\item  $(2) \implies (3)$:\\ 
-		Suppose that $T$ is continuous at $(0, 0)$. For the sake of contradiction, suppose that $T$ is not bounded. Then for each $C \geq 0$, there exist $(x_1, x_2) \in X_1 \times X_2$ such that $\|T(x_1, x_2)\| > C\|x_1\| \|x_2\|$. Hence there exist $(a_n)_{n \in \N} \subset X_1$ and $(b_n)_{n \in \N} \subset X_2$ such that for each $n \in \N$, $ \| T(a_n, b_n) \| > n^2 \|a_n\| \|b_n\|$. Hence for each $n \in \N$, $\|a_n\|$, $\|b_n\| > 0$. Define $$(a'_n)_{n \in \N} \subset X_1$$ and $(b'_n)_{n \in \N} \subset X_2$ by $a_n' = \frac{a_n}{n\|a_n\|}$ and $b_n' = \frac{b_n}{n\|b_n\|}$. Then $(a_n', b_n') \rightarrow (0,0)$. Continuiuty implies that $T(a_n',b_n') \rightarrow 0$. By construction, for each $n \in \N$,
-		\begin{align*}
-		\|T(a_n',b_n')\| 
-		&= \frac{1}{n^2 \|a_n\| \|b_n\|} T(a_n, b_n) \\
-		& > \frac{n^2 \|a_n\| \|b_n\|}{n^2 \|a_n\| \|b_n\|} \\
-		&= 1
-		\end{align*}
-		which is a contradiction. So $T$ is bounded.
-		\item  $(3) \implies (1)$:\\ 
-		Suppose that $T$ is bounded. Then there exists $C > 0$ such that for each $(x_1, x_2) \in X_1 \times X_2$, $\| T(x_1, x_2) \| \leq C\|x_1\| \|x_2\|$. Let $(a, b) \in X_1 \times X_2$ and $(a_n, b_n)_{n \in \N} \subset X_1 \times X_2$. Suppose that $(a_n, b_n) \rightarrow (a,b)$. Then $a_n \rightarrow a$, $b_n \rightarrow b$ and $(a_n)_{n \in \N}$, $(b_n)_{n \in \N}$ are bounded. So there exists $B \geq 0$ such that for each $n \in \N$ $\|b_n\| \leq B$. Hence 
-		\begin{align*}
-		\|T(a_n,b_n) - T(a,b) \|
-		&= \|T(a_n,b_n) - T(a, b_n) + T(a, b_n) - T(a,b) \| \\
-		& \leq \|T(a_n,b_n) - T(a, b_n) \| + \|T(a, b_n) - T(a,b) \| \\
-		&= \|T(a_n - a,b_n) \| + \|T(a, b_n - b)\| \\
-		& \leq C(\|a_n - a\| \|b_n\| + \|a\|\|b_n - b\|) \\
-		& \leq C(\|a_n - a\| B + \|a\|\|b_n - b\|) \\
-		& \rightarrow 0
-		\end{align*}
-		Thus $T$ is continuous. 
-		\end{itemize}
-	\end{proof}
-	
-	\begin{defn} \ld{43005}
-	Let $X_1, X_2$ and $Y$ be normed vector spaces and $T \in L^2(X_1, X_2;Y)$. We define the \textbf{operator norm} on $L^2(X_1, X_2;Y)$, denoted $\|\cdot\|: L^2(X_1, X_2; Y) \rightarrow [0, \infty)$, by  $$\|T\| =  \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$$
-	\end{defn}
-	
-	\begin{ex} \lex{42006}
-		Let $X_1, X_2$ and $Y$ be normed vector spaces. If $X_1 \neq \{0\}$ and $ X_2 \neq \{0\}$, then the operater norm on $L(X,Y)$ is given by: 
-		\begin{enumerate}
-			\item $\|T\| = \sup\limits_{\|x_1\|=1 ,\|x_2\| = 1 }\|T(x_1, x_2)\|$
-			\item $\|T\| = \sup\limits_{x_1 \neq 0, x_2 \neq 0 } \|x_1\|^{-1} \|x_2\|^{-1}\|T(x_1, x_2)\|$
-			\item $\|T\| = \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof} Since $X_1 \neq \{0\}$ and $ X_2 \neq \{0\}$, the supremums in (1) and (2) are well defined. Let $T \in L^2(X_1, X_2; Y)$. Bilinearity of $T$ implies that the sets over which the supremums are taken in (1) and (2) are the same. So (1) and (2) are equal.\\
-		Now, set 
-		$$M = \sup\limits_{\|x_1\|=1 ,\|x_2\| = 1 }\|T(x_1, x_2)\|$$ 
-		and 
-		$$m = \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$$ 
-		Let $(x_1,x_2) \in X_1 \times X_2$. If $\|x_1 \|=0$ or $\|x_2 \|=0$, then $T(x_1, x_2) = 0$ and $\|T(x_1, x_2) \|\leq M \|x_1 \| \|x_2\|$. Suppose that $\|x_1 \| \neq 0$ and $ \|x_2\|\neq 0$. Then 
-		\begin{align*}
-			\|T(x_1, x_2)\|
-			&= \bigg(\big\|T(\|x_1\|^{-1} x_1, \|x_2\|^{-1} x_2 )\big\|\bigg)\|x_1 \| \|x_2\|\\
-			& \leq M \|x_1\| \|x_2\|
-		\end{align*}
-		Hence $M \in \{C \geq 0: \text{ for each }x \in X\text{, } \|Tx \|\leq C \|x \|\}$ and $m \leq M$.
-		Let $C \in \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$. Suppose that $\|x_1 \|=1$ and $\|x_2\| = 1$. Then $\| T (x_1, x_2) \| \leq C \|x_1 \| \|x_2 \|= C$. So $M \leq C$. Therefore $M \leq m$. So $M=m$ and the supremum in (1) is the same as the infimum in (3). 
-	\end{proof}
-	
-	\begin{ex}
-	Let $X_1, X_2$ and $Y$ be normed vector spaces. Then $\|\cdot\|: L^2(X_1, X_2; Y) \rightarrow [0, \infty)$ is a norm. 
-	\end{ex}
-	
-	\begin{proof}
-	
-	\end{proof}
-	
-	\begin{ex} \lex{43003}
-	Let $X_1, X_2, Y$ be normed vector spaces and $T_1 \in L(X_1, L(X_2, Y))$. Define $T:X_1 \times X_2 \rightarrow Y$ by $T(x_1, x_2) = T_1(x_1)(x_2)$. Then $T \in L^2(X_1, X_2; Y)$.  
-	\end{ex}
-	
-	\begin{proof}
-	It is straightforward to show that $T$ is multilinear. For $x_1 \in X_1$ and $x_2 \in X_2$, 
-	\begin{align*}
-	\|T(x_1, x_2)\| 
-	&= \|T_1(x_1)(x_2)\| \\
-	& \leq \|T_1(x_1)\| \|x_2\| \\
-	& \leq \|T_1\| \|x_1\| \|x_2\|
-	\end{align*}
-	So $T \in L^2(X_1, X_2;Y)$.
-	\end{proof}
-	
-	\begin{ex} \lex{43004}
-	Let $X_1, X_2, Y$ be normed vector spaces and $T \in L^2(X_1, X_2; Y)$. Define the map $T_1 : X_1 \rightarrow  Y^{X_2}$ by  $T_1(x_1)(\cdot) = T(x_1, \cdot)$. Then $T_1 \in L(X_1, L(X_2, Y))$.
-	\end{ex}
-	
-	\begin{proof}
-	Let $x_1 \in X_1$. By definition of $T$, $T_1(x_1)$ is linear. Since $T$ is bounded, there exists $C \geq 0$ such that for each $a_1 \in X_1$, $a_2 \in X_2$, $T(a_1, a_2) \leq C\|a_1\| \|a_2\|$. Then for each $x_2 \in X_2$,
-	\begin{align*}
-	\| T_1(x_1)(x_2) \|
-	&= \|T(x_1, x_2) \| \\
-	&\leq (C\|x_1\|) \|x_2\| 
-	\end{align*}
-	So $T_1(x_1) \in L(X_2,Y)$ with $\|T_1(x_1)\| \leq C\|x_1\|$. Since $x_1 \in X_1$ was arbitrary, $T_1: X_1 \rightarrow L(X,Y)$. By definition of $T$, $T_1$ is linear. The preceeding argument tells us that for each $x_1 \in X_1$, $$\|T_1(x_1)\| \leq C\|x_1\|$$ 
-	So $T_1 \in L(X_1, L(X_2, Y))$ with $\|T_1\| \leq C$.  
-	\end{proof}	
-	
-	
-	
-	
-	\begin{ex} \lex{43005}
-	Let $X_1, X_2$ be normed vector spaces. Define a map $\phi: L^2(X_1, X_2;Y) \rightarrow L(X_1, L(X_2, Y))$ by $\phi(T)(x_1)(x_2) = T(x_1, x_2)$. Then $T$ is an isometric isomorphism.
-	\end{ex}
-	
-	\begin{proof}
-	. 
-	\end{proof}
-	
-	\begin{defn}
-	Let $X_1, X_2$ be normed vector spaces, $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$. Define $\phi_1 \otimes \phi_2: X_1 \times X_2$ by $\phi_1 \otimes \phi_2(x_1, x_2) = \phi_1(x_1)\phi_2(x_2)$. 
-	\end{defn}
-	
-	\begin{ex}
-	Let $X_1, X_2$ be normed vector spaces, $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$. Then $\phi_1 \otimes \phi_2 \in L^2(X_1, X_2; \C)$.
-	\end{ex}
-	
-	\begin{proof}
-	Clear.
-	\end{proof}
-	
-	\begin{ex}
-	Let $X_1, X_2$ be normed vector spaces and $(x_1, x_2) \in X_1 \times X_2$. If for each $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$, $\phi_1 \otimes \phi_2 (x_1, x_2) = 0$, then $x_1 = 0$ or $x_2 = 0$. 
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $x_1 \neq 0$ and $x_2 \neq 0$. The previous section implies that there exist $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$ such that $\phi_1(x_1) = \|x_1\| \neq 0$ and $\phi_2(x_2) = \|x_2\| \neq 0$. Then 
-	\begin{align*}
-	\phi_1 \otimes \phi_2 (x_1, x_2) 
-	& = \phi_1(x_1) \phi_2(x_2) \\
-	& \neq 0
-	\end{align*}
-	\end{proof}
 	
 	
 	
@@ -2673,6 +2524,155 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	
 	
 	\newpage
+	\subsection{Multilinear Maps}	
+	\begin{defn} \ld{43001}
+	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \prod\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then $T$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x_1, \cdots, x_n \in X$, $$\|T(x_1, \cdots, x_n)\| \leq C \|x_1\| \cdots \|x_n\|$$
+	We define $$L^n (X_1, \dots, X_n; Y) = \bigg\{T: \prod\limits_{i=1}^n X_i \rightarrow Y: T \text{ is multilinear and bounded}\bigg \}$$ 
+	If $X_1 = \cdots = X_n = X$, we write $L^n(X,Y)$ in place of $L^n (X, \dots, X; Y) $. If $X_1 = \cdots = X_n = Y =  X$, we write $L^n(X)$. 
+	\end{defn}
+	
+	\begin{note}
+	For the remainder of this section we will primarily consider $L^2(X_1, X_2; Y)$ to avoid notational clutter, but all results immediately generalize to $L^n(X_1, \ldots, X_n;Y)$
+	\end{note}
+	
+	\begin{ex} \lex{43002}
+	Let $X_1, X_2$ and $Y$ be normed vector spaces and $T: X_1 \times X_2 \rightarrow Y$ bilinear. Then the following are equivalent:
+	\begin{enumerate}
+			\item $T$ is continuous
+			\item $T$ is continuous at $(0,0)$
+			\item $T$ is bounded
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+		\item $(1) \implies (2)$:\\
+		Trivial
+		\item  $(2) \implies (3)$:\\ 
+		Suppose that $T$ is continuous at $(0, 0)$. For the sake of contradiction, suppose that $T$ is not bounded. Then for each $C \geq 0$, there exist $(x_1, x_2) \in X_1 \times X_2$ such that $\|T(x_1, x_2)\| > C\|x_1\| \|x_2\|$. Hence there exist $(a_n)_{n \in \N} \subset X_1$ and $(b_n)_{n \in \N} \subset X_2$ such that for each $n \in \N$, $ \| T(a_n, b_n) \| > n^2 \|a_n\| \|b_n\|$. Hence for each $n \in \N$, $\|a_n\|$, $\|b_n\| > 0$. Define $$(a'_n)_{n \in \N} \subset X_1$$ and $(b'_n)_{n \in \N} \subset X_2$ by $a_n' = \frac{a_n}{n\|a_n\|}$ and $b_n' = \frac{b_n}{n\|b_n\|}$. Then $(a_n', b_n') \rightarrow (0,0)$. Continuiuty implies that $T(a_n',b_n') \rightarrow 0$. By construction, for each $n \in \N$,
+		\begin{align*}
+		\|T(a_n',b_n')\| 
+		&= \frac{1}{n^2 \|a_n\| \|b_n\|} T(a_n, b_n) \\
+		& > \frac{n^2 \|a_n\| \|b_n\|}{n^2 \|a_n\| \|b_n\|} \\
+		&= 1
+		\end{align*}
+		which is a contradiction. So $T$ is bounded.
+		\item  $(3) \implies (1)$:\\ 
+		Suppose that $T$ is bounded. Then there exists $C > 0$ such that for each $(x_1, x_2) \in X_1 \times X_2$, $\| T(x_1, x_2) \| \leq C\|x_1\| \|x_2\|$. Let $(a, b) \in X_1 \times X_2$ and $(a_n, b_n)_{n \in \N} \subset X_1 \times X_2$. Suppose that $(a_n, b_n) \rightarrow (a,b)$. Then $a_n \rightarrow a$, $b_n \rightarrow b$ and $(a_n)_{n \in \N}$, $(b_n)_{n \in \N}$ are bounded. So there exists $B \geq 0$ such that for each $n \in \N$ $\|b_n\| \leq B$. Hence 
+		\begin{align*}
+		\|T(a_n,b_n) - T(a,b) \|
+		&= \|T(a_n,b_n) - T(a, b_n) + T(a, b_n) - T(a,b) \| \\
+		& \leq \|T(a_n,b_n) - T(a, b_n) \| + \|T(a, b_n) - T(a,b) \| \\
+		&= \|T(a_n - a,b_n) \| + \|T(a, b_n - b)\| \\
+		& \leq C(\|a_n - a\| \|b_n\| + \|a\|\|b_n - b\|) \\
+		& \leq C(\|a_n - a\| B + \|a\|\|b_n - b\|) \\
+		& \rightarrow 0
+		\end{align*}
+		Thus $T$ is continuous. 
+		\end{itemize}
+	\end{proof}
+	
+	\begin{defn} \ld{43005}
+	Let $X_1, X_2$ and $Y$ be normed vector spaces and $T \in L^2(X_1, X_2;Y)$. We define the \textbf{operator norm} on $L^2(X_1, X_2;Y)$, denoted $\|\cdot\|: L^2(X_1, X_2; Y) \rightarrow [0, \infty)$, by  $$\|T\| =  \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$$
+	\end{defn}
+	
+	\begin{ex} \lex{42006}
+		Let $X_1, X_2$ and $Y$ be normed vector spaces. If $X_1 \neq \{0\}$ and $ X_2 \neq \{0\}$, then the operater norm on $L(X,Y)$ is given by: 
+		\begin{enumerate}
+			\item $\|T\| = \sup\limits_{\|x_1\|=1 ,\|x_2\| = 1 }\|T(x_1, x_2)\|$
+			\item $\|T\| = \sup\limits_{x_1 \neq 0, x_2 \neq 0 } \|x_1\|^{-1} \|x_2\|^{-1}\|T(x_1, x_2)\|$
+			\item $\|T\| = \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} Since $X_1 \neq \{0\}$ and $ X_2 \neq \{0\}$, the supremums in (1) and (2) are well defined. Let $T \in L^2(X_1, X_2; Y)$. Bilinearity of $T$ implies that the sets over which the supremums are taken in (1) and (2) are the same. So (1) and (2) are equal.\\
+		Now, set 
+		$$M = \sup\limits_{\|x_1\|=1 ,\|x_2\| = 1 }\|T(x_1, x_2)\|$$ 
+		and 
+		$$m = \inf \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$$ 
+		Let $(x_1,x_2) \in X_1 \times X_2$. If $\|x_1 \|=0$ or $\|x_2 \|=0$, then $T(x_1, x_2) = 0$ and $\|T(x_1, x_2) \|\leq M \|x_1 \| \|x_2\|$. Suppose that $\|x_1 \| \neq 0$ and $ \|x_2\|\neq 0$. Then 
+		\begin{align*}
+			\|T(x_1, x_2)\|
+			&= \bigg(\big\|T(\|x_1\|^{-1} x_1, \|x_2\|^{-1} x_2 )\big\|\bigg)\|x_1 \| \|x_2\|\\
+			& \leq M \|x_1\| \|x_2\|
+		\end{align*}
+		Hence $M \in \{C \geq 0: \text{ for each }x \in X\text{, } \|Tx \|\leq C \|x \|\}$ and $m \leq M$.
+		Let $C \in \{C \geq 0: \text{for each } (x_1, x_2) \in X_1 \times X_2\text{, } \|T(x_1, x_2) \|\leq C\|x_1\|\|x_2\|\}$. Suppose that $\|x_1 \|=1$ and $\|x_2\| = 1$. Then $\| T (x_1, x_2) \| \leq C \|x_1 \| \|x_2 \|= C$. So $M \leq C$. Therefore $M \leq m$. So $M=m$ and the supremum in (1) is the same as the infimum in (3). 
+	\end{proof}
+	
+	\begin{ex}
+	Let $X_1, X_2$ and $Y$ be normed vector spaces. Then $\|\cdot\|: L^2(X_1, X_2; Y) \rightarrow [0, \infty)$ is a norm. 
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	\begin{ex} \lex{43003}
+	Let $X_1, X_2, Y$ be normed vector spaces and $T_1 \in L(X_1, L(X_2, Y))$. Define $T:X_1 \times X_2 \rightarrow Y$ by $T(x_1, x_2) = T_1(x_1)(x_2)$. Then $T \in L^2(X_1, X_2; Y)$.  
+	\end{ex}
+	
+	\begin{proof}
+	It is straightforward to show that $T$ is multilinear. For $x_1 \in X_1$ and $x_2 \in X_2$, 
+	\begin{align*}
+	\|T(x_1, x_2)\| 
+	&= \|T_1(x_1)(x_2)\| \\
+	& \leq \|T_1(x_1)\| \|x_2\| \\
+	& \leq \|T_1\| \|x_1\| \|x_2\|
+	\end{align*}
+	So $T \in L^2(X_1, X_2;Y)$.
+	\end{proof}
+	
+	\begin{ex} \lex{43004}
+	Let $X_1, X_2, Y$ be normed vector spaces and $T \in L^2(X_1, X_2; Y)$. Define the map $T_1 : X_1 \rightarrow  Y^{X_2}$ by  $T_1(x_1)(\cdot) = T(x_1, \cdot)$. Then $T_1 \in L(X_1, L(X_2, Y))$.
+	\end{ex}
+	
+	\begin{proof}
+	Let $x_1 \in X_1$. By definition of $T$, $T_1(x_1)$ is linear. Since $T$ is bounded, there exists $C \geq 0$ such that for each $a_1 \in X_1$, $a_2 \in X_2$, $T(a_1, a_2) \leq C\|a_1\| \|a_2\|$. Then for each $x_2 \in X_2$,
+	\begin{align*}
+	\| T_1(x_1)(x_2) \|
+	&= \|T(x_1, x_2) \| \\
+	&\leq (C\|x_1\|) \|x_2\| 
+	\end{align*}
+	So $T_1(x_1) \in L(X_2,Y)$ with $\|T_1(x_1)\| \leq C\|x_1\|$. Since $x_1 \in X_1$ was arbitrary, $T_1: X_1 \rightarrow L(X,Y)$. By definition of $T$, $T_1$ is linear. The preceeding argument tells us that for each $x_1 \in X_1$, $$\|T_1(x_1)\| \leq C\|x_1\|$$ 
+	So $T_1 \in L(X_1, L(X_2, Y))$ with $\|T_1\| \leq C$.  
+	\end{proof}	
+	
+	
+	
+	
+	\begin{ex} \lex{43005}
+	Let $X_1, X_2$ be normed vector spaces. Define a map $\phi: L^2(X_1, X_2;Y) \rightarrow L(X_1, L(X_2, Y))$ by $\phi(T)(x_1)(x_2) = T(x_1, x_2)$. Then $T$ is an isometric isomorphism.
+	\end{ex}
+	
+	\begin{proof}
+	. 
+	\end{proof}
+	
+	\begin{defn}
+	Let $X_1, X_2$ be normed vector spaces, $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$. Define $\phi_1 \otimes \phi_2: X_1 \times X_2$ by $\phi_1 \otimes \phi_2(x_1, x_2) = \phi_1(x_1)\phi_2(x_2)$. 
+	\end{defn}
+	
+	\begin{ex}
+	Let $X_1, X_2$ be normed vector spaces, $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$. Then $\phi_1 \otimes \phi_2 \in L^2(X_1, X_2; \C)$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X_1, X_2$ be normed vector spaces and $(x_1, x_2) \in X_1 \times X_2$. If for each $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$, $\phi_1 \otimes \phi_2 (x_1, x_2) = 0$, then $x_1 = 0$ or $x_2 = 0$. 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $x_1 \neq 0$ and $x_2 \neq 0$. The previous section implies that there exist $\phi_1 \in X_1^*$ and $\phi_2 \in X_2^*$ such that $\phi_1(x_1) = \|x_1\| \neq 0$ and $\phi_2(x_2) = \|x_2\| \neq 0$. Then 
+	\begin{align*}
+	\phi_1 \otimes \phi_2 (x_1, x_2) 
+	& = \phi_1(x_1) \phi_2(x_2) \\
+	& \neq 0
+	\end{align*}
+	\end{proof}
 	
 	
 	
@@ -4082,11 +4082,11 @@ So $f \circ g$ is convex.
 	\end{proof}
 	
 	\begin{ex}
-	Let $X$ be a vector space, $A \subset X$ convex, $f:A \rightarrow \R$ strictly convex. Then $f$ has at most one local minimum point.
+	Let $X$ be a vector space, $A \subset X$ convex, $f:A \rightarrow \R$ strictly convex and $x_0 \in X$. If $f$ has a local minimum point at $x_0$, then $f$ has a unique global minimum point at $x_0$.  
 	\end{ex}
 	
 	\begin{proof}
-	For the sake of contradiction suppose that $f$ has at least two local minimum points. Choose $x_0, x_1 \in A$ such that $x_0 \neq x_1$ and $f$ has a local minimum point at $x_0$ and $x_1$. The previous exercise implies that $f$ has a global minimum point at $x_0$ and $x_1$. This implies $f(x_0) = f(x_1)$. Set $t = 1/2$. Strict convexity implies that 
+	Suppose that $f$ has a local minimum point at $x_0$. The previous exercise implies that $f$ has a global minimum point at $x_0$. For the sake of contradiction suppose that there exists $x_1 \in X$ such that $f$ has a global minimum point at $x_1$ and $x_0 \neq x_1$. This implies $f(x_0) = f(x_1)$. Set $t = 1/2$. Strict convexity implies that 
 	\begin{align*}
 	f(tx_0 + (1-t)x_1) 
 	&< tf(x_0) + (1-t)f(x_1)  \\
