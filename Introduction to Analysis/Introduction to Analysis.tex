@@ -874,9 +874,29 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\subsection{Linear Maps}
 	
 	\begin{defn} \ld{42001} 
-		Let $X,Y$ be a normed vector spaces. A linear map $T:X \rightarrow Y$ is said to be \textbf{bounded} if there exists $C \geq 0$ such that for each $x \in X$, $$\|Tx \|\leq C \|x \|$$ We define $$L(X,Y) = \{T:X \rightarrow Y: T \text{ is linear and bounded}\}$$
+		Let $X,Y$ be a normed vector spaces and $T:X \rightarrow Y$ linear. Then $T$ is said to be \textbf{bounded} if $T(\overline{B(0,1)})$ is bounded. We define $$L(X,Y) = \{T:X \rightarrow Y: T \text{ is linear and bounded}\}$$
 		When $X=Y$, we write $L(X)$.
 	\end{defn}
+	
+	\begin{ex} \ld{42001.1} 
+		Let $X,Y$ be a normed vector spacesand $T:X \rightarrow Y$ linear. Then $T$ is bounded iff there exists $C \geq 0$ such that for each $x \in X$, $$\|Tx \|\leq C \|x \|$$ 
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $T$ is bounded. If $T = 0$, choose $C = 0$. Suppose that $T \neq 0$. Set $ A = \{\|Tx\|: \|x\| =1\}$. Since $T \neq 0$, there exists $x_0 \in X$ such that $\|x_0\| = 1$ so that $A \neq \varnothing$.  Boundedness of $T$ implies that $A$ is bounded. Set $C = \sup A$. Let $x \in X$. If $x = 0$, then $Tx = 0$ and $\|Tx\| \leq C \|x\|$. Suppose that $x \neq 0$. Then $Tx = \|x\| T(\|x\|^{-1} x)$. Since $\|\|x\|^{-1} x\| = 1$, we have that
+	\begin{align*}
+	\|Tx\|
+	&= \|T(\|x\|^{-1} x)\| \|x\|  \\
+	& \leq C\|x\| 
+\end{align*}	
+Conversely, suppose that there exists $C \geq 0$ such that for each $x \in X$, $\|Tx \|\leq C \|x \|$. Let $x \in \overline{B(0,1)}$. Then 
+	\begin{align*}
+	\|Tx\| 
+	&\leq C \|x\| \\
+	&\leq C
+	\end{align*}
+So that $T(\overline{B(0,1)})$ is bounded. 
+	\end{proof}
 	
 	\begin{ex} \lex{42002}
 	Set $X = C^{1}([0,1])$ and $Y = C([0,1])$. Equip both $X$ and $Y$ with the sup norm. Define $T:X \rightarrow Y$ by $Tf = f'$. Then $T$ is not bounded.
@@ -1970,201 +1990,7 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\subsection{Tensor Products}
-	
-	\begin{note}
-	This section assumes familiarity with the algebraic tensor product of two vector spaces. See section ??? of \cite{algebra} for details. 
-	\end{note}	
-	
-	\begin{defn}
-	Let $X, Y$ and $Z$ be Banach spaces and $\phi \in L^2(X,Y ; Z) $. Then $(Z, \phi)$ is said to be a \textbf{tensor product} of $X$ with $Y$ if 
-	\begin{enumerate}
-	\item $\spn \phi(X \times Y)$ is dense in $Z$
-	\item for each Banach space $W$ and $\psi \in L^2(X,Y;W)$, there exists a unique $\psi' \in L(Z, W)$ such that $\psi' \circ \phi = \psi$, i.e. such that the following diagram commutes: 
-	\[ \begin{tikzcd}
-	X \times Y \arrow[r, "\phi"] \arrow[dr, "\psi"'] 	
-	& Z  \arrow[d, "\psi'"] \\
-	& W 
-\end{tikzcd}
-	\]
-	\end{enumerate}
-	If $(Z, \phi)$ is a tensor product of $X$ with $Y$. We often write $Z = X \otimes Y$ and for each $x\in X$, $y \in Y$, we often write $\phi(x,y) = x \otimes y$.
-	\end{defn}	
-	
-	\begin{ex}
-	Let $X$ and $Y$ be Banach spaces, $U \subset X$ and $V \subset Y$. Set $W = \{u \otimes v: u \in U \text{ and } v \in V\} \subset X \otimes Y$. If $U$ and $V$ are linearly independent, then $W$ is linearly independent.\\
-	\textbf{Hint:} For $\phi \in X^*$, $\psi \in Y^*$, define $T \in L^2(X, Y; \C)$ by $T(x,y) = \phi(x)\psi(y)$.
-	\end{ex}	
-	
-	\begin{proof}
-	Let $w = \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} u \otimes v$. Suppose that $w = 0$. Let $\phi \in X^*$ and $\psi \in Y^*$. Define $T \in L^2(X, Y; \C)$ by $T(x,y) = \phi(x)\psi(y)$. By definition of the tensor product, there exists a unique $T' \in L(X \otimes Y, \C)$ such that for each $x \in X$ and $y \in Y$, $T'(x \otimes y) = T(x,y)$. Then 
-	\begin{align*}
-	0 
-	&= T'(w) \\
-	&= T'(\sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} u \otimes v) \\
-	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} T'(u \otimes v) \\
-	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} T(u, v) \\
-	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} \phi(u)\psi(v) \\
-	&= \phi\bigg( \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v}  \psi(v) u \bigg)
-	\end{align*}
-	Since $\phi \in X^*$ is arbitary, a previous exercise in the section on linear functionals implies that 
-	\begin{align*}
-	0 
-	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v}  \psi(v) u \\
-	&= \sum\limits_{u \in U} \bigg (\sum\limits_{v \in V}\lam_{u,v}  \psi(v)  \bigg) u
-	\end{align*}
-	Linear independence of $U$ implies that for each $u \in U$, 
-	\begin{align*}
-	0 
-	&= \sum\limits_{v \in V}\lam_{u,v}  \psi(v) \\
-	&= \psi \bigg( \sum\limits_{v \in V}\lam_{u,v}  v \bigg )
-	\end{align*}
-	Since $\psi \in Y^*$ is arbitary, for each $u \in U$, $$\sum\limits_{v \in V}\lam_{u,v}  v = 0$$
-	Linear independence of $V$ implies that for each $u \in U, v \in V$, $\lam_{u,v} = 0$. Hence $W$ is linearly independent. 
-	\end{proof}
-	
-	\begin{ex} \textbf{Uniqueness:}\\
-	Let $X, Y$ and $Z$ be Banach spaces and $\phi \in L^2(X,Y ; Z)$. Suppose that $(Z, \phi)$ is a tensor product of $X$ with $Y$. Then $(Z, \phi)$ is unique up to isomorphism. 
-	\end{ex}
-	
-	\begin{proof}
-	Let $W$ be a Banach space and $\psi \in  L^2(X,Y ; W)$. Suppose that $(W, \psi)$ is a tensor product of $X$ with $Y$. Since $(Z, \phi)$ is a tensor product of $X$ with $Y$, there exists a unique $\psi' \in L(Z, W)$ such that $\psi' \circ \phi = \psi$. Since $(W, \psi)$ is a tensor product of $X$ with $Y$, there exists a unique $\phi' \in L(W,Z)$ such that $\phi' \circ \psi = \phi$. Thus the following diagram commutes: 
-	\[ \begin{tikzcd}
-	& W  \arrow[d, "\phi'"] \\
-	X \times Y \arrow[r, "\phi"] \arrow[dr, "\psi"'] \arrow[ur, "\psi"]	
-	& Z  \arrow[d, "\psi'"] \\
-	& W 
-\end{tikzcd}
-	\]
-	On the other hand, since $(W, \psi)$ is a tensor product of $X$ with $Y$, there exists a unique $\Psi \in L(W)$ such that $\Psi \circ \psi = \psi$. Thus the following diagram commutes:  
-	\[ \begin{tikzcd}
-	X \times Y \arrow[r, "\psi"] \arrow[dr, "\psi"'] 	
-	& W  \arrow[d, "\Psi"] \\
-	& W 
-\end{tikzcd}
-	\]
-	Since $I_W \in L(W)$ and $I_W \circ \psi = \psi$, uniqueness of $\Psi$ implies that $\Psi = I_W$. 
-	From the first diagram, we see that $\psi' \circ \phi'$ satisfies $(\psi' \circ \phi') \circ \psi  = \psi$. Since $\psi' \circ \phi' \in L(W)$, uniqueness of $\Psi$ implies that $\Psi = \psi' \circ \phi'$. Thus $\psi' \circ \phi'  = I_W$. \\
-	Similarly, we could have initially considered the following diagram: 
-	\[ \begin{tikzcd}
-	& Z  \arrow[d, "\psi'"] \\
-	X \times Y \arrow[r, "\psi"] \arrow[dr, "\phi"'] \arrow[ur, "\phi"]	
-	& W  \arrow[d, "\phi'"] \\
-	& Z
-\end{tikzcd}
-	\]
-	Playing a similar game, we could use the fact that there exists a unique $\Phi \in L(Z)$ such that $\Phi \circ \phi = \phi$ to obtain the following diagram:
-	\[ \begin{tikzcd}
-	X \times Y \arrow[r, "\phi"] \arrow[dr, "\phi"'] 	
-	& Z  \arrow[d, "\Phi"] \\
-	& Z 
-\end{tikzcd}
-	\]
-	As before, uniqueness enables us to conclude that $\phi' \circ \psi' = I_Z$. Thus $\psi'$ and $\phi'$ are isomorphisms and $Z \cong W$.
-	\end{proof}
-	
-	
-	\begin{note}
-	The following definitions and exercises will cover the explicit construction of a tensor product of Banach spaces.
-	\end{note}	
-	
-	\begin{defn}
-	Let $X$ and $Y$ be Banach spaces. Define $X \otimes^{\text{alg}} Y = \spn \{ x \otimes y: x \in X \text{ and } y \in Y \}$ to be the algebraic tensor product of $X$ with $Y$ (see section ??? of \cite{algebra} for details). 
-	\end{defn}
-	
-	\begin{ex}
-	Let $X$ and $Y$ be Banach spaces and $x \otimes y \in X \otimes^{\text{alg}} Y$. If for each $\phi \in X^*$ and $\psi \in Y^*$, $\phi \otimes \psi(x,y) = 0$, then $x \otimes y = 0$.
-	\end{ex}
-	
-	\begin{proof}
-	The previous section tells us that for each $\phi \in X^*$ and $\psi \in Y^*$, $\phi \otimes psi(x,y) = 0$, then $x = 0$ or $y = 0$. This implies that $x \otimes y = 0$.
-	\end{proof}
-	
-	\begin{defn}\textbf{The Projective Norm:} \\
-	Define $\|\cdot \|_{\pi}:X \otimes^{\text{alg}} Y \rightarrow \Rg$ by $$\|u\|_{\pi} = \inf \bigg \{ \sum_{j=1}^n \|x_j\| \|y_j\|: (x_j)_{j=1}^n \subset X \text{, }  (y_j)_{j=1}^n \subset Y \text{ and } u = \sum_{j=1}^n x_j \otimes y_j  \bigg \}$$
-	\end{defn}
-	
-	\begin{ex}
-	Let $X$ and $Y$ be Banach spaces. Then $\| \cdot \|_{\pi}: X \otimes^{\text{alg}} Y \rightarrow \Rg$ is a norm on $X \otimes^{\text{alg}} Y$.
-	\end{ex}
-	
-	\begin{proof}\
-	\begin{itemize}
-	\item Let $\lam \in \C$, $u \in X \otimes^{\text{alg}} Y$. If $\lam = 0$, then $\lam u = 0  u = 0 \otimes 0$ and clearly $\|\lam u\|_{\pi} = 0 = |\lam|\|u\|_{\pi}$. Suppose that $\lam \neq 0$. Let $\ep >0$. Then there exist $(x_j)_{j=1}^n \subset X$ and $(y_j)_{j=1}^n \subset Y$ such that $u = \sum\limits_{j=1}^n x_j \otimes y_j $ and $\sum\limits_{j=1}^n \|x_j\| \|y_j\| < \|u\|_{\pi} + \ep/|\lam| $. Then $\lam u = \sum\limits_{j=1}^n (\lam x_j) \otimes y_j $.
-	Therefore
-	\begin{align*}
-	\|\lam u\|_{\pi} 
-	& \leq \sum\limits_{j=1}^n \|\lam x_j\| \|y_j\| \\
-	& \leq |\lam| \sum\limits_{j=1}^n \| x_j\| \|y_j\| \\
-	& < |\lam| \bigg( \|u\|_{\pi} + \frac{\ep}{|\lam|} \bigg) \\
-	& = |\lam| \|u\|_{\pi} + \ep
-	\end{align*}
-	Since $\ep >0$ is arbitrary, $\|\lam u\|_{\pi} \leq |\lam| \|u\|_{\pi} $. For the sake of contradiction, suppose that $\|\lam u\|_{\pi} < |\lam| \|u\|_{\pi} $. Then there exists $(x_j)_{j=1}^n \subset X$ and $(y_j)_{j=1}^n \subset Y$ such that $\lam u = \sum\limits_{j=1}^n x_j \otimes y_j $ and $\sum\limits_{j=1}^n \|x_j\| \|y_j\| < |\lam| \|u\|_{\pi}$. Hence $u = \sum\limits_{j=1}^n (\lam^{-1}x_j) \otimes y_j$. This implies that 
-	\begin{align*}
-	\|u \|_{\pi} 
-	& \leq \sum\limits_{j=1}^n \|\lam^{-1}x_j\| \|y_j\| \\
-	&= |\lam |^{-1}\sum\limits_{j=1}^n \|x_j\| \|y_j\| \\
-	&< |\lam |^{-1} |\lam| \|u\|_{\pi} \\
-	&= \|u\|_{\pi}
-	\end{align*}
-	which is a contradiction. Therefore $\|\lam u\|_{\pi} \geq |\lam| \|u\|_{\pi}$ which implies that $\|\lam u\|_{\pi} = |\lam| \|u\|_{\pi}$
-	\item Let $u, v \in X \otimes^{\text{alg}} Y$ and $\ep >0$. Then there exist $(x_j)_{j=1}^n$, $(a_k)_{k=1}^m \subset X$ and $(y_j)_{j=1}^n$, $(b_k)_{k=1}^m \subset Y$ such that $u = \sum\limits_{j=1}^n x_j \otimes y_j $, $v = \sum\limits_{k=1}^m a_k \otimes b_k $, $\sum\limits_{j=1}^n \|x_j\| \|y_j\| < \|u\|_{\pi} + \ep/2$ and $\sum\limits_{k=1}^m \|a_k\| \|b_k\| < \|u\|_{\pi} + \ep/2$. Then $u+v = \sum\limits_{j=1}^n x_j \otimes y_j + \sum\limits_{k=1}^m a_k \otimes b_k $ which implies that 
-	\begin{align*}
-	\|u + v\|_{\pi} 
-	& \leq \sum\limits_{j=1}^n \|x_j\| \|y_j\| + \sum\limits_{k=1}^m \|a_k\| \|b_k\| \\
-	&< \|u\|_{\pi} + \ep/2 + \|v\|_{\pi} + \ep/2 \\
-	&= \|u\|_{\pi} + \|v\|_{\pi} + \ep
-	\end{align*}
-	Since $\ep >0$ is arbitrary, $\|u + v\|_{\pi} \leq \|u\|_{\pi} + \|v\|_{\pi}$.
-	\item Let $u \in X \otimes^{\text{alg}} Y$. Suppose that $\|u\| = 0$. Let $\phi \in X^*$ and $\psi \in Y^*$ and $\ep >0$. Then there exist $(x_j)_{j=1}^n \subset X$ and $(y_j)_{j=1}^n \subset Y$ such that $u = \sum\limits_{j=1}^n x_j \otimes y_j $ and $$\sum\limits_{j=1}^n \|x_j\| \|y_j\| < \frac{\ep}{\|\phi\| \|\psi\| + 1}$$
-	Then 
-	\begin{align*}
-	\sum_{j=1}^n |\phi \otimes \psi(x_j,y_j)|
-	&=  \sum_{j=1}^n |\phi(x_j)\psi(y_j)| \\
-	& \leq  \sum_{j=1}^n \|\phi\|\|x_j\| \|\psi\|\|y_j\| \\
-	&= \|\phi\|\|\psi\|\sum_{j=1}^n \|x_j\| \|y_j\| \\
-	& < \|\phi\|\|\psi\|\frac{\ep}{\|\phi\| \|\psi\| + 1} \\
-	& < \ep
-	\end{align*}
-	Then for each $j \in \{1, \ldots, n\}$, $|\phi \otimes \psi(x_j,y_j)| < \ep$.
-	\textbf{FINISH!!!} Try using sequences and continuity and a common refinement of representation and averaging
-	\end{itemize}
-	\end{proof}
-	
-	\begin{ex} \textbf{Existence:} \\
-	
-	\end{ex}
-	
-	\begin{proof}
-	
-	\end{proof}	
+
 	
 	
 	
@@ -2523,6 +2349,66 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	
 	
 	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\subsection{Compact Operators}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\subsection{Weak and Weak-* Topologies}
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+
+
+
+
+
+
+
 	\newpage
 	\subsection{Multilinear Maps}	
 	\begin{defn} \ld{43001}
@@ -3037,7 +2923,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{defn}
 
 \begin{note}
-	In mathematics, where linearity of the inner product is in the first argument, $x^{*}$ is typically referred to by $u_{x} \in H^{*} $ where $u_{x}(y) = \l y, x\r$. In physics, where the inner product with linearity in the second argument, $x^{*} \phi$ is usually written in the so-called ``bra-ket" notation as $\l x | \phi \r$ which works smoothly since it aligns with the linearity of $u_{x}(\phi_1 + \lam \phi_2)$ and the conjugate-linearity of $u_{x_1 + \lam x_2}(\phi)$. In this way, it generalizes the notation for $\l x, y\r = x^T y$ for $\R^n$ to $\l x, y\r = x^*y^*$ for $\C^n$. 
+	In mathematics, where linearity of the inner product is in the first argument, $x^{*}$ is typically referred to by $u_{x} \in H^{*} $ where $u_{x}(y) = \l y, x\r$. In physics, where the inner product with linearity in the second argument, $x^{*} \phi$ is usually written in the so-called ``bra-ket" notation as $\l x | \phi \r$ which works smoothly since it aligns with the linearity of $u_{x}(\phi_1 + \lam \phi_2)$ and the conjugate-linearity of $u_{x_1 + \lam x_2}(\phi)$. In this way, it generalizes the notation for $\l x, y\r = x^T y$ for $\R^n$ to $\l x, y\r = x^*y$ for $\C^n$. 
 \end{note}
 
 \begin{ex} \lex{}
@@ -3156,6 +3042,203 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 %	\end{defn}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+	\subsection{Tensor Products}
+	
+	\begin{note}
+	This section assumes familiarity with the algebraic tensor product of two vector spaces. See section ??? of \cite{algebra} for details. 
+	\end{note}	
+	
+	\begin{defn}
+	Let $X, Y$ and $Z$ be Banach spaces and $\phi \in L^2(X,Y ; Z) $. Then $(Z, \phi)$ is said to be a \textbf{tensor product} of $X$ with $Y$ if 
+	\begin{enumerate}
+	\item $\spn \phi(X \times Y)$ is dense in $Z$
+	\item for each Banach space $W$ and $\psi \in L^2(X,Y;W)$, there exists a unique $\psi' \in L(Z, W)$ such that $\psi' \circ \phi = \psi$, i.e. such that the following diagram commutes: 
+	\[ \begin{tikzcd}
+	X \times Y \arrow[r, "\phi"] \arrow[dr, "\psi"'] 	
+	& Z  \arrow[d, "\psi'"] \\
+	& W 
+\end{tikzcd}
+	\]
+	\end{enumerate}
+	If $(Z, \phi)$ is a tensor product of $X$ with $Y$. We often write $Z = X \otimes Y$ and for each $x\in X$, $y \in Y$, we often write $\phi(x,y) = x \otimes y$.
+	\end{defn}	
+	
+	\begin{ex}
+	Let $X$ and $Y$ be Banach spaces, $U \subset X$ and $V \subset Y$. Set $W = \{u \otimes v: u \in U \text{ and } v \in V\} \subset X \otimes Y$. If $U$ and $V$ are linearly independent, then $W$ is linearly independent.\\
+	\textbf{Hint:} For $\phi \in X^*$, $\psi \in Y^*$, define $T \in L^2(X, Y; \C)$ by $T(x,y) = \phi(x)\psi(y)$.
+	\end{ex}	
+	
+	\begin{proof}
+	Let $w = \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} u \otimes v$. Suppose that $w = 0$. Let $\phi \in X^*$ and $\psi \in Y^*$. Define $T \in L^2(X, Y; \C)$ by $T(x,y) = \phi(x)\psi(y)$. By definition of the tensor product, there exists a unique $T' \in L(X \otimes Y, \C)$ such that for each $x \in X$ and $y \in Y$, $T'(x \otimes y) = T(x,y)$. Then 
+	\begin{align*}
+	0 
+	&= T'(w) \\
+	&= T'(\sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} u \otimes v) \\
+	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} T'(u \otimes v) \\
+	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} T(u, v) \\
+	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v} \phi(u)\psi(v) \\
+	&= \phi\bigg( \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v}  \psi(v) u \bigg)
+	\end{align*}
+	Since $\phi \in X^*$ is arbitary, a previous exercise in the section on linear functionals implies that 
+	\begin{align*}
+	0 
+	&= \sum\limits_{u \in U} \sum\limits_{v \in V}\lam_{u,v}  \psi(v) u \\
+	&= \sum\limits_{u \in U} \bigg (\sum\limits_{v \in V}\lam_{u,v}  \psi(v)  \bigg) u
+	\end{align*}
+	Linear independence of $U$ implies that for each $u \in U$, 
+	\begin{align*}
+	0 
+	&= \sum\limits_{v \in V}\lam_{u,v}  \psi(v) \\
+	&= \psi \bigg( \sum\limits_{v \in V}\lam_{u,v}  v \bigg )
+	\end{align*}
+	Since $\psi \in Y^*$ is arbitary, for each $u \in U$, $$\sum\limits_{v \in V}\lam_{u,v}  v = 0$$
+	Linear independence of $V$ implies that for each $u \in U, v \in V$, $\lam_{u,v} = 0$. Hence $W$ is linearly independent. 
+	\end{proof}
+	
+	\begin{ex} \textbf{Uniqueness:}\\
+	Let $X, Y$ and $Z$ be Banach spaces and $\phi \in L^2(X,Y ; Z)$. Suppose that $(Z, \phi)$ is a tensor product of $X$ with $Y$. Then $(Z, \phi)$ is unique up to isomorphism. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $W$ be a Banach space and $\psi \in  L^2(X,Y ; W)$. Suppose that $(W, \psi)$ is a tensor product of $X$ with $Y$. Since $(Z, \phi)$ is a tensor product of $X$ with $Y$, there exists a unique $\psi' \in L(Z, W)$ such that $\psi' \circ \phi = \psi$. Since $(W, \psi)$ is a tensor product of $X$ with $Y$, there exists a unique $\phi' \in L(W,Z)$ such that $\phi' \circ \psi = \phi$. Thus the following diagram commutes: 
+	\[ \begin{tikzcd}
+	& W  \arrow[d, "\phi'"] \\
+	X \times Y \arrow[r, "\phi"] \arrow[dr, "\psi"'] \arrow[ur, "\psi"]	
+	& Z  \arrow[d, "\psi'"] \\
+	& W 
+\end{tikzcd}
+	\]
+	On the other hand, since $(W, \psi)$ is a tensor product of $X$ with $Y$, there exists a unique $\Psi \in L(W)$ such that $\Psi \circ \psi = \psi$. Thus the following diagram commutes:  
+	\[ \begin{tikzcd}
+	X \times Y \arrow[r, "\psi"] \arrow[dr, "\psi"'] 	
+	& W  \arrow[d, "\Psi"] \\
+	& W 
+\end{tikzcd}
+	\]
+	Since $I_W \in L(W)$ and $I_W \circ \psi = \psi$, uniqueness of $\Psi$ implies that $\Psi = I_W$. 
+	From the first diagram, we see that $\psi' \circ \phi'$ satisfies $(\psi' \circ \phi') \circ \psi  = \psi$. Since $\psi' \circ \phi' \in L(W)$, uniqueness of $\Psi$ implies that $\Psi = \psi' \circ \phi'$. Thus $\psi' \circ \phi'  = I_W$. \\
+	Similarly, we could have initially considered the following diagram: 
+	\[ \begin{tikzcd}
+	& Z  \arrow[d, "\psi'"] \\
+	X \times Y \arrow[r, "\psi"] \arrow[dr, "\phi"'] \arrow[ur, "\phi"]	
+	& W  \arrow[d, "\phi'"] \\
+	& Z
+\end{tikzcd}
+	\]
+	Playing a similar game, we could use the fact that there exists a unique $\Phi \in L(Z)$ such that $\Phi \circ \phi = \phi$ to obtain the following diagram:
+	\[ \begin{tikzcd}
+	X \times Y \arrow[r, "\phi"] \arrow[dr, "\phi"'] 	
+	& Z  \arrow[d, "\Phi"] \\
+	& Z 
+\end{tikzcd}
+	\]
+	As before, uniqueness enables us to conclude that $\phi' \circ \psi' = I_Z$. Thus $\psi'$ and $\phi'$ are isomorphisms and $Z \cong W$.
+	\end{proof}
+	
+	
+	\begin{note}
+	The following definitions and exercises will cover the explicit construction of a tensor product of Banach spaces.
+	\end{note}	
+	
+	\begin{defn}
+	Let $X$ and $Y$ be Banach spaces. Define $X \otimes^{\text{alg}} Y = \spn \{ x \otimes y: x \in X \text{ and } y \in Y \}$ to be the algebraic tensor product of $X$ with $Y$ (see section ??? of \cite{algebra} for details). 
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ and $Y$ be Banach spaces and $x \otimes y \in X \otimes^{\text{alg}} Y$. If for each $\phi \in X^*$ and $\psi \in Y^*$, $\phi \otimes \psi(x,y) = 0$, then $x \otimes y = 0$.
+	\end{ex}
+	
+	\begin{proof}
+	The previous section tells us that for each $\phi \in X^*$ and $\psi \in Y^*$, $\phi \otimes psi(x,y) = 0$, then $x = 0$ or $y = 0$. This implies that $x \otimes y = 0$.
+	\end{proof}
+	
+	\begin{defn}\textbf{The Projective Norm:} \\
+	Define $\|\cdot \|_{\pi}:X \otimes^{\text{alg}} Y \rightarrow \Rg$ by $$\|u\|_{\pi} = \inf \bigg \{ \sum_{j=1}^n \|x_j\| \|y_j\|: (x_j)_{j=1}^n \subset X \text{, }  (y_j)_{j=1}^n \subset Y \text{ and } u = \sum_{j=1}^n x_j \otimes y_j  \bigg \}$$
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ and $Y$ be Banach spaces. Then $\| \cdot \|_{\pi}: X \otimes^{\text{alg}} Y \rightarrow \Rg$ is a norm on $X \otimes^{\text{alg}} Y$.
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{itemize}
+	\item Let $\lam \in \C$, $u \in X \otimes^{\text{alg}} Y$. If $\lam = 0$, then $\lam u = 0  u = 0 \otimes 0$ and clearly $\|\lam u\|_{\pi} = 0 = |\lam|\|u\|_{\pi}$. Suppose that $\lam \neq 0$. Let $\ep >0$. Then there exist $(x_j)_{j=1}^n \subset X$ and $(y_j)_{j=1}^n \subset Y$ such that $u = \sum\limits_{j=1}^n x_j \otimes y_j $ and $\sum\limits_{j=1}^n \|x_j\| \|y_j\| < \|u\|_{\pi} + \ep/|\lam| $. Then $\lam u = \sum\limits_{j=1}^n (\lam x_j) \otimes y_j $.
+	Therefore
+	\begin{align*}
+	\|\lam u\|_{\pi} 
+	& \leq \sum\limits_{j=1}^n \|\lam x_j\| \|y_j\| \\
+	& \leq |\lam| \sum\limits_{j=1}^n \| x_j\| \|y_j\| \\
+	& < |\lam| \bigg( \|u\|_{\pi} + \frac{\ep}{|\lam|} \bigg) \\
+	& = |\lam| \|u\|_{\pi} + \ep
+	\end{align*}
+	Since $\ep >0$ is arbitrary, $\|\lam u\|_{\pi} \leq |\lam| \|u\|_{\pi} $. For the sake of contradiction, suppose that $\|\lam u\|_{\pi} < |\lam| \|u\|_{\pi} $. Then there exists $(x_j)_{j=1}^n \subset X$ and $(y_j)_{j=1}^n \subset Y$ such that $\lam u = \sum\limits_{j=1}^n x_j \otimes y_j $ and $\sum\limits_{j=1}^n \|x_j\| \|y_j\| < |\lam| \|u\|_{\pi}$. Hence $u = \sum\limits_{j=1}^n (\lam^{-1}x_j) \otimes y_j$. This implies that 
+	\begin{align*}
+	\|u \|_{\pi} 
+	& \leq \sum\limits_{j=1}^n \|\lam^{-1}x_j\| \|y_j\| \\
+	&= |\lam |^{-1}\sum\limits_{j=1}^n \|x_j\| \|y_j\| \\
+	&< |\lam |^{-1} |\lam| \|u\|_{\pi} \\
+	&= \|u\|_{\pi}
+	\end{align*}
+	which is a contradiction. Therefore $\|\lam u\|_{\pi} \geq |\lam| \|u\|_{\pi}$ which implies that $\|\lam u\|_{\pi} = |\lam| \|u\|_{\pi}$
+	\item Let $u, v \in X \otimes^{\text{alg}} Y$ and $\ep >0$. Then there exist $(x_j)_{j=1}^n$, $(a_k)_{k=1}^m \subset X$ and $(y_j)_{j=1}^n$, $(b_k)_{k=1}^m \subset Y$ such that $u = \sum\limits_{j=1}^n x_j \otimes y_j $, $v = \sum\limits_{k=1}^m a_k \otimes b_k $, $\sum\limits_{j=1}^n \|x_j\| \|y_j\| < \|u\|_{\pi} + \ep/2$ and $\sum\limits_{k=1}^m \|a_k\| \|b_k\| < \|u\|_{\pi} + \ep/2$. Then $u+v = \sum\limits_{j=1}^n x_j \otimes y_j + \sum\limits_{k=1}^m a_k \otimes b_k $ which implies that 
+	\begin{align*}
+	\|u + v\|_{\pi} 
+	& \leq \sum\limits_{j=1}^n \|x_j\| \|y_j\| + \sum\limits_{k=1}^m \|a_k\| \|b_k\| \\
+	&< \|u\|_{\pi} + \ep/2 + \|v\|_{\pi} + \ep/2 \\
+	&= \|u\|_{\pi} + \|v\|_{\pi} + \ep
+	\end{align*}
+	Since $\ep >0$ is arbitrary, $\|u + v\|_{\pi} \leq \|u\|_{\pi} + \|v\|_{\pi}$.
+	\item Let $u \in X \otimes^{\text{alg}} Y$. Suppose that $\|u\| = 0$. Let $\phi \in X^*$ and $\psi \in Y^*$ and $\ep >0$. Then there exist $(x_j)_{j=1}^n \subset X$ and $(y_j)_{j=1}^n \subset Y$ such that $u = \sum\limits_{j=1}^n x_j \otimes y_j $ and $$\sum\limits_{j=1}^n \|x_j\| \|y_j\| < \frac{\ep}{\|\phi\| \|\psi\| + 1}$$
+	Then 
+	\begin{align*}
+	\sum_{j=1}^n |\phi \otimes \psi(x_j,y_j)|
+	&=  \sum_{j=1}^n |\phi(x_j)\psi(y_j)| \\
+	& \leq  \sum_{j=1}^n \|\phi\|\|x_j\| \|\psi\|\|y_j\| \\
+	&= \|\phi\|\|\psi\|\sum_{j=1}^n \|x_j\| \|y_j\| \\
+	& < \|\phi\|\|\psi\|\frac{\ep}{\|\phi\| \|\psi\| + 1} \\
+	& < \ep
+	\end{align*}
+	Then for each $j \in \{1, \ldots, n\}$, $|\phi \otimes \psi(x_j,y_j)| < \ep$.
+	\textbf{FINISH!!!} Try using sequences and continuity and a common refinement of representation and averaging
+	\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \textbf{Existence:} \\
+	
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -3844,9 +3927,9 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	
 	
 	\begin{ex} \lex{} \textbf{Taylor's Theorem I:}\\
-	Let $X$ be a Banach space, $Y$ a separable Banach space, $A \subset X$ open and convex, $f\in C^{n+1}(A, Y)$, $x_0 \in A$, and $h \in A - x_0$. Then $$f(x_0 + h) = \sum_{k=0}^{n} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + R(x_0;h)$$ 
-	where $R(x_0; \cdot): A - x_0 \rightarrow Y$ is defined by $$R(x_0;h) = \frac{1}{n!}\int_{(0,1)} (1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)})d m(t)$$
-	and $R(x_0; h) = o(\|h\|^{n})$ as $h \rightarrow 0$.\\
+	Let $X$ be a Banach space, $Y$ a separable Banach space, $A \subset X$ open and convex, $f\in C^{n+1}(A, Y)$, $x_0 \in A$, and $h \in A - x_0$. Then $$f(x_0 + h) = \sum_{k=0}^{n} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + R(x_0)(h)$$ 
+	where $R(x_0): A - x_0 \rightarrow Y$ is defined by $$R(x_0)(h) = \frac{1}{n!}\int_{(0,1)} (1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)})d m(t)$$
+	and $R(x_0)(h) = o(\|h\|^{n})$ as $h \rightarrow 0$.\\
 	\textbf{Hint:} Define $g: (0,1) \rightarrow Y$ by $$g(t) = f(x_0 +t h)$$ Then use the previous exercise and the fundamental theorem of calculus.
 	\end{ex}
 	
@@ -3860,14 +3943,14 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	&= \int_{(0,1)} \bigg [\dv{t} \sum_{k=0}^{n} \frac{(1-t)^k}{k!}g^{(k)}(t)\bigg ] dm(t) \\
 	&= \int_{(0,1)} \frac{(1-t)^{n}}{n!}g^{(n+1)}(t) dm(t) \\
 	&= \frac{1}{n!}\int_{(0,1)} (1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)})d m(t) \\
-	&= R(x_0;h)
+	&= R(x_0)(h)
 	\end{align*}	
 	Note that $$\frac{1}{n+1} = \frac{1}{n!}\int_{(0,1)} (1-t)^{n} dm(t)$$ 
 	Since $D^{n+1}f$ is continuous at $x_0$, there exists $\del_1 >0$ such that for each $h \in B(0, \del_1)$, $x_0 + h \in A$ and 
 	$$\|D^{n+1} f(x_0+h) - D^{n+1}f(x_0)\| < 1 $$  
 	Let $\ep >0$. Choose $\del_2 >0$ such that $$\frac{1}{n+1} \bigg( \|D^{n+1}f(x_0 )\|  +  1 \bigg) \del_2 < \ep$$ Set $\del = \min(\del_1, \del_2)$. Let $h \in B(0, \del)$. Then
 	\begin{align*}
-	\|R(x_0;h)\| 
+	\|R(x_0)(h)\| 
 	&= \bigg \| \int_{(0,1)} \frac{1}{n!}\int_{(0,1)} (1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)})d m(t) \bigg\| \\
 	&\leq \frac{1}{n!}\int_{(0,1)} \|(1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)}) \|dm(t)\\
 	&\leq \max_{t \in [0,1]}\|D^{n+1}f(x_0 + th)\| \|h\|^{n+1} \frac{1}{n!}\int_{(0,1)} (1-t)^{n} dm(t)  \\
@@ -3875,60 +3958,86 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	&< \frac{1}{n+1}\bigg(\|D^{n+1}f(x_0 )\|  +  1 \bigg)\|h\|^{n+1}  \\
 	&<\ep \|h\|^n
 	\end{align*}
-	So $R(x_0, h) = o(\|h\|^{n})$ as $h \rightarrow 0$.
+	So $R(x_0)(h) = o(\|h\|^{n})$ as $h \rightarrow 0$.
 	\end{proof}
 	
+	
 	\begin{ex} \lex{} \textbf{Taylor's Theorem II:}\\
-	Let $X$ be a Banach space, $Y$ a separable Banach space, $A \subset X$ open and convex, $f\in C^{n}(A, Y)$, $x_0 \in A$, and $h \in A - x_0$. Then there exists $R_f(x_0): A - x_0 \rightarrow Y$ such that $$f(x_0 + h) = \sum_{k=0}^{n} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + R_f(x_0)(h)$$ and $R_f(x_0)(h) = o(\|h\|^n)$ as $ h \rightarrow 0$. \\
+	Let $X$ be a Banach space, $Y$ a separable Banach space, $A \subset X$ open and convex, $f\in C^{n}(A, Y)$, $x_0 \in A$, and $h \in A - x_0$. Then there exists $R(x_0): A - x_0 \rightarrow Y$ such that $$f(x_0 + h) = \sum_{k=0}^{n} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + R(x_0)(h)$$ and $R(x_0)(h) = o(\|h\|^n)$ as $ h \rightarrow 0$. \\
 	\textbf{Hint:} use Taylor's theorem and expand the derivative inside the integral.
 	\end{ex}
 	
 	\begin{proof}
-	This is clear by definition for $n = 1$. Suppose that $n \geq 2$. Taylor's theorem implies that $$f(x_0 + h) = \sum_{k=0}^{n-2} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + S(x_0;h)$$ 
-	where $S(x_0; \cdot): A - x_0 \rightarrow Y$ is defined by 
-	$$S(x_0;h) = \frac{1}{(n-2)!}\int_{(0,1)} (1-t)^{n-2}D^{n-1}f(x_0 + th)(h^{\oplus (n-1)})d m(t)$$
+	This is clear by definition for $n = 1$. Suppose that $n \geq 2$. Taylor's theorem implies that $$f(x_0 + h) = \sum_{k=0}^{n-2} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + S(x_0)(h)$$ 
+	where $S(x_0): A - x_0 \rightarrow Y$ is defined by 
+	$$S(x_0)(h) = \frac{1}{(n-2)!}\int_{(0,1)} (1-t)^{n-2}D^{n-1}f(x_0 + th)(h^{\oplus (n-1)})d m(t)$$
 	
 	and $S(x_0; h) = o(\|h\|^{n})$ as $h \rightarrow 0$.
-	Define $T^{n-1}_f(x_0):A-x_0 \rightarrow L^{n-1}(X;Y)$ by 
-	$$T^{n-1}_f(x_0)(h) = D^{n-1}f(x_0 + h) - D^{n-1}f(x_0) - D^nf(x_0)(h)$$ 
+	Define $T^{n-1}(x_0):A-x_0 \rightarrow L^{n-1}(X;Y)$ by 
+	$$T^{n-1}(x_0)(h) = D^{n-1}f(x_0 + h) - D^{n-1}f(x_0) - D^nf(x_0)(h)$$ 
 	so that 
-	$$D^{n-1}f(x_0 + h) = D^{n-1}f(x_0) + D^nf(x_0)(h) + T^{n-1}_f(x_0)(h)$$ 
-	and $T^{n-1}_f(x_0)(h) = o(\|h\|)$ as $h \rightarrow 0$. \\
-	Define $R_f(x_0): A - x_0 \rightarrow Y$ by 
-	$$R_f(x_0)(h) = \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2}T_f^{n-1}(x_0)(th)(h^{\oplus (n-1)}) dm(t) $$
+	$$D^{n-1}f(x_0 + h) = D^{n-1}f(x_0) + D^nf(x_0)(h) + T^{n-1}(x_0)(h)$$ 
+	and $T^{n-1}(x_0)(h) = o(\|h\|)$ as $h \rightarrow 0$. \\
+	Define $R(x_0): A - x_0 \rightarrow Y$ by 
+	$$R(x_0)(h) = \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2}T^{n-1}(x_0)(th)(h^{\oplus (n-1)}) dm(t) $$
 	Note that 
 	\begin{itemize}
 	\item $$\int_0^1 (1-t)^{n-2} dt = \frac{1}{n-1}$$
 	\item $$\int_0^1 (1-t)^{n-2}t dt = \frac{1}{n(n-1)}$$
 	\end{itemize}
-	Let $\ep >0$. Choose $\del >0$ such that for each $h \in B(0, \del)$, $h \in A - x_0$ and $$\|T^{n-1}_f(x_0)(h)\| \leq \ep n! \|h\|$$ Let $h \in B(0, \del)$. Then 
+	Let $\ep >0$. Choose $\del >0$ such that for each $h \in B(0, \del)$, $h \in A - x_0$ and $$\|T^{n-1}(x_0)(h)\| \leq \ep n! \|h\|$$ Let $h \in B(0, \del)$. Then 
 	\begin{align*}
-	\|R_f(x_0)(h)\|
-	&= \bigg \|  \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2}T_f^{n-1}(x_0)(th)(h^{\oplus (n-1)}) dm(t) \bigg \| \\
-	& \leq  \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2}\|T_f^{n-1}(x_0)(th)(h^{\oplus (n-1)})\| dm(t) \\
-	& \leq  \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2} \|T_f^{n-1}(x_0)(th) \| \|h\|^{n-1} dm(t) \\
+	\|R(x_0)(h)\|
+	&= \bigg \|  \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2}T^{n-1}(x_0)(th)(h^{\oplus (n-1)}) dm(t) \bigg \| \\
+	& \leq  \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2}\|T^{n-1}(x_0)(th)(h^{\oplus (n-1)})\| dm(t) \\
+	& \leq  \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2} \|T^{n-1}(x_0)(th) \| \|h\|^{n-1} dm(t) \\
 	& \leq  \frac{\ep}{(n-2)!}  n!  \|h\|^n \int_{(0,1)} (1-t)^{n-2} t  dm(t) \\		
 	&= \ep \|h\|^n  
 	\end{align*}
-	So that $R_f(x_0)(h)(h^{\oplus (n-1)}) = o(\|h\|^n)$ as $h \rightarrow 0$. 
+	So that $R(x_0)(h) = o(\|h\|^n)$ as $h \rightarrow 0$. 
 	
 	Then 
 	\begin{align*}
-	S(x_0;h) 
+	S(x_0)(h) 
 	&= \frac{1}{(n-2)!}\int_{(0,1)} (1-t)^{n-2}D^{n-1}f(x_0 + th)(h^{\oplus (n-1)})d m(t) \\
 	&= \frac{1}{(n-2)!}\int_{(0,1)} (1-t)^{n-2} D^{n-1}f(x_0)(h^{\oplus (n-1)}) dm(t) \\ 
 	& \hspace{1.5cm} + \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2}t D^{n}f(x_0)(h)(h^{\oplus (n-1)}) dm(t) \\
-	& \hspace{1.5cm} + \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2}T_f^{n-1}(x_0)(th)(h^{\oplus (n-1)}) dm(t) \\
+	& \hspace{1.5cm} + \frac{1}{(n-2)!} \int_{(0,1)} (1-t)^{n-2}T^{n-1}(x_0)(th)(h^{\oplus (n-1)}) dm(t) \\
 	&= \frac{1}{(n-1)!}D^{n-1}f(x_0)(h^{\oplus (n-1)}) + \frac{1}{n!}D^{n}f(x_0)(h^{\oplus n}) + R_f(x_0)(h)
 	\end{align*}
 	Hence 
 	\begin{align*}
 	f(x_0 + h) 
-	&= \sum_{k=0}^{n-2} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + S(x_0;h) \\
-	&= \sum_{k=0}^{n} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + R_f(x_0)(h) 
+	&= \sum_{k=0}^{n-2} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + S(x_0)(h) \\
+	&= \sum_{k=0}^{n} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + R(x_0)(h) 
 	\end{align*}
 	
 	\end{proof}
+	
+	
+	\begin{ex} \lex{} \textbf{Taylor's Theorem III:}\\
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f \in C^{n}(A)$, $x_0 \in A$, and $h \in A - x_0$. Then there exists $t^* \in (0,1)$ such that $$f(x_0 + h) = \sum_{k=0}^{n-1} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + \frac{1}{(n-1)!} (1-t^*)^{n-1}D^{n}f(x_0 + t^*h)(h^{\oplus n})$$ \\
+	\textbf{Hint:} use Taylor's theorem and the mean value theorem.
+	\end{ex}	
+	
+	\begin{proof}
+	Taylors Theorem implies that 
+	$$f(x_0 + h) = \sum_{k=0}^{n-1} \frac{1}{k!} D^k f(x_0)(h^{\oplus k}) + R(x_0)(h)$$ 
+	where 
+	$$R(x_0)(h) =  \frac{1}{(n-1)!}\int_{(0,1)} (1-t)^{n-1}D^{n}f(x_0 + th)(h^{\oplus n})d m(t)$$ 
+	Define $F \in C^1([0,1])$ by $$F(t) = \int_{(0,t]}\frac{1}{(n-1)!}(1-s)^{n-1}D^{n}f(x_0 + sh)(h^{\oplus n})d m(s)$$ Then the fundamental theorem of calculus implies that 
+	$$F'(t) = \frac{1}{(n-1)!}(1-t)^{n-1}D^{n}f(x_0 + th)(h^{\oplus n})$$ 
+	The mean value theorem implies that there exists $t^* \in (0,1)$ such that 
+	\begin{align*}
+	R(x_0)(h)
+	&= F(1) - F(0) \\
+	&= F'(t^*) \\
+	&= \frac{1}{(n-1)!}(1-t^*)^{n-1}D^{n}f(x_0 + t^*h)(h^{\oplus n})
+	\end{align*}
+	\end{proof}	
+
+	
+	
 	
 	\begin{ex} \lex{}
 	Let $X$ be a Banach space, $A \subset X$ open and convex and $f\in C^{2}(A)$, $x_0 \in A$. If $f$ has a local minimum at $x_0$, then $D^2f(x_0)$ is positive semidefinite.   
@@ -4539,6 +4648,15 @@ So $f \circ g$ is convex.
 	
 	\begin{proof}
 	Since $Df(x_0) \in \p f(x_0)$, for each $x \in A$, $Df(x_0)(x - x_0) \leq f(x) - f(x_0)$.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$. Suppose that $f$ is Frechet differentiable. Then $f$ is convex iff for each $x_0, x \in A$, $f(x) \geq f(x_0) + Df(x_0)(x - x_0)$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ is convex. Then the previous exercise implies that for each $x_0,x \in A$, $f(x) \geq f(x_0) + Df(x_0)(x - x_0)$. Conversely, suppose that for each $x_0,x \in A$, $f(x) \geq f(x_0) + Df(x_0)(x - x_0)$. Let $x_0, x, y \in A$. Then $f(x) \geq f(x_0) + Df(x_0)(x - x_0)$ and $f(y) \geq f(x_0) + Df(x_0)(y - x_0)$. \\
+	\textbf{FINISH!!!}
 	\end{proof}
 	
 	\begin{ex} \lex{}

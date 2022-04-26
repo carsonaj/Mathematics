@@ -143,7 +143,7 @@
 %		\begin{itemize}
 %		\item results for Frechet differentiable functions
 %		\end{itemize}
-%	\item Reproducing cernel Hilbert Spaces
+%	\item Reproducing Kernel Hilbert Spaces
 %		\begin{itemize}
 %		\item representer theorem
 %		\end{itemize}
@@ -707,9 +707,9 @@ Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ c
 
 
 
-\section{Reproducing cernel Hilbert Spaces}
+\section{Reproducing Kernel Hilbert Spaces}
 \begin{frame}
-\frametitle{Reproducing cernel Hilbert Spaces}
+\frametitle{Reproducing Kernel Hilbert Spaces}
 
 
 
@@ -746,7 +746,7 @@ Let $H$ be an inner product space. Then for each $x,y \in H$, $|\l x, y\r| \leq 
 
 
 \begin{frame}
-\frametitle{Reproducing cernel Hilbert Spaces}
+\frametitle{Reproducing Kernel Hilbert Spaces}
 
 \begin{defn}
 Let $H$ be a Hilbert space. Define $\phi:H \rightarrow H^*$ by $x \mapsto x^*$ where $$x^*y = \l x ,y\r$$
@@ -777,7 +777,7 @@ Let $H$ be a Hilbert space. Then $\phi: H \rightarrow H^*$ defined above is an i
 
 
 \begin{frame}
-\frametitle{Reproducing cernel Hilbert Spaces}
+\frametitle{Reproducing Kernel Hilbert Spaces}
 
 \begin{defn}
 Let $H$ be a Hilbert space, $f: H \rightarrow \R$ and $x_0 \in H$. Suppose that $f$ is Frechet differentiable at $x_0$ so that $Df(x_0) \in H^*$. We define the \textbf{gradient of $f$ at $x_0$}, denoted $\nabla f(x_0) \in H$, by $$\nabla f(x_0) = Df(x_0)^*$$ That is, $\nabla f(x_0)$ is the unique element of $H$ such that for each $y \in H$, $$\l \nabla f(x_0), y \r = Df(x_0)(y)$$
@@ -812,7 +812,7 @@ Let $H$ be a Hilbert space, $f: H \rightarrow \R$ and $x_0 \in H$. Suppose that 
 
 \begin{frame}
 
-\frametitle{Reproducing cernel Hilbert Spaces}
+\frametitle{Reproducing Kernel Hilbert Spaces}
 
 
 
@@ -842,7 +842,7 @@ If $H$ is an RKHS, we define the \textbf{reproducing kernel} associated to $H$, 
 
 
 \begin{frame}
-\frametitle{Reproducing cernel Hilbert Spaces}
+\frametitle{Reproducing Kernel Hilbert Spaces}
 \begin{fact}
 Let $T$ be a set and $c : T^2 \rightarrow \R$. If $c$ is symmetric and positive definite, then there exists a unique reproducing kernel Hilbert space $H \subset \R^T$ such that $c_H = c$.
 \end{fact}
@@ -858,7 +858,7 @@ Let $T$ be a set and $c : T^2 \rightarrow \R$. If $c$ is symmetric and positive 
 
 
 \begin{frame}
-\frametitle{Reproducing cernel Hilbert Spaces}
+\frametitle{Reproducing Kernel Hilbert Spaces}
 \begin{fact}
 Let $T$ be a set, $c : T^2 \rightarrow \R$ a symmetric, postivie definite kernel on $T$, $H \subset \R^T$ the corresponding RKHS, $x = (x_j)_{j=1}^n \in T^n$, $\lam > 0$ and $y = (y_j)_{j=1}^n \in \R^n$. \\
 \pause
@@ -889,7 +889,7 @@ Then there exist $(\hat{\al}_j)_{j=1}^n \subset \R$ such that $$\hat{f}(t) = \su
 
 
 \begin{frame}
-\frametitle{Reproducing cernel Hilbert Spaces}
+\frametitle{Reproducing Kernel Hilbert Spaces}
 \begin{rem}
 Recall that we defined $c(x,x) \in \R^{n \times n}$ by $c(x,x)_{i,j} = c(x_i, x_j)$. Some regular calculus shows that $\hat{\al} = (c(x,x) + \lam I)^{-1}y$.\\
 Another way to write this is 
@@ -917,7 +917,7 @@ Hopefully this looks familiar. Indeed, $\hat{f}$ is the posterior mean function 
 
 
 \begin{frame}
-\frametitle{Reproducing cernel Hilbert Spaces}
+\frametitle{Reproducing Kernel Hilbert Spaces}
 \begin{rem}
 Define $Q: H \rightarrow \R$ by $$Q(f) = \sum_{j=1}^n (y_j - f(x_j) )^2$$ 
 \pause
@@ -937,7 +937,7 @@ We can write rewrite $Q(f)$ as  $$Q(f) = \|l_x(f) - y\|_2^2$$ where $l_x \in L(H
 
 
 \begin{frame}
-\frametitle{Reproducing cernel Hilbert Spaces}
+\frametitle{Reproducing Kernel Hilbert Spaces}
 \begin{rem}
 Writing this out, we see that 
 \begin{align*}
@@ -964,7 +964,7 @@ Equating terms from Taylor's theorem, we see that $D^2Q(f_0)(h,h) = 2\|l_x(h)\|_
 
 
 \begin{frame}
-\frametitle{Reproducing cernel Hilbert Spaces}
+\frametitle{Reproducing Kernel Hilbert Spaces}
 \begin{rem}
 Similar to before, writing out $L(f_0 + h)$, we get
 $$L_{\lam, y}(f_0 + h) = L_{\lam, y}(f_0) + 2(l_x(f_0) - y)^T l_x(h) + 2 \lam \l f_0 , h\r + o(\|h\|^2) $$
@@ -1205,14 +1205,63 @@ $$l_1(\theta) = \frac{1}{a} \sum_{k=1}^a \bigg[ \sum_{j=1}^n |g_{\theta}(x_j)- y
 
 
 
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Approximating Posterior Gaussian Processes}
+\begin{rem}
+We could also add an MSE penalty term, $$MSE(\theta) = \frac{1}{n} \sum_{j=1}^n (y_j - g_{\theta}(x_j))^2$$ to $l(\theta)$. The motivation for doing this is that it might yield a better approximation inside the data range while still retaining desirable properties of the posterior mean outside the data range. \\
+In the following slides we make a comparison. The model is $$y_i \sim N(f(x_i, 0.1^2))$$ with the true data generating function given by $$f_0(x) = 4 + 2e^{-x_i} + 0.5\cos(8  \cdot x_i)$$
+\end{rem}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+\includegraphics[scale=.85]{inside_data.png}
+\end{frame}
+
+
+
+\begin{frame}
+\includegraphics[scale=.85]{outside_data.png}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
 \begin{frame}
 \frametitle{Approximating Posterior Gaussian Processes}
 \begin{rem}
 Focusing on $h_{\eta}$, let $(s_k, t_l)_{k,l}^{a,b}$ be a grid of $T^2$. Using the triangle inequality like before, except now adding a symmetric penalty term, we obtain an $l^1$ loss function given by
 \begin{align*}
         l_1(\eta) 
-    &= \frac{1}{ab} \sum\limits_{k=1}^a \sum\limits_{l=1}^b  \bigg [ \sum\limits_{j=1}^n |h_{\theta}(x_j, t_l) - c(x_j, t_l)| c(s_k, x_j)   \\
-    & \hspace{2.5cm} + \sig^{2}  |h_{\theta}(s_k, t_l)| \bigg] \\
+    &= \frac{1}{ab} \sum\limits_{k=1}^a \sum\limits_{l=1}^b  \bigg [ \sum\limits_{j=1}^n |h_{\eta}(x_j, t_l) - c(x_j, t_l)| c(s_k, x_j)   \\
+    & \hspace{2.5cm} + \sig^{2}  |h_{\eta}(s_k, t_l)| \bigg] \\
     &  + \frac{1}{ab} \sum\limits_{k=1}^a \sum\limits_{l=1}^b |c(s_k, t_l) - c(t_l, s_k)|
     \end{align*}
 \end{rem}
@@ -1238,8 +1287,8 @@ Focusing on $h_{\eta}$, let $(s_k, t_l)_{k,l}^{a,b}$ be a grid of $T^2$. Using t
 Using the Jensen's inequality like before, except now adding a symmetric penalty term, we obtain an $l^2$  loss function given by
 \begin{align*}
         l_2(\eta) 
-        &= \frac{1}{ab} \sum\limits_{k=1}^a \sum\limits_{l=1}^b  \bigg [ \bigg(\sum\limits_{j=1}^n (h_{\theta}(x_j, t_l) - c(x_j, t_l)) c(s_k, x_j) \bigg)^2   \\
-    & \hspace{2.5cm} + \sig^{2}  h_{\theta}(s_k, t_l)^2 \bigg] \\
+        &= \frac{1}{ab} \sum\limits_{k=1}^a \sum\limits_{l=1}^b  \bigg [ \bigg(\sum\limits_{j=1}^n (h_{\eta}(x_j, t_l) - c(x_j, t_l)) c(s_k, x_j) \bigg)^2   \\
+    & \hspace{2.5cm} + \sig^{2}  h_{\eta}(s_k, t_l)^2 \bigg] \\
         &+ \frac{1}{ab} \sum\limits_{k=1}^a \sum\limits_{l=1}^b (c(s_k, t_l) - c(t_l, s_k))^2
     \end{align*}
 \end{rem}
@@ -1257,33 +1306,9 @@ Using the Jensen's inequality like before, except now adding a symmetric penalty
 
 
 
-\begin{frame}
-\frametitle{Approximating Posterior Gaussian Processes}
-\begin{rem}
-If $(c(x,x) + \sig^2I)^{-1}$ is too expensive to compute, we may set up the following convex optimization problems to approximate the posterior mean and posterior covariance functions via our gradient descent algorithm:
-\begin{itemize}
-\item $$\tilde{\mu}(t) = \argmin_{f \in H} \sum_{j=1}^n (y_j - f(x_j))^2 + \sig^2 \|h\|_H$$ 
-\item Fixing $t \in T$, $$\hat{c}(\cdot, t) = \argmin_{f \in H} \sum_{j=1}^n (c(x_j, t) - f(x_j))^2 + \sig^2 \|h\|_H$$
-\end{itemize}
-where $H$ is the RKHS corresponding to the p.d. kernel $c$. \\
-\end{rem}
-\end{frame}
 
 
 
-
-
-
-
-
-
-
-\begin{frame}
-Approximating Posterior Gaussian Processes
-\begin{rem}
-The first optimization problem lets us approximate $\tilde{\mu}$ directly by gradient descent and the second optimization problem lets us approximate $\tilde{c}(t)$ by finding $\hat{c}(\cdot, t)$ via gradient descent and the computing $\tilde{c}(s, t) = c(s, t) - \hat{c}(s, t)$.
-\end{rem}
-\end{frame}
 
 
 \begin{frame}
