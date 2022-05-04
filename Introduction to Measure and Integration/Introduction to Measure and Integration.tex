@@ -1338,26 +1338,31 @@
 	\end{proof}
 	
 	\begin{ex}\textbf{Doob-Dynkin Lemma:} \\
-	Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is surjective and $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $\MA_2$-$\MA_3$ measurable and $g = \phi \circ f$. \\
+	Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is surjective and $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists a unique $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $\MA_2$-$\MA_3$ measurable and $g = \phi \circ f$. \\
 	\textbf{Hint:} For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. Set $\phi(y) = t$ for $y \in B_t \cap f(X_1)$ and $t \in g(X_1)$.
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that there exists $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $\MA_2$ - $\MA_3$ measurable and $g = \phi \circ f$. Since $f$ is $f^* \MA_2$ - $\MA_2$ measurable, we have that $g = \phi \circ f$ is $f^*\MA_2$-$\MA_3$ measurable.  \\
-	Conversely, suppose that $g$ is $f^*\MA_2$-$\MA_3$ measurable. For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. \\
+	Suppose that there exists a unique $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $\MA_2$ - $\MA_3$ measurable and $g = \phi \circ f$. Since $f$ is $f^* \MA_2$ - $\MA_2$ measurable, we have that $g = \phi \circ f$ is $f^*\MA_2$-$\MA_3$ measurable.  \\
+	Conversely, suppose that $g$ is $f^*\MA_2$-$\MA_3$ measurable. \\
+	\begin{itemize}
+	\item \textbf{(Existence)} \\
+	For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. \\
 	Note that 
 	\begin{itemize}
-	\item for $t_1, t_2 \in g(X_1)$, 
+	\item for each $t \in g(X_1)$, there exists $x \in A_t$ such that $g(x) = t$. Hence $f(x) \in B_t$.\\
+	\item for $t_1, t_2 \in g(X_1)$, $t_1 \neq t_2$ implies that
 	\begin{align*}
 	f^{-1}(B_{t_1} \cap B_{t_2}) 
 	&= A_{t_1} \cap A_{t_2} \\
 	&= g^{-1}(\{t_1\} \cap \{t_2\}) \\
 	&= \varnothing
 	\end{align*}	 
-	So 
+	and since $B_{t_1} \cap  B_{t_2} \subset X_2 = f(X_1)$, we have that 
 	\begin{align*}
 	B_{t_1} \cap  B_{t_2} 
-	& \subset f(X^1)^c \\
+	& \subset f(f^{-1}(B_{t_1} \cap  B_{t_2} )) \\
+	&= f(\varnothing) \\
 	&= \varnothing
 	\end{align*}
 	\item we have that 
@@ -1368,10 +1373,16 @@
 	&= g^{-1}(g(X_1)) \\
 	&= X_1
 	\end{align*}
-	So $X_2 = f(X_1) \subset \bigcup\limits_{t \in g(X_1)} B_t$.
+	Since $X_2 = f(X_1)$, we have that  $X_2 \subset \bigcup\limits_{t \in g(X_1)} B_t$.\\
 	\end{itemize}
-	Therefore $(B_t)_{t \in g(X_1)}$ is a partition of $X_2$ and $(A_t)_{t \in g(X_1)}$ is a partion of $X_1$. Define $\phi:X_2 \rightarrow X_3$ by $\phi(y) = t$ for $y \in B_t $ and $t \in g(X_1)$. So $\phi(X_2) = g(X_1)$. Since for each $t \in g(X_1)$ and $x \in A_t$, $f(x) \in B_t$ and $g(x) = t$, we have that $\phi \circ f (x) = t = g(x)$. So $\phi \circ f = g$. \\
-	Let $C \in \MA_3$. Choose $B \in \MA_2$ such that $g^{-1}(C) = f^{-1}(B)$. \\
+	Therefore, 
+	\begin{itemize}
+	\item for each $t \in g(X_1)$, $B_t \neq \varnothing$
+	\item $(A_t)_{t \in g(X_1)}$ is a partion of $X_1$
+	\item $(B_t)_{t \in g(X_1)}$ is a partition of $X_2$\\
+\end{itemize}		
+	 Define $\phi:X_2 \rightarrow X_3$ by $\phi(y) = t$ for $t \in g(X_1)$ and $y \in B_t $. Then the previous observations imply that $\phi$ is well defined and $\phi(X_2) = g(X_1)$. Since for each $t \in g(X_1)$ and $x \in A_t$, $f(x) \in B_t$ and $g(x) = t$, we have that $\phi \circ f (x) = t = g(x)$. So $\phi \circ f = g$. \\ \\
+	To show that $\phi$ is measurable, let $C \in \MA_3$. Choose $B \in \MA_2$ such that $g^{-1}(C) = f^{-1}(B)$.
 	Let $y \in \phi^{-1}(C) \subset X_2$. Set $t = \phi(y) \in C$ and choose $x \in X_1$ such that $y = f(x)$. Since 
 	\begin{align*}
 	g(x) 
@@ -1389,11 +1400,23 @@
 	&\in C
 	\end{align*}	 
 	and $y \in \phi^{-1}(C)$. So $B \subset \phi^{-1}(C)$. 
-	Hence $\phi^{-1}(C) = B \in \MA_2$ and $\phi$ is $\MA_2$ - $\MA_3$ measurable.
+	Hence $\phi^{-1}(C) = B \in \MA_2$ and $\phi$ is $\MA_2$ - $\MA_3$ measurable.\\
+	\item \textbf{(Uniqueness)} \\
+	Let $\psi: X_2 \rightarrow X_3$. Suppose that $\psi$ is $\MA_2$-$\MA_3$ measurable and $g = \psi \circ f$. Let $y \in X_2$. Then there exists $x \in X_1$ such that $y = f(x)$. Then 
+	\begin{align*}
+	\psi(y) 
+	&= \psi \circ f(x) \\
+	&= g(x) \\
+	&= \phi \circ f(x) \\
+	&= \phi(y)
+	\end{align*}
+	So $\psi = \phi$.
+	\end{itemize}
+ 
 	\end{proof}
 
 	\begin{ex}
-	Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists $\phi: f(X_1) \rightarrow X_3$ such that $\phi$ is $\MA_2 \cap f(X_1)$ - $\MA_3$ measurable and $g = \phi \circ f$. \\
+	Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists a unique $\phi: f(X_1) \rightarrow X_3$ such that $\phi$ is $\MA_2 \cap f(X_1)$ - $\MA_3$ measurable and $g = \phi \circ f$. \\
 	\end{ex}
 	
 	\begin{proof}
