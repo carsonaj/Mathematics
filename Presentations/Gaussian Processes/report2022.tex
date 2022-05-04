@@ -170,7 +170,7 @@
 \maketitle
 
 \begin{abstract}
-  This report will discuss an approximation to the posterior mean of a Gaussian process that improves over the computational efficiency and estimation accuracy of the exact posterior mean. 
+  This report will discuss an approximation to the posterior mean of a Gaussian process by a neual network that improves over the computational efficiency and true data generating function estimation accuracy of the exact posterior mean. 
 \end{abstract}
 
 \section{Background}
@@ -304,7 +304,7 @@ $$MSE(\theta) = \sum_{j=1}^n (g_{\theta}(x_j) - y_j)^2$$ For $\al \in (0,1)$, we
 \end{apprx}
 
 \begin{note}
-The idea here is that we choose $\al > 0.5$ so that we have an overall behavior similar to that of the exact posterior mean, but within the data $x,y$, the MSE term takes over and we have a better fit to the true data generating function. 
+The motivation for the augmented loss function is to choose $\al > 0.5$ so that we have an overall behavior similar to that of the exact posterior mean, but within the data $x,y$, the MSE term dominates and we have a better fit to the true data generating function. 
 \end{note}
 
 
@@ -319,11 +319,11 @@ y_i &= f_0(x_i) + \ep_i \\
 x_i & \sim \text{U(0,4)} \\
 f_0(x) &= 2e^{-x} +  0.5 \cos(8x) + 4
 \end{align*}
-and trained a neural network $g_{\theta}$ on the grid of evenly spaced grid $(t_k)_{k=1}^{30} \subset [0,30]$.
+and trained a neural network $g_{\theta}$ on the grid of evenly spaced grid $(t_k)_{k=1}^{40} \subset [0,40]$.
 \end{modl}
 
 \begin{note}
-Below we show the results after training $g_{\theta}$ with the $l_2$ loss function (RKHS NN), the $l'_2$ loss function with $\al = 0.75$ (RKHS-MSE mix NN) and the MSE loss function (MSE NN). We included photos to compare performance inside the data $[0,4]$ and outside the data $[0, 15]$. 
+Below we show the results after training $g_{\theta}$ with the $l_2$ loss function (RKHS NN), the $l'_2$ loss function with $\al = 0.7$ (RKHS-MSE mix NN) and the MSE loss function (MSE NN). We included photos to compare performance inside the data on $[0,4]$ and outside the data on $[0, 15]$. 
 \end{note}
 
 
@@ -336,12 +336,14 @@ Below we show the results after training $g_{\theta}$ with the $l_2$ loss functi
 \begin{note}
 There are a few observations to make. 
 \begin{itemize}
-\item The RKHS NN fits the exact posterior mean fine inside the training data and well outside the training data.
-\item The RKHS NN and exact posterior mean both fit the true data generating function fine inside the training data but have the nice property of reverting back to the prior mean outside the training data.
-\item The MSE NN fits the true data generating function well inside the training data and poorly outside the training data  
+\item The RKHS NN does not align well with the exact posterior mean inside the data, but it does revert back to the prior outside the training data like the posterior mean. Neither the RKHS NN nor the exact posterior mean fit the true data generating function well inside the training data.
+\item The MSE NN fits the true data generating function well inside the training data, but it fits poorly outside the training data  
 \item The RKHS-MSE mix NN fits the true data generating function well inside the training data and reverts back to the prior mean outside the training data.
 \end{itemize}
+
+So the neural network $g_{\theta}$ trained by the augmented loss function $l'_2(\theta)$ yields a better approximation to the true data generating function $f_0$ than the posterior mean inside the data and retains the nice property of reverting back to the prior mean outside of the data. Another thing to note is that once the network is trained, it is no longer necessary to store the training data and evaluation takes constant time with respect to the size of the training data unlike the posterior mean. So this approximation offers a computational improvement over the posterior mean as well.
 \end{note}
+
 
 
 
