@@ -105,6 +105,7 @@
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Homeo}{Homeo}
 \DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\diam}{diam}
 
 \newcommand{\lex}[1]{\label{ex:#1}}
 \newcommand{\ld}[1]{\label{defn:#1}}
@@ -1136,6 +1137,41 @@
 		\end{enumerate}
 	\end{defn}
 	
+		\begin{defn} \ld{00000} 
+		Let $X$ be a set, $\mu^*$ an outer measure on $X$ and $A \subset X$. Then $A$ is said to be $\mu^*$-\textbf{outer measurable} if for each $E \subset X$, 
+	\begin{equation*}
+	\mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c)
+	\end{equation*}
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a set, $\mu^*$ an outer measure on $X$ and $A \subset X$. Then $A$ is $\mu^*$-outer measurable iff for each $E \subset X$, $\mu^*(E) < \infty$ implies that 
+	\begin{equation*}
+	\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)
+	\end{equation*}
+	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $A$ is $\mu^*$-outer measurable. Let $E \subset X$, Suppose that $\mu^*(E) < \infty$. By definition $\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)$. \\
+	Conversely, suppose that for each $E \subset X$, $\mu^*(E) < \infty$ implies that $\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)$. Let $E \subset X$. 
+	\begin{itemize}
+	\item If $\mu^*(E) < \infty$, then by assumption, 
+	\begin{equation*}
+	\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)
+	\end{equation*}		
+	If $\mu^*(E) = \infty$, then trivially, 
+	\begin{equation*}
+	\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)
+	\end{equation*}	 
+	So $\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)$
+	\item Since $E = (E \cap A) \cup (E \cap A^c)$, by definition, 
+	\begin{equation*}
+	\mu^*(E) \leq \mu^*(E \cap A) + \mu^*(E \cap A^c)
+	\end{equation*}	
+	\end{itemize}
+	So $\mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c)$ and $A$ is $\mu^*$-outer measurable.
+	\end{proof}
+	
 	\begin{thm}\textbf{Construction of Outer Measures:} \\
 		Let $X$ be a set and $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. Define $\mu^*:\MP(X) \rightarrow [0, \infty]$ by $$\mu^*(A) = \inf \bigg \{\sum_{n \in \N}\rho(E_n): (E_n)_{n \in \N} \subset \ME \text{ and }A \subset \bigcup_{n \in \N}E_n \bigg \}$$ Then $\mu^*$ is an outer measure on $X$.
 	\end{thm}
@@ -1146,10 +1182,6 @@
 	
 	\begin{defn} \ld{00000} 
 		Let $X$ be a set and $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. Let $\mu^*$ be the outer measure on $X$ defined as in the last theorem. Then $\mu^*$ is called the \textbf{outer measure on $X$ induced by $\rho$}.
-	\end{defn}
-	
-	\begin{defn} \ld{00000} 
-		Let $X$ be a set, $\mu^*$ an outer measure on $X$ and $A \subset $X. Then $A$ is said to be $\mu^*$-\textbf{outer measurable} if for each $E \subset X$, $$\mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c)$$ 
 	\end{defn}
 	
 	\begin{thm}
@@ -1358,10 +1390,10 @@
 	&= g^{-1}(\{t_1\} \cap \{t_2\}) \\
 	&= \varnothing
 	\end{align*}	 
-	and since $B_{t_1} \cap  B_{t_2} \subset X_2 = f(X_1)$, we have that 
+	and since $f$ is surjective, 
 	\begin{align*}
 	B_{t_1} \cap  B_{t_2} 
-	& \subset f(f^{-1}(B_{t_1} \cap  B_{t_2} )) \\
+	& = f(f^{-1}(B_{t_1} \cap  B_{t_2} )) \\
 	&= f(\varnothing) \\
 	&= \varnothing
 	\end{align*}
@@ -1373,7 +1405,13 @@
 	&= g^{-1}(g(X_1)) \\
 	&= X_1
 	\end{align*}
-	Since $X_2 = f(X_1)$, we have that  $X_2 \subset \bigcup\limits_{t \in g(X_1)} B_t$.\\
+	Since $f$ is surjective, we have that 
+	\begin{align*}
+	X_2
+	&= f(X_1) \\
+	&= f \bigg( f^{-1} \bigg( \bigcup_{t \in g(X_1)} B_t\bigg)  \bigg) \\
+	&= \bigcup_{t \in g(X_1)} B_t
+	\end{align*}
 	\end{itemize}
 	Therefore, 
 	\begin{itemize}
@@ -1422,6 +1460,7 @@
 	\begin{proof}
 	A previous exercise implies that $f: X_1 \rightarrow f(X_1)$ is $\MA_1$ - $\MA_2 \cap f(X_1)$ measurable. Now apply the previous exercise. 
 	\end{proof}
+	
 
 	
 	
@@ -2898,6 +2937,14 @@
 	\begin{note}
 		If there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that for each $E \in \MA$, $\nu(E) = \int_E f d\mu$, then we write $d\nu = f d\mu$.
 	\end{note}
+	
+	\begin{ex}
+	Let $(X, \MA)$, $(Y, \MB)$ be measureable spaces, $f:X \rightarrow Y$ $\MA$-$\MB$ measurable, $\nu$ be a signed measure on $(X, \MA)$ and $\mu$ a measure on $(X,\MA)$. Suppose that $\nu \ll \mu$. Then $f_*\nu \ll f_*\mu$
+	\end{ex}
+	
+	\begin{proof}
+	Let $E \in \MB$. Suppose that $f_*\mu(E) = 0$. By definition, $\mu(f^{-1}(E)) = 0$. Since $\nu \ll \mu$, $\nu(f^{-1}(E)) = 0$. Hence $f_*\nu(E) = 0$ and $f_*\nu \ll f_*\mu$.
+	\end{proof}
 	
 	\begin{thm}
 		Let $(X, \MA)$ be a measureable space, $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X,\MA)$. Then there exist unique $\sig$-finite signed measures $\lam$, $\rho$ on $(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that $d\rho = f d \mu$ and $f$ is unique $\mu$-a.e.  
@@ -4480,181 +4527,11 @@ and $\mu$ is inner regular on $E$.
 	\newpage
 	\section{Haar Measure}
 	
-	\subsection{Topological Groups}
-	\begin{defn} \ld{00000} 
-		Let $G$ be a group and $\MT$ a topology on $G$. Then $(G, \MT)$ is said to be a \textbf{topological group} if the maps \begin{enumerate}
-			\item $G \times G \rightarrow G$ given by $(x,y) \mapsto xy$
-			\item  $G \rightarrow G$ given by $x \mapsto x^{-1}$ 
-		\end{enumerate} are continuous.
-	\end{defn}
-
-	\begin{note}
-		For the remainder of this chapter, measurablility is in reference to $(G, \MB(\MT))$. That is, the measurable sets are the Borel sets.
-	\end{note}
-	
-	\begin{defn} \ld{00000} 
-		Let $G$ be a topological group. We define $$\Homeo(G) = \{\phi:G \rightarrow G: \phi \text{ is a homeomorphism}\}$$
-	\end{defn}
+	\subsection{Introduction}
 	
 	\begin{note}
-	Let $G$ be a topological group. Then $\Homeo(G)$ is a group.
+	This section assumes familiarity with topological groups. See section $8.1$ of \cite{analysis} for details. 
 	\end{note}
-	
-	\begin{defn} \ld{00000} 
-		Let $G$ be a group. Define $\iota:G \rightarrow G$ by $\iota(x) = x^{-1}$. 
-	\end{defn}
-	
-	\begin{ex} \lex{00000} 
-		Let $G$ be a topological group. Then $\iota \in \Homeo(G)$.
-	\end{ex}
-
-	\begin{proof}
-		By assumption $\iota$ is continuous. We know from basic group theory that $\iota$ is a bijection with $\iota^{-1} = \iota$. 
-	\end{proof}
-
-	\begin{defn} \ld{00000} 
-		Let $G$ be a group and $S \subset G$, then $S$ is said to be \textbf{symmetric} if $\iota(S) = S$, ( i.e. $S^{-1} = S$).
-	\end{defn}
-	
-	\begin{defn} \ld{00000} 
-		Let $G$ be a topological group and $\phi:G \rightarrow G$. Then $\phi$ is said to be an \textbf{automorphism} of $G$ if $\phi$ is a homomorphism and a homeomorphism. We define $$\Aut(G) = \{\phi:G \rightarrow G: \phi \text{ is an automorphism}\}$$
-	\end{defn}
-	
-	\begin{ex} \lex{00000} 
-	Let $G$ be a topological group. Then $\iota \in \Aut(G)$ iff $G$ is abelian. 
-	\end{ex}
-	
-	\begin{proof}
-	Basic group theory tells us that $\iota$ is a homomorphism iff $G$ is abelian.
-	\end{proof}
-	
-	\begin{defn} \ld{00000} 
-		Let $G$ be a group and $g \in G$. Define $l_g:G \rightarrow G$ and $r_g:G \rightarrow G$ by $l_g(x) = gx$ and $r_g(x) = xg^{-1}$. 
-	\end{defn}
-	
-	\begin{ex} \lex{00000} 
-		Let $G$ be a topological group and $g \in G$. Then $l_g, r_g \in \Homeo(G)$.
-	\end{ex}
-	
-	\begin{proof}
-		By assumption $l_g$ and $r_g$ are continuous. We know from basic group theory that $l_g$ and $r_g$ are bijections with $l_g^{-1} = l_{g^{-1}}$ and $r_g^{-1} = r_{g^{-1}}$ so $l_g$ and $r_g$. are homeomorphisms. 
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-	Let $G$ be a toplogical group. Define $\phi, \psi:G \rightarrow \Homeo(G)$ by $\phi(g) = l_g$ and $\psi(g) = r_g$. Then $\phi, \psi$ are homomorphisms.
-	\end{ex}
-	
-	\begin{proof}
-	Let $g_1, g_2 \in G$. Then $$l_{g_1} \circ l_{g_2}(x) = l_{g_1}(g_2 x) = g_1 g_2 x= l_{g_1 g_2}(x)$$ and $$r_{g_1} \circ r_{g_2} (x) = r_{g_1}(x g_2^{-1})= xg_2^{-1}g_1^{-1} = x(g_1g_2)^{-1} = r_{g_1g_2}(x)$$ 
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let $G$ be a topological group. Then for each $U \subset G$ and $g \in G$, if $U$ is open, then $gU$, $Ug$ and $U^{-1}$ are open. 
-	\end{ex}
-	\begin{proof}
-		Let $U \subset G$ and $g \in G$. Suppose that $U$ is open. Since $l_g, r_g$ and $\iota$ are homeomorphisms, $l_g(U) = gU$, $r_g(U) = Ug$ and $\iota(U) = U^{-1}$ are open. 
-	\end{proof}
-	
-	\begin{defn} \ld{00000} 
-		Let $G$ be a topological group, $y \in G$ and $f \in L^0$.  Define $L_y, R_y: L^0(G) \rightarrow L^0(G)$ by $L_y f = f \circ l_y^{-1}$ and $R_y f = f \circ r_y^{-1}$, that is, $L_yf(x) = f(y^{-1}x)$ and $R_yf(x) = f(xy)$.
-	\end{defn}
-	
-	\begin{ex} \lex{00000} 
-	Let $G$ be a topological group and $y \in G$. Then $L_y, R_y \in \Sym(L^0(G))$. 
-	\end{ex}
-	
-	\begin{proof}
-	It is straight forward to show that $L_y^{-1} = L_{y^{-1}}$ and $R_y^{-1} = R_{y^{-1}}$. 
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-	Let $G$ be a topological group. Define $\phi, \psi: G \rightarrow \Sym(L^0(G))$ by $\phi(y) = L_y$ and $\psi(y) = R_y$. Then $\phi$ and $\psi$ are homomorphisms.
-	\end{ex}
-
-	\begin{proof}
-		Let $y,z \in G$ and $f \in L^0(G)$. Then 
-		\begin{align*}
-			L_y \circ L_z(f)
-			& = L_y (L_z (f))  \\
-			& = L_y (f \circ l_z^{-1})  \\
-			& = (f \circ l_z^{-1}) \circ l_y^{-1} \\
-			&= f \circ (l_z^{-1} \circ l_y^{-1}) \\
-			& = f \circ (l_y \circ l_z)^{-1}  \\
-			& = f \circ l_{yz}^{-1} \\
-			&= L_{yz} (f)
-		\end{align*}
-		
-		The case is similar for $R_y$ and $ R_z$.
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let G be a topological group, $U \in \MB(G)$ and $y \in G$. Then $L_y\chi_U = \chi_{yU}$ and $R_y\chi_U = \chi_{Uy^{-1}}$. 
-	\end{ex}
-	
-	\begin{proof}
-		Let $x \in G$. Then 
-		\begin{align*}
-			L_y\chi_U(x) = 1
-			& \iff y^{-1}x \in U\\
-			& \iff x \in yU \\
-			& \iff \chi_{yU}(x) = 1
-		\end{align*}
-		The case is similar for $R_y$
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let G be a topological group, $y \in G$ and $f \in L^0(G)$. Then $\supp(L_yf) = y\supp(f)$ and $\supp(R_yf) = \supp(f)y^{-1}$
-	\end{ex}
-	
-	\begin{proof}
-		Put $A = \{x \in G: L_yf(x) \neq 0 \}$ and $B = \{x \in G: f(x) \neq 0 \}$. Then 
-		\begin{align*}
-			x \in A
-			& \iff L_yf(x) \neq 0 \\
-			& \iff f(y^{-1}x) \neq 0 \\
-			& \iff y^{-1}x \in B \\
-			& \iff x \in yB
-		\end{align*}
-		Thus $A = yB$ which implies that $\overline{A} = y\overline{B}$. Therefore $\supp(L_yf) = y\supp(f)$.
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let $G$ be a topological group and $y \in G$. Then $L_y, R_y$ are linear and if we restrict to the bounded measurable functions, then  $L_y, R_y \in L(B(G))$ and $\|L_y\|, \|R_y\| = 1$. 
-	\end{ex}
-	
-	\begin{proof}
-		Let $f, g \in L^0(G)$ and $\lam \in \C$. Then 
-		\begin{align*}
-			L_y(\lam f+g)(x)
-			& = (\lam f+g)(y^{-1}x) \\
-			& = \lam f(y^{-1}x) + g(y^{-1}x) \\
-			& = \lam L_yf(x) + L_yg(x)
-		\end{align*}
-		So $L_y$ is linear. Next, we restrict to $B(G) \cap L^0$. We note that $$\{|f(y^{-1}x)|: x \in y\supp(f)\} = \{|f(x)|: x \in \supp(f)\}$$ This implies that 
-		\begin{align*}
-			\|L_yf \|_u 
-			& = \sup_{x \in \supp(L_yf)} |L_yf(x)| \\
-			& = \sup_{x \in y\supp(f)} |f(y^{-1}x)| \\
-			& = \sup_{x \in \supp(f)} |f(x)| \\ 
-			& = \|f\|_u
-		\end{align*} 
-		So $L_y$ is bounded. Hence $L_y \in L(L^0)$. The case is similar for $R_y$.
-	\end{proof}
-	
-	\begin{defn} \ld{00000} 
-		Let $G$ be a topological group. We say that $G$ is a \textbf{locally compact group} if $G$ is locally compact and Hausdorff.
-	\end{defn}
-
-
-
-
-
-
-
-
-	\newpage
-	
-	\subsection{Haar Measure}
 	
 	\begin{defn} \ld{00000} 
 		Let $G$ be a topological group and $\mu$ a Radon measure on $G$. Then $\mu$ is said to be a \textbf{left Haar measure on $G$} if 
@@ -5067,6 +4944,236 @@ and $\mu$ is inner regular on $E$.
 	&= \|\nu\|
 	\end{align*}
 	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Hausdorff Measure}
+	
+	\subsection{Introduction}
+	
+	\begin{defn}
+	Let $X$ be a metric space and $\mu^*: \MP(X) \rightarrow [0, \infty]$ an outer measure on $X$. Then $\mu^*$ is said to be a \textbf{metric outer measure on $X$} if for each $A, B \subset X$, $d(A,B) > 0$ implies that 
+	\begin{equation*}
+	\mu^*(A \cup B) = \mu^*(A) + \mu^*(B)
+	\end{equation*}
+	\end{defn}	
+	
+	\begin{ex}
+	Let $X$ be a metric space and $\mu^*: \MP(X) \rightarrow [0, \infty]$ a metric outer measure on $X$.
+	Then for each $A \in \MB(X)$, $A$ is $\mu^*$-outer measurable. 
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	
+	\begin{defn}
+	Let $X$ be a metric space, $E \subset X$ and $\del >0$. Define $\MA_{E, \del} \subset \MP(X)^{\N}$ by 
+	\begin{equation*}
+	 \MA_{E, \del} = \inf \bigg \{(A_j)_{j \in \N} \subset \MP(X): E \subset \bigcup\limits_{j \in \N}A_j \text{ and for each $j \in \N$, } \diam(A_j) < \del \bigg \}
+	\end{equation*}
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a metric space, $E \subset X$ and $\del_1, \del_2 >0$. If $\del_1 \leq \del_2$, then $\MA_{E, \del_1} \subset \MA_{E, \del_2}$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn}
+	Let $X$ be a metric space, $d \geq 0$ and $\del >0$. Define $H_{d, \del}: \MP(X) \rightarrow [0, \infty]$ by 
+	\begin{equation*}
+	H_{d, \del}(E) = \inf \bigg \{\sum_{j \in \N} \diam(A_j)^d: (A_j)_{j \in \N} \in \MA_{E, \del} \bigg \}
+	\end{equation*}
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a metric space, $d \geq 0$ and $\del_1, \del_2 >0$. If $\del_1 \leq \del_2$, then $H_{d, \del_2} \leq H_{d, \del_1}$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn}
+	Let $X$ be a metric space and $d \geq 0$. We define the \textbf{$d$-dimensional Hausdorff outer measure}, denoted $H_{d}: \MP(X) \rightarrow [0, \infty]$, by 
+	\begin{align*}
+	H_{d}(E) 
+	&= \sup_{\del > 0} H_{d, \del}(E) \\
+	&= \lim_{\del \rightarrow 0^+} H_{d, \del}(E)
+	\end{align*}
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a metric space and $d \geq 0$. Then $H_d: \MP(X) \rightarrow [0, \infty]$ is an outer measure on $X$.
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a metric space and $d \geq 0$. Then $H_d: \MP(X) \rightarrow [0, \infty]$ is a metric outer measure on $X$.
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Hausdorff Measure on Smooth Manifolds}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+	\newpage
+	\subsection{Induced Measures on Isometric Orbit Spaces}
+	
+	\begin{note}
+	This section assumes familiarity with induced metrics on orbit spaces of metric spaces under isometric group actions. See section $9.1$ of \cite{analysis} for details. 
+	\end{note}
+	
+	\begin{note}
+	
+	\end{note}
+	
+	\begin{defn}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $(X/G, \bar{d})$ is a metric space. Let $\mu: \MB(X) \rightarrow [0, \infty]$ be a measure on $X$. We define $\bar{\mu}: \MB(X/G) \rightarrow [0, \infty]$ by $\bar{\mu} = \pi_* \mu$. 
+	\end{defn}
+	
+	\begin{note}
+	If $\mu \ll H_p^X$, where $X$ has Hausdorff dimension $p$, I want to be able to define $\bar{\mu}$ in terms of $H_q^{X/G}$ where $X/G$ has Hausdorff dimension $q$. I was unable to do this. It might be possible with some manifold theory, for instance $O(2)$ acting on $\R^2$.
+	\end{note}
+	
+	\begin{defn}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $(X/G, \bar{d})$ is a metric space. Let $\mu: \MB(X) \rightarrow [0, \infty]$ be a measure on $X$. Then $\mu$ is said to be $G$-invariant if for each $g \in G$, $U \in \MB(X)$, 
+	\begin{equation*}
+	\mu(g \cdot U) = \mu(U)
+	\end{equation*}
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Then for each $p \geq 0$, $H_p$ is $G$-invariant. 
+	\end{ex}	
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Let $\mu: \MB(X) \rightarrow [0, \infty]$ be a measure on $X$. Suppose that $\mu \ll H_p$. Then $\mu$ is $G$-invariant iff $d\mu /d H_p$ is $G$-invariant.
+	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $\mu$ is $G$-invariant. Let $g \in G$ and $U \in \MB(X)$. Then 
+	\begin{align*}
+	\int_U L_g \frac{d\mu}{d H_p}(x) \, d  H_p (x)
+	&= \int_U \frac{d\mu}{d H_p} \circ l_{g}^{-1}(x) \, d  H_p(x) \\
+	&= \int_{l_{g}^{-1}( U) } \frac{d\mu}{d H_p}(x) \, d (l_{g}^{-1})_*H_p(x) \\
+	&= \int_{g^{-1} \cdot U } \frac{d\mu}{d H_p}(x) \, d H_p(x) \\
+	&= \mu(g^{-1} \cdot U) \\
+	&= \mu (U)
+	\end{align*}
+	So that \begin{equation*}
+	L_g \frac{d\mu}{d H_p} = \frac{d\mu}{d H_p}
+	\end{equation*}
+	The Converse is similar.
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $\bar{d}$ is a metric. Let $\mu: \MB(X) \rightarrow [0, \infty]$ be a measure on $X$. Suppose that $\mu$ is $G$-invariant, $\mu \ll H_p^X$ and $d\mu / dH_p^X$ is continuous. Then $\bar{\mu} \ll \bar{H}_p^X$, $d\bar{\mu}/d \bar{H}_p^X$ is $G$-invariant, $d\bar{\mu}/d \bar{H}_p^X$ is continuous and 
+	\begin{equation*}
+	\frac{d \bar{\mu}}{d \bar{H}_p^X} = \overline{\frac{d \mu}{d H_p^X}}
+	\end{equation*}
+	\end{ex}
+	
+	\begin{proof}
+	A previous exercise implies that $\bar{\mu} \ll \bar{H}_p^X$. Set $f = d \mu /d H_p^X$. Since $\mu$ is $G$-invariant, $f$ is $G$-invariant. Since $f$ is continuous, an exercise in section $9.2$ of \cite{analysis} implies that $\bar{f}$ is continuous and $f = \bar{f} \circ \pi$. Let $E \in \MB(X/G)$. Then 
+	\begin{align*}
+	\int_E \bar{f} d \bar{H}_p^X 
+	&= \int_{\pi^{-1}(E)} \bar{f} \circ \pi dH_p^X \\
+	&= \int_{\pi^{-1}(E)} f dH_p^X \\
+	&= \mu(\pi^{-1}(E)) \\
+	&= \bar{\mu}(E) \\
+\end{align*}	 
+	Therefore, by definition, we have that
+	\begin{equation*}
+	\frac{d \bar{\mu}}{d \bar{H}_p^X} = \bar{f} = \overline{\frac{d \mu}{d H_p^X}}
+	\end{equation*}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

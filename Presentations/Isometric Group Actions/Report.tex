@@ -1,0 +1,917 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,setspace, mathtools, enumitem}
+\usepackage{physics}
+\usepackage{tikz-cd} 
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=black,  %choose some color if you want links to stand out
+	urlcolor=cyan
+}
+
+
+%
+%
+%
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+%
+%
+%
+%
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{defn}[definition]{Definition}
+\newtheorem{note}[definition]{Note}
+\newtheorem{thm}[definition]{Theorem}
+\newtheorem{lem}[definition]{Lemma}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem{cor}[definition]{Corollary}
+\newtheorem{conj}[definition]{Conjecture}
+\newtheorem{ex}[definition]{Exercise}
+
+
+\newcommand{\al}{\alpha}
+\newcommand{\gam}{\gamma}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\be}{\beta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MI}{\mathcal{I}}
+\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MO}{\mathcal{O}}
+\newcommand{\MX}{\mathcal{X}}
+
+\newcommand{\ui}{[0,1]}
+\newcommand{\p}{\partial}
+
+\newcommand{\io}{\text{ i.o.}}
+%\newcommand{\ev}{\text{ ev.}}
+\renewcommand{\r}{\rangle}
+\renewcommand{\l}{\langle}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ru}{(\infty, \infty]}
+\newcommand{\Rd}{[\infty, \infty)}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
+\newcommand{\lsc}{l.s.c. }
+
+\newcommand{\as}[1]{\overset{#1}{\sim}}
+\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
+
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\iso}{Iso}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\argmax}{arg\,max}
+\DeclareMathOperator{\argmin}{arg\,min}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\intt}{int}
+\DeclareMathOperator{\diam}{diam}
+
+
+
+\newcommand{\lex}[1]{\label{ex:#1}}
+\newcommand{\ld}[1]{\label{defn:#1}}
+\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
+\newcommand{\rd}[1]{Definition \ref{defn:#1}}
+
+
+\begin{document}
+	
+	\title{Introduction to Analysis}
+	\author{Carson James}
+	\maketitle
+	
+	\tableofcontents
+	
+	
+	\section{Introduction}
+	
+	\subsection{Main Idea}
+	In these notes we do the following: 
+	\begin{itemize}
+	\item for an isometric group action on metric spaces, we define an induced metric on the orbit space which metrizes the quotient topology
+	\item for nice measures on metric spaces in the above case, we define nice induced measure on the orbit space
+	\item give an application to Bayesian statistics
+	\end{itemize}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Group Actions on Metric Spaces}
+	
+	\subsection{Introduction}
+	\begin{note}
+	For a set $X$, a group $G$ and a (left) group action $\phi: G \times X \rightarrow X$, we will write $\phi(g, x)$ as $g \cdot x$. We denote the projection map by $\pi: X \rightarrow X/G$.
+	\end{note}	
+	
+	\begin{defn} \ld{00000} 
+		Let $X$ be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $g \in G$. Define $l_g:X \rightarrow X$ by 
+		\begin{equation*}
+		l_g(x) = g \cdot x
+		\end{equation*}
+	\end{defn}
+	
+	\begin{defn}
+	Let $X$ be a topological space, $G$ a group and $\phi: G \times X \rightarrow X$ a group action. Then $\phi$ is said to be $X$-continuous if for each $g \in G$, $l_g$ is continuous.
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a topological space, $G$ a group and $\phi: G \times X \rightarrow X$ an $X$-continuous group action. Then for each $g \in G$, $l_g \in \Homeo(X)$.
+	\end{ex}
+	
+	\begin{proof}
+	Let $g \in G$, then $l_g$ and $l_{g}^{-1} = l_{g^{-1}}$ are continuous, so $l_g \in \Homeo(G)$. 
+	\end{proof}
+	
+	\begin{defn} \ld{}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ a group action. Then $\phi$ is said to be an \textbf{isometric group action} if for each $g \in G$, $l_g:X \rightarrow X$ is an isometry. 
+	\end{defn}
+	
+	\begin{ex}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Then $\phi$ is $X$-continuous.
+	\end{ex}
+	
+	\begin{proof}
+	Clear since isometries are continuous.
+\end{proof}		
+	
+	\begin{defn}
+	Let $X$ be a set, $G$ a group and $\phi: G \times X \rightarrow X$ an $X$-continuous group action. Let $g \in G$. Define $L_g:\C^X \rightarrow \C^X$ by 
+	\begin{align*}
+	L_g(f)(x) 
+	&= f \circ l_g^{-1} \\
+	&= f \circ l_{g^{-1}}
+	\end{align*}
+	\end{defn}
+	
+	
+	\begin{defn}
+	Let X be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $f:X \rightarrow \C$. Then $f$ is said to be \textbf{$G$-invariant} if for each $g \in G$, $L_g f = f$.
+	\end{defn}
+	
+	\begin{ex}
+	Let X be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $f:X \rightarrow \C$. Then $f$ is $G$-invariant iff for each $g \in G$ $x \in X$, $f(g \cdot x) = f(x)$.  
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn}
+	Let X be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $f:X \rightarrow \C$. Suppose that $f$ is $G$-invariant. Define $\bar{f}:X/ G \rightarrow \C$ by $\bar{f}(\bar{x}) = f(x)$. 
+	\end{defn}
+	
+	\begin{ex}
+	Let X be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $f:X \rightarrow \C$. Suppose that $f$ is $G$-invariant. Then $f = \bar{f} \circ \pi$. 
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Induced Metrics on Orbit Spaces}
+	
+	\begin{note}
+	This section establishes the criteria for the existence of a metric on the orbit space of a metric space under a group action. 
+	\end{note}
+	
+	\begin{defn} \ld{}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ a group action. We define 
+	$\bar{d}: X/G \times X / G \rightarrow \Rg$ by 
+	$$\bar{d}(\bar{x}, \bar{y}) = \inf_{\substack{a \in \bar{x} \\ b \in \bar{y}}} d(a,b) $$
+	\end{defn}
+	
+	\begin{ex} \lex{}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Then for each $x, y \in X$, $$\bar{d}(\bar{x}, \bar{y}) = \inf_{g \in G} d(g \cdot x, y)$$
+	\end{ex}
+	
+	\begin{proof}
+	Let $x, y \in X$, $a \in \bar{x}$ and $b \in \bar{y}$. Then there exists there exists $g_a, g_b \in G$ such that $a = g_a \cdot x$ and $b = g_b \cdot y$. Set $g = g_b^{-1}g_a$. Since the map $z \mapsto g_b^{-1} \cdot z$ is an isometry, 
+	\begin{align*}
+	d(a,b) 
+	&= d(g_a \cdot x, g_b \cdot y) \\
+	&= d(g_b^{-1}g_a \cdot x, y)\\
+	&= d(g\cdot x, y)
+	\end{align*}
+	Let $\ep >0$. Then there exist $a^* \in \bar{x}$ and $b^* \in \bar{y}$ such that $d(a^*,b^*) < \bar{d}(\bar{x},\bar{y}) + \ep$. The above argument implies that that there exists $g^* \in G$ such that 
+	\begin{align*} 
+	\inf_{g \in G} d(g \cdot x, y) 
+	& \leq d(g^* \cdot x, y) \\
+	&= d(a^*, b^*) \\
+	& < \bar{d}(\bar{x}, \bar{y}) + \ep
+\end{align*}	 
+	Since $\ep >0$ is arbitrary, $$\inf_{g \in G} d(g \cdot x, y) \leq \bar{d}(\bar{x}, \bar{y})$$
+	Conversely, since $\{(g \cdot x, y): g \in G\} \subset \{(a,b): a \in \bar{x}, b \in \bar{y}\}$, we have that 
+	$$\inf_{g \in G} d(g \cdot x, y) \geq \bar{d}(\bar{x}, \bar{y})$$ 
+	\end{proof}
+	
+	\begin{ex} \lex{}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Then for each $x, y, z \in X$, $$\bar{d}(\bar{x}, \bar{y}) \leq \bar{d}(\bar{x}, \bar{z}) + \bar{d}(\bar{z}, \bar{y})$$
+	\end{ex}
+	
+	\begin{proof}
+	Let $x, y, z \in X$. An exercise in section $(2.1)$ implies that $d(\bar{x}, \bar{y}) \leq d(\bar{x}, z) + d(z, \bar{y})$. The previous exercise implies that 
+	\begin{align*}
+	d(\bar{x}, z) 
+	&= \inf_{a \in \bar{x}} d(a, z) \\
+	&= \inf_{g \in G} d(g \cdot x, z) \\
+	&= \bar{d}(\bar{x}, \bar{z})
+	\end{align*}
+	Similarly, $d(z, \bar{y}) = \bar{d}(\bar{z}, \bar{y})$. Then 
+	\begin{align*}
+	d(\bar{x}, \bar{y}) 
+	&\leq d(\bar{x}, z) + d(z, \bar{y}) \\
+	&= \bar{d}(\bar{x}, \bar{z}) + \bar{d}(\bar{z}, \bar{y})
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex} \lex{}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. If for each $x \in X$, $\bar{x}$ is closed, then for each $x, y \in X$, $\bar{d}(\bar{x}, \bar{y}) =0$ implies that $\bar{x} = \bar{y}$.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that for each $x \in X$, $\bar{x}$ is closed. Let $x,y \in X$. Suppose that $\bar{d}(\bar{x} , \bar{y}) = 0$. Then $\inf\limits_{ g \in G} d(g \cdot x, y) = 0$. Hence there exists $(g_n)_{n \in N} \subset G$ such that $g_n \cdot x \rightarrow y$. Since $(g_n \cdot x)_{n \in \N} \subset \bar{x}$ and $\bar{x}$ is closed, $y \in \bar{x}$. Thus $\bar{x} = \bar{y}$. 
+	\end{proof}
+	
+	\begin{ex} \lex{}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. If for each $x \in X$, $\bar{x}$ is closed, then $\bar{d}$ is a metric on $X/G$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear by preceeding exercises.
+	\end{proof}
+	
+	\begin{ex} \lex{}
+	Let $(X, d)$ be a metric space, $(G, \tau)$ a topological group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $G$ is compact and for each $x \in X$, the map $g \mapsto g \cdot x$ is continuous. Then $\bar{d}$ is a metric on $X/G$. 
+	\end{ex}
+	
+	\begin{proof}
+	Let $x \in X$. Since $G$ is compact and the map $g \mapsto g \cdot x$ is continuous, $\bar{x} = G \cdot x$ is compact and therefore closed. The previous exercise implies that $\bar{d}$ is a metric.
+	\end{proof}
+	
+	\begin{ex} \lex{}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $\bar{d}$ is a metric on $X/G$. Then the projection map $\pi: X \rightarrow X/G$ is Lipschitz and therefore continuous.
+	\end{ex}
+	
+	\begin{proof}
+	Let $x,y \in X$. Then
+	\begin{align*}
+	\bar{d}(\pi(x), \pi(y)) 
+	&= \bar{d}(\bar{x}, \bar{y}) \\
+	&= \inf_{g \in G} d(g \cdot x, y)\\
+	& \leq d(x,y)  \\
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex} \lex{}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $\bar{d}$ is a metric on $X/G$. Let $(x_n)_{n \in \N} \subset X$ and $x \in X$. Then $\bar{x}_n \conv{\bar{d}} \bar{x}$ iff there exists a sequence $(g_n)_{n \in \N}$ such that $g_n \cdot x_n \conv{d} x$.
+	\end{ex}
+	
+	\begin{proof} 
+	Suppose that $\bar{x}_n \conv{\bar{d}} \bar{x}$. For $n \in \N$, choose $g_n \in G$ such that $d(g_n \cdot x_n, x) < \bar{d}(\bar{x}_n, \bar{x}) + 2^{-n}$. Then $d(g_n \cdot x_n, x) \rightarrow 0$ and $g_n \cdot x_n \conv{d} x$.  \\
+	Conversely, suppose that that there exists a sequence $(g_n)_{n \in \N}$ such that $g_n \cdot x_n \conv{d} x$. Since $\pi:X \rightarrow X/G$ is continuous, we have that
+	\begin{align*}
+	g_n \cdot x_n \conv{d} x
+	& \implies \pi(g_n \cdot x_n) \conv{\bar{d}} \pi(x)\\
+	& \implies \bar{x}_n  \conv{\bar{d}} \bar{x}
+	\end{align*}
+	\end{proof}		
+	
+	\begin{ex} \lex{}
+	Let $X$ be a set, $d_1, d_2: X^2 \rightarrow \Rg$ metrics, $G$ a group and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $d_1$ and $d_2$ are topologically equivalent. 
+	\begin{enumerate}
+	\item Then $\bar{d}_1$ is a metric on $X/G$ iff $\bar{d}_2$ is a metric on $X/G$
+	\item If $\bar{d}_1$ and $\bar{d}_2$ are metrics, then $\bar{d}_1$ and $\bar{d}_2$ are topologically equivalent. 
+	\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{enumerate}
+	\item 
+	\begin{itemize}
+	\item $\implies$ Suppose that $\bar{d}_1$ is a metric. Let $x,y \in X$. Suppose that $\bar{d}_2(\bar{x}, \bar{y}) = 0$. Then there exist $(g_n)_{n \in \N} \subset G$ such that $d_2(g_n \cdot x, y) \rightarrow 0$. Since $d_1$ and $d_2$ are topologically equivalent, $d_1(g_n \cdot x, y) \rightarrow 0$. Thus $\bar{d}_1(\bar{x}, \bar{y}) = 0$. Since $\bar{d}_1$ is a metric, $\bar{x} = \bar{y}$. Hence $\bar{d}_2$ is a metric. 
+	\item $\impliedby$ Similar.
+	\end{itemize}
+	\item Suppose that $\bar{d}_1$ and $\bar{d}_2$ are metrics. Let $(\bar{x}_n)_{n \in \N} \subset X/G$ and $\bar{x} \in X/G$. 
+	\begin{itemize}
+	\item Suppose that $\bar{x}_n \conv{\bar{d}_1} \bar{x}$. Then there exists a sequence $(g_n)_{n \in \N}$ such that $g_n \cdot x_n \conv{d_1} x$. Since $d_1$ and $d_2$ are topologically equivalent, $g_n \cdot x_n \conv{d_2} x$. This implies that $\bar{x}_n \conv{\bar{d}_2} \bar{x}$. 
+	\item Suppose that $\bar{x}_n \conv{\bar{d}_2} \bar{x}$. Then similarly to above, $\bar{x}_n \conv{\bar{d}_1} \bar{x}$.
+	\end{itemize}
+	\end{enumerate}
+	\end{proof}	
+	
+	\begin{ex} \lex{}
+	Let $X$ be a set, $d_1, d_2: X^2 \rightarrow \Rg$ metrics on $X$, $G$ a group and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $d_1$ and $d_2$ are equivalent. If $\bar{d}_1$ and $\bar{d}_2$ are metrics, then $\bar{d}_1$ and $\bar{d}_2$ are equivalent.
+	\end{ex}
+	
+	\begin{proof} Suppose that $\bar{d}_1$ and $\bar{d}_2$  are metrics. Since $d_1$ $d_2$ are equivalent, there exist $C_1, C_2 >0$ such that for each $x,y \in X$, $C_1d_1(x,y) \leq d_2(x,y) \leq C_2d_1(x,y)$. Let $x,y \in X$. Then
+	\begin{align*}
+	C_1\bar{d}_1(\bar{x}, \bar{y}) 
+	&= C_1 \inf_{g \in G} d_1(g \cdot x, y) \\
+	&=  \inf_{g \in G} C_1 d_1(g \cdot x, y) \\
+	&\leq \inf_{g \in G} d_2(g \cdot x, y) \\
+	&= \bar{d}_2(\bar{x}, \bar{y}) \\
+	\end{align*}	 
+	and 
+	\begin{align*}
+	\bar{d}_2(\bar{x}, \bar{y}) 
+	&= \inf_{g \in G} d_2(g \cdot x, y) \\	
+	& \leq \inf_{g \in G} C_2 d_1(g \cdot x, y) \\
+	&= C_2 \inf_{g \in G}  d_1(g \cdot x, y) \\
+	&= C_2 \bar{d}_1(\bar{x}, \bar{y})
+	\end{align*}
+	So that $C_1 \bar{d}_1 \leq \bar{d}_2 \leq C_2 \bar{d}_1$
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X,d)$ be a metric space, $G$ a group and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $\bar{d}$ is a metric. Then $\pi:X \rightarrow X/G$ is a quotient map.
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{itemize}
+	\item Clearly $\pi$ is surjective. 
+	\item Let $C \subset X/G$. Suppose that $C$ is closed. Since $\pi$ is continuous, if $\pi^{-1}(C)$ is closed. \\
+	Conversely, suppose that $\pi^{-1}(C)$ is closed. Let $(\bar{x}_{\al})_{\al} \subset C$ be a net and $\bar{x} \in X/G$. Suppose that $\bar{x}_{\al} \rightarrow \bar{x}$. Then there exists $(g_{\al})_{\al \in A} \subset G$ such that $g_{\al} \cdot x_{\al} \rightarrow x$. Since $(g_{\al} \cdot x_{\al})_{\al \in A} \subset \pi^{-1}(C)$, $x \in \pi^{-1}(C)$. Hence $\bar{x} \in C$ and $C$ is closed. Then \rex{34003} implies that $\pi$ is a quotient map.
+	\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X,d)$ be a metric space, $G$ a group and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $\bar{d}$ is a metric. Then $\pi:X \rightarrow X/G$ is open.
+	\end{ex}
+	
+	\begin{proof}
+	Let $U \subset X$. Suppose that $U$ is open. Then 
+	\begin{equation*}
+	\pi^{-1}(\pi(U)) = \bigcup_{g \in G} g \cdot U
+	\end{equation*}		
+	Since for each $g \in G$, $l_g \in \Homeo(X)$, we have that for each $g \in G$, $g \cdot U$ is open. Therefore $\bigcup\limits_{g \in G} g \cdot U$ is open. Hence $\pi^{-1}(\pi(U))$ is open. Then \rex{34005} implies that $\pi$ is open.
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X,d)$ be a metric space, $G$ a group and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $\bar{d}$ is a metric. Then $\bar{d}$ metrizes the quotient topology $\pi_*\tau(d)$ on $X/G$.
+	\end{ex}
+	
+	\begin{proof}
+	Immediate by the previous exercise and \rex{34008}.
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Let $f: X \rightarrow \C$. Suppose that $f$ is $G$-invariant. Suppose that $\bar{d}$ is a metric. If $f \in C(X)$, then $\bar{f} \in C(X/G)$.  \\
+	\textbf{Hint:} Doob-Dynkin Lemma
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f \in C(X)$. Let $(x_{\al})_{\al \in A}$ be a net in $X$ and $x \in X$. Suppose that $x_{\al} \rightarrow x$ in the $\tau(\pi)$ topology. Then $\bar{x}_{\al} \rightarrow \bar{x}$. This implies that there exists $(g_{\al})_{\al \in A} \subset G$ such that $g_{\al} \cdot x_{\al} \conv{d} x$. Since $f$ is $G$-invariant and continuous, we have that 
+	\begin{align*}
+	f(x_{\al})
+	&= f(g_{\al} \cdot x_{\al}) \\
+	& \rightarrow f(x)
+	\end{align*}
+	So $f$ is $\tau(\pi)$-$\tau(\C)$ continuous. The Doob-Dynkin lemma for continuous functions implies that there exists a continuous unique $g:X/G \rightarrow \C$ such that $f = g \circ \pi$. Since $f = \bar{f} \circ \pi$, we have that $\bar{f} = g$ and $\bar{f}$ is continuous.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Induced Measures on Isometric Orbit Spaces}
+	
+	\begin{note}
+	This section assumes familiarity with induced metrics on orbit spaces of metric spaces under isometric group actions. See section $9.1$ of \cite{analysis} for details. 
+	\end{note}
+	
+	\begin{note}
+	
+	\end{note}
+	
+	\begin{defn}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $(X/G, \bar{d})$ is a metric space. Let $\mu: \MB(X) \rightarrow [0, \infty]$ be a measure on $X$. We define $\bar{\mu}: \MB(X/G) \rightarrow [0, \infty]$ by $\bar{\mu} = \pi_* \mu$. 
+	\end{defn}
+	
+	\begin{note}
+	If $\mu \ll H_p^X$, where $X$ has Hausdorff dimension $p$, I want to be able to define $\bar{\mu}$ in terms of $H_q^{X/G}$ where $X/G$ has Hausdorff dimension $q$. I was unable to do this. It might be possible with some manifold theory, for instance $O(2)$ acting on $\R^2$.
+	\end{note}
+	
+	\begin{defn}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $(X/G, \bar{d})$ is a metric space. Let $\mu: \MB(X) \rightarrow [0, \infty]$ be a measure on $X$. Then $\mu$ is said to be $G$-invariant if for each $g \in G$, $U \in \MB(X)$, 
+	\begin{equation*}
+	\mu(g \cdot U) = \mu(U)
+	\end{equation*}
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Then for each $p \geq 0$, $H_p$ is $G$-invariant. 
+	\end{ex}	
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Let $\mu: \MB(X) \rightarrow [0, \infty]$ be a measure on $X$. Suppose that $\mu \ll H_p$. Then $\mu$ is $G$-invariant iff $d\mu /d H_p$ is $G$-invariant.
+	\end{ex}	
+	
+	\begin{proof}
+	Suppose that $\mu$ is $G$-invariant. Let $g \in G$ and $U \in \MB(X)$. Then 
+	\begin{align*}
+	\int_U L_g \frac{d\mu}{d H_p}(x) \, d  H_p (x)
+	&= \int_U \frac{d\mu}{d H_p} \circ l_{g}^{-1}(x) \, d  H_p(x) \\
+	&= \int_{l_{g}^{-1}( U) } \frac{d\mu}{d H_p}(x) \, d (l_{g}^{-1})_*H_p(x) \\
+	&= \int_{g^{-1} \cdot U } \frac{d\mu}{d H_p}(x) \, d H_p(x) \\
+	&= \mu(g^{-1} \cdot U) \\
+	&= \mu (U)
+	\end{align*}
+	So that \begin{equation*}
+	L_g \frac{d\mu}{d H_p} = \frac{d\mu}{d H_p}
+	\end{equation*}
+	The Converse is similar.
+	\end{proof}
+	
+	\begin{ex}
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ an isometric group action. Suppose that $\bar{d}$ is a metric. Let $\mu: \MB(X) \rightarrow [0, \infty]$ be a measure on $X$. Suppose that $\mu$ is $G$-invariant, $\mu \ll H_p^X$ and $d\mu / dH_p^X$ is continuous. Then $\bar{\mu} \ll \bar{H}_p^X$, $d\bar{\mu}/d \bar{H}_p^X$ is $G$-invariant, $d\bar{\mu}/d \bar{H}_p^X$ is continuous and 
+	\begin{equation*}
+	\frac{d \bar{\mu}}{d \bar{H}_p^X} = \overline{\frac{d \mu}{d H_p^X}}
+	\end{equation*}
+	\end{ex}
+	
+	\begin{proof}
+	A previous exercise implies that $\bar{\mu} \ll \bar{H}_p^X$. Set $f = d \mu /d H_p^X$. Since $\mu$ is $G$-invariant, $f$ is $G$-invariant. Since $f$ is continuous, an exercise in section $9.2$ of \cite{analysis} implies that $\bar{f}$ is continuous and $f = \bar{f} \circ \pi$. Let $E \in \MB(X/G)$. Then 
+	\begin{align*}
+	\int_E \bar{f} d \bar{H}_p^X 
+	&= \int_{\pi^{-1}(E)} \bar{f} \circ \pi dH_p^X \\
+	&= \int_{\pi^{-1}(E)} f dH_p^X \\
+	&= \mu(\pi^{-1}(E)) \\
+	&= \bar{\mu}(E) \\
+\end{align*}	 
+	Therefore, by definition, we have that
+	\begin{equation*}
+	\frac{d \bar{\mu}}{d \bar{H}_p^X} = \bar{f} = \overline{\frac{d \mu}{d H_p^X}}
+	\end{equation*}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Applications to Bayesian Statistics}
+	
+	\begin{ex}
+	Let $(\MX, \MA)$ be a measurable space $(\Theta, d)$ a metric space, $G$ a group, $\phi: G \times \Theta \rightarrow \Theta$ an isometric group action. Suppose that $\bar{d}$ is a metric on $\Theta / G$. Let 
+	\begin{itemize}
+	\item $H_p^{\Theta}$ be the Hausdorff measure on $\Theta$, $\mu_{\MX}$ a measure on $\MX$, 
+	\item $p$ a denisty on $\Theta$ and for each $\theta \in \Theta$, $p(\cdot|\theta)$ a density on $\MX$. 
+	\item $\theta_0 \in \Theta$ and for $j \in \N$, $X_j \sim p(x|\theta_0)$
+	\end{itemize}
+	Suppose that $\mu_{\Theta}$ is $G$-invariant, $p$ is $G$-invariant and continuous on $\Theta$ and for each $x \in \MX$, $p(x| \cdot)$ is $G$-invariant and continuous on $\Theta$. For $n \in \N$, set $p(\cdot|X^{(n)}) \propto f(X_1, \ldots, X_n| \cdot) p(\cdot)$. Define the posterior measure $P_{\Theta|X^{(n)}}: \MB(\Theta) \rightarrow [0, 1]$ by 
+	\begin{equation*}
+	d P_{\Theta|X^{(n)}} (\theta) = p(\theta |X^{(n)}) \, dH_p^{\Theta} (\theta)
+	\end{equation*}
+	Then there exists a density $\bar{p}(\cdot|X^{(n)})$ on $\Theta / G$ such that 
+	\begin{equation*}
+	d \bar{P}_{\Theta|X^{(n)}}(\theta) = \bar{p}(\theta |X^{(n)}) \, d\bar{H}^{\Theta} (\theta)
+	\end{equation*}
+	\end{ex}
+	
+	\begin{proof}
+	Clear from previous work.
+	\end{proof}
+	
+	\begin{ex}
+	Let $(\MX, \MA)$ be a measurable space $(\Theta, d)$ a metric space, $G$ a group, $\phi: G \times \Theta \rightarrow \Theta$ an isometric group action. Suppose that $\bar{d}$ is a metric on $\Theta / G$. Let 
+	\begin{itemize}
+	\item $H_p^{\Theta}$ be the Hausdorff measure on $\Theta$, $\mu_{\MX}$ a measure on $\MX$, 
+	\item $p$ a denisty on $\Theta$ and for each $\theta \in \Theta$, $p(\cdot|\theta)$ a density on $\MX$. 
+	\item $\theta_0 \in \Theta$ and for $j \in \N$, $X_j \sim p(x|\theta_0)$
+	\end{itemize}
+	Suppose that $\mu_{\Theta}$ is $G$-invariant, $p$ is $G$-invariant and continuous on $\Theta$ and for each $x \in \MX$, $p(x| \cdot)$ is $G$-invariant and continuous on $\Theta$. For $n \in \N$, set $p(\cdot|X^{(n)}) \propto f(X_1, \ldots, X_n| \cdot) p(\cdot)$. Define the posterior measure $P_{\Theta|X^{(n)}}: \MB(\Theta) \rightarrow [0, 1]$ by 
+	\begin{equation*}
+	d P_{\Theta|X^{(n)}} (\theta) = p(\theta |X^{(n)}) \, dH_p^{\Theta} (\theta)
+	\end{equation*}
+	Suppose that $(P_{\Theta|X^{(n)}})_{n \in \N}$ concentrates on $\bar{\theta}_0 \subset \Theta$ a.s. or in probability. Then $(\bar{P}_{\Theta|X^{(n)}})_{n \in \N}$ concentrates a.s. or in probability on $\{\bar{\theta_0}\} \subset \Theta / G$ (i.e. is consistent a.s. or in probability)
+	\end{ex}
+	
+	\begin{proof}
+	Let $V \in \MN_{\bar{\theta}_0}$. Then $\pi^{-1}(V) \in \MN_{\bar{\theta}_0}$. By definition, 
+	\begin{align*}
+	\bar{P}_{\Theta|X^{(n)}}(V^c)
+	&= P_{\Theta|X^{(n)}}(\pi^{-1}(V^c)) \\
+	&= P_{\Theta|X^{(n)}}(\pi^{-1}(V)^c) \\
+	&\convt{a.s./$P$} 0 
+	\end{align*}
+	\end{proof}
+	
+	\begin{note}
+	Some examples of $G$-invariant priors would be the uniform distribution, or $N_n(0, \sig^2I)$ on $\R^n$ when acted on by $O(n)$. An example of a $G$-invariant likelihood would be $f(A|Z) \sim \text{Ber}(ZZ^T)$ as in a latent position random graph model where $Z \in \R^{n \times d}$ is the parameter is invariant under right multiplication by $U \in O_d$.
+	\end{note}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Appendix}
+	
+	\subsection{Quotient Topology}
+	
+	\begin{defn} \ld{34001}
+	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is surjective. Then $f$ is said to be a \textbf{$\MA$-$\MB$ quotient map} if 
+	\begin{enumerate}
+	\item $f$ is surjective
+	\item for each $V \subset Y$, $V \in \MB$ iff $f^{-1}(V) \in \MA$.
+	\end{enumerate}
+	\end{defn}
+	
+	\begin{note}
+	We typically avoid specifying the topologies when they are clear from the context.
+	\end{note}
+	
+	\begin{ex} \lex{34002}
+	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. If $f$ is a quotient map, then $f$ is continuous.
+	\end{ex}
+	
+	\begin{proof}
+	Suppose that $f$ is a quotient map. Let $V \subset Y$. Suppose that $V$ is open. By definition, $f^{-1}(V)$ is open. Hence $f$ is continuous.  
+	\end{proof}
+	
+	\begin{ex} \lex{34003}
+	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is continuous and surjective. Then $f$ is a quotient map iff 
+	\begin{equation*}
+	\text{for each $C \subset Y$, $C$ is closed iff $f^{-1}(C)$ is closed} 
+	\end{equation*}	
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{itemize}
+	\item ($\implies$) \\
+	Suppose that $f$ is a quotient map.\\
+	Let $C \subset Y$. If $C$ is closed, then continuity implies that $f^{-1}(C)$ is closed.\\ 
+	Conversely, suppose that $f^{-1}(C)$ is closed. Then $f^{-1}(C^c) = (f^{-1}(C))^c$ is open. Since $f$ is a quotient map, $f(f^{-1}(C^c))$ is open. Surjectivity implies that $f(f^{-1}(C^c)) = C^c$. So $C$ is closed. 
+	\item ($\impliedby$) \\
+	Suppose that for each $C \subset Y$, $C$ is closed iff $f^{-1}(C)$ is closed. \\
+	Let $V \subset Y$. If $V$ is open. Continuity implies that $f^{-1}(V)$ is open.\\ 
+	Conversely, suppose that $f^{-1}(V)$ is open. Then $ f^{-1}(V^c) = (f^{-1}(V))^c$ is closed. Therefore, $f(f^{-1}(V^c))$ is closed. Surjectivity implies that $V^c = f(f^{-1}(V^c))$. So $U$ is open.
+	\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \lex{34004}
+	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is continuous and surjective. If $f$ is open or closed, then $f$ is a quotient map. 
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{itemize}	
+	\item Suppose that $f$ is open. Let $V \subset Y$. \\
+	Suppose that $V$ is open. Then continuity implies that $f^{-1}(V)$ is open. Conversely, suppose that $f^{-1}(V)$ is open. Since $f$ is open $f(f^{-1}(V))$ is open. Surjectivity implies that $V = f(f^{-1}(V))$. So $V$ is open. By definition, $f$ is a quotient map.\\
+	\item   
+	Suppose that $f$ is open. Then similarly to above, $f$ is a quotient map.
+	\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \lex{34005}
+	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is a quotient map. Then $f$ is open iff 
+	\begin{equation*}
+	\text{for each $U \subset X$, $U$ is open implies that $f^{-1}(f(U))$ is open} 
+	\end{equation*}
+	\end{ex}
+	
+	\begin{proof}\
+	\begin{itemize}	
+	\item ($\implies$) \\
+	Suppose that $f$ is open.\\
+	Let $U \subset X$. Suppose that $U$ is open. Since $f$ is open, $f(U)$ is open. Continuity implies that $f^{-1}(f(U))$ is open.\\ 
+	\item ($\impliedby$) \\
+	Suppose that for each $U \subset X$, $U$ is open implies that $f^{-1}(f(U))$ is open. \\
+	Since $f$ is a quotient map, $f(U)$ is open. So $f$ is open.
+	
+	\end{itemize}
+	\end{proof}
+	
+	
+	\begin{defn} \ld{34006}
+	Let $(X, \MT)$ be a topological space, $Y$ a set and $f:X \rightarrow Y$. Suppose that $f$ is surjective.	
+	 We call $f_* \MT$ the \textbf{quotient topology} on $Y$.  
+	\end{defn}
+	
+	\begin{ex} \lex{34007}
+	Let $(X, \MT)$ be a topological space, $Y$ a set and $f:X \rightarrow Y$. Suppose that $f$ is surjective. Then $f: X \rightarrow Y$ is a $\MT$-$f_*\MT$ quotient map. 
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{ex} \lex{34008}
+	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces, and $f:X \rightarrow Y$. Suppose that $f$ is surjective and continuous. If $f$ is open or closed, then $f_*\MA = \MB$.
+	\end{ex}
+	
+	\begin{proof}
+	Continuity, $\MB \subset f_*\MA$. 
+	\begin{itemize}
+	\item Suppose that $f$ is open. Let $V \in f_*\MA$. By definiiton, $f^{-1}(V) \in \MA$. Since $f$ is open, $f(f^{-1}(V)) \in \MB$. Surjectivity implies that $V = f(f^{-1}(V))$. 
+	\item The case is similar if $f$ is closed.
+	\end{itemize}
+	\end{proof}
+	
+	\newpage
+	\subsection{Hausdorff Measure}
+	
+	\begin{defn}
+	Let $X$ be a metric space and $\mu^*: \MP(X) \rightarrow [0, \infty]$ an outer measure on $X$. Then $\mu^*$ is said to be a \textbf{metric outer measure on $X$} if for each $A, B \subset X$, $d(A,B) > 0$ implies that 
+	\begin{equation*}
+	\mu^*(A \cup B) = \mu^*(A) + \mu^*(B)
+	\end{equation*}
+	\end{defn}	
+	
+	\begin{ex}
+	Let $X$ be a metric space and $\mu^*: \MP(X) \rightarrow [0, \infty]$ a metric outer measure on $X$.
+	Then for each $A \in \MB(X)$, $A$ is $\mu^*$-outer measurable. 
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	
+	\begin{defn}
+	Let $X$ be a metric space, $E \subset X$ and $\del >0$. Define $\MA_{E, \del} \subset \MP(X)^{\N}$ by 
+	\begin{equation*}
+	 \MA_{E, \del} = \inf \bigg \{(A_j)_{j \in \N} \subset \MP(X): E \subset \bigcup\limits_{j \in \N}A_j \text{ and for each $j \in \N$, } \diam(A_j) < \del \bigg \}
+	\end{equation*}
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a metric space, $E \subset X$ and $\del_1, \del_2 >0$. If $\del_1 \leq \del_2$, then $\MA_{E, \del_1} \subset \MA_{E, \del_2}$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn}
+	Let $X$ be a metric space, $d \geq 0$ and $\del >0$. Define $H_{d, \del}: \MP(X) \rightarrow [0, \infty]$ by 
+	\begin{equation*}
+	H_{d, \del}(E) = \inf \bigg \{\sum_{j \in \N} \diam(A_j)^d: (A_j)_{j \in \N} \in \MA_{E, \del} \bigg \}
+	\end{equation*}
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a metric space, $d \geq 0$ and $\del_1, \del_2 >0$. If $\del_1 \leq \del_2$, then $H_{d, \del_2} \leq H_{d, \del_1}$.
+	\end{ex}
+	
+	\begin{proof}
+	Clear.
+	\end{proof}
+	
+	\begin{defn}
+	Let $X$ be a metric space and $d \geq 0$. We define the \textbf{$d$-dimensional Hausdorff outer measure}, denoted $H_{d}: \MP(X) \rightarrow [0, \infty]$, by 
+	\begin{align*}
+	H_{d}(E) 
+	&= \sup_{\del > 0} H_{d, \del}(E) \\
+	&= \lim_{\del \rightarrow 0^+} H_{d, \del}(E)
+	\end{align*}
+	\end{defn}
+	
+	\begin{ex}
+	Let $X$ be a metric space and $d \geq 0$. Then $H_d: \MP(X) \rightarrow [0, \infty]$ is an outer measure on $X$.
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	\begin{ex}
+	Let $X$ be a metric space and $d \geq 0$. Then $H_d: \MP(X) \rightarrow [0, \infty]$ is a metric outer measure on $X$.
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\begin{thebibliography}{4}
+\bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
+
+\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
+
+\bibitem{foranal}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Fourier\%20Analysis/Introduction\%20to\%20Fourier\%20Analysis.pdf}{Introduction to Fourier Analysis}
+
+\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
+
+
+
+\end{thebibliography}
+
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
