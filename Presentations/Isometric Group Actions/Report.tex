@@ -664,30 +664,31 @@
 	\item $\theta_0 \in \R^{d \times n}$
 	\end{itemize}
 	
-	Write $\theta = QL$, let $\eta \in \R^{{d+1 \choose 2}}$ such that $\theta_{\eta} = L$ and write $\theta_{\eta} = (U, 0)$ where $U \in \R^{d \times d}$ is lower-triangular. Then $g(\theta) = g(\theta_{\eta})$ and 
+	Write $\theta = QL$, let $\eta \in \R^{{d+1 \choose 2}}$ such that $\theta_{\eta} = L$ and write $\theta_{\eta} = (U_{\eta}, 0)$ where $U_{\eta} \in \R^{d \times d}$ is lower-triangular. Then $g(\theta) = g(\theta_{\eta})$ and 
 \[ \theta_{\eta}^T\theta_{\eta} = 
 \begin{pmatrix}
-U^TU & 0 \\
+U_{\eta}^TU_{\eta} & 0 \\
 0 & 0
 \end{pmatrix}
 \]
+
+We can therefore consider the function $g': \R^{d \times d} \rightarrow \R^{d \times d}$ given by $$g'(U)_{i,j} = \sig((U^TU)_{i,j})$$
 
 The likelihood $L(\theta)$ is given by 
 \begin{align*}
 L(\theta) 
 &= L(\theta_{\eta}) \\
 &= \prod_{t=1}^T \prod_{i < j} g(\theta_{\eta})_{i,j}^{A^{(t)}_{i,j}}(1 - g(\theta_{\eta})_{i,j})^{1 - A^{(t)}_{i,j}}\\
-&= \prod_{t=1}^T \prod_{i < j < d} g(\theta_{\eta})_{i,j}^{A^{(t)}_{i,j}}(1 - g(\theta_{\eta})_{i,j})^{1 - A^{(t)}_{i,j}} (1/2)^{n^2 - d^2}\\
+&= \prod_{t=1}^T \prod_{i < j \leq d} g(\theta_{\eta})_{i,j}^{A^{(t)}_{i,j}}(1 - g(\theta_{\eta})_{i,j})^{1 - A^{(t)}_{i,j}} (1/2)^{n^2 - d^2}\\
+&= \prod_{t=1}^T \prod_{i < j \leq d} g'(U_{\eta})_{i,j}^{A^{(t)}_{i,j}}(1 - g'(U_{\eta})_{i,j})^{1 - A^{(t)}_{i,j}} (1/2)^{n^2 - d^2}\\
 \end{align*}
 
-To optimize, we may drop the constant multiple (the only dependence on $n$) and maximize the log-likelihood $l(\theta)$, which is given by 
+Since $L(\theta) = L(\theta_{\eta})$, to optimize, we may drop the constant multiple (the only dependence on $n$) and maximize the log-likelihood $l'(\eta)$, which is given by 
 \begin{align*}
-l(\theta) 
-&= l(\theta_{\eta}) \\
-&= \sum_{t=1}^T \sum_{i < j < d} A^{(t)}_{i,j} \log [g(\theta_{\eta})_{i,j}] + (1 - A^{(t)}_{i,j}) \log[1 - g(\theta_{\eta})_{i,j}] \\
+l'(\eta) 
+&= l(\theta_{\eta}) \\ 
+&= \sum_{t=1}^T \sum_{i < j \leq d} A^{(t)}_{i,j} \log [g'(U_{\eta})_{i,j}] + (1 - A^{(t)}_{i,j}) \log[1 - g'(U_{\eta})_{i,j}] \\
 \end{align*}
-	
-Note that maximizing this function is $O(1)$ with respect to $n$.
 	
 	
 	
