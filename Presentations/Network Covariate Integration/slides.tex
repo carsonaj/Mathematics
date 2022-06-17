@@ -379,8 +379,8 @@ where $M\in\R^{n\times r_M}, R_Z\in\R^{n\times r_Z}$ and $R_W\in\R^{n\times r_w}
 Define $\hat{V}^{(1)}$ as the matrix of $(r_M + r_Z)$ leading eigenvectors of $A$, and $\hat{V}^{(2)}$ as the matrix of $(r_M + r_W)$ left leading singular vectors of $X$. Then define $\hat{M}$ as the matrix of $r_M$ left leading singular vectors of $[\hat{V}^{(1)}, \hat{V}^{(2)}]$. Set $$\epsilon = \sqrt{\frac{1}{2}\bigg(\frac{\del(ZZ^T)}{\lam^2_{\min}(\Gam \Gam^T)} + \frac{n}{\lam^2_{\min}(U^TU)}  \bigg)}$$
 
 \begin{conj}
-With the assumptions as above, and some regularity conditions (TBD) (maybe if $\ep = o(1)$ as $n \rightarrow \infty$), there exists some orthogonal matrix $O$ such that
-$$\mathbb{E}\|\hat{M} - MO\|_F = O\left(\frac{r_M^{1/2}}{\sqrt{n}}\right).$$
+With the assumptions as above, and some regularity conditions (TBD) (maybe if $\ep = o(1)$ as $n \rightarrow \infty$), there exists some orthogonal matrix $U$ such that
+$$\mathbb{E}\|\hat{M} - MU\|_F = O\left(\frac{r_M^{1/2}}{\sqrt{n}}\right).$$
 \end{conj}
 \end{frame}
 
@@ -397,8 +397,31 @@ $$\mathbb{E}\|\hat{M} - MO\|_F = O\left(\frac{r_M^{1/2}}{\sqrt{n}}\right).$$
 
 
 
+
 \begin{frame}
-\frametitle{Idea}
+\frametitle{idea}
+\begin{align*}
+    & U^{(1)} = A & U^{(2)} = X \\
+    &\hat{\Pi}^{(i)} =  \hat{V}^{(i)}(\hat{V}^{(i)})^T  &\hat{\Pi} = \frac{1}{2}(\hat{\Pi}^{(1)} + \hat{\Pi}^{(2)}) \\
+    &\tilde{\Pi}^{(i)} = \mathbb{E}\hat{\Pi}^{(i)}   &\tilde{\Pi} = \frac{1}{2}(\tilde{\Pi}^{(1)} + \tilde{\Pi}^{(2)}) \\ 
+    &  & \Pi = MM^T \\
+\end{align*}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
 Define $\tilde{M}$ to be the matrix consisting of the $r_M$ left leading singular vectors of $\tilde{\Pi}$. Then 
 \begin{align*}
     \min_{W \in O_{r_M}} \|\hat{M} - MW\|_F 
@@ -438,6 +461,165 @@ and for each $q \geq 1$,
 
 
 
+
+
+
+
+
+
+
+
+\begin{frame}
+Focusing on the first error, the Davis-Kahan theorem for rectangular matrices tells us that 
+\begin{align*}
+\|\hat{M}\hat{M}^T - \tilde{M}\tilde{M}^T\|_F
+& \leq \frac{2^{3/2}(2 \sigma_1(\tilde{\Pi}) +  \|\hat{\Pi} - \tilde{\Pi}\|_{op})\|\hat{\Pi} - \tilde{\Pi}\|_F}{\sigma_{r_M}(\tilde{\Pi})^2 - \sigma_{r_M + 1}(\tilde{\Pi})^2} \\
+& \leq \frac{2^{3/2}(2 \sigma_1(\tilde{\Pi}) +  \|\hat{\Pi} - \tilde{\Pi}\|_F)\|\hat{\Pi} - \tilde{\Pi}\|_F}{\sigma_{r_M}(\tilde{\Pi})^2 - \sigma_{r_M + 1}(\tilde{\Pi})^2}
+\end{align*}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+To bound $ \|\hat{\Pi} - \tilde{\Pi}\|_F$, we note that the triangle inequality implies that 
+\begin{align*}
+    \|\hat{\Pi} - \tilde{\Pi}\|_F
+    &= \frac{1}{2} \bigg \|\sum_{i=1}^2 \hat{\Pi}^{(i)} - \tilde{\Pi}^{(i)}\bigg \|_F \\
+    & \leq  \frac{1}{2}\sum_{i=1}^2 \|\hat{\Pi}^{(i)} - \tilde{\Pi}^{(i)}\|_F \\
+\end{align*}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+Since $\|\cdot\|_1 \leq \|\cdot \|_p$ on a probability space, we may bound 
+\begin{align*}
+    \mathbb{E} \bigg( \|\hat{\Pi}^{(i)} - \tilde{\Pi}^{(i)}\|_F^q \bigg)^{1/q}
+    & \leq \mathbb{E} \bigg( \|\hat{\Pi}^{(i)} - \Pi \|_F^q \bigg)^{1/q}+ \mathbb{E} \bigg(\| \Pi - \tilde{\Pi}^{(i)}\|_F^q \bigg)^{1/q} \\
+    & = \mathbb{E} \bigg( \|\hat{\Pi}^{(i)} - \Pi \|_F^q \bigg)^{1/q}+ \| \mathbb{E} (\Pi - \hat{\Pi}^{(i)})\|_F  \\
+    & \leq \mathbb{E} \bigg( \|\hat{\Pi}^{(i)} - \Pi \|_F^q \bigg)^{1/q}+   \mathbb{E}\|(\Pi - \hat{\Pi}^{(i)})\|_F \\
+    & \leq \mathbb{E} \bigg( \|\hat{\Pi}^{(i)} - \Pi \|_F^q \bigg)^{1/q}+   \mathbb{E}\bigg(\|\Pi - \hat{\Pi}^{(i)}\|_F^q \bigg)^{1/q}\\
+    & = 2 \mathbb{E} \bigg( \|\hat{\Pi}^{(i)} - \Pi \|_F^q \bigg)^{1/q}
+\end{align*}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+To bound $\|\hat{\Pi}^{(i)} - \Pi \|_F^q$, we again apply the Davis-Kahan theorem to obtain 
+\begin{align}
+    \|\hat{\Pi}^{(i)} - \Pi \|_F
+    & \leq \frac{2^{3/2}(2 \sigma_1(\Pi) +  \|U^{(i)} - \mathbb{E}U^{(i)}\|_{op}) r_M^{1/2}\|U^{(i)} - \mathbb{E}U^{(i)}\|_{op}}{\sigma_{r_M}(\mathbb{E}U^{(i)})^2 - \sigma_{r_M + 1}(\mathbb{E}U^{(i)})^2} 
+\end{align}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+Set $c_i = \frac{2^{3/2}r_M^{1/2}}{\sigma_{r_M}(\mathbb{E}U^{(i)})^2 - \sigma_{r_M + 1}(\mathbb{E}U^{(i)})^2}$. The previous lemma then implies that
+\begin{align*}
+    \mathbb{E}\|\hat{\Pi}^{(2)} - \Pi \|_F^q
+    &\leq c_2^q \mathbb{E}\bigg[ (2 \sigma_1(\Pi) +  \|U^{(2)} - \mathbb{E}U^{(2)}\|_{op})^q \|U^{(2)} - \mathbb{E}U^{(2)}\|_{op}^q \bigg] \\
+    &= c_2^q \mathbb{E}\bigg[\text{Binomial}(q, 2 \sigma_1(\Pi), \|U^{(2)} - \mathbb{E}U^{(2)}\|_{op}^{q} ) \|U^{(2)} - \mathbb{E}U^{(2)}\|_{op}^{q}  \bigg]\\
+    &= c_2^q O(\sigma^{2q}(\sqrt{n} + \sqrt{r_M})^{2q})\\
+\end{align*}
+and 
+$$\mathbb{E}\|\hat{\Pi}^{(2)} - \Pi \|_F^q = c_2 O(\sigma^2 (\sqrt{n} + \sqrt{r_M})^2)$$
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+Now we need to use a lemma from the paper \emph{Distributed estimation of principal eigenspaces} (Fan et al) to combine these bounds as well as to be used in bounding the second error term $\|\tilde{M}\tilde{M}^T - MM^T\|_F$ 
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\begin{frame}
+
+%\end{frame}
 
 
 

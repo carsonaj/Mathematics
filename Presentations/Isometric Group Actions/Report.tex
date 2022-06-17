@@ -649,14 +649,14 @@
 	\subsection{Applications to Network Statistics}
 	
 	\begin{note}
-	We will define $L(d,n) = \{L \in \R^{d \times n}: L \text{ is lower-triangular}\}$.
+	We will define $R(d,n) = \{R \in \R^{d \times n}: L \text{ is upper-triangular}\}$.
 	\end{note}
 	
 	\begin{note}
-	Consider the isometric group action $O(d) \times \R^{d \times n} \rightarrow \R^{d \times n}$ given by $(Q, \theta) \mapsto Q \theta$. Using the QL decomposition, for each $\theta \in \R^{d \times n}$, there exists $Q \in O(d)$ and  $L \in L(d,n)$ such that $\theta = QL$. So that for each $\theta \in \R^{d \times n}$, there exists $L \in L(d,n)$ such that $\bar{\theta} = \bar{L}$ in $\R^{d \times n} / O(d)$. We may embed $\R^{{d+1 \choose 2}}$ into $L(d,n)$ via the map $\R^{{d+1 \choose 2}} \rightarrow L(d,n)$ given by $\eta \mapsto \theta_{\eta}$ where $\theta_{\eta}$ is lower triangular whose entries are the entries of $\eta$. 
+	Assume $d \geq n$. Consider the isometric group action $O(d) \times \R^{d \times n} \rightarrow \R^{d \times n}$ given by $(Q, \theta) \mapsto Q \theta$. Using the QR decomposition, for each $\theta \in \R^{d \times n}$, there exists $Q \in O(d)$ and  $R \in R(d,n)$ such that $\theta = QR$. So that for each $\theta \in \R^{d \times n}$, there exists $R \in R(d,n)$ such that $\bar{\theta} = \bar{R}$ in $\R^{d \times n} / O(d)$. We may embed $\R^{{n+1 \choose 2}}$ into $R(d,n)$ via the map $\R^{{n+1 \choose 2}} \rightarrow R(d,n)$ given by $\eta \mapsto \theta_{\eta}$ where $\theta_{\eta}$ is upper-triangular and whose entries are the entries of $\eta$. 
 	\end{note} 
 	
-	Define $\sig: \R \rightarrow (0,1)$ and $g:\R^{d \times n} \rightarrow \R^{n \times n}$ by $$\sig(t) = \frac{1}{1+ e^{-t}}$$ and $$g(\theta)_{i,j} = \sig((\theta^T \theta)_{i,j})$$.\\
+	Define $\sig: \R \rightarrow (0,1)$ and $g:\R^{d \times n} \rightarrow \R^{n \times n}$ by $$\sig(t) = \frac{1}{1+ e^{-t}}$$ and $$g(\theta)_{i,j} = \sig((\theta^T \theta)_{i,j})$$\\
 	
 	Consider the model 
 	\begin{itemize}
@@ -664,30 +664,32 @@
 	\item $\theta_0 \in \R^{d \times n}$
 	\end{itemize}
 	
-	Write $\theta = QL$, let $\eta \in \R^{{d+1 \choose 2}}$ such that $\theta_{\eta} = L$ and write $\theta_{\eta} = (U_{\eta}, 0)$ where $U_{\eta} \in \R^{d \times d}$ is lower-triangular. Then $g(\theta) = g(\theta_{\eta})$ and 
-\[ \theta_{\eta}^T\theta_{\eta} = 
+	Write $\theta = QR$, let $\eta \in \R^{{n+1 \choose 2}}$ such that $\theta_{\eta} = R$ and write 
+\[\theta_{\eta} = 
 \begin{pmatrix}
-U_{\eta}^TU_{\eta} & 0 \\
-0 & 0
+U_{\eta} \\
+0
 \end{pmatrix}
 \]
+where $U_{\eta} \in \R^{n \times n}$ is upper-triangular. Then $g(\theta) = g(\theta_{\eta})$ and
+$\theta_{\eta}^T\theta_{\eta} = U_{\eta}^TU_{\eta}$. 
 
-We can therefore consider the function $g': \R^{d \times d} \rightarrow \R^{d \times d}$ given by $$g'(U)_{i,j} = \sig((U^TU)_{i,j})$$
+
+We can therefore consider the function $g': \R^{n \times n} \rightarrow \R^{n \times n}$ given by $$g'(U)_{i,j} = \sig((U^TU)_{i,j})$$
 
 The likelihood $L(\theta)$ is given by 
 \begin{align*}
 L(\theta) 
 &= L(\theta_{\eta}) \\
-&= \prod_{t=1}^T \prod_{i < j} g(\theta_{\eta})_{i,j}^{A^{(t)}_{i,j}}(1 - g(\theta_{\eta})_{i,j})^{1 - A^{(t)}_{i,j}}\\
-&= \prod_{t=1}^T \prod_{i < j \leq d} g(\theta_{\eta})_{i,j}^{A^{(t)}_{i,j}}(1 - g(\theta_{\eta})_{i,j})^{1 - A^{(t)}_{i,j}} (1/2)^{n^2 - d^2}\\
-&= \prod_{t=1}^T \prod_{i < j \leq d} g'(U_{\eta})_{i,j}^{A^{(t)}_{i,j}}(1 - g'(U_{\eta})_{i,j})^{1 - A^{(t)}_{i,j}} (1/2)^{n^2 - d^2}\\
+&= \prod_{t=1}^T \prod_{i < j \leq n} g(\theta_{\eta})_{i,j}^{A^{(t)}_{i,j}}(1 - g(\theta_{\eta})_{i,j})^{1 - A^{(t)}_{i,j}}\\
+&= \prod_{t=1}^T \prod_{i < j \leq n} g'(U_{\eta})_{i,j}^{A^{(t)}_{i,j}}(1 - g'(U_{\eta})_{i,j})^{1 - A^{(t)}_{i,j}} \\
 \end{align*}
 
-Since $L(\theta) = L(\theta_{\eta})$, to optimize, we may drop the constant multiple (the only dependence on $n$) and maximize the log-likelihood $l'(\eta)$, which is given by 
+Since $L(\theta) = L(\theta_{\eta})$, to optimize, we maximize the log-likelihood $l'(\eta)$, which is given by 
 \begin{align*}
 l'(\eta) 
 &= l(\theta_{\eta}) \\ 
-&= \sum_{t=1}^T \sum_{i < j \leq d} A^{(t)}_{i,j} \log [g'(U_{\eta})_{i,j}] + (1 - A^{(t)}_{i,j}) \log[1 - g'(U_{\eta})_{i,j}] \\
+&= \sum_{t=1}^T \sum_{i < j \leq n} A^{(t)}_{i,j} \log [g'(U_{\eta})_{i,j}] + (1 - A^{(t)}_{i,j}) \log[1 - g'(U_{\eta})_{i,j}] \\
 \end{align*}
 	
 	
