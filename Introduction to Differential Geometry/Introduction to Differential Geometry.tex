@@ -109,11 +109,20 @@
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
 
 
+
+\newcommand{\lex}[1]{\label{ex:#1}}
+\newcommand{\ld}[1]{\label{defn:#1}}
+\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
+\newcommand{\rd}[1]{Definition \ref{defn:#1}}
+
+
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\spn}{span}
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\iso}{Iso}
 \DeclareMathOperator{\id}{id}
+
+
 
 \begin{document}
 	
@@ -123,7 +132,7 @@
 	
 	\tableofcontents
 	
-	\section{Fundamental Definitions and Results}
+	\section{Review of Fundamentals}
 
 	\subsection{Set Theory}
 	
@@ -148,24 +157,22 @@
 		Clear.
 	\end{proof}
 	
-	\section{Calculus}
+	\subsection{Smooth Maps}
 	
-	\subsection{Differentiation}
-	
-	\begin{defn}
+	\begin{defn} \ld{21001}
 		Let $n \geq 1$. For $i = 1, \cdots, n$, define $x^i: \R^n \rightarrow \R$ by $x^i(a^1, \cdots, a^n) = a^i$. The functions $(x^i)_{i=1}^n$ are called the \textbf{standard coordinate functions on $\R^n$}. 
 	\end{defn}
 	
-	\begin{defn} 
+	\begin{defn} \ld{21002}
 		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then $f$ is said to be \textbf{differentiable with respect to $x^i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he^i) - f(a)}{h}$$ exists. If $f$ is differentiable with respect to $x^i$ at $a$, we define the \textbf{partial derivative of $f$ with respect to $x^i$ at $a$}, denoted $$\frac{\partial f}{\partial x^i} (a) \text{ or } \eval{\pdv{x^i}}_{a} f $$ to be the limit above.
 		
 	\end{defn}
 		
-	\begin{defn}
+	\begin{defn} \ld{21003}
 		Let $U \subset \R^n$ be open and $f: U \rightarrow \R$. Then $f$ is said to be \textbf{differentiable with respect to $x^i$} if for each $a \in U$, $f$ is differentiable with respect to $x^i$ at $a$.
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex}\lex{21004}
 		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Suppose that $\frac{\partial ^2 f}{\partial x^i x^j}$ and $\frac{\partial ^2 f}{\partial x^j x^i}$ exist and are continuous at $a$. Then $$\frac{\partial ^2 f}{\partial x^i x^j} (a) = \frac{\partial ^2 f}{\partial x^j x^i} (a)$$
 	\end{ex}
 
@@ -173,34 +180,37 @@
 		
 	\end{proof}
 
-	\begin{defn}
+	\begin{defn} \ld{21004}
 		Let $U \subset \R^n$ be open and $f: U \rightarrow \R$. Then $f$ is said to be \textbf{smooth} if for each $i_1, \cdots, i_k \in \{1, \cdots, n\}$, $\frac{\partial^k f}{\partial i_1 \cdots i_k}$ exists and is continuous on $U$.
 	\end{defn}
 
-	\begin{defn}
+	\begin{defn} \ld{21005}
 		Let $U \subset \R^n$, $f: U \rightarrow \R$. Then $f$ is said to be \textbf{smooth} if there exists $U' 
 		\subset \R^n$ and $f':U' \rightarrow \R$ such that $U \subset U'$, $U'$ is open, $f'|_U = f$ and $f'$ is smooth. The set of smooth functions on $U$ is denoted $C^{\infty}(U)$.
 	\end{defn}
 
-	\begin{defn} 
-		Let $U \subset \R^n$ and $p \in U$. Then $U$ is said to be \textbf{star-shaped} if for each $q \in U$, $\{p + t(q-p): 0 \leq t \leq 1\} \subset U$.
-	\end{defn}
+%	\begin{defn} 
+%		Let $U \subset \R^n$ and $p \in U$. Then $U$ is said to be \textbf{star-shaped} if for each $q \in U$, $\{p + t(q-p): 0 \leq t \leq 1\} \subset U$.
+%	\end{defn}
 
-	\begin{ex} \textbf{Taylor's Theorem:}\\
-		Let $U \subset \R^n$ be open, $p \in U$ and $f \in C^{\infty}(U)$. Suppose that $U$ is star-shaped with respect to $p$. Then there exist $g_1, \cdots, g_n \in C^{\infty}(U)$ such that for each $x \in U$, $$f(x) = f(p) + \sum_{i=1}^n (x^i - p^i) g_i(x)$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x^i}}(p)$$
-	\end{ex}
-
+	\begin{thm} \textbf{Taylor's Theorem:}\\ 
+		Let $U \subset \R^n$ be open and convex, $p \in U$, $f \in C^{\infty}(U)$ and $T \in \N$. Then there exist $(g_{\al})_{|\al| = T+1} \subset C^{\infty}(U)$ such that for each $x \in U$, 
+		$$f(x) = \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x - p)^{\al} \p^{\al} f (p) \bigg] + \sum_{|\al| = T+1}(x - p)^{\al} g_{\al}(x)$$ and for each $|\al|= T+1$, $$g_{\al}(p) = \frac{1}{(T+1)!}\p^{\al} f(p)$$
+	\end{thm}
+	
 	\begin{proof}
-		Let $x \in U$. Since $U$ is star-shaped with respect to $p$, $\{p + t(x-p): 0 \leq t \leq 1\} \subset U$. By the chain rule, 
-		$${\dv{t}} \bigg[ f(p+t(x-p)) \bigg] = \sum_{i=1}^n {\pdv{f}{x^i}}(p+t(x-p)) (x^i - p^i)$$
-		Integrating both sides with respect to $t$ from $0$ to $1$, we obtain
-		$$f(x) - f(p) = \sum_{i=1}^n (x^i - p^i) \int_{0}^{1}  {\pdv{f}{x^i}}(p+t(x-p)) dt $$
-		For $i \in \{1, \cdots, n\}$, define $g_i \in C^{\infty}(U)$ by $$g_i(x) = \int_{0}^{1}  {\pdv{f}{x^i}}(p+t(x-p)) dt$$
-		Then for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x^i}}(p))$$
+	See analysis notes
 	\end{proof}
 
-	
-	\subsection{Smooth Maps}
+%	\begin{proof}
+%		Let $x \in U$. Since $U$ is star-shaped with respect to $p$, $\{p + t(x-p): 0 \leq t \leq 1\} \subset U$. By the chain rule, 
+%		$${\dv{t}} \bigg[ f(p+t(x-p)) \bigg] = \sum_{i=1}^n {\pdv{f}{x^i}}(p+t(x-p)) (x^i - p^i)$$
+%		Integrating both sides with respect to $t$ from $0$ to $1$, we obtain
+%		$$f(x) - f(p) = \sum_{i=1}^n (x^i - p^i) \int_{0}^{1}  {\pdv{f}{x^i}}(p+t(x-p)) dt $$
+%		For $i \in \{1, \cdots, n\}$, define $g_i \in C^{\infty}(U)$ by $$g_i(x) = \int_{0}^{1}  {\pdv{f}{x^i}}(p+t(x-p)) dt$$
+%		Then for each $i \in \{1, \cdots, n\}$, $$g_i(p) = {\pdv{f}{x^i}}(p))$$
+%	\end{proof}
+
 	\begin{defn}
 	Let $U \subset \R^n$ and $F: U \rightarrow \R^m$. Let $x^1, \cdots, x^n$ be the standard coordinate functions on $\R^n$ and $y_1, \cdots, y_m$ be the standard coordinate functions on $\R^m$. For $i \in \{1, \cdots, m\}$, we define the \textbf{$i$th component of $F$}, denoted $F^i: U \rightarrow \R$, by $$F^i = y^i \circ F$$ 
 	Thus $F = (F_1, \cdots, F_m)$
@@ -927,21 +937,173 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		For the rest of this section, we assume that $(M, \MA)$ is a smooth $n$-dimensional manifold and we denote the standard coordinate functions on $\R^n$ by $u^1, \cdots, u^n$. For a coordinate chart $(U, \phi)$ $\in \MA$ and $i \in \{1, \cdots, n\}$, we will typically denote the $i$th coordinate of $\phi$ by $x^i$, that is,  $x^i = u^i(\phi)$.
 	\end{note}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\begin{ex}
+	Let $(M, \MA)$ be a smooth $n$-dimensional manifold and $S \subset M$ open. For $(U, \phi) \in \MA$, define $U' \subset S$ and $\phi': \tilde{U} \rightarrow \phi(U')$ by $U' = U \cap S$ and $\phi' = \phi|_{U \cap S}$. Set $\MA' = \{(U', \phi'): (U, \phi) \in \MA\}$.
+	Then $(S, \MA')$ is a smooth $n$-dimensional manifold. 
+	\end{ex}
+	
+	\begin{proof}
+	Since $M$ is Hausdorff and second countable, so is $S$. Clearly $S= \bigcup\limits_{(U', \phi') \in \MA'} U'$ and for each $(U', \phi') \in \MA'$, $\phi'$ is a homeomorphism and $\phi'(U') \subset \H^n$. Let $(U', \phi'), (V', \psi') \in \MA'$. Then there exist $(U, \phi)$, $(V, \psi) \in \MA$ such that $U' = U \cap S$, $V' = V \cap S$. Then $\psi' \circ \phi'^{-1}: \phi(U \cap V \cap S) \rightarrow \psi(U \cap V \cap S)$ is given by 
+	\begin{align*}
+	\psi' \circ \phi'^{-1}: \phi(U' \cap V') \rightarrow \psi(U' \cap V')
+	&= \psi \circ \phi^{-1}: \phi(U \cap V \cap S) \rightarrow \psi(U \cap V \cap S)
+\end{align*}	 
+which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S$. Suppose that $\MA' \subset \MB'$.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage 
-	
-	
 	\subsection{Smooth Maps}	
 	
-	\begin{defn}
+	\begin{defn} \ld{42001}
 		Let $f: M \rightarrow \R$. Then $f$ is said to be smooth if for each coordinate chart $(U, \phi) \in \MA$, $f \circ \phi^{-1}$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M)$. 
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \ld{42002}
 		We have that $C^{\infty}(M)$ is a vector space.
 	\end{ex}
 
 	\begin{proof}
 		Clear.
+	\end{proof}
+	
+	\begin{defn} \ld{42003}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$. We define $$C^{\infty}(U) = \{f:U \rightarrow \R: f \circ \phi^{-1} \in C^{\infty}(\phi(U))\}$$
+	\end{defn}
+	
+	\begin{note}
+	Later we will give a subset $S \subset M$ the structure of a smooth manifold such that \rd{42001} and \rd{42003} coincide.
+	\end{note}
+	
+	\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C^{\infty}(M)$. Then $f|_U \in C^{\infty}(U)$.
+	\end{ex}
+	
+	\begin{proof}\
+	\textbf{FINISH!!!}
+	\end{proof}
+	
+	\begin{defn}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i \in \{1, \cdots, n\}$. We define the \textbf{partial derivative of $f$ with respect to $x^i$}, denoted $$ \p f / \p x^i: U \rightarrow \R \hspace{.1cm} \text{ or } \hspace{.1cm} \p_{i} f: U \rightarrow \R$$ by 
+	\begin{equation*}
+	{\pdv{f}{x^i}}(p) = {\pdv{u^i}[f \circ \phi^{-1}] }( \phi(p)) 
+	\end{equation*}
+	or equivalently,
+	\begin{equation*}
+	{\pdv{f}{x^i}} = \bigg({\pdv{u^i}[f \circ \phi^{-1}] \bigg) \circ \phi }
+	\end{equation*}
+	\end{defn}
+	
+	\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i \in \{1, \cdots, n\}$. Then $\p / \p x^i:  C^{\infty}(U) \rightarrow C^{\infty}(U)$ is linear.
+	\end{ex}
+	
+	\begin{proof}
+	\textbf{FINISH!!!}
+	\end{proof}
+	
+	\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i,j \in \{1, \cdots, n\}$. Then 
+	$$ \pdv{x^i} \pdv{x^j} f =  \bigg(\pdv{u^i} \pdv{u^j}[f \circ \phi^{-1}] \bigg) \circ \phi $$
+	\end{ex}
+	
+	\begin{proof}
+	
+	\begin{align*}
+	\pdv{x^i} \pdv{x^j} f 
+	&= \pdv{x^i} \bigg( \pdv{x^j} f \bigg) \\
+	&= \pdv{x^i} \bigg( \bigg[\pdv{u^j} [f \circ \phi^{-1}] \bigg] \circ \phi \bigg) \\
+	&=  \bigg( \pdv{u^i} \bigg[ \bigg( \bigg[\pdv{u^j} [f \circ \phi^{-1}] \bigg] \circ \phi \bigg) \circ \phi^{-1} \bigg] \bigg) \circ \phi \\
+	&= \bigg( \pdv{u^i} \bigg[\pdv{u^j} [f \circ \phi^{-1}] \bigg]  \bigg) \circ \phi \\
+	&= \bigg( \pdv{u^i} \pdv{u^j} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $i,j \in \{1, \cdots, n\}$. Then 
+	\begin{equation*}
+	\pdv{x^i}\pdv{x^j} = \pdv{x^j}\pdv{x^i}
+	\end{equation*}
+	\end{ex}
+	
+	\begin{proof}
+	Let $f \in C^{\infty}(U)$. Since $f \circ \phi^{-1}$ is smooth, $$\pdv{u^i} \pdv{u^j} [f \circ \phi^{-1}] = \pdv{u^j} \pdv{u^i} [f \circ \phi^{-1}] $$
+	The previous exercise implies that 
+	
+	\begin{align*}
+	\pdv{x^i}\pdv{x^j}f 
+	&= \bigg( \pdv{u^i} \pdv{u^j} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
+	&= \bigg( \pdv{u^j} \pdv{u^i} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
+	&= \pdv{x^j}\pdv{x^i}f 
+	\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $f \in C^{\infty}(U)$. Then for each $\al \in \N_0^n$, $$\p^{\al} f = (\p^{\al}[ f \circ \phi^{-1}] ) \circ \phi$$
+	\end{ex}	
+	
+	\begin{proof}
+	The claim is clearly true when $|\al| =0$ or by definition if $|\al| = 1$. Let $n \in \N$ and suppose the claim is true for each $|\al| \in \{1, \ldots, n-1 \}$. Then there exists $i \in \{1, \ldots, n\}$ such that $\al_i \geq 1$. Hence 
+	\begin{align*}
+	\p^{\al}f 
+	&= \p^{e^i} (\p^{\al - e^i} f) \\
+	&= \p^{e^i} (\p^{\al - e^i}[ f \circ \phi^{-1}] \circ \phi) \\
+	&= (\p^{e^i} [(\p^{\al - e^i}[ f \circ \phi^{-1}] \circ \phi) \circ \phi^{-1} ]) \circ \phi\\
+	&= (\p^{e^i} [\p^{\al - e^i}[ f \circ \phi^{-1}]] )\circ \phi\\
+	&= (\p^{\al}[ f \circ \phi^{-1}] )\circ \phi\\
+	\end{align*}
+	\end{proof}
+	
+	
+	\begin{ex} \textbf{Taylor's Theorem:} \\
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \ldots, x^n)$ and $\phi(U)$ convex, $p \in U$, $f \in C^{\infty}(U)$ and $T \in \N$. Then there exist $(g_{\al})_{|\al| = T+1} \subset C^{\infty}(U)$ such that
+		$$f = \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x - p)^{\al} \p^{\al} f (x_0) \bigg] + \sum_{|\al| = T+1}(x^i - x^i(p))^{\al} g_{\al}$$ and for each $|\al|= T+1$, $$g_{\al}(p) = \frac{1}{(T+1)!}\p^{\al} f(p)$$
+	\end{ex}
+	
+	\begin{proof}
+	Since $\phi(U)$ is open and convex and $f \circ \phi^{-1} \in C^{\infty}(\phi(U))$, Taylors thorem in section $2.1$ implies that there exist $(\tilde{g}_{\al})_{|\al| = T+1} \subset C^{\infty}(\phi(U))$ such that for each $q \in U$, 
+	$$f \circ \phi^{-1} (\phi(q)) = \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} [f \circ \phi^{-1}] (\phi(p)) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} \tilde{g}_{\al}(\phi(q)) $$	
+		and for each $|\al|= T+1$, 
+		\begin{align*}
+		\tilde{g}_{\al}(\phi(p)) 
+		&= \frac{1}{(T+1)!}\p^{\al} [f \circ \phi^{-1}](\phi(p)) \\
+		&= \frac{1}{(T+1)!}\p^{\al} f (p)
+		\end{align*}
+		For $|\al| = T+1$, set $g_{\al} = \tilde{g} \circ \phi$. Then 
+		\begin{align*}
+	f(q) 
+	&= f \circ \phi^{-1} (\phi(q)) \\
+	&= \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} [f \circ \phi^{-1}] (\phi(p)) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} \tilde{g}_{\al}(\phi(q)) \\
+	&= \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} f(p) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} g_{\al}(q) \\
+\end{align*}			
 	\end{proof}
 
 	\begin{defn}
@@ -1062,7 +1224,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{defn}
-		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C_p^{\infty}(M)$. For $i \in \{1, \cdots, n\}$, define the partial derivative of $f$ with respect to $x^i$ at $p$, denoted $$\frac{\partial f}{\partial x^i} (p) \text{, } \eval{\pdv{x^i}}_{p} f \text{, } \partial_{x^i} f (p) \text{ or } \partial_{x^i}|_p f$$ by $$ \eval{\pdv{x^i}}_{p} f =  \eval{\pdv{u^i}}_{\phi(p)} f \circ \phi^{-1} $$
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. For $i \in \{1, \cdots, n\}$, define the partial derivative with respect to $x^i$ at $p$, denoted $$\eval{\pdv{x^i}}_{p}: C_p^{\infty}(M) \rightarrow \R  \text{, or } \p_i|_p: C_p^{\infty}(M) \rightarrow \R $$ by $$ \eval{\pdv{x^i}}_{p} f =  {\pdv{f}{x^i}}(p) $$
 	\end{defn}
 
 	\begin{ex}
@@ -1081,7 +1243,8 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{ex} \textbf{Change of Coordinates:}\\
-		Let $(U, \phi), (V, \psi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$, $p \in U \cap V$ and $f \in C_p^{\infty}(M)$. Then for each $i \in \{1, \cdots, n\}$, we have $${\pdv{f}{y^i}}(p) = \sum_{j =1}^n {\pdv{f}{x^j}}(p)   {\pdv{x^j}{y^i}}(p) $$
+		Let $(U, \phi), (V, \psi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$, $p \in U \cap V$ and $f \in C_p^{\infty}(M)$. Then for each $i \in \{1, \cdots, n\}$, 
+		 $$\eval{\pdv{y^i}}_{p} = \sum_{j =1}^n {\pdv{x^j}{y^i}}(p) \eval{\pdv{x^j}}_{p}    $$
 	\end{ex}
 
 	\begin{proof}
@@ -1094,15 +1257,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			&= \sum_{j=1}^n \bigg( \eval{\pdv{u^j}}_{\phi (p)} f \circ \phi^{-1}  \bigg) \bigg( \eval{\pdv{u^i}}_{\psi(p)} x^j \circ \psi^{-1} \bigg) \\
 			&= \sum_{j=1}^n \bigg( \eval{\pdv{x^j}}_{p} f \bigg)  \bigg(   \eval{\pdv{y^i}}_{p} x^j  \bigg)\\
 		\end{align*}
-	\end{proof}
-
-	\begin{ex}\textbf{Taylor's Theorem:}\\
-		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C^{\infty}_p(M)$. Then there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x^i - x^i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x^i}}_{p} f $$ 
-	\end{ex}
-
-	\begin{proof}
-		Since we are interested in the germ of $f$ at $p$, we may assume that $\phi(U)$ is star-shaped with respect to $\phi(p)$. Let $q \in U$. From Taylor's theorem in section $1$, we know that there exist $\tilde{g_1}, \cdots, \tilde{g_n} \in C^{\infty}(\phi(U))$ such that for each $q \in U$, $$f \circ \phi^{-1} (\phi(q)) = f \circ \phi^{-1} (\phi(p)) + \sum_{i = 1}^n [u^i \circ \phi(q) - u^i \circ \phi(p)] \tilde{g_i} (\phi(q))$$ and for each $i \in \{1, \cdots, n\}$, $$\tilde{g_i}(\phi(p)) = \eval{\pdv{u^i}}_{\phi(p)} f \circ \phi^{-1}$$ 
-		For each $i \in \{1, \cdots, n\}$, define $g_i = \tilde{g_i} \circ \phi$. Then for each $q \in U$, $$ f (q) = f (p) + \sum_{i = 1}^n [x^i(q) - x^i(p)] g_i(q)$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x^i}}_{p} f $$ 
 	\end{proof}
 
 	\begin{defn}
@@ -1156,7 +1310,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	\begin{ex}
-	Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. Then $dF_p$ is well defined.
+	Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. Then $dF_p$ is a derivation.
 	\end{ex}
 	
 	\begin{proof}
@@ -1206,13 +1360,13 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{ex}
-		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth, $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^m)$, $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$  and $p \in U$. Define the ordered bases $B_\phi = \bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^m}}_{p} \bigg \}$ and $B_{\psi} = \bigg \{\eval{\pdv{y^1}}_{F(p)}, \cdots, \eval{\pdv{y^n}}_{F(p)} \bigg \}$ .
+		Let $(M, \MA)$ be a smooth $m$-dimensional manifold, $(N, \MB)$ a smooth $n$-dimensional manifold, $F: M \rightarrow N$ smooth, $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^m)$, $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$  and $p \in U$. Define the ordered bases $B_\phi = \bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^m}}_{p} \bigg \}$ and $B_{\psi} = \bigg \{\eval{\pdv{y^1}}_{F(p)}, \cdots, \eval{\pdv{y^n}}_{F(p)} \bigg \}$ .
 		Then the matrix representation of $dF_p$ with respect to the bases
 		$B_{\phi}$ and $B_{\psi}$ is $$ dF_p^{i,j} =  {\pdv{F^i}{x^j}}(p)$$
 	\end{ex}
 
 	\begin{proof}
-		Let $(dF_p)_{B_\phi, B_{\psi}} = (a_{i,j})_{i,j} \in \R^{m \times n}$. Then for each $j \in \{1, \dots, m\}$, $$dF_p \bigg(\eval{\pdv{x^j}}_p\bigg) = \sum_{i=1}^n a_{i,j}\eval{ \pdv{y^i}}_{F(p)}$$
+		Let $(dF_p)_{B_\phi, B_{\psi}} = (a_{i,j})_{i,j} \in \R^{n \times m}$. Then for each $j \in \{1, \dots, m\}$, $$dF_p \bigg(\eval{\pdv{x^j}}_p\bigg) = \sum_{i=1}^n a_{i,j}\eval{ \pdv{y^i}}_{F(p)}$$
 		This implies that 
 		\begin{align*}
 			dF_p \bigg(\eval{\pdv{x^j}}_p\bigg) (y^k )
@@ -1228,6 +1382,12 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			&= {\pdv{F^k}{x^j}}(p)
 		\end{align*}
 	\end{proof}
+	
+	
+	\begin{note}
+	Since $\rank dF_p$ is independent of basis, it is independent of coordinate charts $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$. 
+	\end{note}	
+	
 	
 	
 	
@@ -1352,6 +1512,10 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{itemize}
 	\end{defn}
 	
+	\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. 
+	\end{ex}
+	
 	\begin{defn}
 	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F:M \rightarrow N$ smooth. Then $F$ is said to be an \textbf{embedding} if 
 	\begin{enumerate}
@@ -1378,6 +1542,27 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\newpage
 	\subsection{Submanifolds}
 	
+	\begin{defn}
+	Let $(M, \MA)$ and  $(S, \MB)$ be smooth manifolds. Suppose that $S \subset M$. Then $(S, \MB)$ is said to be a \textbf{submanifold} of $(M, \MA)$ if 
+	\begin{itemize}
+	\item $S$ is a subspace of $M$
+	\item the inclusion map $\iota: M \rightarrow N$ is smooth
+\end{itemize}		
+	\end{defn}
+	
+	
+	\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold and $S \subset M$ open. For $(U, \phi) \in \MA$, define $\tilde{U} \subset S$ and $\tilde{\phi}: \tilde{U} \rightarrow \phi(\tilde{U})$ by $\tilde{U} = U \cap S$ and $\tilde{\phi} = \phi|_{U \cap S}$. Set $\MB = \{(\tilde{U}, \tilde{\phi}): (U, \phi) \in \MA\}$.
+	Then $\MB$ is a smooth structure on $S$.
+	\end{ex}
+	
+	\begin{proof}
+	
+	\end{proof}
+	
+	
+	
+	\newpage
 
 	\begin{defn}
 		Let $(M, \MA)$ and  $(N, \MB)$ be smooth manifolds. Suppose that $M \subset N$. Then $(M, \MA)$ is said to be 

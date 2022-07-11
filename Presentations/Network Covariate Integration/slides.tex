@@ -13,6 +13,12 @@
 }
 
 
+% graphics
+\usepackage{graphicx}
+\graphicspath{/home/carson/Desktop/Github/NetworkIntegration/Figures}
+\usepackage{subfig}
+
+
 %
 %
 %
@@ -29,6 +35,9 @@
 \let\endproof\endhide
 \fi
 
+
+
+% math setup
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{defn}[definition]{Definition}
@@ -617,9 +626,254 @@ Now we need to use a lemma from the paper \emph{Distributed estimation of princi
 
 
 
-%\begin{frame}
+\begin{frame}[fragile]
+\frametitle{Data}
+Data was obtained from 
+\begin{itemize}
+\item World Bank API via the 
+\verb|wbstats| package. 
+\item Github: \href{https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes}{lukes/ISO-3166} 
+\item Kaggle: \href{https://www.kaggle.com/datasets/yasirtariq/tradenetwork}{Trade Network} (I think I need to pull the data myself from the UN comtrade database using the \verb|comtradr| package)
+\end{itemize}
 
-%\end{frame}
+\begin{align*}
+&\text{GDP} & \text{regionAfrica} && \text{regionAmericas} \\
+& 3127.891         &   1         &&  0  \\
+& 3952.803         &   0         &&  0
+\end{align*}
+          
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+The first network, with adjacency matrix $A$, is defined so that two countries have a connection if the at least one of the countries receives at a certain percentage of the other countries exports. Here the threshold is $0.15$\\
+% trim=left bottom right top
+%\hspace*{-5cm} 
+\includegraphics[scale=1.5, trim={1cm 1cm 1cm 2cm}, clip]{/home/carson/Desktop/Github/NetworkIntegration/Figures/thresholded_network.pdf}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+The second network, with adjacency matrix $B$, is defined so that two countries have a connection if they had some nonnegligible trade. The weight of a connection is the $\log$ of the total trade between the two countries. \\
+% trim=left bottom right top
+%\hspace*{-5cm} 
+\includegraphics[scale=2, trim={1cm 1cm 1cm 1.5cm}, clip]{/home/carson/Desktop/Github/NetworkIntegration/Figures/log_total_network.pdf}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+Scree plots for $A$ and $B$:\\
+
+\begin{figure}
+   \includegraphics[width=0.475\textwidth]{/home/carson/Desktop/Github/NetworkIntegration/Figures/scree_A.pdf}
+   \hfill
+   \includegraphics[width=0.475\textwidth]{/home/carson/Desktop/Github/NetworkIntegration/Figures/scree_B.pdf}
+\end{figure}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+Some $\text{ASE}$ plots for $A$:
+\begin{figure}
+   \includegraphics[width=0.475\textwidth]{/home/carson/Desktop/Github/NetworkIntegration/Figures/ase_A_12.pdf}
+   \hfill
+   \includegraphics[width=0.475\textwidth]{/home/carson/Desktop/Github/NetworkIntegration/Figures/ase_A_34.pdf}
+\end{figure}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+$\text{ASE}$ plots for $B$:\\
+\includegraphics[scale = 1.25]{/home/carson/Desktop/Github/NetworkIntegration/Figures/ase_B_12.pdf}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+Scree plot for the covariates:\\
+\includegraphics[scale = 1.25]{/home/carson/Desktop/Github/NetworkIntegration/Figures/scree_covars.pdf}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+Initializing Dongbangs algorithm for $A$ by averaging principal vectors and by the COSIE estimate yields a loss of  $7718508$ and $221727943$ respectively.\\
+
+Initializing the algorithm for $B$ by averaging principal vectors and by the COSIE estimate yields a loss of  $140245606$ and $1743031541$ respectively. Maybe I made a mistake in my code since we were expecting the COSIE estimate to yield a better starting estimate. 
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
