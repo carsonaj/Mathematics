@@ -844,17 +844,16 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\subsection{Smooth Manifolds}
 	
 	\begin{defn}
-		Define the \textbf{upper half space} of $\R^n$, denoted $\H_n$, by $$\H_n = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n \geq 0\}$$ and define $$\partial\H_n = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n = 0\}$$ 
+		Define the \textbf{upper half space} of $\R^n$, denoted $\H^n$, by $$\H^n = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n \geq 0\}$$ and define $$\partial\H^n = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n = 0\}$$ 
 		$$(\H^n)^{\circ} = \{(x_1, x_2, \cdots, x_n) \in \R^n: x_n > 0\}$$
 	\end{defn}
 	
 	\begin{defn}
 		Let $M$ be a topological space and $n \geq 1$.
 		\begin{enumerate}
-			\item Let $U \subset M$ and $V \subset \H^n$ be open and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \textbf{coordinate chart} on $M$ if $\phi$ is a homeomorphism. 
-			\item Let $\MA$ be a collection of coordinate charts on $M$. Then $\MA$ is said to be an \textbf{atlas} on $M$ if  $\bigcup\limits_{(U,\phi) \in \MA} U = M$.
-			\item The space $M$ is said to be \textbf{locally half Euclidean of dimension $n$} if there exists an atlas $\MA$ on $M$ such that for each $(U,\phi) \in \MA$, $\phi(U) \subset \H^n$.
-			\item The space $M$ is said to be an \textbf{$n$-dimensional manifold} if $M$ is Hausdorff, second countable and locally half Euclidean of dimension $n$. 
+			\item Let $U \subset M$ and $V \subset \H^n$ be open and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be an \textbf{coordinate chart} on $M$ if $\phi$ is a homeomorphism. 
+			\item Let $\MA \subset \{ (U, \phi): (U, \phi) \text{ is an coordinate chart on $M$}\}$. Then $\MA$ is said to be an \textbf{atlas} on $M$ if  $\bigcup\limits_{(U,\phi) \in \MA} U = M$.
+			\item Let $\MA$ be an atlas on $M$. Then $(M, \MA)$ is said to be a \textbf{topological $n$-manifold} if $M$ is Hausdorff and second countable.
 		\end{enumerate}
 	\end{defn}
 
@@ -872,23 +871,38 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 
 	\begin{ex}
-		Let $p \in M$. Then $p \in \partial M$ iff for each chart $(U, \phi)$ on $M$, $p \in U$ implies that $\phi(p) \in \partial \H^n$. (Hint: simply connected)
+		Let $p \in M$. Then $p \in \partial M$ iff for each chart $(U, \phi)$ on $M$, $p \in U$ implies that $\phi(p) \in \partial \H^n$. \\
+		\textbf{Hint:} simply connected
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $p \in \partial M$. Then there exists a coordinate chart $(V, \psi)$ on $M$ such that $\psi(p) \in \partial \H^n$. Let $(U, \phi)$ be a coordinate chart on $M$. Suppose that $p \in U$. Note that $\phi \circ \psi^{-1} : \psi(V \cap U) \rightarrow \phi(V \cap U)$ is a homeomorphism. Choose open $n$-balls $B_{\phi}$, $B_{\psi} \subset \H^n$ such that $B_{\phi} \subset \phi(V \cap U)$, $B_{\psi} \subset \psi(V \cap U)$, $\phi(p) \in B_{\phi}$ and $\psi(p) \in B_{\psi}$. For the sake of contradiction, suppose that $\phi(p) \not \in \partial \H^n$. Put $ U' = B_{\phi} \setminus \{\phi(p)\}$ and $V' = B_{\psi} \setminus \{\psi(p)\}$. Define $\lam: V' \rightarrow U'$ by $\lam = \phi \circ \psi|_{B_{\psi}}$. Then $\lam$ is a homeomorphism. Note that $V'$ is simply connected and $U'$ is not. This is a contradiction. 
+		Suppose that $p \in \partial M$. Then there exists a coordinate chart $(V, \psi)$ on $M$ such that $\psi(p) \in \partial \H^n$. Let $(U, \phi)$ be a coordinate chart on $M$. Suppose that $p \in U$. Note that $\phi \circ \psi^{-1} : \psi(V \cap U) \rightarrow \phi(V \cap U)$ is a homeomorphism. \\ Choose an open $n$-ball $B_{\psi} \subset \H^n$ such that $B_{\psi} \subset \psi(V \cap U)$ and $\psi(p) \in B_{\psi}$. Set $B_{\phi} = \phi \circ \psi^{-1}(B_\psi)$, $B_{\psi}' = B_{\psi} \setminus \{\psi(p)\}$ and $B_{\phi}' = B_{\phi} \setminus \{\phi(p)\}$.\\
+		Then $\phi \circ \psi^{-1}:B_{\psi}' \rightarrow B_{\phi}'$ is a homeomorphism. For the sake of contradiction, suppose that $\phi(p) \not \in \partial \H^n$. Then $B_{\psi}'$ is not simply connected. Since $B_{\psi}'$ is simply connected and $B_{\phi}'$ is homeomrophic to $B_{\psi}'$, $B_{\phi}'$ is simply connected. This is a contradiction.  
 	\end{proof}
 
+	\begin{defn}
+		Let $(M, \MA)$ be a topological $n$-manifold. Define $\pi: \p \H^n \rightarrow (\H^{n-1})^{\circ}$ by 
+		$$\pi(x_1, \ldots, x_{n-1}, 0) = (x_1, \ldots, x_{n-1})$$
+		For $(U, \phi) \in \MA$, set $\bar{U} = U \cap \p M$ and $\bar{\phi} = \pi \circ \phi|_{\bar{U}}$. \\
+		Define $\MA_{\p M} = \{(\bar{U}, \bar{\phi}): (U, \phi) \in \MA\}$.
+	\end{defn}
+
 	\begin{ex}
-		If $\partial M \neq \varnothing$, then 
+		Let $(M, \MA)$ be a topological $n$-manifold. Then 
 		\begin{enumerate}
-			\item $\partial M$ is an $n-1$-dimensional manifold \item $\partial (\partial M) = \varnothing$.
+			\item $\MA_{\p M}$ is an atlas on $\p M$  
+			\item $(\p M, \MA_{\p M})$ is a topological $n-1$-manifold
+			\item $\partial (\partial M) = \varnothing$.
 		\end{enumerate}
 	\end{ex}
 
+	\begin{proof}
+		
+	\end{proof}
+
 	\begin{proof}\
 		\begin{enumerate}
-			\item Since subspaces of Hausdorff, second countable spaces are Hausdorff and second countable, we need only show that $\partial M$ is locally half euclidean of dimension $n-1$. Let $p \in \partial M$. Then there exists a coordinate chart $(U, \phi)$ on $M$ such that $p \in U$ and $\phi(p) \in \partial \H^n$. \\
+			\item Subspaces of Hausdorff, second countable spaces are Hausdorff and second countable.\\  Let $p \in \partial M$. Then there exists a coordinate chart $(U, \phi)$ on $M$ such that $p \in U$ and $\phi(p) \in \partial \H^n$. \\
 			Put $U' = U \cap \partial M$. Note that $U'$ is open in $\partial M$ and $ \phi(U) \cap \partial \H^n$ is open in $\partial \H^n$. Define  $\phi': U' \rightarrow \phi(U) \cap \partial \H^n$ by $\phi' = \phi|_{U'}$. Then $\phi'$ is a homeomorphism. \\
 			Since $\partial \H^n$ is homeomorphic to $\R^{n-1}$ which is homeomorphic to $(\H^{n-1})^{\circ}$ there exists $\psi: \partial \H^n \rightarrow (\H^{n-1})^{\circ}$ such that $\psi$ is a homeomorphism.\\ 
 			Define $V' = \psi(\phi(U) \cap \partial \H^n)$ and $\psi': \phi(U) \cap \partial \H^n \rightarrow V' $ by and $\psi' = \psi|_{\phi(U) \cap \partial \H^n}$. Then $V'$ is open in $(\H^{n-1})^{\circ}$ and $\psi'$ is a homeomrophism. \\ 
@@ -963,7 +977,19 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \end{align*}	 
 which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S$. Suppose that $\MA' \subset \MB'$.
 	\end{proof}
-	
+
+\begin{ex}
+	Let $(M, \MA)$ a smooth manifold an $U \subset M$ open. For $(V, \psi) \in \MA$, define $\bar{V} \subset M $ and $ \bar{\psi}: \bar{V} \rightarrow \psi(\bar{V})$ by $\bar{V} = V \cap U$ and $\bar{\psi} = \psi|_{V \cap U}$. Define $$\MA \cap U = \{(\bar{V}, \bar{\psi}): (V, \psi) \in \MA\}$$ Then 
+	\begin{enumerate}
+		\item $\MA_U$ is an atlas on $U$
+		\item $\MA_U$ is a smooth structure on $U$ 
+		\item $(U, \MA_U)$ is an $n$-dimensional smooth manifold.
+	\end{enumerate}
+\end{ex}
+
+\begin{defn}
+	Let $(M, \MA)$ an $n$-dimensional smooth manifold an $U \subset M$ open. Define $(U, \MA_U)$ as in the previous exercise. 
+\end{defn}	
 	
 	
 	
