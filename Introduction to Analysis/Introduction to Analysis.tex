@@ -1,6 +1,6 @@
 \documentclass[12pt]{amsart}
 \usepackage[margin=1in]{geometry} 
-\usepackage{amsmath,amsthm,amssymb,setspace, mathtools, enumitem}
+\usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
 \usepackage{physics}
 \usepackage{tikz-cd} 
 
@@ -2129,7 +2129,7 @@ So that $T(\overline{B(0,1)})$ is bounded.
 	
 
 	\newpage
-	\subsection{The Hahn-Banach Theorem}
+	\subsection{Locally Convex Spaces}
 	
 	\begin{defn} \ld{55001}\
 	 Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{algebraic dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
@@ -2148,7 +2148,7 @@ So that $T(\overline{B(0,1)})$ is bounded.
 	\end{note}
 	
 	\begin{defn} \ld{55003}
-		Let $X$ be a vector space and $p:X \rightarrow \R$. Then $p$ is said to be a \textbf{sublinear functional} if for each $x,y \in X$, $\lam \geq 0$, 
+		Let $X$ be a real vector space and $p:X \rightarrow \R$. Then $p$ is said to be a \textbf{sublinear functional} if for each $x,y \in X$, $\lam \geq 0$, 
 		\begin{enumerate}
 			\item $p(x+y) \leq p(x) + p(y)$
 			\item $p(\lam x ) = \lam p(x)$
@@ -2170,39 +2170,6 @@ So that $T(\overline{B(0,1)})$ is bounded.
 	
 	\begin{proof}
 	Clear
-	\end{proof}
-	
-	\begin{defn} \ld{55005}
-		Let $X$ be a vector space and $p:X \rightarrow \R$. Then $ p$ is said to be a \textbf{seminorm} if for each $x,y \in X$, $\lam \in \R$, 
-		\begin{enumerate}
-			\item $p(x+y) \leq p(x) + p(y)$
-			\item $p(\lam x) = |\lam| p(x)$
-		\end{enumerate}  
-	\end{defn}
-	
-	\begin{ex} \lex{55006}
-		Let $X$ be a vector space and $p: X \rightarrow \R$ be a seminorm, then $p$ is a sublinear functional.
-	\end{ex}
-	
-	\begin{proof}
-	Clear
-	\end{proof}
-	
-	\begin{ex} \lex{55007}
-	Let $X$ be a vector space and $p: X \rightarrow \R$ be a seminorm. Then $p \geq 0$. 
-	\end{ex}
-	
-	\begin{proof}
-	Let $x \in X$. Then 
-	\begin{align*}
-	0 
-	&= p(0) \\ 
-	&= p(x - x) \\
-	&\leq  p(x) + p(-x) \\
-	&= p(x) + p(x) \\
-	&= 2p(x)
-	\end{align*}
-	So $p(x) \geq 0$.
 	\end{proof}
 	
 	\begin{ex} \lex{55008}
@@ -2235,36 +2202,7 @@ So that $T(\overline{B(0,1)})$ is bounded.
 	\end{enumerate}
 	\end{proof}
 	
-	\begin{defn} \ld{55009}
-	Let $X$ be a normed vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is said to be \textbf{bounded} if there exists $M >0$ such that for each $x \in X$, $p(x) \leq M\|x\|$. 
-	\end{defn}
 	
-	\begin{ex} \lex{55010}
-	Let $X$ be a normed vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is bounded iff $p$ is Lipschitz. 
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $p$ is bounded. Then there exists $M >0$ such that for each $x \in X$, $p(x) \leq M\|x\|$. Let $x, y \in X$. Then the previous exercise implies that 
-	\begin{align*}
-	-M\|x-y\| 
-	&= -M\|y-x\| \\
-	& \leq -p(y-x) \\
-	& \leq p(x)-p(y) \\
-	& \leq p(x-y) \\
-	& \leq M \| x-y\| 
-	\end{align*}
-	So that $$|p(x) - p(y)| \leq  M\|x-y\|$$
-	and $p$ is Lipschitz.
-	Conversely, suppose that $p$ is Lipschitz. Then there exists $M >0 $ such that for each $x ,y \in X$, $|p(x) - p(y)| \leq  M\|x-y\|$. Let $x \in X$. Then 
-	\begin{align*}
-	p(x) 
-	& \leq |p(x)| \\
-	& = |p(x) - p(0)| \\
-	& \leq M\|x - 0\| \\
-	  & \leq M\|x\| 
-	\end{align*}
-	So $p$ is bounded.
-	\end{proof}
 	
 	\begin{thm}\textbf{Hahn-Banach Theorem}\\
 		Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional, $M \subset X$ a subspace and $f:M \rightarrow \R$ a linear functional. If for each $x \in M$, $ f(x)  \leq p(x)$, then there exists a linear functional $F:X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$ and $F|_{M}=f$.
@@ -2346,6 +2284,117 @@ So for each $x \in X$, $-p(-x) = p(x)$.
 	\end{align*}	 
 	which implies that $p = F$. So $p$ is the unique linear function $F \in X^*$ such that $F \leq p$.
 	\end{itemize}
+	\end{proof}
+
+	\begin{defn} \ld{55005}
+	Let $X$ be a vector space and $p:X \rightarrow \R$. Then $ p$ is said to be a \textbf{seminorm} if for each $x,y \in X$, $\lam \in \R$, 
+	\begin{enumerate}
+		\item $p(x+y) \leq p(x) + p(y)$
+		\item $p(\lam x) = |\lam| p(x)$
+	\end{enumerate}  
+\end{defn}
+
+\begin{ex} \lex{55006}
+	Let $X$ be a vector space and $p: X \rightarrow \R$ be a seminorm, then $p$ is a sublinear functional.
+\end{ex}
+
+\begin{proof}
+	Clear
+\end{proof}
+
+\begin{ex} \lex{55007}
+	Let $X$ be a vector space and $p: X \rightarrow \R$ be a seminorm. Then $p \geq 0$. 
+\end{ex}
+
+\begin{proof}
+	Let $x \in X$. Then 
+	\begin{align*}
+		0 
+		&= p(0) \\ 
+		&= p(x - x) \\
+		&\leq  p(x) + p(-x) \\
+		&= p(x) + p(x) \\
+		&= 2p(x)
+	\end{align*}
+	So $p(x) \geq 0$.
+\end{proof}
+
+
+	\begin{ex}
+		Let $X$ be a vector space and $p: X \rightarrow [0, \infty)$ a seminorm. Then $p^{-1}(\{0\})$ is a subspace of $X$.
+	\end{ex}
+
+
+	
+\begin{proof}
+	et $N = p^{-1}(\{0\})$. Let $x, y \in N$ and $\lam \in \C$. Then $p(x) = p(y) = 0$. Thus 
+	\begin{align*}
+		p(x + \lam y) 
+		&\leq p(x) + p(\lam y) \\
+		&= p(x) + |\lam|p(y) \\
+		&= 0
+	\end{align*} 
+So $x + \lam y \in N$ and $N$ is a subspace.
+\end{proof}
+
+\begin{defn}
+	
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+
+	\begin{defn} \ld{55009}
+		Let $X$ be a normed vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is said to be \textbf{bounded} if there exists $M >0$ such that for each $x \in X$, $p(x) \leq M\|x\|$. 
+	\end{defn}
+	
+	\begin{ex} \lex{55010}
+		Let $X$ be a normed vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is bounded iff $p$ is Lipschitz. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $p$ is bounded. Then there exists $M >0$ such that for each $x \in X$, $p(x) \leq M\|x\|$. Let $x, y \in X$. Then the previous exercise implies that 
+		\begin{align*}
+			-M\|x-y\| 
+			&= -M\|y-x\| \\
+			& \leq -p(y-x) \\
+			& \leq p(x)-p(y) \\
+			& \leq p(x-y) \\
+			& \leq M \| x-y\| 
+		\end{align*}
+		So that $$|p(x) - p(y)| \leq  M\|x-y\|$$
+		and $p$ is Lipschitz.
+		Conversely, suppose that $p$ is Lipschitz. Then there exists $M >0 $ such that for each $x ,y \in X$, $|p(x) - p(y)| \leq  M\|x-y\|$. Let $x \in X$. Then 
+		\begin{align*}
+			p(x) 
+			& \leq |p(x)| \\
+			& = |p(x) - p(0)| \\
+			& \leq M\|x - 0\| \\
+			& \leq M\|x\| 
+		\end{align*}
+		So $p$ is bounded.
 	\end{proof}
 	
 	\begin{ex} \lex{55013}
