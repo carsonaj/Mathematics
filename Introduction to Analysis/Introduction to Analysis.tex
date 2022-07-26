@@ -1008,7 +1008,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 \end{proof}		
 	
 	\begin{ex} \lex{33011}
-	Let $(Y_{\al}, \MB_{\al})_{\al \in A}$ be a collection of topological spaces and $\MF \in \prod \limits_{\al \in A}Y_{\al}^X$ with $\MF = (f_{\al})_{\al \in A}$ and $X$ a set. Equip $X$ with $\tau(\MF)$. Let $(x_{\gam})_{\gam \in \Gam} \subset X$ be a net and $x \in X$. Then $x_{\gam} \rightarrow x$ iff for each $\al \in A$, $f_{\al}(x_{\gam}) \rightarrow f_{\al}(x)$.  
+	Let $(Y_{\al}, \MB_{\al})_{\al \in A}$ be a collection of topological spaces, $X$ a set and $\MF \in \prod \limits_{\al \in A}Y_{\al}^X$ with $\MF = (f_{\al})_{\al \in A}$. Equip $X$ with $\tau_X(\MF)$. Let $(x_{\gam})_{\gam \in \Gam} \subset X$ be a net and $x \in X$. Then $x_{\gam} \rightarrow x$ iff for each $\al \in A$, $f_{\al}(x_{\gam}) \rightarrow f_{\al}(x)$.  
 	\end{ex}
 	
 	\begin{proof}
@@ -1406,6 +1406,654 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{align*}
 	So $f$ is \lsc
 	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\section{Locally Convex Spaces}
+		
+	\subsection{The Hahn-Banach Theorem}
+	
+	\begin{defn} \ld{55001}\
+		Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{algebraic dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
+	\end{defn}
+
+	\begin{note}
+		We define $X^*$ similarly when $X$ is a vector space  over $\R$.
+	\end{note}
+	
+	\begin{defn} \ld{55003}
+		Let $X$ be a real vector space and $p:X \rightarrow \R$. Then $p$ is said to be a \textbf{sublinear functional} if for each $x,y \in X$, $\lam \geq 0$, 
+		\begin{enumerate}
+			\item $p(x+y) \leq p(x) + p(y)$
+			\item $p(\lam x ) = \lam p(x)$
+		\end{enumerate}  
+	\end{defn}
+	
+	\begin{ex} \lex{55004}
+		Let $X$ be a vector space and $p: X \rightarrow \R$ be a sublinear functional. Then $p(0) = 0$.
+	\end{ex}
+	
+	\begin{proof} Set $\lam = 0$. Then 
+		\begin{align*}
+			0
+			&= \lam p(0) \\
+			&= p(\lam 0) \\
+			&= p(0)
+		\end{align*}
+	\end{proof}
+	
+	\begin{proof}
+		Clear
+	\end{proof}
+	
+	\begin{ex} \lex{55008}
+		Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then for each $x, y \in X$
+		\begin{enumerate}
+			\item $-p(-x) \leq p(x)$
+			\item $- p(y-x) \leq p(x) - p(y) \leq p(x-y)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Let $x, y \in X$.
+		\begin{enumerate}
+			\item We have
+			\begin{align*}
+				0
+				&= p(0) \\ 
+				&= p(x - x) \\
+				& \leq p(x) + p(-x)
+			\end{align*}
+			So $-p(-x) \leq p(x)$.
+			\item We have
+			\begin{align*}
+				p(x)
+				&= p(x -y + y) \\
+				& \leq p(x-y) + p(y)
+			\end{align*}
+			So $p(x) - p(y) \leq p(x-y)$. Switching $x$ and $y$ gives us $p(y) - p(x) \leq p(y-x)$ and multiplying both sides by $-1$ yields $-p(y-x) \leq p(x) - p(y)$ \\ 
+			Putting these two together, we see that $$-p(y-x) \leq p(x) - p(y) \leq p(x-y)$$
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	\begin{thm}\textbf{Hahn-Banach Theorem}\\
+		Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional, $M \subset X$ a subspace and $f:M \rightarrow \R$ a linear functional. If for each $x \in M$, $ f(x)  \leq p(x)$, then there exists a linear functional $F:X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$ and $F|_{M}=f$.
+	\end{thm}
+	
+	\begin{ex} \lex{55011}
+		Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then there exists a linear functional $F: X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$.
+	\end{ex}
+	
+	\begin{proof}
+		Take $M = \{0\}$ and $f \equiv 0$ and apply the Hahn-Banach theorem.
+	\end{proof}	
+	
+	\begin{ex} \lex{55012} \textbf{Equivalency of linearity (General Case)}
+		Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then the following are equivalent:
+		\begin{enumerate}
+			\item there exists a unique $F \in X^*$ such that $F \leq p$
+			\item for each $x \in X$, $-p(-x) = p(x)$
+			\item $p$ is linear
+		\end{enumerate}	
+		\textbf{Hint:} If there exists $x \in X$ such that $-p(-x) \neq p(x)$, define $f_1,f_2 :\spn(x) \rightarrow \R$ by $f_1(tx) = t p(x)$ and $f_2(tx) = -tp(-x)$
+	\end{ex}	
+	
+	\begin{proof} \
+		\begin{itemize}
+			\item $(1) \implies (2)$: \\ 
+			Suppose that there exists a unique $F \in X^*$ such that $F \leq p$. For the sake of contradiction, suppose that there exists $x \in X$ such that $-p(-x) \neq p(x)$. Define $f_1,f_2: \spn(x) \rightarrow \R$ by $$f_1(tx) = t p(x)$$ and $$f_2(tx) = -tp(-x)$$ Let $y \in \spn(x)$. Then there exists $t \in \R$ such that $y = tx$. Then for each $k \in \R$,
+			\begin{align*}
+				f_1(ky)
+				&= f_1(ktx) \\
+				&= ktp(x) \\
+				&= k f_1(tx) \\
+				&= k f_1(y)
+			\end{align*}
+			Similarly, $f_2(ky) = kf_2(y)$ and so $f_1, f_2 \in \spn(x)^*$. 
+			If $t \geq 0$, then 
+			\begin{align*}
+				f_1(y) 
+				&= f_1(tx) \\
+				&= tp(x) \\
+				&= p(tx) \\
+				&= p(y) 
+			\end{align*}
+			If $t <0$, then 	
+			\begin{align*}
+				f_1(y) 
+				&= f_1(tx) \\
+				&= tp(x) \\
+				&= -|t|p(x) \\
+				&= -p(|t|x) \\
+				&= -p(-tx) \\
+				& \leq p(tx) \\
+				&= p(y)  
+			\end{align*}
+			So $f_1 \leq p$ on $\spn(x)$. Similarly, $f_2 \leq p$ on $\spn(x)$. The Hahn-Banach theorem implies that there exist $F_1, F_2 \in X^*$ such that $F_1, F_2 \leq p$ and $F_1 = f_1, F_2 = f_2$ on $\spn(x)$. By the assumption of uniqueness, $F_1 = F_2$. This is a contradiction since 
+			\begin{align*}
+				F_1(x) 
+				&= p(x) \\
+				& \neq -p(-x) \\
+				& = F_2(x) 
+			\end{align*}		
+			So for each $x \in X$, $-p(-x) = p(x)$. 
+			\item $(2) \Rightarrow (3)$: \\
+			Suppose that for each $x \in X$, $-p(-x) = p(x)$. The previous exercise implies that there exists $F \in X^*$ such that $F \leq p$. Let $x \in X$. Then 
+			\begin{align*}
+				-F(x) 
+				&= F(-x) \\
+				& \leq p(-x) \\
+				&= -p(x)
+			\end{align*}	
+			So $p(x) \leq F(x)$ and $p \leq F$. Therefore $p = F$ and $p$ is linear.  
+			\item $(3) \implies (1)$: \\ 
+			Suppose that $p$ is linear. Let $F \in X^*$. Suppose that $F \leq p$. Let $x \in X$. Then as in the case for $(2) \implies (3)$, we have that
+			\begin{align*}
+				-F(x) 
+				&= F(-x) \\
+				& \leq p(-x) \\
+				&= -p(x)
+			\end{align*}	 
+			which implies that $p = F$. So $p$ is the unique linear function $F \in X^*$ such that $F \leq p$.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{thm}\textbf{Complex Hahn-Banach Theorem}\\
+		Let $X$ be a vector space, $p:X \rightarrow \R$ a seminorm, $M \subset X$ a subspace and $f:M \rightarrow \C$ a linear functional. If for each $x \in M$, $\vert f(x) \vert \leq p(x)$, then there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $\vert F(x) \vert \leq p(x)$ and $F|_{M}=f$.
+	\end{thm}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{Seminorms}
+	\begin{defn} \ld{55005}
+		Let $X$ be a vector space and $p:X \rightarrow \R$. Then $ p$ is said to be a \textbf{seminorm} if for each $x,y \in X$, $\lam \in \R$, 
+		\begin{enumerate}
+			\item $p(x+y) \leq p(x) + p(y)$
+			\item $p(\lam x) = |\lam| p(x)$
+		\end{enumerate}  
+	\end{defn}
+	
+	\begin{ex} \lex{55006}
+		Let $X$ be a vector space and $p: X \rightarrow \R$ be a seminorm, then $p$ is a sublinear functional.
+	\end{ex}
+	
+	\begin{proof}
+		Clear
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a vector space, $p: X \rightarrow \R$ a seminorm and $\phi \in X^*$. Then $\phi \leq p$ iff $|\phi| \leq p$. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\phi \leq p$. Let $x \in X$. Then 
+		\begin{align*}
+			-\phi(x)
+			& = \phi(-x) \\
+			& \leq p(-x) \\
+			& = p(x) \\
+		\end{align*}
+	So $-p(x) \leq \phi(x)$. Hence $-p \leq \phi \leq p$. Thus $|\phi| \leq p$. \\
+	Conversely, if $|\phi| \leq p$, then clearly $\phi \leq p$.
+	\end{proof}
+	
+	\begin{ex} \lex{55007}
+		Let $X$ be a vector space and $p: X \rightarrow \R$ be a seminorm. Then $p \geq 0$. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $x \in X$. Then 
+		\begin{align*}
+			0 
+			&= p(0) \\ 
+			&= p(x - x) \\
+			&\leq  p(x) + p(-x) \\
+			&= p(x) + p(x) \\
+			&= 2p(x)
+		\end{align*}
+		So $p(x) \geq 0$.
+	\end{proof}
+	
+	\begin{ex} \textbf{Reverse Triangle Inequality:} \\
+		Let $X$ be a vector space and $p:X \rightarrow \Rg$ be a seminorm on $X$. Then for each $x ,y \in X$, $|p(x) - p(y)| \leq p(x - y)$.  
+	\end{ex}
+	
+	\begin{proof}
+		Let $x, y \in X$. Then 
+		\begin{align*}
+			p(x)
+			&= p(x -y + y) \\
+			&\leq p(x - y) + p(y) 
+		\end{align*}
+		So $p(x) - p(y) \leq p(x - y)$. 
+		Similarly, $p(y) \leq p(y - x) + p(y)$ and so $p(x) - p(y) \leq p(x - y)$. Therefore $|p(x) - p(y)| \leq p(x - y)$.
+	\end{proof}
+	
+	
+	\begin{defn}
+		Let $X$ be a vector space and $p:X \rightarrow \Rg$ be a seminorm on $X$. We define the \textbf{kernel of $p$}, denoted $N_p$, by $N_p = p^{-1}(\{0\})$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a vector space and $p: X \rightarrow \Rg$ a seminorm. Then $N_p$ is a subspace of $X$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $x, y \in N_p$ and $\lam \in \C$. Then $p(x) = p(y) = 0$. Thus 
+		\begin{align*}
+			p(x + \lam y) 
+			&\leq p(x) + p(\lam y) \\
+			&= p(x) + |\lam|p(y) \\
+			&= 0
+		\end{align*} 
+		So $x + \lam y \in N$ and $N$ is a subspace.
+	\end{proof}
+	
+	
+	\begin{defn}
+		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. We define the \textbf{norm induced by $p$}, denoted $\bar{p} : X / N_p \rightarrow  \Rg$, by $$\bar{p}(\bar{x}) = p(x)$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. Then $\bar{p} : X / N_p \rightarrow  \Rg$ is well defined and a norm. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $x, y \in X$. Suppose that $\bar{x} = \bar{y}$. Then there exists $n \in N_p$ such that $x = y + n$. Therefore, 
+		\begin{align*}
+			\bar{p}(\bar{x}) 
+			&= p(x) \\
+			&= p(y + n) \\
+			&\leq p(y) + p(n) \\
+			&= p(y) \\
+			&= \bar{p}(\bar{y})
+		\end{align*}
+		and 
+		\begin{align*}
+			\bar{p}(\bar{y}) 
+			&= p(y) \\
+			&= p(x - n) \\
+			&\leq p(x) + p(n) \\
+			&= p(x) \\
+			&= \bar{p}(\bar{x})
+		\end{align*}
+		So $\bar{p}(\bar{x}) = \bar{p}(\bar{y})$ and $\bar{p}: X / N_p \rightarrow \Rg$ is well defined. Let $x \in X$. Suppose that $\bar{x} = \bar{0}$. Then there exists $n \in N_p$ such that $x = n$. Therefore 
+		\begin{align*}
+			\bar{p}(\bar{x}) 
+			&= p(x) \\
+			&= p(n) \\
+			&= 0
+		\end{align*}
+		So $\bar{p}$ is a norm.
+	\end{proof}
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Topological Vector Spaces}
+	\begin{defn}
+		Let $X$ be a vector space and $\MT$ a topology on $X$. Then $X$ is said to be a \textbf{topological vector space} if
+		\begin{enumerate}
+			\item  addition $X \times X \rightarrow X$ is continuous  \item scalar multiplication $\C \times X \rightarrow X$ is continuous
+			\item $(X, \MT)$ is Hausdorff
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{note}
+		We usually suppress the topology $\MT$.
+	\end{note}
+	
+	\begin{ex}
+		Let $X$ be a topological vector space, $a \in X$ and $\lam \in \C^{\times}$. Define $f,g: X \rightarrow X$ by $f(x) = x + y$ and $g(x) = \lam x$. Then $f$ and $g$ are homeomorphisms. 
+	\end{ex}
+	
+	\begin{proof}
+		Since $X$ is a topological vector space, $f$ and $g$ are continuous. Clearly $f$ and $g$ are bijections with $f^{-1}(x) = x - y$ and $g^{-1}(x) = \lam^{-1}x$. Again, since $X$ is a topological vector space, $f^{-1}$ and $g^{-1}$ are continuous.
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	\newpage
+	\subsection{Locally Convex Spaces}
+	
+	\begin{defn}
+		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. We equip $X / N_p$ with the topology induced by the norm $\bar{p}:X / N_p \rightarrow \Rg$. We define the projection $\pi_p: X \rightarrow X / N_p$ by $\pi_p(x) = \bar{x} = x + N_p$.
+	\end{defn}
+	
+	\begin{defn}
+		Let $X$ be a vector space and $\MP$ a collection of seminorms on $X$. Then $\MP$ is said to \textbf{separate points of $X$} if for each $x \in X$, if $x \neq 0$, then there exists $p \in \MP$ such that $p(x) \neq 0$.
+	\end{defn}
+	
+	\begin{defn}
+		Let $X$ be a vector space and $\MT$ a topology on $X$. Then $(X, \MT)$ is said to be a \textbf{locally convex space} if there exists a collection $\MP$ of seminorms on $X$ such that 
+		\begin{itemize}
+			\item $\MP$ separates points of $X$
+			\item $\MT = \tau_X(\pi_p : p \in \MP)$
+		\end{itemize} 
+	\end{defn}
+	
+	\begin{note}
+		We will generally suppress the family $\MP$ of seminorms and the induced topology $\MT$.
+	\end{note}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space and $(x_{\al})_{\al \in A} \subset X$ a net and $x \in X$. Then $x_{\al} \rightarrow x$ iff for each $p \in \MP$, $p(x_{\al} - x) \rightarrow 0$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $x_{\al} \rightarrow x$. Let $p \in \MP$. 
+		By assumption,  
+		\begin{align*}
+			\bar{x}_{\al} 
+			&= \pi_p(x_{\al}) \\
+			&\rightarrow \pi_p(x) \\
+			&= \bar{x}
+		\end{align*}   
+		So 
+		\begin{align*}
+			p(x_{\al} - x) 
+			&= \bar{p}(\bar{x}_{\al} - \bar{x}) \\
+			& \rightarrow 0
+		\end{align*}
+		Conversely, suppose that for each $p \in \MP$, $p(x_{\al} - x) \rightarrow 0$. Let $p \in \MP$. Then 
+		\begin{align*}
+			\bar{p}(\bar{x}_{\al} - \bar{x}) 
+			&= p(x_{\al} - x) \\
+			& \rightarrow 0
+		\end{align*} 
+		So $\pi_p(x_{\al}) \rightarrow \pi_p(x)$. Since $p \in \MP$ is arbitrary, $x_{\al} \rightarrow x$. 
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space. Then for each $p \in \MP$, $p$ is continuous. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $(x_{\al})_{\al \in A} \subset X$ be a net and $x \in X$. Suppose that $x_{\al} \rightarrow x$. Let $p \in \MP$. Then $p(x_{\al} - x) \rightarrow 0$. The reverse triangle inequality implies that 
+		\begin{align*}
+			|p(x_{\al}) - p(x)| 
+			& \leq p(x_{\al} - x) \\
+			& \rightarrow 0
+		\end{align*}
+		So $p(x_{\al}) \rightarrow p(x)$ and $p$ is continuous. 
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space. Then X is a topological vector space.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $(x_{\al})_{\al \in A}$, $(x_{\al})_{\al \in A} \subset X$ and $(\lam_{\al})_{\al \in A} \subset \C$ be nets and $x$,$y \in X$, $\lam \in \C$. Suppose that $x_{\al} \rightarrow x$, $y_{\al} \rightarrow y$ and $\lam_{\al} \rightarrow \lam$. Then 
+			\begin{align*}
+				p([x_{\al} + y_{\al}] - [x + y]) 
+				&= p([x_{\al} - x] + [y_{\al} - y]) \\
+				&\leq p(x_{\al} - x) + p(y_{\al} - y) \\
+				& \rightarrow 0
+			\end{align*}
+			So addition $X \times X \rightarrow X$ is continuous. \\
+			
+			\item Similiarly, 
+			\begin{align*}
+				p(\lam_{\al} x_{\al} - \lam x) 
+				&= p([\lam_{\al} x_{\al} - \lam x_{\al}] + [\lam x_{\al} - \lam x]) \\
+				& \leq p(\lam_{\al} x_{\al} - \lam x_{\al}) + p(\lam x_{\al} - \lam x) \\
+				&= p([\lam_{\al} - \lam] x_{\al}) + p(\lam [x_{\al} - x]) \\
+				&= |\lam_{\al} - \lam|p(x_{\al}) + |\lam|p(x_{\al} - x) \\
+				&\rightarrow 0 
+			\end{align*}
+			So scalar multiplication $ \C \times X \rightarrow X$ is  continuous. \\
+
+			\item Let $x, y \in X$. Suppose that $x \neq y$. Since $\MP$ separates points of $X$, there exists $p \in \MP$ such that $p(x - y) \neq 0$. Thus $\bar{p}(\bar{x} - \bar{y}) \neq 0$. Thus $\bar{x} \neq \bar{y}$. Since $X / N_p$ is Hausdorff, there exists $U' \in \MN_{\bar{x}}$ and $V' \in \MN_{\bar{y}}$ such that $U' \cap V' = \varnothing$. Set $U = \pi_p^{-1}(U')$ and $V =  \pi_p^{-1}(V')$. Then $U \in \MN_x$, $V \in \MN_y$ and  
+			\begin{align*}
+				U \cap V 
+				&= \pi_p^{-1}(U') \cap  \pi_p^{-1}(V') \\
+				&=  \pi_p^{-1}(U' \cap V') \\
+				&=  \pi_p^{-1}(\varnothing) \\
+				&= \varnothing
+			\end{align*}
+			So $X$ is Hausdorff.
+		\end{enumerate}
+	\end{proof}
+	
+
+	\begin{defn} \ld{55002}\
+		Let $X$ be a locally convex space over $\C$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = \{\phi:X \rightarrow \C: \phi \text{ is linear and continuous}\}$.
+	\end{defn}
+	
+	\begin{note}
+		We define $X^*$ similarly when $X$ is a locally convex space over $\R$.
+	\end{note}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space and $\phi :X \rightarrow \C$ linear. Then $\phi \in X^*$ iff there exists $p \in \MP$ such that $|\phi| \leq p$.
+	\end{ex}
+
+	\begin{proof}
+		content...
+	\end{proof}
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{Minkowski Functionals}
+	
+	\begin{defn}
+		Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be
+		\begin{itemize}
+			\item \textbf{convex} if for each $x, y \in A$, $t \in [0,1]$, $tx +(1-t)y \in A$.
+			\item \textbf{absorbing} if for each $x \in X$, there exists $r > 0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$.
+			\item \textbf{balanced} if for each $x \in A$, $c \in \C$, $|c| \leq 1$ implies that $cx \in A$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a vector space and $A \subset X$. Suppose that $A \neq \varnothing$. If $A$ is balanced, then $0 \in A$.
+	\end{ex}
+	
+	\begin{proof}
+		Clear by definition.
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a vector space, $A \subset X$, $x \in X$ and $\lam \in \C$. Suppose that $A$ is balanced. Then $\lam x \in A$ iff $|\lam| x \in A$.  
+	\end{ex}
+	
+	\begin{proof}
+		If $\lam = 0$, then the claim is clearly true. Suppose that $\lam \neq 0$. Set $s = \sgn(\lam)$. Suppose that $\lam x \in A$. Since $A$ is balanced and $|s| = |s^{-1}| = 1$, 
+		\begin{align*}
+			|\lam|x 
+			&= s^{-1} \lam x \\
+			& \in A
+		\end{align*}
+		Conversely, suppose that $|\lam| x \in A$. Then 
+		\begin{align*}
+			\lam x 
+			&= s |\lam| x \\
+			& \in A
+		\end{align*}
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a vector space and $A \subset X$. For $x \in X$, set $$T_x = \{t > 0: x \in tA\}$$ We define the \textbf{Minkowski functional}, denoted $p_A: X \rightarrow \RG$, by $$p_A(x) = \inf T_x$$ 
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a vector space and $A \subset X$. Suppose that $A$ is convex, absorbing and balanced. Then 
+		\begin{enumerate}
+			\item $p_A:X \rightarrow \Rg$ 
+			\item $p(0) = 0$
+			\item $p_A$ is a seminorm on $X$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} Let $x, y \in X$ and $\lam \in \C$. 
+		\begin{enumerate}
+			\item Since $A$ is absorbing, there exists $r >0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$. Therefore $p_A(x) \leq |c|$ and $p_A: X \rightarrow \Rg$.
+			\item Since $0 \in A$, 
+			\begin{align*}
+				p_A(0) 
+				&= \inf T_0 \\
+				&= 0
+			\end{align*}
+			\item \begin{itemize}
+				\item Let $\ep >0$. Choose $t_x \in T_x$ and $t_y \in T_y$ such that $t_x < p_A(x) + \ep/2$ and $t_y < p_A(y) + \ep/2$. By definition, $t_x^{-1}x$, $t_y^{-1}y \in A$. Set $\theta = t_x(t_x +t_y)^{-1} \in (0, 1)$. Since $A$ is convex, 
+				\begin{align*}
+					(t_x +t_y)^{-1}(x+y) 
+					&= (t_x +t_y)^{-1}x + (t_x +t_y)^{-1}y \\
+					&= \theta t_x^{-1}x + (1 - \theta)t_y^{-1}y \\
+					& \in A
+				\end{align*}
+				Therefore, $t_x + t_y \in T_{x+y}$ and 
+				\begin{align*}
+					p_A(x+y) 
+					& \leq t_x + t_y \\
+					& < p_A(x) + \frac{\ep}{2} + p_A(y) + \frac{\ep}{2} \\
+					& = p_A(x) + p_A(y) + \ep.
+				\end{align*}
+				Since $\ep >0$ is arbitrary, $p_A(x+y) \leq p_A(x) + p_A(y)$.
+				\item If $\lam =0$, then 
+				\begin{align*}
+					p_A(\lam x) 
+					&= p_A(0) \\
+					&= 0 \\
+					&= |\lam| p_A(x)
+				\end{align*}
+				Suppose that $\lam \neq 0$. For $t >0$, $\lam t^{-1} x \in A$ iff $|\lam| t^{-1} x \in A$. So
+				\begin{align*}
+					p_A(\lam x) 
+					&= \inf \{t > 0: \lam x \in tA\} \\
+					&= \inf \{t > 0: x \in |\lam|^{-1} tA\} \\
+					&= \inf \{|\lam| s > 0: x \in sA\} \\
+					&= |\lam|\inf \{ s > 0: x \in sA\} \\
+					&= |\lam | p_A(x)
+				\end{align*}
+			\end{itemize}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		
+	\end{ex}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -2129,15 +2777,12 @@ So that $T(\overline{B(0,1)})$ is bounded.
 	
 
 	\newpage
-	\subsection{Locally Convex Spaces}
+	\subsection{Applications of the Hahn-Banach Theorem}
 	
-	\begin{defn} \ld{55001}\
-	 Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{algebraic dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
-	\end{defn}
 	
-	\begin{note}
-	We define $X^*$ similarly when $X$ is a vector space  over $\R$.
-	\end{note}
+	
+	
+	
 	
 	\begin{defn} \ld{55002}\
 	Let $X$ be a normed vector space over $\C$, and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{bounded linear functional on} $X$ if $T \in L(X, \C)$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = L(X, \C)$.
@@ -2146,225 +2791,6 @@ So that $T(\overline{B(0,1)})$ is bounded.
 	\begin{note}
 	We define $X^*$ similarly when $X$ is a normed vector space over $\R$.
 	\end{note}
-	
-	\begin{defn} \ld{55003}
-		Let $X$ be a real vector space and $p:X \rightarrow \R$. Then $p$ is said to be a \textbf{sublinear functional} if for each $x,y \in X$, $\lam \geq 0$, 
-		\begin{enumerate}
-			\item $p(x+y) \leq p(x) + p(y)$
-			\item $p(\lam x ) = \lam p(x)$
-		\end{enumerate}  
-	\end{defn}
-	
-	\begin{ex} \lex{55004}
-		Let $X$ be a vector space and $p: X \rightarrow \R$ be a sublinear functional. Then $p(0) = 0$.
-	\end{ex}
-	
-	\begin{proof} Set $\lam = 0$. Then 
-	\begin{align*}
-	0
-	&= \lam p(0) \\
-	&= p(\lam 0) \\
-	&= p(0)
-	\end{align*}
-	\end{proof}
-	
-	\begin{proof}
-	Clear
-	\end{proof}
-	
-	\begin{ex} \lex{55008}
-	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then for each $x, y \in X$
-	\begin{enumerate}
-	\item $-p(-x) \leq p(x)$
-	\item $- p(y-x) \leq p(x) - p(y) \leq p(x-y)$
-	\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}
-	Let $x, y \in X$.
-	\begin{enumerate}
-	\item We have
-	\begin{align*}
-	0
-	&= p(0) \\ 
-	&= p(x - x) \\
-	& \leq p(x) + p(-x)
-	\end{align*}
-	So $-p(-x) \leq p(x)$.
-	\item We have
-	\begin{align*}
-	p(x)
-	&= p(x -y + y) \\
-	& \leq p(x-y) + p(y)
-	\end{align*}
-	So $p(x) - p(y) \leq p(x-y)$. Switching $x$ and $y$ gives us $p(y) - p(x) \leq p(y-x)$ and multiplying both sides by $-1$ yields $-p(y-x) \leq p(x) - p(y)$ \\ 
-	Putting these two together, we see that $$-p(y-x) \leq p(x) - p(y) \leq p(x-y)$$
-	\end{enumerate}
-	\end{proof}
-	
-	
-	
-	\begin{thm}\textbf{Hahn-Banach Theorem}\\
-		Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional, $M \subset X$ a subspace and $f:M \rightarrow \R$ a linear functional. If for each $x \in M$, $ f(x)  \leq p(x)$, then there exists a linear functional $F:X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$ and $F|_{M}=f$.
-	\end{thm}
-	
-	\begin{ex} \lex{55011}
-	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then there exists a linear functional $F: X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$.
-	\end{ex}
-	
-	\begin{proof}
-	Take $M = \{0\}$ and $f \equiv 0$ and apply the Hahn-Banach theorem.
-	\end{proof}	
-	
-	\begin{ex} \lex{55012} \textbf{Equivalency of linearity (General Case)}
-	Let $X$ be a vector space and $p:X \rightarrow \R$ a sublinear functional. Then the following are equivalent:
-	\begin{enumerate}
-	\item there exists a unique $F \in X^*$ such that $F \leq p$
-	\item for each $x \in X$, $-p(-x) = p(x)$
-	\item $p$ is linear
-\end{enumerate}	
-\textbf{Hint:} If there exists $x \in X$ such that $-p(-x) \neq p(x)$, define $f_1,f_2 :\spn(x) \rightarrow \R$ by $f_1(tx) = t p(x)$ and $f_2(tx) = -tp(-x)$
-	\end{ex}	
-	
-	\begin{proof} \
-	\begin{itemize}
-	\item $(1) \implies (2)$: \\ 
-	Suppose that there exists a unique $F \in X^*$ such that $F \leq p$. For the sake of contradiction, suppose that there exists $x \in X$ such that $-p(-x) \neq p(x)$. Define $f_1,f_2: \spn(x) \rightarrow \R$ by $$f_1(tx) = t p(x)$$ and $$f_2(tx) = -tp(-x)$$ Let $y \in \spn(x)$. Then there exists $t \in \R$ such that $y = tx$. Then for each $k \in \R$,
-	\begin{align*}
-	f_1(ky)
-	&= f_1(ktx) \\
-	&= ktp(x) \\
-	&= k f_1(tx) \\
-	&= k f_1(y)
-	\end{align*}
-	Similarly, $f_2(ky) = kf_2(y)$ and so $f_1, f_2 \in \spn(x)^*$. 
-	If $t \geq 0$, then 
-	\begin{align*}
-	f_1(y) 
-	&= f_1(tx) \\
-	&= tp(x) \\
-	&= p(tx) \\
-	&= p(y) 
-	\end{align*}
-	If $t <0$, then 	
-	\begin{align*}
-	f_1(y) 
-	&= f_1(tx) \\
-	&= tp(x) \\
-	&= -|t|p(x) \\
-	&= -p(|t|x) \\
-	&= -p(-tx) \\
-	& \leq p(tx) \\
-	&= p(y)  
-	\end{align*}
-	So $f_1 \leq p$ on $\spn(x)$. Similarly, $f_2 \leq p$ on $\spn(x)$. The Hahn-Banach theorem implies that there exist $F_1, F_2 \in X^*$ such that $F_1, F_2 \leq p$ and $F_1 = f_1, F_2 = f_2$ on $\spn(x)$. By the assumption of uniqueness, $F_1 = F_2$. This is a contradiction since 
-	\begin{align*}
-	F_1(x) 
-	&= p(x) \\
-	& \neq -p(-x) \\
-	& = F_2(x) 
-	\end{align*}		
-So for each $x \in X$, $-p(-x) = p(x)$. 
-	\item $(2) \Rightarrow (3)$: \\
-	Suppose that for each $x \in X$, $-p(-x) = p(x)$. The previous exercise implies that there exists $F \in X^*$ such that $F \leq p$. Let $x \in X$. Then 
-	\begin{align*}
-	-F(x) 
-	&= F(-x) \\
-	& \leq p(-x) \\
-	&= -p(x)
-\end{align*}	
-	So $p(x) \leq F(x)$ and $p \leq F$. Therefore $p = F$ and $p$ is linear.  
-	\item $(3) \implies (1)$: \\ 
-	Suppose that $p$ is linear. Let $F \in X^*$. Suppose that $F \leq p$. Let $x \in X$. Then as in the case for $(2) \implies (3)$, we have that
-	\begin{align*}
-	-F(x) 
-	&= F(-x) \\
-	& \leq p(-x) \\
-	&= -p(x)
-	\end{align*}	 
-	which implies that $p = F$. So $p$ is the unique linear function $F \in X^*$ such that $F \leq p$.
-	\end{itemize}
-	\end{proof}
-
-	\begin{defn} \ld{55005}
-	Let $X$ be a vector space and $p:X \rightarrow \R$. Then $ p$ is said to be a \textbf{seminorm} if for each $x,y \in X$, $\lam \in \R$, 
-	\begin{enumerate}
-		\item $p(x+y) \leq p(x) + p(y)$
-		\item $p(\lam x) = |\lam| p(x)$
-	\end{enumerate}  
-\end{defn}
-
-\begin{ex} \lex{55006}
-	Let $X$ be a vector space and $p: X \rightarrow \R$ be a seminorm, then $p$ is a sublinear functional.
-\end{ex}
-
-\begin{proof}
-	Clear
-\end{proof}
-
-\begin{ex} \lex{55007}
-	Let $X$ be a vector space and $p: X \rightarrow \R$ be a seminorm. Then $p \geq 0$. 
-\end{ex}
-
-\begin{proof}
-	Let $x \in X$. Then 
-	\begin{align*}
-		0 
-		&= p(0) \\ 
-		&= p(x - x) \\
-		&\leq  p(x) + p(-x) \\
-		&= p(x) + p(x) \\
-		&= 2p(x)
-	\end{align*}
-	So $p(x) \geq 0$.
-\end{proof}
-
-
-	\begin{ex}
-		Let $X$ be a vector space and $p: X \rightarrow [0, \infty)$ a seminorm. Then $p^{-1}(\{0\})$ is a subspace of $X$.
-	\end{ex}
-
-
-	
-\begin{proof}
-	et $N = p^{-1}(\{0\})$. Let $x, y \in N$ and $\lam \in \C$. Then $p(x) = p(y) = 0$. Thus 
-	\begin{align*}
-		p(x + \lam y) 
-		&\leq p(x) + p(\lam y) \\
-		&= p(x) + |\lam|p(y) \\
-		&= 0
-	\end{align*} 
-So $x + \lam y \in N$ and $N$ is a subspace.
-\end{proof}
-
-\begin{defn}
-	
-\end{defn}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-
 
 	\begin{defn} \ld{55009}
 		Let $X$ be a normed vector space and $p:X \rightarrow \R$ a sublinear functional. Then $p$ is said to be \textbf{bounded} if there exists $M >0$ such that for each $x \in X$, $p(x) \leq M\|x\|$. 
@@ -2446,10 +2872,6 @@ So $x + \lam y \in N$ and $N$ is a subspace.
 	\begin{proof}
 	Basically the same as last time.
 	\end{proof}
-	
-	\begin{thm}\textbf{Complex Hahn-Banach Theorem}\\
-		Let $X$ be a vector space, $p:X \rightarrow \R$ a seminorm, $M \subset X$ a subspace and $f:M \rightarrow \C$ a linear functional. If for each $x \in M$, $\vert f(x) \vert \leq p(x)$, then there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $\vert F(x) \vert \leq p(x)$ and $F|_{M}=f$.
-	\end{thm}	
 	
 	\begin{ex} \lex{55016}
 		Let $X$ be a normed vector space, $M \subset X$ a subspace and $f \in M^*$. Then there exists $F \in X^*$ such that $\|F \|= \|f \|$ and $F|_M = f$.  
