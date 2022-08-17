@@ -99,7 +99,7 @@
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
 
-\newcommand{\lsc}{l.s.c. }
+\newcommand{\lsc}{lower semicontinuous}
 
 \newcommand{\as}[1]{\overset{#1}{\sim}}
 \newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
@@ -116,7 +116,7 @@
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\cl}{cl}
 \DeclareMathOperator{\intt}{int}
-
+\DeclareMathOperator{\epi}{epi}
 
 
 \newcommand{\lex}[1]{\label{ex:#1}}
@@ -906,9 +906,21 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	A previous exercise implies that $f: X_1 \rightarrow f(X_1)$ is $\MT_1$ - $\MT_2 \cap f(X_1)$ continuous. Now apply the previous exercise. 
 	\end{proof}
 	
-	
+	\begin{defn}
+		Let $X$ be a topological space, $x_0 \in X$ and $f:X \rightarrow \R$. We define the \textbf{limit inferior of $f$ as $x \rightarrow x_0$ (resp. limit inferior of $f$ as $x \rightarrow x_0$)}, denoted $\liminf\limits_{x \rightarrow x_0}f(x)$ (resp. $\liminf\limits_{x \rightarrow x_0}f(x)$), by 
+		$$\liminf_{x \rightarrow x_0} f(x) = \sup_{V \in \MN_{x_0}} \inf_{x \in V \setminus \{x_0\}} f(x)$$
+		resp. 
+		$$\limsup_{x \rightarrow x_0} f(x) = \inf_{V \in \MN_{x_0}} \sup_{x \in V \setminus \{x_0\}} f(x)$$
+	\end{defn}
 
+	\begin{ex}
+		Let $X$ be a topological space, $x_0 \in X$ and $f:X \rightarrow \R$. Then $f$ is continuous at $x_0$ iff $\liminf\limits_{x \rightarrow x_0}f(x) = \limsup\limits_{x \rightarrow x_0}f(x) = f(x_0)$ 
+	\end{ex}
 
+	\begin{proof}
+		Suppose that \\
+		\textbf{FINISH!!!}
+	\end{proof}
 
 
 
@@ -997,6 +1009,15 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\begin{proof}
 	Suppose that $x \in \overline{S}$. Since $\overline{S} = S \cup S'$, $x \in S$ or $x \in S'$. If $x \in S$, define $(x_n)_{n \in \N} \subset S$ by $x_n = x$. Then $x_n \rightarrow x$. If $x \in S'$, the previous exercise implies that there exists a net $(x_{\al})_{\al \in A} \subset S \setminus \{x\} \subset S$ such that $x_{\al} \rightarrow x$. 
 	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological space and $U \subset X$. Then $U$ is open iff for each net $(x_{\al})_{\al \in A} \subset X$ and $x \in U$, $x_{\al} \rightarrow x$ implies that $(x_{\al})_{\al \in A} $ is eventually in $U$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $U$ is open. Let $(x_{\al})_{\al \in A} \subset X$ be a net and $x \in U$. Suppose that $x_{\al} \rightarrow x$. Since $U \in \MN_x$, $(x_{\al})_{\al \in A}$ is eventually in $U$. \\
+		Conversely, suppose that for each net $(x_{\al})_{\al \in A} \subset X$ and $x \in U$, $x_{\al} \rightarrow x$ implies that $(x_{\al})_{\al \in A} $ is eventually in $U$. For the sake of contradiction, suppose that $U^c$ is not closed. Then there exist a net $(x_{\al})_{\al \in A} \subset U^c$ and $x \in U$ such such that $x_{\al} \rightarrow x$. By assumption, $(x_{\al})_{\al \in A}$ is eventually in $U$. This is a contradiction, so $U^c$ is closed and hence $U$ is open. 
+	\end{proof}
 	
 	\begin{ex} \lex{33010}
 	Let $(X,\MA)$ and $(Y,\MB)$ be topological spaces, $f:X \rightarrow Y$ and $x \in X$. Then $f$ is continuous at $x$ iff for each net $(x_{\al})_{\al \in A} \subset X$, $x_{\al} \rightarrow x$ implies that $f(x_{\al}) \rightarrow f(x)$. 
@@ -1025,8 +1046,22 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	
 	
 	\begin{ex} \lex{33012}
-	
+	Let $X$ be a set and $\MT_1$, $\MT_2$ topologies on $X$. Then the following are equivalent:
+	\begin{enumerate}
+		\item $\MT_1 = \MT_2$
+		\item for each net $(x_{\al})_{\al \in A} \subset X$ and $x \in X$, $x_{\al} \rightarrow x$ in $\MT_1$ iff $x_{\al} \rightarrow x$ in $\MT_2$.
+	\end{enumerate}
 	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item $(1) \implies (2)$: \\
+			Clear. \\
+			\item $(2) \implies (1)$: \\
+			Let $U \in \MT_1$ and $x \in U^c$. Since $U^c$ is closed in $\MT_1$, there exists a net $(x_{\al})_{\al \in A} \subset U^c$ such that $x_{\al} \rightarrow x$ in $\MT_1$. By assumption, $x_{\al} \rightarrow x$ in $\MT_2$. So $U^c$ is closed in $\MT_2$ and $U \in \MT_2$. Hence $\MT_1 \subset \MT_2$. \\
+			Similarly, $\MT_2 \subset \MT_1$.
+		\end{itemize}
+	\end{proof}
 	
 	\begin{ex} \lex{33013}
 		Let $X, Y$ be topological spaces and $\phi: X \rightarrow Y$ a homeomorphism. Then for each $E \subset X$, 
@@ -1051,8 +1086,68 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\end{ex}
 	
 	
+	\begin{defn}
+		Let $(x_{\al})_{\al \in A} \subset \R$ a net. We define the \textbf{limit inferior (resp. limit superior) of $(x_{\al})_{\al \in A}$}, denoted $\liminf x_{\al}$ (resp. $\limsup x_{\al}$), by 
+		$$\liminf x_{\al} = \sup_{\beta \in A } \inf_{\al \geq \beta} x_{\al}$$ 
+		resp. 
+		$$\limsup x_{\al} = \inf_{\beta \in A } \sup_{\al \geq \beta} x_{\al}$$  
+	\end{defn}
+
+	\begin{ex}
+		Let $(x_{\al})_{\al \in A} \subset \R$ a net. Then $$\liminf x_{\al} \leq \limsup x_{\al}$$
+	\end{ex}
+
+	\begin{proof}
+		\textbf{FINISH!!!}c
+	\end{proof}
+
+	\begin{ex}
+		Let $(x_{\al})_{\al \in A} \subset \R$ a net and $x \in \R$. Then $x_{\al} \rightarrow x$ iff $$\liminf x_{\al} = \limsup x_{\al} = x$$
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $x_{\al} \rightarrow x$. Let $\ep >0$. Then there exist $\beta \in A$ such that for each $\al \in A$, $\al \geq \beta$ implies that $x_{\al} \in B(x, \ep)$. So $\inf\limits_{\al \geq \beta} x_{\al} \geq x - \ep$ and $\sup\limits_{\al \geq \beta} \leq x + \ep$. Therefore 
+		\begin{align*}
+			\liminf x_{\al} 
+			&= \sup_{\beta \in A} \inf_{\al \geq \be} x_{\al} \\
+			& \geq x - \ep \\
+		\end{align*}
+		and 
+		\begin{align*}
+			\limsup x_{\al} 
+			&= \inf_{\beta \in A} \sup_{\al \geq \be} x_{\al} \\
+			& \leq x + \ep \\
+		\end{align*}
+		Since $\ep >0$ is arbitrary, $$\limsup x_{\al} \leq x \leq \liminf x_{\al}$$
+		Since $\liminf x_{\al} \leq \limsup x_{\al}$, we have that $\liminf x_{\al} = \limsup x_{\al} = x$.
+	\end{proof}
 	
-	
+
+	\begin{ex}
+		Let $X$ be a topological space, $f:X \rightarrow \R$, $(x_{\al})_{\al \in A} \subset X$ a net and $x \in X$. Suppose that $x_{\al} \rightarrow x$ and for each $\al \in A$, $x_{\al} \neq x$. Then 
+		\begin{enumerate}
+			\item $\liminf\limits_{t \rightarrow x} f(t) \leq \liminf f(x_{\al})$
+			\item $\limsup\limits_{t \rightarrow x} f(t) \geq \limsup f(x_{\al})$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $V \in \MN_{x}$. Then there exists $\beta \in A$ such that for each $\al \geq \beta$, $x_{\al} \in V \setminus \{x\}$. Thus 
+			$$\inf_{t \in V \setminus \{x\}} \leq \inf_{\al \geq \beta}f(x_{\al})$$
+			which implies that $$\inf_{t \in V \setminus \{x\}} f(t)  \leq \sup_{\beta \in A} \inf_{\al \geq \beta} f(x_{\al})$$
+			and since $V \in \MN_x$ is arbitrary, we have that
+			\begin{align*}
+				\liminf_{t \rightarrow x} f(t) 
+				&= \sup_{V \in \MN_{x}} \inf_{t \in V \setminus \{x\}} f(t) \\
+				& \leq \sup_{\beta \in A} \inf_{\al \geq \beta} f(x_{\al}) \\
+				&= \liminf f(x_{\al})
+			\end{align*} 
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+
+
 	
 	
 	
@@ -1375,7 +1470,7 @@ by definition of the quotient topology, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar
 	\subsection{Semi-continuity}
 	
 	\begin{defn} \ld{}
-	Let $X$ be a topological space, $f: X \rightarrow \Ru$ and $x_0 \in X$. Then $f$ is said to be \textbf{lower semicontinuous (l.s.c.) at $x_0$} if $$\liminf_{x \rightarrow x_0}f(x) \geq f(x_0)$$ and $f$ is said to be \textbf{lower semicontinuous (l.s.c.)} if for each $x_0 \in X$, $f$ is lower semicontinuous at $x_0$. 
+	Let $X$ be a topological space, $f: X \rightarrow \Ru$ and $x_0 \in X$. Then $f$ is said to be \textbf{lower semicontinuous at $x_0$} if $$\liminf_{x \rightarrow x_0}f(x) \geq f(x_0)$$ and $f$ is said to be \textbf{lower semicontinuous} if for each $x_0 \in X$, $f$ is lower semicontinuous at $x_0$. 
 	\end{defn}
 	
 	\begin{ex} \lex{}
@@ -1383,9 +1478,9 @@ by definition of the quotient topology, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $f$ is \lsc Let $\al \in \R$ and $x_0 \in f^{-1}(\al, \infty]$. Put $\ep = f(x_0) - \al$. By definition, $$\sup_{V \in N_{x_0}} \inf_{x \in V \setminus \{x_0\}} f(x) \geq f(x_0)$$ Choose $V_{\ep} \in N_{x_0}$ such that 
+	Suppose that $f$ is \lsc. Let $\al \in \R$ and $x_0 \in f^{-1}(\al, \infty]$. Put $\ep = f(x_0) - \al$. By definition, $$\sup_{V \in N_{x_0}} \inf_{x \in V \setminus \{x_0\}} f(x) \geq f(x_0)$$ Choose $V_{\ep} \in N_{x_0}$ such that 
 	\begin{align*}
-	\inf_{x \in V_{\ep}} f(x)  
+	\inf_{x \in V_{\ep} \setminus \{x_0\}} f(x)  
 	&> f(x_0) - \ep \\
 	&= \al
 \end{align*}
@@ -1404,7 +1499,45 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	& \geq \sup_{n \in \N} f(x_0)-1/n \\
 	&= f(x_0) \\
 	\end{align*}
-	So $f$ is \lsc
+	So $f$ is \lsc.
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a topological space and $f: X \rightarrow \R$. We define the \textbf{epigraph of $f$}, denoted $\epi f$, by 
+		$$\epi f = \{(x, y) \in X \times \R: f(x) \leq y\}$$
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a topological space and $f: X \rightarrow \R$. Then $f$ is lower semicontinuous iff $\epi f$ is closed.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f$ is lower semicontinuous. Let $(x_{\al}, y_{\al})_{\al \in A} \subset \epi f$ be a net and $(x, y) \in X \times \R$. Then for each $\al \in A$, $f(x_{\al}) \leq y_{\al}$. Suppose that $(x_{\al}, y_{\al}) \rightarrow (x, y)$. Then $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$. Therefore 
+		\begin{align*}
+			f(x) 
+			& \leq \liminf_{t \rightarrow x} f(t) \\
+			& \leq \liminf f(x_{\al}) \\
+			& \leq \liminf y_{\al} \\
+			&= y 
+		\end{align*}
+	So $(x, y) \in \epi f$ and $\epi f$ is closed. \\
+	Conversely, suppose that $\epi f$ is closed. 
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological space and $ (f_{\lam})_{\lam \in \Lam} \subset (-\infty, \infty]^X$. Suppose that for each $\lam \in \Lam$, $f_\lam$ is \lsc. Set $f = \sup\limits_{\lam \in \Lam} f_{\lam}$. Then $f$ is \lsc.
+	\end{ex}
+
+	\begin{proof}
+		Let $\al \in \R$ and $x \in X$. Then 
+		\begin{align*}
+			x \in f^{-1}((\al, \infty])
+			& \iff \sup_{\lam \in \Lam} f_{\lam}(x) > \al \\
+			& \iff \text{there exists $\lam \in \Lam$ such that } f_{\lam}(x) > \al \\
+			& \iff \text{there exists $\lam \in \Lam$ such that } x \in f_{\lam}^{-1}((\al, \infty]) \\
+			& \iff x \in \bigcup_{\lam \in \Lam} f_{\lam}^{-1}((\al, \infty])
+		\end{align*}
+		Since for each $\lam \in \Lam$, $f_{\lam}^{-1}((\al, \infty])$ is open, $f^{-1}((\al, \infty]) = \bigcup\limits_{\lam \in \Lam} f_{\lam}^{-1}((\al, \infty])$ is open. So $f$ is \lsc.
 	\end{proof}
 
 
@@ -1432,8 +1565,68 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 	\newpage
 	\section{Locally Convex Spaces}
-		
-	\subsection{The Hahn-Banach Theorem}
+	
+	\subsection{Topological Vector Spaces}
+	\begin{defn}
+		Let $X$ be a vector space and $\MT$ a topology on $X$. Then $X$ is said to be a \textbf{topological vector space} if
+		\begin{enumerate}
+			\item  addition $X \times X \rightarrow X$ is continuous  \item scalar multiplication $\C \times X \rightarrow X$ is continuous
+			\item $(X, \MT)$ is Hausdorff
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{note}
+		We usually suppress the topology $\MT$.
+	\end{note}
+	
+	\begin{ex}
+		Let $X$ be a topological vector space, $a \in X$ and $\lam \in \C^{\times}$. Define $f,g: X \rightarrow X$ by $f(x) = x + y$ and $g(x) = \lam x$. Then $f$ and $g$ are homeomorphisms. 
+	\end{ex}
+	
+	\begin{proof}
+		Since $X$ is a topological vector space, $f$ and $g$ are continuous. Clearly $f$ and $g$ are bijections with $f^{-1}(x) = x - y$ and $g^{-1}(x) = \lam^{-1}x$. Again, since $X$ is a topological vector space, $f^{-1}$ and $g^{-1}$ are continuous.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological vector space and $\phi :X \rightarrow \C$ linear. Then $\phi$ is continuous iff $|\phi|$ is continuous. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\phi$ is continuous. Since  $|\cdot|:\C \rightarrow \Rg$ is continuous, $|\phi|$ is continuous. \\
+		Conversely, suppose that $|\phi|$ is continuous. Let $(x_{\al})_{\al \in A} \subset X$ be a net and $x \in X$. Suppose that $x_{\al} \rightarrow x$. Then $x_{\al} - x \rightarrow 0$. Therefore 
+		\begin{align*}
+			|\phi(x_{\al}) - \phi(x)| 
+			&= |\phi(x_{\al} - x)| \\
+			& \rightarrow |\phi(0)| \\
+			&= 0
+		\end{align*} 
+	So $\phi(x_{\al}) \rightarrow \phi(x)$ and $\phi$ is continuous.
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	\newpage	
+	\subsection{Sublinear Functionals}
 	
 	\begin{defn} \ld{55001}\
 		Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{algebraic dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
@@ -1500,7 +1693,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	
 	
-	\begin{thm}\textbf{Hahn-Banach Theorem}\\
+	\begin{thm}\textbf{Hahn-Banach Theorem for Sublinear Functionals}\\
 		Let $X$ be a vector space, $p:X \rightarrow \R$ a sublinear functional, $M \subset X$ a subspace and $f:M \rightarrow \R$ a linear functional. If for each $x \in M$, $ f(x)  \leq p(x)$, then there exists a linear functional $F:X \rightarrow \R$ such that for each $x \in X$, $F(x) \leq p(x)$ and $F|_{M}=f$.
 	\end{thm}
 	
@@ -1582,10 +1775,6 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		\end{itemize}
 	\end{proof}
 	
-	\begin{thm}\textbf{Complex Hahn-Banach Theorem}\\
-		Let $X$ be a vector space, $p:X \rightarrow \R$ a seminorm, $M \subset X$ a subspace and $f:M \rightarrow \C$ a linear functional. If for each $x \in M$, $\vert f(x) \vert \leq p(x)$, then there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $\vert F(x) \vert \leq p(x)$ and $F|_{M}=f$.
-	\end{thm}	
-
 
 
 
@@ -1627,19 +1816,19 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 
 	\begin{ex}
-		Let $X$ be a vector space, $p: X \rightarrow \R$ a seminorm and $\phi \in X^*$. Then $\phi \leq p$ iff $|\phi| \leq p$. 
+		Let $X$ be a vector space and $\phi \in X^*$. Then $|\phi|$ is a seminorm on $X$.
 	\end{ex}
-
+	
 	\begin{proof}
-		Suppose that $\phi \leq p$. Let $x \in X$. Then 
-		\begin{align*}
-			-\phi(x)
-			& = \phi(-x) \\
-			& \leq p(-x) \\
-			& = p(x) \\
-		\end{align*}
-	So $-p(x) \leq \phi(x)$. Hence $-p \leq \phi \leq p$. Thus $|\phi| \leq p$. \\
-	Conversely, if $|\phi| \leq p$, then clearly $\phi \leq p$.
+		Clear.
+	\end{proof}
+
+	\begin{ex}
+		Let $X,Y$ be a vector spaces, $T \in L(X, Y)$ and $p$ a seminorm on $Y$. Then $p \circ T$ is a seminorm on $X$.
+	\end{ex}
+	
+	\begin{proof}
+		Clear.
 	\end{proof}
 	
 	\begin{ex} \lex{55007}
@@ -1658,7 +1847,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		\end{align*}
 		So $p(x) \geq 0$.
 	\end{proof}
-	
+
 	\begin{ex} \textbf{Reverse Triangle Inequality:} \\
 		Let $X$ be a vector space and $p:X \rightarrow \Rg$ be a seminorm on $X$. Then for each $x ,y \in X$, $|p(x) - p(y)| \leq p(x - y)$.  
 	\end{ex}
@@ -1674,17 +1863,32 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Similarly, $p(y) \leq p(y - x) + p(y)$ and so $p(x) - p(y) \leq p(x - y)$. Therefore $|p(x) - p(y)| \leq p(x - y)$.
 	\end{proof}
 	
-	
-	\begin{defn}
-		Let $X$ be a vector space and $p:X \rightarrow \Rg$ be a seminorm on $X$. We define the \textbf{kernel of $p$}, denoted $N_p$, by $N_p = p^{-1}(\{0\})$.
-	\end{defn}
-	
 	\begin{ex}
-		Let $X$ be a vector space and $p: X \rightarrow \Rg$ a seminorm. Then $N_p$ is a subspace of $X$.
+		Let $X$ be a vector space, $p: X \rightarrow \Rg$ a seminorm and $\phi \in X^*$. Then $\phi \leq p$ iff $|\phi| \leq p$. 
 	\end{ex}
 	
 	\begin{proof}
-		Let $x, y \in N_p$ and $\lam \in \C$. Then $p(x) = p(y) = 0$. Thus 
+		Suppose that $\phi \leq p$. Let $x \in X$. Then 
+		\begin{align*}
+			-\phi(x)
+			& = \phi(-x) \\
+			& \leq p(-x) \\
+			& = p(x) \\
+		\end{align*}
+		So $-p(x) \leq \phi(x)$. Hence $-p \leq \phi \leq p$. Thus $|\phi| \leq p$. \\
+		Conversely, if $|\phi| \leq p$, then clearly $\phi \leq p$.
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a vector space and $p:X \rightarrow \Rg$ be a seminorm on $X$. We define the \textbf{kernel of $p$}, denoted $\ker p$, by $\ker p = p^{-1}(\{0\})$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a vector space and $p: X \rightarrow \Rg$ a seminorm. Then $\ker p$ is a subspace of $X$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $x, y \in \ker p$ and $\lam \in \C$. Then $p(x) = p(y) = 0$. Thus 
 		\begin{align*}
 			p(x + \lam y) 
 			&\leq p(x) + p(\lam y) \\
@@ -1696,15 +1900,15 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	
 	\begin{defn}
-		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. We define the \textbf{norm induced by $p$}, denoted $\bar{p} : X / N_p \rightarrow  \Rg$, by $$\bar{p}(\bar{x}) = p(x)$$
+		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. We define the \textbf{norm induced by $p$}, denoted $\bar{p} : X / \ker p \rightarrow  \Rg$, by $$\bar{p}(\bar{x}) = p(x)$$
 	\end{defn}
 	
 	\begin{ex}
-		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. Then $\bar{p} : X / N_p \rightarrow  \Rg$ is well defined and a norm. 
+		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. Then $\bar{p} : X / \ker p \rightarrow  \Rg$ is well defined and a norm. 
 	\end{ex}
 	
 	\begin{proof}
-		Let $x, y \in X$. Suppose that $\bar{x} = \bar{y}$. Then there exists $n \in N_p$ such that $x = y + n$. Therefore, 
+		Let $x, y \in X$. Suppose that $\bar{x} = \bar{y}$. Then there exists $n \in \ker p$ such that $x = y + n$. Therefore, 
 		\begin{align*}
 			\bar{p}(\bar{x}) 
 			&= p(x) \\
@@ -1722,7 +1926,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 			&= p(x) \\
 			&= \bar{p}(\bar{x})
 		\end{align*}
-		So $\bar{p}(\bar{x}) = \bar{p}(\bar{y})$ and $\bar{p}: X / N_p \rightarrow \Rg$ is well defined. Let $x \in X$. Suppose that $\bar{x} = \bar{0}$. Then there exists $n \in N_p$ such that $x = n$. Therefore 
+		So $\bar{p}(\bar{x}) = \bar{p}(\bar{y})$ and $\bar{p}: X / \ker p \rightarrow \Rg$ is well defined. Let $x \in X$. Suppose that $\bar{x} = \bar{0}$. Then there exists $n \in \ker p$ such that $x = n$. Therefore 
 		\begin{align*}
 			\bar{p}(\bar{x}) 
 			&= p(x) \\
@@ -1732,53 +1936,325 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		So $\bar{p}$ is a norm.
 	\end{proof}
 
+	
+	\begin{defn}
+		Let $X$ be a vector space, $p:X \rightarrow \Rg$ a seminorm on $X$, $x \in X$ and $r >0$. We define the 
+		\begin{itemize}
+			\item \textbf{open semiball of $p$ at $x$ of radius $r$}, denoted $B_p(x, r)$, by $$B_p(x, r) = \{y \in X: p(x - y) < r\}$$
+			\item \textbf{closed semiball of $p$ at $x$ of radius $r$}, denoted $\bar{B}_p(x, r)$, by $$\bar{B}_p(x, r) = \{y \in X: p(x - y) \leq r\}$$
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex} 
+		Let $X$ be a vector space, $p:X \rightarrow \Rg$ a seminorm on $X$, $x \in X$ and $r >0$. Then $B_p(x, r) =  x + rB_p(0, 1)$. 
+	\end{ex}
+
+	\begin{proof}
+		Let $y \in B_p(x, r)$. Then  
+		\begin{align*}
+			p(r^{-1}(y - x)) 
+			&= r^{-1}p(y - x) \\
+			&< r^{-1} r \\
+			&= 1
+		\end{align*}
+		So $r^{-1}(y - x) \in B_p(0, 1)$. By definition, there exists $u \in B_p(0,1)$ such that $r^{-1}(y - x) = u$, which implies that 
+		\begin{align*}
+			y 
+			&=  x + ru \\
+			&\in x + rB_p(0, 1)
+		\end{align*} 
+		Conversely, let $y \in x + rB_p(0, 1)$. By definition, there exists $u \in B_p(0,1)$ such that $y = x + ru$. Then 
+		\begin{align*}
+			p(y - x) 
+			&= p(ru) \\
+			&= rp(u) \\
+			&< r
+		\end{align*}
+	So $y \in B_p(x, r)$ 
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a vector space and $p,q:X \rightarrow [0, \infty)$ seminorms on $X$. Then $p \leq q$ iff $B_q(0,1) \subset B_p(0,1)$.  
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $p \leq q$. Let $x \in B_q(0,1)$. Then 
+		\begin{align*}
+			p(x) 
+			& \leq q(x) \\
+			& < 1
+		\end{align*}
+		So $x \in B_p(0,1)$. \\
+		Conversely, suppose that $B_q(0,1) \subset B_p(0,1)$. Let $x \in X$. If $p(x) = 0$, then $p(x) \leq q(x)$. Suppose that $p(x) > 0$. For the sake of contradiction, suppose that $p(x) > q(x)$. Then 
+		\begin{align*}
+			q \bigg( \frac{x}{p(x)}\bigg) 
+			&= \frac{q(x)}{p(x)} \\
+			& < 1
+		\end{align*}
+		Therefore, $x/p(x) \in B_q(0,1) \subset B_p(0,1)$. By definition,
+		\begin{align*}
+			\frac{p(x)}{p(x)}
+			& =  p\bigg( \frac{x}{p(x)}\bigg)\\
+			&< 1
+		\end{align*} 
+		which is a contradiction. So $p(x) \leq q(x)$. Since $x \in X$ is arbitrary, $p \leq q$.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological vector space and $p:X \rightarrow \Rg$ a continuous seminorm. Then 
+		\begin{enumerate}
+			\item $B_p(0,1)$ is open 
+			\item $\bar{B}_p(0,1)$ is closed
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $(x_{\al})_{\al \in A}$ be a net in $B_p(0,1)^c$ and $x \in X$. Suppose that $x_{\al} \rightarrow x$. Then $p(x_{\al}) \rightarrow p(x)$. Since for each $\al \in A$, $p(x_{\al}) \geq 1$, $p(x) \geq 1$. Hence $x \in B_p(0,1)^c$. So $B_p(0,1)^c$ is closed which implies that $B_p(0,1)$ is open.
+			\item Let $(x_{\al})_{\al \in A}$ be a net in $\bar{B}_p(0,1)$ and $x \in X$. Suppose that $x_{\al} \rightarrow x$. Then $p(x_{\al}) \rightarrow p(x)$. Since for each $\al \in A$, $p(x_{\al}) \leq 1$, $p(x) \leq 1$. Hence $x \in \bar{B}_p(0,1)$. So $\bar{B}_p(0,1)$ is closed.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological vector space and $p:X \rightarrow \Rg$ a seminorm. Then the following are quivalent:
+		\begin{enumerate}
+			\item $p$ is continuous
+			\item $B_p(0,1)$ is open
+			\item $\bar{B}_p(0,1) \in \MN_0$ 
+			\item $p$ is continuous at $0$. 
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item $(1) \implies (2)$: \\
+			Clear from previous exercise. \\
+			\item $(2) \implies (3)$: \\
+			Clear since $B_p(0,1) \subset \bar{B}_p(0,1)$. \\
+			\item $(3) \implies (4)$: \\
+			Let $(x_{\al})_{\al \in A} \subset X$ be a net. Suppose that $x_{\al} \rightarrow 0$. Let $U \subset \R$. Suppose that $U \in \MN_0$. Then there exists $\ep > 0$ such that $\bar{B}(0, \ep) \subset U$. Since the map $f_{\ep}: X \rightarrow X$ defined by $f_{\ep}(x) = \ep x$ is a homeomorphism, $\bar{B}_p(0,\ep) = \ep \bar{B}_p(0,1) \in \MN_0$. Hence there exists $\beta \in A$ such that for each $\al \geq \beta$, $x_{\al} \in \bar{B}_p(0, \ep)$. Let $\al \in A$. Suppose that $\al \geq \beta$. By definition, $p(x_{\al}) \leq \ep$. So $p(x_{\al}) \in \bar{B}(0,\ep) \subset U$. Hence $(p(x_{\al}))_{\al \in A}$ is eventually in $U$. Since $U \in \MN_0$ is arbitrary, $p(x_{\al}) \rightarrow 0$. So $p$ is continuous at $0$. \\
+			\item $(4) \implies (1)$: \\
+			Let $(x_{\al})_{\al \in A} \subset X$ be a net and $x \in X$. Suppose that $x_{\al} \rightarrow x$. Then $x_{\al} - x \rightarrow 0$. Therefore $p(x_{\al} - x) \rightarrow 0$. The reverse triangle inequality implies that $p(x_{\al}) \rightarrow p(x)$. So $p$ is continuous.
+		\end{itemize}
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological vector space and $p:X \rightarrow \Rg$ a seminorm. Then $p$ is continuous iff there exists a continuous seminorm $q: X \rightarrow \Rg$ such that $p \leq q$. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $p$ is continuous. Set $q = p$. Then $q$ is a continuous and $p \leq q$\\
+		Conversely, suppose that there exists a continuous seminorm $q:X \rightarrow \Rg$ such that $p \leq q$. Then $\bar{B}_q(0,1) \subset \bar{B}_p(0,1)$. The previous exercise tells us that 
+		\begin{align*}
+			q \text{ is continuous} 
+			& \iff \bar{B}_q(0,1) \in \MN_0 \\
+			& \implies \bar{B}_p(0,1) \in \MN_0 \\
+			& \iff p \text{ is continuous} 
+		\end{align*}
+	\end{proof}
+
+	\begin{thm}\textbf{Hahn-Banach Theorem for Seminorms}\\
+		Let $X$ be a vector space, $p:X \rightarrow \R$ a seminorm, $M \subset X$ a subspace and $f:M \rightarrow \C$ a linear functional. If for each $x \in M$, $\vert f(x) \vert \leq p(x)$, then there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $\vert F(x) \vert \leq p(x)$ and $F|_{M}=f$.
+	\end{thm}	
 
 
 
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	\newpage
-	\subsection{Topological Vector Spaces}
+	\subsection{Minkowski Functionals}
 	\begin{defn}
-		Let $X$ be a vector space and $\MT$ a topology on $X$. Then $X$ is said to be a \textbf{topological vector space} if
-		\begin{enumerate}
-			\item  addition $X \times X \rightarrow X$ is continuous  \item scalar multiplication $\C \times X \rightarrow X$ is continuous
-			\item $(X, \MT)$ is Hausdorff
-		\end{enumerate}
+		Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be
+		\begin{itemize}
+			\item \textbf{convex} if for each $x, y \in A$, $t \in [0,1]$, $tx +(1-t)y \in A$.
+			\item \textbf{absorbing} if for each $x \in X$, there exists $r > 0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$.
+			\item \textbf{balanced} if for each $x \in A$, $c \in \C$, $|c| \leq 1$ implies that $cx \in A$.
+			\item an \textbf{absorbing disk} if $A$ is convex, absorbing and balanced.
+		\end{itemize}
 	\end{defn}
 	
-	\begin{note}
-		We usually suppress the topology $\MT$.
-	\end{note}
-	
 	\begin{ex}
-		Let $X$ be a topological vector space, $a \in X$ and $\lam \in \C^{\times}$. Define $f,g: X \rightarrow X$ by $f(x) = x + y$ and $g(x) = \lam x$. Then $f$ and $g$ are homeomorphisms. 
+		Let $X$ be a vector space and $A \subset X$. Suppose that $A \neq \varnothing$. If $A$ is balanced, then $0 \in A$.
 	\end{ex}
 	
 	\begin{proof}
-		Since $X$ is a topological vector space, $f$ and $g$ are continuous. Clearly $f$ and $g$ are bijections with $f^{-1}(x) = x - y$ and $g^{-1}(x) = \lam^{-1}x$. Again, since $X$ is a topological vector space, $f^{-1}$ and $g^{-1}$ are continuous.
+		Clear by definition.
 	\end{proof}
 
+	\begin{ex}
+		Let $X$ be a vector space, $A \subset X$ and $K \in \C$. Suppose that $A$ is balanced. If $|K| \leq 1$, then $KA$ is balanced.
+	\end{ex}
 
+	\begin{proof}
+		Suppose that $|K| \leq 1$.  Since $A$ is balanced, $KA \subset A$. Let $x \in KA$ and $c \in \C$. Then there exists $a \in A$ such that $x = Ka$. Suppose that $|c| \leq 1$. Then $cx = cKa$. Since $|cK| < 1$, $cx \in $
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a vector space, $A \subset X$, $x \in X$ and $\lam \in \C$. Suppose that $A$ is balanced. Then $\lam x \in A$ iff $|\lam| x \in A$.  
+	\end{ex}
+	
+	\begin{proof}
+		If $\lam = 0$, then the claim is clearly true. Suppose that $\lam \neq 0$. Set $s = \sgn(\lam)$. Suppose that $\lam x \in A$. Since $A$ is balanced and $|s| = |s^{-1}| = 1$, 
+		\begin{align*}
+			|\lam|x 
+			&= s^{-1} \lam x \\
+			& \in A
+		\end{align*}
+		Conversely, suppose that $|\lam| x \in A$. Then 
+		\begin{align*}
+			\lam x 
+			&= s |\lam| x \\
+			& \in A
+		\end{align*}
+	\end{proof}
 
+	\begin{ex}
+		Let $X$ be a vector space, $p :X \rightarrow \Rg$ a seminorm on $X$ and $r >0$. Then $B_p(0, r)$ is an absorbing disk.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $a, b \in B_p(0, r)$ and $t \in [0,1]$. Then $p(a - x) < r$ and $p(b) < r$. So 
+			\begin{align*}
+				p([ta + (1 - t)b]) 
+				&\leq p(ta + p((1-t)b) \\
+				&= tp(a) + (1-t)p(b) \\
+				&< tr + (1-t)r \\
+				&= r
+			\end{align*}
+			So $ta + (1 - t)b \in B_p(0, r)$ and $B_p(0, r)$ is convex.
+			\item Let $a \in X$. Set $s = (p(a) + 1)/ r$. Then for each $t \geq s$, $tr \geq p(a)+1$ so that 
+			\begin{align*}
+				a 
+				& \in B_p(0, p(a)+ 1) \\
+				& \subset B_p(0, tr) \\
+				& = tB_p(0, r) 
+			\end{align*} 
+			So $B_p(0,r)$ is absorbing.
+			\item Let $a \in B_p(0, r)$ and $u \in \C$. Uppose that $|u| \leq 1$. Then
+			\begin{align*}
+				p(ua)
+				&= |u|p(a) \\
+				&< |u|r \\
+				&\leq r
+			\end{align*}
+			So $ua \in B_p(0, r)$ and $B_p(0, r)$ is balanced. 
+		\end{enumerate}
+		Since $B_p(0, r)$ is convex, absorbing and balanced, it is an absorbing disk. 
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a vector space and $A \subset X$. For $x \in X$, set $$T^A_x = \{t > 0: x \in tA\}$$ We define the \textbf{Minkowski functional}, denoted $p_A: X \rightarrow \RG$, by $$p_A(x) = \inf T^A_x$$ 
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a vector space and $A \subset X$. Suppose that $A$ is an absorbing disk. Then 
+		\begin{enumerate}
+			\item $p_A:X \rightarrow \Rg$ 
+			\item $p(0) = 0$
+			\item $p_A$ is a seminorm on $X$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} Let $x, y \in X$ and $\lam \in \C$. 
+		\begin{enumerate}
+			\item Since $A$ is absorbing, there exists $r >0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$. Therefore $p_A(x) \leq |c|$ and $p_A: X \rightarrow \Rg$.
+			\item Since $0 \in A$, 
+			\begin{align*}
+				p_A(0) 
+				&= \inf T^A_0 \\
+				&= 0
+			\end{align*}
+			\item \begin{itemize}
+				\item Let $\ep >0$. Choose $t_x \in T^A_x$ and $t_y \in T^A_y$ such that $t_x < p_A(x) + \ep/2$ and $t_y < p_A(y) + \ep/2$. By definition, $t_x^{-1}x$, $t_y^{-1}y \in A$. Set $\theta = t_x(t_x +t_y)^{-1} \in (0, 1)$. Since $A$ is convex, 
+				\begin{align*}
+					(t_x +t_y)^{-1}(x+y) 
+					&= (t_x +t_y)^{-1}x + (t_x +t_y)^{-1}y \\
+					&= \theta t_x^{-1}x + (1 - \theta)t_y^{-1}y \\
+					& \in A
+				\end{align*}
+				Therefore, $t_x + t_y \in T^A_{x+y}$ and 
+				\begin{align*}
+					p_A(x+y) 
+					& \leq t_x + t_y \\
+					& < p_A(x) + \frac{\ep}{2} + p_A(y) + \frac{\ep}{2} \\
+					& = p_A(x) + p_A(y) + \ep.
+				\end{align*}
+				Since $\ep >0$ is arbitrary, $p_A(x+y) \leq p_A(x) + p_A(y)$.
+				\item If $\lam =0$, then 
+				\begin{align*}
+					p_A(\lam x) 
+					&= p_A(0) \\
+					&= 0 \\
+					&= |\lam| p_A(x)
+				\end{align*}
+				Suppose that $\lam \neq 0$. For $t >0$, $\lam t^{-1} x \in A$ iff $|\lam| t^{-1} x \in A$. So
+				\begin{align*}
+					p_A(\lam x) 
+					&= \inf \{t > 0: \lam x \in tA\} \\
+					&= \inf \{t > 0: x \in |\lam|^{-1} tA\} \\
+					&= \inf \{|\lam| s > 0: x \in sA\} \\
+					&= |\lam|\inf \{ s > 0: x \in sA\} \\
+					&= |\lam | p_A(x)
+				\end{align*}
+			\end{itemize}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a topological vector space and $A \subset X$. Suppose that $A$ is an absorbing disk and $A$ is open. Then $B_{p_A}(0, 1) = A$.
+	\end{ex}
+
+	\begin{proof}
+		Let $x \in A$. Since $A$ is open, $A \in \MN_x$. Since $1 + 1/n \rightarrow 1$, $(1 + 1/n)x \rightarrow x$. Therefore, there exits $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $(1 + 1/n)x \in A$. In particular, $x \in 1/ (1 + 1/N)A$. Hence $1/(1 + 1/N) \in T_x^A$ and
+		\begin{align*}
+			p_A(x)
+			&= \leq 1/(1 + 1/N) \\
+			& < 1
+		\end{align*}
+		So $x \in B_{p_A}(0,1)$ and $A \subset B_{p_A}(0,1)$. \\
+		Conversely, let $x \in  B_{p_A}(0,1)$. Then $p_A(x) <1$. By definition, there exists $t \in (0,1)$ such that $x \in tA$. Since $A$ is balanced, $tA \subset A$. Hence $x \in A$. So $A = B_{p_A}(0,1)$.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological vector space and $A \subset X$. Suppose that $A$ is an absorbing disk. Then $p_A:X \rightarrow \Rg$ is continuous iff $A$ is open. 
+	\end{ex}
+
+	\begin{proof}
+		If $A$ is open, then 
+		\begin{align*}
+			A 
+			&= B_{p_A}(0,1) \\
+			& \subset \bar{B}_{p_A}(0,1) \\
+		\end{align*}
+		which implies that $\bar{B}_{p_A}(0,1) \in \MN_0$. An exercise in the previous section implies that $p_A$ is continuous. \\
+		Conversely, if $p_A$ is continuous, then an exercise in the previous section implies that $B_{p_A}(0,1)$ is open. 
+	\end{proof}
+
+	\begin{ex} \textbf{Geometric Hahn-Banach Theorem 1} \\
+		
+		
+	\end{ex}
+
+	
 
 
 
@@ -1803,20 +2279,27 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 	
 	
+	
+	
+	
+	
+	
+	
+
 	
 	\newpage
 	\subsection{Locally Convex Spaces}
 	
 	\begin{defn}
-		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. We equip $X / N_p$ with the topology induced by the norm $\bar{p}:X / N_p \rightarrow \Rg$. We define the projection $\pi_p: X \rightarrow X / N_p$ by $\pi_p(x) = \bar{x} = x + N_p$.
+		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. We equip $X / \ker p$ with the topology induced by the norm $\bar{p}:X / \ker p \rightarrow \Rg$. We define the projection $\pi_p: X \rightarrow X / \ker p$ by $\pi_p(x) = \bar{x} = x + \ker p$.
 	\end{defn}
 	
 	\begin{defn}
-		Let $X$ be a vector space and $\MP$ a collection of seminorms on $X$. Then $\MP$ is said to \textbf{separate points of $X$} if for each $x \in X$, if $x \neq 0$, then there exists $p \in \MP$ such that $p(x) \neq 0$.
+		Let $X$ be a vector space and $\MP$ a family of seminorms on $X$. Then $\MP$ is said to \textbf{separate points of $X$} if for each $x \in X$, if $x \neq 0$, then there exists $p \in \MP$ such that $p(x) \neq 0$.
 	\end{defn}
 	
 	\begin{defn}
-		Let $X$ be a vector space and $\MT$ a topology on $X$. Then $(X, \MT)$ is said to be a \textbf{locally convex space} if there exists a collection $\MP$ of seminorms on $X$ such that 
+		Let $X$ be a vector space, $\MT$ a topology on $X$ and $\MP$ a family of seminorms. Then $(X, \MT)$ is said to be a \textbf{locally convex space with associated family of seminorms $\MP$} if 
 		\begin{itemize}
 			\item $\MP$ separates points of $X$
 			\item $\MT = \tau_X(\pi_p : p \in \MP)$
@@ -1895,7 +2378,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 			\end{align*}
 			So scalar multiplication $ \C \times X \rightarrow X$ is  continuous. \\
 
-			\item Let $x, y \in X$. Suppose that $x \neq y$. Since $\MP$ separates points of $X$, there exists $p \in \MP$ such that $p(x - y) \neq 0$. Thus $\bar{p}(\bar{x} - \bar{y}) \neq 0$. Thus $\bar{x} \neq \bar{y}$. Since $X / N_p$ is Hausdorff, there exists $U' \in \MN_{\bar{x}}$ and $V' \in \MN_{\bar{y}}$ such that $U' \cap V' = \varnothing$. Set $U = \pi_p^{-1}(U')$ and $V =  \pi_p^{-1}(V')$. Then $U \in \MN_x$, $V \in \MN_y$ and  
+			\item Let $x, y \in X$. Suppose that $x \neq y$. Since $\MP$ separates points of $X$, there exists $p \in \MP$ such that $p(x - y) \neq 0$. Thus $\bar{p}(\bar{x} - \bar{y}) \neq 0$. Thus $\bar{x} \neq \bar{y}$. Since $X / \ker p$ is Hausdorff, there exists $U' \in \MN_{\bar{x}}$ and $V' \in \MN_{\bar{y}}$ such that $U' \cap V' = \varnothing$. Set $U = \pi_p^{-1}(U')$ and $V =  \pi_p^{-1}(V')$. Then $U \in \MN_x$, $V \in \MN_y$ and  
 			\begin{align*}
 				U \cap V 
 				&= \pi_p^{-1}(U') \cap  \pi_p^{-1}(V') \\
@@ -1917,136 +2400,48 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{note}
 	
 	\begin{ex}
-		Let $X$ be a locally convex space and $\phi :X \rightarrow \C$ linear. Then $\phi \in X^*$ iff there exists $p \in \MP$ such that $|\phi| \leq p$.
+		Let $X$ be a locally convex space and $U \in \MN_0$ open. Then for each $p \in \MP$, there exists $r >0$ such that $B_p(0,r) \subset U$.
 	\end{ex}
 
 	\begin{proof}
-		content...
+		For the sake of contradiction, suppose that there exists $p \in \MP$ such that for each $r >0$, $B_p(0,r) \not \subset U$. Then there exists a sequence $(x_n)_{n \in \N} \subset U^c$ such that for each $n \in \N$, $p(x_n) < 1/n$. So $x_n \rightarrow 0$. Since $U^c$ is closed, $0 \in U^c$ which is a contradiction. Hence each $p \in \MP$, there exists $r >0$ such that $B_p(0,r) \subset U$.
 	\end{proof}
-	
-	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	\newpage
-	\subsection{Minkowski Functionals}
-	
-	\begin{defn}
-		Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be
-		\begin{itemize}
-			\item \textbf{convex} if for each $x, y \in A$, $t \in [0,1]$, $tx +(1-t)y \in A$.
-			\item \textbf{absorbing} if for each $x \in X$, there exists $r > 0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$.
-			\item \textbf{balanced} if for each $x \in A$, $c \in \C$, $|c| \leq 1$ implies that $cx \in A$.
-		\end{itemize}
-	\end{defn}
-	
 	\begin{ex}
-		Let $X$ be a vector space and $A \subset X$. Suppose that $A \neq \varnothing$. If $A$ is balanced, then $0 \in A$.
+		Let $(X, \MT)$ be a locally convex space with associated  family of seminorms $\MP$ and $M \subset X$ a subspace. Define $\MP_M = \{p|_M: p \in \MP\}$. Then $(M, \MT \cap M)$ is a locally convex space with associated family of seminorms $\MP_M$. 
 	\end{ex}
-	
+
 	\begin{proof}
-		Clear by definition.
-	\end{proof}
-	
-	\begin{ex}
-		Let $X$ be a vector space, $A \subset X$, $x \in X$ and $\lam \in \C$. Suppose that $A$ is balanced. Then $\lam x \in A$ iff $|\lam| x \in A$.  
-	\end{ex}
-	
-	\begin{proof}
-		If $\lam = 0$, then the claim is clearly true. Suppose that $\lam \neq 0$. Set $s = \sgn(\lam)$. Suppose that $\lam x \in A$. Since $A$ is balanced and $|s| = |s^{-1}| = 1$, 
+		Let $(x_{\al})_{\al \in A} \subset M$ be a net and $x \in M$. Suppose that $x_{\al} \rightarrow x$ in $\MT \cap M$. Then an exercise in the section on the subspace topology implies that $x_{\al} \rightarrow x$ in $\MT$. Let $q \in \MP_M$. Then there exists $p \in \MP$ such that $q = p|_M$. Therefore
 		\begin{align*}
-			|\lam|x 
-			&= s^{-1} \lam x \\
-			& \in A
-		\end{align*}
-		Conversely, suppose that $|\lam| x \in A$. Then 
+			q(x_{\al} - x) 
+			&= p|_M(x_{\al} - x) \\ 
+			&= p(x_{\al} - x) \\
+			& \rightarrow 0
+		\end{align*}  
+		Hence $x_{\al} \rightarrow x$ in $\tau_X(\pi_q:q \in \MP_M)$. \\
+		Conversely, suppose that $x_{\al} \rightarrow x$ in $\tau_X(\pi_q:q \in \MP_M)$. Let $p \in \MP$. Then 
 		\begin{align*}
-			\lam x 
-			&= s |\lam| x \\
-			& \in A
+			p(x_{\al} - x) 
+			&= p|_M(x_{\al} - x) \\
+			& \rightarrow 0
 		\end{align*}
-	\end{proof}
-	
-	\begin{defn}
-		Let $X$ be a vector space and $A \subset X$. For $x \in X$, set $$T_x = \{t > 0: x \in tA\}$$ We define the \textbf{Minkowski functional}, denoted $p_A: X \rightarrow \RG$, by $$p_A(x) = \inf T_x$$ 
-	\end{defn}
-	
-	\begin{ex}
-		Let $X$ be a vector space and $A \subset X$. Suppose that $A$ is convex, absorbing and balanced. Then 
-		\begin{enumerate}
-			\item $p_A:X \rightarrow \Rg$ 
-			\item $p(0) = 0$
-			\item $p_A$ is a seminorm on $X$
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof} Let $x, y \in X$ and $\lam \in \C$. 
-		\begin{enumerate}
-			\item Since $A$ is absorbing, there exists $r >0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$. Therefore $p_A(x) \leq |c|$ and $p_A: X \rightarrow \Rg$.
-			\item Since $0 \in A$, 
-			\begin{align*}
-				p_A(0) 
-				&= \inf T_0 \\
-				&= 0
-			\end{align*}
-			\item \begin{itemize}
-				\item Let $\ep >0$. Choose $t_x \in T_x$ and $t_y \in T_y$ such that $t_x < p_A(x) + \ep/2$ and $t_y < p_A(y) + \ep/2$. By definition, $t_x^{-1}x$, $t_y^{-1}y \in A$. Set $\theta = t_x(t_x +t_y)^{-1} \in (0, 1)$. Since $A$ is convex, 
-				\begin{align*}
-					(t_x +t_y)^{-1}(x+y) 
-					&= (t_x +t_y)^{-1}x + (t_x +t_y)^{-1}y \\
-					&= \theta t_x^{-1}x + (1 - \theta)t_y^{-1}y \\
-					& \in A
-				\end{align*}
-				Therefore, $t_x + t_y \in T_{x+y}$ and 
-				\begin{align*}
-					p_A(x+y) 
-					& \leq t_x + t_y \\
-					& < p_A(x) + \frac{\ep}{2} + p_A(y) + \frac{\ep}{2} \\
-					& = p_A(x) + p_A(y) + \ep.
-				\end{align*}
-				Since $\ep >0$ is arbitrary, $p_A(x+y) \leq p_A(x) + p_A(y)$.
-				\item If $\lam =0$, then 
-				\begin{align*}
-					p_A(\lam x) 
-					&= p_A(0) \\
-					&= 0 \\
-					&= |\lam| p_A(x)
-				\end{align*}
-				Suppose that $\lam \neq 0$. For $t >0$, $\lam t^{-1} x \in A$ iff $|\lam| t^{-1} x \in A$. So
-				\begin{align*}
-					p_A(\lam x) 
-					&= \inf \{t > 0: \lam x \in tA\} \\
-					&= \inf \{t > 0: x \in |\lam|^{-1} tA\} \\
-					&= \inf \{|\lam| s > 0: x \in sA\} \\
-					&= |\lam|\inf \{ s > 0: x \in sA\} \\
-					&= |\lam | p_A(x)
-				\end{align*}
-			\end{itemize}
-		\end{enumerate}
+		Hence $x_{\al} \rightarrow x$ in $\MT$. So $x_{\al} \rightarrow x$ in $\MT \cap M$. Therefore $\MT \cap M = \tau_X(\pi_q: q \in \MP_M)$. 
 	\end{proof}
 	
 	\begin{ex}
-		
+		Let $X$ be a locally convex space, $M \subset X$ a subspace and $f \in M^*$. Then there exists $F \in X^*$ such that $F|_M = f$.  
 	\end{ex}
+
+	\begin{proof}
+		Set $p_f = |f|$. Since $p_f$ is a continuous seminorm, $B_{p_f}(0,1)$ is open in $M$. Therefore, there exists $U \subset X$ open such that $B_{p_f}(0,1) = U \cap M$. Since $\MP \neq \varnothing$, there exists $p \in \MP$. A previous exercise implies that there exists $r >0$ such that $B_p(0, r) \subset U$. Set $A = B_p(0, r)$. Since $A$ is open, $p_A:X \rightarrow \Rg$ is continuous and $A = B_{p_A}(0,1)$. Hence 
+		\begin{align*}
+			B_{p_A|_M}(0,1) 
+			&= A \cap M \subset U \cap M \\
+			&= B_{p_f}(0,1) 
+		\end{align*}  
+		Therefore $p_f \leq p_A|_M$ and $|f| \leq p_A$ on $M$. The Hahn-Banach theorem implies that there exists $F:X \rightarrow \C$ such that $F$ is linear, $F|_M = f$ and $|F| \leq p_A$. Since $p_A$ is continuous, $|F|$ is continuous, which implies that $F$ is continuous. So $F \in X^*$.  
+	\end{proof}
 	
 	
 	
@@ -2056,6 +2451,14 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	
 	
+	
+	
+	
+	
+
+
+
+
 	
 	
 	
@@ -2125,7 +2528,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 	
 	\begin{ex} \lex{}
-		Let $X$ be a normed vector space. Then addition and scalar multiplication are continuous on $X \times X$ and $\|\cdot \|:X \rightarrow \Rg$ is continuous.
+		Let $X$ be a normed vector space. Then addition $X \times X \rightarrow X$ and scalar multiplication $\C \times X \rightarrow X$ are continuous and $\|\cdot \|:X \rightarrow \Rg$ is continuous.
 	\end{ex}
 	
 	\begin{proof}
@@ -2878,7 +3281,7 @@ So that $T(\overline{B(0,1)})$ is bounded.
 	\end{ex}
 	
 	\begin{proof}
-		If $f =0$, Choose $F=0$. Suppose $f \neq 0$. Then $\|f \|\neq 0$ and there exists $x_0 \in M$ such that $x_0  \neq 0$. Thus $\|f \|= \sup \{ \vert f(x) \vert: x \in M \text{ and } \|x \|= 1\}$. Define $p:X \rightarrow \Rg$ by $ p(x) = \|f \|\|x \|$. Then $p$ is a sublinear functional on $X$ and for each $x \in M$, $\vert f(x) \vert \leq p(x)$. So there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $\vert F(x) \vert \leq p(x) = \|f \|\|x \|$ and $F|_M = f$. Thus $F \in X^*$ with $\|F \|\leq \|f \|$. Also $$\|F \|= \sup_{\substack{ x \in X \\ \|x \|= 1}} \vert F(x) \vert \geq  \sup_{\substack{ x \in M \\ \|x \|= 1}} \vert F(x) \vert = \sup_{\substack{ x \in M \\ \|x \|= 1}} \vert f(x) \vert = \|f \|$$
+		If $f =0$, Choose $F=0$. Suppose $f \neq 0$. Then $\|f \|\neq 0$ and there exists $x_0 \in M$ such that $x_0  \neq 0$. Thus $\|f \| \neq 0$. Define $p:X \rightarrow \Rg$ by $ p(x) = \|f \|\|x \|$. Then $p$ is a sublinear functional on $X$ and for each $x \in M$, $\vert f(x) \vert \leq p(x)$. So there exists a linear functional $F:X \rightarrow \C$ such that for each $x \in X$, $\vert F(x) \vert \leq p(x) = \|f \|\|x \|$ and $F|_M = f$. Thus $F \in X^*$ with $\|F \|\leq \|f \|$. Also $$\|F \|= \sup_{\substack{ x \in X \\ \|x \|= 1}} \vert F(x) \vert \geq  \sup_{\substack{ x \in M \\ \|x \|= 1}} \vert F(x) \vert = \sup_{\substack{ x \in M \\ \|x \|= 1}} \vert f(x) \vert = \|f \|$$
 		
 		So $\|F \|= \|f \|$.
 	\end{proof}
@@ -3258,15 +3661,15 @@ So that $T(\overline{B(0,1)})$ is bounded.
 	\end{defn}
 
 \begin{defn}
-Let $X$ be a normed vector space. We define the \textbf{weak topology on $X$} to be the weak topology generated by $X^*$. 
+Let $X$ be a normed vector space. We define the \textbf{weak topology on $X$}, denoted $\MT_w$, by $\MT_w = \tau_X(X^*)$ (i.e. the initial topology on $X$ generated by $X^*$).
 \end{defn}
 
 \begin{defn}
-Let $X$ be a normed vector space, $(x_{\al})_{\al} \subset X$ and $x \in x$. Then $(x_{\al})_{\al}$ is said to \textbf{converge weakly to $x$}, denoted $x_{\al} \conv{w} x$ if $(x_{\al})_{\al}$ converges to $x$ in the weak topology.
+Let $X$ be a normed vector space, $(x_{\al})_{\al \in A} \subset X$ and $x \in X$. Then $(x_{\al})_{\al \in A}$ is said to \textbf{converge weakly to $x$}, denoted $x_{\al} \conv{w} x$ if $(x_{\al})_{\al \in A}$ converges to $x$ in the weak topology.
 \end{defn}
 
 \begin{ex} \lex{}
-Let $X$ be a normed vector, $(x_{\al})_{\al \in A} \subset X$ a net and $x \in X$. Then $x_{\al} \rightarrow x$ iff for each $T \in X^*$, $Tx_{\al} \rightarrow Tx$. 
+Let $X$ be a normed vector, $(x_{\al})_{\al \in A} \subset X$ a net and $x \in X$. Then $x_{\al} \conv{w} x$ iff for each $\lam \in X^*$, $ \lam (x_{\al}) \rightarrow \lam(x)$. 
 \end{ex}
 
 \begin{proof}
@@ -3274,10 +3677,63 @@ Immediate by \rex{33011}.
 \end{proof}
 
 \begin{defn}
-Let $X$ be a normed vector space. We define the \textbf{weak-* topology on $X^*$} to be the weak topology generated by $\hat{X}$. 
+Let $X$ be a normed vector space. We define the \textbf{weak-* topology on $X^*$}, denoted $\MT_{w*}$, by $\MT_{w*} = \tau_X(\hat{X})$ (i.e. the initial topology on $X^*$ generated by $\hat{X}$). 
 \end{defn}
 
+\begin{defn}
+	Let $X$ be a normed vector space, $(\lam_{\al})_{\al \in A} \subset X^*$ and $\lam \in X^*$. Then $(\lam_{\al})_{\al \in A}$ is said to \textbf{converge in weak-* to $\lam$}, denoted $\lam_{\al} \conv{w^*} \lam$ if $(\lam_{\al})_{\al \in A}$ converges to $\lam$ in the weak-* topology.
+\end{defn}
 
+\begin{ex} \lex{}
+	Let $X$ be a normed vector, $(\lam_{\al})_{\al \in A} \subset X^*$ a net and $\lam \in X^*$. Then $\lam_{\al} \conv{w^*} \lam$ iff for each $x \in X$, $ \lam_{\al} (x) \rightarrow \lam(x)$. 
+\end{ex}
+
+\begin{proof}
+	Immediate by \rex{33011}.
+\end{proof}
+
+	\begin{ex}
+		Let $X$ be a normed vector space. Then 
+		\begin{enumerate}
+			\item $(X, \MT_w)$ is a locally convex space 
+			\item $(X, \MT_{w^*})$ is a locally convex space 
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item For $\lam \in X^*$, define $p_{\lam}:X \rightarrow \Rg$ by $p_{\lam} = |\lam|$. Set $\MP_{w} = \{p_{\lam}: \lam \in X^*\}$. Let $(x_{\al})_{\al \in A} \subset X$ be a net and $x \in X$. Suppose that $x_{\al} \conv{w} x$. Let $\lam \in X^*$. Then 
+			\begin{align*}
+				p_{\lam}(x_{\al} - x) 
+				&= |\lam(x_{\al} - x)| \\
+				&= |\lam(x_{\al}) - \lam(x)| \\
+				& \rightarrow 0
+			\end{align*}
+			So $x_{\al} \rightarrow x$ in $\tau_X(\pi_p: p \in \MP_w)$. \\
+			Conversely, suppose that $x_{\al} \rightarrow x$ in $\tau_X(\pi_p: p \in \MP_w)$. Then for each $x \in X$,
+			\begin{align*}
+				|\lam(x_{\al}) - \lam(x)|
+				&= p_{\lam}(x_{\al} - x) \\
+				& \rightarrow 0
+			\end{align*}
+			So that $\lam(x_{\al}) \rightarrow \lam(x)$ and $x_{\al} \conv{w} x$. Hence $\MT_{w} = \tau_{X}(\pi_p: p \in \MP_{w})$ and $(X, \MT_{w})$ is a locally convex space.  \\
+			\item For $x \in X$, define $p_x:X^* \rightarrow \Rg$ by $p_x = |\hat{x}|$. Set $\MP_{w^*} = \{p_x:x \in X\}$. Let $(\lam_{\al})_{\al \in A} \subset X^*$ be a net and $\lam \in X^*$. Suppose that $\lam_{\al} \conv{w^*} \lam$. Let $x \in X$. Then 
+			\begin{align*}
+				p_x(\lam_{\al} - \lam) 
+				&= |\hat{x}(\lam_{\al} - \lam)| \\
+				&= |\hat{x}(\lam_{\al}) - \hat{x}(\lam)| \\
+				& \rightarrow 0
+			\end{align*}
+		So $\lam_{\al} \rightarrow \lam$ in $\tau_{X^*}(\pi_p: p \in \MP_{w^*})$. \\
+		Conversely, suppose that $\lam_{\al} \rightarrow \lam $ in $\tau_{X^*}(\pi_p: p \in \MP_{w^*})$. Then for each $x \in X$,
+		\begin{align*}
+			|\hat{x}(\lam_{\al}) - \hat{x}(\lam)|
+			&= p_x(\lam_{\al} - \lam) \\
+			& \rightarrow 0
+		\end{align*}
+		So that $\hat{x}(\lam_{\al}) \rightarrow \hat{x}(\lam)$ and $\lam_{\al} \conv{w^*} \lam$. Hence $\MT_{w^*} = \tau_{X^*}(\pi_p: p \in \MP_{w^*})$ and $(X^*, \MT_{w^*})$ is a locally convex space.  
+		\end{enumerate}
+	\end{proof}
 
 
 
@@ -5380,19 +5836,19 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	In this section, we assume all vector spaces are real.
 	\end{note}
 
-	\begin{defn} \ld{}
+	\begin{defn} \ld{91001}
 	Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be $\textbf{convex}$ if for each $x, y \in A$, and $t \in [0,1]$,  $tx + (1-t)y \in A$. 
 	\end{defn}	
 	
-	\begin{defn} \ld{}
+	\begin{defn} \ld{91002}
 	Let $X$ be a vector space and $f:A \rightarrow R$. Then $f$ is said to be \textbf{convex} if for each $x,y \in A$, $t \in \ui$, $$f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)$$
 	\end{defn}
 	
-	\begin{defn} \ld{}
+	\begin{defn} \ld{91003}
 	Let $X$ be a vector space and $f:A \rightarrow R$. Then $f$ is said to be \textbf{strictly convex} if for each $x,y \in A$, $t \in (0,1)$, $x \neq y$ implies that $$f(tx + (1-t)y) < tf(x) + (1-t)f(y)$$
 	\end{defn}
 	
-	\begin{ex} \lex{}
+	\begin{ex} \lex{91004}
 	Let $X$ be a vector space, $f \in X^*$ and $g: X \rightarrow \R$ constant. Then $f$ and $g$ are convex. 
 	\end{ex}
 	
@@ -5406,8 +5862,37 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 		\end{align*}
 		So $f$ and $g$ are convex.
 	\end{proof}		
+
+	\begin{ex}
+		Let $f:\Rg \rightarrow \Rg$ be convex. If $f(0) \leq 0$, then for each $x \in \Rg$, $t \in [0,1]$, $f(tx) \leq tf(x)$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f(0) \leq 0$. Let $x \in \Rg$ and $t \in [0,1]$. Then 
+		\begin{align*}
+			f(tx)
+			&= f(tx + (1-t)0) \\
+			& \leq tf(x) + (1-t)f(0) \\
+			& \leq tf(x)
+		\end{align*}
+	\end{proof}
+
+	\begin{ex} \textbf{Superadditivity:}\\
+		Let $f:\Rg \rightarrow \Rg$ be convex. If $f(0) = 0$, then for each $x,y \in \Rg$, $$f(x) + f(y) \leq f(x+y)$$
+		\textbf{Hint:} $f(x) = f \bigg( \frac{x}{x+y}(x+y)\bigg)$
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f(0) \leq 0$. Let $x, y \in \Rg$. If $x+y = 0$, then $x=y=0$ and $f(x) + f(y) = 0 = f(x+y)$. Suppose that $x+y \neq 0$. Then the previous exercise implies that 
+		\begin{align*}
+			f(x) + f(y) 
+			&= f \bigg( \frac{x}{x+y}(x+y)\bigg) + f \bigg( \frac{y}{x+y}(x+y)\bigg) \\
+			& \leq \frac{x}{x+y}f(x+y) + \frac{x}{x+y}f(x+y) \\
+			&= f(x+y)
+		\end{align*}
+	\end{proof}
 	
-	\begin{ex} \lex{}
+	\begin{ex} \lex{91005}
 	Let $X$ be a vector space, $A \subset X$ convex, $f,g:A \rightarrow \R$ and $\lam \geq 0$. If $f,g$ are convex, then 
 	\begin{enumerate}
 	\item $f + g$ is convex 
@@ -5427,11 +5912,11 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	\end{proof}
 	
 	
-	\begin{defn} \ld{}
-	Let $X$ be a vector space and $f: X \rightarrow \R$. Then $f$ is said to be \textbf{affine} if there exists $\phi \in X^*$, $a \in R$ constant such that $f = \phi + a$.\\
+	\begin{defn} \ld{91006}
+	Let $X$ be a vector space and $f: X \rightarrow \R$. Then $f$ is said to be \textbf{affine} if there exists $\phi \in X^*$, $a \in \R$ constant such that $f = \phi + a$.\\
 	\end{defn}
 	
-	\begin{ex} \lex{}
+	\begin{ex} \lex{91007}
 	Let $X$ be a vector space and $f: X \rightarrow \R$. If $f$ is affine, then $f$ is convex.
 	\end{ex}
 	
@@ -5439,7 +5924,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	Suppose that $f$ is affine. Then there exists $\phi \in X^*$, $a \in R$ constant such that $f = \phi + a$. Then $\phi$ is convex and $g: X \rightarrow \R$ defined by $g(x) = a$ is convex. So $f = \phi + g$ is convex.
 	\end{proof}
 	
-	\begin{ex} \lex{}
+	\begin{ex} \lex{91008}
 	Let $X$ be a vector space, $A \subset X$ convex, $f:\R \rightarrow \R$ and $g: A \rightarrow \R$. If $f$ is convex and increasing and $g$ is convex, then $f \circ g$ is convex.
 	\end{ex}	
 	
@@ -5455,7 +5940,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 So $f \circ g$ is convex.
 	\end{proof}
 	
-	\begin{ex} \lex{}
+	\begin{ex} \lex{91009}
 	Let $X$ be a vector space, $A \subset X$ convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. Then $f$ has a local minimum point at $x_0$ iff $f$ has a global minimum point at $x_0$.
 	\end{ex}	
 	
@@ -5478,7 +5963,7 @@ So $f \circ g$ is convex.
 	which is a contradiction. Hence $f$ has a global minimum point at $x_0$.
 	\end{proof}
 	
-	\begin{ex}
+	\begin{ex} \lex{91010}
 	Let $X$ be a vector space, $A \subset X$ convex, $f:A \rightarrow \R$ strictly convex and $x_0 \in X$. If $f$ has a local minimum point at $x_0$, then $f$ has a unique global minimum point at $x_0$.  
 	\end{ex}
 	
@@ -5493,11 +5978,11 @@ So $f \circ g$ is convex.
 	\end{proof}
 
 	
-	\begin{defn} \ld{}
+	\begin{defn} \ld{91011}
 	Let $X, Y$ be vector spaces, $A \subset X \oplus Y$. For $y \in Y$, define $$A^y = \{x \in X: (x,y) \in A \}$$ and $f^y:A^y \rightarrow \R$ by $$f^y(x) = f(x,y)$$
 	\end{defn}
 	
-	\begin{ex} \lex{}
+	\begin{ex} \lex{91012}
 	Let $X, Y$ be vector spaces, $A \subset X \oplus Y$ convex and $f:A \rightarrow \R$ convex. Then for each $y \in \pi_2(A)$,
 	\begin{enumerate}
 	\item $A^y$ is convex 
@@ -5522,7 +6007,7 @@ So $f \circ g$ is convex.
 	\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{}
+	\begin{ex} \lex{91013}
 	Let $X$, $Y$ be vector spaces and $A\subset X, B \subset Y$. If $A$ and $B$ are convex, then $A \times B \subset X \oplus Y$ is convex.
 	\end{ex}	
 	
@@ -5535,7 +6020,7 @@ So $f \circ g$ is convex.
 \end{align*}	 
 	\end{proof}
 	
-	\begin{ex} \lex{}
+	\begin{ex} \lex{91014}
 	Let $X, Y$ be vector spaces and $A \subset X$, $B \subset Y$ convex (implying that $A \times B$ is convex)  and $f:A \times B \rightarrow \R$ convex. Suppose that for each $y \in B$, $\{f(x, y): x \in A\}$ is bounded below. Then $\inf\limits_{y \in B}f^y$ is convex
 	\end{ex}
 	
@@ -5553,23 +6038,37 @@ So $f \circ g$ is convex.
 	Since $y_1 \in B$ is arbitrary, we have that $$g(tx_1 + (1-t)x_2) \leq tg(x_1) + (1-t)f^{y_2}(x_2)$$ Similarly, since $y_2 \in B$ is arbitrary, we have that $$g(tx_1 + (1-t)x_2) \leq tg(x_1) + (1-t)g(x_2)$$ and $f$ is convex.
 	\end{proof}	
 
-	\begin{ex} \lex{}
-	Let $X$ be a vector space, $A \subset X$ convex and $ (f_{\lam})_{\lam \in \Lam} \subset \R^A$. Suppose that for each $\lam \in \Lam$, $f_\lam$ is convex. Then $\sup\limits_{\lam \in \Lam}f_\lam$ is convex.
+	\begin{ex} \lex{91015}
+	Let $X$ be a vector space, $A \subset X$ convex and $ (f_{\lam})_{\lam \in \Lam} \subset \R^A$. Suppose that for each $\lam \in \Lam$, $f_\lam$ is convex. Define 
+	\begin{enumerate}
+		\item $A^* = \{x \in A: \sup\limits_{\lam \in \Lam} f_{\lam}(x) < \infty\}$
+		\item $f^*:A^* \rightarrow \R$ by $f^*(x) =  \sup\limits_{\lam \in \Lam} f_{\lam}(x)$
+	\end{enumerate}
+Then
+	\begin{enumerate}
+		\item $A^*$ is convex 
+		\item $f^*$ is convex
+	\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}
-	Define $f = \sup\limits_{\lam \in \Lam} f_{\lam}$. Let $x, y \in A$, $t \in [0,1]$ and $\lam \in \Lam$. Then \begin{align*}
-	f_\lam(tx + (1-t)y) 
-	&\leq tf_\lam (x) + (1-t)f_\lam(y) \\
-	& \leq tf(x) + (1-t)f(y) 
-\end{align*}	
-	Since $\lam \in \Lam$ is arbitrary, $f(tx + (1-t)y) \leq tf(x) + (1-t)f(y) $. 
+		\begin{enumerate}
+			\item Let $x, y \in A$ and $t \in [0,1]$. By definition, $ \sup\limits_{\lam \in \Lam} f_{\lam}(x)$,  $\sup\limits_{\lam \in \Lam} f_{\lam}(y) < \infty$. Therefore 
+			\begin{align*}
+				 \sup\limits_{\lam \in \Lam} f_{\lam}(tx + (1-t)y) 
+				&\leq \sup\limits_{\lam \in \Lam} [tf_{\lam}(x) + (1-t)f_{\lam}(y) ]  \\
+				& \leq t \sup\limits_{\lam \in \Lam} f_{\lam}(x) + (1-t) \sup\limits_{\lam \in \Lam} f_{\lam}(y) \\
+				& < \infty
+			\end{align*}
+			So $tx + (1-t)y \in A$.
+			\item  By definition, the previous part implies that for each $x,y \in A^*$, $f^*(tx + (1-t)y) \leq t f^*(x) + (1-t)f^*(y)$. So $f^*:A^* \rightarrow \R$ is convex.
+		\end{enumerate}
 	\end{proof}
 	
 	
 	
 	
-	\begin{ex} \lex{}
+	\begin{ex} \lex{91016}
 	Let $X$ be a normed vector space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex and $x_0 \in A$. If $f$ is continuous at $x_0$, then $f$ is locally Lipschitz at $x_0$. \\
 	\textbf{Hint:} Given $x_1, x_2$ near $x_0$ Choose a $z$ near $x_0$ s.t. $x_1$ is a convex combination of $x_2$ and $z$. Then repeat but with $x_2$ as a convex combination of $x_1$ and $z$
 	\end{ex}
@@ -5962,30 +6461,128 @@ So $f \circ g$ is convex.
 	\subsection{Conjugacy}
 	
 	\begin{defn} \ld{}
-	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Define $A^* \subset X^*$ and $f^*: A^* \rightarrow \R$ by $$A^* = \bigg \{\phi \in X^*: \sup_{x \in A} \bigg[ \phi(x) - f(x) \bigg] < \infty \bigg  \}$$ and $$f^*(\phi) = \sup_{x \in A} \bigg[ \phi(x) - f(x) \bigg] $$ 
-	If $X$ is a Hilbert space, we may define $A^* \subset X$ and $f^*: A^* \rightarrow \R$ via the Riesz representation theorem by $$A^* = \bigg \{y \in X: \sup_{x \in A} \bigg[ \l y, x \r - f(x) \bigg] < \infty \bigg  \}$$ and $f^*: A^* \rightarrow \R$ and $$ f^*(y) = \sup_{x \in A} \bigg[ \l y, x \r - f(x) \bigg] $$
+	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Define 
+	\begin{enumerate}
+		\item $A^* \subset X^*$ and $f^*: A^* \rightarrow \R$ 
+		\item $A^{**} \subset X$ and $f^{**}:A^{**} \rightarrow \R$
+	\end{enumerate}
+	by 
+	\begin{enumerate}
+		\item $$A^* = \bigg \{\phi \in X^*: \sup_{x \in A} \bigg[ \phi(x) - f(x) \bigg] < \infty \bigg  \}$$ and $$f^*(\phi) = \sup_{x \in A} \bigg[ \phi(x) - f(x) \bigg] $$  
+		\item $$A^{**} = \bigg \{x \in X: \sup_{\phi \in A^*} \bigg[ \hat{x}(\phi) - f^*(\phi) \bigg] < \infty \bigg \}$$ and $$f^{**}(x) = \sup_{\phi \in A^*} \bigg[ \hat{x}(\phi) - f^*(\phi) \bigg]$$
+	\end{enumerate}
 	\end{defn} 
+
+	\begin{note}
+		If $X$ is a Hilbert space, we may define $A^* \subset X$ and $f^*: A^* \rightarrow \R$ via the Riesz representation theorem by $$A^* = \bigg \{y \in X: \sup_{x \in A} \bigg[ \l y, x \r - f(x) \bigg] < \infty \bigg  \}$$ and $f^*: A^* \rightarrow \R$ and $$ f^*(y) = \sup_{x \in A} \bigg[ \l y, x \r - f(x) \bigg] $$
+	\end{note}
 	
 	\begin{ex} \lex{}
-	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Then $f^*$ is convex. 
+	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Then 
+	\begin{enumerate}
+		\item $A^*$ is convex and $f^*:A^* \rightarrow \R$ is convex and weak* lower semicontinuous.
+		\item $A^{**}$ is convex and $f^{**}:A^{**} \rightarrow \R$ is convex and weakly lower semicontinuous.
+	\end{enumerate} 
 	\end{ex}
 	
-	\begin{proof}
-		For $x \in A$, define $g_x: X^* \rightarrow \Rd$ by $g_x(\phi) = \phi(x) - f(x)$. Then for each $x \in A$, $g_x$ is convex since it is affine. Thus $f^* = \sup\limits_{x \in A} g_x$		 
-is convex.  
+	\begin{proof} \
+		\begin{enumerate}
+			\item For $x \in A$, define $g_x: X^* \rightarrow \R$ by $g_x(\phi) = \hat{x}(\phi) - f(x)$. Then for each $x \in A$, $g_x$ is convex and weak* \lsc \, since it is affine and weak* continuous. \rex{91015} implies that $A^* = \{\phi \in X^*: \sup\limits_{x \in A} g_x(\phi) < \infty \}$ is convex and  $f^* = \sup\limits_{x \in A} g_x$ is convex.
+			\item For $\phi \in A^*$, define $h_{\phi}: X \rightarrow \R$ by $h_{\phi}(x) = \phi(x) - f^{*}(\phi)$. Then for each $\phi \in A^*$, $g_{\phi}$ is convex and weakly \lsc \, since it is affine and weakly continuous. \rex{91015} implies that $A^{**} = \{x \in X: \sup\limits_{\phi \in A^*} h_{\phi}(x) < \infty \}$ is convex and   $f^{**} = \sup\limits_{\phi \in A^*} h_{\phi}$ is convex. 
+		\end{enumerate}		 
 	\end{proof}
 	
 	\begin{ex} \lex{}
-		Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Then for each $x \in X$ and $\phi \in X^*$, $f(x) \geq \phi(x) - f^*(\phi)$.	
+		Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Then for each $x \in A$ and $\phi \in A^*$, $f^*(\phi) \geq \phi(x) - f(x)$.	
 	\end{ex}
 	
 	\begin{proof}
-	Clear
+	Clear by definition.
 	\end{proof}
 	
 	\begin{ex} \lex{}
-	
+	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Then $A \subset A^{**}$.
 	\end{ex}
+
+	\begin{proof}
+		Let $x \in A$. Then the previous exercise implies that
+		\begin{align*}
+			\sup_{\phi \in A^*} [\phi(x) - f^{*}(\phi)] 
+			& \leq f(x) \\
+			& < \infty  
+		\end{align*}
+		So $x \in A^{**}$.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a Banach space, $A \subset X$ convex, $f:A \rightarrow \R$ convex and lower semicontinuous and $x_0 \in A$. 
+		\begin{enumerate}
+			\item if $x_0 \in A$, then for each $\ep >0$, there exists $\phi \in A^*$ such that for each $x \in A$, $f(x) > f(x_0) + \phi(x - x_0) - \ep$
+			\item if $x_0 \not \in A$, then for each $M \in \R$, there exists $\phi \in A^*$ such that for each $x \in A$, $f(x) > M + \phi(x - x_0)$
+		\end{enumerate}
+	\textbf{Hint:} Hahn Banach separation theorem \\
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $x_0 \in A$. Let $\ep >0$. Since $f$ is convex and lower semicontinuous, $\epi f \subset X \times \R$ is convex and closed and $\{(x_0, f(x_0) - \ep)\} \subset X \times \R$ is convex and compact. Thus, there exists $\lam \in \R$, $\psi \in X^*$ and $k \in \R$ such that for each $x \in A$ and $r \geq f(x)$, 
+			$$\psi(x) + \lam r < k < \psi(x_0) + \lam (f(x_0) - \ep)$$
+			Taking $(x, r) = (x_0, f(x_0))$ implies that $0 < -\lam \ep $ and hence that $\lam < 0$. Set $\phi = |\lam|^{-1}\psi$. For $x \in A$, set $r = f(x)$. Then 
+			\begin{align*}
+				& \hspace{1.2cm} \psi(x) -|\lam| f(x) < \psi(x_0) - |\lam| (f(x_0) - \ep) \\
+				& \iff |\lam|^{-1} \psi(x) - f(x) < |\lam|^{-1}\psi(x_0) - (f(x_0) - \ep) \\
+				& \iff \phi(x) - f(x) < \phi(x_0) - (f(x_0) - \ep) \\
+				& \iff f(x) > f(x_0) + \phi(x-x_0) - \ep 
+			\end{align*}
+			Since for each $x \in A$, $\phi(x) - f(x) < \phi(x_0) - f(x_0) + \ep$, we have that 
+			\begin{align*}
+				\sup_{a \in A}[\phi(x) - f(x)] 
+				& \leq \phi(x_0) - f(x_0) + \ep \\
+				&< \infty
+			\end{align*}
+			So $\phi \in A^*$.
+			\item Suppose that $x_0 \not \in A$. Let $M \in \R$. Repeat the previous argument for $(x_0, M)$ and $\epi f$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a Banach space, $A \subset X$ convex and $f:A \rightarrow \R$ convex and lower semicontinuous. Then 
+		\begin{enumerate}
+			\item $A = A^{**}$
+			\item $f = f^{**}$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item A previous exercise implies that $A \subset A^{**}$. Let $x_0 \in X$. Suppose that $x_0 \not \in A$. Let $M \in \R$. The previous exercise implies that there exists $\phi_0 \in A^*$ such that for each $x \in A$, $f(x) > M + \phi_0(x - x_0)$. Then 
+			\begin{align*}
+				\phi_0(x_0) - f^*(\phi_0) 
+				&= \phi_0(x_0) - \sup_{x \in A}[\phi_0(x) - f(x)] \\
+				&= \phi_0(x_0) + \inf_{x \in A}[f(x) - \phi_0(x)] \\
+				& \geq \phi_0(x_0) + (M - \phi_0(x_0)) \\
+				&= M
+			\end{align*}
+		Therefore 
+		\begin{align*}
+			\sup\limits_{\phi \in A^*}[\phi(x_0) - f^*(\phi)] 
+			& \geq \phi_0(x_0) - f^*(\phi_0) \\
+			& \geq M
+		\end{align*}
+		Since $M \in \R$ is arbitrary, $$\sup\limits_{\phi \in A^*}[\phi(x_0) - f^*(\phi)] = \infty $$ and $x_0 \not \in A^{**}$. So $A^c \subset (A^{**})^c$, which implies that $A^{**} \subset A$. Thus $A^{**} = A$.
+		\item Part $(1)$ and a previous exercise imply that $f^{**} \leq f$. Suppose that $f \not \leq f^{**}$. Then there exists $x_0 \in A$ such that $f(x_0) > f^{**}(x_0)$. Choose $\ep > 0$ such that $f(x_0) > f^{**}(x_0) + 2 \ep$. A previous exercise implies that there exists $\phi \in A^*$ such that for each $x \in A$, $f(x) > f(x_0) + \phi(x - x_0) - \ep$. Choose $a \in A$ such that $f^*(\phi) - \ep < \phi(a) - f(a)$. Then 
+		\begin{align*}
+			f(x_0)
+			& > f^{**}(x_0) + 2 \ep \\
+			& \geq \phi(x_0) - f^*(\phi) + 2 \ep \\
+			& > \phi(x_0 -a) + f(a) + \ep \\
+			& > \phi(x_0 -a) + f(x_0) + \phi(a - x_0) - \ep + \ep \\
+			&= f(x_0) 
+		\end{align*}
+		which is a contradiction. So $f \leq f^{**}$ and hence $f = f^{**}$. 
+		\end{enumerate}
+		
+	\end{proof}
 	
 
 	
