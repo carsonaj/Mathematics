@@ -115,7 +115,9 @@
 \DeclareMathOperator{\Homeo}{Homeo}
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\cl}{cl}
-\DeclareMathOperator{\intt}{int}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\bal}{bal}
+\DeclareMathOperator{\cnv}{conv}
 \DeclareMathOperator{\epi}{epi}
 
 
@@ -146,7 +148,6 @@
 	\newpage
 	
 	\section{Set Theory}
-	
 	\subsection{Product Sets}
 	
 	\begin{defn}
@@ -1567,6 +1568,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\section{Locally Convex Spaces}
 	
 	\subsection{Topological Vector Spaces}
+	
 	\begin{defn}
 		Let $X$ be a vector space and $\MT$ a topology on $X$. Then $X$ is said to be a \textbf{topological vector space} if
 		\begin{enumerate}
@@ -1588,20 +1590,70 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 
 	\begin{ex}
-		Let $X$ be a topological vector space and $\phi :X \rightarrow \C$ linear. Then $\phi$ is continuous iff $|\phi|$ is continuous. 
+		Let $X$ be a topological vector space and $A$, $B \subset X$ convex. If $A$ is open, then $A - B$ is open.
 	\end{ex}
-
-	\begin{proof}
-		Suppose that $\phi$ is continuous. Since  $|\cdot|:\C \rightarrow \Rg$ is continuous, $|\phi|$ is continuous. \\
-		Conversely, suppose that $|\phi|$ is continuous. Let $(x_{\al})_{\al \in A} \subset X$ be a net and $x \in X$. Suppose that $x_{\al} \rightarrow x$. Then $x_{\al} - x \rightarrow 0$. Therefore 
-		\begin{align*}
-			|\phi(x_{\al}) - \phi(x)| 
-			&= |\phi(x_{\al} - x)| \\
-			& \rightarrow |\phi(0)| \\
-			&= 0
-		\end{align*} 
-	So $\phi(x_{\al}) \rightarrow \phi(x)$ and $\phi$ is continuous.
+	
+	\begin{proof} \
+		Suppose that $A$ is open. Then for each $b \in B$, $A - b$ is open. Since 
+		$$A - B = \bigcup_{b \in B} A - b$$
+		we have that $A - B$ is open.
 	\end{proof}
+
+	\begin{defn} \ld{55001}\
+		Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{algebraic dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
+	\end{defn}
+	
+	\begin{note}
+		We define $X^*$ similarly when $X$ is a vector space  over $\R$.
+	\end{note}
+	
+	\begin{defn} \ld{55001}\
+		Let $X$ be a topological vector space over $\C$ and $T :X \rightarrow \C$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear and continuous} \} $
+	\end{defn}
+	
+	\begin{note}
+		We define $X^*$ similarly when $X$ is a vector space  over $\R$.
+	\end{note}
+
+	\begin{ex}
+		Let $X$, $Y$ be a topological vector spaces and $\phi:X \rightarrow Y$. Suppose that $\phi$ is linear. Then $\phi$ is continuous iff $\phi$ is continuous at $0$.
+	\end{ex}
+	
+	\begin{proof}
+		If $\phi$ is continuous, then $\phi$ is continuous at $0$.\\
+		Conversely, suppose that $\phi$ is continous at $0$. Let $(x_{\al})_{\al \in A} \subset X$ be a net and $x \in X$. Suppose that $x_{\al} \rightarrow x$. Then $x_{\al} - x \rightarrow 0$. Hence 
+		\begin{align*}
+			\phi(x_{\al}) - \phi(x) 
+			&= \phi(x_{\al} - x) \\
+			&\rightarrow \phi(0) \\
+			&= 0
+		\end{align*}
+		Therefore $\phi(x_{\al}) \rightarrow \phi(x)$ and $\phi$ is continuous at $x$. Since $x \in X$ is arbitrary, $\phi$ is continuous. 
+	\end{proof}
+
+\begin{ex}
+	Let $X$ be a topological vector space and $\phi :X \rightarrow \C$ linear. Then $\phi$ is continuous iff $|\phi|$ is continuous. 
+\end{ex}
+
+\begin{proof}
+	Suppose that $\phi$ is continuous. Since  $|\cdot|:\C \rightarrow \Rg$ is continuous, $|\phi|$ is continuous. \\
+	Conversely, suppose that $|\phi|$ is continuous. Let $(x_{\al})_{\al \in A} \subset X$ be a net and $x \in X$. Suppose that $x_{\al} \rightarrow x$. Then $x_{\al} - x \rightarrow 0$. Therefore 
+	\begin{align*}
+		|\phi(x_{\al}) - \phi(x)| 
+		&= |\phi(x_{\al} - x)| \\
+		& \rightarrow |\phi(0)| \\
+		&= 0
+	\end{align*} 
+	So $\phi(x_{\al}) \rightarrow \phi(x)$ and $\phi$ is continuous.
+\end{proof}
+
+%	\begin{ex}
+%		Let $X$ be a topological vector space and $(\lam_{\al})_{\al \in A} \subset \C$ and $(x_{\al})_{\al \in A} \subset X$ nets. If $(\lam_{\al})_{\al \in A}$ is bounded and $x_{\al} \rightarrow 0$, then $\lam_{\al}x_{\al} \rightarrow 0$.
+%	\end{ex}
+%
+%	\begin{proof}
+%		Suppose that $(\lam_{\al})_{\al \in A}$ is bounded and $x_{\al} \rightarrow 0$. 
+%	\end{proof}
 
 
 
@@ -1627,14 +1679,6 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	\newpage	
 	\subsection{Sublinear Functionals}
-	
-	\begin{defn} \ld{55001}\
-		Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{algebraic dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
-	\end{defn}
-
-	\begin{note}
-		We define $X^*$ similarly when $X$ is a vector space  over $\R$.
-	\end{note}
 	
 	\begin{defn} \ld{55003}
 		Let $X$ be a real vector space and $p:X \rightarrow \R$. Then $p$ is said to be a \textbf{sublinear functional} if for each $x,y \in X$, $\lam \geq 0$, 
@@ -2081,15 +2125,177 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	\newpage
 	\subsection{Minkowski Functionals}
+
 	\begin{defn}
-		Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be
-		\begin{itemize}
-			\item \textbf{convex} if for each $x, y \in A$, $t \in [0,1]$, $tx +(1-t)y \in A$.
-			\item \textbf{absorbing} if for each $x \in X$, there exists $r > 0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$.
-			\item \textbf{balanced} if for each $x \in A$, $c \in \C$, $|c| \leq 1$ implies that $cx \in A$.
-			\item an \textbf{absorbing disk} if $A$ is convex, absorbing and balanced.
-		\end{itemize}
+		Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be \textbf{convex} if for each $x, y \in A$, $t \in [0,1]$, $tx +(1-t)y \in A$.
 	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a vector space and $\MA \subset \MP(X)$, Suppose that for each $A \in \MA$, $A$ is convex. Then $$\bigcap_{A \in \MA} A$$ is convex.
+	\end{ex}
+
+	\begin{proof}
+		Let $x,y \in \bigcap\limits_{A \in \MA} A$ and $t \in [0,1]$. Then for each $A \in \MA$, $x,y \in A$. Let $A \in \MA$. Since $A$ is convex, $tx + (1-t)y \in A$. Since $A \in \MA$ is arbitrary, $tx + (1-t)y \in \bigcap\limits_{A \in \MA} A$. So $\bigcap\limits_{A \in \MA} A $ is convex.
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a vector space and $A \subset X$. Set 
+		$$\MS = \{S \subset X: S \text{ is convex and } A \subset S\}$$ 
+		We define the \textbf{convex hull of $A$}, denoted $\cnv A$, by $$\cnv A = \bigcap_{S \in \MS}S$$
+	\end{defn}
+
+	\begin{note}
+		We may think of $\cnv A$ as the smallest convex set containing $A$. 
+	\end{note}
+
+	\begin{defn}
+		Let $X$ be a vector space, $A \subset X$ and $x \in X$. Then $x$ is said to be a \textbf{convex combinations of elements of $A$} if there exist $(a_j)_{j=1}^n \subset A$ and $(t_j)_{j=1}^n \subset [0,1]$ such that $x = \sum\limits_{j=1}^n t_j a_j$ and $\sum\limits_{j=1}^n t_j = 1$. We define $C_A \subset X$ by 
+		
+		$$C_A = \{x \in X:\text{$x$ is a convex combination of elements of $A$}\}$$
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a vector space and $A \subset X$. 
+ 		Then 
+ 		\begin{enumerate}
+ 			\item $A \subset C_A$
+ 			\item $C_A$ is convex 
+ 		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x \in A$, then 
+			\begin{align*}
+				x 
+				&= 1x \\
+				& \in C_A 
+			\end{align*}
+			So $A \subset C_A$.\\
+			\item Let $x, y \in C_A$. and $\lam \in [0,1]$. Then there exist $(a_i)_{i=1}^n$, $(b_j)_{j=1}^m \subset A$ and $(s_i)_{i=1}^n$, $(t_j)_{j=1}^m \subset [0,1]$ such that $x = \sum\limits_{i=1}^n s_i a_i$ and $y = \sum\limits_{j=1}^m t_j b_j$. Then
+			\begin{align*}
+				\lam x + (1-\lam)y 
+				&= \lam [\sum\limits_{i=1}^n s_i a_i] + (1-\lam)[\sum\limits_{j=1}^m t_j b_j] \\
+				&= \sum\limits_{i=1}^n \lam s_i a_i + \sum\limits_{j=1}^m (1-\lam) t_j b_j
+			\end{align*}
+			Since 
+			\begin{enumerate}
+				\item for each $i \in \{1, \ldots, n\}$ and $j \in \{1, \ldots, m\}$, we have that $\lam s_i \in [0,1]$ and $(1-\lam)t_j \in [0,1]$
+				\item 
+				\begin{align*}
+					\sum\limits_{i=1}^n \lam s_i + \sum\limits_{j=1}^m (1-\lam) t_j
+					&= \lam \sum\limits_{i=1}^n s_i +  (1-\lam) \sum\limits_{j=1}^m  t_j \\
+					&= \lam + (1-\lam) \\
+					&= 1
+				\end{align*}
+			\end{enumerate}
+			we have that $\lam x+(1-\lam) y \in C_A$. So $C_A$ is convex.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a vector space and $A \subset X$. Let $(a_j)_{j=1}^n \subset A$ and $(t_j)_{j=1}^n \subset [0,1]$. Suppose that $\sum\limits_{j=1}^n t_j = 1$. If $A$ is convex, then $\sum\limits_{j=1}^n t_ja_j \in A$.\\
+		\textbf{Hint:} proceed by induction on $n$
+	\end{ex}
+	
+
+	\begin{proof}
+		Suppose that $A$ is convex. If $n = 2$, then by definition, $\sum\limits_{j=1}^n t_ja_j \in A$. \\
+		Suppose that the claim is true for $n - 1$. Since $\sum\limits_{j=1}^n t_j = 1$, then there $k \in \{1, \ldots, n\}$ such that $t_k > 0$. Choose Choose $l \in \{1, \ldots, n\}$ such that $l \neq k$. Set $S = \{1, \ldots, n\} \setminus \{t_l\}$. Then $1 - t_l >0$ and  
+		\begin{align*}
+			x
+			&= \sum\limits_{j=1}^n t_j a_j \\
+			&= t_l a_l + \sum_{j \in S} t_ja_j \\
+			&= t_la_l + (1-t_l) \sum_{j \in S} \frac{t_j}{1 - t_l}a_j
+		\end{align*}
+		Since 
+		\begin{align*}
+			\sum_{j \in S} \frac{t_j}{1-t_l} 
+			&= \frac{1-t_l}{1-t_l} \\
+			&= 1
+		\end{align*}
+		our induction hypothesis implies that 
+		$$\sum\limits_{j \in S} \frac{t_j}{1-t_l} a_j \in A$$ 
+		Since $A$ is convex, by definition we have that 
+		\begin{align*}
+			x 
+			&= t_la_l + (1-t_l) \bigg[ \sum_{j \in S} \frac{t_j}{1 - t_l}a_j \bigg] \\
+			& \in A
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a vector space and $A \subset X$. Then 
+		$$\cnv A = C_A$$
+	\end{ex}
+
+	\begin{proof}
+	Since $A \subset C_A$ and $C_A$ is convex, $\cnv A \subset C_A$. \\
+	Conversely, Let $x \in C_A$. Then there exist $(a_j)_{j=1}^n \subset A$ and $(t_j)_{j=1}^n \subset [0,1]$ such that $x = \sum\limits_{j=1}^n t_j a_j$ and $\sum\limits_{j=1}^n t_j = 1$. Since $A \subset \cnv A$ and $\cnv A$ is convex, the previous exercise implies that $x \in \cnv A$. So $C_A \subset \cnv A$. Hence $\cnv A = C_A$.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a vector space and $A$, $B \subset X$ convex. Then $A - B$ is convex.
+	\end{ex}
+	
+	\begin{proof}
+		Let $x,y \in A - B$ and $t \in [0,1]$. Then there exist $a_x, a_y \in A$, $b_x, b_y \in B$ such that $x = a_x - b_x$ and $y = a_y - b_y$. Since $A$ and $B$ are convex, $ta_x + (1-t)a_y \in A$ and $tb_x + (1-t)b_y \in B$. Hence 
+		\begin{align*}
+			tx + (1-t)y
+			&= ta_x - tb_x + (1-t)a_y - (1-t)b_y \\
+			&= [ta_x + (1-t)a_y] - [tb_x + (1-t)b_y] \\
+			& \in A - B
+		\end{align*}
+		So $A - B$ is convex.
+	\end{proof}
+
+		\begin{defn}
+		Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be \textbf{balanced} if for each $x \in A$, $c \in \C$, $|c| \leq 1$ implies that $cx \in A$.
+	\end{defn}
+
+		\begin{ex}
+		Let $X$ be a vector space and $\MA \subset \MP(X)$, Suppose that for each $A \in \MA$, $A$ is balanced. Then $$\bigcup_{A \in \MA} A$$ is balanced.
+	\end{ex}
+	
+	\begin{proof}
+		Let $x \in \bigcap\limits_{A \in \MA} A$ and $r \in \C$. Suppose that $|r| \leq 1$. Then there exists $B \in \MA$ such that $x \in B$. Since $A$ is balanced, 
+		\begin{align*}
+			rx 
+			&\in B \\
+			& \subset \bigcap\limits_{A \in \MA} A
+		\end{align*}
+		So $\bigcap\limits_{A \in \MA} A$ is balanced.
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a vector space and $A \subset X$. We define the \textbf{balanced hull of $A$}, denoted $\bal A$, by $$\bal A = \bigcup_{\substack{r \in \C \\ |r| \leq 1}} rA$$
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a vector space and $A \subset X$. Then $\bal A$ is balanced. 
+	\end{ex}
+
+	\begin{proof}
+		Let $x \in \bal A$ and $r \in \C$. Suppose that $|r| \leq 1$. By definition, there exists $s \in \C$ and $a \in A$ such that $|s| \leq 1$ and $x = sa$. Then 
+		\begin{align*}
+			|rs| 
+			&= |r||s| \\
+			&\leq 1
+		\end{align*}
+		which implies that
+		\begin{align*}
+			rx 
+			&= rsa \\
+			& \in rsA \\
+			& \subset \bigcup_{\substack{q \in \C \\ |q| \leq 1}} qA \\
+			&= \bal A
+		\end{align*}
+		So $\bal A$ is balanced.
+	\end{proof}
+	
+	\begin{note}
+		We may think of $\bal A$ as the smallest balanced set containing $A$. 
+	\end{note}
 	
 	\begin{ex}
 		Let $X$ be a vector space and $A \subset X$. Suppose that $A \neq \varnothing$. If $A$ is balanced, then $0 \in A$.
@@ -2099,14 +2305,6 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Clear by definition.
 	\end{proof}
 
-	\begin{ex}
-		Let $X$ be a vector space, $A \subset X$ and $K \in \C$. Suppose that $A$ is balanced. If $|K| \leq 1$, then $KA$ is balanced.
-	\end{ex}
-
-	\begin{proof}
-		Suppose that $|K| \leq 1$.  Since $A$ is balanced, $KA \subset A$. Let $x \in KA$ and $c \in \C$. Then there exists $a \in A$ such that $x = Ka$. Suppose that $|c| \leq 1$. Then $cx = cKa$. Since $|cK| < 1$, $cx \in $
-	\end{proof}
-	
 	\begin{ex}
 		Let $X$ be a vector space, $A \subset X$, $x \in X$ and $\lam \in \C$. Suppose that $A$ is balanced. Then $\lam x \in A$ iff $|\lam| x \in A$.  
 	\end{ex}
@@ -2126,6 +2324,219 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		\end{align*}
 	\end{proof}
 
+	\begin{ex}
+		Let $X$ be a vector space and $A \subset X$. If $A$ is balanced, then $\cnv A$ is balanced.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $A$ is balanced. Let $x \in \cnv A$ and $r \in \C$. Suppose that $|r| \leq 1$. Then there exist $(a_j)_{j=1}^n \subset A$ and $(t_j)_{j=1}^n \subset [0,1]$ such that $x = \sum\limits_{j=1}^n t_j a_j$ and $\sum\limits_{j=1}^n t_j = 1$. Since $A$ is balanced, for each $j \in \{1, \ldots, n\}$, 
+		\begin{align*}
+			ra_j 
+			&\in A \\
+			&\subset \cnv A
+		\end{align*}
+		Since $\cnv A$ is convex, we have that 
+		\begin{align*}
+			rx 
+			&= r\sum\limits_{j=1}^n t_j a_j\\
+			&= \sum\limits_{j=1}^n t_j ra_j\\
+			&\in \cnv A
+		\end{align*}
+		Hence $\cnv A$ is balanced..
+	\end{proof}
+
+
+
+	\begin{defn}
+		Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be \textbf{absorbing} if for each $x \in X$, there exists $r > 0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$.
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a topological vector space and $A \in \MN_0$. Then $A$ is absorbing. 
+	\end{ex}
+
+	\begin{proof}
+		Let $x \in A$. For the sake of contradiction, suppose that for each $r > 0$, there exists $c \in \R$ such that $|c| \geq r$ and $c^{-1}x \in A^c$. Then there exists a sequence $(c_{n})_{n \in \N} \subset \R$ such that for each $n \in \N$, $c_n \geq n$ and $c_n^{-1}x \in A^c$. Since $c_n^{-1} \rightarrow 0$, $c_n^{-1}x \rightarrow 0$. Since $A \in \MN_0$, $(c_n^{-1}x)_{n \in \N}$ is eventually in $A$. This is a contradiction. So there exists $r > 0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$. Hence $A$ is absorbing.
+	\end{proof}
+
+	\begin{ex}
+		
+	\end{ex}
+	
+	\begin{proof}
+		
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a vector space and $A \subset X$. For $x \in X$, set $$T^A_x = \{t > 0: x \in tA\}$$ We define the \textbf{Minkowski functional}, denoted $p_A: X \rightarrow \RG$, by $$p_A(x) = \inf T^A_x$$ 
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a vector space and $A \subset X$. Suppose that $A$ is convex, absorbing and $0 \in A$. Then 
+		\begin{enumerate}
+			\item $p_A:X \rightarrow \Rg$ 
+			\item $p(0) = 0$
+			\item $p_A$ is a sublinear functional on $X$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since $A$ is absorbing, there exists $r >0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$. Therefore $p_A(x) \leq |c|$ and $p_A: X \rightarrow \Rg$.
+			\item Since $0 \in A$, 
+			\begin{align*}
+				p_A(0) 
+				&= \inf T^A_0 \\
+				&= 0
+			\end{align*}
+			\item \begin{itemize}
+				\item Let $\ep >0$. Choose $t_x \in T^A_x$ and $t_y \in T^A_y$ such that $t_x < p_A(x) + \ep/2$ and $t_y < p_A(y) + \ep/2$. By definition, $t_x^{-1}x$, $t_y^{-1}y \in A$. Set $\theta = t_x(t_x +t_y)^{-1} \in (0, 1)$. Since $A$ is convex, 
+				\begin{align*}
+					(t_x +t_y)^{-1}(x+y) 
+					&= (t_x +t_y)^{-1}x + (t_x +t_y)^{-1}y \\
+					&= \theta t_x^{-1}x + (1 - \theta)t_y^{-1}y \\
+					& \in A
+				\end{align*}
+				Therefore, $t_x + t_y \in T^A_{x+y}$ and 
+				\begin{align*}
+					p_A(x+y) 
+					& \leq t_x + t_y \\
+					& < p_A(x) + \frac{\ep}{2} + p_A(y) + \frac{\ep}{2} \\
+					& = p_A(x) + p_A(y) + \ep.
+				\end{align*}
+				Since $\ep >0$ is arbitrary, $p_A(x+y) \leq p_A(x) + p_A(y)$.
+				\item If $\lam =0$, then 
+				\begin{align*}
+					p_A(\lam x) 
+					&= p_A(0) \\
+					&= 0 \\
+					&= |\lam| p_A(x)
+				\end{align*}
+				Suppose that $\lam > 0$. Let $t >0$. Then
+				\begin{align*}
+					p_A(\lam x) 
+					&= \inf \{t > 0: \lam x \in tA\} \\
+					&= \inf \{t > 0: x \in \lam^{-1} tA\} \\
+					&= \inf \{\lam s > 0: x \in sA\} \\
+					&= \lam \inf \{ s > 0: x \in sA\} \\
+					&= \lam p_A(x)
+				\end{align*}
+			\end{itemize}
+		\end{enumerate}
+		So $p$ is a sublinear functional on $X$. 
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a vector space and $A \subset X$. Suppose that $A$ is convex, absorbing and $0 \in A$. Then $p_A^{-1}[0, 1) \subset A$. 
+	\end{ex}
+
+	\begin{proof}
+		Let $x \in p_A^{-1}[0, 1)$. Then $p_A(x) < 1$. By definition, there exists $t \in (0,1)$ such that $x \in tA$. Thus $t^{-1}x \in A$. Since $0 \in A$ and $A$ is convex, we have that 
+		\begin{align*}
+			x
+			&= t (t^{-1}x) + (1-t)0 \\
+			& \in A
+		\end{align*}
+	 	Since $x \in p_A^{-1}[0, 1)$ is arbitrary, $p_A^{-1}[0, 1) \subset A$.
+	\end{proof}
+
+		\begin{ex}
+		Let $X$ be a topological vector space and $A \subset X$. Suppose that $A$ is open, convex, and $0 \in A$. Then $p_A^{-1}[0, 1) = A$.\\
+		\textbf{Hint:} for $x \in A$, consider the sequence $(1 + 1/n)x$
+	\end{ex}
+	
+	\begin{proof}
+		Since $A$ is open and $0 \in A$, $A \in \MN_0$ which implies that $A$ is absorbing. The previous exercise implies that $p_A^{-1}[0, 1) \subset A$. \\
+		Conversely, let $x \in A$. Since $A$ is open, $A \in \MN_x$. Since $1 + 1/n \rightarrow 1$, $(1 + 1/n)x \rightarrow x$. Therefore, there exits $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $(1 + 1/n)x \in A$. In particular, $x \in (1 + 1/N)^{-1}A$. Hence $(1 + 1/N)^{-1} \in T_x^A$ and
+		\begin{align*}
+			p_A(x)
+			&= \leq (1 + 1/N)^{-1} \\
+			& < 1
+		\end{align*}
+		So $x \in p_A^{-1}[0, 1)$ and $A \subset B_{p_A}(0,1)$. \\
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a real topological vector space, $A \subset X$ and $x_0 \in A^c$. Suppose that $A$ is convex, $A \in \MN_0$ and $A$ is open. Then there exists $F \in X^*$ such that $F(x_0) =1$ and $F|_A < 1$. \\
+		\textbf{Hint:} 
+		\begin{enumerate}
+			\item \textbf{Existence:} consider a special $f \in (\R x_0)^*$ and use $p_A$ to apply the Hahn-Banach theorem.
+			\item \textbf{Continuity:} for $\ep > 0$, consider the neighborhood $U_{\ep} = \ep A \cap - \ep A$
+		\end{enumerate} 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Define $f \in (\R x_0)^*$ by $f(tx_0) = t$. Then $f(x_0) = 1$. Since $A \in \MN_0$, $0 \in A$ and a previous exercise implies that $A$ is absorbing. Since $A$ is convex, absorbing and $0 \in A$, $p_A:X \rightarrow [0, \infty)$ is a sublinear functional on $X$. Since $x_0 \in A^c$, the previous exercise implies that $1 \leq p_A(x_0)$. Let $y \in \R x_0$. Then there exists $t \in \R$ such that $y = tx_0$. 
+			\begin{itemize}
+				\item If $t \geq 0$, then 
+				\begin{align*}
+					f(y)
+					&= t \\
+					&\leq tp_A(x_0) \\
+					&= p_A(tx_0) \\
+					&= p_A(x)
+				\end{align*}
+				\item If $t<0$, then $-t >0$ and an exercise from the section on sublinear functionals implies that
+				\begin{align*}
+					f(y)
+					&= t \\
+					&= < 0 \\
+					& \leq p_A(y)
+				\end{align*}
+			\end{itemize}
+				So $f \leq p_A$ on $\R x_0$. The Hahn-Banach theorem implies that there exists $F \in X^*$ such that $F|_{\R x_0} = f$ and $F \leq p_A$. The previous exercise implies that  $p_A|_A < 1$. Hence $F|_A < 1$. 
+		\item Let $V \in \MN_{0_\R}$. Choose $\ep >0$ such that $B(0,\ep) \subset V$. Set $U_{\ep} = \ep A \cap -\ep A$. Then $U_{\ep} \in \MN_0$. Let $u \in U_{\ep}$. Then $\ep^{-1}u, -\ep^{-1}u \in A$. A previous exercise implies that $p_A^{-1}([0,1)) = A$. Hence 
+		\begin{align*}
+			\ep^{-1}F(u)
+			&= F(\ep^{-1}u) \\
+			&\leq p_A(\ep^{-1} u) \\
+			&< 1
+		\end{align*}
+		So $F(u) < \ep$. Similarly, $F(-u) < \ep$. So $-\ep < F(u) < \ep$ and
+		\begin{align*}
+			F(U_{\ep}) 
+			&\subset B(0, \ep) \\
+			& \subset V 
+		\end{align*}
+		Since $V \in \MN_{0_{\R}}$ is arbitrary, $F$ is continuous at $0$. Since $F$ is linear and $F$ is continuous at $0$, $F$ is continuous. Hence $F \in X^*$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \textbf{Geometric Hahn-Banach Theorem 1:} \\
+		Let $X$ be a real topological vector space and $A$, $B \subset X$. Suppose that $A$, $B$ are nonempty, convex and disjoint. If $A$ is open, then there exists $\phi \in X^*$ and $c \in \R$ such that for each $x \in A$, $y \in B$, $$\phi(x) < c \leq \phi(y)$$
+		\textbf{Hint:}
+		\begin{enumerate}
+			\item  Choose $a_0 \in A$ and $b_0 \in B$ and set $x_0 = b_0 - a_0$ and $C = A - B + x_0$. Then there exists $\phi \in X^*$ such that $\phi(x_0) = 1$ and $\phi|_C < 1$.
+			\item 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since $A, B$ are nonempty, there exist $a_0 \in A$ and $b_0 \in B$. Set $x_0 = b_0 - a_0$. Previous exercises imply that $A - B$ is open and convex. Set $C = A - B + x_0$. Then $C$ is open and convex. 
+			Since  
+			\begin{align*}
+				0 
+				&= a_0 - b_0 + x_0 \\
+				&\in C
+			\end{align*}
+			$C \in \MN_0$. For the sake of contradiction, suppose that $x_0 \in C$. Then there exist $a \in A$, $b \in B$ such that $x_0 = a - b + x_0$. This implies that $a = b$. This is a contradiction since $A \cap B = \varnothing$. Hence $x_0 \not \in C$. The previous exercise implies that there exists a $\phi \in X^*$ such that $\phi(x_0) = 1$ and  $\phi|_C < 1$. 
+			\item Let $x \in A$ and $y \in B$. Then 
+			\begin{align*}
+				\phi(a) - \phi(b) + 1
+				&= \phi(a) - \phi(b) + \phi(x_0) \\
+				&= \phi(a - b + x_0) \\
+				& < 1
+			\end{align*}
+			So $\phi(a) < \phi(b)$.
+		\end{enumerate}
+	\end{proof}
+	
+		\begin{defn}
+		Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be an \textbf{absorbing disk} if $A$ is convex, absorbing and balanced.
+	\end{defn}
+	
 	\begin{ex}
 		Let $X$ be a vector space, $p :X \rightarrow \Rg$ a seminorm on $X$ and $r >0$. Then $B_p(0, r)$ is an absorbing disk.
 	\end{ex}
@@ -2161,52 +2572,20 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Since $B_p(0, r)$ is convex, absorbing and balanced, it is an absorbing disk. 
 	\end{proof}
 	
-	\begin{defn}
-		Let $X$ be a vector space and $A \subset X$. For $x \in X$, set $$T^A_x = \{t > 0: x \in tA\}$$ We define the \textbf{Minkowski functional}, denoted $p_A: X \rightarrow \RG$, by $$p_A(x) = \inf T^A_x$$ 
-	\end{defn}
 	
 	\begin{ex}
-		Let $X$ be a vector space and $A \subset X$. Suppose that $A$ is an absorbing disk. Then 
-		\begin{enumerate}
-			\item $p_A:X \rightarrow \Rg$ 
-			\item $p(0) = 0$
-			\item $p_A$ is a seminorm on $X$
-		\end{enumerate}
+		Let $X$ be a vector space and $A \subset X$. Suppose that $A$ is an absorbing disk. Then $p_A:X \rightarrow \Rg$ is a seminorm on $X$.
 	\end{ex}
 	
-	\begin{proof} Let $x, y \in X$ and $\lam \in \C$. 
-		\begin{enumerate}
-			\item Since $A$ is absorbing, there exists $r >0$ such that for each $c \in \R$, $|c| \geq r$ implies that $x \in cA$. Therefore $p_A(x) \leq |c|$ and $p_A: X \rightarrow \Rg$.
-			\item Since $0 \in A$, 
-			\begin{align*}
-				p_A(0) 
-				&= \inf T^A_0 \\
-				&= 0
-			\end{align*}
-			\item \begin{itemize}
-				\item Let $\ep >0$. Choose $t_x \in T^A_x$ and $t_y \in T^A_y$ such that $t_x < p_A(x) + \ep/2$ and $t_y < p_A(y) + \ep/2$. By definition, $t_x^{-1}x$, $t_y^{-1}y \in A$. Set $\theta = t_x(t_x +t_y)^{-1} \in (0, 1)$. Since $A$ is convex, 
-				\begin{align*}
-					(t_x +t_y)^{-1}(x+y) 
-					&= (t_x +t_y)^{-1}x + (t_x +t_y)^{-1}y \\
-					&= \theta t_x^{-1}x + (1 - \theta)t_y^{-1}y \\
-					& \in A
-				\end{align*}
-				Therefore, $t_x + t_y \in T^A_{x+y}$ and 
-				\begin{align*}
-					p_A(x+y) 
-					& \leq t_x + t_y \\
-					& < p_A(x) + \frac{\ep}{2} + p_A(y) + \frac{\ep}{2} \\
-					& = p_A(x) + p_A(y) + \ep.
-				\end{align*}
-				Since $\ep >0$ is arbitrary, $p_A(x+y) \leq p_A(x) + p_A(y)$.
-				\item If $\lam =0$, then 
+	\begin{proof} Since $A$ is an absorbing disk, $A$ is convex, absorbing and balanced. So $0 \in A$ and the previous exercise tells us that $p$ is a sublinear functional on $X$. Let $x\in X$ and $\lam \in \C$. \\
+		If $\lam =0$, then 
 				\begin{align*}
 					p_A(\lam x) 
 					&= p_A(0) \\
 					&= 0 \\
 					&= |\lam| p_A(x)
 				\end{align*}
-				Suppose that $\lam \neq 0$. For $t >0$, $\lam t^{-1} x \in A$ iff $|\lam| t^{-1} x \in A$. So
+		Suppose that $\lam \neq 0$. Since $A$ is balanced, for $t >0$, $\lam t^{-1} x \in A$ iff $|\lam| t^{-1} x \in A$. So
 				\begin{align*}
 					p_A(\lam x) 
 					&= \inf \{t > 0: \lam x \in tA\} \\
@@ -2215,8 +2594,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 					&= |\lam|\inf \{ s > 0: x \in sA\} \\
 					&= |\lam | p_A(x)
 				\end{align*}
-			\end{itemize}
-		\end{enumerate}
+	So $p$ is a seminorm on $X$.
 	\end{proof}
 	
 	\begin{ex}
@@ -2224,14 +2602,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{ex}
 
 	\begin{proof}
-		Let $x \in A$. Since $A$ is open, $A \in \MN_x$. Since $1 + 1/n \rightarrow 1$, $(1 + 1/n)x \rightarrow x$. Therefore, there exits $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $(1 + 1/n)x \in A$. In particular, $x \in 1/ (1 + 1/N)A$. Hence $1/(1 + 1/N) \in T_x^A$ and
-		\begin{align*}
-			p_A(x)
-			&= \leq 1/(1 + 1/N) \\
-			& < 1
-		\end{align*}
-		So $x \in B_{p_A}(0,1)$ and $A \subset B_{p_A}(0,1)$. \\
-		Conversely, let $x \in  B_{p_A}(0,1)$. Then $p_A(x) <1$. By definition, there exists $t \in (0,1)$ such that $x \in tA$. Since $A$ is balanced, $tA \subset A$. Hence $x \in A$. So $A = B_{p_A}(0,1)$.
+		Clear by previous exercise.
 	\end{proof}
 
 	\begin{ex}
@@ -2248,11 +2619,9 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		which implies that $\bar{B}_{p_A}(0,1) \in \MN_0$. An exercise in the previous section implies that $p_A$ is continuous. \\
 		Conversely, if $p_A$ is continuous, then an exercise in the previous section implies that $B_{p_A}(0,1)$ is open. 
 	\end{proof}
+	
 
-	\begin{ex} \textbf{Geometric Hahn-Banach Theorem 1} \\
-		
-		
-	\end{ex}
+	
 
 	
 
