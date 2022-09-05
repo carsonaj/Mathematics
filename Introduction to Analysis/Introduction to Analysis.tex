@@ -46,6 +46,7 @@
 \newcommand{\gam}{\gamma}
 \newcommand{\Gam}{\Gamma}
 \newcommand{\be}{\beta} 
+\newcommand{\ze}{\zeta} 
 \newcommand{\del}{\delta} 
 \newcommand{\Del}{\Delta}
 \newcommand{\lam}{\lambda}  
@@ -945,6 +946,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\item for each $\al \in A$, $\al \leq \al$
 	\item for each $\al, \be, \gam \in A$, $\al \leq \be$ and $\be \leq \gam$ implies that $\al \leq \gam$
 	\item for each $\al, \be \in A$, there exists $\gam \in A$ such that $\al, \be \leq \gam$
+	\item $A \neq \varnothing$
 	\end{enumerate}
 	\end{defn}
 	
@@ -964,6 +966,24 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\end{enumerate}
 	So $\MN_x$ is a directed set. 
 	\end{proof}
+
+	\begin{defn}
+		Let $(A, \leq_A)$ and $(B, \leq_B)$ be directed sets. We define the \textbf{product directed set of $(A, \leq_A)$ and $(B, \leq_B)$}, denoted $(A \times B, \leq)$, by 
+		$$(a_1, b_1) \leq (a_2, b_2) \text{ iff } a_1 \leq a_2 \text{ and } b_1 \leq b_2$$
+	\end{defn}
+
+	\begin{ex}
+		Let $(A, \leq_A)$ and $(B, \leq_B)$ be directed sets. Then the product directed set of $(A, \leq_A)$ and $(B, \leq_B)$ is a directed set.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $(a, b) \in A \times B$. Then $a \leq_A a$ and $b \leq_B b$. So $(a, b) \leq (a ,b)$.
+			\item Let $(a_1, b_1), (a_2, b_2), (a_3, b_3) \in A \times B$. Suppose that $(a_1, b_1) \leq (a_2, b_2)$ and $(a_2, b_2) \leq (a_3, b_3)$. Then $a_1 \leq_A a_2$, $a_2 \leq_A a_3$, $b_1 \leq_B b_2$ and $b_2 \leq_B b_3$. Therefore $a_1 \leq_A a_3$ and $b_1 \leq_B b_3$. Hence $(a_1, b_1) \leq (a_3, b_3)$.
+			\item Let $(a_1, b_1), (a_2, b_2) \in A \times B$. Then there exist $a \in A$ and $b \in B$ such that $a_1, a_2 \leq_A a$ and $b_1, b_2 \leq_B b$. Hence $(a_1, b_1), (a_2, b_2) \leq (a, b)$.
+		\end{enumerate}
+		So $(A \times B, \leq)$ is directed.
+	\end{proof}
 	
 	\begin{defn} \ld{33004}
 	Let $X$ be a topological space, $A$ a directed set and $x:A \rightarrow Y$. Then $x$ is said to be a \textbf{net} in $X$. We typically write $(x_{\al})_{\al \in A}$. 
@@ -973,8 +993,8 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	Let $X$ be a topological space, $(x_{\al})_{\al \in A} \subset X$ a net and $U \subset X$.
 	Then $(x_{\al})_{\al \in A}$ is said to be 
 	\begin{itemize}
-	\item \textbf{in $U$ eventually} if there exists $\be \in A$ such that for each $\al \in A$ $\al \geq \be$ implies that $x_{\al} \in U$
-	\item \textbf{in $U$ infinitely often}  if for each $\al \in A$, there exists $\be \in A$ such that $\be \geq \al $ and $x_{\be} \in U$
+	\item \textbf{eventually in $U$} if there exists $\be \in A$ such that for each $\al \in A$ $\al \geq \be$ implies that $x_{\al} \in U$
+	\item \textbf{frequently in $U$}  if for each $\al \in A$, there exists $\be \in A$ such that $\be \geq \al $ and $x_{\be} \in U$
 	\end{itemize}
 	\end{defn}
 	
@@ -1077,14 +1097,47 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 			\item Similar
 		\end{enumerate} 
 	\end{proof}
-	
-	\begin{defn} \ld{33014}
-	
+
+	\begin{defn}
+		Let $X$ be a topological space, $(x_{\al})_{\al \in A} \subset X$ a net and $x \in X$. Then $x$ is said to be a \textbf{cluster point of} $(x_{\al})_{\al \in A}$ if for each $U \in \MN_x$, $(x_{\al})_{\al \in A}$ is frequently in $U$.
 	\end{defn}
 	
-	\begin{ex} \lex{33015}
+	\begin{defn} \ld{33014}
+	Let $X$ be a topological space, $(x_{\al})_{\al \in A}$, $(y_{\be})_{\be \in B} \subset X$ nets and $\phi:B \rightarrow A$. 
+	Then $((y_{\be})_{\be \in B}, \phi)$ is said to be a \textbf{subnet of $(x_{\al})_{\al \in A}$} if 
+	\begin{enumerate}
+		\item for each $\beta \in B$, $y_{\beta} = x_{\phi(\beta)}$
+		\item for each $\al_0 \in A$, there exists $\be_0 \in B$ such that for each $\be \in B$, $\be \geq \be_0$ implies that $\phi(\be) \geq \al_0$
+	\end{enumerate}
+	\end{defn}
 	
+	\begin{note}
+		We usually supress $\phi$ and write $\al_{\be}$ in place of ${\phi(\beta)}$.
+	\end{note}
+	
+	\begin{ex} \lex{33015}
+	Let $X$ be a topological space, $(x_{\al})_{\al \in A} \subset X$ a net and $x \in X$. Then $x$ is a cluster point of $(x_{\al})_{\al \in A}$ iff there exists a subnet $(x_{\al_{\be}})_{\be \in B}$ of $(x_{\al})_{\al \in A}$ such that $x_{\al_{\be}} \rightarrow x$. \\
+	\textbf{Hint:} Order $\MN_x$ by reverse inclusion and consider the product directed set $B = A \times \MN_x$. If $x$ is a cluster point of $(x_{\al})_{\al \in A}$, then for each $\be = (\gam, U) \in B$, there exists $\al_{\be} \in A$ such that $\al_{\be} \geq \gam$ and $\al_{\be} \in U$. 
 	\end{ex}
+
+	\begin{proof}
+		Suppose that $x$ is a cluster point of $(x_{\al})_{\al \in A}$. Set $B = A \times \MN_x$. Since $x$ is a cluster point of $(x_{\al})_{\al \in A}$, for each $(\gam, U) \in B$, there exists $\al_{(\gam, U)} \in A$ such that $\al_{(\gam, U)} \geq \gam$ and $x_{\al_{(\gam, U)}} \in U$. Let $\al_0 \in A$. Choose $\be_0 = (\al_0, X) \in B$. Let $\be = (\gam, U) \in B$. Suppose that $\be \geq \be_0$. Then $\gam \geq \al_0$ and 
+		\begin{align*}
+			\al_{\be}
+			&= \al_{(\gam, U)} \\
+			& \geq \gam \\
+			& \geq \al_0
+		\end{align*}
+		So that $(x_{\al_{\be}})_{\be \in B}$ is a subnet of $(x_{\al})_{\al \in A}$. Let $U_0 \in \MN_x$. Choose $\al_0 \in A$ and set $\be_0 = (\al_0, U_0)$. Let $\be = (\gam, U) \in B$. Suppose that $\be \geq \be_0$. Then 
+		\begin{align*}
+			x_{\al_{\be}} 
+			&= x_{\al_{(\gam, U)}} \\
+			& \in U \\
+			&\subset U_0
+		\end{align*} 
+		Since $U_0 \in \MN_x$ is arbitrary, $x_{\al_{\be}} \rightarrow x$. \\
+		Conversely, suppose that there exists a subnet $(x_{\al_{\be}})_{\be \in B}$ of $(x_{\al})_{\al \in A}$ such that $x_{\al_{\be}} \rightarrow x$. Let $U \in \MN_x$ and $\al \in A$. Since $x_{\al_{\be}} \rightarrow x$, there exists $\be_1 \in B$ such that for each $\be \in B$, $\be \geq \be_1$ implies that $x_{\al_{\be}} \in U$. Since $(x_{\al_{\be}})_{\be \in B}$ is a subnet of $(x_{\al})_{\al \in A}$, there exists $\be_2 \in B$ such that for each $\be \in B$, $\be \geq \be_2$ implies that $\al_{\be} \geq \al$. Since $B$ is directed, there exists $\be \in B$ such that $\be_1, \be_2 \leq \be$. Then $x_{\be} \geq \al$ and $x_{\be} \in U$. Since $\al \in A$ is arbitrary,  $(x_{\al_{\be}})_{\be \in B}$ is frequently in $U$. Since $U \in \MN_x$ is arbitrary, $x$ is a cluster point of $(x_{\al_{\be}})_{\be \in B}$. 
+	\end{proof}
 	
 	
 	\begin{defn}
@@ -1590,13 +1643,13 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 
 	\begin{ex}
-		Let $X$ be a topological vector space and $A$, $B \subset X$ convex. If $A$ is open, then $A - B$ is open.
+		Let $X$ be a topological vector space and $A$, $B \subset X$. If $A$ is open, then $A + B$ is open.
 	\end{ex}
 	
 	\begin{proof} \
-		Suppose that $A$ is open. Then for each $b \in B$, $A - b$ is open. Since 
-		$$A - B = \bigcup_{b \in B} A - b$$
-		we have that $A - B$ is open.
+		Suppose that $A$ is open. Then for each $b \in B$, $A + b$ is open. Since 
+		$$A + B = \bigcup_{b \in B} A + b$$
+		we have that $A + B$ is open.
 	\end{proof}
 
 	\begin{defn} \ld{55001}\
@@ -1630,7 +1683,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		\end{align*}
 		Therefore $\phi(x_{\al}) \rightarrow \phi(x)$ and $\phi$ is continuous at $x$. Since $x \in X$ is arbitrary, $\phi$ is continuous. 
 	\end{proof}
-
+fi
 \begin{ex}
 	Let $X$ be a topological vector space and $\phi :X \rightarrow \C$ linear. Then $\phi$ is continuous iff $|\phi|$ is continuous. 
 \end{ex}
@@ -1647,13 +1700,13 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	So $\phi(x_{\al}) \rightarrow \phi(x)$ and $\phi$ is continuous.
 \end{proof}
 
-%	\begin{ex}
-%		Let $X$ be a topological vector space and $(\lam_{\al})_{\al \in A} \subset \C$ and $(x_{\al})_{\al \in A} \subset X$ nets. If $(\lam_{\al})_{\al \in A}$ is bounded and $x_{\al} \rightarrow 0$, then $\lam_{\al}x_{\al} \rightarrow 0$.
-%	\end{ex}
-%
-%	\begin{proof}
-%		Suppose that $(\lam_{\al})_{\al \in A}$ is bounded and $x_{\al} \rightarrow 0$. 
-%	\end{proof}
+	\begin{ex}
+		Let $X$ be a topological vector space and $A,B \subset X$. Suppose that $A$ is compact, $B$ is closed and $A \cap B = \varnothing$. Then there exists $U \in \MN_0$ such that $U$ is open and $(A + U) \cap B = \varnothing$. 
+	\end{ex}
+
+	\begin{proof}
+		Set $\Gam = \{U \in \MN_0: U \text{ is open}\}$ and order $\Gam$ by reverse inclusion, so that $\Gam$ is a directed set. For the sake of contradiction, suppose that for each $U \in \Gam$, $(A + U) \cap B \neq \varnothing$. Then for each $\gam \in \Gam$, there exist $a_{\gam} \in A$ and $u_{\gam} \in \gam$ such that $a_{\gam} + u_{\gam} \in B$. Since $A$ is compact, there exists $a \in A$ and a subnet $(a_{\gam_{\ze}})$
+	\end{proof}
 
 
 
@@ -2235,18 +2288,32 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 
 	\begin{ex}
-		Let $X$ be a vector space and $A$, $B \subset X$ convex. Then $A - B$ is convex.
+		Let $X$ be a vector space and $A$, $B \subset X$ convex and $\lam \in \C$. Then 
+		\begin{enumerate}
+			\item $A + B$ is convex
+			\item $\lam A$ is convex
+		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
-		Let $x,y \in A - B$ and $t \in [0,1]$. Then there exist $a_x, a_y \in A$, $b_x, b_y \in B$ such that $x = a_x - b_x$ and $y = a_y - b_y$. Since $A$ and $B$ are convex, $ta_x + (1-t)a_y \in A$ and $tb_x + (1-t)b_y \in B$. Hence 
-		\begin{align*}
-			tx + (1-t)y
-			&= ta_x - tb_x + (1-t)a_y - (1-t)b_y \\
-			&= [ta_x + (1-t)a_y] - [tb_x + (1-t)b_y] \\
-			& \in A - B
-		\end{align*}
-		So $A - B$ is convex.
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x,y \in A + B$ and $t \in [0,1]$. Then there exist $a_x, a_y \in A$, $b_x, b_y \in B$ such that $x = a_x + b_x$ and $y = a_y + b_y$. Since $A$ and $B$ are convex, $ta_x + (1-t)a_y \in A$ and $tb_x + (1-t)b_y \in B$. Hence 
+			\begin{align*}
+				tx + (1-t)y
+				&= ta_x + tb_x + (1-t)a_y + (1-t)b_y \\
+				&= [ta_x + (1-t)a_y] + [tb_x + (1-t)b_y] \\
+				& \in A + B
+			\end{align*}
+			So $A + B$ is convex.
+			\item Let $x, y \in \lam A$ and $t \in [0,1]$. Then there exist $a_x, a_y \in A$ such that $x = \lam a_x$ and $y = \lam a_y$. Since $A$ is convex, $t a_x + (1-t) a_y \in A$. Therefore 
+			\begin{align*}
+				tx + (1-t)y 
+				&= t \lam a_x + (1-t) \lam a_y \\
+				&= \lam [t a_x + (1-t) a_y ] \\
+				& \in \lam A
+			\end{align*}
+			So $\lam A$ is convex.
+		\end{enumerate}
 	\end{proof}
 
 		\begin{defn}
@@ -2503,12 +2570,12 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		\end{enumerate}
 	\end{proof}
 
-	\begin{ex} \textbf{Geometric Hahn-Banach Theorem 1:} \\
+	\begin{ex} \textbf{Hahn-Banach Separation Theorem 1:} \\
 		Let $X$ be a real topological vector space and $A$, $B \subset X$. Suppose that $A$, $B$ are nonempty, convex and disjoint. If $A$ is open, then there exists $\phi \in X^*$ and $c \in \R$ such that for each $x \in A$, $y \in B$, $$\phi(x) < c \leq \phi(y)$$
 		\textbf{Hint:}
 		\begin{enumerate}
 			\item  Choose $a_0 \in A$ and $b_0 \in B$ and set $x_0 = b_0 - a_0$ and $C = A - B + x_0$. Then there exists $\phi \in X^*$ such that $\phi(x_0) = 1$ and $\phi|_C < 1$.
-			\item 
+			\item For each $a \in A$, $b \in B$, $\phi(a) < \phi(b)$. Set $c = \sup\limits_{a \in A}\phi(a)$. If for some $a_0 \in A$, $\phi(a_0) = c$, then there exists $N \in \N$ such that $a_0 + \frac{1}{N}x_0 \in A$.
 		\end{enumerate}
 	\end{ex}
 	
@@ -2529,7 +2596,21 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 				&= \phi(a - b + x_0) \\
 				& < 1
 			\end{align*}
-			So $\phi(a) < \phi(b)$.
+			So $\phi(a) < \phi(b)$. Set $c = \sup\limits_{a \in A}\phi(a)$. For the sake of contradiction, suppose that there exists $a_0 \in A$, $\phi(a_0) = c$. Since $A$ is open, and 
+			\begin{align*}
+				a_0 + \frac{1}{n}x_0 
+				&\rightarrow a_0 \\
+				&\in A
+			\end{align*}
+			there exists $N \in \N$ such that $a_0 + \frac{1}{N}x_0 \in A$. Then 
+			\begin{align*}
+				\phi \bigg(a_0 + \frac{1}{N}x_0 \bigg)
+				&= \phi(a_0) + \frac{1}{N} \phi(x_0) \\
+				&= c + \frac{1}{N} \\
+				& > c
+			\end{align*}
+			This is a contradiction since for each $x \in A$, $\phi(a) < 1$. So for each $x \in A$, $y \in B$, 
+			$$\phi(x) < c \leq \phi(y)$$
 		\end{enumerate}
 	\end{proof}
 	
@@ -2727,14 +2808,14 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $(x_{\al})_{\al \in A}$, $(x_{\al})_{\al \in A} \subset X$ and $(\lam_{\al})_{\al \in A} \subset \C$ be nets and $x$,$y \in X$, $\lam \in \C$. Suppose that $x_{\al} \rightarrow x$, $y_{\al} \rightarrow y$ and $\lam_{\al} \rightarrow \lam$. Then 
+			\item Let $(x_{\al})_{\al \in A}$, $(x_{\al})_{\al \in A} \subset X$ and $(\lam_{\al})_{\al \in A} \subset \C$ be nets and $x$,$y \in X$, $\lam \in \C$. Suppose that $x_{\al} \rightarrow x$, $y_{\al} \rightarrow y$ and $\lam_{\al} \rightarrow \lam$. Let $P \in \MP$. Then 
 			\begin{align*}
 				p([x_{\al} + y_{\al}] - [x + y]) 
 				&= p([x_{\al} - x] + [y_{\al} - y]) \\
 				&\leq p(x_{\al} - x) + p(y_{\al} - y) \\
 				& \rightarrow 0
 			\end{align*}
-			So addition $X \times X \rightarrow X$ is continuous. \\
+			Since $p \in \MP$ is arbitrary, $x_{\al} + y_{\al} \rightarrow x + y$ and addition $X \times X \rightarrow X$ is continuous. \\
 			
 			\item Similiarly, 
 			\begin{align*}
@@ -2758,22 +2839,22 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 			So $X$ is Hausdorff.
 		\end{enumerate}
 	\end{proof}
-	
 
-	\begin{defn} \ld{55002}\
-		Let $X$ be a locally convex space over $\C$. We define the \textbf{dual space of} $X$, denoted $X^*$, by $X^* = \{\phi:X \rightarrow \C: \phi \text{ is linear and continuous}\}$.
-	\end{defn}
-	
-	\begin{note}
-		We define $X^*$ similarly when $X$ is a locally convex space over $\R$.
-	\end{note}
 	
 	\begin{ex}
-		Let $X$ be a locally convex space and $U \in \MN_0$ open. Then for each $p \in \MP$, there exists $r >0$ such that $B_p(0,r) \subset U$.
+		Let $X$ be a locally convex space and $U \in \MN_0$ open. Then there exist $p \in \MP$ and $r >0$ such that $B_p(0,r) \subset U$.
 	\end{ex}
 
 	\begin{proof}
-		For the sake of contradiction, suppose that there exists $p \in \MP$ such that for each $r >0$, $B_p(0,r) \not \subset U$. Then there exists a sequence $(x_n)_{n \in \N} \subset U^c$ such that for each $n \in \N$, $p(x_n) < 1/n$. So $x_n \rightarrow 0$. Since $U^c$ is closed, $0 \in U^c$ which is a contradiction. Hence each $p \in \MP$, there exists $r >0$ such that $B_p(0,r) \subset U$.
+		For the sake of contradiction, suppose that for each $p \in \MP$ and $r >0$, $B_p(0,r) \not \subset U$. Then there exists a sequence $(x_n)_{n \in \N} \subset U^c$ such that for each $p \in \MP$ and $n \in \N$, $p(x_n) < 1/n$. So $x_n \rightarrow 0$. Since $U^c$ is closed, $0 \in U^c$ which is a contradiction. Hence there exist $p \in \MP$ and $r >0$ such that $B_p(0,r) \subset U$.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a locally convex space. Then for each $U \in \MN_0$, if $U$ is open, then there exists $V \subset U$ such that $V$ is an open absorbing disk.
+	\end{ex}
+
+	\begin{proof}
+		Let $U \in \MN_0$. Suppose that $U$ is open. The previous exercise implies that there exists $p \in \MP$ and $r > 0$ such that $B_p(0,1) \subset U$. A previous exercise tells us that $B_p(0,1)$ is an open absorbing disk.
 	\end{proof}
 
 	\begin{ex}
@@ -2812,7 +2893,9 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Therefore $p_f \leq p_A|_M$ and $|f| \leq p_A$ on $M$. The Hahn-Banach theorem implies that there exists $F:X \rightarrow \C$ such that $F$ is linear, $F|_M = f$ and $|F| \leq p_A$. Since $p_A$ is continuous, $|F|$ is continuous, which implies that $F$ is continuous. So $F \in X^*$.  
 	\end{proof}
 	
-	
+	\begin{ex} \textbf{Hahn-Banach Separation Theorem 2:}\\
+		
+	\end{ex}
 	
 	
 	
