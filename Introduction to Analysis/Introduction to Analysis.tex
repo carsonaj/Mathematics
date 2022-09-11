@@ -110,8 +110,6 @@
 \DeclareMathOperator{\spn}{span}
 \DeclareMathOperator{\iso}{Iso}
 \DeclareMathOperator{\id}{id}
-\DeclareMathOperator{\argmax}{arg\,max}
-\DeclareMathOperator{\argmin}{arg\,min}
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Homeo}{Homeo}
 \DeclareMathOperator{\Sym}{Sym}
@@ -120,6 +118,9 @@
 \DeclareMathOperator{\bal}{bal}
 \DeclareMathOperator{\cnv}{conv}
 \DeclareMathOperator{\epi}{epi}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 
 \newcommand{\lex}[1]{\label{ex:#1}}
@@ -951,11 +952,11 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\end{defn}
 	
 	\begin{defn} \ld{33002}
-	Let $X$ be a topological space and $x \in X$. Define the \textbf{reverse inclusion ordering} on $\MN_x$, denoted $\leq$, by $U \leq V$ iff $V \subset U$. 
+	Let $X$ be a set. Define the \textbf{reverse inclusion ordering} on $\MN_x$, denoted $\leq$, by $U \leq V$ iff $V \subset U$. 
 	\end{defn}
 	
 	\begin{ex} \lex{33003}
-	Let $X$ be a topological space and $x \in X$. Then $\MN_x$ with orderd by reverse inclusion is a directed set.
+	Let $X$ be a topological space and $x \in X$. Then $\MN_x$ ordered by reverse inclusion is a directed set.
 	\end{ex}
 	
 	\begin{proof}\
@@ -965,6 +966,28 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\item Let $U,V \in \MN_x$. Set $W = U \cap V$. Then $W \in \MN_x$ and $U,V \leq W$. 
 	\end{enumerate}
 	So $\MN_x$ is a directed set. 
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a metric space and $x_0 \in X$. Define the \textbf{reverse distance from $x_0$ ordering} on $X \setminus \{x_0\}$, denoted $\leq_{x_0}$, by $x \leq_{x_0} y$ iff $d(x, x_0) \geq d(y, x_0)$.
+	\end{defn}
+
+	\begin{ex}
+		 Let $X$ be a metric space and $x_0 \in X$. Then $(X \setminus \{x_0\}, \leq_{x_0})$ is a directed set. 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x \in X \setminus \{x_0\}$. Since $d(x, x_0) \geq d(x, x_0)$, $x \leq_{x_0} x$.
+			\item Let $x, y, z \in X \setminus \{x_0\}$. Suppose that $x \leq_{x_0} y$ and $y \leq_{x_0} z$. Then $d(x, x_0) \geq d(y, x_0)$ and $d(y, x_0) \geq d(z, x_0)$. Hence $d(x, x_0) \geq d(z, x_0)$ so that $x \leq z$.
+			\item Let $x,y \in X \setminus \{x_0\}$. Set 
+			\begin{align*}
+				z 
+				&= \argmin\limits_{a \in \{x, y\}} d(a, x_0) \\ 
+				& \in X \setminus \{x_0\} 
+			\end{align*}
+			Then $x, y \leq_{x_0} z$.
+		\end{enumerate}
 	\end{proof}
 
 	\begin{defn}
@@ -1005,6 +1028,21 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\begin{defn} \ld{33007}
 	Let $X$ be a topological space and $(x_{\al})_{\al \in A} \subset X$ a net. Then $(x_{\al})_{\al \in A}$ is said to \textbf{converge} if there exists $x \in X$ such that $x_{\al} \rightarrow x$. 
 	\end{defn}	
+
+	\begin{ex}
+		Let $X$ be a metric space and $x_0 \in X$. Set $A = X \setminus \{x_0\}$. Order $A$ by reverse distance from $x_0$. Define $(x_{\al})_{\al \in A} \subset X$ by $x_{\al} = \al$. Then $x_{\al} \rightarrow x_0$.
+	\end{ex}
+
+	\begin{proof}
+		Let $U \in \MN_{x_0}$. Since $x_0 \in \Int U$, there exists $\del > 0$ such that $B(x_0, \del) \subset \Int U$. Choose $\be \in B^*(x_0, \del)$. Let $\al \in A$. Suppose that $\al \geq \be$. Then $d(\al, x_0) \leq d(\be, x_0) < \del$. Hence  
+		\begin{align*}
+			x_{\al} 
+			&= \al  \\
+			& \in B^*(x_0, \del) \\
+			&\subset U
+		\end{align*}
+		Since $U \in \MN_{x_0}$ is arbitrary, $x_{\al} \rightarrow x_0 $
+	\end{proof}
 	
 	\begin{ex} \lex{33008}
 	Let $X$ be a topological space, $S \subset X$ and $x \in X$. Then $x \in S'$ iff there exists a net $(x_{\al})_{\al \in A} \subset S \setminus \{x\}$ such that $x_{\al} \rightarrow x$. 
@@ -1138,6 +1176,17 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 		Since $U_0 \in \MN_x$ is arbitrary, $x_{\al_{\be}} \rightarrow x$. \\
 		Conversely, suppose that there exists a subnet $(x_{\al_{\be}})_{\be \in B}$ of $(x_{\al})_{\al \in A}$ such that $x_{\al_{\be}} \rightarrow x$. Let $U \in \MN_x$ and $\al \in A$. Since $x_{\al_{\be}} \rightarrow x$, there exists $\be_1 \in B$ such that for each $\be \in B$, $\be \geq \be_1$ implies that $x_{\al_{\be}} \in U$. Since $(x_{\al_{\be}})_{\be \in B}$ is a subnet of $(x_{\al})_{\al \in A}$, there exists $\be_2 \in B$ such that for each $\be \in B$, $\be \geq \be_2$ implies that $\al_{\be} \geq \al$. Since $B$ is directed, there exists $\be \in B$ such that $\be_1, \be_2 \leq \be$. Then $x_{\be} \geq \al$ and $x_{\be} \in U$. Since $\al \in A$ is arbitrary,  $(x_{\al_{\be}})_{\be \in B}$ is frequently in $U$. Since $U \in \MN_x$ is arbitrary, $x$ is a cluster point of $(x_{\al_{\be}})_{\be \in B}$. 
 	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a topological space, $(x_{\al})_{\al \in A} \subset X$ a net and $x \in X$. If $x_{\al} \rightarrow x$, then for each subnet $(x_{\al_{\be}})_{\be \in B}$ of $(x_{\al})_{\al \in A}$, $x_{\al_{\be}} \rightarrow x$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $x_{\al} \rightarrow x$. Let $(x_{\al_{\be}})_{\be \in B}$ be a subnet of $(x_{\al})_{\al \in A}$ and $U \in \MN_x$. Since $x_{\al} \rightarrow x$, there exists $\al_0 \in A$ such that for each $\al \geq \al_0$, $x_{\al} \in U$. Since $(x_{\al_{\be}})_{\be \in B}$ is a subnet of $(x_{\al})_{\al \in A}$, there exists $\be_0 \in B$ such that for each $\be \in B$, $\be \geq \be_0$ implies that $\al_{be} \geq \al_0$. Then for each $\be \in B$, $\be \geq \be_0$ implies that $x_{\al_{\be}} \in U$. Since $U \in \MN_x$ is arbitrary, $x_{\al_{\be}} \rightarrow x$.
+	\end{proof}
+	
+	
+	
 	
 	
 	\begin{defn}
@@ -1633,6 +1682,14 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\begin{note}
 		We usually suppress the topology $\MT$.
 	\end{note}
+
+	\begin{ex}
+		Let $X$ be a topological vector space, $(\lam_{\al})_{\al \in A} \subset \C$, $(x_{\al})_{\al \in A}$, $(y_{\al})_{\al \in A} \subset X$ nets and $\lam \in \C$, $x, y \in X$. If $\lam_{\al} \rightarrow \lam$, $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$, then $x_{\al} + \lam_{\al}y_{\al} \rightarrow x + \lam y$.
+	\end{ex}
+
+	\begin{proof}
+		Clear since addition and scalar multiplication are continuous.
+	\end{proof}
 	
 	\begin{ex}
 		Let $X$ be a topological vector space, $a \in X$ and $\lam \in \C^{\times}$. Define $f,g: X \rightarrow X$ by $f(x) = x + y$ and $g(x) = \lam x$. Then $f$ and $g$ are homeomorphisms. 
@@ -1640,6 +1697,20 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	\begin{proof}
 		Since $X$ is a topological vector space, $f$ and $g$ are continuous. Clearly $f$ and $g$ are bijections with $f^{-1}(x) = x - y$ and $g^{-1}(x) = \lam^{-1}x$. Again, since $X$ is a topological vector space, $f^{-1}$ and $g^{-1}$ are continuous.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological vector space, $x,y \in X$ and $U \in \MN_x$. If $U$ is open, then there exists $r >0$ such that for each $t \in \R$, $|t| \leq r$ implies that $x+ ty \in U$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $U$ is open. For the sake of contradiction, suppose that for each $r > 0$, there exists $t \in \R$ such that $t \leq r$ and $x+ ty \not \in U$. Then for each $n \in \N$, there exists $t_n \in \R$ such that $|t_n| \leq 1/n$ and $x + t_ny \in U^c$. Since $t_n \rightarrow 0$, 
+		\begin{align*}
+			x + t_ny 
+			& \rightarrow x + 0y \\
+			&= x
+		\end{align*}
+		Since $U^c$ is closed, $x \in U^c$. This is a contradiction. Hence there exists $r >0$ such that for each $t \in \R$, $|t| \leq r$ implies that $x+ ty \in U$.
 	\end{proof}
 
 	\begin{ex}
@@ -1651,6 +1722,21 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		$$A + B = \bigcup_{b \in B} A + b$$
 		we have that $A + B$ is open.
 	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological vector space and $A,B \subset X$. Suppose that $A$ is compact, $B$ is closed and $A \cap B = \varnothing$. Then there exists $U \in \MN_0$ such that $U$ is open and $(A + U) \cap B = \varnothing$. 
+	\end{ex}
+	
+	\begin{proof}
+		Set $\Gam = \{U \in \MN_0: U \text{ is open}\}$ and order $\Gam$ by reverse inclusion, so that $\Gam$ is a directed set. For the sake of contradiction, suppose that for each $U \in \Gam$, $(A + U) \cap B \neq \varnothing$. Then for each $\gam \in \Gam$, there exist $a_{\gam} \in A$ and $u_{\gam} \in \gam$ such that $a_{\gam} + u_{\gam} \in B$. Let $V \in \MN_0$. Since $\Int V \in \Gam$
+		\begin{align*}
+			u_{\Int V} 
+			& \in \Int V \\
+			& \subset V
+		\end{align*}
+		Since $V \in \MN_0$ is arbitrary, $u_{\gam} \rightarrow 0$.  Since $A$ is compact, there exists $a \in A$ and a subnet $(a_{\gam_{\ze}})_{\ze \in Z}$ of $(a_{\gam})_{\gam \in \Gam}$ such that $a_{\gam_{\ze}} \rightarrow a$. Then $a_{\gam_{\ze}} + u_{\gam_{\ze}} \rightarrow a$. Since $(a_{\gam_{\ze}} + u_{\gam_{\ze}})_{\ze \in Z} \subset B$ and $B$ is closed, we have that $a \in B$. This is a contradiction since $A \cap B = \varnothing$. So there exists $U \in \MN_0$ such that $U$ is open and $(A+U) \cap B = \varnothing$.
+	\end{proof}
+	
 
 	\begin{defn} \ld{55001}\
 		Let $X$ be a vector space over $\C$ and $T :X \rightarrow \C$. Then $T$ is said to be a \textbf{linear functional on} $X$ if $T$ is linear. We define the \textbf{algebraic dual space of} $X$, denoted $X^*$, by $ X^* = \{ T:X \rightarrow \C: T \text{ is linear} \} $
@@ -1669,7 +1755,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{note}
 
 	\begin{ex}
-		Let $X$, $Y$ be a topological vector spaces and $\phi:X \rightarrow Y$. Suppose that $\phi$ is linear. Then $\phi$ is continuous iff $\phi$ is continuous at $0$.
+		Let $X$, $Y$ be a topological vector spaces and $\phi:X \rightarrow Y$. Suppose that $\phi$ is linear. Then $\phi \in X^*$ iff $\phi$ is continuous at $0$.
 	\end{ex}
 	
 	\begin{proof}
@@ -1685,7 +1771,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 fi
 \begin{ex}
-	Let $X$ be a topological vector space and $\phi :X \rightarrow \C$ linear. Then $\phi$ is continuous iff $|\phi|$ is continuous. 
+	Let $X$ be a topological vector space and $\phi :X \rightarrow \C$ linear. Then $\phi \in X^*$ iff $|\phi|$ is continuous. 
 \end{ex}
 
 \begin{proof}
@@ -1701,13 +1787,70 @@ fi
 \end{proof}
 
 	\begin{ex}
-		Let $X$ be a topological vector space and $A,B \subset X$. Suppose that $A$ is compact, $B$ is closed and $A \cap B = \varnothing$. Then there exists $U \in \MN_0$ such that $U$ is open and $(A + U) \cap B = \varnothing$. 
+		Let $X$ be a real topological vector space and $\phi \in X^*$. If $\phi$ is not constant, then $\phi$ is open. \\
+		\textbf{Hint:} There exists $x_* \in X$  such that $\phi(x_*) = 1$ and for each $U \subset X$ open and $x \in U$, there exists $r >0$ such that for each $t \in \R$, $|t| \leq r$ implies that $x + tx_* \in U$. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\phi$ is not constant. Then there exists $x_0 \in X$ such that $\phi(x_0) \neq 0$. Set $x_* = \phi(x_0)^{-1} x_0$. Then
+		\begin{align*}
+			\phi(x_*)
+			&= \phi(\phi(x_0)^{-1}x_0) \\
+			&= \phi(x_0)^{-1}\phi(x_0) \\
+			&= 1
+		\end{align*}
+		Let $U \subset X$ be open and $y \in \phi(U)$. Then there exists $x \in U$ such that $\phi(x) = y$. Sine $U$ is open, a previous exercise implies that there exists $r > 0$ such that for each $t \in \R$, $\|t\| \leq r$ implies that $x + tx_* \in U$. Let $t \in (-r, r)$. Then $\phi(x+ tx_*) \in \phi(U)$. Since 
+		\begin{align*}
+			\phi(x+ tx_*) 
+			&= \phi(x) + t\phi(x_*) \\
+			&= y + t
+		\end{align*}
+	we have that $(y-r, y+r) \subset \phi(U)$. Since $y \in U$ is arbitrary, $\phi(U)$ is open thus $\phi$ is open. 
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a vector space and $\phi: X \rightarrow \C$. Then $\phi$ is said to be \textbf{real-linear} if for each $x,y \in X$ and $\lam \in \R$, $\phi(x+ \lam y) = \phi(x) + \lam \phi(y)$.
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a topological vector space and $\phi \in X^*$. Then $\Re \phi$ is continuous and real-linear. 
 	\end{ex}
 
 	\begin{proof}
-		Set $\Gam = \{U \in \MN_0: U \text{ is open}\}$ and order $\Gam$ by reverse inclusion, so that $\Gam$ is a directed set. For the sake of contradiction, suppose that for each $U \in \Gam$, $(A + U) \cap B \neq \varnothing$. Then for each $\gam \in \Gam$, there exist $a_{\gam} \in A$ and $u_{\gam} \in \gam$ such that $a_{\gam} + u_{\gam} \in B$. Since $A$ is compact, there exists $a \in A$ and a subnet $(a_{\gam_{\ze}})$
+		Clear.
 	\end{proof}
 
+	\begin{ex}
+		Let $X$ be a topological vector space and $f:X \rightarrow \R$. If $f$ is continuous and real-linear, then there exists a unique $\phi \in X^*$ such that $\Re \phi = f$. \\
+		\textbf{Hint:} For each $z \in \C$, $z = \Re(z) - i \Re(iz)$
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ is continuous and real-linear. Define $\phi:X \rightarrow \C$ by $\phi(x) = f(x) -if(ix)$. Then $\phi$ is continuous. Let $x,y \in X$ and $\lam \in C$. Write $\lam = a + bi$. Then 
+		\begin{align*}
+			\phi(x + \lam y)
+			&= f(x + \lam y) -if(i(x + \lam y)) \\
+			&= f(x + ay + i by) -if(ix + iay - by) \\
+			&= f(x) + af(y) + bf(iy) - if(ix) - iaf(iy) +ibf(y) \\
+			&= [f(x) - if(ix)] + a[f(y) - if(iy)] + ib[f(y) -if(iy)] \\
+			&= \phi(x) + a\phi(y) +ibf(y) \\
+			&= \phi(x) + \lam \phi(y) 
+		\end{align*}
+	So $\phi$ is linear and $\phi \in X^*$. Let $\psi \in X^*$. Suppose that $f = \Re \psi$. 
+	Then for each $x \in X$,
+	\begin{align*}
+		\phi(x) 
+		&= f(x) - if(ix) \\
+		&= \Re \psi(x) -i \Re \psi(ix) \\
+		&= \Re \psi(x) - \Re i\psi(x) \\
+		&= \Re \psi(x) + \Im \psi(x) \\
+		&= \psi(x)
+	\end{align*} 
+	So $\psi = \phi$ and $\phi$ is unique.
+	\end{proof}
+
+
+	
 
 
 
@@ -2524,21 +2667,21 @@ fi
 	\end{proof}
 
 	\begin{ex}
-		Let $X$ be a real topological vector space, $A \subset X$ and $x_0 \in A^c$. Suppose that $A$ is convex, $A \in \MN_0$ and $A$ is open. Then there exists $F \in X^*$ such that $F(x_0) =1$ and $F|_A < 1$. \\
-		\textbf{Hint:} 
+		Let $X$ be a topological vector space, $A \subset X$ and $x_0 \in A^c$. Suppose that $A$ is convex, $A \in \MN_0$ and $A$ is open. Then there exists $F \in X^*$ such that $\Re F(x_0) =1$ and $\Re F|_A < 1$. \\
+		\textbf{Hint:} Assume $X$ is real.
 		\begin{enumerate}
-			\item \textbf{Existence:} consider a special $f \in (\R x_0)^*$ and use $p_A$ to apply the Hahn-Banach theorem.
+			\item \textbf{Existence:} Consider a special $f \in (\R x_0)^*$ and use $p_A$ to apply the Hahn-Banach theorem.
 			\item \textbf{Continuity:} for $\ep > 0$, consider the neighborhood $U_{\ep} = \ep A \cap - \ep A$
 		\end{enumerate} 
 	\end{ex}
 
-	\begin{proof}\
+	\begin{proof} Assume that $X$ is real.
 		\begin{enumerate}
-			\item Define $f \in (\R x_0)^*$ by $f(tx_0) = t$. Then $f(x_0) = 1$. Since $A \in \MN_0$, $0 \in A$ and a previous exercise implies that $A$ is absorbing. Since $A$ is convex, absorbing and $0 \in A$, $p_A:X \rightarrow [0, \infty)$ is a sublinear functional on $X$. Since $x_0 \in A^c$, the previous exercise implies that $1 \leq p_A(x_0)$. Let $y \in \R x_0$. Then there exists $t \in \R$ such that $y = tx_0$. 
+			\item Define $f \in (\R x_0)^*$ by $f(tx_0) = t$. Then $f(x_0) = 1$. Since $A \in \MN_0$, $0 \in A$ and a previous exercise implies that $A$ is absorbing. Since $A$ is convex, absorbing and $0 \in A$, $p_A:X \rightarrow [0, \infty)$ is a sublinear functional on $X$. Since $x_0 \in A^c$, the previous exercise implies that $1 \leq p_A(x_0)$. Let $x \in \R x_0$. Then there exists $t \in \R$ such that $x = tx_0$. 
 			\begin{itemize}
 				\item If $t \geq 0$, then 
 				\begin{align*}
-					f(y)
+					f(x)
 					&= t \\
 					&\leq tp_A(x_0) \\
 					&= p_A(tx_0) \\
@@ -2546,13 +2689,13 @@ fi
 				\end{align*}
 				\item If $t<0$, then $-t >0$ and an exercise from the section on sublinear functionals implies that
 				\begin{align*}
-					f(y)
+					f(x)
 					&= t \\
 					&= < 0 \\
-					& \leq p_A(y)
+					& \leq p_A(x)
 				\end{align*}
 			\end{itemize}
-				So $f \leq p_A$ on $\R x_0$. The Hahn-Banach theorem implies that there exists $F \in X^*$ such that $F|_{\R x_0} = f$ and $F \leq p_A$. The previous exercise implies that  $p_A|_A < 1$. Hence $F|_A < 1$. 
+				So $f \leq p_A$ on $\R x_0$. The Hahn-Banach theorem implies that there exists $F:X \rightarrow \R$ such that $F$ is linear, $F|_{\R x_0} = f$ and $F \leq p_A$. The previous exercise implies that  $p_A|_A < 1$. Hence $F|_A < 1$. 
 		\item Let $V \in \MN_{0_\R}$. Choose $\ep >0$ such that $B(0,\ep) \subset V$. Set $U_{\ep} = \ep A \cap -\ep A$. Then $U_{\ep} \in \MN_0$. Let $u \in U_{\ep}$. Then $\ep^{-1}u, -\ep^{-1}u \in A$. A previous exercise implies that $p_A^{-1}([0,1)) = A$. Hence 
 		\begin{align*}
 			\ep^{-1}F(u)
@@ -2568,18 +2711,20 @@ fi
 		\end{align*}
 		Since $V \in \MN_{0_{\R}}$ is arbitrary, $F$ is continuous at $0$. Since $F$ is linear and $F$ is continuous at $0$, $F$ is continuous. Hence $F \in X^*$.
 		\end{enumerate}
+	If $X$ is complex, then the previous part implies that there exists $G:X \rightarrow \R$ such that $G$ is continuous, real-linear, $G(x_0) = 1$ and $G|_A < 1$. A previous exercise implies that there exists a unique $F \in X^*$ such that $\Re F = G$.
 	\end{proof}
 
 	\begin{ex} \textbf{Hahn-Banach Separation Theorem 1:} \\
-		Let $X$ be a real topological vector space and $A$, $B \subset X$. Suppose that $A$, $B$ are nonempty, convex and disjoint. If $A$ is open, then there exists $\phi \in X^*$ and $c \in \R$ such that for each $x \in A$, $y \in B$, $$\phi(x) < c \leq \phi(y)$$
-		\textbf{Hint:}
+		Let $X$ be a topological vector space and $A$, $B \subset X$. Suppose that $A$, $B$ are nonempty, convex and disjoint. If $A$ is open, then there exists $\phi \in X^*$ and $c \in \R$ such that for each $x \in A$, $y \in B$, $$\Re \phi(x) < c \leq \Re \phi(y)$$
+		\textbf{Hint:} Assume $X$ is real.
 		\begin{enumerate}
-			\item  Choose $a_0 \in A$ and $b_0 \in B$ and set $x_0 = b_0 - a_0$ and $C = A - B + x_0$. Then there exists $\phi \in X^*$ such that $\phi(x_0) = 1$ and $\phi|_C < 1$.
-			\item For each $a \in A$, $b \in B$, $\phi(a) < \phi(b)$. Set $c = \sup\limits_{a \in A}\phi(a)$. If for some $a_0 \in A$, $\phi(a_0) = c$, then there exists $N \in \N$ such that $a_0 + \frac{1}{N}x_0 \in A$.
+			\item Choose $a_0 \in A$ and $b_0 \in B$ and set $x_0 = b_0 - a_0$ and $C = A - B + x_0$. Then there exists $\phi \in X^*$ such that $\phi(x_0) = 1$ and $\phi|_C < 1$.
+			\item For each $a \in A$, $b \in B$, $\phi(a) < \phi(b)$. Set $c = \sup\limits_{a \in A}\phi(a)$. Since $\phi$ is not constant, $\phi$ is open.
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
+		Assume $X$ is real.
 		\begin{enumerate}
 			\item Since $A, B$ are nonempty, there exist $a_0 \in A$ and $b_0 \in B$. Set $x_0 = b_0 - a_0$. Previous exercises imply that $A - B$ is open and convex. Set $C = A - B + x_0$. Then $C$ is open and convex. 
 			Since  
@@ -2596,22 +2741,12 @@ fi
 				&= \phi(a - b + x_0) \\
 				& < 1
 			\end{align*}
-			So $\phi(a) < \phi(b)$. Set $c = \sup\limits_{a \in A}\phi(a)$. For the sake of contradiction, suppose that there exists $a_0 \in A$, $\phi(a_0) = c$. Since $A$ is open, and 
-			\begin{align*}
-				a_0 + \frac{1}{n}x_0 
-				&\rightarrow a_0 \\
-				&\in A
-			\end{align*}
-			there exists $N \in \N$ such that $a_0 + \frac{1}{N}x_0 \in A$. Then 
-			\begin{align*}
-				\phi \bigg(a_0 + \frac{1}{N}x_0 \bigg)
-				&= \phi(a_0) + \frac{1}{N} \phi(x_0) \\
-				&= c + \frac{1}{N} \\
-				& > c
-			\end{align*}
-			This is a contradiction since for each $x \in A$, $\phi(a) < 1$. So for each $x \in A$, $y \in B$, 
+			So $\phi(a) < \phi(b)$. Set $c = \sup\limits_{a \in A}\phi(a)$. Since $A$ is open and $\phi \in X^*$ is open. Thus for each $x \in A$, $y \in B$, 
 			$$\phi(x) < c \leq \phi(y)$$
 		\end{enumerate}
+	If $X$ is complex, then the previous part implies that there exists $f:X \rightarrow \R$ and $c \in \R$ such that $f$ is continuous, real-linear and for each $x \in A$ and $y \in B$, 
+	$$f(x) < c \leq f(y)$$ 
+	A previous exercise implies that there exists a unique $\phi \in X^*$ such that $\Re \phi = f$.
 	\end{proof}
 	
 		\begin{defn}
@@ -2884,7 +3019,7 @@ fi
 	\end{ex}
 
 	\begin{proof}
-		Set $p_f = |f|$. Since $p_f$ is a continuous seminorm, $B_{p_f}(0,1)$ is open in $M$. Therefore, there exists $U \subset X$ open such that $B_{p_f}(0,1) = U \cap M$. Since $\MP \neq \varnothing$, there exists $p \in \MP$. A previous exercise implies that there exists $r >0$ such that $B_p(0, r) \subset U$. Set $A = B_p(0, r)$. Since $A$ is open, $p_A:X \rightarrow \Rg$ is continuous and $A = B_{p_A}(0,1)$. Hence 
+		Set $p_f = |f|$. Since $p_f$ is a continuous seminorm, $B_{p_f}(0,1)$ is open in $M$. Therefore, there exists $U \subset X$ open such that $B_{p_f}(0,1) = U \cap M$. A previous exercise implies that there exists $p \in \MP$ and $r >0$ such that $B_p(0, r) \subset U$. Set $A = B_p(0, r)$. Since $A$ is open, $p_A:X \rightarrow \Rg$ is continuous and $A = B_{p_A}(0,1)$. Hence 
 		\begin{align*}
 			B_{p_A|_M}(0,1) 
 			&= A \cap M \subset U \cap M \\
@@ -2894,9 +3029,61 @@ fi
 	\end{proof}
 	
 	\begin{ex} \textbf{Hahn-Banach Separation Theorem 2:}\\
-		
+		Let $X$ be a locally convex space and $A$, $B \subset X$. Suppose that $A$, $B$ are nonempty, convex and disjoint. If $A$ is compact and $B$ is closed, then there exists $\phi \in X^*$ and $c_1, c_2 \in \R$ such that for each $x \in A$, $y \in B$, $$\Re \phi(x) < c_1 < c_2 \leq \Re \phi(y)$$
+		\textbf{Hint:} Assume $X$ is real. Since $X$ is locally convex, there exists $V \subset U$ such that $V$ is an open absorbing disk and $(A + V) \cap B = \varnothing$. Then apply the first Hahn-Banach separation theorem to $A+V$ and $B$.
 	\end{ex}
 	
+	\begin{proof}
+		Assume $X$ is real. Suppose that $A$ is compact and $B$ is closed. A previous exercise implies that there exists $U \in \MN_0$ such that $U$ is open and $(A + U) \cap B = \varnothing$. Since $X$ is locally convex, there exists $V \subset U$ such that $V$ is an open  absorbing disk. Then $(A + V)$ is open and convex. By the first Hahn-Banach separation theorem, there exist $\phi \in X^*$ and $c_2 \in \R$ such that for each $x \in A + V$, $y \in B$, $$\phi(x) < c_2 \leq \phi(y)$$
+		Specifically, $c_2 = \sup\limits_{x \in A + V} \phi(x)$. Since $\phi \in X^*$ is not constant, $\phi$ is open and thus $\phi(A + V)$ is open. Continuity of $\phi$ implies that $\phi(A)$ is compact. Therefore, $\sup \phi(A) < \sup \phi(A + V)$. So there exists $c_1 \in \phi(A + V)$ such that $\sup \phi(A) < c_1$. Hence there exists $x_1 \in A + V$ such that $\phi(x_1) = c_1$. Then for each $x \in A$ and $y \in B$, 
+		\begin{align*}
+			\phi(x) 
+			&\leq \sup \phi(A) \\
+			&< c_1 \\
+			&= \phi(x_1) \\
+			&< c_2 \\
+			& \leq \phi(y)
+		\end{align*}
+	If $X$ is complex, then the previous part implies that there exists $f:X \rightarrow \R$ and $c_1, c_2 \in \R$ such that $f$ is continuous, real-linear and for each $x \in A$ and $y \in B$, 
+	$$f(x) < c_1 < c_2 \leq f(y)$$ 
+	A previous exercise implies that there exists a unique $\phi \in X^*$ such that $\Re \phi = f$.
+	\end{proof}
+
+
+	\begin{ex}
+		Let $X$ be a locally convex space and $M \subset X$ a closed subspace. If $M \neq X$, then there exists $\phi \in X^*$ such that $\phi \neq 0$ and $\phi|_M = 0$. 
+	\end{ex}
+
+	\begin{proof}
+		Assume that $X$ is real. Suppose that $M \neq X$. Then there exists $x_0 \in X$ such that $x_0 \not \in M$. Since $\{x_0\}$ is compact and convex, $M$ is closed and convex and $\{x_0\} \cap M = \varnothing$, the second Hahn-Banach separation theorem implies that there exists $\phi \in X^*$ such that for each $x \in M$, $$\phi(x_0) < \phi(x)$$
+		Since $0 \in M$, 
+		\begin{align*}
+			\phi(x_0)
+			&< \phi(0) \\
+			&= 0
+		\end{align*}
+	so that $\phi \neq 0$. For the sake of contradiction, suppose that $\phi|_M \neq 0$. Then there exists $x_1 \in M$ such that $\phi(x_1) \neq 0$. Then for each $t \in \R$, 
+	\begin{align*}
+		\phi(x_0) 
+		&< \phi(tx_1) \\
+		&= t \phi(x_1)
+	\end{align*}
+	Set $t = \frac{\phi(x_0)}{\phi(x_1)}$. Then 
+	\begin{align*}
+		\phi(x_0) 
+		&< t \phi(x_1) \\
+		&= \phi(x_0)
+	\end{align*}
+	which is a contradiction. So $\phi|_M = 0$.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a locally convex space. Then $X^*$ separates the points of $X$. 
+	\end{ex}
+
+	\begin{proof}
+		Let $x, y \in X$. The second Hahn-Banach separation theorem implies that there exists $\phi \in X^*$ such that $\phi(x) \neq \phi(y)$. 
+	\end{proof}
 	
 	
 	
@@ -6972,12 +7159,12 @@ Then
 			\item if $x_0 \in A$, then for each $\ep >0$, there exists $\phi \in A^*$ such that for each $x \in A$, $f(x) > f(x_0) + \phi(x - x_0) - \ep$
 			\item if $x_0 \not \in A$, then for each $M \in \R$, there exists $\phi \in A^*$ such that for each $x \in A$, $f(x) > M + \phi(x - x_0)$
 		\end{enumerate}
-	\textbf{Hint:} Hahn Banach separation theorem \\
+	\textbf{Hint:} Apply second Hahn-Banach separation theorem to $\{(x_0, f(x_0) - \ep)\}$ and $\epi f$.
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
-			\item Suppose that $x_0 \in A$. Let $\ep >0$. Since $f$ is convex and lower semicontinuous, $\epi f \subset X \times \R$ is convex and closed and $\{(x_0, f(x_0) - \ep)\} \subset X \times \R$ is convex and compact. Thus, there exists $\lam \in \R$, $\psi \in X^*$ and $k \in \R$ such that for each $x \in A$ and $r \geq f(x)$, 
+			\item Suppose that $x_0 \in A$. Let $\ep >0$. Since $f$ is convex and lower semicontinuous, $\epi f \subset X \times \R$ is convex and closed, $\{(x_0, f(x_0) - \ep)\} \subset X \times \R$ is convex and compact and $\{(x_0, f(x_0) - \ep)\} \cap \epi f = \varnothing$. Thus, there exists $\lam \in \R$, $\psi \in X^*$ and $k \in \R$ such that for each $x \in A$ and $r \geq f(x)$, 
 			$$\psi(x) + \lam r < k < \psi(x_0) + \lam (f(x_0) - \ep)$$
 			Taking $(x, r) = (x_0, f(x_0))$ implies that $0 < -\lam \ep $ and hence that $\lam < 0$. Set $\phi = |\lam|^{-1}\psi$. For $x \in A$, set $r = f(x)$. Then 
 			\begin{align*}
