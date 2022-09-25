@@ -1,6 +1,7 @@
 \documentclass[12pt]{amsart}
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+\usepackage{tikz-cd}
 
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
@@ -106,6 +107,13 @@
 \DeclareMathOperator{\Homeo}{Homeo}
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\iso}{Iso}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\bal}{bal}
+\DeclareMathOperator{\cnv}{conv}
+\DeclareMathOperator{\epi}{epi}
 
 \newcommand{\lex}[1]{\label{ex:#1}}
 \newcommand{\ld}[1]{\label{defn:#1}}
@@ -495,8 +503,735 @@
 	
 	\newpage
 	
-	\section{Measures}
+	\section{Measure Spaces}
 	
+	
+	\subsection{Elementary Families and Algebras}
+	
+	\begin{defn} \ld{00000} 
+		Let $X$ be a set and $\ME \subset \MP(X)$. Then $X$ is said to be an \textbf{elementary family on X} if 
+		\begin{enumerate}
+			\item $\varnothing \in \ME$
+			\item for each $A, B \in \ME$, $A \cap B \in \ME$
+			\item for each $A \in \ME$, there exist $(A_j)_{j=1}^n \subset \ME$ such that  $(A_j)_{j=1}^n $ is disjoint and $A^c = \bigcup\limits_{j=1}^n A_j$
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{ex} \lex{00000} 
+		Define $$\ME = \{(a,b]: a,b \in \overline{\R}\}$$ where we take $(a, \infty] = (a, \infty)$. Then $\ME$ is an elementary family on $\R$
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item $\varnothing = (0,0] \in \ME$
+			\item Let $a_1, a_2, b_1, b_2 \in \overline{\R}$. Then 
+			\[
+			(a_1, b_1] \cap  (a_2, b_2] =
+			\begin{cases}
+				\varnothing  & b_1 \leq a_2 \\
+				(a_2, b_1] & b_1 > a_2 
+			\end{cases} 
+			\]
+			So $(a_1, b_1] \cap  (a_2, b_2] \in \ME$.
+			\item Let $a, b \in \R$. Suppose that $a < b$. Then $(a,b]^c = (-\infty, a] \cup (b, \infty) \in \ME$. 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{00000} 
+		Let $X$ be a set and $\MA_0 \subset \MP(X)$. Then $\MA_0$ is said to be an \textbf{algebra} on $X$ if 
+		\begin{enumerate}
+			\item $\MA_0 \neq \varnothing$
+			\item for each $A \in \MA_0$, $A^c \in \MA_0$
+			\item for each $A,B \in \MA_0$, $A \cup B \in \MA_0$
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a set and $\ME$ an elementary family on $X$. Define $$\MA^{\ME}_0 = \bigg \{ \bigcup_{j=1}^n A_j: (A_j)_{j=1}^n \text{ is disjoint and } (A_j)_{j=1}^n \subset \ME \bigg \}$$ Then $\MA^{\ME}_0$ is an algebra on $X$.
+	\end{ex}	
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item By definition, $\varnothing \in \ME \subset \MA^{\ME}_0$. So $\MA^{\ME}_0 \neq \varnothing$. 
+			\item Let $A \in \MA^{\ME}_0$, there exists $(A_j)_{j=1}^n \subset \ME$ such that $(A_j)_{j=1}^n$ is disjoint and $A = \bigcup\limits_{j =1}^n A_j$. By definition of $\ME$, for each $j \in \{1, \ldots, n\}$, there exist $(B_{j,k})_{k=1}^{n_j} \subset \ME$ such that $(B_{j,k})_{k=1}^{n_j}$ is disjoint and $A_j^c = \bigcup\limits_{k=1}^{n_j}B_{j,k}$. Then 
+			\begin{align*}
+				A^c 
+				&= \bigcap_{j=1}^n A_j^c \\
+				&= \bigcap_{j=1}^n \bigg( \bigcup\limits_{k=1}^{n_j}B_{j,k} \bigg)\\
+				&= \bigcup\\
+			\end{align*}	 
+			\item Let $A, B \in \MA^{\ME}_0$. Then there exist $(A_j)_{j=1}^n, (B_j)_{j=1}^m \subset \ME$ such that $A = \bigcup\limits_{j=1}^n A_j$ and  $B = \bigcup\limits_{j=1}^m B_j$. Then 
+			\begin{align*}
+				A \cup B 
+				&=  \bigg( \bigcup\limits_{j=1}^n A_j \bigg) \cup \bigg( \bigcup\limits_{j=1}^m B_j \bigg) \\
+			\end{align*}
+		\end{enumerate}
+		\textbf{FINISH!!!}
+	\end{proof}
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{Sigma Algebras}
+		
+	\begin{defn} \ld{00000} 
+		Let $X$ be a set and $\MA \subset \MP(X)$. Then $\MA$ is said to be a $\sigma$\textbf{-algebra} on $X$ if 
+		\begin{enumerate}
+			\item $\MA \neq \varnothing$
+			\item for each $A \in \MA$, $A^c \in \MA$
+			\item for each $(A_n)_{n \in \N} \subset \MA$, $\bigcup\limits_{n \in \N}A_n \in \MA$
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a set and $\MA$ a $\sig$-algebra on $X$. Then 
+		\begin{enumerate}
+			\item $X, \varnothing \in \MA$
+			\item for each $(A_n)_{n \in \N} \subset \MA$, $\bigcap\limits_{n \in \N} \in \MA$
+			\item For each $A, B \in \MA$, $A \setminus B \in \MA$  
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since $\MA \neq \varnothing$, there exists $A \in \MA$. Then $A^c \in \MA$. Hence $X = A \cup A^c \in \MA$ and $\varnothing = X^c \in \MA$.
+			\item Let $(A_n)_{n \in \N} \subset \MA$. Then $(A_n^c)_{n \in \N} \subset MA$. So $\bigcup\limits_{n \in \N}A_n^c \in \MA$. Therefore \begin{align*}
+				\bigcap\limits_{n \in \N}A_n 
+				&= \bigg(\bigcup\limits_{n \in \N}A_n^c\bigg)^c \in \MA
+			\end{align*}
+			\item Let $A,B \in \MA$. Then $A \setminus B = A \cap B^c \in \MA$. 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a set and $(\MA_i)_{i \in I}$ a collection of $\sig$-algebras (resp. algebra) on $X$. Then $\bigcap\limits_{i \in I}\MA_i$ is a $\sig$-algebra (resp. algebra) on $X$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item For each $i \in I$, $X \in \MA_i$. Thus $X \in \bigcap\limits_{i \in I}\MA_i$ and $\bigcap\limits_{i \in I}\MA_i \neq \varnothing$.
+			\item Let $A \in \bigcap\limits_{i \in I}\MA_i$. Then for each $i \in I$, $A \in \MA_i$. Hence for each $i \in I$, $A^c \in \MA_i$. Thus $A^c \in \bigcap\limits_{i \in I}\MA_i$. 
+			\item Let $(A_n)_{n \in \N} \subset \bigcap\limits_{i \in I}\MA_i$. Then for each $i \in I$, $(A_n)_{n \in \N} \subset \MA_i$. Thus for each $i \in I$, $\bigcup\limits_{n \in \N}A_n \in \MA_i$. So $\bigcup\limits_{n \in \N}A_n \in \bigcap\limits_{i \in I}\MA_i$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{00000} 
+		Let $X$ be a set and $\MC \subset \MP(X)$. Put $$\MS = \{\MA \subset \MP(X): \MA \text{ is a }\sig\text{-algebra on }X \text{ and } \MC \subset \ML\}$$ We define the \textbf{$\sig$-algebra generated by $\MC$} on $X$, $\sig(\MC)$, by $$\sig(\MC) = \bigcap_{\MA \in \MS} \MA $$
+	\end{defn}
+	
+	\begin{note}
+		Let $X$ be a set, $\MC \subset \MP(X)$ and $\MA$ a $\sig$-alg on $X$. By definition, if $\MC \subset \MA$, then $\sig(\MC) \subset \MA$.
+	\end{note}
+	
+	\begin{note}
+		Let $X$ be a set, $\MT$ an ordered set and $(\MA_t)_{t\in \MT}$ a collection of $\sig$-algebras on $X$. Suppose that for each $s,t \in \MT$, if $s \leq t$, then $\MA_s \subset \MA_t$. If there exists $t \in \MT$ such that $\MA_t = \bigcup\limits_{t \in \MT}\MA_t$, then $\bigcup\limits_{t \in \MT}\MA_t$ is a $\sig$-algebra on $X$. So if $\MT$ is finite or if $(\MA_t)_{t \in \MT}$ termintates, the union is $\sig$-algebra.
+	\end{note}
+	
+	\begin{defn} \ld{00000} 
+		Let $(X,\MT)$ be a topological space. We define the \textbf{Borel $\sig$-algebra} on $X$, $\MB(X)$, to be  $$\MB(X) = \sig(\MT)$$ The sets of $\MB(X)$ are called \textbf{Borel sets}.
+	\end{defn}
+	
+	\begin{ex} \lex{00000} 
+		The Borel $\sigma$-algebra on $\R$ with the standard topology is given by 
+		\[
+		\MB(\R) =
+		\begin{cases}
+			\sig(\{(a,b]:a,b \in \R \text{ and } a<b\}) \\
+			\sig(\{[a,b]:a,b \in \R \text{ and } a<b\}) \\
+			\sig(\{[a,b):a,b \in \R \text{ and } a<b\}) \\
+			\sig(\{(a,b):a,b \in \R \text{ and } a<b\}) \\
+		\end{cases}
+		\]
+	\end{ex}
+	
+	\begin{proof}
+		Define 
+		\begin{enumerate}
+			\item $\MC_{lo} = \{(a,b]:a,b \in \R \text{ and } a<b\}$\\
+			\item $\MC_{c} = \{[a,b]:a,b \in \R \text{ and } a<b\}$\\
+			\item $\MC_{ro} = \{[a,b):a,b \in \R \text{ and } a<b\}$\\
+			\item $\MC_{o} = \{(a,b):a,b \in \R \text{ and } a<b\}$\\
+		\end{enumerate} 
+		Recall that for each open set $A \subset \R$, there exist $(a_i)_{n \in \N}, (b_i)_{i \in \N} \subset \R$ such that for each $i \in \N$, $a_i < b_i$, for each $i,j \in \N$, if $i \neq j$, then $(a_i,b_i) \cap (a_j, b_j) = \varnothing$ and $A = \bigcup\limits_{i \in \N}(a_i, b_i)$. This implies that $\MB(\R) = \sig(\MC_o)$. \vspace{2mm}\\
+		Now, let $a,b \in \R$. Suppose that $a<b$. Then 
+		\begin{enumerate}
+			\item $[a,b] = \bigcap\limits_{n \in \N}(a- \frac{1}{n}, b]$, so $\sig(\MC_{c}) \subset \sig(\MC_{lo})$\\
+			\item $[a,b) = \bigcup\limits_{n \in \N} [a,b-\frac{1}{n}]$, so $\sig(\MC_{ro}) \subset \sig(\MC_{c})$ \\
+			\item $(a,b) = \bigcup\limits_{n \in \N} [a+\frac{1}{n},b)$, so $\sig(\MC_{o}) \subset \sig(\MC_{ro})$\\
+			\item $(a,b] = \bigcap\limits_{n \in \N} (a,b+\frac{1}{n})$, so $\sig(\MC_{lo}) \subset \sig(\MC_{o})$\\
+		\end{enumerate}
+		Hence $\MB(\R) = \sig(\MC_o) = \sig(\MC_{ro}) = \sig(\MC_{c}) = \sig(\MC_{lo}) = \sig(\MC_{o})$. 
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a set. Define $\MA = \{A \in \MA: A \text{ is countable or }A^c  \text{ is countable}\}$. Then $\MA$ is a $\sig$-algebra on $X$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since $X^c = \varnothing$ is countable, $X \in \MA$.
+			\item Let $A \in \MA$. Suppose that $A^c$ is  uncountable. Then by assumption, $A = (A^c)^c$ is countable. Hence $A^c \in \MA$.
+			\item Let $(A_n)_{n \in \N} \subset \MA$. Then for each $n \in \N$, $A_n$ is countable or $A_n^c$ is countable. Suppose that $\bigcup\limits_{n \in \N}A_n$ is uncountable. Then there exists $N \in \N$ such that $A_N$ is uncountable. Hence $A_N^c$ is countable. Thus 
+			\begin{align*}
+				\bigg(\bigcup_{n \in \N}A_n \bigg)^c 
+				&= \bigcap_{n \in \N}A_n^c \\
+				& \subset A_N^c 
+			\end{align*}
+			So $\bigg(\bigcup\limits_{n \in \N}A_n \bigg)^c $ is countable and $\bigcup\limits_{n \in \N}A_n \in \MA$. 
+		\end{enumerate}
+	\end{proof}
+
+
+	\begin{defn} \ld{00000} 
+		Let $X$ be a set and $\MA$ be a $\sig$-algebra on $X$. Then $(X, \MA)$ is called a \textbf{measurable space}.
+	\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{Measurable Functions}
+	
+	\begin{defn} \ld{00000} 
+		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is said to be $\MA$-$\MB$ \textbf{measurable} if for each $B \in \MB$, $f^{-1}(B) \in \MA$. When $(Y, \MB) = (\R, \MB(\R))$ we say that $f$ is $\MA$-\textbf{measurbale}. If $(Y,\MB) = (\R, \MB(\R))$ and $(X,\MA) = (\R, \MB(\R))$ or $(\R, \ML)$, then we say that $f$ is \textbf{Borel measurable} or \textbf{Lebsgue measurbale} respectively.
+	\end{defn}
+	
+	\begin{defn} \ld{00000} 
+		Let $(X, \MA, \mu)$ be a measure space and $(Y, \MB)$ a measurable space. Define 
+		\begin{itemize}
+			\item $L^{+}(X, \MA, \mu) = \{f:X \rightarrow \RG : f \text{ is measurable}\}$
+			\item $L^0(X, \MA, \mu) = \{f:X \rightarrow \C : f \text{ is measurable}\}$ 
+			\item $L_Y^{0}(X, \MA, \mu) = \{f:X \rightarrow Y : f \text{ is measurable}\}$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{defn}
+		Let $(X, \MA)$ and $(Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. We define the 
+		\begin{enumerate}
+			\item \textbf{push-forward of $\MA$}, denoted $f_*\MA$, by 
+			$$f_*\MA = \{B \subset Y: f^{-1}(B) \in \MA\}$$ 
+			\item  \textbf{pull-back of $\MB$}, denoted $f^*\MB$, by  
+			$$f^*\MB = \{f^{-1}(B):  B \in \MB \}$$
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{note}
+		It is also common to write $\sig(f)$ or $f^{-1}(\MB)$ in place of $f^*\MB$.
+	\end{note}	
+	
+	\begin{ex} \lex{00000} 
+		Let $(X,\MA), (Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. Then 
+		\begin{enumerate}
+			\item $f_*\MA$ is a $\sig$-algebra on $Y$
+			\item $f^*\MB$ is a $\sig$-algebra on $X$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item Since $f^{-1}(Y) = X \in \MA$, $Y \in f_*\MA$ and $f_*\MA \neq \varnothing$. 
+				\item Let $B \in f_*\MA$. Then $f^{-1}(B) \in \MA$. Hence $$f^{-1}(B^c) = (f^{-1}(B))^c \in \MA$$ Thus $B^c \in f_*\MA$. 
+				\item Now, let $(B_n)_{n \in \N} \subset f_*\MA$. Then for each $n \in \N$, $f^{-1}(B_n) \in \MA$. Thus $$f^{-1}\bigg(\bigcup_{n \in \N} B_n \bigg) = \bigcup_{n \in \N} f^{-1}(B_n) \in \MA$$ Hence $\bigcup\limits_{n \in \N} B_n \in f_*\MA$.
+			\end{itemize}
+			\item Similar to (1).
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces. Suppose that there exists $\ME \subset Y$ such that $\sig(\ME) = \MB$. Let $f:X \rightarrow Y$. Then $f$ is $\MA$-$\MB$ measurable iff for each $B \in \ME$, $f^{-1}(B) \in \MA$.
+	\end{ex}
+	
+	\begin{proof}
+		By definition, if $f$ is $\MA$-$\MB$ measurable, then for each $B \in \ME$, $f^{-1}(B) \in \MA$. Conversely, suppose that for each $B \in \ME$, $f^{-1}(B) \in \MA$. The previous exercise tells us that $f_*\MA$ is a $\sig$-algebra on $Y$. Since $\ME \subset f_*\MA$, we have that $\MB = \sig(\ME) \subset f_*\MA$. So $f$ is $\MA$-$\MB$ measurable.
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $X,Y$ be sets, $f:X \rightarrow Y$ and $\ME \subset \MP(Y)$. Then $\sig(f^{-1}(\ME)) = f^{-1}(\sig(\ME))$. 
+	\end{ex}
+	
+	\begin{proof}
+		Clealy $f^{-1}(\ME) \subset f^{-1}(\sig(\ME))$. Since $f^{-1}(\sig(\ME))$ is a $\sig$-algebra, we have that $\sig(f^{-1}(\ME)) \subset f^{-1}(\sig(\ME))$. Since $f^{-1}(\ME) \subset f^{-1}(\sig(\ME))$, the previous exercise tells us that $f$ is $f^{-1}(\sig(\ME))$-$\sig(\ME)$ measurable. Then $f^{-1}(\sig(\ME)) \subset f^{-1}(\sig(\ME))$. So $\sig(f^{-1}(\ME)) = f^{-1}(\sig(\ME))$.  \\
+		\textbf{FINISH!!!}
+	\end{proof}
+	
+	\begin{defn} \ld{}
+		Let $X$ be a set, $(Y_{\al}, \MB_{\al})_{\al \in A}$ a collection of measurable spaces and $\MF \in \prod \limits_{\al \in A}Y_{\al}^X$ (i.e. $\MF = (f_{\al})_{\al \in A}$ where for each $\al \in A$, $f_{\al}:X \rightarrow Y_{\al}$). We define the \textbf{initial $\sig$-algebra generated by $\MF$} on $X$, denoted $\sig_X(\MF)$, by 
+		\begin{align*}
+			\sig_X(\MF) 
+			&= \sig(\{f_{\al}^{-1}(B): B \in \MB_{\al} \text{ and } \al \in A \})
+		\end{align*}	 
+	\end{defn}
+	
+	\begin{note}
+		If $\MF = \{f\}$, then $\sig_X(\MF) = f^*\MB$.
+	\end{note}
+	
+	\begin{note}
+		Essentially, $\sig_X(\MF)$ is the smallest $\sig$-algebra on $X$ such that for each $\al \in A$, $f_{\al}:X \rightarrow Y_{\al}$ is measurable. 
+	\end{note}
+	
+	\begin{defn} \ld{}
+		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ be a a collection of measurable spaces, $Y$ a set and $\MF \in \prod \limits_{\al \in A}Y^{X^{\al}}$ (i.e. $\MF = (f_{\al})_{\al \in A}$ where for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y$). We define the \textbf{final $\sig$-algebra generated by $\MF$} on $X$, denoted $\sig_Y(\MF)$, by 
+		\begin{align*}
+			\sig_Y(\MF) 
+			&= \sig(\{V \subset Y: \text{ for each $\al \in A$, $f_{\al}^{-1}(V) \in \MA_{\al}$}\})
+		\end{align*}	 
+	\end{defn}
+	
+	\begin{note}
+		If $\MF = \{f\}$, then $\sig_Y(\MF) = f_*\MA$.
+	\end{note}
+	
+	\begin{note}
+		Essentially, $\sig_X(\MF)$ is the largest $\sig$-algebra on $X$ such that for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y$ is measurable. 
+	\end{note}
+	
+	\begin{ex}
+		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ be a a collection of measurable spaces, $Y$ a set, $(Z, \MC)$ a measurable space, $\MF = (f_{\al})_{\al \in A} \in \prod \limits_{\al \in A}Y^{X_{\al}}$ and $g: Y \rightarrow Z$. Then $g$ is $\tau_Y(\MF)$-$\MC$ measurable iff for each $\al \in A$, $g \circ f_{\al}$ is $X_{\al}$-$\MC$ measurable, i.e. for each $\al \in A$, the following diagram commutes in the category of measurable spaces: 
+		\[ \begin{tikzcd}
+			X_{\al} \arrow[r, "f_{\al}"] \arrow[dr, "g \circ f_{\al}"'] 	
+			& Y  \arrow[d, "g"] \\
+			& Z 
+		\end{tikzcd}
+		\]
+	\end{ex}
+	
+	\begin{proof}
+		If $g$ is $\tau_Y(\MF)$-$\MC$ measurable, then clearly for each $\al \in A$, $g \circ f_{\al}$ is $X_{\al}$-$\MC$ measurable. \\
+		Conversely, suppose that for each $\al \in A$, $g \circ f_{\al}$ is $X_{\al}$-$\MC$ measurable. Let $V \in \MC$. Measurability implies that for each $\al \in A$, $f_{\al}^{-1}(g^{-1}(V)) \in \MA_{\al}$. By definition, $g^{-1}(V) \in \tau_Y(\MF)$. So $g$ is $\tau_Y(\MF)$-$\MC$ measurable.
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $(X_1,\MT_1), (X_2,\MT_2)$ be topological spaces and $f: X \rightarrow Y$. If $f$ is continuous, then $f$ is $\MB(X)$-$\MB(Y)$ measurable.
+	\end{ex}
+	
+	\begin{proof}
+		Recall that $\MB(Y) = \sig(\MT_2)$ and continuity tells us that for each $U \in \MT_2$, $f^{-1}(U) \in \MT_1 \subset \MB(X)$. 
+	\end{proof}
+	
+	\begin{defn} \ld{00000} 
+		Let $X$ be a set and $f:X \rightarrow \C$. Then $f$ is said to be \textbf{simple} if $f(X)$ is finite.
+	\end{defn}
+	
+	\begin{defn} \ld{00000} 
+		Let $(X,\MA)$ be a measurable space. We define $S^+(X,\MA) = \{f:X \rightarrow \Rg: f \text{ is simple, measurable}\}$ and $S(X,\MA) = \{f: X \rightarrow \C: f \text{ is simple, measurable}\}$
+	\end{defn}
+	
+	\begin{thm}
+		Let $(X, \MA)$ be a measurable space. Then 
+		\begin{enumerate}
+			\item If $f: X \rightarrow \RG$ is measurable, then there exists a sequence $(\phi_n)_{n \in \N} \subset S^+$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \rightarrow f$ pointwise and $\phi_n \rightarrow f$ uniformly on any set on which $f$ is bounded.
+			
+			\item If $f: X \rightarrow \C$ is measurable, then there exists a sequence $(\phi_n)_{n \in \N} \subset S$ such that for each $n \in \N$, $|\phi_n| \leq |\phi_{n+1}| \leq |f|$ and $\phi_n \rightarrow f$ pointwise and $\phi_n \rightarrow f$ uniformly on any set on which $f$ is bounded.
+		\end{enumerate}
+	\end{thm}
+	
+	\begin{ex}
+		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces and $f: X \rightarrow Y$. If $f$ is $\MA$-$\MB$ measurable iff $f$ is $\MA$-$\MB \cap f(X)$ measurable.
+	\end{ex}	
+	
+	\begin{proof}
+		Suppose that $f$ is $\MA$-$\MB$ measurable. Let $E \in \MB \cap f(X)$. Then there exists $B \in \MB$ such that $E = B \cap f(X)$. Then 
+		\begin{align*}
+			f^{-1}(E)
+			&= f^{-1}(B \cap f(X)) \\
+			&= f^{-1}(B) \cap f^{-1}(f(X)) \\
+			&= f^{-1}(B) \cap X \\
+			&= f^{-1}(B) \\
+			& \in \MA
+		\end{align*}
+		Conversely, suppose that $f$ is  $\MA$-$\MB \cap f(X)$ measurable. Let $B \in \MB$. Then as before, 
+		\begin{align*}
+			f^{-1}(B) 
+			&= f^{-1}(B \cap f(X))  \\
+			& \in \MA 
+		\end{align*}
+	\end{proof}
+	
+	\begin{ex}\textbf{Doob-Dynkin Lemma:} \\
+		Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is surjective and $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists a unique $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $\MA_2$-$\MA_3$ measurable and $g = \phi \circ f$. \\
+		\textbf{Hint:} For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. Set $\phi(y) = t$ for $y \in B_t \cap f(X_1)$ and $t \in g(X_1)$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that there exists a unique $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $\MA_2$ - $\MA_3$ measurable and $g = \phi \circ f$. Since $f$ is $f^* \MA_2$ - $\MA_2$ measurable, we have that $g = \phi \circ f$ is $f^*\MA_2$-$\MA_3$ measurable.  \\
+		Conversely, suppose that $g$ is $f^*\MA_2$-$\MA_3$ measurable. \\
+		\begin{itemize}
+			\item \textbf{(Existence)} \\
+			For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. \\
+			Note that 
+			\begin{itemize}
+				\item for each $t \in g(X_1)$, there exists $x \in A_t$ such that $g(x) = t$. Hence $f(x) \in B_t$.\\
+				\item for $t_1, t_2 \in g(X_1)$, $t_1 \neq t_2$ implies that
+				\begin{align*}
+					f^{-1}(B_{t_1} \cap B_{t_2}) 
+					&= A_{t_1} \cap A_{t_2} \\
+					&= g^{-1}(\{t_1\} \cap \{t_2\}) \\
+					&= \varnothing
+				\end{align*}	 
+				and since $f$ is surjective, 
+				\begin{align*}
+					B_{t_1} \cap  B_{t_2} 
+					& = f(f^{-1}(B_{t_1} \cap  B_{t_2} )) \\
+					&= f(\varnothing) \\
+					&= \varnothing
+				\end{align*}
+				\item we have that 
+				\begin{align*}
+					f^{-1} \bigg( \bigcup_{t \in g(X_1)} B_t\bigg) 
+					&=  \bigcup_{t \in g(X_1)} A_t \\
+					&= \bigcup_{t \in g(X_1)} g^{-1}(\{t\}) \\
+					&= g^{-1}(g(X_1)) \\
+					&= X_1
+				\end{align*}
+				Since $f$ is surjective, we have that 
+				\begin{align*}
+					X_2
+					&= f(X_1) \\
+					&= f \bigg( f^{-1} \bigg( \bigcup_{t \in g(X_1)} B_t\bigg)  \bigg) \\
+					&= \bigcup_{t \in g(X_1)} B_t
+				\end{align*}
+			\end{itemize}
+			Therefore, 
+			\begin{itemize}
+				\item for each $t \in g(X_1)$, $B_t \neq \varnothing$
+				\item $(A_t)_{t \in g(X_1)}$ is a partion of $X_1$
+				\item $(B_t)_{t \in g(X_1)}$ is a partition of $X_2$\\
+			\end{itemize}		
+			Define $\phi:X_2 \rightarrow X_3$ by $\phi(y) = t$ for $t \in g(X_1)$ and $y \in B_t $. Then the previous observations imply that $\phi$ is well defined and $\phi(X_2) = g(X_1)$. Since for each $t \in g(X_1)$ and $x \in A_t$, $f(x) \in B_t$ and $g(x) = t$, we have that $\phi \circ f (x) = t = g(x)$. So $\phi \circ f = g$. \\ \\
+			To show that $\phi$ is measurable, let $C \in \MA_3$. Choose $B \in \MA_2$ such that $g^{-1}(C) = f^{-1}(B)$.
+			Let $y \in \phi^{-1}(C) \subset X_2$. Set $t = \phi(y) \in C$ and choose $x \in X_1$ such that $y = f(x)$. Since 
+			\begin{align*}
+				g(x) 
+				&= \phi \circ f (x) \\
+				&= \phi(y) \\
+				&= t \\
+				&\in C
+			\end{align*}		
+			$x \in g^{-1}(C) = f^{-1}(B)$. Therefore, $y = f(x) \in B$. So $\phi^{-1}(C) \subset B$. \\
+			Let $y \in B$. Choose $x \in X_1$ such that $f(x) = y$. Then $x \in f^{-1}(B) = g^{-1}(C)$. So 
+			\begin{align*}
+				\phi(y) 
+				&= \phi \circ f (x) \\
+				&= g(x) \\
+				&\in C
+			\end{align*}	 
+			and $y \in \phi^{-1}(C)$. So $B \subset \phi^{-1}(C)$. 
+			Hence $\phi^{-1}(C) = B \in \MA_2$ and $\phi$ is $\MA_2$ - $\MA_3$ measurable.\\
+			\item \textbf{(Uniqueness)} \\
+			Let $\psi: X_2 \rightarrow X_3$. Suppose that $\psi$ is $\MA_2$-$\MA_3$ measurable and $g = \psi \circ f$. Let $y \in X_2$. Then there exists $x \in X_1$ such that $y = f(x)$. Then 
+			\begin{align*}
+				\psi(y) 
+				&= \psi \circ f(x) \\
+				&= g(x) \\
+				&= \phi \circ f(x) \\
+				&= \phi(y)
+			\end{align*}
+			So $\psi = \phi$.
+		\end{itemize}
+		
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists a unique $\phi: f(X_1) \rightarrow X_3$ such that $\phi$ is $\MA_2 \cap f(X_1)$ - $\MA_3$ measurable and $g = \phi \circ f$. \\
+	\end{ex}
+	
+	\begin{proof}
+		A previous exercise implies that $f: X_1 \rightarrow f(X_1)$ is $\MA_1$ - $\MA_2 \cap f(X_1)$ measurable. Now apply the previous exercise. 
+	\end{proof}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Subspace Sigma Algebras}
+	\begin{defn} \ld{00000} 
+		Let $X$ be a set, $\MC \subset \MP(X)$ and $E \subset X$. We define $\MC \cap E \subset \MP(X)$ by $$\MC \cap E = \{S \cap E: S \in \MC\}$$ 
+	\end{defn}
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a set, $\MA$ a $\sig$-algebra on $X$ and $E \subset X$. Then 
+		$\MA \cap E$ is a $\sig$-algebra on $E$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Clearly $\varnothing, E \in \MA \cap E$.
+			\item Let $B \in \MA \cap E$. Then there exists $A \in \MA$ such that $B = A \cap E$. Since $A^c \in \MA$, we have that 
+			\begin{align*}
+				E \setminus B 
+				&= E \cap (A \cap E)^c \\
+				&= E \cap (A^c \cup E^c) \\
+				&= (E \cap A^c) \cup (E \cap E^c) \\
+				&= A^c \cap E \\
+				&\in \MA \cap E
+			\end{align*}
+			\item Let $(B_n)_{n \in \N} \subset \MA \cap E$. Then for each $n \in \N$, there exists $A_n \in \MA$ such that $B_n = A_n \cap A$. So $\bigcup\limits_{n \in \N}A_n \in \MA$. Hence 
+			\begin{align*}
+				\bigcup_{n \in \N}(B_n) 
+				&= \bigcup_{n \in \N}(A_n \cap E) \\
+				&= \bigg( \bigcup_{n \in \N}A_n \bigg) \cap E \\
+				& \in \MA \cap E
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a set, $\MC \subset \MP(X)$ and $A \subset X$. Let $\sig_A(\MC \cap A)$ be the $\sig$-algebra on $A$ generated by $\MC \cap A$. Define $$\MG = \{S \subset X: S \cap A \in \sig_A(\MC \cap A)\}$$ 
+		Then $\MG$ is a $\sig$-algebra on $X$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Clearly $\varnothing, X \in \MG$. 
+			\item Let $S \in \MG$. Then $S \cap A \in \sig_A(\MC \cap A)$. Hence 
+			\begin{align*}
+				S^c \cap A 
+				&= A \setminus (S \cap A)  \\
+				& \in \sig_A(\MC \cap A)
+			\end{align*}				
+			So $S^c \in \MG$. 
+			\item Let $(S_n)_{n \in \N} \subset \MG$. Then for each $n \in \N$, $S_n \cap A \in \sig_A(\MC \cap A)$. Thus $$\bigg( \bigcup_{n \in \N} S_n \bigg) \cap A = \bigcup\limits_{n \in \N}(S_n \cap A) \in \sig_A(\MC \cap A)$$ Thus $\bigcup\limits_{n \in \N} S_n \in \MG$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a set, $\MC \subset \MP(X)$ and $A \subset X$. Then $$\sig(\MC) \cap A = \sig_A(\MC \cap A)$$
+	\end{ex}
+	
+	\begin{proof}
+		Clearly $\MC \cap A \subset \sig(\MC) \cap A$. A previous exercise tells us that $\sig(\MC) \cap A$ is a $\sig$-algebra on $A$. Thus $\sig_A(\MC \cap A) \subset \sig(\MC) \cap A$. \vspace{3mm}\\ Conversely, from the previous exercise, we have that $\MG = \{S \subset X: S \cap A \in \sig_A(\MC \cap A)\}$ is a $\sig$-algebra on $X$. Clearly $\MC \subset \MG$. Then $\sig(\MC) \subset \MG$. The definition of $\MG$ implies that $\sig(\MC) \cap A \subset \sig_A(\MC \cap A)$. Hence $\sig(\MC) \cap A = \sig_A(\MC \cap A)$.
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{Quotient Sigma Algebras}
+	\begin{defn}
+		Let $X,Y$ be sets, $\sim$ an equivalence relation on $X$ and $f: X \rightarrow Y$. Then $f$ is said to be \textbf{invariant under $\sim$} if for each $a,b \in X$, $\bar{a} = \bar{b}$ implies that $f(a) = f(b)$. 
+	\end{defn}
+	
+	\begin{ex} \lex{34008}
+		Let $(X, \MA)$, $(Y, \MB)$ be topological spaces, $\sim$ an eqivalence relation on $X$, $\pi:X \rightarrow X/\sim$ the projection map and $f:X \rightarrow Y$ measurable. If $f$ is invariant under $\sim$, then there exists a unique $\bar{f}:X / {\sim} \rightarrow Y$ such that 
+		\begin{enumerate}
+			\item $\bar{f} \circ \pi = f$
+			\item $\bar{f}$ is $\MA$-$\pi_*\MA$ measurable 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ is invariant under $\sim$. Define $\bar{f}: X / {\sim} \rightarrow Y$ by $\bar{f}(\bar{x}) = f(x)$. By assumption, for each $a, b \in X$, $\bar{a} = \bar{b}$ implies that $f(a) = f(b)$. Thus $\bar{f}$ is well defined. By construction, $f = \bar{f} \circ \pi$. Let $V \in \MB$. Measurability of $f$ implies that $f^{-1}(V) \in \MA$. Since 
+		\begin{align*}
+			f^{-1}(V)
+			&= \pi^{-1}(\bar{f}^{-1}(V)) \\
+			& \in \MA
+		\end{align*}
+		by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\MA$-$\pi_*\MA$ measurable.
+	\end{proof}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Product Sigma Algebras}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Dynkin's Lemma}
+	\begin{defn}
+		Let $X$ be a set and $\MP \subset \MP(X)$. Then $\MP$ is said to be a \textbf{$\pi$-system} on $X$ if for each $A,B \in \MP$, $A \cap B \in \MP$.
+	\end{defn}
+	
+	\begin{defn}
+		Let $X$ be a set and $\ML \subset \MP(X)$. Then $\ML$ is said to be a \textbf{$\lam$-system} on $X$ if 
+		\begin{enumerate}
+			\item $\ML \neq \varnothing$
+			\item for each $A \in \ML$, $A^c \in \ML$
+			\item for each $(A_n)_{n \in \N} \subset \ML$, if $(A_n)_{n \in \N}$ is disjoint, then $\bigcup\limits_{n \in \N}A_n \in \ML$
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a set and $\ML$ a $\lam$-system on $X$. Then 
+		\begin{enumerate}
+			\item $X, \varnothing \in \ML$
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}
+		Straightforward.
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a set and $\MC \subset \MP(X)$. Put $$\MS = \{\ML \subset \MP(X): \ML \text{ is a }\lam\text{-system on }\Om \text{ and } \MC \subset \ML\}$$ We define the \textbf{$\lam$-system on $X$ generated by $\MC$}, $\lam(\MC)$, to be $$\lam(\MC) = \bigcap_{\ML \in \MS}\ML$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a set and $\MA \subset \MP(X)$. If $\MA$ is a $\lam$-system and $\MA$ is a $\pi$-system, then $\MA$ is a $\sig$-algebra.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\MA$ is a $\lam$-system and $\MA$ is a $\pi$-system. Then we need only verify the third axiom in the definition of a $\sig$-algebra. Let $(A_n)_{n \in \N} \subset \MA$. Define $B_1 = A_1$ and for $n \geq 2$, define $B_n = A_n \cap \bigg( \bigcup\limits_{k=1}^{n-1}A_k \bigg)^c = A_n \cap \bigg( \bigcap\limits_{k=1}^{n-1}A_k^c \bigg) \in \MA$. Then $(B_n)_{n \in \N}$ is disjoint and therefore $\bigcup\limits_{n \in \N}A_n = \bigcup\limits_{n \in \N}B_n \in \MA$.
+	\end{proof}
+	
+	\begin{thm} \textbf{Dynkin's Lemma:} \\
+		Let $X$ be a set.
+		\begin{enumerate}
+			\item Let $\MP$ be a $\pi$-system on $X$ and $\ML$ a $\lam$-system on $X$. If $\MP \subset \ML$, then $\sig(\MP) \subset \ML$.
+			\item Let $\MP$ be a $\pi$-system on $X$. Then $\sig(\MP) = \lam(\MP)$
+		\end{enumerate} 
+		
+	\end{thm}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\subsection{Limits of Sets}
 	
 	\begin{defn} \ld{00000} 
@@ -714,237 +1449,6 @@
 		\end{align*}
 	\end{proof}
 	
-	\subsection{Classes of sets}
-	
-	\begin{defn} \ld{00000} 
-	Let $X$ be a set and $\ME \subset \MP(X)$. Then $X$ is said to be an \textbf{elementary family on X} if 
-	\begin{enumerate}
-	\item $\varnothing \in \ME$
-	\item for each $A, B \in \ME$, $A \cap B \in \ME$
-	\item for each $A \in \ME$, there exist $(A_j)_{j=1}^n \subset \ME$ such that  $(A_j)_{j=1}^n $ is disjoint and $A^c = \bigcup\limits_{j=1}^n A_j$
-	\end{enumerate}
-	\end{defn}
-	
-	\begin{ex} \lex{00000} 
-	Define $$\ME = \{(a,b]: a,b \in \overline{\R}\}$$ where we take $(a, \infty] = (a, \infty)$. Then $\ME$ is an elementary family on $\R$
-	\end{ex}
-	
-	\begin{proof}\
-	\begin{enumerate}
-	\item $\varnothing = (0,0] \in \ME$
-	\item Let $a_1, a_2, b_1, b_2 \in \overline{\R}$. Then 
-	\[
-	(a_1, b_1] \cap  (a_2, b_2] =
-	\begin{cases}
-	\varnothing  & b_1 \leq a_2 \\
-	(a_2, b_1] & b_1 > a_2 
-	\end{cases} 
-	\]
-	So $(a_1, b_1] \cap  (a_2, b_2] \in \ME$.
-	\item Let $a, b \in \R$. Suppose that $a < b$. Then $(a,b]^c = (-\infty, a] \cup (b, \infty) \in \ME$. 
-	\end{enumerate}
-	\end{proof}
-	
-	\begin{defn} \ld{00000} 
-		Let $X$ be a set and $\MA_0 \subset \MP(X)$. Then $\MA_0$ is said to be an \textbf{algebra} on $X$ if 
-		\begin{enumerate}
-			\item $\MA_0 \neq \varnothing$
-			\item for each $A \in \MA_0$, $A^c \in \MA_0$
-			\item for each $A,B \in \MA_0$, $A \cup B \in \MA_0$
-		\end{enumerate}
-	\end{defn}
-	
-	\begin{ex} \lex{00000} 
-	Let $X$ be a set and $\ME$ an elementary family on $X$. Define $$\MA^{\ME}_0 = \bigg \{ \bigcup_{j=1}^n A_j: (A_j)_{j=1}^n \text{ is disjoint and } (A_j)_{j=1}^n \subset \ME \bigg \}$$ Then $\MA^{\ME}_0$ is an algebra on $X$.
-	\end{ex}	
-	
-	\begin{proof}\
-	\begin{enumerate}
-	\item By definition, $\varnothing \in \ME \subset \MA^{\ME}_0$. So $\MA^{\ME}_0 \neq \varnothing$. 
-	\item Let $A \in \MA^{\ME}_0$, there exists $(A_j)_{j=1}^n \subset \ME$ such that $(A_j)_{j=1}^n$ is disjoint and $A = \bigcup\limits_{j =1}^n A_j$. By definition of $\ME$, for each $j \in \{1, \ldots, n\}$, there exist $(B_{j,k})_{k=1}^{n_j} \subset \ME$ such that $(B_{j,k})_{k=1}^{n_j}$ is disjoint and $A_j^c = \bigcup\limits_{k=1}^{n_j}B_{j,k}$. Then 
-	\begin{align*}
-	A^c 
-	&= \bigcap_{j=1}^n A_j^c \\
-	&= \bigcap_{j=1}^n \bigg( \bigcup\limits_{k=1}^{n_j}B_{j,k} \bigg)\\
-	&= \bigcup\\
-\end{align*}	 
-	\item Let $A, B \in \MA^{\ME}_0$. Then there exist $(A_j)_{j=1}^n, (B_j)_{j=1}^m \subset \ME$ such that $A = \bigcup\limits_{j=1}^n A_j$ and  $B = \bigcup\limits_{j=1}^m B_j$. Then 
-	\begin{align*}
-	A \cup B 
-	&=  \bigg( \bigcup\limits_{j=1}^n A_j \bigg) \cup \bigg( \bigcup\limits_{j=1}^m B_j \bigg) \\
-	\end{align*}
-	\end{enumerate}
-	\textbf{FINISH!!!}
-	\end{proof}
-	
-	\begin{defn} \ld{00000} 
-		Let $X$ be a set and $\MA \subset \MP(X)$. Then $\MA$ is said to be a $\sigma$\textbf{-algebra} on $X$ if 
-		\begin{enumerate}
-			\item $\MA \neq \varnothing$
-			\item for each $A \in \MA$, $A^c \in \MA$
-			\item for each $(A_n)_{n \in \N} \subset \MA$, $\bigcup\limits_{n \in \N}A_n \in \MA$
-		\end{enumerate}
-	\end{defn}
-	
-	\begin{ex} \lex{00000} 
-		Let $X$ be a set and $\MA$ a $\sig$-algebra on $X$. Then 
-		\begin{enumerate}
-			\item $X, \varnothing \in \MA$
-			\item for each $(A_n)_{n \in \N} \subset \MA$, $\bigcap\limits_{n \in \N} \in \MA$
-			\item For each $A, B \in \MA$, $A \setminus B \in \MA$  
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Since $\MA \neq \varnothing$, there exists $A \in \MA$. Then $A^c \in \MA$. Hence $X = A \cup A^c \in \MA$ and $\varnothing = X^c \in \MA$.
-			\item Let $(A_n)_{n \in \N} \subset \MA$. Then $(A_n^c)_{n \in \N} \subset MA$. So $\bigcup\limits_{n \in \N}A_n^c \in \MA$. Therefore \begin{align*}
-				\bigcap\limits_{n \in \N}A_n 
-				&= \bigg(\bigcup\limits_{n \in \N}A_n^c\bigg)^c \in \MA
-			\end{align*}
-			\item Let $A,B \in \MA$. Then $A \setminus B = A \cap B^c \in \MA$. 
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let $X$ be a set and $(\MA_i)_{i \in I}$ a collection of $\sig$-algebras (resp. algebra) on $X$. Then $\bigcap\limits_{i \in I}\MA_i$ is a $\sig$-algebra (resp. algebra) on $X$.
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item For each $i \in I$, $X \in \MA_i$. Thus $X \in \bigcap\limits_{i \in I}\MA_i$ and $\bigcap\limits_{i \in I}\MA_i \neq \varnothing$.
-			\item Let $A \in \bigcap\limits_{i \in I}\MA_i$. Then for each $i \in I$, $A \in \MA_i$. Hence for each $i \in I$, $A^c \in \MA_i$. Thus $A^c \in \bigcap\limits_{i \in I}\MA_i$. 
-			\item Let $(A_n)_{n \in \N} \subset \bigcap\limits_{i \in I}\MA_i$. Then for each $i \in I$, $(A_n)_{n \in \N} \subset \MA_i$. Thus for each $i \in I$, $\bigcup\limits_{n \in \N}A_n \in \MA_i$. So $\bigcup\limits_{n \in \N}A_n \in \bigcap\limits_{i \in I}\MA_i$.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{defn} \ld{00000} 
-		Let $X$ be a set and $\MC \subset \MP(X)$. Put $$\MS = \{\MA \subset \MP(X): \MA \text{ is a }\sig\text{-algebra on }X \text{ and } \MC \subset \ML\}$$ We define the \textbf{$\sig$-algebra generated by $\MC$} on $X$, $\sig(\MC)$, by $$\sig(\MC) = \bigcap_{\MA \in \MS} \MA $$
-	\end{defn}
-	
-	\begin{note}
-		Let $X$ be a set, $\MC \subset \MP(X)$ and $\MA$ a $\sig$-alg on $X$. By definition, if $\MC \subset \MA$, then $\sig(\MC) \subset \MA$.
-	\end{note}
-	
-	\begin{note}
-		Let $X$ be a set, $\MT$ an ordered set and $(\MA_t)_{t\in \MT}$ a collection of $\sig$-algebras on $X$. Suppose that for each $s,t \in \MT$, if $s \leq t$, then $\MA_s \subset \MA_t$. If there exists $t \in \MT$ such that $\MA_t = \bigcup\limits_{t \in \MT}\MA_t$, then $\bigcup\limits_{t \in \MT}\MA_t$ is a $\sig$-algebra on $X$. So if $\MT$ is finite or if $(\MA_t)_{t \in \MT}$ termintates, the union is $\sig$-algebra.
-	\end{note}
-	
-	\begin{defn} \ld{00000} 
-		Let $(X,\MT)$ be a topological space. We define the \textbf{Borel $\sig$-algebra} on $X$, $\MB(X)$, to be  $$\MB(X) = \sig(\MT)$$ The sets of $\MB(X)$ are called \textbf{Borel sets}.
-	\end{defn}
-	
-	\begin{ex} \lex{00000} 
-		The Borel $\sigma$-algebra on $\R$ with the standard topology is given by 
-		\[
-		\MB(\R) =
-		\begin{cases}
-			\sig(\{(a,b]:a,b \in \R \text{ and } a<b\}) \\
-			\sig(\{[a,b]:a,b \in \R \text{ and } a<b\}) \\
-			\sig(\{[a,b):a,b \in \R \text{ and } a<b\}) \\
-			\sig(\{(a,b):a,b \in \R \text{ and } a<b\}) \\
-		\end{cases}
-		\]
-	\end{ex}
-	
-	\begin{proof}
-		Define 
-		\begin{enumerate}
-			\item $\MC_{lo} = \{(a,b]:a,b \in \R \text{ and } a<b\}$\\
-			\item $\MC_{c} = \{[a,b]:a,b \in \R \text{ and } a<b\}$\\
-			\item $\MC_{ro} = \{[a,b):a,b \in \R \text{ and } a<b\}$\\
-			\item $\MC_{o} = \{(a,b):a,b \in \R \text{ and } a<b\}$\\
-		\end{enumerate} 
-		Recall that for each open set $A \subset \R$, there exist $(a_i)_{n \in \N}, (b_i)_{i \in \N} \subset \R$ such that for each $i \in \N$, $a_i < b_i$, for each $i,j \in \N$, if $i \neq j$, then $(a_i,b_i) \cap (a_j, b_j) = \varnothing$ and $A = \bigcup\limits_{i \in \N}(a_i, b_i)$. This implies that $\MB(\R) = \sig(\MC_o)$. \vspace{2mm}\\
-		Now, let $a,b \in \R$. Suppose that $a<b$. Then 
-		\begin{enumerate}
-			\item $[a,b] = \bigcap\limits_{n \in \N}(a- \frac{1}{n}, b]$, so $\sig(\MC_{c}) \subset \sig(\MC_{lo})$\\
-			\item $[a,b) = \bigcup\limits_{n \in \N} [a,b-\frac{1}{n}]$, so $\sig(\MC_{ro}) \subset \sig(\MC_{c})$ \\
-			\item $(a,b) = \bigcup\limits_{n \in \N} [a+\frac{1}{n},b)$, so $\sig(\MC_{o}) \subset \sig(\MC_{ro})$\\
-			\item $(a,b] = \bigcap\limits_{n \in \N} (a,b+\frac{1}{n})$, so $\sig(\MC_{lo}) \subset \sig(\MC_{o})$\\
-		\end{enumerate}
-		Hence $\MB(\R) = \sig(\MC_o) = \sig(\MC_{ro}) = \sig(\MC_{c}) = \sig(\MC_{lo}) = \sig(\MC_{o})$. 
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let $X$ be a set. Define $\MA = \{A \in \MA: A \text{ is countable or }A^c  \text{is countable}\}$. Then $\MA$ is a $\sig$-algebra on $X$.
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Since $X^c = \varnothing$ is countable, $X \in \MA$.
-			\item Let $A \in \MA$. Suppose that $A^c$ is  uncountable. Then by assumption, $A = (A^c)^c$ is countable. Hence $A^c \in \MA$.
-			\item Let $(A_n)_{n \in \N} \subset \MA$. Then for each $n \in \N$, $A_n$ is countable or $A_n^c$ is countable. Suppose that $\bigcup\limits_{n \in \N}A_n$ is uncountable. Then there exists $N \in \N$ such that $A_N$ is uncountable. Hence $A_N^c$ is countable. Thus 
-			\begin{align*}
-				\bigg(\bigcup_{n \in \N}A_n \bigg)^c 
-				&= \bigcap_{n \in \N}A_n^c \\
-				& \subset A_N^c 
-			\end{align*}
-			So $\bigg(\bigcup\limits_{n \in \N}A_n \bigg)^c $ is countable and $\bigcup\limits_{n \in \N}A_n \in \MA$. 
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{defn} \ld{00000} 
-		Let $X$ be a set, $\MC \subset \MP(X)$ and $E \subset X$. We define $\MC \cap E \subset \MP(X)$ by $$\MC \cap E = \{S \cap E: S \in \MC\}$$ 
-	\end{defn}
-	
-	\begin{ex} \lex{00000} 
-		Let $X$ be a set, $\MA$ a $\sig$-algebra on $X$ and $E \subset X$. Then 
-		$\MA \cap E$ is a $\sig$-algebra on $E$. 
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Clearly $\varnothing, E \in \MA \cap E$.
-			\item Let $B \in \MA \cap E$. Then there exists $A \in \MA$ such that $B = A \cap E$. Since $A^c \in \MA$, we have that 
-			\begin{align*}
-			E \setminus B 
-			&= E \cap (A \cap E)^c \\
-			&= E \cap (A^c \cup E^c) \\
-			&= (E \cap A^c) \cup (E \cap E^c) \\
-			&= A^c \cap E \\
-			&\in \MA \cap E
-			\end{align*}
-			\item Let $(B_n)_{n \in \N} \subset \MA \cap E$. Then for each $n \in \N$, there exists $A_n \in \MA$ such that $B_n = A_n \cap A$. So $\bigcup\limits_{n \in \N}A_n \in \MA$. Hence 
-			\begin{align*}
-				\bigcup_{n \in \N}(B_n) 
-				&= \bigcup_{n \in \N}(A_n \cap E) \\
-				&= \bigg( \bigcup_{n \in \N}A_n \bigg) \cap E \\
-				& \in \MA \cap E
-			\end{align*}
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let $X$ be a set, $\MC \subset \MP(X)$ and $A \subset X$. Let $\sig_A(\MC \cap A)$ be the $\sig$-algebra on $A$ generated by $\MC \cap A$. Define $$\MG = \{S \subset X: S \cap A \in \sig_A(\MC \cap A)\}$$ 
-		Then $\MG$ is a $\sig$-algebra on $X$. 
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Clearly $\varnothing, X \in \MG$. 
-			\item Let $S \in \MG$. Then $S \cap A \in \sig_A(\MC \cap A)$. Hence 
-	\begin{align*}
-	S^c \cap A 
-	&= A \setminus (S \cap A)  \\
-	& \in \sig_A(\MC \cap A)
-\end{align*}				
-			 So $S^c \in \MG$. 
-			\item Let $(S_n)_{n \in \N} \subset \MG$. Then for each $n \in \N$, $S_n \cap A \in \sig_A(\MC \cap A)$. Thus $$\bigg( \bigcup_{n \in \N} S_n \bigg) \cap A = \bigcup\limits_{n \in \N}(S_n \cap A) \in \sig_A(\MC \cap A)$$ Thus $\bigcup\limits_{n \in \N} S_n \in \MG$.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let $X$ be a set, $\MC \subset \MP(X)$ and $A \subset X$. Then $$\sig(\MC) \cap A = \sig_A(\MC \cap A)$$
-	\end{ex}
-	
-	\begin{proof}
-		Clearly $\MC \cap A \subset \sig(\MC) \cap A$. A previous exercise tells us that $\sig(\MC) \cap A$ is a $\sig$-algebra on $A$. Thus $\sig_A(\MC \cap A) \subset \sig(\MC) \cap A$. \vspace{3mm}\\ Conversely, from the previous exercise, we have that $\MG = \{S \subset X: S \cap A \in \sig_A(\MC \cap A)\}$ is a $\sig$-algebra on $X$. Clearly $\MC \subset \MG$. Then $\sig(\MC) \subset \MG$. The definition of $\MG$ implies that $\sig(\MC) \cap A \subset \sig_A(\MC \cap A)$. Hence $\sig(\MC) \cap A = \sig_A(\MC \cap A)$.
-	\end{proof}
-	
-	\begin{defn} \ld{00000} 
-		Let $X$ be a set and $\MA$ be a $\sig$-algebra on $X$. Then $(X, \MA)$ is called a \textbf{measurable space}.
-	\end{defn}
 	
 	
 	
@@ -1262,248 +1766,9 @@
 	\newpage
 	\section{The Lebesgue Integral}
 	
-	\subsection{Measurable Functions}
-	
-	\begin{defn} \ld{00000} 
-		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is said to be $\MA$-$\MB$ \textbf{measurable} if for each $B \in \MB$, $f^{-1}(B) \in \MA$. When $(Y, \MB) = (\R, \MB(\R))$ we say that $f$ is $\MA$-\textbf{measurbale}. If $(Y,\MB) = (\R, \MB(\R))$ and $(X,\MA) = (\R, \MB(\R))$ or $(\R, \ML)$, then we say that $f$ is \textbf{Borel measurable} or \textbf{Lebsgue measurbale} respectively.
-	\end{defn}
-	
-	\begin{defn} \ld{00000} 
-		Let $(X, \MA, \mu)$ be a measure space and $(Y, \MB)$ a measurable space. Define 
-		\begin{itemize}
-		\item $L^{+}(X, \MA, \mu) = \{f:X \rightarrow \RG : f \text{ is measurable}\}$
-		\item $L^0(X, \MA, \mu) = \{f:X \rightarrow \C : f \text{ is measurable}\}$ 
-		\item $L_Y^{0}(X, \MA, \mu) = \{f:X \rightarrow Y : f \text{ is measurable}\}$
-		\end{itemize}
-	\end{defn}
-	
-	\begin{defn}
-	Let $(X, \MA)$ and $(Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. We define the 
-	\begin{enumerate}
-	\item \textbf{push-forward of $\MA$}, denoted $f_*\MA$, by 
-	$$f_*\MA = \{B \subset Y: f^{-1}(B) \in \MA\}$$ 
-	\item  \textbf{pull-back of $\MB$}, denoted $f^*\MB$, by  
-	$$f^*\MB = \{f^{-1}(B):  B \in \MB \}$$
-	\end{enumerate}
-	\end{defn}
-	
-	\begin{note}
-	It is also common to write $\sig(f)$ or $f^{-1}(\MB)$ in place of $f^*\MB$.
-	\end{note}	
-	
-	\begin{ex} \lex{00000} 
-		Let $(X,\MA), (Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. Then 
-		\begin{enumerate}
-			\item $f_*\MA$ is a $\sig$-algebra on $Y$
-			\item $f^*\MB$ is a $\sig$-algebra on $X$
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item 
-			\begin{itemize}
-			\item Since $f^{-1}(Y) = X \in \MA$, $Y \in f_*\MA$ and $f_*\MA \neq \varnothing$. 
-			\item Let $B \in f_*\MA$. Then $f^{-1}(B) \in \MA$. Hence $$f^{-1}(B^c) = (f^{-1}(B))^c \in \MA$$ Thus $B^c \in f_*\MA$. 
-			\item Now, let $(B_n)_{n \in \N} \subset f_*\MA$. Then for each $n \in \N$, $f^{-1}(B_n) \in \MA$. Thus $$f^{-1}\bigg(\bigcup_{n \in \N} B_n \bigg) = \bigcup_{n \in \N} f^{-1}(B_n) \in \MA$$ Hence $\bigcup\limits_{n \in \N} B_n \in f_*\MA$.
-			\end{itemize}
-			\item Similar to (1).
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces. Suppose that there exists $\ME \subset Y$ such that $\sig(\ME) = \MB$. Let $f:X \rightarrow Y$. Then $f$ is $\MA$-$\MB$ measurable iff for each $B \in \ME$, $f^{-1}(B) \in \MA$.
-	\end{ex}
-	
-	\begin{proof}
-		By definition, if $f$ is $\MA$-$\MB$ measurable, then for each $B \in \ME$, $f^{-1}(B) \in \MA$. Conversely, suppose that for each $B \in \ME$, $f^{-1}(B) \in \MA$. The previous exercise tells us that $f_*\MA$ is a $\sig$-algebra on $Y$. Since $\ME \subset f_*\MA$, we have that $\MB = \sig(\ME) \subset f_*\MA$. So $f$ is $\MA$-$\MB$ measurable.
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let $X,Y$ be sets, $f:X \rightarrow Y$ and $\ME \subset \MP(Y)$. Then $\sig(f^{-1}(\ME)) = f^{-1}(\sig(\ME))$. 
-	\end{ex}
-	
-	\begin{proof}
-		Clealy $f^{-1}(\ME) \subset f^{-1}(\sig(\ME))$. Since $f^{-1}(\sig(\ME))$ is a $\sig$-algebra, we have that $\sig(f^{-1}(\ME)) \subset f^{-1}(\sig(\ME))$. Since $f^{-1}(\ME) \subset f^{-1}(\sig(\ME))$, the previous exercise tells us that $f$ is $f^{-1}(\sig(\ME))$-$\sig(\ME)$ measurable. Then $f^{-1}(\sig(\ME)) \subset f^{-1}(\sig(\ME))$. So $\sig(f^{-1}(\ME)) = f^{-1}(\sig(\ME))$.  \\
-		\textbf{FINISH!!!}
-	\end{proof}
-	
-	\begin{defn}
-	Let $X,Y$ be sets, $\sim$ an equivalence relation on $X$ and $f: X \rightarrow Y$. Then $f$ is said to be \textbf{invariant under $\sim$} if for each $a,b \in X$, $\bar{a} = \bar{b}$ implies that $f(a) = f(b)$. 
-	\end{defn}
-	
-	\begin{ex} \lex{34008}
-	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces, $\sim$ an eqivalence relation on $X$, $\pi:X \rightarrow X/\sim$ the projection map and $f:X \rightarrow Y$ measurable. If $f$ is invariant under $\sim$, then there exists a unique $\bar{f}:X / {\sim} \rightarrow Y$ such that 
-	\begin{enumerate}
-	\item $\bar{f} \circ \pi = f$
-	\item $\bar{f}$ is $\MA$-$\pi_*\MA$ measurable 
-	\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $f$ is invariant under $\sim$. Define $\bar{f}: X / {\sim} \rightarrow Y$ by $\bar{f}(\bar{x}) = f(x)$. By assumption, for each $a, b \in X$, $\bar{a} = \bar{b}$ implies that $f(a) = f(b)$. Thus $\bar{f}$ is well defined. By construction, $f = \bar{f} \circ \pi$. Let $V \in \MB$. Measurability of $f$ implies that $f^{-1}(V) \in \MA$. Since 
-	\begin{align*}
-	f^{-1}(V)
-	&= \pi^{-1}(\bar{f}^{-1}(V)) \\
-	& \in \MA
-\end{align*}
-by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\MA$-$\pi_*\MA$ measurable.
-\end{proof}
-	
-	\begin{ex} \lex{00000} 
-		Let $(X_1,\MT_1), (X_2,\MT_2)$ be topological spaces and $f: X \rightarrow Y$. If $f$ is continuous, then $f$ is $\MB(X)$-$\MB(Y)$ measurable.
-	\end{ex}
-	
-	\begin{proof}
-		Recall that $\MB(Y) = \sig(\MT_2)$ and continuity tells us that for each $U \in \MT_2$, $f^{-1}(U) \in \MT_1 \subset \MB(X)$. 
-	\end{proof}
-	
-	\begin{defn} \ld{00000} 
-		Let $X$ be a set and $f:X \rightarrow \C$. Then $f$ is said to be \textbf{simple} if $f(X)$ is finite.
-	\end{defn}
-	
-	\begin{defn} \ld{00000} 
-		Let $(X,\MA)$ be a measurable space. We define $S^+(X,\MA) = \{f:X \rightarrow \Rg: f \text{ is simple, measurable}\}$ and $S(X,\MA) = \{f: X \rightarrow \C: f \text{ is simple, measurable}\}$
-	\end{defn}
-	
-	\begin{thm}
-		Let $(X, \MA)$ be a measurable space. Then 
-		\begin{enumerate}
-			\item If $f: X \rightarrow \RG$ is measurable, then there exists a sequence $(\phi_n)_{n \in \N} \subset S^+$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \rightarrow f$ pointwise and $\phi_n \rightarrow f$ uniformly on any set on which $f$ is bounded.
-			
-			\item If $f: X \rightarrow \C$ is measurable, then there exists a sequence $(\phi_n)_{n \in \N} \subset S$ such that for each $n \in \N$, $|\phi_n| \leq |\phi_{n+1}| \leq |f|$ and $\phi_n \rightarrow f$ pointwise and $\phi_n \rightarrow f$ uniformly on any set on which $f$ is bounded.
-		\end{enumerate}
-	\end{thm}
-	
-	\begin{ex}
-	Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces and $f: X \rightarrow Y$. If $f$ is $\MA$-$\MB$ measurable iff $f$ is $\MA$-$\MB \cap f(X)$ measurable.
-	\end{ex}	
-	
-	\begin{proof}
-	Suppose that $f$ is $\MA$-$\MB$ measurable. Let $E \in \MB \cap f(X)$. Then there exists $B \in \MB$ such that $E = B \cap f(X)$. Then 
-	\begin{align*}
-	f^{-1}(E)
-	&= f^{-1}(B \cap f(X)) \\
-	&= f^{-1}(B) \cap f^{-1}(f(X)) \\
-	&= f^{-1}(B) \cap X \\
-	&= f^{-1}(B) \\
-	& \in \MA
-	\end{align*}
-	Conversely, suppose that $f$ is  $\MA$-$\MB \cap f(X)$ measurable. Let $B \in \MB$. Then as before, 
-	\begin{align*}
-	f^{-1}(B) 
-	&= f^{-1}(B \cap f(X))  \\
-	& \in \MA 
-	\end{align*}
-	\end{proof}
-	
-	\begin{ex}\textbf{Doob-Dynkin Lemma:} \\
-	Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is surjective and $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists a unique $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $\MA_2$-$\MA_3$ measurable and $g = \phi \circ f$. \\
-	\textbf{Hint:} For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. Set $\phi(y) = t$ for $y \in B_t \cap f(X_1)$ and $t \in g(X_1)$.
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that there exists a unique $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $\MA_2$ - $\MA_3$ measurable and $g = \phi \circ f$. Since $f$ is $f^* \MA_2$ - $\MA_2$ measurable, we have that $g = \phi \circ f$ is $f^*\MA_2$-$\MA_3$ measurable.  \\
-	Conversely, suppose that $g$ is $f^*\MA_2$-$\MA_3$ measurable. \\
-	\begin{itemize}
-	\item \textbf{(Existence)} \\
-	For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. \\
-	Note that 
-	\begin{itemize}
-	\item for each $t \in g(X_1)$, there exists $x \in A_t$ such that $g(x) = t$. Hence $f(x) \in B_t$.\\
-	\item for $t_1, t_2 \in g(X_1)$, $t_1 \neq t_2$ implies that
-	\begin{align*}
-	f^{-1}(B_{t_1} \cap B_{t_2}) 
-	&= A_{t_1} \cap A_{t_2} \\
-	&= g^{-1}(\{t_1\} \cap \{t_2\}) \\
-	&= \varnothing
-	\end{align*}	 
-	and since $f$ is surjective, 
-	\begin{align*}
-	B_{t_1} \cap  B_{t_2} 
-	& = f(f^{-1}(B_{t_1} \cap  B_{t_2} )) \\
-	&= f(\varnothing) \\
-	&= \varnothing
-	\end{align*}
-	\item we have that 
-	\begin{align*}
-	f^{-1} \bigg( \bigcup_{t \in g(X_1)} B_t\bigg) 
-	&=  \bigcup_{t \in g(X_1)} A_t \\
-	&= \bigcup_{t \in g(X_1)} g^{-1}(\{t\}) \\
-	&= g^{-1}(g(X_1)) \\
-	&= X_1
-	\end{align*}
-	Since $f$ is surjective, we have that 
-	\begin{align*}
-	X_2
-	&= f(X_1) \\
-	&= f \bigg( f^{-1} \bigg( \bigcup_{t \in g(X_1)} B_t\bigg)  \bigg) \\
-	&= \bigcup_{t \in g(X_1)} B_t
-	\end{align*}
-	\end{itemize}
-	Therefore, 
-	\begin{itemize}
-	\item for each $t \in g(X_1)$, $B_t \neq \varnothing$
-	\item $(A_t)_{t \in g(X_1)}$ is a partion of $X_1$
-	\item $(B_t)_{t \in g(X_1)}$ is a partition of $X_2$\\
-\end{itemize}		
-	 Define $\phi:X_2 \rightarrow X_3$ by $\phi(y) = t$ for $t \in g(X_1)$ and $y \in B_t $. Then the previous observations imply that $\phi$ is well defined and $\phi(X_2) = g(X_1)$. Since for each $t \in g(X_1)$ and $x \in A_t$, $f(x) \in B_t$ and $g(x) = t$, we have that $\phi \circ f (x) = t = g(x)$. So $\phi \circ f = g$. \\ \\
-	To show that $\phi$ is measurable, let $C \in \MA_3$. Choose $B \in \MA_2$ such that $g^{-1}(C) = f^{-1}(B)$.
-	Let $y \in \phi^{-1}(C) \subset X_2$. Set $t = \phi(y) \in C$ and choose $x \in X_1$ such that $y = f(x)$. Since 
-	\begin{align*}
-	g(x) 
-	&= \phi \circ f (x) \\
-	&= \phi(y) \\
-	&= t \\
-	&\in C
-\end{align*}		
-	 $x \in g^{-1}(C) = f^{-1}(B)$. Therefore, $y = f(x) \in B$. So $\phi^{-1}(C) \subset B$. \\
-	Let $y \in B$. Choose $x \in X_1$ such that $f(x) = y$. Then $x \in f^{-1}(B) = g^{-1}(C)$. So 
-	\begin{align*}
-	\phi(y) 
-	&= \phi \circ f (x) \\
-	&= g(x) \\
-	&\in C
-	\end{align*}	 
-	and $y \in \phi^{-1}(C)$. So $B \subset \phi^{-1}(C)$. 
-	Hence $\phi^{-1}(C) = B \in \MA_2$ and $\phi$ is $\MA_2$ - $\MA_3$ measurable.\\
-	\item \textbf{(Uniqueness)} \\
-	Let $\psi: X_2 \rightarrow X_3$. Suppose that $\psi$ is $\MA_2$-$\MA_3$ measurable and $g = \psi \circ f$. Let $y \in X_2$. Then there exists $x \in X_1$ such that $y = f(x)$. Then 
-	\begin{align*}
-	\psi(y) 
-	&= \psi \circ f(x) \\
-	&= g(x) \\
-	&= \phi \circ f(x) \\
-	&= \phi(y)
-	\end{align*}
-	So $\psi = \phi$.
-	\end{itemize}
- 
-	\end{proof}
-
-	\begin{ex}
-	Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists a unique $\phi: f(X_1) \rightarrow X_3$ such that $\phi$ is $\MA_2 \cap f(X_1)$ - $\MA_3$ measurable and $g = \phi \circ f$. \\
-	\end{ex}
-	
-	\begin{proof}
-	A previous exercise implies that $f: X_1 \rightarrow f(X_1)$ is $\MA_1$ - $\MA_2 \cap f(X_1)$ measurable. Now apply the previous exercise. 
-	\end{proof}
-	
-
-	
-	
-
-
-
-
-
-
-
-	
-	\newpage	
 	\subsection{Integration of Nonnegative Functions}
 	
-	\begin{thm}\textbf{Monotone Convergence Theorem:} 
+	\begin{thm}\textbf{Monotone Convergence Theorem:} \\
 		Let $(f_n)_{n \in \N} \subset L^+$. Suppose that for each $n \in \N$, $f_n \leq f_{n+1}$. Then $$\sup_{n \in \N} \int f_n = \int \sup_{n \in \N} f_n$$.
 	\end{thm}
 	
@@ -1555,7 +1820,7 @@ by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\M
 		
 	\end{proof}
 	
-	\begin{thm}{Fatou's Lemma}
+	\begin{thm} \textbf{Fatou's Lemma:}\\
 		Let $(f_n)_{n \in \N} \subset L^+$. Then $$\int \limfn f_n \leq \limfn \int f_n.$$
 	\end{thm}
 	
@@ -1814,7 +2079,7 @@ by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\M
 		Let $f \in L^1$. Then for each $\ep > 0$, there exists $\phi \in L^1$ such that $\phi$ is simple and $\int |f - \phi| < \ep$. 
 	\end{thm}
 	
-	\begin{ex} \lex{00000} {Generalized Fatou's Lemma:}
+	\begin{ex} \lex{00000} \textbf{Generalized Fatou's Lemma:}
 		Let $(f_n)_{n \in \N}$ be a sequence of measurable real valued functions. Suppose that there exists $g \in L^1$ such that $g \geq 0$ and for each $n \in \N$, $f_n \geq -g$. Then $ \int \limfn f_n \leq \limfn \int f_n$. What is the analogue of Fatou's lemma for measurable, real valued functions that are appropriately bounded above?  
 	\end{ex}
 	
@@ -2056,7 +2321,7 @@ by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\M
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-	Let $(X, \MA, \mu)$ be a measure space and $f:X \times \R \rightarrow \C$. Suppose that for each $t \in \R$, $f(\cdot, t) \in L^1(\mu)$. Define $F: \R \rightarrow \R$ by 
+	Let $(X, \MA, \mu)$ be a measure space and $f:X \times \R \rightarrow \C$. Suppose that for each $t \in \R$, $f(\cdot, t) \in L^1(\mu)$. Define $F: \R \rightarrow \C$ by 
 	$$F(t) = \int_X f(x, t) d\mu(x)$$ 
 	\begin{enumerate}
 	\item Suppose that there exists $g \in L^1(\mu)$ such that for each $(x, t) \in X \times \R$, $|f(x,t)| \leq g(x)$. Let $t_0 \in \R$. If for each $x \in X$, $f(x, \cdot)$ is continuous at $t_0$, then $F$ is continuous at $t_0$. 
@@ -3073,6 +3338,48 @@ by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\M
 	Let $(X, \MA)$ be a measurable space. We define $$\MM(X, \MA) = \{\mu:\MA \rightarrow \C: \mu \text{ is a complex measure}\}$$
 	When $X$ is a topological space, we write $\MM(X)$ in place of $\MM(X, \MB(X))$.
 	\end{defn}
+
+	\begin{ex}
+		Let $(X, \MA)$ be a measurable space and $\mu, \nu \in \MM(X, \MA)$. Set $\ML_{\mu,\nu} = \{A \in \MA: \mu(A) = \nu(A)\}$. If $X \in \ML_{\mu, \nu}$, then $\ML_{\mu, \nu}$ is a $\lam$-system on $X$.
+	\end{ex}
+	
+	\begin{proof} Suppose that  $X \in \ML_{\mu, \nu}$.
+		\begin{enumerate}
+			\item Since $X \in \ML_{\mu, \nu}$, $\ML_{\mu, \nu} \neq \varnothing$.
+			\item Let $A \in \ML_{\mu, \nu}$. Then $\mu(A) = \nu(A)$. Thus 
+			\begin{align*}
+				\mu(A^c) 
+				&= \mu(X)-\mu(A) \\
+				&= \nu(X) -\nu(A) \\
+				&= \nu(A^c)
+			\end{align*}
+			So $A^c \in \ML_{\mu, \nu}$. 
+			\item Let $(A_n)_{n \in \N} \subset \ML_{\mu, \nu}$. So for each $n \in \N$, $\mu(A_n) = \nu(A_n)$.  Suppose that $(A_n)_{n \in \N}$ is disjoint. Then 
+			\begin{align*}
+				\mu\bigg(\bigcup_{n \in \N} A_n\bigg) 
+				&= \sum_{n \in \N} \mu(A_n) \\
+				&= \sum_{n \in \N} \nu(A_n) \\
+				&= \nu\bigg(\bigcup_{n \in \N} A_n\bigg) 
+			\end{align*}
+			Hence $\bigcup_{n \in \N} A_n \in \ML_{\mu, \nu}$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X, \MA)$ be a measurable space, $\mu, \nu \in \MM(X, \MA)$ and $\MP \subset \MA$ a $\pi$-system on $X$. Suppose that for each $A \in \MP$, $\mu(A) = \nu(A)$. Then for each $A \in \sig(\MP)$, $\mu(A) = \nu(A)$.
+	\end{ex}
+	
+	\begin{proof}
+		The previous exercise implies that $\MP \subset \ML_{\mu, \nu}$. Dynkin's theorem implies that $\sig(\MP) \subset \ML_{\mu, \nu}$. So for each $A \in \sig(\MP)$, $\mu(A) = \nu(A)$.
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MT)$ be a topological space and $\mu, \nu \in \MM(X)$. If for each $A \in \MT$, $\mu(A) = \nu(A)$, then $\mu = \nu$.
+	\end{ex}
+
+	\begin{proof}
+		Since $\MT \subset \MB(X)$ is a $\pi$-system on $X$, the previous exercise implies that for each $A \in \sig(\MT)$, $\mu(A) = \nu(A)$. Since $\sig(\MT) = \MB(X)$, $\mu = \nu$. 
+	\end{proof}
 	
 	\begin{note}
 		We use the same definitions for mutual orthogonality and absolute continuity when discussing complex measures instead of signed measures.
@@ -3279,99 +3586,6 @@ by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\M
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\subsection{Weak Convergence of Measures}	
-	
-	\begin{defn}
-	Let $X$ be a topological space. For $f \in C_b(X)$, define $\lam_f: \MM(X) \rightarrow \C$ by $$\lam_f(\mu) = \int f \dmu$$.
-	\end{defn}
-	
-	\begin{ex}
-	Let $X$ be a topological space. For each $f \in C_b(X)$, $\lam_f \in \MM(X)^*$. 
-	\end{ex}
-	
-	\begin{proof}
-	Let $f \in C_b(X)$ and $\mu \in \MM(X)$. Then 
-	\begin{align*}
-	|\lam_f(\mu)| 
-	&= \bigg | \int f \dmu \bigg| \\
-	&\leq \int |f| \, d |\mu| \\
-	& \leq \|f\|_u \|\mu\|
-	\end{align*}
-	
-	\rex{43010} implies that $\lam_f$ is linear. So $\lam_f \in \MM(X)^*$.
-	\end{proof}
-	
-	\begin{defn}
-	Let $X$ be a topological space. We define the \textbf{weak topology on $\MM(X)$} to be the weak topology generated by $\{\lam_f \in \MM(X)^*: f \in C_b(X) \}$. 
-	\end{defn}
-	
-	\begin{defn}
-	Let $X$ be a topological space and $(\mu_{n})_{n \in \N} \subset \MM(X)$ and $\mu \in \MM(X)$. Then $(\mu_{n})_{n \in \N}$ is said to \textbf{converge  weakly} to $\mu$, denoted $\mu_n \conv{w} \mu$, if $(\mu_{n})_{n \in \N}$ converges to $\mu$ in the weak topology, i.e. for each $f \in C_b(X)$, $$\int f \dmu_n \rightarrow \int f \dmu$$ 
-	\end{defn}	
-	
-	\begin{ex}\textbf{Portmanteau Theorem:}
-	Let $X$ be a topological space and $(\mu_{n})_{n \in \N} \subset \MM(X)$ and $\mu \in \MM(X)$. Suppose that for each $n \in \N$, $\mu_n(X) = \mu(X)$. Then the following are equivalent:
-	\begin{enumerate}
-	\item $\mu_n \conv{w} \mu$
-	\item for each $A \in \MB(X)$, $A$ is open implies that $\mu(A) \leq \limfn\limits \mu_n(A) $
-	\item for each $A \in \MB(X)$, $A$ is closed implies that $\mu(A) \geq \limpn \limits \mu_n(A) $
-	\item for each $A \in \MB(X)$, $\mu( \p A) = 0$ implies that $\mu_n(A) \rightarrow \mu(A) $
-	\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-	\begin{itemize}
-	\item $(2) \iff (3)$: \\
-	Suppose $(2)$. Let $A \in \MB(X)$. Suppose that $A$ is closed. Then $A^c$ is open. By assumption, $\mu(A^c) \leq \limfn \limits \mu_n(A^c)$. Hence 
-	\begin{align*}
-	\mu(A)
-	&= \mu(X) - \mu(A^c) \\
-	&\geq \mu(X) - \limfn \mu_n(A^c) \\
-	&= \mu(X) + \limpn [- \mu_n(A^c)] \\
-	&= \limpn \bigg[ \mu(X)  - \mu_n(A^c) \bigg] \\
-	&= \limpn \bigg[ \mu_n(X)  - \mu_n(A^c) \bigg] \\
-	&= \limpn \mu_n(A)
-	\end{align*}
-	So $(3)$ holds.
-	Similarly, $(3)$ implies $(2)$.\\
-	\item $(2) \iff (4)$: \\
-	Suppose $(2)$. From above, $(3)$ holds. Let $A \in \MB(X)$. Then 
-	\begin{align*}
-	\mu(A^{\circ}) 
-	& \leq \limfn \mu_n(A^{\circ}) \\
-	& \leq  \limfn \mu_n(A) \\
-	& \leq  \limpn \mu_n(A) \\
-	& \leq  \limpn \mu_n(\overline{A}) \\
-	& \leq  \mu(\overline{A}) \\
-	\end{align*}
-	Suppose that $\mu(\p A) = 0$. Then
-	\begin{align*}
-	\mu(A^{\circ}) 
-	&\leq \mu(A) \\
-	& \leq \mu(\overline{A}) \\
-	&= \mu(A^{\circ}) + \mu(\p A) \\
-	&= \mu(A^{\circ}) \\
-	\end{align*}
-	which implies that $\mu_n(A) \rightarrow \mu(A)$. Conversely, suppose $(4)$. 
-	\item 
-	\end{itemize}
-	\end{proof}
 
 	
 	
@@ -4212,12 +4426,12 @@ by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\M
 	
 	
 	\newpage
-	\section{Radon Measures}
+	\section{Borel Measures}
 	
-	\subsection{Introduction}
+	\subsection{Radon Measures}
 	
 	\begin{defn} \ld{00000} 
-	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Borel measure and $E \in \MB(X)$ . Then $\mu$ is said to be 
+	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a measure and $E \in \MB(X)$. Then $\mu$ is said to be 
 	\begin{enumerate}
 	\item \textbf{inner regular on $E$} if
 	$$\mu(E) = \sup \{ \mu(K): K \subset E \text{ and $K$ is compact}\}$$
@@ -4228,7 +4442,7 @@ by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\M
 	\end{defn}
 	
 	\begin{defn} \ld{00000} 
-	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Borel measure. Then $\mu$ is said to be 
+	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a measure. Then $\mu$ is said to be 
 	\begin{enumerate}
 	\item  \textbf{inner regular} if for each $E \in \MA$, $\mu$ is inner regular on $E$
 	\item  \textbf{outer regular} if for each $E \in \MA$, $\mu$ is outer regular on $E$
@@ -4237,12 +4451,16 @@ by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\M
 	\end{defn}
 	
 	\begin{defn} \ld{00000} 
-	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ and $E \in \MB(X)$. Then $\mu$ is said to be a \textbf{Radon measure} if for each $E \in \MB(X)$, 
+	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a measure and $E \in \MB(X)$. Then $\mu$ is said to be a \textbf{Radon measure} if for each $E \in \MB(X)$, 
 	\begin{enumerate}
 	\item $E$ is compact implies that $\mu(E) < \infty$
 	\item $\mu$ is outer regular on $E$
 	\item $E$ is open implies that $\mu$ is inner regular on $E$
 	\end{enumerate}
+	\end{defn}
+
+	\begin{defn}
+		Let $X$ be a topological space, $\mu \in \MM(X)$. Then $\mu$ is said to be \textbf{Radon} if $\|\mu\|$ is Radon.  
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
@@ -4277,7 +4495,7 @@ by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\M
 	\begin{enumerate}
 	\item there exists $U \in \MB(X)$ such that $U$ is open, $E \subset U$ and $\mu(U \setminus E) < \ep$ 
 	\item there exists $C \in \MB(X)$ such that $C$ is compact, $C \subset U$ and $\mu(U) - \ep < \mu(C)$ 
-	\item there exists $V \in \MB(X)$ such that $U$ and $V$ are open, $U \setminus E \subset V$ and $\mu(V) < \ep$ 
+	\item there exists $V \in \MB(X)$ such that $V$ is open, $U \setminus E \subset V$ and $\mu(V) < \ep$ 
 	\end{enumerate}
 	\end{ex}
 	
@@ -4323,7 +4541,7 @@ by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\M
 	
 	\begin{proof}
 	Suppose that $E$ is $\sig$-finite. \\
-	If $\mu(E) < \infty$, the previous exercise implies that for each $\ep > 0 $, there exists $K \in \MB(X)$ such that $K$ is compact, $E \subset K$ and $\mu(K) > \mu(E) - \ep$. Hence $\mu$ is inner regular on $E$. \\
+	If $\mu(E) < \infty$, the previous exercise implies that for each $\ep > 0 $, there exists $K \in \MB(X)$ such that $K$ is compact, $K \subset E$ and $\mu(K) > \mu(E) - \ep$. Hence $\mu$ is inner regular on $E$. \\
 	If $\mu(E) = \infty$, then $\sig$-finiteness implies that there exists $(E_j)_{j \in \N} \subset \MB(X)$ such that $E = \bigcup\limits_{j \in N} E_j$, for each $j \in \N$, $\mu(E_j) < \infty$ and $\mu(E_j) \rightarrow \infty$. Let $N \in \N$. Choose $J \in \N$ such that $\mu(E_J) > N$. The above argument implies that there exists $K \in \MB(X)$ such that $K$ is compact, $K \subset E_J \subset E$ and $\mu(K) > N$. So 
 	\begin{align*}
 	\mu(E)
@@ -4377,7 +4595,7 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage	
-	\subsection{Representation Theorems}
+	\subsection{Radon Measures on LCH Spaces}
 	
 	\begin{defn} \ld{00000} 
 	Let $X$ be a topological space and $I: C_c(X) \rightarrow \C$ a linear functional. Then $I$ is said to be \textbf{positive} if for each $f \in C_c(X, \R)$, $f \geq 0 $ implies that $I(f) \geq 0$.
@@ -4399,7 +4617,7 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\begin{ex} \lex{00000} 
-	Let $X$ be a LCH space, $I: C_c(X) \rightarrow \C$ a positive linear functional. Then for each $K \subset X$, $K $ is compact implies that there exists $C_K \geq 0$ such that for each$f \in C_c(X)$, if $\supp(f) \subset K$, then $I(f) \leq C_K \|f\|_{\infty}$.\\
+	Let $X$ be a LCH space, $I: C_c(X) \rightarrow \C$ a positive linear functional. Then for each $K \subset X$, $K $ is compact implies that there exists $C_K \geq 0$ such that for each $f \in C_c(X)$, if $\supp(f) \subset K$, then $I(f) \leq C_K \|f\|_{\infty}$.\\
 	\textbf{Hint:} Urysohn's lemma 
 	\end{ex}
 	
@@ -4551,7 +4769,266 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	
+	\newpage
+	\subsection{Borel Measures on Metric Spaces}
+	\begin{note}
+		Let $X$ be a metric space and $A \subset X$. For $\ep >0$, we write $A_{\ep} = \{x \in X: d(x, A) < \ep\}$ and recall that $A_{\ep}$ is open.
+	\end{note}
+
+	\begin{ex}
+		Let $X$ be a metric space, $\mu: \MB(X) \rightarrow \Rg$ be a finite measure and $E \in \MB(X)$. Then 
+		$\mu(E) = \inf  \{\mu(U): E \subset U \text{ and $U$ is open} \}$ iff $\mu(E^c) = \sup  \{\mu(C): C \subset E^c \text{ and $C$ is closed} \}$ 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\mu(E) = \inf  \{\mu(U): E \subset U \text{ and $U$ is open} \}$. Let $\ep >0$. Then there exists $U \subset X$ such that $E \subset U$, $U$ is open and $\mu(U) < \mu(E) + \ep$. Choose $C = U^c$. Then $C \subset E^c$, $E^c$ is closed and 
+		\begin{align*}
+			\mu(E^c) - \ep 
+			&= \mu(E^c \cap C) + \mu(E^c \cap C^c) - \ep \\
+			&= \mu(C) + \mu(E^c \cap U) - \ep \\
+			&= \mu(C) + [\mu(U) - \mu(E)] - \ep \\
+			&< \mu(C) + \ep - \ep \\
+			&= \mu(C)
+		\end{align*}
+		So for each $\ep > 0$, there exists $C \subset E^c$ such that $C$ is closed and $\mu(C) < \mu(E^c) - \ep$. is arbitrary, $\mu(E^c) = \sup\{\mu(C): C \subset E^c \text{ and $E$ is closed}\}$. \\
+		The converse is similar. 
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a metric space and $\mu: \MB(X) \rightarrow \Rg$ be a finite measure. Then for each $C \subset X$, if $C$ is closed, then $\mu$ is outer regular on $C$. \\
+		\textbf{Hint:} For $\ep >0$, consider $C_{\ep} = \{x \in X: d(x, C) < \ep\}$. 
+	\end{ex}
+
+	\begin{proof}
+		Let $n \in \N$. Set $V_n = C_{1/n}$. Then $V_n$ is open and $C \subset V_n$. Since $C$ is closed, $C = \bigcap_{n \in \N} V_n$. Since for each $n \in \N$, $V_{n+1} \subset V_n$ and $\mu$ is finite, we have that $\mu(C) = \inf\limits_{n \in \N} \mu(V_n)$. So for each $\ep >0$, there exists $n \in \N$ such that $\mu(V_n) < \mu(C) + \ep$. Hence $\mu(C) = \inf \{\mu(U): C \subset U \text{ and $U$ is open} \}$ and $\mu$ is outer regular on $C$.    
+	\end{proof}
 	
+	\begin{ex}
+		Let $X$ be a metric space and $\mu: \MB(X) \rightarrow \Rg$ be a finite measure. Set 
+		$$\MA = \bigg \{E \in \MB(X): \text{$\mu$ is outer regular on $E$ and $E^c$} \bigg\}$$  
+		Then $\MA$ is a $\sig$-algebra on $X$.
+	\end{ex}	
+
+	\begin{proof}\ 
+		\begin{enumerate}
+			\item Clearly, $\varnothing \in \MA$.
+			\item Let $E \in \MA$. Since $(E^c)^c = E$, by definition, $E^c \in \MA$. 
+			\item Let $(E_n)_{n \in \N} \subset \MA$. Set $E = \bigcup\limits_{n \in \N} E_n$. Let $\ep >0$. 
+			\begin{itemize}
+				\item For each $n \in \N$, there exists $U_n \subset X$ such that $U_n$ is open, $E_n \subset U_n$ and $\mu(U_n) < \mu(E_n) + \ep 2^{-n - 1 }$. Set $U = \bigcup\limits_{n\in\N} U_n$. Then $U$ is open, $E \subset U$ and 
+				\begin{align*} 
+					U \setminus E
+					&= \bigg( \bigcup_{n \in \N} U_n \bigg) \cap  E^c \\
+					&= \bigg( \bigcup_{n \in \N} U_n \cap E^c \bigg)  \\
+					&= \bigg( \bigcup_{n \in \N} U_n \cap \bigg[ \bigcap_{j \in \N} E_j^c \bigg] \bigg) \\
+					&= \bigg( \bigcup_{n \in \N} \bigg [ \bigcap_{j \in \N} (U_n \cap E_j^c)\bigg ]  \bigg) \\
+					& \subset \bigcup_{n \in \N} (U_n \cap E_n^c)  \\
+					&= \bigcup_{n \in \N} (U_n \setminus E_n) 
+				\end{align*}
+				Therefore
+				\begin{align*}
+					\mu(U) - \mu(E)
+					&= \mu(U \setminus E) \\
+					& \leq \mu \bigg(\bigcup_{n \in \N} [U_n \setminus E_n] \bigg) \\
+					& \leq \sum_{n \in \N} \mu(U_n \setminus E_n) \\
+					&= \sum_{n \in \N} [\mu(U_n) - \mu(E_n)] \\
+					& \leq \sum_{n \in \N} \ep 2^{-n-1} \\
+					&= \frac{\ep}{2} \\
+					& < \ep
+				\end{align*}
+				So for each $\ep >0$, there exists $U \subset X$ such that $U$ is open, $\bigcup_{n \in \N}E_n \subset U$ and $\mu(U) < \mu \bigg( \bigcup_{n \in \N} E_n \bigg) + \ep$. Therefore $$\mu \bigg( \bigcup_{n \in \N} E_n \bigg) = \inf \bigg \{ \mu(U): \bigcup_{n \in \N} E_n \subset U \text{ and $U$ is open} \bigg \}$$
+				and $\mu$ is outer regular on $\bigcup\limits_{n \in \N} E_n$.
+				\item A previous exercise implies that for each $n \in \N$, there exists $C_n \subset E_n$ such that $C_n$ is closed and $\mu(C_n) > \mu(E_n) - 2^{-n-1}\ep$. Since 
+				$$\mu\bigg( \bigcup\limits_{n \in \N}C_n \bigg) = \sup\limits_{K \in \N} \mu\bigg(\bigcup\limits_{n=1}^K C_n \bigg)$$ 
+				there exists $K \in \N$ such that $\mu\bigg(\bigcup\limits_{n=1}^K C_n \bigg) > \mu\bigg( \bigcup\limits_{n \in \N}C_n \bigg) - \ep/2 $. Set $C = \bigcup\limits_{n=1}^K C_n$.
+				Then $C$ is closed, $C \subset E$ and similar to the previous part, we have that
+				\begin{align*}
+					\mu(E) - \mu(C)
+					& < \mu(E) - \mu\bigg( \bigcup\limits_{n \in \N}C_n \bigg) + \frac{\ep}{2} \\
+					&= \mu \bigg(E \setminus \bigcup\limits_{n \in \N}C_n   \bigg) +  \frac{\ep}{2} \\
+					&= \mu \bigg( \bigcup\limits_{n \in \N} \bigg[ \bigcap_{j \in \N} (E_n \cap C_j^c)    \bigg] \bigg)  + \frac{\ep}{2} \\
+					&\leq  \mu \bigg( \bigcup\limits_{n \in \N}  (E_n \cap C_n^c)  \bigg)  + \frac{\ep}{2} \\
+					&\leq \bigg[ \sum_{n \in \N} \mu(E_n \cap C_n^c) \bigg] + \frac{\ep}{2}\\
+					&=\bigg[ \sum_{n \in \N} \mu(E_n) - \mu(C_n) \bigg] +\frac{\ep}{2}\\
+					&\leq \bigg[ \sum_{n \in \N} 2^{-n-1}\ep \bigg] + \frac{\ep}{2}\\
+					&= \frac{\ep}{2} + \frac{\ep}{2} \\
+					&= \ep 
+				\end{align*}
+				So for each $\ep >0$, there exists $C \subset X$ such that $C$ is closed, $C \subset \bigcup_{n \in \N}E_n$ and $\mu(C) > \mu \bigg( \bigcup_{n \in \N} E_n \bigg) - \ep$. Therefore 
+				$$\mu \bigg( \bigcup_{n \in \N} E_n \bigg) = \sup \bigg \{ \mu(C): C \subset \bigcup_{n \in \N} E_n  \text{ and $C$ is closed} \bigg \}$$
+				which implies that 
+				$$\mu \bigg( \bigg[ \bigcup_{n \in \N} E_n \bigg]^c \bigg) = \inf \bigg \{ \mu(U): \bigg[ \bigcup_{n \in \N} E_n \bigg]^c \subset U  \text{ and $U$ is open} \bigg \}$$
+				and $\mu$ is outer regular on $\bigg( \bigcup\limits_{n \in \N} E_n \bigg)^c$.
+			\end{itemize}
+		Hence $\bigcup\limits_{n \in \N} E_n \in \MA$.
+		\end{enumerate}
+	Therefore $\MA$ is a $\sig$-algebra on $X$.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a metric space and $\mu: \MB(X) \rightarrow \Rg$ be a finite measure. Then $\mu$ is outer regular.
+	\end{ex}
+
+	\begin{proof}
+		Set $\MT = \{U \subset X: X \text{ is open}\}$ and define $\MA$ as in the previous exercise. The previous exercises imply that $\MT \subset \MA$. Since $\MB(X) = \sig(\MT)$, we have that $\MB(X) \subset \MA$. Therefore $\MB(X) = \MA$ and $\mu$ is outer regular.  
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a metric space and $\mu: \MB(X) \rightarrow [0, \infty)$ a finite measure. If $\mu$ is inner regular on $X$, then $\mu$ is inner regular.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that is inner regular on $X$. Let $E \in \MB(X)$ and $\ep >0$. Then there exists $K_0 \subset X$ such that $K_0$ is compact and $\mu(K_0) > \mu(X) - \ep/2$. The previous exercise implies that there exists $C \subset E$ such that $C$ is closed and $\mu(C) > \mu(E) - \ep/2$. Set $K = K_0 \cap C$. Then $K \subset E$, $K$ is compact and 
+		\begin{align*}
+			\mu(E)
+			& < \mu(C) + \frac{\ep}{2} \\
+			& =[ \mu(C \cap K_0) + \mu(C \cap K_0^c)] + \frac{\ep}{2} \\
+			& \leq \mu(C \cap K_0) + \mu(X \cap K_0^c) + \frac{\ep}{2} \\
+			&= \mu(K) + [\mu(X) - \mu(K_0)] + \frac{\ep}{2} \\
+			&< \mu(K) + \frac{\ep}{2} + \frac{\ep}{2} \\
+			&= \mu(K) + \ep
+		\end{align*}
+		So for each $\ep >0$, there exists $K \subset E$ such that $K$ is compact and $\mu(K) > \mu(E) - \ep$. Hence $\mu(E) = \sup\{\mu(K): K \subset E \text{ and  $K$ is compact}\}$ and $\mu$ is inner regular on $E$. Since $E \in \MB(X)$ is arbitrary, $\mu$ is inner regular.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a Polish space and $\mu: \MB(X) \rightarrow [0, \infty)$ a finite measure. Then $\mu$ is inner regular. \\
+		\textbf{Hint:} If $(x_{n})_{n \in \N}$ is a countable dense of $X$, consider $K \subset X$ of the form 
+		$$K = \bigcap\limits_{m \in \N} \bigcup\limits_{n = 1}^{n_m} \cl B(x_n, 1/m) $$
+	\end{ex}
+
+	\begin{proof}
+		Let $\ep >0$. Since $X$ is separable, there exists a a countable dense subset $(x_{n})_{n \in \N}$ of $X$. Let $m \in \N$. Then $X = \bigcup\limits_{n \in \N} \cl B(x_n, 1/m)$. This implies that there exists $n_m \in \N$ such that 
+		$$\mu \bigg(\bigcup\limits_{n = 1}^{n_m} \cl B(x_n, 1/m) \bigg) > \mu(X) - 2^{-m-1}\ep$$ 
+		Set 
+		$$K = \bigcap\limits_{m \in \N} \bigcup\limits_{n = 1}^{n_m} \cl B(x_n, 1/m) $$
+		Then $K$ is closed. Let $\del >0$. Choose $m_{\del} \in \N$ such that $1/m_{\del} < \del$. Then 
+		\begin{align*}
+			K 
+			&=  \bigcap\limits_{m \in \N} \bigcup\limits_{n = 1}^{n_m} \cl B(x_n, 1/m) \\
+			& \subset \bigcup\limits_{n = 1}^{n_{m_{\del}}} \cl B(x_n, 1/{m_{\del}}) \\
+			& \subset  \bigcup\limits_{n = 1}^{n_{m_{\del}}} B(x_n, \del) \\ 
+		\end{align*}
+		Hence $K$ is totally bounded. Since $X$ is complete, $K$ is compact. Finally, we have that 
+		\begin{align*}
+			\mu(X) - \mu(K)
+			&= \mu(K^c) \\
+			&= \mu \bigg( \bigcup\limits_{m \in \N} \bigg[ \bigcup\limits_{n = 1}^{n_m} \cl B(x_n, 1/m) \bigg]^c  \bigg) \\
+			&\leq \sum_{m \in \N} \mu \bigg( \bigg[ \bigcup\limits_{n = 1}^{n_m} \cl B(x_n, 1/m) \bigg]^c \bigg) \\
+			&= \sum_{m \in \N} \bigg[ \mu(X) - \mu \bigg(  \bigcup\limits_{n = 1}^{n_m} \cl B(x_n, 1/m)  \bigg) \bigg] \\
+			& \leq \sum_{m \in \N} 2^{-m-1}\ep \\
+			&= \frac{\ep}{2} \\
+			&< \ep
+		\end{align*} 
+	So for each $\ep >0$, there exists $K \subset X$ such that $K$ is compact and $\mu(K) > \mu(X) - \ep$. Thus $$\mu(X) = \sup\{\mu(K): \text{$K \subset X$ and $K$ is compact}\}$$ and $\mu$ is inner regular on $X$. The previous exercise implies that $\mu$ is inner regular.   
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a Polish space and $\mu: \MB(X) \rightarrow [0, \infty)$ a finite measure. Then $\mu$ is regular and Radon.
+	\end{ex}
+
+	\begin{proof}
+		Clear by preceeding exercises.
+	\end{proof}
+	
+	
+	\begin{defn}
+		Let $X$ be a topological space. For $f \in C_b(X)$, define $\lam_f: \MM(X) \rightarrow \C$ by $$\lam_f(\mu) = \int f \dmu$$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a topological space. For each $f \in C_b(X)$, $\lam_f \in \MM(X)^*$. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $f \in C_b(X)$ and $\mu \in \MM(X)$. Then 
+		\begin{align*}
+			|\lam_f(\mu)| 
+			&= \bigg | \int f \dmu \bigg| \\
+			&\leq \int |f| \, d |\mu| \\
+			& \leq \|f\|_u \|\mu\|
+		\end{align*}
+		
+		\rex{43010} implies that $\lam_f$ is linear. So $\lam_f \in \MM(X)^*$.
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a topological space. We define the \textbf{weak topology on $\MM(X)$} to be the weak topology generated by $\{\lam_f \in \MM(X)^*: f \in C_b(X) \}$. 
+	\end{defn}
+	
+	\begin{defn}
+		Let $X$ be a topological space and $(\mu_{n})_{n \in \N} \subset \MM(X)$ and $\mu \in \MM(X)$. Then $(\mu_{n})_{n \in \N}$ is said to \textbf{converge  weakly} to $\mu$, denoted $\mu_n \conv{w} \mu$, if $(\mu_{n})_{n \in \N}$ converges to $\mu$ in the weak topology, i.e. for each $f \in C_b(X)$, $$\int f \dmu_n \rightarrow \int f \dmu$$ 
+	\end{defn}	
+	
+	\begin{ex}\textbf{Portmanteau Theorem:}
+		Let $X$ be a topological space and $(\mu_{n})_{n \in \N} \subset \MM(X)$ and $\mu \in \MM(X)$. Suppose that for each $n \in \N$, $\mu_n(X) = \mu(X)$. Then the following are equivalent:
+		\begin{enumerate}
+			\item $\mu_n \conv{w} \mu$
+			\item for each $A \in \MB(X)$, $A$ is open implies that $\mu(A) \leq \limfn\limits \mu_n(A) $
+			\item for each $A \in \MB(X)$, $A$ is closed implies that $\mu(A) \geq \limpn \limits \mu_n(A) $
+			\item for each $A \in \MB(X)$, $\mu( \p A) = 0$ implies that $\mu_n(A) \rightarrow \mu(A) $
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(2) \iff (3)$: \\
+			Suppose $(2)$. Let $A \in \MB(X)$. Suppose that $A$ is closed. Then $A^c$ is open. By assumption, $\mu(A^c) \leq \limfn \limits \mu_n(A^c)$. Hence 
+			\begin{align*}
+				\mu(A)
+				&= \mu(X) - \mu(A^c) \\
+				&\geq \mu(X) - \limfn \mu_n(A^c) \\
+				&= \mu(X) + \limpn [- \mu_n(A^c)] \\
+				&= \limpn \bigg[ \mu(X)  - \mu_n(A^c) \bigg] \\
+				&= \limpn \bigg[ \mu_n(X)  - \mu_n(A^c) \bigg] \\
+				&= \limpn \mu_n(A)
+			\end{align*}
+			So $(3)$ holds.
+			Similarly, $(3)$ implies $(2)$.\\
+			\item $(2) \iff (4)$: \\
+			Suppose $(2)$. From above, $(3)$ holds. Let $A \in \MB(X)$. Then 
+			\begin{align*}
+				\mu(A^{\circ}) 
+				& \leq \limfn \mu_n(A^{\circ}) \\
+				& \leq  \limfn \mu_n(A) \\
+				& \leq  \limpn \mu_n(A) \\
+				& \leq  \limpn \mu_n(\overline{A}) \\
+				& \leq  \mu(\overline{A}) \\
+			\end{align*}
+			Suppose that $\mu(\p A) = 0$. Then
+			\begin{align*}
+				\mu(A^{\circ}) 
+				&\leq \mu(A) \\
+				& \leq \mu(\overline{A}) \\
+				&= \mu(A^{\circ}) + \mu(\p A) \\
+				&= \mu(A^{\circ}) \\
+			\end{align*}
+			which implies that $\mu_n(A) \rightarrow \mu(A)$. Conversely, suppose $(4)$. 
+			\item 
+		\end{itemize}
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	\newpage
 	\section{Haar Measure}
 	
@@ -4560,6 +5037,14 @@ and $\mu$ is inner regular on $E$.
 	\begin{note}
 	This section assumes familiarity with topological groups. See section $8.1$ of \cite{analysis} for details. 
 	\end{note}
+
+	\begin{defn} \ld{00000} 
+		Let $G$ be a group and $g \in G$. Define $l_g:G \rightarrow G$ and $r_g:G \rightarrow G$ by $l_g(x) = gx$ and $r_g(x) = xg^{-1}$. 
+	\end{defn}
+
+	\begin{defn} \ld{00000} 
+		Let $G$ be a topological group, $y \in G$ and $f \in L^0$.  Define $L_y, R_y: L^0(G) \rightarrow L^0(G)$ by $L_y f = f \circ l_y^{-1}$ and $R_y f = f \circ r_y^{-1}$, that is, $L_yf(x) = f(y^{-1}x)$ and $R_yf(x) = f(xy)$.
+	\end{defn}
 	
 	\begin{defn} \ld{00000} 
 		Let $G$ be a topological group and $\mu$ a Radon measure on $G$. Then $\mu$ is said to be a \textbf{left Haar measure on $G$} if 
@@ -4713,7 +5198,7 @@ and $\mu$ is inner regular on $E$.
 		Let $G$ be a locally compact group and $\mu$ a left Haar measure on $G$. Then 
 		\begin{enumerate}
 			\item $\Del $ is a homomorphism 
-			\item for each $f \in L^1 \cup L^+$, $$\int R_y f d \mu = \Del(y^{-1}) \int f d \mu$$
+			\item for each $f \in L^1 \cup L^+$, $$\int R_{y^{-1}} f d \mu = \Del(y) \int f d \mu$$
 		\end{enumerate}
 	\end{ex}
 
@@ -4722,35 +5207,37 @@ and $\mu$ is inner regular on $E$.
 			\item Recall that for each $g \in G$, $\Del(g)\mu(U) = {r_g}_*\mu(U) = \mu(Ug)$. Let $g, h \in G$ and $U \in \MB(G)$. Then $\Del(gh)\mu(U) = \mu(Ugh) = \Del(h)\mu(Ug) = \Del(g) \Del(h)\mu(U)$. So $\Del(gh) = \Del(g) \Del(h)$.
 			\item Let $y \in G$ and $U \in \MB(G)$. Put $f = \chi_U$ Then 
 			\begin{align*}
-				\int R_y f d \mu 
-				& = \int R_y \chi_U d \mu \\
-				& = \int \chi_{Uy^{-1}} d \mu \\
-				& = \mu(Uy^{-1}) \\
-				& = \Del(y^{-1}) \mu(U) \\
-				& = \Del(y^{-1})  \int \chi_U d \mu \\
-				&= \Del(y^{-1})  \int f d \mu
+				\int R_{y^{-1}} f d \mu 
+				& = \int R_{y^{-1}} \chi_U d \mu \\
+				& = \int \chi_{Uy} d \mu \\
+				& = \mu(Uy) \\
+				&= \mu(r_y^{-1}(U)) \\
+				&= {r_y}_* \mu(U) \\
+				& = \Del(y) \mu(U) \\
+				& = \Del(y)  \int \chi_U d \mu \\
+				&= \Del(y)  \int f d \mu
 			\end{align*}
-			By linearity of $R_y$, for $f \in S^+$, $$\int R_y f d \mu = \Del(y^{-1}) \int f d \mu$$
-			For $f \in L^+$, choose $\seq{\phi}{n} \subset S^+$ such that for each $n \in \N$ $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \rightarrow f$. Then for each $n \in \N$ $R_y \phi_n \leq R_y \phi_{n+1} \leq R_y f$ and $R_y \phi \rightarrow R_y f$. So MCT implies that 
+			By linearity of $R_{y^{-1}}$, for $f \in S^+$, $$\int R_{y^{-1}} f d \mu = \Del(y) \int f d \mu$$
+			For $f \in L^+$, choose $\seq{\phi}{n} \subset S^+$ such that for each $n \in \N$ $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \rightarrow f$. Then for each $n \in \N$ $R_{y^{-1}} \phi_n \leq R_{y^{-1}} \phi_{n+1} \leq R_{y^{-1}} f$ and $R_{y^{-1}} \phi \rightarrow R_{y^{-1}} f$. So the monotone convergence theorem implies that 
 			\begin{align*}
-				\int R_y f d \mu 
-				& = \limn \int R_y \phi_n d \mu \\
-				& = \limn \Del(y^{-1}) \int \phi_n d \mu \\
-				& = \Del(y^{-1}) \int f d \mu \\
+				\int R_{y^{-1}} f d \mu 
+				& = \limn \int R_{y^{-1}} \phi_n d \mu \\
+				& = \limn \Del(y) \int \phi_n d \mu \\
+				& = \Del(y) \int f d \mu \\
 			\end{align*}
-			Let $f \in L^1$. If $f$ is real valued, write $f = f^+ - f^-$. Then $R_y f = R_y f^+ - R_y f^-$ and 
+			Let $f \in L^1$. If $f$ is real valued, write $f = f^+ - f^-$. Then $R_{y^{-1}} f = R_{y^{-1}} f^+ - R_{y^{-1}} f^-$ and 
 			\begin{align*}
-				\int R_yf d \mu 
-				& = \int R_y f^+ d \mu - \int R_y f^- d \mu \\
-				& = \Del(y^{-1}) \int f^+ d \mu - \Del(y^{-1}) \int f^- d \mu \\
-				& = \Del(y^{-1}) \int f d \mu
+				\int R_{y^{-1}} f d \mu 
+				& = \int R_{y^{-1}} f^+ d \mu - \int R_{y^{-1}} f^- d \mu \\
+				& = \Del(y) \int f^+ d \mu - \Del(y) \int f^- d \mu \\
+				& = \Del(y) \int f d \mu
 			\end{align*}
 			If $f$ is complex valued, write $f = g + ih$ with $g, h \in L^1$ real valued. Then 
 			\begin{align*}
-				\int R_yf d \mu 
-				& = \int R_y g d \mu + i \int R_y h d \mu \\
-				& = \Del(y^{-1}) \int g d \mu +i \Del(y^{-1}) \int h d \mu \\
-				& = \Del(y^{-1}) \int f d \mu
+				\int R_{y^{-1}} f d \mu 
+				& = \int R_{y^{-1}} g d \mu + i \int R_{y^{-1}} h d \mu \\
+				& = \Del(y) \int g d \mu +i \Del(y) \int h d \mu \\
+				& = \Del(y) \int f d \mu
 			\end{align*}
 		\end{enumerate}
 	\end{proof}
@@ -4972,6 +5459,131 @@ and $\mu$ is inner regular on $E$.
 	&= \|\nu\|
 	\end{align*}
 	\end{proof}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Measures Invariant under Group Actions}
+	\begin{defn} \ld{00000} 
+		Let $G$ be a group, $X$ a set, $\phi: G \times X \rightarrow X$ a group action and $g \in G$. Define $l_g:X \rightarrow G$ by $l_g(x) = g \cdot x$. 
+	\end{defn}
+	
+	\begin{defn} \ld{00000} 
+		Let $G$ be a topological group, $X$ a set, $\phi: G \times X \rightarrow X$ a group action and $g \in G$. Define $L_g: L^0(G) \rightarrow L^0(G)$ by 
+		$$L_g f = f \circ l_g^{-1}$$ 
+		i.e. $L_g f(x) = f(g^{-1} \cdot x)$
+	\end{defn}
+
+	\begin{defn}
+		Let $G$ be a group, $(X, \MA, \mu)$ a measure space, $\phi: G \times X \rightarrow X$ a group action and $\zeta: G \rightarrow (0, \infty)$. Then $\mu$ is said to be \textbf{relatively $\phi$-invariant with multiplier $\zeta$} if for each $g \in G$ and $U \in \MA$ $\mu(g^{-1} \cdot U) = \zeta(g) \mu(U)$. If for each $g \in G$, $\zeta(g) = e$, then $\mu$ is said to be \textbf{$\phi$-invariant}.
+	\end{defn}
+
+	\begin{ex}
+		Let $G$ be a locally compact group and $\mu: \MB(G) \rightarrow \RG$ a left Haar measure. Define the actions $\phi, \psi : G \times G \rightarrow G$ by $\phi(g, x) = gx$ and $\psi(g, x) = xg^{-1}$. Then $\mu$ is $\phi$-invariant and $\mu$ is relatively $\psi$-invariant with multiplier $\Del$. 
+	\end{ex}
+	
+	\begin{proof}
+		Clear.
+	\end{proof}
+
+	\begin{ex}
+		Let $G$ be a group, $(X, \MA, \mu)$ a semifinite measure space, $\phi: G \times X \rightarrow X$ a group action and $\zeta: G \rightarrow (0, \infty)$. Suppose that $\mu \neq 0$. If $\mu$ is relatively $\phi$-invariant with multiplier $\zeta$, then 
+		\begin{enumerate}
+			\item $\zeta$ is a homomorphism
+			\item for each $g \in G$, $f \in L^1(\mu) \cup L^+$, $$\int L_g f \dmu = \zeta(g) \int f \dmu$$ 
+		\end{enumerate} 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $g,h \in G$. Choose $U \in \MA$ such that $\mu(U) \in (0, \infty)$. Then 
+			\begin{align*}
+				\zeta(gh) \mu(U)
+				&= \mu(gh \cdot U) \\
+				&= \mu(g \cdot (h \cdot U)) \\
+				&= \zeta(g) \mu(h \cdot U) \\
+				&= \zeta(g) \zeta(h) \mu(U)
+			\end{align*}
+			Then $\zeta(gh) = \zeta(g) \zeta(h)$. Since $g, h \in G$ are arbitary, $\zeta$ is a homomorphism.
+			\item Let $g \in G$ and $U \in \MA$. Set $f = \chi_U$. Then 
+			\begin{align*}
+				\int L_g f \dmu
+				&= \int \chi_{gU} \dmu \\
+				&= \mu(gU) \\
+				&= \zeta(g) \mu(U) \\
+				&= \zeta(g) \int f \dmu \\
+			\end{align*} 
+			Linearity of $L_g$ implies that for each $f \in S^+$, 
+			$$\int L_g f \dmu = \zeta(g) \int f \dmu \\$$
+			Let $f \in L^+$. Then there exists a sequence $(f_n)_{n \in \N} \subset S^+$ such that $f_n \convt{p.w.} f$ and for each $N \in \N$, $f_n \leq f_{n+1}$. Hence $L_g f_n \convt{p.w.} L_gf$ and for each $N \in \N$, $L_g f_n \leq L_g f_{n+1}$. The monotone convergence theorem then implies that 
+			\begin{align*}
+				\int L_g f \dmu
+				&= \limn \int L_g f_n \dmu \\
+				&= \limn \zeta(g) \int f_n \dmu \\ 
+				&= \zeta(g) \limn \int f_n \dmu \\ 
+				&= \zeta(g) \int f \dmu \\
+			\end{align*} 
+		Let $f \in L^1(\mu)$. If $f:X \rightarrow \R$, then $f = f^+ - f^-$ and 
+		\begin{align*}
+			\int L_g f \dmu
+			&= \int L_g(f^+ - f^-) \dmu \\
+			&= \int L_g f^+ \dmu - \int L_g f^- \dmu \\
+			&= \zeta(g) \int f^+ \dmu - \zeta(g) \int f^- \dmu \\
+			&= \zeta(g) \int f^+  -  f^- \dmu \\
+			&= \zeta(g) \int f \dmu 
+		\end{align*} 
+		If $f:X \rightarrow \C$, then there exist $a,b:X \rightarrow \R$ such that $f = a + ib$. Then 
+		\begin{align*}
+			\int L_g f \dmu
+			&= \int L_g(a + i b) \dmu \\
+			&= \int L_g a \dmu +i \int L_g b \dmu \\
+			&= \zeta(g) \int a \dmu + i \zeta(g) \int b \dmu \\
+			&= \zeta(g) \int a + ib \dmu \\
+			&= \zeta(g) \int f \dmu 
+		\end{align*} 
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action, $f :X \rightarrow \C$ and $x \in X$. We define $f^x: G \rightarrow \C$ by $$f^x(g) = f(g^{-1} \cdot x)$$
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a LCH space, $G$ a locally compact group $\phi: G \times X \rightarrow X$ a proper group action and $f \in C_c(X)$. Then for each $x \in X$, $f^x \in C_c(G)$.  
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a LCH space, $G$ a locally compact group with left Haar measure $\mu$, $\phi: G \times X \rightarrow X$ a group action and $f \in C_c(X)$. Define $f^* :X \rightarrow \C$ by $$f^*(x) = \int f(g^{-1} \cdot x) \dmu(g)$$  
+	\end{ex}
+
+
+	
+	
+	
+	
+	
 	
 	
 	
@@ -5215,9 +5827,9 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage
-	\section{The Bochner Integral}
+	\section{Measure and Integration on Banach Spaces}
 	
-	\subsection{Introduction}
+	\subsection{The Bochner Integral}
 	
 	\begin{defn} \ld{00000} 	
 	Let $(X, \MA, \mu)$ be a measure space and $Y$ a Banach space. We define $$L_Y^0(X, \MA) = \bigg \{ f:X \rightarrow Y: f \text{ is } (\MA, \MB(Y)) \text{-measurable}\bigg \}$$ 
@@ -5556,7 +6168,7 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	\end{note}
 	
 	\begin{ex} \lex{00000} 
-	Let $(X, \MA, \mu)$ be a measure space,  $Y$ a Banach space, $Z$ a separable Banach space, $A \subset Y$ open and $f:X \times A \rightarrow Z$. Suppose that for each $y \in A$, $f^y \in L^1_Z(\mu)$. Define $F: Y \rightarrow Z$ by 
+	Let $(X, \MA, \mu)$ be a measure space,  $Y$ a Banach space, $A \subset Y$ open and $f:X \times A \rightarrow Z$. Suppose that for each $y \in A$, $f^y \in L^1(\mu)$. Define $F: Y \rightarrow \C$ by 
 	$$F(y) = \int_X f^y \dmu $$ 
 	\begin{enumerate}
 	\item Suppose that there exists $g \in L^1(\mu)$ such that for each $(x, y) \in X \times A$, $\|f(x,y)\| \leq g(x)$. Let $y_0 \in A$. If for each $x \in X$, $f_x$ is continuous at $y_0$, then $F$ is continuous at $y_0$. 
@@ -5579,6 +6191,201 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	\end{enumerate}
 	\textbf{FINISH!!!}
 	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{Borel Measures on Banach Spaces}
+	
+	\begin{defn}
+		Let $X$ be a normed vector space. We define the \textbf{cylindrical $\sig$-algebra on $X$}, denoted $\ME(X)$, by $$\ME(X) = \sig_X(X^*)$$
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a normed vector space. Then $\ME(X) \subset \MB(X)$.
+	\end{ex}
+
+	\begin{proof}
+		Let $\phi \in X^*$. Since $\phi$ is continuous, $\phi$ is $\MB(X)$-measurable. Hence for each $E \in \MB_{\C}$, $\phi^{-1}(E) \in \MB(X)$. Thus $\{ \phi^{-1}(E) : E \in \MB(\C) \text{ and } \phi \in X^* \} \subset \MB(X)$.  This implies that 
+		\begin{align*}
+			\ME(X) 
+			& = \sig_X(X^*) \\
+			& = \sig(\{ \phi^{-1}(E):E \in \MB(\C) \text{ and } \phi \in X^* \}) \\
+			& \subset \MB(X) 
+		\end{align*} 
+	\end{proof}
+
+	\begin{ex} \textbf{Mourier's Theorem:} \\
+		Let $X$ be a normed vector space. If $X$ is separable, then $\ME(X) = \MB(X)$. \\
+		\textbf{Hint:} Let $(x_n)_{n \in \N} \subset X$ be a dense subset. An exercise in the section on duality implies that there exist $(\phi_n)_{n \in \N} \subset X^*$ such that for each $n \in \N$, $\|\phi_n\| = 1$ and $\phi_n(x_n) = \|x_n\|$ and for each $x \in X$, $\|x\| = \sup\limits_{n \in \N} |\phi_n(x)|$. Then $ \bar{B}(0, 1) \in \ME(X)$.  
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $X$ is separable. Then there exists $(x_n)_{n \in \N} \subset X$ such that $(x_n)_{n \in \N}$ is dense in $X$. An exercise from the section on duality in \cite{analysis} implies that there exists $(\phi_n)_{n \in \N} \subset X^*$ such that for each $n \in \N$, $\|\phi_n\| = 1$ and $\phi_n(x_n) = \|x_n\|$. A previous exercise implies that for each $x \in X$, $\|x\| = \sup\limits_{n \in \N} |\phi_n(x)|$. Let $x \in X$ and $r > 0$. Then $r^{-1}\|x - y \| = \sup\limits_{n \in \N} |r^{-1}\phi_n(x - y)|$ and 
+		\begin{align*}
+			\bar{B}(x,r)
+			& = \{y \in X: \|x -y \| \leq r\} \\
+			& = \{y \in X: r^{-1}\|x - y \| \leq 1\} \\
+			& = \bigcap_{n \in \N} \{y \in X: |r^{-1}\phi_n(x - y)| \leq 1\} \\
+			& = \bigcap_{n \in \N} \{y \in X: |\phi_n(x - y)| \leq r\} \\ 
+			& = \bigcap_{n \in \N} \{y \in X: |\phi_n(x) - \phi_n(y)| \leq r\} \\
+			& = \bigcap_{n \in \N} \phi_n^{-1}(\bar{B}_{\C}(\phi_n (x), r)) \\
+			& \in \ME(X)
+		\end{align*}
+	Let $A \subset X$. Suppose that $A$ is open. Since $X$ is separable, there exist $(a_n)_{n \in \N} \subset A$ and $(r_n)_{n \in \N} \subset (0, \infty)$ such that 
+	\begin{align*}
+		A 
+		& = \bigcup_{n \in \N} \bar{B}(a_n, r_n) \\
+		& \in \ME(X)
+	\end{align*}
+	Therefore, $\MB(X) \subset \ME(X)$. \\
+	The previous exercise implies that $\ME(X) \subset \MB(X)$. So $\ME(X) = \MB(X)$.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a separable normed vector space and $\mu, \nu \in \MM(X)$. Then $\mu = \nu$ iff for each $\phi \in X^*$, $\phi_*\mu = \phi_*\nu$.
+	\end{ex}
+
+	\begin{proof}
+		If $\mu = \nu$, then clearly for each $\phi \in X^*$, $\phi_*\mu = \phi_*\nu$. \\
+		Conversely, suppose that for each $\phi \in X^*$, $\phi_*\mu = \phi_*\nu$. Let $E \in \MB(\C)$ and $\phi \in X^*$. Then 
+		\begin{align*}
+			\mu(\phi^{-1}(E)) 
+			& = \phi_*\mu(E) \\
+			& = \phi_*\nu(E) \\
+			&= \nu(\phi^{-1}(E))
+		\end{align*}
+	Set $\MP = \{\phi^{-1}(E): \phi \in X^* \text{ and } E \in \MB(\C)\}$. Then $\MP$ is a $\pi$-system. Since 
+	\begin{align*}
+		\sig(\MP) 
+		& = \ME(X) \\
+		& = \MB(X)
+	\end{align*}
+	An exercise from the section on complex measures that uses Dynkin's lemma implies that $\mu = \nu$.
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a real normed vector space and $\mu \in \MM(X)$. We define the \textbf{Fourier transform of $\mu$}, denoted $\hat{\mu}: X^* \rightarrow \C$, by
+		$$\hat{\mu}(\phi) = \int_X e^{-i\phi(x)} \dmu(x)$$ 
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a real normed vector space and $\mu \in \MM(X)$. Then $\hat{\mu} \in C_b(X^*)$ (in the norm topology).
+	\end{ex}
+
+	\begin{proof}
+		Let $\phi \in X^*$. Then $\hat{\mu} : X^* \rightarrow \C$ is bounded.
+		\begin{align*}
+			|\hat{\mu}(\phi)|
+			& = \bigg | \int_X e^{-i \phi(x)} \dmu(x) \bigg| \\
+			& \leq \int_X |e^{-i \phi(x)}| \, d|\mu|(x) \\
+			& = |\mu|(X) \\
+		\end{align*}
+		So $\hat{\mu}$ is bounded.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a real normed vector space and $\mu \in \MM(X)$. Then $\hat{\mu} \in C_b(X^*)$.
+	\end{ex}
+
+	\begin{proof}
+		Let $(\phi_{n})_{n \in \N} \subset X^*$ and $\phi \in X^*$. Suppose that $\phi_n \rightarrow \phi$. Then $e^{-i \phi_n} \convt{p.w.} e^{-i\phi}$ and for each $n \in N$, 
+		\begin{align*}
+			|e^{-i \phi_n}| 
+			& = 1 \\
+			& \in L^1(|\mu|)
+		\end{align*}
+		The dominated convergence theorem implies that
+		\begin{align*}
+			|\hat{\mu}(\phi_n) - \hat{\mu}(\phi)| 
+			& = \bigg| \int_X e^{-i \phi_n(x)} \dmu(x) - \int_X e^{-i \phi(x)} \dmu(x)\bigg| \\
+			& =  \bigg| \int_X e^{-i \phi_n(x)} - e^{-i \phi(x)} \dmu(x) \bigg| \\
+			& \leq \int_X |e^{-i \phi_n(x)} - e^{-i \phi(x)}| \, d|\mu|(x) \\
+			& \rightarrow 0
+		\end{align*}
+		So $\hat{\mu}: X^* \rightarrow \C$ is continuous (in the norm topology). Hence $\hat{\mu} \in C_b(X^*)$.
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a real normed vector space. We define $\MF: \MM(X) \rightarrow C_b(X^*)$ by $$\MF(\mu) = \hat{\mu}$$
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a real normed vector space. Then $\MF: \MM(X) \rightarrow C_b(X^*)$ is linear.
+	\end{ex}
+
+	\begin{proof}
+		Let $\mu, \nu \in \MM(X)$ and $\phi \in X^*$. Then 
+		\begin{align*}
+			\MF[\mu + \nu](\phi) 
+			& = \int_X e^{-i \phi(x)} \, d[\mu + \nu](x) \\
+			& = \int_X e^{-i \phi(x)} \dmu(x) + \int_X e^{-i \phi(x)} \dnu(x) \\
+			& = \MF[\mu](\phi) + \MF[\nu](\phi) 
+		\end{align*}
+		Since $\phi \in X^*$ is arbitrary, $\MF(\mu + \nu) = \MF(\mu) + \MF(\nu)$ and $\MF$ is linear.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a real normed vector space. If $X$ is separable, then $\MF$ is injective.  
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $X$ is separable. Let $\mu \in \MM(X)$. Suppose that $\mu \in \ker \MF$. Then $\hat{\mu} =0$ and for each $\phi \in X^*$, 
+		\begin{align*}
+			0 
+			& = \hat{\mu}(\phi) \\
+			& = \int_X e^{-i \phi(x)} \dmu(x) \\
+			& = \int_{\R} e^{-ix} \, d[\phi_*\mu](x)
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a real normed vector space. Then $\MF \in L(\MM(X), C_b(X^*))$ and $\|\MF\| \leq 1$.
+	\end{ex}
+
+	\begin{proof}
+		For $\mu \in \MM(X)$ and $\phi \in X^*$, we have that 
+		\begin{align*}
+			|\MF[\mu](\phi)|
+			& =  \bigg| \int_X e^{-i \phi(x)} \dmu(x) \bigg| \\
+			& \leq \int_X |e^{-i \phi(x)}| \, d|\mu|(x) \\
+			& = |\mu|(X) \\
+			& = \|\mu\|
+		\end{align*}
+		Hence 
+		\begin{align*}
+			\|\MF(\mu)\| 
+			& = \sup_{\phi \in X^*} |\MF[\mu](\phi)| \\
+			& \leq \|\mu\|
+		\end{align*}
+		which implies that $\MF \in L(\MM(X), C_b(X^*))$ and $\|\MF\| \leq 1$.
+	\end{proof}
+
+	
+
+
+
+
+
+
 	
 	
 	
