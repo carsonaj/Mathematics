@@ -1,0 +1,383 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+\usepackage{tikz-cd} 
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=black,  %choose some color if you want links to stand out
+	urlcolor=cyan
+}
+
+
+%
+%
+%
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+%
+%
+%
+%
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{defn}[definition]{Definition}
+\newtheorem{note}[definition]{Note}
+\newtheorem{thm}[definition]{Theorem}
+\newtheorem{lem}[definition]{Lemma}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem{cor}[definition]{Corollary}
+\newtheorem{conj}[definition]{Conjecture}
+\newtheorem{ex}[definition]{Exercise}
+
+
+\newcommand{\al}{\alpha}
+\newcommand{\gam}{\gamma}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\be}{\beta} 
+\newcommand{\ze}{\zeta} 
+\newcommand{\del}{\delta} 
+\newcommand{\Del}{\Delta}
+\newcommand{\lam}{\lambda}  
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\sig}{\sigma} 
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MI}{\mathcal{I}}
+\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MO}{\mathcal{O}}
+
+\newcommand{\ui}{[0,1]}
+\newcommand{\p}{\partial}
+
+\newcommand{\io}{\text{ i.o.}}
+%\newcommand{\ev}{\text{ ev.}}
+\renewcommand{\r}{\rangle}
+\renewcommand{\l}{\langle}
+
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ru}{(\infty, \infty]}
+\newcommand{\Rd}{[\infty, \infty)}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+\newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
+
+
+\newcommand{\lsc}{lower semicontinuous}
+
+\newcommand{\as}[1]{\overset{#1}{\sim}}
+\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
+
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\iso}{Iso}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\bal}{bal}
+\DeclareMathOperator{\cnv}{conv}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\Obj}{Obj}
+\DeclareMathOperator{\Hom}{Hom}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+
+\newcommand{\lex}[1]{\label{ex:#1}}
+\newcommand{\ld}[1]{\label{defn:#1}}
+\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
+\newcommand{\rd}[1]{Definition \ref{defn:#1}}
+
+
+\begin{document}
+	
+	\title{Introduction to Category Theory}
+	\author{Carson James}
+	\maketitle
+	
+	\tableofcontents
+	
+	\section*{Preface}
+	\begin{flushleft}
+		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
+	\end{flushleft}
+	
+	
+	
+	\newpage
+	
+	
+	\newpage
+	
+	\section{Categories and Functors}
+	
+	\subsection{Categories}
+	
+	
+	\begin{defn}
+		Let $\MC_0$, $\MC_1$ be classes and $\dom, \cod : \MC_1 \rightarrow \MC_0$. Set $\MC = (C_0, C_1, \dom, \cod)$. Then $\MC$ is said to be a \textbf{category} if 
+		\begin{itemize}
+			\item (composition): for each $f,g \in C_1$, if $\cod(f) = \dom(g)$, there exists $g \circ f \in C_1$ such that $\dom(g \circ f) = \dom(f)$ and $\cod(g \circ f) = \cod(g)$
+			\item (associativity): for each $f,g,h \in C_1$, if $\cod(f) = \dom(g)$ and $\cod(g) = \dom(h)$, then $$(h \circ g) \circ f = h \circ (g \circ f)$$  
+			\item (identity): for each $X \in \MC_0$, there exists $1_{X} \in C_1$ such that $\dom(1_X) = \cod(1_X) = X$ and for each $f, g \in C_1$, if $\dom(f) = X$ and $\cod(g) = X$, then $$f \circ 1_X = f \text{ and } 1_X \circ g = g$$ 
+		\end{itemize}
+		We define the
+		\begin{itemize}
+			\item \textbf{objects of $\MC$}, denoted $\Obj(\MC)$, by $\Obj(\MC) = C_0$
+			\item \textbf{morphisms of $\MC$}, denoted $\Hom_{\MC}$, by $\Hom_{\MC} = C_1$
+		\end{itemize}
+		For $X, Y \in \Obj(\MC)$, we define the \textbf{morphisms from $X$ to $Y$}, denoted $\Hom_{\MC}(X, Y)$, by $\Hom_{\MC}(X, Y) = \{f \in \Hom(\MC): \dom(f) = X \text{ and } \cod(f) = Y\}$.
+	\end{defn}
+
+	\begin{note}
+		We typically define a category $\MC$ by specifying 
+		\begin{itemize}
+			\item $\Obj(\MC)$
+			\item for $X,Y \in \Obj(\MC)$, the class $\Hom_{\MC}(X, Y)$
+			\item for $X,Y,Z \in \Obj(\MC)$, $f \in \Hom_{\MC}(X, Y)$ and $g \in \Hom_{\MC}(Y, Z)$, the composite morphism $g \circ f \in \Hom_{\MC}(X,Z)$.
+		\end{itemize}
+		and then show 
+		\begin{itemize}
+			\item associativity of composition 
+			\item existence of identities 
+		\end{itemize}
+	\end{note}
+
+	\begin{defn}
+		Let $\MC$ be a category, we define the \text{dual of $\MC$} or the \textbf{opposite of $\MC$}, denoted $\op{C}$, by 
+		\begin{itemize}
+			\item $\Obj(\op{C}) = \Obj(\MC)$
+			\item for $X,Y \in \Obj(\op{C})$, $\Hom_{\op{C}}(X,Y) = \Hom_{\MC}(Y,X)$
+			\item for $f \in \Hom_{\op{C}}(X, Y), g \in \Hom_{\op{C}}(Y,Z)$, $g \circ_{\op{C}} f = f \circ_{\MC} g$
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $\MC$ be a category. Then $\op{C}$ is a category.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item for $W,X,Y,Z \in \Obj(\MC)$, $f \in \Hom_{\op{C}}(W, X)$ and $g \in \Hom_{\op{C}}(X, Y)$ and $h \in \Hom_{\op{C}}(Y, Z)$. Then 
+			\begin{align*}
+				(h \circ_{\op{C}} g) \circ_{\op{C}} f 
+				&= f \circ_{\MC}( h \circ_{\op{C}} g) \\
+				&= f \circ_{\MC} (g \circ_{\MC} h) \\
+				&= (f \circ_{\MC} g) \circ_{\MC} h \\
+				&= h \circ_{\op{C}} (f \circ_{\MC} g) \\
+				&= h \circ_{\op{C}} (g \circ_{\op{C}} f)
+			\end{align*}
+			So composition is associative.
+			\item Let $X \in \Obj(\MC)$ and $f,g \in \Hom_{\op{C}}$. Suppose that $\dom(f) = X$ and $\cod(g) = X$ 
+			Then 
+			\begin{align*}
+				f  \circ_{\op{C}} 1_X
+				&= 1_X  \circ_{\MC} f \\
+				&= f
+			\end{align*}
+			and 
+			\begin{align*}
+				1_X  \circ_{\op{C}} g 
+				&= g \circ_{\MC} 1_X \\
+				&= g
+			\end{align*}
+		So $(1_X)_{\op{C}} =  (1_X)_{\MC}$.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{defn}
+		Let $\MC$ be a category and $X \in \Obj(\MC)$. We define the \textbf{slice category of $\MC$ over $X$}, denoted $\MC / X$, by
+		\begin{itemize}
+			\item $\Obj(\MC / X) = \{f \in \Hom_{\MC}: \cod(f) = X\}$
+			\item for $f,g \in \Obj(\MC / X)$, 
+			$$\Hom_{\MC / X}(f, g) = \{\al \in \Hom_{\MC} : \dom(\al) = \dom(f) \text{, } \cod(\al) = \dom(g) \text{ and } f = g \circ \al \}$$
+			i.e. for $f \in \Hom_{\MC}(A, X)$ and $g \in \Hom_{\MC}(B, X)$, $\al \in \Hom_{\MC / X}(f, g)$ iff the following diagram commutes: 
+			\[ \begin{tikzcd}
+				A \arrow[rr, "\al"] \arrow[dr, "f"'] 	
+				& & B  \arrow[dl, "g"] \\
+				& X 
+			\end{tikzcd}
+			\]
+			\item for $f,g, h \in \Obj(\MC / X)$, $\al \in \Hom_{\MC / X}(f, g)$ and $\be \in \Hom_{\MC / X}(g, h)$, $\be \circ_{\MC / X} \al = \be \circ_{\MC} \al$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $\MC$ be a category and $X \in \Obj(\MC)$. Then $\MC / X$ is a category.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item $f,g, h \in \Obj(\MC / X)$, $\al \in \Hom_{\MC / X}(f, g)$ and $\be \in \Hom_{\MC / X}(g, h)$. Then $f = g \circ_{\MC} \al$ and $g = h \circ_{\MC} \be$, i.e. the following diagrams commute:
+			\[ \begin{tikzcd}
+				\dom(f) \arrow[rr, "\al"] \arrow[dr, "f"'] 	
+				&& \dom(g)  \arrow[dl, "g"]  
+				&& \dom(g) \arrow[rr, "\be"] \arrow[dr, "g"'] 	
+				&& \dom(h)  \arrow[dl, "h"]\\
+				& X 
+				&& &&X
+			\end{tikzcd}
+			\]
+			Therefore, we have that 
+			\begin{align*}
+				f 
+				& = g \circ_{\MC} \al \\
+				& = (h \circ_{\MC} \be) \circ_{\MC} \al \\
+				&= h \circ_{\MC} (\be \circ_{\MC} \al) 
+			\end{align*}
+			i.e. the following diagram commutes:
+			\[ \begin{tikzcd}
+				\dom(f) \arrow[rr, "\be \circ_{\MC} \al"] \arrow[dr, "f"'] 	
+				& & \dom(h)  \arrow[dl, "g"] \\
+				& X 
+			\end{tikzcd}
+			\]
+			which implies that 
+			\begin{align*}
+				\be \circ_{\MC / X} \al 
+				& = \be \circ_{\MC} \al \\
+				& \in \Hom_{\MC / X}(f, h)
+			\end{align*}
+			and composition is well defined. Then associativity of $\circ_{\MC / X}$ follows from associativity of $\circ_\MC$.
+			\item Let $f \in \Obj(\MC / X)$ and $\al, \be \in \Hom_{\MC / X}$. Since $f \circ 1_{\dom_{\MC}(f)} = f$, i.e. the following diagram commutes: 
+			\[ \begin{tikzcd}
+				\dom(f) \arrow[rr, "1_{\dom(f)}"] \arrow[dr, "f"'] 	
+				& & \dom(f)  \arrow[dl, "f"] \\
+				& X 
+			\end{tikzcd}
+			\]
+			we have that $1_{\dom(f)} \in \Hom_{\MC / X}(f, f)$.
+			Suppose that $\dom_{\MC / X}(\al) = f$ and $\cod_{\MC /X}(\be) = f$. Then 
+			\begin{align*}
+				\al \circ_{\MC /X} 1_{\dom(f)}
+				&= \al \circ_{C} 1_{\dom(f)} \\
+				&= \al
+			\end{align*}
+			and 
+			\begin{align*}
+				1_{\dom(f)} \circ_{\MC /X} \be
+				&= 1_{\dom(f)} \circ_{\MC} \be \\
+				&= \be
+			\end{align*}
+			So $(1_f)_{\MC / X} = (1_{\dom(f)})_{\MC}$.
+		\end{itemize}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Functors}
+	
+	\begin{defn}
+		
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Natural Transformations}
+	
+	
+\end{document}

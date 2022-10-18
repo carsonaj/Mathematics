@@ -83,6 +83,11 @@
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
 
+\newcommand{\dm}{\, d m}
+\newcommand{\dmu}{\, d \mu}
+\newcommand{\dnu}{\, d \nu}
+\newcommand{\dlam}{\, d \lambda}
+
 \newcommand{\RG}{[0,\infty]}
 \newcommand{\Rg}{[0,\infty)}
 \newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
@@ -121,17 +126,253 @@
 	\subsection{Schwartz Space}
 	
 	\begin{defn}
-		\ld{101} Let $f \in C^{\infty}(\R, \C)$, and $\al$, $N \in \N_0$. We define $$\|f\|_{\al, N} = \sup_{x \in \R} (1+|x|^N) |\p^{\al}f (x) |$$
-		We define Schwartz space on $\R$, denoted $\MS(\R)$, by $$\MS(\R) = \{f \in C^{\infty}(\R): \text{ for each $\al \in \N_0^n$, $N \in \N_0$, } \|f\|_{\al, N} < \infty\}$$
+		\ld{101} Let $f \in C^{\infty}(\R, \C)$, and $\al$, $N \in \N_0$. We define $\| \cdot \|_{\al, N}: C^{\infty}(\R, \C) \rightarrow \RG$ by 
+		$$\|f\|_{\al, N} = \sup_{x \in \R} \bigg[  (1 + |x|)^N |\p^{\al}f (x)| \bigg] $$
+		We define \textbf{Schwartz space} on $\R$, denoted $\MS$, by $$\MS = \{f \in C^{\infty}(\R, \C): \text{ for each $\al, N \in \N_0$, } \|f\|_{\al, N} < \infty\}$$
+	\end{defn}
+
+	\begin{ex} We have that $\MS$ is a vector space and for each $\al, N \in \N_0$,  $\| \cdot \|_{\al, N}: \MS \rightarrow \Rg$ is a seminorm on $\MS$.
+	\end{ex}
+
+	\begin{proof} Let $f, g \in \MS$ and $\lam \in \C$.
+		\begin{enumerate}
+			\item 
+			\begin{align*}
+				\|\lam f\|_{\al, N}
+				& = \sup_{x \in \R} \bigg[  (1 + |x|)^N |\p^{\al}[\lam f] (x)| \bigg] \\
+				& = \sup_{x \in \R} \bigg[  (1 + |x|)^N |\lam \p^{\al}f (x)| \bigg] \\
+				& = \sup_{x \in \R} \bigg[  |\lam| (1 + |x|)^N | \p^{\al}f (x)| \bigg] \\
+				& = |\lam| \sup_{x \in \R} \bigg[ (1 + |x|)^N | \p^{\al}f (x)| \bigg] \\
+				& = |\lam | \|f\|_{\al, N}
+			\end{align*}
+			Thus $\lam f \in \MS$ and $\|\lam f\|_{\al, N} = |\lam | \|f\|_{\al, N}$.
+		\item \begin{align*}
+			\|f  +  g\|_{\al, N} 
+			& = \sup_{x \in \R} \bigg[  (1 + |x|)^N |\p^{\al}[f + g] (x)| \bigg] \\
+			& = \sup_{x \in \R} \bigg[  (1 + |x|)^N |[\p^{\al} f  + \p g] (x)| \bigg] \\
+			& \leq \sup_{x \in \R} \bigg[  (1 + |x|)^N |\p^{\al} f (x)|  +  (1 + |x|)^N |\p g (x)| \bigg] \\
+			& \leq \sup_{x \in \R} \bigg[  (1 + |x|)^N |\p^{\al} f (x)| \bigg]   + \sup_{x \in \R} \bigg[ (1 + |x|)^N |\p g (x)| \bigg] \\
+			& = \|f\|_{\al, N} + \|g\|_{\al, N} 
+		\end{align*}
+	 	Hence $f + g \in \MS$ and $\|f + g\|_{\al, N} \leq \|f\|_{\al, N} + \|g\|_{\al, N}$.
+		\end{enumerate}
+		So $\MS$ is a vector space and $\| \cdot \|_{\al, N}$ is a seminorm on $\MS$.
+	\end{proof}
+
+	\begin{ex}
+		We have that $\MS$ is a algebra under pointwise multiplication and for each $\al, N \in \N_0$, 
+		$$\|fg\|_{\al, N} \leq \sum\limits_{\bet=0}^\al  \|f\|_{\bet, N} \|g\|_{\al - \bet, 0}$$
+		\textbf{Hint:} $\p^{\al}[fg] = \sum\limits_{\bet=0}^\al (\p^{\bet}f) (\p^{\al - \bet}g)$
+	\end{ex}
+
+	\begin{proof}
+		Let $f,g \in \MS$ and $\al, N \in \N_0$. Then 
+		\begin{align*}
+			\|fg\|_{\al, N}
+			& = \sup_{x \in \R} \bigg[ (1 + |x|)^N|\p^{\al}[fg](x)| \bigg] \\
+			& = \sup_{x \in \R} \bigg[ (1 + |x|)^N \bigg | \sum\limits_{\bet=0}^\al \p^{\bet}f(x)\p^{\al - \bet}g(x) \bigg|  \bigg] \\
+			& \leq \sup_{x \in \R} \bigg[ (1 + |x|)^N \bigg( \sum\limits_{\bet=0}^\al |\p^{\bet}f(x)||\p^{\al - \bet}g(x)| \bigg) \bigg] \\
+			& = \sup_{x \in \R} \bigg[   \sum\limits_{\bet=0}^\al (1 + |x|)^N|\p^{\bet}f(x)| |\p^{\al - \bet}g (x)| \bigg] \\
+			& \leq \sum\limits_{\bet=0}^\al \sup_{x \in \R} \bigg[ (1 + |x|)^N|\p^{\bet}f(x)| |\p^{\al - \bet}g (x)| \bigg] \\
+			& \leq \sum\limits_{\bet=0}^\al \sup_{x \in \R} \bigg[ (1 + |x|)^N|\p^{\bet}f(x)| \bigg]  \sup_{x \in \R} \bigg[|\p^{\al - \bet}g (x) | \bigg] \\
+			& = \sum\limits_{\bet=0}^\al  \|f\|_{\bet, N} \|g\|_{\al - \bet, 0} \\
+			& < \infty
+		\end{align*} 
+		So $fg \in \MS$.
+	\end{proof}
+
+	\begin{defn}
+		Set $\MP = (\|\cdot\|_{\al, N})_{\al, N \in \N_0}$. Then $\MP$ is a countable family of seminorms on $\MS$. We equip $\MS$ with the topology $\MT$ induced by the family of projections $$\pi_{\| \cdot \|_{\al,N}}: \MS \rightarrow \MS / \ker \|\cdot\|_{\al,N} $$ 
+		i.e. $\MT = \tau_{\MS}((\pi_{\|\cdot\|_{\al,N}})_{\al, N \in \N_0})$.  \\
+		Explicitly, for a net $(f_{\al})_{\al \in A} \subset \MS$ and $f \in \MS$, $f_{\al} \rightarrow f$ iff for each $\al, N \in \N_0$, $\|f_{\al} - f\|_{\al, N} \rightarrow 0$. \\
+		Hence $(\MS, \MT)$ is a locally convex space. Since $\MP$ is countable, we may write $\MP = (p_j)_{j \in \N}$ and thus $(\MS, \MT)$ is metrizable with metric
+		$$d_{\MS}(f,g) = \sum_{j \in \N} 2^{-j} \frac{p_j(f-g)}{1 + p_j(f-g)}$$
 	\end{defn}
 
 	\begin{ex}
-		Define $f:\R \rightarrow \R$ by $f(x) = e^{-x^2}$. Then $f \in \MS(\R)$.
+		Let $f \in \MS$ and $\al \in \N_0$. Then $\p^{\al}f \in \MS$ and for each $\bet, N \in \N_0$, 
+		$$\|\p^{\al} f \|_{\bet, N} \leq \|f \|_{\al + \bet, N}$$ 
+	\end{ex}
+	
+	\begin{proof}
+		Let $f \in \MS$, and $\bet$, $N \in \N_0$. By definition, 
+		\begin{align*}
+			\|\p^{\al} f \|_{\bet, N}
+			& = \sup_{x \in \R} \bigg[ (1 + |x|)^N |\p^{\beta} [\p^{\al} f] (x)| \bigg] \\
+			&= \sup_{x \in \R} \bigg[ (1 + |x|)^N |\p^{\al + \beta}f (x)| \bigg] \\
+			& = \|f \|_{\al + \bet, N} \\
+			& < \infty
+		\end{align*}
+		So $\p^{\al}f \in \MS$.
+	\end{proof}
+
+	\begin{ex}
+		Let $f \in \MS$. Then for each $\al$, $N \in \N_0$, 
+		$$\|f\|_{\al, N} = \|\p^{\al} f\|_{0, N}$$
+	\end{ex}
+
+	\begin{proof}
+		Clear by preceding exercise.
+	\end{proof}
+
+	\begin{ex}
+		Let $f \in \MS$ and $\al \in \N$. Define $g: \R \rightarrow \C$ by $g(x) = xf(x)$. Then for each $x \in \R$, $\p^{\al}g(x) = x\p^{\al}f(x) + \al \p^{\al -1} f(x)$.
+	\end{ex}
+	
+	\begin{proof}
+		The claim is clear if $\al = 1$. Suppose that $\al > 1$ and that the claim is true for $\al - 1$ so that for each $x \in \R$,  $\p^{\al-1}g(x) = x\p^{\al-1}f(x) + (\al - 1) \p^{\al-2} f(x)$. Then 
+		\begin{align*}
+			\p^{\al}g(x)
+			&= \p [\p^{\al-1}g(x)] \\
+			&= \p [x\p^{\al-1}f(x) + (\al - 1) \p^{\al-2} f(x)] \\
+			&= \p [x\p^{\al-1}f(x)] + \p[(\al - 1) \p^{\al-2} f(x)] \\
+			&= [x \p^{\al}f(x) + \p^{\al-1}f(x)]  + [(\al -1) \p^{\al-1}f(x)] \\
+			&= x \p^{\al}f(x) + \al \p^{\al-1}f(x)
+		\end{align*}
+		So the claim is true for $\al$.
+	\end{proof}
+	
+	\begin{ex}
+		Let $f \in \MS$ and $N \in \N_0$. Define $g: \R \rightarrow \C$ by $g(x) = xf(x)$. Then $g \in \MS$ and for each $\al$, $N \in \N_0$, 
+		$$ \|g\|_{\al, N} \leq \|f\|_{\al, N+1} + \al \|f\|_{\al-1, N} $$ 
+	\end{ex}
+	
+	\begin{proof}
+		Let $\al, N \in \N_0$. The previous exercise implies that  
+		\begin{align*}
+			\|g\|_{\al, N}
+			&= \sup_{x \in \R}\bigg[ (1 + |x|)^N|\p^{\al} xf(x)| \bigg] \\
+			& = \sup_{x \in \R}\bigg[ (1 + |x|)^N|x\p^{\al}f(x) + \al \p^{\al -1} f(x)| \bigg] \\
+			& \leq \sup_{x \in \R}\bigg[ (1 + |x|)^{N+1}|\p^{\al}f(x)| \bigg] + \al \sup_{x \in \R}\bigg[  (1 + |x|)^N |\p^{\al-1} f(x)| \bigg] \\
+			&= \|f\|_{\al, N+1} + \al \|f\|_{\al-1, N}
+		\end{align*}
+		Since $\al, N \in \N_0$ are arbitrary, $g \in \MS$.
+	\end{proof}
+
+	\begin{defn}
+		We define the 
+		\begin{itemize}
+			\item \textbf{position operator}, denoted $X: \MS \rightarrow \MS$, by 
+			$$Xf (x) = xf(x)$$
+			\item \textbf{momentum operator}, denoted $D: \MS \rightarrow \MS$, by 
+			$$Df (x) = -i\p f(x)$$
+		\end{itemize} 
+	\end{defn}
+
+	\begin{ex}
+		We have that 
+		\begin{enumerate}
+			\item $X: \MS \rightarrow \MS$ and $D: \MS \rightarrow \MS$ are linear
+			\item $X: \MS \rightarrow \MS$ and $D: \MS \rightarrow \MS$ are continuous.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Clear.
+			\item Let $(f_n)_{n \in \N} \subset \MS$. Suppose that $f_n \rightarrow 0$. Then for each $\al, N \in \N_0$, $\|f_n\|_{\al, N} \rightarrow 0$.
+			\begin{itemize}
+				\item A previous exercise implies that 
+				\begin{align*}
+					\|Xf_n\|_{\al, N} 
+					& \leq \|f_n\|_{\al, N+1} + \al \|f_n\|_{\al-1, N} \\
+					& \rightarrow 0
+				\end{align*}
+				So $Xf_n \rightarrow 0$ and $X$ is continuous at $0$. Since $X$ is linear, $X$ is continuous.
+				\item A previous exercise implies that 
+				\begin{align*}
+					\|Df_n\|_{\al, N} 
+					& = \|\p f_n\|_{\al, N} 
+					& \leq \|f_n\|_{\al+1, N}\\
+					& \rightarrow 0
+				\end{align*}
+				So $Df_n \rightarrow 0$ and $D$ is continuous at $0$. Since $D$ is linear, $D$ is continuous. 
+			\end{itemize}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		\lex{102} We have that $ \MS \subset L^1(m)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $f \in \MS$. Then there exists $C \geq 0$ such that for each $x \in \R$, $$|f(x)| \leq C(1+|x|^{2})^{-1}$$
+		Define $g:\R^n \rightarrow \Rg$ defined by $g(x) = (1+|x|^{2})^{-1}$. Then $g \in L^1(\R)$ which implies that $f \in L^1(\R)$.
+	\end{proof}
+
+	\begin{defn}
+		Let $f \in \MS$ and $y \in \R$. Define 
+		\begin{itemize}
+			\item $L_yf: \R \rightarrow \C$ by $L_yf(x) = f(x-y)$
+			\item $If: \R \rightarrow \C$ by $If(x) = f(-x)$.
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $x, t \in \R$. Then $(1+|x|) \leq (1+ |x-t|)(1 + |t|)$.
+	\end{ex}
+
+	\begin{proof}
+		We have that 
+		\begin{align*}
+			(1+ |x-t|)(1 + |t|) 
+			& = 1 + |x-t| + |t| + |x-t||t| \\
+			& \geq 1 + |x| + |x-t||t| \\
+			& \geq 1 + |x| 
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		Let $f \in \MS$, then for each $y \in \R$ and $\al \in \N_0$, 
+		\begin{itemize}
+			\item $\p^{\al}L_yf = L_y \p^{\al}f$
+			\item $\p^{\al}If = (-1)^{\al} I \p^{\al}f$
+		\end{itemize}
+	\end{ex}
+
+	\begin{proof}\
+		Clear by chain rule.
+	\end{proof}
+
+	\begin{ex}
+		Let $f \in \MS$. Then 
+		\begin{enumerate}
+			\item for each $y \in \R$, $L_y f \in \MS$ 
+			\item $If \in \MS$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item  
+			\item 
+		\end{enumerate}
+	\end{proof}
+
+	\begin{note}
+		 Let $f,g \in \MS$ and $x \in \R$, Define $h: \R \rightarrow \R$ defined by $h_x(y) = f(x-y)g(y)$. A previous exercise implies that $h_x \in \MS$ and for each $\al, N \in \N_0$, $\|h_x\|_{\al, N} \leq \sum_{\bet=0}^{\al} \|f\|_{\bet, N} \|g\|_{\al - \bet, 0} $
+	\end{note}
+
+	\begin{defn}
+		Let $f, g \in \MS$. We define the \textbf{convolution of $f$ and $g$}, denoted $f * g$ by $$f*g(x) = \int_{\R} f(x-y)g(y) dm(y)$$
+	\end{defn}
+
+	\begin{ex}
+		Let $f, g \in \MS$, then $f *g \in \MS$. 
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+
+	\begin{ex}
+		Define $f:\R \rightarrow \R$ by $f(x) = e^{-x^2}$. Then $f \in \MS$.
 	\end{ex}
 	
 	\begin{proof}
 		meh...
 	\end{proof}
+	
 
 	\begin{ex}
 		Define $f:\R \rightarrow \R$ by 
@@ -142,32 +383,24 @@
 			0 & x \not \in (-1, 1)
 		\end{cases}
 		\]
-		Then $f \in \MS(\R)$.
+		Then $f \in \MS$.
 	\end{ex}
 	
 	\begin{proof}
 		meh...
 	\end{proof}
-	
-	\begin{ex}
-		\lex{102} For each $f \in \MS(\R)$ and $\al \in \N_0$, $\p^\al f \in L^1(\R)$.
-	\end{ex}
-	
-	\begin{proof}
-		Let $f \in \MS(\R)$, $\al \in \N_0$. Then there exists $C \geq 0$ such that for each $x \in \R$, $$| \p^{\al} f(x)| \leq C(1+|x|^{2})^{-1}$$
-		Define $g:\R^n \rightarrow \Rg$ defined by $g(x) = (1+|x|^{2})^{-1}$. Then $g \in L^1(\R)$ which implies that $\p^{\al} f \in L^1(\R)$.
-	\end{proof}
-
-	
 
 	\begin{ex}
-		Let $a,b \in \R$. Suppose that $a < b$. Then for each $\ep >0$, there exists $f \in \MS(\R)$ such that $\chi_{[a,b]} \leq f \leq \chi_{[a-\ep , b + \ep]}$.
+		Let $a,b \in \R$. Suppose that $a < b$. Then for each $\ep >0$, there exists $f \in \MS$ such that $\chi_{[a,b]} \leq f \leq \chi_{[a-\ep , b + \ep]}$.
 	\end{ex}
 
 	\begin{proof}
 		Set $f(x) = $
 	\end{proof}
-	
+
+	\begin{ex}
+		Let $f \in \MS$. Define $$Then $$
+	\end{ex}
 	
 	
 	
@@ -190,8 +423,211 @@
 	\subsection{The Fourier Transform on $\MS$}
 	
 	\begin{defn}
-		Let $f \in \MS(\R)$. We define the \textbf{Fourier transform of $f$}, denoted $\hat{f}: \R \rightarrow \C$, by $$\hat{f}(\xi) = \int_{\R} e^{-i \xi x}f(x) \, dm(x)$$ 
+		Let $f \in \MS$. We define the \textbf{Fourier transform of $f$}, denoted $\hat{f} : \R \rightarrow \C$, by $$ \hat{f}(\xi) = \int_{\R} e^{-i \xi x}f(x) \, dm(x)$$ 
 	\end{defn}
+
+	\begin{ex}
+		Let $f \in \MS$. Then $\hat{f} \in C_b(\R)$.
+	\end{ex}
+
+	\begin{proof}
+		Since $f \in \MS$, $f \in L^1(m)$. Then for each $\xi \in \R$,
+		\begin{align*}
+			|\hat{f}(\xi)| 
+			& = \bigg| \int_{\R} e^{-i\xi x}f(x) \dm(x) \bigg| \\
+			& \leq \int_{\R} |e^{-i\xi x}f(x)| \dm(x) \\
+			& = \int_{\R} |f(x)| \dm(x) \\
+			& = \|f\|_1
+		\end{align*}
+		So $f$ is bounded. Let $(\xi_n)_{n \in \N} \subset \R$ and $\xi \in \R$. Suppose that $\xi_n \rightarrow \xi$. Define $(\phi_n)_{n \in \N} \subset L^1(m)$ and $\phi \in L^1(m)$ by $\phi_n(x) = e^{-i\xi_n x}f(x)$ and $\phi(x) = e^{-i\xi x}f(x)$. Then $\phi_n \convt{p.w.} \phi$ and for each $n \in \N$, 
+		\begin{align*}
+			|\phi_n|
+			& = |f| \\
+			& \in L^1(m)
+		\end{align*}
+		The dominated convergence theorem implies that 
+		\begin{align*}
+			\hat{f}(\xi_n)
+			& = \int_{\R} e^{-i\xi_n x}f(x) \dm(x) \\
+			& = \int_{\R} \phi_n \dm \\
+			& \rightarrow \int_{\R} \phi \dm \\
+			& = \int_{\R} e^{-i\xi x}f(x) \dm(x) \\
+			& = \hat{f}(\xi)
+		\end{align*}
+		So $\hat{f}$ is continuous. Hence $\hat{f} \in C_b(\R)$.
+	\end{proof}
+
+	\begin{defn}
+		We define the \textbf{Fourier transform on $\MS$}, denoted $\MF: \MS \rightarrow C_b(\R)$, by 
+		$$\MF(f) = \hat{f}$$
+	\end{defn}
+	
+	\begin{ex}
+		We have that $\MF: \MS \rightarrow C_b(\R)$ is linear. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $f,g \in \MS$ and $\lam \in \C$. Then 
+		\begin{align*}
+			\MF(f + \lam g) 
+			& = \int_{\R} e^{-i \xi x} [f(x) + \lam g(x)] \dm(x) \\
+			& = \int_{\R} e^{-i \xi x} f(x) + \lam e^{-i \xi x} g(x) \dm(x) \\
+			& = \int_{\R} e^{-i \xi x} f(x) \dm(x) + \lam \int_{\R} e^{-i \xi x} g(x) \dm(x) \\
+			&= \MF(f) + \lam \MF(g)
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		Let $f \in \MS$ and $\al \in \N^0$. Then 
+		\begin{enumerate}
+			\item $\MF(X^{\al}f) = (-1)^{\al}D^{\al} \MF(f)$ 
+			\item $\MF(D^{\al}f) = X^{\al} \MF(f)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item The claim is clear for $\al = 0$. Suppose that $\al > 0$ and that the claim is true for $\al -1$ so that $\MF(X^{\al-1}f) = (-1)^{\al-1}D^{\al-1} \MF(f)$. Define $\phi:\R \times \R \rightarrow \R$ by $\phi(\xi, x) = e^{-i\xi x} x^{\al - 1}f(x)$. Then for each $\xi, x \in \R$, 
+			\begin{align*}
+				|\p_{\xi} \phi(\xi, x)|
+				& = |-ix e^{-i\xi x} x^{\al - 1}f(x)| \\
+				& = |x^{\al}f(x)| \\
+				& = |(X^{\al}f)(x)|
+			\end{align*}
+			Since $X^{\al}f \in \MS \subset L^1$, we may switch the order of differentiation and integration to obtain 
+			\begin{align*}
+				\MF(X^{\al}f) (\xi)
+				& = \int_{\R} e^{-i\xi x}x^{\al}f(x) dm(x) \\
+				& = \int_{\R} i \p_{\xi}\bigg[ e^{-i\xi x}x^{\al-1}f(x) \bigg] dm(x) \\
+				& = i \p_{\xi} \bigg[  \int_{\R} e^{-i\xi x}x^{\al-1}f(x) dm(x) \bigg] \\
+				& = i \p_{\xi} \MF(X^{\al-1}f) (\xi) \\
+				& = -D \MF(X^{\al-1}f)(\xi) \\
+				& = (-1)^{\al}D^{\al} \MF(f) (\xi)
+			\end{align*}
+			So the claim is true for $\al$.
+			\item The claim is clear for $\al = 0$. Suppose that $\al > 0$ and that the claim is true for $\al -1$ so that $\MF(D^{\al-1}f) = X^{\al-1} \MF(f)$. Then integration by parts yields 
+			\begin{align*}
+				\MF(D^{\al}f)(\xi)
+				& = \int_{\R} e^{-i \xi x} [-i \p_x D^{\al-1}f(x)] \dm(x) \\
+				&= - \int_{\R} -i \xi e^{-i \xi x} [-iD^{\al-1}f(x)] \dm(x) \\
+				&= \xi \int_{\R}   e^{-i \xi x} D^{\al-1}f(x) \dm(x) \\
+				&= X \MF(D^{\al-1}f)(\xi) \\
+				&= X^{\al} \MF(f)(\xi) \\
+			\end{align*}
+			So the claim is true for $\al$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		There exists $C >0$ such that for each $f \in \MS$, $\|\hat{f}\|_{0,0} \leq C \|f\|_{0, 2}$.\\
+		\textbf{Hint:} Set $$C = \int_{\R} \frac{1}{(1+|x|)^2} \dm(x)$$
+	\end{ex}
+	
+	\begin{proof}
+		Set 
+		$$C = \int_{\R} \frac{1}{(1+|x|)^2} \dm(x)$$
+		Let $f \in \MS$. Let $\xi \in \R$. Then 
+		\begin{align*}
+			|\hat{f}(\xi)| 
+			& = \bigg| \int_{\R} e^{-i\xi x} f(x) \dm(x) \bigg| \\
+			& \leq  \int_{\R} | f(x)| \dm(x) \\
+			& =  \int_{\R} \frac{(1+|x|)^2|f(x)|}{(1+|x|)^2} \dm(x) \\
+			& \leq \|f\|_{0, 2} \int_{\R} \frac{1}{(1+|x|)^2} \dm(x) \\
+			& = C\|f\|_{0, 2}
+		\end{align*}
+		Since $\xi \in \R$ is arbitrary, $\|\hat{f}\|_{0,0} \leq \|f\|_{0, 2}$.
+	\end{proof}
+
+	\begin{ex}
+		Let $a, b \in \R$ and $N \in \N_0$. Then $(a + b)^N \leq 2^{N-1} (a^N + b^N)$. \\
+		\textbf{Hint:} Jensen's inequality
+	\end{ex}
+	
+	\begin{proof}
+		Jensen's inequality implies that 
+		\begin{align*}
+			2^{-N}(a + b)^N 
+			& = \bigg(\frac{a}{2} + \frac{b}{2} \bigg)^N \\
+			& \leq \bigg(\frac{a^N}{2} + \frac{b^N}{2} \bigg) \\
+			& = 2^{-1}(a^N + b^N)
+		\end{align*}
+	So $(a + b)^N \leq 2^{N-1} (a^N + b^N)$.
+	\end{proof}
+
+	\begin{ex}
+		We have that $ \MF(\MS) \subset \MS$ and $\MF: \MS \rightarrow \MS$ is continuous. 
+	\end{ex}
+
+	\begin{proof}
+		Let $f \in \MS$ and $\al, N \in \N_0$. Then the previous exercise implies that for each $\xi \in \R$,
+		\begin{align*}
+			\xi^{N}\p_{\xi}^{\al} \MF(f)(\xi)
+			& =  (-i)^{\al} X^{N} D^{\al} \MF(f)(\xi) \\
+			&= i^{\al} X^N \MF(X^{\al} f)(\xi) \\
+			&= i^{\al} \MF(D^{N} X^{\al} f)(\xi) \\ 
+		\end{align*}
+		Set 
+		$$C = \int_{\R} \frac{1}{(1+|x|)^2} \dm(x)$$ 
+		as in the previous exercise. Since $\MF(X^{\al}f)$, $\MF(D^NX^{\al}f) \in C_b(\R)$, we have that
+		\begin{align*}
+			\|\MF(f)\|_{\al, N}
+			& = \sup_{\xi \in \R} \bigg[ (1 + |\xi|)^N |\p_{\xi}^{\al} \MF(f)(\xi)|\bigg] \\
+			& \leq \sup_{\xi \in \R} \bigg[ 2^{N-1}(1 + |\xi|^N) |\p_{\xi}^{\al} \MF(f)(\xi)| \bigg] \\
+			& = \sup_{\xi \in \R} \bigg[ |2^{N-1} \p_{\xi}^{\al} \MF(f)(\xi)| + |2^{N-1}\xi^N \p_{\xi}^{\al} \MF(f)(\xi)| \bigg] \\
+			& = \sup_{\xi \in \R} \bigg[  |\MF( 2^{N-1} X^{\al} f)(\xi)| + |\MF(2^{N-1} D^N X^{\al} f)(\xi)| \bigg] \\
+			& \leq  \| \MF( 2^{N-1} X^{\al} f) \|_{0,0} + \| \MF(2^{N-1} D^N X^{\al} f)\|_{0,0} \\
+			& \leq C2^{N-1}\| X^{\al} f \|_{0,2} +  C2^{N-1}\|  D^N X^{\al} f\|_{0,2}
+			& < \infty
+		\end{align*}
+		Since $\al, N \in \N_0$ are arbitrary, $\MF(f) \in \MS$ and since $f \in \MS$ is arbitrary, $\MF(\MS) \subset \MS$. Let $(f_n)_{n \in \N} \subset \MS$. Suppose that $f_n \rightarrow 0$. Since $X,D: \MS \rightarrow \MS$ are continuous, $X^{\al}f_n \rightarrow 0$ and $D^NX^\al f_n \rightarrow 0$. Therefore, $\|X^{\al}f_n\|_{0, 2} \rightarrow 0$ and $\|D^NX^{\al}f_n\|_{0, 2} \rightarrow 0$. From above, we see that 
+		\begin{align*}
+			\|\MF(f_n)\|_{\al, N} 
+			& \leq C2^{N-1}\| X^{\al} f_n \|_{0,2} +  C2^{N-1}\|  D^N X^{\al} f_n \|_{0,2} \\
+			& \rightarrow 0
+		\end{align*}
+		Hence $\MF(f_n) \rightarrow 0$ and $\MF$ is continuous. 
+	\end{proof}
+
+	\begin{ex}
+		Define $f \in \MS$ by $f(x) = e^{-x^2/2}$. Then $\MF(f) = \sqrt{2 \pi}f$.
+	\end{ex}
+
+	\begin{proof}
+		Note that for each $\xi \in \R$, 
+		\begin{align*}
+			\MF(Df)(\xi) 
+			& = \int_{\R} e^{-i \xi x}ixe^{-x^2/2} \dm(x) \\
+			& = -\int_{\R}  \p_{\xi} \bigg[ e^{-i \xi x} e^{-x^2/2}\bigg] \dm(x) \\
+			& = - \p_{\xi} \MF(f)(\xi) 
+		\end{align*}
+		A previous exercise implies that $\MF(Df) = X \MF(f)$. So for each $\xi \in \R$, $\p_{\xi} \hat{f}(\xi) = - \xi \hat{f}(\xi)$. Define $g \in \C^{\infty}(\R)$ by $g(\xi) = e^{\xi^2/2}$. Then 
+		\begin{align*}
+			\p_{\xi} (\hat{f} g) 
+			& = (\p_{\xi} \hat{f}) g + \hat{f} (\p_{\xi}g) \\
+			& = 0
+		\end{align*}
+		So there exists $C \in \R$ such that $\hat{f}g = C$. Hence for each $\xi \in \R$, 
+		\begin{align*}
+			\hat{f}(\xi) 
+			& = Ce^{-\xi^2/2} \\
+			& = Cf(\xi)
+		\end{align*}
+		Therefore, 
+		\begin{align*}
+			C
+			& = Cf(0) \\
+			& = \hat{f}(0) \\
+			& = \int_{\R} e^{-x^2/2} \dm(x) \\
+			& = \sqrt{2 \pi} 
+		\end{align*}
+		So $\hat{f} = \sqrt{2 \pi}f$.
+	\end{proof}
+
+
+
+	
+	
+
 
 	\begin{defn}
 		content...
@@ -219,7 +655,107 @@
 	\newpage
 	\subsection{The Fourier Transform on $\MM(\R)$}
 	
+	\begin{note}
+		Recall that $$\MM(\R) = \{\mu: \MB(\R) \rightarrow \C: \mu \text{ is a complex measure}\}$$
+	\end{note}
 	
+	\begin{defn}
+		Let $\mu \in \MM(\R)$. We define the \textbf{Fourier transform of $\mu$}, denoted $\hat{\mu}: \R \rightarrow \C$, by
+		$$\hat{\mu}(\xi) = \int_{\R} e^{-i \xi x} \dmu(x)$$ 
+	\end{defn}
+	
+	\begin{ex}
+		Let $\mu \in \MM(\R)$. Then Then $\hat{\mu} : \R \rightarrow \C$ is bounded.
+	\end{ex}
+	
+	\begin{proof}
+		Let $\xi \in \R$. 
+		\begin{align*}
+			|\hat{\mu}(\xi)|
+			& = \bigg | \int_{\R} e^{-i \xi x} \dmu(x) \bigg| \\
+			& \leq \int_{\R} |e^{-i \xi x}| \, d|\mu|(x) \\
+			& = |\mu|(\R) \\
+		\end{align*}
+		So $\hat{\mu}$ is bounded.
+	\end{proof}
+	
+	\begin{ex}
+		Let $\mu \in \MM(\R)$. Then $\hat{\mu} \in C_b(\R)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $(\xi_{n})_{n \in \N} \subset \R$ and $\xi \in \R$. Define $(f_n)_{n \in \N} \subset L^1 (\mu)$ and $f \in L^1(\mu)$ by $f_n(x) = e^{-i \xi_n x}$ and $f(x) = e^{-i \xi x}$. Suppose that $\xi_n \rightarrow \xi$. Then $f_n \convt{p.w.} f$ and for each $n \in N$ and $x \in \R$, 
+		\begin{align*}
+			|f_n(x)|
+			&= |e^{-i \xi_n x}| 
+			& = 1 \\
+			& \in L^1(|\mu|)
+		\end{align*}
+		The dominated convergence theorem implies that
+		\begin{align*}
+			|\hat{\mu}(\xi_n) - \hat{\mu}(\xi)| 
+			& = \bigg| \int_{\R} e^{-i \xi_n x} \dmu(x) - \int_{\R} e^{-i \xi x} \dmu(x)\bigg| \\
+			& =  \bigg| \int_{\R} e^{-i \xi_n x} - e^{-i \xi x} \dmu(x) \bigg| \\
+			& \leq \int_{\R} |e^{-i \xi_n x} - e^{-i \xi x}| \, d|\mu|(x) \\
+			& \rightarrow 0
+		\end{align*}
+		So $\hat{\mu}: \R \rightarrow \C$ is continuous. Hence $\hat{\mu} \in C_b(\R)$.
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a real normed vector space. We define $\MF: \MM(\R) \rightarrow C_b(\R)$ by $$\MF(\mu) = \hat{\mu}$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a real normed vector space. Then $\MF: \MM(\R) \rightarrow C_b(\R)$ is linear.
+	\end{ex}
+	
+	\begin{proof}
+		Let $\mu, \nu \in \MM(\R)$ and $\xi \in \R$. Then 
+		\begin{align*}
+			\MF[\mu + \nu](\xi) 
+			& = \int_{\R} e^{-i \xi x} \, d[\mu + \nu](x) \\
+			& = \int_{\R} e^{-i \xi x} \dmu(x) + \int_{\R} e^{-i \xi x} \dnu(x) \\
+			& = \MF[\mu](\xi) + \MF[\nu](\xi) 
+		\end{align*}
+		Since $\xi \in \R$ is arbitrary, $\MF(\mu + \nu) = \MF(\mu) + \MF(\nu)$ and $\MF$ is linear.
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a real normed vector space. If $X$ is separable, then $\MF$ is injective.  
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $X$ is separable. Let $\mu \in \MM(X)$. Suppose that $\mu \in \ker \MF$. Then $\hat{\mu} =0$ and for each $\phi \in X^*$, 
+		\begin{align*}
+			0 
+			& = \hat{\mu}(\phi) \\
+			& = \int_X e^{-i \phi(x)} \dmu(x) \\
+			& = \int_{\R} e^{-ix} \, d[\phi_*\mu](x)
+		\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a real normed vector space. Then $\MF \in L(\MM(X), C_b(X^*))$ and $\|\MF\| \leq 1$.
+	\end{ex}
+	
+	\begin{proof}
+		For $\mu \in \MM(X)$ and $\phi \in X^*$, we have that 
+		\begin{align*}
+			|\MF[\mu](\phi)|
+			& =  \bigg| \int_X e^{-i \phi(x)} \dmu(x) \bigg| \\
+			& \leq \int_X |e^{-i \phi(x)}| \, d|\mu|(x) \\
+			& = |\mu|(X) \\
+			& = \|\mu\|
+		\end{align*}
+		Hence 
+		\begin{align*}
+			\|\MF(\mu)\| 
+			& = \sup_{\phi \in X^*} |\MF[\mu](\phi)| \\
+			& \leq \|\mu\|
+		\end{align*}
+		which implies that $\MF \in L(\MM(X), C_b(X^*))$ and $\|\MF\| \leq 1$.
+	\end{proof}
 	
 	
 	
@@ -257,7 +793,7 @@
 	\end{defn}	
 	
 	\begin{defn}
-	\ld{101} Let $f \in C^{\infty}(\R^n)$,$\al \in \N_0^n$ and $N \in \N_0$. We define $$\|f\|_{\al, N} = \sup_{x \in \R^n} (1+|x|^N) |\p^{\al}f (x) |$$
+	\ld{101} Let $f \in C^{\infty}(\R^n)$,$\al \in \N_0^n$ and $N \in \N_0$. We define $$\|f\|_{\al, N} = \sup_{x \in \R^n} (1 + |x|)^N |\p^{\al}f (x) |$$
 	We define Schwartz space, denoted $\MS$, by $$\MS = \{f \in C^{\infty}(\R^n): \text{ for each $\al \in \N_0^n$, $N \in \N_0$, } \|f\|_{\al, N} < \infty\}$$
 	\end{defn}
 	
