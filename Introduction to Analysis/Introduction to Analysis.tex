@@ -859,12 +859,13 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\end{defn}
 
 	\begin{ex}
-		Let $(X, \MT), (Y, \MS)$ be topological spaces, $\MB \subset \MT$ a basis for $\MT$ and $f: X \rightarrow Y$. If for each $U \in \MB$, $f(U) \in \MS$, then $f$ is open.\\
+		Let $(X, \MT), (Y, \MS)$ be topological spaces, $\MB \subset \MT$ a basis for $\MT$ and $f: X \rightarrow Y$. Then $f$ is open iff for each $U \in \MB$, $f(U) \in \MS$.\\
 		\textbf{Hint:} $f\bigg( \bigcup\limits_{\al \in A} A_{\al} \bigg) =  \bigcup\limits_{\al \in A} f(A_{\al})$.
 	\end{ex}
 
 	\begin{proof}
-		Suppose that for each $U \in \MB$, $f(U) \in \MS$. Let $U \in \MT$. Then there exists $(U_{\al})_{\al \in A} \subset \MB$ such that $U =  \bigcup\limits_{\al \in A} U_{\al}$. Then 
+		Clearly if $f$ is open, then for each $U \in \MB$, $f(U) \in \MS$.\\
+		Conversely, suppose that for each $U \in \MB$, $f(U) \in \MS$. Let $U \in \MT$. Then there exists $(U_{\al})_{\al \in A} \subset \MB$ such that $U =  \bigcup\limits_{\al \in A} U_{\al}$. Then 
 		\begin{align*}
 			f(U) 
 			& = \bigcup\limits_{\al \in A} f(U_{\al}) \\
@@ -3310,6 +3311,33 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Let $x, y \in X$. The second Hahn-Banach separation theorem implies that there exists $\phi \in X^*$ such that $\phi(x) \neq \phi(y)$. 
 	\end{proof}
 
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Direct Sums}
+
 	
 
 
@@ -3400,20 +3428,64 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Suppose that $M$ is closed. Define the action $\phi: M \times X \rightarrow X$ by $m \cdot x = m  + x$. Denote by $\sim$, the equivalence relation induced by $\phi$ (i.e. $x \sim y$ iff $x-y \in M$). A previous exercise implies that $\pi: X \rightarrow X /M$ is open. Let $(x_{\al},y_{\al})_{\al \in A} \subset \, \sim$ be a net and $(x,y) \in X \times X$. Suppose that $(x_{\al},y_{\al}) \rightarrow (x,y)$. Then $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$. Therefore $x_{\al} - y_{\al} \rightarrow x -y$. Since for each $\al \in A$, $x_{\al} - y_{\al} \in M$ and $M$ is closed, we have that $x -y \in M$. Hence $(x,y) \in \, \sim$ and $\sim$ is closed. Since $\pi$ is open, a previous exercise in the section on separation and countability implies that $X / M$ is Hausdorff.
 	\end{proof}
 	
-	\begin{defn}
-	 
-	\end{defn}
+	\begin{ex}
+		Let $X$ be a topological vector space and $\phi,\psi \in X^*$. If $\ker  \phi \subset \ker \psi$, then there exists $\lam \in \C$ such that $\psi = \lam \phi$.\\
+		\textbf{Hint:} This is just a fact about vector spaces. The isomorphism theorems imply that there exists $g: \Im \phi \rightarrow \Im \psi$ such that $\psi = g \circ \phi$. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\ker  \phi \subset \ker \psi$. If $\phi = 0$, then 
+		\begin{align*}
+			X 
+			& = \ker \phi\\
+			& \subset \ker \psi 
+		\end{align*}
+		So 
+		\begin{align*}
+			\psi 
+			& = 0 \\
+			& = \phi
+		\end{align*}
+		Suppose that $\phi \neq 0$. Then $\Im \phi = \C$. Let $\pi_{\phi}: X \rightarrow X / \ker \phi$ and $\pi_{\psi}: X \rightarrow X / \ker \psi$ be the canonical projection maps and let $\tilde{\phi}: X / \ker \phi \rightarrow \Im \phi$ and $\tilde{\psi}:X / \ker \psi \rightarrow \Im \psi$ be the unique maps such that $\tilde{\phi} \circ \pi_{\phi} = \phi$ and $\tilde{\psi} \circ \pi_{\psi} = \psi$. Note that $\tilde{\phi}$ and $\tilde{\psi}$ are vector space isomorphisms. Define the linear map $\iota: X /\ker \phi \rightarrow X / \ker \psi$ by $\iota(x + \ker \phi) = x + \ker \psi$. Let $x,y \in X$. If $x + \ker \phi = y + \ker \phi$, then 
+		\begin{align*}
+			x -y 
+			& \in \ker \phi \\
+			& \subset \ker \psi 
+		\end{align*}
+		So 
+		\begin{align*}
+			\iota(x) 
+			& = x + \ker \psi \\
+			& = y + \ker \psi \\
+			& = \iota(y)
+		\end{align*}
+		and $\iota$ is well defined. Define $g: \Im \phi \rightarrow \Im \psi$ by $g(y) = \tilde{\psi} \circ \iota \circ \tilde{\phi}^{-1}$. Set $\lam = g(1)$. Since $g: \C \rightarrow \C$ is linear, $g = \lam \id_{\C}$. Thus we have the following commutative diagram: 
+		\[ \begin{tikzcd}
+			& X_{\al} \arrow[dr, "\pi_{\psi}"] \arrow[dl, "\pi_{\phi}"'] &  \\
+			X / \ker \phi \arrow[rr, "\iota"] \arrow[d, "\tilde{\psi}"] & & X / \ker \psi  \arrow[d, "\tilde{\psi}"] \\
+			\Im \phi \arrow[rr, "g = \lam \id_{\C}"] & & \Im \psi
+		\end{tikzcd}
+		\]
+		Hence 
+		\begin{align*}
+			\psi
+			& = g \circ \phi \\
+			& = \lam \id_{\C} \circ \phi \\
+			& = \lam \phi
+		\end{align*} 
+	\end{proof}
 
 	\begin{ex}
-		\begin{ex}
-			Let $X, Y$ be topological vector spaces.  and $\phi: X \rightarrow Y$ linear. Then $\ker \phi$ is closed iff $\phi$ is continuous. 
-		\end{ex}
 		
-		\begin{proof}
-			Suppose that $\phi$ is continuous. Since $\{0\} \subset Y$ is closed, $\ker \phi = \phi^{-1}(\{0\})$ is closed. Conversely, suppose that $\ker \phi$ is closed. 
-		\end{proof}
 	\end{ex}
 	
+	\begin{ex}
+		Let $X, Y$ be topological vector spaces.  and $\phi: X \rightarrow Y$ linear. Then $\ker \phi$ is closed iff $\phi$ is continuous. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\phi$ is continuous. Since $\{0\} \subset Y$ is closed, $\ker \phi = \phi^{-1}(\{0\})$ is closed. Conversely, suppose that $\ker \phi$ is closed. 
+	\end{proof}
 	
 	
 	
@@ -3549,7 +3621,13 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 			& \leq r^{-1}p \\
 			& = |r^{-1}\hat{x}| \\
 		\end{align*} 
-	Therefore $\ker \hat{x} \subset \ker f$. 
+	Therefore $\ker \hat{x} \subset \ker f$. An exercise in the section on quotient spaces of locally convex spaces implies that there exists $\lam \in \C$ such that 
+	\begin{align*}
+		f 
+		& = \lam r^{-1}\hat{x} \\
+		& \in \hat{X}
+	\end{align*}
+	So $X^{**} = \hat{X}$.
 	\end{proof}
 	
 	
@@ -4953,14 +5031,14 @@ So that $T(\overline{B(0,1)})$ is bounded.
 	\begin{ex}
 	Let $X$ be a normed vector space, $M \subset X$ and $N \subset X^*$. Then 
 	\begin{enumerate}
-	\item $^{\perp}(M^{\perp}) = \bar{M}$, i.e. the norm closure of $M$
+	\item $^{\perp}(M^{\perp}) = \cl M$, i.e. the norm closure of $M$
 	\item $({^{\perp}N})^{\perp} = \text{cl}_{w^*}(N)$, i.e. the weak-* closure of $N$.
 	\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 	\begin{enumerate}
-	\item Let $x \in M$, then by definition, for each $\phi \in M^{\perp}$, $\phi(x) = 0$. Again by definition, $x \in {^{\perp}(M^{\perp})}$. So $M \subset {^{\perp}(M^{\perp})}$. Since ${^{\perp}(M^{\perp})}$ is closed, $\bar{M} \subset {^{\perp}(M^{\perp})}$. For the sake of contradiction, suppose that ${^{\perp}(M^{\perp})} \not \subset \bar{M}$. Then there exists $x \in {^{\perp}(M^{\perp})}$ such that $x \not \in \bar{M}$. \rex{55017} implies that there exists $\phi \in X^*$ such that $\phi|_{\bar{M}} = 0$, $\|\phi\| = 1$ and $\phi(x) = \|x + \bar{M}\| > 0$. By definition, $\phi \in M^{\perp}$. Since $\phi(x) \neq 0$, we have that $x \not \in {^{\perp}(M^{\perp})}$. This is a contradiction and so ${^{\perp}(M^{\perp})} \subset \bar{M}$.
+	\item Let $x \in M$, then by definition, for each $\phi \in M^{\perp}$, $\phi(x) = 0$. Again by definition, $x \in {^{\perp}(M^{\perp})}$. So $M \subset {^{\perp}(M^{\perp})}$. Since ${^{\perp}(M^{\perp})}$ is closed, $\cl M \subset {^{\perp}(M^{\perp})}$. For the sake of contradiction, suppose that ${^{\perp}(M^{\perp})} \not \subset \cl M$. Then there exists $x \in {^{\perp}(M^{\perp})}$ such that $x \not \in \cl M$. \rex{55017} implies that there exists $\phi \in X^*$ such that $\phi|_{\cl M} = 0$, $\|\phi\| = 1$ and $\phi(x) = \|x + \cl M\| > 0$. By definition, $\phi \in M^{\perp}$. Since $\phi(x) \neq 0$, we have that $x \not \in {^{\perp}(M^{\perp})}$. This is a contradiction and so ${^{\perp}(M^{\perp})} \subset \cl M$.
 	\item 
 	\end{enumerate}
 	\end{proof}
