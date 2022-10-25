@@ -78,6 +78,7 @@
 \newcommand{\MI}{\mathcal{I}}
 \newcommand{\MU}{\mathcal{U}}
 \newcommand{\MO}{\mathcal{O}}
+\newcommand{\MQ}{\mathcal{Q}}
 
 \newcommand{\ui}{[0,1]}
 \newcommand{\p}{\partial}
@@ -1151,7 +1152,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	
 	\begin{proof}
 	Suppose that $x_{\gam} \rightarrow x$. Let $\al \in A$. Since $f_{\al}$ is continuous, the previous exercise implies that $f_{\al}(x_{\gam}) \rightarrow f_{\al}(x)$. \\
-	Conversely, Suppose that for each $\al \in A$,  $f_{\al}(x_{\gam}) \rightarrow f_{\al}(x)$. Let $U \in \MN_x$. Since $U^{\circ} \in \tau(\MF)$, \rex{31010} implies there exist $V_1 \in B_{\al_1}, \ldots, V_n \in B_{\al_n}$ such that $\bigcap\limits_{j=1}^n f_{\al_j}^{-1}(V_j) \subset U^{\circ}$ and $x \in \bigcap\limits_{j=1}^n f_{\al_j}^{-1}(V_j)$. Let $j \in \{1, \ldots, n\}$. Since $f_{\al_j}^{-1}(V_j) \in \MN_x$, $V_j \in \MN_{f(x)}$. By assumption, $f_{\al_j}(x_{\gam})$ is eventually in $V_j$. Thus there exist there exist $\gam'_j \in \Gam$ such that for each $\gam \geq \gam'_j$, $f_{\al_j}(x_{\gam}) \in V_j$, or equivalently, $x_{\gam} \in f_{\al_j}^{-1}(V_j)$. Since $\Gam$ is directed, there exists $\gam' \in \Gam$ such that for each $j \in \{1, \ldots, n\}$, $\gam' \geq \gam'_j$. Let $\gam \in \Gam$. Suppose that $\gam \geq \gam'$. Then 
+	Conversely, Suppose that for each $\al \in A$,  $f_{\al}(x_{\gam}) \rightarrow f_{\al}(x)$. Let $U \in \MN_x$. Since $U^{\circ} \in \tau_X(\MF)$, \rex{31010} implies there exist $V_1 \in \MB_{\al_1}, \ldots, V_n \in \MB_{\al_n}$ such that $\bigcap\limits_{j=1}^n f_{\al_j}^{-1}(V_j) \subset U^{\circ}$ and $x \in \bigcap\limits_{j=1}^n f_{\al_j}^{-1}(V_j)$. Let $j \in \{1, \ldots, n\}$. Since $f_{\al_j}^{-1}(V_j) \in \MN_x$, $V_j \in \MN_{f(x)}$. By assumption, $f_{\al_j}(x_{\gam})$ is eventually in $V_j$. Thus there exist there exist $\gam'_j \in \Gam$ such that for each $\gam \geq \gam'_j$, $f_{\al_j}(x_{\gam}) \in V_j$, or equivalently, $x_{\gam} \in f_{\al_j}^{-1}(V_j)$. Since $\Gam$ is directed, there exists $\gam' \in \Gam$ such that for each $j \in \{1, \ldots, n\}$, $\gam' \geq \gam'_j$. Let $\gam \in \Gam$. Suppose that $\gam \geq \gam'$. Then 
 	\begin{align*}
 	x_{\gam} 
 	& \in \bigcap\limits_{j=1}^n f_{\al_j}^{-1}(V_j) \\
@@ -3513,6 +3514,99 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\subsection{Duality}
 	
 	\begin{defn}
+		Let $X,Y$ and $Z$ be topological vector spaces (over the same field) and $b : X \times Y \rightarrow Z$. Then $b$ is said to be a \textbf{pairing of $X$ with $Y$ over $Z$} if $b$ is bilinear. \\
+	\end{defn}
+
+	\begin{defn}
+		Let $X,Y$ and $Z$ be topological vector spaces and $b : X \times Y \rightarrow Z$ a pairing. We define the \textbf{dual pairing} of $b$, denoted $b^*:Y \times X \rightarrow Z$, by $b^*(y,x) = b(x,y)$. Then $b$ is a pairing. 
+	\end{defn}
+
+	\begin{ex}
+		Let $X,Y$ and $Z$ be topological vector spaces and $b : X \times Y \rightarrow Z$ a pairing. Then $b^*$ is a pairing.
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+
+	\begin{defn}
+		Let $X,Y$ and $Z$ be topological vector spaces and $b : X \times Y \rightarrow Z$ a pairing. We define the \textbf{weak topology on $X$ induced by $b$}, denoted $\sig_b(X, Y)$ by 
+		$$\sig_b(X,Y) = \tau_{X}(b(\cdot, y): X \rightarrow Z: y \in Y)$$ 
+		We define the \textbf{weak topology on $Y$ induced by $b$}, denoted $\sig_b(Y, X)$, by $\sig_b(Y,X) = \sig_{b^*}(Y, X)$.
+	\end{defn}
+
+	\begin{ex}
+		Let $X,Y$ and $Z$ be topological vector spaces and $b : X \times Y \rightarrow Z$ a pairing. Then 
+		\begin{enumerate}
+			\item $(X, \sig_b(X, Y))$ is a topological vector space
+			\item $(Y, \sig_b(Y, X))$ is a topological vector space
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $(u_{\al})_{\al \in A}$, $(v_{\al})_{\al \in A} \subset X$ and $(\lam_{\al})_{\al \in A} \subset \C$ be nets and $u,v \in X$ and $\lam \in \C$. Suppose that $u_{\al} \rightarrow u$, $v_{\al} \rightarrow v$ and $\lam_{\al} \rightarrow \lam$. Let $y \in Y$. Since $Z$ is a topological vector space,
+			\begin{align*}
+				b(u_{\al} + v_{\al}, y) 
+				& = b(u_{\al}, y) + b( v_{\al}, y) \\
+				& \rightarrow b(u, y) + b(v, y) \\
+				& = b(u+v, y)
+			\end{align*}
+		and 
+			\begin{align*}
+				b(\lam_{\al} u_{\al} , y) 
+				& = \lam_{\al} b(u_{\al}, y)\\
+				& \rightarrow \lam b(u, y) \\
+				& = b(\lam u, y)
+			\end{align*}
+			Since $y \in Y$ is arbitrary, $u_{\al} + v_{\al} \rightarrow u+v$ and $\lam_{\al}u_{\al} \rightarrow \lam u$. Hence addition $X \times X \rightarrow X$ and scalar multiplication $\C \times X$ $\rightarrow X$ are continuous.
+			\item Since $\sig_b(X,Y) = \sig_{b^*}(Y,X)$, $(1)$ implies $(2)$. 
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn}
+		Let $X,Y$ and $Z$ be topological vector spaces and $b : X \times Y \rightarrow Z$ a pairing. Then 
+		\begin{itemize}
+			\item $Y$ is said to \textbf{separate the points of $X$ via $b$} if
+			for each $x \in X$, $x \neq 0$ implies that there exists $y \in Y$ such that $b(x,y) \neq 0$
+			\item $X$ is said to \textbf{separate the points of $Y$ via $b$} if $X$ separates the points of $Y$ via $b^*$
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $X,Y$ and $Z$ be topological vector spaces and $b : X \times Y \rightarrow Z$ a pairing. Suppose that $Z$ is Hausdorff.   
+		\begin{enumerate}
+			\item if $Y$ separates the points of $X$ via $b$, then $(X, \sig_b(X,Y))$ is Hausdorff
+			\item 
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof} \
+		\begin{enumerate}
+			\item Suppose that $Y$ separates the points of $X$ via $b$. Let $x_1, x_2 \in X$. Suppose that $x_1 \neq x_2$. Then $x_1 - x_2 \neq 0$. Hence there exists $y \in Y$ such that 
+			\begin{align*}
+				b(x_1, y) - b(x_2,y)
+				& = b(x_1 - x_2,y) \\
+				& \neq 0
+			\end{align*}
+			 Since $Z$ is Hausdorff, there exist $V_1 \in \MN_{b(x_1, y)}, V_2 \in \MN_{b(x_2, y)}$ such that $V_1$ and $V_2$ are open and $V_1 \cap V_2 = \varnothing$. Set $U_1 = b(\cdot, y)^{-1}(V_1)$ and $U_2 = b(\cdot, y)^{-1}(V_2)$. By definition of $\sig_b(X,Y)$, $b(\cdot, y): X \rightarrow Z$ is continuous. Thus $U_1$, $U_2 \in \sig_b(X,Y)$, $x_1 \in U_1$, $x_2 \in U_2$ and 
+			 \begin{align*}
+			 	U_1 \cap U_2
+			 	& = b(\cdot, y)^{-1}(V_1) \cap b(\cdot, y)^{-1}(V_2) \\
+			 	& = b(\cdot, y)^{-1}(V_1 \cap V_2) \\
+			 	& = b(\cdot, y)^{-1}(\varnothing) \\
+			 	& = \varnothing
+			 \end{align*}
+		 	Therefore $(X, \sig_b(X,Y))$ is Hausdorff. \\
+			\item 
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn}
+		
+	\end{defn}
+	
+	\begin{defn}
 		Let $X$ be a topological vector space and $x \in X$. Define $\hat{x}:X^* \rightarrow \C$ by $\hat{x}(f) = f(x)$. We define $\hat{X} = \{\hat{x}: x \in X\}$.
 	\end{defn}
 
@@ -3629,8 +3723,100 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{align*}
 	So $X^{**} = \hat{X}$.
 	\end{proof}
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\subsection{Continous Linear Maps}
+
+\begin{defn}
+	Let $X,Y$ be topological vector spaces. We define $L(X,Y) = \{T:X \rightarrow Y: T \text{ is linear and continuous}\}$.
+\end{defn}
+
+\begin{defn}
+	Let $X, Y$ be locally convex spaces with respective associated families of seminorms $\MP$ and $\MQ$ and $p \in \MP$, $q \in \MQ$. We define $\|\cdot\|_{p,q}: L(X, Y) \rightarrow [0, \infty)$ by 
+	$$\|T\|_{p,q} = \inf \{C \geq 0: \text{ for each $x \in X$, $q(Tx) \leq Cp(x)$} \}$$
+\end{defn}
+
+\begin{ex}
+	Let $X, Y$ be locally convex spaces with respective associated families of seminorms $\MP$ and $\MQ$, $p \in \MP$, $q \in \MQ$ and $T \in L(X,Y)$. Then for each $x \in X$, $q(Tx) \leq \|T\|_{p,q}p(x)$. 
+\end{ex}
+
+\begin{proof}
+	Set $A = \{C \geq 0: \text{ for each $x \in X$, $q(Tx) \leq Cp(x)$} \}$. Let $C \in A$ and $x \in X$. Let $\ep >0$. Then $\ep / [1 + p(x)] > 0$. Hence there exists $C \in A$ such that $$C < \|T\|_{p,q} + \frac{\ep}{1 + p(x)}$$
+	Therefore, 
+	\begin{align*}
+		q(Tx) 
+		& \leq Cp(x) \\
+		& \leq \bigg[\|T\|_{p,q} + \frac{\ep}{1 + p(x)}\bigg]p(x) \\
+		& < \|T\|_{p,q}p(x) + \ep
+	\end{align*}
+	Since $\ep >0$ is arbitrary, $q(Tx) \leq \|T\|_{p,q}p(x) $. Since $x \in X$ is arbitrary, $\|T\|_{p,q} \in A$. 
+\end{proof}
+
+	\begin{ex}
+		Let $X, Y$ be locally convex spaces with respective associated families of seminorms $\MP$ and $\MQ$, $p \in \MP$, $q \in \MQ$ and $T \in L(X,Y)$. Then 
+		$$\|T\|_{p,q} = \sup \{q(Tx): p(x) = 1\}$$
+	\end{ex}
+
+	\begin{proof}
+		Let 
+	\end{proof}
+
+\begin{ex}
+	Let $X, Y$ be locally convex spaces with respective associated families of seminorms $\MP$ and $\MQ$ and $p \in \MP$, $q \in \MQ$. Then $\|\cdot\|_{p,q}$ is a seminorm  on $L(X,Y)$. 
+\end{ex}
+
+\begin{proof}
+	Let $S, T \in L(X,Y)$ and $\lam \in \C$. 
+	\begin{enumerate}
+		\item Let $x \in X$. Then 
+		\begin{align*}
+			q((S+T)(x)) 
+			& = q(Sx + Tx) \\
+			& \leq q(Sx) + q(Tx) \\
+			& \leq \|S\|_{p,q}p(x) + \|T\|_{p,q}p(x) \\
+			& =  (\|S\|_{p,q} + \|T\|_{p,q}) p(x)
+		\end{align*}
+		Since $x \in X$ is arbitrary, $\|S+T\|_{p,q} \leq $
+		$\|S + T\|_{p,q} $
+		\item Let $x \in X$. Then 
+		\begin{align*}
+			q((\lam T)(x)) 
+			& = q(\lam Tx) \\
+			& = |\lam| q(Tx) \\
+			& \leq |\lam |\|T\|_{p,q}p(x) \\
+		\end{align*}
+		Since $x \in X$ is arbitrary, $\|\lam T\|_{p,q} \leq $
+	\end{enumerate}
+\end{proof}
+
+ 
 
 	
 	
@@ -6118,10 +6304,6 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 	
 	\subsection{The Gateaux Derivative}
 	
-	\begin{note}
-	In this section, we assume all Banach spaces to be over $\R$. 
-	\end{note}
-	
 	\begin{defn} \ld{61001}
 	Let $X,Y$ be a Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$, $x_0 \in A$ and $x \in X$. Then $f$ is said to be 
 	\begin{enumerate}
@@ -6342,6 +6524,10 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\newpage
 	\subsection{The Frechet Derivative}
 	
+	\begin{note}
+		Let $X$ be a vector space over $\C$, $Y$ a vector space over $\R$ and $T:X \rightarrow Y$. Since all vector spaces over $\C$ are also vector spaces over $\R$ we will consider $T$ linear if $T$ is $\R$-linear. 
+	\end{note}
+	
 	\begin{ex} \lex{62001}
 	Let $X,Y$ be a normed vector spaces and $\phi: X \rightarrow Y$ linear. If $\phi(h) = o(\|h\|)$ as $h \rightarrow 0$, then $\phi = 0$. 
 	\end{ex}
@@ -6524,7 +6710,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\newpage
 	\subsection{The Calc I Derivative}
 	\begin{defn} \ld{}\textbf{Calc I Derivative:}\\
-	Let $Y$ be a Banach space, $A \subset \R$ open, $f:A \rightarrow Y$ and $x_0 \in A$. 
+	Let $Y$ be a Banach space, $A \subset \R$ or $\C$ open, $f:A \rightarrow Y$ and $x_0 \in A$. 
 	\begin{enumerate}
 	\item 
 	\begin{itemize}
@@ -6609,7 +6795,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $f$ is continuous and Gateaux differentiable. Let $x,y \in A$. The claim is clearly true when $f(x) = f(y)$. Suppose that $f(x) \neq f(y)$. Define $h: [0,1] \rightarrow X$ by $h(t) = tx +(1-t)y$. Set $g = f \circ h: [0,1] \rightarrow \R$. Then $g$ is continuous on $[0,1]$ and \rex{61011} implies that $g$ is Gateaux differentiable on $(0,1)$. Then \rex{62010} \rex{61011} and the mean value theorem implies that there exists $t^* \in (0,1)$ such that
+	Suppose that $f$ is continuous and Gateaux differentiable. Let $x,y \in A$. Define $h: [0,1] \rightarrow X$ by $h(t) = tx +(1-t)y$. Set $g = f \circ h: [0,1] \rightarrow \R$. Then $g$ is continuous on $[0,1]$ and \rex{61011} implies that $g$ is Gateaux differentiable on $(0,1)$. Then \rex{62010} \rex{61011} and the mean value theorem implies that there exists $t^* \in (0,1)$ such that
 	\begin{align*}
 	f(x) - f(y)
 	&= g(1) - g(0) \\
@@ -6660,7 +6846,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\end{proof}
 	
 	\begin{ex} \lex{64004}
-	Let $X, Y$ be a Banach spaces, $A \subset X$ open and convex and $f:A \rightarrow Y$. Suppose that $f$ is Frechet differentiable. If for each $x \in A$, $Df(x) = 0$, then $f$ is constant.
+	Let $X, Y$ be Banach spaces, $A \subset X$ open and convex and $f:A \rightarrow Y$. Suppose that $f$ is Frechet differentiable. If for each $x \in A$, $Df(x) = 0$, then $f$ is constant.
 	\end{ex}
 	
 	\begin{proof}
@@ -6674,7 +6860,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\end{proof}
 	
 	\begin{ex} \lex{64005}
-	Let $X, Y$ be a Banach spaces, $A \subset X$ open and convex and $f,g:A \rightarrow Y$. Suppose that $f$ and $g$ are Frechet differentiable. If $Df = Dg$, then there exists $c \in Y$ such that $f = g+c$.
+	Let $X, Y$ be Banach spaces, $A \subset X$ open and convex and $f,g:A \rightarrow Y$. Suppose that $f$ and $g$ are Frechet differentiable. If $Df = Dg$, then there exists $c \in Y$ such that $f = g+c$.
 	\end{ex}
 	
 	\begin{proof}
@@ -6704,6 +6890,34 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	\end{align*}
 	Hence continuity of $Df$ implies continuity of $f'$ and $f' \in C(A, Y)$.
 	\end{proof}
+
+	\begin{ex}
+		Let $X,Y$ be Banach spaces, $A \subset X$ open and convex and $f:A \rightarrow Y$. Suppose that $f$ is Frechet differentiable. Then $f$ is Lipschitz iff $Df$ is bounded.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f$ is Lipschitz. Then there exists $M > 0$ such that for each $x, y \in A$, $\|f(y) - f(x)\| \leq M \|y - x\|$. Let $x \in A$ and $h \in X$. Suppose that $\|h\| = 1$. Then $Df(y-x) = f(y) - f(x) + o(\|x-y\|)$. Hence 
+		\begin{align*}
+			\|Df(x)(th)\| 
+			& \leq \|f(x +th) - f(x)\| + o(\|th\|) \\
+			& \leq M \|th\|  + o(\|th\|)  \text{ as $t \rightarrow 0$}\\
+			& = M |t|  + o(|t|)  \text{ as $t \rightarrow 0$}\\
+		\end{align*}
+		Hence $\|Df(x)(h)\| \leq M + o(1) $ as $t \rightarrow 0$ which implies that $\|Df(x)(h)\| \leq M $. Thus 
+		\begin{align*}
+			\|Df(x)\| 
+			& = \sup \{\|Df(x)(h)\|: h \in X \text{ and $\|h\| =1 $}\} \\
+			& \leq M
+		\end{align*}
+		Since $x \in A$ is arbitrary, $Df$ is bounded.\\
+		Conversely, suppose that $Df$ is bounded. Then there exists $M > 0$ such that for each $x \in A$, $\|Df(x)\| \leq M$. Let $x,y \in A$. The mean value theorem implies that there exists $t^* \in (0,1)$ such that 
+		\begin{align*}
+			\|f(x) - f(y)\| 
+			& \leq \|Df(t^*x + (1-t^*)y)\|\|x-y\| \\
+			& \leq M \|x-y\|
+		\end{align*}
+		Therefore $f$ is Lipschitz.
+	\end{proof}
 	
 	
 	
@@ -6716,10 +6930,6 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	
 	\newpage
 	\subsection{Taylor's Theorem}
-	
-	\begin{note}
-	This section makes use of the Bochner integral. For reference, see .
-	\end{note}
 	
 	\begin{ex} \lex{}
 	Let $Y$ be a separable Banach space, $f:[a,b] \rightarrow Y$ continuous so that $f$ is Bochner-integrable. Define $F:(a,b) \rightarrow Y$ by  $$F(x) = \int_{(a, x]}f dm$$ Then $F \in C^1((a,b), Y)$ and for each $x_0 \in (a,b)$ and $F'(x_0) = f(x_0)$.
@@ -6753,7 +6963,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	\end{enumerate}
 	\end{ex}
 
-	\begin{proof}
+	\begin{proof}\
 	\begin{enumerate}
 	\item Since $f \in C^1((a,b), Y)$, a previous exercise tells us that $f' \in C_Y(a,b)$. Let $x, x_0 \in (a,b)$. Suppose that $x_0 < x$. Choose $c,d \in (a,b)$ such that $a < c < x_0< x< d < b$. Then $f'$ is continuous on $[c,d]$ and hence Bochner-integrable on $(c,d]$ and $(x_0,x]$. 
 	\item Define $g: (c,d) \rightarrow Y$ by $$g(\xi) = \int_{(c, \xi]}f'dm$$
@@ -6924,7 +7134,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	\subsection{The Gradient}
 	
 	\begin{defn} \ld{}
-	Let $H$ be a Hilbert space, $f: H \rightarrow \R$ and $x_0 \in H$. Suppose that $f$ is Frechet differentiable at $x_0$. Then $Df(x_0) \in H^*$. We define the \textbf{gradient of $f$ at $x_0$}, denoted $\nabla f(x_0) \in H$, via the Riesz representation theorem to be the unique element of $H$ satisfying $$\l \nabla f(x_0), y \r = Df(x_0)(y) \hspace{.3cm} \text{ for each } y \in H$$
+	Let $H$ be a Hilbert space, $f: H \rightarrow \C$ and $x_0 \in H$. Suppose that $f$ is Frechet differentiable at $x_0$. Then $Df(x_0) \in H^*$. We define the \textbf{gradient of $f$ at $x_0$}, denoted $\nabla f(x_0) \in H$, via the Riesz representation theorem to be the unique element of $H$ satisfying $$\l \nabla f(x_0), y \r = Df(x_0)(y) \hspace{.3cm} \text{ for each } y \in H$$
 	\end{defn}
 	
 	

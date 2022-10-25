@@ -56,6 +56,7 @@
 \newcommand{\sig}{\sigma} 
 \newcommand{\om}{\omega}
 \newcommand{\Om}{\Omega}
+\newcommand{\kap}{\kappa}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\E}{\mathbb{E}}
@@ -101,9 +102,10 @@
 
 \newcommand{\loc}{\text{loc}}
 
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator*{\sgn}{sgn}
+\DeclareMathOperator*{\spn}{span}
 \DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\id}{id}
 
 \newcommand{\lex}[1]{\label{ex:#1}}
 \newcommand{\ld}[1]{\label{defn:#1}}
@@ -123,13 +125,40 @@
 	\newpage
 	\section{Fourier Analysis on $\R$}	
 	
-	\subsection{Schwartz Space}
+	\subsection{Schwartz Space and Bump Functions}
 	
 	\begin{defn}
-		\ld{101} Let $f \in C^{\infty}(\R, \C)$, and $\al$, $N \in \N_0$. We define $\| \cdot \|_{\al, N}: C^{\infty}(\R, \C) \rightarrow \RG$ by 
+		\ld{101} Let $f \in C^{\infty}(\R)$, and $\al$, $N \in \N_0$. We define $\| \cdot \|_{\al, N}: C^{\infty}(\R, \C) \rightarrow \RG$ by 
 		$$\|f\|_{\al, N} = \sup_{x \in \R} \bigg[  (1 + |x|)^N |\p^{\al}f (x)| \bigg] $$
-		We define \textbf{Schwartz space} on $\R$, denoted $\MS$, by $$\MS = \{f \in C^{\infty}(\R, \C): \text{ for each $\al, N \in \N_0$, } \|f\|_{\al, N} < \infty\}$$
+		We define \textbf{Schwartz space} on $\R$, denoted $\MS$, by $$\MS = \{f \in C^{\infty}(\R): \text{ for each $\al, N \in \N_0$, } \|f\|_{\al, N} < \infty\}$$
 	\end{defn}
+
+	\begin{ex}
+		\lex{102} Let $f \in \MS$. Then 
+		\begin{enumerate}
+			\item $f$ is Lipschitz 
+			\item $ f \in  L^1(m)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item There exists $M > 0$ such that for each $x \in \R$, 
+			\begin{align*}
+				| \p f(x)| 
+				& \leq M(1+|x|)^{-1} \\
+				& \leq M
+			\end{align*}
+			Thus $\p f$ is bounded which implies that $\p^{\al}f$ is Lipschitz.
+			\item There exists $C \geq 0$ such that for each $x \in \R$, 
+			\begin{align*}
+				|f(x)| 
+				& \leq C(1+|x|)^{-2} \\
+				& \leq C(1+|x|^2)^{-1}
+			\end{align*}
+			Define $g:\R \rightarrow \Rg$ defined by $g(x) = (1+|x|^2)^{-1}$. Then $g \in L^1(m)$ which implies that $f \in L^1(m)$.
+		\end{enumerate}
+	\end{proof}
 
 	\begin{ex} We have that $\MS$ is a vector space and for each $\al, N \in \N_0$,  $\| \cdot \|_{\al, N}: \MS \rightarrow \Rg$ is a seminorm on $\MS$.
 	\end{ex}
@@ -262,8 +291,16 @@
 	\begin{ex}
 		We have that 
 		\begin{enumerate}
-			\item $X: \MS \rightarrow \MS$ and $D: \MS \rightarrow \MS$ are linear
-			\item $X: \MS \rightarrow \MS$ and $D: \MS \rightarrow \MS$ are continuous.
+			\item 
+			\begin{enumerate}
+				\item $X: \MS \rightarrow \MS$ is linear
+				\item $D: \MS \rightarrow \MS$ is linear
+			\end{enumerate}
+			\item 
+			\begin{enumerate}
+				\item $X: \MS \rightarrow \MS$ is continuous 
+				\item $D: \MS \rightarrow \MS$ is continuous
+			\end{enumerate}
 		\end{enumerate}
 	\end{ex}
 
@@ -271,7 +308,7 @@
 		\begin{enumerate}
 			\item Clear.
 			\item Let $(f_n)_{n \in \N} \subset \MS$. Suppose that $f_n \rightarrow 0$. Then for each $\al, N \in \N_0$, $\|f_n\|_{\al, N} \rightarrow 0$.
-			\begin{itemize}
+			\begin{enumerate}
 				\item A previous exercise implies that 
 				\begin{align*}
 					\|Xf_n\|_{\al, N} 
@@ -282,87 +319,339 @@
 				\item A previous exercise implies that 
 				\begin{align*}
 					\|Df_n\|_{\al, N} 
-					& = \|\p f_n\|_{\al, N} 
+					& = \|\p f_n\|_{\al, N} \\
 					& \leq \|f_n\|_{\al+1, N}\\
 					& \rightarrow 0
 				\end{align*}
 				So $Df_n \rightarrow 0$ and $D$ is continuous at $0$. Since $D$ is linear, $D$ is continuous. 
-			\end{itemize}
+			\end{enumerate}
 		\end{enumerate}
 	\end{proof}
 
-	\begin{ex}
-		\lex{102} We have that $ \MS \subset L^1(m)$.
-	\end{ex}
-	
-	\begin{proof}
-		Let $f \in \MS$. Then there exists $C \geq 0$ such that for each $x \in \R$, $$|f(x)| \leq C(1+|x|^{2})^{-1}$$
-		Define $g:\R^n \rightarrow \Rg$ defined by $g(x) = (1+|x|^{2})^{-1}$. Then $g \in L^1(\R)$ which implies that $f \in L^1(\R)$.
-	\end{proof}
-
 	\begin{defn}
-		Let $f \in \MS$ and $y \in \R$. Define 
+		Let $f \in \MS$ and $y \in \R$. Then
 		\begin{itemize}
-			\item $L_yf: \R \rightarrow \C$ by $L_yf(x) = f(x-y)$
-			\item $If: \R \rightarrow \C$ by $If(x) = f(-x)$.
+			\item for each e$y \in \R$ we define the \textbf{translation of $f$ by $y$}, denoted $\tau_yf: \R \rightarrow \C$, by $\tau_yf(x) = f(x-y)$
+			\item for each $\xi \in \R$, we define the \textbf{rotation of $f$} by $\xi$, denoted $\rho_{\xi} f: \R \rightarrow \C$ by $\rho_{\xi}f(x) = e^{-i\xi x}f(x)$
+			\item for each $t \neq 0$, we define the \textbf{dilation of $f$} by $t$, denoted $\del_t f: \R \rightarrow \C$ by $\del_tf(x) = f(tx)$
 		\end{itemize}
 	\end{defn}
 
 	\begin{ex}
-		Let $x, t \in \R$. Then $(1+|x|) \leq (1+ |x-t|)(1 + |t|)$.
-	\end{ex}
-
-	\begin{proof}
-		We have that 
-		\begin{align*}
-			(1+ |x-t|)(1 + |t|) 
-			& = 1 + |x-t| + |t| + |x-t||t| \\
-			& \geq 1 + |x| + |x-t||t| \\
-			& \geq 1 + |x| 
-		\end{align*}
-	\end{proof}
-
-	\begin{ex}
-		Let $f \in \MS$, then for each $y \in \R$ and $\al \in \N_0$, 
-		\begin{itemize}
-			\item $\p^{\al}L_yf = L_y \p^{\al}f$
-			\item $\p^{\al}If = (-1)^{\al} I \p^{\al}f$
-		\end{itemize}
+		Let $f \in \MS$ and $\al \in \N_0$.  Then   
+		\begin{enumerate}
+			\item for each $y \in \R$, $\p^{\al}\tau_yf = \tau_y \p^{\al}f$ 
+			\item for each $\xi \in \R$ ,
+			\begin{align*}
+				\p^{\al} \rho_{\xi} f 
+				& =  \rho_{\xi} [(-i\xi + \p)^{\al}f] \\ 
+				& =   \sum\limits_{k=0}^{\al} {\al \choose k} (-i\xi)^{\al-k}\rho_{\xi}\p^{k}f 
+			\end{align*}
+			\item for each $t \neq 0$, $\p^{\al} \del_tf = t^{\al} \del_t \p^{\al}f$
+		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}\
-		Clear by chain rule.
+		\begin{enumerate}
+			\item Clear by chain rule.
+			\item Let $\xi \in \R$. The claim is clear for $\al = 0$ and $\al = 1$. Suppose that $\al >1$ and the claim is true for $\al-1$ so that
+			$\p^{\al-1} \rho_{\xi} f =  \rho_{\xi} [(-i\xi + \p)^{\al-1}f]$. Set $g = (-i\xi + \p)^{\al-1}f$. Then 
+			\begin{align*}
+				\p^{\al} \rho_{\xi}f 
+				& = \p [\p^{\al-1} \rho_{\xi} f ] \\
+				& = \p \rho_{\xi} [(-i\xi + \p)^{\al-1}f] \\
+				& = \p \rho_{\xi} g \\
+				& = \rho_{\xi} [(-i\xi + \p)g] \\
+				& = \rho_{\xi} [(-i\xi + \p)^{\al}f] 
+			\end{align*}
+		 	Since $-i \xi \id_{\MS}$ and $\p$ commute, the binomial theorem implies that 
+		 	\begin{align*}
+		 		\rho_{\xi}[(-i\xi + \p)^{\al}f] 
+		 		& = \rho_{\xi}[\sum\limits_{k=0}^{\al} {\al \choose k}] (-i\xi)^{\al-k}\p^{k}f \\
+		 		& = \sum\limits_{k=0}^{\al} {\al \choose k}] (-i\xi)^{\al-k}\rho_{\xi}\p^{k}f
+		 	\end{align*}
+	 		\item Clear by chain rule
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} Let $y \in \R$ and $t \neq 0$. Then
+		\begin{enumerate}
+			\item for each $x \in \R$,  $(1+|x|) \leq (1 + |y|)(1+ |x-y|)$
+			\item there exists $C > 0$ such that for each $x \in \R$, $1+|x| \leq C(1 + |tx|)^2$ 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x \in \R$. Then 
+			\begin{align*}
+				(1 + |y|)(1+ |x-y|) 
+				& = 1 + |x-y| + |y| + |y||x-y| \\
+				& \geq 1 + |x| + |y||x-y| \\
+				& \geq 1 + |x| 
+			\end{align*}
+			\item Choose $C = \max(1/(2|t|), 1)$. Let $x \in \R$. Then 
+			\begin{align*}
+				C(1 + |tx|)^2 - (1 + |x|) 
+				& = C + 2C|tx| + C(tx)^2 - 1 - |x| \\
+				& = C + (2C|t| - 1)|x| + C(tx)^2 - 1 \\
+				& = (C-1) + (2C|t| - 1)|x| + C(tx)^2 \\
+				& \geq 0
+			\end{align*}
+			So $1 + |x| \leq C(1 + |tx|)^2$. 
+		\end{enumerate}
 	\end{proof}
 
 	\begin{ex}
 		Let $f \in \MS$. Then 
 		\begin{enumerate}
-			\item for each $y \in \R$, $L_y f \in \MS$ 
-			\item $If \in \MS$
+			\item for each $y \in \R$, $\tau_y f \in \MS$ and for each $\al, N \in \N_0$, $\|\tau_yf\|_{\al, N} \leq (1 + |y|)^N \|f\|_{\al, N}$
+			\item for each $\xi \in \R$, $\rho_{\xi} f \in \MS$ and for each $\al,N \in \N_0$, $$\|\rho_{\xi} f\|_{\al,N} \leq \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} \|f\|_{k, N}$$
+			\item for each $t \neq 0$, $\del_t f \in \MS$ and $\kap_tf \in \MS$ and there exists $C_t > 0$ such that for each $\al,N \in \N_0$, $\|\del_t f\|_{\al, N} \leq |t|^{\al} C_t^N\|f\|_{\al, 2N}$
 		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
-			\item  
-			\item 
+			\item  Let $y \in \R$ and $\al,N \in \N_0$. Then 
+			\begin{align*}
+				\sup_{x \in \R} \bigg[ (1+|x|)^N |\p^{\al} \tau_yf(x)|\bigg] 
+				& =  \sup_{x \in \R} \bigg[ (1+|x|)^N | \tau_y\p^{\al} f(x)|\bigg] \\ 
+				& =  \sup_{x \in \R} \bigg[ (1+|x|)^N |\p^{\al} f(x - y)|\bigg] \\ 
+				& \leq \sup_{x \in \R} \bigg[ (1+|y|)^N(1 + |x -y|)^N |\p^{\al} f(x - y)|\bigg] \\ 
+				& = (1+|y|)^N\sup_{x \in \R} \bigg[ (1 + |x -y|)^N |\p^{\al} f(x - y)|\bigg] \\ 
+				& = (1+|y|)^N\sup_{x \in \R} \bigg[ (1 + |x|)^N |\p^{\al} f(x)|\bigg] \\ 
+				& = (1+|y|)^N \|f\|_{\al, N} \\ 
+			\end{align*}
+			\item Let $\xi \in \R$ and $\al, N \in \N_0$. Then for each $x \in \R$, we have that
+			\begin{align*}
+				(1 + |x|)^N |\p^{\al} \rho_{\xi} f(x)| 
+				& = (1 + |x|)^N\bigg| \sum\limits_{k=0}^{\al} {\al \choose k} (-i\xi)^{\al-k}\rho_{\xi} \p^{k}f(x) \bigg| \\
+				& = (1 + |x|)^N\bigg| \sum\limits_{k=0}^{\al} {\al \choose k} (-i\xi)^{\al-k} e^{-i\xi x}\p^{k}f(x) \bigg| \\
+				& \leq (1 + |x|)^N \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} |\p^{k}f(x)| \\
+				& = \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} (1 + |x|)^N|\p^{k}f(x)| \\
+				& \leq \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} \|f\|_{k, N}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\|\rho_{\xi}f\|_{\al,N} 
+				& = \sup_{x \in \R} \bigg[ (1 + |x|)^N |\p^{\al} \rho_{\xi} f(x)|  \bigg] \\
+				& \leq \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} \|f\|_{k, N}
+			\end{align*}
+			\item Let $t \neq 0$ and $\al, N \in \N_0$. The previous exercise implies that there exists $C_t > 0$ such that for each $x \in \R$, $1 + |x| \leq C_t(1 + |tx|)^2$. Then for each $x \in \R$, we have that 
+			\begin{align*}
+				(1 + |x|)^N |\p^{\al} \del_t f(x)| 
+				& = (1 + |x|)^N |t|^{\al}|\del_t \p^{\al} f(x)| \\
+				& = |t|^{\al} (1 + |x|)^N |\p^{\al} f(tx)| \\
+				& \leq |t|^{\al} C_t^N(1 + |tx|)^{2N} | \p^{\al} f(tx)| \\
+				& \leq |t|^{\al} C_t^N\|f\|_{\al, 2N}
+			\end{align*}
+			Therefore 
+			\begin{align*}
+				\|\del_tf\|_{\al, N} 
+				& = \sup_{x \in \R} \bigg[(1 + |x|)^N |\p^{\al} \del_t f(x)|  \bigg] \\
+				& \leq |t|^{\al} C_t^N\|f\|_{\al, 2N}
+			\end{align*}
 		\end{enumerate}
 	\end{proof}
 
-	\begin{note}
-		 Let $f,g \in \MS$ and $x \in \R$, Define $h: \R \rightarrow \R$ defined by $h_x(y) = f(x-y)g(y)$. A previous exercise implies that $h_x \in \MS$ and for each $\al, N \in \N_0$, $\|h_x\|_{\al, N} \leq \sum_{\bet=0}^{\al} \|f\|_{\bet, N} \|g\|_{\al - \bet, 0} $
-	\end{note}
+	\begin{ex} For each $y, \xi \in \R$, $t \neq 0$, we have that $\tau_y: \MS \rightarrow \MS$, $\rho_{\xi}: \MS \rightarrow \MS$ and $\del_t: \MS \rightarrow \MS$ are 
+		\begin{enumerate}
+			\item linear
+			\item continuous
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof} Let $y, \xi \in \R$ and $t \neq 0$.
+		\begin{enumerate}
+			\item Clear.
+			\item Let $(f_n)_{n \in \N} \subset \MS$. Suppose that $f_n \rightarrow 0$. Then for each $\al,N \in \MN_0$, $\|f_n\|_{\al, N} \rightarrow 0$. 
+			\begin{itemize}
+				\item Let $\al,N \in \MN_0$. Then 
+				\begin{align*}
+					\|\tau_yf_n\|_{\al, N} 
+					& \leq (1 + |y|)^N\|f_n\|_{\al, N} \\
+					& \rightarrow 0
+				\end{align*}
+				Since $\al, N \in \N_0$ are arbitrary, $\tau_yf_n \rightarrow 0$. So $\tau_y$  is continuous at $0$. Since $\tau_y$ is linear, $\tau_y$ is continuous.
+				\item Let $\al,N \in \MN_0$. Then 
+				\begin{align*}
+					\|\rho_{\xi}f_n\|_{\al, N} 
+					& \leq \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} \|f_n\|_{k, N} \\
+					& \rightarrow 0
+				\end{align*}
+				Since $\al, N \in \N_0$ are arbitrary, $\rho_{\xi}f_n \rightarrow 0$. So $\rho_{\xi}$  is continuous at $0$. Since $\rho_{\xi}$ is linear, $\rho_{\xi}$ is continuous.
+				\item Let $\al,N \in \MN_0$. Define $C_t$ as in the previous exercise. Then 
+				\begin{align*}
+					\|\del_t f_n\|_{\al, N} 
+					& \leq |t|^{\al} C_t^N \|f_n\|_{\al, 2N} \\
+					& \rightarrow 0
+				\end{align*}
+				Since $\al, N \in \N_0$ are arbitrary, $\del_t f_n \rightarrow 0$. So $\del_t$  is continuous at $0$. Since $\del_t$ is linear, $\del_t$ is continuous.
+			\end{itemize} 
+		\end{enumerate}
+	\end{proof}
 
 	\begin{defn}
-		Let $f, g \in \MS$. We define the \textbf{convolution of $f$ and $g$}, denoted $f * g$ by $$f*g(x) = \int_{\R} f(x-y)g(y) dm(y)$$
+		Define  $\tau: \R \rightarrow \MS$ by $\tau f(y) = \tau_y f$
 	\end{defn}
 
 	\begin{ex}
-		Let $f, g \in \MS$, then $f *g \in \MS$. 
+		Let $f \in \MS$. Then $\tau f: \R \rightarrow \MS$ is a homomorphism
+	\end{ex}
+
+	\begin{note}
+		 Let $f,g \in \MS$ and $x \in \R$, Define $h: \R \rightarrow \R$ defined by $h_x(y) = f(x-y)g(y)$. A previous exercise implies that $h_x = (\del_{-1} \tau_xf)g \in \MS \subset L^1(m)$ and for each $\al, N \in \N_0$, $\|h_x\|_{\al, N} \leq \sum_{\bet=0}^{\al} (1+|x|)^N\|f\|_{\bet, N} \|g\|_{\al - \bet, 0} $ \\
+		 \textbf{FINISH FIX THIS!!!}
+	\end{note}
+
+	\begin{defn}
+		Let $f, g \in \MS$. We define the \textbf{convolution of $f$ and $g$}, denoted $f * g: \R \rightarrow \R$ by $$f*g(x) = \int_{\R} f(x-y)g(y) dm(y)$$
+	\end{defn}
+
+	\begin{ex}
+		Let $f,g \in \MS$. Then for each $\al \in \N_0$, $\p^{\al}(f*g) = (\p^{\al}f)*g$.
 	\end{ex}
 
 	\begin{proof}
-		
+			The claim is clear if $\al = 0$. Suppose that $\al > 0$ and that the claim is true for $\al - 1$ so that  $\p^{\al-1}(f*g) = (\p^{\al-1}f)*g$. Define $h: \R^2 \rightarrow \R$ by $h(x,y) = \p_x^{\al-1}f(x-y)g(y)$. Then for each $x,y \in \R$, 
+			\begin{align*}
+				|h(x,y)| 
+				& = |\p_x^{\al-1}f(x-y)g(y)| \\
+				& \leq \|\tau_yf\|_{\al-1,0}|g(y)| \\
+				& \leq \|f\|_{\al-1,0}|g(y)|
+			\end{align*} 
+			Since $g \in L^1(m)$, we may differentiate under the integral to obtain that
+		\begin{align*}
+			[\p_x^{\al}(f*g)](x)
+			& = \p_x [\p_x^{\al-1} (f*g)](x) \\
+			& = \p_x [(\p_x^{\al-1}f)*g](x) \\
+			& = \p_x \int_{\R} \p_x^{\al-1}f(x-y)g(y) \dm(y) \\
+			& = \int_{\R} \p_x [\p_x^{\al-1}f(x-y)g(y)] \dm(y) \\
+			& = \int_{\R} \p_x^{\al}f(x-y)g(y) \dm(y) \\
+			& = [(\p_x^{\al}f)*g](x)
+		\end{align*}
+		So the claim is true for $\al$.
+	\end{proof}
+
+	\begin{ex}
+		Let $f, g \in \MS$, then $f *g \in \MS$ and there exists $C >0$ such that for each $\al,N \in \N_0$, $\|f*g\|_{\al,N} \leq C\|f\|_{\al, N} \|g\|_{0, N+2}$. 
+	\end{ex}
+
+	\begin{proof}
+		Set 
+		$$C = \int_{\R} \frac{1}{(1+|y|)^2} \dm(y)$$
+		Let $\al,N \in \N_0$ and $x \in \R$. Then 
+		\begin{align*}
+			(1+|x|)^N |\p^{\al} (f*g)(x)|
+			& =   (1+|x|)^N |(\p^{\al}f )*g(x)| \\
+			& =   (1+|x|)^N \bigg| \int_{\R}\p^{\al}f(x-y) g(y) \dm(y) \bigg|\\
+			& \leq   \int_{\R}(1+|x|)^N|\p^{\al}f(x-y) g(y)| \dm(y) \\
+			& \leq   \int_{\R}(1+|y|)^N(1+|x-y|)^N|\p^{\al}f(x-y)| |g(y)| \dm(y) \\
+			& \leq  \|f\|_{\al, N} \int_{\R}(1+|y|)^N |g(y)| \dm(y) \\
+			& =  \|f\|_{\al, N} \int_{\R}(1+|y|)^{N+2} \frac{|g(y)|}{(1+|y|)^2} \dm(y) \\
+			& \leq \|f\|_{\al, N} \|g\|_{0, N+2} \int_{\R} \frac{1}{(1+|y|)^2} \dm(y) \\
+			& =  C\|f\|_{\al, N} \|g\|_{0, N+2}
+		\end{align*}
+		Since $x \in \R$ is arbitrary, we have that 
+		\begin{align*}
+			\|f*g\|_{\al, N}
+			& = \sup_{x \in \R} \bigg[ (1+|x|)^N |\p^{\al} (f*g)(x)| \bigg] \\
+			& \leq C\|f\|_{\al, N} \|g\|_{0, N+2}
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		The convolution $*: \MS \times \MS \rightarrow \MS$ 
+		\begin{enumerate}
+			\item is bilinear
+			\item is continuous
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Clear.
+			\item Let $(f_n,g_n)_{n \in \N} \subset \MS \times \MS$ and $(f,g) \in \MS \times \MS$. Suppose that $(f_n, g_n) \rightarrow (f,g)$. Then $f_n \rightarrow f$ and $g_n \rightarrow g$. Hence for each $\al, N \in \N_0$, $\|f_n - f\|_{\al, N} \rightarrow 0$ and $\|g_n - g\|_{\al, N} \rightarrow 0$. In particular 
+			\begin{align*}
+				\bigg|\|g_n\|_{0,N+2} - \|g\|_{0, N+2} \bigg| 
+				& \leq \|g_n - g\|_{0, N+2}  \\
+				& \rightarrow 0
+			\end{align*}
+			So that $(\|g_n\|_{0,N+2})_{n \in \N}$ is bounded.
+			Let $\al,N \in \N_0$. Define $C >0$ as in the previous exercise. Then 
+			\begin{align*}
+				\|f_n *g_n - f*g\|_{\al,N} 
+				& = \|f_n *g_n - f*g_n + f*g_n - f*g\|_{\al,N} \\ 
+				& \leq \|(f_n -f )*g_n\|_{\al,N} + \|f_ *(g_n -g)\|_{\al,N} \\
+				& \leq C\|f_n -f\|_{\al,N}\|g_n\|_{0, N+2} + C\|f\|_{\al,N}\|g_n-g\|_{0, N+2} \\
+				& \rightarrow 0
+			\end{align*}
+			Since $\al,N \in \N_0$ are arbitrary, $f_n *g_n \rightarrow f*g$. Thus $*:\MS \times \MS \rightarrow \MS$ is continuous.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $f,g \in \MS$. Then $\|f*g\|_1 \leq \|f\|_1\|g\|_1$.
+	\end{ex}
+
+	\begin{proof}
+		Tonelli's theorem implies that 
+		\begin{align*}
+			\|f*g\|_1
+			& = \int_{\R} |f*g(x)| \dm(x) \\
+			& = \int_{\R}  \bigg|\int_{\R} f(x-y)g(y) \dm(y) \bigg|  \dm(x) \\
+			& \leq  \int_{\R} \bigg[ \int_{\R} |f(x-y)g(y)| \dm(y) \bigg] \dm(x) \\
+			& = \int_{\R} \bigg[ \int_{\R} |f(x-y)g(y)| \dm(x) \bigg] \dm(y) \\
+			& = \int_{\R} \bigg[ \int_{\R} |f(x-y)| \dm(x) \bigg] |g(y)| \dm(y) \\
+			& = \|f\|_1 \int_{\R} |g(y)| \dm(y) \\
+			& = \|f\|_1\|g\|_1
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		Let $f, g \in \MS$, then $f*g = g*f$.
+	\end{ex}
+
+	\begin{proof}
+		Let $x \in R$. Define $a,b:\R \rightarrow \R$ by $a(z) = f(z)g(x-z)$ and $b(y) = x-y$. Then for each $A \in \MB(\R)$, 
+		\begin{align*}
+			b_*m(A)
+			& = m(b^{-1}(A)) \\
+			& = m(x - A) \\
+			& = m(A)
+		\end{align*}
+		So $b_*m = m$ and  
+		\begin{align*}
+			f*g(x)
+			& = \int_{\R} f(x-y)g(y) \dm(y) \\
+			& = \int_{b^{-1}(\R)} a \circ b \dm \\
+			& = \int_{\R} a \, d b_*m \\
+			& = \int_{\R} a \dm \\
+			& = \int_{\R} g(x-z) f(z) \dm(z) \\
+			& = g*f(x)
+		\end{align*}
+		Since $x \in \R$ is arbitrary, $f*g = g*f$.
+	\end{proof}
+
+	\begin{defn}
+		We define the \textbf{bump functions} on $\R$, denoted $C_c^{\infty}(\R)$,  by $$C_c^{\infty}(\R) = C_c(\R) \cap C^{\infty}(\R)$$
+	\end{defn}
+
+	\begin{ex}
+		Let $f \in C_c^{\infty}(\R)$. Then $f \in \MS$. 
+	\end{ex}
+
+	\begin{proof}
+		Let $\al,N \in \N^0$. Define $g: \R \rightarrow \C$ by 
+		$$g(x) = (1+|x|)^N |\p^{\al}f(x)|$$ 
+		Then $g$ is continuous. Since $\supp(\p^{\al}f) \subset \supp(f)$, we have that $g \in C_c(\R)$ and
+		\begin{align*}
+			\sup_{x \in \R} \bigg[ (1+|x|)^N |\p^{\al}f|\bigg] 
+			& = \sup_{x \in \R} g(x) \\
+			& = \|g\| \\
+			& < \infty
+		\end{align*}
 	\end{proof}
 
 	\begin{ex}
@@ -399,7 +688,7 @@
 	\end{proof}
 
 	\begin{ex}
-		Let $f \in \MS$. Define $$Then $$
+		Let $f \in \MS$. Define
 	\end{ex}
 	
 	
@@ -421,6 +710,57 @@
 	
 	\newpage
 	\subsection{The Fourier Transform on $\MS$}
+	
+	\begin{ex}
+		\lex{300} Let $\phi:\R \rightarrow S^1$ be a measurable homomorphism. 
+		\begin{enumerate}
+			\item Then $\phi \in L^1_{\loc}(\R)$ and there exists $a > 0$ such that $$\int_{(0,a]}\phi dm \neq 0$$
+			\item Define $$c = \bigg[ \int_{(0,a]}\phi dm \bigg]^{-1}$$ 
+			Then  For each $x \in \R$, $$\phi(x) = c\int_{(x, x+a]}\phi dm$$ 
+			\item $\phi \in C^{\infty}(\R)$ and $\phi' = c(\phi(a) - 1)\phi$
+			\item Define $b = c(\phi(a) - 1)$ and $g \in C^{\infty}(\R)$ by $g(x) = e^{-bx} \phi(x)$. Then $g$ is constant and there exists $\xi \in \R$ such that for each $x \in \R$, $\phi(x) = e^{2 \pi i \xi x}$.
+		\end{enumerate}
+	\end{ex}	
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $K \subset \R$ be compact. Then $$\int_K |\phi| dm = m(K) < \infty$$ So $\phi \in L^1_{\loc}(\R)$. For the sake of contradiction, suppose that for each $a >0$, $$\int_{(0,a]}\phi dm = 0$$ 
+			Then the FTC implies that $\phi = 0$ a.e. on $\Rg$, which is a contradiction. So there exists $a > 0$ such that $$\int_{(0,a]}\phi dm \neq 0$$
+			\item For $x \in \R$, 
+			\begin{align*}
+				\phi(x) 
+				&= c \int_{(0,a]} \phi(x)\phi(t) dm(t) \\
+				&= c \int_{(0,a]} \phi(x+t) dm(t) \\
+				&= c \int_{(x,x+a]} \phi dm 
+			\end{align*}
+			\item Part $(2)$ and the FTC imply that $\phi$ is continuous. Let $d \in \R$. Define $f_d \in C((d, \infty))$ by $$f_d(x) = \int_{(d, x]} \phi dm$$ 
+			Since $\phi$ is continuous, the FTC implies that $f_d$ is differentiable and for each $x >d$ $f_d'(x) = \phi(x)$. Part $(2)$ implies that for each $x > d$,
+			\begin{align*}
+				\phi(x) 
+				&= c \int_{(x,x+a]} \phi dm \\
+				&= c(f_d(x+a) - f_d(x))
+			\end{align*}
+			So for each $x > d$, $\phi$ is differentiable at $x$ and 
+			\begin{align*}
+				\phi'(x) 
+				&= c(\phi(x+a) - \phi(x)) \\
+				&= c(\phi(a) - 1) \phi(x)
+			\end{align*}	 
+			Since $d \in \R$ is arbitrary, $\phi$ is differentiable and $\phi' = c(\phi(a) - 1) \phi$. This implies that $\phi \in C^{\infty}(\R)$.
+			\item Let $x \in \R$. Then 
+			\begin{align*}
+				g'(x) 
+				&= e^{-bx}\phi'(x) - be^{-bx}\phi(x) \\
+				&= be^{-bx} \phi(x) - be^{-bx}\phi(x) \\
+				&= 0
+			\end{align*}
+			So $g' = 0$ and $g$ is constant. Hence there exists $k \in \R$ such that for each $x \in \R$, $\phi(x) = ke^{bx}$. Since $\phi(0) = 1$, $k = 1$. Since $|\phi| = 1$, there exists $\xi \in \R$ such that $b = 2 \pi i \xi$. 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{note}
+		To summarize, for each measurable homomorphism $\phi:\R \rightarrow S^1$, there exists $\xi \in \R$ such  such that for each $x \in \R$, $\phi(x) = e^{2 \pi i  \xi x}$. 
+	\end{note}
 	
 	\begin{defn}
 		Let $f \in \MS$. We define the \textbf{Fourier transform of $f$}, denoted $\hat{f} : \R \rightarrow \C$, by $$ \hat{f}(\xi) = \int_{\R} e^{-i \xi x}f(x) \, dm(x)$$ 
@@ -514,8 +854,16 @@
 				&= X \MF(D^{\al-1}f)(\xi) \\
 				&= X^{\al} \MF(f)(\xi) \\
 			\end{align*}
-			So the claim is true for $\al$.
+			So the claim is true for $\al$.  
 		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $P()$
+	\end{ex}
+
+	\begin{proof}
+		content...
 	\end{proof}
 
 	\begin{ex}
@@ -589,6 +937,99 @@
 	\end{proof}
 
 	\begin{ex}
+		Let $f \in \MS$. Then 
+		\begin{enumerate}
+			\item for each $y \in \R$, $\MF(\tau_yf) = \rho_{y} \MF(f)$ 
+			\item for each $\eta \in \R$, $\MF(\rho_{\eta} f) = \tau_{-\eta} \MF(f)$
+			\item $\MF(\del_t f) = t^{-1} \del_{t^{-1}} \MF(f)$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $y, \xi \in \R$. Then 
+			\begin{align*}
+				\MF(\tau_yf)(\xi) 
+				& = \int_{\R} e^{-i\xi x} f(x-y) \dm(x) \\
+				& = \int_{\R} e^{-i\xi (z+y)} f(z) \dm(z) \\
+				& = e^{-i\xi y} \int_{\R} e^{-i\xi z} f(z) \dm(z) \\
+				& = e^{-i\xi y} \MF(f)(\xi) \\
+				& = \rho_{y} \MF(f)(\xi)
+			\end{align*}
+			\item Let $\eta, \xi \in \R$. Then 
+			\begin{align*}
+				\MF(\rho_{\eta}f)(\xi) 
+				& = \int_{\R} e^{-i\xi x} e^{-i\eta x}f(x) \dm(x) \\
+				& = \int_{\R} e^{-i(\xi + \eta)x} f(x) \dm(x) \\
+				& = \MF(f)(\xi + \eta) \\
+				&= \tau_{-\eta}\MF(f)(\xi)
+			\end{align*}
+			\item Let $\xi \in \R$. Then 
+			\begin{align*}
+				\MF(\del_t f)(\xi) 
+				& = \int_{\R} e^{-i\xi x} f(tx) \dm(x) \\
+				& = \int_{\R} e^{-i\xi t^{-1} z} f(z) t^{-1}\dm(z) \\
+				& = t^{-1}\MF(f)(t^{-1} \xi) \\
+				& = t^{-1} \del_{t^{-1}} \MF(f)(\xi)
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $f,g \in \MS$. Then $\MF(f*g) = \MF(f)\MF(g)$.
+	\end{ex}
+
+	\begin{proof}
+		Let $\xi \in \R$. Tonelli's theorem implies that  
+		\begin{align*}
+			\int_{\R} \bigg[ \int_{\R} | e^{-i\xi x} f(x-y)g(y)| \dm(y) \bigg] \dm(x)
+			& = \int_{\R}  \bigg[ \int_{\R}  |f(x-y)g(y) |\dm(y) \bigg] \dm(x) \\
+			& = \int_{\R}  \bigg[ \int_{\R}  |f(x-y)g(y) |\dm(x) \bigg] \dm(y) \\
+			& = \int_{\R}  \bigg[ \int_{\R}  |f(x-y) |\dm(x) \bigg] |g(y)| \dm(y) \\
+			& = \|f\|_1 \int_{\R} |g(y)| \dm(y) \\
+			& = \|f\|_1\|g\|_1
+		\end{align*}
+		So we may apply Fubini's theorem and change the order of integration to obtain that
+		\begin{align*}
+			\MF(f*g)(\xi)
+			& = \int_{\R} e^{-i\xi x} (f*g)(x) \dm(x) \\
+			& = \int_{\R}  \bigg[ \int_{\R} e^{-i\xi x} f(x-y)g(y) \dm(y) \bigg] \dm(x) \\
+			& = \int_{\R}  \bigg[ \int_{\R} e^{-i\xi x} f(x-y)g(y) \dm(x) \bigg] \dm(y) \\
+			& = \int_{\R}  \bigg[ \int_{\R} e^{-i\xi x} f(x-y) \dm(x) \bigg] g(y) \dm(y) \\
+			& = \int_{\R}  [\MF(\tau_yf)(\xi) ] g(y) \dm(y) \\
+			& = \int_{\R}  [e^{-i \xi y}\MF(f)(\xi) ] g(y) \dm(y) \\
+			& = \MF(f)(\xi) \int_{\R}  e^{-i \xi y}  g(y) \dm(y) \\
+			& = \MF(f)(\xi) \MF(g)(\xi)
+		\end{align*}
+		Since $\xi \in \R$ is arbitrary, $\MF(f*g) = \MF(f) \MF(g)$
+	\end{proof}
+
+	\begin{ex}
+		Let $f,g \in \MS$. Then $$\int_{\R}\hat{f} g \dm = \int_{\R}f \hat{g}  \dm$$
+	\end{ex}
+	
+	\begin{proof}
+		Tonelli's theorem implies that  
+		\begin{align*}
+			\int_{\R} \bigg[ \int_{\R}|e^{-i \xi x} f(x) g(\xi)| \dm(x) \bigg] \dm(\xi)
+			& = \int_{\R} \bigg[ \int_{\R}|f(x)| \dm(x) \bigg]  |g(\xi)| \dm(\xi) \\
+			& = \|f\|_1 \int_{\R}  |g(\xi)| \dm(\xi) \\
+			& = \|f\|_1\|g\|_1
+		\end{align*}  
+		So we may apply Fubini's theorem and switch the order of integration to obtain that
+		\begin{align*}
+			\int_{\R}\hat{f} g \dm 
+			& = \int_{\R} \bigg[ \int_{\R}e^{-i \xi x} f(x) \dm(x) \bigg]  g(\xi) \dm(\xi) \\
+			& = \int_{\R} \bigg[ \int_{\R}e^{-i \xi x} f(x) g(\xi) \dm(x) \bigg] \dm(\xi) \\
+			& = \int_{\R} \bigg[ \int_{\R}e^{-i \xi x} f(x) g(\xi) \dm(\xi) \bigg] \dm(x) \\
+			& = \int_{\R} f(x) \bigg[ \int_{\R}e^{-i \xi x}  g(\xi) \dm(\xi) \bigg] \dm(x) \\
+			& = \int_{\R} f(x) \hat{g}(x) \dm(x) \\
+			& = \int_{\R} f \hat{g} \dm \\
+		\end{align*}
+	\end{proof}
+
+
+	\begin{ex}
 		Define $f \in \MS$ by $f(x) = e^{-x^2/2}$. Then $\MF(f) = \sqrt{2 \pi}f$.
 	\end{ex}
 
@@ -623,7 +1064,71 @@
 		So $\hat{f} = \sqrt{2 \pi}f$.
 	\end{proof}
 
+	\begin{ex}
+		Let $f \in \MS$. Define $g: \R \rightarrow L^1$ by $g(x) = \tau_x f$. Then $g$ is continuous. \\
+		\textbf{Hint:} approximate by functions in $C_c(\R)$.
+	\end{ex}
 
+	\begin{proof}
+		Suppose that $f \in C_c(\R)$. Then
+	\end{proof}
+
+	\begin{defn}
+		Let $f \in \MS$ and $t \neq 0$. We define $f_t \in \MS$ by $f_t = t^{-1} \del_{t^{-1}} f$.   
+	\end{defn}
+
+	\begin{ex}
+		Let $\phi \in \MS$ and $t \neq 0$. Then 
+		$$\int_{\R}\phi_t \dm = \int_{\R} \phi \dm$$ 
+	\end{ex}
+
+	\begin{proof}
+		We have that 
+		\begin{align*}
+			\int_{\R}\phi_t \dm 
+			& = \int_{\R}t^{-1}\phi(t^{-1}x) \dm(x) \\
+			& = \int_{\R} \phi(z) \dm(z) \\
+			& = \int_{\R}\phi \dm 
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		Let $\phi \in \MS$. Set 
+		$$\al = \int_{\R} \phi \dm$$ 
+		Then for each $f \in \MS$,  $f * \phi_{1/n} \conv{L^1} \al f$. \\
+		\textbf{Hint:} for each $t \neq 0$ and $x \in \R$, 
+		$$f * \phi_t(x) - \al f(x) = \int_{\R} [\tau_{tz}f(x)  -  f(x)] \phi(z) \dm(z) $$
+	\end{ex}
+
+	\begin{proof}
+		Let $t \neq 0$ and $x \in \R$. The previous exercise implies that 
+		\begin{align*}
+			f * \phi_t(x) - \al f(x) 
+			& = \int_{\R} f(x-y) \phi_t(y) \dm(y) - \int_{\R} \phi(y) \dm(y) f(x) \\
+			& = \int_{\R} f(x-y) \phi_t(y) \dm(y) - \int_{\R} \phi_t(y) \dm(y) f(x) \\
+			& = \int_{\R} f(x-y) \phi_t(y)  -  f(x) \phi_t(y) \dm(y) \\
+			& = \int_{\R} [f(x-y)  -  f(x)] \phi_t(y) \dm(y) \\
+			& = \int_{\R} [f(x-y)  -  f(x)] t^{-1}\phi(t^{-1}y) \dm(y) \\
+			& = \int_{\R} [f(x-tz)  -  f(x)] \phi(z) \dm(z) \\
+			& = \int_{\R} [\tau_{tz}f(x) -  f(x)] \phi(z) \dm(z)   
+		\end{align*}
+		Tonelli's theorem implies that 
+		\begin{align*}
+			\|f * \phi_t - \al f \|_1
+			& = \int_{\R}|f * \phi_t(x) - \al f(x) | \dm(x) \\
+			& \leq \int_{\R} \bigg[ \int_{\R} |\tau_{tz}f(x)  -  f(x)| |\phi(z)| \dm(z) \bigg] \dm(x) \\
+			& =  \int_{\R} \bigg[ \int_{\R} |\tau_{tz}f(x)  -  f(x)| |\phi(z)| \dm(x) \bigg] \dm(z) \\
+			& = \int_{\R} \|\tau_{tz}f - f\|_1|\phi(z)| \dm(z)
+		\end{align*}
+		For $n \in \N$, define $g_n \in \MS$ by $g_n(z) = \|\tau_{n^{-1}z}f(x)  -  f(x)\|_1 \phi(z)$. Then $g_n \convt{p.w.} 0$ and 
+		\begin{align*}
+			|g_n| 
+			& \leq 2\|f\|_1|\phi| \\
+			& \in L^1(m)
+		\end{align*} 
+		The dominated convergence theorem implies that 
+		
+	\end{proof}
 
 	
 	
@@ -687,7 +1192,7 @@
 		Let $(\xi_{n})_{n \in \N} \subset \R$ and $\xi \in \R$. Define $(f_n)_{n \in \N} \subset L^1 (\mu)$ and $f \in L^1(\mu)$ by $f_n(x) = e^{-i \xi_n x}$ and $f(x) = e^{-i \xi x}$. Suppose that $\xi_n \rightarrow \xi$. Then $f_n \convt{p.w.} f$ and for each $n \in N$ and $x \in \R$, 
 		\begin{align*}
 			|f_n(x)|
-			&= |e^{-i \xi_n x}| 
+			&= |e^{-i \xi_n x}| \\
 			& = 1 \\
 			& \in L^1(|\mu|)
 		\end{align*}
