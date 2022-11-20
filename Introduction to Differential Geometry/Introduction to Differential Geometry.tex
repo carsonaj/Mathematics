@@ -2,6 +2,8 @@
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
 \usepackage{physics}
+\usepackage{tikz, tikz-cd, tkz-fct}  
+\usepackage{pgfplots}
 
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
@@ -12,6 +14,14 @@
 	urlcolor=cyan
 }
 
+
+\pgfplotsset{every axis/.append style={
+		axis x line=middle,    % put the x axis in the middle
+		axis y line=middle,    % put the y axis in the middle
+		axis line style={<->,color=black}, % arrows on the axis
+		xlabel={$x$},          % default put x on x-axis
+		ylabel={$y$},          % default put y on y-axis
+}}
 
 %
 %
@@ -847,9 +857,9 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 	\newpage
 	
-	\section{Manifolds}
+	\section{Smooth Manifolds}
 	
-	\subsection{Smooth Manifolds}
+	\subsection{Manifolds}
 	
 	\begin{ex}
 		We have that $\R$ is homeomorphic to $(0, \infty)$
@@ -955,6 +965,14 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 
 	\begin{ex}
+		Let $M$ be an $n$-dimensional manifold, $(U, \phi) \in X_{\p}(M)$ and $p \in U$. If $\phi(p) \not \in \p \H^n$, then $p \in \Int M$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\phi(p) \not \in \p \H^n$.  Then  $\phi(p) \in \Int \H^n$. Hence there exists $B' \subset \phi(U)$ such that $B'$ is open in $\R^n$ and $\phi(p) \in B'$. Set $U' = \phi^{-1}(B')$ and $\phi' = \phi|_{U'}$. Then $U'$ is open in $M$ and $\phi': U; \rightarrow B'$ is a homeomorphism. Hence $(U', \phi') \in X_{\Int}(M)$. Since $\phi(p) \in B'$, $p \in U'$. By definition, $p \in \Int M$.
+	\end{proof}
+
+	\begin{ex}
 		Let $M$ be an $n$-dimensional manifold. Then 
 		\begin{enumerate}
 			\item $M = \Int M \cup \p M $
@@ -977,14 +995,14 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 				& \in \p M \\
 				& \subset \Int M \cup \p M
 			\end{align*}   
-			Suppose that $\phi(p) \not \in \p \H^n$. Then  $\phi(p) \in \Int \H^n$. Hence there exists $B \subset \phi(U)$ such that $B$ is open in $\R^n$ and $\phi(p) \in B$. Set $U' = \phi^{-1}(B)$ and $\phi' = \phi|_{U'}$. Then $p \in U'$, $U'$ is open in $M$ and $(U', \phi') \in X_{\Int}(M)$. Therefore, 
+			Suppose that $\phi(p) \not \in \p \H^n$. The previous exercise implies that $p \in \Int M$. Therefore, 
 			\begin{align*}
 				p 
 				& \in \Int M \\
 				& \subset \Int M \cup \p M
 			\end{align*}        
 			Hence $M \subset \Int M \cup \p M$.
-			\item For the sake of contradiction, suppose that $\Int M \cap \p M \neq \varnothing$. Then there exists $p \in M$ such that $p \in \Int M \cap \p M$. By definition, there exists $(U, \phi) \in X_{\Int}(M)$, $(V, \psi) \in X_{\p}(M)$ such that $p \in U \cap V$ and $\psi(p) \in \p \H^n$. Then $\psi(U \cap V)$ is open in $\H^n$ and $\phi(U \cap V)$ is open in $\R^n$ and $\phi \circ \psi^{-1}: \psi^{-1}(U \cap V) \rightarrow \phi(U \cap V)$ is a homeomorphism. Since $\psi(U \cap V)$ is open in $\H^n$, there exists an open ball $B_{\psi} \subset \H^n$ such $B_{\psi} \subset \psi(U \cap V)$ and $\psi(p) \in B_{\psi}$. Set $B_{\phi} = \phi \circ \psi^{-1}(B_{\psi})$. Since $\phi(U \cap V)$ is open in $\R^n$, $B_{\phi}$ is open in $\R^n$. Set $B_{\phi}' = B_{\phi} \setminus \{\phi(p)\}$ and $B_{\psi}' = B_{\psi} \setminus \{\psi(p)\}$. Then $\phi \circ \psi^{-1}: B_{\psi}' \rightarrow B_{\phi}'$ is a homeomorphism. Since $\psi(p) \in \p \H^n$, $B_{\psi}'$ is simply connected. Since $B_{\phi}$ is open in $\R^n$, $B_{\phi}'$ is not simply connected. This is a contradiction since $B_{\phi}'$ is homeomorphic to $B_{\psi}'$. So $\p M \cap \Int M = \varnothing$. 
+			\item For the sake of contradiction, suppose that $\Int M \cap \p M \neq \varnothing$. Then there exists $p \in M$ such that $p \in \Int M \cap \p M$. By definition, there exists $(U, \phi) \in X_{\Int}(M)$, $(V, \psi) \in X_{\p}(M)$ such that $p \in U \cap V$ and $\psi(p) \in \p \H^n$. Then $\psi(U \cap V)$ is open in $\H^n$ and $\phi(U \cap V)$ is open in $\R^n$ and $\phi \circ \psi^{-1}: \psi^{-1}(U \cap V) \rightarrow \phi(U \cap V)$ is a homeomorphism. Since $\psi(U \cap V)$ is open in $\H^n$, there exists an $B_{\psi} \subset \psi(U \cap V)$ such that $B_{\psi}$ is open in $\H^n$, $B_{\psi}$ is simply connected and $\psi(p) \in B_{\psi}$. Set $B_{\phi} = \phi \circ \psi^{-1}(B_{\psi})$. Since $\phi(U \cap V)$ is open in $\R^n$, $B_{\phi}$ is open in $\R^n$. Set $B_{\phi}' = B_{\phi} \setminus \{\phi(p)\}$ and $B_{\psi}' = B_{\psi} \setminus \{\psi(p)\}$. Then $\phi \circ \psi^{-1}: B_{\psi}' \rightarrow B_{\phi}'$ is a homeomorphism. Since $\psi(p) \in \p \H^n$, $B_{\psi}'$ is simply connected. Since $B_{\phi}$ is open in $\R^n$, $B_{\phi}'$ is not simply connected. This is a contradiction since $B_{\phi}'$ is homeomorphic to $B_{\psi}'$. So $\p M \cap \Int M = \varnothing$. 
 		\end{enumerate}
 	\end{proof}
 
@@ -994,16 +1012,35 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $p \in \partial M$. Then there exists a $(V, \psi) \in X_{\p}(M)$ such that $p \in V$ and $\psi(p) \in \partial \H^n$. Then $\phi \circ \psi^{-1} : \psi(V \cap U) \rightarrow \phi(V \cap U)$ is a homeomorphism. Since $\psi(U \cap V)$ is open in $\H^n$, there exists an open ball $B_{\psi} \subset \H^n$ such $B_{\psi} \subset \psi(U \cap V)$ and $\psi(p) \in B_{\psi}$. Set $B_{\phi} = \phi \circ \psi^{-1}(B_{\psi})$. \\
-		For the sake of contradiction, suppose that $(U, \phi) \in X_{\Int}(M)$. Then $\phi(U)$ is open in $\R^n$. Hence $\phi(U \cap V)$ is open in $\R^n$ and $B_{\phi}$ is open in $\R^n$. Set $B_{\phi}' = B_{\phi} \setminus \{\phi(p)\}$ and $B_{\psi}' = B_{\psi} \setminus \{\psi(p)\}$. Then $\phi \circ \psi^{-1}: B_{\psi}' \rightarrow B_{\phi}'$ is a homeomorphism. Since $\psi(p) \in \p \H^n$, $B_{\psi}'$ is simply connected. Since $B_{\phi}$ is open in $\R^n$, $B_{\phi}'$ is not simply connected. This is a contradiction since $B_{\phi}'$ is homeomorphic to $B_{\psi}'$. So $(U, \phi) \not \in X_{\Int}(M)$. A previous exercise implies that $(U, \phi) \in X_{p}(M)$.\\
+		Suppose that $p \in \partial M$. Then there exists a $(V, \psi) \in X_{\p}(M)$ such that $p \in V$ and $\psi(p) \in \partial \H^n$. Then $\phi \circ \psi^{-1} : \psi(V \cap U) \rightarrow \phi(V \cap U)$ is a homeomorphism. Since $\psi(U \cap V)$ is open in $\H^n$, there exists $B_{\psi} \subset \psi(U \cap V)$ such $B_{\psi}$ is open in $\H^n$, $B_{\psi}$ is simply connected and $\psi(p) \in B_{\psi}$. Set $B_{\phi} = \phi \circ \psi^{-1}(B_{\psi})$. \\
+		For the sake of contradiction, suppose that $(U, \phi) \in X_{\Int}(M)$. Then $\phi(U)$ is open in $\R^n$. Hence $\phi(U \cap V)$ is open in $\R^n$ and $B_{\phi}$ is open in $\R^n$. Set $B_{\phi}' = B_{\phi} \setminus \{\phi(p)\}$ and $B_{\psi}' = B_{\psi} \setminus \{\psi(p)\}$. Then $\phi \circ \psi^{-1}: B_{\psi}' \rightarrow B_{\phi}'$ is a homeomorphism. Since $\psi(p) \in \p \H^n$, $B_{\psi}'$ is simply connected. Since $B_{\phi}$ is open in $\R^n$, $B_{\phi}'$ is not simply connected. This is a contradiction since $B_{\phi}'$ is homeomorphic to $B_{\psi}'$. So $(U, \phi) \not \in X_{\Int}(M)$. A previous exercise implies that $(U, \phi) \in X_{\p}(M)$.\\
 	\end{proof}
 
 	\begin{ex}
-		Let $M$ be an $n$-dimensional manifold, $(U, \phi) \in X_{\p}(M)$ and $p \in U$. If $p \in \p M$, then $\phi(p) \in \p \H^n$.
+		Let $M$ be an $n$-dimensional manifold, $(U, \phi) \in X_{\p}(M)$ and $p \in U$. Then 
+		\begin{enumerate}
+			\item $p \in \p M$ iff $\phi(p) \in \p \H^n$
+			\item $p \in \Int M$ iff $\phi(p) \in \Int \H^n$
+		\end{enumerate}
 	\end{ex}
 
-	\begin{proof}
-		Suppose that $p \in \p M$. For the sake of contradiction, suppose that $\phi(p) \not \in \p \H^n$. Then $\phi(p) \in \Int \H^n$. Hence there exists $B' \subset \phi(U)$ such that $B'$ is open in $\R^n$ and $\phi(p) \in B'$. Set $U' = \phi^{-1}(B')$ and $\phi' = \phi|_{U'}$. Then $p \in U'$ and $(U', \phi') \in X_{\Int}(M)$. Since $p \in U'$ , the previous exercise implies that $(U', \phi') \in X_{\p}(M)$. This is a contradiction since $X_{\Int}(M) \cap X_{\p}(M) = \varnothing$. So $\phi(p) \in \p \H^n$.
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $p \in \p M$. For the sake of contradiction, suppose that $\phi(p) \not \in \p \H^n$. Then $\phi(p) \in \Int \H^n$. Hence there exists $B' \subset \phi(U)$ such that $B'$ is open in $\R^n$ and $\phi(p) \in B'$. Set $U' = \phi^{-1}(B')$ and $\phi' = \phi|_{U'}$. Then $p \in U'$ and $(U', \phi') \in X_{\Int}(M)$. Since $p \in U'$, the previous exercise implies that $(U', \phi') \in X_{\p}(M)$. This is a contradiction since $X_{\Int}(M) \cap X_{\p}(M) = \varnothing$. So $\phi(p) \in \p \H^n$.\\
+			Conversely, suppose that $\phi(p) \in \p \H^n$. By definition, $p \in \p M$.
+			\item A previous exercise implies that $\Int M = (\p M)^c$. Part $(1)$ implies that 
+			\begin{align*}
+				p
+				& \in (\p M)^c \\
+				& = \Int M
+			\end{align*}
+			if and only if
+			\begin{align*}
+				\phi(p)
+				& \in (\p \H^n)^c \\
+				& = \Int \H^n
+			\end{align*}
+		\end{enumerate}
 	\end{proof}
 
 	\begin{ex}
@@ -1012,25 +1049,47 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 	\begin{proof}
 		Suppose that $p \in \partial M$. Let $(U, \phi) \in X(M)$. Suppose that $p \in U$. The previous two exercises imply that $(U, \phi) \in X_{\p}(M)$ and $\phi(p) \in \p \H^n$.\\
-		Conversely, suppose that for each $(U, \phi) \in X(M)$, $p \in U$ implies that $(U, \phi) \in X_{\p}(M)$ and $\phi(p) \in \partial \H^n$. Since $M$ is a manifold, there exists $(U, \phi) \in X(M)$ such that $p \in U$. By assumption, $(U, \phi) \in X_{\p}(M)$ and $\phi(p) \in \p \H^n$. By definition, $p \in \p M$.
+		Conversely, suppose that for each $(U, \phi) \in X(M)$, $p \in U$ implies that $(U, \phi) \in X_{\p}(M)$ and $\phi(p) \in \partial \H^n$. Since $M$ is a manifold, there exists $(U, \phi) \in X(M)$ such that $p \in U$. By assumption, $(U, \phi) \in X_{\p}(M)$ and $\phi(p) \in \p \H^n$. Since $(U, \phi) \in X_{\p}(M)$, a previous exercise implies that $\phi(p) \in \p \H^n$ iff $p \in \p M$. Since $\phi(p) \in \p \H^n$, we have that $p \in \p M$.
 	\end{proof} 
 	
 	\begin{ex}
-		Let $M$ be an $n$-dimensional manifold. Let $(U, \phi) \in X(M)$. Then 
+		Let $M$ be an $n$-dimensional manifold. Let $(U, \phi) \in X_{\p}(M)$. Then 
 		\begin{enumerate}
-			\item for each $p \in U$, $p \in \p M$ iff $\phi(p) \in \p \H^n$.
-			\item $\phi(U \cap \p M) = \phi(U) \cap \p \H^n$ and $\phi(U \cap \Int M) = \phi(U) \cap \Int \H^n$ 
+			\item $\phi(U \cap \p M) = \phi(U) \cap \p \H^n$ 
+			\item $\phi(U \cap \Int M) = \phi(U) \cap \Int \H^n$ 
 		\end{enumerate}
 	\end{ex}
 
-	\begin{proof}\
+	\begin{proof} \
 		\begin{enumerate}
-			\item Let $p \in U$. Suppose that $p \in \p M$. The previous exercise implies that $\phi(p) \in \p \H^n$. Conversely, suppose that $\phi(p) \in \p \H^n$. By definition, $p \in \p M$.
-			\item \
-			\begin{itemize}
-				\item Part $(1)$ implies that $\phi(U \cap \p M) \subset \p \H^n$. Since $\phi(U \cap \p M) \subset \phi(U)$, we have that $\phi(U \cap \p M) \subset \phi(U) \cap \p \H^n$. Let $q \in \phi(U) \cap \p \H^n$. Then there exists $p \in U$ such that $q = \phi(p)$. Part $(1)$ implies that $p \in \p M$. Hence $p \in U \cap \p M$ and $q \in \phi(U \cap \p M)$. Since $q \in \phi(U) \cap \p \H^n$ is arbitrary, $\phi(U) \cap \p \H^n \subset \phi(U \cap \p M)$. Thus $\phi(U \cap \p M) = \phi(U) \cap \p \H^n$.
-				\item Similarly, $\phi(U \cap \Int M) = \phi(U) \cap \Int \H^n$.
-			\end{itemize}
+			\item Since $(U, \phi) \in X_{\p}(M)$, a previous exercise implies that for each $p \in U$, $p \in \p M$ iff $\phi(p) \in \p \H^n$. Let $q \in \phi(U \cap \p M)$. Then there exists $p \in U \cap \p M$ such that $\phi(p) = q$. Since $p \in \p M$, $\phi(p) \in \p \H^n$. Hence 
+			\begin{align*}
+				q 
+				& = \phi(p) \\
+				& \in \phi(U) \cap \p \H^n
+			\end{align*}
+			Since $q \in \phi(U \cap \p M)$ is arbitrary, $\phi(U \cap \p M) \subset \phi(U) \cap \p \H^n$. \\
+			Let $q \in \phi(U) \cap \p \H^n$. Then there exists $p \in U$ such that $q = \phi(p)$. Since $\phi(p) \in \p \H^n$, we have that $p \in \p M$. Hence $p \in U \cap \p M$ and 
+			\begin{align*}
+				q 
+				& = \phi(p) \\
+				& \in \phi(U \cap \p M)
+			\end{align*}
+			Since $q \in \phi(U) \cap \p \H^n$ is arbitrary, $\phi(U) \cap \p \H^n \subset \phi(U \cap \p M)$. Thus $\phi(U \cap \p M) = \phi(U) \cap \p \H^n$.
+			\item Since $(U, \phi) \in X_{\p}(M)$, a previous exercise implies that for each $p \in U$, $p \in \Int M$ iff $\phi(p) \in \Int \H^n$.  Let $q \in \phi(U \cap \Int M)$. Then there exists $p \in U \cap \Int M$ such that $\phi(p) = q$. Since $p \in \Int M$, $\phi(p) \in \Int \H^n$. Hence 
+			\begin{align*}
+				q 
+				& = \phi(p) \\
+				& \in \phi(U) \cap \Int \H^n
+			\end{align*}
+			Since $q \in \phi(U \cap \Int M)$ is arbitrary, $\phi(U \cap \Int M) \subset \phi(U) \cap \Int \H^n$. \\
+			Let $q \in \phi(U) \cap \Int \H^n$. Then there exists $p \in U$ such that $q = \phi(p)$. Since $\phi(p) \in \Int \H^n$, we have that $p \in \Int M$. Hence $p \in U \cap \Int M$ and 
+			\begin{align*}
+				q 
+				& = \phi(p) \\
+				& \in \phi(U \cap \p M)
+			\end{align*}
+			Since $q \in \phi(U) \cap \p \H^n$ is arbitrary, $\phi(U) \cap \p \H^n \subset \phi(U \cap \Int M)$. Thus $\phi(U \cap \Int M) = \phi(U) \cap \Int \H^n$.
 		\end{enumerate}
 	\end{proof}
 
@@ -1044,11 +1103,8 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $p \in \Int M$. Then there exists a coordinate chart $(U, \phi) \in X(M)$ such that $p \in U$.
-			\begin{itemize}
-				 \item If $(U, \phi)$ is a boundary chart, then $\phi(U)$ is open in $\H^n$. Since $p \not \in \p M$, $\phi(p) \not \in \p \H^n$. Hence $p \in \Int \H^n$. Since $\Int H^n$ is open in $\R^n$, $\phi^{-1}(U \cap \Int )$ there exists $U \subset \R^n$ such that $\phi(p) \in U$
-			\end{itemize}
-			\item 
+			\item Let $p \in \Int M$. Then there exists $(U, \phi) \in X_{\Int}(M)$ such that $p \in U$. By definition, for each $q \in U$, $q \in \Int M$. Hence $U \subset \Int M$. Since $U$ is open and $p \in \Int M$ is arbitrary, for each $p \in \Int M$, there exists $U \subset \Int M$ such that $U$ is open. Hence $\Int M$ is open. 
+			\item Since $\p M = (\Int M)^c$, and $\Int M$ is open, we have that $\p M$ is closed.
 		\end{enumerate}
 	\end{proof}
 
@@ -1056,17 +1112,73 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Let $M$ be an $m$-dimensional manifold, $(N, \MB)$ a $n$-dimensional manifold and $F: M \rightarrow N$. If $F$ is a homeomorphism, then $m = n$.
 	\end{thm}
 
+	\begin{ex} \textbf{Graph of Continuous Function:} \\
+		Let $f \in C(\R)$. Set $M = \{(x,y) \in \R^2: f(x) = y\}$ (i.e. the graph of $f$). Then $M$ is a $1$-dimensional manifold.  
+	\end{ex}
+	
+	\begin{proof}
+		Set $U = \R$ and define $\phi: U \rightarrow M$ by $\phi(x) = (x, f(x))$. Then $\phi^{-1} = \pi_1$. Since $f$ is continuous, $\phi$ is continous. Since $\pi_1$ is continiuous, $\phi$ is a homeomorphism.  
+	\end{proof}
+	
+	\begin{ex} \textbf{Nodal Cubic:}\\
+		Let $M = \{(x,y) \in \R^2: y^2 = x^2 - x^3\}$. We equip $M$ with the subspace topology.
+		\begin{center}
+			\begin{tikzpicture}
+				\begin{axis}[
+					height=6cm,
+					width=8cm,
+					xmin=-.8,xmax=1.2,
+					ymin= -1,ymax=1,
+					]
+					\addplot [domain=-2:2,samples=1000, thick]({1-x^2},{x*(1-x^2)}); 
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		Then $M$ is not a $1$-dimensional manifold.\\
+		\textbf{Hint:} connected components
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $M$ is a $1$-dimensional manifold. Set $p = (0,0)$. Then there exists $(U, \phi) \in X(M)$ such that $p \in U$. Since $\phi(U)$ is open (in $\R$ or $\H$), there exists a $B \subset \phi(U)$ such that $B$ is open (in $\R$ or $\H$), $B$ is connected and $\phi(p) \in B$. Set $V = \phi^{-1}(B)$, $V' = V \setminus \{p\}$ and $B' = B \setminus \{\phi(p)\}$. Then $\phi: V \rightarrow B$ and $\phi': V' \rightarrow B'$ are homeomorphisms. Since $B$ is open (in $\R$ or $\H$) and connected, $B'$ has at most two connected components. Then $V'$ This is a contradiction since $V'$ has four connected components and $B'$ and $V'$ are homeomorphic. 
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Smooth Manifolds}
+
 	\begin{defn}
-		Let $\MA \subset X(M)$. Then $\MA$ is said to be an \textbf{atlas on $M$} if  $\bigcup\limits_{(U,\phi) \in \MA} U = M$.
+		Let $M$ be an $n$-dimensional manifold and $(U, \phi), (V, \psi) \in X(M)$. Then $(U, \phi)$ and $(V, \psi)$ are said to be \textbf{smoothly compatible} if $$\phi \circ \psi^{-1}: \psi(U \cap V) \rightarrow \phi (U \cap V) \text{ is a diffeomorphism}$$ 
 	\end{defn}
 
-	\begin{defn} Let $M$ be a topological space.
+	\begin{defn} Let $M$ be an $n$-dimensional manifold.
 		\begin{enumerate}
-			\item Let $(U, \phi), (V, \psi)$ be coordinate charts on $M$. Then $(U, \phi)$ and $(V, \psi)$ are said to be \textbf{smoothly compatible} if $$\phi \circ \psi^{-1}: \psi(U \cap V) \rightarrow \phi (U \cap V) \text{ is a diffeomorphism}$$ 
-			Let $\MA \subset X(M)$. Then $\MA$ is said to be an \textbf{atlas on $M$} if  $\bigcup\limits_{(U,\phi) \in \MA} U = M$.
+			\item Let $\MA \subset X(M)$. Then $\MA$ is said to be an \textbf{atlas on $M$} if  $\bigcup\limits_{(U,\phi) \in \MA} U = M$.
 			\item Let $\MA$ be an atlas on $M$. Then $\MA$ is said to be \textbf{smooth} if for each $(U, \phi), (V, \psi) \in \MA$, $(U,\phi)$ and $(V,\psi)$ are smoothly compatible.
 			\item Let $\MA$ be a smooth atlas on $M$. Then $\MA$ is said to be \textbf{maximal} if for each smooth atlas $\MB$ on $M$, $\MA \subset \MB$ implies that $\MA = \MB$. A maximal smooth atlas on $M$ is called a \textbf{smooth structure on $M$}.
-			\item Let $\MA$ be an atlas on $M$. Then $(M, \MA)$ is said to be an \textbf{$n$-dimensional smooth manifold} if $(M, \MA)$ is an $n$-dimensional manifold and $\MA$ is a smooth structure on $M$. 
+			\item Let $\MA$ be an atlas on $M$. Then $(M, \MA)$ is said to be an \textbf{$n$-dimensional smooth manifold} if $\MA$ is a smooth structure on $M$. 
 		\end{enumerate}
 	\end{defn}
 
@@ -1081,7 +1193,28 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		To see that $\MA$ is maximal, let $\MB'$ be a smooth atlas on $M$. Suppose that $\MA \subset \MB'$ and let $(U, \phi) \in \MB'$. By definition, for each chart $(V, \psi) \in \MB'$, $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. Since $\MB \subset \MA \subset \MB'$, we have that $(U, \phi) \in \MA$. So $\MA = \MB'$ and $\MA$ is a maximal smooth atlas on $M$.
 	\end{proof}
 
+	\begin{ex}
+		Let $(M, \MA)$ be a $n$-dimensional smooth manifold, $(U, \phi) \in \MA$ and $U' \subset U$. Define $\phi': U' \rightarrow \phi(U')$ by $\phi' = \phi|_{U'}$. Then $(U', \phi') \in \MA$. 
+	\end{ex}
+
+	\begin{proof}
+		Clearly $(U', \phi') \in X(M)$. Let $(V, \psi) \in \MA$. Then $\phi \circ \psi: \psi(U \cap V) \rightarrow \phi(U \cap V)$ is a diffeomorphism. Since $U' \subset U$, $\phi \circ \psi: \psi(U' \cap V) \rightarrow \phi(U' \cap V)$ is a diffeomorphism. Since $\phi \circ \psi = \phi' \circ \psi$ on $U' \cap V$, $\phi' \circ \psi$ is a diffeomorphism. Therefore $(U', \phi')$ and $(V, \psi)$ are smoothly compatible. Since $(V, \psi) \in \MA$ is arbitrary, and $\MA$ is maximal, $(U', \phi') \in \MA$.
+	\end{proof}
+
 	\begin{defn}
+		Let $(M, \MA)$ be a smooth $n$-dimensional manifold and $U \subset M$ open. We define $\MA|_{U} = \{(U', \phi') \in \MA: U' \subset U\}$. 
+	\end{defn}
+
+	\begin{ex} \textbf{Smooth Open Submanifold:} \\
+		Let $(M, \MA)$ be a smooth $n$-dimensional manifold and $U \subset M$ open. Then 
+		\begin{enumerate}
+			\item $\MA|_{U}$ is a smooth structure on $U$
+			\item $(U, \MA|_{U})$ is an smooth $n$-dimensional manifold
+			\item $\p U = \p M \cap U$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{defn} 
 		Let $(M, \MA)$ be a $n$-dimensional smooth manifold. Define $\pi: \p \H^n \rightarrow \R^{n-1}$ by 
 		$$\pi(x_1, \ldots, x_{n-1}, 0) = (x_1, \ldots, x_{n-1})$$
 		For $(U, \phi) \in \MA$, set $\bar{U} = U \cap \p M$ and $\bar{\phi} = \pi \circ \phi|_{\bar{U}}$. \\

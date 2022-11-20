@@ -76,8 +76,6 @@
 \newcommand{\MI}{\mathcal{I}}
 \newcommand{\MX}{\mathcal{X}}
 
-\newcommand{\E}{\text{E}}
-
 \newcommand{\io}{\text{ i.o.}}
 \newcommand{\ev}{\text{ ev.}}
 \renewcommand{\r}{\rangle}
@@ -119,10 +117,7 @@
 	
 	\tableofcontents
 	
-	
-	
-	
-	
+
 	
 	
 	\newpage
@@ -284,7 +279,7 @@
 	
 	
 	\begin{defn}
-		Let $(\Om, \MF, P)$ be a probability space and $X \in L^+(\Om) \cup L^1$. Define the \textbf{expectation of X}, $E[X]$, to be $$\E[X] = \int X dP$$.
+		Let $(\Om, \MF, P)$ be a probability space and $X \in L^+(\Om) \cup L^1$. Define the \textbf{expectation of X}, $E(X)$, to be $$E(X) = \int X \dP$$.
 	\end{defn}
 	
 	
@@ -388,20 +383,20 @@
 	\end{proof}
 	
 	\begin{ex}
-		Let Let $(\Om, \MF, P)$ be a probability space, $X_1, \cdots, X_n$ random variables on $(\Om, \MF)$ and $f_1, \cdots, f_n: \R \rightarrow \R \in L^0$. Suppose that $f_1 \circ X_1, \cdots, f_n \circ X_n\in L^+(\Om)$ or $f_1 \circ X_1, \cdots, f_n \circ X_n \in L^1(\Om)$. If $X_1, \cdots, X_n$ are independent, then $$E[f_1(X_1) \cdots f_n(X_n)] = \prod_{i=1}^n E[f_i(X_i)]$$
+		Let Let $(\Om, \MF, P)$ be a probability space, $X_1, \cdots, X_n$ random variables on $(\Om, \MF)$ and $f_1, \cdots, f_n: \R \rightarrow \R \in L^0$. Suppose that $f_1 \circ X_1, \cdots, f_n \circ X_n\in L^+(\Om)$ or $f_1 \circ X_1, \cdots, f_n \circ X_n \in L^1(\Om)$. If $X_1, \cdots, X_n$ are independent, then $$E(f_1(X_1) \cdots f_n(X_n)) = \prod_{i=1}^n E(f_i(X_i))$$
 	\end{ex}
 	
 	\begin{proof}
 		Define the random vector $X : \Om \rightarrow \R^n$ by $X = (X_1, \cdots, X_n)$ and $g:\R^n \rightarrow \R$ by $g(x_1, \cdots, x_n) = f_1(x_1) \cdots f_n(x_n)$. Suppose that for each $i = 1, \cdots, n$, $f_i \in L^+(\R)$. Then $g \in L^+(\R^n)$ and by change of variables,  
 		\begin{align*}
-			E[f_1(X_1) \cdots f_n(X_n)] 
-			&= E[g(X)] \\
-			&= \int_{\Om} g \circ X dP \\
-			&= \int_{\R^n} g(x) dP_X(x) \\
+			E(f_1(X_1) \cdots f_n(X_n)) 
+			&= E(g(X)) \\
+			&= \int_{\Om} g \circ X \dP \\
+			&= \int_{\R^n} g(x) \dP_X(x) \\
 			&= \int_{R^n} g(x) d \prod\limits_{i=1}^nP_{X_i}(x) \\
 			&=  \prod_{i=1}^n \int_{\R}f_i(x) d P_{X_i}(x) \\ 
 			&= \prod_{i=1}^n \int_{\Om}f_i \circ X d P \\
-			&= \prod_{i=1}^n E[f_i(X_i)]
+			&= \prod_{i=1}^n E(f_i(X_i))
 		\end{align*}
 		If for each $i = 1, \cdots, n$, $f_i \in L^1(\R, P_{X_i})$, then following the above reasoning with $\vert g \vert $ tells us that $g \in L^1(\R^n, P_X)$ and we use change of variables and Fubini's theorem to get the same result.  
 	\end{proof}
@@ -413,7 +408,7 @@
 	\end{note}
 	
 	\begin{defn}
-		Let $(\Om, \MF, P)$ be a probability space and $X \in L^2$. Define the \textbf{variance of X}, $Var(X)$, to be $$Var(X) = \E\big[\big(X-E[X]\big)^2\big]$$.
+		Let $(\Om, \MF, P)$ be a probability space and $X \in L^2$. Define the \textbf{variance of X}, $Var(X)$, to be $$Var(X) = E(\big[\big(X-E(X)\big)^2\big)$$.
 	\end{defn}
 	
 	\begin{defn}
@@ -422,7 +417,7 @@
 	
 	
 	\begin{defn}
-		Let $(\Om, \MF, P)$ be a probability space and $X,Y \in L^2$. Define the \textbf{covariance of $X$ and $Y$}, $Cov(X,Y)$, to be $$Cov(X,Y) = E[(X-E[X])(Y-E[Y])]$$
+		Let $(\Om, \MF, P)$ be a probability space and $X,Y \in L^2$. Define the \textbf{covariance of $X$ and $Y$}, $Cov(X,Y)$, to be $$Cov(X,Y) = E([X-E(X)][Y-E(Y)])$$
 	\end{defn}
 	
 	\begin{ex}
@@ -431,12 +426,12 @@
 		\begin{proof}
 			By Holder's inequality, 
 			\begin{align*}
-				\vert Cov(X,Y) \vert 
-				&= \bigg \vert \int (X-E[X])(Y-E[Y]) dP \bigg \vert \\
-				&\leq \int \vert (X-E[X])(Y-E[Y]) \vert dP \\
-				&= \|(X-E[X])(Y-E[Y]) \|_1 \\
-				&\leq \|X-E[X] \|_2 \|(Y-E[Y] \|_2  \\
-				&= \bigg(\int \vert X - E[X] \vert^2 dP\bigg)^{\frac{1}{2}} \bigg( \vert Y - E[Y] \vert^2 \bigg)^{\frac{1}{2}} \\
+				| Cov(X,Y) |
+				&= \bigg | \int (X-E(X))(Y-E(Y)) \dP \bigg | \\
+				&\leq \int | (X-E(X))(Y-E(Y)) | \dP \\
+				&= \|(X-E(X))(Y-E(Y)) \|_1 \\
+				&\leq \|X-E(X) \|_2 \|(Y-E(Y) \|_2  \\
+				&= \bigg(\int | X - E(X) |^2 \dP\bigg)^{\frac{1}{2}} \bigg( | Y - E(Y) |^2 \bigg)^{\frac{1}{2}} \\
 				&= Var(X)^{\frac{1}{2}}Var(Y)^{\frac{1}{2}}
 			\end{align*}
 			
@@ -448,9 +443,9 @@
 	\begin{ex}
 		Let $(\Om, \MF, P)$ be a measure space and $X,Y \in L^2$. Then
 		\begin{enumerate}
-			\item $Cov(X,Y) = E[XY]-E[X]E[Y]$
+			\item $Cov(X,Y) = E(XY)-E(X)E(Y)$
 			\item If $X,Y$ are independent, then $Cov(X,Y) = 0$
-			\item $Var(X) = E[X^2] - E[X]^2$
+			\item $Var(X) = E(X^2) - E(X)^2$
 			\item for each $a,b \in \R$, $Var(aX + b) = a^2Var(X)$.
 			\item $Var(X+Y) = Var(X) + Var(Y) + 2 Cov(X,Y)$
 		\end{enumerate}
@@ -461,40 +456,40 @@
 			\item We have that
 			\begin{align*}
 				Cov(X,Y) 
-				&= E[(X-E[X])(Y-E[Y])] \\
-				&= E[XY -E[Y]X - E[X]Y + E[X]E[Y]] \\
-				&= E[XY] - E[X]E[Y] - E[X]E[Y] + E[X]E[Y] \\ 
-				&= E[XY] - E[X]E[Y]
+				&= E\bigg[ (X-E(X))(Y-E(Y)) \bigg] \\
+				&= E(XY -E(Y)X - E(X)Y + E(X)E(Y)) \\
+				&= E(XY) - E(X)E(Y) - E(X)E(Y) + E(X)E(Y) \\ 
+				&= E(XY) - E(X)E(Y)
 			\end{align*}
-			\item Suppose that $X,Y$ are independent. Then $E[XY] = E[X]E[Y]$. Hence 
+			\item Suppose that $X,Y$ are independent. Then $E(XY) = E(X)E(Y)$. Hence 
 			\begin{align*}
 				Cov(X,Y) 
-				&= E[XY] - E[X]E[Y] \\
-				&= E[X]E[Y] - E[X]E[Y] \\
+				&= E(XY) - E(X)E(Y) \\
+				&= E(X)E(Y) - E(X)E(Y) \\
 				&= 0
 			\end{align*}
 			\item Part (1) implies that 
 			\begin{align*}
 				Var(X) 
 				&= Cov(X, X) \\
-				&= E[X^2] -E[X]^2
+				&= E(X^2) -E(X)^2
 			\end{align*}
 			\item Let $a,b \in \R$. Then
 			\begin{align*}
 				Var(aX+b)
-				&= E[(aX+b)^2] - E[aX+b]^2 \\
-				&= E[a^2X^2 + 2abX +b^2] - (aE[X]+b)^2 \\
-				&= a^2E[X^2]+2abE[X] + b^2 - (a^2E[X]^2 +2abE[X]+b^2) \\
-				&= a^2(E[X^2]-E[X]^2) \\
+				&= E[(aX+b)^2] - E(aX+b)^2 \\
+				&= E[a^2X^2 + 2abX +b^2] - (aE(X)+b)^2 \\
+				&= a^2E(X^2)+2abE(X) + b^2 - (a^2E(X)^2 +2abE(X)+b^2) \\
+				&= a^2(E(X^2)-E(X)^2) \\
 				&= a^2Var(X)
 			\end{align*} 
 			\item We have that 
 			\begin{align*}
 				Var(X+Y) 
 				&= E[(X+Y)^2] - E[X+Y]^2 \\
-				&= E[X^2 +2XY + Y^2] -(E[X]+E[Y])^2 \\
-				&= E[X^2] + 2E[XY] + E[Y^2] - (E[X]^2 + 2E[X]E[Y] + E[Y]^2) \\
-				&= (E[X^2] - E[X]^2) + (E[Y^2]- E[Y]^2) + 2(E[XY] - E[X]E[Y]) \\
+				&= E[X^2 +2XY + Y^2] -(E(X)+E[Y])^2 \\
+				&= E(X^2) + 2E[XY] + E[Y^2] - (E(X)^2 + 2E(X)E[Y] + E[Y]^2) \\
+				&= (E(X^2) - E(X)^2) + (E[Y^2]- E[Y]^2) + 2(E[XY] - E(X)E[Y]) \\
 				&= Var(X) + Var(Y) + 2Cov(X,Y)
 			\end{align*}
 		\end{enumerate}
@@ -509,48 +504,48 @@
 	\end{ex}
 	
 	\begin{ex}{Jensen's Inequality}
-		Let $(\Om, \MF, P)$ be a probability space, $X \in L^1$ and $\phi:\R \rightarrow \R$. If $\phi$ is convex, then $$\phi(E[X]) \leq E[\phi(X)]$$
+		Let $(\Om, \MF, P)$ be a probability space, $X \in L^1$ and $\phi:\R \rightarrow \R$. If $\phi$ is convex, then $$\phi(E(X)) \leq E[\phi(X)]$$
 	\end{ex}
 	
 	\begin{proof}
-		Put $x_0 = E[X]$. Since $\phi$ is convex, there exist $a,b \in \R$ such that $\phi(x_0) = ax_0+b$ and for each $x \in \R$, $\phi(x) \geq ax+b$. Then \begin{align*}
+		Put $x_0 = E(X)$. Since $\phi$ is convex, there exist $a,b \in \R$ such that $\phi(x_0) = ax_0+b$ and for each $x \in \R$, $\phi(x) \geq ax+b$. Then \begin{align*}
 			E[\phi(X)] 
-			&= \int\phi(X) dP \\
-			&\geq \int[ aX+b ]dP \\
-			&= a\int X dP +b \\
-			&= aE[X] +b \\
+			&= \int\phi(X) \dP \\
+			&\geq \int[ aX+b ]\dP \\
+			&= a\int X \dP +b \\
+			&= aE(X) +b \\
 			&= ax_0+b \\
 			&= \phi(x_0) \\
-			&= \phi(E[X])
+			&= \phi(E(X))
 		\end{align*}
 	\end{proof}
 	
 	\begin{ex}{Markov's Inequality:}
-		Let $(\Om, \MF, P)$ be a probability space and $X \in L^+$. Then for each $a \in (0,\infty)$, $$P(X \geq a) \leq \frac{E[X]}{a}$$
+		Let $(\Om, \MF, P)$ be a probability space and $X \in L^+$. Then for each $a \in (0,\infty)$, $$P(X \geq a) \leq \frac{E(X)}{a}$$
 	\end{ex}
 	
 	\begin{proof}
 		Let $a \in (0,\infty)$. Then $a \mathbf{1}_{\{X \geq a\}} \leq X \mathbf{1}_{\{X \geq a\}}$. Thus 
 		\begin{align*}
 			a P(X \geq a) 
-			&= \int a \mathbf{1}_{\{X \geq a\}} dP\\
-			&= \int X \mathbf{1}_{\{X \geq a\}} dP\\
-			&\leq \int X dP \\
-			&= E[X]
+			&= \int a \mathbf{1}_{\{X \geq a\}} \dP\\
+			&= \int X \mathbf{1}_{\{X \geq a\}} \dP\\
+			&\leq \int X \dP \\
+			&= E(X)
 		\end{align*}
-		Therefore $$P(X \geq a) \leq \frac{E[X]}{a}$$. 
+		Therefore $$P(X \geq a) \leq \frac{E(X)}{a}$$. 
 	\end{proof}
 	
 	\begin{ex}{Chebychev's Inequality:}
-		Let $(\Om, \MF, P)$ be a probability space and $X \in L^2$. Then for each $a \in (0, \infty)$, $$P(\vert X - E[X] \vert \geq a) \leq \frac{Var(X)}{a^2}$$
+		Let $(\Om, \MF, P)$ be a probability space and $X \in L^2$. Then for each $a \in (0, \infty)$, $$P(| X - E(X) | \geq a) \leq \frac{Var(X)}{a^2}$$
 	\end{ex}
 	
 	\begin{proof}
 		Let $a \in (0, \infty)$. Then 
 		\begin{align*}
-			P(\vert X - E[X] \vert \geq a) 
-			&= P((X - E[X])^2 \geq a^2) \\
-			&\leq \frac{E[(X - E[X])^2]}{a^2} \\
+			P(| X - E(X) | \geq a) 
+			&= P((X - E(X))^2 \geq a^2) \\
+			&\leq \frac{E[(X - E(X))^2]}{a^2} \\
 			&= \frac{Var(X)}{a^2}  
 		\end{align*}
 	\end{proof}
@@ -590,9 +585,9 @@
 		\end{align*}
 		Let $\ep >0$. Then 
 		\begin{align*}
-			P\bigg(\bigg \vert \frac{1}{n} \sum_{i=1}^n X_i - E[X_1] \bigg \vert \geq \ep \bigg) 
-			& = P\bigg(\bigg\vert \frac{1}{n} \sum_{i=1}^n X_i - \mu \bigg\vert \geq \ep\bigg) \\
-			& = P\bigg(\bigg\vert \frac{1}{n} \sum_{i=1}^n X_i - \E\bigg[\frac{1}{n}\sum_{i=1}^n X_i \bigg] \bigg\vert \geq \ep\bigg) \\ 
+			P\bigg(\bigg | \frac{1}{n} \sum_{i=1}^n X_i - E[X_1] \bigg | \geq \ep \bigg) 
+			& = P\bigg(\bigg| \frac{1}{n} \sum_{i=1}^n X_i - \mu \bigg| \geq \ep\bigg) \\
+			& = P\bigg(\bigg| \frac{1}{n} \sum_{i=1}^n X_i - E(\bigg[\frac{1}{n}\sum_{i=1}^n X_i \bigg] \bigg| \geq \ep\bigg) \\ 
 			&\leq \frac{Var(\frac{1}{n} \sum_{i=1}^n X_i)}{\ep^2} \\
 			& =  \frac{\sig^2 / n}{\ep^2} \\
 			&= \frac{\sig^2}{n\ep^2} \rightarrow 0
@@ -630,8 +625,8 @@
 			\item Suppose that $\sum\limits_{n \in \N}P(A_n) < \infty$. Recall that $$\limsup\limits_{n \rightarrow \infty}A_n = \bigg \{\om \in \Om: \sum\limits_{n \in \N}1_{A_n}(\om) = \infty \bigg \}$$ Then \begin{align*}
 				\infty 
 				&> \sum_{n \in \N}P(A_n) \\
-				&= \sum_{n \in \N} \int 1_{A_n}dP \\
-				&= \int \sum_{n \in \N} 1_{A_n}dP \\
+				&= \sum_{n \in \N} \int 1_{A_n}\dP \\
+				&= \int \sum_{n \in \N} 1_{A_n}\dP \\
 			\end{align*}
 			Thus $\sum \limits_{n \in \N} 1_{A_n} < \infty$ a.e. and $P(\limpn A_n) = 0$.
 			\item Suppose that $(A_n)_{n \in \N}$ are independent and $\sum\limits_{n \in \N} P(A_n) = \infty$.
@@ -863,34 +858,34 @@
 	
 	\subsection{Conditional Expectation}
 	
+	\begin{ex}
+		Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-algebra of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $P_{\MG} = P|_{\MG}$ and $Q: \MG \rightarrow [0,\infty)$ by $Q(G) = \int_G X d P $. Then $Q \ll P_{\MG}$. 
+	\end{ex}	
+	
+	\begin{proof}
+		Let $G \in \MG$. Suppose that $P_{\MG}(G) = 0$. By definition, $P(G) = 0$. So $Q(G) = 0$ and $Q \ll P_{\MG}$.
+	\end{proof}
+	
 	\begin{defn} 
-	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X, Y \in L^1(\Om, \MF, P)$. Then $Y $ is said to be a \textbf{conditional expectation of $X$ given $\MG$} if 
+	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-algebra of $\MF$ and $X, Y \in L^1(\Om, \MF, P)$. Then $Y $ is said to be a \textbf{conditional expectation of $X$ given $\MG$} if 
 	\begin{enumerate}
 	\item $Y$ is $\MG$-measurable
 	\item for each $G \in \MG$, 
 	$$\int_G Y \dP = \int_G X \dP$$ 
 	\end{enumerate}	 
-	To denote this, we write $Y = E[X|\MG]$
+	Since $(2)$ implies that conditional expectations of $X$ given $\MG$ are equal $P_{\MG}$-a.e., we write $Y = E(X|\MG)$.
 	\end{defn}		
-	
+
 	\begin{note}
-	Let $(\Om, \MF, P)$ be a probability space, $(S, \MS)$ a measurable space, $X \in L^1(\Om, \MF, P)$ and $Y \in L^0_S(\Om, \MF)$. We typically write $E[X|Y]$ instead of $E[X| Y^*\MS]$.
+		Let $(\Om, \MF, P)$ be a probability space, $(S, \MS)$ a measurable space, $X \in L^1(\Om, \MF, P)$ and $Y \in L^0_S(\Om, \MF)$. We typically write $E(X|Y)$ instead of $E(X| Y^*\MS)$.
 	\end{note}
 	
-	\begin{ex}
-	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $P_{\MG} = P|_{\MG}$ and $Q: \MG \rightarrow [0,\infty)$ by $Q(G) = \int_G X d P $. Then $Q \ll P_{\MG}$. 
-	\end{ex}	
-	
-	\begin{proof}
-	Let $G \in \MG$. Suppose that $P_{\MG}(G) = 0$. By definition, $P(G) = 0$. So $Q(G) = 0$ and $Q \ll P_{\MG}$.
-	\end{proof}
-	
 	\begin{ex}\textbf{Existence of Conditional Expectation:}\\
-	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-alg of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $Q$ and $P_{\MG}$ as in the previous exercise. Define $Y = dQ/dP_{\MG}$. Then $Y$ is a conditional expectation of $X$ given $\MG$.
+	Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-algebra of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $Q$ and $P_{\MG}$ as in the previous exercise. Define $Y = dQ/dP_{\MG}$. Then $Y$ is a conditional expectation of $X$ given $\MG$.
 	\end{ex}
 	
 	\begin{proof}
-		The Radon-Nikodym theorem implies that $Y$ is $\MG$-measurable. Since $Q$ is finite, so is $|Q|$. Since $d|Q| = |Y|\dP$, we have that $Y \in L^1(\Om, \MG, P_{\MG})$. An exercise in section $3.3$ of \cite{measure}, implies that for each $G \in \MG$ 
+		The Radon-Nikodym theorem implies that $Y$ is $\MG$-measurable. Since $Q$ is finite, so is $|Q|$. Since $d|Q| = |Y|\dP_{\MG}$, we have that $Y \in L^1(\Om, \MG, P_{\MG})$. An exercise in section $3.3$ of \cite{measure}, implies that for each $G \in \MG$ 
 		\begin{align*}
 		\int_G Y \dP 
 		&= \int_G Y \dP_{\MG} \\
@@ -912,11 +907,11 @@
 	\end{ex}	
 	
 	\begin{proof}
-	Since $E[X| Y] \in L^0(\Om, Y^*\MS)$, the Doob-Dynkin lemma implies that there exists $\phi \in L^0(Y(\Om), \MS \cap Y(\Om))$ such that $\phi \circ Y = E[X|Y]$. Let $B \in \MS \cap Y(\Om)$. Then 
+	Since $E[X| Y] \in L^0(\Om, Y^*\MS)$, the Doob-Dynkin lemma implies that there exists $\phi \in L^0(Y(\Om), \MS \cap Y(\Om))$ such that $\phi \circ Y = E(X|Y)$. Let $B \in \MS \cap Y(\Om)$. Then 
 	\begin{align*}
 	\int_B \phi \dP_Y
 	&= \int_{Y^{-1}(B)} \phi \circ Y \dP \\
-	&= \int_{Y^{-1}(B)} E[X|Y] \dP \\
+	&= \int_{Y^{-1}(B)} E(X|Y) \dP \\
 	&= \int_{Y^{-1}(B)} X \dP \\
 	\end{align*}
 	\end{proof}
@@ -1130,11 +1125,11 @@
 	\begin{enumerate}
 	\item $B(\varnothing) = 0$
 	\item for each $E, F \in \MA_0$, if $E \cap F = \varnothing$, then $B(E \cup F) = B(E) + B(F)$
-	\item $\E [B(E)B(F)^*] = \mu_0(E \cap F)$
+	\item $E(B(E)B(F)^*) = \mu_0(E \cap F)$
 	\end{enumerate}
 	Then 
 	\begin{enumerate}
-	\item for each $E \in \MA_0$, $\mu_0(E) = \E[|B(E)|^2]$.
+	\item for each $E \in \MA_0$, $\mu_0(E) = E(|B(E)|^2)$.
 	\item for each $E \in \MA_0$, $0 \leq \mu_0(E) < \infty$ 
 	\item for each $E, F \in \MA_0$, if $E \cap F = \varnothing$, then $\mu_0(E \cup F) = \mu_0(E) + \mu_0(F)$
 	\end{enumerate}
@@ -1146,19 +1141,19 @@
 	\item Clear
 	\item Let $E, F \in \MA_0$. Suppose that $E \cap F = \varnothing$. Then 
 	\begin{align*}
-	\E[B(E)B(F)^*] 
+	E(B(E)B(F)^*) 
 	&= \mu_0(E \cap F) \\
 	&= \mu_0(\varnothing) \\
-	&= \E[|B(\varnothing)|^2] \\
-	&= \E[0] \\
+	&= E(|B(\varnothing)|^2) \\
+	&= E(0) \\
 	&= 0
 	\end{align*}
 	This implies that 
 	\begin{align*}
 	\mu_0(E \cup F) 
-	&= \E[|B(E \cup F)|^2] \\
-	&= \E[|B(E) + B(F)|^2] \\
-	&= \E[|B(E)|^2] + \E[|B(F)|^2] + 2 \Re \E[B(E)B(F)^*] \\
+	&= E(|B(E \cup F)|^2) \\
+	&= E(|B(E) + B(F)|^2) \\
+	&= E(|B(E)|^2) + E(|B(F)|^2) + 2 \Re E(B(E)B(F)^*) \\
 	&= \mu_0(E) + \mu_0(F) +0  \\
 	&=  \mu_0(E) + \mu_0(F) 
 	\end{align*}
@@ -1171,7 +1166,7 @@
 	\begin{enumerate}
 	\item $B(\varnothing) = 0$
 	\item for each $E, F \in \MA_0$, if $E \cap F = \varnothing$, then $B(E \cup F) = B(E) + B(F)$
-	\item $\E [B(E)B(F)^*] = \mu_0(E \cap F)$
+	\item $E (B(E)B(F)^*) = \mu_0(E \cap F)$
 	\end{enumerate}
 	Then $B$ is said to be a \textbf{stochastic premeasure with sturcture $\mu_0$}
 	
@@ -1182,6 +1177,26 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+		\section{TODO}
+	Incorporate vector measures to have conditional expectations of Banach space valued functions given a $\sig$-algebra
+	
 
 	
 	
