@@ -54,6 +54,7 @@
 \newcommand{\sig}{\sigma} 
 \newcommand{\om}{\omega}
 \newcommand{\Om}{\Omega}
+\newcommand{\kap}{$\kappa$}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\E}{\mathbb{E}}
@@ -1648,7 +1649,7 @@
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item For each $x \in \N$ and $n \in \N$, $x = \frac{nx}{n} \in A_n$ Hence $\N \subset \liminf\limits_{n \rightarrow \infty }A_n$. Conversely, let $x \in \liminf\limits_{n \rightarrow \infty }A_n$. Then there exists $n \in \N$ such that for each $k \in \N$, if $k \geq n$, then $x \in A_k$. In particular, $x \in A_n$. Hence there exists $m_n \in \N$ such that $x = \frac{m_n}{n}$. Choose $s,t \in \N$ such that $x= \frac{s}{t}$ and $\gcd(s,t) = 1$. Choose a prime $p > n$. By assumption, $x \in A_p$. Then there exist $m_p \in \N$ such that $x = \frac{m_p}{p}$. Hence $\frac{s}{t} = \frac{m_p}{p}$ and $tm_p = sp$. Since $t \vert sp$ and $\gcd(s,t) = 1$, we see that $t \vert p$. If $t > 1$, then $p$ is not prime, which is a contradiction. So $t = 1$. Hence $x \in \N$. Thus $\liminf\limits_{n \rightarrow \infty }A_n \subset \N$. 
+			\item For each $x \in \N$ and $n \in \N$, $x = \frac{nx}{n} \in A_n$ Hence $\N \subset \liminf\limits_{n \rightarrow \infty }A_n$. Conversely, let $x \in \liminf\limits_{n \rightarrow \infty }A_n$. Then there exists $n \in \N$ such that for each $k \in \N$, if $k \geq n$, then $x \in A_k$. In particular, $x \in A_n$. Hence there exists $m_n \in \N$ such that $x = \frac{m_n}{n}$. Choose $s,t \in \N$ such that $x= \frac{s}{t}$ and $\gcd(s,t) = 1$. Choose a prime $p > n$. By assumption, $x \in A_p$. Then there exist $m_p \in \N$ such that $x = \frac{m_p}{p}$. Hence $\frac{s}{t} = \frac{m_p}{p}$ and $tm_p = sp$. Since $t | sp$ and $\gcd(s,t) = 1$, we see that $t | p$. If $t > 1$, then $p$ is not prime, which is a contradiction. So $t = 1$. Hence $x \in \N$. Thus $\liminf\limits_{n \rightarrow \infty }A_n \subset \N$. 
 			\item Let $x \in \Q \cap (0, \infty)$. Then there exist $s,t \in \N$ such that $x = \frac{s}{t}$. Define the subsequence $(A_{n_k})_{k \in \N}$ by $A_{n_k} = A_{tk}$. Then for each $k \in \N$, $x = \frac{sk}{tk} \in A_{tk} = A_{n_k}$. Thus
 			\begin{align*}
 				x 
@@ -1741,7 +1742,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $(X, \MA, mu)$ be a measure space. Then 
+		Let $(X, \MA, \mu)$ be a measure space. Then 
 		\begin{enumerate}
 			\item (monotonicity): for each $A,B \in \MA$, if $A \subset B$, then $\mu(A) \leq \mu(B)$.
 			\item (subadditivity): for each $(A_n)_{n \in \N} \subset \MA$, $$\mu \bigg( \bigcup_{n \in \N} A_n \bigg) \leq \sum_{n \in \N}\mu(A_n)$$
@@ -1853,6 +1854,61 @@
 		Thus $\mu(A) = \limsup\limits_{n \rightarrow \infty}\mu(A_n) = \liminf\limits_{n \rightarrow \infty}\mu(A_n)$ and $\mu(A_n) \rightarrow \mu(A)$
 	\end{proof}
 	
+	\begin{defn}
+		Let $(X, \MA)$ be a measurable space and $\mu: \MA \rightarrow [0, \infty]$ a measure. Then $\mu$ is said to be 
+		\begin{itemize}
+			\item \textbf{finite} if $\mu(X) < \infty$
+			\item \textbf{$\sig$-finite} if there exists $(E_j)_{j \in \N} \subset \N$ such that 
+			\begin{enumerate}
+				\item $X = \bigcup\limits_{j \in \N} E_j$
+				\item for each $j \in \N$, $\mu(E_j) < \infty$
+			\end{enumerate}
+			\item \textbf{semifinite} if for each $F \in \MA$, $\mu(F) = \infty$ implies that there exists $E \in \MA$ such that $E \subset F$ and $\mu(E) < \infty$.
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $(X, \MA)$ be a measurable space and $\mu: \MA \rightarrow [0, \infty]$ a measure. 
+		\begin{enumerate}
+			\item If $\mu$ is finite, then $\mu$ is $\sig$-finite. 
+			\item If $\mu$ is $\sig$-finite, then $\mu$ is semifinite.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item Suppose that $\mu$ is finite. Define $(E_j)_{j \in \N} \subset \MA$ by 
+			\[E_j =
+			\begin{cases}
+				X & j=1 \\
+				\varnothing & j > 1
+			\end{cases}
+			\]
+			Then $X = \bigcup\limits_{j \in \N} E_j$ and for each $j \in \N$, $0 < \mu(E_j) < \infty$.
+			\item Suppose that $\mu$ is $\sig$-finite. Then there exists $(E_j)_{j \in \N} \subset \MA$ such that $X = \bigcup\limits_{j \in \N} E_j$
+			and for each $j \in \N$, $\mu(E_j) < \infty$. Let $F \in \MA$. Suppose that $\mu(F) = \infty$. Define $(A_n)_{n \in \N} \subset \MA$ by 
+			$$A_n = \bigcup_{j=1}^n E_j$$
+			Note that $X = \bigcup\limits_{n \in \N} A_n$ and for each $n \in \N$, $F \cap A_n \subset F \cap A_{n+1}$ and 
+			\begin{align*}
+				\mu \bigg (F \cap A_n \bigg)  
+				& = \mu \bigg (F \cap \bigg[ \bigcup_{j=1}^n E_j \bigg] \bigg)  \\
+				& \leq \mu \bigg (\bigcup_{j=1}^n E_j \bigg) \\
+				& \leq \sum_{j=1}^n \mu(E_j) \\
+				& < \infty
+			\end{align*}
+			For the sake of contradiction, suppose that for each $n \in \N$, $\mu  (F \cap A_n ) = 0$. Then
+			\begin{align*}
+				\infty 
+				& = \mu(F) \\
+				& = \mu(F \cap X) \\
+				& = \mu\bigg(F \cap \bigg[ \bigcup_{n \in \N} A_n \bigg] \bigg) \\
+				& = \mu\bigg(  \bigcup_{n \in \N} [F \cap A_n] \bigg) \\
+				& = \sup_{n \in \N} \mu(F \cap A_n) \\
+				& = 0
+			\end{align*}
+			which is a contradiction. So there exists $N \in \N$ such that $\mu  (F \cap A_N ) > 0$. Set $E = F \cap A_N$. Then $E \subset F$ and $0 < \mu(E) < \infty$. Hence $\mu$ is semifinite.
+		\end{itemize}
+	\end{proof}
 	
 	
 	
@@ -2025,8 +2081,8 @@
 		\begin{align*}
 			\int f d(\mu_1 + \lam \mu_2) 
 			&= \limn \int \phi_n d(\mu_1 + \lam \mu_2)\\
-			&= \limn \int \phi_n d \mu_1 + \limn \lam \int \phi_n d \mu_2 \\
-			&= \int f d \mu_1 +  \lam \int f d \mu_2
+			&= \limn \int \phi_n \dmu_1 + \limn \lam \int \phi_n \dmu_2 \\
+			&= \int f \dmu_1 +  \lam \int f \dmu_2
 		\end{align*}
 		
 	\end{proof}
@@ -2042,13 +2098,13 @@
 			\int f d\mu_1 
 			&= \sum\limits_{i =1}^n a_i \mu_1(E_i)\\
 			& \leq \sum\limits_{i =1}^n a_i \mu_2(E_i)\\
-			&= \int f d \mu_2
+			&= \int f \dmu_2
 		\end{align*} 
 		
 		for general $f$, 
 		\begin{align*}
 			\int f d\mu_1 
-			&= \sup_{\substack{s \in S^+\\s \leq f}} \int s d \mu_1 \\
+			&= \sup_{\substack{s \in S^+\\s \leq f}} \int s \dmu_1 \\
 			& \leq \sup_{\substack{s \in S^+\\s \leq f}} \int s d\mu_2\\
 			&= \int f d\mu_2
 		\end{align*}
@@ -2221,11 +2277,11 @@
 	\subsection{Integration of Complex Valued Functions}
 	
 	\begin{defn} \ld{00000} 
-		Let $f:X \rightarrow \C$ be measurable. Then $f$ is said to be \textbf{integrable} if $$\int |f| d\mu < \infty$$
+		Let $f:X \rightarrow \C$ be measurable. Then $f$ is said to be \textbf{integrable} if $$\int |f| \dmu < \infty$$
 	\end{defn}
 	
 	\begin{defn} \ld{00000} 
-		Let $(X, \MA, \mu)$ be a measure space. Define $L^1(X, \MA, \mu) = \{f:X \rightarrow \C : f \text{ is measurable and } \int |f| < \infty \}$
+		Let $(X, \MA, \mu)$ be a measure space. Define $$L^1(X, \MA, \mu) = \bigg \{f:X \rightarrow \C : f \text{ is measurable and } \int |f| < \infty \bigg \}$$
 	\end{defn}
 	
 	\begin{lem}
@@ -2237,7 +2293,7 @@
 	\end{proof}
 	
 	\begin{defn} \ld{00000} 
-		Let $f:X \rightarrow \R$ be measurable. Then $f$ is said to be \textbf{extended integrable} if $$\int f^+ d\mu  < \infty \text{ or } \int f^- d\mu < \infty$$
+		Let $f:X \rightarrow \R$ be measurable. Then $f$ is said to be \textbf{extended integrable} if $$\int f^+ \dmu  < \infty \text{ or } \int f^- \dmu < \infty$$
 	\end{defn}
 	
 	\begin{lem}
@@ -2250,7 +2306,7 @@
 	
 	\begin{ex}\textbf{Dominated Convergence Theorem:}\\
 	\lex{00000}
-		Let $(f_n)_{n \in \N} \subset L^0$, $f \in L^0$ and $g \in L^1$. Suppose that $f_n \convt{a.e.} f$ and there exists $g \in L^1$ such that for each $n \in \N$, $|f_n| \leq g$. Then $f \in L^1$ and $$\int_X |f_n - f| d\mu \rightarrow 0$$ \\
+		Let $(f_n)_{n \in \N} \subset L^0$, $f \in L^0$ and $g \in L^1$. Suppose that $f_n \convt{a.e.} f$ and there exists $g \in L^1$ such that for each $n \in \N$, $|f_n| \leq g$. Then $f \in L^1$ and $$\int_X |f_n - f| \dmu \rightarrow 0$$ \\
 		\textbf{Hint:} Fatou's lemma
 	\end{ex}
 	
@@ -2263,12 +2319,12 @@
 	\end{align*}	 
 	Fatou's lemma implies that 
 	\begin{align*}
-	\int 2g d\mu 
-	&= \int \limfn (2g - |f_n - f|) d \mu \\
-	&\leq \limfn \int 2g - |f_n - f| d \mu  \\
-	&= \int 2g d \mu - \limpn \int |f_n -f| d\mu \\
+	\int 2g \dmu 
+	&= \int \limfn (2g - |f_n - f|) \dmu \\
+	&\leq \limfn \int 2g - |f_n - f| \dmu  \\
+	&= \int 2g \dmu - \limpn \int |f_n -f| \dmu \\
 	\end{align*}
-	Hence $$ \limpn \int |f_n -f| d\mu \leq 0 $$ and thus $$\int |f_n -f| d\mu \rightarrow 0$$
+	Hence $$ \limpn \int |f_n -f| \dmu \leq 0 $$ and thus $$\int |f_n -f| \dmu \rightarrow 0$$
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
@@ -2276,14 +2332,14 @@
 		\begin{enumerate}
 			\item $L^1(\mu_1 + \mu_2) = L^1(\mu_1) \cap L^1(\mu_2)$
 			
-			\item for each $f \in L^1(\mu_1 + \mu_2)$, we have that $$\int f d(\mu_1 + \mu_2) = \int f d \mu_1 + \int f d\mu_2$$
+			\item for each $f \in L^1(\mu_1 + \mu_2)$, we have that $$\int f d(\mu_1 + \mu_2) = \int f \dmu_1 + \int f \dmu_2$$
 		\end{enumerate}
 		
 	\end{ex}
 	
 	\begin{proof}
 		\begin{enumerate}
-			\item The firt part is clear since similar exercise from the section on nonnegative funtions tells us that $$\int |f| d(\mu_1 + \mu_2) = \int |f| d \mu_1 + \int |f| d\mu_2$$
+			\item The firt part is clear since similar exercise from the section on nonnegative funtions tells us that $$\int |f| d(\mu_1 + \mu_2) = \int |f| \dmu_1 + \int |f| \dmu_2$$
 			
 			
 			\item Suppose that $f$ is simple. Then there exist $(a_n)_{i=1}^n \subset \C$ and $(E_i)_{i=1}^n \subset \MA$ such that $f = \sum\limits_{i =1}^n a_i \chi_{E_i}$. Then 
@@ -2292,15 +2348,15 @@
 				&= \sum\limits_{i =1}^n a_i (\mu_1 + \mu_2)(E_i)\\
 				&= \sum\limits_{i =1}^n a_i (\mu_1(E_i) + \mu_2(E_i))\\
 				&= \sum\limits_{i =1}^n a_i \mu_1(E_i) + a_i \mu_2(E_i)\\
-				&= \int f d\mu_1 + \int f d\mu_2
+				&= \int f \dmu_1 + \int f \dmu_2
 			\end{align*}
 			
 			Now for general $f$, choose $(\phi_n)_{n \in \N} \subset S$ such that $\phi_n \rightarrow f$ pointwise and for each $n \in \N$, $|\phi_n| \leq |\phi_{n+1}| \leq |f|$. Then dominated convergence tells us that 
 			\begin{align*}
 				\int f d(\mu_1 + \mu_2) 
 				&= \limn \int \phi_n d(\mu_1 + \mu_2)\\
-				&= \limn \int \phi_n d \mu_1 + \limn \int \phi_n d \mu_2 \\
-				&= \int f d \mu_1 + \int f d \mu_2
+				&= \limn \int \phi_n \dmu_1 + \limn \int \phi_n \dmu_2 \\
+				&= \int f \dmu_1 + \int f \dmu_2
 			\end{align*}
 			
 		\end{enumerate}
@@ -2344,7 +2400,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{00000} {Generalized Dominated Convergence}
-		Let $f_n,g_n,f,g \in L^1$. Suppose that $f_n \xrightarrow{\text{a.e.}} f$, $g_n \xrightarrow{\text{a.e.}} g$ and for each $n \in \N$, $|f_n| \leq g_n$. If $$\int g_n d\mu \rightarrow \int g d\mu $$ then $$\int f_n d\mu \rightarrow \int f d\mu$$.
+		Let $f_n,g_n,f,g \in L^1$. Suppose that $f_n \xrightarrow{\text{a.e.}} f$, $g_n \xrightarrow{\text{a.e.}} g$ and for each $n \in \N$, $|f_n| \leq g_n$. If $$\int g_n \dmu \rightarrow \int g \dmu $$ then $$\int f_n \dmu \rightarrow \int f \dmu$$.
 	\end{ex}
 	
 	
@@ -2456,17 +2512,16 @@
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $f \in L^1(\R, \ML, m)$. Define $F: \R \rightarrow \R$ by $$F(x) = \int_{(-\infty,x]}fdm.$$
-		
+		Let $f \in L^1(\R, \ML, m)$. Define $F: \R \rightarrow \R$ by $$F(x) = \int_{(-\infty,x]}f \dm$$
 		Then $F$ is continuous.
 	\end{ex}
 	
 	\begin{proof}
-		Let $x_0 \in \R$ and $\epsilon >0$. Since $f \in L^1$, there exists $\del >0$ such that for $x \in \R$, if $|x-x_0| < \del$, then $$\int_{(x \wedge x_0,x \vee x_0]}|f|dm < \ep.$$ Let $x \in \R$. Suppose that $|x-x_0|< \del$. Then 
+		Let $x_0 \in \R$ and $\epsilon >0$. Since $f \in L^1$, there exists $\del >0$ such that for $x \in \R$, if $|x-x_0| < \del$, then $$\int_{(x \wedge x_0,x \vee x_0]}|f| \dm < \ep.$$ Let $x \in \R$. Suppose that $|x-x_0|< \del$. Then 
 		\begin{align*}
 			|F(x)-F(x_0)|
-			&= \bigg|\int_{(x \wedge x_0,x \vee x_0]}fdm\bigg|\\
-			& \leq \int_{(x \wedge x_0,x \vee x_0]}|f|dm\\
+			&= \bigg|\int_{(x \wedge x_0,x \vee x_0]}f \dm \bigg|\\
+			& \leq \int_{(x \wedge x_0,x \vee x_0]}|f| \dm \\
 			& < \ep
 		\end{align*} 
 		
@@ -2557,10 +2612,10 @@
 	
 	\begin{ex} \lex{00000} 
 	Let $(X, \MA, \mu)$ be a measure space and $f:X \times \R \rightarrow \C$. Suppose that for each $t \in \R$, $f(\cdot, t) \in L^1(\mu)$. Define $F: \R \rightarrow \C$ by 
-	$$F(t) = \int_X f(x, t) d\mu(x)$$ 
+	$$F(t) = \int_X f(x, t) \dmu(x)$$ 
 	\begin{enumerate}
 	\item Suppose that there exists $g \in L^1(\mu)$ such that for each $(x, t) \in X \times \R$, $|f(x,t)| \leq g(x)$. Let $t_0 \in \R$. If for each $x \in X$, $f(x, \cdot)$ is continuous at $t_0$, then $F$ is continuous at $t_0$. 
- 	\item Suppose that $\p f / \p t$ exits and there exists $g \in L^1(\mu)$ such that for each $(x, t) \in X \times \R$, $|\p f / \p t(x,t) | \leq g(x)$. Then $F$ is differentiable and for each $t \in \R$, $$F'(t) = \int_X \frac{\p f}{\p t}(x, t) d \mu(x)$$
+ 	\item Suppose that $\p f / \p t$ exits and there exists $g \in L^1(\mu)$ such that for each $(x, t) \in X \times \R$, $|\p f / \p t(x,t) | \leq g(x)$. Then $F$ is differentiable and for each $t \in \R$, $$F'(t) = \int_X \frac{\p f}{\p t}(x, t) \dmu(x)$$
 	\end{enumerate}
 	\end{ex}
 	
@@ -2569,8 +2624,8 @@
 	\item Suppose that for each $x \in X$, $f(x, \cdot)$ is continuous at $t_0$. Let $(t_n) \subset \R$. Suppose that $t_n \rightarrow t_0$. Then $f(\cdot , t_n) \convt{p.w.} f(\cdot, t_0)$. Since for each $n \in \N$, $|f(x,t_n)| \leq g(x)$, the dominated convergence theorem implies that $F(t_n) \rightarrow F(t_0)$.
 	\item Let $t_0 \in \R$. Choose $(t_n)_{n \in \N}$ such that $ t_n \rightarrow t_0$ and for each $n \in \N$, $t_n < t_0$. For $n \in \N$, define $q_n:X \rightarrow \R$ by $$q_n(x) = \frac{f(x,t_n) - f(x, t_0)}{t_n - t_0}$$ So $q_n(\cdot) \convt{p.w.} \p f / \p t (\cdot, t_0)$. The mean value theorem implies that for each $x \in X$ and $n \in \N$, there exists $c_{n,x} \in (t_n,t_0)$ such that $q_n(x) = \p f / \p t (x, c_{n,x})$. Then for each $n \in \N$, $|q_n| \leq g$. The dominated convergence theorem then implies that $\p f / \p t (\cdot, t_0) \in L^1(\mu)$ and 
 	\begin{align*}
-	\int \frac{\p f }{\p t} (x, t_0) d\mu(x) 
-	&=  \limn \int_X q_n d\mu  \\
+	\int \frac{\p f }{\p t} (x, t_0) \dmu(x) 
+	&=  \limn \int_X q_n \dmu  \\
 	&= \limn \frac{F(t_n) - F(t_0)}{t_n - t_0} \\
 	&= F'(t_0^-) 	
 	\end{align*}
@@ -2621,39 +2676,9 @@
 		
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
-	Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. Define $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$. Then $f \in L^1(X, \MA, \mu)$ and for each $B \in \MB$, $$\int_B f d \mu_{\MB} = \int_B f d \mu$$
-	\end{ex}
-	
-	\begin{proof}
-	Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
-	\begin{align*}
-	\infty 
-	&> \mu_{\MB}(B_i) \\
-	&= \mu(B_i)
-	\end{align*}
-	So $f \in L^1(X, \MA, \mu)$ and 
-	\begin{align*}
-	\int_B f d \mu_{\MB} 
-	&= \int_B \sum_{i=1}^n b_i \chi_{B_i} d\mu_{\MB} \\
-	&= \sum_{i=1}^n b_i \mu_{\MB}(B_i \cap B)\\
-	&= \sum_{i=1}^n b_i \mu(B_i \cap B)\\
-	&= \int_B \sum_{i=1}^n b_i\chi_{B_i} d \mu \\
-	&= \int_B f d \mu
-	\end{align*}
-	If $f \geq 0$, then there exist $(\phi_n)_{n \in \N} \subset S^+(X, \MB)$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \convt{p.w.} f$. Then monotone convergence implies that for each $B \in \MB$,
-	\begin{align*}
-	\int_B f d\mu_{\MB} 
-	&= \limn \int_B \phi_n d\mu_{\MB} \\
-	&= \limn \int_B \phi_n d \mu \\
-	&= \int_B f d\mu
-	\end{align*}
-	The statement also holds for general $f \in L^1(X, \MB, \mu_B)$, by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
-	\end{proof}
-	
 	\begin{defn}
 	Let $(X, \MA, \mu)$ be a measure space. Define $\| \cdot \|_*: L^1(\mu) \rightarrow \Rg$ by  
-	 $$\| f \|_* = \sup_{A \in \MA} \bigg | \int_A f d\mu \bigg |$$ 
+	 $$\| f \|_* = \sup_{A \in \MA} \bigg | \int_A f \dmu \bigg |$$ 
 	\end{defn}
 	
 	\begin{ex}
@@ -2689,33 +2714,33 @@
 	\end{lem}
 	
 	\begin{thm}
-		Let $(X,\MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces. Then for each $E \in \MA \otimes \MB$, the maps $\phi:X \rightarrow \RG$ and $\psi: Y \rightarrow \RG$ defined by $\phi(x) = \nu(E_x)$ and $\psi(y) = \mu(E^y)$ are $\MA$-measurable and $\MB$-measurable, respectively and $$\mu \times \nu(E) = \int_X \nu(E_x)d\mu(x) = \int_Y \mu(E^y)d\nu(y)$$ 
+		Let $(X,\MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces. Then for each $E \in \MA \otimes \MB$, the maps $\phi:X \rightarrow \RG$ and $\psi: Y \rightarrow \RG$ defined by $\phi(x) = \nu(E_x)$ and $\psi(y) = \mu(E^y)$ are $\MA$-measurable and $\MB$-measurable, respectively and $$\mu \times \nu(E) = \int_X \nu(E_x)\dmu(x) = \int_Y \mu(E^y)d\nu(y)$$ 
 	\end{thm}
 	
 	\begin{thm}\textbf{Fubini, Tonelli:}
 		Let $(X,\MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces. 
 		
 		\begin{enumerate}
-			\item (Tonelli) For each $f \in L^+(X \times Y)$, the functions $g:X \rightarrow \RG$, $h:Y \rightarrow \RG$ defined by $g(x) = \int_Y f_x(y)d\nu(y)$ and $h(y) = \int_X f^y(x) d \mu(x)$ are $\MA$-measurable and $\MB$-measurable respectively and $$\int_{X \times Y}f d \mu \times \nu = \int_X g d\mu = \int_Y h d\nu$$
+			\item (Tonelli) For each $f \in L^+(X \times Y)$, the functions $g:X \rightarrow \RG$, $h:Y \rightarrow \RG$ defined by $g(x) = \int_Y f_x(y)d\nu(y)$ and $h(y) = \int_X f^y(x) \dmu(x)$ are $\MA$-measurable and $\MB$-measurable respectively and $$\int_{X \times Y}f \dmu \times \nu = \int_X g \dmu = \int_Y h d\nu$$
 			
-			\item (Fubini) For each $f \in L^1(X \times Y)$, $f_x \in L^1(\nu)$ for $\mu$-a.e. $x \in X$ and $f^y \in L^1(\mu)$ for $\nu$-a.e. $y \in Y$, respectively and  the functions (after redefinition of $f$ on a null set) $g:X \rightarrow \C$, $h:Y \rightarrow \C$ defined by $g(x) = \int_Y f_x(y)d\nu(y)$ and $h(y) = \int_X f^y(x) d \mu(x)$ are in $L^1(\mu)$ and $L^1(\nu)$ respectively. Furthermore 
-			$$\int_{X \times Y}f d \mu \times \nu = \int_X g d\mu = \int_Y h d\nu$$
+			\item (Fubini) For each $f \in L^1(X \times Y)$, $f_x \in L^1(\nu)$ for $\mu$-a.e. $x \in X$ and $f^y \in L^1(\mu)$ for $\nu$-a.e. $y \in Y$, respectively and  the functions (after redefinition of $f$ on a null set) $g:X \rightarrow \C$, $h:Y \rightarrow \C$ defined by $g(x) = \int_Y f_x(y)d\nu(y)$ and $h(y) = \int_X f^y(x) \dmu(x)$ are in $L^1(\mu)$ and $L^1(\nu)$ respectively. Furthermore 
+			$$\int_{X \times Y}f \dmu \times \nu = \int_X g \dmu = \int_Y h d\nu$$
 		\end{enumerate}
 	\end{thm}
 	
 	\begin{note}
-		We usually just write $\int \int f d\mu d\nu$ and $\int \int f d\nu d\mu$ instead of $\int h d\nu$ and $\int g d\mu$ respectively. We have a similar result for complete product measure spaces. See 
+		We usually just write $\int \int f \dmu d\nu$ and $\int \int f d\nu \dmu$ instead of $\int h d\nu$ and $\int g \dmu$ respectively. We have a similar result for complete product measure spaces. See 
 	\end{note}
 	
 	\begin{ex} \lex{00000} 
-		Take $X=Y= [0,1]$, $\MA = \MB([0,1]), \MB = \MP([0,1])$ and $\mu,\nu$ to be Lebesgue measure and counting measure respectively. Define $D = \{(x,y) \in [0,1]^2: x=y\}$ Show that $$\int \chi_D d\mu \times \nu, \int \int \chi_D d\mu d \nu \text{ and } \int \int \chi_D d\nu d\mu$$ are all different. (Hint: for the first integral, use the definition of $\mu \times \nu$)
+		Take $X=Y= [0,1]$, $\MA = \MB([0,1]), \MB = \MP([0,1])$ and $\mu,\nu$ to be Lebesgue measure and counting measure respectively. Define $D = \{(x,y) \in [0,1]^2: x=y\}$ Show that $$\int \chi_D \dmu \times \nu, \int \int \chi_D \dmu d \nu \text{ and } \int \int \chi_D d\nu \dmu$$ are all different. (Hint: for the first integral, use the definition of $\mu \times \nu$)
 	\end{ex}
 	
 	\begin{proof}
 		Let $x,y \in [0,1]$. Then $(\chi_D)_x = \chi_{D_x} = \chi_{x}$ and $(\chi_D)^y = \chi_{D^y} = \chi_{y}$. Thus
 		
 		\begin{align*}
-			\int \int \chi_D d\mu d \nu
+			\int \int \chi_D \dmu d \nu
 			&= \int \mu(\{y\}) d\nu\\
 			&= \int 0 d\nu\\
 			&= 0
@@ -2724,18 +2749,18 @@
 		and
 		
 		\begin{align*}
-			\int \int \chi_D d\mu d \nu
-			&= \int \nu(\{x\}) d\mu\\
-			&= \int 1 d\mu\\
+			\int \int \chi_D \dmu d \nu
+			&= \int \nu(\{x\}) \dmu\\
+			&= \int 1 \dmu\\
 			&= 1
 		\end{align*}
 		
-		Now, Observe that $\int \chi_D d\mu \times \nu = \mu \times \nu(D)$. Recall from the section on product measures that $\mu \times \nu(D) = \inf \{\sum_{n \in \N}\mu(A_n)\nu(B_n): (A_n \times B_n)_{n \in \N} \subset \ME \text{ and } D \subset \bigcup_{n \in \N} A_n \times B_n \}$. Let $(A_n \times B_n)_{n \in \N} \subset \ME$. Suppose that $D \subset \bigcup_{n \in \N}A_n \times B_n$. Then for each $x \in [0,1]$, $(x,x) \in  \bigcup_{n \in \N} A_n \times B_n$. So for each $x \in [0,1]$, there exists $n \in \N$, such that $x \in A_n \cap B_n$. Thus $[0,1] \subset \bigcup_{n \in \N} A_n \cap B_n.$ Since $1  = \mu([0,1]) \leq \sum_{n \in \N}\mu(A_n \cap B_n)$, we know that there exists $n \in \N$ such that $0 < \mu(A_n \cap B_n)$. Thus $\mu(A_n)> 0$ and $\mu(B_n) > 0$. Since $\mu(B_n) > 0$, $B_n$ must be infinite and therefore $\nu(B_n) = \infty$. So $\sum_{n \in \N} \mu(A_n)\nu(B_n) = \infty$.
+		Now, Observe that $\int \chi_D \dmu \times \nu = \mu \times \nu(D)$. Recall from the section on product measures that $\mu \times \nu(D) = \inf \{\sum_{n \in \N}\mu(A_n)\nu(B_n): (A_n \times B_n)_{n \in \N} \subset \ME \text{ and } D \subset \bigcup_{n \in \N} A_n \times B_n \}$. Let $(A_n \times B_n)_{n \in \N} \subset \ME$. Suppose that $D \subset \bigcup_{n \in \N}A_n \times B_n$. Then for each $x \in [0,1]$, $(x,x) \in  \bigcup_{n \in \N} A_n \times B_n$. So for each $x \in [0,1]$, there exists $n \in \N$, such that $x \in A_n \cap B_n$. Thus $[0,1] \subset \bigcup_{n \in \N} A_n \cap B_n.$ Since $1  = \mu([0,1]) \leq \sum_{n \in \N}\mu(A_n \cap B_n)$, we know that there exists $n \in \N$ such that $0 < \mu(A_n \cap B_n)$. Thus $\mu(A_n)> 0$ and $\mu(B_n) > 0$. Since $\mu(B_n) > 0$, $B_n$ must be infinite and therefore $\nu(B_n) = \infty$. So $\sum_{n \in \N} \mu(A_n)\nu(B_n) = \infty$.
 		
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $f:X \rightarrow \Rg \in L^+$. Show that $G = \{(x,y) \in X \times \Rg: f(x) \geq y\} \in \MA \otimes \MB(\Rg)$ and $\mu \times m (G) = \int_X f d \mu$. The same is true if we replace "$\geq$" with "$>$". (Hint: to show that $G$ is measurable, split up $(x,y) \mapsto f(x) - y$) into the composition of measurable functions. 
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $f:X \rightarrow \Rg \in L^+$. Show that $G = \{(x,y) \in X \times \Rg: f(x) \geq y\} \in \MA \otimes \MB(\Rg)$ and $\mu \times m (G) = \int_X f \dmu$. The same is true if we replace "$\geq$" with "$>$". (Hint: to show that $G$ is measurable, split up $(x,y) \mapsto f(x) - y$) into the composition of measurable functions. 
 	\end{ex}
 	
 	\begin{proof}
@@ -2743,9 +2768,9 @@
 		
 		\begin{align*}
 			\mu \times m(G) 
-			&= \int \chi_G d\mu \times m\\
-			&= \int_X \int_{\Rg} \chi_{G_x} dm d\mu(x)\\
-			&= \int_X f(x) d\mu(x) 
+			&= \int \chi_G \dmu \times m\\
+			&= \int_X \int_{\Rg} \chi_{G_x} \dm \dmu(x)\\
+			&= \int_X f(x) \dmu(x) 
 		\end{align*}
 		
 		The same reasoning holds if we replace "$\geq$" with "$>$".
@@ -2757,7 +2782,7 @@
 		\begin{enumerate}
 			\item If $f$ is $\MA$-measurable and $g$ is $\MB$-measurable, then $h$ is $\MA \otimes \MB$-measurable.
 			
-			\item If $f \in L^1(\mu)$ and $g \in L^1(\nu)$, then $h \in L^1(\mu \times \nu)$ and $$\int_{X \times Y}hd \mu \times \nu = \int_X f d\mu \int_Y g d\nu$$
+			\item If $f \in L^1(\mu)$ and $g \in L^1(\nu)$, then $h \in L^1(\mu \times \nu)$ and $$\int_{X \times Y}h\dmu \times \nu = \int_X f \dmu \int_Y g d\nu$$
 		\end{enumerate}
 	\end{ex}
 	
@@ -2767,39 +2792,39 @@
 			
 			\item First suppose $f$ and $g$ are simple as before. Then  
 			\begin{align*}
-				\int_{X \times Y} |h| d \mu \times \nu 
+				\int_{X \times Y} |h| \dmu \times \nu 
 				& \leq \sum_{i=1}^n \sum_{j=1}^m |a_i b_j| \mu(A_i) \nu(B_j)\\ 
 				&= \big(\sum_{i=1}^n |a_i| \mu(A_i) \big) \big( \sum_{j=1}^m |b_j| \nu(B_j) \big)\\
-				&= \int_X |f| d\mu \int_Y |g| d \nu\\
+				&= \int_X |f| \dmu \int_Y |g| d \nu\\
 				&< \infty
 			\end{align*}
 			
 			So $h \in L^1(\mu \times \nu)$. Furthermore, 
 			
 			\begin{align*}
-				\int_{X \times Y} h d \mu \times \nu 
+				\int_{X \times Y} h \dmu \times \nu 
 				&= \sum_{i=1}^n \sum_{j=1}^m a_i b_j \mu(A_i) \nu(B_j)\\ 
 				&= \big(\sum_{i=1}^n a_i \mu(A_i) \big) \big( \sum_{j=1}^m b_j \nu(B_j) \big)\\
-				&= \int_X f d\mu \int_Y gd \nu
+				&= \int_X f \dmu \int_Y gd \nu
 			\end{align*}
 			
 			For general $f \in L^1(\mu), g \in L^1(\nu)$, take $(h_n)_{n \in \N}$ as before. Monotone convergence and the result above say that 
 			
 			\begin{align*}
-				\int_{X \times Y} |h| d\mu \times d\nu 
-				&= \limn \int_{X \times Y} |h_n|d \mu \times \nu\\
-				&=  \limn \bigg( \int_X |f_n| d\mu \int_Y |g_n| d\nu \bigg) \\
-				&= \int_X |f| d\mu \int_Y |g| d\nu\\
+				\int_{X \times Y} |h| \dmu \times d\nu 
+				&= \limn \int_{X \times Y} |h_n|\dmu \times \nu\\
+				&=  \limn \bigg( \int_X |f_n| \dmu \int_Y |g_n| d\nu \bigg) \\
+				&= \int_X |f| \dmu \int_Y |g| d\nu\\
 				& < \infty
 			\end{align*}
 			
 			So $h \in L^1(\mu \times \nu)$. Dominated convergence and the result above then tell us that 
 			
 			\begin{align*}
-				\int_{X \times Y} h d\mu \times d\nu 
-				&= \limn \int_{X \times Y} h_n d\mu \times d\nu \\
-				&= \limn \bigg( \int_X f_n d\mu \int_Y g_n d\nu \bigg)\\
-				&= \int_X f d\mu \int_Y g d\nu
+				\int_{X \times Y} h \dmu \times d\nu 
+				&= \limn \int_{X \times Y} h_n \dmu \times d\nu \\
+				&= \limn \bigg( \int_X f_n \dmu \int_Y g_n d\nu \bigg)\\
+				&= \int_X f \dmu \int_Y g d\nu
 			\end{align*}
 			
 		\end{enumerate}
@@ -2810,16 +2835,16 @@
 	\end{note}
 	
 	\begin{ex} \lex{00000} 
-		Let $f:\R \rightarrow \Rg \in L^+$. Show that $$\int_{\R}fdm = \int_{\Rg}m(\{x \in \R: f(x) \geq t\}) dm(t)$$
+		Let $f:\R \rightarrow \Rg \in L^+$. Show that $$\int_{\R}f\dm = \int_{\Rg}m(\{x \in \R: f(x) \geq t\}) \dm(t)$$
 	\end{ex}
 	
 	\begin{proof}
-		Note that $$\int_{\Rg}m(\{x \in \R: f(x) \geq t\}) = \int_{\Rg} \bigg[\int_{\R} \chi_{\{x \in \R: f(x) \geq t\}}dm \bigg]dm(t)$$
+		Note that $$\int_{\Rg}m(\{x \in \R: f(x) \geq t\}) = \int_{\Rg} \bigg[\int_{\R} \chi_{\{x \in \R: f(x) \geq t\}}\dm \bigg]\dm(t)$$
 		Comparing this with Tonelli's theorem, we can put $\chi_{\{x \in \R: f(x) \geq t\}} = (\chi_{E})^t = \chi_{E^t}$. Then $E = \{(x,t) \in \R \times \Rg: f(x) \geq t\}$ and $E_x = \{t \in \Rg: f(x) \geq t\} = [0,f(x)]$. Tonelli's theorem tells us that 
 		\begin{align*}
-			\int_{\Rg} \bigg[\int_{\R} \chi_{\{x \in \R: f(x) \geq t\}}(x) dm(x) \bigg]dm(t)
-			&= \int_{\R} \bigg[ \int_{\Rg} \chi_{[0,f(x)]}(t) dm(t) \bigg] dm(x)\\
-			&= \int_{\R} f(x) dm(x)
+			\int_{\Rg} \bigg[\int_{\R} \chi_{\{x \in \R: f(x) \geq t\}}(x) \dm(x) \bigg]\dm(t)
+			&= \int_{\R} \bigg[ \int_{\Rg} \chi_{[0,f(x)]}(t) \dm(t) \bigg] \dm(x)\\
+			&= \int_{\R} f(x) \dm(x)
 		\end{align*} 
 	\end{proof}
 	
@@ -3009,7 +3034,7 @@
 	\end{ex}
 	
 	\begin{proof}
-		For each $n, k \in \N$, define $E_{n, k} = \{x \in X: \vert f_n(x) - f(x) \vert \geq \frac{1}{k} \}$ and $F_{n,k} = \bigcup\limits_{m \geq n}E_{m,k}$. Then $F_{n,k}$ is decreasing in $n$ and $$\bigcap\limits_{n \in \N}F_{n,k} \subset \{x: f_n(x) \not \rightarrow f(x)\}$$ 
+		For each $n, k \in \N$, define $E_{n, k} = \{x \in X: | f_n(x) - f(x) | \geq \frac{1}{k} \}$ and $F_{n,k} = \bigcup\limits_{m \geq n}E_{m,k}$. Then $F_{n,k}$ is decreasing in $n$ and $$\bigcap\limits_{n \in \N}F_{n,k} \subset \{x: f_n(x) \not \rightarrow f(x)\}$$ 
 		Thus $\mu(\bigcap\limits_{n \in \N}F_{n,k}) = 0$. Since $\mu(X) < \infty$, $\inf\limits_{n \in \N}\mu(F_{n,k}) = 0$. Let $\ep >0$. We may choose a strictly increasing sequence $(n_k)_{k \in \N} \subset \N$ such that  $\mu(F_{n_k,k}) \leq \frac{\ep}{2^{k}}$. Put $N = \bigcup\limits_{k \in \N}F_{n_k,k}$. Then 
 		\begin{align*}
 			\mu(N) 
@@ -3036,7 +3061,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{35007} 
-		Let $(X, \MA, \mu)$ be a measure space. Suppose $\mu(X) < \infty$. Define $d:L^0 \times L^0 \rightarrow \Rg$ by $$d(f,g) = \int \frac{|f-g|}{1+|f-g|} d \mu $$
+		Let $(X, \MA, \mu)$ be a measure space. Suppose $\mu(X) < \infty$. Define $d:L^0 \times L^0 \rightarrow \Rg$ by $$d(f,g) = \int \frac{|f-g|}{1+|f-g|} \dmu $$
 		Then $d$ is a metric on $L^0$ if we identify functions that are equal a.e. and convergence in this metric is equivalent to convergence in measure. Note that for each $f,g \in L^0$, $d(f,g) \leq \mu(X)$.
 	\end{ex} 
 	
@@ -3063,7 +3088,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{35008} 
-		Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that for each $n \in \N$, $f_n \geq 0$ and $f_n \conv{\mu} f$. Then $f \geq 0$ a.e. and $$\int f d\mu \leq \limfn \int f_n d\mu $$
+		Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. Suppose that for each $n \in \N$, $f_n \geq 0$ and $f_n \conv{\mu} f$. Then $f \geq 0$ a.e. and $$\int f \dmu \leq \limfn \int f_n \dmu $$
 	\end{ex}
 	
 	\begin{proof}
@@ -3151,7 +3176,7 @@
 		Suppose that $f_n \conv{\mu} f$. Let $(f_{n_k})_{k \in \N}$ be a subsequence. Then $f_{n_k} \conv{\mu} f$. By a previous theorem, there exists a subsequence $(f_{n_{k_j}})_{j \in \N}$ such that $f_{n_{k_j}} \convt{a.e.} f$. Conversely, suppose that for each subsequence $(f_{n_k})_{k \in \N}$, there exists a subsequence $(f_{n_{k_j}})_{j \in \N}$ such that $f_{n_{k_j}} \convt{a.e.} f$. Let $\ep >0$. For $n \in \N$, define $E_{n} = \{x \in X: |f_n(x) - f(x) | \geq \ep\}$ and define $E = \{x \in X: f_n(x) \not \rightarrow f(x)\}$. Let $(f_{n_k})_{k \in \N}$ be a subsequence. Choose a subsequence $(f_{n_{k_j}})_{j \in \N}$ such that $f_{n_{k_j}} \convt{a.e.} f$. Since $\bigg \{x \in X: \limsup\limits_{j \rightarrow \infty} \chi_{E_{n_{k_j}}}(x) = 1\bigg \} = \limsup\limits_{j \rightarrow \infty} E_{n_{k_j}} \subset E$ and $\mu(E) = 0$, we have that $\limsup\limits_{j \rightarrow \infty} \chi_{E_{n_{k_j}}} = 0$ a.e. and $\chi_{E_{n_{k_j}}} \convt{a.e} 0$. Since $\mu(X) < \infty$, the dominated convergence theorem implies that 
 		\begin{align*}
 			\mu(E_{n_{k_j}}) 
-			&= \int \chi_{E_{n_{k_j}}} d \mu  \rightarrow 0
+			&= \int \chi_{E_{n_{k_j}}} \dmu  \rightarrow 0
 		\end{align*} 
 		So for each subsequence $(\mu(E_{n_k}))_{k \in \N}$, there exists a subsequence $(\mu(E_{n_{k_j}}))_{j \in \N}$ such that $\mu(E_{n_{k_j}}) \rightarrow 0$. Thus $\mu(E_n) \rightarrow 0$ and $f_n \conv{\mu} f$.
 	\end{proof}
@@ -3173,8 +3198,8 @@
 	\begin{proof}
 		Let $\ep>0$. By assumption we know that
 		\begin{align*}
-			\int \bigg[ \sum_{n \in \N}\chi_{\{x \in X: |f_n(x)-f(x)| > \ep\}}\bigg] d \mu 
-			&= \sum_{n \in \N}\int \chi_{\{x \in X: |f_n(x)-f(x)| > \ep\}}d \mu\\
+			\int \bigg[ \sum_{n \in \N}\chi_{\{x \in X: |f_n(x)-f(x)| > \ep\}}\bigg] \dmu 
+			&= \sum_{n \in \N}\int \chi_{\{x \in X: |f_n(x)-f(x)| > \ep\}}\dmu\\
 			&=\sum_{n \in \N}\mu(\{x \in X: |f_n(x)-f(x)| > \ep\})\\
 			& < \infty
 		\end{align*}
@@ -3413,10 +3438,10 @@
 	\end{proof}
 	
 	\begin{ex} \lex{41016} 
-		Let $\mu$ be a positive measure on $(X, \MA)$ and $f \in L^0(X, \MA)$ extended $\mu$-integrable. Define $\nu$ on $(X, \MA)$ by $$\nu(E) = \int_E f d \mu$$ Then
+		Let $\mu$ be a positive measure on $(X, \MA)$ and $f \in L^0(X, \MA)$ extended $\mu$-integrable. Define $\nu$ on $(X, \MA)$ by $$\nu(E) = \int_E f \dmu$$ Then
 		\begin{enumerate}
 			\item $\nu$ is a signed measure
-			\item for each $E\in \MA$, $$|\nu|(E) = \int_E|f|d\mu$$
+			\item for each $E\in \MA$, $$|\nu|(E) = \int_E|f|\dmu$$
 		\end{enumerate} 
 	\end{ex}
 	
@@ -3427,34 +3452,34 @@
 			\item Clearly $\nu(\varnothing) = 0$ and $\nu$ is finte by assumption. Let $(E_n)_{n \in \N} \subset \MA$. Suppose that $(E_n)_{n \in \N}$ is disjoint. Then 
 			\begin{align*}
 				\nu(\bigcup_{n \in \N} E_n)
-				&= \int_{\bigcup_{n \in \N} E_n} f d \mu \\ 
-				&= \int_{\bigcup_{n \in \N} E_n} f^+ d \mu - \int_{\bigcup_{n \in \N} E_n} f^- d \mu\\
-				&= \sum_{n \in \N} \int_{ E_n} f^+ d \mu - \sum_{n \in \N} \int_{E_n} f^- d \mu\\
-				&= \sum_{n \in \N} \bigg[ \int_{ E_n} f^+ d \mu - \int_{ E_n} f^- d \mu \bigg]\\
-				&= \sum_{n \in \N} \int_{ E_n} f d \mu\\
+				&= \int_{\bigcup_{n \in \N} E_n} f \dmu \\ 
+				&= \int_{\bigcup_{n \in \N} E_n} f^+ \dmu - \int_{\bigcup_{n \in \N} E_n} f^- \dmu\\
+				&= \sum_{n \in \N} \int_{ E_n} f^+ \dmu - \sum_{n \in \N} \int_{E_n} f^- \dmu\\
+				&= \sum_{n \in \N} \bigg[ \int_{ E_n} f^+ \dmu - \int_{ E_n} f^- \dmu \bigg]\\
+				&= \sum_{n \in \N} \int_{ E_n} f \dmu\\
 				&= \sum_{n \in \N} \nu(E_n)
 			\end{align*}
 			
 			If $|\nu(\bigcup_{n \in \N}E_n)| < \infty$, then $ \int_{\bigcup_{n \in \N} E_n} f^+ d  \mu < \infty$ and $ \int_{\bigcup_{n \in \N} E_n} f^- d  \mu < \infty$ because
 			\begin{align*}
 				|\nu(\bigcup_{n \in \N}E_n)|
-				&=\bigg |\int_{\bigcup_{n \in \N} E_n} f d \mu\bigg| \\
-				&= \bigg |\int_{\bigcup_{n \in \N} E_n} f^+ d \mu - \int_{\bigcup_{n \in \N} E_n} f^- d \mu \bigg|
+				&=\bigg |\int_{\bigcup_{n \in \N} E_n} f \dmu\bigg| \\
+				&= \bigg |\int_{\bigcup_{n \in \N} E_n} f^+ \dmu - \int_{\bigcup_{n \in \N} E_n} f^- \dmu \bigg|
 			\end{align*} Therefore, we have that
 			
 			\begin{align*}
 				\sum_{n \in \N} |\nu(E_n)|
-				&=  \sum_{n \in \N} \bigg|\int_{E_n} f d \mu \bigg|\\
-				&= \sum_{n \in \N} \bigg| \int_{E_n} f^+ d\mu -  \int_{E_n} f^- d\mu \bigg|\\
-				& \leq \sum_{n \in \N}  \int_{E_n} f^+ d\mu  + \sum_{n \in \N}  \int_{E_n} f^- d\mu \\
-				&= \int_{\bigcup_{n \in \N} E_n} f^+ d \mu + \int_{\bigcup_{n \in \N} E_n} f^- d \mu\\
+				&=  \sum_{n \in \N} \bigg|\int_{E_n} f \dmu \bigg|\\
+				&= \sum_{n \in \N} \bigg| \int_{E_n} f^+ \dmu -  \int_{E_n} f^- \dmu \bigg|\\
+				& \leq \sum_{n \in \N}  \int_{E_n} f^+ \dmu  + \sum_{n \in \N}  \int_{E_n} f^- \dmu \\
+				&= \int_{\bigcup_{n \in \N} E_n} f^+ \dmu + \int_{\bigcup_{n \in \N} E_n} f^- \dmu\\
 				& < \infty
 			\end{align*}
 			So the sum $\sum_{n \in \N} \nu(E_n)$ converges absolutely and $\nu$ is a signed measure. 
 			
 			\item Put $P = \{x \in X: f(x) \geq 0\}$ and $N = \{x \in X: f(x) < 0\}$. Then $P,N$ form a Hahn decomposition of $X$ with respect to $\nu$. Thus for $E \in \MA$, 
-			$$\nu^+(E) = \int_{E \cap P} f d \mu = \int_E f^+ d \mu$$ and $$\nu^-(E) = \int_{E \cap N} f d \mu = \int_E f^- d \mu$$
-			 So for $E \in \MA$, $$|\nu|(E) = \int_E f^+ d\mu + \int_E f^- d\mu = \int_E |f| d\mu$$
+			$$\nu^+(E) = \int_{E \cap P} f \dmu = \int_E f^+ \dmu$$ and $$\nu^-(E) = \int_{E \cap N} f \dmu = \int_E f^- \dmu$$
+			 So for $E \in \MA$, $$|\nu|(E) = \int_E f^+ \dmu + \int_E f^- \dmu = \int_E |f| \dmu$$
 		\end{enumerate}
 	\end{proof}
 	
@@ -3463,7 +3488,7 @@
 	\end{defn}
 	
 	\begin{note}
-		If there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that for each $E \in \MA$, $\nu(E) = \int_E f d\mu$, then we write $d\nu = f d\mu$.
+		If there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that for each $E \in \MA$, $\nu(E) = \int_E f \dmu$, then we write $d\nu = f \dmu$.
 	\end{note}
 	
 	\begin{ex}
@@ -3475,17 +3500,17 @@
 	\end{proof}
 	
 	\begin{thm}
-		Let $(X, \MA)$ be a measureable space, $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X,\MA)$. Then there exist unique $\sig$-finite signed measures $\lam$, $\rho$ on $(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that $d\rho = f d \mu$ and $f$ is unique $\mu$-a.e.  
+		Let $(X, \MA)$ be a measureable space, $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X,\MA)$. Then there exist unique $\sig$-finite signed measures $\lam$, $\rho$ on $(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that $d\rho = f \dmu$ and $f$ is unique $\mu$-a.e.  
 	\end{thm}
 	
 	\begin{defn} \ld{00000} 
-		The decomposition $\nu = \lam + \rho$ is referred to as the \textbf{Lebesgue decomposition of $\nu$ with respect to $\mu$}. In the case $\nu \ll \mu$, we have $\lam = 0$ and $\rho = \nu$ and we define the \textbf{Radon-Nikodym derivative of $\nu$ with respect to $\mu$}, denoted by $d\nu/d\mu$, to be $d\nu/d\mu = f$ where $d\nu = fd\mu$.   
+		The decomposition $\nu = \lam + \rho$ is referred to as the \textbf{Lebesgue decomposition of $\nu$ with respect to $\mu$}. In the case $\nu \ll \mu$, we have $\lam = 0$ and $\rho = \nu$ and we define the \textbf{Radon-Nikodym derivative of $\nu$ with respect to $\mu$}, denoted by $d\nu/d\mu$, to be $d\nu/d\mu = f$ where $d\nu = f\dmu$.   
 	\end{defn}
 	
 	\begin{thm}
 		Let $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$, $\lam$ $\sig$-finite measures on $(X,\MA)$. Suppose that $\nu \ll \mu$ and $\mu \ll \lam$. Then 
 		\begin{enumerate}
-			\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and $$\int g d\nu = \int g \frac{d\nu}{d\mu} d\mu$$
+			\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and $$\int g d\nu = \int g \frac{d\nu}{d\mu} \dmu$$
 			\item $\nu \ll \lam$ and $$\frac{d \nu}{d\lam} = \frac{d \nu}{d\mu} \frac{d\mu}{d\lam} \hspace{4mm} \lam \text{-a.e.}$$
 		\end{enumerate}
 	\end{thm}
@@ -3511,14 +3536,14 @@
 		
 		Then 
 		\begin{enumerate}
-			\item $m \ll \mu$ but for each $f \in L^+$, $dm \neq f d\mu$
+			\item $m \ll \mu$ but for each $f \in L^+$, $dm \neq f \dmu$
 			\item There is no Lebesgue decomposition of $\mu$ with respect to $m$.
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}
 		\begin{enumerate}
-			\item Let $E \in \MA$. If $\mu(E) = 0$, then $E = \varnothing$ and $m(E) = 0$. So $m \ll \mu$. Suppose for the sake of contradiction that there exists $f \in L^+$ such that $dm = f d\mu$. Then 
+			\item Let $E \in \MA$. If $\mu(E) = 0$, then $E = \varnothing$ and $m(E) = 0$. So $m \ll \mu$. Suppose for the sake of contradiction that there exists $f \in L^+$ such that $dm = f \dmu$. Then 
 			\begin{align*}
 				1
 				&= m(X) \\
@@ -3625,32 +3650,32 @@
 	\end{defn}
 	
 	\begin{thm}\textbf{Lebesgue-Radon-Nikodym Theorem:}\\
-		Let $(X,\MA)$ be a measurable space, $\nu \in \MM(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X, \MA)$. Then there exists unique $\lam$, $\rho \in \MM(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists $f \in L^1(\mu)$ such that $d\rho = f d \mu$ and $f$ is unique $\mu$-a.e.  
+		Let $(X,\MA)$ be a measurable space, $\nu \in \MM(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X, \MA)$. Then there exists unique $\lam$, $\rho \in \MM(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists $f \in L^1(\mu)$ such that $d\rho = f \dmu$ and $f$ is unique $\mu$-a.e.  
 	\end{thm}
 	
 	\begin{ex} \lex{43003.2}
 		Let $\nu \in \MM(X, \MA)$ and $\mu$, $\lam$ $\sig$-finite measures on $(X,\MA)$. Suppose that $\nu \ll \mu$ and $\mu \ll \lam$. Then 
 		\begin{enumerate}
-			\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and $$\int g d\nu = \int g \frac{d\nu}{d\mu} d\mu$$
+			\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and $$\int g d\nu = \int g \frac{d\nu}{d\mu} \dmu$$
 			\item $\nu \ll \lam$ and $$\frac{d \nu}{d\lam} = \frac{d \nu}{d\mu} \frac{d\mu}{d\lam} \hspace{4mm} \lam \text{-a.e.}$$
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{defn} \ld{43004} 
-	Let $(X,\MA)$ be a measurable space and $\nu \in \MM(X,\MA)$ with $ \nu = \nu_1 + i \nu_2$. Define $\mu = |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$ and thus there exists $f \in L^1(\mu)$ such that $d\nu = f d\mu$. We define the \textbf{total variation of $\nu$}, denoted $|\nu|: \MA \rightarrow \Rg$, by $$|\nu|(E) = \int_E |f|d\mu$$ 
+	Let $(X,\MA)$ be a measurable space and $\nu \in \MM(X,\MA)$ with $ \nu = \nu_1 + i \nu_2$. Define $\mu = |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$ and thus there exists $f \in L^1(\mu)$ such that $d\nu = f \dmu$. We define the \textbf{total variation of $\nu$}, denoted $|\nu|: \MA \rightarrow \Rg$, by $$|\nu|(E) = \int_E |f|\dmu$$ 
 	\end{defn}
 	
 	\begin{ex} \lex{43004.5} 
-	Let $(X,\MA)$ be a measurable space, $\nu \in \MM(X,\MA)$ and $\lam$ a $\sig$-finite measure on $(X, \MA)$. Suppose that $\nu \ll \lam$. Set $g = d\nu / d\lam$. Then for each $E \in \MA$, $$|\nu|(E) = \int_E |g| d\lam$$
+	Let $(X,\MA)$ be a measurable space, $\nu \in \MM(X,\MA)$ and $\lam$ a $\sig$-finite measure on $(X, \MA)$. Suppose that $\nu \ll \lam$. Set $g = d\nu / d\lam$. Then for each $E \in \MA$, $$|\nu|(E) = \int_E |g| \dlam$$
 	\end{ex}
 	
 	\begin{proof}
-	Write $\nu = \nu_1 + i \nu_2$. Then $\nu_1, \nu_2 \ll \lam$. Set $f_1 = d\nu_1 / d\lam$ and $f_2 = d\nu_2 / d\lam$. Then \rex{41016} implies that $d|\nu_1| = |f_1|d\lam$ and $d|\nu_2| = |f_2|d\lam$. Set $\mu = |\nu_1| + |\nu_2|$ and $f = d\nu / d\mu$ as in \rd{43004}. Then by construction, 
+	Write $\nu = \nu_1 + i \nu_2$. Then $\nu_1, \nu_2 \ll \lam$. Set $f_1 = d\nu_1 / d\lam$ and $f_2 = d\nu_2 / d\lam$. Then \rex{41016} implies that $d|\nu_1| = |f_1| \dlam$ and $d|\nu_2| = |f_2|d\lam$. Set $\mu = |\nu_1| + |\nu_2|$ and $f = d\nu / \dmu$ as in \rd{43004}. Then by construction, 
 	\begin{align*}
 	d\mu
 	&= d|\nu_1| + d|\nu_2| \\
-	&= |f_1|d\lam + |f_2|d\lam \\
-	&= (|f_1| + |f_2|) d\lam
+	&= |f_1| \dlam + |f_2| \dlam \\
+	&= (|f_1| + |f_2|) \dlam
 	\end{align*}
 	So that $\mu \ll \lam$ with $d\mu / d \lam = |f_1| + |f_2|$. Then \rex{43003.2} implies that $\nu \ll \lam$ with 
 	\begin{align*}
@@ -3669,14 +3694,14 @@
 	\end{proof}
 	
 	\begin{ex} \lex{43005} 
-		Let $\nu \in \MM(X, \MA)$ and $\mu$ a $\sig$-finite measures on $(X,\MA)$. If $\nu \ll \mu$, then $\{x \in X: d\nu / d \mu(x) = 0 \}$ is $\nu$-null.
+		Let $\nu \in \MM(X, \MA)$ and $\mu$ a $\sig$-finite measures on $(X,\MA)$. If $\nu \ll \mu$, then $\{x \in X: d\nu / \dmu(x) = 0 \}$ is $\nu$-null.
 	\end{ex}
 	
 	\begin{proof}
-		Define $f = d\nu / d \mu$ and $E = \{x: f(x) = 0\}$. Let $A \in \MA$ and suppose that $A \subset E$. Then 
+		Define $f = d\nu / \dmu$ and $E = \{x: f(x) = 0\}$. Let $A \in \MA$ and suppose that $A \subset E$. Then 
 		\begin{align*}
 			\nu(A) 
-			&= \int_A f d\mu\\
+			&= \int_A f \dmu\\
 			&= 0
 		\end{align*} 
 	\end{proof}
@@ -3690,15 +3715,15 @@
 		Let $\mu$ and $f = f_1 + i f_2$ be as in the definition of $|\nu|$. Since for each $E \in \MA$, we have 
 		\begin{align*}
 			\nu(E) 
-			&= \int_E f d\mu\\
-			&= \int_E f_1 d \mu + i \int_E f_2 d\mu
+			&= \int_E f \dmu\\
+			&= \int_E f_1 \dmu + i \int_E f_2 \dmu
 		\end{align*}
 		
 		and $$\nu(E) = \nu_1(E) + i\nu_2(E)$$
 		
-		we know that $\nu_1 = f_1 d\mu$ and $\nu_2 = f_2 d \mu$. 
+		we know that $\nu_1 = f_1 \dmu$ and $\nu_2 = f_2 \dmu$. 
 		
-		A previous exercise tells us that $d|\nu_1| = |f_1|d\mu$ and $d |\nu_2| = |f_2|d \mu$. Since $|f_1|, |f_2| \leq |f| \leq |f_1|+|f_2|$, we have that 
+		A previous exercise tells us that $d|\nu_1| = |f_1|\dmu$ and $d |\nu_2| = |f_2|\dmu$. Since $|f_1|, |f_2| \leq |f| \leq |f_1|+|f_2|$, we have that 
 		\begin{align*}
 			|\nu_1|, |\nu_2| 
 			&\leq |\nu| \\
@@ -3707,27 +3732,27 @@
 	\end{proof}
 	
 	\begin{ex} \lex{43007} 
-		Let  $(X, \MA)$ be a measurable space, $\nu \in \MM(X, \MA)$ and $c \in \C$. Then $\vert c \nu \vert = \vert c \vert \vert \nu \vert$.
+		Let  $(X, \MA)$ be a measurable space, $\nu \in \MM(X, \MA)$ and $c \in \C$. Then $| c \nu | = | c | | \nu |$.
 	\end{ex}
 	
 	\begin{proof}
-		Define $\mu$ and $f$ as before so that $d \nu = f d \mu$. Then $d (c \nu) = c f d \mu$. Hence 
+		Define $\mu$ and $f$ as before so that $d \nu = f \dmu$. Then $d (c \nu) = c f \dmu$. Hence 
 		\begin{align*}
-			d \vert c \nu \vert 
-			&= \vert cf \vert d \mu \\
-			&= \vert c \vert \vert f \vert d \mu\\
-			&= \vert c \vert d\vert \nu \vert
+			d | c \nu | 
+			&= | cf | \dmu \\
+			&= | c | | f | \dmu\\
+			&= | c | d| \nu |
 		\end{align*}
-		So $\vert c \nu \vert = \vert c \vert \vert  \nu \vert$.
+		So $| c \nu | = | c | |  \nu |$.
 	\end{proof}
 
 	\begin{ex} \lex{43008} 
-	Define $\|\cdot \|: \MM(X, \MA) \rightarrow \Rg$ by $$\|\mu \|= \vert \mu \vert (X)$$ 
+	Define $\|\cdot \|: \MM(X, \MA) \rightarrow \Rg$ by $$\|\mu \|= | \mu | (X)$$ 
 	Then $\|\cdot \|$ is a norm on $\MM(X, \MA)$. 
 	\end{ex}
 	
 	\begin{proof}
-		Let $\mu, \nu \in \MM(X, \MA)$ and $\al \in \C$. The previous exercises tell us that $\vert \mu + \nu \vert \leq \vert \mu \vert + \vert \nu \vert$ and $\vert \al \mu \vert = \vert \al \vert \vert \mu \vert$. So clearly $\|\mu + \nu \|\leq \|\mu \|+ \|\nu \|$ and $\|c \mu \|= \vert c \vert \|\mu \|$. If $\|\mu \|= 0$, then $X$ is $\mu$-null and $\mu$ is the zero measure.
+		Let $\mu, \nu \in \MM(X, \MA)$ and $\al \in \C$. The previous exercises tell us that $| \mu + \nu | \leq | \mu | + | \nu |$ and $| \al \mu | = | \al | | \mu |$. So clearly $\|\mu + \nu \|\leq \|\mu \|+ \|\nu \|$ and $\|c \mu \|= | c | \|\mu \|$. If $\|\mu \|= 0$, then $X$ is $\mu$-null and $\mu$ is the zero measure.
 	\end{proof}
 	
 	\begin{ex} \lex{43009} 
@@ -3746,8 +3771,8 @@
 			\item Let $E \in \MA$. Then 
 			\begin{align*}
 				|\nu(E)| 
-				& = \bigg|\int_E f d\mu\bigg|\\
-				& \leq \int_E |f| d\mu\\
+				& = \bigg|\int_E f \dmu\bigg|\\
+				& \leq \int_E |f| \dmu\\
 				&= |\nu|(E)
 			\end{align*}
 			
@@ -3779,7 +3804,7 @@
 			Let $g \in L^1(\mu)$. Then 
 			\begin{align*}
 				\int |g| d |\nu| 
-				&\leq \int |g| d \mu \\
+				&\leq \int |g| \dmu \\
 				&< \infty
 			\end{align*}
 			So $g \in L^1(|\nu|)$.
@@ -3791,7 +3816,7 @@
 			\end{align*}
 			So 
 			\begin{align*}
-				\int |g| d\mu
+				\int |g| \dmu
 				& =\int |g| d|\nu_1| + \int |g| d |\nu_2| \\
 				& < \infty
 			\end{align*}
@@ -3799,8 +3824,8 @@
 			Now, let $g \in L^1(\nu) = L^1(|\nu|)$, then 
 			\begin{align*}
 				\bigg| \int g d\nu \bigg| 
-				&= \bigg| \int g f d\mu \bigg| \\
-				& \leq \int |g||f|d\mu\\
+				&= \bigg| \int g f \dmu \bigg| \\
+				& \leq \int |g||f|\dmu\\
 				& = \int |g| d |\nu|
 			\end{align*}
 			
@@ -3809,12 +3834,301 @@
 
 
 	\begin{ex} \lex{43010} 
-	Let $(X, \MA)$ be a measurable space, $\mu_1, \mu_2 \in \MM(X, \MA)$ and $\lam \in \C$. Then for each $f \in L^1(\mu_1 + \lam \mu_2)$, $$\int f d(\mu_1 + \lam \mu_2) = \int f d \mu_1 + \lam \int f d\mu_2$$
+	Let $(X, \MA)$ be a measurable space, $\mu_1, \mu_2 \in \MM(X, \MA)$ and $\lam \in \C$. Then for each $f \in L^1(\mu_1 + \lam \mu_2)$, $$\int f d(\mu_1 + \lam \mu_2) = \int f \dmu_1 + \lam \int f \dmu_2$$
 	\end{ex}
 	
 	\begin{proof}
 	Clear by an exercise in section $3.2$.
 	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{Disintegration of Measures}
+	
+	\begin{note}
+		In this section, some methods from Banach space theory are used. See analysis notes for details.
+	\end{note}
+	
+	\begin{ex} \lex{00000} 
+		Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. Define $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$. Then 
+		\begin{enumerate}
+			\item $ L^1(X, \MB, \mu_{\MB}) \subset L^1(X, \MA, \mu)$ 
+			\item for each $f \in L^1(X, \MB, \mu)$ and $B \in \MB$, $$\int_B f \dmu_{\MB} = \int_B f \dmu$$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Let $f \in L^1(X, \MB, \mu)$. Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
+		\begin{align*}
+			\infty 
+			&> \mu_{\MB}(B_i) \\
+			&= \mu(B_i)
+		\end{align*}
+		So $f \in L^1(X, \MA, \mu)$ and 
+		\begin{align*}
+			\int_B f \dmu_{\MB} 
+			&= \int_B \sum_{i=1}^n b_i \chi_{B_i} \dmu_{\MB} \\
+			&= \sum_{i=1}^n b_i \mu_{\MB}(B_i \cap B)\\
+			&= \sum_{i=1}^n b_i \mu(B_i \cap B)\\
+			&= \int_B \sum_{i=1}^n b_i\chi_{B_i} \dmu \\
+			&= \int_B f \dmu
+		\end{align*}
+		If $f \geq 0$, then there exist $(\phi_n)_{n \in \N} \subset S^+(X, \MB)$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \convt{p.w.} f$. The monotone convergence theorem implies that for each $B \in \MB$,
+		\begin{align*}
+			\int_B f \dmu
+			&= \limn \int_B \phi_n \dmu \\
+			&= \limn \int_B \phi_n \dmu_{\MB} \\
+			& = \int_B f \dmu_{\MB} \\
+			& < \infty
+		\end{align*}
+		So $f \in L^1(X, \MA, \mu)$.
+		Similarly, the statement also holds for general $f \in L^1(X, \MB, \mu_B)$ by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
+	\end{proof}
+
+	\begin{note}
+		Denote the $L^1$ norms on $L^1(X, \MA, \mu)$ and $L^1(X, \MB, \mu_{\MB})$ by $N$ and $N_{\MB}$ respectively. The previous exercise implies that $L^1(X, \MB, \mu_{\MB})$ is a subspace of $L^1(X, \MA, \mu)$ and $N|_{L^1(X, \MB, \mu_{\MB})} = N_{\MB}$.
+	\end{note}
+	
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f \in L^1(X, \MA, \mu)$. Define $\mu_{\MB}: \MB \rightarrow [0, \infty] $ and $\nu_f: \MB \rightarrow [0,\infty)$ by $\mu_{\MB} = \mu|_{\MB}$ and 
+		$$\nu_f(B) = \int_B f \dmu $$ Then $\nu_f \ll \mu_{\MB}$. 
+	\end{ex}	
+	
+	\begin{proof}
+		Let $B \in \MB$. Suppose that $\mu_{\MB}(B) = 0$. By definition, $\mu(B) = 0$. So $\nu(B) = 0$ and $\nu \ll \mu_{\MB}$.
+	\end{proof}
+
+	\begin{note}
+		Since $\nu_f \ll \mu_{\MB}$ and $\nu_f(X) < \infty$, if $\mu$ is $\sig$-finite, then $d \nu_{f} / d \mu_{\MB}$ exists and 
+		\begin{align*}
+			d \nu_{f} / d \mu_{\MB} 
+			& \in L^1(X, \MB, \mu_{\MB}) \\
+			& \subset L^1(X, \MA, \mu)
+		\end{align*}
+	\end{note}
+
+	\begin{defn}
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $\MB$ a sub $\sig$-algebra of $\MA$. We define the \textbf{projection from $L^1(X, \MA, \mu)$ to $L^1(X, \MB, \mu_{\MB})$}, denoted $P_{\MB}:L^1(X, \MA, \mu) \rightarrow L^1(X, \MB, \mu_{\MB})$ by 
+		$$P_{\MB}f = \frac{d \nu_f}{d \mu_{\MB}}$$ 
+	\end{defn}
+
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $\MB$ a sub $\sig$-algebra of $\MA$. Then 
+		\begin{enumerate}
+			\item $P_{\MB} \in L(L^1(X, \MA, \mu))$ and $\|P_{\MB}\| = 1$
+			\item $P_{\MB}$ is idempotent
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $f, g \in L^1(X, \MA, \mu)$ and $\lam \in \C$. For each $B \in \MB$, we have that 
+			\begin{align*}
+				\nu_{f + \lam g} (B) 
+				& = \int_{B} f + \lam g \dmu \\
+				& = \int_{B} f  \dmu + \lam \int_{B} g \dmu \\
+				& = \nu_{f}(B) + \lam \nu_{g}(B) \\
+				& = (\nu_{f} + \lam \nu_{g})(B)
+			\end{align*}
+			Hence $\nu_{f + \lam g} + \nu_{f} + \lam \nu_{g}$. Thus 
+			\begin{align*}
+				P_{\MB}(f + \lam g)
+				& = \frac{d \nu_{f + \lam g}}{d \mu_{\MB}} \\
+				& = \frac{d \nu_f }{d \mu_{\MB}} + \lam \frac{d \nu_{g}}{d \mu_{\MB}} \\
+				& = P_{\MB} f + \lam P_{\MB} g
+			\end{align*}
+			So $P_{\MB}$ is linear. Since $|P_{\MB}f| \in L^1(X, \MB, \mu_{\MB})$, a previous exercise implies that
+			\begin{align*}
+				\|P_{\MB}f\|_1
+				& = \int |P_{\MB}f| \dmu \\
+				& = \int |P_{\MB}f| \dmu_{\MB} \\
+				& = |\nu_{f}|(X) \\
+				& = \int |f| \dmu \\
+				& = \|f\|_1
+			\end{align*}
+			Hence $\|P_{\MB} f \|_1 = \|f\|_1$ and $P_{\MB} \in L(L^1(X, \MA, \mu))$.
+			\item Let $f \in L^1(X, \MA, \mu)$. For each $B \in \MB$, 
+			\begin{align*}
+				\nu_{P_{\MB}f}(B) 
+				& = \int P_{\MB} f \dmu \\
+				& = \int P_{\MB} f \dmu_{\MB} \\
+			\end{align*}
+			Therefore
+			\begin{align*}
+				P^2_{\MB}f 
+				& = P_{\MB} (P_{\MB}f) \\
+				& = \frac{d \nu_{P_{\MB}f}}{d \mu_{\MB}} \\
+				& =  P_{\MB} f
+			\end{align*}
+			Hence $P^2_{\MB} = P_{\MB}$ and $P_{\MB}$ is idempotent.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $(A_{j})_{j \in \N} \subset \MA$. Suppose that $(A_j)_{j \in \N}$ is disjoint and $\mu \bigg(\bigcup\limits_{j \in \N} A_j \bigg) < \infty$. Then 
+		\begin{enumerate}
+			\item $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$
+			\item $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since $(A_j)_{j \in \N}$ is disjoint, we have that 
+			\begin{align*}
+				\|\chi_{\bigcup\limits_{j \in \N} A_j}\|_1 
+				& = \int \chi_{\bigcup\limits_{j \in \N} A_j} \dmu \\
+				& = \mu\bigg(\bigcup\limits_{j \in \N} A_j \bigg) \\
+				& < \infty
+			\end{align*}
+			So $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$.
+			\item Since  $(A_j)_{j \in \N}$ is disjoint, we have that 
+			$$\chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} \chi_{A_j}$$
+			For each $n \in \N$, define $f_n = \sum\limits_{j = 1}^n \chi_{A_j}$. Set $f = \chi_{\bigcup\limits_{j \in \N} A_j}$. Then for each $n \in \N$, $f_n \leq f$ and $f_n \convt{p.w.} f$. Since $f \in L^1(X, \MA, \mu)$, the dominated convergence theorem implies that $f_n \conv{L^1(\mu)} f$. Since $P_{\MB} \in L(L^1(X, \MA, \mu))$, 
+			\begin{align*}
+				\sum_{j=1}^n P_{\MB} \chi_{A_j}
+				& = P_{\MB} \sum_{j=1}^n \chi_{A_j} \\
+				& = P_{B}f_n \\
+				& \conv{L^1(\mu)} P_{\MB}f \\
+				& = P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} 
+			\end{align*}  
+			Hence  $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} 
+		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space, $f \in L^1(X, \MA, \mu)$ and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. Then there exists a unique $\phi \in L^0(Y, \MB)$ such that $\phi \circ g = \MP_{g^*\MB}f$. \\
+		\textbf{Hint:} Doob-Dynkin lemma
+	\end{ex}	
+	
+	\begin{proof}
+		Since $P_{g^*\MB}f \in L^1(X, g^*\MB, \mu_{g^*\MB})$ and $\MB$, the Doob-Dynkin lemma implies that there exists a unique $\phi \in L^0(Y, \MB)$ such that $\phi \circ g = P_{g^*\MB}f$. 
+	\end{proof}
+
+	\begin{defn} 
+		Let $(X, \MA)$ and $(Y, \MB)$ be measure spaces. and $\nu: Y \times \MA \rightarrow \Rg$. Then $\nu$ is said to be a \textbf{transition kernel from $(Y, \MB)$ to $(X, \MA)$} if 
+		\begin{enumerate}
+			\item for each $A \in \MA$, $\nu(\cdot, A)$ is $\MB$-measurable
+			\item for each $y \in Y$, $\nu(y, \cdot)$ is a measure on $(X, \MA)$
+		\end{enumerate}
+	\end{defn}
+
+	\begin{defn}
+		Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a measurable space and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. For $A \in \MA$, define $\phi_A \in L^0(Y, \MB )$ to be the unique $\phi \in L^0(Y, \MB)$ such that $\phi \circ g = P_{g^*\MB} \chi_A$. For $y \in Y$, we define the \textbf{conditional of $\mu$ on $y$}, denoted $\mu_y : \MA \rightarrow \Rg$, by $\mu_y(A) = \phi_A(y)$. 
+	\end{defn}
+
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a measurable space and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. Define $\nu: Y \times \MA \rightarrow \Rg$ by $\nu(y, A) = \mu_y(A)$. Then $\nu$ is a transition kernel from $(Y, \MB)$ to $(X, \MA)$.  
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A \in \MA$. Since $\phi_A \in L^0(Y, \MB)$, $\nu(\cdot, A) = \phi_A(\cdot)$ is $\MB$-measurable.
+			\item Let $y \in Y$
+			\begin{itemize}
+				\item Since $\chi_{\varnothing} = 0$, $P_{g^*\MB}\chi_{\varnothing} = 0$. Therefore
+				\begin{align*}
+					0 \circ g 
+					& =  0 \\
+					& = P_{g^*\MB}\chi_{\varnothing}
+				\end{align*}
+				Uniqueness of $\phi_{\varnothing}$ implies that $\phi_{\varnothing} = 0$. Hence 
+				\begin{align*}
+					\nu(y, \varnothing) 
+					& = \mu_y(\varnothing) \\
+					& = \phi_{\varnothing}(y) \\
+					& = 0
+				\end{align*}
+				\item Let $(A_j)_{j \in \N} \subset \MA$. Suppose that $(A_j)_{j \in \N}$ is disjoint. Since $\mu$ is finite, $\mu \bigg( \bigcup\limits_{j \in \N}A_j \bigg) < \infty$. A previous exercise implies that  
+				\begin{enumerate}
+					\item $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$
+					\item $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$
+				\end{enumerate}
+				Therefore
+				\begin{align*}
+					\phi_{\bigcup\limits_{j \in \N} A_j} \circ g
+					& = P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} \\
+					& = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j} \\
+					& = \sum\limits_{j \in \N} \phi_{A_j} \circ g 
+				\end{align*}
+				Since $g$ is surjective, $\phi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} \phi_{A_j}$. Hence 
+				\begin{align*}
+					\nu \bigg(y, \bigcup\limits_{j \in \N} A_j \bigg)
+					& = \mu_y \bigg( \bigcup\limits_{j \in \N} A_j \bigg) \\
+					& = \phi_{\bigcup\limits_{j \in \N} A_j}(y) \\
+					& = \sum\limits_{j \in \N} \phi_{A_j}(y) \\
+					& = \sum\limits_{j \in \N} \mu_y(A_j) \\
+					& =  \sum\limits_{j \in \N} \nu(y, A_j)
+				\end{align*}
+			\end{itemize}
+			Hence $\nu(y, \cdot)$ is a measure on $(X, \MA)$. 
+		\end{enumerate}
+		\textbf{FINISH!!!} there are still some a.e. technicalities to address. 
+	\end{proof}
+
+	\begin{ex} \textbf{Disintegration of Measure:} \\
+		Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a measurable space and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. Then there exists a collection of measures $(\mu_y)_{y \in Y}$ such that  
+		\begin{enumerate}
+			\item for each $A \in \MA$, 
+			$$\mu(A) = \int \mu_y(A) \, d g_*\mu(y) $$
+			\item for each $f \in L^1(X, \MA, \mu)$, 
+			$$\int f \dmu = \int \bigg[ \int f \, d\mu_y(x) \bigg] \, d g_*\mu(y)$$ 
+		\end{enumerate}
+	\end{ex}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -3839,27 +4153,27 @@
 	\end{defn}
 	
 	\begin{defn} \ld{00000} 
-		Let $f \in L^0(\R^n)$. Then $f$ is said to be \textbf{locally integrable} (with respect to Lebesgue measure) if $f$ is measurable and for each $K \subset \R$, $K$ is compact implies $\int_K |f| dm < \infty$. We define $L^1_{\text{loc}}(\R^n) = \{f:\R^n \rightarrow \C: f \text{ is locally integrable}\}$
+		Let $f \in L^0(\R^n)$. Then $f$ is said to be \textbf{locally integrable} (with respect to Lebesgue measure) if $f$ is measurable and for each $K \subset \R$, $K$ is compact implies $\int_K |f| \dm < \infty$. We define $L^1_{\text{loc}}(\R^n) = \{f:\R^n \rightarrow \C: f \text{ is locally integrable}\}$
 	\end{defn}
 	
 	\begin{defn} \ld{00000} 
-		For $f \in \Ll$, $r>0$, $x \in \R^n$, we define the \textbf{average of $f$ over $B(x,r)$}, denoted by $Af(x,r)$, to be $$Af(x,r) = \frac{1}{m(B(x,r))}\int_{B(x,r)}fdm$$
+		For $f \in \Ll$, $r>0$, $x \in \R^n$, we define the \textbf{average of $f$ over $B(x,r)$}, denoted by $Af(x,r)$, to be $$Af(x,r) = \frac{1}{m(B(x,r))}\int_{B(x,r)}f\dm$$
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
-		Let $f \in \Ll$. Define $$H^*f(x) = \sup\{\frac{1}{m(B)}\int_{B}|f|dm: B \text{ is a ball and } x \in B\} \hspace{4mm} (x \in \R^n)$$
+		Let $f \in \Ll$. Define $$H^*f(x) = \sup\{\frac{1}{m(B)}\int_{B}|f|\dm: B \text{ is a ball and } x \in B\} \hspace{4mm} (x \in \R^n)$$
 		
 		Then $Hf \leq H^*f \leq 2^n Hf$. 
 	\end{ex}
 	
 	\begin{proof}
-		Let $x \in \R^n$. Then $$\bigg \{ \frac{1}{m(B(x,r))}\int_{B(x,r)}|f|dm: r >0\bigg \} \subset \bigg\{ \frac{1}{m(B)}\int_{B}|f|dm: B \text{ is a ball and } x \in B \bigg\} $$
+		Let $x \in \R^n$. Then $$\bigg \{ \frac{1}{m(B(x,r))}\int_{B(x,r)}|f|\dm: r >0\bigg \} \subset \bigg\{ \frac{1}{m(B)}\int_{B}|f|\dm: B \text{ is a ball and } x \in B \bigg\} $$
 		
 		So $Hf(x) \leq H^*f(x)$. Let $B$ be a ball. Then there exists $y \in \R^n$, $R>0$ such that $B = B(y,R)$ Suppose that $x \in B$. Then $B \subset B(x,2R)$. Since $m(B(x,2R)) = 2^n m(B(y,R))$, we have that 
 		\begin{align*}
-			\frac{1}{m(B)}\int_{B}|f|dm
-			& \leq \frac{1}{m(B)} \int_{m(B(x,2R))}|f|dm\\
-			&= \frac{2^n}{m(B(x,2R))} \int_{m(B(x,2R))}|f|dm
+			\frac{1}{m(B)}\int_{B}|f|\dm
+			& \leq \frac{1}{m(B)} \int_{m(B(x,2R))}|f|\dm\\
+			&= \frac{2^n}{m(B(x,2R))} \int_{m(B(x,2R))}|f|\dm
 		\end{align*}
 		
 		Thus $H^*f(x) \leq 2^n Hf(x)$.
@@ -3874,7 +4188,7 @@
 	\end{defn}
 	
 	\begin{thm}
-		There exists $C >0$ such that for each $f \in L^1(m)$ and $\al > 0$, $$m(\{x \in \R^n: Hf(x) > \al\}) \leq \frac{C}{a} \int |f|dm$$
+		There exists $C >0$ such that for each $f \in L^1(m)$ and $\al > 0$, $$m(\{x \in \R^n: Hf(x) > \al\}) \leq \frac{C}{a} \int |f|\dm$$
 	\end{thm}
 	
 	\begin{ex} \lex{00000} 
@@ -3882,12 +4196,12 @@
 	\end{ex}
 	
 	\begin{proof}
-		Since $||f||_1 >0$, there exists $R>0$ such that $\int_{B(0,R)}|f|dm >0$. Recall that there exists $K>0$ such that for each $x \in R^n$ and $r>0$, $m(B(x,r)) = Kr^n$. Choose $$C = \frac{1}{K2^n}\int_{B(0,R)}|f| \, dm$$. Let $x \in \R^n$. Suppose that $|x|>R$. Then $B(0,R) \subset B(x,2|x|)$. Thus 
+		Since $||f||_1 >0$, there exists $R>0$ such that $\int_{B(0,R)}|f|\dm >0$. Recall that there exists $K>0$ such that for each $x \in R^n$ and $r>0$, $m(B(x,r)) = Kr^n$. Choose $$C = \frac{1}{K2^n}\int_{B(0,R)}|f| \dm$$. Let $x \in \R^n$. Suppose that $|x|>R$. Then $B(0,R) \subset B(x,2|x|)$. Thus 
 		\begin{align*}
 			Hf(x) 
-			&\geq \frac{1}{m(B(x,2|x|))}\int_{B(x,2|x|)}|f|dm\\
-			&= \frac{1}{K2^n|x|^n}\int_{B(x,2|x|)}|f|dm \\
-			&\geq \frac{1}{K2^n|x|^n}\int_{B(0,R)}|f|dm \\
+			&\geq \frac{1}{m(B(x,2|x|))}\int_{B(x,2|x|)}|f|\dm\\
+			&= \frac{1}{K2^n|x|^n}\int_{B(x,2|x|)}|f|\dm \\
+			&\geq \frac{1}{K2^n|x|^n}\int_{B(0,R)}|f|\dm \\
 			&= \frac{C}{|x^n|}
 		\end{align*}
 		
@@ -3912,7 +4226,7 @@
 	
 	\begin{thm}
 		Let $f \in \Ll$, then for a.e. $x \in \R^n$, $$\lim_{r \rightarrow 0} Af(x,r) =f(x)$$ 
-		Equivalently, for a.e. $x \in \R^n$, $$ \lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}[f(y)-f(x)]dm(y)\bigg] =0$$
+		Equivalently, for a.e. $x \in \R^n$, $$ \lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}[f(y)-f(x)]\dm(y)\bigg] =0$$
 	\end{thm}
 	
 	\begin{note}
@@ -3924,7 +4238,7 @@
 		\begin{align*}
 			L_f 
 			&= \{x \in \R^n: \lim_{r \rightarrow 0} A|f-f(x)|(x,r) =0 \}\\
-			&= \bigg \{x \in \R^n: \lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y) - f(x)|dm(y)\bigg] =0 \bigg \}
+			&= \bigg \{x \in \R^n: \lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y) - f(x)|\dm(y)\bigg] =0 \bigg \}
 		\end{align*}
 	\end{defn}
 	
@@ -3935,11 +4249,11 @@
 	\begin{proof}
 		Suppose that $f$ is continuous at $x$. Let $\ep > 0$. By assumption, there exists $\del >0$ such that for each $y \in \R^n$, if $|x-y|< \del$, then $|f(x)-f(y)| < \ep$. Let $r >0$. Suppose that $r< \del$. Then for each $y \in \R^n$, $y \in B(x,r)$ implies that $|f(x) - f(y)| < \ep$ and thus 
 		\begin{align*}
-			\frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y) - f(x)|dm(y)
+			\frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y) - f(x)|\dm(y)
 			& \leq \frac{1}{m(B(x,r))} \ep m(B(x,r))\\
 			&=\ep
 		\end{align*}
-		Hence $$\lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y) - f(x)|dm(y)\bigg] =0$$ 
+		Hence $$\lim_{r \rightarrow 0} \bigg[ \frac{1}{m(B(x,r))}\int_{B(x,r)}|f(y) - f(x)|\dm(y)\bigg] =0$$ 
 		and $x \in L_f$.
 	\end{proof}
 	
@@ -3959,11 +4273,11 @@
 	\begin{thm}
 		Let $f \in \Ll$ and $(E_r)_{r>0} \subset \MB(\R^n)$. Then for each $x \in L_f$, 
 		
-		$$\lim_{r \rightarrow 0} \bigg[ \frac{1}{m(E_r)}\int_{E_r}|f(y) - f(x)|dm(y)\bigg] =0$$
+		$$\lim_{r \rightarrow 0} \bigg[ \frac{1}{m(E_r)}\int_{E_r}|f(y) - f(x)|\dm(y)\bigg] =0$$
 		
 		and 
 		
-		$$\lim_{r \rightarrow 0}  \frac{1}{m(E_r)}\int_{E_r}fdm = f(x)$$
+		$$\lim_{r \rightarrow 0}  \frac{1}{m(E_r)}\int_{E_r}f\dm = f(x)$$
 	\end{thm}
 	
 	\begin{defn} \ld{00000} 
@@ -3977,7 +4291,7 @@
 	\end{defn}
 	
 	\begin{thm}
-		Let $\nu$ be a regular signed or complex measure on $\R^n$. Let $d\nu = d\lam + f dm$ be the Lebesgue decomposition of $\nu$ with respect to $m$. Then for $m$-a.e. $x \in \R^n$ and $(E_r)_{r >0} \subset \MB(R^n)$, if $(E_r)_{r >0}$ shrinks nicely to $x$, then 
+		Let $\nu$ be a regular signed or complex measure on $\R^n$. Let $d\nu = d\lam + f \dm$ be the Lebesgue decomposition of $\nu$ with respect to $m$. Then for $m$-a.e. $x \in \R^n$ and $(E_r)_{r >0} \subset \MB(R^n)$, if $(E_r)_{r >0}$ shrinks nicely to $x$, then 
 		
 		$$\lim_{r \rightarrow 0} \frac{\nu(E_r)}{m(E_r)} = f(x)$$
 	\end{thm}
@@ -4267,7 +4581,7 @@
 	\end{thm}
 	
 	\begin{thm}
-		Let $F \in NBV$. Then $F' \in L^1(m)$, $\mu_F \perp m$ iff $F' =0$ a.e. and $\mu_F \ll m$ iff for each $x \in \R$, $$\int_{(-\infty, x]}F'dm = F(x)$$
+		Let $F \in NBV$. Then $F' \in L^1(m)$, $\mu_F \perp m$ iff $F' =0$ a.e. and $\mu_F \ll m$ iff for each $x \in \R$, $$\int_{(-\infty, x]}F'\dm = F(x)$$
 	\end{thm}
 	
 	\begin{defn} \ld{00000} 
@@ -4308,7 +4622,7 @@
 	
 	\begin{ex} \lex{00000} 
 		Let $F: \R \rightarrow \C$. Suppose that there exists $f \in L^1(m)$ such that for each $x \in \R$,
-		$$F(x) = \int_{(-\infty, x]}fdm$$ 
+		$$F(x) = \int_{(-\infty, x]}f\dm$$ 
 		Then $F \in NBV$.
 	\end{ex}
 	
@@ -4316,13 +4630,13 @@
 		Let $x \in \R$ and $(x_i)_{i=1}^n \subset \R$. Suppose that $(x_i)_{i=1}^n$ is increasing and $x_n=x$. Then 
 		\begin{align*}
 			\sum_{i=1}^n|F(x_i)-F(x_{i-1})| 
-			&= \sum_{i=1}^n \bigg| \int_{(x_{i-1},x_i]}fdm \bigg|\\
-			& \leq \sum_{i=1}^n \int_{(x_{i-1},x_i]}|f|dm \\
-			& = \int_{(x_0,x]}|f|dm\\
-			& < \int|f|dm
+			&= \sum_{i=1}^n \bigg| \int_{(x_{i-1},x_i]}f\dm \bigg|\\
+			& \leq \sum_{i=1}^n \int_{(x_{i-1},x_i]}|f|\dm \\
+			& = \int_{(x_0,x]}|f|\dm\\
+			& < \int|f|\dm
 		\end{align*}
 		
-		Hence $T_F(x) \leq \int |f|dm$. Since $x \in \R$ is arbitrary, $TV(F) \leq \int |f|dm$. Therefore $F \in BV$. By the continuity from above and below for measures and the fact that $m({x})=0$ for each $x \in \R$, $F$ is continuous. By continuity from above for measures, $\lim\limits_{x \rightarrow -\infty} F(x) =0$. So $F \in NBV$.
+		Hence $T_F(x) \leq \int |f|\dm$. Since $x \in \R$ is arbitrary, $TV(F) \leq \int |f|\dm$. Therefore $F \in BV$. By the continuity from above and below for measures and the fact that $m({x})=0$ for each $x \in \R$, $F$ is continuous. By continuity from above for measures, $\lim\limits_{x \rightarrow -\infty} F(x) =0$. So $F \in NBV$.
 	\end{proof}
 	
 	\begin{lem}
@@ -4334,15 +4648,15 @@
 		\begin{enumerate}
 			\item $F$ is absolutely continuous on $[a,b]$.
 			\item there exists $f \in L^1([a,b], m)$ such that for each $x \in [a,b]$, 
-			$$F(x)-F(a)= \int_{(a,x]}fdm$$
+			$$F(x)-F(a)= \int_{(a,x]}f\dm$$
 			\item $F$ is differentiable a.e. on $[a,b]$, $F' \in L^1([a,b], m)$ and for each $x \in [a,b]$, 
-			$$F(x)-F(a)=\int_{(a,x]}F'dm$$
+			$$F(x)-F(a)=\int_{(a,x]}F'\dm$$
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}
 		$(1) \implies (3)$ \\
-		Suppose that $F$ is absolutely continuous on $[a,b]$. Then $F \in BV[a,b]$. Extend $F$ to $\R$ by setting $F(x) = F(a)$ for $x<a$ and $F(x)=F(b)$ for $x>b$. Then $G=F-F(a) \in NBV$ and is absolutely continuus. The previous lemma implies that there exists $f \in L^1(m)$ such that $\mu_G = fdm$. A previous theorem implies that for a.e. $x \in [a,b]$
+		Suppose that $F$ is absolutely continuous on $[a,b]$. Then $F \in BV[a,b]$. Extend $F$ to $\R$ by setting $F(x) = F(a)$ for $x<a$ and $F(x)=F(b)$ for $x>b$. Then $G=F-F(a) \in NBV$ and is absolutely continuus. The previous lemma implies that there exists $f \in L^1(m)$ such that $d \mu_G = f\dm$. A previous theorem implies that for a.e. $x \in [a,b]$
 		\begin{align*}
 			F'(x) 
 			&= \lim_{r \rightarrow x} \frac{\mu_G((x,x+r])}{m((x,x+r])}\\
@@ -4352,13 +4666,13 @@
 		\begin{align*}
 			F(x)-F(a)
 			&= \mu_G((a,x])\\
-			&= \int_{(a,x]}fdm\\
-			&= \int_{(a,x]}F'dm
+			&= \int_{(a,x]}f\dm\\
+			&= \int_{(a,x]}F'\dm
 		\end{align*}
 		$(3) \implies (2)$\\
 		Trivial.\\
 		$(2) \implies (1)$\\
-		Suppose that there exists $f \in L^1([a,b], m)$ such that for each $x \in [a,b]$, $F(x)-F(a)=\int_{(a,x]}fdm$. Extend $F$ as before and obtain $G$ as before. Note that a previous exercise implies that $G \in NBV$. Since $\mu_G \ll m$, the previous lemma implies that $G$ is absolutely continuous.
+		Suppose that there exists $f \in L^1([a,b], m)$ such that for each $x \in [a,b]$, $F(x)-F(a)=\int_{(a,x]}f\dm$. Extend $F$ as before and obtain $G$ as before. Note that a previous exercise implies that $G \in NBV$. Since $\mu_G \ll m$, the previous lemma implies that $G$ is absolutely continuous.
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
@@ -4384,8 +4698,8 @@
 		Hence $F$ is absolutely continuous. For each $x, y \in \R$, if $x \neq y$, then $\bigg|\frac{F(x)-F(y)}{x-y}\bigg| \leq M$. Hence for a.e. $x \in \R$, $|F'(x)| \leq M$. Conversely, suppose that $F$ is absolutely continuous and $F'$ is bounded a.e. Then there exits $M> 0$ such that for a.e. $x \in \R$, $|F'(x)| \leq M$. Let $x,y \in \R$. Suppose $x<y$. Then the FTC implies that 
 		\begin{align*}
 			|F(y)-F(x)|
-			& = \bigg|\int_{(x,y]}F'dm\bigg|\\
-			&\leq \int_{(x,y]}|F'|dm\\
+			& = \bigg|\int_{(x,y]}F'\dm\bigg|\\
+			&\leq \int_{(x,y]}|F'|\dm\\
 			&=M|y-x|
 		\end{align*}
 		and $F$ is Lipschitz continuous.
@@ -4442,7 +4756,7 @@
 			&= \sum_{n \in \N}F_n(x)\\
 			&= F(x)
 		\end{align*}
-		Hence $F \in NBV$ and $\mu=\mu_F$. For each $n \in \N$, there exist $\lam_n \in M(\R)$ and $f \in L^1(\R)$ such that $d\mu_{F_n} = d\lam_n + f_ndm$ and $\lam \perp m$. Since for each $n \in \N$, $\lam_n, f_n$ are nonnegative, we have that $d\mu_F =  \sum_{n \in \N} d\lam_n + (\sum_{n \in \N}f_n)dm$. By a previous theorem, for a.e. $x \in \R$, 
+		Hence $F \in NBV$ and $\mu=\mu_F$. For each $n \in \N$, there exist $\lam_n \in M(\R)$ and $f \in L^1(\R)$ such that $d\mu_{F_n} = d\lam_n + f_n\dm$ and $\lam \perp m$. Since for each $n \in \N$, $\lam_n, f_n$ are nonnegative, we have that $d\mu_F =  \sum_{n \in \N} d\lam_n + (\sum_{n \in \N}f_n)\dm$. By a previous theorem, for a.e. $x \in \R$, 
 		\begin{align*}
 			F'(x) 
 			&= \lim_{r \rightarrow 0}\frac{\mu_F((x,x+r])}{m((x,x+r])} \\
@@ -4525,9 +4839,9 @@
 	\subsection{Introduction}
 	
 	\begin{defn} \ld{00000} 
-		Let $(X, \MA, \mu)$ be a measure space and $p \in (0, \infty]$. Define $  \| \cdot \|_p : L^0(X, \MA, \mu) \rightarrow [0, \infty]$ by $$\|f \|_p = \bigg(\int \vert f \vert^p d\mu \bigg)^{\frac{1}{p}} \hspace{1.5cm}( p < \infty)$$ 
+		Let $(X, \MA, \mu)$ be a measure space and $p \in (0, \infty]$. Define $  \| \cdot \|_p : L^0(X, \MA, \mu) \rightarrow [0, \infty]$ by $$\|f \|_p = \bigg(\int | f |^p \dmu \bigg)^{\frac{1}{p}} \hspace{1.5cm}( p < \infty)$$ 
 		and 
-		$$\|f \|_{\infty} = \inf \bigg \{\lam >0: \mu\big(\{x \in X: \lam < \vert f(x) \vert  \}\big) = 0 \bigg \} $$
+		$$\|f \|_{\infty} = \inf \bigg \{\lam >0: \mu\big(\{x \in X: \lam < | f(x) |  \}\big) = 0 \bigg \} $$
 		We define $$L^p(X, \MA, \mu) =  \{f \in L^0(X, \MA, \mu): \|f \|_p < \infty \}$$
 	\end{defn}
 	
@@ -4548,24 +4862,24 @@
 	\end{ex}
 	
 	\begin{proof}
-		Define $\phi:\R \rightarrow \Rg$ by $\phi(x) = \vert x \vert^p$. Then $\phi$ is convex because it is the composition of an increasing convex function with a convex function. By Jensen's inequality, we have that $$\phi\bigg(\frac{1}{2}[f+g] \bigg) \leq \frac{1}{2}[\phi(f)+\phi(g)]$$ 
-		This implies that $$\frac{1}{2^p} \vert f+g\vert^p \leq \frac{1}{2}\bigg(\vert f\vert^p +\vert g \vert^p\bigg)$$ 
+		Define $\phi:\R \rightarrow \Rg$ by $\phi(x) = | x |^p$. Then $\phi$ is convex because it is the composition of an increasing convex function with a convex function. By Jensen's inequality, we have that $$\phi\bigg(\frac{1}{2}[f+g] \bigg) \leq \frac{1}{2}[\phi(f)+\phi(g)]$$ 
+		This implies that $$\frac{1}{2^p} | f+g|^p \leq \frac{1}{2}\bigg(| f|^p +| g |^p\bigg)$$ 
 		Hence 
 		\begin{align*}
-			\int\vert f + g\vert^p d \mu 
-			& \leq 2^{p-1}\int \vert f\vert^p +\vert g\vert^p d\mu \\
-			& = 2^{p-1}\bigg(\int \vert f\vert^p d\mu + \int \vert g\vert^p d\mu \bigg) \\
+			\int| f + g|^p \dmu 
+			& \leq 2^{p-1}\int | f|^p +| g|^p \dmu \\
+			& = 2^{p-1}\bigg(\int | f|^p \dmu + \int | g|^p \dmu \bigg) \\
 			&= 2^{p-1}\bigg( \|f \|_p^p + \|g \|_p^p\bigg) \\
 			& < \infty
 		\end{align*}
 		So $f+g \in L^p$. Now, it is not hard to see that $|f+g|^p \leq \big( |f| + |g| \big)|f+g|^{p-1}$. Let $q$ be the conjugate of $p$, so that $\frac{1}{p} + \frac{1}{q} = 1$. Then $q(p-1) = p$. We use Hölder's inequality to show that 
 		\begin{align*}
 			\|f+g \|_p ^p
-			&= \int  |f+g|^p d \mu \\
-			& \leq \int |f| |f+g|^{p-1} d \mu + \int |g| |f+g|^{p-1} d \mu \\
-			& \leq \|f\|_p \bigg(\int |f+g|^{(p-1)q} d\mu\bigg)^{\frac{1}{q}} + \|g\|_p \bigg(\int |f+g|^{(p-1)q}d\mu\bigg)^{\frac{1}{q}} \\
-			&= \|f\|_p \bigg(\int |f+g|^{p} d\mu\bigg)^{\frac{1}{q}} + \|g\|_p \bigg(\int |f+g|^{p}d\mu\bigg)^{\frac{1}{q}} \\ 
-			&= (\|f\|_p + \|g \|_p) \bigg(\int |f+g|^{p} d\mu\bigg)^{\frac{1}{q}}\\
+			&= \int  |f+g|^p \dmu \\
+			& \leq \int |f| |f+g|^{p-1} \dmu + \int |g| |f+g|^{p-1} \dmu \\
+			& \leq \|f\|_p \bigg(\int |f+g|^{(p-1)q} \dmu\bigg)^{\frac{1}{q}} + \|g\|_p \bigg(\int |f+g|^{(p-1)q}\dmu\bigg)^{\frac{1}{q}} \\
+			&= \|f\|_p \bigg(\int |f+g|^{p} \dmu\bigg)^{\frac{1}{q}} + \|g\|_p \bigg(\int |f+g|^{p}\dmu\bigg)^{\frac{1}{q}} \\ 
+			&= (\|f\|_p + \|g \|_p) \bigg(\int |f+g|^{p} \dmu\bigg)^{\frac{1}{q}}\\
 			&= (\|f \|_p + \|g \|_p) \|f+g \|_p^{p/q}
 		\end{align*}
 		Since $\|f+g \|_p < \infty$, we see that
@@ -4586,8 +4900,8 @@
 		Suppose that $q = \infty$. Let $f \in L^q$. Then
 		\begin{align*}
 			\|f \|_p 
-			&= \bigg(\int \vert f \vert^p d \mu \bigg)^{\frac{1}{p}} \\
-			& \leq \bigg(\int \| f \|_{\infty} ^p d \mu \bigg)^{\frac{1}{p}} \\
+			&= \bigg(\int | f |^p \dmu \bigg)^{\frac{1}{p}} \\
+			& \leq \bigg(\int \| f \|_{\infty} ^p \dmu \bigg)^{\frac{1}{p}} \\
 			&= \|f \|_{\infty} \mu(X)^{\frac{1}{p}}
 		\end{align*} 
 		If $q < \infty$, then $\frac{q}{p} > 1$ and the conjugate of $\frac{q}{p}$ is $\frac{1}{1- p/q}$. By Hölder's inequality, we have that 
@@ -4595,8 +4909,8 @@
 			\|f \|_p^p 
 			&= \|f^p \|_1 \\
 			&\leq \|f^p \|_{\frac{q}{p}} \|1 \|_{\frac{1}{1-p/q}} \\
-			&= \bigg(\int |f|^{\frac{pq}{p}} d \mu \bigg)^{\frac{p}{q}} \mu(X)^{1-\frac{p}{q}} \\
-			&= \bigg(\int |f|^{q} d \mu \bigg)^{\frac{p}{q}}\mu(X)^{1-\frac{p}{q}} \\
+			&= \bigg(\int |f|^{\frac{pq}{p}} \dmu \bigg)^{\frac{p}{q}} \mu(X)^{1-\frac{p}{q}} \\
+			&= \bigg(\int |f|^{q} \dmu \bigg)^{\frac{p}{q}}\mu(X)^{1-\frac{p}{q}} \\
 			&= \|f \|_q^p\mu(X)^{1-\frac{p}{q}}
 		\end{align*}
 		Hence 
@@ -4608,7 +4922,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-	Let $(X, \MA, \mu)$ and $(Y, \MB, \nu)$ be $\sig$-finite measure spaces and $K\in L^0(X \times Y)$. Suppose that there exists $C > 0$ such that for $\mu$-a.e $x \in X$, $$\int_Y |K(x, y)| d \nu(y) < C$$ and for $\nu$-a.e $y \in Y$, $$\int_X |K(x, y)| d \mu(x) < C$$
+	Let $(X, \MA, \mu)$ and $(Y, \MB, \nu)$ be $\sig$-finite measure spaces and $K\in L^0(X \times Y)$. Suppose that there exists $C > 0$ such that for $\mu$-a.e $x \in X$, $$\int_Y |K(x, y)| d \nu(y) < C$$ and for $\nu$-a.e $y \in Y$, $$\int_X |K(x, y)| \dmu(x) < C$$
 	Let $f \in L^p(\nu)$.
 	\begin{enumerate}
 	\item Then for $\mu$-a.e. $x \in X$, $$\int_Y K(x,y) f(y) d \nu(y)$$ exists. \\
@@ -4629,16 +4943,16 @@
 	\end{align*}
 	Tonelli's theorem implies that the map $$x \mapsto \int_Y |h(x,y)| d\nu(y) $$ is measurable and that  
 	\begin{align*}
-	\int_X \bigg[ \int_Y |h(x,y)| d\nu(y) \bigg]^p d\mu(x) 
-	&\leq  C^{p/q}  \int_X \bigg[ \int_Y |K(x,y)||f(y)|^p d\nu(y) \bigg] d\mu(x) \\
-	&= C^{p/q}  \int_Y \bigg[ \int_X |K(x,y)||f(y)|^p d\mu(x) \bigg] d\nu(y) \\
-	&= C^{p/q}  \int_Y \bigg[ \int_X |K(x,y)| d\mu(x) \bigg] |f(y)|^p d\nu(y) \\
+	\int_X \bigg[ \int_Y |h(x,y)| d\nu(y) \bigg]^p \dmu(x) 
+	&\leq  C^{p/q}  \int_X \bigg[ \int_Y |K(x,y)||f(y)|^p d\nu(y) \bigg] \dmu(x) \\
+	&= C^{p/q}  \int_Y \bigg[ \int_X |K(x,y)||f(y)|^p \dmu(x) \bigg] d\nu(y) \\
+	&= C^{p/q}  \int_Y \bigg[ \int_X |K(x,y)| \dmu(x) \bigg] |f(y)|^p d\nu(y) \\
 	& \leq C^{1 + p/q} \int_Y |f(y)|^p  d\nu(y) \\
 	& = C^{1 + p/q} \|f\|_p^p
 	\end{align*}
 	So for $\mu$-a.e. $x \in X$, $$\int_Y |h(x,y)| d\nu(y) < \infty$$ which implies that for $\mu$-a.e. $x \in X$, $h(x, \cdot) \in L^1(\nu)$. Therefore, for $\mu$-a.e. $x \in X$, $$\int_Y h(x,y) d\nu(y)$$ exists. The case is similar when $p \in \{1, \infty\}$.
 	\item Let $x \in X$. Then $$|Tf(x)| \leq \int_Y |K(x,y)f(y)| d \nu(y)$$ which implies that $$|Tf(x)|^p \leq \bigg( \int_Y |K(x,y)f(y)| d \nu(y) \bigg)^p$$
-	By part $(1)$, $$\int_X |Tf|^p d\mu \leq C^{1+p/q}\|f\|_p^p$$ 
+	By part $(1)$, $$\int_X |Tf|^p \dmu \leq C^{1+p/q}\|f\|_p^p$$ 
 	So $Tf \in L^p(\mu)$ and $\|Tf\|_p \leq C\|f\|_p$.
 	The case is similar when $p \in \{1, \infty\}$.
 	\end{enumerate}
@@ -4812,7 +5126,7 @@ and $\mu$ is inner regular on $E$.
 	Let $p \in [1, \infty]$ and $f \in C_c(X)$. Then $|f|^p \in C_c(X)$ and 
 	\begin{align*}
 	\|f\|_p 
-	&= \int |f|^p d\mu \\
+	&= \int |f|^p \dmu \\
 	& \leq \|f\|_{\infty}^p \mu(\supp (f)) \\
 	& < \infty
 \end{align*}	 
@@ -4876,7 +5190,7 @@ and $\mu$ is inner regular on $E$.
 	\end{note}
 	
 	\begin{ex} \lex{00000} 
-	Let $X$ be a LCH space, $I: C_c(C) \rightarrow \C$ a positive linear functional and $\mu:\MB(X) \rightarrow \RG$ a Radon measure. Suppose that for each $f \in C_c(X)$, $$I(f) = \int f d\mu$$
+	Let $X$ be a LCH space, $I: C_c(C) \rightarrow \C$ a positive linear functional and $\mu:\MB(X) \rightarrow \RG$ a Radon measure. Suppose that for each $f \in C_c(X)$, $$I(f) = \int f \dmu$$
 	Then 
 	\begin{enumerate}
 	\item for each $U \subset X$, $U$ is open implies that $$\mu(U) = \sup \{I(f): f \in C_c(X) \text{ and } f \prec U \}$$ 
@@ -4889,13 +5203,13 @@ and $\mu$ is inner regular on $E$.
 	\item Let $U \subset X$. Suppose that $U$ is open. For $f \in C_c(X)$, if $f \prec U$, then 
 	\begin{align*}
 	I(f) 
-	&= \int f d\mu \\
+	&= \int f \dmu \\
 	& \leq \mu(U) 
 	\end{align*}
 	Let $K \subset U$. Suppose that $K$ is compact. Then Urysohn's lemma implies that there exists $f \in C_c(X)$ such that $f \prec U$ and $f|_K = 1$. Then 
 	\begin{align*}
 	\mu(K) 
-	&\leq \int f d\mu \\
+	&\leq \int f \dmu \\
 	&= I(f)
 	\end{align*}
 	Inner regularity implies that 
@@ -4924,7 +5238,7 @@ and $\mu$ is inner regular on $E$.
 	\end{proof}
 	
 	\begin{thm}\textbf{Representation Theorem 1:}\\
-	Let $X$ be a LCH space and $I: C_c(C) \rightarrow \C$ a positive linear functional. Then there exists a unique Radon measure $\mu:\MB(X) \rightarrow \RG$ such that for each $f \in C_c(X)$, $$I(f) = \int f d\mu$$ 
+	Let $X$ be a LCH space and $I: C_c(C) \rightarrow \C$ a positive linear functional. Then there exists a unique Radon measure $\mu:\MB(X) \rightarrow \RG$ such that for each $f \in C_c(X)$, $$I(f) = \int f \dmu$$ 
 	In addition, 
 	\begin{enumerate}
 	\item for each $U \subset X$, $U$ is open implies that $$\mu(U) = \sup \{I(f): f \in C_c(X) \text{ and } f \prec U \}$$
@@ -4937,7 +5251,7 @@ and $\mu$ is inner regular on $E$.
 	\end{note}		
 	
 	\begin{defn} \ld{00000} 
-	Let $X$ be a topological space. For $\mu \in \MM(X)$, define $I_{\mu} :C_0(X) \rightarrow \C$ by $$I_{\mu} (f) = \int f d\mu$$.
+	Let $X$ be a topological space. For $\mu \in \MM(X)$, define $I_{\mu} :C_0(X) \rightarrow \C$ by $$I_{\mu} (f) = \int f \dmu$$.
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
@@ -4948,7 +5262,7 @@ and $\mu$ is inner regular on $E$.
 	Let $\mu \in \MM(X)$ and $f \in C_0(X)$. An exercise in section $(4.3)$ implies that 
 	\begin{align*}
 	|I_{\mu}(f)| 
-	&= \bigg| \int f d\mu \bigg| \\
+	&= \bigg| \int f \dmu \bigg| \\
 	& \leq \int |f| d |\mu| \\
 	& \leq \| \mu \| \|f\|_{\infty}
 	\end{align*}
@@ -4975,7 +5289,7 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\begin{defn} \ld{00000} 
-	Let $X$ be a LCH space, $(\mu_n)_{n \in \N} \subset \MM(X)$ and $\mu \in \MM(X)$. Then $\mu_n$ is said to  \textbf{converge to $\mu$ in weak-*}, denoted $\mu_n \conv{w^*}\mu$, if $I_{\mu_n} \conv{w^*} I_{\mu}$, i.e. for each $f \in C_0(X)$, $$\int f d\mu_n \rightarrow \int f d\mu$$
+	Let $X$ be a LCH space, $(\mu_n)_{n \in \N} \subset \MM(X)$ and $\mu \in \MM(X)$. Then $\mu_n$ is said to  \textbf{converge to $\mu$ in weak-*}, denoted $\mu_n \conv{w^*}\mu$, if $I_{\mu_n} \conv{w^*} I_{\mu}$, i.e. for each $f \in C_0(X)$, $$\int f \dmu_n \rightarrow \int f \dmu$$
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
@@ -5328,7 +5642,7 @@ and $\mu$ is inner regular on $E$.
 	\begin{ex} \lex{00000} 
 		Let $G$ be a topological group, $\mu$ a left Haar measure on $G$ and $\nu$ a right Haar measure on $G$. Then for each $f \in L^1 \cup L^+$ and $y \in G$, 
 		\begin{align}
-			\int L_y f d\mu = \int f d\mu \\
+			\int L_y f \dmu = \int f \dmu \\
 			\int R_y f d\nu = \int f d\nu
 		\end{align}
 	\end{ex}
@@ -5337,34 +5651,34 @@ and $\mu$ is inner regular on $E$.
 		\begin{enumerate}
 			\item Let $y \in G$ and $E \in \MB(G)$. Put $f = \chi_E$. Then 
 			\begin{align*}
-				\int L_y f d \mu 
-				& = \int L_y\chi_E d \mu \\
-				& =  \int \chi_{yE} d\mu \\
+				\int L_y f \dmu 
+				& = \int L_y\chi_E \dmu \\
+				& =  \int \chi_{yE} \dmu \\
 				& = \mu(yE) \\
 				& = \mu(E) \\
-				& = \int \chi_E d\mu \\
-				& = \int f d \mu
+				& = \int \chi_E \dmu \\
+				& = \int f \dmu
 			\end{align*} 
-			By linearity of $L_y$, for $f \in S^+$ we have that, $$\int L_y f d \mu = \int f d \mu$$ For $f \in L^+$, choose $\seq{\phi}{n} \subset S^+$ such that for each $n \in \N$ $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \rightarrow f$. Then for each $n \in \N$ $L_y \phi_n \leq L_y \phi_{n+1} \leq L_y f$ and $L_y \phi \rightarrow L_y f$. So MCT implies that 
+			By linearity of $L_y$, for $f \in S^+$ we have that, $$\int L_y f \dmu = \int f \dmu$$ For $f \in L^+$, choose $\seq{\phi}{n} \subset S^+$ such that for each $n \in \N$ $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \rightarrow f$. Then for each $n \in \N$ $L_y \phi_n \leq L_y \phi_{n+1} \leq L_y f$ and $L_y \phi \rightarrow L_y f$. So MCT implies that 
 			\begin{align*}
-				\int L_y f d \mu 
-				& = \limn \int L_y \phi_n d \mu \\
-				& = \limn \int \phi_n d \mu \\
-				& = \int f d \mu \\
+				\int L_y f \dmu 
+				& = \limn \int L_y \phi_n \dmu \\
+				& = \limn \int \phi_n \dmu \\
+				& = \int f \dmu \\
 			\end{align*}
 			Let $f \in L^1$. If $f$ is real valued, write $f = f^+ - f^-$. Then $L_y f = L_y f^+ - L_y f^-$ and 
 			\begin{align*}
-				\int L_yf d \mu 
-				& = \int L_y f^+ d \mu - \int L_y f^- d \mu \\
-				& = \int f^+ d \mu - \int f^- d \mu \\
-				& = \int f d \mu
+				\int L_yf \dmu 
+				& = \int L_y f^+ \dmu - \int L_y f^- \dmu \\
+				& = \int f^+ \dmu - \int f^- \dmu \\
+				& = \int f \dmu
 			\end{align*}
 			If $f$ is complex valued, write $f = g + ih$ with $g, h \in L^1$ real valued. Then 
 			\begin{align*}
-				\int L_yf d \mu 
-				& = \int L_y g d \mu + i \int L_y h d \mu \\
-				& = \int g d \mu +i \int h d \mu \\
-				& = \int f d \mu
+				\int L_yf \dmu 
+				& = \int L_y g \dmu + i \int L_y h \dmu \\
+				& = \int g \dmu +i \int h \dmu \\
+				& = \int f \dmu
 			\end{align*}
 			\item Similar
 		\end{enumerate}
@@ -5433,7 +5747,7 @@ and $\mu$ is inner regular on $E$.
 		Let $G$ be a locally compact group and $\mu$ a left Haar measure on $G$. Then 
 		\begin{enumerate}
 			\item $\Del $ is a homomorphism 
-			\item for each $f \in L^1 \cup L^+$, $$\int R_{y^{-1}} f d \mu = \Del(y) \int f d \mu$$
+			\item for each $f \in L^1 \cup L^+$, $$\int R_{y^{-1}} f \dmu = \Del(y) \int f \dmu$$
 		\end{enumerate}
 	\end{ex}
 
@@ -5442,37 +5756,37 @@ and $\mu$ is inner regular on $E$.
 			\item Recall that for each $g \in G$, $\Del(g)\mu(U) = {r_g}_*\mu(U) = \mu(Ug)$. Let $g, h \in G$ and $U \in \MB(G)$. Then $\Del(gh)\mu(U) = \mu(Ugh) = \Del(h)\mu(Ug) = \Del(g) \Del(h)\mu(U)$. So $\Del(gh) = \Del(g) \Del(h)$.
 			\item Let $y \in G$ and $U \in \MB(G)$. Put $f = \chi_U$ Then 
 			\begin{align*}
-				\int R_{y^{-1}} f d \mu 
-				& = \int R_{y^{-1}} \chi_U d \mu \\
-				& = \int \chi_{Uy} d \mu \\
+				\int R_{y^{-1}} f \dmu 
+				& = \int R_{y^{-1}} \chi_U \dmu \\
+				& = \int \chi_{Uy} \dmu \\
 				& = \mu(Uy) \\
 				&= \mu(r_y^{-1}(U)) \\
 				&= {r_y}_* \mu(U) \\
 				& = \Del(y) \mu(U) \\
-				& = \Del(y)  \int \chi_U d \mu \\
-				&= \Del(y)  \int f d \mu
+				& = \Del(y)  \int \chi_U \dmu \\
+				&= \Del(y)  \int f \dmu
 			\end{align*}
-			By linearity of $R_{y^{-1}}$, for $f \in S^+$, $$\int R_{y^{-1}} f d \mu = \Del(y) \int f d \mu$$
+			By linearity of $R_{y^{-1}}$, for $f \in S^+$, $$\int R_{y^{-1}} f \dmu = \Del(y) \int f \dmu$$
 			For $f \in L^+$, choose $\seq{\phi}{n} \subset S^+$ such that for each $n \in \N$ $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \rightarrow f$. Then for each $n \in \N$ $R_{y^{-1}} \phi_n \leq R_{y^{-1}} \phi_{n+1} \leq R_{y^{-1}} f$ and $R_{y^{-1}} \phi \rightarrow R_{y^{-1}} f$. So the monotone convergence theorem implies that 
 			\begin{align*}
-				\int R_{y^{-1}} f d \mu 
-				& = \limn \int R_{y^{-1}} \phi_n d \mu \\
-				& = \limn \Del(y) \int \phi_n d \mu \\
-				& = \Del(y) \int f d \mu \\
+				\int R_{y^{-1}} f \dmu 
+				& = \limn \int R_{y^{-1}} \phi_n \dmu \\
+				& = \limn \Del(y) \int \phi_n \dmu \\
+				& = \Del(y) \int f \dmu \\
 			\end{align*}
 			Let $f \in L^1$. If $f$ is real valued, write $f = f^+ - f^-$. Then $R_{y^{-1}} f = R_{y^{-1}} f^+ - R_{y^{-1}} f^-$ and 
 			\begin{align*}
-				\int R_{y^{-1}} f d \mu 
-				& = \int R_{y^{-1}} f^+ d \mu - \int R_{y^{-1}} f^- d \mu \\
-				& = \Del(y) \int f^+ d \mu - \Del(y) \int f^- d \mu \\
-				& = \Del(y) \int f d \mu
+				\int R_{y^{-1}} f \dmu 
+				& = \int R_{y^{-1}} f^+ \dmu - \int R_{y^{-1}} f^- \dmu \\
+				& = \Del(y) \int f^+ \dmu - \Del(y) \int f^- \dmu \\
+				& = \Del(y) \int f \dmu
 			\end{align*}
 			If $f$ is complex valued, write $f = g + ih$ with $g, h \in L^1$ real valued. Then 
 			\begin{align*}
-				\int R_{y^{-1}} f d \mu 
-				& = \int R_{y^{-1}} g d \mu + i \int R_{y^{-1}} h d \mu \\
-				& = \Del(y) \int g d \mu +i \Del(y) \int h d \mu \\
-				& = \Del(y) \int f d \mu
+				\int R_{y^{-1}} f \dmu 
+				& = \int R_{y^{-1}} g \dmu + i \int R_{y^{-1}} h \dmu \\
+				& = \Del(y) \int g \dmu +i \Del(y) \int h \dmu \\
+				& = \Del(y) \int f \dmu
 			\end{align*}
 		\end{enumerate}
 	\end{proof}
@@ -5543,7 +5857,7 @@ and $\mu$ is inner regular on $E$.
 	\end{note}
 	
 	\begin{ex} \lex{00000} 
-		The Haar measure on $(\R^{\times}, \cdot)$  is $$d\mu(x) = \frac{1}{|x|} dm(x)$$
+		The Haar measure on $(\R^{\times}, \cdot)$  is $$d\mu(x) = \frac{1}{|x|} \dm(x)$$
 	\end{ex}
 
 	\begin{proof}
@@ -5551,26 +5865,26 @@ and $\mu$ is inner regular on $E$.
 		\begin{align*}
 			\mu(c(a, b))
 			& = \mu((ca,cb)) \\
-			& = \int_{(ca,cb)} \frac{1}{|x|} dm(x)\\
-			& = \int_{(ca,cb)} \frac{1}{x} dm(x)\\
+			& = \int_{(ca,cb)} \frac{1}{|x|} \dm(x)\\
+			& = \int_{(ca,cb)} \frac{1}{x} \dm(x)\\
 			& = \bigg[ \log|x| \bigg]_{ca}^{cb} \\
 			& = \log(cb) - \log(ca) \\
 			& = \log b - \log a \\
 			& = \bigg[ \log|x| \bigg]_{a}^{b} \\ 
-			& =  \int_{(a,b)} \frac{1}{x} dm(x)\\
+			& =  \int_{(a,b)} \frac{1}{x} \dm(x)\\
 			& = \mu((a,b))
 		\end{align*}
 	Similarly, we have
 	\begin{align*}
 		\mu(-c(a, b))
 		& = \mu((-cb,-ca)) \\
-		& = \int_{(-cb,-ca)} \frac{1}{|x|} dm(x)\\
-		& = - \int_{(-cb,-ca)} \frac{1}{x} dm(x)\\
+		& = \int_{(-cb,-ca)} \frac{1}{|x|} \dm(x)\\
+		& = - \int_{(-cb,-ca)} \frac{1}{x} \dm(x)\\
 		& = - \bigg[ \log|x| \bigg]_{-cb}^{-ca} \\
 		& = \log(cb) - \log(ca) \\
 		& = \log b - \log a \\
 		& = \bigg[ \log|x| \bigg]_{a}^{b} \\ 
-		& =  \int_{(a,b)} \frac{1}{x} dm(x)\\
+		& =  \int_{(a,b)} \frac{1}{x} \dm(x)\\
 		& = \mu((a,b))
 	\end{align*}
 	\end{proof}
@@ -5610,7 +5924,7 @@ and $\mu$ is inner regular on $E$.
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $\nu$ be the Haar measure on $\Q_p$. Then the Haar measure on $\Q_p^{\times}$  is $d \mu = \frac{1}{|x|_p}d \nu$.
+		Let $\nu$ be the Haar measure on $\Q_p$. Then the Haar measure on $\Q_p^{\times}$  is $\dmu = \frac{1}{|x|_p}d \nu$.
 	\end{ex}
 
 	\begin{proof}
@@ -5665,9 +5979,9 @@ and $\mu$ is inner regular on $E$.
 	\begin{proof}
 	Set $f = d \nu/ d \mu$. Let $A \in \MB(X)$. Then 
 	\begin{align*}
-	\int_A L_g f d\mu
-	&= \int_A f \circ l_{g}^{-1} \,d\mu \\
-	&= \int_A f \circ l_g^{-1} \, d\mu \\
+	\int_A L_g f \dmu
+	&= \int_A f \circ l_{g}^{-1} \,\dmu \\
+	&= \int_A f \circ l_g^{-1} \, \dmu \\
 	&= \int_{l_g^{-1}(A)} f \, d ({l_g^{-1}}_* \mu) \\
 	&= \int_{l_g^{-1}(A)} f \, d ({l_{g^{-1}}}_* \mu) \\
 	&= \int_{l_g^{-1}(A)} f \, d \mu \\
@@ -5687,10 +6001,10 @@ and $\mu$ is inner regular on $E$.
 	\rex{43004.5} implies that
 	\begin{align*}
 	\|g \cdot \nu\| 
-	&= \int \bigg | \frac{d (g \cdot \nu)}{d\mu} \bigg | d\mu \\
-	&=  \int \bigg | L_g \frac{d \nu}{d\mu} \bigg | d\mu \\
-	&= \int L_g \bigg | \frac{d \nu}{d\mu} \bigg | d\mu \\
-	&= \int \bigg | \frac{d \nu}{d\mu} \bigg | d\mu \\
+	&= \int \bigg | \frac{d (g \cdot \nu)}{d\mu} \bigg | \dmu \\
+	&=  \int \bigg | L_g \frac{d \nu}{d\mu} \bigg | \dmu \\
+	&= \int L_g \bigg | \frac{d \nu}{d\mu} \bigg | \dmu \\
+	&= \int \bigg | \frac{d \nu}{d\mu} \bigg | \dmu \\
 	&= \|\nu\|
 	\end{align*}
 	\end{proof}
@@ -6836,7 +7150,12 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 
 	\newpage
 	\section{TODO}
-	Add background for banach space valued measures like riesz representation theorem and radon-nikodym derivatives to be be able to talk about condition expectation of banach space valued random variables
+	\begin{itemize}
+		\item Add background for banach space valued measures like riesz representation theorem and radon-nikodym derivatives to be be able to talk about condition expectation of banach space valued random variables
+		\item Discuss disintegration of measures independently of probability by discussing the projection of $L^1(X, \MA)$ onto $L^1(X, \MB)$ for $\MB \subset \MA$ and the Doob-Dynkin Lemma. Use this to define the disitegration measure. Also do this for disintegration of vector measures.
+		\item Talk about homology when conditioning measures on a value in relation to the entropy of that distribution (maybe make a new set of notes about entropy and put it there)
+		\item Consider the category $\MC$ of measurable spaces with measurable singletons. Fix an object $(X, \MA) \in \MC$. Consider the coslice category of $\MC$ under $(X, \MA)$. Introduce an equivalence relation on objects in the coslice category by $f:X \rightarrow (Y, \MF) \sim g: X \rightarrow (Z, \MG)$ iff $f^*\MF = g^*\MG$. Introduce a partial order on the quotient by $f:X \rightarrow (Y, \MF) \leq g: X \rightarrow (Z, \MG)$ iff $f^*\MF \subset g^*\MG$.  Describe the Doob-Dynkin Lemma in this context, i.e. that $f \leq g$ implies that there is exactly one morphism from $g$ to $f$ in the coslice category.
+	\end{itemize}
 
 
 
