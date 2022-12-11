@@ -53,8 +53,8 @@
 \newcommand{\ep}{\epsilon}
 \newcommand{\sig}{\sigma} 
 \newcommand{\om}{\omega}
+\newcommand{\kap}{\kappa} 
 \newcommand{\Om}{\Omega}
-\newcommand{\kap}{$\kappa$}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\E}{\mathbb{E}}
@@ -105,6 +105,9 @@
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
 
 \newcommand{\loc}{\text{loc}}
+\newcommand{\BV}{\text{BV}}
+\newcommand{\NBV}{\text{NBV}}
+\newcommand{\TV}{\text{TV}}
 
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\spn}{span}
@@ -120,6 +123,7 @@
 \DeclareMathOperator{\bal}{bal}
 \DeclareMathOperator{\cnv}{conv}
 \DeclareMathOperator{\epi}{epi}
+
 
 \newcommand{\lex}[1]{\label{ex:#1}}
 \newcommand{\ld}[1]{\label{defn:#1}}
@@ -766,20 +770,19 @@
 	\end{defn}
 	
 	\begin{defn} \ld{00000} 
-		Let $(X, \MA, \mu)$ be a measure space and $(Y, \MB)$ a measurable space. Define 
+		Let $(X, \MA)$ be a measurable space and $(Y, \MB)$ a measurable space. Define 
 		\begin{itemize}
-			\item $L^{+}(X, \MA, \mu) = \{f:X \rightarrow \RG : f \text{ is measurable}\}$
-			\item $L^0(X, \MA, \mu) = \{f:X \rightarrow \C : f \text{ is measurable}\}$ 
-			\item $L_Y^{0}(X, \MA, \mu) = \{f:X \rightarrow Y : f \text{ is measurable}\}$
+			\item $L^{+}(X, \MA) = \{f:X \rightarrow \RG : f \text{ is measurable}\}$
+			\item $L^0(X, \MA) = \{f:X \rightarrow \C : f \text{ is measurable}\}$ 
 		\end{itemize}
 	\end{defn}
 	
 	\begin{defn}
 		Let $(X, \MA)$ and $(Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. We define the 
 		\begin{enumerate}
-			\item \textbf{push-forward of $\MA$}, denoted $f_*\MA$, by 
+			\item \textbf{pushforward of $\MA$}, denoted $f_*\MA$, by 
 			$$f_*\MA = \{B \subset Y: f^{-1}(B) \in \MA\}$$ 
-			\item  \textbf{pull-back of $\MB$}, denoted $f^*\MB$, by  
+			\item  \textbf{pullback of $\MB$}, denoted $f^*\MB$, by  
 			$$f^*\MB = \{f^{-1}(B):  B \in \MB \}$$
 		\end{enumerate}
 	\end{defn}
@@ -1439,14 +1442,26 @@
 	\end{proof}
 	
 	\begin{thm} \textbf{Dynkin's Lemma:} \\
-		Let $X$ be a set.
+		Let $X$ be a set, $\MP$ be a $\pi$-system on $X$ and $\ML$ a $\lam$-system on $X$. Then
 		\begin{enumerate}
-			\item Let $\MP$ be a $\pi$-system on $X$ and $\ML$ a $\lam$-system on $X$. If $\MP \subset \ML$, then $\sig(\MP) \subset \ML$.
-			\item Let $\MP$ be a $\pi$-system on $X$. Then $\sig(\MP) = \lam(\MP)$
+			\item $\MP \subset \ML$ implies that $\sig(\MP) \subset \ML$ 
+			\item $\sig(\MP) = \lam(\MP)$
 		\end{enumerate} 
-		
 	\end{thm}
 	
+	\begin{ex}
+		Define $\MP \subset \MB(\R)$ by $$\MP = \{(a,b]: a,b \in \R\} \cup \{\varnothing, X\}$$
+		Then $\MP$ is a $\pi$-system on $X$.
+	\end{ex}
+
+	\begin{proof}
+		Let $a_1, a_2, b_1, b_2 \in \R$. Then 
+		\begin{align*}
+			(a_1, b_1] \cap (a_2, b_2] 
+			& = (a_2, b_1] \\
+			& \in \MP
+		\end{align*} 
+	\end{proof}
 	
 	
 	
@@ -1909,6 +1924,49 @@
 			which is a contradiction. So there exists $N \in \N$ such that $\mu  (F \cap A_N ) > 0$. Set $E = F \cap A_N$. Then $E \subset F$ and $0 < \mu(E) < \infty$. Hence $\mu$ is semifinite.
 		\end{itemize}
 	\end{proof}
+
+	\begin{defn}
+		Let $(X, \MA, \mu)$ be a measure space and $(f_\al)_{\al \in A} \subset L^0(X, \MA)$ a net. Suppose that for each $\al \in A$, $f_{\al}:X \rightarrow \R$. For each $\al, \be \in A$, define $M_{\al, \be}, N_{\al, \be} \in \MA$ by
+		$$M_{\al, \be} = \{x \in X: f_{\al}(x) \leq f_{\be}(x) \}$$ 
+		and 
+		$$N_{\al, \be} = \{x \in X: f_{\al}(x) \geq f_{\be}(x) \}$$
+		respectively. Define $M,N \subset X$ by $M = \bigcap\limits_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} M_{\al, \be}$ and $N = \bigcap\limits_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} N_{\al, \be}$ respectively. Then $(f_{\al})_{\al \in A}$ is said to be 
+		\begin{itemize}
+			\item \textbf{increasing $\mu$-a.e.} if $M^c$ is a $\mu$-null set
+			\item \textbf{decreasing $\mu$-a.e.} if $N^c$ is a $\mu$-null set
+			\item \textbf{monotonic $\mu$-a.e.} if $(f_n)_{n \in \N}$ is increasing $\mu$-a.e. or $(f_n)_{n \in \N}$ is decreasing $\mu$-a.e.
+		\end{itemize} 
+	\end{defn}
+
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a measure space and $(f_\al)_{\al \in A} \subset L^0(X, \MA)$ a net. Suppose that for each $\al \in A$, $f_{\al}:X \rightarrow \R$. If $A$ is countable, then 
+		\begin{enumerate}
+			\item $(f_\al)_{\al \in A}$ is increasing $\mu$-a.e. iff for each $\al, \be \in A$, $\al \leq \be$ implies that $f_{\al} \leq f_{\be}$ $\mu$-a.e.
+			\item $(f_\al)_{\al \in A}$ is decreasing $\mu$-a.e. iff for each $\al, \be \in A$, $\al \leq \be$ implies that $f_{\al} \geq f_{\be}$ $\mu$-a.e.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof} Suppose that $A$ is countable. For each $\al, \be \in A$, define $M_{\al, \be},N_{\al, \be},M,N \in \MA$ as in the previous definition. Since $A$ is countable, $M,N \in \MA$. 
+		\begin{enumerate}
+			\item Suppose that $(f_{\al})_{n \in \N}$ is increasing $\mu$-a.e. By definition, $M^c$ is a $\mu$-null set. Since $M^c \in \MA$, $\mu(M^c) = 0$. Let $\al, \be \in A$. Suppose that $\al \leq \be$. Since $M \subset M_{\al, \be}$, $M_{\al, \be}^c \subset M^c$. Hence $\mu(M_{\al, \be}^c) = 0$. By definition, $f_{\al} \leq f_{\be}$ $\mu$-a.e.\\
+			Conversely, suppose that for each $\al, \be \in A$, $\al \leq \be$ implies that $f_{\al} \leq f_{\be}$ $\mu$-a.e. Then for each $\al, \be \in A$, $\mu(M_{\al, \be}^c) = 0$. Since $A$ is countable, we have that
+			\begin{align*}
+				\mu(M^c) 
+				& = \mu \bigg( \bigcup\limits_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} M_{\al, \be}^c \bigg) \\
+				& \leq \sum_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} \mu(M_{\al, \be}^c) \\
+				& = 0
+			\end{align*}
+			Thus $(f_n)_{n \in \N}$ is increasing $\mu$-a.e.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+
+
+
+
+
+
+
 	
 	
 	
@@ -1992,7 +2050,7 @@
 		Let $X$ be a set, $\MA_0$ be an algebra on $X$ and $\mu_0:\MA_0 \rightarrow [0, \infty]$. Then $\mu_0$ is said to be a \textbf{premeasure on $(X,\MA_0)$} if 
 		\begin{enumerate}
 			\item there exists $A \in \MA_0$ such that $\mu_0(A)< \infty$
-			\item for each $(A_n)_{n \in \N} \subset \MA_0$, if $(A_n)_{n \in \N}$ is disjoint and $\bigcup\limits_{n \in \N}A_n \in \MA_0$, then $$\mu_0(\bigcup_{n\in \N}A_n) = \sum_{n \in \N}\mu_0(A_n)$$
+			\item for each $(A_n)_{n \in \N} \subset \MA_0$, if $(A_n)_{n \in \N}$ is disjoint and $\bigcup\limits_{n \in \N}A_n \in \MA_0$, then $$\mu_0 \bigg(\bigcup_{n\in \N}A_n \bigg) = \sum_{n \in \N}\mu_0(A_n)$$
 		\end{enumerate}
 	\end{defn}
 	
@@ -2037,8 +2095,69 @@
 			&= \inf \bigg\{\sum_{n \in \N}\mu(A_i)\nu(B_i): (A_i \times B_i)_{i \in \N} \subset \ME \text{ and } E \subset \bigcup_{i \in \N} A_i \times B_i \bigg \}
 		\end{align*}
 	\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{Pushforward Measures}
 	
-	
+	\begin{defn}
+		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$ measurable. We define the \textbf{pushforward of $\mu$ by $f$ on $(Y, \MB)$}, denoted $f_*\mu: \MB \rightarrow [0, \infty]$, by $$f_*\mu(B) = \mu(f^{-1}(B))$$
+	\end{defn}
+
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$ measurable. Then $f_*\mu: \MB \rightarrow \RG$ is a measure.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since $f^{-1}(\varnothing) = \varnothing$, 
+			\begin{align*}
+				f_*\mu(\varnothing) 
+				& = \mu(f^{-1}(\varnothing)) \\
+				& = \mu(\varnothing) \\
+				& = 0
+			\end{align*}
+			\item Let $(B_j)_{j \in \N} \subset \MB$. Suppose that $(B_j)_{j \in \N}$ is disjoint. Then $(f^{-1}(B_j))_{j \in \N}$ is disjoint. Hence 
+			\begin{align*}
+				f_*\mu \bigg( \bigcup_{j \in \N} B_j \bigg)
+				& = \mu \bigg( \bigcup_{j \in \N} f^{-1}(B_j) \bigg) \\
+				& = \sum_{j \in \N} \mu(f^{-1}(B_j)) \\
+				& = \sum_{j \in \N} f_*\mu(B_j)
+			\end{align*}
+		\end{enumerate}
+		Hence $f_* \mu$ is a measure.
+	\end{proof}
 	
 	
 	
@@ -2258,6 +2377,64 @@
 		Since $\limn \int f$ and $\limn \int f_1$ exist, $\limn \int f_n = \int f$ as required.  
 		
 	\end{proof}
+
+
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$-measurable. Then for each $g \in L^+(Y, \MB)$ and $B \in \MB$, $$\int_{f^{-1}(B)} g \circ f \dmu = \int_B g \, d f_*\mu$$
+	\end{ex}
+
+	\begin{proof}
+		Let $g \in  L^+(X, \MA)$ and $B \in \MB$. Suppose that there exists $E \in \MB$ such that $g = \chi_E$. Then $g \circ f = \chi_{f^{-1}(E)}$ and
+		\begin{align*}
+			\int_{f^{-1}(B)} g \circ f \dmu
+			& = \int_{f^{-1}(B)} \chi_{f^{-1}(E)} \dmu \\
+			& = \mu(f^{-1}(E) \cap f^{-1}(B)) \\
+			& = \mu( f^{-1}(E \cap B)) \\
+			& = f_*\mu (E \cap B) \\
+			& = \int_{B} \chi_{E} \, df_*\mu \\
+			& = \int_{B} g \, df_*\mu 
+ 		\end{align*}
+ 		Suppose that $g$ is simple. Then there exist $(a_j)_{j=1}^n \subset \Rg$ and $(E_j)_{j=1}^n \subset \MB$ such that $g = \sum\limits_{j=1}^n a_j \chi_{E_j}$. 
+ 		Then 
+ 		\begin{align*}
+ 			g \circ f 
+ 			& = \bigg( \sum\limits_{j=1}^n a_j \chi_{E_j} \bigg) \circ f\\
+ 			& = \sum\limits_{j=1}^n a_j \chi_{E_j} \circ f
+ 		\end{align*}
+ 		and 
+ 		\begin{align*}
+ 			\int_{f^{-1}(B)} g \circ f \dmu
+ 			& = \int_{f^{-1}(B)} \sum\limits_{j=1}^n a_j \chi_{E_j} \circ f \dmu \\
+ 			& = \sum_{j=1}^n a_j \int_{f^{-1}(B)} \chi_{E_j} \circ f \dmu \\
+ 			& = \sum_{j=1}^n a_j \int_{B} \chi_{E_j} \, d f_*\mu \\
+ 			& = \int_{B} \sum_{j=1}^n a_j  \chi_{E_j} \, d f_*\mu \\
+ 			& = \int_{B} g \, d f_*\mu \\
+ 		\end{align*}
+ 		Suppose that $g \in L^+(Y, \MB)$. Then there exists $(\phi_n)_{n \in \N} \subset S^+(Y, \MB)$ such that $\phi_n \convt{p.w.} g$ and for each $n \in \N$, $\phi_n \leq \phi_{n+1}$. Then $\phi_n \circ f \convt{p.w.} g \circ f$ and for each $n \in \N$, $\phi_n \circ f \leq \phi_{n+1} \circ f$. The monotone convergence theorem implies that 
+ 		\begin{align*}
+ 			\int_{f^{-1}(B)} g \circ f \dmu
+ 			& = \limn \int_{f^{-1}(B)} \phi_n \circ f \dmu \\
+ 			& = \limn \int_{B} \phi_n \, d f_*\mu \\
+ 			& = \int_{B} g \, d f_*\mu \\
+ 		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$-measurable. Let $g, h \in L^0(Y, \MB)$. If $g \circ f = h \circ f$ $\mu$-a.e., then $g = h$ $f_*\mu$-a.e.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $g \circ f = h \circ f$ $\mu$-a.e. Then $|(g - h) \circ f| = 0$ $\mu$-a.e. The previous exercise implies that 
+		\begin{align*}
+			\int_Y |g - h|  \, d f_*\mu 
+			& = \int_X |g - h| \circ f \dmu \\
+			& = \int_X |(g - h) \circ f| \dmu \\
+			& = 0
+		\end{align*}
+		Hence $|g - h| = 0$ $f_*\mu$-a.e. and $g = h$ $f_*\mu$-a.e.
+	\end{proof}
+
+	
 	
 	
 	
@@ -2371,16 +2548,18 @@
 	\end{thm}
 	
 	\begin{ex} \lex{00000} \textbf{Generalized Fatou's Lemma:}
-		Let $(f_n)_{n \in \N}$ be a sequence of measurable real valued functions. Suppose that there exists $g \in L^1$ such that $g \geq 0$ and for each $n \in \N$, $f_n \geq -g$. Then $ \int \limfn f_n \leq \limfn \int f_n$. What is the analogue of Fatou's lemma for measurable, real valued functions that are appropriately bounded above?  
+		Let $(X, \MA, \mu)$ be a measure space and $(f_n)_{n \in \N} \subset L^0(X, \MA)$. Suppose that for each $n \in \N$, $f:X \rightarrow \R$, there exists $g \in L^1$ such that $g \geq 0$ and for each $n \in \N$, $f_n \geq -g$. Then 
+		$$ \int \limfn f_n \dmu \leq \limfn \int f_n \dmu $$ 
+		What is the analogue of Fatou's lemma for measurable, real valued functions that are appropriately bounded above?  
 	\end{ex}
 	
 	\begin{proof}
 		First note that for each $n \in \N$, $\int f_n$ is well defined since $f_n^- \leq g \in L^1$. Since $g + f_n \geq 0$, we may use Fatou's lemma to write
 		\begin{align*}
-			\int g + \int \limfn f_n
-			&= \int \limfn (g+f_n) \\
-			& \leq \limfn \int (g + f_n)\\
-			&= \int g + \limfn \int f_n
+			\int g \dmu + \int \limfn f_n \dmu 
+			&= \int \limfn (g+f_n)  \dmu \\
+			& \leq \limfn \int (g + f_n) \dmu \\
+			&= \int g \dmu + \limfn \int f_n \dmu 
 		\end{align*}
 		
 		Since $\int g < \infty$, $\int \limfn f_n \leq \limfn \int f_n$ as required. The analogue is as follows: Let $(f_n)_{n \in \N}$ be a sequence of measurable real valued functions. Suppose that there exists $g \in L^1$ such that $g \geq 0$ and for each $n \in \N$, $f_n \leq g$. Then $\limpn \int f_n \leq \int \limpn f_n$. To show this, just use the result from above with the sequence $(g_n)_{n \in \N}$ given by $g_n = -f_n$.
@@ -2631,6 +2810,46 @@
 	\end{align*}
 	So that $F$ is differentiable at $t_0$ from the left. Similarly, $F$ is differentiable at $t_0$ from the right. 
 	\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$-measurable. Then for each $g \in L^0(Y, \MB)$ and $B \in \MB$, 
+		\begin{enumerate}
+			\item $g \circ f \in L^1(X, \MA)$ iff $g \in L^1(Y, \MB, f_* \mu)$
+			\item if $g \circ f \in L^1(X, \MA, \mu)$, 
+			$$\int_{f^{-1}(B)} g \circ f \dmu = \int_B g \, d f_*\mu$$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof} Let $g \in L^0(Y, \MB)$ and $B \in \MB$.
+		\begin{enumerate}
+			\item Suppose that $g \circ f \in L^1(X, \MA, \mu)$. Since $|g| \in L^+(X, \MA)$ and $|g \circ f| = |g| \circ f$, an exercise in the previous section implies that 
+			\begin{align*}
+				\int_B |g|  \, d f_*\mu  
+				& = \int_{f^{-1}(B)} |g| \circ f \dmu \\
+				& = \int_{f^{-1}(B)} |g \circ f| \dmu \\
+				& < \infty 
+			\end{align*}
+			Hence $g \in L^1(Y, \MB, f_*\mu)$. \\
+			Conversely, suppose that $g \in L^1(Y, \MB, f_*\mu)$. Since $|g \circ f| \in L^+(X, \MB)$, we have that 
+			\begin{align*}
+				\int_{f^{-1}(B)} |g \circ f| \dmu   
+				& = \int_{f^{-1}(B)} |g| \circ f \dmu \\
+				& = \int_B |g|  \, d f_*\mu \\
+				& < \infty 
+			\end{align*}
+			Hence $g \circ f \in L^1(X, \MA, \mu)$. \\
+			\item Suppose that $g \circ f \in L^1(X, \MA, \mu)$. Write $g = h_1^+ - h_1^- + i(h_2^+ - h_2^-)$. Since $h_1^+, h_1^-, h_2^+, h_2^- \in L^+(Y, \MB)$, an exercise in the previous section implies that 
+			\begin{align*}
+				\int_{f^{-1}(B)} g \circ f \dmu
+				& = \int_{f^{-1}(B)} \bigg[ h_1^+ - h_1^- + i(h_2^+ - h_2^-) \bigg] \circ f \dmu \\
+				& = \int_{f^{-1}(B)}  h_1^+ \circ f \dmu - \int_{f^{-1}(B)}  h_1^- \circ f \dmu \\
+				& + i \int_{f^{-1}(B)} h_2^+ \circ f \dmu -i \int_{f^{-1}(B)}  h_2^- \circ f \dmu \\
+				& = \int_B h_1^+ \, d f_*\mu - \int_B h_1^- \, d f_*\mu + i \int_B h_2^+ \, d f_*\mu - i \int_B h_2^- \, d f_*\mu \\
+				& = \int_B  h_1^+ - h_1^- + i(h_2^+ - h_2^-)  \, d f_*\mu \\
+				& = \int_B g \, d f_*\mu
+			\end{align*}
+		\end{enumerate}
 	\end{proof}
 	
 	\begin{defn} \ld{00000} 
@@ -2937,7 +3156,7 @@
 	\begin{ex} \lex{35003} 
 		Let $(f_n)_{n \in \N} \subset L^0$. Suppose that $(f_n)_{n \in \N}$ is Cauchy in measure. 
 		\begin{enumerate}
-		\item Then there exists a subsequence $(f_{n_j})_{j \in \N} \subset (f_n)_{n \in \N}$ such that for each $j \in \N$, $$\mu(\{x \in X: |f_{n_j}(x) - f_{n_{j+1}}(x)| \geq 2^{-j}\}) < 2^{-j}$$
+		\item There exists a subsequence $(f_{n_j})_{j \in \N} \subset (f_n)_{n \in \N}$ such that for each $j \in \N$, $$\mu(\{x \in X: |f_{n_j}(x) - f_{n_{j+1}}(x)| \geq 2^{-j}\}) < 2^{-j}$$
 		\item For $j,k \in \N$ set 
 		$$E_j = \{x \in X: |f_{n_j}(x) - f_{n_{j+1}}(x)| \geq 2^{-j}\}$$
 		and 
@@ -3016,13 +3235,57 @@
 	\end{proof}
 	
 	\begin{ex} \lex{35003.1} 
-		Let $(f_n)_{n \in \N} \subset L^0$. If $(f_n)_{n \in \N}$ is Cauchy in measure, then there exists a $f \in L^0$ and a subsequence $(f_{n_j})_{j \in \N} \subset (f_n)_{n \in \N}$ such that $f_n \conv{\mu} f$ and $f_{n_j} \convt{a.e.} f$. \\
+		Let $(f_n)_{n \in \N} \subset L^0$ and $f \in L^0$. 
+		\begin{enumerate}
+			\item If $(f_n)_{n \in \N}$ is Cauchy in measure, then there exists a $f_0 \in L^0$ and a subsequence $(f_{n_j})_{j \in \N} \subset (f_n)_{n \in \N}$ such that $f_n \conv{\mu} f_0$ and $f_{n_j} \convt{a.e.} f_0$.
+			\item If $f_n \conv{\mu} f$, then there exists a subsequence $(f_{n_j})_{j \in \N} \subset (f_n)_{n \in \N}$ such that $f_n \convt{a.e.} f$.
+		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
-	Previous exercise.
+	\begin{proof}\
+	\begin{enumerate}
+		\item Previous exercise.
+		\item Suppose that $f_n \conv{\mu} f$. Then $(f_n)_{n \in \N}$ is Cauchy in measure. Part $(1)$ implies that there exists a $f_0 \in L^0$ and a subsequence $(f_{n_j})_{j \in \N} \subset (f_n)_{n \in \N}$ such that $f_n \conv{\mu} f_0$ and $f_{n_j} \convt{a.e.} f_0$. Since $f_n \conv{\mu} f$ and $f_n \conv{\mu} f_0$, $f = f_0$ a.e. Hence $f_{n_j} \convt{a.e.} f$.
+	\end{enumerate}
 	\end{proof}
-	
+
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a measure space, $(f_n)_{n \subset \N} \subset L^0(X, \MA)$ and $f \in  L^0(X, \MA)$. Suppose that $f_n \conv{\mu} f$. 
+		\begin{enumerate}
+			\item If for each $n \in \N$, $f_n \leq f_{n+1}$ a.e., then $f_n \convt{a.e.} f$. 
+			\item If for each $n \in \N$, $f_n \geq f_{n+1}$ a.e., then $f_n \convt{a.e.} f$. 
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that for each $n \in \N$, $f_n \leq f_{n+1}$ a.e. Define $N_1 \in \MA$ by 
+			$$N_1 = \bigcap_{n \in \N} \{x \in X: f_n(x) \leq f_{n+1}(x)\}$$ 
+			By assumption, $\mu(N_1^c) = 0$. Since $f_n \conv{\mu} f$, there exists a subsequence $(f_{n_k})_{k \in \N} \subset (f_n)_{n \in \N}$ such that $f_{n_k} \convt{a.e.} f$. Hence there exists $N_2 \in \MA$ such that $\mu(N_2^c) = 0$ and $f_{n_k} \chi_{N_2} \convt{p.w.} f \chi_{N_2}$. Set $N = N_1 \cap N_2$. Then 
+			\begin{align*}
+				\mu(N^c)
+				& = \mu(N_1^c \cup N_2^c) \\
+				& \leq \mu(N_1^c) + \mu(N_2^c) \\
+				& = 0
+			\end{align*}
+			By construction, $f \chi_N = \sup_{k \in \N} f_{n_k} \chi_N$ which implies that for each $n \in \N$, 
+			\begin{align*}
+				f_n \chi_N
+				& \leq f_{n_n} \chi_N \\ 
+				& \leq f \chi_N
+			\end{align*}
+			Let $x \in N$ and $\ep > 0$. Choose $K \in \N$ such that for each $k \in \N$, $k \geq K$ implies that $|f_{n_k}(x) - f(x)| < \ep$. Let $n \in \N$. Suppose that $n \geq n_K$. Then 
+			\begin{align*}
+				|f_{n}(x) - f(x)|
+				& = f(x) - f_{n}(x) \\
+				& \leq f(x) - f_{n_K}(x) \\
+				& = |f_{n_K}(x) - f(x)| \\
+				& < \ep 
+			\end{align*}
+			Hence $f_n(x) \rightarrow f(x)$. Since $x \in N$ is arbitrary, $f_n \chi_N \convt{p.w.} f \chi_N$. Since $\mu(N^c) = 0$, $f_n \convt{a.e.} f$.
+			\item Similar to $(1)$. 
+		\end{enumerate}
+	\end{proof}
 	
 	
 	\begin{defn} \ld{35004} 
@@ -3128,13 +3391,13 @@
 		\begin{enumerate}
 			\item Clear
 			\item Suppose that $\phi$ is unifomly continuous. 
-			
-			(uniform conv.) Suppose that $f_n \convt{u} f$. Let $\ep > 0$. Choose $\del >0$ such that for each $z,w \in \C$, if $|z-w|<\del$, then $|\phi(z) - \phi(w)| < \ep$. Now choose $N \in \N$ such that for each $n \in \N$ if $n \geq n$ then for each $x \in X$, $|f_n(x)-f(x)| < \del$. Let $n \in \N$, suppose $n \geq N$, Let $x \in X$. Then $|\phi(f_n(x)) - \phi(f(x))| < \ep$. Thus $\phi \circ f_n \convt{u} \phi \circ f$.
-			
-			(almost uni.) Suppose that $f_n \convt{a.u.} f$. Let $\ep > 0$. Choose $N \in \MA$ such $\mu(N) < \ep$ and $f_n \convt{u} f$ on $N^c$. Then from above, we know that $\phi \circ f_n \convt{u} \phi \circ f$ on $N^c$. Thus $\phi \circ f_n \convt{a.u.} \phi \circ f$.
-			
-			(measure) Suppose that $f_n \conv{\mu} f$. Let $\ep > 0$. Choose $\del >0$ such that for each $z,w \in \C$, if $|z-w|<\del$, then $|\phi(z) - \phi(w)| < \ep$. Observe that for $x \in X$, if $|f_n(x) - f(x)| < \del$, then $|\phi(f_n(x)) - \phi(f(x))| < \ep$. Hence $E_{n,\ep} = \{x \in X: |\phi(f_n(x)) - \phi(f(x))| \geq \ep\} \subset F_{n,\del} = \{x \in X: |f_n(x) - f(x)| \geq \del\}$. By definition of convergence in measure, $\mu(F_{n,\del}) \rightarrow 0$. Thus $\mu(E_{n,\ep}) \rightarrow 0$. Hence $\phi \circ f_n \conv{\mu} \phi \circ f$.
-			
+			\begin{itemize}
+				\item uniformly: \\
+				Suppose that $f_n \convt{u} f$. Let $\ep > 0$. Choose $\del >0$ such that for each $z,w \in \C$, if $|z-w|<\del$, then $|\phi(z) - \phi(w)| < \ep$. Now choose $N \in \N$ such that for each $n \in \N$ if $n \geq n$ then for each $x \in X$, $|f_n(x)-f(x)| < \del$. Let $n \in \N$, suppose $n \geq N$, Let $x \in X$. Then $|\phi(f_n(x)) - \phi(f(x))| < \ep$. Thus $\phi \circ f_n \convt{u} \phi \circ f$. 
+				\item almost uniformly: \\
+				Suppose that $f_n \convt{a.u.} f$. Let $\ep > 0$. Choose $N \in \MA$ such $\mu(N) < \ep$ and $f_n \convt{u} f$ on $N^c$. Then from above, we know that $\phi \circ f_n \convt{u} \phi \circ f$ on $N^c$. Thus $\phi \circ f_n \convt{a.u.} \phi \circ f$.
+				\item in measure:\\ Suppose that $f_n \conv{\mu} f$. Let $\ep > 0$. Choose $\del >0$ such that for each $z,w \in \C$, if $|z-w|<\del$, then $|\phi(z) - \phi(w)| < \ep$. Observe that for $x \in X$, if $|f_n(x) - f(x)| < \del$, then $|\phi(f_n(x)) - \phi(f(x))| < \ep$. Hence $E_{n,\ep} = \{x \in X: |\phi(f_n(x)) - \phi(f(x))| \geq \ep\} \subset F_{n,\del} = \{x \in X: |f_n(x) - f(x)| \geq \del\}$. By definition of convergence in measure, $\mu(F_{n,\del}) \rightarrow 0$. Thus $\mu(E_{n,\ep}) \rightarrow 0$. Hence $\phi \circ f_n \conv{\mu} \phi \circ f$.
+			\end{itemize}
 			\item
 		\end{enumerate}
 	\end{proof}
@@ -3219,7 +3482,7 @@
 	
 	
 	\newpage
-	\section{Signed and Complex Measures}
+	\section{The Radon-Nikodym Derivative}
 	
 	\subsection{Signed Measures}
 	
@@ -3572,7 +3835,31 @@
 		\end{enumerate}
 	\end{proof}
 	
-	
+	\begin{ex}
+		Let $(X, \MA)$ be a measurable space and $\mu, \nu$ $\sig$-finite measures on $(X, \MA)$. Suppose that $\nu \ll \mu$. Then $d\nu / \dmu > 0$ $\mu$-a.e. iff for each $E \in \MA$, $\mu(E) \neq 0$ implies that $\nu(E) > 0$. 
+	\end{ex}
+
+	\begin{proof}
+		Since $\nu$ is a measure, there exists $f \in L^+(X, \MA)$ such that $f = d\nu/ d\mu$ $\mu$-a.e. Suppose that there exists $E \in \MA$ such that $\mu(E) > 0$ and $\nu(E) = 0$. Then 
+		\begin{align*}
+			\int_E f \dmu  
+			& = \nu(E) \\
+			& = 0 
+		\end{align*}
+		Hence 
+		\begin{align*}
+			\frac{d \nu}{d\mu}\chi_E 
+			& = f \chi_E \\
+			& = 0 \text{ $\mu$-a.e.}
+		\end{align*} 
+		Therefore $d\nu / \dmu \not > 0$ $\mu$-a.e.\\
+		Conversely, suppose that $d\nu / \dmu \not > 0$ $\mu$-a.e. Then there exists $E \in \MA$ such that $\mu(E) > 0$ and $(d \nu / d\mu)\chi_E = 0$ $\mu$-a.e. Therefore 
+		\begin{align*}
+			\nu(E)
+			& = \int_E \frac{d \nu}{d\mu}\chi_E  \dmu \\
+			& = 0
+		\end{align*}
+	\end{proof}
 	
 	
 	
@@ -3840,272 +4127,6 @@
 	\begin{proof}
 	Clear by an exercise in section $3.2$.
 	\end{proof}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	\newpage
-	\subsection{Disintegration of Measures}
-	
-	\begin{note}
-		In this section, some methods from Banach space theory are used. See analysis notes for details.
-	\end{note}
-	
-	\begin{ex} \lex{00000} 
-		Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. Define $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$. Then 
-		\begin{enumerate}
-			\item $ L^1(X, \MB, \mu_{\MB}) \subset L^1(X, \MA, \mu)$ 
-			\item for each $f \in L^1(X, \MB, \mu)$ and $B \in \MB$, $$\int_B f \dmu_{\MB} = \int_B f \dmu$$
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}
-		Let $f \in L^1(X, \MB, \mu)$. Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
-		\begin{align*}
-			\infty 
-			&> \mu_{\MB}(B_i) \\
-			&= \mu(B_i)
-		\end{align*}
-		So $f \in L^1(X, \MA, \mu)$ and 
-		\begin{align*}
-			\int_B f \dmu_{\MB} 
-			&= \int_B \sum_{i=1}^n b_i \chi_{B_i} \dmu_{\MB} \\
-			&= \sum_{i=1}^n b_i \mu_{\MB}(B_i \cap B)\\
-			&= \sum_{i=1}^n b_i \mu(B_i \cap B)\\
-			&= \int_B \sum_{i=1}^n b_i\chi_{B_i} \dmu \\
-			&= \int_B f \dmu
-		\end{align*}
-		If $f \geq 0$, then there exist $(\phi_n)_{n \in \N} \subset S^+(X, \MB)$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \convt{p.w.} f$. The monotone convergence theorem implies that for each $B \in \MB$,
-		\begin{align*}
-			\int_B f \dmu
-			&= \limn \int_B \phi_n \dmu \\
-			&= \limn \int_B \phi_n \dmu_{\MB} \\
-			& = \int_B f \dmu_{\MB} \\
-			& < \infty
-		\end{align*}
-		So $f \in L^1(X, \MA, \mu)$.
-		Similarly, the statement also holds for general $f \in L^1(X, \MB, \mu_B)$ by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
-	\end{proof}
-
-	\begin{note}
-		Denote the $L^1$ norms on $L^1(X, \MA, \mu)$ and $L^1(X, \MB, \mu_{\MB})$ by $N$ and $N_{\MB}$ respectively. The previous exercise implies that $L^1(X, \MB, \mu_{\MB})$ is a subspace of $L^1(X, \MA, \mu)$ and $N|_{L^1(X, \MB, \mu_{\MB})} = N_{\MB}$.
-	\end{note}
-	
-	\begin{ex}
-		Let $(X, \MA, \mu)$ be a measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f \in L^1(X, \MA, \mu)$. Define $\mu_{\MB}: \MB \rightarrow [0, \infty] $ and $\nu_f: \MB \rightarrow [0,\infty)$ by $\mu_{\MB} = \mu|_{\MB}$ and 
-		$$\nu_f(B) = \int_B f \dmu $$ Then $\nu_f \ll \mu_{\MB}$. 
-	\end{ex}	
-	
-	\begin{proof}
-		Let $B \in \MB$. Suppose that $\mu_{\MB}(B) = 0$. By definition, $\mu(B) = 0$. So $\nu(B) = 0$ and $\nu \ll \mu_{\MB}$.
-	\end{proof}
-
-	\begin{note}
-		Since $\nu_f \ll \mu_{\MB}$ and $\nu_f(X) < \infty$, if $\mu$ is $\sig$-finite, then $d \nu_{f} / d \mu_{\MB}$ exists and 
-		\begin{align*}
-			d \nu_{f} / d \mu_{\MB} 
-			& \in L^1(X, \MB, \mu_{\MB}) \\
-			& \subset L^1(X, \MA, \mu)
-		\end{align*}
-	\end{note}
-
-	\begin{defn}
-		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $\MB$ a sub $\sig$-algebra of $\MA$. We define the \textbf{projection from $L^1(X, \MA, \mu)$ to $L^1(X, \MB, \mu_{\MB})$}, denoted $P_{\MB}:L^1(X, \MA, \mu) \rightarrow L^1(X, \MB, \mu_{\MB})$ by 
-		$$P_{\MB}f = \frac{d \nu_f}{d \mu_{\MB}}$$ 
-	\end{defn}
-
-	\begin{ex}
-		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $\MB$ a sub $\sig$-algebra of $\MA$. Then 
-		\begin{enumerate}
-			\item $P_{\MB} \in L(L^1(X, \MA, \mu))$ and $\|P_{\MB}\| = 1$
-			\item $P_{\MB}$ is idempotent
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $f, g \in L^1(X, \MA, \mu)$ and $\lam \in \C$. For each $B \in \MB$, we have that 
-			\begin{align*}
-				\nu_{f + \lam g} (B) 
-				& = \int_{B} f + \lam g \dmu \\
-				& = \int_{B} f  \dmu + \lam \int_{B} g \dmu \\
-				& = \nu_{f}(B) + \lam \nu_{g}(B) \\
-				& = (\nu_{f} + \lam \nu_{g})(B)
-			\end{align*}
-			Hence $\nu_{f + \lam g} + \nu_{f} + \lam \nu_{g}$. Thus 
-			\begin{align*}
-				P_{\MB}(f + \lam g)
-				& = \frac{d \nu_{f + \lam g}}{d \mu_{\MB}} \\
-				& = \frac{d \nu_f }{d \mu_{\MB}} + \lam \frac{d \nu_{g}}{d \mu_{\MB}} \\
-				& = P_{\MB} f + \lam P_{\MB} g
-			\end{align*}
-			So $P_{\MB}$ is linear. Since $|P_{\MB}f| \in L^1(X, \MB, \mu_{\MB})$, a previous exercise implies that
-			\begin{align*}
-				\|P_{\MB}f\|_1
-				& = \int |P_{\MB}f| \dmu \\
-				& = \int |P_{\MB}f| \dmu_{\MB} \\
-				& = |\nu_{f}|(X) \\
-				& = \int |f| \dmu \\
-				& = \|f\|_1
-			\end{align*}
-			Hence $\|P_{\MB} f \|_1 = \|f\|_1$ and $P_{\MB} \in L(L^1(X, \MA, \mu))$.
-			\item Let $f \in L^1(X, \MA, \mu)$. For each $B \in \MB$, 
-			\begin{align*}
-				\nu_{P_{\MB}f}(B) 
-				& = \int P_{\MB} f \dmu \\
-				& = \int P_{\MB} f \dmu_{\MB} \\
-			\end{align*}
-			Therefore
-			\begin{align*}
-				P^2_{\MB}f 
-				& = P_{\MB} (P_{\MB}f) \\
-				& = \frac{d \nu_{P_{\MB}f}}{d \mu_{\MB}} \\
-				& =  P_{\MB} f
-			\end{align*}
-			Hence $P^2_{\MB} = P_{\MB}$ and $P_{\MB}$ is idempotent.
-		\end{enumerate}
-	\end{proof}
-
-	\begin{ex}
-		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $(A_{j})_{j \in \N} \subset \MA$. Suppose that $(A_j)_{j \in \N}$ is disjoint and $\mu \bigg(\bigcup\limits_{j \in \N} A_j \bigg) < \infty$. Then 
-		\begin{enumerate}
-			\item $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$
-			\item $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Since $(A_j)_{j \in \N}$ is disjoint, we have that 
-			\begin{align*}
-				\|\chi_{\bigcup\limits_{j \in \N} A_j}\|_1 
-				& = \int \chi_{\bigcup\limits_{j \in \N} A_j} \dmu \\
-				& = \mu\bigg(\bigcup\limits_{j \in \N} A_j \bigg) \\
-				& < \infty
-			\end{align*}
-			So $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$.
-			\item Since  $(A_j)_{j \in \N}$ is disjoint, we have that 
-			$$\chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} \chi_{A_j}$$
-			For each $n \in \N$, define $f_n = \sum\limits_{j = 1}^n \chi_{A_j}$. Set $f = \chi_{\bigcup\limits_{j \in \N} A_j}$. Then for each $n \in \N$, $f_n \leq f$ and $f_n \convt{p.w.} f$. Since $f \in L^1(X, \MA, \mu)$, the dominated convergence theorem implies that $f_n \conv{L^1(\mu)} f$. Since $P_{\MB} \in L(L^1(X, \MA, \mu))$, 
-			\begin{align*}
-				\sum_{j=1}^n P_{\MB} \chi_{A_j}
-				& = P_{\MB} \sum_{j=1}^n \chi_{A_j} \\
-				& = P_{B}f_n \\
-				& \conv{L^1(\mu)} P_{\MB}f \\
-				& = P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} 
-			\end{align*}  
-			Hence  $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} 
-		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space, $f \in L^1(X, \MA, \mu)$ and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. Then there exists a unique $\phi \in L^0(Y, \MB)$ such that $\phi \circ g = \MP_{g^*\MB}f$. \\
-		\textbf{Hint:} Doob-Dynkin lemma
-	\end{ex}	
-	
-	\begin{proof}
-		Since $P_{g^*\MB}f \in L^1(X, g^*\MB, \mu_{g^*\MB})$ and $\MB$, the Doob-Dynkin lemma implies that there exists a unique $\phi \in L^0(Y, \MB)$ such that $\phi \circ g = P_{g^*\MB}f$. 
-	\end{proof}
-
-	\begin{defn} 
-		Let $(X, \MA)$ and $(Y, \MB)$ be measure spaces. and $\nu: Y \times \MA \rightarrow \Rg$. Then $\nu$ is said to be a \textbf{transition kernel from $(Y, \MB)$ to $(X, \MA)$} if 
-		\begin{enumerate}
-			\item for each $A \in \MA$, $\nu(\cdot, A)$ is $\MB$-measurable
-			\item for each $y \in Y$, $\nu(y, \cdot)$ is a measure on $(X, \MA)$
-		\end{enumerate}
-	\end{defn}
-
-	\begin{defn}
-		Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a measurable space and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. For $A \in \MA$, define $\phi_A \in L^0(Y, \MB )$ to be the unique $\phi \in L^0(Y, \MB)$ such that $\phi \circ g = P_{g^*\MB} \chi_A$. For $y \in Y$, we define the \textbf{conditional of $\mu$ on $y$}, denoted $\mu_y : \MA \rightarrow \Rg$, by $\mu_y(A) = \phi_A(y)$. 
-	\end{defn}
-
-	\begin{ex}
-		Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a measurable space and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. Define $\nu: Y \times \MA \rightarrow \Rg$ by $\nu(y, A) = \mu_y(A)$. Then $\nu$ is a transition kernel from $(Y, \MB)$ to $(X, \MA)$.  
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $A \in \MA$. Since $\phi_A \in L^0(Y, \MB)$, $\nu(\cdot, A) = \phi_A(\cdot)$ is $\MB$-measurable.
-			\item Let $y \in Y$
-			\begin{itemize}
-				\item Since $\chi_{\varnothing} = 0$, $P_{g^*\MB}\chi_{\varnothing} = 0$. Therefore
-				\begin{align*}
-					0 \circ g 
-					& =  0 \\
-					& = P_{g^*\MB}\chi_{\varnothing}
-				\end{align*}
-				Uniqueness of $\phi_{\varnothing}$ implies that $\phi_{\varnothing} = 0$. Hence 
-				\begin{align*}
-					\nu(y, \varnothing) 
-					& = \mu_y(\varnothing) \\
-					& = \phi_{\varnothing}(y) \\
-					& = 0
-				\end{align*}
-				\item Let $(A_j)_{j \in \N} \subset \MA$. Suppose that $(A_j)_{j \in \N}$ is disjoint. Since $\mu$ is finite, $\mu \bigg( \bigcup\limits_{j \in \N}A_j \bigg) < \infty$. A previous exercise implies that  
-				\begin{enumerate}
-					\item $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$
-					\item $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$
-				\end{enumerate}
-				Therefore
-				\begin{align*}
-					\phi_{\bigcup\limits_{j \in \N} A_j} \circ g
-					& = P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} \\
-					& = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j} \\
-					& = \sum\limits_{j \in \N} \phi_{A_j} \circ g 
-				\end{align*}
-				Since $g$ is surjective, $\phi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} \phi_{A_j}$. Hence 
-				\begin{align*}
-					\nu \bigg(y, \bigcup\limits_{j \in \N} A_j \bigg)
-					& = \mu_y \bigg( \bigcup\limits_{j \in \N} A_j \bigg) \\
-					& = \phi_{\bigcup\limits_{j \in \N} A_j}(y) \\
-					& = \sum\limits_{j \in \N} \phi_{A_j}(y) \\
-					& = \sum\limits_{j \in \N} \mu_y(A_j) \\
-					& =  \sum\limits_{j \in \N} \nu(y, A_j)
-				\end{align*}
-			\end{itemize}
-			Hence $\nu(y, \cdot)$ is a measure on $(X, \MA)$. 
-		\end{enumerate}
-		\textbf{FINISH!!!} there are still some a.e. technicalities to address. 
-	\end{proof}
-
-	\begin{ex} \textbf{Disintegration of Measure:} \\
-		Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a measurable space and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. Then there exists a collection of measures $(\mu_y)_{y \in Y}$ such that  
-		\begin{enumerate}
-			\item for each $A \in \MA$, 
-			$$\mu(A) = \int \mu_y(A) \, d g_*\mu(y) $$
-			\item for each $f \in L^1(X, \MA, \mu)$, 
-			$$\int f \dmu = \int \bigg[ \int f \, d\mu_y(x) \bigg] \, d g_*\mu(y)$$ 
-		\end{enumerate}
-	\end{ex}
 	
 	
 	
@@ -4145,7 +4166,6 @@
 	
 	
 	\newpage
-	\section{Applications to Differentiation}
 	\subsection{Differentiation on $\R^n$}
 	
 	\begin{defn} \ld{00000} 
@@ -4315,23 +4335,73 @@
 	\subsection{Functions of Bounded Variation}
 	
 	\begin{defn} \ld{00000} 
-		Let $F:\R \rightarrow \R$ be increasing. Define $F_+:\R \rightarrow \R$ by $$F_+(x) = \lim_{t \rightarrow x^+}F(t) = \inf \{F(t): t>x \}$$
+		Let $F:\R \rightarrow \R$ be increasing. Define $F_+:\R \rightarrow \R$ and $F_-:\R \rightarrow \R$ by $$F_+(x) = \lim_{t \rightarrow x^+}F(t) = \inf \{F(t): t>x \}$$ and $$F_-(x) =  \lim_{t \rightarrow x^-}F(t) = \sup \{F(t): t < x \}$$ respectively.
 	\end{defn}
 	
-	\begin{note}
-		Observe that $F \leq F_+$ and $F_+$ is increasing.
-	\end{note}
+	\begin{ex}
+		Let $F:\R \rightarrow \R$ be increasing. Then 
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item $F \leq F_+$
+				\item$F_+$ is increasing
+			\end{enumerate}
+			\item 
+			\begin{enumerate}
+				\item $F_- \leq F$
+				\item $F_-$ is increasing
+			\end{enumerate}
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item  Let $x \in \R$. Since $F$ is increasing, for each $t > x$, $F(x) \leq F(t)$. Hence 
+				\begin{align*}
+					F(x)
+					& \leq \inf \{F(t): t>x \} \\
+					& = F_+(x)
+				\end{align*}
+				Since $x \in \R$ is arbitrary, $F \leq F_+$.
+				\item  Let $x,y \in \R$. Suppose that $x \leq y$. Then $\{F(t): t>y \} \subset \{F(t): t>x \}$. Thus 
+				\begin{align*}
+					F_+(x)
+					& = \inf \{F(t): t>x \} \\
+					& \leq \inf \{F(t): t>y \} \\
+					& = F_+(y)
+				\end{align*}
+			\end{enumerate}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $F:\R \rightarrow \R$ be increasing and $x \in \R$. Then $F$ is discontinuous at $x$ iff $F_-(x) < F_+(x)$.
+	\end{ex}
+
+	\begin{proof}
+		Since $F$ is continuous at $x$ iff $\lim_{t \rightarrow x^+}F(t) = F(x)$ and $\lim_{t \rightarrow x^-}F(t) = F(x)$, by definition, $F$ is continuous at $x$ iff $F_+(x) = F(x)$ and $F_-(x) = F(x)$. Then the previous exercise implies that $F$ is discontinuous at $x$ iff $F_+(x) > F(x)$ or $F_-(x) < F(x)$. Since $F_+(x) > F(x)$ implies that $F_-(x) < F_+(x)$ and $F_-(x) < F(x)$ implies that $F_-(x) < F_+(x)$, we have that $F$ is discontinuous at $x$ iff $F_-(x) < F_+(x)$.
+ 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
 		Let $F:\R \rightarrow \R$ be increasing. Then for each $x \in \R$ and $ \ep>0$, there exists $\del >0$ such that for each $y \in (x,x+\del)$, $0 \leq F_+(y) - F(y) \leq \ep$.
 	\end{ex}
 	
 	\begin{proof}
-		For the sake of contradiction, suppose not. Then there exists $x \in R$ and $\ep >0$ such that for each $\del >0$, there exist $y \in (x,x+\del)$ such that $F_+(y) - F(y) > \ep$. Then there exists a sequence $(y_n)_{n \in \N} \subset \R$ such that for each $n \in \N$, $y_n \in (x, x+\frac{1}{n})$, $y_n > y_{n+1}$ and $F_+(y_n) - F(y_n) > \ep$. Choose $N \in \N$ such that $(N-1)\ep > F(y_1) - F(x)$. Then 
+		For the sake of contradiction, suppose not. Then there exists $x \in \R$ and $\ep >0$ such that for each $\del >0$, there exist $y \in (x,x+\del)$ such that $F_+(y) - F(y) > \ep$. Then there exists a sequence $(y_n)_{n \in \N} \subset \R$ such that for each $n \in \N$, $y_n \in (x, x+\frac{1}{n})$, $y_n > y_{n+1}$ and $F_+(y_n) - F(y_n) > \ep$. Choose $N \in \N$ such that $(N-1)\ep > F(y_1) - F(x)$. Note that for each $n \in \N$, $(y_n + y_{n+1})/ 2 < y_n$ which implies that
+		\begin{align*}
+			F_+(y_{n+1})
+			& \leq F((y_n + y_{n+1})/ 2) \\
+			& \leq F(y_n)
+		\end{align*}
+		Therefore
 		\begin{align*}
 			F(y_1) - F(x) 
-			&= \sum_{i=1}^{N-1} \bigg[F(y_i)-F_+(y_{i+1}) + F_+(y_{i+1}) - F(y_{i+1}) \bigg] + F(y_N)- F(x)\\
-			& = \sum_{i=1}^{N-1} \bigg[F(y_i)-F_+(y_{i+1}) \bigg] + \sum_{i=1}^{N-1} \bigg[ F_+(y_{i+1}) - F(y_{i+1}) \bigg] + F(y_N)- F(x) \\
+			&= \sum_{j=1}^{N-1} \bigg[F(y_j)-F_+(y_{j+1}) + F_+(y_{j+1}) - F(y_{j+1}) \bigg] + F(y_N)- F(x)\\
+			& = \sum_{j=1}^{N-1} \bigg[F(y_j)-F_+(y_{j+1}) \bigg] + \sum_{j=1}^{N-1} \bigg[ F_+(y_{j+1}) - F(y_{j+1}) \bigg] + F(y_N)- F(x) \\
+			& \geq \sum_{j=1}^{N-1} \bigg[ F_+(y_{j+1}) - F(y_{j+1}) \bigg]  \\
 			& \geq (N-1)\ep \\
 			& > F(y_1) - F(x)
 		\end{align*}
@@ -4343,7 +4413,7 @@
 	\end{ex}
 	
 	\begin{proof}
-		Let $x \in \R$. Let $\ep >0$. Then there exists $\del_1>0$ such that for each $y \in (x,x+\del_1)$ $0 \leq F(y)-F_+(x) < \ep/2$. There exists $\del_2 >0$ such that for each $y \in (x,x+\del_2)$, \\$0 \leq F_+(y)-F(y) < \ep/2$. Choose $\del = \min\{\del_1, \del_2\}$. Let $y \in (x, x+\del)$.
+		Let $x \in \R$. Let $\ep >0$. By definition, there exists $\del_1>0$ such that for each $y \in (x,x+\del_1)$ $0 \leq F(y)-F_+(x) < \ep/2$. The previous exercise implies that there exists $\del_2 >0$ such that for each $y \in (x,x+\del_2)$, $0 \leq F_+(y)-F(y) < \ep/2$. Choose $\del = \min\{\del_1, \del_2\}$. Let $y \in (x, x+\del)$.
 		\begin{align*}
 			|F_+(x) - F_+(y)|
 			& \leq |F_+(x) - F(y)| + |F(y)- F_+(y)| \\
@@ -4355,13 +4425,20 @@
 		So $\lim\limits_{t \rightarrow x^+} F_+(t) = F_+(x)$ and $F_+$ is right continuous.
 	\end{proof}
 	
-	\begin{thm}
+	\begin{ex}
 		Let $F:\R \rightarrow \R$ be increasing. Then 
 		\begin{enumerate}
 			\item $\{x \in \R: F \text{ is not continuous at }x\}$ is countable
 			\item $F$ and $F_+$ are differentiable a.e. and $F' = F_+'$ a.e.
 		\end{enumerate}
-	\end{thm}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\item 
+		\end{enumerate}
+	\end{proof}
 	
 	\begin{defn} \ld{00000} 
 		Let $F:\R \rightarrow \C$. Define $T_F:\R \rightarrow \R$ by $$T_F(x) = \sup\bigg \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset \R \text{ is increasing and } x_n=x  \bigg \} \hspace{4mm} (x \in \R)$$
@@ -4407,20 +4484,20 @@
 	\end{proof}
 	
 	\begin{defn} \ld{00000} 
-		Let $F:\R \rightarrow \C$. Then $F$ is said to have \textbf{bounded variation} if $\lim \limits_{x \rightarrow \infty}T_F(x)<\infty$. The \textbf{total variation of $F$}, denoted by $TV(F)$, is defined to be $TV(F) = \lim\limits_{x\rightarrow \infty}T_F(x)$.
-		We define $BV = \{F:\R \rightarrow \C: TV(F)<\infty \}$.
+		Let $F:\R \rightarrow \C$. Then $F$ is said to have \textbf{bounded variation} if $\lim \limits_{x \rightarrow \infty}T_F(x)<\infty$. The \textbf{total variation of $F$}, denoted by $\TV(F)$, is defined to be $\TV(F) = \lim\limits_{x\rightarrow \infty}T_F(x)$.
+		We define $\BV = \{F:\R \rightarrow \C: \TV(F)<\infty \}$.
 	\end{defn}
 	
 	\begin{defn} \ld{00000} 
-		Let $F:[a,b] \rightarrow \C$. Define $G_F:\R \rightarrow \C$ by $G_F = F(a)\chi_{(-\infty,a)} + F\chi_{[a,b]}+F(b)\chi_{(b,\infty)}$. Then $F$ is said to have \textbf{bounded variation on $[a,b]$} if $G_F \in BV$. The \textbf{total variation of $F$}, denoted $TV(F)$, is defined to be $TV(F) = TV(G_F)$ We define $BV(a,b) = \{F:[a,b] \rightarrow \C: TV(F) < \infty\}$.
+		Let $F:[a,b] \rightarrow \C$. Define $G_F:\R \rightarrow \C$ by $G_F = F(a)\chi_{(-\infty,a)} + F\chi_{[a,b]}+F(b)\chi_{(b,\infty)}$. Then $F$ is said to have \textbf{bounded variation on $[a,b]$} if $G_F \in \BV$. The \textbf{total variation of $F$}, denoted $\TV(F)$, is defined to be $\TV(F) = \TV(G_F)$. We define $\BV(a,b) = \{F:[a,b] \rightarrow \C: \TV(F) < \infty\}$.
 	\end{defn}
 	
 	\begin{note}
-		Equivalently, $TV(F) = \sup \big \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset [a,b] \text{ is increasing, } x_0=a \text{, and } x_n=b\big \}$ and $F \in BV(a,b)$ iff $TV(F) < \infty$. In general, 
+		Equivalently, $\TV(F) = \sup \big \{\sum_{i=1}^{n}|F(x_{i}) - F(x_{i-1})|: (x_i)_{i=0}^n \subset [a,b] \text{ is increasing, } x_0=a \text{, and } x_n=b\big \}$ and $F \in \BV(a,b)$ iff $\TV(F) < \infty$. In general, 
 	\end{note}
 	
 	\begin{ex} \lex{00000} 
-		Let $F \in BV$. Then $F$ is bounded.
+		Let $F \in \BV$. Then $F$ is bounded.
 	\end{ex}
 	
 	\begin{proof}
@@ -4428,7 +4505,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $F:\R \rightarrow \R$. If $F$ is bounded and increasing, then $F \in BV$.
+		Let $F:\R \rightarrow \R$. If $F$ is bounded and increasing, then $F \in \BV$.
 	\end{ex}
 	
 	\begin{proof}
@@ -4438,19 +4515,19 @@
 			&= \sum_{i=1}^n F(x_i)-F(x_{i-1})\\
 			&= F(x)-F(x_0)
 		\end{align*}
-		
-		Thus $$T_F(x) = F(x)-\inf_{x \in \R}F(x)$$. This implies that 
+		Thus 
+		$$T_F(x) = F(x)-\inf_{x \in \R}F(x)$$ 
+		This implies that 
 		\begin{align*}
-			TV(F) 
+			\TV(F) 
 			&= \sup_{x \in \R}F(x)-\inf_{x \in \R}F(x)\\
 			&<\infty
 		\end{align*}
-		
-		Hence $F \in BV$.
+		Hence $F \in \BV$.
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $F:\R \rightarrow \C$. If $F$ is differentiable and $F'$ is bounded on $[a,b]$, then, $F \in BV(a,b)$. 
+		Let $F:\R \rightarrow \C$. If $F$ is differentiable and $F'$ is bounded on $[a,b]$, then, $F \in \BV(a,b)$. 
 	\end{ex}
 	
 	\begin{proof}
@@ -4462,7 +4539,7 @@
 			&=M(b-a)
 		\end{align*}
 		
-		Hence $TV(F) \leq M(b-a)$.
+		Hence $\TV(F) \leq M(b-a)$.
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
@@ -4477,7 +4554,7 @@
 		\end{cases}
 		\]
 		
-		Then $F$ and $G$ are differentiable, $F \in BV(-1,1)$ and $G \not \in BV(-1,1)$.
+		Then $F$ and $G$ are differentiable, $F \in \BV(-1,1)$ and $G \not \in \BV(-1,1)$.
 	\end{ex}
 	
 	\begin{proof}
@@ -4495,7 +4572,7 @@
 			&=0
 		\end{align*}
 		
-		Therefore for each $x \in [-1,1]$, $|F'(x)| \leq 3$. Which by a previous exercise implies that $F \in BV(-1,1)$.
+		Therefore for each $x \in [-1,1]$, $|F'(x)| \leq 3$. Which by a previous exercise implies that $F \in \BV(-1,1)$.
 		
 		On $\R \setminus \{0\}$, 
 		\begin{align*}
@@ -4525,29 +4602,29 @@
 		\newpage
 		Hence for each $n \in \N$,
 		\begin{align*}
-			TV(G,[-1,1]) 
+			\TV(G,[-1,1]) 
 			&\geq \sum_{i=1}^n|G(x_i)-G(x_{i-1})| \\
 			& > \frac{2}{\pi}\sum_{i=1}^n \frac{1}{i}
 		\end{align*}
-		Therefore $G \not \in BV([-1,1])$.
+		Therefore $G \not \in \BV([-1,1])$.
 	\end{proof}
 	
-	\begin{ex} \lex{00000}  The following is stated for $BV$, but is also true for $BV(a,b)$.
+	\begin{ex} \lex{00000}  The following is stated for $\BV$, but is also true for $\BV(a,b)$.
 		
 		\begin{enumerate} 
-			\item For each $F,G \in BV$, $T_{F+G} \leq T_F + T_G$ and therefore $BV$ is a vector space. 
-			\item For each $F: \R \rightarrow \C$, $F \in BV$ iff $Re(f) \in BV$ and $Im(F) \in BV$.
-			\item For each $F:\R \rightarrow \R$, $F \in BV$ iff there exist functions $F_1,F_2:\R \rightarrow \R$ such that $F_1,F_2$ are bounded, increasing and $F=F_1-F_2$
-			\item For each $F \in BV$ and $x \in \R$, $\lim_{t \rightarrow x^+}F(t)$ and $\lim_{t \rightarrow x^-}F(t)$ exist. 
-			\item For each $F \in BV$, $\{x \in R: F \text{ is not continuous at }x\}$ is countable.
-			\item For each $F \in BV$, $F$ and $F_+$ are differentiable a.e. and $F'=(F_+)'$ a.e.
-			\item For each $F \in BV, c \in \R$, $F-c \in BV$
+			\item For each $F,G \in \BV$, $T_{F+G} \leq T_F + T_G$ and therefore $\BV$ is a vector space. 
+			\item For each $F: \R \rightarrow \C$, $F \in \BV$ iff $Re(f) \in \BV$ and $Im(F) \in \BV$.
+			\item For each $F:\R \rightarrow \R$, $F \in \BV$ iff there exist functions $F_1,F_2:\R \rightarrow \R$ such that $F_1,F_2$ are bounded, increasing and $F=F_1-F_2$
+			\item For each $F \in \BV$ and $x \in \R$, $\lim_{t \rightarrow x^+}F(t)$ and $\lim_{t \rightarrow x^-}F(t)$ exist. 
+			\item For each $F \in \BV$, $\{x \in R: F \text{ is not continuous at }x\}$ is countable.
+			\item For each $F \in \BV$, $F$ and $F_+$ are differentiable a.e. and $F'=(F_+)'$ a.e.
+			\item For each $F \in \BV, c \in \R$, $F-c \in \BV$
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}
 		\begin{enumerate}
-			\item Let $F, G \in BV$, $x \in \R$ and $\ep>0$. Since $T_{F+G}(x) < \infty$, $T_{F+G}(x)-\ep< T_{F+G}(x)$. Thus there exists $(x_i)_{i=0}^n \subset \R$ such that $(x_i)_{i=0}^n$ is increasing, $x_n=x$ and $T_{F+G}(x) < \sum_{i=1}^n |(F+G)(x_i) - (F+G)(x_{i-1}))|+ \ep$. Thuerefore 
+			\item Let $F, G \in \BV$, $x \in \R$ and $\ep>0$. Since $T_{F+G}(x) < \infty$, $T_{F+G}(x)-\ep< T_{F+G}(x)$. Thus there exists $(x_i)_{i=0}^n \subset \R$ such that $(x_i)_{i=0}^n$ is increasing, $x_n=x$ and $T_{F+G}(x) < \sum_{i=1}^n |(F+G)(x_i) - (F+G)(x_{i-1}))|+ \ep$. Thuerefore 
 			
 			\begin{align*}
 				T_{F+G}(x)
@@ -4555,12 +4632,12 @@
 				& \leq \sum_{i=1}^n |F(x_i)-F(x_{i-1})|+ \sum_{i=1}^n|G(x_i)-G(x_{i-1})| + \ep\\
 				& \leq T_F(x) + T_G(x) + \ep
 			\end{align*}
-			Since $\ep >0$ is arbitrary, $T_{F+G}(x) \leq T_F(x)+T_G(x)$. Therefore $TV(F+G) \leq TV(F)+TV(G)<\infty$. Thus $F+G \in BV$. It is straight forward to verify the other requirements needed to show that $BV$ is a vector space.
+			Since $\ep >0$ is arbitrary, $T_{F+G}(x) \leq T_F(x)+T_G(x)$. Therefore $\TV(F+G) \leq \TV(F)+\TV(G)<\infty$. Thus $F+G \in \BV$. It is straight forward to verify the other requirements needed to show that $\BV$ is a vector space.
 			
-			\item Let $F: \R \rightarrow \C$. Write $F=F_1+iF_2$ with $F_1, F_2:\R \rightarrow \R$. Suppose that $F \in BV$. Note that for each $x_1,x_2 \in \R$ and $j =1,2$, $|F_j(x_1)-F_j(x_2)| \leq |F(x_1)-F(x_2)|$. Let $x\in \R$ and $(x_i)_{i=0}^n \subset \R$. Suppose that $(x_i)_{i=0}^n$ is increasing and $x_n=x$. Then for $j=1,2$ 
+			\item Let $F: \R \rightarrow \C$. Write $F=F_1+iF_2$ with $F_1, F_2:\R \rightarrow \R$. Suppose that $F \in \BV$. Note that for each $x_1,x_2 \in \R$ and $j =1,2$, $|F_j(x_1)-F_j(x_2)| \leq |F(x_1)-F(x_2)|$. Let $x\in \R$ and $(x_i)_{i=0}^n \subset \R$. Suppose that $(x_i)_{i=0}^n$ is increasing and $x_n=x$. Then for $j=1,2$ 
 			$$\sum_{i=1}^n|F_j(x_i)-F_j(x_{i-1})| \leq \sum_{i=1}^n|F(x_i)-F(x_{i-1})|$$
-			Thus for $j=1,2$ we have that $T_{F_j}(x) \leq T_F(x)$ which implies that $Re(f),Im(F) \in BV$. Conversely, Suppose that $Re(f), Im(F) \in BV$. Then $F=Re(f)+iIm(f) \in BV$ by (1).
-			\item Suppose that $F \in BV$. Choose $F_1=\frac{1}{2}(T_F-F)$ and $F_2=\frac{1}{2}(T_F+F)$. Then $F_1,F_2$ are bounded, increasing and $F=F_1+F_2$. Conversely, if there exist $F_1,F_2:\R \rightarrow \R$ such that $F_1,F_2$ are bounded, increasing and $F=F_1-F_2$, then $F_1, F_2 \in BV$. By (1) $F \in BV$.
+			Thus for $j=1,2$ we have that $T_{F_j}(x) \leq T_F(x)$ which implies that $Re(f),Im(F) \in \BV$. Conversely, Suppose that $Re(f), Im(F) \in \BV$. Then $F=Re(f)+iIm(f) \in \BV$ by (1).
+			\item Suppose that $F \in \BV$. Choose $F_1=\frac{1}{2}(T_F-F)$ and $F_2=\frac{1}{2}(T_F+F)$. Then $F_1,F_2$ are bounded, increasing and $F=F_1+F_2$. Conversely, if there exist $F_1,F_2:\R \rightarrow \R$ such that $F_1,F_2$ are bounded, increasing and $F=F_1-F_2$, then $F_1, F_2 \in \BV$. By (1) $F \in \BV$.
 			\item This is clear by previous results and (3)
 			\item This is clear by previous results and (3)
 			\item This is clear by previous results and (3)
@@ -4573,15 +4650,15 @@
 	\end{lem}
 	
 	\begin{defn} \ld{00000} 
-		Define $NBV=\{F \in BV: F \text{ is right continuous and }\lim_{x \rightarrow -\infty}F(x)=0\}$.
+		Define $\NBV=\{F \in \BV: F \text{ is right continuous and }\lim_{x \rightarrow -\infty}F(x)=0\}$.
 	\end{defn}
 	
 	\begin{thm}
-		Let $M(\R)$ be the set of complex Borel measures on $\R$. For $F \in NBV$, define $\mu_F \in M(\R)$ by $\mu_F((-\infty, x]) = F(x)$. Then $F \mapsto \mu_F$ defines a bijection $NBV \rightarrow M(\R)$. In addition, $|\mu_F| = \mu_{T_F}$
+		Let $M(\R)$ be the set of complex Borel measures on $\R$. For $F \in \NBV$, define $\mu_F \in M(\R)$ by $\mu_F((-\infty, x]) = F(x)$. Then $F \mapsto \mu_F$ defines a bijection $\NBV \rightarrow M(\R)$. In addition, $|\mu_F| = \mu_{T_F}$
 	\end{thm}
 	
 	\begin{thm}
-		Let $F \in NBV$. Then $F' \in L^1(m)$, $\mu_F \perp m$ iff $F' =0$ a.e. and $\mu_F \ll m$ iff for each $x \in \R$, $$\int_{(-\infty, x]}F'\dm = F(x)$$
+		Let $F \in \NBV$. Then $F' \in L^1(m)$, $\mu_F \perp m$ iff $F' =0$ a.e. and $\mu_F \ll m$ iff for each $x \in \R$, $$\int_{(-\infty, x]}F'\dm = F(x)$$
 	\end{thm}
 	
 	\begin{defn} \ld{00000} 
@@ -4593,7 +4670,7 @@
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
-		Let $F:[a,b] \rightarrow \C$. If $F$ is absolutely continuous, then $F \in BV$.
+		Let $F:[a,b] \rightarrow \C$. If $F$ is absolutely continuous, then $F \in \BV$.
 	\end{ex}
 	
 	\begin{proof}
@@ -4609,11 +4686,11 @@
 	&< \sum_{j=1}^n 1  \\
 	&= n
 	\end{align*}
-	So $TV(F) \leq n < \infty$ and $F \in BV$. 
+	So $\TV(F) \leq n < \infty$ and $F \in \BV$. 
 	\end{proof}
 	
 	\begin{ex}
-	There exists $F:\R \rightarrow \C$ such that $F$ is absolutely continuous and $F \not \in BV$. 
+	There exists $F:\R \rightarrow \C$ such that $F$ is absolutely continuous and $F \not \in \BV$. 
 	\end{ex}	
 	
 	\begin{proof}
@@ -4623,7 +4700,7 @@
 	\begin{ex} \lex{00000} 
 		Let $F: \R \rightarrow \C$. Suppose that there exists $f \in L^1(m)$ such that for each $x \in \R$,
 		$$F(x) = \int_{(-\infty, x]}f\dm$$ 
-		Then $F \in NBV$.
+		Then $F \in \NBV$.
 	\end{ex}
 	
 	\begin{proof}
@@ -4636,11 +4713,11 @@
 			& < \int|f|\dm
 		\end{align*}
 		
-		Hence $T_F(x) \leq \int |f|\dm$. Since $x \in \R$ is arbitrary, $TV(F) \leq \int |f|\dm$. Therefore $F \in BV$. By the continuity from above and below for measures and the fact that $m({x})=0$ for each $x \in \R$, $F$ is continuous. By continuity from above for measures, $\lim\limits_{x \rightarrow -\infty} F(x) =0$. So $F \in NBV$.
+		Hence $T_F(x) \leq \int |f|\dm$. Since $x \in \R$ is arbitrary, $\TV(F) \leq \int |f|\dm$. Therefore $F \in \BV$. By the continuity from above and below for measures and the fact that $m({x})=0$ for each $x \in \R$, $F$ is continuous. By continuity from above for measures, $\lim\limits_{x \rightarrow -\infty} F(x) =0$. So $F \in \NBV$.
 	\end{proof}
 	
 	\begin{lem}
-		Let $F \in NBV$. Then $F$ is absolutely continuous iff $\mu_F \ll m$.
+		Let $F \in \NBV$. Then $F$ is absolutely continuous iff $\mu_F \ll m$.
 	\end{lem}
 	
 	\begin{ex} \lex{00000} \textbf{The Fundamental Theorem of Calculus:}\\
@@ -4656,7 +4733,7 @@
 	
 	\begin{proof}
 		$(1) \implies (3)$ \\
-		Suppose that $F$ is absolutely continuous on $[a,b]$. Then $F \in BV[a,b]$. Extend $F$ to $\R$ by setting $F(x) = F(a)$ for $x<a$ and $F(x)=F(b)$ for $x>b$. Then $G=F-F(a) \in NBV$ and is absolutely continuus. The previous lemma implies that there exists $f \in L^1(m)$ such that $d \mu_G = f\dm$. A previous theorem implies that for a.e. $x \in [a,b]$
+		Suppose that $F$ is absolutely continuous on $[a,b]$. Then $F \in \BV[a,b]$. Extend $F$ to $\R$ by setting $F(x) = F(a)$ for $x<a$ and $F(x)=F(b)$ for $x>b$. Then $G=F-F(a) \in \NBV$ and is absolutely continuus. The previous lemma implies that there exists $f \in L^1(m)$ such that $d \mu_G = f\dm$. A previous theorem implies that for a.e. $x \in [a,b]$
 		\begin{align*}
 			F'(x) 
 			&= \lim_{r \rightarrow x} \frac{\mu_G((x,x+r])}{m((x,x+r])}\\
@@ -4672,7 +4749,7 @@
 		$(3) \implies (2)$\\
 		Trivial.\\
 		$(2) \implies (1)$\\
-		Suppose that there exists $f \in L^1([a,b], m)$ such that for each $x \in [a,b]$, $F(x)-F(a)=\int_{(a,x]}f\dm$. Extend $F$ as before and obtain $G$ as before. Note that a previous exercise implies that $G \in NBV$. Since $\mu_G \ll m$, the previous lemma implies that $G$ is absolutely continuous.
+		Suppose that there exists $f \in L^1([a,b], m)$ such that for each $x \in [a,b]$, $F(x)-F(a)=\int_{(a,x]}f\dm$. Extend $F$ as before and obtain $G$ as before. Note that a previous exercise implies that $G \in \NBV$. Since $\mu_G \ll m$, the previous lemma implies that $G$ is absolutely continuous.
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
@@ -4744,7 +4821,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $(F_n)_{n\in \N} \in NBV$ be a sequence of nonnegative, increasing functions. If for each $x \in \R$, $F(x)=\sum_{n \in \N}F_n(x)< \infty$, then for a.e. $x \in \R$, $F$ is differentiable at $x$ and $F'(x) = \sum_{n\in \N}F_n'(x)$. 
+		Let $(F_n)_{n\in \N} \in \NBV$ be a sequence of nonnegative, increasing functions. If for each $x \in \R$, $F(x)=\sum_{n \in \N}F_n(x)< \infty$, then for a.e. $x \in \R$, $F$ is differentiable at $x$ and $F'(x) = \sum_{n\in \N}F_n'(x)$. 
 	\end{ex}
 	
 	\begin{proof}
@@ -4756,7 +4833,7 @@
 			&= \sum_{n \in \N}F_n(x)\\
 			&= F(x)
 		\end{align*}
-		Hence $F \in NBV$ and $\mu=\mu_F$. For each $n \in \N$, there exist $\lam_n \in M(\R)$ and $f \in L^1(\R)$ such that $d\mu_{F_n} = d\lam_n + f_n\dm$ and $\lam \perp m$. Since for each $n \in \N$, $\lam_n, f_n$ are nonnegative, we have that $d\mu_F =  \sum_{n \in \N} d\lam_n + (\sum_{n \in \N}f_n)\dm$. By a previous theorem, for a.e. $x \in \R$, 
+		Hence $F \in \NBV$ and $\mu=\mu_F$. For each $n \in \N$, there exist $\lam_n \in M(\R)$ and $f \in L^1(\R)$ such that $d\mu_{F_n} = d\lam_n + f_n\dm$ and $\lam \perp m$. Since for each $n \in \N$, $\lam_n, f_n$ are nonnegative, we have that $d\mu_F =  \sum_{n \in \N} d\lam_n + (\sum_{n \in \N}f_n)\dm$. By a previous theorem, for a.e. $x \in \R$, 
 		\begin{align*}
 			F'(x) 
 			&= \lim_{r \rightarrow 0}\frac{\mu_F((x,x+r])}{m((x,x+r])} \\
@@ -4781,7 +4858,7 @@
 			&=G(y)
 		\end{align*}
 		So $G$ is strictly increasing.\\
-		Now we observe that for each $n \in \N$, $F_n \in NBV$. The previous exercise implies that $$G' = \sum 2^{-n}F_n'=0 \text{ a.e.}$$
+		Now we observe that for each $n \in \N$, $F_n \in \NBV$. The previous exercise implies that $$G' = \sum 2^{-n}F_n'=0 \text{ a.e.}$$
 	\end{proof}
 	
 	
@@ -4795,20 +4872,550 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
-	\subsection{Weak Differentiation}
+	\subsection{Disintegration of Measures}
 	
+	\begin{ex} \lex{00000} 
+		Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. Define $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$. Then 
+		\begin{enumerate}
+			\item $ L^1(X, \MB, \mu_{\MB}) \subset L^1(X, \MA, \mu)$ 
+			\item for each $f \in L^1(X, \MB, \mu)$ and $B \in \MB$, $$\int_B f \dmu_{\MB} = \int_B f \dmu$$
+		\end{enumerate}
+	\end{ex}
 	
+	\begin{proof}
+		Let $f \in L^1(X, \MB, \mu)$. Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
+		\begin{align*}
+			\infty 
+			&> \mu_{\MB}(B_i) \\
+			&= \mu(B_i)
+		\end{align*}
+		So $f \in L^1(X, \MA, \mu)$ and 
+		\begin{align*}
+			\int_B f \dmu_{\MB} 
+			&= \int_B \sum_{i=1}^n b_i \chi_{B_i} \dmu_{\MB} \\
+			&= \sum_{i=1}^n b_i \mu_{\MB}(B_i \cap B)\\
+			&= \sum_{i=1}^n b_i \mu(B_i \cap B)\\
+			&= \int_B \sum_{i=1}^n b_i\chi_{B_i} \dmu \\
+			&= \int_B f \dmu
+		\end{align*}
+		If $f \geq 0$, then there exist $(\phi_n)_{n \in \N} \subset S^+(X, \MB)$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \convt{p.w.} f$. The monotone convergence theorem implies that for each $B \in \MB$,
+		\begin{align*}
+			\int_B f \dmu
+			&= \limn \int_B \phi_n \dmu \\
+			&= \limn \int_B \phi_n \dmu_{\MB} \\
+			& = \int_B f \dmu_{\MB} \\
+			& < \infty
+		\end{align*}
+		So $f \in L^1(X, \MA, \mu)$.
+		Similarly, the statement also holds for general $f \in L^1(X, \MB, \mu_B)$ by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
+	\end{proof}
 	
+	\begin{note}
+		Denote the $L^1$ norms on $L^1(X, \MA, \mu)$ and $L^1(X, \MB, \mu_{\MB})$ by $N$ and $N_{\MB}$ respectively. The previous exercise implies that $L^1(X, \MB, \mu_{\MB})$ is a subspace of $L^1(X, \MA, \mu)$ and $N|_{L^1(X, \MB, \mu_{\MB})} = N_{\MB}$.
+	\end{note}
 	
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f \in L^1(X, \MA, \mu)$. Define $\mu_{\MB}: \MB \rightarrow [0, \infty] $ and $\nu_f: \MB \rightarrow [0,\infty)$ by $\mu_{\MB} = \mu|_{\MB}$ and 
+		$$\nu_f(B) = \int_B f \dmu $$ Then $\nu_f \ll \mu_{\MB}$. 
+	\end{ex}	
 	
+	\begin{proof}
+		Let $B \in \MB$. Suppose that $\mu_{\MB}(B) = 0$. By definition, $\mu(B) = 0$. So $\nu(B) = 0$ and $\nu \ll \mu_{\MB}$.
+	\end{proof}
 	
+	\begin{note}
+		Since $\nu_f \ll \mu_{\MB}$ and $\nu_f(X) < \infty$, if $\mu$ is $\sig$-finite, then $d \nu_{f} / d \mu_{\MB}$ exists and 
+		\begin{align*}
+			d \nu_{f} / d \mu_{\MB} 
+			& \in L^1(X, \MB, \mu_{\MB}) \\
+			& \subset L^1(X, \MA, \mu)
+		\end{align*}
+	\end{note}
 	
+	\begin{defn}
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $\MB$ a sub $\sig$-algebra of $\MA$. We define the \textbf{projection from $L^1(X, \MA, \mu)$ to $L^1(X, \MB, \mu_{\MB})$}, denoted $P_{\MB}:L^1(X, \MA, \mu) \rightarrow L^1(X, \MB, \mu_{\MB})$ by 
+		$$P_{\MB}f = \frac{d \nu_f}{d \mu_{\MB}}$$ 
+	\end{defn}
 	
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $\MB$ a sub $\sig$-algebra of $\MA$. Then 
+		\begin{enumerate}
+			\item $P_{\MB} \in L(L^1(X, \MA, \mu))$ and $\|P_{\MB}\| = 1$
+			\item $P_{\MB}|_{L^1(X, \MB, \mu_{\MB})} = \id_{L^1(X, \MA, \mu_{\MB})}$ 
+			\item $P_{\MB}$ is idempotent
+		\end{enumerate}
+	\end{ex}
 	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $f, g \in L^1(X, \MA, \mu)$ and $\lam \in \C$. For each $B \in \MB$, we have that 
+			\begin{align*}
+				\nu_{f + \lam g} (B) 
+				& = \int_{B} f + \lam g \dmu \\
+				& = \int_{B} f  \dmu + \lam \int_{B} g \dmu \\
+				& = \nu_{f}(B) + \lam \nu_{g}(B) \\
+				& = (\nu_{f} + \lam \nu_{g})(B)
+			\end{align*}
+			Hence $\nu_{f + \lam g} + \nu_{f} + \lam \nu_{g}$. Thus 
+			\begin{align*}
+				P_{\MB}(f + \lam g)
+				& = \frac{d \nu_{f + \lam g}}{d \mu_{\MB}} \\
+				& = \frac{d \nu_f }{d \mu_{\MB}} + \lam \frac{d \nu_{g}}{d \mu_{\MB}} \\
+				& = P_{\MB} f + \lam P_{\MB} g
+			\end{align*}
+			So $P_{\MB}$ is linear. Since $|P_{\MB}f| \in L^1(X, \MB, \mu_{\MB})$, a previous exercise implies that
+			\begin{align*}
+				\|P_{\MB}f\|_1
+				& = \int |P_{\MB}f| \dmu \\
+				& = \int |P_{\MB}f| \dmu_{\MB} \\
+				& = |\nu_{f}|(X) \\
+				& = \int |f| \dmu \\
+				& = \|f\|_1
+			\end{align*}
+			Hence $\|P_{\MB} f \|_1 = \|f\|_1$ and $P_{\MB} \in L(L^1(X, \MA, \mu))$.
+			\item Let $f \in L^1(X, \MB, \mu_{\MB})$. Then for each $B \in \MB$, 
+			\begin{align*}
+				\nu_f(B)
+				& = \int_B f \dmu \\
+				& = \int_B f \dmu_{\MB} 
+			\end{align*}
+			Uniqueness of the Radon-Nikodym derivative implies that $P_{\MB}f = f$. Since $f \in L^1(X, \MB, \mu_{\MB})$ is arbitrary, $P_{\MB}|_{L^1(X, \MB, \mu_{\MB})} = \id_{L^1(X, \MA, \mu_{\MB})}$.
+			\item Let $f \in L^1(X, \MA, \mu)$. Since $P_{\MB}f \in L^1(X, \MB, \mu_{\MB})$ and $P_{\MB}|_{L^1(X, \MB, \mu_{\MB})} = \id_{L^1(X, \MA, \mu_{\MB})}$, we have that
+			\begin{align*}
+				P_{\MB}^2 f 
+				& = P_{\MB}(P_{\MB} f) \\
+				& = \id_{L^1(X, \MB, \mu_{\MB})} (P_{\MB} f) \\
+				& = P_{\MB}f
+			\end{align*}
+			Since $f \in L^1(X, \MB, \mu_{\MB})$ is arbitrary, $P_{\MB}^2 = P_{\MB}$ and $P_{\MB}$ is idempotent. 
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		in{ex}
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$, $f \in L^1(X, \MA, \mu)$ and $g \in L^1(X, \MB, \mu_{\MB})$. Then $g = P_{\MB}f$ iff for each $B \in \MB$, 
+		$$\int_B g \dmu = \int_B f \dmu$$
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $g = P_{\MB}f$. Let $B \in \MB$. Then 
+		\begin{align*}
+			\int_B g \dmu 
+			& = \int_B g \dmu_{\MB} \\
+			& = \nu_f(B) \\
+			& = \int_B f \dmu 
+		\end{align*}
+		Since $B \in \MB$ is arbitrary, for each $B \in \MB$, 
+		$$\int_B g \dmu = \int_B f \dmu$$ 
+		Conversely, suppose that for each $B \in \MB$, 
+		$$\int_B g \dmu = \int_B f \dmu$$ 
+		Then for each $B \in \MB$,
+		\begin{align*}
+			\int_B g \dmu_{\MB} 
+			& = \int_B g \dmu \\
+			& = \int_B f \dmu \\
+			& = \nu_f(B) 
+		\end{align*} 
+		By definition, 
+		\begin{align*}
+			P_{\MB}f 
+			& =  \frac{d \nu_f}{d \mu_{\MB}} \\
+			& = g
+		\end{align*} 
+	\end{proof}
 	
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $(A_{j})_{j \in \N} \subset \MA$. Suppose that $(A_j)_{j \in \N}$ is disjoint and $\mu \bigg(\bigcup\limits_{j \in \N} A_j \bigg) < \infty$. Then 
+		\begin{enumerate}
+			\item $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$
+			\item $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$
+		\end{enumerate}
+	\end{ex}
 	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since $(A_j)_{j \in \N}$ is disjoint, we have that 
+			\begin{align*}
+				\|\chi_{\bigcup\limits_{j \in \N} A_j}\|_1 
+				& = \int \chi_{\bigcup\limits_{j \in \N} A_j} \dmu \\
+				& = \mu\bigg(\bigcup\limits_{j \in \N} A_j \bigg) \\
+				& < \infty
+			\end{align*}
+			So $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$.
+			\item Since  $(A_j)_{j \in \N}$ is disjoint, we have that 
+			$$\chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} \chi_{A_j}$$
+			For each $n \in \N$, define $f_n = \sum\limits_{j = 1}^n \chi_{A_j}$. Set $f = \chi_{\bigcup\limits_{j \in \N} A_j}$. Then for each $n \in \N$, $f_n \leq f$ and $f_n \convt{p.w.} f$. Since $f \in L^1(X, \MA, \mu)$, the dominated convergence theorem implies that $f_n \conv{L^1(\mu)} f$. Since $P_{\MB} \in L(L^1(X, \MA, \mu))$, 
+			\begin{align*}
+				\sum_{j=1}^n P_{\MB} \chi_{A_j}
+				& = P_{\MB} \sum_{j=1}^n \chi_{A_j} \\
+				& = P_{B}f_n \\
+				& \conv{L^1(\mu)} P_{\MB}f \\
+				& = P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} 
+			\end{align*}  
+			Hence  $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f \in L^1(X, \MA, \mu)$. If $f \geq 0$, then $P_{\MB}f \geq 0$ $\mu_{\MB}$-a.e.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f \geq 0$. Then $\nu_f: \MB \rightarrow [0, \infty)$ is a finite measure. Hence 
+		\begin{align*}
+			P_{\MB}f 
+			& = \frac{d \nu_f}{d \mu_{\MB}} \\
+			& \geq 0 \text{ $\mu_{\MB}$-a.e.}
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		Let $\mu$ be a finite measure on $(\R, \MB(\R))$ and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. For each $z \in \R$, define $h_z \in L^1(X, \MA, \mu)$ by $h_z = \chi_{(-\infty, z]}$ and choose $f_z \in L_0(X, \MA)$ such that $f_z = P_{\MB}h_z$ $\mu$-a.e. Then there exists $M \in \MB$ such that $\mu_{\MB}(M^c) = 0$ and for each $x \in M$, $(f_q(x))_{q \in \Q}$ is increasing.
+	\end{ex}
 	
+	\begin{proof}
+		Let $q, r \in \Q$. Suppose that $q < r$. Then $\chi_{(-\infty, r]} - \chi_{(-\infty, q]} \geq 0$ and
+		\begin{align*}
+			f_r - f_q 
+			& = P_{\MB} \chi_{(-\infty, r]} - P_{\MB} \chi_{(-\infty, q]} \\
+			& = P_{\MB} \bigg[ \chi_{(-\infty, r]} - \chi_{(-\infty, q]} \bigg] \\\
+			& \geq 0 \text{ $\mu_{\MB}$-a.e.}
+		\end{align*}
+		Hence $f_q \leq f_r$ $\mu_{\MB}$-a.e. An exercise in the section on measures implies that $(f_q)_{q \in \Q}$ is increasing $\mu_{\MB}$-a.e. and thus there exists $M \in \MB$ such that $\mu_{\MB}(M^c) = 0$ and for each $x \in M$, $(f_q(x))_{q \in \Q}$ is increasing.
+	\end{proof}
+	
+	\begin{ex}
+		Let $\mu$ be a finite measure on $(\R, \MB(\R))$ and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. Define $(h_z)_{z \in \R} \subset L^1(\R, \MB(\R), \mu)$, $(f_z)_{z \in \R} \subset L^0(\R, \MB)$ and $M \in \MB$ as in the previous exercise. Choose $g \in \NBV(\R)$ such that $g: \R \rightarrow \R$, $g$ is increasing and $\sup\limits_{z \in \R} g(z) = 1$. Define $G: \R^2 \rightarrow \R$ by 
+		\[
+		G(z, x) = 
+		\begin{cases}
+			\inf\limits_{\substack{q \in \Q \\ q > z}}f_q(x) & x \in M \\
+			g(z) & x \in M^c
+		\end{cases}
+		\] 
+		Then for each $x \in \R$, $G(\cdot, x)$ is increasing and right continuous.
+	\end{ex}
+
+	\begin{proof}
+		Let $x \in \R$. If $x \in M^c$, by defintion, $G(\cdot, x)$ is increasing and right continuous. Suppose that $x \in M$. Since $(f_q(x))_{q \in \Q}$ is increasing, slightly modifying the statement and proof of an exercise in the section on functions of bounded variation implies that $G(\cdot, x)$ is increasing and right continuous.
+	\end{proof}
+
+	\begin{ex}
+		Let $\mu$ be a finite measure on $(\R, \MB(\R))$ and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. Define $(h_z)_{z \in \R} \subset L^1(\R, \MB(\R), \mu)$, $(f_z)_{z \in \R} \subset L^0(\R, \MB)$, $M \in \MB$ and $G:\R^2 \rightarrow \R$ as in the previous exercise.
+		\begin{enumerate}
+			\item for each $z \in \R$, $G(z, \cdot) \in L^0(X, \MB)$ and $G(z, \cdot) = f_z$ $\mu_B$-a.e.
+			\item $\sup\limits_{z \in \R} G(z, \cdot) = 1$ $\mu_{\MB}$-a.e.
+			\item $\inf\limits_{z \in \R} G(z, \cdot) = 0$ $\mu_{\MB}$-a.e.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $z \in \R$. By definition,
+			$$G(z, \cdot) = \inf\limits_{\substack{q \in \Q \\ q > z}}[ f_q \chi_M ] (\cdot) + g(z) \chi_{M^c}(\cdot)$$ 
+			Since $(f_{q} \chi_{M})_{q \in \Q\cap (z, \infty)} \subset L^0(X, \MB)$ and is point-wise bounded below, $\inf\limits_{\substack{q \in \Q \\ q > z}} f_q \chi_M  \in L^0(X, \MB)$. Hence $G(z, \cdot) \in L^0(X, \MB)$. Choose $(q_n)_{n \in \N} \subset \Q$ such that for each $n \in \N$, $q_n \geq q_{n+1} > z$ and $q_n \rightarrow z$. Since for each $n \in \N$, $h_{q_n} - h_{z} = \chi_{(z, q_n]}$, $(z, q_{n+1}] \subset (z, q_n]$ and $\mu$ is finite, we have that 
+			\begin{align*}
+				\|h_{q_n} - h_z\|_1
+				& = \|\chi_{(z, q_n]}\|_1 \\
+				& = \mu((z, q_n]) \\
+				& \rightarrow \mu(\varnothing) \\
+				& = 0
+			\end{align*}
+			So that $h_{q_n} \conv{L^1(\mu)} h_z$. Therefore  
+			\begin{align*}
+				f_{q_n} 
+				& = P_{\MB} h_{q_n} \\
+				& \conv{L^1(\mu_{\MB})} P_{\MB} h_z \\
+				& = f_z
+			\end{align*}
+			This implies that $f_{q_n} \conv{\mu_{\MB}} f_z$. Since $(f_{q_n})_{n \in \N}$ is decreasing $\mu_{\MB}$-a.e., an exercise in the section on modes of convergence implies that $f_{q_n} \convt{$\mu_{\MB}$-a.e.} f_z$. So there exists $N_1 \in \MB$ such that $\mu_{\MB}(N_1^c) = 0$ and $f_{q_n} \chi_{fi} \convt{p.w.} f_z \chi_{N_1}$. Set $E = M \cap N_1$. Then  
+			\begin{align*}
+				\mu_{\MB}(E^c)
+				& = \mu_{\MB}(M^c \cup N_1^c) \\ 
+				& \leq \mu_{\MB}(M^c) + \mu_{\MB}(N_1^c) \\
+				& = 0
+			\end{align*}
+			and for each $x \in E$, $f_{q_n}(x) \rightarrow f_z(x)$ and $f_{q_n}(x) \rightarrow G(z, x)$. Hence $G(z, \cdot)\chi_{E}(\cdot) = f_z \chi_{E}( \cdot)$ which implies that $G(z, \cdot) = f_z$ $\mu_B$-a.e.\\
+			\item Part $(1)$ implies that for each $n \in \N$, there exists $E_n \in \MB$ such that $E_n \subset M$, $\mu(E_n^c) = 0$ and $G(n, \cdot)\chi_{E_n}(\cdot) = f_n(\cdot) \chi_{E_n}(\cdot)$. Set $E = \bigcap\limits_{n \in \N} E_n$. Since for each $n \in \N$, $\chi_{\R} - h_n = \chi_{(n, \infty)}$, $(n+1, \infty) \subset (n, \infty)$ and $\mu$ is finite, we have that 
+			\begin{align*}
+				\|h_n - \chi_{\R}\|_1
+				& = \mu((n, \infty)) \\
+				& \rightarrow \mu(\varnothing) \\
+				& = 0 
+			\end{align*}
+			So that $h_{n} \conv{L^1(\mu)} \chi_{\R}$. Therefore  
+			\begin{align*}
+				f_n 
+				& = P_{\MB} h_n \\
+				& \conv{L^1(\mu_{\MB})} P_{\MB} \chi_{\R} \\
+				& = \chi_{\R}
+			\end{align*}
+			This implies that $f_n \conv{\mu_{\MB}} \chi_{\R}$. Since $(f_n)_{n \in \N}$ is increasing $\mu_{\MB}$-a.e., an exercise in the section on modes of convergence implies that $f_n \convt{$\mu_{\MB}$-a.e.} \chi_{\R}$. So there exists $N_2 \in \MB$ such that $\mu_{\MB}(N_2^c) = 0$ and $f_n \chi_{N_2} \convt{p.w.} \chi_{N_2}$. Set $M^+ = E \cap N_2$. Then  $M^+ \subset E \subset M$ and
+			\begin{align*}
+				\mu_{\MB}((M^+)^c)
+				& = \mu_{\MB}(E^c \cup N_2^c) \\ 
+				& \leq \mu_{\MB}(E^c) + \mu_{\MB}(N_2^c) \\
+				& = \mu_{\MB} \bigg( \bigcup_{n \in \N} E_n^c \bigg) + \mu_{\MB}(N_2^c) \\
+				& \leq \bigg[\sum_{n \in \N} \mu_{\MB}(E_n^c) \bigg] + \mu_{\MB}(N_2^c) \\
+				& = 0
+			\end{align*}
+			Since $M^+ \subset M$, for each $x \in M^+$, $(f_n(x))_{n \in \N}$ is increasing. Hence for each $x \in M^+$,
+			\begin{align*}
+				\sup\limits_{z \in \R} G(z, x) 
+				& = \sup\limits_{n \in \N} G(n, x) \\
+				& = \sup\limits_{n \in \N} f_n(x) \\
+				& = 1
+			\end{align*}
+			Thus $\sup\limits_{z \in \R} G(z, \cdot) = 1$ $\mu_{\MB}$-a.e.\\
+		\item Part $(2)$ implies that for each $n \in \N$, there exists $E_n \in \MB$ such that $E_n \subset M$, $\mu(E_n^c) = 0$ and $G(n, \cdot)\chi_{E_n}(\cdot) = f_n(\cdot) \chi_{E_n}(\cdot)$. Set $E = \bigcap\limits_{n \in \N} E_n$. Since for each $n \in \N$, $h_{-n} = \chi_{(-\infty, -n)}$, $(-\infty, -(n + 1)) \subset (-\infty, -n)$ and $\mu$ is finite, we have that 
+		\begin{align*}
+			\|h_{-n}\|_1
+			& = \mu((-\infty, -n)) \\
+			& \rightarrow \mu(\varnothing) \\
+			& = 0 
+		\end{align*}
+		So that $h_{-n} \conv{L^1(\mu)} 0$. Therefore  
+		\begin{align*}
+			f_{-n}
+			& = P_{\MB} h_{-n} \\
+			& \conv{L^1(\mu_{\MB})} P_{\MB} 0 \\
+			& = 0
+		\end{align*}
+		This implies that $f_n \conv{\mu_{\MB}} 0$. Since $(f_{-n})_{n \in \N}$ is decreasing $\mu_{\MB}$-a.e., an exercise in the section on modes of convergence implies that $f_{-n} \convt{$\mu_{\MB}$-a.e.} 0$. So there exists $N_3 \in \MB$ such that $\mu_{\MB}(N_3^c) = 0$ and $f_{-n} \chi_{N_3} \convt{p.w.} 0$. Set $M^- = E \cap N_3$. Then $M^- \subset E \subset M$ and
+		\begin{align*}
+			\mu_{\MB}((M^-)^c)
+			& = \mu_{\MB}(E^c \cup N_3^c) \\ 
+			& \leq \mu_{\MB}(E^c) + \mu_{\MB}(N_3^c) \\
+			& = \mu_{\MB} \bigg( \bigcup_{n \in \N} E_n^c \bigg) + \mu_{\MB}(N_3^c) \\
+			& \leq \bigg[\sum_{n \in \N} \mu_{\MB}(E_n^c) \bigg] + \mu_{\MB}(N_3^c) \\
+			& = 0
+		\end{align*}
+		Since $M^- \subset M$, for each $x \in M^-$, $(f_{-n}(x))_{n \in \N}$ is decreasing. Hence for each $x \in M^-$,
+		\begin{align*}
+			\inf\limits_{z \in \R} G(z, x) 
+			& = \inf\limits_{n \in \N} G(-n, x) \\
+			& = \inf\limits_{n \in \N} f_{-n}(x) \\
+			& = 0
+		\end{align*}
+		Thus $\inf\limits_{z \in \R} G(z, \cdot) = 0$ $\mu_{\MB}$-a.e.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $\mu$ be a finite measure on $(\R, \MB(\R))$ and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. Then there exists $F: \R^2 \rightarrow [0,1]$ such that
+		\begin{enumerate}
+			\item for each $z \in \R$, $F(z, \cdot) \in L^0(X, \MB)$ and $F(z, \cdot) = P_{\MB}\chi_{(-\infty, z]}$ $\mu_B$-a.e.
+			\item for each $x \in \R$, $F(\cdot, x) \in \NBV(\R)$, $F(\cdot, x)$, increasing and $\sup\limits_{z \in \R} F(z, \cdot) = 1$.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		Define $(h_z)_{z \in \R} \subset L^1(\R, \MB(\R), \mu)$, $(f_z)_{z \in \R} \subset L^0(\R, \MB)$ as in the previous exercises. Choose $g \in \NBV(\R)$ such that $g: \R \rightarrow \R$, $g$ is increasing and $\sup\limits_{z \in \R} g(z) = 1$. Define $M, M^+, M^- \in \MB$ and $G: \R^2 \rightarrow \R$ as in the previous exercises. Set $E = M \cap M^+ \cap M^-$. Define $F: \R^2 \rightarrow \R$ by 
+		\[
+		F(z, x) = G(z, x) \chi_{E}(x) + g(z) \chi_{E^c}(x)
+		\]
+		\begin{enumerate}
+			\item Let $z \in \R$. Then $F(z, \cdot) = G(z, \cdot) \chi_{E}(\cdot) + g(z) \chi_{E^c}(\cdot)$. Since $G(z, \cdot) \in L^0(X, \MB)$, $F(z, \cdot) \in L^0(X, \MB)$. 
+			Note that
+			\begin{align*}
+				\mu(E^c)
+				& = \mu(M^c \cup (M^+)^c \cup (M^-)^c) \\  
+				& \leq \mu(M^c) + \mu((M^+)^c) + \mu((M^-)^c) \\
+				& = 0
+			\end{align*}
+			Since $E \subset M$, by definition of $G$ and $F$, we have that for each $x \in E$, $F(z, x) = G(z, x)$. Hence $\{x \in \R: F(z, x) \neq G(z, x)\} \subset E^c$. Thus 
+			\begin{align*}
+				F(z, \cdot) 
+				& = G(z, \cdot) \\
+				& = f_z \text{ $\mu_{\MB}$-a.e.}
+			\end{align*}
+			\item Let $x \in \R$. Suppose that $x \in E$. The previous exercise implies that $G(\cdot, x) \in \NBV(\R)$, $G(\cdot, x)$ is increasing and $\sup\limits_{z \in \R} G(z, x) = 1$. Since $F(\cdot, x) = G(\cdot, x)$, we have that $F(\cdot, x) \in \NBV(\R)$, $F(\cdot, x)$ is increasing and $\sup\limits_{z \in \R} F(z, x) = 1$. \\
+			If $x \in E^c$, then $F(\cdot, x) = g$. By definition of $g$, $F(\cdot, x) \in \NBV(\R)$, $F(\cdot, x)$, increasing and $\sup\limits_{z \in \R} F(z, \cdot) = 1$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $(X, \MA)$ and $(Y, \MB)$ be  measurable spaces and $\kap: X \times \MB \rightarrow [0,1]$. Then $\kap$ is said to be a \textbf{Markov kernel from $(X, \MA)$ to $(Y, \MB)$} if 
+		\begin{enumerate}
+			\item for each $x \in X$, $\kap(x, \cdot)$ is a probability measure on $(Y, \MB)$
+			\item for each $B \in \MB$, $\kap(\cdot, B)$ is $\MA$-measurable
+		\end{enumerate}
+	\end{defn}
+
+	\begin{ex}
+		Let $(\R, \MB(\R), \mu)$ be a finite measure space and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. Then there exists $\kap: \R \times \MB(\R) \rightarrow [0,1]$ such that 
+		\begin{enumerate}
+			\item $\kap$ is a markov kernel from $(\R, \MB)$ to $(\R, \MB(\R))$.
+			\item For each $A \in \MB(\R)$, $\kap(\cdot, A) = P_{\MB}\chi_{A}$ $\mu_{\MB}$-a.e.
+		\end{enumerate}
+		\textbf{Hint:} 
+		\begin{enumerate}
+			\item Consider $F: \R^2 \rightarrow [0,1]$ defined in the previous exercise and $\mu_x((a,b]) = F(b,x) - F(a,x)$. 
+			\item Consider Dynkin's lemma. 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} Define $F:\R^2 \rightarrow [0,1]$ as in the previous exercise. For each $x \in \R$, define $\mu_x: \MB(\R) \rightarrow [0,1]$ to be the unique measure such that for each $a, b \in \R$, $a \leq b$ implies that $\mu_x((a,b]) = F(b, x) - F(a, x)$. Define $\kap: \R \times \MB(\R) \rightarrow [0,1]$ by $\kap(A, x) = \mu_x(A)$. \\
+		\begin{enumerate}
+			\item \
+			\begin{enumerate}
+				\item Let $x \in \R$. By definition, $\kap(x, \cdot) = \mu_x$ is a measure and 
+				\begin{align*}
+					\kap(x, \R) 
+					& = \sup_{n \in \N} \mu_x((-\infty, n])\\
+					& = \sup_{n \in \N} F(n) \\
+					& = 1 
+				\end{align*}
+				\item Let $A \in \MB(\R)$. Recall that for each $x \in \R$,
+				$$\mu_x(A) = \inf \bigg \{ \sum\limits_{j \in \N} F(b_j, x) - F(a_j, x): \text{ for each $j \in \N$, $a_j, b_j \in \R$ and } A \subset \bigcup\limits_{j \in \N} (a_j, b_j] \bigg \}$$ 
+				Therefore, for each $x \in \R$ and $n \in \N$, there exist $(a^x_{n,j})_{j \in \N}$, $(b^x_{n,j})_{j \in \N} \subset \R$ such that $A \subset \bigcup\limits_{j \in \N} (a^x_{n,j}, b^x_{n,j}]$ and 
+				$$\mu_x(A) \leq \sum\limits_{j \in \N} F(b^x_{n,j}, x) - F(a^x_{n,j}, x) < \mu_x(A) + \frac{1}{n}$$
+				Define $(f_n)_{n \in \N} \subset L^0(X, \MB)$ by $$f_n(x) = \sum\limits_{j \in \N} F(b^x_{n,j}, x) - F(a^x_{n,j}, x)$$
+				Then $f_n \convt{p.w.} \kap(\cdot, A)$ which implies that $\kap(\cdot, A) \in L^0(X, \MB)$. 
+			\end{enumerate}
+			Hence $\kap$ is a markov kernel from $(\R, \MB)$ to $(\R, \MB(\R))$.\\
+			\item Let $B \in \MB$. Define $\nu_B, \lam_{B}:\MB(\R) \rightarrow \Rg$ by 
+			$$\nu_B(A) = \int_B \kap(x, A) \dmu_{\MB}(x)$$ 
+			and
+			$$\lam_B(A) = \mu(A \cap B)$$ 
+			Let $a,b \in \R$. Then 
+			\begin{align*}
+				\nu_B((a,b]) 
+				& = \int_B \kap(x, (a,b]) \dmu_{\MB}(x) \\
+				& = \int_{B} F(b, x) - F(a,x) \dmu_{\MB}(x) \\
+				& = \int_{B} P_{\MB}\chi_{(-\infty, b]} - P_{\MB}\chi_{(-\infty, a]} \dmu_{\MB} \\
+				& = \int_{B} P_{\MB}\chi_{(a, b]} \dmu_{\MB} \\
+				& = \int_{B} \chi_{(a, b]} \dmu  \\
+				& = \mu((a,b] \cap B) \\
+				& = \lam_{B}((a,b])
+			\end{align*}
+			Define $\MP \subset \MB(\R)$ by $\MP = \{(a,b]: a,b \in \R\} \cup \{\varnothing, X\}$. A previous exercise in the sections on Dynkin's lemma implies that $\MP$ is a $\pi$-system. Since $\sig(\MP) = \MB(\R)$, an exercise in the section on complex measures implyand $\nu_{B} = \lam_{B}$. Let $A \in \MB(\R)$. Then 
+			\begin{align*}
+				\int_B \kap(x, A) \dmu_{\MB}(x) 
+				& = \nu_B(A) \\
+				& = \lam_{B}(A) \\
+				& =  \mu(A \cap B) \\
+				& = \int_B \chi_A \dmu \\
+				& = \int_B P_{\MB} \chi_A \dmu \\
+				& = \int_B P_{\MB} \chi_A \dmu_{\MB} \\
+			\end{align*}
+			Since $B \in \MB$ is arbitrary, $\kap(\cdot, A) = P_{\MB} \chi_A$ $\mu_{\MB}$-a.e. Since $A \in \MB(\R)$ is arbitrary, we have that for each $A \in \MB(\R)$, $\kap(\cdot, A) = P_{\MB} \chi_A$ $\mu_{\MB}$-a.e.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} 
+		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space, $f \in L^1(X, \MA, \mu)$ and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. Then there exists a $\phi \in L^0(Y, \MB)$ such that $\phi \circ g = \MP_{g^*\MB}f$ $\mu$-a.e. and $\phi$ is unique $g_*\mu$-a.e. \\
+		\textbf{Hint:} Doob-Dynkin lemma
+	\end{ex}	
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item \textbf{Existence:} \\
+			Since $P_{g^*\MB}f \in L^1(X, g^*\MB, \mu_{g^*\MB})$ and $\MB$, the Doob-Dynkin lemma implies that there exists a $\phi \in L^0(Y, \MB)$ such that $\phi \circ g = P_{g^*\MB}f$.
+			\item \textbf{Uniqueness:} \\
+			Suppose that there exists $\psi \in L^0(Y, \MB)$ such that $\psi \circ g = \MP_{g^*\MB}f$ $\mu$-a.e. Then $\phi \circ g = \psi \circ g$ $\mu$-a.e. An exercise in the section on integration of nonnegative functions implies that $\phi = \psi$ $g_*\mu$-a.e.
+		\end{itemize} 
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a measurable space and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. Then there exists $\kap: Y \times \MA \rightarrow \Rg$ such that $\kap$ is a transition kernel from $(Y, \MB)$ to $(X, \MA)$.\\
+		\textbf{Hint:} For $A \in \MA$, define $\phi_A \in L^0(Y, \MB )$ to be the $g_*\mu$-a.e.\ unique $\phi \in L^0(Y, \MB)$ such that $\phi \circ g = P_{g^*\MB} \chi_A$. Define $\kap': Y \times \MA \rightarrow \Rg$ by $\kap'(y, A) = \phi_A(y)$. For each $A \in \MA$, define $\kap(\cdot, A)$ by redefining $\kap'(\cdot, A)$ on a $g_*\mu$-null set.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item Since $\chi_{\varnothing} = 0$, $P_{g^*\MB}\chi_{\varnothing} = 0$ $\mu$-a.e. Therefore
+			\begin{align*}
+				0 \circ g 
+				& =  0 \\
+				& = P_{g^*\MB}\chi_{\varnothing} \text{ $\mu$-a.e.}
+			\end{align*}
+			Uniqueness of $\phi_{\varnothing}$ implies that $\phi_{\varnothing} = 0$ $g_*\mu$-a.e. Thus there exists $N_1 \in \MB$ such that $g_*\mu(N_1) = 0$ and for each $y \in N_1^c$, 
+			\begin{align*}
+				\kap'(y, \varnothing) 
+				& = \phi_{\varnothing}(y) \\
+				& = 0
+			\end{align*}
+			\item Let $(A_j)_{j \in \N} \subset \MA$. Suppose that $(A_j)_{j \in \N}$ is disjoint. Since $\mu$ is finite, $\mu \bigg( \bigcup\limits_{j \in \N}A_j \bigg) < \infty$. A previous exercise implies that  
+			\begin{enumerate}
+				\item $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$
+				\item $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$
+			\end{enumerate}
+			Therefore
+			\begin{align*}
+				\phi_{\bigcup\limits_{j \in \N} A_j} \circ g
+				& = P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} \\
+				& = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j} \\
+				& = \sum\limits_{j \in \N} \phi_{A_j} \circ g \text{ $\mu$-a.e.}
+			\end{align*}
+			Uniqueness of $\phi_{\bigcup\limits_{j \in \N} A_j}$ implies that $\phi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} \phi_{A_j}$ $g_*\mu$-a.e. $\phi_{\varnothing}$ implies that $\phi_{\varnothing} = 0$ $g_*\mu$-a.e. Thus there exists $N_2 \in \MB$ such that $g_*\mu(N_2) = 0$ and for each $y \in N_2^c$,
+			\begin{align*}
+				\kap' \bigg(y, \bigcup\limits_{j \in \N} A_j \bigg)
+				& = \phi_{\bigcup\limits_{j \in \N} A_j}(y) \\
+				& = \sum\limits_{j \in \N} \phi_{A_j}(y) \\
+				& = \sum\limits_{j \in \N} \mu_y(A_j) \\
+				& =  \sum\limits_{j \in \N} \kap'(y, A_j)
+			\end{align*}
+		\end{itemize}
+		Set $N = N_1 \cup N_2$. Then $g_*\mu(N) = 0$ and for each $y \in N^c$, $\kap'(y, \cdot): \MA \rightarrow \Rg$ is a measure on $(X, \MA)$. Choose $x \in X$. Define $\kap: Y \times \MA \rightarrow \Rg$ by $\kap (y, A) = \chi_{N}(y)\del_{x}(A) + \chi_{N^c}(y)\kap'(y, A)$. 
+		\begin{enumerate}
+			\item Let $A \in \MA$. Then 
+			\begin{align*}
+				\kap(\cdot, A) 
+				& = \chi_N(\cdot) \del_x(A) + \chi_{N^c}(\cdot) \kap'(\cdot, A) \\ 
+				& = \chi_N(\cdot) \del_x(A) + \chi_{N^c}(\cdot) \phi_A(\cdot) 
+			\end{align*}
+			Hence for each $A \in \MA$, $\kap(\cdot, A)$ is $\MB$-measurable.
+			\item \
+			Let $y \in Y$. Then 
+			\[
+			\kap(y, \cdot) = 
+			\begin{cases}
+				\del_x(\cdot) & y \in N \\
+				\kap'(y, \cdot) & y \in N^c \\
+			\end{cases}
+			\]
+			Hence for each $y \in Y$, $\kap(y, \cdot)$ is a measure on $(X, \MA)$. 
+		\end{enumerate}
+		Thus $\kap$ is a transition kernel from $(Y, \MB, g_*\mu)$ to $(X, \MA)$.
+	\end{proof}
+	
+	\begin{defn}
+		Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a measurable space and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. For $A \in \MA$, define $\phi_A \in L^0(Y, \MB )$ to be the $g_*\mu$-a.e. unique $\phi \in L^0(Y, \MB)$ such that $\phi \circ g = P_{g^*\MB} \chi_A$. For $y \in Y$, we define the \textbf{conditional of $\mu$ on $y$}, denoted $\mu_y : \MA \rightarrow \Rg$, by $\mu_y(A) = \phi_A(y)$. 
+	\end{defn}
+	
+	\begin{ex} \textbf{Disintegration of Measure:} \\
+		Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a measurable space and $g: X \rightarrow Y$. Suppose that for each $y \in Y$, $\{y\} \in \MB$, $g$ is surjective and $g$ is $(\MA, \MB)$-measurable. Then there exists a collection of measures $(\mu_y)_{y \in Y}$ such that  
+		\begin{enumerate}
+			\item for each $A \in \MA$, 
+			$$\mu(A) = \int \mu_y(A) \, d g_*\mu(y) $$
+			\item for each $f \in L^1(X, \MA, \mu)$, 
+			$$\int f \dmu = \int \bigg[ \int f \, d\mu_y(x) \bigg] \, d g_*\mu(y)$$ 
+		\end{enumerate}
+	\end{ex}
 	
 	
 	
