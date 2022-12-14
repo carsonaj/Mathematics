@@ -766,15 +766,27 @@
 	\subsection{Measurable Functions}
 	
 	\begin{defn} \ld{00000} 
-		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is said to be $\MA$-$\MB$ \textbf{measurable} if for each $B \in \MB$, $f^{-1}(B) \in \MA$. When $(Y, \MB) = (\R, \MB(\R))$ we say that $f$ is $\MA$-\textbf{measurbale}. If $(Y,\MB) = (\R, \MB(\R))$ and $(X,\MA) = (\R, \MB(\R))$ or $(\R, \ML)$, then we say that $f$ is \textbf{Borel measurable} or \textbf{Lebsgue measurbale} respectively.
+		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is said to be \textbf{$(\MA,\MB)$-measurable} if for each $B \in \MB$, $f^{-1}(B) \in \MA$. When $(Y, \MB) = (\R, \MB(\R))$ we say that $f$ is $\MA$-\textbf{measurbale}. If $(Y,\MB) = (\R, \MB(\R))$ and $(X,\MA) = (\R, \MB(\R))$ or $(\R, \ML)$, then we say that $f$ is \textbf{Borel measurable} or \textbf{Lebsgue measurbale} respectively.
 	\end{defn}
 	
 	\begin{defn} \ld{00000} 
-		Let $(X, \MA)$ be a measurable space and $(Y, \MB)$ a measurable space. Define 
+		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces. Define 
 		\begin{itemize}
 			\item $L^{+}(X, \MA) = \{f:X \rightarrow \RG : f \text{ is measurable}\}$
 			\item $L^0(X, \MA) = \{f:X \rightarrow \C : f \text{ is measurable}\}$ 
 		\end{itemize}
+	\end{defn}
+	
+	\begin{defn}
+		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces and $\phi: X \rightarrow Y$. Then $\phi$ is said to be a \textbf{isomorphism} if 
+		\begin{enumerate}
+			\item $\phi$ is a bijection
+			\item $\phi$ is $(\MA, \MB)$-measurable and $\phi^{-1}$ is $(\MB, \MA)$-measurable
+		\end{enumerate}
+	\end{defn}
+
+	\begin{defn}
+		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces. Then $(X, \MA)$ and $(Y, \MB)$ are said to be \textbf{isomorphic} if there exists $\phi:X \rightarrow Y$ such that $\phi$ is an isomorphism.
 	\end{defn}
 	
 	\begin{defn}
@@ -1154,7 +1166,7 @@
 	\begin{ex}
 		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ be a collection of measurable spaces and for each $\al \in A$, $\ME_{\al} \subset \MA_{\al}$. Suppose that for each $\al \in A$, $\MA_{\al} = \sig(\ME_{\al})$. Then 
 		$$\bigotimes\limits_{\al \in A} \MA_{\al} = \sig( \pi_{\al}^{-1}(E_{\al}): \al \in A \text{ and } E_{\al} \in \ME_{\al})$$ 
-		\textbf{Hint:} set $\MG = \{\pi_{\al}^{-1}(E_{\al}): \al \in A \text{ and } E_{\al} \in \ME_{\al}\}$ and for $\al \in A$, consider the pushforward $\sig$-algebra on $X_{\al}$, $\pi_{\al}^* \sig( \MG)$
+		\textbf{Hint:} set $\MG = \{\pi_{\al}^{-1}(E_{\al}): \al \in A \text{ and } E_{\al} \in \ME_{\al}\}$ and for $\al \in A$, consider the pushforward $\sig$-algebra on $X_{\al}$, ${\pi_{\al}}_* \sig( \MG)$
 	\end{ex}
 
  	\begin{proof}
@@ -1169,13 +1181,19 @@
  			& \subset \sig(\MF) \\
  			& = \bigotimes\limits_{\al \in A} \MA_{\al}
  		\end{align*}
- 		Let $\al \in A$. By definition, for each $V \subset X_{\al}$, $V \in \pi_{\al}^* \sig(\MG)$ iff $\pi_{\al}^{-1}(V) \in \sig(\MG)$. Thus $\ME_{\al} \subset \pi_{\al}^* \sig(\MG)$ which implies that 
+ 		Let $\al \in A$. By definition, for each $V \subset X_{\al}$, $V \in {\pi_{\al}}_* \sig(\MG)$ iff $\pi_{\al}^{-1}(V) \in \sig(\MG)$. Thus $\ME_{\al} \subset \pi_{\al}^* \sig(\MG)$ which implies that 
  		\begin{align*}
  			\MA_{\al} 
  			& = \sig(\ME_{\al}) \\
  			& \subset \pi_{\al}^* \sig(\MG)
  		\end{align*}
- 		Since $\al \in A$ is arbitrary, $\bigotimes\limits_{\al \in A} \MA_{\al} \subset \sig(\MG)$.
+ 		Since $\al \in A$ is arbitrary, $\MF \subset \sig(\MG)$. Hence 
+ 		\begin{align*}
+ 			\bigotimes\limits_{\al \in A} \MA_{\al} 
+ 			& = \sig(\MF) \\
+ 			& \subset \sig(\MG)
+ 		\end{align*}
+ 		Thus $\sig(\MG) = \bigotimes\limits_{\al \in A} \MA_{\al}$.
  	\end{proof}
  
  	\begin{ex}
@@ -1262,29 +1280,35 @@
  	\end{proof}
  
  	\begin{ex}
- 		Let $(X_j, \MT_j)_{j = 1}^n$ be a collection of topological spaces.  Then 
+ 		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Then 
  		\begin{enumerate}
- 			\item $$\bigotimes\limits_{j=1}^n  \MB(X_j) \subset \MB \bigg( \prod_{j=1}^n X_{j} \bigg)$$
- 			\item if for each $j \in \{1, \ldots, n\}$, $X_j$ is second-countable, then $$\bigotimes\limits_{j=1}^n  \MB(X_j) = \MB \bigg( \prod_{j=1}^n X_{j} \bigg)$$
+ 			\item $$\bigotimes\limits_{\al \in A}  \MB(X_{\al}) \subset \MB \bigg( \prod_{\al \in A} X_{\al} \bigg)$$
+ 			\item if $A$ is countable and for each $\al \in A$, $X_{\al}$ is second-countable, then $$\bigotimes\limits_{\al \in A}  \MB(X_{\al}) = \MB \bigg( \prod_{\al \in A} X_{\al} \bigg)$$
  		\end{enumerate}
  	\end{ex}
  
- 	\begin{proof} Set $X = \prod_{j=1}^n X_j$ and denote the product topology on $X$ by $\MT$. 
+ 	\begin{proof} Set $X = \prod_{j=1}^n X_j$ and denote the product topology on $X$ by $\MT_X$. 
  		\begin{enumerate}
- 			\item By definition, $\MB(X) = \sig(\MT)$ and for each $j \in \{1, \ldots, n \}$, $X_j \in \MT_j$ and $\MB(X_j) = \sig(\MT_{j})$. Set 
- 			$$\MB = \bigg \{ \prod\limits_{j=1}^n E_j:  \text{for each $j \in \{1, \ldots, n\}$, } E_j \in \MT_j \bigg \}$$ 
- 			The previous exercise implies that $\bigotimes_{j=1}^n \MB(X_j) = \sig(\MB)$. Since $\MB$ is a basis for $\MT$ we have that $\MB \subset \MT$. Thus
+ 			\item By definition, $\MB(X) = \sig(\MT_X)$ and for each $\al \in A$, $X_{\al} \in \MT_{\al}$ and $\MB(X_{\al}) = \sig(\MT_{\al})$. Set 
+ 			$$\ME = \{\pi^{-1}_{\al}(E_{\al}): \al \in A \text{ and } E_{\al} \in \MT_{\al} \}$$ 
+ 			A previous exercise implies that $\bigotimes\limits_{\al \in A} \MB(X_{\al}) = \sig(\ME)$. Since $\ME \subset \MT_X$, we have that
  			\begin{align*}
- 				\bigotimes_{j=1}^n \MB(X_j) 
- 				& = \sig(\MB) \\
- 				& \subset \sig(\MT) \\
+ 				\bigotimes_{\al \in A} \MB(X_{\al}) 
+ 				& = \sig(\ME) \\
+ 				& \subset \sig(\MT_X) \\
  				& = \MB(X)
  			\end{align*}
- 			\item Suppose that for each $j \in \{1, \ldots, n\}$, $X_j$ is second-countable. Let $\j \in \{1, \ldots, n\}$. Since $X_j$ is second-countable, there exists $\MB_j \subset \MT_j$ such that $\MB_j$ is a countable basis for $\MT_j$. Set $\MB =  \bigg\{ \prod\limits_{j=1}^n B_j: \text{for each $j \in \{1, \ldots, n\}$, $B_j \in \MB_j$} \bigg\}$. Then $\MB \subset \bigotimes\limits_{j=1}^n \MB(X_j)$ and $\MB$ is a countable basis for $\MT$. An exercise in the section on $\sig$-algebras implies that $\MB(X) = \sig(\MB)$. Hence
+ 			\item Suppose that $A$ is countable and for each $\al \in A$, $X_{\al}$, is second-countable. Then for each $\al \in A$, there exists $\MB_{\al} \subset \MT_{\al}$ such that $\MB_{\al}$ is a countable basis for $\MT_{\al}$. Set 
+ 			\begin{align*}
+ 				\MB = 
+ 				& \bigg \{\prod_{\al \in A} U_{\al}: \text{there exists $J \subset A$ such that $ \# J < \infty$, } \\
+ 				& \text{ for each $\al \in J$, $U_{\al} \in \MB_{\al}$ and for each $\al \in J^c$, $U_{\al} = X_{\al}$ } \bigg \}
+ 			\end{align*} 
+ 			Since $A$ is countable, $\MB$ is a countable basis for $\MT_X$. An exercise in the section on $\sig$-algebras implies that $\MB(X) = \sig(\MB)$. The previous exercise implies that $\MB \subset \bigotimes\limits_{\al \in A} \MB(X_{\al})$. Hence
  			\begin{align*}
  				\MB(X) 
  				& = \sig(\MB) \\
- 				& \subset \bigotimes_{j=1}^n \MB(X_j) 
+ 				& \subset \bigotimes_{\al \in A} \MB(X_{\al}) 
  			\end{align*}
  		\end{enumerate}
  	\end{proof}
@@ -1462,6 +1486,49 @@
 			& \in \MP
 		\end{align*} 
 	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{Borel Spaces}
+	\begin{defn}
+		Let $(X, \MA)$ be a measurable space. Then $(X, \MA)$ is said to be a \textbf{Borel space} if there exists $S \in \MB(\R)$ such that $(X, \MA)$ is isomorphic to $(S, \MB(\R) \cap S)$.
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
