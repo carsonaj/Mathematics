@@ -64,6 +64,7 @@
 \renewcommand{\P}{\mathbb{P}}
 \newcommand{\MA}{\mathcal{A}}
 \newcommand{\MC}{\mathcal{C}}
+\newcommand{\MD}{\mathcal{D}}
 \newcommand{\MB}{\mathcal{B}}
 \newcommand{\MF}{\mathcal{F}}
 \newcommand{\MG}{\mathcal{G}}
@@ -161,11 +162,11 @@
 	
 	\begin{defn}
 		Let $\MC_0$, $\MC_1$ be classes and $\dom, \cod : \MC_1 \rightarrow \MC_0$. Set $\MC = (C_0, C_1, \dom, \cod)$. Then $\MC$ is said to be a \textbf{category} if 
-		\begin{itemize}
-			\item (composition): for each $f,g \in C_1$, if $\cod(f) = \dom(g)$, there exists $g \circ f \in C_1$ such that $\dom(g \circ f) = \dom(f)$ and $\cod(g \circ f) = \cod(g)$
+		\begin{enumerate}
+			\item (composition): for each $f,g \in C_1$, if $\cod(f) = \dom(g)$, then there exists $g \circ f \in C_1$ such that $\dom(g \circ f) = \dom(f)$ and $\cod(g \circ f) = \cod(g)$
 			\item (associativity): for each $f,g,h \in C_1$, if $\cod(f) = \dom(g)$ and $\cod(g) = \dom(h)$, then $$(h \circ g) \circ f = h \circ (g \circ f)$$  
 			\item (identity): for each $X \in \MC_0$, there exists $1_{X} \in C_1$ such that $\dom(1_X) = \cod(1_X) = X$ and for each $f, g \in C_1$, if $\dom(f) = X$ and $\cod(g) = X$, then $$f \circ 1_X = f \text{ and } 1_X \circ g = g$$ 
-		\end{itemize}
+		\end{enumerate}
 		We define the
 		\begin{itemize}
 			\item \textbf{objects of $\MC$}, denoted $\Obj(\MC)$, by $\Obj(\MC) = C_0$
@@ -183,6 +184,7 @@
 		\end{itemize}
 		and then show 
 		\begin{itemize}
+			\item composition is well defined
 			\item associativity of composition 
 			\item existence of identities 
 		\end{itemize}
@@ -283,7 +285,8 @@
 				& = \be \circ_{\MC} \al \\
 				& \in \Hom_{\MC / X}(f, h)
 			\end{align*}
-			and composition is well defined. Then associativity of $\circ_{\MC / X}$ follows from associativity of $\circ_\MC$.
+			and composition is well defined. 
+			\item Associativity of $\circ_{\MC / X}$ follows from associativity of $\circ_\MC$.
 			\item Let $f \in \Obj(\MC / X)$ and $\al, \be \in \Hom_{\MC / X}$. Since $f \circ 1_{\dom_{\MC}(f)} = f$, i.e. the following diagram commutes: 
 			\[ \begin{tikzcd}
 				\dom(f) \arrow[rr, "1_{\dom(f)}"] \arrow[dr, "f"'] 	
@@ -342,8 +345,17 @@
 	\subsection{Functors}
 	
 	\begin{defn}
-		
+		Let $\MC$ and $\MD$ be categories, $F_0 : \Obj(\MC) \rightarrow \Obj(\MD)$ and $F_1: \Hom_{\MC} \rightarrow \Hom_{\MD}$. Set $F = (F_0, F_1)$. Then $F$ is said to be a functor from $\MC$ to $\MD$ if 
+		\begin{enumerate}
+			\item for each $A,B \in \Obj(C)$ and $f \in \Hom_{\MC}(A, B)$, $F_1(f) \in \Hom_{\MD}(F_0(A), F_0(B))$
+			\item for each $A,B, C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$ and $g \in \Hom_{\MC}(B, C)$, $F_1(g \circ f) = F_1(g) \circ F_1(f)$
+			\item for each $A \in \Obj(\MC)$,  $F_1(\id_A) = \id_{F_0(A)}$
+		\end{enumerate}
 	\end{defn}
+
+	\begin{note}
+		For $A \in \Obj(C)$ and $f \in \Hom_{\MC}$, we typically write $F(A)$ and $F(f)$ instead of $F_0(A)$ and $F_1(f)$ respectively. 
+	\end{note}
 	
 	
 	
