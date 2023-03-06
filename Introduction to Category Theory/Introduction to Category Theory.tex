@@ -32,6 +32,7 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
 \newtheorem{defn}[definition]{Definition}
+\newtheorem{ax}[definition]{Axiom}
 \newtheorem{note}[definition]{Note}
 \newtheorem{thm}[definition]{Theorem}
 \newtheorem{lem}[definition]{Lemma}
@@ -78,6 +79,8 @@
 \newcommand{\MI}{\mathcal{I}}
 \newcommand{\MU}{\mathcal{U}}
 \newcommand{\MO}{\mathcal{O}}
+
+\newcommand{\tbf}[1]{\textbf{#1}}
 
 \newcommand{\ui}{[0,1]}
 \newcommand{\p}{\partial}
@@ -131,8 +134,10 @@
 
 \newcommand{\lex}[1]{\label{ex:#1}}
 \newcommand{\ld}[1]{\label{defn:#1}}
+\newcommand{\lax}[1]{\label{ax:#1}}
 \newcommand{\rex}[1]{Exercise \ref{ex:#1}}
 \newcommand{\rd}[1]{Definition \ref{defn:#1}}
+\newcommand{\rax}[1]{Axiom \ref{ax:#1}}
 
 
 \begin{document}
@@ -155,13 +160,94 @@
 	
 	\newpage
 	
-	\section{Categories and Functors}
+	\section{Categories, Functors and Natural Transformations}
 	
+	\subsection{von Neumann–Bernays–Gödel Set Theory}
+	
+	\begin{defn} \ld{11001} 
+		Let $x$ be a class. Then $x$ is said to be a set iff there exists a class $A$ such that $x \in A$. 
+	\end{defn}
+
+	\begin{note}
+		We can define cartesion products, relations, and functions for classes just like for sets. 
+	\end{note}
+	
+	\begin{ax} \lax{11001.1} \textbf{Axiom of Replacement:}  \\
+		Let $A$, $B$ be classes and $f:A \rightarrow B$. If $A$ is a set, then $f(A)$ is a set. 
+	\end{ax}
+
+	\begin{ax} \lax{11002} \textbf{Schema of Specification:}  \lax{11002}\\
+		Let $\phi$ a propositional function on sets. Then there exists a class $A$ such that for each set $x$, $x \in A$ iff $\phi(x)$. 
+	\end{ax}
+	
+	\begin{ex} \lex{11003}
+		There exists a class $A$ such that for each class $x$, $x \in A$ iff $x$ is a set.
+	\end{ex}
+	
+	\begin{proof}
+		Define $\phi$ by $$\phi(x) : x = x$$ 
+		\rax{11002} implies that there exists a class $A$ such that for each set $x$, $x \in A$ iff $x = x$. Let $x$ be a class. If $x \in A$, then by definition, $x$ is a set. \\
+		Conversely, if $x$ is a set, then by construction, $x \in A$.
+	\end{proof}
+	
+	\begin{ex} \lex{11004}
+		There exists a class $A$ such that for each class $G$ and $*: G \times G \rightarrow G$, $(G, *) \in A$ iff $(G, *)$ is a group.
+	\end{ex}
+	
+	\begin{proof}
+		Define $\phi_1$, $\phi_2$ and $\phi_3$ by 
+		\begin{itemize}
+			\item $\phi_1(G, *): *:G \times G \rightarrow G$ is associative
+			\item $\phi_2(G, *):$ there exists $e \in G$ such that for each $g \in G$, $e * g = g * e = g$
+			\item $\phi_3(G, *):$ for each $g \in G$ there exists $h \in G$ such that $g * h = h * g = e$
+		\end{itemize}
+		Define $\phi$ by 
+		$$\phi(G, *) : \phi_1(G, *) \text{ and } \phi_2(G, *) \text{ and } \phi_3(G, *)$$
+		Then there exists a class $A$ such that for each set $G$ and  $*: G \times G \rightarrow G$, $(G, *) \in A$ iff $\phi(G, *)$ $(G, *) \text{ ``is a group"}$. Therefore, for each group $(G, *)$, $(G, *) \in A$.
+		\textbf{FINISH!!!}
+	\end{proof}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\subsection{Categories}
 	
 	
-	\begin{defn}
-		Let $\MC_0$, $\MC_1$ be classes and $\dom, \cod : \MC_1 \rightarrow \MC_0$. Set $\MC = (C_0, C_1, \dom, \cod)$. Then $\MC$ is said to be a \textbf{category} if 
+	\begin{defn}  \ld{12001}
+		Let $\MC_0$, $\MC_1$ be classes and $\dom, \cod : \MC_1 \rightarrow \MC_0$ class functions. Set $\MC = (C_0, C_1, \dom, \cod)$. Then $\MC$ is said to be a \textbf{category} if 
 		\begin{enumerate}
 			\item (composition): for each $f,g \in C_1$, if $\cod(f) = \dom(g)$, then there exists $g \circ f \in C_1$ such that $\dom(g \circ f) = \dom(f)$ and $\cod(g \circ f) = \cod(g)$
 			\item (associativity): for each $f,g,h \in C_1$, if $\cod(f) = \dom(g)$ and $\cod(g) = \dom(h)$, then $$(h \circ g) \circ f = h \circ (g \circ f)$$  
@@ -175,7 +261,7 @@
 		For $X, Y \in \Obj(\MC)$, we define the \textbf{morphisms from $X$ to $Y$}, denoted $\Hom_{\MC}(X, Y)$, by $\Hom_{\MC}(X, Y) = \{f \in \Hom(\MC): \dom(f) = X \text{ and } \cod(f) = Y\}$.
 	\end{defn}
 
-	\begin{note}
+	\begin{note} 
 		We typically define a category $\MC$ by specifying 
 		\begin{itemize}
 			\item $\Obj(\MC)$
@@ -184,13 +270,38 @@
 		\end{itemize}
 		and then show 
 		\begin{itemize}
-			\item composition is well defined
+			\item well-definedness of composition
 			\item associativity of composition 
 			\item existence of identities 
 		\end{itemize}
 	\end{note}
+	
+	\begin{defn} \ld{12002}
+		Let $\MC$ be a category. Then $\MC$ is said to be 
+		\begin{itemize}
+			\item \textbf{small} if $\Obj(\MC)$ and $\Hom_{\MC}$ are sets
+			\item \textbf{locally small} if for each $A,B \in \Obj(\MC)$, $\Hom_{\MC}(A,B)$ is a set 
+		\end{itemize}
+	\end{defn}
 
-	\begin{defn}
+	\begin{ex} \lex{12003}
+		Let $\MC$ be a category. If $\MC$ is small, then $\MC$ is a set. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\MC$ is small. Then $\Obj(\MC)$ and $\Hom_{\MC}$ are sets. Then $\MP(\Obj(\MC))$, $\MP(\Hom_{\MC})$ and $\Obj(\MC)^{\Hom_{\MC}}$ are sets. Hence $\Obj(\MC) \times \Hom_{\MC} \times \Obj(\MC)^{\Hom_{\MC}} \times \Obj(\MC)^{\Hom_{\MC}}$ is a set. By definition, $\MC = (\Obj(\MC), \Hom_{\MC}, \dom, \cod) \in \Obj(\MC) \times \Hom_{\MC} \times \Obj(\MC)^{\Hom_{\MC}} \times \Obj(\MC)^{\Hom_{\MC}}$. By definition, $\MC$ is a set. 
+	\end{proof}
+	
+	\begin{ex} \lex{12004}
+		There exists a class $A$ such that $\MC \in A$ iff $\MC$ is a small category. 
+	\end{ex}
+
+	\begin{proof}
+		\rex{12003} implies that for each category $\MC$, $\MC$ is small implies that $\MC$ is a set. Define $\phi$ by $$\phi(\MC): \MC \text{ is a small category} $$ 
+		Then \rax{11002} implies that there exists a class $A$ such that $\MC \in A$ iff $\MC$ is a small category.  
+	\end{proof}
+
+	\begin{defn}  \ld{12004}
 		Let $\MC$ be a category, we define the \text{dual of $\MC$} or the \textbf{opposite of $\MC$}, denoted $\op{C}$, by 
 		\begin{itemize}
 			\item $\Obj(\op{C}) = \Obj(\MC)$
@@ -199,7 +310,7 @@
 		\end{itemize}
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex}  \lex{12005}
 		Let $\MC$ be a category. Then $\op{C}$ is a category.
 	\end{ex}
 	
@@ -232,7 +343,7 @@
 		\end{itemize}
 	\end{proof}
 	
-	\begin{defn}
+	\begin{defn} \ld{12006}
 		Let $\MC$ be a category and $X \in \Obj(\MC)$. We define the \textbf{slice category of $\MC$ over $X$}, denoted $\MC / X$, by
 		\begin{itemize}
 			\item $\Obj(\MC / X) = \{f \in \Hom_{\MC}: \cod(f) = X\}$
@@ -245,11 +356,12 @@
 				& X 
 			\end{tikzcd}
 			\]
-			\item for $f,g, h \in \Obj(\MC / X)$, $\al \in \Hom_{\MC / X}(f, g)$ and $\be \in \Hom_{\MC / X}(g, h)$, $\be \circ_{\MC / X} \al = \be \circ_{\MC} \al$
+			\item for $f,g, h \in \Obj(\MC / X)$, $\al \in \Hom_{\MC / X}(f, g)$ and $\be \in \Hom_{\MC / X}(g, h)$, 
+			$$\be \circ_{\MC / X} \al = \be \circ_{\MC} \al$$
 		\end{itemize}
 	\end{defn}
 	
-	\begin{ex}
+	\begin{ex}  \lex{12007}
 		Let $\MC$ be a category and $X \in \Obj(\MC)$. Then $\MC / X$ is a category.
 	\end{ex}
 
@@ -344,20 +456,212 @@
 	\newpage
 	\subsection{Functors}
 	
-	\begin{defn}
-		Let $\MC$ and $\MD$ be categories, $F_0 : \Obj(\MC) \rightarrow \Obj(\MD)$ and $F_1: \Hom_{\MC} \rightarrow \Hom_{\MD}$. Set $F = (F_0, F_1)$. Then $F$ is said to be a functor from $\MC$ to $\MD$ if 
+	\begin{defn} \ld{13001}
+		Let $\MC$ and $\MD$ be categories and $F_0 : \Obj(\MC) \rightarrow \Obj(\MD)$, $F_1: \Hom_{\MC} \rightarrow \Hom_{\MD}$ class functions. Set $F = (F_0, F_1)$. Then $F$ is said to be a \text{functor from $\MC$ to $\MD$}, denoted  $F:\MC \rightarrow \MD$, if 
 		\begin{enumerate}
-			\item for each $A,B \in \Obj(C)$ and $f \in \Hom_{\MC}(A, B)$, $F_1(f) \in \Hom_{\MD}(F_0(A), F_0(B))$
+			\item for each $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$, $F_1(f) \in \Hom_{\MD}(F_0(A), F_0(B))$
 			\item for each $A,B, C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$ and $g \in \Hom_{\MC}(B, C)$, $F_1(g \circ f) = F_1(g) \circ F_1(f)$
 			\item for each $A \in \Obj(\MC)$,  $F_1(\id_A) = \id_{F_0(A)}$
 		\end{enumerate}
 	\end{defn}
 
 	\begin{note}
-		For $A \in \Obj(C)$ and $f \in \Hom_{\MC}$, we typically write $F(A)$ and $F(f)$ instead of $F_0(A)$ and $F_1(f)$ respectively. 
+		For $A \in \Obj(C)$ and $f \in \Hom_{\MC}$, we typically write $F(A)$ and $F(f)$ instead of $F_0(A)$ and $F_1(f)$ respectively.
 	\end{note}
 	
+	\begin{defn} \ld{13006}
+		Let $\MC$, $\MD$ and $\ME$ be categories and $F:\MC \rightarrow \MD$, $G: \MD \rightarrow \ME$ functors. We define the \textbf{composition of $G$ with $F$}, denoted $G \circ F: \MC \rightarrow \ME$, by 
+		\begin{itemize}
+			\item $G \circ F (A) = G(F(A))$
+			\item $G \circ F (f) = G(F(f))$
+		\end{itemize} 
+	\end{defn}
 	
+	\begin{ex}  \lex{13007}
+		Let $\MC$, $\MD$ and $\ME$ be categories and $F:\MC \rightarrow \MD$, $G: \MD \rightarrow \ME$ functors. Then  $G \circ F: \MC \rightarrow \ME$ is a functor.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+				\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Since $F(f) \in \Hom_{\MD}(F(A), F(B))$, we have that $G(F(f)) \in \Hom_{\ME}(G(F(A)), G(F(B)))$. Then 
+			\begin{align*}
+				G \circ F (f) 
+				& = G(F(f)) \\
+				& \in \Hom_{\ME}(G(F(A)), G(F(B))) \\
+				& =  \Hom_{\ME}(G \circ F(A), G \circ F (B)) \\
+			\end{align*}
+			\item Let $A,B, C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$ and $g \in \Hom_{\MC}(B, C)$. Then 
+			\begin{align*}
+				G \circ F(g \circ f) 
+				& = G (F (g \circ f)) \\
+				& = G(F(g) \circ F(f)) \\
+				& = G(F(g)) \circ G(F(f)) \\
+				& = G \circ F (g) \circ G \circ F (f) \\
+			\end{align*}
+			\item Let $A \in \Obj(\MC)$. Then 
+			\begin{align*}
+				G \circ F(\id_{A})
+				& = G(F(\id_A) )\\
+				& = G(\id_{F(A)}) \\
+				& = \id_{G(F(A))} \\
+				& = \id_{G \circ F(A)} 
+			\end{align*}
+		\end{enumerate}
+		So $G \circ F: \MC \rightarrow \ME$ is a functor. 
+	\end{proof}
+
+	\begin{ex}  \lex{13008}
+		Let $\MC$, $\MD$, $\ME$, $\MF$ be categories and $F:\MC \rightarrow \MD$, $G : \MD \rightarrow \ME$, $H: \ME \rightarrow \MF$ functors. Then $(H \circ G) \circ F = H \circ (G \circ F)$.
+	\end{ex}
+
+	\begin{proof}
+		Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Then 
+		\begin{itemize}
+				\item 
+				\begin{align*}
+					(H \circ G) \circ F(A) 
+					& = H \circ G (F(A)) \\
+					& = H (G(F(A))) \\
+					& = H( G \circ F (A)) \\
+					& = H \circ (G \circ F) (A)
+				\end{align*}
+				\item  
+				\begin{align*}
+					(H \circ G) \circ F(f) 
+					& = H \circ G (F(f)) \\
+					& = H (G(F(f))) \\
+					& = H( G \circ F (f)) \\
+					& = H \circ (G \circ F) (f)
+				\end{align*}
+		\end{itemize}
+		Hence $(H \circ G) \circ F = H \circ (G \circ F)$.
+	\end{proof}
+
+	\begin{defn} \ld{13004}
+		Let $\MC$ be a category. We define the \textbf{identity functor from $\MC$ to $\MC$}, denoted $\id_{\MC}: \MC \rightarrow \MC$, by 
+		\begin{itemize}
+			\item $\id_{\MC}(A) = A$, $(A \in \Obj(\MC))$
+			\item $\id_{\MC}(f) = f$, $(f \in \Hom_{\MC})$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}  \lex{13005}
+		Let $\MC$ be a category. Then $\id_{\MC}: \MC \rightarrow \MC$ is a functor.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Then 
+			\begin{align*}
+				\id_{\MC}(f) 
+				& = f \\
+				& \in \Hom_{\MC}(A, B) \\
+				& = \Hom_{\MC}(\id_{\MC}(A), \id_{\MC}(B)) \\
+			\end{align*}
+			\item Let $A,B, C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$ and $g \in \Hom_{\MC}(B, C)$. Then 
+			\begin{align*}
+				\id_{\MC}(g \circ f) 
+				& = g \circ f \\
+				& = \id_{\MC}(g) \circ \id_{\MC} (f)
+			\end{align*}
+			\item Let $A \in \Obj(\MC)$. Then 
+			\begin{align*}
+				\id_{\MC}(\id_{A})
+				& = \id_A \\
+				& = \id_{\id_{\MC}(A)}
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{13006}
+		Let $\MC$ and $\MD$ be categories and $F:\MC \rightarrow \MD$. Then 
+		\begin{enumerate}
+			\item $\id_{\MD} \circ F = F$
+			\item $F \circ \id_{\MC} = F$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then 
+			\begin{align*}
+				\id_{\MD} \circ F(A) 
+				& = \id_{\MD}(F(A)) \\
+				& = F(A)
+			\end{align*}
+			and 
+			\begin{align*}
+				\id_{\MD} \circ F(f) 
+				& = \id_{\MD}(F(f)) \\
+				& = F(f)
+			\end{align*} 
+			Since $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$ are arbitrary, $\id_{\MD} \circ F = F$.
+			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then
+			\begin{align*}
+				F \circ \id_{\MC}(A) 
+				& = F(\id_{\MC}(A)) \\
+				& = F(A) 
+			\end{align*}
+			and 
+			\begin{align*}
+				F \circ \id_{\MC}(f) 
+				& = F (\id_{\MC}(f)) \\
+				& = F(f)
+			\end{align*} 
+			Since $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$ are arbitrary, $ F \circ \id_{\MC} = F$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{13008.1}
+		Let $\MC$ and $\MD$ be categories and $F:\MC \rightarrow \MD$. If $\MC$ is small, then $F$ is a set.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\MC$ is small. Then $\Obj(\MC)$ and $\Hom_{\MC}$ are sets. By definition, there exist $F_0: \Obj(\MC) \rightarrow \Obj(\MD)$ and $F_1: \Hom_{\MC} \rightarrow \Hom_{\MD}$ such that $F = (F_0, F_1)$. \rax{11001.1} implies that $F_0(\Obj(\MC))$ and $F_1(\Hom_{\MC})$ are sets. Therefore, $\Obj(\MC) \times F_0(\Obj(C))$ and $\Hom_{\MC} \times F_1(\Hom_{\MC})$ are sets. Hence $\MP(\Obj(\MC) \times F_0(\Obj(C)))$ and $\MP(\Hom_{\MC} \times F_1(\Hom_{\MC}))$ are sets. Since $F_0 \subset \Obj(\MC) \times F_0(\Obj(C))$ and $F_1 \subset \Hom_{\MC} \times F_1(\Hom_{\MC})$, we have that $F_0 \in \MP(\Obj(\MC) \times F_0(\Obj(C)))$ and $F_1 \in \MP(\Hom_{\MC} \times F_1(\Hom_{\MC}))$. Hence $F_0$ and $F_1$ are sets. Thus $F = (F_0, F_1)$ is a set. 
+	\end{proof}
+
+	\begin{ex} \lex{13008.2}
+		Let $\MC$ and $\MD$ be categories. Suppose that $\MC$ is small. Then there exists a class $A$ such that for each class $F$, $F \in A$ iff $F: \MC \rightarrow \MD$.   
+	\end{ex}
+	
+	\begin{proof} 
+		Let $\MC$ and $\MD$ be categories. Suppose that $\MC$ is small. Define $\phi$ by 
+		$$\phi(F) : F : \MC \rightarrow \MD$$ 
+		Then there exists a class $A$ such that for each set $F$, $F \in A$ iff $\phi(F)$. Let $F$ be a class. Suppose that $F \in A$. By \rd{11001}, $F$ is a set. Since $F$ is a set and $F \in A$, we have that $\phi(F)$. Hence $F: \MC \rightarrow \MD$. \\
+		Conversely, suppose that $F: \MC \rightarrow \MD$. \rex{13008.1} implies that $F$ is a set. Since $F$ is a set and $\phi(F)$ is true, we have that $F \in A$. 
+	\end{proof}
+	
+	\begin{defn} \ld{13009}
+		We define $\tbf{Cat}$ by 
+		\begin{itemize}
+			\item $\Obj(\tbf{Cat}) = \{\MC: \MC \text{ is a small category}\}$.
+			\item for $\MC,\MD \in \Obj(\tbf{Cat})$, 
+			$$\Hom_{\tbf{Cat}}(\MC,\MD) = \{F : F: \MC \rightarrow \MD \}$$
+			\item for $\MC,\MD, \ME \in \Obj(\tbf{Cat})$, $F \in \Hom_{\tbf{Cat}}(\MC,\MD)$ and $G \in \Hom_{\tbf{Cat}}(\MD, \ME)$, $$G \circ_{\tbf{Cat}} F = G \circ F$$
+		\end{itemize}
+	\end{defn}
+
+
+	\begin{ex}  \lex{13010}
+		We have that \tbf{Cat} is 
+		\begin{enumerate}
+			\item a category
+			\item locally small
+		\end{enumerate} 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item The previous exercises imply the associativity of composition and the existence of identities.
+			\item Let $\MC, \MD \in \Obj(\tbf{Cat})$ and $F \in \Hom_{\tbf{Cat}}(\MC, \MD)$. \rd{12002} implies that $\Obj(\MC)$, $\Obj(\MD)$, $\Hom_{\MC}$ and $\Hom_{\MD}$ are sets. Then $\Obj(\MD)^{\Obj(\MC)}$ and $\Hom_{\MD}^{ \Hom_{\MC}}$ are sets. Hence $ \Obj(\MD)^{\Obj(\MC)} \times  \Hom_{\MD}^{ \Hom_{\MC}}$ is a set. Let $F \in \Hom_{\tbf{Cat}}(\MC, \MD)$. Then there exist $F_0 \in \Obj(\MD)^{\Obj(\MC)} $ and $F_1 \in \Hom_{\MD}^{ \Hom_{\MC}}$ such that $F = (F_0, F_1)$. Therefore $F \in  \Obj(\MD)^{\Obj(\MC)} \times  \Hom_{\MD}^{ \Hom_{\MC}}$. Since $F \in \Hom_{\tbf{Cat}}(\MC, \MD)$ is arbitrary, 
+			\begin{align*}
+				\Hom_{\tbf{Cat}}(\MC, \MD) 
+				& \subset \Obj(\MD)^{\Obj(\MC)} \times  \Hom_{\MD}^{ \Hom_{\MC}}
+			\end{align*}
+			which implies that $\Hom_{\tbf{Cat}}(\MC, \MD)$ is a set. Therefore, $\tbf{Cat}$ is locally small.
+		\end{enumerate} 
+	\end{proof}
+
 	
 	
 	
@@ -391,5 +695,263 @@
 	\newpage
 	\subsection{Natural Transformations}
 	
+	\begin{defn} \ld{14001}
+		Let $\MC$ and $\MD$ be categories, $F, G: \MC \rightarrow \MD$ and $ \al : \Obj(\MC) \rightarrow  \Hom_{\MD}$. Then $\al$ is said to be a \textbf{natural transformation from $F$ to $G$}, denoted $\al: F \Rightarrow G$, if
+		\begin{enumerate}
+			\item for each $A \in \Obj(\MC)$, $\al_A \in \Hom_{\MD}(F(A), G(A))$
+			\item for each $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$, $G(f) \circ \al_A = \al_B \circ F(f)$, i.e. the following diagram commutes: 
+			\[ 
+			\begin{tikzcd}
+				F(A)  \arrow[r, "\al_A"]  \arrow[d, "F(f)"']  & G(A)   \arrow[d, "G(f)"]\\
+				F(B) \arrow[r, "\al_B"] &  G(B) \\
+			\end{tikzcd}
+			\]
+		\end{enumerate}
+	\end{defn}
+
+
+	\begin{defn} \ld{14002}
+		Let $\MC$, $\MD$ be categories, $F, G, H:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ natural transformations. We define the \textbf{composition of $\be$ with $\al$}, denoted $\be \circ \al: F \Rightarrow H$, by 
+		$$(\be \circ \al)_{A} = \be_A \circ \al_A$$ 
+	\end{defn}
+	
+	\begin{ex}  \lex{14003}
+		Let $\MC$, $\MD$ be categories, $F, G, H:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ natural transformations. Then $ \be \circ \al: F \Rightarrow H$ is a natural transformation.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A \in \Obj(\MC)$. Since $\al_A \in \Hom_{\MD}(F(A), G(A))$ and $\be_A \in \Hom_{\MD}(G(A), H(A))$, we have that 
+			\begin{align*}
+				(\be \circ \al)_A 
+				& = \be_A \circ \al_A \\
+				& \in \Hom_{\MD}(F(A), H(A))
+			\end{align*}
+			\item Let $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Since $\al:F \Rightarrow G$ and $\be: G \Rightarrow H$, $G(f) \circ \al_A = \al_B \circ F(f)$ and $H(f) \circ \be_A = \be_B \circ G(f)$. Therefore 
+			\begin{align*}
+				H(f) \circ (\be \circ \al)_A
+				& = H(f) \circ (\be_A \circ \al_A) \\
+				& = (H(f) \circ \be_A) \circ \al_A \\
+				& = (\be_B \circ G(f)) \circ \al_A \\
+				& = \be_B \circ (G(f)\circ \al_A) \\
+				& = \be_B \circ (\al_B \circ F(f)) \\
+				& = (\be_B \circ \al_B) \circ F(f) \\
+				& = (\be \circ \al)_B \circ F(f)
+			\end{align*}
+		\end{enumerate}
+		So $\be \circ \al: F \Rightarrow H$ is a natural transformation. 
+	\end{proof}
+
+	\begin{ex} \lex{14003.1}
+		Let $\MC$, $\MD$ be categories, $F, G, H, I:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ and $\gam: H \Rightarrow I$ natural transformations. Then $$(\gam \circ \be) \circ \al = \gam \circ (\be \circ \al)$$
+	\end{ex}
+
+	\begin{proof}
+		Let $A \in \Obj(\MC)$. By definition,  
+		\begin{align*}
+			[(\gam \circ \be) \circ \al]_{A} 
+			& = (\gam \circ \be)_A \circ \al_{A} \\
+			& = (\gam_A \circ \be_A) \circ \al_A \\
+			& = \gam_A \circ (\be_A \circ \al_A) \\
+			& = \gam_A \circ (\be \circ \al)_A \\
+			& = [\gam \circ (\be \circ \al)]_A \\
+		\end{align*}
+		Since $A \in \Obj(\MC)$ is arbitrary, 
+		$$(\gam \circ \be) \circ \al = \gam \circ (\be \circ \al)$$
+	\end{proof}
+
+	\begin{defn} \ld{14003.2}
+		Let $\MC$, $\MD$ be categories and $F: \MC \rightarrow \MD$. We define the \textbf{identity natural transformation from $F$ to $F$}, denoted $\id_{F}: F \Rightarrow F$, by 
+		$$(\id_F)_A = \id_{F(A)}$$
+	\end{defn}
+	
+	\begin{ex}  \lex{14003.3}
+		Let $\MC$, $\MD$ be categories and $F: \MC \rightarrow \MD$. Then $\id_F: F \Rightarrow F$ is a natural transformation from $F$ to $F$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A \in \Obj(\MC)$. Then 
+			\begin{align*}
+				(\id_F)_A 
+				& = \id_{F(A)} \\
+				& \in \Hom_{\MD}(F(A), F(A)) \\
+				& = \Hom_{\MC}(\id_{\MC}(A), \id_{\MC}(B)) \\
+			\end{align*}
+			\item Let $A,B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$. Then 
+			\begin{align*}
+				F(f) \circ (\id_{F})_{A} 
+				& = F(f) \circ \id_{F(A)} \\
+				& = F(f) \\
+				& = \id_{F(B)} \circ F(f) \\
+				& = (\id_{F})_{B} \circ F(f)
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{14003.4}
+		Let $\MC$, $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Then 
+		\begin{enumerate}
+			\item $\id_{G} \circ \al = \al$
+			\item $\al \circ \id_F = \al$
+		\end{enumerate} 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A \in \Obj(\MC)$. Then 
+			\begin{align*}
+				(\id_{G} \circ \al)_{A}
+				& = (\id_G)_A \circ \al_A \\
+				& = \id_{G(A)} \circ \al_A \\
+				& = \al_A 
+			\end{align*}
+			Since $A \in \Obj(C)$ is arbitrary, $\id_{G} \circ \al = \al$
+			\item Let $A \in \Obj(\MC)$. Then
+			\begin{align*}
+				(\al \circ \id_F)_{A}
+				& = \al_A \circ (\id_F)_A \\
+				& = \al_A \circ \id_{F(A)} \\
+				& = \al_A 
+			\end{align*}
+			Since $A \in \Obj(C)$ is arbitrary, $\al \circ \id_F = \al$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{14004}
+		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al: F \Rightarrow G$. If $\MC$ is small, then $\al$ is a set.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\MC$ is small. Then $\Obj(\MC)$ is a set. Since $\al: \Obj(\MC) \rightarrow \Hom_{\MD}$, \rax{11001.1} implies that $\al(\Obj(\MC))$ is a set. Then $ \Obj(\MC) \times \al(\Obj(\MC))$ is a set. Therefore $\MP(\Obj(\MC) \times \al(\Obj(\MC)))$ is a set. Since $\al \subset \Obj(\MC) \times \al(\Obj(\MC))$, we have that $\al \in \MP(\Obj(\MC) \times \al(\Obj(\MC)))$ which implies that $\al$ is a set. 
+	\end{proof}
+
+	\begin{ex} \lex{14005}
+			Let $\MC$ and $\MD$ be categories and $F,G: \MC \rightarrow \MD$. If $\MC$ is small, then there exists a class $A$ such that for each class $\al$, $\al \in A$ iff $\al: F \Rightarrow G$. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\MC$ is small. Define $\phi$ by 
+		$$\phi(\al): \al: F \Rightarrow G$$
+		\rax{11002} implies that there exists a class $A$ such that for each set $\al$, $\al \in A$ iff $\phi(\al)$. 
+		Let $\al$ be a class. Suppose that $\al \in A$. By \rd{11001}, $\al$ is a set. Since $\al$ is a set and $\al \in A$, we have that $\phi(\al)$. Hence $\al:F \Rightarrow G$. \\
+		Conversely, suppose that $\al: F \Rightarrow G$.  Since $\MC$ is small, \rex{14004} implies that $\al$ is a set. Since $\phi(\al)$, we have that $\al \in A$. 
+	\end{proof}
+	
+	\begin{defn} \ld{14006}
+		Let $\MC$ and $\MD$ be categories. Suppose that $\MC$ is small. We define the \textbf{functor category from $\MC$ to $\MD$}, denoted $\MD^{\MC}$, by 
+		\begin{itemize}
+			\item $\Obj(\MD^{\MC}) = \{F: F: \MC \rightarrow \MD\}$
+			\item For $F, G \in \Obj(\MD^{\MC})$, $\Hom_{\MD^{\MC}}(F, G) = \{\al: \al: F \Rightarrow G \}$
+			\item For $F, G, H \in \Obj(\MD^{\MC})$, $\al \in \Hom_{\MD^{\MC}}(F, G)$ and $\be \in \Hom_{\MD^{\MC}}(G, H)$, 
+			$\be \circ_{\MD^{\MC}} \al = \be \circ \al $
+		\end{itemize} 
+	\end{defn}
+
+	\begin{ex} \lex{14007}
+		Let $\MC$ and $\MD$ be categories. Suppose that $\MC$ is small. Then $\MD^{\MC}$ is a category.
+	\end{ex}
+
+	\begin{proof}\
+		The previous exercises imply the associativity of composition and existence of identities.
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\subsection{Product Categories}
+	
+	\begin{defn}
+		Let $\MC$ and $\MD$ be categories. We define the \textbf{product category of $\MC$ and $\MD$}, denoted $\MC \times \MD$ by 
+		\begin{itemize}
+			\item $\Obj(\MC \times \MD) = \{(A, B): A \in \Obj(\MC) \text{ and } B \in \Obj(\MD)\}$
+			\item for each $(A, A'), (B, B') \in \Obj(\MC \times \MD)$, $\Hom_{\MC \times \MD}((A, A'), (B, B')) = \{(f,g): f \in \Hom_{\MC}(A, B) \text{ and }  g \in \Hom_{\MC}(A', B') \}$
+			\item for each  $(A, A'), (B, B'), (C, C') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$ and $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$, 
+			$$(g,g') \circ_{\MC \times \MD} (f, f') = (g \circ_{\MC} f, g' \circ_{\MD} f')$$
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $\MC$ and $\MD$ be categories. Then $\MC \times \MD$ is a category. 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item Let $(A, A'), (B, B'), (C, C') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$ and $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$. Then $f \in \Hom_{\MC}(A, B)$, $g \in \Hom_{\MC}(B, C)$, $f'  \in \Hom_{\MD}(A', B')$, and  $g' \in \Hom_{\MD}(B', C')$. Hence $g \circ_{\MC} f \in \Hom_{\MC}(A, C)$ and $g' \circ_{\MD} f' \in \Hom_{\MD}(A', C')$. Thus 
+			\begin{align*}
+				(g,g') \circ_{\MC \times \MD} (f, f') 
+				&= (g \circ_{\MC} f, g' \circ_{\MD} f') \\
+				& \in \Hom_{\MC \times \MD}((A, A'), (C, C'))
+			\end{align*}
+			Thus, composition is well defined. \\
+			\item Let $(A, A'), (B, B'), (C, C'), (D, D') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$, $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$ and $(h, h') \in \Hom_{\MC \times \MD}((C, C'), (D, D'))$. Then 
+			\begin{align*}
+				[(h, h') \circ_{\MC \times \MD} (g , g') ] \circ_{\MC \times \MD} (f, f')
+				& = (h \circ_{\MC} g, h' \circ_{\MD} g') \circ_{\MC \times \MD} (f, f') \\
+				& = ((h \circ_{\MC} g) \circ_{\MC} f, (h' \circ_{\MD} g') \circ_{\MD} f') \\
+				& = (h \circ_{\MC} ( g \circ_{\MC} f), h' \circ_{\MD} (g' \circ_{\MD} f')) \\
+				& = (h, h') \circ_{\MC \times \MD} (g \circ_{\MC} f, g' \circ_{\MD} f') \\
+				& = (h, h') \circ_{\MC \times \MD} [(g, g') \circ_{\MC \times \MD} (f, f')]
+			\end{align*} 
+			Thus composition is associative. \\
+			\item Let $(A, B) \in \Obj(\MC \times \MD)$, $(f, f'), (g,g') \in \Hom_{\MC \times \MD}$. Suppose that $\dom_{\MC \times \MD}(f, f') = (A, B)$ and $\cod_{\MC \times \MD}(g, g') = (A, B)$. Then $\dom_{\MC}(f) = A$, $\dom_{\MD}(f') = B$, $\cod_{\MC}(g) = A$ and  $\cod_{\MD}(g') = B$. Hence
+			\begin{align*}
+				(f, f') \circ_{\MC \times \MD} (1_A, 1_{B}) 
+				& = (f \circ_{\MC} 1_A, f' \circ_{\MD} 1_{B}) \\
+				& = (f, f)
+			\end{align*}
+			and
+			\begin{align*}
+				(1_A, 1_{B})  \circ_{\MC \times \MD} (g, g')
+				& = (1_A \circ_{\MC} g , 1_{B} \circ g') \\
+				& = (g, g')
+			\end{align*}
+			Therefore $(1_{(A, B)})_{\MC \times \MD} = (1_A, 1_{B})$.
+		\end{itemize}
+	\end{proof}
 	
 \end{document}

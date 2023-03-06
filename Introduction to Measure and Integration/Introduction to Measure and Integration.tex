@@ -822,13 +822,73 @@
 			\item Similar to (1).
 		\end{enumerate}
 	\end{proof}
+
+	\begin{ex}
+		Let $(X,\MA), (Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. If $f$ is an isomorphism, then
+		\begin{enumerate}
+			\item $f^*(\MB) = \MA$
+			\item $f_*(\MA) = \MB$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof} Suppose that $f$ is an isomorphism.
+		\begin{enumerate}
+			\item Since $f$ is $(\MA, \MB)$-measurable, $f^*(\MB) \subset \MA$. Let $A \in \MA$. Set $B = f(A)$. Since $f^{-1}$ is $(\MB, \MA)$-measurable, $B \in \MB$. By definition, 
+			\begin{align*}
+				A 
+				& = f^{-1}(B) \\
+				& \in f^*(\MB)  
+			\end{align*}
+			Since $A \in \MA$ is arbitrary, $\MA \subset f^*(\MB)$. Hence $f^*(\MB) = \MA$.
+			\item Since $f$ is $(\MA, \MB)$-measurable, $\MB \subset f_*(\MA)$. Let $B \in f_*(\MA)$. By definition, $f^{-1}(B) \in \MA$. Set $A = f^{-1}(B)$.  Since $f^{-1}$ is $(\MB, \MA)$-measurable, 
+			\begin{align*}
+				B
+				& = f(A) \\
+				& \in \MB
+			\end{align*}
+			Since $B \in f_*(\MA)$ is arbitrary, $f_*(\MA) \subset \MB$. Hence $f_*(\MA) = \MB$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $(X,\MA), (Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. If $f$ is constant, then 
+		\begin{enumerate}
+			\item $f^*(\MB) = \{\varnothing, X\}$
+			\item $f_*(\MA) = \MP(Y)$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof} Suppose that $f$ is constant. Then there exists $y \in Y$ such that for each $x \in X$, $f(x) = y$. Then for each $B \subset Y$, $$f^{-1}(B) = 
+		\begin{cases}
+			X, & y \in B \\
+			\varnothing, & y \not \in B
+		\end{cases}
+		$$
+		\begin{enumerate}
+			\item Clearly $\{\varnothing, X\} \subset f^*(\MB)$. Let $A \in f^{*}(\MB)$. Then there exists $B \in \MB$ such that $A = f^{-1}(B)$. Then 
+			\begin{align*}
+				A
+				& = f^{-1}(B) \\
+				& \in \{\varnothing, X\}
+			\end{align*}
+			Since $A \in f^*(\MB)$ is arbitrary, $f^*(\MB) \subset \{\varnothing, X\}$. Hence $f^*(\MB) = \{\varnothing, X\}$.
+			\item Clearly $f_*(\MA) \subset \MP(Y)$. Let $B \in \MP(Y)$. Since $\{\varnothing, X\} \subset \MA$, we have that 
+			\begin{align*}
+				f^{-1}(B) 
+				& = X \\
+				& \in \{\varnothing, X\} \\
+				& \subset \MA
+			\end{align*}
+			Hence $B \in f_*(\MA)$. Since $B \in \MP(Y)$ is arbitrary, $\MP(Y) \subset f_*(\MA)$. Hence $f_*(\MA) = \MP(Y)$.
+		\end{enumerate}
+	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces. Suppose that there exists $\ME \subset Y$ such that $\sig(\ME) = \MB$. Let $f:X \rightarrow Y$. Then $f$ is $\MA$-$\MB$ measurable iff for each $B \in \ME$, $f^{-1}(B) \in \MA$.
+		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces. Suppose that there exists $\ME \subset Y$ such that $\sig(\ME) = \MB$. Let $f:X \rightarrow Y$. Then $f$ is $(\MA,\MB)$ measurable iff for each $B \in \ME$, $f^{-1}(B) \in \MA$.
 	\end{ex}
 	
 	\begin{proof}
-		By definition, if $f$ is $\MA$-$\MB$ measurable, then for each $B \in \ME$, $f^{-1}(B) \in \MA$. Conversely, suppose that for each $B \in \ME$, $f^{-1}(B) \in \MA$. The previous exercise tells us that $f_*\MA$ is a $\sig$-algebra on $Y$. Since $\ME \subset f_*\MA$, we have that $\MB = \sig(\ME) \subset f_*\MA$. So $f$ is $\MA$-$\MB$ measurable.
+		By definition, if $f$ is $\MA$-$\MB$ measurable, then for each $B \in \ME$, $f^{-1}(B) \in \MA$. Conversely, suppose that for each $B \in \ME$, $f^{-1}(B) \in \MA$. The previous exercise tells us that $f_*\MA$ is a $\sig$-algebra on $Y$. Since $\ME \subset f_*\MA$, we have that $\MB = \sig(\ME) \subset f_*\MA$. So $f$ is $(\MA,\MB)$ measurable.
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
@@ -1321,19 +1381,74 @@
 		Immediate by a previous exercise about the initial $\sig$-algebra.
 	\end{proof}
 	
+	\begin{defn}
+		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ and $(Y_{\al}, \MB_{\al})_{\al \in A}$ be collections of measurable spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. Set $X = \prod\limits_{\al \in A} X_{\al}$ and $Y = \prod\limits_{\al \in A}Y_{\al}$. We define $\prod_{\al \in A} f_{\al}: X \rightarrow Y$ by $\prod_{\al \in A} f_{\al} ((x_{\al})_{\al \in A}) = (f_{\al}(x_{\al}))_{\al \in A}$.
+	\end{defn}
+	
 	\begin{ex}
-		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ and $(Y_{\al}, \MB_{\al})_{\al \in A}$ be collections of measurable spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. Set $X = \prod\limits_{\al \in A} X_{\al}$ and $Y = \prod\limits_{\al \in A}Y_{\al}$. Define $f: X \rightarrow Y$ by $(f(x))_{\al} = f_{\al}(x_{\al})$. If for each $\al \in A$, $f_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable, then $f$ is $(\bigotimes\limits_{\al \in A} \MA_{\al}, \bigotimes\limits_{\al \in A} \MB_{\al})$-measurable.
+		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ and $(Y_{\al}, \MB_{\al})_{\al \in A}$ be collections of measurable spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. Set $X = \prod\limits_{\al \in A} X_{\al}$ and $Y = \prod\limits_{\al \in A}Y_{\al}$. If for each $\al \in A$, $f_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable, then $\prod_{\al \in A} f_{\al}$ is $(\bigotimes\limits_{\al \in A} \MA_{\al}, \bigotimes\limits_{\al \in A} \MB_{\al})$-measurable.
 	\end{ex}
 	
-	\begin{proof} Denote the $\al$-th projection maps on $X$ and $Y$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Let $\al \in A$ and $x \in X$. Then
+	\begin{proof} Suppose that for each $\al \in A$, $f_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable. Set $f = \prod_{\al \in A} f_{\al}$. Denote the $\al$-th projection maps on $X$ and $Y$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Let $\al \in A$ and $x \in X$. Then
 		\begin{align*}
 			\pi^Y_{\al} \circ f(x) 
 			& = (f(x))_{\al} \\
 			& = f_{\al}(x_{\al}) \\
 			& = f_{\al} \circ \pi^X_{\al}(x) 
 		\end{align*}
-		Since $\al \in A$ and $x \in X$ are arbitrary, for each $\al \in A$, $\pi^Y_{\al} \circ f = f_{\al} \circ \pi^X_{\al}$. Suppose that for each $\al \in A$, $f_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable. Let $\al \in A$. Then $f_{\al} \circ \pi^X_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable. Hence $\pi^Y_{\al} \circ f$ is $(\MA_{\al}, \MB_{\al})$-measurable. Since $\al \in A$ is arbitrary, the previous exercise implies that $f$ is $(\bigotimes\limits_{\al \in A} \MA_{\al}, \bigotimes\limits_{\al \in A} \MB_{\al})$-measurable.
+		Since $x \in X$ are arbitrary, $\pi^Y_{\al} \circ f = f_{\al} \circ \pi^X_{\al}$. Since $f_{\al} \circ \pi^X_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable, we have that $\pi^Y_{\al} \circ f$ is $(\MA_{\al}, \MB_{\al})$-measurable. Since $\al \in A$ is arbitrary, a previous exercise implies that $f$ is $(\bigotimes\limits_{\al \in A} \MA_{\al}, \bigotimes\limits_{\al \in A} \MB_{\al})$-measurable.
 	\end{proof}
+
+	\begin{defn}
+		Let $X, Y$ be sets, $x \in X$ and $y \in Y$. We define the \textbf{slice maps at $x$ and $y$}, denoted $\iota^y_X: X \rightarrow X \times Y$ and $\iota^x_Y: Y \rightarrow X \times Y$ respectively, by $\iota^y_X(\cdot) = (\cdot, y)$ and $\iota^x_Y(\cdot) = (x, \cdot)$ respectively. 
+	\end{defn}
+	
+	\begin{ex}
+		Let $(X, \MA )$ and $(Y, \MB)$ be measurable spaces, $x \in X$ and $y \in Y$. Then $\iota^y_X$ is $(\MA, \MA \otimes \MB)$-measurable and $\iota^x_Y$  is $(\MB, \MA \otimes \MB)$-measurable.
+	\end{ex}
+	
+	\begin{proof}
+		Since $\pi_1 \circ \iota^y_X = \id_{X}$ and $\pi_2 \circ \iota^y_X$ is constant, we have that $\pi_1 \circ \iota^y_X = \id_{X}$ is $(\MA, \MA)$-measurable and $\pi_2 \circ \iota^y_X$ is $(\MB, \MB)$-measurable. Since $\MA \otimes \MB = \sig_{X \times Y}(\pi_1, \pi_2)$, an exercise in the section on measurable functions implies that $\iota^y_X$ is $(\MA, \MA \otimes \MB)$-measurable. Similarly, $\iota^x_Y$ is $(\MB, \MA \otimes \MB)$-measurable.
+	\end{proof}
+	
+	\begin{defn} \ld{00000} 
+		Let $X$, $Y$, and $Z$ be sets, $E \subset X \times Y$, $f :X \times Y \rightarrow Z$, $x \in X$ and $y \in Y$. Then
+		\begin{itemize}
+			\item we define the \textbf{sections of $E$ at $x$ and $y$}, denoted $E_x$ and $E^y$ respectively, by $E_x = \{y \in Y: (x,y) \in E\}$ and $E^y = \{x \in X: (x,y) \in E\}$ respectively
+			\item we define the \textbf{sections of $f$ at $x$ and $y$}, denoted $f_x:Y \rightarrow Z$ and $f^y:X \rightarrow Z$ respectively, by $f_x(\cdot) = f(x,\cdot)$ and$f^y(\cdot) = f(\cdot,y)$  respectively 
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $(X,\MA), (Y, \MB)$ be measurable spaces, $E \in \MA \otimes \MB$, $x \in X$ and $y \in Y$. Then $E_x \in \MB$ and $E^y \in \MA$.  
+	\end{ex}
+	
+	\begin{proof}
+		Since $\iota^x_Y$ is $(\MB, \MA \otimes \MB)$-measurable, we have that
+		\begin{align*}
+			E_x 
+			& = (\iota^x_Y)^{-1}(E) \\
+			& \in \MB 
+		\end{align*}
+		Similarly, $E^y \in \MA$. 
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X,\MA), (Y, \MB)$, $(Z, \MC)$ be measurable spaces, $f: X \times Y \rightarrow Z$, $x \in X$ and $y \in Y$. Suppose that $f$ is $(\MA \otimes \MB, \MC)$-measurable. Then $f_x$ is $(\MB, \MC)$-measurable and $f^y$ is $(\MA, \MC)$-measurable. 
+	\end{ex}
+	
+	\begin{proof}
+		Since $\iota^x_Y$ is $(\MB, \MA \otimes \MB)$-measurable, $f$ is $(\MA \otimes \MB, \MC)$-measurable and $f_x = f \circ \iota^x_Y$, we have that $f_x$ is $(\MB, \MC)$-measurable. Similarly, $f^y$ is $(\MA, \MC)$-measurable.
+	\end{proof}
+
+
+
+
+
+
+
+
+
 	
 	\begin{ex}
 		Let $X_1, X_2,Y_1,Y_2$ be topological spaces and $f_1:X_1 \rightarrow Y_1$, $f_2:X_2 \rightarrow Y_2$. If $f_1$ and $f_2$ are open, then $f_1 \times f_1$ is open.
@@ -1518,10 +1633,131 @@
 
 	\newpage
 	\subsection{Borel Spaces}
+	
+	\begin{ex} \lex{28001} 
+		For each $x \in [0, 1]$, there exists $(x_n)_{n \in \N} \subset \{0,1\}^{\N}$ such that $x = \sum\limits_{j \in \N} x_j2^{-j}$.
+		\textbf{Hint:} Set $x_1 = 
+		\begin{cases}
+			0, & x < 1/2 \\
+			1, & x \geq 1/2 
+		\end{cases}$
+		and proceed inductively. 
+	\end{ex}
+
+	\begin{proof}
+		Let $x \in [0,1]$. Set 
+		$$x_1 = 
+		\begin{cases}
+			0, & x < 1/2 \\
+			1, & x \geq 1/2 
+		\end{cases}$$
+	and for $j \geq 2$, set 
+	$$x_j = \begin{cases}
+		0, & x - \sum\limits_{k = 1}^{j-1}x_k2^{-k} < 2^{-j} \\
+		1, & x - \sum\limits_{k = 1}^{j-1}x_k2^{-k} \geq 2^{-j} 
+	\end{cases}$$
+	Note that for each $j \in \N$, $x - \sum\limits_{k = 1}^{j}x_k2^{-k} \in [0, 2^{-j}]$. Hence $x = \sum\limits_{j \in \N} x_j2^{-j}$
+	\end{proof}
+
+	\begin{ex} \lex{28002} 
+		Let $(x_n)_{n \in \N}, (y_n)_{n \in \N} \subset \{0,1\}^{\N}$. Suppose that $(x_n)_{n \in \N} \neq (y_n)_{n \in \N}$. Set $N = \min\{j \in \N: x_j \neq y_j\}$. Suppose that $x_N = 0$ and $y_N = 1$. Then
+		$$\sum\limits_{j \in \N} x_j 2^{-j} = \sum\limits_{j \in \N} y_j 2^{-j}$$ 
+		iff for each $j \in \N$, $j > N$ implies that $x_j = 1$ and $y_j = 0$. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that 
+		$$\sum\limits_{j \in \N} x_j 2^{-j} = \sum\limits_{j \in \N} y_j 2^{-j}$$
+		By definition of $N$, for each $j \in \N$, $j < N$ implies that $x_j = y_j$. Hence 
+		$$\sum\limits_{j = N} x_j 2^{-j} = \sum\limits_{j = N} y_j 2^{-j}$$ 
+		Since $x_N = 0$ and $y_N = 1$, we have that 
+		$$\sum\limits_{j = N +1} x_j 2^{-j} = 2^{-N} + \sum\limits_{j = N+1} y_j 2^{-j}$$ 
+		Thus $2^{-N} = \sum\limits_{j = N+1} (x_j - y_j) 2^{-j}$. For the sake of contradiction, suppose that there exists $m > N$ and $x_m \neq 1$ or $y_m \neq 0$. Then
+		\begin{align*}
+			2^{-N} 
+			&= \sum\limits_{j = N+1} (x_j - y_j) 2^{-j} \\
+			& < \sum\limits_{j = N+1} (1 - 0) 2^{-j} \\
+			& = 2^{-N}
+		\end{align*}
+		which is a contradiction. Hence for each $m \in \N$, $m > N$ implies that $x_m = 1$ and $y_m = 0$. \vspace{.2cm}\\
+		Conversely, suppose that for each $j \in \N$, $j > N$ implies that $x_j = 1$ and $y_j = 0$. Then 
+		\begin{align*}
+			\sum\limits_{j \in \N} x_j 2^{-j}
+			& = \sum_{j=1}^{N-1} x_j + \sum_{j \geq N+1} 2^{-j} \\
+			& = \sum_{j=1}^{N-1} x_j + 2^{-N} \sum_{j \in \N} 2^{-j} \\
+			& = \sum_{j=1}^{N-1} y_j + 2^{-N} \\
+			& = \sum_{j=1}^N y_j2^{-j} \\
+			& = \sum\limits_{j \in \N} y_j 2^{-j}
+		\end{align*}
+	\end{proof}
+
+	\begin{defn} \lex{28003} 
+		We define $Z \subset \{0,1\}^{\N}$ by 
+		$$Z = \bigg \{(x_n)_{n \in \N} \in \{0,1\}^{\N}: \# \{n \in \N: x_n = 0\} = \infty  \bigg \} \cup \{(1, 1, 1, \ldots)\}$$ 
+	\end{defn}
+
+	\begin{ex}
+		Consider $\{0, 1\}^{\N}$ equipped with the product topology. Then $Z \in \MB(\{0,1\}^{\N})$. \\
+		\textbf{Hint:} Note that $Z^c$ is countable. 
+	\end{ex}
+
+	\begin{proof}
+		Since the product of $T_1$ spaces is $T_1$, $\{0,1\}^{\N}$ is $T_1$. Since $\{0,1\}^{\N}$ is $T_1$, for each $x \in Z^c$, $\{x \}$ is closed. Since $Z^c$ is countable, we have that 
+		\begin{align*}
+			Z^c
+			& = \bigcup_{x \in  Z^c} \{x\} \\
+			& \in  \MB(\{0,1\}^{\N})
+		\end{align*} 
+		Therefore $Z \in  \MB(\{0,1\}^{\N})$.
+	\end{proof}
+
+
+
+	\begin{ex} \lex{28004} 
+		Consider $\{0, 1\}^{\N}$ equipped with the product topology. Define $\phi: Z \rightarrow [0,1]$ by 
+		$$\phi((x_n)_{n \in \N}) = \sum\limits_{n \in \N} x_n2^{-n}$$
+		Then 
+		\begin{enumerate}
+			\item $\phi$ is a bijection
+			\item $\phi$ is $(\MB(Z), \MB([0,1]))$-measurable
+			\item $\phi^{-1}$ is $(\MB([0,1]), \MB(Z))$-measurable
+		\end{enumerate}
+		Then $(Z, \MB(Z))$ is isomorphic to $([0,1], \MB([0,1]))$. \\
+		\textbf{Hint: } \begin{enumerate}
+			\item straightforward
+			\item Weierstrass M-test.
+			\item Show $\phi(\pi_j^{-1}(\{1\}) \cap Z) \in \MB([0,1])$ by showing it is a countable  
+		\end{enumerate} 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x \in [0,1]$. Then \rex{28001} implies that there exists $(x_n)_{n \in \N} \in \{0,1\}^{\N}$ such that $x = \sum\limits_{n \in \N} x_n2^{-n}$. If for each $n \in \N$, $x_n = 1$, then $(x_n)_{n \in \N} \in Z$. Suppose that there exists $n \in \N$ such that $x_n = 0$. If $\# \{n \in \N: x_n = 0\} = \infty$, then $(x_n)_{n \in \N} \in Z$. Suppose that $ \# \{n \in \N: x_n = 0\} < \infty$. Set $N = \max \{ n \in \N: x_n = 0\}$. Define $(y_n)_{n \in \N} \in Z$ by 
+			\[
+			y_n = 
+			\begin{cases}
+				x_n, & n \in \{1, \ldots, N-1\} \\
+				1, & n = N \\
+				0, & n > N
+			\end{cases}
+			\]
+			Then \rex{28002} implies that $\phi((y_n)_{n \in \N}) = x$. Since $x \in [0,1]$ is arbitrary, $\phi$ is surjective. \vspace{.2cm}\\  Let $(x_n)_{n \in \N}, (y_n)_{n \in \N} \in Z$. Suppose that $(x_n)_{n \in \N} \neq (y_n)_{n \in \N}$. If  $\phi((x_n)_{n \in \N}) = \phi((y_n)_{n \in \N})$, then \rex{28002} implies that $(x_n)_{n \in \N} \not \in Z$ or $(y_n)_{n \in \N} \not \in Z$, which is a contradiction. Hence $\phi((x_n)_{n \in \N}) \neq \phi((y_n)_{n \in \N})$. Since $(x_n)_{n \in \N}, (y_n)_{n \in \N} \in Z$ are arbitrary, $\phi$ is injective. So $\phi$ is a bijection. \\
+			\item For $n \in \N$, define $f_n: Z \rightarrow [0, 1]$ by $f_n = 2^{-n}\pi_{n}$. Then $\phi = \sum\limits_{n \in \N} \phi_n$ and $\|f_n\|_{\infty} = 2^{n}$. The Weierstrass M-test implies that $\phi$ is continuous. Thus $\phi$ is $(\MB(Z), \MB([0,1]))$-measurable. \\
+			\item 
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+		
 	\begin{defn}
 		Let $(X, \MA)$ be a measurable space. Then $(X, \MA)$ is said to be a \textbf{Borel space} if there exists $S \in \MB(\R)$ such that $(X, \MA)$ is isomorphic to $(S, \MB(\R) \cap S)$.
 	\end{defn}
-	
 	
 	
 	
@@ -2154,10 +2390,10 @@
 	\subsection{Product Measures}
 	
 	\begin{defn} \ld{00000} 
-		Let $(X,\MA, \mu), (Y,\MB, \nu)$ be $\sig$-finite measurable spaces. Put $\ME = \{A \times B: A \in \MA \text{ and } B \in \MB\}$. Then $\ME$ is an elementary family and thus $\MM_0 = \{\bigcup_{i =1}^n M_i: (M_i)_{i=1 }^n \subset \ME \text{ are disjoint}\}$ is an algebra on $X \times Y$. We define $\pi_0: \MM_0 \rightarrow \RG$ by $$\pi_0\bigg(\bigcup_{i=1}^n A_i \times B_i \bigg) = \sum_{i=1}^n\mu(A_i)\nu(B_i)$$ Then $\pi_0$ is a premeasure on $(X \times Y, M_0)$. Since $\MA \otimes \MB = \sig(\MM_0)$, we define the \textbf{product measure}, $\mu \times \nu$ on $(X \times Y, \MA \otimes \MB)$, to be the unique extension of $\pi_0$ to $\MA \otimes \MB$. The existence of which is guaranteed by a theorem in the previous section. In particular,
+		Let $(X,\MA, \mu), (Y,\MB, \nu)$ be $\sig$-finite measurable spaces. Put $\ME = \{A \times B: A \in \MA \text{ and } B \in \MB\}$. Then $\ME$ is an elementary family and thus $\MM_0 = \{\bigcup_{i =1}^n M_i: (M_i)_{i=1 }^n \subset \ME \text{ are disjoint}\}$ is an algebra on $X \times Y$. We define $\pi_0: \MM_0 \rightarrow \RG$ by $$\pi_0\bigg(\bigcup_{i=1}^n A_i \times B_i \bigg) = \sum_{i=1}^n\mu(A_i)\nu(B_i)$$ Then $\pi_0$ is a premeasure on $(X \times Y, M_0)$. Since $\MA \otimes \MB = \sig(\MM_0)$, we define the \textbf{product measure}, $\mu \otimes \nu$ on $(X \times Y, \MA \otimes \MB)$, to be the unique extension of $\pi_0$ to $\MA \otimes \MB$. The existence of which is guaranteed by a theorem in the previous section. In particular,
 		
 		\begin{align*}
-			\mu \times \nu(E) 
+			\mu \otimes \nu(E) 
 			&= \inf \bigg\{\sum_{n \in \N}\pi_0(E_i): (E_i)_{i \in \N} \subset \MM_0 \text{ and } E \subset \bigcup_{i \in \N} E_i \bigg\}\\
 			&= \inf \bigg\{\sum_{n \in \N}\mu(A_i)\nu(B_i): (A_i \times B_i)_{i \in \N} \subset \ME \text{ and } E \subset \bigcup_{i \in \N} A_i \times B_i \bigg \}
 		\end{align*}
@@ -2983,43 +3219,31 @@
 	\newpage
 	\subsection{Integration on Product Spaces}
 	
-	\begin{defn} \ld{00000} 
-		Let $X$, $Y$, and $Z$ be sets, $E \subset X \times Y$ and $f :X \times Y \rightarrow Z$. For each $x \in X$, define $E_x = \{y \in Y: (x,y) \in E\}$ and $f_x:Y \rightarrow Z$ by $f_x(y) = f(x,y)$. For each $y \in Y$, define $E^y = \{x \in X: (x,y) \in E\}$ and $f^y:X \rightarrow Z$ by $f^y(x) = f(x,y)$. 
-	\end{defn}
-	
 	\begin{note}
-		It is often helpful to observe that $(\chi_E)_x = \chi_{E_x}$ and $(\chi_E)^y = \chi_{E^y}$.
+		Recall the definition of the sections of $E$ and $f$ from the section on product $\sigma$-algebras. It is often helpful to observe that $(\chi_E)_x = \chi_{E_x}$ and $(\chi_E)^y = \chi_{E^y}$.
 	\end{note}
 	
-	\begin{lem}
-		Let $(X,\MA), (Y, \MB)$ be measurable spaces, $Z = \RG$ or $\C$ and $f:X\times Y \rightarrow Z$. 
-		\begin{enumerate}
-			\item For each $E \in \MA \otimes \MB$, $x \in X$, $y \in Y$, we have that $E_x \in \MB$ and $E^y \in \MA$
-			\item If $f$ is  $\MA \otimes \MB$-measurable, then for each $x \in X$, $y \in Y$, we have that $f_x$ is $\MB$-measurable and $f^y$ is $\MA$-measurable.   
-		\end{enumerate}
-	\end{lem}
-	
 	\begin{thm}
-		Let $(X,\MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces. Then for each $E \in \MA \otimes \MB$, the maps $\phi:X \rightarrow \RG$ and $\psi: Y \rightarrow \RG$ defined by $\phi(x) = \nu(E_x)$ and $\psi(y) = \mu(E^y)$ are $\MA$-measurable and $\MB$-measurable, respectively and $$\mu \times \nu(E) = \int_X \nu(E_x)\dmu(x) = \int_Y \mu(E^y)d\nu(y)$$ 
+		Let $(X,\MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces. Then for each $E \in \MA \otimes \MB$, the maps $\phi:X \rightarrow \RG$ and $\psi: Y \rightarrow \RG$ defined by $\phi(x) = \nu(E_x)$ and $\psi(y) = \mu(E^y)$ are $\MA$-measurable and $\MB$-measurable, respectively and $$\mu \otimes \nu(E) = \int_X \nu(E_x)\dmu(x) = \int_Y \mu(E^y)d\nu(y)$$ 
 	\end{thm}
 	
 	\begin{thm}\textbf{Fubini, Tonelli:}
 		Let $(X,\MA, \mu), (Y, \MB, \nu)$ be $\sig$-finite measure spaces. 
 		
 		\begin{enumerate}
-			\item (Tonelli) For each $f \in L^+(X \times Y)$, the functions $g:X \rightarrow \RG$, $h:Y \rightarrow \RG$ defined by $g(x) = \int_Y f_x(y)d\nu(y)$ and $h(y) = \int_X f^y(x) \dmu(x)$ are $\MA$-measurable and $\MB$-measurable respectively and $$\int_{X \times Y}f \dmu \times \nu = \int_X g \dmu = \int_Y h d\nu$$
+			\item (Tonelli) For each $f \in L^+(X \times Y)$, the functions $g:X \rightarrow \RG$, $h:Y \rightarrow \RG$ defined by $g(x) = \int_Y f_x(y)d\nu(y)$ and $h(y) = \int_X f^y(x) \dmu(x)$ are $\MA$-measurable and $\MB$-measurable respectively and $$\int_{X \times Y}f \dmu \otimes \nu = \int_X g \dmu = \int_Y h d\nu$$
 			
-			\item (Fubini) For each $f \in L^1(X \times Y)$, $f_x \in L^1(\nu)$ for $\mu$-a.e. $x \in X$ and $f^y \in L^1(\mu)$ for $\nu$-a.e. $y \in Y$, respectively and  the functions (after redefinition of $f$ on a null set) $g:X \rightarrow \C$, $h:Y \rightarrow \C$ defined by $g(x) = \int_Y f_x(y)d\nu(y)$ and $h(y) = \int_X f^y(x) \dmu(x)$ are in $L^1(\mu)$ and $L^1(\nu)$ respectively. Furthermore 
-			$$\int_{X \times Y}f \dmu \times \nu = \int_X g \dmu = \int_Y h d\nu$$
+			\item (Fubini) For each $f \in L^1(X \times Y)$, $f_x \in L^1(\nu)$ for $\mu$-a.e. $x \in X$ and $f^y \in L^1(\mu)$ for $\nu$-a.e. $y \in Y$, respectively and (after redefinition of $f$ on a null set) the functions $g:X \rightarrow \C$, $h:Y \rightarrow \C$ defined by $g(x) = \int_Y f_x(y)d\nu(y)$ and $h(y) = \int_X f^y(x) \dmu(x)$ are in $L^1(\mu)$ and $L^1(\nu)$ respectively. Furthermore 
+			$$\int_{X \times Y}f \, d \mu \otimes \nu = \int_X g \dmu = \int_Y h d\nu$$
 		\end{enumerate}
 	\end{thm}
 	
 	\begin{note}
-		We usually just write $\int \int f \dmu d\nu$ and $\int \int f d\nu \dmu$ instead of $\int h d\nu$ and $\int g \dmu$ respectively. We have a similar result for complete product measure spaces. See 
+		We usually just write $$\int \int f \dmu \dnu \text{ and } \int \int f \dnu \dmu$$ instead of $$\int h d\nu$$ and $$\int g \dmu $$ respectively. We have a similar result for complete product measure spaces. See 
 	\end{note}
 	
 	\begin{ex} \lex{00000} 
-		Take $X=Y= [0,1]$, $\MA = \MB([0,1]), \MB = \MP([0,1])$ and $\mu,\nu$ to be Lebesgue measure and counting measure respectively. Define $D = \{(x,y) \in [0,1]^2: x=y\}$ Show that $$\int \chi_D \dmu \times \nu, \int \int \chi_D \dmu d \nu \text{ and } \int \int \chi_D d\nu \dmu$$ are all different. (Hint: for the first integral, use the definition of $\mu \times \nu$)
+		Take $X=Y= [0,1]$, $\MA = \MB([0,1]), \MB = \MP([0,1])$ and $\mu,\nu$ to be Lebesgue measure and counting measure respectively. Define $D = \{(x,y) \in [0,1]^2: x=y\}$ Show that $$\int \chi_D \dmu \otimes \nu, \int \int \chi_D \dmu d \nu \text{ and } \int \int \chi_D d\nu \dmu$$ are all different. (Hint: for the first integral, use the definition of $\mu \otimes \nu$)
 	\end{ex}
 	
 	\begin{proof}
@@ -3041,7 +3265,7 @@
 			&= 1
 		\end{align*}
 		
-		Now, Observe that $\int \chi_D \dmu \times \nu = \mu \times \nu(D)$. Recall from the section on product measures that $\mu \times \nu(D) = \inf \{\sum_{n \in \N}\mu(A_n)\nu(B_n): (A_n \times B_n)_{n \in \N} \subset \ME \text{ and } D \subset \bigcup_{n \in \N} A_n \times B_n \}$. Let $(A_n \times B_n)_{n \in \N} \subset \ME$. Suppose that $D \subset \bigcup_{n \in \N}A_n \times B_n$. Then for each $x \in [0,1]$, $(x,x) \in  \bigcup_{n \in \N} A_n \times B_n$. So for each $x \in [0,1]$, there exists $n \in \N$, such that $x \in A_n \cap B_n$. Thus $[0,1] \subset \bigcup_{n \in \N} A_n \cap B_n.$ Since $1  = \mu([0,1]) \leq \sum_{n \in \N}\mu(A_n \cap B_n)$, we know that there exists $n \in \N$ such that $0 < \mu(A_n \cap B_n)$. Thus $\mu(A_n)> 0$ and $\mu(B_n) > 0$. Since $\mu(B_n) > 0$, $B_n$ must be infinite and therefore $\nu(B_n) = \infty$. So $\sum_{n \in \N} \mu(A_n)\nu(B_n) = \infty$.
+		Now, Observe that $\int \chi_D \dmu \otimes \nu = \mu \otimes \nu(D)$. Recall from the section on product measures that $\mu \otimes \nu(D) = \inf \{\sum_{n \in \N}\mu(A_n)\nu(B_n): (A_n \times B_n)_{n \in \N} \subset \ME \text{ and } D \subset \bigcup_{n \in \N} A_n \times B_n \}$. Let $(A_n \times B_n)_{n \in \N} \subset \ME$. Suppose that $D \subset \bigcup_{n \in \N}A_n \times B_n$. Then for each $x \in [0,1]$, $(x,x) \in  \bigcup_{n \in \N} A_n \times B_n$. So for each $x \in [0,1]$, there exists $n \in \N$, such that $x \in A_n \cap B_n$. Thus $[0,1] \subset \bigcup_{n \in \N} A_n \cap B_n.$ Since $1  = \mu([0,1]) \leq \sum_{n \in \N}\mu(A_n \cap B_n)$, we know that there exists $n \in \N$ such that $0 < \mu(A_n \cap B_n)$. Thus $\mu(A_n)> 0$ and $\mu(B_n) > 0$. Since $\mu(B_n) > 0$, $B_n$ must be infinite and therefore $\nu(B_n) = \infty$. So $\sum_{n \in \N} \mu(A_n)\nu(B_n) = \infty$.
 		
 	\end{proof}
 	
@@ -3068,7 +3292,7 @@
 		\begin{enumerate}
 			\item If $f$ is $\MA$-measurable and $g$ is $\MB$-measurable, then $h$ is $\MA \otimes \MB$-measurable.
 			
-			\item If $f \in L^1(\mu)$ and $g \in L^1(\nu)$, then $h \in L^1(\mu \times \nu)$ and $$\int_{X \times Y}h\dmu \times \nu = \int_X f \dmu \int_Y g d\nu$$
+			\item If $f \in L^1(\mu)$ and $g \in L^1(\nu)$, then $h \in L^1(\mu \otimes \nu)$ and $$\int_{X \times Y}h\dmu \otimes \nu = \int_X f \dmu \int_Y g d\nu$$
 		\end{enumerate}
 	\end{ex}
 	
@@ -3078,17 +3302,17 @@
 			
 			\item First suppose $f$ and $g$ are simple as before. Then  
 			\begin{align*}
-				\int_{X \times Y} |h| \dmu \times \nu 
+				\int_{X \times Y} |h| \dmu \otimes \nu 
 				& \leq \sum_{i=1}^n \sum_{j=1}^m |a_i b_j| \mu(A_i) \nu(B_j)\\ 
 				&= \big(\sum_{i=1}^n |a_i| \mu(A_i) \big) \big( \sum_{j=1}^m |b_j| \nu(B_j) \big)\\
 				&= \int_X |f| \dmu \int_Y |g| d \nu\\
 				&< \infty
 			\end{align*}
 			
-			So $h \in L^1(\mu \times \nu)$. Furthermore, 
+			So $h \in L^1(\mu \otimes \nu)$. Furthermore, 
 			
 			\begin{align*}
-				\int_{X \times Y} h \dmu \times \nu 
+				\int_{X \times Y} h \dmu \otimes \nu 
 				&= \sum_{i=1}^n \sum_{j=1}^m a_i b_j \mu(A_i) \nu(B_j)\\ 
 				&= \big(\sum_{i=1}^n a_i \mu(A_i) \big) \big( \sum_{j=1}^m b_j \nu(B_j) \big)\\
 				&= \int_X f \dmu \int_Y gd \nu
@@ -3098,13 +3322,13 @@
 			
 			\begin{align*}
 				\int_{X \times Y} |h| \dmu \times d\nu 
-				&= \limn \int_{X \times Y} |h_n|\dmu \times \nu\\
+				&= \limn \int_{X \times Y} |h_n|\dmu \otimes \nu\\
 				&=  \limn \bigg( \int_X |f_n| \dmu \int_Y |g_n| d\nu \bigg) \\
 				&= \int_X |f| \dmu \int_Y |g| d\nu\\
 				& < \infty
 			\end{align*}
 			
-			So $h \in L^1(\mu \times \nu)$. Dominated convergence and the result above then tell us that 
+			So $h \in L^1(\mu \otimes \nu)$. Dominated convergence and the result above then tell us that 
 			
 			\begin{align*}
 				\int_{X \times Y} h \dmu \times d\nu 
@@ -4965,15 +5189,12 @@
 	\subsection{Disintegration of Measures}
 	
 	\begin{ex} \lex{00000} 
-		Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. Define $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$. Then 
-		\begin{enumerate}
-			\item $ L^1(X, \MB, \mu_{\MB}) \subset L^1(X, \MA, \mu)$ 
-			\item for each $f \in L^1(X, \MB, \mu)$ and $B \in \MB$, $$\int_B f \dmu_{\MB} = \int_B f \dmu$$
-		\end{enumerate}
+		Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. Define $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$. Then $ L^1(X, \MB, \mu_{\MB}) \subset L^1(X, \MA, \mu)$ and for each $f \in L^1(X, \MB, \mu_{\MB})$ and $B \in \MB$, 
+		$$\int_B f \dmu_{\MB} = \int_B f \dmu$$
 	\end{ex}
 	
 	\begin{proof}
-		Let $f \in L^1(X, \MB, \mu)$. Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
+		Let $f \in L^1(X, \MB, \mu_{\MB})$ and $B \in \MB$. Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
 		\begin{align*}
 			\infty 
 			&> \mu_{\MB}(B_i) \\
@@ -5335,13 +5556,13 @@
 	\begin{ex}
 		Let $(\R, \MB(\R), \mu)$ be a finite measure space and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. Then there exists $\kap: \R \times \MB(\R) \rightarrow [0,1]$ such that 
 		\begin{enumerate}
-			\item $\kap$ is a markov kernel from $(\R, \MB)$ to $(\R, \MB(\R))$.
+			\item $\kap$ is a Markov kernel from $(\R, \MB)$ to $(\R, \MB(\R))$.
 			\item For each $A \in \MB(\R)$, $\kap(\cdot, A) = P_{\MB}\chi_{A}$ $\mu_{\MB}$-a.e.
 		\end{enumerate}
 		\textbf{Hint:} 
 		\begin{enumerate}
 			\item Consider $F: \R^2 \rightarrow [0,1]$ defined in the previous exercise and $\mu_x((a,b]) = F(b,x) - F(a,x)$. 
-			\item Consider Dynkin's lemma. 
+			\item Consider Dynkin's lemma with $$\nu_B(A) = \int_B \kap(x, A) \dmu_{\MB}(x) \hspace{.5cm} \text{ and } \hspace{.5cm} \lam_B(A) = \mu(A \cap B)$$
 		\end{enumerate}
 	\end{ex}
 	
@@ -5353,7 +5574,7 @@
 				\begin{align*}
 					\kap(x, \R) 
 					& = \sup_{n \in \N} \mu_x((-\infty, n])\\
-					& = \sup_{n \in \N} F(n) \\
+					& = \sup_{n \in \N} F(n, x) \\
 					& = 1 
 				\end{align*}
 				\item Let $A \in \MB(\R)$. Recall that for each $x \in \R$,
@@ -5379,7 +5600,7 @@
 				& = \mu((a,b] \cap B) \\
 				& = \lam_{B}((a,b])
 			\end{align*}
-			Define $\MP \subset \MB(\R)$ by $\MP = \{(a,b]: a,b \in \R\} \cup \{\varnothing, X\}$. A previous exercise in the sections on Dynkin's lemma implies that $\MP$ is a $\pi$-system. Since $\sig(\MP) = \MB(\R)$, an exercise in the section on complex measures implyand $\nu_{B} = \lam_{B}$. Let $A \in \MB(\R)$. Then 
+			Define $\MP \subset \MB(\R)$ by $\MP = \{(a,b]: a,b \in \R\} \cup \{\varnothing, X\}$. A previous exercise in the sections on Dynkin's lemma implies that $\MP$ is a $\pi$-system. Since $\sig(\MP) = \MB(\R)$, an exercise in the section on complex measures implise that $\nu_{B} = \lam_{B}$. Let $A \in \MB(\R)$. Then 
 			\begin{align*}
 				\int_B \kap(x, A) \dmu_{\MB}(x) 
 				& = \nu_B(A) \\
@@ -6158,7 +6379,7 @@ and $\mu$ is inner regular on $E$.
 	So for each $\ep >0$, there exists $K \subset X$ such that $K$ is compact and $\mu(K) > \mu(X) - \ep$. Thus $$\mu(X) = \sup\{\mu(K): \text{$K \subset X$ and $K$ is compact}\}$$ and $\mu$ is inner regular on $X$. The previous exercise implies that $\mu$ is inner regular.   
 	\end{proof}
 	
-	\begin{ex}
+	\begin{ex} \textbf{Ulam's Theorem:} \\
 		Let $X$ be a Polish space and $\mu: \MB(X) \rightarrow [0, \infty)$ a finite measure. Then $\mu$ is regular and Radon.
 	\end{ex}
 
