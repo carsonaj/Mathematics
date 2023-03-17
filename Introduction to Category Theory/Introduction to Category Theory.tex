@@ -81,6 +81,7 @@
 \newcommand{\MO}{\mathcal{O}}
 
 \newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\mbf}[1]{\mathbf{#1}}
 
 \newcommand{\ui}{[0,1]}
 \newcommand{\p}{\partial}
@@ -130,6 +131,10 @@
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
+\DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
+\DeclareMathOperator*{\0}{\mbf{0}}
+\DeclareMathOperator*{\1}{\mbf{1}}
 
 
 \newcommand{\lex}[1]{\label{ex:#1}}
@@ -138,6 +143,10 @@
 \newcommand{\rex}[1]{Exercise \ref{ex:#1}}
 \newcommand{\rd}[1]{Definition \ref{defn:#1}}
 \newcommand{\rax}[1]{Axiom \ref{ax:#1}}
+
+
+
+\setcounter{tocdepth}{3}
 
 
 \begin{document}
@@ -160,7 +169,7 @@
 	
 	\newpage
 	
-	\section{Categories, Functors and Natural Transformations}
+	\section{Basic Concepts}
 	
 	\subsection{von Neumann–Bernays–Gödel Set Theory}
 	
@@ -245,13 +254,14 @@
 	\newpage
 	\subsection{Categories}
 	
+	\subsubsection{Introduction}
 	
 	\begin{defn}  \ld{12001}
 		Let $\MC_0$, $\MC_1$ be classes and $\dom, \cod : \MC_1 \rightarrow \MC_0$ class functions. Set $\MC = (C_0, C_1, \dom, \cod)$. Then $\MC$ is said to be a \textbf{category} if 
 		\begin{enumerate}
 			\item (composition): for each $f,g \in C_1$, if $\cod(f) = \dom(g)$, then there exists $g \circ f \in C_1$ such that $\dom(g \circ f) = \dom(f)$ and $\cod(g \circ f) = \cod(g)$
 			\item (associativity): for each $f,g,h \in C_1$, if $\cod(f) = \dom(g)$ and $\cod(g) = \dom(h)$, then $$(h \circ g) \circ f = h \circ (g \circ f)$$  
-			\item (identity): for each $X \in \MC_0$, there exists $1_{X} \in C_1$ such that $\dom(1_X) = \cod(1_X) = X$ and for each $f, g \in C_1$, if $\dom(f) = X$ and $\cod(g) = X$, then $$f \circ 1_X = f \text{ and } 1_X \circ g = g$$ 
+			\item (identity): for each $X \in \MC_0$, there exists $\id_{X} \in C_1$ such that $\dom(\id_X) = \cod(\id_X) = X$ and for each $f, g \in C_1$, if $\dom(f) = X$ and $\cod(g) = X$, then $$f \circ \id_X = f \text{ and } \id_X \circ g = g$$ 
 		\end{enumerate}
 		We define the
 		\begin{itemize}
@@ -275,6 +285,60 @@
 			\item existence of identities 
 		\end{itemize}
 	\end{note}
+
+	\begin{defn} \ld{12001.1}
+		We define the \textbf{empty category}, denoted $\0$, by 
+		\begin{itemize}
+			\item $\Obj(\0) = \varnothing$
+			\item $\Hom_{\0} = \varnothing$
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex} \lex{12001.2}
+		We have that $\0$ is a category
+	\end{ex}
+	
+	\begin{proof}
+		Vacuously true.
+	\end{proof}
+
+	\begin{defn} \ld{12001.}
+		We define the \textbf{trivial category}, denoted $\1$, by 
+		\begin{itemize}
+			\item $\Obj(\1) = \{*\}$
+			\item $\Hom_{\1} = \{\id_*\}$
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex} \lex{12001.}
+		We have that $\1$ is a category.
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+	
+	\begin{defn} \ld{12001.}
+		We define $\Set$ by  
+		\begin{itemize}
+			\item $\Obj(\Set) = \{A: A \text{ is a set}\}$ 
+			\item for each $A,B \in \Obj(\Set)$, $\Hom_{\Set}(A,B) = \{f: f:A \rightarrow B\}$
+			\item for $A, B, C \in \Set$, $f \in \Hom_{\Set}(A, B)$ and $g \in \Hom_{\Set}(B, C)$, $g \circ_{\Set} f = g \circ f$. 
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex} \lex{12001.}
+		We have that $\Set$ is a category.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item \tbf{well-definedness of composition:}
+			\item \tbf{associativity of composition:} 
+			\item \tbf{existence of identities:} 
+		\end{itemize}
+		\tbf{FINISH!!!}
+	\end{proof}
 	
 	\begin{defn} \ld{12002}
 		Let $\MC$ be a category. Then $\MC$ is said to be 
@@ -301,12 +365,36 @@
 		Then \rax{11002} implies that there exists a class $A$ such that $\MC \in A$ iff $\MC$ is a small category.  
 	\end{proof}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	\subsubsection{Opposite Category}
+
 	\begin{defn}  \ld{12004}
 		Let $\MC$ be a category, we define the \text{dual of $\MC$} or the \textbf{opposite of $\MC$}, denoted $\op{C}$, by 
 		\begin{itemize}
 			\item $\Obj(\op{C}) = \Obj(\MC)$
 			\item for $X,Y \in \Obj(\op{C})$, $\Hom_{\op{C}}(X,Y) = \Hom_{\MC}(Y,X)$
-			\item for $f \in \Hom_{\op{C}}(X, Y), g \in \Hom_{\op{C}}(Y,Z)$, $g \circ_{\op{C}} f = f \circ_{\MC} g$
+			\item for $X, Y, Z \in \Obj(\op{C})$ and $f \in \Hom_{\op{C}}(X, Y), g \in \Hom_{\op{C}}(Y,Z)$, $g \circ_{\op{C}} f = f \circ_{\MC} g$
 		\end{itemize}
 	\end{defn}
 
@@ -329,19 +417,37 @@
 			\item Let $X \in \Obj(\MC)$ and $f,g \in \Hom_{\op{C}}$. Suppose that $\dom(f) = X$ and $\cod(g) = X$ 
 			Then 
 			\begin{align*}
-				f  \circ_{\op{C}} 1_X
-				&= 1_X  \circ_{\MC} f \\
+				f  \circ_{\op{C}} \id_X
+				&= \id_X  \circ_{\MC} f \\
 				&= f
 			\end{align*}
 			and 
 			\begin{align*}
-				1_X  \circ_{\op{C}} g 
-				&= g \circ_{\MC} 1_X \\
+				\id_X  \circ_{\op{C}} g 
+				&= g \circ_{\MC} \id_X \\
 				&= g
 			\end{align*}
-		So $(1_X)_{\op{C}} =  (1_X)_{\MC}$.
+		So $(\id_X)_{\op{C}} =  (\id_X)_{\MC}$.
 		\end{itemize}
 	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	\subsubsection{Slice Category}
 	
 	\begin{defn} \ld{12006}
 		Let $\MC$ be a category and $X \in \Obj(\MC)$. We define the \textbf{slice category of $\MC$ over $X$}, denoted $\MC / X$, by
@@ -350,7 +456,8 @@
 			\item for $f,g \in \Obj(\MC / X)$, 
 			$$\Hom_{\MC / X}(f, g) = \{\al \in \Hom_{\MC} : \dom(\al) = \dom(f) \text{, } \cod(\al) = \dom(g) \text{ and } f = g \circ \al \}$$
 			i.e. for $f \in \Hom_{\MC}(A, X)$ and $g \in \Hom_{\MC}(B, X)$, $\al \in \Hom_{\MC / X}(f, g)$ iff the following diagram commutes: 
-			\[ \begin{tikzcd}
+			\[ 
+			\begin{tikzcd}
 				A \arrow[rr, "\al"] \arrow[dr, "f"'] 	
 				& & B  \arrow[dl, "g"] \\
 				& X 
@@ -385,7 +492,8 @@
 				&= h \circ_{\MC} (\be \circ_{\MC} \al) 
 			\end{align*}
 			i.e. the following diagram commutes:
-			\[ \begin{tikzcd}
+			\[ 
+			\begin{tikzcd}
 				\dom(f) \arrow[rr, "\be \circ_{\MC} \al"] \arrow[dr, "f"'] 	
 				& & \dom(h)  \arrow[dl, "g"] \\
 				& X 
@@ -399,34 +507,115 @@
 			\end{align*}
 			and composition is well defined. 
 			\item Associativity of $\circ_{\MC / X}$ follows from associativity of $\circ_\MC$.
-			\item Let $f \in \Obj(\MC / X)$ and $\al, \be \in \Hom_{\MC / X}$. Since $f \circ 1_{\dom_{\MC}(f)} = f$, i.e. the following diagram commutes: 
+			\item Let $f \in \Obj(\MC / X)$ and $\al, \be \in \Hom_{\MC / X}$. Since $f \circ \id_{\dom_{\MC}(f)} = f$, i.e. the following diagram commutes: 
 			\[ \begin{tikzcd}
-				\dom(f) \arrow[rr, "1_{\dom(f)}"] \arrow[dr, "f"'] 	
-				& & \dom(f)  \arrow[dl, "f"] \\
+				\dom_{\MC}(f) \arrow[rr, "\id_{\dom_{\MC}(f)}"] \arrow[dr, "f"'] 	
+				& & \dom_{\MC}(f)  \arrow[dl, "f"] \\
 				& X 
 			\end{tikzcd}
 			\]
-			we have that $1_{\dom(f)} \in \Hom_{\MC / X}(f, f)$.
+			we have that $\id_{\dom_{\MC}(f)} \in \Hom_{\MC / X}(f, f)$.
 			Suppose that $\dom_{\MC / X}(\al) = f$ and $\cod_{\MC /X}(\be) = f$. Then 
 			\begin{align*}
-				\al \circ_{\MC /X} 1_{\dom(f)}
-				&= \al \circ_{C} 1_{\dom(f)} \\
+				\al \circ_{\MC /X} \id_{\dom_{\MC}(f)}
+				&= \al \circ_{C} \id_{\dom_{\MC}(f)} \\
 				&= \al
 			\end{align*}
 			and 
 			\begin{align*}
-				1_{\dom(f)} \circ_{\MC /X} \be
-				&= 1_{\dom(f)} \circ_{\MC} \be \\
+				\id_{\dom_{\MC}(f)} \circ_{\MC /X} \be
+				&= \id_{\dom_{\MC}(f)} \circ_{\MC} \be \\
 				&= \be
 			\end{align*}
-			So $(1_f)_{\MC / X} = (1_{\dom(f)})_{\MC}$.
+			So $\id_f = \id_{\dom_{\MC}(f)}$.
+		\end{itemize}
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	\subsubsection{Product Category}
+	
+	\begin{defn}
+		Let $\MC$ and $\MD$ be categories. We define the \textbf{product category of $\MC$ and $\MD$}, denoted $\MC \times \MD$ by 
+		\begin{itemize}
+			\item $\Obj(\MC \times \MD) = \{(A, B): A \in \Obj(\MC) \text{ and } B \in \Obj(\MD)\}$
+			\item for each $(A, A'), (B, B') \in \Obj(\MC \times \MD)$, $\Hom_{\MC \times \MD}((A, A'), (B, B')) = \{(f,g): f \in \Hom_{\MC}(A, B) \text{ and }  g \in \Hom_{\MC}(A', B') \}$
+			\item for each  $(A, A'), (B, B'), (C, C') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$ and $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$, 
+			$$(g,g') \circ_{\MC \times \MD} (f, f') = (g \circ_{\MC} f, g' \circ_{\MD} f')$$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $\MC$ and $\MD$ be categories. Then $\MC \times \MD$ is a category. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item \textbf{well-definedness of composition: } \\ 
+			Let $(A, A'), (B, B'), (C, C') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$ and $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$. Then $f \in \Hom_{\MC}(A, B)$, $g \in \Hom_{\MC}(B, C)$, $f'  \in \Hom_{\MD}(A', B')$, and  $g' \in \Hom_{\MD}(B', C')$. Hence $g \circ_{\MC} f \in \Hom_{\MC}(A, C)$ and $g' \circ_{\MD} f' \in \Hom_{\MD}(A', C')$. Thus 
+			\begin{align*}
+				(g,g') \circ_{\MC \times \MD} (f, f') 
+				&= (g \circ_{\MC} f, g' \circ_{\MD} f') \\
+				& \in \Hom_{\MC \times \MD}((A, A'), (C, C'))
+			\end{align*}
+			Thus, composition is well defined. \\
+			\item \textbf{associativity of composition:} \\
+			Let $(A, A'), (B, B'), (C, C'), (D, D') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$, $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$ and $(h, h') \in \Hom_{\MC \times \MD}((C, C'), (D, D'))$. Then 
+			\begin{align*}
+				[(h, h') \circ_{\MC \times \MD} (g , g') ] \circ_{\MC \times \MD} (f, f')
+				& = (h \circ_{\MC} g, h' \circ_{\MD} g') \circ_{\MC \times \MD} (f, f') \\
+				& = ((h \circ_{\MC} g) \circ_{\MC} f, (h' \circ_{\MD} g') \circ_{\MD} f') \\
+				& = (h \circ_{\MC} ( g \circ_{\MC} f), h' \circ_{\MD} (g' \circ_{\MD} f')) \\
+				& = (h, h') \circ_{\MC \times \MD} (g \circ_{\MC} f, g' \circ_{\MD} f') \\
+				& = (h, h') \circ_{\MC \times \MD} [(g, g') \circ_{\MC \times \MD} (f, f')]
+			\end{align*} 
+			Thus composition is associative. \\
+			\item \textbf{existence of identities: } \\
+			Let $(A, B) \in \Obj(\MC \times \MD)$, $(f, f'), (g,g') \in \Hom_{\MC \times \MD}$. Suppose that $\dom_{\MC \times \MD}(f, f') = (A, B)$ and $\cod_{\MC \times \MD}(g, g') = (A, B)$. Then $\dom_{\MC}(f) = A$, $\dom_{\MD}(f') = B$, $\cod_{\MC}(g) = A$ and  $\cod_{\MD}(g') = B$. Hence
+			\begin{align*}
+				(f, f') \circ_{\MC \times \MD} (\id_A, \id_{B}) 
+				& = (f \circ_{\MC} \id_A, f' \circ_{\MD} \id_{B}) \\
+				& = (f, f)
+			\end{align*}
+			and
+			\begin{align*}
+				(\id_A, \id_{B})  \circ_{\MC \times \MD} (g, g')
+				& = (\id_A \circ_{\MC} g , \id_{B} \circ g') \\
+				& = (g, g')
+			\end{align*}
+			Therefore $(\id_{(A, B)})_{\MC \times \MD} = (\id_A, \id_{B})$.
 		\end{itemize}
 	\end{proof}
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	
-	
+
 	
 	
 	
@@ -456,6 +645,9 @@
 	\newpage
 	\subsection{Functors}
 	
+	
+	\subsubsection{Introduction}
+	
 	\begin{defn} \ld{13001}
 		Let $\MC$ and $\MD$ be categories and $F_0 : \Obj(\MC) \rightarrow \Obj(\MD)$, $F_1: \Hom_{\MC} \rightarrow \Hom_{\MD}$ class functions. Set $F = (F_0, F_1)$. Then $F$ is said to be a \text{functor from $\MC$ to $\MD$}, denoted  $F:\MC \rightarrow \MD$, if 
 		\begin{enumerate}
@@ -468,7 +660,76 @@
 	\begin{note}
 		For $A \in \Obj(C)$ and $f \in \Hom_{\MC}$, we typically write $F(A)$ and $F(f)$ instead of $F_0(A)$ and $F_1(f)$ respectively.
 	\end{note}
+
+	\begin{defn}
+		Let $\MC$ be a category. We define the \textbf{empty functor} from $\0$ to $\MC$, denoted $E_{\MC}: \0 \rightarrow \MC$ by $(E_{\MC})_0 = (E_{\MC})_1 = \varnothing$. 
+	\end{defn}
+
+	\begin{ex}
+		Let $\MC$ be a category. Then $E_{\MC}: \0 \rightarrow \MC$ is a functor.
+	\end{ex}
+
+	\begin{proof}
+		Since $\Obj(\0) = \varnothing$ and $\Hom_{\0} = \varnothing$, this is vacuously true. 
+	\end{proof}
+
+	\begin{defn}
+		Let $\MC, \MD$ be categories and $X \in \MD$. We define the \textbf{constant functor} from $\MC$ onto $X$, denoted $\Del_X: \MC \rightarrow \MD$ by 
+		\begin{itemize}
+			\item $\Del_X (A) = X$
+			\item $\Del_X (f) = \id_X$
+		\end{itemize}
+	\end{defn}
 	
+	\begin{ex}
+		Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. Then $\Del_X : \MC \rightarrow \MD$ is a functor.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then 
+			\begin{align*}
+				\Del_X (f)
+				& = \id_X \\
+				& \in \Hom_{\MD}(X, X) \\
+				& = \Hom_{\MD}(\Del_X (A), \Del_X (B))
+			\end{align*}  
+			\item Let $A,B,C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, C)$. Then 
+			\begin{align*}
+				\Del_X (g \circ f) 
+				& = \id_X \\
+				& = \id_X \circ \id_X \\
+				& = \Del_X (g) \circ \Del_X (f)
+			\end{align*} 
+			\item Let $A \in \Obj(\MC)$. Then 
+			\begin{align*}
+				\Del_X (\id_A)
+				& = \id_X \\
+				& = \id_{\Del_X (A)}
+			\end{align*}
+		\end{enumerate}
+		So $\Del_X : \MC \rightarrow \MD$ is a functor.
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\subsubsection{Category of Small Categories}
+
 	\begin{defn} \ld{13006}
 		Let $\MC$, $\MD$ and $\ME$ be categories and $F:\MC \rightarrow \MD$, $G: \MD \rightarrow \ME$ functors. We define the \textbf{composition of $G$ with $F$}, denoted $G \circ F: \MC \rightarrow \ME$, by 
 		\begin{itemize}
@@ -652,7 +913,7 @@
 
 	\begin{proof}\
 		\begin{enumerate}
-			\item The previous exercises imply the associativity of composition and the existence of identities.
+			\item \rex{13007} implies that composition is well defined. \rex{13008} implies that composition is associative. \rex{13005} and \rex{13006} imply the existence of identities.
 			\item Let $\MC, \MD \in \Obj(\tbf{Cat})$ and $F \in \Hom_{\tbf{Cat}}(\MC, \MD)$. \rd{12002} implies that $\Obj(\MC)$, $\Obj(\MD)$, $\Hom_{\MC}$ and $\Hom_{\MD}$ are sets. Then $\Obj(\MD)^{\Obj(\MC)}$ and $\Hom_{\MD}^{ \Hom_{\MC}}$ are sets. Hence $ \Obj(\MD)^{\Obj(\MC)} \times  \Hom_{\MD}^{ \Hom_{\MC}}$ is a set. Let $F \in \Hom_{\tbf{Cat}}(\MC, \MD)$. Then there exist $F_0 \in \Obj(\MD)^{\Obj(\MC)} $ and $F_1 \in \Hom_{\MD}^{ \Hom_{\MC}}$ such that $F = (F_0, F_1)$. Therefore $F \in  \Obj(\MD)^{\Obj(\MC)} \times  \Hom_{\MD}^{ \Hom_{\MC}}$. Since $F \in \Hom_{\tbf{Cat}}(\MC, \MD)$ is arbitrary, 
 			\begin{align*}
 				\Hom_{\tbf{Cat}}(\MC, \MD) 
@@ -662,6 +923,215 @@
 		\end{enumerate} 
 	\end{proof}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\subsubsection{Comma Categories}
+
+	
+	\begin{defn} \ld{13011}
+		Let $\MA$, $\MB$, $\MC$ be a categories and $S: \MA \rightarrow \MC$, $T: \MB \rightarrow \MC$ functors. We define the \textbf{comma category of $S$ to $T$}, denoted $(S \downarrow T)$, by 
+		\begin{itemize}
+			\item $\Obj(S \downarrow T) = \{(A, B, h): A \in \Obj(\MA), B \in \Obj(\MB) \text{, and } h \in \Hom_{\MC}(S(A), T(B))\}$
+			\item For $(A_1, B_1, h_1), (A_2, B_2, h_2) \in \Obj(S \downarrow T)$, 
+			\begin{align*}
+				& \Hom_{(S \downarrow T)}((A_1, B_1, h_1), (A_2, B_2, h_2)) = \\
+				& \{(\al, \be): \al \in \Hom_{\MA}(A_1, A_2) \text{, } \be \in \Hom_{\MB}(B_1, B_2) \text{ and } T(\be) \circ_{\MC} h_1 = h_2 \circ_{\MC} S(\al)\}
+			\end{align*}
+			i.e. for $(A_1, B_1, h_1), (A_2, B_2, h_2) \in \Obj(S \downarrow T)$, $\al \in \Hom_{\MA}(A_1, A_2)$ and $\be \in \Hom_{\MB}(B_1, B_2)$, $(\al, \be) \in \Hom_{(S \downarrow T)}((A_1, B_1, h_1), (A_2, B_2, h_2))$ iff the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				S(A_1) \arrow[r, "S(\al)"] \arrow[d, "h_1"'] & S(A_2)  \arrow[d, "h_2"] \\
+				T(B_1) \arrow[r, "T(\be)"']                 & T(B_2)
+			\end{tikzcd}
+			\]
+			\item For 
+			\begin{itemize}
+				\item $(A_1, B_1, h_1), (A_2, B_2, h_2), (A_3, B_3, h_3) \in \Obj(S \downarrow T)$
+				\item $(\al_{12}, \be_{12}) \in \Hom_{(S \downarrow T)}((A_1, B_1, h_1), (A_2, B_2, h_2))$
+				\item $(\al_{23}, \be_{23}) \in \Hom_{(S \downarrow T)}((A_2, B_2, h_2), (A_3, B_3, h_3))$
+			\end{itemize}
+			we define 
+			$$(\al_{23}, \be_{23}) \circ_{(S \downarrow T)} (\al_{12}, \be_{12}) = (\al_{23} \circ_{\MA} \al_{12}, \be_{23} \circ_{\MB} \be_{12})$$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{13013}
+		Let $\MA$, $\MB$, $\MC$ be a categories and $S: \MA \rightarrow \MC$, $T: \MB \rightarrow \MC$ functors. Then $(S \downarrow T)$ is a category.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item \textbf{well-definedness of composition:} \\
+			Let 
+			\begin{itemize}
+				\item $(A_1, B_1, h_1), (A_2, B_2, h_2), (A_3, B_3, h_3) \in \Obj(S \downarrow T)$
+				\item $(\al_{12}, \be_{12}) \in \Hom_{(S \downarrow T)}((A_1, B_1, h_1), (A_2, B_2, h_2))$ 
+				\item $(\al_{23}, \be_{23}) \in \Hom_{(S \downarrow T)}((A_2, B_2, h_2), (A_3, B_3, h_3))$
+			\end{itemize}
+			By definition, $\al_{12} \in \Hom_{\MA}(A_1, A_2)$, $\al_{23} \in \Hom_{\MA}(A_2, A_3)$, $\be_{12} \in \Hom_{\MB}(B_1, B_2)$, $\be_{23} \in \Hom_{\MB}(B_2, B_3)$, $T(\be_{12}) \circ_{\MC} h_1 = h_2 \circ S(\al_{12})$ and $T(\be_{23}) \circ_{\MC} h_2 = h_3 \circ_{\MC} S(\al_{23})$, \\
+			i.e. the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				S(A_1) \arrow[r, "S(\al_{12})"] \arrow[d, "h_1"'] & S(A_2)  \arrow[d, "h_2"] \arrow[r, "S(\al_{23})"] 
+				& S(A_3) \arrow[d, "h_3"]\\
+				T(B_1) \arrow[r, "T(\be_{12})"']                  & T(B_2)                   \arrow[r, "T(\be_{23})"'] 
+				& T(B_3) 
+			\end{tikzcd}
+			\]
+			Then $\al_{23} \circ_{\MA} \al_{12} \in \Hom_{\MA}(A_1, A_3)$, $\be_{23} \circ_{\MB} \be_{12} \in \Hom_{\MB}(B_1, B_3)$ and 
+			\begin{align*}
+				T(\be_{23} \circ_{\MB} \be_{12}) \circ_{\MC} h_1
+				& = (T(\be_{23}) \circ_{\MC} T(\be_{12})) \circ_{\MC} h_1 \\
+				& = T(\be_{23}) \circ_{\MC} (T(\be_{12}) \circ_{\MC} h_1) \\
+				& = T(\be_{23}) \circ_{\MC} (h_2 \circ_{\MC} S(\al_{12})) \\
+				& = (T(\be_{23}) \circ_{\MC} h_2) \circ_{\MC} S(\al_{12}) \\
+				& = (h_3 \circ_{\MC} S(\al_{23})) \circ_{\MC} S(\al_{12}) \\
+				& = h_3 \circ_{\MC} (S(\al_{23}) \circ_{\MC} S(\al_{12})) \\
+				& = h_3 \circ_{\MC} S(\al_{23} \circ_{\MA} \al_{12})
+			\end{align*}
+			i.e. the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				S(A_1) \arrow[rr, "S(\al_{23} \circ_{\MA} \al_{12})"] \arrow[d, "h_1"']&  & S(A_3)  \arrow[d, "h_3"] \\
+				T(B_1) \arrow[rr, "T(\be_{23} \circ_{\MB} \be_{12})"']                       &  & T(B_3)
+			\end{tikzcd}
+			\]
+			Hence $(\al_{23} \circ_{\MA} \al_{12}, \be_{23} \circ_{\MB} \be_{12}) \in \Hom_{(S \downarrow T)}((A_1, B_1, h_1), (A_3, B_3, h_3))$ and composition is well defined. \\
+			\item \textbf{associativity of composition:} \\
+			Let 
+			\begin{itemize}
+				\item $(A_1, B_1, h_1), (A_2, B_2, h_2), (A_3, B_3, h_3), (A_4, B_4, h_4) \in \Obj(S \downarrow T)$
+				\item $(\al_{12}, \be_{12}) \in \Hom_{(S \downarrow T)}((A_1, B_1, h_1), (A_2, B_2, h_2))$ 
+				\item $(\al_{23}, \be_{23}) \in \Hom_{(S \downarrow T)}((A_2, B_2, h_2), (A_3, B_3, h_3))$
+				\item $(\al_{34}, \be_{34}) \in \Hom_{(S \downarrow T)}((A_3, B_3, h_3), (A_4, B_4, h_4))$
+			\end{itemize}
+			Then 
+			\begin{align*}
+				[ (\al_{34}, \be_{34}) \circ_{(S \downarrow T)} (\al_{23}, \be_{23}) ] \circ_{(S \downarrow T)} (\al_{12}, \be_{12})
+				& = (\al_{34} \circ_{\MA} \al_{23}, \be_{34} \circ_{\MB} \be_{23}) \circ_{(S \downarrow T)} (\al_{12}, \be_{12}) \\
+				& = ([\al_{34} \circ_{\MA} \al_{23}] \circ_{\MA} \al_{12}, [\be_{34} \circ_{\MB} \be_{23}] \circ_{\MB} \be_{12}) \\
+				& =  (\al_{34} \circ_{\MA} [\al_{23} \circ_{\MA} \al_{12}], \be_{34} \circ_{\MB} [\be_{23} \circ_{\MB} \be_{12}]) \\
+				& = (\al_{34}, \be_{34}) \circ_{(S \downarrow T)} (\al_{23} \circ_{\MA} \al_{12}, \be_{23} \circ_{\MB} \be_{12}) \\
+				& = (\al_{34}, \be_{34}) \circ_{(S \downarrow T)} [(\al_{23}, \be_{23}) \circ_{(S \downarrow T)} (\al_{12}, \be_{12})]
+			\end{align*}
+			So composition is associative. \\
+			\item \textbf{existence of identities:} \\
+			Let
+			\begin{itemize}
+				\item $(A_1, B_1, h_1), (A_2, B_2, h_2), \in \Obj(S \downarrow T)$
+				\item $(\al, \be) \in \Hom_{(S \downarrow T)}((A_1, B_1, h_1), (A_2, B_2, h_2))$ 
+			\end{itemize}
+			By definition, 
+			\begin{itemize}
+				\item $\al \in \Hom_{\MA}(A_1, A_2)$, $\be \in \Hom_{\MB}(B_1, B_2)$
+				\item $h_1 \in \Hom_{\MC}(S(A_1), T(B_1))$, $h_2 \in \Hom_{\MC}(S(A_2), T(B_2))$ 
+				\item $T(\be) \circ h_1 = h_2 \circ S(\al)$
+			\end{itemize}
+			Since $\id_{A_1} \in \Hom_{\MA}(A_1, A_1)$, $\id_{B_1} \in \Hom_{\MB}(B_1, B_1)$, and
+			\begin{align*}
+				T(\id_{B_1}) \circ_{\MC}  h_1 
+				& = \id_{T(B_1)} \circ_{\MC} h_1 \\
+				& = h_1 \\
+				& = h_1 \circ_{\MC} \id_{S(A_1)} \\
+				& = h_1 \circ_{\MC} S(\id_{A_1}) 
+			\end{align*}
+			i.e. the following diagram commutes:
+			\[
+			\begin{tikzcd}
+				S(A_1) \arrow[r, "S(\id_{A_1})"] \arrow[d, "h_1"']  & S(A_1)  \arrow[d, "h_1"] \\
+				T(B_1) \arrow[r, "T(\id_{B_1})"']                   & T(B_1)
+			\end{tikzcd}
+			\]
+			we have that $(\id_{A_1}, \id_{B_1}) \in \Hom_{(S \downarrow T)}((A_1, B_1, h_1), (A_1, B_1, h_1))$. Similarly $(\id_{A_2}, \id_{B_2}) \in \Hom_{(S \downarrow T)}((A_2, B_2, h_2), (A_2, B_2, h_2))$. Therefore
+			\begin{align*}
+				(\al, \be) \circ_{(S \downarrow T)} (\id_{A_1}, \id_{B_1}) 
+				& = (\al \circ_{\MA} \id_{A_1}, \be \circ_{\MB} \id_{B_1}) \\
+				& = (\al, \be)
+			\end{align*}
+			and 
+			\begin{align*}
+				(\id_{A_2}, \id_{B_2}) \circ_{(S\downarrow T)} (\al, \be) 
+				& = (\id_{A_2} \circ_{\MA} \al ,  \id_{B_2} \circ_{\MB} \be ) \\
+				& = (\al, \be)
+			\end{align*}
+			Since $(A_1, B_1, h_1), (A_2, B_2, h_2), \in \Obj(S \downarrow T)$ and\\ $(\al, \be) \in \Hom_{(S \downarrow T)}((A_1, B_1, h_1), (A_2, B_2, h_2))$ are arbitrary, we have that for each $(A, B, h) \in \Obj(S \downarrow T)$, $\id_{(A, B, h)} = (\id_A, \id_B)$.
+		\end{itemize}
+	\end{proof}
+
+	\begin{defn}
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $F$ to $X$}, denoted $(F \downarrow X)$, by $(F \downarrow X) = (F \downarrow \Del_X)$ where $\Del_X: \1 \rightarrow \MD$ is the constant functor. \\
+		We may make the following identification:
+		\begin{itemize}
+			\item $\Obj(F \downarrow X) = \{(A, f): A \in \Obj(\MC) \text{ and } f \in \Hom_{\MD}(F(A), X)\}$ 
+			\item For $(A_1, f_1), (A_2, f_2) \in \Obj(F \downarrow X)$, 
+			$$\Hom_{(X \downarrow F)}((A_1, f_1), (A_2, f_2)) = \{\al \in \Hom_{\MC}(A_1, A_2) \text{ and } f_2 \circ F(\al)  = f_1\}$$
+			i.e. for $(A_1, f_1), (A_2, f_2) \in \Obj(F \downarrow X)$ and $\al \in \Hom_{A_1, A_2}$, $\al \in \Hom_{(F \downarrow X)}((A_1, f_1), (A_2, f_2))$ iff the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				F(A_1) \arrow[dr, "f_1"'] \arrow[rr, "F(\al)"] &&  F(A_2) \arrow[dl, "f_2"]\\
+				& X  & 
+			\end{tikzcd}
+			\]
+			\item For 
+			\begin{itemize}
+				\item $(A_1, f_1), (A_2, f_2), (A_3, f_3) \in \Obj(F \downarrow X)$
+				\item $\al \in \Hom_{(F \downarrow X)}((A_1, f_1), (A_2, f_2))$
+				\item $\be \in \Hom_{(F \downarrow X)}((A_2, f_2), (A_3, f_3))$
+			\end{itemize}
+			we define 
+			$$\be \circ_{(F \downarrow X)} \al = \be \circ_{\MC} \al $$
+		\end{itemize}
+	\end{defn}
+
+	\begin{defn}
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $X$ to $F$}, denoted $(X \downarrow F)$, by $(X \downarrow F) = (\Del_X \downarrow F)$ where $\Del_X: \1 \rightarrow \MD$ is the constant functor. \\
+		We may make the following identification:
+		\begin{itemize}
+			\item $\Obj(X \downarrow F) = \{(A, f): A \in \Obj(\MC) \text{ and } f \in \Hom_{\MD}(X, F(A))\}$ 
+			\item For $(A_1, f_1), (A_2, f_2) \in \Obj(X \downarrow F)$, 
+			$$\Hom_{(X \downarrow F)}((A_1, f_1), (A_2, f_2)) = \{\al \in \Hom_{\MC}(A_1, A_2) \text{ and } F(\al) \circ f_1 = f_2\}$$
+			i.e. for $(A_1, f_1), (A_2, f_2) \in \Obj(X \downarrow F)$ and $\al \in \Hom_{A_1, A_2}$, $\al \in \Hom_{(X \downarrow F)}((A_1, f_1), (A_2, f_2))$ iff the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				&  X \arrow[dl, "f_1"']  \arrow[dr, "f_2"] & \\
+				F(A_1)  \arrow[rr, "F(\al)"'] &&  F(A_2) \\ 
+			\end{tikzcd}
+			\]
+			\item For 
+			\begin{itemize}
+				\item $(A_1, f_1), (A_2, f_2), (A_3, f_3) \in \Obj(X \downarrow F)$
+				\item $\al \in \Hom_{(X \downarrow F)}((A_1, f_1), (A_2, f_2))$
+				\item $\be \in \Hom_{(X \downarrow F)}((A_2, f_2), (A_3, f_3))$
+			\end{itemize}
+			we define 
+			$$\be \circ_{(X \downarrow F)} \al = \be \circ_{\MC} \al $$
+		\end{itemize}
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -695,6 +1165,8 @@
 	\newpage
 	\subsection{Natural Transformations}
 	
+	\subsubsection{Introduction}
+	
 	\begin{defn} \ld{14001}
 		Let $\MC$ and $\MD$ be categories, $F, G: \MC \rightarrow \MD$ and $ \al : \Obj(\MC) \rightarrow  \Hom_{\MD}$. Then $\al$ is said to be a \textbf{natural transformation from $F$ to $G$}, denoted $\al: F \Rightarrow G$, if
 		\begin{enumerate}
@@ -710,6 +1182,21 @@
 	\end{defn}
 
 
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsubsection{Category of Functors}
 	\begin{defn} \ld{14002}
 		Let $\MC$, $\MD$ be categories, $F, G, H:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ natural transformations. We define the \textbf{composition of $\be$ with $\al$}, denoted $\be \circ \al: F \Rightarrow H$, by 
 		$$(\be \circ \al)_{A} = \be_A \circ \al_A$$ 
@@ -775,8 +1262,7 @@
 			\begin{align*}
 				(\id_F)_A 
 				& = \id_{F(A)} \\
-				& \in \Hom_{\MD}(F(A), F(A)) \\
-				& = \Hom_{\MC}(\id_{\MC}(A), \id_{\MC}(B)) \\
+				& \in \Hom_{\MD}(F(A), F(A))
 			\end{align*}
 			\item Let $A,B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$. Then 
 			\begin{align*}
@@ -853,105 +1339,845 @@
 	\end{ex}
 
 	\begin{proof}\
-		The previous exercises imply the associativity of composition and existence of identities.
+		\rex{14003} implies that composition is well-defined. \rex{14003.1} implies that composition is associative. \rex{14003.3} and \rex{14003.4} imply the existence of identities.  
 	\end{proof}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	\newpage
-	\subsection{Product Categories}
 	
-	\begin{defn}
-		Let $\MC$ and $\MD$ be categories. We define the \textbf{product category of $\MC$ and $\MD$}, denoted $\MC \times \MD$ by 
+	
+	
+	
+	
+	
+	
+	\subsubsection{Diagonal Functor}
+
+	\begin{defn} \ld{14008}
+		Let $\MC$, $\MD$ be categories, $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$. We define the \textbf{constant natural transformation} at $f$, denoted $\del_f: \Del_X \Rightarrow \Del_Y$, by
+		$$(\del_f)_A = f$$
+	\end{defn}
+	
+	\begin{ex} \lex{14009}
+		Let $\MC$, $\MD$ be categories, $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$. Then $\del_f: \Del_X \Rightarrow \Del_Y $ is a natural transformation.
+	\end{ex}
+	
+	\begin{proof} \
+		\begin{enumerate}
+			\item By definition, for each $A \in \Obj(\MC)$ $(\del_f)_A \in \Hom_{\MD}(\Del_X(A), \Del_Y(A))$.
+			\item Let $A, B \in \Obj(\MC)$ and $g \in \Hom_{\MC}(A, B)$. Then 
+			\begin{align*}
+				\Del_Y(g) \circ (\del_f)_A 
+				& = \id_Y \circ f \\
+				& = f \\
+				& = f \circ \id_X \\
+				& = (\del_f)_B \circ \Del_X(g)  
+			\end{align*}
+			i.e. the following diagram commutes:
+			\[ 
+			\begin{tikzcd}[baseline= 7]
+				\Del_X(A)  \arrow[r, "(\del_f)_A"]  \arrow[d, "\Del_X(g)"']  & \Del_Y(A)   \arrow[d, "\Del_Y(g)"]\\
+				\Del_X(B) \arrow[r, "(\del_f)_B"] &  \Del_Y(B) \\
+			\end{tikzcd}
+			=
+			\begin{tikzcd}[baseline= 7]
+				X  \arrow[r, "f"]  \arrow[d, "\id_X"']  & Y   \arrow[d, "\id_Y"]\\
+				X \arrow[r, "f"] &  Y \\
+			\end{tikzcd}
+			\]
+		\end{enumerate}
+		So $\del_f: \Del_X \Rightarrow \Del_Y$ is a natural transformation.
+	\end{proof}
+	 
+	\begin{ex} \lex{14010}
+		Let $\MC, \MD$ be categories, $X, Y, Z \in \Obj(\MD)$, $f \in \Hom_{\MD}(X,Y)$ and $g \in \Hom_{\MD}(Y,Z)$. Then $\del_{g \circ f} = \del_g \circ \del_f$.
+	\end{ex}
+
+	\begin{proof}
+		Let $A \in \Obj(\MC)$. Then 
+		\begin{align*}
+			(\del_{g \circ f})_A
+			& = g \circ f \\
+			& = (\del_g)_A \circ (\del_f)_A \\
+			& = (\del_g \circ \del_f)_A
+		\end{align*}
+		Since $A \in \Obj(\MC)$ is arbitrary, $\del_{g \circ f} = \del_g \circ \del_f$.
+	\end{proof}
+
+	\begin{ex} \lex{14011}
+		Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. Then $\del_{\id_X} = \id_{\Del_X}$.
+	\end{ex}
+
+	\begin{proof}
+		Let $A \in \Obj(\MC)$. Then 
+		\begin{align*}
+			(\del_{\id_X})_A
+			& = \id_X \\
+			& = \id_{\Del_X(A)} \\
+			& = (\id_{\Del_X})_A 
+		\end{align*}
+		Since $A \in \Obj(\MC)$ is arbitrary, $\del_{\id_X} = \id_{\Del_X}$
+	\end{proof}
+
+	\begin{defn} \ld{14011}
+		Let $\MC$, $\MD$ be categories. Suppose that $\MC$ is small. We define the \textbf{$\MC$-ary diagonal functor} on $\MD$, denoted by $\Del: \MD \rightarrow \MD^{\MC}$, by
 		\begin{itemize}
-			\item $\Obj(\MC \times \MD) = \{(A, B): A \in \Obj(\MC) \text{ and } B \in \Obj(\MD)\}$
-			\item for each $(A, A'), (B, B') \in \Obj(\MC \times \MD)$, $\Hom_{\MC \times \MD}((A, A'), (B, B')) = \{(f,g): f \in \Hom_{\MC}(A, B) \text{ and }  g \in \Hom_{\MC}(A', B') \}$
-			\item for each  $(A, A'), (B, B'), (C, C') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$ and $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$, 
-			$$(g,g') \circ_{\MC \times \MD} (f, f') = (g \circ_{\MC} f, g' \circ_{\MD} f')$$
+			\item $\Del(X) = \Del_X$
+			\item $\Del(f) = \del_f$
 		\end{itemize}
 	\end{defn}
 
-	\begin{ex}
-		Let $\MC$ and $\MD$ be categories. Then $\MC \times \MD$ is a category. 
+	\begin{ex} \lex{14012}
+		Let $\MC$, $\MD$ be categories. Suppose that $\MC$ is small. Then $\Del: \MD \rightarrow \MD^{\MC}$ is a functor.
 	\end{ex}
 
 	\begin{proof}\
+		\begin{enumerate}
+			\item \rex{14009} implies that for each $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$, $\Del(f) \in \Hom_{\MD^{\MC}} (\Del(X), \Del(Y))$
+			\item \rex{14010} implies that for each $X, Y, Z \in \Obj(\MD)$, $f \in \Hom_{\MD}(X, Y)$ and $g \in \Hom_{\MD}(Y, Z)$, $\Del(g \circ f) = \Del(g) \circ \Del(f)$
+			\item \rex{14011} implies that for each $X \in \Obj(\MD)$, $\Del(\id_X) = \id_{\Del(X)}$
+		\end{enumerate}
+		 So $\Del : \MD \rightarrow \MD^{\MC}$ is a functor.
+	\end{proof}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Algebra of Morphisms}
+	
+	\subsubsection{Isomorphisms}
+	
+	\begin{ex} \lex{15001} \textbf{Uniqueness of Identities:} \\
+		Let $\MC$ be a category. Then for each $A \in \Obj(\MC)$, there exists a unique $e_A \in \Hom_{\MC}(A, A)$ such that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ e_A = f$ and $e_{A} \circ g = g$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $A \in \Obj(\MC)$. Let $e_A \in \Hom_{\MC}(A, A)$. Suppose that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ e_A = f$ and $e_{A} \circ g = g$. Then 
+		\begin{align*}
+			e_A
+			& = e_A \circ \id_A \\
+			& = \id_A 
+		\end{align*}
+	\end{proof}
+	
+	\begin{defn} \ld{15002}
+		Let $\MC$ be a category, $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then $f$ is said to be an \textbf{isomorphism} if there exists $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_{A}$ and $f \circ g = \id_{B}$. 
+	\end{defn}
+	
+	\begin{ex} \lex{15003} \textbf{Uniqueness of Inverses:} \\
+		Let $\MC$ be a category, $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. If $f$ is an isomorphism, then there exists a unique $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_A$ and $f \circ g = \id_B$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ is an isomorphism. Let $g,h \in \Hom_{\MC}(B, A)$. Suppose that $g \circ f = \id_A$, $f \circ g = \id_B$ and $h \circ f = \id_A$, $f \circ h = \id_B$. Then 
+		\begin{align*}
+			g
+			& = g \circ \id_{B} \\
+			& = g \circ (f \circ h) \\
+			& = (g \circ f) \circ  h \\
+			& = \id_A \circ h \\
+			& = h
+		\end{align*}
+	\end{proof}
+
+	\begin{defn} \ld{15003.1}
+		Let $\MC$ be a category, $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Suppose that $f$ is an isomorphism. We define the \textbf{inverse of $f$}, denoted $f^{-1}$, to be the unique $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_A$ and $f \circ g = \id_B$.
+	\end{defn}
+	
+	\begin{ex} \lex{15004}
+		Let $\MC$ be a category and $A \in \Obj(\MC)$. Then $\id_A$ is an isomorphism and $(\id_A)^{-1} = \id_A$. 
+	\end{ex}
+	
+	\begin{proof}
+		Since $\id_A \circ \id_A = \id_A$, we have that $\id_A$ is an isomorphism and $(\id_A)^{-1} = \id_A$.
+	\end{proof}
+	
+	\begin{ex} \lex{15005}
+		Let $\MC$ be a category and $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. If $f$ is an isomorphism, then $f^{-1}$ is an isomorphism and $(f^{-1})^{-1} = f$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ is an isomorphism. By definition, $f \circ f^{-1} = \id_{B}$ and $f^{-1} \circ f = \id_A$. Hence $f^{-1}$ is an isomorphism and $(f^{-1})^{-1} = f$.
+	\end{proof}
+	
+	\begin{ex} \lex{15006}
+		Let $\MC$ be a category, $A,B,C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, C)$. If $f$ and $g$ are isomorphisms, then $g \circ f$ is an isomorphism and $(g \circ f)^{-1} = f^{-1} \circ g^{-1}$. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ and $g$ are isomorphisms. Then 
+		\begin{align*}
+			(f^{-1} \circ g^{-1}) \circ (g \circ f) 
+			& = ((f^{-1} \circ g^{-1}) \circ g) \circ f \\
+			& = (f^{-1} \circ (g^{-1} \circ g)) \circ f \\
+			& = (f^{-1} \circ \id_B) \circ f \\
+			& = f^{-1} \circ f \\
+			& = \id_{A}
+		\end{align*}
+		and 
+		\begin{align*}
+			(g \circ f) \circ (f^{-1} \circ g^{-1}) 
+			& = ((g \circ f) \circ f^{-1}) \circ g^{-1} \\
+			& = (g \circ (f \circ f^{-1})) \circ g^{-1} \\
+			& = (g \circ \id_{B}) \circ g^{-1} \\
+			& = g \circ  g^{-1} \\
+			& = \id_{C}
+		\end{align*}
+		So $g \circ f$ is an isomorphism and $(g \circ f)^{-1} = f^{-1} \circ g^{-1}$.
+	\end{proof}
+	
+	\begin{defn} \ld{15007}
+		Let $\MC$ be a category and $A,B \in \Obj(\MC)$. Then $A$ is said to be \textbf{isomorphic} to $B$ if there exists $f \in \Hom_{\MC}(A, B)$ such that $f$ is an isomorphism. 
+	\end{defn}
+	
+	\begin{ex} \lex{15008}
+		Let $\MC$ be a category. We define the relation $\cong$ on $\Obj(\MC)$ by $A \cong B$ iff $A$ is isomorphic to $B$. Then $\cong$ is an equivalence relation on $\Obj(\MC)$.
+	\end{ex}
+	
+	\begin{proof} \
+		\begin{enumerate}
+			\item \textbf{reflexivity: } \\
+			Let $A \in \Obj(\MC)$. \rex{15004} implies that $\id_A$ is an isomorphism. So $A \cong A$. Since $A \in \Obj(\MC)$ is arbitrary, we have that for each $A \in \Obj(\MC)$, $A \cong A$ and thus $\cong$ is reflexive. 
+			\item \textbf{symmetry: } \\
+			Let $A, B \in \Obj(\MC)$. Suppose that $A \cong B$. Then there exists $f \in \Hom_{\MC}(A,B)$ such that $f$ is an isomorphism. \rex{15005} implies that $f^{-1}$ is an isomorphism. Since $f^{-1} \in \Hom_{\MC}(B, A)$, $B \cong A$.  Since $A, B \in \Obj(\MC)$ are arbitrary, we have that for each $A, B \in \Obj(\MC)$, $A \cong B$ implies that $B \cong A$ and thus $\cong$ is reflexive. 
+			\item \textbf{transitivity: }
+			Let $A, B, C \in \Obj(\MC)$. Suppose that $A \cong B$ and $B \cong C$. Then there exist $f \in \Hom_{\MC}(A,B)$ and $g \in \Hom_{\MC}(B, C)$ such that that $f$ and $g$ are isomorphisms. \rex{15006} implies that $g \circ f$ is an isomorphism. Since $g \circ f \in \Hom_{\MC}(A, C)$, $A \cong C$. Since $A, B, C \in \Obj(\MC)$ are arbitrary, we have that for each $A, B, C \in \Obj(\MC)$, $A \cong B$ and $B \cong C$ implies that $A \cong C$ and thus $\cong$ is transitive. 
+		\end{enumerate}
+		Since $\cong$ is reflexive, symmetric and transitive, $\cong$ is an equivalence relation on $\Obj(\MC)$.
+	\end{proof}
+	
+	\begin{defn} \ld{15009}
+		Let $\MC$ be a category, $A,B \in \Obj(\MC)$ and $f:A \rightarrow B$. Then 
 		\begin{itemize}
-			\item Let $(A, A'), (B, B'), (C, C') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$ and $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$. Then $f \in \Hom_{\MC}(A, B)$, $g \in \Hom_{\MC}(B, C)$, $f'  \in \Hom_{\MD}(A', B')$, and  $g' \in \Hom_{\MD}(B', C')$. Hence $g \circ_{\MC} f \in \Hom_{\MC}(A, C)$ and $g' \circ_{\MD} f' \in \Hom_{\MD}(A', C')$. Thus 
+			\item 
+			$f$ is said to be a \textbf{monomorphism} if for each $C \in \Obj(C)$ and $g,h \in \Hom_{\MC}(C, A)$, $f \circ g = f \circ h$ implies that $g = h$, i.e. we have the following implication of commutative diagrams: 
+			\[ 
+			\begin{tikzcd}[baseline= 7]
+				C \arrow[r, "g"] \arrow[d, "h"'] & A \arrow[d, "f"] \\
+				A \arrow[r, "f"'] & B\\
+			\end{tikzcd}
+			\implies
+			\begin{tikzcd}[baseline= 7]
+				C \arrow[bend right=60, swap]{r}{h} \arrow[bend right=-60]{r}{g} & A  \\
+			\end{tikzcd}
+			\]
+			\item 
+			$f$ is said to be an \textbf{epimorphism} if for each $C \in \Obj(C)$ and $g,h \in \Hom_{\MC}(B, C)$, $g \circ f = h \circ f$ implies that $g = h$, i.e. we have the following implication of commutative diagrams: \\
+			\[ 
+			\begin{tikzcd}[baseline= 7]
+				A \arrow[r, "f"] \arrow[d, "f"'] & B \arrow[d, "g"] \\
+				B \arrow[r, "h"'] & C\\
+			\end{tikzcd}
+			\implies
+			\begin{tikzcd}[baseline= 7]
+				B \arrow[bend right=60, swap]{r}{h} \arrow[bend right=-60]{r}{g} & C  \\
+			\end{tikzcd}
+			\]
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{15010}
+		Let $A, B \in \Obj(\Set)$ and $f \in \Hom_{\Set}(A,B)$. Then 
+		\begin{enumerate}
+			\item $f$ is a monomorphism iff $f$ is injective
+			\item $f$ is an epimorphism iff $f$ is surjective 
+		\end{enumerate} 
+		\tbf{Hint: } consider $C = \{0\}$ and $C = \{0,1\}$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $f$ is injective. Let $C \in \Obj(\Set)$ and $g,h \in \Hom_{\Set}(C, A)$. Suppose that $f \circ g = f \circ h$. Let $x \in C$. Then $f(g(x)) = f(h(x))$. Injectivity of $f$ implies that $g(x) = h(x)$. Since $x \in C$ is arbitrary, $g = h$. Hence $f$ is a monomorphism. \\
+			Conversely, suppose that $f$ is a monomorphism. Let $a, b \in A$. Suppose that $f(a) = f(b)$. Set $C = \{0\}$ and define $g,h: C \rightarrow A$ by $g(0) = a$ and $h(0) = b$. Then  
 			\begin{align*}
-				(g,g') \circ_{\MC \times \MD} (f, f') 
-				&= (g \circ_{\MC} f, g' \circ_{\MD} f') \\
-				& \in \Hom_{\MC \times \MD}((A, A'), (C, C'))
+				f \circ g(0) 
+				& = f(g(0)) \\
+				& = f(a) \\
+				& = f(b) \\
+				& = f(h(0)) \\
+				& = f \circ h(0) 
 			\end{align*}
-			Thus, composition is well defined. \\
-			\item Let $(A, A'), (B, B'), (C, C'), (D, D') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$, $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$ and $(h, h') \in \Hom_{\MC \times \MD}((C, C'), (D, D'))$. Then 
+			Therefore $f \circ g = f \circ h$. Since $f$ is a monomorphism, we have that $g = h$. Hence 
 			\begin{align*}
-				[(h, h') \circ_{\MC \times \MD} (g , g') ] \circ_{\MC \times \MD} (f, f')
-				& = (h \circ_{\MC} g, h' \circ_{\MD} g') \circ_{\MC \times \MD} (f, f') \\
-				& = ((h \circ_{\MC} g) \circ_{\MC} f, (h' \circ_{\MD} g') \circ_{\MD} f') \\
-				& = (h \circ_{\MC} ( g \circ_{\MC} f), h' \circ_{\MD} (g' \circ_{\MD} f')) \\
-				& = (h, h') \circ_{\MC \times \MD} (g \circ_{\MC} f, g' \circ_{\MD} f') \\
-				& = (h, h') \circ_{\MC \times \MD} [(g, g') \circ_{\MC \times \MD} (f, f')]
-			\end{align*} 
-			Thus composition is associative. \\
-			\item Let $(A, B) \in \Obj(\MC \times \MD)$, $(f, f'), (g,g') \in \Hom_{\MC \times \MD}$. Suppose that $\dom_{\MC \times \MD}(f, f') = (A, B)$ and $\cod_{\MC \times \MD}(g, g') = (A, B)$. Then $\dom_{\MC}(f) = A$, $\dom_{\MD}(f') = B$, $\cod_{\MC}(g) = A$ and  $\cod_{\MD}(g') = B$. Hence
-			\begin{align*}
-				(f, f') \circ_{\MC \times \MD} (1_A, 1_{B}) 
-				& = (f \circ_{\MC} 1_A, f' \circ_{\MD} 1_{B}) \\
-				& = (f, f)
+				a 
+				& = g(0) \\
+				& = h(0) \\
+				& = b
 			\end{align*}
-			and
+			\item Suppose that $f$ is surjective. Let $C \in \Obj(\MC)$ and $g,h \in \Hom_{\Set}(B, C)$. Suppose that $g \circ f = h \circ f$. Let $y \in B$. Surjective of $f$ implies that there exists $x \in A$ such that $y = f(x)$. 
+			Then 
 			\begin{align*}
-				(1_A, 1_{B})  \circ_{\MC \times \MD} (g, g')
-				& = (1_A \circ_{\MC} g , 1_{B} \circ g') \\
-				& = (g, g')
+				g(y)
+				& = g(f(x)) \\
+				& = g \circ f (x) \\
+				& = h \circ f (x) \\
+				& = h(f(x)) \\
+				& = h(y) 
 			\end{align*}
-			Therefore $(1_{(A, B)})_{\MC \times \MD} = (1_A, 1_{B})$.
+			Since $y \in B$ is arbitrary, $g = h$. Hence $f$ is an epimorphism. \\
+			Conversely, suppose that $f$ is an epimorphism. Set $C = \{0,1\}$ and define $g, h: B \rightarrow C$ by $g = \chi_{f(A)}$ and $h = \chi_{B}$. Then $g \circ f = h \circ f$. Since $f$ is an epimorphism, $g = h$ and $f(A) = B$. Hence $f$ is surjective.  
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{15011}
+		Let $\MC$ be a category, $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. If $f$ is an isomorphism, then $f$ is a monomorphism and $f$ is an epimorphism. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ is an isomorphism. 
+		\begin{itemize}
+			\item (monomorphism) \\
+			Let $C \in \Obj(\MC)$ and $g, h \in \Hom_{\MC}(C, A)$. Suppose that $f \circ g = f \circ h$. Then
+			\begin{align*}
+				g 
+				& = \id_A \circ g \\
+				& = (f^{-1} \circ f) \circ g \\
+				& = f^{-1} \circ (f \circ g) \\
+				& = f^{-1} \circ (f \circ h) \\
+				& = (f^{-1} \circ f) \circ h \\
+				& = \id_A \circ h \\
+				& = h
+			\end{align*}
+			So $f$ is a monomorphism.
+			\item  (epimorphism) \\
+			Let $C \in \Obj(\MC)$ and $g, h \in \Hom_{\MC}(B, C)$. Suppose that $ g \circ f = h \circ f$. Then
+			\begin{align*}
+				g 
+				& = g \circ \id_B \\
+				& = g \circ (f \circ f^{-1}) \\
+				& = (g \circ f) \circ f^{-1} \\
+				& = (h \circ f) \circ f^{-1} \\
+				& = h \circ (f \circ f^{-1}) \\
+				& = h \circ \id_B \\
+				& = h
+			\end{align*}
+			So $f$ is an epimorphism.
 		\end{itemize}
 	\end{proof}
+	
+	\begin{defn} \ld{15011.1}
+		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Then $\al$ is said to be a \textbf{natural isomorphism} if for each $A \in \Obj(\MC)$, $\al_A$ is an isomorphism.
+	\end{defn}
+
+	\begin{defn} \ld{15011.2}
+		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Suppose that $\al$ is a natural isomorphism. We define $\al^{-1}: G \Rightarrow F$ by $(\al^{-1})_A = \al_A^{-1}$. 
+	\end{defn}
+
+	\begin{ex} \lex{15011.3}
+		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Suppose that $\al$ is a natural isomorphism. Then $\al^{-1}: G \Rightarrow F$ is a natural transformation. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A \in \Obj(\MC)$. Since $\al_A \in \Hom_{\MD}(F(A), G(A))$, we have that 
+			\begin{align*}
+				(\al^{-1})_A
+				& = \al_A^{-1} \\
+				& \in \Hom_{\MD}(G(A), F(A))
+			\end{align*}
+			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Since $G(f) \circ \al_A = \al_B \circ F(f)$, i.e. the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				F(A)  \arrow[r, "\al_A"]  \arrow[d, "F(f)"']  & G(A)   \arrow[d, "G(f)"]\\
+				F(B) \arrow[r, "\al_B"] &  G(B) \\
+			\end{tikzcd}
+			\]
+			we have that 
+			\begin{align*}
+				F(f) \circ (\al^{-1})_A 
+				& = F(f) \circ \al_A^{-1} \\
+				& = \id_{F(B)} \circ (F(f) \circ \al_A^{-1}) \\
+				& = (\al_B^{-1} \circ \al_B) \circ (F(f) \circ \al_A^{-1}) \\
+				& = \al_B^{-1} \circ (\al_B \circ (F(f) \circ \al_A^{-1})) \\
+				& = \al_B^{-1} \circ ((\al_B \circ F(f)) \circ \al_A^{-1}) \\
+				& = \al_B^{-1} \circ ((G(f) \circ \al_A) \circ \al_A^{-1}) \\
+				& = \al_B^{-1} \circ (G(f) \circ (\al_A \circ \al_A^{-1})) \\
+				& = \al_B^{-1} \circ (G(f) \circ \id_{G(A)}) \\
+				& = \al_B^{-1} \circ G(f) \\
+				& = (\al^{-1})_B \circ G(f) 
+ 			\end{align*}
+ 			i.e. the following diagram commutes:
+ 			\[ 
+ 			\begin{tikzcd}
+ 				G(A)  \arrow[r, "(\al^{-1})_A"]  \arrow[d, "G(f)"']  & F(A)   \arrow[d, "F(f)"]\\
+ 				G(B) \arrow[r, "(\al^{-1})_B"] &  F(B) \\
+ 			\end{tikzcd}
+ 			\]
+ 			So $\al^{-1}: G \Rightarrow F$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{15011.4}
+		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Suppose that $\al$ is a natural isomorphism. Then $\al^{-1} \circ \al = \id_{F}$ and $\al \circ \al^{-1} = \id_G$.
+	\end{ex}
+
+	\begin{proof}
+		Let $A \in \Obj(\MC)$. Then 
+		\begin{align*}
+			(\al^{-1} \circ \al )_A 
+			& = (\al^{-1})_A \circ \al_A \\
+			& = \al_A^{-1} \circ \al_A \\
+			& = \id_{F(A)} \\
+			& = (\id_F)_A
+		\end{align*}
+		and 
+			\begin{align*}
+			(\al \circ \al^{-1} )_A 
+			& = \al_A \circ (\al^{-1})_A\\
+			& = \al_A \circ \al_A^{-1}\\
+			& = \id_{G(A)} \\
+			& = (\id_G)_A
+		\end{align*}
+		Since $A \in \Obj(\MC)$ is arbitrary, $\al^{-1} \circ \al = \id_F$ and $\al \circ \al^{-1} = \id_G$.
+	\end{proof}
+
+	\begin{ex} \lex{15011.5}
+		Let $\MC$ and $\MD$ be categories. Suppose that $\MC$ is small. Let $F,G \in \MD^{\MC}$ and $\al \in \Hom_{\MD^{\MC}}(F, G)$. Then $\al$ is an isomorphism iff $\al$ is a natural isomorphism.  
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\al$ is an isomorphism. Then there exists $\be \in \Hom_{\MD^{\MC}}(G, F)$ such that $\be \circ \al = \id_F$ and $\al \circ \be - \id_G$. Let $A \in \Obj(\MC)$. Then
+		\begin{align*}
+			\be_A \circ \al_A 
+			& = (\be \circ \al)_A \\
+			& = (\id_F)_A \\
+			& = \id_{F(A)}
+		\end{align*}
+		and 
+		\begin{align*}
+			\al_A \circ \be_A
+			& = (\al \circ \be)_A \\
+			& = (\id_G)_A \\
+			& = \id_{G(A)}
+		\end{align*}
+		Hence $\al_A$ is an isomorphism. Since $A \in \Obj(\MC)$ is arbitrary, $\al$ is a natural isomorphism. \\
+		Conversely, suppose that $\al$ is a natural isomorphism. \rex{15011.3} and \rex{15011.4} imply that $\al$ is an isomorphism.
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\subsubsection{Initial and Final Objects}
+	
+	\begin{defn} \ld{15012}
+		Let $\MC$ be a category and $0 \in \Obj(\MC)$. Then $0$ is said to be \textbf{initial} if for each $A \in \Obj(\MC)$, there exists $f \in \Hom_{\MC}(0, A)$ such that $\Hom_{\MC}(0, A) = \{f\}$. 
+	\end{defn}
+
+	\begin{defn} \ld{15012.1}
+		Let $\MC$ be a category and $1 \in \Obj(\MC)$. Then $1$ is said to be \textbf{final} if for each $A \in \Obj(\MC)$, there exists $f \in \Hom_{\MC}(A, 1)$ such that $\Hom_{\MC}(A, 1) = \{f\}$. 
+	\end{defn}
+	
+	\begin{ex} \lex{15013}
+		Let $\MC$ be a category and $0 \in \Obj(\MC)$. If $0$ is initial, then $\Hom_{\MC}(0, 0) = \{\id_0\}$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $0$ is initial. Then there exists a $f \in \Hom_{\MC}(0,0)$ such that $\Hom_{\MC}(0, 0) = \{f\}$. Since $\id_0 \in \Hom_{\MC}(0,0)$, $f = \id_0$ and therefore $\Hom_{\MC}(0, 0) = \{\id_0\}$.
+	\end{proof}
+
+		\begin{ex} \lex{15013.1}
+		Let $\MC$ be a category and $1 \in \Obj(\MC)$. If $1$ is final, then $\Hom_{\MC}(1, 1) = \{\id_1\}$.
+	\end{ex}
+	
+	\begin{proof}
+		Similar to \rex{15013}
+	\end{proof}
+	
+	\begin{ex} \lex{15014}
+		Let $\MC$ be a category and $0, 0' \in \Obj(\MC)$. If $0$ and $0'$ are initial, then $0$ and $0'$ are isomorphic.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $0$ and $0'$ are initial. By definition, there exist $f \in \Hom_{\MC}(0, 0')$ and $f' \in \Hom_{\MC}(0', 0)$ such that $\Hom_{\MC}(0, 0') = \{f\}$ and $\Hom_{\MC}(0', 0) = \{f'\}$, i.e. we have the following commutative diagram:
+		\[ 
+		\begin{tikzcd}[baseline= 7]
+			\arrow[loop left, "f' \circ f"] 0 \arrow[r, bend right= 60, "f", swap] & 0' \arrow[l, bend left=-60, "f'", swap] \arrow[loop right, "f \circ f'"] \\
+		\end{tikzcd}
+		\]
+		\rex{15013} implies that $f' \circ f = \id_{0}$ and $f \circ f' = \id_{0'}$. Hence $f$ is an isomorphism. Since $f \in \Hom_{\MC}(0, 0')$, we have that $0 \cong 0'$.
+	\end{proof}
+
+	\begin{ex} \lex{15014.1}
+		Let $\MC$ be a category and $1, 1' \in \Obj(\MC)$. If $1$ and $1'$ are final, then $1$ and $1'$ are isomorphic.
+	\end{ex}
+	
+	\begin{proof}
+		Similar to \rex{15014}
+	\end{proof}
+	
+	\begin{ex} \lex{15015}
+		We have that $\varnothing$ is initial in $\Set$. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $A \in \Obj(\Set)$. Define $f \in \Hom_{\Set}(\varnothing, A)$ by $f = \varnothing$. Let $g \in \Hom_{\Set}(\varnothing, A)$. Then $g = f$. Since $g \in \Hom_{\Set}(\varnothing, A)$ is arbitrary, $\Hom_{\Set}(\varnothing, A) = \{f\}$. Hence $\varnothing$ is initial.
+	\end{proof}
+
+	\begin{ex} \lex{15015.1}
+		We have that $ \{\varnothing\}$  is terminal in $\Set$. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $A \in \Obj(\Set)$. Define $f \in \Hom_{\Set}(A, \{\varnothing\})$ by $f(x) = \varnothing$. Let $g \in \Hom_{\Set}(A, \{\varnothing\})$. Then $g = f$. Since $g \in \Hom_{\Set}(A, \{\varnothing\})$ is arbitrary, $\Hom_{\Set}(A, \{\varnothing\}) = \{f\}$. Hence $\{\varnothing\}$ is final.
+	\end{proof}
+	
+	\begin{ex} \lex{15016}
+		We have that $\0$ is initial in $\Cat$. 
+	\end{ex}
+
+	\begin{proof}
+		Let $\MC \in \Obj(\Cat)$. It is clear that $\Hom_{\Cat}(\0, \MC) = \{E_\MC\}$. Hence $\0$ is initial in $\Cat$.
+	\end{proof}
+
+	\begin{ex} \lex{15016.1}
+		We have that $\1$ is final in $\Cat$. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $\MC \in \Obj(\Cat)$. It is clear that $\Hom_{\Cat}(\MC, \1) = \{ \Del_* \}$. Hence $\1$ is final in $\Cat$.
+	\end{proof}
+
+	\begin{defn} \ld{15017}
+		Let $\MC$, $\MD$ be categories and $0 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $0$ is initial in $\MD$. Then for each $A \in \Obj(\MC)$, there exists $f_A \in \Hom_{\MD}(0, F(A))$ such that $\Hom_{\MD}(0, F(A)) = \{f_A\}$. We define the \textbf{initial natural transformation induced by $0$} from $\Del_0$ to $F$, denoted $\zeta_{0}: \Del_0 \Rightarrow F$, by 
+		$(\eta_0)_A = f_A$.
+	\end{defn}
+
+	\begin{defn} \ld{15017.1}
+		Let $\MC$, $\MD$ be categories and $1 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $1$ is final in $\MD$. Then for each $A \in \Obj(\MC)$, there exists $f_A \in \Hom_{\MD}(F(A), 1)$ such that $\Hom_{\MD}(F(A), 1) = \{f_A\}$. We define the \textbf{final natural transformation induced by $1$} from $F$ to $\Del_1$, denoted $\phi_{1}: F \Rightarrow \Del_1$, by 
+		$(\phi_{1})_A = f_A$.
+	\end{defn}
+
+	\begin{ex} \lex{15018}
+		Let $\MC$, $\MD$ be categories and $0 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $0$ is initial in $\MD$. Then $\eta_0: \Del_0 \Rightarrow F$ is a natural transformation.
+	\end{ex}
+
+	\begin{proof} \
+		\begin{enumerate}
+			\item By definition, for each $A \in \Obj(\MC)$, $(\eta_0)_A \in \Hom_{\MD}(\Del_0(A), F(A))$
+			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Since 
+			\begin{align*}
+				F(f) \circ (\eta_0)_A 
+				& \in \Hom_{\MD}(0, F(B)) \\
+				& = \{(\eta_0)_B\}
+			\end{align*}
+			we have that 
+			\begin{align*}
+				F(f) \circ (\eta_0)_A 
+				& = (\eta_0)_B \\
+				& = (\eta_0)_B \circ \id_0 
+			\end{align*}
+			i.e. the following diagram commutes:
+			\[ 
+			\begin{tikzcd}[baseline= 7]
+				\Del_0(A)  \arrow[r, "(\eta_0)_A"]  \arrow[d, "\Del_0(f)"']  & F(A)   \arrow[d, "F(f)"]\\
+				\Del_0(B) \arrow[r, "(\eta_0)_B"] &  F(B) \\
+			\end{tikzcd}
+			=
+			\begin{tikzcd}[baseline= 7]
+				0  \arrow[r, "(\eta_0)_A"]  \arrow[d, "\id_0"']  & F(A)   \arrow[d, "F(f)"]\\
+				0 \arrow[r, "(\eta_0)_B"] &  F(B) \\
+			\end{tikzcd}
+			\]
+		\end{enumerate}
+		So $\eta_0: \Del_0 \Rightarrow F$ is a natural transformation.
+	\end{proof}
+	
+	\begin{ex} \lex{15019}
+		Let $\MC$, $\MD$ be categories and $1 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $1$ is final in $\MD$. Then $\phi_{1}: F \Rightarrow \Del_0$ is a natural transformation.
+	\end{ex}
+
+	\begin{proof}
+		Similar to \rex{15018}
+	\end{proof}
+	
+	\begin{ex} \lex{15020}
+		Let $\MC$, $\MD$ be categories and $0 \in \Obj(\MD)$. Suppose that $\MC$ is small. If $0$ is initial in $\MD$, then $\Del_0$ is initial in $\MD^{\MC}$. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $0$ is initial in $\MD$. Let $F \in \Obj(\MD^{\MC})$, $\al \in \Hom_{\MD^{\MC}}(\Del_0, F)$ and $A \in \Obj(\MC)$. Then
+		\begin{align*}
+			\al_A 
+			& \in \Hom_{\MD}(\Del_0(A), F(A)) \\
+			& =  \Hom_{\MD}(0, F(A)) \\
+			& = \{(\eta_0)_A\}
+		\end{align*}
+		Hence $\al_A = (\eta_0)_A$. Since $A \in \Obj(\MC)$ is arbitrary, $\al = \eta_0$. Since $\al \in  \Hom_{\MD^{\MC}}(\Del_0, F)$ is arbitrary, $ \Hom_{\MD^{\MC}}(\Del_0, F) = \{\eta_0\}$. Therefore $\Del_0$ is initial in $\MD^{\MC}$.
+	\end{proof}
+
+
+	\begin{ex} \lex{15021}
+		Let $\MC$, $\MD$ be categories and $1 \in \Obj(\MD)$. Suppose that $\MC$ is small. If $1$ is final in $\MD$, then $\Del_1$ is final in $\MD^{\MC}$. 
+	\end{ex}
+
+	\begin{proof}
+		Similar to \rex{15020}.
+	\end{proof}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Universal Morphisms and Limits}
+	
+	\subsubsection{Introduction}
+
+	\begin{defn}
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$, $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(X, F(A))$. Then $(A, f)$ is said to be a \textbf{universal morphism} from $X$ to $F$ if for each $A' \in \Obj(\MC)$ $f' \in \Hom_{\MD}(X, F(A'))$, there exists a unique $\al \in \Hom_{\MC}(A, A')$ such that $f' = F(\al) \circ f$, i.e. the following diagram commutes:
+		\[
+		\begin{tikzcd}
+			X \arrow[r, "f"]  \arrow[dr, "f'"'] & F(A) \arrow[d, "F(\al)", dashed] \\
+			                                    & F(A')  
+		\end{tikzcd}
+		\hspace{.3cm}
+		\begin{tikzcd}
+			A  \arrow[d, "\al"', dashed] \\
+			A'  
+		\end{tikzcd}
+		\]
+	\end{defn}
+
+	\begin{defn}
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$, $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(F(A), X)$. Then $(A, f)$ is said to be a \textbf{universal morphism} from $F$ to $X$ if for each $A' \in \Obj(\MC)$ $f' \in \Hom_{\MD}(F(A'), X)$, there exists a unique $\al \in \Hom_{\MC}(A', A)$ such that $f' = f \circ F(\al)$, i.e. the following diagram commutes:
+		\[
+		\begin{tikzcd}
+			X   & F(A) \arrow[l, "f"'] \\
+			& F(A')  \arrow[ul, "f'"] \arrow[u, "F(\al)"', dashed]  
+		\end{tikzcd}
+		\hspace{.3cm}
+		\begin{tikzcd}
+			A \\
+			A'  \arrow[u, "\al"', dashed]   
+		\end{tikzcd}
+		\]
+	\end{defn}
+
+	\begin{ex}
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$, $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(X, F(A))$. Then $(A, f)$ is a universal morphism from $X$ to $F$ iff $(A, f)$ is initial in $(X \downarrow F)$.  
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+
+	\begin{ex}
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$ $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(F(A), X)$. Then $(A, f)$ is a universal morphism from $F$ to $X$ iff $(A, f)$ is terminal in $(F \downarrow X)$.  
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Limits and Colimits}
 	
 \end{document}

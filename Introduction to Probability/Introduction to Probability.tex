@@ -503,7 +503,7 @@
 		
 	\end{ex}
 	
-	\begin{ex}{Jensen's Inequality}
+	\begin{ex} \textbf{Jensen's Inequality:} \\
 		Let $(\Om, \MF, P)$ be a probability space, $X \in L^1$ and $\phi:\R \rightarrow \R$. If $\phi$ is convex, then $$\phi(E(X)) \leq E[\phi(X)]$$
 	\end{ex}
 	
@@ -760,6 +760,44 @@
 	\newpage
 	\section{Concentration Inequalities}
 	
+	\subsection{Introduction}
+	
+	\begin{ex}
+		Let $(\Om, \MF, P)$ be a probability space and $X,Y \in L^0_{\R}(\Om, \MF, P)$. Then for each $s, t \in \R$, 
+		$$P(X + Y \geq s + t) \leq P(X \geq s) + P(Y \geq t) $$ 
+	\end{ex}
+
+	\begin{proof}
+		For $Z \in L^0_{\R}(\Om, \MF, P)$ and $t \in \R$, define $A_Z^t \in \MF$ by 
+		$$A_Z^t = \{\om \in \Om : Z(\om) \geq t\}$$ 
+		Let $s,t \in \R$. Since $(A_X^s)^c \cap (A_Y^t)^c \subset (A_{X+Y}^{s+t})^c$, we have that $A_{X+Y}^{s+t} \subset A_X^s \cup A_Y^t$. Then 
+		\begin{align*}
+			P(X + Y \geq s + t)
+			& = P(A_{X+Y}^{s+t}) \\
+			& \leq P(A_X^s) + P(A_Y^t) \\
+			& = P(X \geq s) + P(Y \geq t)
+		\end{align*} 
+	\end{proof}
+
+	\begin{ex}
+		Let $(\Om, \MF, P)$ be a probability space and $X,Y \in L^+(\Om, \MF, P)$. Then for each $s, t \geq 0$, 
+		$$P(XY \geq st) \leq P(X \geq s) + P(Y \geq t) $$ 
+	\end{ex}
+	
+	\begin{proof}
+		For $Z \in L^0_{\R}(\Om, \MF, P)$ and $t \in \R$, define define $A_Z^t \in \MF$ by 
+		$$A_Z^t = \{\om \in \Om : Z(\om) \geq t\}$$ 
+		Let $s,t \in \R$. Since $(A_X^s)^c \cap (A_Y^t)^c \subset (A_{XY}^{st})^c$, we have that $A_{XY}^{st} \subset A_X^s \cup A_Y^t$. Then 
+		\begin{align*}
+			P(XY \geq st)
+			& = P(A_{XY}^{st}) \\
+			& \leq P(A_X^s) + P(A_Y^t) \\
+			& = P(X \geq s) + P(Y \geq t)
+		\end{align*} 
+	\end{proof}
+
+	
+	
 	\subsection{Sub $\al$-Exponential Random Variables}
 	
 	\begin{defn}
@@ -816,23 +854,97 @@
 		Let $(\Om, \MF, P)$ be a probability space and $\psi: \Rg \rightarrow \Rg$ and Orlicz function. We define the \textbf{Orlicz $\psi$-norm}, denoted $\|\cdot\|_{\psi}: L^0(\Om, \MF, P) \rightarrow \RG$, by 
 		$$\|X\|_{\psi} = \inf \{t >0: E [\psi(|X|/t)] \leq 1\}$$
 		We define the \textbf{Orlicz $\psi$-space}, denoted $L^{\psi}(\Om, \MF, P)$, by 
-		$$L^{\psi}(\Om, \MF, P) = \{X \in L^0(\Om, \MF, P): \|X\|_{\psi} < \infty\}$$
+		$$L^{\psi}(\Om, \MF, P) = \{X \in L^1(\Om, \MF, P): \|X\|_{\psi} < \infty\}$$
 	\end{defn}
 
 	\begin{ex}
-		Let $(\Om, \MF, P)$ be a probability space and $\psi: \Rg \rightarrow \Rg$ and Orlicz function. Then $L^{\psi}$ is a vector space and $\|\cdot\|_{\psi}:L^{\psi} \rightarrow \Rg$ is a norm.\\
-		\textbf{Hint:} 
+		Let $(\Om, \MF, P)$ be a probability space and $\psi: \Rg \rightarrow \Rg$ an Orlicz function. Then $L^{\psi}$ is a vector space and $\|\cdot\|_{\psi}:L^{\psi} \rightarrow \Rg$ is a norm.\\
+		\textbf{Hint:} note that
+		\begin{itemize}
+			\item for $s,t > 0$,
+			$$\frac{|X|}{s + t} + \frac{|Y|}{s + t} = \frac{s}{s + t}\frac{|X|}{s} + \frac{t}{s + t}\frac{|Y|}{t}$$
+			\item $\psi$ is star-shaped, i.e. for each $x, t \geq 0$ and $f(tx) \leq tf(x)$.
+		\end{itemize}
 	\end{ex}
 
 	\begin{proof}
-		Let $X, Y \in L^{\psi}(\Om, \MF, P)$ and $\lam \in \C$. 
+		For $X \in L^0(\Om, \MF, P)$, define $A_X \in \MF$ by 
+		$$A_X = \{t > 0 : E [\psi(|X|/t)] \leq 1\}$$
+		Let $X, Y \in L^{\psi}(\Om, \MF, P)$ and $\lam \in \C$. Since $\|X\|_{\psi} < \infty$ and $\|Y\|_{\psi} < \infty$, we have that $A_X \neq \varnothing$ and $A_Y \neq \varnothing$,
 		\begin{enumerate}
-			\item Let 
-			\item 
-			\item 
+			\item \textbf{subadditivity:} Let $\ep > 0$. Then there exists $s \in A_X$ and $t \in A_Y$ such that $s < \inf A_X + \ep/2$ and $t < \inf A_Y + \ep/2$. Since is convex and increasing, we have that
+			\begin{align*}
+				\psi \bigg( \frac{|X+Y|}{s +t} \bigg) 
+				& \leq \psi \bigg( \frac{|X|}{s +t} +  \frac{|Y|}{s +t} \bigg) \\
+				& = \psi \bigg( \frac{s}{s + t}\frac{|X|}{s} + \frac{t}{s + t}\frac{|Y|}{t} \bigg) \\
+				& \leq \frac{s}{s + t} \psi \bigg( \frac{|X|}{s} \bigg) + \frac{t}{s + t} \psi \bigg( \frac{|Y|}{t} \bigg) \\
+			\end{align*}
+			Therefore, 
+			\begin{align*}
+				E\bigg[ \psi \bigg( \frac{|X+Y|}{s +t} \bigg)  \bigg]
+				& \leq  \frac{s}{s + t} E \bigg[ \psi \bigg( \frac{|X|}{s} \bigg) \bigg] +  \frac{t}{s + t} E \bigg[ \psi \bigg( \frac{|Y|}{t} \bigg) \bigg] \\
+				& \leq  \frac{s}{s + t} +  \frac{t}{s + t} \\
+				& \leq 1
+			\end{align*}
+			Hence $s+t \in A_{X+Y}$. Thus $A_{X+Y} \neq \varnothing$. Since $s < \inf A_X + \ep/2$ and $t < \inf A_Y + \ep/2$, we have that 
+			\begin{align*}
+				\|X + Y\|_{\psi}
+				& = \inf A_{X+Y} \\
+				& \leq s + t \\ 
+				& < \inf A_X + \inf A_Y + \ep \\
+				& = \|X\|_{\psi} + \|Y \|_{\psi} + \ep
+			\end{align*}
+			Since $\ep >0$ is arbitrary, $	\|X + Y\|_{\psi} \leq \|X\|_{\psi} + \|Y \|_{\psi}$. So $X+Y \in L^{\psi}(\Om, \MF, P)$
+			\item \textbf{absolute homogeneity:} Suppose that $\lam = 0$. Then for each $t >0$, 
+			\begin{align*}
+				E [\psi(|\lam X|/t)] 
+				& = E[\psi(0)]\\
+				& = E[0] \\
+				& = 0 \\
+				& \leq 1
+			\end{align*}
+			Thus
+			\begin{align*}
+				\|\lam X\|_{\psi} 
+				& = 0 \\
+				& = |\lam|\|X\|_{\psi}
+			\end{align*}
+			Suppose that $\lam \neq 0$. Since for each $t > 0$,
+			$$\psi \bigg( \frac{|X|}{t} \bigg) = \psi \bigg( \frac{|\lam X|}{|\lam| t} \bigg)$$ 
+			we have that for each $t > 0$, $t \in A_{X}$ iff $|\lam| t \in A_{\lam X}$. Therefore $A_{\lam X} = |\lam| A_{X}$ and 
+			\begin{align*}
+				\|\lam X\|_{\psi} 
+				& = \inf A_{\lam X} \\
+				& = |\lam| \inf A_X \\
+				& = |\lam| \|X\|_{\psi} \\
+			\end{align*}  
+			So $|\lam X\| \in L^{\psi}(\Om, \MF, P)$.
+ 			\item \textbf{positive definiteness:} 
+			Note that since $\psi$ is increasing, for each $t_0 >0$, $t_0 \in A_X$ implies that $[t_0, \infty) \subset A_X$. Suppose that $\|X\|_{\psi} = 0$. Then $(0, \infty) \subset A_X$. Jensen's inequality implies that for each $t > 0$,
+			\begin{align*}
+				\psi \bigg( \frac{E|X|}{t} \bigg) 
+				& \leq E \bigg[\psi \bigg( \frac{|X|}{t} \bigg) \bigg] \\
+				& \leq 1 
+			\end{align*} 
+			For the sake of contradiction, suppose that $E|X| > 0$. Since $\psi(x) \rightarrow \infty$ as $x \rightarrow \infty$, Choose $x > 0$ such that $\psi(x) > 1$. Set $t = E|X| /x$. Then $t > 0$ and 
+			\begin{align*}
+				1 
+				& < \psi(x) \\
+				& = \psi \bigg( \frac{E|X|}{t} \bigg) \\
+				& \leq 1
+			\end{align*}
+			which is a contradiction. Hence $E|X| = 0$. Thus $X = 0$ a.s.  
 		\end{enumerate}
 	\end{proof}
 	
+	
+	\begin{ex}
+			Let $(\Om, \MF, P)$ be a probability space and $\psi: \Rg \rightarrow \Rg$ an Orlicz function. Then $L^{\psi}(\Om, \MF, P)$ is a Banach space.
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
 	
 	
 	
