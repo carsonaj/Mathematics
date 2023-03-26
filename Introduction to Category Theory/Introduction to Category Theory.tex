@@ -40,6 +40,9 @@
 \newtheorem{cor}[definition]{Corollary}
 \newtheorem{conj}[definition]{Conjecture}
 \newtheorem{ex}[definition]{Exercise}
+\newtheorem{exmp}[definition]{Example}
+
+\counterwithin{figure}{subsection}
 
 
 \newcommand{\al}{\alpha}
@@ -64,16 +67,17 @@
 \newcommand{\Q}{\mathbb{Q}}
 \renewcommand{\P}{\mathbb{P}}
 \newcommand{\MA}{\mathcal{A}}
+\newcommand{\MB}{\mathcal{B}}
 \newcommand{\MC}{\mathcal{C}}
 \newcommand{\MD}{\mathcal{D}}
-\newcommand{\MB}{\mathcal{B}}
+\newcommand{\ME}{\mathcal{E}}
 \newcommand{\MF}{\mathcal{F}}
 \newcommand{\MG}{\mathcal{G}}
+\newcommand{\MJ}{\mathcal{J}}
 \newcommand{\ML}{\mathcal{L}}
 \newcommand{\MN}{\mathcal{N}}
 \newcommand{\MS}{\mathcal{S}}
 \newcommand{\MP}{\mathcal{P}}
-\newcommand{\ME}{\mathcal{E}}
 \newcommand{\MT}{\mathcal{T}}
 \newcommand{\MM}{\mathcal{M}}
 \newcommand{\MI}{\mathcal{I}}
@@ -135,14 +139,18 @@
 \DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
 \DeclareMathOperator*{\0}{\mbf{0}}
 \DeclareMathOperator*{\1}{\mbf{1}}
+\DeclareMathOperator*{\Cone}{\text{\tbf{Cone}}}
+\DeclareMathOperator*{\Cocone}{\text{\tbf{Cocone}}}
 
 
 \newcommand{\lex}[1]{\label{ex:#1}}
 \newcommand{\ld}[1]{\label{defn:#1}}
 \newcommand{\lax}[1]{\label{ax:#1}}
+\newcommand{\lfig}[1]{\label{fig:#1}}
 \newcommand{\rex}[1]{Exercise \ref{ex:#1}}
 \newcommand{\rd}[1]{Definition \ref{defn:#1}}
 \newcommand{\rax}[1]{Axiom \ref{ax:#1}}
+\newcommand{\rfig}[1]{Figure \ref{fig:#1}}
 
 
 
@@ -674,41 +682,41 @@
 	\end{proof}
 
 	\begin{defn}
-		Let $\MC, \MD$ be categories and $X \in \MD$. We define the \textbf{constant functor} from $\MC$ onto $X$, denoted $\Del_X: \MC \rightarrow \MD$ by 
+		Let $\MC, \MD$ be categories and $X \in \MD$. We define the \textbf{constant functor} from $\MC$ onto $X$, denoted $\Del^{\MC}_X: \MC \rightarrow \MD$ by 
 		\begin{itemize}
-			\item $\Del_X (A) = X$
-			\item $\Del_X (f) = \id_X$
+			\item $\Del^{\MC}_X (A) = X$
+			\item $\Del^{\MC}_X (f) = \id_X$
 		\end{itemize}
 	\end{defn}
 	
 	\begin{ex}
-		Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. Then $\Del_X : \MC \rightarrow \MD$ is a functor.
+		Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. Then $\Del^{\MC}_X : \MC \rightarrow \MD$ is a functor.
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
 			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then 
 			\begin{align*}
-				\Del_X (f)
+				\Del^{\MC}_X (f)
 				& = \id_X \\
 				& \in \Hom_{\MD}(X, X) \\
-				& = \Hom_{\MD}(\Del_X (A), \Del_X (B))
+				& = \Hom_{\MD}(\Del^{\MC}_X (A), \Del^{\MC}_X (B))
 			\end{align*}  
 			\item Let $A,B,C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, C)$. Then 
 			\begin{align*}
-				\Del_X (g \circ f) 
+				\Del^{\MC}_X (g \circ f) 
 				& = \id_X \\
 				& = \id_X \circ \id_X \\
-				& = \Del_X (g) \circ \Del_X (f)
+				& = \Del^{\MC}_X (g) \circ \Del^{\MC}_X (f)
 			\end{align*} 
 			\item Let $A \in \Obj(\MC)$. Then 
 			\begin{align*}
-				\Del_X (\id_A)
+				\Del^{\MC}_X (\id_A)
 				& = \id_X \\
-				& = \id_{\Del_X (A)}
+				& = \id_{\Del^{\MC}_X (A)}
 			\end{align*}
 		\end{enumerate}
-		So $\Del_X : \MC \rightarrow \MD$ is a functor.
+		So $\Del^{\MC}_X : \MC \rightarrow \MD$ is a functor.
 	\end{proof}
 
 
@@ -1071,32 +1079,7 @@
 	\end{proof}
 
 	\begin{defn}
-		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $F$ to $X$}, denoted $(F \downarrow X)$, by $(F \downarrow X) = (F \downarrow \Del_X)$ where $\Del_X: \1 \rightarrow \MD$ is the constant functor. \\
-		We may make the following identification:
-		\begin{itemize}
-			\item $\Obj(F \downarrow X) = \{(A, f): A \in \Obj(\MC) \text{ and } f \in \Hom_{\MD}(F(A), X)\}$ 
-			\item For $(A_1, f_1), (A_2, f_2) \in \Obj(F \downarrow X)$, 
-			$$\Hom_{(X \downarrow F)}((A_1, f_1), (A_2, f_2)) = \{\al \in \Hom_{\MC}(A_1, A_2) \text{ and } f_2 \circ F(\al)  = f_1\}$$
-			i.e. for $(A_1, f_1), (A_2, f_2) \in \Obj(F \downarrow X)$ and $\al \in \Hom_{A_1, A_2}$, $\al \in \Hom_{(F \downarrow X)}((A_1, f_1), (A_2, f_2))$ iff the following diagram commutes:
-			\[ 
-			\begin{tikzcd}
-				F(A_1) \arrow[dr, "f_1"'] \arrow[rr, "F(\al)"] &&  F(A_2) \arrow[dl, "f_2"]\\
-				& X  & 
-			\end{tikzcd}
-			\]
-			\item For 
-			\begin{itemize}
-				\item $(A_1, f_1), (A_2, f_2), (A_3, f_3) \in \Obj(F \downarrow X)$
-				\item $\al \in \Hom_{(F \downarrow X)}((A_1, f_1), (A_2, f_2))$
-				\item $\be \in \Hom_{(F \downarrow X)}((A_2, f_2), (A_3, f_3))$
-			\end{itemize}
-			we define 
-			$$\be \circ_{(F \downarrow X)} \al = \be \circ_{\MC} \al $$
-		\end{itemize}
-	\end{defn}
-
-	\begin{defn}
-		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $X$ to $F$}, denoted $(X \downarrow F)$, by $(X \downarrow F) = (\Del_X \downarrow F)$ where $\Del_X: \1 \rightarrow \MD$ is the constant functor. \\
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $X$ to $F$}, denoted $(X \downarrow F)$, by $(X \downarrow F) = (\Del^{\1}_X \downarrow F)$. \\
 		We may make the following identification:
 		\begin{itemize}
 			\item $\Obj(X \downarrow F) = \{(A, f): A \in \Obj(\MC) \text{ and } f \in \Hom_{\MD}(X, F(A))\}$ 
@@ -1117,6 +1100,31 @@
 			\end{itemize}
 			we define 
 			$$\be \circ_{(X \downarrow F)} \al = \be \circ_{\MC} \al $$
+		\end{itemize}
+	\end{defn}
+
+	\begin{defn}
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $F$ to $X$}, denoted $(F \downarrow X)$, by $(F \downarrow X) = (F \downarrow \Del^{\1}_X)$.\\
+		We may make the following identification:
+		\begin{itemize}
+			\item $\Obj(F \downarrow X) = \{(A, f): A \in \Obj(\MC) \text{ and } f \in \Hom_{\MD}(F(A), X)\}$ 
+			\item For $(A_1, f_1), (A_2, f_2) \in \Obj(F \downarrow X)$, 
+			$$\Hom_{(X \downarrow F)}((A_1, f_1), (A_2, f_2)) = \{\al \in \Hom_{\MC}(A_1, A_2) \text{ and } f_2 \circ F(\al)  = f_1\}$$
+			i.e. for $(A_1, f_1), (A_2, f_2) \in \Obj(F \downarrow X)$ and $\al \in \Hom_{A_1, A_2}$, $\al \in \Hom_{(F \downarrow X)}((A_1, f_1), (A_2, f_2))$ iff the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				F(A_1) \arrow[dr, "f_1"'] \arrow[rr, "F(\al)"] &&  F(A_2) \arrow[dl, "f_2"]\\
+				& X  & 
+			\end{tikzcd}
+			\]
+			\item For 
+			\begin{itemize}
+				\item $(A_1, f_1), (A_2, f_2), (A_3, f_3) \in \Obj(F \downarrow X)$
+				\item $\al \in \Hom_{(F \downarrow X)}((A_1, f_1), (A_2, f_2))$
+				\item $\be \in \Hom_{(F \downarrow X)}((A_2, f_2), (A_3, f_3))$
+			\end{itemize}
+			we define 
+			$$\be \circ_{(F \downarrow X)} \al = \be \circ_{\MC} \al $$
 		\end{itemize}
 	\end{defn}
 	
@@ -1353,30 +1361,30 @@
 	\subsubsection{Diagonal Functor}
 
 	\begin{defn} \ld{14008}
-		Let $\MC$, $\MD$ be categories, $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$. We define the \textbf{constant natural transformation} at $f$, denoted $\del_f: \Del_X \Rightarrow \Del_Y$, by
-		$$(\del_f)_A = f$$
+		Let $\MC$, $\MD$ be categories, $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$. We define the \textbf{constant natural transformation on $\MC$ at $f$}, denoted $\del^{\MC}_f: \Del^{\MC}_X \Rightarrow \Del^{\MC}_Y$, by
+		$$(\del^{\MC}_f)_A = f$$
 	\end{defn}
 	
 	\begin{ex} \lex{14009}
-		Let $\MC$, $\MD$ be categories, $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$. Then $\del_f: \Del_X \Rightarrow \Del_Y $ is a natural transformation.
+		Let $\MC$, $\MD$ be categories, $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$. Then $\del^{\MC}_f: \Del^{\MC}_X \Rightarrow \Del^{\MC}_Y $ is a natural transformation.
 	\end{ex}
 	
 	\begin{proof} \
 		\begin{enumerate}
-			\item By definition, for each $A \in \Obj(\MC)$ $(\del_f)_A \in \Hom_{\MD}(\Del_X(A), \Del_Y(A))$.
+			\item By definition, for each $A \in \Obj(\MC)$ $(\del^{\MC}_f)_A \in \Hom_{\MD}(\Del^{\MC}_X(A), \Del^{\MC}_Y(A))$.
 			\item Let $A, B \in \Obj(\MC)$ and $g \in \Hom_{\MC}(A, B)$. Then 
 			\begin{align*}
-				\Del_Y(g) \circ (\del_f)_A 
+				\Del^{\MC}_Y(g) \circ (\del^{\MC}_f)_A 
 				& = \id_Y \circ f \\
 				& = f \\
 				& = f \circ \id_X \\
-				& = (\del_f)_B \circ \Del_X(g)  
+				& = (\del^{\MC}_f)_B \circ \Del^{\MC}_X(g)  
 			\end{align*}
 			i.e. the following diagram commutes:
 			\[ 
 			\begin{tikzcd}[baseline= 7]
-				\Del_X(A)  \arrow[r, "(\del_f)_A"]  \arrow[d, "\Del_X(g)"']  & \Del_Y(A)   \arrow[d, "\Del_Y(g)"]\\
-				\Del_X(B) \arrow[r, "(\del_f)_B"] &  \Del_Y(B) \\
+				\Del^{\MC}_X(A)  \arrow[r, "(\del^{\MC}_f)_A"]  \arrow[d, "\Del^{\MC}_X(g)"']  & \Del^{\MC}_Y(A)   \arrow[d, "\Del^{\MC}_Y(g)"]\\
+				\Del^{\MC}_X(B) \arrow[r, "(\del^{\MC}_f)_B"] &  \Del^{\MC}_Y(B) \\
 			\end{tikzcd}
 			=
 			\begin{tikzcd}[baseline= 7]
@@ -1385,58 +1393,58 @@
 			\end{tikzcd}
 			\]
 		\end{enumerate}
-		So $\del_f: \Del_X \Rightarrow \Del_Y$ is a natural transformation.
+		So $\del^{\MC}_f: \Del^{\MC}_X \Rightarrow \Del^{\MC}_Y$ is a natural transformation.
 	\end{proof}
 	 
 	\begin{ex} \lex{14010}
-		Let $\MC, \MD$ be categories, $X, Y, Z \in \Obj(\MD)$, $f \in \Hom_{\MD}(X,Y)$ and $g \in \Hom_{\MD}(Y,Z)$. Then $\del_{g \circ f} = \del_g \circ \del_f$.
+		Let $\MC, \MD$ be categories, $X, Y, Z \in \Obj(\MD)$, $f \in \Hom_{\MD}(X,Y)$ and $g \in \Hom_{\MD}(Y,Z)$. Then $\del^{\MC}_{g \circ f} = \del^{\MC}_g \circ \del^{\MC}_f$.
 	\end{ex}
 
 	\begin{proof}
 		Let $A \in \Obj(\MC)$. Then 
 		\begin{align*}
-			(\del_{g \circ f})_A
+			(\del^{\MC}_{g \circ f})_A
 			& = g \circ f \\
-			& = (\del_g)_A \circ (\del_f)_A \\
-			& = (\del_g \circ \del_f)_A
+			& = (\del^{\MC}_g)_A \circ (\del^{\MC}_f)_A \\
+			& = (\del^{\MC}_g \circ \del^{\MC}_f)_A
 		\end{align*}
-		Since $A \in \Obj(\MC)$ is arbitrary, $\del_{g \circ f} = \del_g \circ \del_f$.
+		Since $A \in \Obj(\MC)$ is arbitrary, $\del^{\MC}_{g \circ f} = \del^{\MC}_g \circ \del^{\MC}_f$.
 	\end{proof}
 
 	\begin{ex} \lex{14011}
-		Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. Then $\del_{\id_X} = \id_{\Del_X}$.
+		Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. Then $\del^{\MC}_{\id_X} = \id_{\Del^{\MC}_X}$.
 	\end{ex}
 
 	\begin{proof}
 		Let $A \in \Obj(\MC)$. Then 
 		\begin{align*}
-			(\del_{\id_X})_A
+			(\del^{\MC}_{\id_X})_A
 			& = \id_X \\
-			& = \id_{\Del_X(A)} \\
-			& = (\id_{\Del_X})_A 
+			& = \id_{\Del^{\MC}_X(A)} \\
+			& = (\id_{\Del^{\MC}_X})_A 
 		\end{align*}
-		Since $A \in \Obj(\MC)$ is arbitrary, $\del_{\id_X} = \id_{\Del_X}$
+		Since $A \in \Obj(\MC)$ is arbitrary, $\del^{\MC}_{\id_X} = \id_{\Del^{\MC}_X}$
 	\end{proof}
 
 	\begin{defn} \ld{14011}
-		Let $\MC$, $\MD$ be categories. Suppose that $\MC$ is small. We define the \textbf{$\MC$-ary diagonal functor} on $\MD$, denoted by $\Del: \MD \rightarrow \MD^{\MC}$, by
+		Let $\MC$, $\MD$ be categories. Suppose that $\MC$ is small. We define the \textbf{$\MC$-ary diagonal functor} on $\MD$, denoted by $\Del^{\MC}: \MD \rightarrow \MD^{\MC}$, by
 		\begin{itemize}
-			\item $\Del(X) = \Del_X$
-			\item $\Del(f) = \del_f$
+			\item $\Del^{\MC}(X) = \Del^{\MC}_X$
+			\item $\Del^{\MC}(f) = \del^{\MC}_f$
 		\end{itemize}
 	\end{defn}
 
 	\begin{ex} \lex{14012}
-		Let $\MC$, $\MD$ be categories. Suppose that $\MC$ is small. Then $\Del: \MD \rightarrow \MD^{\MC}$ is a functor.
+		Let $\MC$, $\MD$ be categories. Suppose that $\MC$ is small. Then $\Del^{\MC}: \MD \rightarrow \MD^{\MC}$ is a functor.
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
-			\item \rex{14009} implies that for each $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$, $\Del(f) \in \Hom_{\MD^{\MC}} (\Del(X), \Del(Y))$
-			\item \rex{14010} implies that for each $X, Y, Z \in \Obj(\MD)$, $f \in \Hom_{\MD}(X, Y)$ and $g \in \Hom_{\MD}(Y, Z)$, $\Del(g \circ f) = \Del(g) \circ \Del(f)$
-			\item \rex{14011} implies that for each $X \in \Obj(\MD)$, $\Del(\id_X) = \id_{\Del(X)}$
+			\item \rex{14009} implies that for each $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$, $\Del^{\MC}(f) \in \Hom_{\MD^{\MC}} (\Del^{\MC}(X), \Del^{\MC}(Y))$
+			\item \rex{14010} implies that for each $X, Y, Z \in \Obj(\MD)$, $f \in \Hom_{\MD}(X, Y)$ and $g \in \Hom_{\MD}(Y, Z)$, $\Del^{\MC}(g \circ f) = \Del^{\MC}(g) \circ \Del^{\MC}(f)$
+			\item \rex{14011} implies that for each $X \in \Obj(\MD)$, $\Del^{\MC}(\id_X) = \id_{\Del^{\MC}(X)}$
 		\end{enumerate}
-		 So $\Del : \MD \rightarrow \MD^{\MC}$ is a functor.
+		 So $\Del^{\MC} : \MD \rightarrow \MD^{\MC}$ is a functor.
 	\end{proof}
 
 
@@ -1900,26 +1908,26 @@
 	\end{ex}
 	
 	\begin{proof}
-		Let $\MC \in \Obj(\Cat)$. It is clear that $\Hom_{\Cat}(\MC, \1) = \{ \Del_* \}$. Hence $\1$ is final in $\Cat$.
+		Let $\MC \in \Obj(\Cat)$. It is clear that $\Hom_{\Cat}(\MC, \1) = \{ \Del^{\MC}_* \}$. Hence $\1$ is final in $\Cat$.
 	\end{proof}
 
 	\begin{defn} \ld{15017}
-		Let $\MC$, $\MD$ be categories and $0 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $0$ is initial in $\MD$. Then for each $A \in \Obj(\MC)$, there exists $f_A \in \Hom_{\MD}(0, F(A))$ such that $\Hom_{\MD}(0, F(A)) = \{f_A\}$. We define the \textbf{initial natural transformation induced by $0$} from $\Del_0$ to $F$, denoted $\zeta_{0}: \Del_0 \Rightarrow F$, by 
+		Let $\MC$, $\MD$ be categories and $0 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $0$ is initial in $\MD$. Then for each $A \in \Obj(\MC)$, there exists $f_A \in \Hom_{\MD}(0, F(A))$ such that $\Hom_{\MD}(0, F(A)) = \{f_A\}$. We define the \textbf{initial natural transformation induced by $0$} from $\Del^{\MC}_0$ to $F$, denoted $\zeta_{0}: \Del^{\MC}_0 \Rightarrow F$, by 
 		$(\eta_0)_A = f_A$.
 	\end{defn}
 
 	\begin{defn} \ld{15017.1}
-		Let $\MC$, $\MD$ be categories and $1 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $1$ is final in $\MD$. Then for each $A \in \Obj(\MC)$, there exists $f_A \in \Hom_{\MD}(F(A), 1)$ such that $\Hom_{\MD}(F(A), 1) = \{f_A\}$. We define the \textbf{final natural transformation induced by $1$} from $F$ to $\Del_1$, denoted $\phi_{1}: F \Rightarrow \Del_1$, by 
+		Let $\MC$, $\MD$ be categories and $1 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $1$ is final in $\MD$. Then for each $A \in \Obj(\MC)$, there exists $f_A \in \Hom_{\MD}(F(A), 1)$ such that $\Hom_{\MD}(F(A), 1) = \{f_A\}$. We define the \textbf{final natural transformation induced by $1$} from $F$ to $\Del^{\MC}_1$, denoted $\phi_{1}: F \Rightarrow \Del^{\MC}_1$, by 
 		$(\phi_{1})_A = f_A$.
 	\end{defn}
 
 	\begin{ex} \lex{15018}
-		Let $\MC$, $\MD$ be categories and $0 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $0$ is initial in $\MD$. Then $\eta_0: \Del_0 \Rightarrow F$ is a natural transformation.
+		Let $\MC$, $\MD$ be categories and $0 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $0$ is initial in $\MD$. Then $\eta_0: \Del^{\MC}_0 \Rightarrow F$ is a natural transformation.
 	\end{ex}
 
 	\begin{proof} \
 		\begin{enumerate}
-			\item By definition, for each $A \in \Obj(\MC)$, $(\eta_0)_A \in \Hom_{\MD}(\Del_0(A), F(A))$
+			\item By definition, for each $A \in \Obj(\MC)$, $(\eta_0)_A \in \Hom_{\MD}(\Del^{\MC}_0(A), F(A))$
 			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Since 
 			\begin{align*}
 				F(f) \circ (\eta_0)_A 
@@ -1935,8 +1943,8 @@
 			i.e. the following diagram commutes:
 			\[ 
 			\begin{tikzcd}[baseline= 7]
-				\Del_0(A)  \arrow[r, "(\eta_0)_A"]  \arrow[d, "\Del_0(f)"']  & F(A)   \arrow[d, "F(f)"]\\
-				\Del_0(B) \arrow[r, "(\eta_0)_B"] &  F(B) \\
+				\Del^{\MC}_0(A)  \arrow[r, "(\eta_0)_A"]  \arrow[d, "\Del^{\MC}_0(f)"']  & F(A)   \arrow[d, "F(f)"]\\
+				\Del^{\MC}_0(B) \arrow[r, "(\eta_0)_B"] &  F(B) \\
 			\end{tikzcd}
 			=
 			\begin{tikzcd}[baseline= 7]
@@ -1945,11 +1953,11 @@
 			\end{tikzcd}
 			\]
 		\end{enumerate}
-		So $\eta_0: \Del_0 \Rightarrow F$ is a natural transformation.
+		So $\eta_0: \Del^{\MC}_0 \Rightarrow F$ is a natural transformation.
 	\end{proof}
 	
 	\begin{ex} \lex{15019}
-		Let $\MC$, $\MD$ be categories and $1 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $1$ is final in $\MD$. Then $\phi_{1}: F \Rightarrow \Del_0$ is a natural transformation.
+		Let $\MC$, $\MD$ be categories and $1 \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. Suppose that $1$ is final in $\MD$. Then $\phi_{1}: F \Rightarrow \Del^{\MC}_0$ is a natural transformation.
 	\end{ex}
 
 	\begin{proof}
@@ -1957,23 +1965,23 @@
 	\end{proof}
 	
 	\begin{ex} \lex{15020}
-		Let $\MC$, $\MD$ be categories and $0 \in \Obj(\MD)$. Suppose that $\MC$ is small. If $0$ is initial in $\MD$, then $\Del_0$ is initial in $\MD^{\MC}$. 
+		Let $\MC$, $\MD$ be categories and $0 \in \Obj(\MD)$. Suppose that $\MC$ is small. If $0$ is initial in $\MD$, then $\Del^{\MC}_0$ is initial in $\MD^{\MC}$. 
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $0$ is initial in $\MD$. Let $F \in \Obj(\MD^{\MC})$, $\al \in \Hom_{\MD^{\MC}}(\Del_0, F)$ and $A \in \Obj(\MC)$. Then
+		Suppose that $0$ is initial in $\MD$. Let $F \in \Obj(\MD^{\MC})$, $\al \in \Hom_{\MD^{\MC}}(\Del^{\MC}_0, F)$ and $A \in \Obj(\MC)$. Then
 		\begin{align*}
 			\al_A 
-			& \in \Hom_{\MD}(\Del_0(A), F(A)) \\
+			& \in \Hom_{\MD}(\Del^{\MC}_0(A), F(A)) \\
 			& =  \Hom_{\MD}(0, F(A)) \\
 			& = \{(\eta_0)_A\}
 		\end{align*}
-		Hence $\al_A = (\eta_0)_A$. Since $A \in \Obj(\MC)$ is arbitrary, $\al = \eta_0$. Since $\al \in  \Hom_{\MD^{\MC}}(\Del_0, F)$ is arbitrary, $ \Hom_{\MD^{\MC}}(\Del_0, F) = \{\eta_0\}$. Therefore $\Del_0$ is initial in $\MD^{\MC}$.
+		Hence $\al_A = (\eta_0)_A$. Since $A \in \Obj(\MC)$ is arbitrary, $\al = \eta_0$. Since $\al \in  \Hom_{\MD^{\MC}}(\Del^{\MC}_0, F)$ is arbitrary, $ \Hom_{\MD^{\MC}}(\Del^{\MC}_0, F) = \{\eta_0\}$. Therefore $\Del^{\MC}_0$ is initial in $\MD^{\MC}$.
 	\end{proof}
 
 
 	\begin{ex} \lex{15021}
-		Let $\MC$, $\MD$ be categories and $1 \in \Obj(\MD)$. Suppose that $\MC$ is small. If $1$ is final in $\MD$, then $\Del_1$ is final in $\MD^{\MC}$. 
+		Let $\MC$, $\MD$ be categories and $1 \in \Obj(\MD)$. Suppose that $\MC$ is small. If $1$ is final in $\MD$, then $\Del^{\MC}_1$ is final in $\MD^{\MC}$. 
 	\end{ex}
 
 	\begin{proof}
@@ -2081,7 +2089,7 @@
 	\newpage
 	\section{Universal Morphisms and Limits}
 	
-	\subsubsection{Introduction}
+	\subsubsection{Universal Morphisms}
 
 	\begin{defn}
 		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$, $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(X, F(A))$. Then $(A, f)$ is said to be a \textbf{universal morphism} from $X$ to $F$ if for each $A' \in \Obj(\MC)$ $f' \in \Hom_{\MD}(X, F(A'))$, there exists a unique $\al \in \Hom_{\MC}(A, A')$ such that $f' = F(\al) \circ f$, i.e. the following diagram commutes:
@@ -2092,7 +2100,7 @@
 		\end{tikzcd}
 		\hspace{.3cm}
 		\begin{tikzcd}
-			A  \arrow[d, "\al"', dashed] \\
+			A  \arrow[d, "\al", dashed] \\
 			A'  
 		\end{tikzcd}
 		\]
@@ -2129,55 +2137,206 @@
 		
 	\end{proof}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	\newpage
-	\section{Limits and Colimits}
+	\subsection{Limits}
+	
+	\begin{defn}
+		Let $\MJ$, $\MC$ be categories and $D: \MJ \rightarrow \MC$. Then $D$ is said to be a \textbf{diagram of type $\MJ$ in $\MC$}.
+	\end{defn}
+
+	\begin{note}
+		We are usually interested in the case that $\MJ$ is small. We will identify a diagram $D$ with its image. 
+	\end{note}
+
+	\begin{exmp}
+		Define $\MJ$ by
+		\begin{itemize}
+			\item  $\Obj(\MJ) = \{1, 2, 3\}$ and for $i,j \in \Obj(\MJ)$, $\Hom_{\MJ}(i, j) = \{a_{i,j}\}$,
+			\item for $i,j \in \Obj(\MJ)$, $\Hom_{\MJ}(i,j) = \{a_{ij}\}$.
+		\end{itemize}
+		Let $\MC$ be a category and $D: \MJ \rightarrow \MC$. Without including the identity morphisms or compositions, we can visualize $D$ as follows:
+		\[
+		\begin{tikzcd}
+			&     1  \arrow[dl, "a"'] \arrow[r, "b"]        &  2 \arrow[dl, "c"] \\
+			3 \arrow[r, "d"'] &        4   & \\
+		\end{tikzcd}
+		\overset{D}{\longrightarrow}
+		\begin{tikzcd}
+			&     D_1  \arrow[dl] \arrow[r]        &  D2 \arrow[dl] \\
+			D_3 \arrow[r] &        D_4   & \\
+		\end{tikzcd}
+		\]
+	\end{exmp}
+
+	\begin{defn}
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$. We define the \textbf{category of cones to $D$}, denoted $\Cone(D)$, by $\Cone(D) = (\Del^{\MJ} \downarrow D)$.
+	\end{defn}
+
+
+	\begin{exmp}
+		Let $\MJ$
+		\[
+		\begin{tikzcd}
+			&  &  X \arrow[ddd, "\phi_1"'] \arrow[ddddll, "\phi_3"']  \arrow[dddrrr, "\phi_2"], \arrow[ddddr, "\phi_4"] &       &    \\
+			&       &     &       &    \\
+			&       &     &       &    \\
+			&       &  D_1  \arrow[dll] \arrow[rrr]    &       & &  D2 \arrow[dll] \\
+			D_3 \arrow[rrr] &       &     &  D_4  &    \\
+		\end{tikzcd}
+		\]
+	\end{exmp}
+	
+
+	\begin{defn}
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$. We define the \textbf{category of cocones from $D$}, denoted $\Cocone(D)$, by $\Cocone(D) = (D \downarrow \Del^{\MJ})$.
+	\end{defn}
+
+	\begin{defn}
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Cone(D)$. Then $(X, \phi)$ is said to be a \textbf{limit of $D$} if $(X, \phi)$ is a universal morphism from $\Del^{\MJ}$ to $D$.  
+	\end{defn}
+
+
+
+	\begin{note}
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Cone(D)$. Then 
+		\begin{align*}
+			\text{$(X, \phi)$  is a limit of $D$} 
+			& \iff \text{$(X, \phi)$ is terminal in $\Cone(D)$} \\
+			& \iff \text{for each $(Y, \psi) \in \Cone(D)$, there exists a unique} \\
+			& \hspace{1.3cm }\text{$f \in \Hom_{\MC}(Y, X)$ such that for each $j \in \MJ$, $\psi_j = \phi_j \circ f$}
+		\end{align*} 
+	\end{note} 
+
+
+	\begin{defn}
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Cocone(D)$. Then $(X, \phi)$ is said to be a \textbf{colimit of $D$} if $(X, \phi)$ is a universal morphism from $D$ to $\Del^{\MJ}$.  
+	\end{defn}
+
+	\begin{note}
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Cone(D)$. Then 
+		\begin{align*}
+			\text{$(X, \phi)$  is a colimit of $D$} 
+			& \iff \text{$(X, \phi)$ is initial in $\Cocone(D)$} \\
+			& \iff \text{for each $(Y, \psi) \in \Cocone(D)$, there exists a unique} \\
+			& \hspace{1.3cm }\text{$f \in \Hom_{\MC}(X, Y)$ such that for each $j \in \MJ$, $\psi_j = f \circ \phi_j $}
+		\end{align*} 
+	\end{note} 
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsubsection{Products and Coproducts}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsubsection{Equalizers and Coequalizers}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 \end{document}
