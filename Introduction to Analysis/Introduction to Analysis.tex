@@ -123,8 +123,20 @@
 \DeclareMathOperator{\cnv}{conv}
 \DeclareMathOperator{\epi}{epi}
 
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\Obj}{Obj}
+\DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
+\DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
+\DeclareMathOperator*{\0}{\mbf{0}}
+\DeclareMathOperator*{\1}{\mbf{1}}
+\DeclareMathOperator*{\TopEq}{\text{\tbf{TopEq}}}
+\DeclareMathOperator*{\Top}{\text{\tbf{Top}}}
+\DeclareMathOperator*{\Cone}{\text{\tbf{Cone}}}
+\DeclareMathOperator*{\Cocone}{\text{\tbf{Cocone}}}
 
 
 \newcommand{\lex}[1]{\label{ex:#1}}
@@ -1784,7 +1796,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\end{defn}
 	
 	\begin{ex} \lex{34008}
-	Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $\sim_X, \sim_Y$ eqivalence relations on $X$ and $Y$ respectively, $\pi_X:X \rightarrow X/\sim_X$, $\pi_Y:Y \rightarrow Y/\sim_Y$ the projection map and $f:X \rightarrow Y$ continuous. If $f$ is $(\sim_X, \sim_Y)$-invariant, then there exists a unique $\bar{f}:X / {\sim}_X \rightarrow Y/ {\sim_Y}$ such that $ \bar{f} \circ \pi_X = \pi_Y \circ f$, i.e. the following diagram commutes:
+	Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $\sim_X, \sim_Y$ eqivalence relations on $X$ and $Y$ respectively, $\pi_X:X \rightarrow X/\sim_X$, $\pi_Y:Y \rightarrow Y/\sim_Y$ the respective projection maps and $f:X \rightarrow Y$ continuous. If $f$ is $(\sim_X, \sim_Y)$-invariant, then there exists a unique $\bar{f}:X / {\sim}_X \rightarrow Y/ {\sim_Y}$ such that $ \bar{f} \circ \pi_X = \pi_Y \circ f$, i.e. the following diagram commutes:
 	\[ 
 	\begin{tikzcd}
 		X  \arrow[r, "f"]  \arrow[d, "\pi_X"']  & Y   \arrow[d, "\pi_Y"]\\
@@ -1828,8 +1840,66 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\end{itemize}
 
 	\end{proof}
-	
-	
+
+	\begin{defn}
+		We define the category $\TopEq$ 
+		\begin{itemize}
+			\item $\Obj(\TopEq) = \{(X, \sim):  \text{ $X$ is a topological space and $\sim$ is an equivalence relation on $X$}\}$
+			\item $\Hom_{\TopEq}((X, \sim_X), (Y, \sim_Y)) = \{f: X \rightarrow Y: \text{$f$ is continuous and $f$ is $(\sim_X, \sim_Y)$-invariant}\}$. 
+		\end{itemize}
+	\end{defn}
+
+	\begin{defn}
+		We define $F: \TopEq \rightarrow \Top$ by
+		\begin{itemize}
+			\item $F(X, \sim) = X/\sim$
+			\item $F(f) = \bar{f}$
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		We have that $F: \TopEq \rightarrow \Top$ is a functor
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $(X, \sim_X)$, $(Y, \sim_Y) \in \TopEq$ and $f \in \Hom_{\TopEq}((X, \sim_X), (Y, \sim_Y))$. The previous exercise implies that $F(f) \in \Hom_{\Top}(X/{\sim_X}, Y/ {\sim_Y})$. 
+			\item  Let $(X, \sim_X)$, $(Y, \sim_Y)$, $(Z, \sim_Z) \in \TopEq$,  $f \in \Hom_{\TopEq}((X, \sim_X), (Y, \sim_Y))$ and $g \in \Hom_{\TopEq}((Y, \sim_Y), (Z, \sim_Z))$. Then 
+			\begin{align*}
+				\pi_Z \circ (g \circ f)
+				& = (\pi_Z \circ g) \circ f \\
+				& = (\bar{g} \circ \pi_Y) \circ f \\
+				& = \bar{g} \circ (\pi_Y \circ f) \\
+				& = \bar{g} \circ (\bar{f} \circ \pi_X) \\
+				& = (\bar{g} \circ \bar{f}) \circ \pi_X \\
+			\end{align*}
+			Uniqueness implies that $F(g \circ f) = F(g) \circ F(f)$. 
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \sim_X)$, $(Y, \sim_Y)$, $(Z, =)  \in \Obj(\TopEq)$, $\iota \in \Hom_{\TopEq}((X, \sim_X), (Y, \sim_Y))$,  $ f \in \Hom_{\TopEq}((X, \sim_X), (Z, =))$ and  $ g \in \Hom_{\TopEq}((Y, \sim_Y), (Z, =))$. 
+		Then $f = g \circ \iota $ iff $\bar{f} = \bar{g} \circ \bar{\iota}$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f = g \circ \iota$. Functoriality implies that 
+		\begin{align*}
+			\bar{f} 
+			& = F(f) \\
+			& = F(g \circ \iota) \\
+			& = F(g) \circ F(\iota) \\
+			&= \bar{g} \circ \bar{\iota}
+		\end{align*}
+		Conversely, suppose that $\bar{f} = \bar{g} \circ \bar{\iota}$. Then
+		\begin{align*}
+			f
+			& = \bar{f} \circ \pi_X \\
+			& = \bar{g} \circ \bar{\iota} \circ \pi_X \\
+			& = \bar{g} \circ \pi_Y \circ \iota \\
+			& = g \circ \iota 
+		\end{align*}
+	\end{proof}
 	
 	\begin{ex}
 		Let $G$ be a group, $X$ a topological space and $\phi: G \times X \rightarrow X$ a group action. Suppose that for each $g \in G$, the map $\phi_g \in \Sym(X)$ defined by $\phi_g(x) = g \cdot x$ is continuous. Then $\pi: X \rightarrow X / G$ is open. 
