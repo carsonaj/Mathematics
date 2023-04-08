@@ -1,8 +1,48 @@
-\documentclass[12pt]{amsart}
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{book}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+%    Include referenced packages here.
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
-\usepackage{tikz-cd}
-
+\usepackage{tikz-cd} 
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
 \hypersetup{
@@ -13,21 +53,6 @@
 }
 
 
-%
-%
-%
-\newif\ifhideproofs
-%\hideproofstrue %uncomment to hide proofs
-%
-%
-%
-%
-\ifhideproofs
-\usepackage{environ}
-\NewEnviron{hide}{}
-\let\proof\hide
-\let\endproof\endhide
-\fi
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
@@ -39,67 +64,129 @@
 \newtheorem{cor}[definition]{Corollary}
 \newtheorem{conj}[definition]{Conjecture}
 \newtheorem{ex}[definition]{Exercise}
+\newtheorem{exmp}[definition]{Example}
 
+% hide proofs
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
 
+% lower-case greek
 \newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
 \newcommand{\gam}{\gamma}
-\newcommand{\Gam}{\Gamma}
-\newcommand{\be}{\beta} 
-\newcommand{\ze}{\zeta} 
-\newcommand{\del}{\delta} 
-\newcommand{\Del}{\Delta}
-\newcommand{\lam}{\lambda}  
-\newcommand{\Lam}{\Lambda} 
+\newcommand{\del}{\delta}
 \newcommand{\ep}{\epsilon}
-\newcommand{\sig}{\sigma} 
-\newcommand{\om}{\omega}
+\newcommand{\ze}{\zeta} 
 \newcommand{\kap}{\kappa} 
+\newcommand{\lam}{\lambda}  
+\newcommand{\sig}{\sigma} 
+\newcommand{\omi}{\omicron}
+\newcommand{\up}{\upsilon}
+\newcommand{\om}{\omega}
+
+% upper-case greek
+\newcommand{\Gam}{\Gamma}
+\newcommand{\Del}{\Delta}
+\newcommand{\Lam}{\Lambda} 
 \newcommand{\Om}{\Omega}
+
+% blackboard bold
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\N}{\mathbb{N}}
 \newcommand{\E}{\mathbb{E}}
-\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\T}{\mathbb{T}}
-\newcommand{\Q}{\mathbb{Q}}
-\renewcommand{\P}{\mathbb{P}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% math caligraphic
 \newcommand{\MA}{\mathcal{A}}
-\newcommand{\MC}{\mathcal{C}}
 \newcommand{\MB}{\mathcal{B}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MD}{\mathcal{D}}
+\newcommand{\ME}{\mathcal{E}}
 \newcommand{\MF}{\mathcal{F}}
 \newcommand{\MG}{\mathcal{G}}
-\newcommand{\ML}{\mathcal{L}}
-\newcommand{\MN}{\mathcal{N}}
-\newcommand{\MS}{\mathcal{S}}
-\newcommand{\MP}{\mathcal{P}}
-\newcommand{\ME}{\mathcal{E}}
-\newcommand{\MT}{\mathcal{T}}
-\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MH}{\mathcal{H}}
 \newcommand{\MI}{\mathcal{I}}
-\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MJ}{\mathcal{J}}
+\newcommand{\MK}{\mathcal{K}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MN}{\mathcal{N}}
 \newcommand{\MO}{\mathcal{O}}
+\newcommand{\MP}{\mathcal{P}}
 \newcommand{\MQ}{\mathcal{Q}}
+\newcommand{\MR}{\mathcal{R}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MV}{\mathcal{V}}
+\newcommand{\MW}{\mathcal{W}}
+\newcommand{\MX}{\mathcal{X}}
+\newcommand{\MY}{\mathcal{Y}}
+\newcommand{\MZ}{\mathcal{Z}}
 
+% label/reference
+\newcommand{\lex}[1]{\label{ex:#1}}
+\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
 
-\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\ld}[1]{\label{defn:#1}}
+\newcommand{\rd}[1]{Definition \ref{defn:#1}}
 
-\newcommand{\dm}{\, d m}
-\newcommand{\dmu}{\, d \mu}
-\newcommand{\dnu}{\, d \nu}
-\newcommand{\dlam}{\, d \lambda}
+% math operators
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\iso}{Iso}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\bal}{bal}
+\DeclareMathOperator{\cnv}{conv}
+\DeclareMathOperator{\epi}{epi}
 
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\Obj}{Obj}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\diam}{diam}
 
-\newcommand{\io}{\text{ i.o.}}
-\newcommand{\ev}{\text{ ev.}}
+% category theory
+\DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
+\DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
+\DeclareMathOperator*{\0}{\mbf{0}}
+\DeclareMathOperator*{\1}{\mbf{1}}
+\DeclareMathOperator*{\TopEq}{\text{\tbf{TopEq}}}
+\DeclareMathOperator*{\Top}{\text{\tbf{Top}}}
+\DeclareMathOperator*{\Cone}{\text{\tbf{Cone}}}
+\DeclareMathOperator*{\Cocone}{\text{\tbf{Cocone}}}
+
+% notation
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
-
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
 \newcommand{\p}{\partial}
 
-\newcommand{\RG}{[0,\infty]}
-\newcommand{\Rg}{[0,\infty)}
-\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
-
+% limits
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
 \newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
 \newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
@@ -107,45 +194,88 @@
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
 
+% intervals
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ru}{(\infty, \infty]}
+\newcommand{\Rd}{[\infty, \infty)}
+\newcommand{\ui}{[0,1]}
+
+% integration \newcommand{\dm}{\, d m}
+\newcommand{\dmu}{\, d \mu}
+\newcommand{\dnu}{\, d \nu}
+\newcommand{\dlam}{\, d \lambda}
+\newcommand{\dP}{\, d P}
+\newcommand{\dQ}{\, d Q}
+\newcommand{\dm}{\, d m}
+
+% abreviations 
+\newcommand{\lsc}{lower semicontinuous}
+
+% misc
+\newcommand{\as}[1]{\overset{#1}{\sim}}
+\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
+\newcommand{\io}{\text{ i.o.}}
+%\newcommand{\ev}{\text{ ev.}}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
 \newcommand{\loc}{\text{loc}}
 \newcommand{\BV}{\text{BV}}
 \newcommand{\NBV}{\text{NBV}}
 \newcommand{\TV}{\text{TV}}
 
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\spn}{span}
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Homeo}{Homeo}
-\DeclareMathOperator{\Sym}{Sym}
-\DeclareMathOperator{\diam}{diam}
-\DeclareMathOperator{\iso}{Iso}
-\DeclareMathOperator{\id}{id}
-\DeclareMathOperator{\cl}{cl}
-\DeclareMathOperator{\Int}{Int}
-\DeclareMathOperator{\bal}{bal}
-\DeclareMathOperator{\cnv}{conv}
-\DeclareMathOperator{\epi}{epi}
+\newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
 
 
-\newcommand{\lex}[1]{\label{ex:#1}}
-\newcommand{\ld}[1]{\label{defn:#1}}
-\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
-\newcommand{\rd}[1]{Definition \ref{defn:#1}}
 
-
+\makeindex
 
 \begin{document}
 	
+	\frontmatter
+	
 	\title{Introduction to Measure and Integration}
+	
+	%    Remove any unused author tags.
+	
+	%    author one information
 	\author{Carson James}
+	\thanks{}
+	
+	%    author two information
+	\author{}
+	\thanks{}
+	
+	\date{}
+	
 	\maketitle
+	
+	%    Dedication.  If the dedication is longer than a line or two,
+	%    remove the centering instructions and the line break.
+	%\cleardoublepage
+	%\thispagestyle{empty}
+	%\vspace*{13.5pc}
+	%\begin{center}
+	%  Dedication text (use \\[2pt] for line break if necessary)
+	%\end{center}
+	%\cleardoublepage
+	
+	%    Change page number to 6 if a dedication is present.
+	\setcounter{page}{4}
 	
 	\tableofcontents
 	
-	\newpage
+	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+	%\include{}
 	
-	\section*{Preface}
+	\mainmatter
+	%    Include main chapters here.
+	\chapter*{Preface}
+	\addcontentsline{toc}{chapter}{Preface}
+	\begin{flushleft}
+		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
+	\end{flushleft}
+
 	\begin{flushleft}
 %		This aim of this book is to help students develope a basic grasp of the theory of integration. A typical student's first exposure to integration is in the context of the Darboux integral. This integral is applicable to a relatively small class of complex-valued functions of one or more real variables. Although this is integral is of critical importance, it is not sufficient for many purposes. Extending the Darboux integral to the Lebesgue integral, we can define a notion of integration for certain complex-valued functions on more general spaces, like for example topological spaces. To do so, we must first develop some measure theory, which is useful in its own right. Further extending the Lebesgue integral to the Bochner integral, we can define a notion of integration for certain vector valued functions. 
 	\end{flushleft}
@@ -171,9 +301,9 @@
 	
 	
 	
-	\section{The Darboux Integral}
+	\chapter{The Darboux Integral}
 	
-	\subsection{Definition and Properties}
+	\section{Definition and Properties}
 	\begin{defn} \ld{00000} 
 		Let $a,b \in \R$. Suppose that $a<b$. Define $$B([a,b]) = \{f:[a,b] \rightarrow \R: f\text{ is bounded}\}$$
 	\end{defn}
@@ -516,10 +646,10 @@
 	
 	\newpage
 	
-	\section{Measure Spaces}
+	\chapter{Measure Spaces}
 	
 	
-	\subsection{Elementary Families and Algebras}
+	\section{Elementary Families and Algebras}
 	
 	\begin{defn} \ld{00000} 
 		Let $X$ be a set and $\ME \subset \MP(X)$. Then $X$ is said to be an \textbf{elementary family on X} if 
@@ -608,7 +738,7 @@
 
 
 	\newpage
-	\subsection{Sigma Algebras}
+	\section{Sigma Algebras}
 		
 	\begin{defn} \ld{00000} 
 		Let $X$ be a set and $\MA \subset \MP(X)$. Then $\MA$ is said to be a $\sigma$\textbf{-algebra} on $X$ if 
@@ -774,7 +904,7 @@
 
 
 	\newpage
-	\subsection{Measurable Functions}
+	\section{Measurable Functions}
 	
 	\begin{defn} \ld{00000} 
 		Let $(X,\MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is said to be \textbf{$(\MA,\MB)$-measurable} if for each $B \in \MB$, $f^{-1}(B) \in \MA$. When $(Y, \MB) = (\R, \MB(\R))$ we say that $f$ is $\MA$-\textbf{measurbale}. If $(Y,\MB) = (\R, \MB(\R))$ and $(X,\MA) = (\R, \MB(\R))$ or $(\R, \ML)$, then we say that $f$ is \textbf{Borel measurable} or \textbf{Lebsgue measurbale} respectively.
@@ -1145,7 +1275,7 @@
 	
 	
 	\newpage
-	\subsection{Subspace Sigma Algebras}
+	\section{Subspace Sigma Algebras}
 	
 	\begin{defn} \ld{24001} 
 		Let $X$ be a set, $\MC \subset \MP(X)$ and $E \subset X$. We define $\MC \cap E \subset \MP(X)$ by $$\MC \cap E = \{S \cap E: S \in \MC\}$$ 
@@ -1246,7 +1376,7 @@
 
 
 	\newpage
-	\subsection{Product Sigma Algebras}
+	\section{Product Sigma Algebras}
 	
 	\begin{defn} \ld{25001}
 		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ be a collection of measurable spaces. We define the \textbf{product $\sig$-algebra} on $\prod_{\al \in A}X_{\al}$, denoted by $\bigotimes\limits_{\al \in A} \MA_{\al}$, by $$\bigotimes\limits_{\al \in A} \MA_{\al} = \sig(\pi_{\al}: \al \in A)$$
@@ -1528,15 +1658,112 @@
 	
 	
 	
+	\newpage
+	\chapter{Coproduct Sigma Algebra}
+	
+	\begin{defn}
+		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ be a collection of measurable spaces. We define the \textbf{coproduct $\sig$-algebra} on $\coprod\limits_{\al \in A}X_{\al}$, denoted $\bigoplus\limits_{\al \in A} \MA_{\al}$, by 
+		$$\bigoplus\limits_{\al \in A} \MA_{\al} = \sig (\iota_{\al}: \al \in A)$$
+	\end{defn}
+
+	\begin{ex}
+		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ be a collection of measurable spaces. Then $$\bigoplus\limits_{\al \in A} \MA_{\al} = \{V \subset \coprod_{\al \in A}  X_{\al}: \text{ for each $\al \in A$, $\iota_{\al}^{-1}(V) \in \MA_{\al}$}\}$$
+	\end{ex}
+
+	\begin{proof}
+		Set $\MF = \{V \subset \coprod_{\al \in A}  X_{\al}: \text{ for each $\al \in A$, $\iota_{\al}^{-1}(V) \in \MA_{\al}$}\}$.
+		\begin{enumerate}
+			\item Clearly $\varnothing \in \MF$.
+			\item Let $V \in \MF$. Then by definition, for each $\al \in A$,
+			\begin{align*}
+				\iota_{\al}^{-1}(V^c)
+				& = ( \iota_{\al}^{-1}(V))^c \\
+				& \in \MA_{\al}
+			\end{align*}
+			\item Let $(V_n)_{n \in \N} \subset \MF$. Then by definition, for each $\al \in A$,
+			\begin{align*}
+				\iota_{\al}^{-1}\bigg( \bigcup_{n \in \N} V_n \bigg)
+				& = \bigcup_{n \in \N} \iota_{\al}^{-1}(V_n)\\
+				& \in \MA_{\al}
+			\end{align*}
+		\end{enumerate}
+		So $\MF$ is a $\sig$-algebra.
+	\end{proof}
+
+	\begin{ex}
+		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ be a collection of measurable spaces. Then 
+		$$\bigoplus\limits_{\al \in A} \MA_{\al} = \bigg \{\coprod_{\al \in A} B_{\al}: B_{\al} \in \MA_{\al} \bigg\} $$
+	\end{ex}
+
+	\begin{proof}
+		Set  
+		\begin{itemize}
+			\item $\MF= \{V \subset \coprod_{\al \in A}  X_{\al}: \text{ for each $\al \in A$, $\iota_{\al}^{-1}(V) \in \MA_{\al}$}\}$ 
+			\item $\MG = \bigg \{  \coprod\limits_{\al \in A}  B_{\al}: \text{ for each $\al \in A$, } B_{\al} \in \MA_{\al} \bigg\}$
+			\end{itemize}
+			Let $V \in \MG$. Then for each $\al \in A$, there exists $B_{\al} \in \MA_{\al}$ such that $V =  \coprod\limits_{\al \in A}  B_{\al}$. Therefore, for each $\al \in A$, 
+			\begin{align*}
+				\iota_{\al}^{-1}(V)
+				& = \iota_{\al}^{-1} \bigg( \coprod\limits_{\al \in A}  B_{\al} \bigg) \\
+				& = B_{\al} \\
+				& \in \MA_{\al}
+			\end{align*}
+			Hence $V \in \MF$. Since $V \in \MG$ is arbitrary, $\MG \subset \MF$. \\
+			Conversely, let $V \in \MF$. Then for each $\al \in A$, $\iota_{\al}^{-1}(V) \in \MA_{\al}$. For each $\al \in A$, define $B_{\al} \in \MA_{\al}$ by $B_{\al} = \iota_{\al}^{-1}(V)$. Then 
+			\begin{align*}
+				V 
+				& = \coprod\limits_{\al \in A} B_{\al} \\
+				& \in \MG 
+			\end{align*}
+			Since $V \in \MF$ is arbitrary, $\MF \subset \MG$. The previous exercise implies that 
+			\begin{align*}
+				\MG
+				& = \MF \\
+				& = \bigoplus\limits_{\al \in A} \MA_{\al}
+			\end{align*}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	\newpage
-	\subsection{Quotient Sigma Algebras}
+	\section{Quotient Sigma Algebras}
 	\begin{defn}
 		Let $X,Y$ be sets, $\sim$ an equivalence relation on $X$ and $f: X \rightarrow Y$. Then $f$ is said to be \textbf{invariant under $\sim$} if for each $a,b \in X$, $\bar{a} = \bar{b}$ implies that $f(a) = f(b)$. 
 	\end{defn}
 	
-	\begin{ex} \lex{34008}
+	\begin{ex} \lex{}
 		Let $(X, \MA)$, $(Y, \MB)$ be topological spaces, $\sim$ an eqivalence relation on $X$, $\pi:X \rightarrow X/\sim$ the projection map and $f:X \rightarrow Y$ measurable. If $f$ is invariant under $\sim$, then there exists a unique $\bar{f}:X / {\sim} \rightarrow Y$ such that 
 		\begin{enumerate}
 			\item $\bar{f} \circ \pi = f$
@@ -1576,7 +1803,7 @@
 	
 	
 	\newpage
-	\subsection{Dynkin's Lemma}
+	\section{Dynkin's Lemma}
 	\begin{defn}
 		Let $X$ be a set and $\MP \subset \MP(X)$. Then $\MP$ is said to be a \textbf{$\pi$-system} on $X$ if for each $A,B \in \MP$, $A \cap B \in \MP$.
 	\end{defn}
@@ -1665,7 +1892,7 @@
 
 
 	\newpage
-	\subsection{Borel Spaces}
+	\section{Borel Spaces}
 	
 	\begin{ex} \lex{28001} 
 		For each $x \in [0, 1]$, there exists $(x_n)_{n \in \N} \subset \{0,1\}^{\N}$ such that $x = \sum\limits_{j \in \N} x_j2^{-j}$.
@@ -1941,6 +2168,119 @@
 			\item Clear by definition.
 		\end{enumerate}
 	\end{proof}
+
+		\begin{defn}
+		We define $a: \N^2 \rightarrow \N$ by $a(k,n) = 2^{k-1}(2n-1)$. 
+	\end{defn}
+	
+	\begin{ex}
+		We have that $a: \N^2 \rightarrow \N$ is a bijection.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item \textbf{Injectivity} \\ 
+			Let $(k,n), (k', n') \in \N^2$. Suppose that $a(k,n) = a(k',n')$. Then $2^{k-1}(2n-1) = 2^{k'-1}(2n'-1)$. Set $l = 2n-1$ and $l' = 2n'-1$. Then $l = 2^{k'-k}l'$. Since $l,l' \in \N$ and $l' \equiv 1 \pmod{2}$, we have that $k'-k \geq 0$. Since $l \equiv 1 \pmod{2}$, we have that $k'-k = 0$. Therefore $l = l'$ which implies that $n = n'$. Therefore $(k,n) = (k', n')$. Since  $(k,n), (k', n') \in \N^2$ are arbitrary, $a$ is injective.
+			\item \textbf{Surjectivity:} \\
+			Let $j \in \N$. Define $k_0,l_0 \in \N$ by $k_0 = \max \{k \in \N: \gcd(j, 2^{k-1}) = 2^{k-1}\}$ and $l_0 = j/2^{k_0-1}$. Since $l_0 \equiv 1 \pmod{2}$ there exists $n_0 \in \N$ such that $l_0 = 2n_0-1$. Thus, $a(k_0, n_0) = j$. Since $j \in \N$ is arbitrary, $a$ is surjective.
+		\end{itemize}
+	\end{proof}
+
+	\begin{defn}\
+		\begin{itemize}
+			\item We equip $(\{0,1\}^{\N})^{\N}$ with the product topology.
+			\item We define $\eta_0, \eta_1: \{0,1\}^{\N} \rightarrow \{0,1\}^{\N}$ and $H: \{0,1\}^{\N} \rightarrow (\{0,1\}^{\N})^{\N}$ by
+			\begin{itemize}
+				\item  $\eta_0(x) = (x_{2n})_{n \in \N}$
+				\item $\eta_1(x) = (x_{2n-1})_{n \in \N}$ 
+				\item for $k \in \N$, $[H(x)]_k = \eta_1 \circ (\eta_0)^{k-1}(x)$. 
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}\
+		\begin{enumerate}
+			\item For each $x \in \{0,1\}^{\N}$, $[H(x)]_k = (x_{2^{k-1}(2n-1)})_{n \in \N}$
+			\item $H: \{0,1\}^{\N} \rightarrow (\{0,1\}^{\N})^{\N}$ is a bijection
+			\item $H: \{0,1\}^{\N} \rightarrow (\{0,1\}^{\N})^{\N}$ is a homeomorphism
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x \in \{0,1\}^{\N}$ and $k \in \N$. Define $y \in \{0,1\}^{\N}$ by $ y = (\eta_0)^{k-1}(x)$. Clearly $y = (x_{2^{k-1}n})_{n \in \N}$. Then 
+			\begin{align*}
+				[H(x)]_k
+				& = \eta_1 \circ (\eta_0)^{k-1}(x) \\
+				& = \eta_1(y) \\
+				& = (y_{2n-1})_{n \in \N} \\
+				& =  (x_{2^{k-1}(2n-1)})_{n \in \N}
+			\end{align*}
+			\item  
+			\begin{itemize}
+				\item \textbf{Injectivity:} \\
+				Let $x, y \in \{0,1\}^{\N}$. Suppose that $H(x) = H(y)$. Let $j \in \N$. Define $(k,n) \in \N^2$ by $(k,n) = a^{-1}(j)$. Then $j = 2^{k-1}(2n-1)$ and
+				\begin{align*}
+					x_j
+					& = x_{2^{k-1}(2n-1)} \\
+					& = ([H(x)]_k)_n \\
+					& = ([H(y)]_k)_n \\
+					& = y_{2^{k-1}(2n-1)} \\
+					& = y_j
+				\end{align*}
+				Since $j \in \N$ is arbitrary, $x = y$. Since $x,y \in \{0,1\}^{\N}$ are arbitrary, $H$ is injective.
+				\item \textbf{Surjectivity:} \\
+				Let $X \in (\{0,1\}^{\N})^{\N}$. Define $(k_j,n_j)_{j \in \N} \in (\N^2)^{\N}$ and $x \in \{0,1\}^{\N}$ by $(k_j,n_j) = a^{-1}(j)$ and $x_j = (X_{k_j})_{n_j}$. Let $(k,n) \in \N$. Define $j \in \N$ by $j = a(k,n)$. Then
+				\begin{align*}
+					([H(x)]_{k})_{n} 
+					& = x_{2^{k-1}(2n-1)} \\
+					& = x_{a(k, n)} \\
+					& = x_j \\
+					& = (X_{k})_{n}
+				\end{align*}
+				Hence $X = H(x)$. Since $X \in (\{0,1\}^{\N})^{\N}$ is arbitrary, $H$ is surjective.
+			\end{itemize}
+			Therefore $H$ is a bijection.
+			\item Let $(x_{\al})_{\al \in A} \subset \{0,1\}^{\N}$ be a net and $x \in \{0,1\}^{\N}$. Suppose that $x_{\al} \rightarrow x$. Then for each $n \in \N$, 
+			\begin{align*}
+				(x_{\al})_n
+				& = \pi_n(x_{\al}) \\
+				& \rightarrow \pi_n(x) \\
+				& = x_n 
+			\end{align*}
+			Let $k \in \N$. Then for each $n \in \N$,
+			\begin{align*}
+				\pi_{n}(\pi_k(H(x_{\al})))
+				& = (x_{\al})_{ 2^{k-1}(2n -1)} \\
+				& \rightarrow x_{2^{k-1}(2n -1)} \\
+				& = \pi_n(\pi_k(H(x)))
+			\end{align*}
+			Thus 
+			$$\pi_k(H(x_{\al})) \rightarrow \pi_k(H(x))$$
+			Since $k \in \N$ is arbitrary, we have that 
+			$$H(x_{\al}) \rightarrow H(x)$$
+			Hence $H$ is continuous. \\
+			Conversely, let $(X_{\al})_{\al \in A} \subset (\{0,1\}^{\N})^{\N}$ be a net and $X \in (\{0,1\}^{\N})^{\N}$. Suppose that $X_{\al} \rightarrow X$. Then for each $k, n \in \N$, 
+			\begin{align*}
+				([X_{\al}]_k)_n  
+				& = \pi_n(\pi_k(X_{\al})) \\
+				& \rightarrow \pi_n(\pi_k(X)) \\ 
+				& = (X_k)_n
+			\end{align*}
+			Let $j \in \N$. Define $(k,n) \in \N^2$ by $(k,n) = a^{-1}(j)$. Then 
+			\begin{align*}
+				\pi_j(H^{-1}(X_{\al}))
+				& = [H^{-1}(X_{\al})]_j \\
+				& = ([X_{\al}]_k)_n \\
+				& \rightarrow (X_k)_n \\
+				& = [H^{-1}(X)]_j \\
+				& = \pi_j(H^{-1}(X))
+			\end{align*}
+		Since $j \in \N$ is arbitrary, 
+		$$H^{-1}(X_{\al}) \rightarrow H^{-1}(X)$$
+		Hence $H^{-1}$ is continuous. Thus $H$ is a homeomorphism.
+		\end{enumerate}
+	\end{proof}
 		
 	
 	
@@ -1969,7 +2309,7 @@
 	
 	
 	\newpage
-	\subsection{Limits of Sets}
+	\section{Limits of Sets}
 	
 	\begin{defn} \ld{00000} 
 		Let $X$ be a set and $\MA \subset \MP(X)$. We define $$\inf \MA = \bigcap_{A \in \MA } A ,\hspace{.5cm} \sup \MA = \bigcup_{A \in \MA} A$$
@@ -2207,7 +2547,7 @@
 	
 	
 	\newpage
-	\subsection{Measures}
+	\section{Measures}
 	
 	\begin{defn} \ld{00000} 
 		Let $(X, \MA)$ be a measurable space and $\mu:\MA \rightarrow \RG$. Then $\mu$ is said to be a \textbf{measure} on $(X, \MA)$ if 
@@ -2470,7 +2810,7 @@
 	
 	
 	\newpage
-	\subsection{Outer Measures}
+	\section{Outer Measures}
 	
 	\begin{defn} \ld{00000} 
 		Let $X$ be a set and $\mu* : \MP(X) \rightarrow [0, \infty]$. Then $\mu^*$ is said to be an \textbf{outer measure on X} if 
@@ -2570,7 +2910,7 @@
 	
 	
 	\newpage
-	\subsection{Product Measures}
+	\section{Product Measures}
 	
 	\begin{defn} \ld{00000} 
 		Let $(X,\MA, \mu), (Y,\MB, \nu)$ be $\sig$-finite measurable spaces. Put $\ME = \{A \times B: A \in \MA \text{ and } B \in \MB\}$. Then $\ME$ is an elementary family and thus $\MM_0 = \{\bigcup_{i =1}^n M_i: (M_i)_{i=1 }^n \subset \ME \text{ are disjoint}\}$ is an algebra on $X \times Y$. We define $\pi_0: \MM_0 \rightarrow \RG$ by $$\pi_0\bigg(\bigcup_{i=1}^n A_i \times B_i \bigg) = \sum_{i=1}^n\mu(A_i)\nu(B_i)$$ Then $\pi_0$ is a premeasure on $(X \times Y, M_0)$. Since $\MA \otimes \MB = \sig(\MM_0)$, we define the \textbf{product measure}, $\mu \otimes \nu$ on $(X \times Y, \MA \otimes \MB)$, to be the unique extension of $\pi_0$ to $\MA \otimes \MB$. The existence of which is guaranteed by a theorem in the previous section. In particular,
@@ -2615,7 +2955,7 @@
 
 
 	\newpage
-	\subsection{Pushforward Measures}
+	\section{Pushforward Measures}
 	
 	\begin{defn}
 		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$ measurable. We define the \textbf{pushforward of $\mu$ by $f$ on $(Y, \MB)$}, denoted $f_*\mu: \MB \rightarrow [0, \infty]$, by $$f_*\mu(B) = \mu(f^{-1}(B))$$
@@ -2660,9 +3000,9 @@
 	
 	
 	\newpage
-	\section{The Lebesgue Integral}
+	\chapter{The Lebesgue Integral}
 	
-	\subsection{Integration of Nonnegative Functions}
+	\section{Integration of Nonnegative Functions}
 	
 	\begin{thm}\textbf{Monotone Convergence Theorem:} \\
 		Let $(f_n)_{n \in \N} \subset L^+$. Suppose that for each $n \in \N$, $f_n \leq f_{n+1}$. Then $$\sup_{n \in \N} \int f_n = \int \sup_{n \in \N} f_n$$.
@@ -2937,7 +3277,7 @@
 	
 	
 	\newpage
-	\subsection{Integration of Complex Valued Functions}
+	\section{Integration of Complex Valued Functions}
 	
 	\begin{defn} \ld{00000} 
 		Let $f:X \rightarrow \C$ be measurable. Then $f$ is said to be \textbf{integrable} if $$\int |f| \dmu < \infty$$
@@ -3400,7 +3740,7 @@
 	
 	
 	\newpage
-	\subsection{Integration on Product Spaces}
+	\section{Integration on Product Spaces}
 	
 	\begin{note}
 		Recall the definition of the sections of $E$ and $f$ from the section on product $\sigma$-algebras. It is often helpful to observe that $(\chi_E)_x = \chi_{E_x}$ and $(\chi_E)^y = \chi_{E^y}$.
@@ -3555,7 +3895,7 @@
 	
 	
 	\newpage
-	\subsection{Modes of Convergence}
+	\section{Modes of Convergence}
 	
 	\begin{defn} \ld{35001} 
 		Let $(X, \MA, \mu)$ be a measure space, $(Y,d)$ a metric space, $(f_n)_{n \in \N} \subset L_Y^0(X, \MA, \mu)$ and $f \in L_Y^0(X, \MA, \mu)$. Then $(f_n)_{n \in \N}$ is said to \textbf{converge to $f$ in measure}, denoted $f_n \xrightarrow{\mu} f$, if for each $\ep > 0$, $$\mu(\{x \in X: d(f_n(x), f(x)) \geq \ep \}) \rightarrow 0 \hspace{.2cm }\text{ as } n \rightarrow \infty$$
@@ -3956,9 +4296,9 @@
 	
 	
 	\newpage
-	\section{The Radon-Nikodym Derivative}
+	\chapter{The Radon-Nikodym Derivative}
 	
-	\subsection{Signed Measures}
+	\section{Signed Measures}
 	
 	\begin{defn} \ld{41001} 
 		Let $(X, \MA)$ be a measurable space and $\nu : \MA \rightarrow [-\infty, \infty]$. Then $\nu$ is said to be a \textbf{signed measure} if 
@@ -4345,7 +4685,7 @@
 	
 	
 	\newpage	
-	\subsection{Complex Measures}
+	\section{Complex Measures}
 	
 	\begin{defn} \ld{43001} 
 		Let $(X, \MA)$ be a measurable space and $\nu:\MA \rightarrow \C$. Then $\nu$ is said to be a \textbf{complex measure} if 
@@ -4640,7 +4980,7 @@
 	
 	
 	\newpage
-	\subsection{Differentiation on $\R^n$}
+	\section{Differentiation on $\R^n$}
 	
 	\begin{defn} \ld{00000} 
 		Let $B \subset \R^n$. Then $B$ is said to be a \textbf{ball} if there exists $x \in \R^n$ and $r > 0$ such that $B = B(x, r)$. 
@@ -4806,7 +5146,7 @@
 	
 	
 	\newpage
-	\subsection{Functions of Bounded Variation}
+	\section{Functions of Bounded Variation}
 	
 	\begin{defn} \ld{00000} 
 		Let $F:\R \rightarrow \R$ be increasing. Define $F_+:\R \rightarrow \R$ and $F_-:\R \rightarrow \R$ by $$F_+(x) = \lim_{t \rightarrow x^+}F(t) = \inf \{F(t): t>x \}$$ and $$F_-(x) =  \lim_{t \rightarrow x^-}F(t) = \sup \{F(t): t < x \}$$ respectively.
@@ -5369,7 +5709,7 @@
 	
 	
 	\newpage
-	\subsection{Disintegration of Measures}
+	\section{Disintegration of Measures}
 	
 	\begin{ex} \lex{00000} 
 		Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. Define $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$. Then $ L^1(X, \MB, \mu_{\MB}) \subset L^1(X, \MA, \mu)$ and for each $f \in L^1(X, \MB, \mu_{\MB})$ and $B \in \MB$, 
@@ -5924,9 +6264,9 @@
 	
 	
 	\newpage
-	\section{$L^{p}$ Spaces}
+	\chapter{$L^{p}$ Spaces}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 	
 	\begin{defn} \ld{00000} 
 		Let $(X, \MA, \mu)$ be a measure space and $p \in (0, \infty]$. Define $  \| \cdot \|_p : L^0(X, \MA, \mu) \rightarrow [0, \infty]$ by $$\|f \|_p = \bigg(\int | f |^p \dmu \bigg)^{\frac{1}{p}} \hspace{1.5cm}( p < \infty)$$ 
@@ -6065,9 +6405,9 @@
 	
 	
 	\newpage
-	\section{Borel Measures}
+	\chapter{Borel Measures}
 	
-	\subsection{Radon Measures}
+	\section{Radon Measures}
 	
 	\begin{defn} \ld{00000} 
 	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a measure and $E \in \MB(X)$. Then $\mu$ is said to be 
@@ -6234,7 +6574,7 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage	
-	\subsection{Radon Measures on LCH Spaces}
+	\section{Radon Measures on LCH Spaces}
 	
 	\begin{defn} \ld{00000} 
 	Let $X$ be a topological space and $I: C_c(X) \rightarrow \C$ a linear functional. Then $I$ is said to be \textbf{positive} if for each $f \in C_c(X, \R)$, $f \geq 0 $ implies that $I(f) \geq 0$.
@@ -6409,7 +6749,7 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage
-	\subsection{Borel Measures on Metric Spaces}
+	\section{Borel Measures on Metric Spaces}
 	\begin{note}
 		Let $X$ be a metric space and $A \subset X$. For $\ep >0$, we write $A_{\ep} = \{x \in X: d(x, A) < \ep\}$ and recall that $A_{\ep}$ is open.
 	\end{note}
@@ -6669,9 +7009,9 @@ and $\mu$ is inner regular on $E$.
 
 
 	\newpage
-	\section{Haar Measure}
+	\chapter{Haar Measure}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 	
 	\begin{note}
 	This section assumes familiarity with topological groups. See section $8.1$ of \cite{analysis} for details. 
@@ -6940,7 +7280,7 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage
-	\subsection{Fundamental Examples}		
+	\section{Fundamental Examples}		
 	
 	\begin{note}
 		The Haar measure on  $(\R^n, +)$ is $m$.
@@ -7039,7 +7379,7 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	
-	\subsection{Action on Measures}
+	\section{Action on Measures}
 	\begin{ex}
 	Let $G$ be a locally compact group, $\mu$ a left Haar measure on $G$ and $\nu \in \MM(G)$. If $\nu \ll \mu$, then ${l_g}_*\nu \ll \mu$.
 	\end{ex}
@@ -7120,7 +7460,7 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage
-	\subsection{Measures Invariant under Group Actions}
+	\section{Measures Invariant under Group Actions}
 	\begin{defn} \ld{00000} 
 		Let $G$ be a group, $X$ a set, $\phi: G \times X \rightarrow X$ a group action and $g \in G$. Define $l_g:X \rightarrow G$ by $l_g(x) = g \cdot x$. 
 	\end{defn}
@@ -7248,9 +7588,9 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage
-	\section{Hausdorff Measure}
+	\chapter{Hausdorff Measure}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 	
 	\begin{defn}
 	Let $X$ be a metric space and $\mu^*: \MP(X) \rightarrow [0, \infty]$ an outer measure on $X$. Then $\mu^*$ is said to be a \textbf{metric outer measure on $X$} if for each $A, B \subset X$, $d(A,B) > 0$ implies that 
@@ -7342,7 +7682,7 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage
-	\subsection{Hausdorff Measure on Smooth Manifolds}
+	\section{Hausdorff Measure on Smooth Manifolds}
 	
 	
 	
@@ -7365,7 +7705,7 @@ and $\mu$ is inner regular on $E$.
 	
 		
 	\newpage
-	\subsection{Induced Measures on Isometric Orbit Spaces}
+	\section{Induced Measures on Isometric Orbit Spaces}
 	
 	\begin{note}
 	This section assumes familiarity with induced metrics on orbit spaces of metric spaces under isometric group actions. See section $9.1$ of \cite{analysis} for details. 
@@ -7466,9 +7806,9 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage
-	\section{Measure and Integration on Banach Spaces}
+	\chapter{Measure and Integration on Banach Spaces}
 	
-	\subsection{Borel Measures on Banach Spaces}
+	\section{Borel Measures on Banach Spaces}
 	
 	\begin{defn}
 		Let $X$ be a normed vector space. We define the \textbf{cylindrical $\sig$-algebra on $X$}, denoted $\ME(X)$, by $$\ME(X) = \sig_X(X^*)$$
@@ -7667,7 +8007,7 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage
-	\subsection{The Bochner Integral}
+	\section{The Bochner Integral}
 	
 	\begin{defn}
 		Let $(X, \MA)$ be a measurable space, $Y$ a Banach space and $f:X \rightarrow Y$. Then $f$ is said to be \textbf{strongly measurable} if 
@@ -8211,7 +8551,7 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	
 	
 	\newpage
-	\section{Banach Space Valued Measures}
+	\chapter{Banach Space Valued Measures}
 	
 
 
@@ -8239,7 +8579,7 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 
 
 	\newpage
-	\section{TODO}
+	\chapter{TODO}
 	\begin{itemize}
 		\item Add background for banach space valued measures like riesz representation theorem and radon-nikodym derivatives to be be able to talk about condition expectation of banach space valued random variables
 		\item Discuss disintegration of measures independently of probability by discussing the projection of $L^1(X, \MA)$ onto $L^1(X, \MB)$ for $\MB \subset \MA$ and the Doob-Dynkin Lemma. Use this to define the disitegration measure. Also do this for disintegration of vector measures.
@@ -8270,7 +8610,7 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	
 	
 	\newpage
-	\subsection{Applications to Hilbert Spaces}	
+	\section{Applications to Hilbert Spaces}	
 	
 	\begin{ex} \lex{00000} 
 	Let $(X, \MA, \mu)$ be a measure space, $H$ a separable Hilbert space, $f \in L^1_H$ and $a \in H$. Then $$\int \l f(x), a \r d\mu(x) = \bigg \l \int f(x) d \mu(x) , a\bigg \r$$ 
@@ -8312,9 +8652,9 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	
 
 	\newpage
-	\section{Appendix}
+	\chapter{Appendix}
 	
-	\subsection{Summation}
+	\section{Summation}
 	
 	\begin{defn} \ld{00000} 
 		Let $f:X \rightarrow \Rg$, Then we define $$\sum_{x \in X} f(x) := \sup_{\substack{F \subset X \\ F \text{ finite}}} \sum_{x \in F} f(x)$$ This definition coincides with the usual notion of summation when $X$ is countable. For $f:X \rightarrow \C$, we can write $f = g +ih$ where $g,h:X \rightarrow \R$. If $$\sum_{x \in X}|f(x)| < \infty,$$ then the same is true for $g^+,g^-,h^+,h^-$. In this case, we may define $$\sum_{x \in X} f(x)$$ in the obvious way.

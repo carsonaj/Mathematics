@@ -149,77 +149,36 @@
 
 
 
-		
-	\subsection{Conditional Chain Sampling}
-	\begin{defn}
-	Let $A \subset \R^d$ be open, $a = (a_1, \dots, a_d) \in A$. Define $\tau_1:\R \rightarrow \R^d$ and $A_1 \subset \R$ by 
-	\begin{itemize}
-	\item $\tau_1(x) = (x, a_2, \ldots, a_d)$
-	\item $A_1 = \tau_1^{-1}(A)$
-\end{itemize}	 
-	Choose $f_1 \in \MD(A_1)$ and sample $b_1 \sim f_1$. For $j \in \{2, \cdots, d\}$, define $\tau_j: \R \rightarrow \R^n$, $A_j$, choose $f_j$ and sample $b_j$ inductively by 
-	\begin{itemize}
-	\item setting $\tau_j(x) = (b_1, \dots, b_{j-1}, x_j, a_{j+1}, \dots, a_d)$  
-	\item setting $A_j = \tau_j^{-1}(A)$
-	\item choosing $f_j \in \MD(A_j|b_1, \ldots, b_{j-1})$
-	and
-	setting $b_j \sim f_j$ 
-	\end{itemize}
-	Note that $\tau_j$ is continuous which implies that $A_j = \tau_j^{-1}(A)$ is open.
-	
-	\end{defn}	
-	
-	\begin{ex}
-	Let $A \subset \R$ be open and $a = (a_1, \dots, a_d) \in A$. Define $A_j$, $f_j$ and $b_j$ as above and define $b \in A$ and $f: A \rightarrow \R$ by $$b = (b_1, \dots, b_d)$$ and  $$f(x_1, \dots, x_d) = \prod_{j=1}^nf_j(x_j)$$ 
-	Then 
-	\begin{enumerate}
-	\item $f \in \MD(A)$ 
-	\item $b \sim f$
-	\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}
-	\begin{enumerate}
-	\item Fubini's theorem implies that 
-	\begin{align*}
-	\int_A f dm^d
-	&= \int f_1(x_1) \bigg[ \int f_2(x_2) \bigg[ \dots \bigg[ \int f_d(x_d) dm(x_d) \bigg] \dots \bigg] dm(x_2) \bigg] dm(x_1) \\
-	&= 1
-	\end{align*} 
-	\item We observe that 
-	\begin{align*}
-	[b] 
-	&= [b_d| b_{d-1}, \ldots, b_1][b_{d-1}| b_{d-2}, \ldots, b_1] \cdots [b_1] \\
-	&= f_d(b_d) \cdots f_1(b_1) \\
-	&= f(b)
-	\end{align*}
-	
-	\end{enumerate}
-	\end{proof}
-	
-	\begin{ex}
-	Set $A = B^d(0, 1) \cap [0,1]^d$ (the first orthant of the unit $d$-ball) and $a = 0$. Then $A_1 = (0,1)$. Choose $f_1 = 1_{(0,1)}$ and sample $b_1 \sim f_1$. For each $j \in \{2, \ldots, d\}$, set $$s_j = \sqrt{1 - \sum_{k=1}^{j-1} b^2_k}$$ 
-	Then for each $j \in \{2, \ldots, d\}$, $$A_j = ( 0, s_j)$$ 
-	\end{ex}
-	
-	\begin{proof}
-	Clear.
-	\end{proof}
-	
-	\begin{ex}
-	Continuing from the previous problem, for each $j \in \{2, \ldots, d\}$, choose $f_j = s_j^{-1}1_{(0, s_j )}$. Then $f	 = \bigg( \prod_{j=2}^ds^{-1}_j \bigg) 1_{\prod_{j=2}^d (0, s_j)}$. 
-	\end{ex}
-	
-	\begin{proof}
-	Clear.
-	\end{proof}
-	
-	\begin{defn}
-	Now make $f_j \sim GP(\mu_j, c_j)$. 	
-	\end{defn}
+
+
+
+
+
+	\newpage
 	
 	\subsection{Importance Sampling}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\subsection{Rejection Sampling}
 	
 	\begin{ex}
@@ -345,7 +304,7 @@
 	\end{defn}
 	
 	\begin{defn}
-		Let $\eta: \Theta \rightarrow \ME$ be an estimand and $\del: \MX \rightarrow \Theta$. Then $\del$ is said to be an \textbf{estimator of $\eta$} if $\del$ is $(\MF_{\MX}, \MF_{\Theta})$-measurable. We denote the set of estimators for $\eta$ by $\Del_{\eta}$.
+		Let $\eta: \Theta \rightarrow \ME$ be an estimand and $\del: \MX \rightarrow \ME$. Then $\del$ is said to be an \textbf{estimator of $\eta$} if $\del$ is $(\MF_{\MX}, \MF_{\ME})$-measurable. We denote the set of estimators for $\eta$ by $\Del_{\eta}$.
 	\end{defn}
 	
 	\begin{defn}
@@ -368,6 +327,111 @@
 		Let $\eta: \Theta \rightarrow \ME$ be an estimand, $L: \Theta \times \ME \rightarrow \Rg$ be a loss function for $\eta$ and $\Pi \in \MP(\Theta, \MF_{\Theta})$. 
 	\end{defn}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Bayes Risk}
+	
+	\begin{defn}
+		Let $\eta: \Theta \rightarrow \ME$ be an estimand, $L: \Theta \times \ME \rightarrow \Rg$ be a loss function for $\eta$ and $\Pi \in \MP(\Theta, \MF_{\Theta})$. We define the \textbf{Bayes risk for $L$ and $\Pi$}, denoted $r_{L, \Pi}: \Del_{\eta} \rightarrow \Rg$, by 
+		$$r_{L, \Pi}(\del) = \int_{\Theta} R_L(\theta, \del) \, d \Pi(\theta)$$
+	\end{defn}
+
+	\begin{defn}
+		Let $\eta: \Theta \rightarrow \ME$ be an estimand, $L: \Theta \times \ME \rightarrow \Rg$ be a loss function for $\eta$, $\Pi \in \MP(\Theta, \MF_{\Theta})$ and $\del^* \in \Del_{\eta}$. Then $\del^*$ is said to be a \textbf{Bayes estimator for $L$ and $\Pi$} if 
+		$$r_{L, \Pi}(\del^*) = \inf_{\del \in \Del_{\eta}}r_{L, \Pi}(\del)$$
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Minimax Estimation}
+	
+	\begin{defn}
+		Let $\eta: \Theta \rightarrow \ME$ be an estimand, $L: \Theta \times \ME \rightarrow \Rg$ be a loss function for $\eta$ and $\del^* \in \Del_{\eta}$. Then $\del^*$ is said to be a \textbf{minimax estimator for $\eta$ and $L$} if 
+		$$\sup_{\theta \in \Theta}R(\theta, \del^*) = \inf_{\del \in \Del_{\eta}} \sup_{\theta \in \Theta}R(\theta, \del)  $$
+	\end{defn}
 	
 	
 	

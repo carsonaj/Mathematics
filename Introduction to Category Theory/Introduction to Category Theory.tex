@@ -1,8 +1,48 @@
-\documentclass[12pt]{amsart}
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{book}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+%    Include referenced packages here.
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
 \usepackage{tikz-cd} 
-
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
 \hypersetup{
@@ -13,21 +53,6 @@
 }
 
 
-%
-%
-%
-\newif\ifhideproofs
-%\hideproofstrue %uncomment to hide proofs
-%
-%
-%
-%
-\ifhideproofs
-\usepackage{environ}
-\NewEnviron{hide}{}
-\let\proof\hide
-\let\endproof\endhide
-\fi
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
@@ -42,30 +67,51 @@
 \newtheorem{ex}[definition]{Exercise}
 \newtheorem{exmp}[definition]{Example}
 
-\counterwithin{figure}{subsection}
+% hide proofs
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
 
-
+% lower-case greek
 \newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
 \newcommand{\gam}{\gamma}
-\newcommand{\Gam}{\Gamma}
-\newcommand{\be}{\beta} 
-\newcommand{\ze}{\zeta} 
-\newcommand{\del}{\delta} 
-\newcommand{\Del}{\Delta}
-\newcommand{\lam}{\lambda}  
-\newcommand{\Lam}{\Lambda} 
+\newcommand{\del}{\delta}
 \newcommand{\ep}{\epsilon}
+\newcommand{\ze}{\zeta} 
+\newcommand{\kap}{\kappa} 
+\newcommand{\lam}{\lambda}  
 \newcommand{\sig}{\sigma} 
+\newcommand{\omi}{\omicron}
+\newcommand{\up}{\upsilon}
 \newcommand{\om}{\omega}
+
+% upper-case greek
+\newcommand{\Gam}{\Gamma}
+\newcommand{\Del}{\Delta}
+\newcommand{\Lam}{\Lambda} 
 \newcommand{\Om}{\Omega}
+
+% blackboard bold
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\N}{\mathbb{N}}
 \newcommand{\E}{\mathbb{E}}
-\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\T}{\mathbb{T}}
-\newcommand{\Q}{\mathbb{Q}}
-\renewcommand{\P}{\mathbb{P}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% math caligraphic
 \newcommand{\MA}{\mathcal{A}}
 \newcommand{\MB}{\mathcal{B}}
 \newcommand{\MC}{\mathcal{C}}
@@ -73,48 +119,41 @@
 \newcommand{\ME}{\mathcal{E}}
 \newcommand{\MF}{\mathcal{F}}
 \newcommand{\MG}{\mathcal{G}}
-\newcommand{\MJ}{\mathcal{J}}
-\newcommand{\ML}{\mathcal{L}}
-\newcommand{\MN}{\mathcal{N}}
-\newcommand{\MS}{\mathcal{S}}
-\newcommand{\MP}{\mathcal{P}}
-\newcommand{\MT}{\mathcal{T}}
-\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MH}{\mathcal{H}}
 \newcommand{\MI}{\mathcal{I}}
-\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MJ}{\mathcal{J}}
+\newcommand{\MK}{\mathcal{K}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MN}{\mathcal{N}}
 \newcommand{\MO}{\mathcal{O}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\MQ}{\mathcal{Q}}
+\newcommand{\MR}{\mathcal{R}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MV}{\mathcal{V}}
+\newcommand{\MW}{\mathcal{W}}
+\newcommand{\MX}{\mathcal{X}}
+\newcommand{\MY}{\mathcal{Y}}
+\newcommand{\MZ}{\mathcal{Z}}
 
-\newcommand{\tbf}[1]{\textbf{#1}}
-\newcommand{\mbf}[1]{\mathbf{#1}}
+% label/reference
+\newcommand{\lex}[1]{\label{ex:#1}}
+\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
 
-\newcommand{\ui}{[0,1]}
-\newcommand{\p}{\partial}
+\newcommand{\ld}[1]{\label{defn:#1}}
+\newcommand{\rd}[1]{Definition \ref{defn:#1}}
 
-\newcommand{\io}{\text{ i.o.}}
-%\newcommand{\ev}{\text{ ev.}}
-\renewcommand{\r}{\rangle}
-\renewcommand{\l}{\langle}
+\newcommand{\lax}[1]{\label{ax:#1}}
+\newcommand{\rax}[1]{Axiom \ref{ax:#1}}
 
-\newcommand{\RG}{[0,\infty]}
-\newcommand{\Rg}{[0,\infty)}
-\newcommand{\Ru}{(\infty, \infty]}
-\newcommand{\Rd}{[\infty, \infty)}
-\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
-
-\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
-\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
-\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
-\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
-\newcommand{\conv}[1]{\xrightarrow{#1}} 
-\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
-\newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
+\newcommand{\lfig}[1]{\label{fig:#1}}
+\newcommand{\rfig}[1]{Figure \ref{fig:#1}}
 
 
-\newcommand{\lsc}{lower semicontinuous}
-
-\newcommand{\as}[1]{\overset{#1}{\sim}}
-\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
-
+% math operators
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\spn}{span}
@@ -128,43 +167,128 @@
 \DeclareMathOperator{\bal}{bal}
 \DeclareMathOperator{\cnv}{conv}
 \DeclareMathOperator{\epi}{epi}
+
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\cod}{cod}
 \DeclareMathOperator{\Obj}{Obj}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\diam}{diam}
+
+% category theory
 \DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
 \DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
 \DeclareMathOperator*{\0}{\mbf{0}}
 \DeclareMathOperator*{\1}{\mbf{1}}
+\DeclareMathOperator*{\TopEq}{\text{\tbf{TopEq}}}
+\DeclareMathOperator*{\Top}{\text{\tbf{Top}}}
 \DeclareMathOperator*{\Cone}{\text{\tbf{Cone}}}
 \DeclareMathOperator*{\Cocone}{\text{\tbf{Cocone}}}
 
+% notation
+\renewcommand{\r}{\rangle}
+\renewcommand{\l}{\langle}
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\p}{\partial}
 
-\newcommand{\lex}[1]{\label{ex:#1}}
-\newcommand{\ld}[1]{\label{defn:#1}}
-\newcommand{\lax}[1]{\label{ax:#1}}
-\newcommand{\lfig}[1]{\label{fig:#1}}
-\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
-\newcommand{\rd}[1]{Definition \ref{defn:#1}}
-\newcommand{\rax}[1]{Axiom \ref{ax:#1}}
-\newcommand{\rfig}[1]{Figure \ref{fig:#1}}
+
+% limits
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
+% intervals
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ru}{(\infty, \infty]}
+\newcommand{\Rd}{[\infty, \infty)}
+\newcommand{\ui}{[0,1]}
+
+% integration \newcommand{\dm}{\, d m}
+\newcommand{\dmu}{\, d \mu}
+\newcommand{\dnu}{\, d \nu}
+\newcommand{\dlam}{\, d \lambda}
+\newcommand{\dP}{\, d P}
+\newcommand{\dQ}{\, d Q}
+\newcommand{\dm}{\, d m}
+
+% abreviations 
+\newcommand{\lsc}{lower semicontinuous}
+
+% misc
+\newcommand{\as}[1]{\overset{#1}{\sim}}
+\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
+\newcommand{\io}{\text{ i.o.}}
+%\newcommand{\ev}{\text{ ev.}}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
+\newcommand{\loc}{\text{loc}}
+\newcommand{\BV}{\text{BV}}
+\newcommand{\NBV}{\text{NBV}}
+\newcommand{\TV}{\text{TV}}
+
+\newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
+
+
 
 
 
 \setcounter{tocdepth}{3}
 
 
+\makeindex
+
 \begin{document}
 	
+	\frontmatter
+	
 	\title{Introduction to Category Theory}
+	
+	%    Remove any unused author tags.
+	
+	%    author one information
 	\author{Carson James}
+	\thanks{}
+	
+	%    author two information
+	\author{}
+	\thanks{}
+	
+	\date{}
+	
 	\maketitle
+	
+	%    Dedication.  If the dedication is longer than a line or two,
+	%    remove the centering instructions and the line break.
+	%\cleardoublepage
+	%\thispagestyle{empty}
+	%\vspace*{13.5pc}
+	%\begin{center}
+	%  Dedication text (use \\[2pt] for line break if necessary)
+	%\end{center}
+	%\cleardoublepage
+	
+	%    Change page number to 6 if a dedication is present.
+	\setcounter{page}{4}
 	
 	\tableofcontents
 	
-	\section*{Preface}
+	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+	%\include{}
+	
+	
+	\mainmatter
+	%    Include main chapters here.
+	%\include{}
+	
+	\chapter*{Preface}
+	\addcontentsline{toc}{chapter}{Preface}
 	\begin{flushleft}
 		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
 	\end{flushleft}
@@ -176,9 +300,9 @@
 	
 	\newpage
 	
-	\section{Basic Concepts}
+	\chapter{Basic Concepts}
 	
-	\subsection{von Neumann–Bernays–Gödel Set Theory}
+	\section{von Neumann–Bernays–Gödel Set Theory}
 	
 	\begin{defn} \ld{11001} 
 		Let $x$ be a class. Then $x$ is said to be a set iff there exists a class $A$ such that $x \in A$. 
@@ -259,9 +383,9 @@
 	
 	
 	\newpage
-	\subsection{Categories}
+	\section{Categories}
 	
-	\subsubsection{Introduction}
+	\subsection{Introduction}
 	
 	\begin{defn}  \ld{12001}
 		Let $\MC_0$, $\MC_1$ be classes and $\dom, \cod : \MC_1 \rightarrow \MC_0$ class functions. Set $\MC = (C_0, C_1, \dom, \cod)$. Then $\MC$ is said to be a \textbf{category} if 
@@ -394,7 +518,7 @@
 
 	
 	
-	\subsubsection{Opposite Category}
+	\subsection{Opposite Category}
 
 	\begin{defn}  \ld{12004}
 		Let $\MC$ be a category, we define the \text{dual of $\MC$} or the \textbf{opposite of $\MC$}, denoted $\op{C}$, by 
@@ -454,7 +578,7 @@
 	
 	
 	
-	\subsubsection{Slice Category}
+	\subsection{Slice Category}
 	
 	\begin{defn} \ld{12006}
 		Let $\MC$ be a category and $X \in \Obj(\MC)$. We define the \textbf{slice category of $\MC$ over $X$}, denoted $\MC / X$, by
@@ -551,7 +675,7 @@
 
 
 	
-	\subsubsection{Product Category}
+	\subsection{Product Category}
 	
 	\begin{defn}
 		Let $\MC$ and $\MD$ be categories. We define the \textbf{product category of $\MC$ and $\MD$}, denoted $\MC \times \MD$ by 
@@ -650,10 +774,10 @@
 	
 	
 	\newpage
-	\subsection{Functors}
+	\section{Functors}
 	
 	
-	\subsubsection{Introduction}
+	\subsection{Introduction}
 	
 	\begin{defn} \ld{13001}
 		Let $\MC$ and $\MD$ be categories and $F_0 : \Obj(\MC) \rightarrow \Obj(\MD)$, $F_1: \Hom_{\MC} \rightarrow \Hom_{\MD}$ class functions. Set $F = (F_0, F_1)$. Then $F$ is said to be a \text{functor from $\MC$ to $\MD$}, denoted  $F:\MC \rightarrow \MD$, if 
@@ -735,7 +859,7 @@
 
 
 
-	\subsubsection{Category of Small Categories}
+	\subsection{Category of Small Categories}
 
 	\begin{defn} \ld{13006}
 		Let $\MC$, $\MD$ and $\ME$ be categories and $F:\MC \rightarrow \MD$, $G: \MD \rightarrow \ME$ functors. We define the \textbf{composition of $G$ with $F$}, denoted $G \circ F: \MC \rightarrow \ME$, by 
@@ -944,7 +1068,7 @@
 
 
 
-	\subsubsection{Comma Categories}
+	\subsection{Comma Categories}
 
 	
 	\begin{defn} \ld{13011}
@@ -1170,9 +1294,9 @@
 	
 	
 	\newpage
-	\subsection{Natural Transformations}
+	\section{Natural Transformations}
 	
-	\subsubsection{Introduction}
+	\subsection{Introduction}
 	
 	\begin{defn} \ld{14001}
 		Let $\MC$ and $\MD$ be categories, $F, G: \MC \rightarrow \MD$ and $ \al : \Obj(\MC) \rightarrow  \Hom_{\MD}$. Then $\al$ is said to be a \textbf{natural transformation from $F$ to $G$}, denoted $\al: F \Rightarrow G$, if
@@ -1203,7 +1327,7 @@
 	
 	
 	
-	\subsubsection{Category of Functors}
+	\subsection{Category of Functors}
 	\begin{defn} \ld{14002}
 		Let $\MC$, $\MD$ be categories, $F, G, H:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ natural transformations. We define the \textbf{composition of $\be$ with $\al$}, denoted $\be \circ \al: F \Rightarrow H$, by 
 		$$(\be \circ \al)_{A} = \be_A \circ \al_A$$ 
@@ -1357,7 +1481,7 @@
 	
 	
 	
-	\subsubsection{Diagonal Functor}
+	\subsection{Diagonal Functor}
 
 	\begin{defn} \ld{14008}
 		Let $\MC$, $\MD$ be categories, $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$. We define the \textbf{constant natural transformation on $\MC$ at $f$}, denoted $\del^{\MC}_f: \Del^{\MC}_X \Rightarrow \Del^{\MC}_Y$, by
@@ -1498,9 +1622,9 @@
 	
 	
 	\newpage
-	\subsection{Algebra of Morphisms}
+	\section{Algebra of Morphisms}
 	
-	\subsubsection{Isomorphisms}
+	\subsection{Isomorphisms}
 	
 	\begin{ex} \lex{15001} \textbf{Uniqueness of Identities:} \\
 		Let $\MC$ be a category. Then for each $A \in \Obj(\MC)$, there exists a unique $e_A \in \Hom_{\MC}(A, A)$ such that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ e_A = f$ and $e_{A} \circ g = g$.
@@ -1830,7 +1954,7 @@
 
 
 
-	\subsubsection{Initial and Final Objects}
+	\subsection{Initial and Final Objects}
 	
 	\begin{defn} \ld{15012}
 		Let $\MC$ be a category and $0 \in \Obj(\MC)$. Then $0$ is said to be \textbf{initial} if for each $A \in \Obj(\MC)$, there exists $f \in \Hom_{\MC}(0, A)$ such that $\Hom_{\MC}(0, A) = \{f\}$. 
@@ -2086,9 +2210,9 @@
 	
 	
 	\newpage
-	\section{Universal Morphisms and Limits}
+	\chapter{Universal Morphisms and Limits}
 	
-	\subsubsection{Universal Morphisms}
+	\subsection{Universal Morphisms}
 
 	\begin{defn}
 		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$, $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(X, F(A))$. Then $(A, f)$ is said to be a \textbf{universal morphism} from $X$ to $F$ if for each $A' \in \Obj(\MC)$ $f' \in \Hom_{\MD}(X, F(A'))$, there exists a unique $\al \in \Hom_{\MC}(A, A')$ such that $f' = F(\al) \circ f$, i.e. the following diagram commutes:
@@ -2156,7 +2280,7 @@
 	
 	
 	\newpage
-	\subsection{Limits}
+	\section{Limits}
 	
 	\begin{defn}
 		Let $\MJ$, $\MC$ be categories and $D: \MJ \rightarrow \MC$. Then $D$ is said to be a \textbf{diagram of type $\MJ$ in $\MC$}.
@@ -2259,7 +2383,7 @@
 	
 	
 	
-	\subsubsection{Products and Coproducts}
+	\subsection{Products and Coproducts}
 	
 	
 	
@@ -2275,7 +2399,7 @@
 	
 	
 	
-	\subsubsection{Equalizers and Coequalizers}
+	\subsection{Equalizers and Coequalizers}
 	
 	
 

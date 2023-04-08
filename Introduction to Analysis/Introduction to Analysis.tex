@@ -1,9 +1,48 @@
-\documentclass[12pt]{amsart}
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{book}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+%    Include referenced packages here.
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
-\usepackage{physics}
 \usepackage{tikz-cd} 
-
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
 \hypersetup{
@@ -14,21 +53,6 @@
 }
 
 
-%
-%
-%
-\newif\ifhideproofs
-%\hideproofstrue %uncomment to hide proofs
-%
-%
-%
-%
-\ifhideproofs
-\usepackage{environ}
-\NewEnviron{hide}{}
-\let\proof\hide
-\let\endproof\endhide
-\fi
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
@@ -40,75 +64,88 @@
 \newtheorem{cor}[definition]{Corollary}
 \newtheorem{conj}[definition]{Conjecture}
 \newtheorem{ex}[definition]{Exercise}
+\newtheorem{exmp}[definition]{Example}
 
+% hide proofs
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
 
+% lower-case greek
 \newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
 \newcommand{\gam}{\gamma}
-\newcommand{\Gam}{\Gamma}
-\newcommand{\be}{\beta} 
-\newcommand{\ze}{\zeta} 
-\newcommand{\del}{\delta} 
-\newcommand{\Del}{\Delta}
-\newcommand{\lam}{\lambda}  
-\newcommand{\Lam}{\Lambda} 
+\newcommand{\del}{\delta}
 \newcommand{\ep}{\epsilon}
+\newcommand{\ze}{\zeta} 
+\newcommand{\kap}{\kappa} 
+\newcommand{\lam}{\lambda}  
 \newcommand{\sig}{\sigma} 
+\newcommand{\omi}{\omicron}
+\newcommand{\up}{\upsilon}
 \newcommand{\om}{\omega}
+
+% upper-case greek
+\newcommand{\Gam}{\Gamma}
+\newcommand{\Del}{\Delta}
+\newcommand{\Lam}{\Lambda} 
 \newcommand{\Om}{\Omega}
+
+% blackboard bold
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\N}{\mathbb{N}}
 \newcommand{\E}{\mathbb{E}}
-\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\T}{\mathbb{T}}
-\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Z}{\mathbb{Z}}
 
+% math caligraphic
 \newcommand{\MA}{\mathcal{A}}
-\newcommand{\MC}{\mathcal{C}}
 \newcommand{\MB}{\mathcal{B}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MD}{\mathcal{D}}
+\newcommand{\ME}{\mathcal{E}}
 \newcommand{\MF}{\mathcal{F}}
 \newcommand{\MG}{\mathcal{G}}
-\newcommand{\ML}{\mathcal{L}}
-\newcommand{\MN}{\mathcal{N}}
-\newcommand{\MS}{\mathcal{S}}
-\newcommand{\MP}{\mathcal{P}}
-\newcommand{\ME}{\mathcal{E}}
-\newcommand{\MT}{\mathcal{T}}
-\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MH}{\mathcal{H}}
 \newcommand{\MI}{\mathcal{I}}
-\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MJ}{\mathcal{J}}
+\newcommand{\MK}{\mathcal{K}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MN}{\mathcal{N}}
 \newcommand{\MO}{\mathcal{O}}
+\newcommand{\MP}{\mathcal{P}}
 \newcommand{\MQ}{\mathcal{Q}}
+\newcommand{\MR}{\mathcal{R}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MV}{\mathcal{V}}
+\newcommand{\MW}{\mathcal{W}}
+\newcommand{\MX}{\mathcal{X}}
+\newcommand{\MY}{\mathcal{Y}}
+\newcommand{\MZ}{\mathcal{Z}}
 
-\newcommand{\tbf}[1]{\textbf{#1}}
-\newcommand{\ol}[1]{\overline{#1}}
+% label/reference
+\newcommand{\lex}[1]{\label{ex:#1}}
+\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
 
-\newcommand{\ui}{[0,1]}
-\newcommand{\p}{\partial}
+\newcommand{\ld}[1]{\label{defn:#1}}
+\newcommand{\rd}[1]{Definition \ref{defn:#1}}
 
-\newcommand{\io}{\text{ i.o.}}
-%\newcommand{\ev}{\text{ ev.}}
-\renewcommand{\r}{\rangle}
-\renewcommand{\l}{\langle}
-
-\newcommand{\RG}{[0,\infty]}
-\newcommand{\Rg}{[0,\infty)}
-\newcommand{\Ru}{(\infty, \infty]}
-\newcommand{\Rd}{[\infty, \infty)}
-\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
-
-\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
-\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
-\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
-\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
-\newcommand{\conv}[1]{\xrightarrow{#1}} 
-\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
-
-\newcommand{\lsc}{lower semicontinuous}
-
-\newcommand{\as}[1]{\overset{#1}{\sim}}
-\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
-
+% math operators
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\spn}{span}
@@ -138,22 +175,103 @@
 \DeclareMathOperator*{\Cone}{\text{\tbf{Cone}}}
 \DeclareMathOperator*{\Cocone}{\text{\tbf{Cocone}}}
 
+% notation
+\renewcommand{\r}{\rangle}
+\renewcommand{\l}{\langle}
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\p}{\partial}
 
-\newcommand{\lex}[1]{\label{ex:#1}}
-\newcommand{\ld}[1]{\label{defn:#1}}
-\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
-\newcommand{\rd}[1]{Definition \ref{defn:#1}}
+% limits
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
 
+% intervals
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ru}{(\infty, \infty]}
+\newcommand{\Rd}{[\infty, \infty)}
+\newcommand{\ui}{[0,1]}
+
+% integration \newcommand{\dm}{\, d m}
+\newcommand{\dmu}{\, d \mu}
+\newcommand{\dnu}{\, d \nu}
+\newcommand{\dlam}{\, d \lambda}
+\newcommand{\dP}{\, d P}
+\newcommand{\dQ}{\, d Q}
+\newcommand{\dm}{\, d m}
+
+% abreviations 
+\newcommand{\lsc}{lower semicontinuous}
+
+% misc
+\newcommand{\as}[1]{\overset{#1}{\sim}}
+\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
+\newcommand{\io}{\text{ i.o.}}
+%\newcommand{\ev}{\text{ ev.}}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
+\newcommand{\loc}{\text{loc}}
+\newcommand{\BV}{\text{BV}}
+\newcommand{\NBV}{\text{NBV}}
+\newcommand{\TV}{\text{TV}}
+
+\newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
+
+%    For a single index; for multiple indexes, see the manual
+%    "Instructions for preparation of papers and monographs:
+%    AMS-LaTeX" (instr-l.pdf in the AMS-LaTeX distribution).
+\makeindex
 
 \begin{document}
 	
+	\frontmatter
+	
 	\title{Introduction to Analysis}
+	
+	%    Remove any unused author tags.
+	
+	%    author one information
 	\author{Carson James}
+	\thanks{}
+	
+	%    author two information
+	\author{}
+	\thanks{}
+	
+	\date{}
+	
 	\maketitle
+	
+	%    Dedication.  If the dedication is longer than a line or two,
+	%    remove the centering instructions and the line break.
+	%\cleardoublepage
+	%\thispagestyle{empty}
+	%\vspace*{13.5pc}
+	%\begin{center}
+	%  Dedication text (use \\[2pt] for line break if necessary)
+	%\end{center}
+	%\cleardoublepage
+	
+	%    Change page number to 6 if a dedication is present.
+	\setcounter{page}{4}
 	
 	\tableofcontents
 	
-	\section*{Preface}
+	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+	%\include{}
+	
+	\mainmatter
+	%    Include main chapters here.
+	%\include{}
+	\chapter*{Preface}
+	\addcontentsline{toc}{chapter}{Preface}
+
 	\begin{flushleft}
 		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
 	\end{flushleft}
@@ -165,8 +283,8 @@
 
 	\newpage
 	
-	\section{Set Theory}
-	\subsection{Product Sets}
+	\chapter{Set Theory}
+	\section{Product Sets}
 	
 	\begin{defn}
 	Let $(X_{\al})_{\al \in A}$ be a collection of sets. We define the \tbf{Cartesian product}, denoted $\prod\limits_{\al \in A}X_{\al}$, by 
@@ -246,7 +364,7 @@
 	
 	
 	\newpage
-	\subsection{Quotient Sets}
+	\section{Quotient Sets}
 	\begin{defn}
 	Let $X$ be a set and $\sim$ an equivalence relation on $X$. We define the \tbf{quotient set} of $X$ by $\sim$, denoted $X/ {\sim}$, by 
 	\begin{equation*}
@@ -255,11 +373,11 @@
 	\end{defn}
 	
 	
-	\section{Real and Complex Numbers}
+	\chapter{Real and Complex Numbers}
 	\begin{note}
 		As a starting point, we will take as fact the existence of the \tbf{natural numbers} $$\N = \{1, 2, \cdots\}$$ the \tbf{integers} $$\Z = \{\cdots, -2, -2, 0, 1, 2, \cdots\}$$ and the \tbf{rational numbers} $$\Q = \bigg \{\frac{a}{b}: a \in \Z, b \in \N \bigg \}$$
 	\end{note}
-	\subsection{Real Numbers}
+	\section{Real Numbers}
 	
 	\begin{defn} \ld{}
 		Let $X$ be a set and $\leq$ a relation on $X$. Then $\leq$ is said to be a \tbf{total order} if for each $a,b,c \in X$,
@@ -300,224 +418,6 @@
 	
 	
 	
-	\newpage
-	\section{Metric Spaces}
-	\subsection{Introduction}
-	\begin{defn} \ld{}
-	Let $M$ be a set and $d: M \times M \rightarrow \R$. Then $d$ is said to be a \tbf{metric on $M$} if for each $x,y,z \in M$, 
-	\begin{enumerate}
-	\item $d(x,y) = 0$ iff $x = y$
-	\item $d(x, y) \leq d(x, z) + d(z, y)$
-\end{enumerate}	 
-	\end{defn}	
-	
-	\begin{ex} \lex{}
-	Let $M$ be a set and $d: M \times M \rightarrow \R$ a metric on $M$. Then for each $x,y \in M$, $d(x,y) \geq 0$. 
-	\end{ex}
-	
-	\begin{proof}
-	Let $x, y, z \in M$. Then $d(x,z) \leq d(x, y) + d(y,z)$. This implies that $d(x,z) - d(x, y) \leq d(y, z)$. Since $z$ is arbitrary, taking $z=x$, we obtain 
-	\begin{align*}
-	d(x,x) - d(x, y) \leq d(y, x)
-	& \implies - d(x, y) \leq d(x, y) \\
-	& \implies 0 \leq 2 d(x,y) \\
-	& \implies d(x,y) \geq 0
-	\end{align*}
-	\end{proof}	
-
-	\begin{defn} \ld{}
-		Let $M$ be a set and $d: M \times M \rightarrow \Rg$ a metric. Then $(M, d)$ is called a \tbf{metric space}.
-	\end{defn}	
-	
-	\begin{note}
-		We usually suppress the metric and write $M$ in place of $(M, d)$.
-	\end{note}	
-
-	\begin{defn}
-		Let $M$ be a metric space, $x \in M$ and $r > 0$. We define the 
-		\begin{itemize}
-			\item \tbf{open ball of radius $r$ at $x$}, denoted $B(x, r)$, by $$B(x, r) = \{y \in M: d(x,y) < r\}$$
-			\item \tbf{closed ball of radius $r$ at $x$}, denoted $\bar{B}(x, r)$, by $$\bar{B}(x, r) = \{y \in M: d(x,y) \leq r\}$$
-		\end{itemize}
-	\end{defn}
-
-	\begin{defn}
-		Let $M$ be a metric space and $A \subset M$. Then $A$ is said to be 
-		\begin{itemize}
-			\item \tbf{open} if for each $x \in A$, there exists $r > 0$ such that $B(x, r) \subset A$
-			\item \tbf{closed} if $A^c$ is open
-		\end{itemize}  
-	\end{defn}
-
-	\begin{defn}
-		Let $M$ be a metric space. Then $M$ is said to be \tbf{separable} if there exists $D \subset M$ such that $D$ is countable and for each $x \in M$ and $\ep >0$, there exists $y \in D$ such that $d(x, y) < \ep$.
-	\end{defn}
-	
-	\begin{ex}
-		Let $M$ be a metric space. If $M$ is separable, then for each $A \subset M$, if $A$ is open, then 
-		\begin{enumerate}
-			\item there there exist $(x_n)_{n \in \N} \subset X$ and $(r_n)_{n \in \N} \subset (0, \infty)$ such that $$A = \bigcup\limits_{n \in \N} B(x_n, r_n)$$
-			i.e. $A$ is a countable union of open balls
-			\item there there exist $(x_n)_{n \in \N} \subset X$ and $(r_n)_{n \in \N} \subset (0, \infty)$ such that $$A = \bigcup\limits_{n \in \N} \bar{B}(x_n, r_n)$$
-			i.e. $A$ is a countable union of closed balls.
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof}
-		Suppose that $M$ is separable. Then there exists $(x_n)_{n \in \N} \subset M$ such that for each $x \in M$ and $\ep >0$, there exists $N \in \N$ such that $d(x, x_N) < \ep$. Let $A \subset X$. Suppose that $A$ is open.
-		\begin{enumerate}
-			\item  Set 
-			$$\MB = \{B(x_n, r): r \in \Q \text{ and } B(x_n, r) \subset A\}$$ 
-			Note that $\MB$ is countable. Let $x \in A$. Since $A$ is open, there exists $s \in \R$ such that $B(x, s) \subset A$. Then there exists  $r \in \Q \cap (0, r)$. Choose $N \in \N$ such that $d(x, x_N) < r/2$. Let $y \in B(x_N, r/2)$, then 
-			\begin{align*}
-				d(x, y) 
-				& \leq d(x, x_N) + d(x_N, y) \\
-				& < r/2 + r/2 \\
-				& = r
-			\end{align*}
-			Therefore 
-			\begin{align*}
-				x 
-				& \in B(x_N, r/2) \\
-				& \subset B(x, r) \\
-				& \subset A
-			\end{align*}
-			Hence $B(x_N, r/2) \in \MB$ and $x \in \bigcup\limits_{B \in \MB}B$. Since $x \in A$ is arbitrary, $A \subset \bigcup\limits_{B \in \MB}B$.
-			\item Similar, but take $r/4$ instead of $r/2$.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{defn} \ld{}
-	Let $(M,d)$ be a metric space and $A,B \subset M$. We define the \tbf{distance between $A$ and $B$}, denoted $d(A,B)$, by $$d(A,B) = \inf_{\substack{a \in A \\ b \in B}} d(a,b)$$
-	\end{defn}
-	
-	\begin{ex} \lex{}
-	Let $(M,d)$ be a metric space. Then for each $A,B \subset M$ and $c \in M$, $$d(A,B) \leq d(A,c) + d(c, B)$$
-	\end{ex}
-	
-	\begin{proof}
-	Let $A,B \subset M$, $c \in M$ and $\ep>0$. Choose $a \in A$ and $b \in B$ such that $d(a,c) < d(A,c)+ \ep/2$ and  $d(c,b) < d(c,B)+ \ep/2$. Then 
-	\begin{align*}
-	d(A,B) 
-	&\leq d(a,b) \\
-	&\leq d(a,c) + d(c,b) \\
-	&< d(A,c) + \frac{\ep}{2} + d(c,B) + \frac{\ep}{2} \\
-	&= d(A,c) + d(c,B) + \ep
-	\end{align*}
-	Since $\ep >0$ is arbitrary, $d(A,B) \leq d(A,c) + d(c,B)$.
-	\end{proof}
-	
-	\begin{defn} \ld{}
-	Let $M$ be a set, $d_1, d_2: M \times M \rightarrow \Rg$ metrics on $M$. Then $d_1$ and $d_2$ are said to be 
-	\begin{itemize}
-	\item \tbf{topologically equivalent} if for each $(x_n)_{n \in \N} \subset M$ and $x \in M$, $x_n \conv{d_1} x$ iff $x_n \conv{d_2} x$ 
-	\item\tbf{equivalent} if there exist $A, B > 0$ such that $$A d_1 \leq d_2 \leq B d_1$$
-\end{itemize}		
-	\end{defn}	
-	
-	\begin{defn} \ld{}
-	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces and $f: X \rightarrow Y$. Then $f$ is said to be \tbf{Lipchitz} if there exists $K \geq 0$ such that for each $a, b \in X$, $$d_Y(f(a), f(b)) \leq Kd_X(a,b)$$
-	\end{defn}	
-	
-	\begin{ex} \lex{}
-	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces and $f: X \rightarrow Y$. If $f$ is Lipchitz, then $f$ is uniformly continuous.	
-	\end{ex}
-	
-	\begin{proof}
-	By definition, there exists $K \geq 0$ such that for each $a, b \in X$, $$d_Y(f(a), f(b)) \leq Kd_X(a,b)$$ Let $\ep >0$. Choose $\del = \ep / (K+1)$. Let $a, b \in X$. Suppose that $d_X(a,b) < \del$. Then 
-	\begin{align*}
-	d_Y(f(a), f(b)) 
-	& \leq Kd_X(a,b) \\
-	& < K \del \\
-	&= K \frac{\ep}{K+1} \\
-	&< \ep  
-	\end{align*}
-	\end{proof}
-	
-	\begin{defn} \ld{}
-	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces and $f: X \rightarrow Y$ and $x_0 \in X$. Then $f$ is said to be \tbf{locally Lipchitz at $x_0$} if there exists $U \in \MN_{x_0}$ such that $f$ is Lipschitz on $U$.
-	\end{defn}
-	
-	\begin{defn} \ld{}
-	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces and $f: X \rightarrow Y$. Then $f$ is said to be \tbf{locally Lipchitz} if for each $x_0 \in X$, $f$ is locally Lipschitz at $x_0$.
-	\end{defn}
-	
-	
-	\begin{defn} \ld{}
-		Let $X, Y$ be metric spaces and $T : X \rightarrow Y$. Then $T$ is said to be an \tbf{isometry} if for each $x_1, x_2 \in X$, $d( Tx_1, Tx_2) = d(x_1,x_2) $.
-	\end{defn}
-	
-	\begin{ex} \lex{}
-		Let $X,Y$ be metric spaces and $T:X \rightarrow Y$ and isometry. Then $T$ is injective.
-	\end{ex}
-	
-	\begin{proof}
-		Let $x_1, x_2 \in X$. Suppose that $Tx_1=Tx_2$. Then $0= d( Tx_1, Tx_2) = d(x_1,x_2)$. So $x_1 = x_2$. Hence $T$ is injective.
-	\end{proof}
-	
-	\begin{note}
-		Let $X,Y$ be metric spaces and $T:X \rightarrow Y$ an isometry. Then $T$ is clearly continuous. If $T$ is surjective, then $T^{-1}$ is an isometry and therefore continuous. Hence $T$ is a homeomorphism.
-	\end{note}
-	
-	\begin{defn} \ld{}
-	Let $(M,d)$ be a metric space. Then $(M,d)$ is said to be a \tbf{Polish space} if $(M,d)$ is complete and separable. 
-	\end{defn}
-	
-	
-	
-	\begin{ex} \lex{}
-	Let $(X, d)$ be a compact metric space, $E \subset X$ closed, $U \subset X$ open. Suppose that $E \subset U$. Then there exists $\del >0$ such that for each $x \in E$, $B(x, \del) \subset U$.
-	\end{ex}	
-	
-	\begin{proof}
-	Since $X$ is compact, $E$ and $U^c$ are compact. Then there exist $x_0 \in E$ and $y_0 \in U^c$ such that $d(E, U^c) = d(x_0,y_0)$. Since $E \cap U^c = \varnothing$, $x_0 \neq y_0$ and $d(E, U^c) >0$. Put $\ep = d(E, U^c)$ and $\del = \frac{\ep}{2}$.  Let $x \in E$, $w \in B(x, \del)$ and $y \in U^c$. Then 
-	\begin{align*}
-	d(y, w) 
-	&\geq d(y, x) - d(x, w) \\
-	&> \ep - \del \\
-	&= \ep - \frac{\ep}{2} \\
-	&= \frac{\ep}{2} \\
-	&> 0
-\end{align*}	  
-	So $y \neq w$. Since and $y \in U^c$ and $w \in B(x, \del)$ are arbitrary, $B(x, \del) \subset U$.
-	\end{proof}
-	
-	\begin{defn} \ld{}
-	Let $S$ be a set, $(M, d)$ a metric space and $B(S, M) = \{f: S \rightarrow M: f \text{ is bounded} \}$. We define the \tbf{supremum metric}, denoted $d_u:B(S,M) \times B(S,M) \rightarrow \Rg$, by $$d_u(f, g) = \sup_{x \in X}d(f(x), g(x)) $$ 
-	\end{defn}
-	
-	\begin{ex} \lex{211111111}
-	Let $X$ be a set, $(Y, d_Y)$, $(Z, d_Z)$ metric spaces, $(f_n)_{n \in \N} \subset B(X, Y)$, $f \in B(X, Y)$ and $g \in C(Y, Z)$. Suppose that $g$ is uniformly continuous. If $f_n \convt{u} f$, then $g \circ f_n \convt{u} g \circ f$. 
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $f_n \convt{u} f$. Let $\ep >0$. Uniform continuity of $g$ implies that there exists $\del >0$ such that for each $y_1, y_2 \in Y$, $d_Y(y_1, y_2) < \del$ implies that $d_Z(g(y_1), g(y_2)) < \ep/2$.  Uniform convergence implies that there exists $N \in \N$ such that for each $n \in \N$, $n \geq \N$ implies that $d_u(f_n, f) < \del/2$. Let $n \in \N$. Suppose that $n \geq N$. Let $x \in X$. Then $d_Y(f_n(x), f(x)) < \del$. This implies that $d_Z(g(f_n(x)), g(f(x))) < \ep/2$. Hence $\sup\limits_{x \in X} d_Z(g \circ f_n(x), g \circ f(x)) \leq \ep/2$. Thus $d_u(g \circ f_n , g \circ f) < \ep$. So $g \circ f_n \convt{u} g \circ f$.
-	\end{proof}
-	
-	\begin{defn} \ld{}
-	Let $(X, d)$ be a metric space. Define
-	\begin{enumerate}
-	\item $\Aut(X) = \{\sig:X \rightarrow X: \sig \text{ is a homeomorphism}\}$
-	\item $\Aut(X, d) = \{\sig:X \rightarrow X: \sig \text{ is an isometric isomorphism}\}$
-	\end{enumerate}
-	\end{defn}
-	
-	\begin{ex} \lex{}
-	Let $(X, d)$ be a compact metric space, $E \subset X$ closed, $U \subset X$ open. Suppose that $E \subset U$. Let $(f_n)_{n \in \N} \in \Aut(X)$, $f \in \Aut(X)$.  Suppose that $f_n \convt{u} f$. Then there exists $N \in \N$ such that for each $n \geq N$, $f(E) \subset f_n(U)$.
-	\end{ex}
-	
-	\begin{proof}
-	Since $f$ is a homeomorphism, $E$ is closed and $U$ is open, $f(E)$ is compact and $f(U)$ is open and $f(E) \subset f(U)$. Then $d(f(E), f(U^c)) >0$. Put $\ep = d(f(E), f(U^c))$. Choose $\del = \ep/2$. Then there exists $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $\sup\limits_{z \in X} d(f(z), f_n(z)) < \del$. Let $n \geq N$, $x \in E$ and $w \in B(f(x), \del)$. For the sake of contradiction, suppose that $w \in f_n(U^c)$. Then there exist $p \in U^c$ such that $w = f_n(p)$. Put $z = f(p) \in f(U^c)$. Then 
-	\begin{align*}
-	\ep 
-	&\leq d(f(x), z) \\ 
-	&\leq d(f(x), w) + d(w, z) \\
-	& = d(f(x), w) + d(f_n(p), f(p))  \\
-	& < \del + \del \\
-	& = \ep
-	\end{align*}
-	which is a contradiction. So $w \in f_n(U)$. Hence $B(f(x), \del) \subset f_n(U)$
-	\end{proof}
 	
 	
 	
@@ -528,8 +428,16 @@
 	
 	
 	
-	\newpage
-	\subsection{Product Spaces}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -544,9 +452,9 @@
 	
 	
 	\newpage
-	\section{Topology}
+	\chapter{Topology}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 	
 	\begin{defn} \ld{31001}
 	Let $X$ be a set and $\MT \subset \MP(X)$. Then $\MT$ is said to be a \tbf{topology on $X$} if 
@@ -577,10 +485,7 @@
 	\end{equation*}	 
 We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by $$\tau(\ME) = \bigcap_{\MT \in \MS} \MT$$
 	\end{defn}
-	
-	\begin{defn} \ld{31004}
-	Let $(X,d)$ be a metric space. We define the \tbf{metric topology on X}, denoted $\MT_d$, by $$\MT_d = \tau(\{B(x, \del): x \in X, \del >0\})$$
-	\end{defn}
+
 	
 	\begin{defn} \ld{31005}
 	Let $X$ be a set and $\MT \subset \MP(X)$ a topology on $X$, $x \in X$ and $\MB_x \subset \MT$. Then $\MB_x$ is said to be a \tbf{local basis for $\MT$ at $x$} if 
@@ -589,15 +494,6 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	\item for each $V \in \MT$, if $x \in V$, then there exists $U \in \MB_x$ such that $U \subset V$
 	\end{enumerate}
 	\end{defn}
-	
-	\begin{ex} \lex{31006}
-	Let $(X,d)$ be a metric space and $x \in X$. Set $\MB_x = \{B(x, \del): \del > 0\}$. Then $\MB_x$ is a local basis for $\MT_d$ at $x$. \\
-	\tbf{FINISH!!! right now not well defined.}
-	\end{ex}	
-	
-	\begin{proof}
-	Clear.
-	\end{proof}
 	
 	\begin{defn} \ld{31006.5}
 	Let $X$ be a set and $\MT \subset \MP(X)$ a topology on $X$ and $\MB \subset \MT$. Then $\MB$ is said to be a \tbf{basis for $\MT$} if for each $V \in \MT$ and $x \in V$, there exists $U \in \MB$ such that $x \subset U \subset V$.
@@ -774,7 +670,7 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	
 	
 	\newpage
-	\subsection{Continuous Maps}	
+	\section{Continuous Maps}	
 	
 	\begin{defn} \ld{}
 	Let $(X,\MA)$ and $(Y,\MB)$ be topological spaces and $f:X \rightarrow Y$. Then $f$ is said to be \tbf{continuous} if for each $B \in \MB$, $f^{-1}(B) \in \MA$.
@@ -1097,7 +993,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 
 
 \newpage
-\subsection{Nets}	
+\section{Nets}	
 
 	\begin{defn} \ld{33001}
 	Let $A$ be a set and $\leq$ a relation on $A$. Then $(A, \leq)$ is said to be a \tbf{directed set} if , 
@@ -1439,7 +1335,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 
 
 \newpage
-\subsection{Subspace Topology}
+\section{Subspace Topology}
 
 \begin{defn}
 	Let $X$ be a set and $A \subset X$. We define the \tbf{inclusion map from $A$ to $B$}, denoted $\iota: A \rightarrow X$, by $\iota(x) = x$. 
@@ -1509,7 +1405,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	
 	
 	\newpage
-	\subsection{Product Topology}
+	\section{Product Topology}
 	
 	\begin{defn}
 	Let $(X_{\al})_{\al \in A}$ be a collection of topological spaces. We define the \tbf{product topology} on $\prod_{\al \in A}X_{\al}$ to be the initial (weak) topology on $\prod\limits_{\al \in A} X_{\al}$ generated by the projection maps $(\pi_{\al})_{\al \in A}$.
@@ -1678,7 +1574,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	
 	
 	\newpage
-	\subsection{Quotient Topology}
+	\section{Quotient Topology}
 	
 	\begin{defn} \ld{34001}
 	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Then $f$ is said to be a \tbf{$\MA$-$\MB$ quotient map} if 
@@ -1877,9 +1773,27 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 		\end{enumerate}
 	\end{proof}
 
+
+	\begin{ex}
+		Let $(X, \sim_X)$, $(Y, \sim_Y)  \in \Obj(\TopEq)$,  $\gam_X \in \Hom_{\Top}(X/{\sim_X}, X), (Y, \sim_Y))$ and $\iota \in \Hom_{\TopEq}((X, \sim_X)$. Suppose that $\gam_X$ is a section of $(X, X/{\sim_X}, \pi_X)$. and $((X, \sim_X), \iota)$ is a contraction of $(Y, \sim_Y)$. Then $\pi_Y \circ \iota \circ \gam_X = \bar{\iota}$, i.e. the following diagram commutes: 
+		\[ 
+		\begin{tikzcd}
+			X  \arrow[r, "\iota"]  \arrow[d, "\pi_X"']  & Y   \arrow[d, "\pi_Y"]\\
+			\arrow[bend left=80]{u}{\gam_X} X/ {\sim_X}  \arrow[r, "\bar{\iota}"'] &  Y / {\sim_Y} \\
+		\end{tikzcd}
+		\]
+	\end{ex}
+
 	\begin{ex}
 		Let $(X, \sim_X)$, $(Y, \sim_Y)$, $(Z, =)  \in \Obj(\TopEq)$, $\iota \in \Hom_{\TopEq}((X, \sim_X), (Y, \sim_Y))$,  $ f \in \Hom_{\TopEq}((X, \sim_X), (Z, =))$ and  $ g \in \Hom_{\TopEq}((Y, \sim_Y), (Z, =))$. 
-		Then $f = g \circ \iota $ iff $\bar{f} = \bar{g} \circ \bar{\iota}$.
+		Then $f = g \circ \iota $ iff $\bar{f} = \bar{g} \circ \bar{\iota}$, in which case the following diagram commutes: 
+		\[ 
+		\begin{tikzcd}
+			& Z & \\
+			X  \arrow[rr, "\iota"]  \arrow[d, "\pi_X"'] \arrow[ur, "f"] & & Y   \arrow[d, "\pi_Y"] \arrow[ul, "g"']\\
+			X/ {\sim_X} \arrow[bend left=90]{uur}{\bar{f}} \arrow[rr, "\bar{\iota}"'] & &  Y / {\sim_Y} \arrow[bend right=90, swap]{uul}{\bar{g}} \\
+		\end{tikzcd}
+		\]
 	\end{ex}
 
 	\begin{proof}
@@ -1937,7 +1851,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	
 	
 	\newpage
-	\subsection{Separation and Countability}
+	\section{Separation and Countability}
 	
 	\begin{defn}
 		Let $X$ be a topological space. Then $X$ is said to be $\mathbf{T_1}$ if for each $x,y \in X$, if $x \neq y$, then there exists $U \in \MN_x$ such that $U$ is open and $y \not \in U$.
@@ -2059,7 +1973,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	
 	
 	\newpage
-	\subsection{Compactness}
+	\section{Compactness}
 	
 	\begin{defn} \ld{}
 		Let $X$ be a topological space and $E \subset X$. Then $E$ is said to be \tbf{precompact} if $\cl E$ is compact.
@@ -2090,7 +2004,7 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	
 	
 	\newpage
-	\subsection{Semi-continuity}
+	\section{Semi-continuity}
 	
 	\begin{defn} \ld{}
 	Let $X$ be a topological space, $f: X \rightarrow \Ru$ and $x_0 \in X$. Then $f$ is said to be \tbf{lower semicontinuous at $x_0$} if $$\liminf_{x \rightarrow x_0}f(x) \geq f(x_0)$$ and $f$ is said to be \tbf{lower semicontinuous} if for each $x_0 \in X$, $f$ is lower semicontinuous at $x_0$. 
@@ -2186,10 +2100,315 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 
 
-	\newpage
-	\section{Locally Convex Spaces}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Metric Spaces}
+\section{Introduction}
+\begin{defn} \ld{}
+	Let $M$ be a set and $d: M \times M \rightarrow \R$. Then $d$ is said to be a \tbf{metric on $M$} if for each $x,y,z \in M$, 
+	\begin{enumerate}
+		\item $d(x,y) = 0$ iff $x = y$
+		\item $d(x, y) \leq d(x, z) + d(z, y)$
+	\end{enumerate}	 
+\end{defn}	
+
+\begin{ex} \lex{}
+	Let $M$ be a set and $d: M \times M \rightarrow \R$ a metric on $M$. Then for each $x,y \in M$, $d(x,y) \geq 0$. 
+\end{ex}
+
+\begin{proof}
+	Let $x, y, z \in M$. Then $d(x,z) \leq d(x, y) + d(y,z)$. This implies that $d(x,z) - d(x, y) \leq d(y, z)$. Since $z$ is arbitrary, taking $z=x$, we obtain 
+	\begin{align*}
+		d(x,x) - d(x, y) \leq d(y, x)
+		& \implies - d(x, y) \leq d(x, y) \\
+		& \implies 0 \leq 2 d(x,y) \\
+		& \implies d(x,y) \geq 0
+	\end{align*}
+\end{proof}	
+
+\begin{defn} \ld{}
+	Let $M$ be a set and $d: M \times M \rightarrow \Rg$ a metric. Then $(M, d)$ is called a \tbf{metric space}.
+\end{defn}	
+
+\begin{note}
+	We usually suppress the metric and write $M$ in place of $(M, d)$.
+\end{note}	
+
+\begin{defn}
+	Let $M$ be a metric space, $x \in M$ and $r > 0$. We define the 
+	\begin{itemize}
+		\item \tbf{open ball of radius $r$ at $x$}, denoted $B(x, r)$, by $$B(x, r) = \{y \in M: d(x,y) < r\}$$
+		\item \tbf{closed ball of radius $r$ at $x$}, denoted $\bar{B}(x, r)$, by $$\bar{B}(x, r) = \{y \in M: d(x,y) \leq r\}$$
+	\end{itemize}
+\end{defn}
+
+\begin{defn} \ld{31004}
+	Let $(X,d)$ be a metric space. We define the \tbf{metric topology on X}, denoted $\MT_d$, by $$\MT_d = \tau(\{B(x, \del): x \in X, \del >0\})$$
+\end{defn}
+
+\begin{ex}
+	Let $M$ be a metric space and $A \subset M$. Then $A \in \MT_d$ iff for each $x \in A$, there exists $r > 0$ such that $B(x, r) \subset A$.
+\end{ex}
+
+	\begin{proof}
+		Suppose that $A \in \MT_d$. Since 
+	\end{proof}
+
+	\begin{ex} \lex{31006}
+		Let $(X,d)$ be a metric space and $x \in X$. Set $\MB_x = \{B(x, \del): \del > 0\}$. Then $\MB_x$ is a local basis for $\MT_d$ at $x$. \\
+		\tbf{FINISH!!! right now not well defined.}
+	\end{ex}	
 	
-	\subsection{Topological Vector Spaces}
+	\begin{proof}
+		Clear.
+	\end{proof}
+
+\begin{defn}
+	Let $M$ be a metric space. Then $M$ is said to be \tbf{separable} if there exists $D \subset M$ such that $D$ is countable and for each $x \in M$ and $\ep >0$, there exists $y \in D$ such that $d(x, y) < \ep$.
+\end{defn}
+
+\begin{ex}
+	Let $M$ be a metric space. If $M$ is separable, then for each $A \subset M$, if $A$ is open, then 
+	\begin{enumerate}
+		\item there there exist $(x_n)_{n \in \N} \subset X$ and $(r_n)_{n \in \N} \subset (0, \infty)$ such that $$A = \bigcup\limits_{n \in \N} B(x_n, r_n)$$
+		i.e. $A$ is a countable union of open balls
+		\item there there exist $(x_n)_{n \in \N} \subset X$ and $(r_n)_{n \in \N} \subset (0, \infty)$ such that $$A = \bigcup\limits_{n \in \N} \bar{B}(x_n, r_n)$$
+		i.e. $A$ is a countable union of closed balls.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	Suppose that $M$ is separable. Then there exists $(x_n)_{n \in \N} \subset M$ such that for each $x \in M$ and $\ep >0$, there exists $N \in \N$ such that $d(x, x_N) < \ep$. Let $A \subset X$. Suppose that $A$ is open.
+	\begin{enumerate}
+		\item  Set 
+		$$\MB = \{B(x_n, r): r \in \Q \text{ and } B(x_n, r) \subset A\}$$ 
+		Note that $\MB$ is countable. Let $x \in A$. Since $A$ is open, there exists $s \in \R$ such that $B(x, s) \subset A$. Then there exists  $r \in \Q \cap (0, r)$. Choose $N \in \N$ such that $d(x, x_N) < r/2$. Let $y \in B(x_N, r/2)$, then 
+		\begin{align*}
+			d(x, y) 
+			& \leq d(x, x_N) + d(x_N, y) \\
+			& < r/2 + r/2 \\
+			& = r
+		\end{align*}
+		Therefore 
+		\begin{align*}
+			x 
+			& \in B(x_N, r/2) \\
+			& \subset B(x, r) \\
+			& \subset A
+		\end{align*}
+		Hence $B(x_N, r/2) \in \MB$ and $x \in \bigcup\limits_{B \in \MB}B$. Since $x \in A$ is arbitrary, $A \subset \bigcup\limits_{B \in \MB}B$.
+		\item Similar, but take $r/4$ instead of $r/2$.
+	\end{enumerate}
+\end{proof}
+
+\begin{defn} \ld{}
+	Let $(M,d)$ be a metric space and $A,B \subset M$. We define the \tbf{distance between $A$ and $B$}, denoted $d(A,B)$, by $$d(A,B) = \inf_{\substack{a \in A \\ b \in B}} d(a,b)$$
+\end{defn}
+
+\begin{ex} \lex{}
+	Let $(M,d)$ be a metric space. Then for each $A,B \subset M$ and $c \in M$, $$d(A,B) \leq d(A,c) + d(c, B)$$
+\end{ex}
+
+\begin{proof}
+	Let $A,B \subset M$, $c \in M$ and $\ep>0$. Choose $a \in A$ and $b \in B$ such that $d(a,c) < d(A,c)+ \ep/2$ and  $d(c,b) < d(c,B)+ \ep/2$. Then 
+	\begin{align*}
+		d(A,B) 
+		&\leq d(a,b) \\
+		&\leq d(a,c) + d(c,b) \\
+		&< d(A,c) + \frac{\ep}{2} + d(c,B) + \frac{\ep}{2} \\
+		&= d(A,c) + d(c,B) + \ep
+	\end{align*}
+	Since $\ep >0$ is arbitrary, $d(A,B) \leq d(A,c) + d(c,B)$.
+\end{proof}
+
+\begin{defn} \ld{}
+	Let $M$ be a set, $d_1, d_2: M \times M \rightarrow \Rg$ metrics on $M$. Then $d_1$ and $d_2$ are said to be 
+	\begin{itemize}
+		\item \tbf{topologically equivalent} if for each $(x_n)_{n \in \N} \subset M$ and $x \in M$, $x_n \conv{d_1} x$ iff $x_n \conv{d_2} x$ 
+		\item\tbf{equivalent} if there exist $A, B > 0$ such that $$A d_1 \leq d_2 \leq B d_1$$
+	\end{itemize}		
+\end{defn}	
+
+\begin{defn} \ld{}
+	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces and $f: X \rightarrow Y$. Then $f$ is said to be \tbf{Lipchitz} if there exists $K \geq 0$ such that for each $a, b \in X$, $$d_Y(f(a), f(b)) \leq Kd_X(a,b)$$
+\end{defn}	
+
+\begin{ex} \lex{}
+	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces and $f: X \rightarrow Y$. If $f$ is Lipchitz, then $f$ is uniformly continuous.	
+\end{ex}
+
+\begin{proof}
+	By definition, there exists $K \geq 0$ such that for each $a, b \in X$, $$d_Y(f(a), f(b)) \leq Kd_X(a,b)$$ Let $\ep >0$. Choose $\del = \ep / (K+1)$. Let $a, b \in X$. Suppose that $d_X(a,b) < \del$. Then 
+	\begin{align*}
+		d_Y(f(a), f(b)) 
+		& \leq Kd_X(a,b) \\
+		& < K \del \\
+		&= K \frac{\ep}{K+1} \\
+		&< \ep  
+	\end{align*}
+\end{proof}
+
+\begin{defn} \ld{}
+	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces and $f: X \rightarrow Y$ and $x_0 \in X$. Then $f$ is said to be \tbf{locally Lipchitz at $x_0$} if there exists $U \in \MN_{x_0}$ such that $f$ is Lipschitz on $U$.
+\end{defn}
+
+\begin{defn} \ld{}
+	Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces and $f: X \rightarrow Y$. Then $f$ is said to be \tbf{locally Lipchitz} if for each $x_0 \in X$, $f$ is locally Lipschitz at $x_0$.
+\end{defn}
+
+
+\begin{defn} \ld{}
+	Let $X, Y$ be metric spaces and $T : X \rightarrow Y$. Then $T$ is said to be an \tbf{isometry} if for each $x_1, x_2 \in X$, $d( Tx_1, Tx_2) = d(x_1,x_2) $.
+\end{defn}
+
+\begin{ex} \lex{}
+	Let $X,Y$ be metric spaces and $T:X \rightarrow Y$ and isometry. Then $T$ is injective.
+\end{ex}
+
+\begin{proof}
+	Let $x_1, x_2 \in X$. Suppose that $Tx_1=Tx_2$. Then $0= d( Tx_1, Tx_2) = d(x_1,x_2)$. So $x_1 = x_2$. Hence $T$ is injective.
+\end{proof}
+
+\begin{note}
+	Let $X,Y$ be metric spaces and $T:X \rightarrow Y$ an isometry. Then $T$ is clearly continuous. If $T$ is surjective, then $T^{-1}$ is an isometry and therefore continuous. Hence $T$ is a homeomorphism.
+\end{note}
+
+\begin{defn} \ld{}
+	Let $(M,d)$ be a metric space. Then $(M,d)$ is said to be a \tbf{Polish space} if $(M,d)$ is complete and separable. 
+\end{defn}
+
+
+
+\begin{ex} \lex{}
+	Let $(X, d)$ be a compact metric space, $E \subset X$ closed, $U \subset X$ open. Suppose that $E \subset U$. Then there exists $\del >0$ such that for each $x \in E$, $B(x, \del) \subset U$.
+\end{ex}	
+
+\begin{proof}
+	Since $X$ is compact, $E$ and $U^c$ are compact. Then there exist $x_0 \in E$ and $y_0 \in U^c$ such that $d(E, U^c) = d(x_0,y_0)$. Since $E \cap U^c = \varnothing$, $x_0 \neq y_0$ and $d(E, U^c) >0$. Put $\ep = d(E, U^c)$ and $\del = \frac{\ep}{2}$.  Let $x \in E$, $w \in B(x, \del)$ and $y \in U^c$. Then 
+	\begin{align*}
+		d(y, w) 
+		&\geq d(y, x) - d(x, w) \\
+		&> \ep - \del \\
+		&= \ep - \frac{\ep}{2} \\
+		&= \frac{\ep}{2} \\
+		&> 0
+	\end{align*}	  
+	So $y \neq w$. Since and $y \in U^c$ and $w \in B(x, \del)$ are arbitrary, $B(x, \del) \subset U$.
+\end{proof}
+
+\begin{defn} \ld{}
+	Let $S$ be a set, $(M, d)$ a metric space and $B(S, M) = \{f: S \rightarrow M: f \text{ is bounded} \}$. We define the \tbf{supremum metric}, denoted $d_u:B(S,M) \times B(S,M) \rightarrow \Rg$, by $$d_u(f, g) = \sup_{x \in X}d(f(x), g(x)) $$ 
+\end{defn}
+
+\begin{ex} \lex{211111111}
+	Let $X$ be a set, $(Y, d_Y)$, $(Z, d_Z)$ metric spaces, $(f_n)_{n \in \N} \subset B(X, Y)$, $f \in B(X, Y)$ and $g \in C(Y, Z)$. Suppose that $g$ is uniformly continuous. If $f_n \convt{u} f$, then $g \circ f_n \convt{u} g \circ f$. 
+\end{ex}
+
+\begin{proof}
+	Suppose that $f_n \convt{u} f$. Let $\ep >0$. Uniform continuity of $g$ implies that there exists $\del >0$ such that for each $y_1, y_2 \in Y$, $d_Y(y_1, y_2) < \del$ implies that $d_Z(g(y_1), g(y_2)) < \ep/2$.  Uniform convergence implies that there exists $N \in \N$ such that for each $n \in \N$, $n \geq \N$ implies that $d_u(f_n, f) < \del/2$. Let $n \in \N$. Suppose that $n \geq N$. Let $x \in X$. Then $d_Y(f_n(x), f(x)) < \del$. This implies that $d_Z(g(f_n(x)), g(f(x))) < \ep/2$. Hence $\sup\limits_{x \in X} d_Z(g \circ f_n(x), g \circ f(x)) \leq \ep/2$. Thus $d_u(g \circ f_n , g \circ f) < \ep$. So $g \circ f_n \convt{u} g \circ f$.
+\end{proof}
+
+\begin{defn} \ld{}
+	Let $(X, d)$ be a metric space. Define
+	\begin{enumerate}
+		\item $\Aut(X) = \{\sig:X \rightarrow X: \sig \text{ is a homeomorphism}\}$
+		\item $\Aut(X, d) = \{\sig:X \rightarrow X: \sig \text{ is an isometric isomorphism}\}$
+	\end{enumerate}
+\end{defn}
+
+\begin{ex} \lex{}
+	Let $(X, d)$ be a compact metric space, $E \subset X$ closed, $U \subset X$ open. Suppose that $E \subset U$. Let $(f_n)_{n \in \N} \in \Aut(X)$, $f \in \Aut(X)$.  Suppose that $f_n \convt{u} f$. Then there exists $N \in \N$ such that for each $n \geq N$, $f(E) \subset f_n(U)$.
+\end{ex}
+
+\begin{proof}
+	Since $f$ is a homeomorphism, $E$ is closed and $U$ is open, $f(E)$ is compact and $f(U)$ is open and $f(E) \subset f(U)$. Then $d(f(E), f(U^c)) >0$. Put $\ep = d(f(E), f(U^c))$. Choose $\del = \ep/2$. Then there exists $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $\sup\limits_{z \in X} d(f(z), f_n(z)) < \del$. Let $n \geq N$, $x \in E$ and $w \in B(f(x), \del)$. For the sake of contradiction, suppose that $w \in f_n(U^c)$. Then there exist $p \in U^c$ such that $w = f_n(p)$. Put $z = f(p) \in f(U^c)$. Then 
+	\begin{align*}
+		\ep 
+		&\leq d(f(x), z) \\ 
+		&\leq d(f(x), w) + d(w, z) \\
+		& = d(f(x), w) + d(f_n(p), f(p))  \\
+		& < \del + \del \\
+		& = \ep
+	\end{align*}
+	which is a contradiction. So $w \in f_n(U)$. Hence $B(f(x), \del) \subset f_n(U)$
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Product Spaces}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\chapter{Locally Convex Spaces}
+	
+	\section{Topological Vector Spaces}
 	
 	\begin{defn}
 		Let $X$ be a vector space and $\MT$ a topology on $X$. Then $X$ is said to be a \tbf{topological vector space} if
@@ -2416,7 +2635,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 	
 	\newpage	
-	\subsection{Sublinear Functionals}
+	\section{Sublinear Functionals}
 	
 	\begin{defn} \ld{55003}
 		Let $X$ be a real vector space and $p:X \rightarrow \R$. Then $p$ is said to be a \tbf{sublinear functional} if for each $x,y \in X$, $\lam \geq 0$, 
@@ -2580,7 +2799,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 
 	\newpage
-	\subsection{Seminorms}
+	\section{Seminorms}
 	\begin{defn} \ld{55005}
 		Let $X$ be a vector space and $p:X \rightarrow \R$. Then $ p$ is said to be a \tbf{seminorm} if for each $x,y \in X$, $\lam \in \R$, 
 		\begin{enumerate}
@@ -2862,7 +3081,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 	
 	\newpage
-	\subsection{Minkowski Functionals}
+	\section{Minkowski Functionals}
 
 	\begin{defn}
 		Let $X$ be a vector space and $A \subset X$. Then $A$ is said to be \tbf{convex} if for each $x, y \in A$, $t \in [0,1]$, $tx +(1-t)y \in A$.
@@ -3415,7 +3634,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 	
 	\newpage
-	\subsection{Locally Convex Spaces}
+	\section{Locally Convex Spaces}
 	
 	\begin{defn}
 		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. We equip $X / \ker p$ with the topology induced by the norm $\bar{p}:X / \ker p \rightarrow \Rg$. We define the projection $\pi_p: X \rightarrow X / \ker p$ by $\pi_p(x) = \bar{x} = x + \ker p$.
@@ -3652,7 +3871,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	
 	\newpage
-	\subsection{Direct Sums}
+	\section{Direct Sums}
 
 	
 
@@ -3679,7 +3898,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 
 	\newpage
-	\subsection{Quotient Spaces}
+	\section{Quotient Spaces}
 	
 	\begin{ex}
 		Let $X$ be a topological vector space and $M \subset X$ a subspace. Then $\pi: X \rightarrow X / M$ is open. 
@@ -3826,7 +4045,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	
 	\newpage
-	\subsection{Duality}
+	\section{Duality}
 	
 	\begin{defn}
 		Let $X,Y$ and $Z$ be topological vector spaces (over the same field) and $b : X \times Y \rightarrow Z$. Then $b$ is said to be a \tbf{pairing of $X$ with $Y$ over $Z$} if $b$ is bilinear. \\
@@ -4067,10 +4286,11 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 
 \newpage
-\subsection{Continous Linear Maps}
+\section{Continous Linear Maps}
 
 \begin{defn}
-	Let $X,Y$ be topological vector spaces. We define $L(X,Y) = \{T:X \rightarrow Y: T \text{ is linear and continuous}\}$.
+	Let $X,Y$ be topological vector spaces. We define 
+	$$L(X,Y) = \{T:X \rightarrow Y: T \text{ is linear and continuous}\}$$
 \end{defn}
 
 \begin{defn}
@@ -4160,8 +4380,8 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	
 	\newpage
-	\section{Banach Spaces}
-	\subsection{Introduction}
+	\chapter{Banach Spaces}
+	\section{Introduction}
 	\begin{note}
 		In the following, we will consider vector spaces over $\C$. There are analogous results for real vector spaces as well, just replace every $\C$ with $\R$.
 	\end{note}
@@ -4266,7 +4486,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	
 	
 	\newpage
-	\subsection{Bounded Operators}
+	\section{Bounded Operators}
 	
 	\begin{defn} \ld{42001} 
 		Let $X,Y$ be a normed vector spaces and $T:X \rightarrow Y$ linear. Then $T$ is said to be \tbf{bounded} if $T(\cl B(0,1))$ is bounded. We define $$L(X,Y) = \{T:X \rightarrow Y: T \text{ is linear and bounded}\}$$
@@ -4530,7 +4750,7 @@ So that $T(\cl B(0,1))$ is bounded.
 	
 	
 	\newpage
-	\subsection{Direct Sums}
+	\section{Direct Sums}
 	
 	\begin{defn} \ld{}
 	Let $X, Y$ be normed vector spaces and $p \in [1, \infty]$. Let $\| \cdot \|'_p: \R^2 \rightarrow [0, \infty)$ denote the usual $l^p$ norm. We define $\| \cdot \|_p : X \oplus Y \rightarrow \Rg$ by $$\|(x, y) \|_p = \|( \|x\|, \| y \|) \|'_ p$$
@@ -4688,7 +4908,7 @@ So that $T(\cl B(0,1))$ is bounded.
 	
 	
 	\newpage
-	\subsection{Quotient Spaces}	
+	\section{Quotient Spaces}	
 	
 	\begin{defn} \ld{}
 		Let $X$ be a normed vector space and $M \subset X$ a closed subspace. Define $\|\cdot\|:X/M \rightarrow \Rg$ by $$\|x+M\| := \inf_{y \in M}\|x+y\|$$
@@ -4866,7 +5086,7 @@ So that $T(\cl B(0,1))$ is bounded.
 	
 
 	\newpage
-	\subsection{Applications of the Hahn-Banach Theorem}
+	\section{Applications of the Hahn-Banach Theorem}
 	
 	
 	
@@ -5114,7 +5334,7 @@ So that $T(\cl B(0,1))$ is bounded.
 	
 	
 	\newpage
-	\subsection{The Baire Category and Closed Graph Theorems}
+	\section{The Baire Category and Closed Graph Theorems}
 	
 	\begin{thm} \tbf{Open Mapping Theorem:} \\
 		Let $X, Y$ be Banach spaces and $T\in L(X,Y)$. If $T$ is surjective, then $T$ is open.
@@ -5303,7 +5523,7 @@ So that $T(\cl B(0,1))$ is bounded.
 
 
 	\newpage
-	\subsection{Duality}
+	\section{Duality}
 
 	\begin{note}
 		Let $X$ be a normed vector space. Then $X^*$ is a normed vector space. In general the weak-$*$ topology on $X^*$ is not necessarily the same as the norm topology on $X^*$. In the context of normed vector spaces, we will write $X^{**}$ to denote $(X^*)^*$ when $X^*$ is equipped with the norm topology and $\hat{X}$ to denote $(X^*)^*$ when $X^*$ is equipped with the weak-$*$ topology. 
@@ -5565,7 +5785,7 @@ So that $T(\cl B(0,1))$ is bounded.
 
 
 \newpage
-\subsection{Compact Operators}
+\section{Compact Operators}
 
 
 \begin{defn}
@@ -5595,7 +5815,7 @@ So that $T(\cl B(0,1))$ is bounded.
 
 
 	\newpage
-	\subsection{Multilinear Maps}	
+	\section{Multilinear Maps}	
 	\begin{defn} \ld{43001}
 	Let $X_1, \cdots, X_n, Y$ be normed vector spaces and $T: \prod\limits_{i=1}^n X_i \rightarrow Y$ multilinear. Then $T$ is said to be \tbf{bounded} if there exists $C \geq 0$ such that for each $x_1, \cdots, x_n \in X$, $$\|T(x_1, \cdots, x_n)\| \leq C \|x_1\| \cdots \|x_n\|$$
 	We define $$L^n (X_1, \dots, X_n; Y) = \bigg\{T: \prod\limits_{i=1}^n X_i \rightarrow Y: T \text{ is multilinear and bounded}\bigg \}$$ 
@@ -5771,7 +5991,7 @@ So that $T(\cl B(0,1))$ is bounded.
 
 
 \newpage
-	\subsection{Banach Algebras}
+	\section{Banach Algebras}
 	
 	\begin{defn} \ld{}
 		Let $X$ be a Banach space and an associative algebra. Then $X$ is said to be a \tbf{Banach algebra} if for each $S,T \in X$, $\|ST \|\leq \|S \|\|T \|$. 
@@ -5938,9 +6158,9 @@ So that $T(\cl B(0,1))$ is bounded.
 	
 	
 	\newpage
-	\section{Hilbert Spaces}
+	\chapter{Hilbert Spaces}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 	
 	\begin{defn} \ld{}
 		Let $H$ be a vector space and $\l \cdot, \cdot \r: H \rightarrow \C$. Then $\l \cdot, \cdot \r$ is said to be an \tbf{inner product} on $H$ if for each $x,y,z \in H$and $c \in \C$
@@ -6165,7 +6385,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 
 \newpage
 
-\subsection{Operators and Functionals}
+\section{Operators and Functionals}
 
 \begin{defn} \ld{}\tbf{(Adjoint of an Operator):} \\
 	Let $H$ be a Hilbert space and $A,B \in L(H)$. Then $B$ is said to be the \tbf{adjoint} of $A$ if for each $x_1$, $x_2 \in H$, $$\l x_1 , Ax_2 \r = \l B x_1 , x_2 \r$$  In this case, we write $$B = A^{*}$$
@@ -6422,7 +6642,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 
 
 \newpage
-	\subsection{Tensor Products}
+	\section{Tensor Products}
 	
 	\begin{note}
 	This section assumes familiarity with the algebraic tensor product of two vector spaces. See section ??? of \cite{algebra} for details. 
@@ -6615,9 +6835,9 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 	
 	
 	\newpage
-	\section{Differentiation}
+	\chapter{Differentiation}
 	
-	\subsection{The Gateaux Derivative}
+	\section{The Gateaux Derivative}
 	
 	\begin{defn} \ld{61001}
 	Let $X,Y$ be a Banach spaces, $A \subset X$ open, $f:A \rightarrow Y$, $x_0 \in A$ and $x \in X$. Then $f$ is said to be 
@@ -6837,7 +7057,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	
 	
 	\newpage
-	\subsection{The Frechet Derivative}
+	\section{The Frechet Derivative}
 	
 	\begin{note}
 		Let $X$ be a vector space over $\C$, $Y$ a vector space over $\R$ and $T:X \rightarrow Y$. Since all vector spaces over $\C$ are also vector spaces over $\R$ we will consider $T$ linear if $T$ is $\R$-linear. 
@@ -7023,13 +7243,13 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	
 	
 	\newpage
-	\subsection{The Calc I Derivative}
+	\section{The Calc I Derivative}
 	\begin{defn} \ld{}\tbf{Calc I Derivative:}\\
 	Let $Y$ be a Banach space, $A \subset \R$ or $\C$ open, $f:A \rightarrow Y$ and $x_0 \in A$. 
 	\begin{enumerate}
 	\item 
 	\begin{itemize}
-	\item If $f$ is Frechet differentiable at $x_0$, we define the \tbf{calc I derivative of $f$ at $x_0$}, denoted $$f'(x_0) \text{ or } \dv{f}{t}{(x_0)}$$ by
+	\item If $f$ is Frechet differentiable at $x_0$, we define the \tbf{calc I derivative of $f$ at $x_0$}, denoted $$f'(x_0) \text{ or } \frac{df}{dt}(x_0)$$ by
 	\begin{align*}
 	f'(x_0) 
 	&= \lim_{t \rightarrow 0} \frac{f(x_0 + t) - f(x_0)}{t} \\
@@ -7103,7 +7323,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	
 	
 	\newpage
-	\subsection{Mean Value Theorem}	
+	\section{Mean Value Theorem}	
 	
 	\begin{ex} \lex{64001}
 	Let $X$ be a Banach space, $A \subset X$ open and convex, and $f:A \rightarrow \R$. If $f$ is continuous and Gateaux differentiable, then for each $x,y \in A$, there exists $t^* \in (0,1)$ such that $f(x) - f(y) = df(t^*x + (1-t^*)y)(x - y)$. 
@@ -7244,7 +7464,7 @@ Let $Y$ be a Banach space, $A \subset \R$ open and $f:A \rightarrow Y$. Then $f$
 	
 	
 	\newpage
-	\subsection{Taylor's Theorem}
+	\section{Taylor's Theorem}
 	
 	\begin{ex} \lex{}
 	Let $Y$ be a separable Banach space, $f:[a,b] \rightarrow Y$ continuous so that $f$ is Bochner-integrable. Define $F:(a,b) \rightarrow Y$ by  $$F(x) = \int_{(a, x]}f dm$$ Then $F \in C^1((a,b), Y)$ and for each $x_0 \in (a,b)$ and $F'(x_0) = f(x_0)$.
@@ -7303,7 +7523,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	
 	\begin{ex} \lex{}
 	Let $Y$ be a Banach space, $A \subset \R$ open and $g:A \rightarrow Y$. If $g$ is $n$-th order Frechet differentiable, then 
-	$$\dv{t} \sum_{k=0}^{n-1} \frac{(1-t)^k}{k!}g^{(k)}(t) = \frac{(1-t)^{n-1}}{(n-1)!}g^{(n)}(t)$$
+	$$\frac{d}{dt} \sum_{k=0}^{n-1} \frac{(1-t)^k}{k!}g^{(k)}(t) = \frac{(1-t)^{n-1}}{(n-1)!}g^{(n)}(t)$$
 	\end{ex}
 	
 	\begin{proof}
@@ -7326,7 +7546,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	\begin{align*}
 	f(x_0 +h) - \sum_{k=0}^{n} \frac{1}{k!}D^kf(x_0)(h^{\oplus k})
 	&= g(1) - \sum_{k=0}^{n} \frac{1}{k!}g^{(k)}(0)\\
-	&= \int_{(0,1)} \bigg [\dv{t} \sum_{k=0}^{n} \frac{(1-t)^k}{k!}g^{(k)}(t)\bigg ] dm(t) \\
+	&= \int_{(0,1)} \bigg [\frac{d}{dt} \sum_{k=0}^{n} \frac{(1-t)^k}{k!}g^{(k)}(t)\bigg ] dm(t) \\
 	&= \int_{(0,1)} \frac{(1-t)^{n}}{n!}g^{(n+1)}(t) dm(t) \\
 	&= \frac{1}{n!}\int_{(0,1)} (1-t)^{n}D^{n+1}f(x_0 + th)(h^{\oplus (n+1)})d m(t) \\
 	&= R(x_0)(h)
@@ -7469,7 +7689,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 
 
 	\newpage
-	\subsection{Implicit and Inverse Function Theorems}
+	\section{Implicit and Inverse Function Theorems}
 	\begin{defn}
 		Let $(x_0,y_0) \in U$. Then $f$ is said to be \tbf{partial Frechet differentiable with respect to $X$ at $(x_0, y_0)$} if $f^{y_0}$ is Frechet differentiable at $x_0$. \\
 		Suppose that $f$ is partial Frechet differentiable with respect to $X$ at $(x_0, y_0)$. We define the \tbf{partial Frechet derivative of $f$ with respect to $X$ at $(x_0, y_0)$}, denoted $D_X f(x_0, y_0) \in L(X, Z)$, by 
@@ -7567,7 +7787,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	
 	
 	\newpage
-	\subsection{The Gradient}
+	\section{The Gradient}
 	
 	\begin{defn} \ld{}
 	Let $H$ be a Hilbert space, $f: H \rightarrow \C$ and $x_0 \in H$. Suppose that $f$ is Frechet differentiable at $x_0$. Then $Df(x_0) \in H^*$. We define the \tbf{gradient of $f$ at $x_0$}, denoted $\nabla f(x_0) \in H$, via the Riesz representation theorem to be the unique element of $H$ satisfying $$\l \nabla f(x_0), y \r = Df(x_0)(y) \hspace{.3cm} \text{ for each } y \in H$$
@@ -7591,9 +7811,9 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 	
 	
 	\newpage
-	\section{Convexity}
+	\chapter{Convexity}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 
 	\begin{note}
 	In this section, we assume all vector spaces are real.
@@ -7891,7 +8111,7 @@ Then
 	
 	
 	\newpage
-	\subsection{The Subdifferential}
+	\section{The Subdifferential}
 	
 	\begin{ex} \lex{}
 	Let $X$ be a Banach space, $A \subset X$ open and convex, $f:A \rightarrow \R$ convex, $x_0 \in A$ and $x \in X$. Define $T = \{ t \in \R: x_0+tx \in A\}$. Then there exist $a, b \in (0, \infty]$ such that $T = (-a, b)$.
@@ -8221,7 +8441,7 @@ Then
 	\end{proof}
 	
 	\newpage 
-	\subsection{Conjugacy}
+	\section{Conjugacy}
 	
 	\begin{defn} \ld{}
 	Let $X$ be a Banach space, $A \subset X$ and $f:A \rightarrow \R$. Define 
@@ -8390,11 +8610,11 @@ Then
 	
 	
 	\newpage
+	\chapter{Topological Groups}
+	
+	
+	
 	\section{Topological Groups}
-	
-	
-	
-	\subsection{Topological Groups}
 	\begin{note}
 	This section establishes some basic results about topological groups and gives examples of common topological groups in analysis, specifically automorphism groups of metric spaces.  
 	\end{note}
@@ -8587,7 +8807,7 @@ Then
 	
 	
 	\newpage
-	\subsection{Automorphism Groups of Metric Spaces}
+	\section{Automorphism Groups of Metric Spaces}
 	
 	\begin{defn} \ld{}
 	Let $(X, \tau)$ be a topological space. Define $$\Aut(X) = \{\sig:X\rightarrow X: \sig \text{ is a homeomorphism} \}$$ 
@@ -8695,9 +8915,9 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	
 	
 	\newpage
-	\section{Group Actions on Metric Spaces}
+	\chapter{Group Actions on Metric Spaces}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 	\begin{note}
 	For a set $X$, a group $G$ and a (left) group action $\phi: G \times X \rightarrow X$, we will write $\phi(g, x)$ as $g \cdot x$. We denote the projection map by $\pi: X \rightarrow X/G$.
 	\end{note}	
@@ -8776,7 +8996,7 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	
 	
 	\newpage
-	\subsection{Induced Metrics on Orbit Spaces}
+	\section{Induced Metrics on Orbit Spaces}
 	
 	\begin{note}
 	This section establishes the criteria for the existence of a metric on the orbit space of a metric space under a group action. 
@@ -9013,7 +9233,7 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	
 	
 	\newpage
-	\subsection{Fundamental Examples}
+	\section{Fundamental Examples}
 	\begin{note}
 	This section uses results from the previous two sections to establish metrics on some fundamental orbit spaces of metric spaces under a group action. 
 	\end{note} 
@@ -9100,10 +9320,10 @@ Then
 	
 	
 	
-	\newpage
-	\section{Appendix}
 	
-	\subsection{Summation}
+	\appendix
+	
+	\chapter{Summation}
 	
 	\begin{defn} \ld{}
 		Let $f:X \rightarrow \Rg$, Then we define $$\sum_{x \in X} f(x) := \sup_{\substack{F \subset X \\ F \text{ finite}}} \sum_{x \in F} f(x)$$ This definition coincides with the usual notion of summation when $X$ is countable. For $f:X \rightarrow \C$, we can write $f = g +ih$ where $g,h:X \rightarrow \R$. If $$\sum_{x \in X}|f(x)| < \infty,$$ then the same is true for $g^+,g^-,h^+,h^-$. In this case, we may define $$\sum_{x \in X} f(x)$$ in the obvious way.
@@ -9117,7 +9337,7 @@ Then
 	
 	\newpage	
 	
-	\subsection{Asymptotic Notation}
+	\chapter{Asymptotic Notation}
 	
 	\begin{defn} \ld{}
 	Let $X$ be a topological space, $Y, Z$ be normed vector spaces, $f:X \rightarrow Y$, $g: X \rightarrow Z$ and $x_0 \in X \cup \{\infty\}$. Then we write $$f = o(g) \hspace{.5cm} \text{ as } x \rightarrow x_0$$ if for each $\ep >0$, there exists $U \in \MN_{x_0}$ such that for each $x \in U$, $$\|f(x)\| \leq \ep\|g(x)\|$$
@@ -9157,7 +9377,7 @@ Then
 	
 	
 	
-	
+	\backmatter
 	\newpage
 	\begin{thebibliography}{4}
 \bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
@@ -9194,6 +9414,6 @@ Then
 	
 	
 	
-	\end{document}
+\end{document}
 	
 	
