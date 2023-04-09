@@ -182,6 +182,7 @@
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
 \newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tcb}[1]{\textcolor{blue}{#1}}
 \newcommand{\mbf}[1]{\mathbf{#1}}
 \newcommand{\ol}[1]{\overline{#1}}
 \newcommand{\p}{\partial}
@@ -1659,7 +1660,7 @@
 	
 	
 	\newpage
-	\chapter{Coproduct Sigma Algebra}
+	\section{Coproduct Sigma Algebra}
 	
 	\begin{defn}
 		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ be a collection of measurable spaces. We define the \textbf{coproduct $\sig$-algebra} on $\coprod\limits_{\al \in A}X_{\al}$, denoted $\bigoplus\limits_{\al \in A} \MA_{\al}$, by 
@@ -1893,6 +1894,25 @@
 
 	\newpage
 	\section{Borel Spaces}
+	
+	\begin{defn} \lex{28007} 
+		Let $(X, \MA)$ be a measurable space. Then $(X, \MA)$ is said to be a \textbf{Borel space} if there exists $S \in \MB(\R)$ such that $(X, \MA)$ is isomorphic to $(S, \MB(\R) \cap S)$.
+	\end{defn}
+
+	\begin{ex}
+		Let $(X, \MA)$ be a Borel space. Then there exists a metric $d:X^2 \rightarrow \Rg$ such that $(X, d)$ is separable and $\MA = \MB(X, \MT_{d})$.
+	\end{ex}
+
+	\begin{proof}
+		Since $(X, \MA)$ is a Borel space, there exists $S \in \MB(\R)$ and $\phi: (X, \MA) \rightarrow (S, \MB(S))$ such that $\phi$ is an isomorphism. Define $d: X^2 \rightarrow \Rg$ by $d(x,y) = |\phi(x) - \phi(y)|$. Then $d$ is a metric on $X$ and $\phi: (X, d) \rightarrow (S, |\cdot|)$ is a homeomorphism. Since for each $x \in X$ and $r > 0$, $B_X(x, r) = \phi^{-1}((\phi(x) - r, \phi(x) + r))$, we have that $\MT_d = \phi^*\MT_{S}$. Therefore, 
+		\begin{align*}
+			\MA 
+			& = \phi^* \MB(S) \\
+			& = \MB(X, \MT_d)  \text{\tcb{ Maybe not}}
+		\end{align*} 
+	
+		\tcb{FINISH!!!}
+	\end{proof}
 	
 	\begin{ex} \lex{28001} 
 		For each $x \in [0, 1]$, there exists $(x_n)_{n \in \N} \subset \{0,1\}^{\N}$ such that $x = \sum\limits_{j \in \N} x_j2^{-j}$.
@@ -2128,10 +2148,6 @@
 			\item Similar to part $(1)$
 		\end{enumerate}
 	\end{proof}
-
-	\begin{defn} \lex{28007} 
-		Let $(X, \MA)$ be a measurable space. Then $(X, \MA)$ is said to be a \textbf{Borel space} if there exists $S \in \MB(\R)$ such that $(X, \MA)$ is isomorphic to $(S, \MB(\R) \cap S)$.
-	\end{defn}
 
 	\begin{ex} \lex{28006} 
 		We have that
@@ -2922,6 +2938,50 @@
 		\end{align*}
 	\end{defn}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Coproduct Measures}
 
 
 
@@ -5767,16 +5827,16 @@
 	\end{note}
 	
 	\begin{defn}
-		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $\MB$ a sub $\sig$-algebra of $\MA$. We define the \textbf{projection from $L^1(X, \MA, \mu)$ to $L^1(X, \MB, \mu_{\MB})$}, denoted $P_{\MB}:L^1(X, \MA, \mu) \rightarrow L^1(X, \MB, \mu_{\MB})$ by 
-		$$P_{\MB}f = \frac{d \nu_f}{d \mu_{\MB}}$$ 
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $\MB$ a sub $\sig$-algebra of $\MA$. We define the \textbf{projection from $L^1(X, \MA, \mu)$ to $L^1(X, \MB, \mu_{\MB})$}, denoted $P^{\mu}_{\MB}:L^1(X, \MA, \mu) \rightarrow L^1(X, \MB, \mu_{\MB})$ by 
+		$$P^{\mu}_{\MB}f = \frac{d \nu_f}{d \mu_{\MB}}$$ 
 	\end{defn}
 	
 	\begin{ex}
 		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space and $\MB$ a sub $\sig$-algebra of $\MA$. Then 
 		\begin{enumerate}
-			\item $P_{\MB} \in L(L^1(X, \MA, \mu))$ and $\|P_{\MB}\| = 1$
-			\item $P_{\MB}|_{L^1(X, \MB, \mu_{\MB})} = \id_{L^1(X, \MA, \mu_{\MB})}$ 
-			\item $P_{\MB}$ is idempotent
+			\item $P^{\mu}_{\MB} \in L(L^1(X, \MA, \mu))$ and $\|P^{\mu}_{\MB}\| = 1$
+			\item $P^{\mu}_{\MB}|_{L^1(X, \MB, \mu_{\MB})} = \id_{L^1(X, \MA, \mu_{\MB})}$ 
+			\item $P^{\mu}_{\MB}$ is idempotent
 		\end{enumerate}
 	\end{ex}
 	
@@ -5792,47 +5852,47 @@
 			\end{align*}
 			Hence $\nu_{f + \lam g} + \nu_{f} + \lam \nu_{g}$. Thus 
 			\begin{align*}
-				P_{\MB}(f + \lam g)
+				P^{\mu}_{\MB}(f + \lam g)
 				& = \frac{d \nu_{f + \lam g}}{d \mu_{\MB}} \\
 				& = \frac{d \nu_f }{d \mu_{\MB}} + \lam \frac{d \nu_{g}}{d \mu_{\MB}} \\
-				& = P_{\MB} f + \lam P_{\MB} g
+				& = P^{\mu}_{\MB} f + \lam P^{\mu}_{\MB} g
 			\end{align*}
-			So $P_{\MB}$ is linear. Since $|P_{\MB}f| \in L^1(X, \MB, \mu_{\MB})$, a previous exercise implies that
+			So $P^{\mu}_{\MB}$ is linear. Since $|P^{\mu}_{\MB}f| \in L^1(X, \MB, \mu_{\MB})$, a previous exercise implies that
 			\begin{align*}
-				\|P_{\MB}f\|_1
-				& = \int |P_{\MB}f| \dmu \\
-				& = \int |P_{\MB}f| \dmu_{\MB} \\
+				\|P^{\mu}_{\MB}f\|_1
+				& = \int |P^{\mu}_{\MB}f| \dmu \\
+				& = \int |P^{\mu}_{\MB}f| \dmu_{\MB} \\
 				& = |\nu_{f}|(X) \\
 				& = \int |f| \dmu \\
 				& = \|f\|_1
 			\end{align*}
-			Hence $\|P_{\MB} f \|_1 = \|f\|_1$ and $P_{\MB} \in L(L^1(X, \MA, \mu))$.
+			Hence $\|P^{\mu}_{\MB} f \|_1 = \|f\|_1$ and $P^{\mu}_{\MB} \in L(L^1(X, \MA, \mu))$.
 			\item Let $f \in L^1(X, \MB, \mu_{\MB})$. Then for each $B \in \MB$, 
 			\begin{align*}
 				\nu_f(B)
 				& = \int_B f \dmu \\
 				& = \int_B f \dmu_{\MB} 
 			\end{align*}
-			Uniqueness of the Radon-Nikodym derivative implies that $P_{\MB}f = f$. Since $f \in L^1(X, \MB, \mu_{\MB})$ is arbitrary, $P_{\MB}|_{L^1(X, \MB, \mu_{\MB})} = \id_{L^1(X, \MA, \mu_{\MB})}$.
-			\item Let $f \in L^1(X, \MA, \mu)$. Since $P_{\MB}f \in L^1(X, \MB, \mu_{\MB})$ and $P_{\MB}|_{L^1(X, \MB, \mu_{\MB})} = \id_{L^1(X, \MA, \mu_{\MB})}$, we have that
+			Uniqueness of the Radon-Nikodym derivative implies that $P^{\mu}_{\MB}f = f$. Since $f \in L^1(X, \MB, \mu_{\MB})$ is arbitrary, $P^{\mu}_{\MB}|_{L^1(X, \MB, \mu_{\MB})} = \id_{L^1(X, \MA, \mu_{\MB})}$.
+			\item Let $f \in L^1(X, \MA, \mu)$. Since $P^{\mu}_{\MB}f \in L^1(X, \MB, \mu_{\MB})$ and $P^{\mu}_{\MB}|_{L^1(X, \MB, \mu_{\MB})} = \id_{L^1(X, \MA, \mu_{\MB})}$, we have that
 			\begin{align*}
-				P_{\MB}^2 f 
-				& = P_{\MB}(P_{\MB} f) \\
-				& = \id_{L^1(X, \MB, \mu_{\MB})} (P_{\MB} f) \\
-				& = P_{\MB}f
+				(P^{\mu}_{\MB})^2 f 
+				& = P^{\mu}_{\MB}(P^{\mu}_{\MB} f) \\
+				& = \id_{L^1(X, \MB, \mu_{\MB})} (P^{\mu}_{\MB} f) \\
+				& = P^{\mu}_{\MB}f
 			\end{align*}
-			Since $f \in L^1(X, \MB, \mu_{\MB})$ is arbitrary, $P_{\MB}^2 = P_{\MB}$ and $P_{\MB}$ is idempotent. 
+			Since $f \in L^1(X, \MB, \mu_{\MB})$ is arbitrary, $(P^{\mu}_{\MB})^2 = P^{\mu}_{\MB}$ and $P^{\mu}_{\MB}$ is idempotent. 
 		\end{enumerate}
 	\end{proof}
 
 	\begin{ex}
 		in{ex}
-		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$, $f \in L^1(X, \MA, \mu)$ and $g \in L^1(X, \MB, \mu_{\MB})$. Then $g = P_{\MB}f$ iff for each $B \in \MB$, 
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$, $f \in L^1(X, \MA, \mu)$ and $g \in L^1(X, \MB, \mu_{\MB})$. Then $g = P^{\mu}_{\MB}f$ iff for each $B \in \MB$, 
 		$$\int_B g \dmu = \int_B f \dmu$$
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $g = P_{\MB}f$. Let $B \in \MB$. Then 
+		Suppose that $g = P^{\mu}_{\MB}f$. Let $B \in \MB$. Then 
 		\begin{align*}
 			\int_B g \dmu 
 			& = \int_B g \dmu_{\MB} \\
@@ -5852,7 +5912,7 @@
 		\end{align*} 
 		By definition, 
 		\begin{align*}
-			P_{\MB}f 
+			P^{\mu}_{\MB}f 
 			& =  \frac{d \nu_f}{d \mu_{\MB}} \\
 			& = g
 		\end{align*} 
@@ -5862,7 +5922,7 @@
 		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $(A_{j})_{j \in \N} \subset \MA$. Suppose that $(A_j)_{j \in \N}$ is disjoint and $\mu \bigg(\bigcup\limits_{j \in \N} A_j \bigg) < \infty$. Then 
 		\begin{enumerate}
 			\item $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$
-			\item $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$
+			\item $P^{\mu}_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P^{\mu}_{\MB}\chi_{A_j}$
 		\end{enumerate}
 	\end{ex}
 	
@@ -5878,48 +5938,48 @@
 			So $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$.
 			\item Since  $(A_j)_{j \in \N}$ is disjoint, we have that 
 			$$\chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} \chi_{A_j}$$
-			For each $n \in \N$, define $f_n = \sum\limits_{j = 1}^n \chi_{A_j}$. Set $f = \chi_{\bigcup\limits_{j \in \N} A_j}$. Then for each $n \in \N$, $f_n \leq f$ and $f_n \convt{p.w.} f$. Since $f \in L^1(X, \MA, \mu)$, the dominated convergence theorem implies that $f_n \conv{L^1(\mu)} f$. Since $P_{\MB} \in L(L^1(X, \MA, \mu))$, 
+			For each $n \in \N$, define $f_n = \sum\limits_{j = 1}^n \chi_{A_j}$. Set $f = \chi_{\bigcup\limits_{j \in \N} A_j}$. Then for each $n \in \N$, $f_n \leq f$ and $f_n \convt{p.w.} f$. Since $f \in L^1(X, \MA, \mu)$, the dominated convergence theorem implies that $f_n \conv{L^1(\mu)} f$. Since $P^{\mu}_{\MB} \in L(L^1(X, \MA, \mu))$, 
 			\begin{align*}
-				\sum_{j=1}^n P_{\MB} \chi_{A_j}
-				& = P_{\MB} \sum_{j=1}^n \chi_{A_j} \\
+				\sum_{j=1}^n P^{\mu}_{\MB} \chi_{A_j}
+				& = P^{\mu}_{\MB} \sum_{j=1}^n \chi_{A_j} \\
 				& = P_{B}f_n \\
-				& \conv{L^1(\mu)} P_{\MB}f \\
-				& = P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} 
+				& \conv{L^1(\mu)} P^{\mu}_{\MB}f \\
+				& = P^{\mu}_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} 
 			\end{align*}  
-			Hence  $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$.
+			Hence  $P^{\mu}_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P^{\mu}_{\MB}\chi_{A_j}$.
 		\end{enumerate}
 	\end{proof}
 
 	\begin{ex}
-		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f \in L^1(X, \MA, \mu)$. If $f \geq 0$, then $P_{\MB}f \geq 0$ $\mu_{\MB}$-a.e.
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f \in L^1(X, \MA, \mu)$. If $f \geq 0$, then $P^{\mu}_{\MB}f \geq 0$ $\mu_{\MB}$-a.e.
 	\end{ex}
 
 	\begin{proof}
 		Suppose that $f \geq 0$. Then $\nu_f: \MB \rightarrow [0, \infty)$ is a finite measure. Hence 
 		\begin{align*}
-			P_{\MB}f 
+			P^{\mu}_{\MB}f 
 			& = \frac{d \nu_f}{d \mu_{\MB}} \\
 			& \geq 0 \text{ $\mu_{\MB}$-a.e.}
 		\end{align*}
 	\end{proof}
 
 	\begin{ex}
-		Let $(\R, \MB(\R), \mu)$ be a finite measure space and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. For each $z \in \R$, define $h_z \in L^1(X, \MA, \mu)$ by $h_z = \chi_{(-\infty, z]}$ and choose $f_z \in L_0(X, \MA)$ such that $f_z = P_{\MB}h_z$ $\mu$-a.e. Then there exists $M \in \MB$ such that $\mu_{\MB}(M^c) = 0$ and for each $x \in M$, $(f_q(x))_{q \in \Q}$ is increasing.
+		Let $(X, \MA, \mu)$ be a finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f: X \rightarrow \R$ $(\MA, \MB(\R))$-measurable. For each $z \in \R$, define $h_z \in L^1(X, \MA, \mu)$ by $h_z = \chi_{f^{-1}((-\infty, z])}$ and choose $f_z \in L_0(X, \MA)$ such that $f_z = P^{\mu}_{\MB}h_z$ $\mu$-a.e. Then there exists $M \in \MB$ such that $\mu_{\MB}(M^c) = 0$ and for each $x \in M$, $(f_q(x))_{q \in \Q}$ is increasing.
 	\end{ex}
 	
 	\begin{proof}
-		Let $q, r \in \Q$. Suppose that $q < r$. Then $\chi_{(-\infty, r]} - \chi_{(-\infty, q]} \geq 0$ and
+		Let $q, r \in \Q$. Suppose that $q < r$. Then $\chi_{f^{-1}((-\infty, r])} - \chi_{f^{-1}((-\infty, q])} \geq 0$ and
 		\begin{align*}
 			f_r - f_q 
-			& = P_{\MB} \chi_{(-\infty, r]} - P_{\MB} \chi_{(-\infty, q]} \\
-			& = P_{\MB} \bigg[ \chi_{(-\infty, r]} - \chi_{(-\infty, q]} \bigg] \\\
+			& = P^{\mu}_{\MB} \chi_{f^{-1}((-\infty, r])} - P^{\mu}_{\MB} \chi_{f^{-1}((-\infty, q])} \\
+			& = P^{\mu}_{\MB} \bigg[ \chi_{f^{-1}((-\infty, r])} - \chi_{f^{-1}((-\infty, q])} \bigg] \\\
 			& \geq 0 \text{ $\mu_{\MB}$-a.e.}
 		\end{align*}
 		Hence $f_q \leq f_r$ $\mu_{\MB}$-a.e. An exercise in the section on measures implies that $(f_q)_{q \in \Q}$ is increasing $\mu_{\MB}$-a.e. and thus there exists $M \in \MB$ such that $\mu_{\MB}(M^c) = 0$ and for each $x \in M$, $(f_q(x))_{q \in \Q}$ is increasing.
 	\end{proof}
 	
 	\begin{ex}
-		Let $(\R, \MB(\R), \mu)$ be a finite measure space and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. Define $(h_z)_{z \in \R} \subset L^1(\R, \MB(\R), \mu)$, $(f_z)_{z \in \R} \subset L^0(\R, \MB)$ and $M \in \MB$ as in the previous exercise. Choose $g \in \NBV(\R)$ such that $g: \R \rightarrow \R$, $g$ is increasing and $\sup\limits_{z \in \R} g(z) = 1$. Define $G: \R^2 \rightarrow \R$ by 
+		Let $(X, \MA, \mu)$ be a finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f: X \rightarrow \R$ $(\MA, \MB(\R))$-measurable. Define $(h_z)_{z \in \R} \subset L^1(X, \MA, \mu)$, $(f_z)_{z \in \R} \subset L^0(X, \MB)$ and $M \in \MB$ as in the previous exercise. Choose $g \in \NBV(\R)$ such that $g: \R \rightarrow \R$, $g$ is increasing and $\sup\limits_{z \in \R} g(z) = 1$. Define $G: \R \times X \rightarrow \R$ by 
 		\[
 		G(z, x) = 
 		\begin{cases}
@@ -5927,7 +5987,7 @@
 			g(z) & x \in M^c
 		\end{cases}
 		\] 
-		Then for each $x \in \R$, $G(\cdot, x)$ is increasing and right continuous.
+		Then for each $x \in X$, $G(\cdot, x)$ is increasing and right continuous.
 	\end{ex}
 
 	\begin{proof}
@@ -5935,7 +5995,7 @@
 	\end{proof}
 
 	\begin{ex}
-		Let $(\R, \MB(\R), \mu)$ be a finite measure space and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. Define $(h_z)_{z \in \R} \subset L^1(\R, \MB(\R), \mu)$, $(f_z)_{z \in \R} \subset L^0(\R, \MB)$, $M \in \MB$ and $G:\R^2 \rightarrow \R$ as in the previous exercise.
+		Let $(X, \MA, \mu)$ be a finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f: X \rightarrow \R$ $(\MA, \MB(\R))$-measurable. Define $(h_z)_{z \in \R} \subset L^1(X, \MB, \mu)$, $(f_z)_{z \in \R} \subset L^0(X, \MB)$, $M \in \MB$ and $G:\R \times X \rightarrow \R$ as in the previous exercise.
 		\begin{enumerate}
 			\item for each $z \in \R$, $G(z, \cdot) \in L^0(X, \MB)$ and $G(z, \cdot) = f_z$ $\mu_B$-a.e.
 			\item $\sup\limits_{z \in \R} G(z, \cdot) = 1$ $\mu_{\MB}$-a.e.
@@ -5947,22 +6007,23 @@
 		\begin{enumerate}
 			\item Let $z \in \R$. By definition,
 			$$G(z, \cdot) = \inf\limits_{\substack{q \in \Q \\ q > z}}[ f_q \chi_M ] (\cdot) + g(z) \chi_{M^c}(\cdot)$$ 
-			Since $(f_{q} \chi_{M})_{q \in \Q\cap (z, \infty)} \subset L^0(X, \MB)$ and is point-wise bounded below, $\inf\limits_{\substack{q \in \Q \\ q > z}} f_q \chi_M  \in L^0(X, \MB)$. Hence $G(z, \cdot) \in L^0(X, \MB)$. Choose $(q_n)_{n \in \N} \subset \Q$ such that for each $n \in \N$, $q_n \geq q_{n+1} > z$ and $q_n \rightarrow z$. Since for each $n \in \N$, $h_{q_n} - h_{z} = \chi_{(z, q_n]}$, $(z, q_{n+1}] \subset (z, q_n]$ and $\mu$ is finite, we have that 
+			Since $(f_{q} \chi_{M})_{q \in \Q\cap (z, \infty)} \subset L^0(X, \MB)$ and is point-wise bounded below, $\inf\limits_{\substack{q \in \Q \\ q > z}} f_q \chi_M  \in L^0(X, \MB)$. Hence $G(z, \cdot) \in L^0(X, \MB)$. Choose $(q_n)_{n \in \N} \subset \Q$ such that for each $n \in \N$, $q_n \geq q_{n+1} > z$ and $q_n \rightarrow z$. Since for each $n \in \N$, $h_{q_n} - h_{z} = \chi_{f^{-1}((z, q_n])}$, $(z, q_{n+1}] \subset (z, q_n]$ and $\mu$ is finite, we have that 
 			\begin{align*}
 				\|h_{q_n} - h_z\|_1
-				& = \|\chi_{(z, q_n]}\|_1 \\
-				& = \mu((z, q_n]) \\
-				& \rightarrow \mu(\varnothing) \\
+				& = \|\chi_{f^{-1}((z, q_n])}\|_1 \\
+				& = \mu(f^{-1}((z, q_n])) \\
+				& = f_* \mu ((z, q_n]) \\
+				& \rightarrow f_* \mu(\varnothing) \\
 				& = 0
 			\end{align*}
 			So that $h_{q_n} \conv{L^1(\mu)} h_z$. Therefore  
 			\begin{align*}
 				f_{q_n} 
-				& = P_{\MB} h_{q_n} \\
-				& \conv{L^1(\mu_{\MB})} P_{\MB} h_z \\
+				& = P^{\mu}_{\MB} h_{q_n} \\
+				& \conv{L^1(\mu_{\MB})} P^{\mu}_{\MB} h_z \\
 				& = f_z
 			\end{align*}
-			This implies that $f_{q_n} \conv{\mu_{\MB}} f_z$. Since $(f_{q_n})_{n \in \N}$ is decreasing $\mu_{\MB}$-a.e., an exercise in the section on modes of convergence implies that $f_{q_n} \convt{$\mu_{\MB}$-a.e.} f_z$. So there exists $N_1 \in \MB$ such that $\mu_{\MB}(N_1^c) = 0$ and $f_{q_n} \chi_{fi} \convt{p.w.} f_z \chi_{N_1}$. Set $E = M \cap N_1$. Then  
+			This implies that $f_{q_n} \conv{\mu_{\MB}} f_z$. Since $(f_{q_n})_{n \in \N}$ is decreasing $\mu_{\MB}$-a.e., an exercise in the section on modes of convergence implies that $f_{q_n} \convt{$\mu_{\MB}$-a.e.} f_z$. So there exists $N_1 \in \MB$ such that $\mu_{\MB}(N_1^c) = 0$ and $f_{q_n} \chi_{N_1} \convt{p.w.} f_z \chi_{N_1}$. Set $E = M \cap N_1$. Then  
 			\begin{align*}
 				\mu_{\MB}(E^c)
 				& = \mu_{\MB}(M^c \cup N_1^c) \\ 
@@ -5970,21 +6031,22 @@
 				& = 0
 			\end{align*}
 			and for each $x \in E$, $f_{q_n}(x) \rightarrow f_z(x)$ and $f_{q_n}(x) \rightarrow G(z, x)$. Hence $G(z, \cdot)\chi_{E}(\cdot) = f_z \chi_{E}( \cdot)$ which implies that $G(z, \cdot) = f_z$ $\mu_B$-a.e.\\
-			\item Part $(1)$ implies that for each $n \in \N$, there exists $E_n \in \MB$ such that $E_n \subset M$, $\mu(E_n^c) = 0$ and $G(n, \cdot)\chi_{E_n}(\cdot) = f_n(\cdot) \chi_{E_n}(\cdot)$. Set $E = \bigcap\limits_{n \in \N} E_n$. Since for each $n \in \N$, $\chi_{\R} - h_n = \chi_{(n, \infty)}$, $(n+1, \infty) \subset (n, \infty)$ and $\mu$ is finite, we have that 
+			\item Part $(1)$ implies that for each $n \in \N$, there exists $E_n \in \MB$ such that $E_n \subset M$, $\mu(E_n^c) = 0$ and $G(n, \cdot)\chi_{E_n}(\cdot) = f_n(\cdot) \chi_{E_n}(\cdot)$. Set $E = \bigcap\limits_{n \in \N} E_n$. Since for each $n \in \N$, $\chi_{X} - h_n = \chi_{f^{-1}((n, \infty))}$, $(n+1, \infty) \subset (n, \infty)$ and $\mu$ is finite, we have that 
 			\begin{align*}
-				\|h_n - \chi_{\R}\|_1
-				& = \mu((n, \infty)) \\
-				& \rightarrow \mu(\varnothing) \\
+				\|h_n - \chi_{X}\|_1
+				& = \mu(f^{-1}((n, \infty))) \\
+				& = f_* \mu ((n, \infty)) \\
+				& \rightarrow f_* \mu(\varnothing) \\
 				& = 0 
 			\end{align*}
-			So that $h_{n} \conv{L^1(\mu)} \chi_{\R}$. Therefore  
+			So that $h_{n} \conv{L^1(\mu)} \chi_{X}$. Therefore  
 			\begin{align*}
 				f_n 
-				& = P_{\MB} h_n \\
-				& \conv{L^1(\mu_{\MB})} P_{\MB} \chi_{\R} \\
-				& = \chi_{\R}
+				& = P^{\mu}_{\MB} h_n \\
+				& \conv{L^1(\mu_{\MB})} P^{\mu}_{\MB} \chi_{X} \\
+				& = \chi_{X}
 			\end{align*}
-			This implies that $f_n \conv{\mu_{\MB}} \chi_{\R}$. Since $(f_n)_{n \in \N}$ is increasing $\mu_{\MB}$-a.e., an exercise in the section on modes of convergence implies that $f_n \convt{$\mu_{\MB}$-a.e.} \chi_{\R}$. So there exists $N_2 \in \MB$ such that $\mu_{\MB}(N_2^c) = 0$ and $f_n \chi_{N_2} \convt{p.w.} \chi_{N_2}$. Set $M^+ = E \cap N_2$. Then  $M^+ \subset E \subset M$ and
+			This implies that $f_n \conv{\mu_{\MB}} \chi_{X}$. Since $(f_n)_{n \in \N}$ is increasing $\mu_{\MB}$-a.e., an exercise in the section on modes of convergence implies that $f_n \convt{$\mu_{\MB}$-a.e.} \chi_{X}$. So there exists $N_2 \in \MB$ such that $\mu_{\MB}(N_2^c) = 0$ and $f_n \chi_{N_2} \convt{p.w.} \chi_{N_2}$. Set $M^+ = E \cap N_2$. Then  $M^+ \subset E \subset M$ and
 			\begin{align*}
 				\mu_{\MB}((M^+)^c)
 				& = \mu_{\MB}(E^c \cup N_2^c) \\ 
@@ -6001,18 +6063,19 @@
 				& = 1
 			\end{align*}
 			Thus $\sup\limits_{z \in \R} G(z, \cdot) = 1$ $\mu_{\MB}$-a.e.\\
-		\item Part $(2)$ implies that for each $n \in \N$, there exists $E_n \in \MB$ such that $E_n \subset M$, $\mu(E_n^c) = 0$ and $G(n, \cdot)\chi_{E_n}(\cdot) = f_n(\cdot) \chi_{E_n}(\cdot)$. Set $E = \bigcap\limits_{n \in \N} E_n$. Since for each $n \in \N$, $h_{-n} = \chi_{(-\infty, -n)}$, $(-\infty, -(n + 1)) \subset (-\infty, -n)$ and $\mu$ is finite, we have that 
+		\item Part $(2)$ implies that for each $n \in \N$, there exists $E_n \in \MB$ such that $E_n \subset M$, $\mu(E_n^c) = 0$ and $G(n, \cdot)\chi_{E_n}(\cdot) = f_n(\cdot) \chi_{E_n}(\cdot)$. Set $E = \bigcap\limits_{n \in \N} E_n$. Since for each $n \in \N$, $h_{-n} = \chi_{f^{-1}((-\infty, -n])}$, $(-\infty, -(n + 1)] \subset (-\infty, -n]$ and $\mu$ is finite, we have that 
 		\begin{align*}
 			\|h_{-n}\|_1
-			& = \mu((-\infty, -n)) \\
+			& = \mu(f^{-1}((-\infty, -n])) \\
+			& = f_*\mu((-\infty, -n]) \\
 			& \rightarrow \mu(\varnothing) \\
 			& = 0 
 		\end{align*}
 		So that $h_{-n} \conv{L^1(\mu)} 0$. Therefore  
 		\begin{align*}
 			f_{-n}
-			& = P_{\MB} h_{-n} \\
-			& \conv{L^1(\mu_{\MB})} P_{\MB} 0 \\
+			& = P^{\mu}_{\MB} h_{-n} \\
+			& \conv{L^1(\mu_{\MB})} P^{\mu}_{\MB} 0 \\
 			& = 0
 		\end{align*}
 		This implies that $f_n \conv{\mu_{\MB}} 0$. Since $(f_{-n})_{n \in \N}$ is decreasing $\mu_{\MB}$-a.e., an exercise in the section on modes of convergence implies that $f_{-n} \convt{$\mu_{\MB}$-a.e.} 0$. So there exists $N_3 \in \MB$ such that $\mu_{\MB}(N_3^c) = 0$ and $f_{-n} \chi_{N_3} \convt{p.w.} 0$. Set $M^- = E \cap N_3$. Then $M^- \subset E \subset M$ and
@@ -6036,15 +6099,15 @@
 	\end{proof}
 
 	\begin{ex}
-		Let $(\R, \MB(\R), \mu)$ be a finite measure space and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. Then there exists $F: \R^2 \rightarrow [0,1]$ such that
+		Let $(X, \MA, \mu)$ be a finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f: X \rightarrow \R$ $(\MA, \MB(\R))$-measurable. Then there exists $F: \R \times X \rightarrow [0,1]$ such that
 		\begin{enumerate}
-			\item for each $z \in \R$, $F(z, \cdot) \in L^0(X, \MB)$ and $F(z, \cdot) = P_{\MB}\chi_{(-\infty, z]}$ $\mu_B$-a.e.
-			\item for each $x \in \R$, $F(\cdot, x) \in \NBV(\R)$, $F(\cdot, x)$, increasing and $\sup\limits_{z \in \R} F(z, \cdot) = 1$.
+			\item for each $z \in \R$, $F(z, \cdot) \in L^0(X, \MB)$ and $F(z, \cdot) = P^{\mu}_{\MB}\chi_{f^{-1}((-\infty, z])}$ $\mu_B$-a.e.
+			\item for each $x \in X$, $F(\cdot, x) \in \NBV(\R)$, $F(\cdot, x)$, increasing and $\sup\limits_{z \in \R} F(z, \cdot) = 1$.
 		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}
-		Define $(h_z)_{z \in \R} \subset L^1(\R, \MB(\R), \mu)$, $(f_z)_{z \in \R} \subset L^0(\R, \MB)$ as in the previous exercises. Choose $g \in \NBV(\R)$ such that $g: \R \rightarrow \R$, $g$ is increasing and $\sup\limits_{z \in \R} g(z) = 1$. Define $M, M^+, M^- \in \MB$ and $G: \R^2 \rightarrow \R$ as in the previous exercises. Set $E = M \cap M^+ \cap M^-$. Define $F: \R^2 \rightarrow \R$ by 
+		Define $(h_z)_{z \in \R} \subset L^1(\R, \MB(\R), \mu)$, $(f_z)_{z \in \R} \subset L^0(\R, \MB)$ as in the previous exercises. Choose $g \in \NBV(\R)$ such that $g: \R \rightarrow \R$, $g$ is increasing and $\sup\limits_{z \in \R} g(z) = 1$. Define $M, M^+, M^- \in \MB$ and $G: \R \times X \rightarrow \R$ as in the previous exercises. Set $E = M \cap M^+ \cap M^-$. Define $F: \R \times X \rightarrow \R$ by 
 		\[
 		F(z, x) = G(z, x) \chi_{E}(x) + g(z) \chi_{E^c}(x)
 		\]
@@ -6052,18 +6115,18 @@
 			\item Let $z \in \R$. Then $F(z, \cdot) = G(z, \cdot) \chi_{E}(\cdot) + g(z) \chi_{E^c}(\cdot)$. Since $G(z, \cdot) \in L^0(X, \MB)$, $F(z, \cdot) \in L^0(X, \MB)$. 
 			Note that
 			\begin{align*}
-				\mu(E^c)
-				& = \mu(M^c \cup (M^+)^c \cup (M^-)^c) \\  
-				& \leq \mu(M^c) + \mu((M^+)^c) + \mu((M^-)^c) \\
+				\mu_{\MB}(E^c)
+				& = \mu_{\MB}(M^c \cup (M^+)^c \cup (M^-)^c) \\  
+				& \leq \mu_{\MB}(M^c) + \mu_{\MB}((M^+)^c) + \mu_{\MB}((M^-)^c) \\
 				& = 0
 			\end{align*}
-			Since $E \subset M$, by definition of $G$ and $F$, we have that for each $x \in E$, $F(z, x) = G(z, x)$. Hence $\{x \in \R: F(z, x) \neq G(z, x)\} \subset E^c$. Thus 
+			Since $E \subset M$, by definition of $G$ and $F$, we have that for each $x \in E$, $F(z, x) = G(z, x)$. Hence $\{x \in X: F(z, x) \neq G(z, x)\} \subset E^c$. Thus 
 			\begin{align*}
 				F(z, \cdot) 
 				& = G(z, \cdot) \\
 				& = f_z \text{ $\mu_{\MB}$-a.e.}
 			\end{align*}
-			\item Let $x \in \R$. Suppose that $x \in E$. The previous exercise implies that $G(\cdot, x) \in \NBV(\R)$, $G(\cdot, x)$ is increasing and $\sup\limits_{z \in \R} G(z, x) = 1$. Since $F(\cdot, x) = G(\cdot, x)$, we have that $F(\cdot, x) \in \NBV(\R)$, $F(\cdot, x)$ is increasing and $\sup\limits_{z \in \R} F(z, x) = 1$. \\
+			\item Let $x \in X$. Suppose that $x \in E$. The previous exercise implies that $G(\cdot, x) \in \NBV(\R)$, $G(\cdot, x)$ is increasing and $\sup\limits_{z \in \R} G(z, x) = 1$. Since $F(\cdot, x) = G(\cdot, x)$, we have that $F(\cdot, x) \in \NBV(\R)$, $F(\cdot, x)$ is increasing and $\sup\limits_{z \in \R} F(z, x) = 1$. \\
 			If $x \in E^c$, then $F(\cdot, x) = g$. By definition of $g$, $F(\cdot, x) \in \NBV(\R)$, $F(\cdot, x)$, increasing and $\sup\limits_{z \in \R} F(z, \cdot) = 1$.
 		\end{enumerate}
 	\end{proof}
@@ -6077,23 +6140,23 @@
 	\end{defn}
 
 	\begin{ex}
-		Let $(\R, \MB(\R), \mu)$ be a finite measure space and $\MB$ a sub $\sig$-algebra of $\MB(\R)$. Then there exists $\kap: \R \times \MB(\R) \rightarrow [0,1]$ such that 
+		Let $(X, \MA, \mu)$ be a finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f: X \rightarrow \R$ $(\MA, \MB(\R))$-measurable. Then there exists $\kap: X \times \MB(\R) \rightarrow [0,1]$ such that 
 		\begin{enumerate}
-			\item $\kap$ is a Markov kernel from $(\R, \MB)$ to $(\R, \MB(\R))$.
-			\item For each $A \in \MB(\R)$, $\kap(\cdot, A) = P_{\MB}\chi_{A}$ $\mu_{\MB}$-a.e.
+			\item $\kap$ is a Markov kernel from $(X, \MB)$ to $(\R, \MB(\R))$.
+			\item For each $A \in \MB(\R)$, $\kap(\cdot, A) = P^{\mu}_{\MB}\chi_{f^{-1}(A)}$ $\mu_{\MB}$-a.e.
 		\end{enumerate}
 		\textbf{Hint:} 
 		\begin{enumerate}
-			\item Consider $F: \R^2 \rightarrow [0,1]$ defined in the previous exercise and $\mu_x((a,b]) = F(b,x) - F(a,x)$. 
-			\item Consider Dynkin's lemma with $$\nu_B(A) = \int_B \kap(x, A) \dmu_{\MB}(x) \hspace{.5cm} \text{ and } \hspace{.5cm} \lam_B(A) = \mu(A \cap B)$$
+			\item Consider $F: \R \times X \rightarrow [0,1]$ defined in the previous exercise and $\mu_x((a,b]) = F(b,x) - F(a,x)$. 
+			\item Consider Dynkin's lemma with $$\nu_B(A) = \int_B \kap(x, A) \dmu_{\MB}(x) \hspace{.5cm} \text{ and } \hspace{.5cm} \lam_B(A) = \mu(f^{-1}(A) \cap B)$$
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof} Define $F:\R^2 \rightarrow [0,1]$ as in the previous exercise. For each $x \in \R$, define $\mu_x: \MB(\R) \rightarrow [0,1]$ to be the unique measure such that for each $a, b \in \R$, $a \leq b$ implies that $\mu_x((a,b]) = F(b, x) - F(a, x)$. Define $\kap: \R \times \MB(\R) \rightarrow [0,1]$ by $\kap(A, x) = \mu_x(A)$. \\
+	\begin{proof} Define $F:\R \times X \rightarrow [0,1]$ as in the previous exercise. For each $x \in X$, define $\mu_x: \MB(\R) \rightarrow [0,1]$ to be the unique measure such that for each $a, b \in \R$, $a \leq b$ implies that $\mu_x((a,b]) = F(b, x) - F(a, x)$. Define $\kap: X \times \MB(\R) \rightarrow [0,1]$ by $\kap(A, x) = \mu_x(A)$. \\
 		\begin{enumerate}
 			\item \
 			\begin{enumerate}
-				\item Let $x \in \R$. By definition, $\kap(x, \cdot) = \mu_x$ is a measure and 
+				\item Let $x \in X$. By definition, $\kap(x, \cdot) = \mu_x$ is a measure and 
 				\begin{align*}
 					\kap(x, \R) 
 					& = \sup_{n \in \N} \mu_x((-\infty, n])\\
@@ -6111,16 +6174,16 @@
 			\item Let $B \in \MB$. Define $\nu_B, \lam_{B}:\MB(\R) \rightarrow \Rg$ by 
 			$$\nu_B(A) = \int_B \kap(x, A) \dmu_{\MB}(x)$$ 
 			and
-			$$\lam_B(A) = \mu(A \cap B)$$ 
+			$$\lam_B(A) = \mu(f^{-1}(A) \cap B)$$ 
 			Let $a,b \in \R$. Then 
 			\begin{align*}
 				\nu_B((a,b]) 
 				& = \int_B \kap(x, (a,b]) \dmu_{\MB}(x) \\
 				& = \int_{B} F(b, x) - F(a,x) \dmu_{\MB}(x) \\
-				& = \int_{B} P_{\MB}\chi_{(-\infty, b]} - P_{\MB}\chi_{(-\infty, a]} \dmu_{\MB} \\
-				& = \int_{B} P_{\MB}\chi_{(a, b]} \dmu_{\MB} \\
-				& = \int_{B} \chi_{(a, b]} \dmu  \\
-				& = \mu((a,b] \cap B) \\
+				& = \int_{B} P^{\mu}_{\MB}\chi_{f^{-1}((-\infty, b])} - P^{\mu}_{\MB}\chi_{f^{-1}((-\infty, a])} \dmu_{\MB} \\
+				& = \int_{B} P^{\mu}_{\MB}\chi_{f^{-1}((a, b])} \dmu_{\MB} \\
+				& = \int_{B} \chi_{f^{-1}((a, b])} \dmu  \\
+				& = \mu(f^{-1}((a, b]) \cap B) \\
 				& = \lam_{B}((a,b])
 			\end{align*}
 			Define $\MP \subset \MB(\R)$ by $\MP = \{(a,b]: a,b \in \R\} \cup \{\varnothing, X\}$. A previous exercise in the sections on Dynkin's lemma implies that $\MP$ is a $\pi$-system. Since $\sig(\MP) = \MB(\R)$, an exercise in the section on complex measures implise that $\nu_{B} = \lam_{B}$. Let $A \in \MB(\R)$. Then 
@@ -6128,25 +6191,43 @@
 				\int_B \kap(x, A) \dmu_{\MB}(x) 
 				& = \nu_B(A) \\
 				& = \lam_{B}(A) \\
-				& =  \mu(A \cap B) \\
-				& = \int_B \chi_A \dmu \\
-				& = \int_B P_{\MB} \chi_A \dmu \\
-				& = \int_B P_{\MB} \chi_A \dmu_{\MB} \\
+				& =  \mu(f^{-1}(A) \cap B) \\
+				& = \int_B \chi_{f^{-1}(A)} \dmu \\
+				& = \int_B P^{\mu}_{\MB} \chi_{f^{-1}(A)} \dmu \\
+				& = \int_B P^{\mu}_{\MB} \chi_{f^{-1}(A)} \dmu_{\MB} \\
 			\end{align*}
-			Since $B \in \MB$ is arbitrary, $\kap(\cdot, A) = P_{\MB} \chi_A$ $\mu_{\MB}$-a.e. Since $A \in \MB(\R)$ is arbitrary, we have that for each $A \in \MB(\R)$, $\kap(\cdot, A) = P_{\MB} \chi_A$ $\mu_{\MB}$-a.e.
+			Since $B \in \MB$ is arbitrary, $\kap(\cdot, A) = P^{\mu}_{\MB} \chi_{f^{-1}(A)}$ $\mu_{\MB}$-a.e. Since $A \in \MB(\R)$ is arbitrary, we have that for each $A \in \MB(\R)$, $\kap(\cdot, A) = P^{\mu}_{\MB} \chi_{f^{-1}(A)}$ $\mu_{\MB}$-a.e.
 		\end{enumerate}
 	\end{proof}
 
 	\begin{ex}
-		Let $(X, \MA, \mu)$ be a finite measure space and $\MB$ a sub $\sig$-algebra of $\MA$. If $(X, \MA)$ is a Borel space, then there exists $\kap: X \times \MA \rightarrow [0,1]$ such that 
+			Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a Borel space, $\MC$ a sub $\sig$-algebra of $\MA$ and $f: X \rightarrow Y$ $(\MA, \MB)$-measurable. Then there exists $\kap: X \times \MB \rightarrow [0,1]$ such that 
 		\begin{enumerate}
-			\item $\kap$ is a markov kernel from $(X, \MB)$ to $(X, \MA)$.
-			\item For each $A \in \MA$, $\kap(\cdot, A) = P_{\MB}\chi_{A}$ $\mu_{\MB}$-a.e.
+			\item $\kap$ is a Markov kernel from $(X, \MC)$ to $(Y, \MB)$.
+			\item For each $B \in \MB$, $\kap(\cdot, B) = P^{\mu}_{\MC}\chi_{f^{-1}(B)}$ $\mu_{\MC}$-a.e.
 		\end{enumerate}
 	\end{ex}
 
-	\begin{proof}
-		Suppose that $(X, \MA)$ is a Borel space. Then there exists $S \in \MB(\R)$ and $\phi: X \rightarrow S$ such that $\phi$ is an isomorphism.
+	\begin{proof} \textbf{3 cases, $\MB$ is finite, countably infinite and uncountable, in the latter case, can take $E = \R$}
+		Since $(Y, \MB)$ is a Borel space, there exists $E \in \MB(\R)$ and $\phi: (Y, \MB) \rightarrow (E, \MB(E) )$ is an isomorphism. Let $\iota: (E, \MB(E)) \rightarrow (\R, \MB(\R))$ be the inclusion map. Then $\iota \circ \phi \circ f : (X, \MA) \rightarrow (\R, \MB(\R))$. The previous exercise implies that there exists $\kap': X \times \MB(\R) \rightarrow [0,1]$ such that  	
+		\begin{enumerate}
+			\item $\kap'$ is a Markov kernel from $(X, \MC)$ to $(\R, \MB(\R))$.
+			\item For each $A \in \MB(\R)$,  
+			\begin{align*}
+				\kap'(\cdot, A) 
+				& = P^{\mu}_{\MC}\chi_{(\iota \circ \phi \circ f)^{-1}(A)} \\
+				& = P^{\mu}_{\MC}\chi_{f^{-1}(\phi^{-1}(A \cap E))} \text{ $\mu_{\MC}$-a.e.}\\
+			\end{align*}
+		\end{enumerate}
+		Define $\kap: X \times \MB \rightarrow [0,1]$ by $\kap(x, \cdot) = (\phi^{-1})_*\kap'(x, \cdot)$. 
+		\begin{enumerate}
+			\item
+			\begin{enumerate}
+				\item  Let $x \in X$. Since $\kap'(x, \cdot)$ is a probability measure on $(\R, \MB(R))$, $(\phi^{-1})_*\kap'(x, \cdot)$ is a probability measure on $(Y, \MB)$.
+				\item Let $B \in \MB$. Then 
+			\end{enumerate}
+			\item 
+		\end{enumerate}
 	\end{proof}
 	
 	\begin{ex} 
@@ -6185,13 +6266,13 @@
 			\item Let $(A_j)_{j \in \N} \subset \MA$. Suppose that $(A_j)_{j \in \N}$ is disjoint. Since $\mu$ is finite, $\mu \bigg( \bigcup\limits_{j \in \N}A_j \bigg) < \infty$. A previous exercise implies that  
 			\begin{enumerate}
 				\item $\chi_{\bigcup\limits_{j \in \N} A_j} \in L^1(X, \MA, \mu)$
-				\item $P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j}$
+				\item $P^{\mu}_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} P^{\mu}_{\MB}\chi_{A_j}$
 			\end{enumerate}
 			Therefore
 			\begin{align*}
 				\phi_{\bigcup\limits_{j \in \N} A_j} \circ g
-				& = P_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} \\
-				& = \sum\limits_{j \in \N} P_{\MB}\chi_{A_j} \\
+				& = P^{\mu}_{\MB} \chi_{\bigcup\limits_{j \in \N} A_j} \\
+				& = \sum\limits_{j \in \N} P^{\mu}_{\MB}\chi_{A_j} \\
 				& = \sum\limits_{j \in \N} \phi_{A_j} \circ g \text{ $\mu$-a.e.}
 			\end{align*}
 			Uniqueness of $\phi_{\bigcup\limits_{j \in \N} A_j}$ implies that $\phi_{\bigcup\limits_{j \in \N} A_j} = \sum\limits_{j \in \N} \phi_{A_j}$ $g_*\mu$-a.e. $\phi_{\varnothing}$ implies that $\phi_{\varnothing} = 0$ $g_*\mu$-a.e. Thus there exists $N_2 \in \MB$ such that $g_*\mu(N_2) = 0$ and for each $y \in N_2^c$,
@@ -8652,9 +8733,9 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	
 
 	\newpage
-	\chapter{Appendix}
+	\appendix
 	
-	\section{Summation}
+	\chapter{Summation}
 	
 	\begin{defn} \ld{00000} 
 		Let $f:X \rightarrow \Rg$, Then we define $$\sum_{x \in X} f(x) := \sup_{\substack{F \subset X \\ F \text{ finite}}} \sum_{x \in F} f(x)$$ This definition coincides with the usual notion of summation when $X$ is countable. For $f:X \rightarrow \C$, we can write $f = g +ih$ where $g,h:X \rightarrow \R$. If $$\sum_{x \in X}|f(x)| < \infty,$$ then the same is true for $g^+,g^-,h^+,h^-$. In this case, we may define $$\sum_{x \in X} f(x)$$ in the obvious way.
