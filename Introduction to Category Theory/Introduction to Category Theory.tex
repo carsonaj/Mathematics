@@ -42,6 +42,7 @@
 %    Include referenced packages here.
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+\usepackage{environ}
 \usepackage{tikz-cd} 
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
@@ -51,6 +52,7 @@
 	linkcolor=black,  %choose some color if you want links to stand out
 	urlcolor=cyan
 }
+\usepackage[symbols,nogroupskip,sort=none]{glossaries-extra}
 
 
 
@@ -67,11 +69,12 @@
 \newtheorem{ex}[definition]{Exercise}
 \newtheorem{exmp}[definition]{Example}
 
+\setcounter{tocdepth}{3}
+
 % hide proofs
 \newif\ifhideproofs
 %\hideproofstrue %uncomment to hide proofs
 \ifhideproofs
-\usepackage{environ}
 \NewEnviron{hide}{}
 \let\proof\hide
 \let\endproof\endhide
@@ -95,6 +98,7 @@
 \newcommand{\Gam}{\Gamma}
 \newcommand{\Del}{\Delta}
 \newcommand{\Lam}{\Lambda} 
+\newcommand{\Sig}{\Sigma} 
 \newcommand{\Om}{\Omega}
 
 % blackboard bold
@@ -152,7 +156,6 @@
 \newcommand{\lfig}[1]{\label{fig:#1}}
 \newcommand{\rfig}[1]{Figure \ref{fig:#1}}
 
-
 % math operators
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\sgn}{sgn}
@@ -162,12 +165,12 @@
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Homeo}{Homeo}
 \DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
 \DeclareMathOperator{\cl}{cl}
 \DeclareMathOperator{\Int}{Int}
 \DeclareMathOperator{\bal}{bal}
 \DeclareMathOperator{\cnv}{conv}
 \DeclareMathOperator{\epi}{epi}
-
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\cod}{cod}
 \DeclareMathOperator{\Obj}{Obj}
@@ -175,6 +178,7 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rnk}{rank}
 
 % category theory
 \DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
@@ -190,10 +194,12 @@
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
 \newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tcb}[1]{\textcolor{blue}{#1}}
 \newcommand{\mbf}[1]{\mathbf{#1}}
 \newcommand{\ol}[1]{\overline{#1}}
 \newcommand{\p}{\partial}
-
+\newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
+\newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
 
 % limits
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
@@ -236,10 +242,9 @@
 \newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
 
 
-
-
-
-\setcounter{tocdepth}{3}
+% Glossary - Notation
+\glsxtrnewsymbol[description={finite measures on $(X, \MA)$}]{n000001}{$\MM_+(X, \MA)$}
+\glsxtrnewsymbol[description={velocity}]{v}{\ensuremath{v}}
 
 
 \makeindex
@@ -278,10 +283,10 @@
 	\setcounter{page}{4}
 	
 	\tableofcontents
+	\printunsrtglossary[type=symbols,style=long,title={Notation}]
 	
 	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
 	%\include{}
-	
 	
 	\mainmatter
 	%    Include main chapters here.
@@ -289,16 +294,27 @@
 	
 	\chapter*{Preface}
 	\addcontentsline{toc}{chapter}{Preface}
+	
 	\begin{flushleft}
 		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
 	\end{flushleft}
-	
-	
-	
+
 	\newpage
 	
 	
-	\newpage
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	\chapter{Basic Concepts}
 	
@@ -426,7 +442,7 @@
 	\end{defn}
 
 	\begin{ex} \lex{12001.2}
-		We have that $\0$ is a category
+		We have that $\0$ is a category.
 	\end{ex}
 	
 	\begin{proof}
@@ -1631,12 +1647,18 @@
 	\end{ex}
 	
 	\begin{proof}
-		Let $A \in \Obj(\MC)$. Let $e_A \in \Hom_{\MC}(A, A)$. Suppose that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ e_A = f$ and $e_{A} \circ g = g$. Then 
-		\begin{align*}
-			e_A
-			& = e_A \circ \id_A \\
-			& = \id_A 
-		\end{align*}
+		Let $A \in \Obj(\MC)$. 
+		\begin{itemize}
+			\item \tbf{Existence:} \\
+			Since $\MC$ is a category, by definition there exists $\id_A \in \Hom_{\MC}(A, A)$ such that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ \id_A = f$ and $\id_{A} \circ g = g$. 
+			\item \tbf{Uniqueness: } \\
+			Let $e_A \in \Hom_{\MC}(A, A)$. Suppose that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ e_A = f$ and $e_{A} \circ g = g$. Then 
+			\begin{align*}
+				e_A
+				& = e_A \circ \id_A \\
+				& = \id_A 
+			\end{align*}
+		\end{itemize}
 	\end{proof}
 	
 	\begin{defn} \ld{15002}
@@ -1648,15 +1670,21 @@
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that $f$ is an isomorphism. Let $g,h \in \Hom_{\MC}(B, A)$. Suppose that $g \circ f = \id_A$, $f \circ g = \id_B$ and $h \circ f = \id_A$, $f \circ h = \id_B$. Then 
-		\begin{align*}
-			g
-			& = g \circ \id_{B} \\
-			& = g \circ (f \circ h) \\
-			& = (g \circ f) \circ  h \\
-			& = \id_A \circ h \\
-			& = h
-		\end{align*}
+		Suppose that $f$ is an isomorphism. 
+		\begin{itemize}
+			\item \tbf{Existence:} \\
+			By definition, there exists $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_{A}$ and $f \circ g = \id_B$.
+			\item \tbf{Uniqueness: } \\
+			Let $g' \in \Hom_{\MC}(B, A)$. Suppose that $g' \circ f = \id_A$, $f \circ g' = \id_B$. Then 
+			\begin{align*}
+				g'
+				& = g' \circ \id_{B} \\
+				& = g' \circ (f \circ g) \\
+				& = (g' \circ f) \circ  g \\
+				& = \id_A \circ g \\
+				& = g
+			\end{align*}
+		\end{itemize}
 	\end{proof}
 
 	\begin{defn} \ld{15003.1}
@@ -2449,6 +2477,9 @@
 	
 	
 	
+	
+	
+	\backmatter
 	
 	
 	

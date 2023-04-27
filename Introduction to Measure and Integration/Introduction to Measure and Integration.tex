@@ -42,6 +42,7 @@
 %    Include referenced packages here.
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+\usepackage{environ}
 \usepackage{tikz-cd} 
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
@@ -51,6 +52,7 @@
 	linkcolor=black,  %choose some color if you want links to stand out
 	urlcolor=cyan
 }
+\usepackage[symbols,nogroupskip,sort=none]{glossaries-extra}
 
 
 
@@ -66,11 +68,12 @@
 \newtheorem{ex}[definition]{Exercise}
 \newtheorem{exmp}[definition]{Example}
 
+\setcounter{tocdepth}{3}
+
 % hide proofs
 \newif\ifhideproofs
 %\hideproofstrue %uncomment to hide proofs
 \ifhideproofs
-\usepackage{environ}
 \NewEnviron{hide}{}
 \let\proof\hide
 \let\endproof\endhide
@@ -94,6 +97,7 @@
 \newcommand{\Gam}{\Gamma}
 \newcommand{\Del}{\Delta}
 \newcommand{\Lam}{\Lambda} 
+\newcommand{\Sig}{\Sigma} 
 \newcommand{\Om}{\Omega}
 
 % blackboard bold
@@ -145,6 +149,12 @@
 \newcommand{\ld}[1]{\label{defn:#1}}
 \newcommand{\rd}[1]{Definition \ref{defn:#1}}
 
+\newcommand{\lax}[1]{\label{ax:#1}}
+\newcommand{\rax}[1]{Axiom \ref{ax:#1}}
+
+\newcommand{\lfig}[1]{\label{fig:#1}}
+\newcommand{\rfig}[1]{Figure \ref{fig:#1}}
+
 % math operators
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\sgn}{sgn}
@@ -154,6 +164,7 @@
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Homeo}{Homeo}
 \DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
 \DeclareMathOperator{\cl}{cl}
 \DeclareMathOperator{\Int}{Int}
 \DeclareMathOperator{\bal}{bal}
@@ -167,6 +178,7 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rnk}{rank}
 
 % category theory
 \DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
@@ -186,6 +198,8 @@
 \newcommand{\mbf}[1]{\mathbf{#1}}
 \newcommand{\ol}[1]{\overline{#1}}
 \newcommand{\p}{\partial}
+\newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
+\newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
 
 % limits
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
@@ -228,6 +242,10 @@
 \newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
 
 
+% Glossary - Notation
+\glsxtrnewsymbol[description={finite measures on $(X, \MA)$}]{n000001}{$\MM_+(X, \MA)$}
+\glsxtrnewsymbol[description={velocity}]{v}{\ensuremath{v}}
+
 
 \makeindex
 
@@ -265,35 +283,27 @@
 	\setcounter{page}{4}
 	
 	\tableofcontents
+	\printunsrtglossary[type=symbols,style=long,title={Notation}]
 	
 	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
 	%\include{}
 	
 	\mainmatter
 	%    Include main chapters here.
+	%\include{}
+	
 	\chapter*{Preface}
 	\addcontentsline{toc}{chapter}{Preface}
+	
 	\begin{flushleft}
 		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
 	\end{flushleft}
 
-	\begin{flushleft}
-%		This aim of this book is to help students develope a basic grasp of the theory of integration. A typical student's first exposure to integration is in the context of the Darboux integral. This integral is applicable to a relatively small class of complex-valued functions of one or more real variables. Although this is integral is of critical importance, it is not sufficient for many purposes. Extending the Darboux integral to the Lebesgue integral, we can define a notion of integration for certain complex-valued functions on more general spaces, like for example topological spaces. To do so, we must first develop some measure theory, which is useful in its own right. Further extending the Lebesgue integral to the Bochner integral, we can define a notion of integration for certain vector valued functions. 
-	\end{flushleft}
-
-	\vspace{.2cm}
-
-	\begin{flushleft}
-%		The target audience of this book is composed of those who wish to deepen their understanding of integration beyond the Darboux integral. In practice, a basic understanding of the integral would benefit anyone who works with integration and limits in more exotic spaces. For example, students of statistics, physics and disciplines which utilize numerical solutions to differential equations would benefit greatly from a deeper understanding of the integral. 
-	\end{flushleft}
-	
-	
-	\section*{Notes}
-	\begin{itemize}
-	\item Replace the notation "$\text{Im} f$`` with $h$ where $f = g + ih$ so that $\text{Im}f$ can refer to \textbf{image of $f$}.
-\end{itemize}		
-	
 	\newpage
+	
+	
+	
+	
 	
 	
 	
@@ -8666,6 +8676,7 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 		\item Discuss disintegration of measures independently of probability by discussing the projection of $L^1(X, \MA)$ onto $L^1(X, \MB)$ for $\MB \subset \MA$ and the Doob-Dynkin Lemma. Use this to define the disitegration measure. Also do this for disintegration of vector measures.
 		\item Talk about homology when conditioning measures on a value in relation to the entropy of that distribution (maybe make a new set of notes about entropy and put it there)
 		\item Consider the category $\MC$ of measurable spaces with measurable singletons. Fix an object $(X, \MA) \in \MC$. Consider the coslice category of $\MC$ under $(X, \MA)$. Introduce an equivalence relation on objects in the coslice category by $f:X \rightarrow (Y, \MF) \sim g: X \rightarrow (Z, \MG)$ iff $f^*\MF = g^*\MG$. Introduce a partial order on the quotient by $f:X \rightarrow (Y, \MF) \leq g: X \rightarrow (Z, \MG)$ iff $f^*\MF \subset g^*\MG$.  Describe the Doob-Dynkin Lemma in this context, i.e. that $f \leq g$ implies that there is exactly one morphism from $g$ to $f$ in the coslice category.
+		\item  Replace the notation "$\text{Im} f$`` with $h$ where $f = g + ih$ so that $\text{Im}f$ can refer to \textbf{image of $f$}.
 	\end{itemize}
 
 
@@ -8732,7 +8743,7 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	
 	
 
-	\newpage
+	
 	\appendix
 	
 	\chapter{Summation}
@@ -8746,7 +8757,9 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	\begin{note}
 		Let $f:X \rightarrow \C$ and $\al:X \rightarrow X$ a bijection. If $\sum_{x \in X}|f(x)|< \infty$, then $\sum_{x \in X}f( \al (x)) = \sum_{x \in X}f(x) $.
 	\end{note}
+
 	
+	\backmatter
 	\begin{thebibliography}{4}
 	
 \bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}

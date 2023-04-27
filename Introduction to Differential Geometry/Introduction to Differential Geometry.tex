@@ -1,10 +1,51 @@
-\documentclass[12pt]{amsart}
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{book}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+%    Include referenced packages here.
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
-\usepackage{physics}
 \usepackage{tikz, tikz-cd, tkz-fct}  
 \usepackage{pgfplots}
-
+\usepackage{environ}
+\usepackage{tikz-cd} 
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
 \hypersetup{
@@ -13,7 +54,7 @@
 	linkcolor=black,  %choose some color if you want links to stand out
 	urlcolor=cyan
 }
-
+\usepackage[symbols,nogroupskip,sort=none]{glossaries-extra}
 
 \pgfplotsset{every axis/.append style={
 		axis x line=middle,    % put the x axis in the middle
@@ -23,21 +64,6 @@
 		ylabel={$y$},          % default put y on y-axis
 }}
 
-%
-%
-%
-\newif\ifhideproofs
-%\hideproofstrue %uncomment to hide proofs
-%
-%
-%
-%
-\ifhideproofs
-\usepackage{environ}
-\NewEnviron{hide}{}
-\let\proof\hide
-\let\endproof\endhide
-\fi
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
@@ -49,83 +75,105 @@
 \newtheorem{cor}[definition]{Corollary}
 \newtheorem{conj}[definition]{Conjecture}
 \newtheorem{ex}[definition]{Exercise}
+\newtheorem{exmp}[definition]{Example}
 
+\setcounter{tocdepth}{3}
+
+% hide proofs
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+\ifhideproofs
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
+
+% lower-case greek
 \newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
 \newcommand{\gam}{\gamma}
-\newcommand{\Gam}{\Gamma}
-\newcommand{\bet}{\beta} 
-\newcommand{\del}{\delta} 
-\newcommand{\Del}{\Delta}
-\newcommand{\lam}{\lambda}  
-\newcommand{\Lam}{\Lambda} 
+\newcommand{\del}{\delta}
 \newcommand{\ep}{\epsilon}
+\newcommand{\ze}{\zeta} 
+\newcommand{\kap}{\kappa} 
+\newcommand{\lam}{\lambda}  
 \newcommand{\sig}{\sigma} 
+\newcommand{\omi}{\omicron}
+\newcommand{\up}{\upsilon}
 \newcommand{\om}{\omega}
+
+% upper-case greek
+\newcommand{\Gam}{\Gamma}
+\newcommand{\Del}{\Delta}
+\newcommand{\Lam}{\Lambda} 
+\newcommand{\Sig}{\Sigma} 
 \newcommand{\Om}{\Omega}
+
+% blackboard bold
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\N}{\mathbb{N}}
 \newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathbb{F}}
 \renewcommand{\H}{\mathbb{H}}
-\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\T}{\mathbb{T}}
-\newcommand{\Q}{\mathbb{Q}}
-\renewcommand{\P}{\mathbb{P}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% math caligraphic
 \newcommand{\MA}{\mathcal{A}}
-\newcommand{\MC}{\mathcal{C}}
 \newcommand{\MB}{\mathcal{B}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MD}{\mathcal{D}}
+\newcommand{\ME}{\mathcal{E}}
 \newcommand{\MF}{\mathcal{F}}
 \newcommand{\MG}{\mathcal{G}}
-\newcommand{\ML}{\mathcal{L}}
-\newcommand{\MN}{\mathcal{N}}
-\newcommand{\MS}{\mathcal{S}}
-\newcommand{\MP}{\mathcal{P}}
-\newcommand{\ME}{\mathcal{E}}
-\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MH}{\mathcal{H}}
 \newcommand{\MI}{\mathcal{I}}
 \newcommand{\MJ}{\mathcal{J}}
+\newcommand{\MK}{\mathcal{K}}
+\newcommand{\ML}{\mathcal{L}}
 \newcommand{\MM}{\mathcal{M}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MO}{\mathcal{O}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\MQ}{\mathcal{Q}}
+\newcommand{\MR}{\mathcal{R}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MV}{\mathcal{V}}
+\newcommand{\MW}{\mathcal{W}}
 \newcommand{\MX}{\mathcal{X}}
+\newcommand{\MY}{\mathcal{Y}}
+\newcommand{\MZ}{\mathcal{Z}}
 
+% tilde 
 \newcommand{\tMA}{\tilde{\MA}}
 \newcommand{\tMB}{\tilde{\MB}}
-
-
 \newcommand{\tU}{\tilde{U}}
 \newcommand{\tV}{\tilde{V}}
 \newcommand{\tphi}{\tilde{\phi}}
 \newcommand{\tpsi}{\tilde{\psi}}
 \newcommand{\tF}{\tilde{F}}
 
-
-\newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
-\newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
-
-
-\newcommand{\p}{\partial}
-
-\renewcommand{\r}{\rangle}
-\renewcommand{\l}{\langle}
-
-\newcommand{\RG}{[0,\infty]}
-\newcommand{\Rg}{[0,\infty)}
-\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
-
-\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
-\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
-\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
-\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
-\newcommand{\conv}[1]{\xrightarrow{#1}} 
-\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
-
-
-
+% label/reference
 \newcommand{\lex}[1]{\label{ex:#1}}
-\newcommand{\ld}[1]{\label{defn:#1}}
 \newcommand{\rex}[1]{Exercise \ref{ex:#1}}
+
+\newcommand{\ld}[1]{\label{defn:#1}}
 \newcommand{\rd}[1]{Definition \ref{defn:#1}}
 
+\newcommand{\lax}[1]{\label{ax:#1}}
+\newcommand{\rax}[1]{Axiom \ref{ax:#1}}
 
+\newcommand{\lfig}[1]{\label{fig:#1}}
+\newcommand{\rfig}[1]{Figure \ref{fig:#1}}
+
+% math operators
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\spn}{span}
@@ -134,25 +182,146 @@
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Homeo}{Homeo}
 \DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
 \DeclareMathOperator{\cl}{cl}
 \DeclareMathOperator{\Int}{Int}
 \DeclareMathOperator{\bal}{bal}
 \DeclareMathOperator{\cnv}{conv}
 \DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\Obj}{Obj}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rnk}{rank}
 
 
+% category theory
+\DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
+\DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
+\DeclareMathOperator*{\0}{\mbf{0}}
+\DeclareMathOperator*{\1}{\mbf{1}}
+\DeclareMathOperator*{\TopEq}{\text{\tbf{TopEq}}}
+\DeclareMathOperator*{\Top}{\text{\tbf{Top}}}
+\DeclareMathOperator*{\Cone}{\text{\tbf{Cone}}}
+\DeclareMathOperator*{\Cocone}{\text{\tbf{Cocone}}}
+
+% notation
+\renewcommand{\r}{\rangle}
+\renewcommand{\l}{\langle}
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tcb}[1]{\textcolor{blue}{#1}}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\p}{\partial}
+\newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
+\newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
+
+% limits
+\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
+\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
+\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
+\newcommand{\conv}[1]{\xrightarrow{#1}} 
+\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
+
+% intervals
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ru}{(\infty, \infty]}
+\newcommand{\Rd}{[\infty, \infty)}
+\newcommand{\ui}{[0,1]}
+
+% integration \newcommand{\dm}{\, d m}
+\newcommand{\dmu}{\, d \mu}
+\newcommand{\dnu}{\, d \nu}
+\newcommand{\dlam}{\, d \lambda}
+\newcommand{\dP}{\, d P}
+\newcommand{\dQ}{\, d Q}
+\newcommand{\dm}{\, d m}
+
+% abreviations 
+\newcommand{\lsc}{lower semicontinuous}
+
+% misc
+\newcommand{\as}[1]{\overset{#1}{\sim}}
+\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
+\newcommand{\io}{\text{ i.o.}}
+%\newcommand{\ev}{\text{ ev.}}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
+\newcommand{\loc}{\text{loc}}
+\newcommand{\BV}{\text{BV}}
+\newcommand{\NBV}{\text{NBV}}
+\newcommand{\TV}{\text{TV}}
+
+\newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
+
+
+% Glossary - Notation
+\glsxtrnewsymbol[description={finite measures on $(X, \MA)$}]{n000001}{$\MM_+(X, \MA)$}
+\glsxtrnewsymbol[description={velocity}]{v}{\ensuremath{v}}
+
+
+\makeindex
 
 \begin{document}
 	
+	\frontmatter
+	
 	\title{Introduction to Differential Geometry}
+	
+	%    Remove any unused author tags.
+	
+	%    author one information
 	\author{Carson James}
+	\thanks{}
+	
+	%    author two information
+	\author{}
+	\thanks{}
+	
+	\date{}
+	
 	\maketitle
 	
-	\tableofcontents
+	%    Dedication.  If the dedication is longer than a line or two,
+	%    remove the centering instructions and the line break.
+	%\cleardoublepage
+	%\thispagestyle{empty}
+	%\vspace*{13.5pc}
+	%\begin{center}
+	%  Dedication text (use \\[2pt] for line break if necessary)
+	%\end{center}
+	%\cleardoublepage
 	
-	\section{Review of Fundamentals}
+	%    Change page number to 6 if a dedication is present.
+\setcounter{page}{4}
+	
+\tableofcontents
+\printunsrtglossary[type=symbols,style=long,title={Notation}]
+	
+%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+%\include{}
+	
+\mainmatter
+% Include main chapters here.
+%\include{}
+	
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+	
+\begin{flushleft}
+	\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
+\end{flushleft}
+	
+\newpage
+	
+	\chapter{Review of Fundamentals}
 
-	\subsection{Set Theory}
+	\section{Set Theory}
 	
 	\begin{defn}
 		Let $\{A_i\}_{i \in I}$ be a collection of sets. The \textbf{disjoint union of} $\{A_i\}_{i \in I}$, denoted $\coprod\limits_{i \in I} A_i$, is defined by $$\coprod_{i \in I}A_i = \bigcup_{i\in I} \{i\} \times A_i$$ 
@@ -175,14 +344,14 @@
 		Clear.
 	\end{proof}
 	
-	\subsection{Smooth Maps}
+	\section{Smooth Maps}
 	
 	\begin{defn} \ld{21001}
 		Let $n \geq 1$. For $i = 1, \cdots, n$, define $x^i: \R^n \rightarrow \R$ by $x^i(a^1, \cdots, a^n) = a^i$. The functions $(x^i)_{i=1}^n$ are called the \textbf{standard coordinate functions on $\R^n$}. 
 	\end{defn}
 	
 	\begin{defn} \ld{21002}
-		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then $f$ is said to be \textbf{differentiable with respect to $x^i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he^i) - f(a)}{h}$$ exists. If $f$ is differentiable with respect to $x^i$ at $a$, we define the \textbf{partial derivative of $f$ with respect to $x^i$ at $a$}, denoted $$\frac{\partial f}{\partial x^i} (a) \text{ or } \eval{\pdv{x^i}}_{a} f $$ to be the limit above.
+		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then $f$ is said to be \textbf{differentiable with respect to $x^i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he^i) - f(a)}{h}$$ exists. If $f$ is differentiable with respect to $x^i$ at $a$, we define the \textbf{partial derivative of $f$ with respect to $x^i$ at $a$}, denoted $$\frac{\p f}{\p x^i} (a) \text{ or } \frac{\p}{\p x^i} f $$ to be the limit above.
 		
 	\end{defn}
 		
@@ -282,7 +451,7 @@
 
 
 \newpage
-\subsection{Topology}
+\section{Topology}
 
 \begin{defn}
 Let $(X, \T_X), (Y, \MT_Y)$ be topological spaces and $f:X\rightarrow Y$. Then $f$ is said to be \textbf{continuous} if for each $U \in \MT$, $f^{-1}(U) \in \MT_X$.
@@ -324,7 +493,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \newpage
 	\section{Multilinear Algebra}
 	
-	\subsection{$(r,s)$-Tensors}
+	\section{$(r,s)$-Tensors}
 	
 	\begin{defn}
 	Let $V_1, \dots, V_k, W$ be vector spaces and $\al : \prod_{i=1}^n V_i \rightarrow W$. Then $\al$ is said to be \textbf{multilinear} if for each $i \in \{1, \cdots, k\}$, $v \in V$, $c \in \R$ and $v_1, \cdots, v_k \in V$, $$\al(v_1, \cdots, v_i + cv, \cdots, v_k) = \al(v_1, \cdots, v_i, \cdots, v_k) + c\al(v_1, \cdots, v, \cdots, v_k)$$
@@ -363,12 +532,12 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{defn}
-	Let $\al \in \Tn{1}$ and $\bet \in \Tn{2}$. We define the \textbf{tensor product of $\al$ with $\bet$}, denoted $\al \otimes \beta \in T^{r_1+r_2}_{s_1+s_2}(V)$, by $$\al \otimes \bet (v^*, w^*, v, w) = \al(v^*, v) \bet(w^*, w)$$ for each $v^* \in (V^*)^{r_1}$, $w^* \in (V^*)^{r_2}$, $v \in V^{s_1}$ and $w \in V^{s_2}$.\\
-	When $r_1=s_1=r_2=s_2= 0$ (so that $\al, \bet \in \R$), we set $\al \otimes \bet = \al \bet$.
+	Let $\al \in \Tn{1}$ and $\be \in \Tn{2}$. We define the \textbf{tensor product of $\al$ with $\be$}, denoted $\al \otimes \be \in T^{r_1+r_2}_{s_1+s_2}(V)$, by $$\al \otimes \be (v^*, w^*, v, w) = \al(v^*, v) \be(w^*, w)$$ for each $v^* \in (V^*)^{r_1}$, $w^* \in (V^*)^{r_2}$, $v \in V^{s_1}$ and $w \in V^{s_2}$.\\
+	When $r_1=s_1=r_2=s_2= 0$ (so that $\al, \be \in \R$), we set $\al \otimes \be = \al \be$.
 	\end{defn}
 	
 	\begin{defn}
-	We define the \textbf{tensor product}, denoted $\otimes : \Tn{1} \times  \Tn{2} \rightarrow \Tnp$ by $$(\al, \bet) \mapsto \al \otimes \beta $$   
+	We define the \textbf{tensor product}, denoted $\otimes : \Tn{1} \times  \Tn{2} \rightarrow \Tnp$ by $$(\al, \be) \mapsto \al \otimes \be $$   
 	\end{defn}
 	
 	\begin{ex}
@@ -384,16 +553,16 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{ex}
 	
 	\begin{proof}
-	Let $\al \in \Tn{1}$, $\bet \in \Tn{2}$ and $\gam \in \Tn{3}$. Then for each $u^* \in (V^*)^{r_1}, v^* \in (V^*)^{r_2}, w^* \in (V^*)^{r_3}, u \in V^{s_1}, v \in V^{s_2}, w \in V^{s_3}$,  
+	Let $\al \in \Tn{1}$, $\be \in \Tn{2}$ and $\gam \in \Tn{3}$. Then for each $u^* \in (V^*)^{r_1}, v^* \in (V^*)^{r_2}, w^* \in (V^*)^{r_3}, u \in V^{s_1}, v \in V^{s_2}, w \in V^{s_3}$,  
 	\begin{align*}
-	(\al \otimes \bet) \otimes \gam (u^*, v^*, w^*, u, v, w) 
-	&= (\al \otimes \bet) (u^*, v^*, u, v) \gam (w^*, w) \\
-	&= [\al(u^*, u) \bet(v^*, v)] \gam(w^*, w) \\
-	&= \al(u^*, u) [\bet(v^*, v) \gam(w^*, w)] \\
-	&= \al(u^*, u) (\bet \otimes \gam) (v^*, w^*, v, w) \\
-	&= \al \otimes (\bet \otimes \gam)(u^*, v^*, w^*, u, v, w) 
+	(\al \otimes \be) \otimes \gam (u^*, v^*, w^*, u, v, w) 
+	&= (\al \otimes \be) (u^*, v^*, u, v) \gam (w^*, w) \\
+	&= [\al(u^*, u) \be(v^*, v)] \gam(w^*, w) \\
+	&= \al(u^*, u) [\be(v^*, v) \gam(w^*, w)] \\
+	&= \al(u^*, u) (\be \otimes \gam) (v^*, w^*, v, w) \\
+	&= \al \otimes (\be \otimes \gam)(u^*, v^*, w^*, u, v, w) 
 	\end{align*}
-	So that $$(\al \otimes \bet) \otimes \gam = \al \otimes (\bet \otimes \gam)$$
+	So that $$(\al \otimes \be) \otimes \gam = \al \otimes (\be \otimes \gam)$$
 \end{proof}		
 	
 	\begin{ex}
@@ -403,16 +572,16 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{proof}\
 	\begin{enumerate}
 	\item Linearity in the first argument:\\
-	Let $\al, \bet \in \Tn{1}$, $ \gam \in \Tn{2}, \lam \in \R$, $v^* \in (V^*)^{r_1}$, $w^* \in (V^*)^{r_2}$, $v in V^{s_1}$ and $w \in V^{s_2}$. To see that the tensor product is linear in the first argument, we note that  
+	Let $\al, \be \in \Tn{1}$, $ \gam \in \Tn{2}, \lam \in \R$, $v^* \in (V^*)^{r_1}$, $w^* \in (V^*)^{r_2}$, $v in V^{s_1}$ and $w \in V^{s_2}$. To see that the tensor product is linear in the first argument, we note that  
 	\begin{align*}
-	[(\al + \lam \bet) \otimes \gam] (v^*, w^*, v, w) 
-	&= (\al + \lam \bet)(v^*, v) \gam(w^*, w) \\
-	&= [\al(v^*, v) + \lam \bet (v^*, v)] \gam (w^*, w) \\
-	&= \al(v^*, v) \gam (w^*, w) + \lam \bet (v^*, v) \gam (w^*, w) \\
-	&= \al \otimes \gam (v^*, w^*, v, w)  + \lam (\bet \otimes \gam) (v^*, w^*, v, w) \\
-	&= [\al \otimes \gam + \lam (\bet \otimes \gam)] (v^*, w^*, v, w) 
+	[(\al + \lam \be) \otimes \gam] (v^*, w^*, v, w) 
+	&= (\al + \lam \be)(v^*, v) \gam(w^*, w) \\
+	&= [\al(v^*, v) + \lam \be (v^*, v)] \gam (w^*, w) \\
+	&= \al(v^*, v) \gam (w^*, w) + \lam \be (v^*, v) \gam (w^*, w) \\
+	&= \al \otimes \gam (v^*, w^*, v, w)  + \lam (\be \otimes \gam) (v^*, w^*, v, w) \\
+	&= [\al \otimes \gam + \lam (\be \otimes \gam)] (v^*, w^*, v, w) 
 	\end{align*}
-	So that $$(\al + \lam \bet) \otimes \gam = \al \otimes \gam + \lam (\bet \otimes \gam)$$
+	So that $$(\al + \lam \be) \otimes \gam = \al \otimes \gam + \lam (\be \otimes \gam)$$
 	\item Linearity in the second argument:\\
 	Similar to $(1)$.
 	\end{enumerate}
@@ -444,19 +613,19 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 	
 	\begin{ex}
-	Let $\al, \bet \in T^r_s(V)$. If for each $I \in \MI_r, J \in \MI_s$, $\al(\ep^I, e^J) = \bet(\ep^I, e^J)$, then $\al = \bet$.
+	Let $\al, \be \in T^r_s(V)$. If for each $I \in \MI_r, J \in \MI_s$, $\al(\ep^I, e^J) = \be(\ep^I, e^J)$, then $\al = \be$.
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that for each $I \in \MI_r, J \in \MI_s$, $\al(\ep^I, e^J) = \bet(\ep^I, e^J)$. Let $v^*_1, \dots, v^*_r \in V^*$ and $v_1, \dots, v_s \in V$. For each $i \in \{1, \dots, r\}$ and $j \in \{1, \dots, s\}$, write $$v^*_i = \sum\limits_{k_i = 1}^n a_{i, k_i} \ep^{k_i}$$ and $$v_j = \sum\limits_{l_j = 1}^n b_{j, l_j} e^{l_j}$$
+	Suppose that for each $I \in \MI_r, J \in \MI_s$, $\al(\ep^I, e^J) = \be(\ep^I, e^J)$. Let $v^*_1, \dots, v^*_r \in V^*$ and $v_1, \dots, v_s \in V$. For each $i \in \{1, \dots, r\}$ and $j \in \{1, \dots, s\}$, write $$v^*_i = \sum\limits_{k_i = 1}^n a_{i, k_i} \ep^{k_i}$$ and $$v_j = \sum\limits_{l_j = 1}^n b_{j, l_j} e^{l_j}$$
 	Then 
 	\begin{align*}
 	\al(v^*_1, \dots, v^*_r, v_1, \dots, v_s)
 	&= \sum_{k_1, \dots, k_r =1}^n \sum_{l_1, \dots, l_s = 1}^n \prod_{i=1}^r \prod_{j=1}^s a_{i, k_i} b_{j, l_j} \al(\ep^{k_1}, \dots, \ep^{k_r}, e^{l_1}, \cdots, e^{l_s}) \\
-	&= \sum_{k_1, \dots, k_r =1}^n \sum_{l_1, \dots, l_s = 1}^n \prod_{i=1}^r \prod_{j=1}^s a_{i, k_i} b_{j, l_j} \bet(\ep^{k_1}, \dots, \ep^{k_r}, e^{l_1}, \cdots, e^{l_s}) \\
-	&= \bet(v^*_1, \dots, v^*_r, v_1, \dots, v_s)
+	&= \sum_{k_1, \dots, k_r =1}^n \sum_{l_1, \dots, l_s = 1}^n \prod_{i=1}^r \prod_{j=1}^s a_{i, k_i} b_{j, l_j} \be(\ep^{k_1}, \dots, \ep^{k_r}, e^{l_1}, \cdots, e^{l_s}) \\
+	&= \be(v^*_1, \dots, v^*_r, v_1, \dots, v_s)
 	\end{align*}
-	So that $\al = \bet$.
+	So that $\al = \be$.
 	\end{proof}
 		
 	\begin{ex}
@@ -481,7 +650,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 	\begin{proof}
 		Let $(a^I_J)_{I \in \MI_r, J \in \MI_s} \subset \R$. Let $\al = \sum\limits_{(I,J) \in \MI_r \times \MI_s} a^I_J e^{\otimes I} \otimes  \ep^{\otimes J}$. 
-		Suppose that $\al = 0$. Then for each $(I,J) \in \MI_r \times \MI_s$, $\al(\ep^I, e^J) = a^I_J = 0$. Thus $\{e^{\otimes I} \otimes \ep^{\otimes J}: I \in \MI_r, J \in \MI_s\}$ is linearly independent. Let $\bet \in T^r_s(V)$. For $(I,J) \in \MI_r \times \MI_s$, put $b^I_J = \bet(\ep^J, e^I)$. Define $\mu = \sum\limits_{(I,J) \in \MI_r \times \MI_s} b^I_J e^{\otimes I} \otimes \ep^{\otimes J} \in T^r_s(V)$. Then for each $(I,J) \in \MI_r \times \MI_s$, $\mu(\ep^I, e^J) = b^I_J = \bet(\ep^I, e^J)$. Hence $\mu = \bet$ and therefore $\bet \in \spn \{e^{\otimes I} \otimes \ep^{\otimes J} \}$.
+		Suppose that $\al = 0$. Then for each $(I,J) \in \MI_r \times \MI_s$, $\al(\ep^I, e^J) = a^I_J = 0$. Thus $\{e^{\otimes I} \otimes \ep^{\otimes J}: I \in \MI_r, J \in \MI_s\}$ is linearly independent. Let $\be \in T^r_s(V)$. For $(I,J) \in \MI_r \times \MI_s$, put $b^I_J = \be(\ep^J, e^I)$. Define $\mu = \sum\limits_{(I,J) \in \MI_r \times \MI_s} b^I_J e^{\otimes I} \otimes \ep^{\otimes J} \in T^r_s(V)$. Then for each $(I,J) \in \MI_r \times \MI_s$, $\mu(\ep^I, e^J) = b^I_J = \be(\ep^I, e^J)$. Hence $\mu = \be$ and therefore $\be \in \spn \{e^{\otimes I} \otimes \ep^{\otimes J} \}$.
 	\end{proof}		
 		
 		
@@ -494,7 +663,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	\newpage
-	\subsection{$k$-Tensors}	
+	\section{$k$-Tensors}	
 	
 	\begin{defn}
 		Let $\al: V^k \rightarrow \R$. Then $\alpha$ is said to be a \textbf{k-tensor on V} if $\al \in T^0_k(V)$. We will write $T_k(V)$ in place of $T^0_k(V)$.
@@ -527,28 +696,80 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{ex}
 
 	\begin{proof}
-		Let $\al, \beta \in T_k(V)$, $c \in \R$ and $v_1, \cdots, v_k \in V$. Then 
+		Let $\al, \be \in T_k(V)$, $c \in \R$ and $v_1, \cdots, v_k \in V$. Then 
 		\begin{align*}
-			\sig(c\al + \beta)(v_1, \cdots, v_k) 
-			&= (c\al + \beta)(v_{\sig(1)}, \cdots, v_{\sig(k)}) \\
-			&= c \al(v_{\sig(1)}, \cdots, v_{\sig(k)}) + \beta(v_{\sig(1)}, \cdots, v_{\sig(k)}) \\
-			&= c \sig \al(v_1, \cdots, v_k) + \sig \beta(v_1, \cdots, v_k)
+			\sig(c\al + \be)(v_1, \cdots, v_k) 
+			&= (c\al + \be)(v_{\sig(1)}, \cdots, v_{\sig(k)}) \\
+			&= c \al(v_{\sig(1)}, \cdots, v_{\sig(k)}) + \be(v_{\sig(1)}, \cdots, v_{\sig(k)}) \\
+			&= c \sig \al(v_1, \cdots, v_k) + \sig \be(v_1, \cdots, v_k)
 		\end{align*}
-		So $\sig(c \al + \beta) = c\sig \al + \sig \beta$.
+		So $\sig(c \al + \be) = c\sig \al + \sig \be$.
 	\end{proof}
 	
 	\begin{defn}
-		Let $\al \in T_k(V)$. Then $\al$ is said to be \textbf{symmetric} if for each $\sig \in S_k$, $\sig \al = \al$. and $\al$ is said to be \textbf{alternating} if for each $\sig \in S_k$, $\sig \al = \sgn(\sig) \al$.  The set of symmetric $k$-tensors on $V$ is denoted $\Xi_k(V)$ and the set of alternating $k$-tensors on $V$ is denoted $\Lam_k(V)$.
+		Let $\al \in T_k(V)$. Then $\al$ is said to be 
+		\begin{itemize}
+			\item \textbf{symmetric} if for each $\sig \in S_k$, $\sig \al = \al$
+			\item \textbf{antisymmetric} if for each $\sig \in S_k$, $\sig \al = \sgn(\sig) \al$
+			\item \textbf{alternating} if for each $v_1, \ldots, v_k \in V$, if there exists $i,j \in \{1, \ldots, k\}$ such that $v_i = v_j$, then $\al(v_1, \cdots, v_k) = 0$.
+		\end{itemize}
+	We denote the set of symmetric $k$-tensors on $V$ by $\Sig^k(V)$. We denote the set of  alternating $k$-tensors on $V$ by $\Lam^k(V)$.
 	\end{defn}
 
+	\begin{ex}
+		Let $\al \in T_k(V)$. Then $\al$ is antisymmetric iff $\al$ is alternating.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\al$ is antisymmetric. Let $v_1, \ldots, v_k \in V$. Suppose that there exists $i,j \in \{1, \ldots, k\}$ such that $v_i = v_j$. Define $\sig \in S_k$ by $\sig = (i,j)$. Then 
+		\begin{align*}
+			\al (v_1, \cdots, v_i, \cdots, v_j, \cdots,  v_k)  
+			& = \al (v_1, \cdots, v_j, \cdots, v_i, \cdots,  v_k)  \\
+			& = \sig(\al) (v_1, \cdots, v_i, \cdots, v_j, \cdots,  v_k) \\
+			& = \sgn(\sig)\al (v_1, \cdots, v_i, \cdots, v_j, \cdots,  v_k) \\
+			& = -\al (v_1, \cdots, v_i, \cdots, v_j, \cdots,  v_k) 
+		\end{align*} 
+		Therefore $2 \al (v_1, \cdots, v_i, \cdots, v_j, \cdots,  v_k) = 0$ which implies that $\al (v_1, \cdots, v_i, \cdots, v_j, \cdots,  v_k) = 0$. Hence $\al$ is alternating. \\
+		Conversely, suppose that $\al$ is alternating. Let $i,j \in \{1, \ldots, k\}$ and $v_1, \ldots, v_k \in V$. Then 
+		\begin{align*}
+			0 
+			& = \al(v_1, \cdots, v_i + v_j, \cdots, v_i + v_j, \cdots,  v_k) \\
+			& = \al(v_1, \cdots, v_i, \cdots, v_j, \cdots,  v_k) + \al(v_1, \cdots, v_j, \cdots, v_i, \cdots,  v_k)
+		\end{align*}
+		Since $i,j \in \{1, \ldots, k\}$ and $v_1, \ldots, v_k \in V$ are arbitrary, we have that for each $\tau \in S_k$, $\tau$ is a transposition implies that
+		\begin{align*}
+			\tau \al
+			& = - \al \\
+			& = \sgn(\tau) \al
+		\end{align*}
+		Let $n \in \N$. Suppose that for each $\tau_1, \ldots, \tau_{n-1} \in S_k$ if for each $j \in \{1, \ldots, n-1\}$, $\tau_j$ is a transposition, then $(\tau_1 \cdots \tau_{n-1}) \al = \sig(\tau_1 \cdots \tau_{n-1}) \al$. Let $\tau_1, \ldots, \tau_n \in S_k$. Suppose that for each $j \in \{1, \ldots, n\}$, $\tau_j$ is a transposition.
+		Then 
+		\begin{align*}
+			(\tau_1 \cdots \tau_n) \al 
+			& = (\tau_1 \cdots \tau_{n-1}) (\tau_n \al) \\
+			& = (\tau_1 \cdots \tau_{n-1}) (\sgn(\tau_n ) \al) \\
+			& = (\sgn(\tau_n ) (\tau_1 \cdots \tau_{n-1}) \al \\
+			& = (\sgn(\tau_n ) \sgn((\tau_1 \cdots \tau_{n-1}) \al \\
+			& = \sgn(\tau_1 \cdots \tau_n) \al 
+		\end{align*}
+		By induction, for each $n \in \N$ and $\tau_1, \ldots, \tau_n \in S_k$, if for each $j \in \{1, \ldots, n\}$, $\tau_j$ is a transposition, then $(\tau_1 \cdots \tau_n) \al  = \sgn(\tau_1 \cdots \tau_n) \al$. Now let $\sig \in S_k$. Then there exist $n \in \N$ and $\tau_1, \ldots, \tau_n \in S_k$ such that $\sig = \tau_1 \cdots \tau_n$ and for each $j \in \{1, \ldots n\}$, $\tau_j$ is a transposition. Hence
+		\begin{align*}
+			\sig \al 
+			& = (\tau_1 \cdots \tau_n) \al \\
+			& =  \sgn(\tau_1 \cdots \tau_n) \al \\
+			& = \sgn(\sig) \al
+		\end{align*}
+		Therefore $\al$ is antisymmetric.
+	\end{proof}
+	
 	\begin{defn}
-		Define the \textbf{symmetric operator} $S: T_k(V) \rightarrow \Xi_k(V)$ by $$S(\al) = \frac{1}{k!}\sum_{\sig \in S_k} \sig \al$$  Define the \textbf{alternating operator} $A: T_k(V) \rightarrow \Lam_k(V)$ by $$A(\al) = \frac{1}{k!}\sum_{\sig \in S_k} \sgn(\sig)\sig \al$$
+		Define the \textbf{symmetric operator} $S: T_k(V) \rightarrow \Sig^k(V)$ by $$\Sym(\al) = \frac{1}{k!}\sum_{\sig \in S_k} \sig \al$$  Define the \textbf{alternating operator} $A: T_k(V) \rightarrow \Lam^k(V)$ by $$\Alt(\al) = \frac{1}{k!}\sum_{\sig \in S_k} \sgn(\sig)\sig \al$$
 	\end{defn}
 	
 	\begin{ex}\
 		\begin{enumerate}
-			\item For $\al \in T_k(V)$, $S(\al)$ is symmetric.
-			\item For $\al \in T_k(V)$, $A(\al)$ is alternating.
+			\item For $\al \in T_k(V)$, $\Sym(\al)$ is symmetric.
+			\item For $\al \in T_k(V)$, $\Alt(\al)$ is alternating.
 		\end{enumerate}
 	\end{ex}
 
@@ -556,44 +777,44 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\begin{enumerate}
 			\item Let $\al \in T_k(V)$ and $\sig \in S_k$. Then 
 			\begin{align*}
-				\sig S(\al) 
+				\sig \Sym(\al) 
 				&= \sig \bigg[ \frac{1}{k!}\sum_{\tau \in S_k} \tau \al \bigg]\\
 				&= \frac{1}{k!} \sum_{\tau \in S_k} \sig \tau \al \\
 				&= \frac{1}{k!} \sum_{\tau \in S_k} \tau \al \\
-				&= S(\al)
+				&= \Sym(\al)
 			\end{align*} 
 			\item Let $\al \in T_k(V)$ and $\sig \in S_k$. Then 
 			\begin{align*}
-				\sig A(\al) 
+				\sig \Alt(\al) 
 				&= \sig \bigg[ \frac{1}{k!}\sum_{\tau \in S_k} \sgn(\tau)\tau \al \bigg] \\
 				&= \frac{1}{k!}\sum_{\tau \in S_k} \sgn(\tau) \sig \tau \al \\
 				&= \frac{1}{k!} \sum_{\tau \in S_k} \sgn(\sig) \sgn(\sig \tau) \sig \tau \al \\
 				&= \sgn(\sig) \frac{1}{k!} \sum_{\tau \in S_k} \sgn(\sig \tau) \sig \tau \al \\
 				&= \sgn(\sig) \frac{1}{k!} \sum_{\tau \in S_k} \sgn(\tau)\tau \al \\
-				&= \sgn(\sig)A(\al)
+				&= \sgn(\sig)\Alt(\al)
 			\end{align*} 
 		\end{enumerate}
 	\end{proof}
 
 	\begin{ex} \
 		\begin{enumerate}
-			\item For $\al \in \Xi_k(V)$, $S(\al) = \al$.
-			\item For $\al \in \Lam_k(V)$, $A(\al) = \al$.
+			\item For $\al \in \Sig^k(V)$, $\Sym(\al) = \al$.
+			\item For $\al \in \Lam^k(V)$, $\Alt(\al) = \al$.
 		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $\al \in \Xi_k(V)$. Then 
+			\item Let $\al \in \Sig^k(V)$. Then 
 			\begin{align*}
-				S(\al) 
+				\Sym(\al) 
 				&= \frac{1}{k!} \sum_{\sig \in S_k} \sig \al \\
 				&= \frac{1}{k!} \sum_{\sig \in S_k} \al \\
 				&= \al
 			\end{align*}
-			\item Let $\al \in \Lam_k(V)$. Then 
+			\item Let $\al \in \Lam^k(V)$. Then 
 			\begin{align*}
-				A(\al) 
+				\Alt(\al) 
 				&= \frac{1}{k!} \sum_{\sig \in S_k} \sgn(\sig)\sig \al \\
 				&= \frac{1}{k!} \sum_{\sig \in S_k} \sgn(\sig)^2 \al \\
 				&= \al
@@ -602,7 +823,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{ex}
-		The symmetric operator $S: T_k(V) \rightarrow \Xi_k(V)$ and the alternating operator $A: T_k(V) \rightarrow \Lam_k(V)$ are linear.
+		The symmetric operator $S: T_k(V) \rightarrow \Sig^k(V)$ and the alternating operator $A: T_k(V) \rightarrow \Lam^k(V)$ are linear.
 	\end{ex}
 
 	\begin{proof}
@@ -610,12 +831,12 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{defn}
-		Let $\al \in \Lam_k(V)$ and $\beta \in \Lam_l(V)$. The \textbf{exterior product} of $\al$ and $\beta$ is defined to be the map $\al \wedge \beta \in \Lam_{k+l}(V)$ given by $$\al \wedge \beta = \frac{(k+l)!}{k! l!} A(\al \otimes \beta)$$ 
-		Thus $\wedge: \Lam_k(V) \times \Lam_l(V) \rightarrow \Lam_{k+l}(V)$.
+		Let $\al \in \Lam^k(V)$ and $\be \in \Lam^l(V)$. The \textbf{exterior product} of $\al$ and $\be$ is defined to be the map $\al \wedge \be \in \Lam^{k+l}(V)$ given by $$\al \wedge \be = \frac{(k+l)!}{k! l!} \Alt(\al \otimes \be)$$ 
+		Thus $\wedge: \Lam^k(V) \times \Lam^l(V) \rightarrow \Lam^{k+l}(V)$.
 	\end{defn}
 
 	\begin{ex}
-		The exterior product $\wedge: \Lam_k(V) \times \Lam_l(V) \rightarrow T_{k+l}(V)$ is bilinear.
+		The exterior product $\wedge: \Lam^k(V) \times \Lam^l(V) \rightarrow \Lam^{k+l}(V)$ is bilinear.
 	\end{ex}
 	
 	\begin{proof}
@@ -623,10 +844,10 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{ex}
-		Let $\al \in T_k(V)$ and $\beta \in T_l(V)$. Then 
+		Let $\al \in T_k(V)$ and $\be \in T_l(V)$. Then 
 		\begin{enumerate}
-			\item $A(A(\al) \otimes \beta) = A(\al \otimes \beta)$
-			\item $A(\al \otimes A(\beta)) = A(\al \otimes \beta)$
+			\item $\Alt(\Alt(\al) \otimes \be) = \Alt(\al \otimes \be)$
+			\item $\Alt(\al \otimes \Alt(\be)) = \Alt(\al \otimes \be)$
 		\end{enumerate}
 	\end{ex}
 
@@ -635,55 +856,55 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\begin{enumerate}
 			\item Then
 			\begin{align*}
-				A(A(\al) \otimes \beta)
-				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg [A(\al) \otimes \beta \bigg] \\
-				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg[ \bigg( \frac{1}{k!}\sum_{\tau \in S_{k} } \sgn(\tau) \tau\al \bigg) \otimes \beta \bigg] \\
-				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg[   \frac{1}{k!} \sum_{\tau \in S_{k} } \sgn(\tau) (\tau\al)  \otimes \beta \bigg] \\
-				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg[  \frac{1}{k!} \sum_{\tau \in S_{k} } \sgn(\tau) \tau (\al  \otimes \beta) \bigg] \\
-				&=  \frac{1}{k! (k+l)!}\sum_{\sig \in S_{k+l} } \sum_{\tau \in S_{k} } \sgn(\sig \tau) \sig \tau (\al  \otimes \beta) \\
-				&=  \frac{k!}{k!(k+l)!} \sum_{\mu \in S_{k+l} }  \sgn(\mu) \mu (\al  \otimes \beta)\\
-				&=  \frac{1}{(k+l)!} \sum_{\mu \in S_{k+l} }  \sgn(\mu) \mu (\al  \otimes \beta)\\
-				&= A(\al \otimes \beta)
+				\Alt(\Alt(\al) \otimes \be)
+				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg [\Alt(\al) \otimes \be \bigg] \\
+				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg[ \bigg( \frac{1}{k!}\sum_{\tau \in S_{k} } \sgn(\tau) \tau\al \bigg) \otimes \be \bigg] \\
+				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg[   \frac{1}{k!} \sum_{\tau \in S_{k} } \sgn(\tau) (\tau\al)  \otimes \be \bigg] \\
+				&= \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig \bigg[  \frac{1}{k!} \sum_{\tau \in S_{k} } \sgn(\tau) \tau (\al  \otimes \be) \bigg] \\
+				&=  \frac{1}{k! (k+l)!}\sum_{\sig \in S_{k+l} } \sum_{\tau \in S_{k} } \sgn(\sig \tau) \sig \tau (\al  \otimes \be) \\
+				&=  \frac{k!}{k!(k+l)!} \sum_{\mu \in S_{k+l} }  \sgn(\mu) \mu (\al  \otimes \be)\\
+				&=  \frac{1}{(k+l)!} \sum_{\mu \in S_{k+l} }  \sgn(\mu) \mu (\al  \otimes \be)\\
+				&= \Alt(\al \otimes \be)
 			\end{align*} 
 		\item Similar to (1).
 		\end{enumerate}
 	\end{proof}
 
 	\begin{ex}
-		The exterior product $\wedge: \Lam_k(V) \times \Lam_l(V) \rightarrow \Lam_{k+l}(V)$ is associative. 
+		The exterior product $\wedge: \Lam^k(V) \times \Lam^l(V) \rightarrow \Lam^{k+l}(V)$ is associative. 
 	\end{ex}
 
 	\begin{proof}
-		Let $\al \in \Lam_k(V)$, $\beta \in \Lam_l(V)$ and $\gam \in \Lam_m(V)$. Then 
+		Let $\al \in \Lam^k(V)$, $\be \in \Lam^l(V)$ and $\gam \in \Lam^m(V)$. Then 
 		\begin{align*}
-			(\al \wedge \bet) \wedge \gam
-			&= \bigg [ \frac{(k+l)!}{k! l!} A(\al \otimes \beta) \bigg] \wedge \gam \\ 
-			&= \frac{(k+l+m)!}{(k+l)!m!} A \bigg( \bigg [ \frac{(k+l)!}{k! l!} A(\al \otimes \beta) \bigg] \otimes \gam \bigg)  \\ 
-			&= \frac{(k+l+m)!}{(k+l)!m!}  \frac{(k+l)!}{k!l!}A(A(\al \otimes \bet) \otimes \gam) \\
-			&= \frac{(k+l+m)!}{m!}  \frac{1}{k!l!} A((\al \otimes \beta) \otimes \gam) \\
-			&= \frac{(k+l+m)!}{k!(l+m)!}  \frac{(l+m)!}{l!m!} A(\al \otimes (\bet \otimes \gam)) \\
-			&= \frac{(k+l+m)!}{k!(l+m)!}  \frac{(l+m)!}{l!m!} A(\al \otimes A(\bet \otimes \gam)) \\
-			&= \frac{(k+l+m)!}{k!(l+m)!} A(\al \otimes \frac{(l+m)!}{l!m!} A(\bet \otimes \gam)) \\
-			&= \frac{(k+l+m)!}{k!(l+m)!} A(\al \otimes (\bet \wedge \gam)) \\
-			&= \al \wedge (\bet \wedge \gam)) \\
+			(\al \wedge \be) \wedge \gam
+			&= \bigg [ \frac{(k+l)!}{k! l!} \Alt(\al \otimes \be) \bigg] \wedge \gam \\ 
+			&= \frac{(k+l+m)!}{(k+l)!m!} \Alt \bigg( \bigg [ \frac{(k+l)!}{k! l!} \Alt(\al \otimes \be) \bigg] \otimes \gam \bigg)  \\ 
+			&= \frac{(k+l+m)!}{(k+l)!m!}  \frac{(k+l)!}{k!l!}\Alt(\Alt(\al \otimes \be) \otimes \gam) \\
+			&= \frac{(k+l+m)!}{m!}  \frac{1}{k!l!} \Alt((\al \otimes \be) \otimes \gam) \\
+			&= \frac{(k+l+m)!}{k!(l+m)!}  \frac{(l+m)!}{l!m!} \Alt(\al \otimes (\be \otimes \gam)) \\
+			&= \frac{(k+l+m)!}{k!(l+m)!}  \frac{(l+m)!}{l!m!} \Alt(\al \otimes \Alt(\be \otimes \gam)) \\
+			&= \frac{(k+l+m)!}{k!(l+m)!} \Alt(\al \otimes \frac{(l+m)!}{l!m!} \Alt(\be \otimes \gam)) \\
+			&= \frac{(k+l+m)!}{k!(l+m)!} \Alt(\al \otimes (\be \wedge \gam)) \\
+			&= \al \wedge (\be \wedge \gam)) \\
 		\end{align*}
 	\end{proof}
 	
 	\begin{ex}
-		Let $\al_i \in \Lam_{k_i}(V)$ for $i =1, \cdots, m$. Then $$\bigwedge_{i=1}^m \al_i = \frac{(\sum_{i=1}^m k_i)!}{\prod_{i=1}^m k_i!} A \bigg(\bigotimes_{i=1}^m \al_i \bigg)$$
+		Let $\al_i \in \Lam^{k_i}(V)$ for $i =1, \cdots, m$. Then $$\bigwedge_{i=1}^m \al_i = \frac{(\sum_{i=1}^m k_i)!}{\prod_{i=1}^m k_i!} \Alt \bigg(\bigotimes_{i=1}^m \al_i \bigg)$$
 	\end{ex}
 
 	\begin{proof}
-		To see that the statment is true in the case $m=3$, the proof of the previous exercise tells us that indeed $$\al_1 \wedge \al_2 \wedge \al_3 = \frac{(k_1 + k_2 + k_3)!}{k_1! k_2! k_3!}A(\al_1 \otimes \al_2 \otimes \al_3)$$
+		To see that the statment is true in the case $m=3$, the proof of the previous exercise tells us that indeed $$\al_1 \wedge \al_2 \wedge \al_3 = \frac{(k_1 + k_2 + k_3)!}{k_1! k_2! k_3!}\Alt(\al_1 \otimes \al_2 \otimes \al_3)$$
 		Now, suppose that the statement is true for each $3 \leq m \leq m_0$. Then the proof of the previous exercise tells us the 
 		\begin{align*}
 			\bigwedge_{i=1}^{m_0 +1} \al_i
 			&= \bigg( \bigwedge_{i=1}^{m_0 -1} \al_i \bigg) \wedge \al_{m_0} \wedge \al_{m_0+1} \\
-			&= \frac{(\sum_{i=1}^{m_0-1} k_i + k_{m_0} + k_{m_0+1})! }{(\sum_{i=1}^{m_0-1} k_i)! k_{m_0}! k_{m_0+1}!} A\bigg( \bigg[ \bigwedge_{i=1}^{m_0-1} \al_i \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
-			&= \frac{(\sum_{i=1}^{m_0-1} k_i + k_{m_0} + k_{m_0+1})! }{(\sum_{i=1}^{m_0-1} k_i)! k_{m_0}! k_{m_0+1}!} A\bigg( \bigg[ \frac{(\sum_{i=1}^{m_0-1} k_i)!}{\prod_{i=1}^{m_0-1} k_i!} A \bigg (\bigotimes_{i=1}^{m_0-1} \al_i \bigg) \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
-			&= \frac{(\sum_{i=1}^{m_0+1} k_i)! }{ \prod_{i=1}^{m_0+1} k_i!}A \bigg( A\bigg [ \bigotimes_{i=1}^{m_0-1} \al_i \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
-			&= \frac{(\sum_{i=1}^{m_0+1} k_i)! }{ \prod_{i=1}^{m_0+1} k_i!}A \bigg( \bigg [ \bigotimes_{i=1}^{m_0-1} \al_i \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
-			&= \frac{(\sum_{i=1}^{m_0+1} k_i)! }{ \prod_{i=1}^{m_0+1} k_i!}A \bigg(  \bigotimes_{i=1}^{m_0+1} \al_i   \bigg) 
+			&= \frac{(\sum_{i=1}^{m_0-1} k_i + k_{m_0} + k_{m_0+1})! }{(\sum_{i=1}^{m_0-1} k_i)! k_{m_0}! k_{m_0+1}!} \Alt \bigg( \bigg[ \bigwedge_{i=1}^{m_0-1} \al_i \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
+			&= \frac{(\sum_{i=1}^{m_0-1} k_i + k_{m_0} + k_{m_0+1})! }{(\sum_{i=1}^{m_0-1} k_i)! k_{m_0}! k_{m_0+1}!} \Alt \bigg( \bigg[ \frac{(\sum_{i=1}^{m_0-1} k_i)!}{\prod_{i=1}^{m_0-1} k_i!} \Alt \bigg (\bigotimes_{i=1}^{m_0-1} \al_i \bigg) \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
+			&= \frac{(\sum_{i=1}^{m_0+1} k_i)! }{ \prod_{i=1}^{m_0+1} k_i!}\Alt \bigg( \Alt \bigg [ \bigotimes_{i=1}^{m_0-1} \al_i \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
+			&= \frac{(\sum_{i=1}^{m_0+1} k_i)! }{ \prod_{i=1}^{m_0+1} k_i!}\Alt \bigg( \bigg [ \bigotimes_{i=1}^{m_0-1} \al_i \bigg] \otimes \al_{m_0} \otimes \al_{m_0 +1}  \bigg) \\
+			&= \frac{(\sum_{i=1}^{m_0+1} k_i)! }{ \prod_{i=1}^{m_0+1} k_i!}\Alt \bigg(  \bigotimes_{i=1}^{m_0+1} \al_i   \bigg) 
 		\end{align*}
 	\end{proof}
 	
@@ -710,36 +931,36 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 	
 	\begin{ex}
-		Let $\al \in \Lam_k(V)$, $\beta \in \Lam_l(V)$. Then $$\al \wedge \bet = (-1)^{kl}\bet \wedge \al$$
+		Let $\al \in \Lam^k(V)$, $\be \in \Lam^l(V)$. Then $$\al \wedge \be = (-1)^{kl}\be \wedge \al$$
 	\end{ex}
 
 	\begin{proof}
 		Define $\tau \in S_{k+l}$ as in the previous exercise. Note that For $\sig \in S_{k+l}$ and $v_1, \cdots, v_{k +l} \in V$, we have that 
 		\begin{align*}
-			\sig \tau (\bet \otimes \al)(v_1, \cdots, v_l, v_{l+1}, \cdots v_{l+k}) 
-			&= \bet \otimes \al(v_{\sig \tau(1)}, \cdots, v_{\sig \tau(l)}, v_{\sig \tau(l+1)}, \cdots v_{\sig \tau(l+k)}) \\
-			&= \bet(v_{\sig \tau(1)}, \cdots, v_{\sig \tau(l)}) \al(v_{\sig \tau(l+1)}, \cdots v_{\sig \tau(l+k)}) \\
-			&= \bet(v_{\sig (1+k)}, \cdots, v_{\sig (l+k)}) \al(v_{\sig (1)}, \cdots v_{\sig (k)})\\ 
-			&= \al(v_{\sig (1)}, \cdots v_{\sig (k)}) \bet(v_{\sig (1+k)}, \cdots, v_{\sig (l+k)}) \\
-			&= \al \otimes \bet (v_{\sig (1)}, \cdots v_{\sig (k)}, v_{\sig (1+k)}, \cdots, v_{\sig (l+k)}) \\
-			&= \sig (\al \otimes \bet) (v_1, \cdots, v_k, v_{1+k}, \cdots v_{l+k})
+			\sig \tau (\be \otimes \al)(v_1, \cdots, v_l, v_{l+1}, \cdots v_{l+k}) 
+			&= \be \otimes \al(v_{\sig \tau(1)}, \cdots, v_{\sig \tau(l)}, v_{\sig \tau(l+1)}, \cdots v_{\sig \tau(l+k)}) \\
+			&= \be(v_{\sig \tau(1)}, \cdots, v_{\sig \tau(l)}) \al(v_{\sig \tau(l+1)}, \cdots v_{\sig \tau(l+k)}) \\
+			&= \be(v_{\sig (1+k)}, \cdots, v_{\sig (l+k)}) \al(v_{\sig (1)}, \cdots v_{\sig (k)})\\ 
+			&= \al(v_{\sig (1)}, \cdots v_{\sig (k)}) \be(v_{\sig (1+k)}, \cdots, v_{\sig (l+k)}) \\
+			&= \al \otimes \be (v_{\sig (1)}, \cdots v_{\sig (k)}, v_{\sig (1+k)}, \cdots, v_{\sig (l+k)}) \\
+			&= \sig (\al \otimes \be) (v_1, \cdots, v_k, v_{1+k}, \cdots v_{l+k})
 		\end{align*}
-		Thus $\sig \tau (\bet \otimes \al) = \sig (\al \otimes \bet)$. Then 
+		Thus $\sig \tau (\be \otimes \al) = \sig (\al \otimes \be)$. Then 
 		\begin{align*}
-			\bet \wedge \al
-			&= \frac{(k+l)!}{k!l!}A(\bet \otimes \al) \\
-			&=  \frac{(k+l)!}{k!l!} \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig (\bet \otimes \al) \\
-			&= \frac{(k+l)!}{k!l!} \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig \tau) \sig \tau (\bet \otimes \al) \\
-			&= \sgn(\tau)\frac{(k+l)!}{k!l!} \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig (\al \otimes \bet) \\
-			&= \sgn(\tau)\frac{(k+l)!}{k!l!}  A(\al \otimes \bet) \\
-			&= \sgn(\tau) \al \wedge \bet \\
-			&= (-1)^{kl} \al \wedge \beta
+			\be \wedge \al
+			&= \frac{(k+l)!}{k!l!}\Alt(\be \otimes \al) \\
+			&=  \frac{(k+l)!}{k!l!} \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig (\be \otimes \al) \\
+			&= \frac{(k+l)!}{k!l!} \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig \tau) \sig \tau (\be \otimes \al) \\
+			&= \sgn(\tau)\frac{(k+l)!}{k!l!} \frac{1}{(k+l)!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \sig (\al \otimes \be) \\
+			&= \sgn(\tau)\frac{(k+l)!}{k!l!}  \Alt(\al \otimes \be) \\
+			&= \sgn(\tau) \al \wedge \be \\
+			&= (-1)^{kl} \al \wedge \be
 		\end{align*}
 	 
 	\end{proof}
 
 	\begin{ex}
-		Let $\al \in \Lam_k(V)$. If $k$ is odd, then $\al \wedge \al = 0$. 
+		Let $\al \in \Lam^k(V)$. If $k$ is odd, then $\al \wedge \al = 0$. 
 	\end{ex}
 
 	\begin{proof}
@@ -753,14 +974,14 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{ex}\textbf{Fundamental Example:}\\
-		Let $\al_1, \cdots, \al_m \in \Lam_1(V)$ and $v_1, \cdots, v_m \in V$. Then $$\bigg( \bigwedge_{i=1}^m \al_i \bigg)(v_1, \cdots, v_m) = \det (\al_i (v_j))$$
+		Let $\al_1, \cdots, \al_m \in \Lam^1(V)$ and $v_1, \cdots, v_m \in V$. Then $$\bigg( \bigwedge_{i=1}^m \al_i \bigg)(v_1, \cdots, v_m) = \det (\al_i (v_j))$$
 	\end{ex}
 
 	\begin{proof}
 		The previous exercises tell us that
 		\begin{align*}
 			\bigg( \bigwedge_{i=1}^m \al_i \bigg)(v_1, \cdots, v_m)
-			&= m! A\bigg( \bigotimes_{i=1}^m \al_i \bigg) (v_1, \cdots, v_m) \\
+			&= m! \Alt \bigg( \bigotimes_{i=1}^m \al_i \bigg) (v_1, \cdots, v_m) \\
 			&= m! \bigg[ \frac{1}{m!} \sum_{\sig \in S_{m}} \sgn(\sig) \sig \bigg(\bigotimes_{i=1}^m \al_i \bigg) \bigg] (v_1, \cdots, v_m) \\
 			&= \sum_{\sig \in S_{m}} \sgn(\sig)  \bigg(\bigotimes_{i=1}^m \al_i \bigg) (v_{\sig(1)}, \cdots, v_{\sig(m)}) \\
 			&= \sum_{\sig \in S_{m}} \sgn(\sig)  \prod_{i=1}^m \al_i(v_{\sig(i)})   \\
@@ -773,7 +994,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{note}
 
 	\begin{defn}
-		Let $I = \{(i_1, i_2, \cdots, i_k) \in \MI_k$. \\ Define $\ep^{\wedge I} \in \Lam_k(V)$ by $$ \ep^{\wedge I} = \ep^{i_1} \wedge \cdots \wedge \ep^{i_k} $$ 
+		Let $I = \{(i_1, i_2, \cdots, i_k) \in \MI_k$. \\ Define $\ep^{\wedge I} \in \Lam^k(V)$ by $$ \ep^{\wedge I} = \ep^{i_1} \wedge \cdots \wedge \ep^{i_k} $$ 
 	\end{defn}
 
 	\begin{ex}
@@ -791,29 +1012,29 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{ex}
-		Let $\al , \bet \in \Lam_k(V)$. If for each $I \in \MI_k$, $\al(e^I) = \bet(e^I)$, then $\al = \bet$.
+		Let $\al , \be \in \Lam^k(V)$. If for each $I \in \MI_k$, $\al(e^I) = \be(e^I)$, then $\al = \be$.
 	\end{ex}
 
 	\begin{proof}
-		Suppose that for each $I \in \MI_k$, $\al(e^I) = \bet(e^I)$. Let $v_1, \cdots, v_k \in V$. For $i = 1, \cdots, k$, write $v_i = \sum_{j_i = 1}^n a_{i,j_i}e^{j_i}$. Then 
+		Suppose that for each $I \in \MI_k$, $\al(e^I) = \be(e^I)$. Let $v_1, \cdots, v_k \in V$. For $i = 1, \cdots, k$, write $v_i = \sum_{j_i = 1}^n a_{i,j_i}e^{j_i}$. Then 
 		\begin{align*}
 			\al(v_1, \cdots, v_k) 
 			&= \sum_{j_1, \cdots, j_k =1}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \al(e^{j_1}, \cdots, e^{j_k}) \\
 			&= \sum_{j_1 \neq \cdots \neq j_k}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \al(e^{j_1}, \cdots, e^{j_k}) \\
 			&= \sum_{J \in \MI_k} \bigg [ \sum_{\sig \in S_J} \sgn(\sig) \bigg( \prod_{i=1}^k a_{i, \sig(j_i)} \bigg) \bigg] \al(e^J) \\
-			&= \sum_{J \in \MI_k} \bigg [ \sum_{\sig \in S_J} \sgn(\sig) \bigg( \prod_{i=1}^k a_{i, \sig(j_i)} \bigg) \bigg] \bet(e^J) \\
-			&= \sum_{j_1, \cdots, j_k =1}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \bet(e^{j_1}, \cdots, e^{j_k}) \\
-			&= \bet(v_1, \cdots, v_k) 
+			&= \sum_{J \in \MI_k} \bigg [ \sum_{\sig \in S_J} \sgn(\sig) \bigg( \prod_{i=1}^k a_{i, \sig(j_i)} \bigg) \bigg] \be(e^J) \\
+			&= \sum_{j_1, \cdots, j_k =1}^n \bigg( \prod_{i=1}^k a_{i, j_i} \bigg) \be(e^{j_1}, \cdots, e^{j_k}) \\
+			&= \be(v_1, \cdots, v_k) 
 		\end{align*}
 	
 	\end{proof}
 
 	\begin{ex}
-		The set $\{\ep^{\wedge I} : I \in \MI_k\}$ is a basis for $\Lam_k(V)$ and $\dim \Lam_k(V) = {n \choose k}$.
+		The set $\{\ep^{\wedge I} : I \in \MI_k\}$ is a basis for $\Lam^k(V)$ and $\dim \Lam^k(V) = {n \choose k}$.
 	\end{ex}
 
 	\begin{proof}
-		Let $(a_I)_{I \in \MI_k} \subset \R$. Let $\al = \sum\limits_{I \in \MI_k}a_I \ep^{\wedge I} $. Suppose that $\al = 0$. Then for each $J \in \MI_k$, $\al(e^J) = a_J = 0$. Thus $\{\ep^{\wedge I} : I \in \MI_k\}$ is linearly independent. Let $\bet \in \Lam_k(V)$. For $I \in \MI_k$, put $b_I = \bet(e^I)$. Define $\mu = \sum\limits_{I \in \MI_k} b_I\ep^{\wedge I} \in \Lam_k(V)$. Then for each $J \in \MI_k$, $\mu(e^J) = b_J = \bet(e^J)$. Hence $\mu = \bet$ and therefore $\bet \in \spn \{\ep^{\wedge I} :I \in \MI_k\}$.
+		Let $(a_I)_{I \in \MI_k} \subset \R$. Let $\al = \sum\limits_{I \in \MI_k}a_I \ep^{\wedge I} $. Suppose that $\al = 0$. Then for each $J \in \MI_k$, $\al(e^J) = a_J = 0$. Thus $\{\ep^{\wedge I} : I \in \MI_k\}$ is linearly independent. Let $\be \in \Lam^k(V)$. For $I \in \MI_k$, put $b_I = \be(e^I)$. Define $\mu = \sum\limits_{I \in \MI_k} b_I\ep^{\wedge I} \in \Lam^k(V)$. Then for each $J \in \MI_k$, $\mu(e^J) = b_J = \be(e^J)$. Hence $\mu = \be$ and therefore $\be \in \spn \{\ep^{\wedge I} :I \in \MI_k\}$.
 	\end{proof}
 	
 	
@@ -857,9 +1078,9 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 	\newpage
 	
-	\section{Smooth Manifolds}
+	\chapter{Smooth Manifolds}
 	
-	\subsection{Manifolds}
+	\section{Manifolds}
 	
 	\begin{ex}
 		We have that $\R$ is homeomorphic to $(0, \infty)$
@@ -1167,7 +1388,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	\newpage
-	\subsection{Smooth Manifolds}
+	\section{Smooth Manifolds}
 
 	\begin{defn}
 		Let $M$ be an $n$-dimensional manifold and $(U, \phi), (V, \psi) \in X(M)$. Then $(U, \phi)$ and $(V, \psi)$ are said to be \textbf{smoothly compatible} if $$\phi \circ \psi^{-1}: \psi(U \cap V) \rightarrow \phi (U \cap V) \text{ is a diffeomorphism}$$ 
@@ -1312,7 +1533,7 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 	
 	
 	\newpage 
-	\subsection{Smooth Maps}	
+	\section{Smooth Maps}	
 	
 	\begin{defn} \ld{42001}
 		Let $f: M \rightarrow \R$. Then $f$ is said to be smooth if for each coordinate chart $(U, \phi) \in \MA$, $f \circ \phi^{-1}$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M)$. 
@@ -1345,11 +1566,11 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 	\begin{defn}
 	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i \in \{1, \cdots, n\}$. We define the \textbf{partial derivative of $f$ with respect to $x^i$}, denoted $$ \p f / \p x^i: U \rightarrow \R \hspace{.1cm} \text{ or } \hspace{.1cm} \p_{i} f: U \rightarrow \R$$ by 
 	\begin{equation*}
-	{\pdv{f}{x^i}}(p) = {\pdv{u^i}[f \circ \phi^{-1}] }( \phi(p)) 
+	\frac{\p f}{\p x^i}(p) = {\frac{\p}{\p u^i}[f \circ \phi^{-1}] }( \phi(p)) 
 	\end{equation*}
 	or equivalently,
 	\begin{equation*}
-	{\pdv{f}{x^i}} = \bigg({\pdv{u^i}[f \circ \phi^{-1}] \bigg) \circ \phi }
+	\frac{\p f}{\p x^i} = \bigg({\frac{\p}{\p u^i}[f \circ \phi^{-1}] \bigg) \circ \phi }
 	\end{equation*}
 	\end{defn}
 	
@@ -1363,37 +1584,37 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 	
 	\begin{ex}
 	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i,j \in \{1, \cdots, n\}$. Then 
-	$$ \pdv{x^i} \pdv{x^j} f =  \bigg(\pdv{u^i} \pdv{u^j}[f \circ \phi^{-1}] \bigg) \circ \phi $$
+	$$\frac{\p}{\p x^i}\frac{\p}{\p x^j} f =  \bigg(\frac{\p}{\p u^i} \frac{\p}{\p u^j}[f \circ \phi^{-1}] \bigg) \circ \phi $$
 	\end{ex}
 	
 	\begin{proof}
 	
 	\begin{align*}
-	\pdv{x^i} \pdv{x^j} f 
-	&= \pdv{x^i} \bigg( \pdv{x^j} f \bigg) \\
-	&= \pdv{x^i} \bigg( \bigg[\pdv{u^j} [f \circ \phi^{-1}] \bigg] \circ \phi \bigg) \\
-	&=  \bigg( \pdv{u^i} \bigg[ \bigg( \bigg[\pdv{u^j} [f \circ \phi^{-1}] \bigg] \circ \phi \bigg) \circ \phi^{-1} \bigg] \bigg) \circ \phi \\
-	&= \bigg( \pdv{u^i} \bigg[\pdv{u^j} [f \circ \phi^{-1}] \bigg]  \bigg) \circ \phi \\
-	&= \bigg( \pdv{u^i} \pdv{u^j} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
+	\frac{\p}{\p x^i}\frac{\p}{\p x^j} f 
+	&=\frac{\p}{\p x^i} \bigg(\frac{\p}{\p x^j} f \bigg) \\
+	&=\frac{\p}{\p x^i} \bigg( \bigg[\frac{\p}{\p u^j} [f \circ \phi^{-1}] \bigg] \circ \phi \bigg) \\
+	&=  \bigg( \frac{\p}{\p u^i} \bigg[ \bigg( \bigg[\frac{\p}{\p u^j} [f \circ \phi^{-1}] \bigg] \circ \phi \bigg) \circ \phi^{-1} \bigg] \bigg) \circ \phi \\
+	&= \bigg( \frac{\p}{\p u^i} \bigg[\frac{\p}{\p u^j} [f \circ \phi^{-1}] \bigg]  \bigg) \circ \phi \\
+	&= \bigg( \frac{\p}{\p u^i} \frac{\p}{\p u^j} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
 	\end{align*}
 	\end{proof}
 	
 	\begin{ex}
 	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $i,j \in \{1, \cdots, n\}$. Then 
 	\begin{equation*}
-	\pdv{x^i}\pdv{x^j} = \pdv{x^j}\pdv{x^i}
+	\frac{\p}{\p x^i}\frac{\p}{\p x^j} =\frac{\p}{\p x^j}\frac{\p}{\p x^i}
 	\end{equation*}
 	\end{ex}
 	
 	\begin{proof}
-	Let $f \in C^{\infty}(U)$. Since $f \circ \phi^{-1}$ is smooth, $$\pdv{u^i} \pdv{u^j} [f \circ \phi^{-1}] = \pdv{u^j} \pdv{u^i} [f \circ \phi^{-1}] $$
+	Let $f \in C^{\infty}(U)$. Since $f \circ \phi^{-1}$ is smooth, $$\frac{\p}{\p u^i} \frac{\p}{\p u^j} [f \circ \phi^{-1}] = \frac{\p}{\p u^j} \frac{\p}{\p u^i} [f \circ \phi^{-1}] $$
 	The previous exercise implies that 
 	
 	\begin{align*}
-	\pdv{x^i}\pdv{x^j}f 
-	&= \bigg( \pdv{u^i} \pdv{u^j} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
-	&= \bigg( \pdv{u^j} \pdv{u^i} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
-	&= \pdv{x^j}\pdv{x^i}f 
+	\frac{\p}{\p x^i}\frac{\p}{\p x^j}f 
+	&= \bigg( \frac{\p}{\p u^i} \frac{\p}{\p u^j} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
+	&= \bigg( \frac{\p}{\p u^j} \frac{\p}{\p u^i} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
+	&=\frac{\p}{\p x^j}\frac{\p}{\p x^i}f 
 	\end{align*}
 	\end{proof}
 	
@@ -1495,7 +1716,7 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 
 
 \newpage 
-\subsection{Partitions of Unity}
+\section{Partitions of Unity}
 	
 	\begin{defn}
 	Let $p \in M$, $U \in \MN_a$ open and $\rho \in C_c^{\infty}(M)$. Then $\rho$ is said to be a \textbf{bump function at p supported in $U$} if 
@@ -1540,7 +1761,7 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 
 
 	\newpage
-	\subsection{The Tangent Space}
+	\section{The Tangent Space}
 
 	\begin{defn}
 		Let $p \in M$. Define the relation $\sim_p$ on $C^{\infty}(M)$ by $f \sim_p g$ iff there exists $U \in \MN_p$ such that $U$ is open and $f|_U = g|_U$. Clearly $\sim_p$ is an equivalence relation on $C^{\infty}(M)$. We denote $C^{\infty}(M) / \sim_p$ by $C^{\infty}_p(M)$. For $f \in C^{\infty}(M)$, we define the \textbf{germ of $f$ at $p$} to be the equivalence class of $f$ under $\sim_p$. 
@@ -1555,38 +1776,38 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 	\end{proof}
 
 	\begin{defn}
-		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. For $i \in \{1, \cdots, n\}$, define the partial derivative with respect to $x^i$ at $p$, denoted $$\eval{\pdv{x^i}}_{p}: C_p^{\infty}(M) \rightarrow \R  \text{, or } \p_i|_p: C_p^{\infty}(M) \rightarrow \R $$ by $$ \eval{\pdv{x^i}}_{p} f =  {\pdv{f}{x^i}}(p) $$
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. For $i \in \{1, \cdots, n\}$, define the partial derivative with respect to $x^i$ at $p$, denoted $$\frac{\p}{\p x^i} \bigg|_p: C_p^{\infty}(M) \rightarrow \R  \text{, or } \p_i|_p: C_p^{\infty}(M) \rightarrow \R $$ by $$ \frac{\p}{\p x^i} \bigg |_p  f =  \frac{\p f}{\p x^i}(p) $$
 	\end{defn}
 
 	\begin{ex}
-		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then for each $i,j \in \{1, \cdots, n\}$, we have that $${\pdv{x^i}{x^j}}(p) = \del_{i,j}$$
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then for each $i,j \in \{1, \cdots, n\}$, we have that $${\frac{\p}{\p x^i}{x^j}}(p) = \del_{i,j}$$
 	\end{ex}
 
 	\begin{proof}
 		Let $i,j \in \{1, \cdots, n\}$. Then 
 		\begin{align*}
-			\eval{\pdv{x^j}}_{p} x^i 
-			&=  \eval{\pdv{u^j}}_{\phi(p)} x^i \circ \phi^{-1} \\
-			&= \eval{\pdv{u^j}}_{\phi(p)} u^i \circ \phi \circ \phi^{-1} \\
-			&= \eval{\pdv{u^j}}_{\phi(p)} u^i  \\
+			\frac{\p}{\p x^i} \bigg|_p x^i 
+			&=  \frac{\p}{\p u^i} \bigg|_{\phi(p)} x^i \circ \phi^{-1} \\
+			&= \frac{\p}{\p u^i} \bigg|_{\phi(p)} u^i \circ \phi \circ \phi^{-1} \\
+			&= \frac{\p}{\p u^i} \bigg|_{\phi(p)} u^i  \\
 			&= \del_{i,j}
 		\end{align*}
 	\end{proof}
 
 	\begin{ex} \textbf{Change of Coordinates:}\\
 		Let $(U, \phi), (V, \psi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$, $p \in U \cap V$ and $f \in C_p^{\infty}(M)$. Then for each $i \in \{1, \cdots, n\}$, 
-		 $$\eval{\pdv{y^i}}_{p} = \sum_{j =1}^n {\pdv{x^j}{y^i}}(p) \eval{\pdv{x^j}}_{p}    $$
+		 $$\frac{\p}{\p y^i} \bigg|_p = \sum_{j =1}^n {\frac{\p}{\p x^j}{y^i}}(p) \frac{\p}{\p x^i} \bigg|_p    $$
 	\end{ex}
 
 	\begin{proof}
 		Put $h = \phi \circ \psi^{-1}$ and write $h = (h_1, \cdots, h_n)$. Then $\phi = h \circ \psi$ and $\psi^{-1} = \phi^{-1} \circ h$. By definition and the chain rule, we have that 
 		\begin{align*}
-		\eval{\pdv{y^i}}_{p} f 
-			&= \eval{\pdv{u^i}}_{\psi(p)} f \circ \psi^{-1} \\
-			&= \eval{\pdv{u^i}}_{\psi(p)} f \circ \phi^{-1} \circ h \\
-			&= \sum_{j=1}^n \bigg( \eval{\pdv{u^j}}_{h \circ \psi (p)} f \circ \phi^{-1} \bigg)  \bigg( \eval{\pdv{u^i}}_{\psi(p)} h_j \bigg) \\
-			&= \sum_{j=1}^n \bigg( \eval{\pdv{u^j}}_{\phi (p)} f \circ \phi^{-1}  \bigg) \bigg( \eval{\pdv{u^i}}_{\psi(p)} x^j \circ \psi^{-1} \bigg) \\
-			&= \sum_{j=1}^n \bigg( \eval{\pdv{x^j}}_{p} f \bigg)  \bigg(   \eval{\pdv{y^i}}_{p} x^j  \bigg)\\
+		\frac{\p}{\p y^i} \bigg|_p f 
+			&= \frac{\p}{\p u^i} \bigg|_{\psi(p)} f \circ \psi^{-1} \\
+			&= \frac{\p}{\p u^i} \bigg|_{\psi(p)} f \circ \phi^{-1} \circ h \\
+			&= \sum_{j=1}^n \bigg(\frac{\p}{\p u^j} \bigg|_{h \circ \psi (p)} f \circ \phi^{-1} \bigg)  \bigg( \frac{\p}{\p u^i} \bigg|_{\psi(p)} h_j \bigg) \\
+			&= \sum_{j=1}^n \bigg(\frac{\p}{\p u^j} \bigg|_{\phi (p)} f \circ \phi^{-1}  \bigg) \bigg( \frac{\p}{\p u^i} \bigg|_{\psi(p)} x^j \circ \psi^{-1} \bigg) \\
+			&= \sum_{j=1}^n \bigg( \frac{\p}{\p x^i} \bigg|_p f \bigg)  \bigg(   \frac{\p}{\p y^i} \bigg|_p x^j  \bigg)\\
 		\end{align*}
 	\end{proof}
 
@@ -1608,28 +1829,28 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 	\end{proof}
 
 	\begin{ex}
-		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then $$ \bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$$ is a basis for $T_pM$ and $\dim T_pM = n$.
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then $$ \bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$$ is a basis for $T_pM$ and $\dim T_pM = n$.
 	\end{ex}
 
 	\begin{proof}
-		Clearly $\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \in T_pM$. Let $a_1, \cdots, a_n \in \R$. Suppose that $$v = \sum_{i=1}^n a_i \eval{\pdv{x^i}}_{p} = 0$$
+		Clearly $\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \in T_pM$. Let $a_1, \cdots, a_n \in \R$. Suppose that $$v = \sum_{i=1}^n a_i \frac{\p}{\p x^i} \bigg |_p  = 0$$
 		Then 
 		\begin{align*}
 			0
 			&= v x^j \\
-			&= \sum_{i=1}^n a_i \eval{\pdv{x^i}}_{p} x^j \\
+			&= \sum_{i=1}^n a_i \frac{\p}{\p x^i} \bigg |_p  x^j \\
 			&= a_j
 		\end{align*}
-		Hence $\bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ is independent.\\
-		Now, let $v \in T_pM$ and $f \in \C^{\infty}_p(M)$. By Taylor's theorem, there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x^i - x^i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \eval{\pdv{x^i}}_{p} f $$ Then 
+		Hence $\bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$ is independent.\\
+		Now, let $v \in T_pM$ and $f \in \C^{\infty}_p(M)$. By Taylor's theorem, there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x^i - x^i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \frac{\p}{\p x^i} \bigg |_p  f $$ Then 
 		\begin{align*}
 			v(f)
 			&= \sum_{i=1}^nv(x^i - x^i(p)) g_i(p) + \sum_{i=1}^n(x^i(p) - x^i(p)) v(g_i) \\
 			&= \sum_{i=1}^nv(x^i)g_i(p) \\
-			&= \sum_{i=1}^nv(x^i)\eval{\pdv{x^i}}_{p} f \\
-			&= \bigg[ \sum_{i=1}^nv(x^i)\eval{\pdv{x^i}}_{p} \bigg] f
+			&= \sum_{i=1}^nv(x^i)\frac{\p}{\p x^i} \bigg |_p  f \\
+			&= \bigg[ \sum_{i=1}^nv(x^i)\frac{\p}{\p x^i} \bigg |_p  \bigg] f
 		\end{align*}
-		So $$v = \sum_{i=1}^nv(x^i)\eval{\pdv{x^i}}_{p} $$ and $$v \in \spn \bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$$
+		So $$v = \sum_{i=1}^nv(x^i)\frac{\p}{\p x^i} \bigg |_p  $$ and $$v \in \spn \bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$$
 	\end{proof}
 
 
@@ -1675,48 +1896,48 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 	\begin{proof}
 		Suppose that $F$ is a diffeomorphism. Since $F$ is a homeomorphism, $\dim N = n$. Choose $(U, \phi) \in \MA$ such that $p \in U$. A previous exercise tells us that $(F(U), \phi \circ F^{-1}) \in \MB$. Write $\phi = (x^1, \cdots, x^n)$ and $\phi \circ F^{-1} = (y^1, \cdots, y^n)$. Let $f \in C^{\infty}_{F(p)}(N)$ Then 
 		\begin{align*}
-			\eval{\pdv{y^i}}_{F(p)} f
-			&= 	\eval{\pdv{u^i}}_{\phi \circ F^{-1} (F(p))} f \circ (\phi \circ F^{-1})^{-1} \\
-			&= 	\eval{\pdv{u^i}}_{\phi(p)} f \circ F \circ \phi^{-1} \\
-			&= 	\eval{\pdv{x^i}}_p f \circ F \\
+			\frac{\p}{\p y^i} \bigg|_{F(p)} f
+			&= 	\frac{\p}{\p u^i} \bigg|_{\phi \circ F^{-1} (F(p))} f \circ (\phi \circ F^{-1})^{-1} \\
+			&= 	\frac{\p}{\p u^i} \bigg|_{\phi(p)} f \circ F \circ \phi^{-1} \\
+			&= 	\frac{\p}{\p x^i} \bigg|_p f \circ F \\
 		\end{align*}
 		Therefore 
 		\begin{align*}
-			\bigg[ dF_p \bigg( \eval{\pdv{x^i}}_p \bigg) \bigg] (f)
-			&= \eval{\pdv{x^i}}_p f \circ F \\
-			&= \eval{\pdv{y^i}}_{F(p)} f 
+			\bigg[ dF_p \bigg( \frac{\p}{\p x^i} \bigg|_p \bigg) \bigg] (f)
+			&= \frac{\p}{\p x^i} \bigg|_p f \circ F \\
+			&= \frac{\p}{\p y^i} \bigg|_{F(p)} f 
 		\end{align*}
-	Hence $$dF_p \bigg( \eval{\pdv{x^i}}_p \bigg) = \eval{\pdv{y^i}}_{F(p)}$$ 
-	Since $\bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ is a basis for $T_pM$ and $\bigg \{\eval{\pdv{y^1}}_{F(p)}, \cdots, \eval{\pdv{y^n}}_{F(p)} \bigg \}$ is a basis for $T_{F(p)}N$, $dF_p$ is an isomorphism.
+	Hence $$dF_p \bigg( \frac{\p}{\p x^i} \bigg|_p \bigg) = \frac{\p}{\p y^i} \bigg|_{F(p)}$$ 
+	Since $\bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$ is a basis for $T_pM$ and $\bigg \{\frac{\p}{\p y^1} \bigg|_{F(p)}, \cdots, \frac{\p}{\p y^n} \bigg|_{F(p)} \bigg \}$ is a basis for $T_{F(p)}N$, $dF_p$ is an isomorphism.
 	\end{proof}
 
 	\begin{ex}
-		Let $(M, \MA)$ be a smooth $m$-dimensional manifold, $(N, \MB)$ a $n$-dimensional smooth manifold, $F: M \rightarrow N$ smooth, $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^m)$, $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$  and $p \in U$. Define the ordered bases $B_\phi = \bigg \{\eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^m}}_{p} \bigg \}$ and $B_{\psi} = \bigg \{\eval{\pdv{y^1}}_{F(p)}, \cdots, \eval{\pdv{y^n}}_{F(p)} \bigg \}$ .
+		Let $(M, \MA)$ be a smooth $m$-dimensional manifold, $(N, \MB)$ a $n$-dimensional smooth manifold, $F: M \rightarrow N$ smooth, $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^m)$, $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$  and $p \in U$. Define the ordered bases $B_\phi = \bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^m} \bigg|_p \bigg \}$ and $B_{\psi} = \bigg \{\frac{\p}{\p y^1} \bigg|_{F(p)}, \cdots, \frac{\p}{\p y^n} \bigg|_{F(p)} \bigg \}$ .
 		Then the matrix representation of $dF_p$ with respect to the bases
-		$B_{\phi}$ and $B_{\psi}$ is $$ dF_p^{i,j} =  {\pdv{F^i}{x^j}}(p)$$
+		$B_{\phi}$ and $B_{\psi}$ is $$ dF_p^{i,j} =  \frac{\p F^i}{\p x^j}(p)$$
 	\end{ex}
 
 	\begin{proof}
-		Let $(dF_p)_{B_\phi, B_{\psi}} = (a_{i,j})_{i,j} \in \R^{n \times m}$. Then for each $j \in \{1, \dots, m\}$, $$dF_p \bigg(\eval{\pdv{x^j}}_p\bigg) = \sum_{i=1}^n a_{i,j}\eval{ \pdv{y^i}}_{F(p)}$$
+		Let $(dF_p)_{B_\phi, B_{\psi}} = (a_{i,j})_{i,j} \in \R^{n \times m}$. Then for each $j \in \{1, \dots, m\}$, $$dF_p \bigg(\frac{\p }{\p x^j} \bigg|_p\bigg) = \sum_{i=1}^n a_{i,j}\frac{\p }{\p y^i} \bigg|_{F(p)}$$
 		This implies that 
 		\begin{align*}
-			dF_p \bigg(\eval{\pdv{x^j}}_p\bigg) (y^k )
-			&=   \sum_{i=1}^n a_{i,j}\eval{ \pdv{y^i}}_{F(p)} (y^k) \\
+			dF_p \bigg(\frac{\p }{\p x^j} \bigg|_p\bigg) (y^k )
+			&=   \sum_{i=1}^n a_{i,j}\frac{\p }{\p y^i} \bigg|_{F(p)} (y^k) \\
 			&= \sum_{i=1}^n a_{i,j} \del_{i,k} \\
 			&= a_{k, j}
 		\end{align*}
 		By definition, 
 		\begin{align*}
-			dF_p \bigg(\eval{\pdv{x^j}}_p\bigg) (y^k )
-			&=  \eval{\pdv{x^j}}_p y^k \circ F \\
-			&= \eval{\pdv{x^j}}_p F^k \\
-			&= {\pdv{F^k}{x^j}}(p)
+			dF_p \bigg(\frac{\p }{\p x^j} \bigg|_p\bigg) (y^k )
+			&=  \frac{\p }{\p x^j} \bigg|_p y^k \circ F \\
+			&= \frac{\p }{\p x^j} \bigg|_p F^k \\
+			&= \frac{\p F^k}{\p x^j} (p)
 		\end{align*}
 	\end{proof}
 	
 	
 	\begin{note}
-	Since $\rank dF_p$ is independent of basis, it is independent of coordinate charts $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$. 
+	Since $\rnk dF_p$ is independent of basis, it is independent of coordinate charts $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$. 
 	\end{note}	
 	
 	
@@ -1748,7 +1969,7 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 	
 	
 	\newpage
-	\subsection{The Cotangent Space}	
+	\section{The Cotangent Space}	
 	
 	
 	\begin{defn}
@@ -1775,37 +1996,37 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 	\end{proof}
 	
 	\begin{ex}
-		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then for each $i,j \in \{1, \cdots, n\}$, $$dx^i_p \bigg(\eval{\pdv{x^j}}_p \bigg) = \del_{i,j}$$ 
-		In particular, $\{dx^1_p, \cdots, dx^n_p \}$ is the dual basis to $\bigg \{ \eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ and $T_p^*M = \spn\{dx^1_p, \cdots, dx^n_p\}$.
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then for each $i,j \in \{1, \cdots, n\}$, $$dx^i_p \bigg(\frac{\p }{\p x^j} \bigg|_p \bigg) = \del_{i,j}$$ 
+		In particular, $\{dx^1_p, \cdots, dx^n_p \}$ is the dual basis to $\bigg \{ \frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$ and $T_p^*M = \spn\{dx^1_p, \cdots, dx^n_p\}$.
 	\end{ex}
 
 	\begin{proof}
 		Let $i,j \in \{1, \cdots, n\}$. Then  by defintion,
 		\begin{align*}
-			\bigg[ dx^i_p \bigg (\eval{\pdv{x^j}}_{p} \bigg ) \bigg]_p 
-			&= \eval{\pdv{x^j}}_{p} x^i \\
+			\bigg[ dx^i_p \bigg (\frac{\p}{\p x^i} \bigg|_p \bigg ) \bigg]_p 
+			&= \frac{\p}{\p x^i} \bigg|_p x^i \\
 			&= \del_{i,j} \\
 		\end{align*}
 	\end{proof}
 	
 	\begin{ex}
-		Let $f \in C^{\infty}(M)$, $(U, \phi)$ a chart on $M$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then $$df_p = \sum_{i=1}^n {\pdv{f}{x^i}}(p) {dx^i}_p$$
+		Let $f \in C^{\infty}(M)$, $(U, \phi)$ a chart on $M$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. Then $$df_p = \sum_{i=1}^n \frac{\p f}{\p x^i}(p) {dx^i}_p$$
 	\end{ex}
 
 	\begin{proof}
 		 Since $\{dx^1_p, \cdots, dx^n_p\}$ is a basis for $T^*_pM$, for each there exist $a_1(p), \cdots, a_n(p) \in \R$ such that $df_p = \sum\limits_{i=1}^n a_i(p)dx^i_p$. Therefore, we have that 
 		\begin{align*}
-			df_p \bigg(\eval{\pdv{x^j}}_{p} \bigg) 
-			&= \sum\limits_{i=1}^n a_i(p)dx^i_p \bigg(\eval{\pdv{x^j}}_{p} \bigg)  \\
+			df_p \bigg(\frac{\p}{\p x^i} \bigg|_p \bigg) 
+			&= \sum\limits_{i=1}^n a_i(p)dx^i_p \bigg(\frac{\p}{\p x^i} \bigg|_p \bigg)  \\
 			&=  a_j(p)
 		\end{align*}
 		By definition, we have that 
 		\begin{align*}
-			df_p\bigg(\eval{\pdv{x^j}}_{p} \bigg) 
-			&= \eval{\pdv{x^j}}_{p} f \\ 
-			&= {\pdv{f}{x^j}}(p)\\
+			df_p\bigg(\frac{\p}{\p x^i} \bigg|_p \bigg) 
+			&= \frac{\p}{\p x^i} \bigg|_p f \\ 
+			&= \frac{\p f}{\p x^j}(p)\\
 		\end{align*}
-		So $a_j(p) = {\pdv{f}{x^j}}(p)$ and $$df_p = \sum\limits_{i=1}^n {\pdv{f}{x^j}}(p)dx^i_p$$
+		So $a_j(p) = \frac{\p f}{\p x^j} (p)$ and $$df_p = \sum\limits_{i=1}^n \frac{\p f}{\p x^j} (p)dx^i_p$$
 	\end{proof}
 		
 	
@@ -1827,10 +2048,10 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 	
 	
 	\newpage
-	\subsection{Maps of Full Rank}
+	\section{Maps of Full Rank}
 	
 	\begin{defn}
-		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map and $p \in M$. We define the \textbf{rank of F at $p$}, denoted $\rank_p F$, by $\rank_p F = \rank dF_p$. We say that $F$ has \textbf{constant rank} if for each $p, q \in M$, $\rank_p F = \rank_q F$. If $F$ has constant rank, we define the \textbf{rank of $F$}, denoted $\rank F$, by $\rank F = \rank_p F$.
+		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map and $p \in M$. We define the \textbf{rank of F at $p$}, denoted $\rnk_p F$, by $\rnk_p F = \rnk dF_p$. We say that $F$ has \textbf{constant rank} if for each $p, q \in M$, $\rnk_p F = \rnk_q F$. If $F$ has constant rank, we define the \textbf{rank of $F$}, denoted $\rnk F$, by $\rnk F = \rnk_p F$.
 		
 	\end{defn}
 	
@@ -1871,7 +2092,7 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 	
 	
 	\newpage
-	\subsection{Submanifolds}
+	\section{Submanifolds}
 	
 	
 	\begin{ex}
@@ -1973,9 +2194,9 @@ which is smooth. So $\MA'$ is a smooth atlas. Let $\MB'$ be a smooth atlas on $S
 
 	
 	\newpage
-	\section{Vector Bundles and Tensor Fields}
+	\chapter{Vector Bundles and Tensor Fields}
 	
-	\subsection{The Vector Bundle}
+	\section{The Vector Bundle}
 	
 	\begin{defn}
 		Let $E$, $M$ and $F$ be smooth manifolds and $\pi: E \rightarrow M$ a smooth surjection, $U \subset M$ open and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \textbf{smooth local trivialization of $E$ over $U$}  if 
@@ -2040,7 +2261,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 			\item $\tU = \pi^{-1}(U)$
 			\item 
 			\begin{align*}
-				\tphi \bigg(\sum\limits_{i =1}^n v^i \eval{\pdv{x^i}}_p \bigg) 
+				\tphi \bigg(\sum\limits_{i =1}^n v^i \frac{\p}{\p x^i} \bigg|_p \bigg) 
 				&= (\phi(p), v) \\
 				&= (x^1(p), \dots, x^n(p), v^1, \dots, v^n) \\
 , 			\end{align*}
@@ -2065,7 +2286,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 
 
 	\newpage
-	\subsection{The cotangent Bundle}
+	\section{The cotangent Bundle}
 	
 	\begin{defn}
 		We define the \textbf{cotangent bundle of $M$}, denoted $T^*M$, by 
@@ -2086,7 +2307,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	
 	
 	
-	\subsection{The $(r,s)$-Tensor Bundle}
+	\section{The $(r,s)$-Tensor Bundle}
 	
 	\begin{defn}
 	\begin{enumerate}
@@ -2094,8 +2315,8 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 		$$T^*M = \coprod_{p \in M} T_p^*M$$
 		\item the \textbf{$(r,s)$-tensor bundle of $M$}, denoted $T^r_sM$, by
 	$$T^r_s M = \coprod_{p \in M} T^r_s(T_p M)$$
-	\item the \textbf{$k$-alternating tensor bundle of $M$}, denoted $\Lam_k(M)$, by
-	$$\Lam_kM = \coprod_{p \in M} \Lam_k(T_pM)$$
+	\item the \textbf{$k$-alternating tensor bundle of $M$}, denoted $\Lam^k(M)$, by
+	$$\Lam^kM = \coprod_{p \in M} \Lam^k(T_pM)$$
 		\end{enumerate}
 	\end{defn}
 	
@@ -2113,7 +2334,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	
 	
 	\newpage	
-	\subsection{Vector Fields}
+	\section{Vector Fields}
 	
 	\begin{defn}
 		Let $X: M \rightarrow TM$. Then $X$ is said to be a \textbf{vector field on $M$} if for each $p \in M$, $X_p \in T_p M$. \\
@@ -2139,32 +2360,32 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 
 	\begin{ex}
-		Let $X \in \Gam^1(M)$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then $$X|_U = \sum_{i=1}^n (Xx^i) \pdv{x^i}$$ 
+		Let $X \in \Gam^1(M)$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then $$X|_U = \sum_{i=1}^n (Xx^i)\frac{\p}{\p x^i}$$ 
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f^i(p) \eval{\pdv{x^i}}_{p}$. Let $j \in \{1, \cdots, n\}$. Then,
+		Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f^i(p) \frac{\p}{\p x^i} \bigg |_p $. Let $j \in \{1, \cdots, n\}$. Then,
 		\begin{align*}
 			X_p(x^j) 
-			&= \sum\limits_{i=1}^n f^i(p) {\pdv{x^j}{x^i}}(p) \\
+			&= \sum\limits_{i=1}^n f^i(p) {\frac{\p}{\p x^j}{x^i}}(p) \\
 			&= f_j(p) \\
 		\end{align*} 
-		Hence $Xx^j = f_j$ and $X|_U = \sum\limits_{i=1}^n (Xx^i) \pdv{x^i}$.
+		Hence $Xx^j = f_j$ and $X|_U = \sum\limits_{i=1}^n (Xx^i)\frac{\p}{\p x^i}$.
 	\end{proof}
 	
 	\begin{ex}
-	Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then for each $i \in \{1, \cdots, n\}$, $$\pdv{x^i} \in \Gam(U)$$
+	Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then for each $i \in \{1, \cdots, n\}$, $$\frac{\p}{\p x^i} \in \Gam(U)$$
 	\end{ex}
 	
 	\begin{proof}
-	Let $i \in \{1, \cdots, n\}$ and $f \in C^{\infty}(M)$. Define $g: M \rightarrow \R$ by $g = \pdv{x^i} f$. Let $(V, \psi) \in \MA$. Then for each $x \in \psi(U \cap V)$, 
+	Let $i \in \{1, \cdots, n\}$ and $f \in C^{\infty}(M)$. Define $g: M \rightarrow \R$ by $g =\frac{\p}{\p x^i} f$. Let $(V, \psi) \in \MA$. Then for each $x \in \psi(U \cap V)$, 
 	\begin{align*}
 	g \circ \psi^{-1}(x) 
-	&= \eval{\pdv{x^i}}_{\psi^{-1}(x)}f \\
-	&= \eval{\pdv{u^i}}_{\phi \circ \psi^{-1}(x)}f \circ \phi^{-1}  \\
-	&= \pdv{u^i}[f \circ \phi^{-1}] ( \phi \circ \psi^{-1} (x))\\
+	&= \frac{\p}{\p x^i} \bigg|_{\psi^{-1}(x)}f \\
+	&= \frac{\p}{\p u^i} \bigg|_{\phi \circ \psi^{-1}(x)}f \circ \phi^{-1}  \\
+	&= \frac{\p}{\p u^i}[f \circ \phi^{-1}] ( \phi \circ \psi^{-1} (x))\\
 \end{align*}	 
-	Since $f \circ \phi^{-1}$ and $\phi \circ \psi^{-1}$ are smooth, $g \circ \psi^{-1}$ is smooth and hence $g$ is smooth. Since $f \in C^{\infty}(M)$ was arbitrary, by definition, $\pdv{x^i}$ is smooth. 
+	Since $f \circ \phi^{-1}$ and $\phi \circ \psi^{-1}$ are smooth, $g \circ \psi^{-1}$ is smooth and hence $g$ is smooth. Since $f \in C^{\infty}(M)$ was arbitrary, by definition, $\frac{\p}{\p x^i}$ is smooth. 
 	\end{proof}
 	
 	
@@ -2174,7 +2395,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	
 	
 	\newpage
-	\subsection{$1$-Forms}
+	\section{$1$-Forms}
 	
 	\begin{defn}
 		Let $\om: M \rightarrow T^*M$. Then $\om$ is said to be a \textbf{$1$-form on $M$} if for each $p \in M$, $\om_p \in T^*_p M$. \\
@@ -2184,10 +2405,10 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{defn}
 
 	\begin{defn}
-	Let $f \in C^{\infty}(M)$ and $\al,\bet \in \Gam^1(M)$. We define 
+	Let $f \in C^{\infty}(M)$ and $\al,\be \in \Gam^1(M)$. We define 
 	\begin{itemize}
 	\item $f\al \in \Gam_1(M)$ by $$(f\om)_p = f(p)\om_p$$
-	\item $\al+\bet \in \Gam^1(M)$ by $$(\al+\bet)_p = \al_p+\bet_p$$
+	\item $\al+\be \in \Gam^1(M)$ by $$(\al+\be)_p = \al_p+\be_p$$
 	\end{itemize}
 	\end{defn}
 	
@@ -2212,7 +2433,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	
 	
 	\newpage
-	\subsection{$(r,s)$-Tensor Fields}
+	\section{$(r,s)$-Tensor Fields}
 	
 	\begin{defn}
 		Let $\al: M \rightarrow T^r_sM$. Then $\al$ is said to be a \textbf{$(r,s)$-tensor field on $M$} if for each $p \in M$, $\al_p \in T^r_s(T_pM)$. \\
@@ -2222,18 +2443,18 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{defn}
 
 	\begin{defn}
-	Let $f \in C^{\infty}(M)$ and $\al,\bet \in \Gam^r_s(M)$. We define 
+	Let $f \in C^{\infty}(M)$ and $\al,\be \in \Gam^r_s(M)$. We define 
 	\begin{itemize}
 	\item $f\al: M \rightarrow T^r_sM$ by $$(f\om)_p = f(p)\om_p$$
-	\item $\al+\bet:  M \rightarrow T^r_sM$ by $$(\al+\bet)_p = \al_p+\bet_p$$
+	\item $\al+\be:  M \rightarrow T^r_sM$ by $$(\al+\be)_p = \al_p+\be_p$$
 	\end{itemize}
 	\end{defn}
 	
 	\begin{ex}
-	Let $f \in C^{\infty}(M)$ and $\al,\bet \in \Gam^r_s(M)$. Then
+	Let $f \in C^{\infty}(M)$ and $\al,\be \in \Gam^r_s(M)$. Then
 	\begin{enumerate}
 	\item $f\al \in \Gam^r_s(M)$ by $$(f\om)_p = f(p)\om_p$$
-	\item $\al+\bet \in \Gam^r_s(M)$ by $$(\al+\bet)_p = \al_p+\bet_p$$
+	\item $\al+\be \in \Gam^r_s(M)$ by $$(\al+\be)_p = \al_p+\be_p$$
 	\end{enumerate}
 	\end{ex}
 	
@@ -2250,7 +2471,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 	
 	\begin{defn}
-	Let $\al_1 \in \Gam^{r_1}_{s_1}(M)$ and $\al_2 \in \Gam^{r_2}_{s_2}(M)$. We define the \textbf{tensor product of $\al$ with $\bet$}, denoted $\al \otimes \bet : M \rightarrow T^{r_1 + r_2}_{s_1 + s_2}M$, by $$(\al \otimes \bet)_p = \al_p \otimes \bet_p$$
+	Let $\al_1 \in \Gam^{r_1}_{s_1}(M)$ and $\al_2 \in \Gam^{r_2}_{s_2}(M)$. We define the \textbf{tensor product of $\al$ with $\be$}, denoted $\al \otimes \be : M \rightarrow T^{r_1 + r_2}_{s_1 + s_2}M$, by $$(\al \otimes \be)_p = \al_p \otimes \be_p$$
 	\end{defn}
 	
 	\begin{ex}
@@ -2288,11 +2509,11 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{defn}
 
 	\begin{ex}
-	Let $(M, \MA)$, $(N, \MB)$ and $(L, \MC)$ be smooth manifolds, $F:M \rightarrow N$ and $G:N \rightarrow L$ smooth maps, $\al \in \Gam^0_k(N)$, $\bet  \in \Gam^0_l(N)$, $\gam \in \Gam^0_k(L)$ and $f \in C^{\infty}(N)$. Then 
+	Let $(M, \MA)$, $(N, \MB)$ and $(L, \MC)$ be smooth manifolds, $F:M \rightarrow N$ and $G:N \rightarrow L$ smooth maps, $\al \in \Gam^0_k(N)$, $\be  \in \Gam^0_l(N)$, $\gam \in \Gam^0_k(L)$ and $f \in C^{\infty}(N)$. Then 
 	\begin{enumerate}
 	\item $F^*(f \al) = (f \circ F) F^* \al$
-	\item $F^*(\al \otimes \bet) = F^*\al \otimes F^* \bet$
-	\item $F^*(\al + \bet) = F^* \al + F^* \bet $
+	\item $F^*(\al \otimes \be) = F^*\al \otimes F^* \be$
+	\item $F^*(\al + \be) = F^* \al + F^* \be $
 	\item $(G \circ F)^*\gam = F^*(G^* \gam)$
 	\item $id_N^* \al = \al$
 	\end{enumerate}
@@ -2396,14 +2617,14 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 
 	
 	\newpage	
-	\subsection{Differential Forms}
+	\section{Differential Forms}
 	
 	\begin{defn}
-		We define $$\Lam_k (TM) = \coprod_{p \in M} \Lam_k(T_p M)$$
+		We define $$\Lam^k (TM) = \coprod_{p \in M} \Lam^k(T_p M)$$
 	\end{defn}
 	
 	\begin{defn}
-		Let $\om: M \rightarrow \Lam_k (TM)$. Then $\om$ is said to be a \textbf{$k$-form on $M$} if for each $p \in M$, $\om_p \in \Lam_k(T_pM)$.\\
+		Let $\om: M \rightarrow \Lam^k (TM)$. Then $\om$ is said to be a \textbf{$k$-form on $M$} if for each $p \in M$, $\om_p \in \Lam^k(T_pM)$.\\
 		For each $X \in \Gam^1(M)^k$, we define $\om(X) : M \rightarrow \R$ by $$\om(X)_p = \om_p(X_p)$$
 		and $\om$ is said to be \textbf{smooth} if for each $X \in \Gam^1(M)^k$, $\om(X)$ is smooth.\\
 		The set of smooth $k$-forms on $M$ is denoted $\Om_k(M)$.\\
@@ -2428,7 +2649,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	
 
 	\begin{defn}
-		Define the \textbf{exterior product} $$\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $$ by $$(\al \wedge \beta)_p = (\al)_p \wedge (\beta)_p$$
+		Define the \textbf{exterior product} $$\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $$ by $$(\al \wedge \be)_p = (\al)_p \wedge (\be)_p$$
 	\end{defn}
 	
 	\begin{note}
@@ -2440,15 +2661,15 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{ex}
 	
 	\begin{proof}
-	Let $\al \in \Om_k(M)$, $\beta \in \Om_l(M)$, $(x^i)_{i=1}^k \subset \Gam^1(M)$, $(y^j)_{i=1}^l \subset \Gam^1(M)$ and $p \in M$. Then 
+	Let $\al \in \Om_k(M)$, $\be \in \Om_l(M)$, $(x^i)_{i=1}^k \subset \Gam^1(M)$, $(y^j)_{i=1}^l \subset \Gam^1(M)$ and $p \in M$. Then 
 	\begin{align*}
-	\al \wedge \bet (X_1, \dots, X_{k+l})_p
-	&= (\al \wedge \bet)_p ({X_1}(p), \cdots, {X_{k+l}}(p)) \\
-	&= \frac{(k+l)!}{k! l!} A(\al_p \otimes \beta_p)({X_1}(p), \cdots, {X_{k+l}}(p)) \\
-	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig)\sig (\al_p \otimes \bet_p) ({X_1}(p), \cdots, {X_{k+l}}(p)) \\
-	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig)(\al_p \otimes \bet_p) (X_{\sig(1)}(p), \cdots, X_{\sig(k+l)}(p)) \\
-	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \al_p(X_{\sig(1)}(p), \dots,X_{\sig(k)}(p)) \bet(X_{\sig(k+1)(p)}, \dots X_{\sig(k+l)}(p)) \\
-	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \al_p(X_{\sig(1)}(p), \dots,X_{\sig(k)}(p)) \bet(X_{\sig(k+1)(p)}, \dots X_{\sig(k+l)}(p)) \\
+	\al \wedge \be (X_1, \dots, X_{k+l})_p
+	&= (\al \wedge \be)_p ({X_1}(p), \cdots, {X_{k+l}}(p)) \\
+	&= \frac{(k+l)!}{k! l!} \Alt(\al_p \otimes \be_p)({X_1}(p), \cdots, {X_{k+l}}(p)) \\
+	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig)\sig (\al_p \otimes \be_p) ({X_1}(p), \cdots, {X_{k+l}}(p)) \\
+	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig)(\al_p \otimes \be_p) (X_{\sig(1)}(p), \cdots, X_{\sig(k+l)}(p)) \\
+	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \al_p(X_{\sig(1)}(p), \dots,X_{\sig(k)}(p)) \be(X_{\sig(k+1)(p)}, \dots X_{\sig(k+l)}(p)) \\
+	&= \frac{1}{k! l!} \sum_{\sig \in S_{k+l}} \sgn(\sig) \al_p(X_{\sig(1)}(p), \dots,X_{\sig(k)}(p)) \be(X_{\sig(k+1)(p)}, \dots X_{\sig(k+l)}(p)) \\
 	\end{align*}	 
 	\end{proof}
 	
@@ -2460,15 +2681,15 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\begin{enumerate}
 	\item 
 	$C^{\infty}(M)$-linearity in the first argument:\\
-	Let $\al \in \Om_k(M)$, $\bet, \gam \in \Om_l(M)$, $f \in C^{\infty}(M)$ and $p \in M$. Bilinearity of $\wedge: \Lam_k(T_pM) \times \Lam_l(T_pM) \rightarrow \Lam_{k+l}(T_pM)$ implies that
+	Let $\al \in \Om_k(M)$, $\be, \gam \in \Om_l(M)$, $f \in C^{\infty}(M)$ and $p \in M$. Bilinearity of $\wedge: \Lam^k(T_pM) \times \Lam^l(T_pM) \rightarrow \Lam^{k+l}(T_pM)$ implies that
 	\begin{align*}
-	[(\bet + f \gam ) \wedge \al]_p 
-	&= (\bet + f \gam)_p \wedge \al_p  \\
-	&=(\bet_p + f(p) \gam_p) \wedge \al_p \\
-	&= \bet_p \wedge \al_p + f(p)( \gam_p \wedge \al_p) \\
-	&=  [\bet \wedge \al + f (\gam \wedge \al)]_p \\
+	[(\be + f \gam ) \wedge \al]_p 
+	&= (\be + f \gam)_p \wedge \al_p  \\
+	&=(\be_p + f(p) \gam_p) \wedge \al_p \\
+	&= \be_p \wedge \al_p + f(p)( \gam_p \wedge \al_p) \\
+	&=  [\be \wedge \al + f (\gam \wedge \al)]_p \\
 	\end{align*}
-	So that $$(\bet + f \gam ) \wedge \al = \bet \wedge \al  + f  (\gam \wedge \al)$$ and $\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $ is $C^{\infty}(M)$-linear in the first argument. 
+	So that $$(\be + f \gam ) \wedge \al = \be \wedge \al  + f  (\gam \wedge \al)$$ and $\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $ is $C^{\infty}(M)$-linear in the first argument. 
 	\item $C^{\infty}(M)$-linearity in the second argument:\\
 	Similar to $(1)$.
 	\end{enumerate}
@@ -2483,45 +2704,45 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 		\begin{enumerate}
 			\item $d(d \al) = 0$ for $\al \in \Om_p(M)$
 			\item $df(X) = Xf$ for $f \in \Om_0(M)$
-			\item $d(\al \wedge \bet) = d\al \wedge \bet + (-1)^p \al \wedge d\bet$ for $\al \in \Om_p(M)$ and $\bet \in \Om_q(M)$
+			\item $d(\al \wedge \be) = d\al \wedge \be + (-1)^p \al \wedge d\be$ for $\al \in \Om_p(M)$ and $\be \in \Om_q(M)$
 			\item extending linearly
 		\end{enumerate}
 	\end{defn}
 
 	\begin{ex}
-		Let $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then on $U$, for each $i,j \in \{1, \cdots, n\}$, $$dx^i\bigg(\pdv{x^j} \bigg) = \del_{i,j}$$ 
-		In particular, for each $p \in U$, $\{dx^1_p, \cdots, dx^n_p \}$ is the dual basis to $\bigg \{ \eval{\pdv{x^1}}_{p}, \cdots, \eval{\pdv{x^n}}_{p} \bigg \}$ and $T_p^*M = \spn\{dx^1_p, \cdots, dx^n_p\}$.
+		Let $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then on $U$, for each $i,j \in \{1, \cdots, n\}$, $$dx^i\bigg(\frac{\p}{\p x^j} \bigg) = \del_{i,j}$$ 
+		In particular, for each $p \in U$, $\{dx^1_p, \cdots, dx^n_p \}$ is the dual basis to $\bigg \{ \frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$ and $T_p^*M = \spn\{dx^1_p, \cdots, dx^n_p\}$.
 	\end{ex}
 
 	\begin{proof}
 		Let $p \in U$ and $i,j \in \{1, \cdots, n\}$. Then  by defintion,
 		\begin{align*}
-			\bigg[ dx^i \bigg (\pdv{x^j} \bigg ) \bigg]_p 
-			&= \bigg( \pdv{x^j} x^i \bigg )_p \\
-			&= \eval{\pdv{x^j}}_{p} x^i \\
+			\bigg[ dx^i \bigg (\frac{\p}{\p x^j} \bigg ) \bigg]_p 
+			&= \bigg(\frac{\p}{\p x^j} x^i \bigg )_p \\
+			&= \frac{\p}{\p x^i} \bigg|_p x^i \\
 			&= \del_{i,j} \\
 		\end{align*}
 	\end{proof}
 
 	\begin{ex}
-		Let $f \in C^{\infty}(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then $$df|_U = \sum_{i=1}^n \pdv{f}{x^i} dx^i$$
+		Let $f \in C^{\infty}(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then $$df|_U = \sum_{i=1}^n \frac{\p f}{\p x^i} dx^i$$
 	\end{ex}
 
 	\begin{proof}
 		Let $p \in U$. Since $\{dx^1, \cdots, dx^n\}$ is a basis for $\Lam(T_pM)$, for each there exist $a_1(p), \cdots, a_n(p) \in \R$ such that $df_p = \sum\limits_{i=1}^n a^i(p)dx^i_p$. Therefore, we have that 
 		\begin{align*}
-			df_p \bigg(\eval{\pdv{x^j}}_{p} \bigg) 
-			&= \sum\limits_{i=1}^n a^i(p)dx^i_p \bigg(\eval{\pdv{x^j}}_{p} \bigg)  \\
+			df_p \bigg(\frac{\p}{\p x^i} \bigg|_p \bigg) 
+			&= \sum\limits_{i=1}^n a^i(p)dx^i_p \bigg(\frac{\p}{\p x^i} \bigg|_p \bigg)  \\
 			&=  a_j(p)
 		\end{align*}
 		By definition, we have that 
 		\begin{align*}
-			df_p\bigg(\eval{\pdv{x^j}}_{p} \bigg) 
-			&= \eval{\pdv{x^j}}_{p} f \\ 
-			&= {\pdv{f}{x^j}}(p)\\
+			df_p\bigg(\frac{\p}{\p x^i} \bigg|_p \bigg) 
+			&= \frac{\p}{\p x^i} \bigg|_p f \\ 
+			&= \frac{\p f}{\p x^j} (p)\\
 		\end{align*}
-		So $a_j(p) = {\pdv{f}{x^j}}(p)$ and $$df_p = \sum\limits_{i=1}^n {\pdv{f}{x^j}}(p)dx^i_p$$
-		Therefore $$df|_U = \sum\limits_{i=1}^n {\pdv{f}{x^i}}dx^i$$
+		So $a_j(p) = \frac{\p f}{\p x^j} (p)$ and $$df_p = \sum\limits_{i=1}^n \frac{\p f}{\p x^j} (p)dx^i_p$$
+		Therefore $$df|_U = \sum\limits_{i=1}^n {\frac{\p f}{\p x^i}}dx^i$$
 	\end{proof}
 	
 	\begin{ex}
@@ -2529,10 +2750,10 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $f$ is constant. Let $p \in M$. Choose $(U, \phi) \in \MA$ such that $p \in U$. Write $\phi = (x_1, \dots, x_n)$. Then for each $i \in \{1, \dots, n\}$, $$\eval{\pdv{x^i}}_p f = 0$$ This implies that 
+	Suppose that $f$ is constant. Let $p \in M$. Choose $(U, \phi) \in \MA$ such that $p \in U$. Write $\phi = (x_1, \dots, x_n)$. Then for each $i \in \{1, \dots, n\}$, $$\frac{\p}{\p x^i} \bigg|_p f = 0$$ This implies that 
 	\begin{align*}
 	df_p 
-	&= \sum\limits_{i=1}^n {\pdv{f}{x^j}}(p)dx^i_p \\
+	&= \sum\limits_{i=1}^n \frac{\p f}{\p x^j} (p)dx^i_p \\
 	&= 0
 	\end{align*}
 	\end{proof}
@@ -2543,32 +2764,32 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 
 	\begin{defn}
 		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $I = (i_1, \cdots, i_k) \in \MI_k$. We define $$dx^i = dx_{i_1} \wedge \cdots \wedge dx_{i_k} \in \Om_k(M)$$ 
-		and we define $$\pdv{x^i}= \bigg(\pdv{x_{i_1}}, \cdots, \pdv{x_{i_k}} \bigg)$$
+		and we define $$\frac{\p}{\p x^i}= \bigg(\frac{\p}{\p x^{i_1}}, \cdots, \frac{\p}{\p x^{i_k}} \bigg)$$
 
 	\end{defn}
 	
 	\begin{note} We have that
 	\begin{enumerate}
-	\item  $$d x^i \bigg ( \pdv{x^j} \bigg) = \del_{I,J}$$
-	\item Since $\pdv{x^i} \in \Gam(U)^k$, by definition, for each $\om \in \Om_k(U)$, $$\om \bigg(\pdv{x^i} \bigg) \in C^{\infty}(U)$$
+	\item  $$d x^i \bigg (\frac{\p}{\p x^j} \bigg) = \del_{I,J}$$
+	\item Since $\frac{\p}{\p x^i} \in \Gam(U)^k$, by definition, for each $\om \in \Om_k(U)$, $$\om \bigg(\frac{\p}{\p x^i} \bigg) \in C^{\infty}(U)$$
 	\end{enumerate}
 	\end{note}
 
 	\begin{ex}
-		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then $$\om = \sum_{I \in \MI_k}\om \bigg(\pdv{x^i} \bigg) dx^i$$
+		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then $$\om = \sum_{I \in \MI_k}\om \bigg(\frac{\p}{\p x^i} \bigg) dx^i$$
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in U$. Since $\{dx^i_p: I \in \MI_k\}$ is a basis for $\Lam_k(T_pM)$, there exists $(f_I(p))_{I \in \MI} \subset \R$ such that $\om_p = \sum\limits_{I \in \MI_k} f_I(p) dx^i_p$. So for each $J \in \MI_k$, 
+		Let $p \in U$. Since $\{dx^i_p: I \in \MI_k\}$ is a basis for $\Lam^k(T_pM)$, there exists $(f_I(p))_{I \in \MI} \subset \R$ such that $\om_p = \sum\limits_{I \in \MI_k} f_I(p) dx^i_p$. So for each $J \in \MI_k$, 
 		\begin{align*}
-			\om\bigg (\pdv{x^j} \bigg ) 
-			&= \sum\limits_{I \in \MI_k} f_I dx^i \bigg (\pdv{x^j} \bigg )  \\
+			\om\bigg (\frac{\p}{\p x^j} \bigg ) 
+			&= \sum\limits_{I \in \MI_k} f_I dx^i \bigg (\frac{\p}{\p x^j} \bigg )  \\
 			&= f_J
 		\end{align*} 
 	\end{proof}
 
 	\begin{ex}
-		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. If $\om = \sum\limits_{I \in \MI_k}f_I dx^i$, then $$d \om  = \sum_{I \in \MI_k} \sum_{i =1}^n \pdv{f_I}{x^i} dx^i \wedge dx^i$$.
+		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. If $\om = \sum\limits_{I \in \MI_k}f_I dx^i$, then $$d \om  = \sum_{I \in \MI_k} \sum_{i =1}^n \frac{\p f_I}{\p x^i} dx^i \wedge dx^i$$.
 	\end{ex}
 
 	\begin{proof}
@@ -2577,8 +2798,8 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 			d(f_I dx^i) 
 			&= df_I \wedge dx^i + (-1)^0 f d(dx^i) \\
 			&= df_I \wedge dx^i \\
-			&= \bigg( \sum\limits_{i=1}^n \pdv{f_I}{x^i}dx^i  \bigg) \wedge dx^i \\
-			&= \sum\limits_{i=1}^n {\pdv{f_I}{x^i}}dx^i \wedge dx^i \\
+			&= \bigg( \sum\limits_{i=1}^n \frac{\p f_I}{\p x^i}dx^i  \bigg) \wedge dx^i \\
+			&= \sum\limits_{i=1}^n {\frac{\p f_I}{\p x^i}}dx^i \wedge dx^i \\
 		\end{align*}
 		Then we extend linearly.
 	\end{proof}
@@ -2618,7 +2839,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	
 	
 	\newpage 
-	\section{Extra}
+	\chapter{Extra}
 	\begin{defn}
 		When working in $\R^n$, we introduce the formal objects $dx^1, dx_2, \cdots, dx^n$. Let $I = (i_1, i_2, \cdots, i_k)\in \MI_{k,n}$ and $\phi: \R^k \rightarrow \R^n$. Write $\phi = (\phi_1, \phi_2, \cdots, \phi_n)$. We formally define $dx^i = dx_{i_1}\wedge dx_{i_2} \wedge \cdots \wedge dx_{i_k}$ and $\phi_I = (\phi_{i_1}, \phi_{i_2}, \cdots, \phi_{i_k})$.   
 	\end{defn}
@@ -2665,7 +2886,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 
 	\begin{defn}
-		Let $f: \R^n \rightarrow \R$ be a $0$-form on $\R^n$. We define a $1$-form, denoted $df$, on $\R^n$ by $$df = \sum_{i = 1}^n \pdv{f}{x^i} dx^i$$
+		Let $f: \R^n \rightarrow \R$ be a $0$-form on $\R^n$. We define a $1$-form, denoted $df$, on $\R^n$ by $$df = \sum_{i = 1}^n \frac{\p f}{\p x^i} dx^i$$
 		Let $\om = \sum\limits_{I \in \MI_{k,n}} f_Idx^i$ be a $k$-form on $\R^n$. We can define a differential $k+1$-form, denoted $d \om$, on $\R^n$ by $$d\om = \sum\limits_{I \in \MI_{k,n}} df_I\wedge dx^i$$  
 	\end{defn}
 
@@ -2678,9 +2899,9 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 		\end{enumerate} 
 		Show that
 		\begin{enumerate}
-			\item $d\om_0 = \pdv{f_0}{x_1}dx^1 + \pdv{f_0}{x_2}dx_2 + \pdv{f_0}{x_3}dx_3$
-			\item $d \om_1 = \bigg(\pdv{f_3}{x_2} - \pdv{f_2}{x_3} \bigg) dx_2 \wedge dx_3 + \bigg( \pdv{f_3}{x_1} - \pdv{f_1}{x_3}\bigg)dx^1 \wedge dx_3 + \bigg( \pdv{f_2}{x_1} - \pdv{f_1}{x_2} \bigg) dx^1 \wedge dx_2$
-			\item $d \om_2 = \bigg( \pdv{f_1}{x_1} + \pdv{f_2}{x_2} + \pdv{f_3}{x_3} \bigg) dx^1 \wedge dx_2 \wedge dx_3$ 
+			\item $d\om_0 = \frac{\p f_0}{\p x^1}dx^1 + \frac{\p f_0}{\p x^2}dx_2 + \frac{\p f_0}{\p x^3}dx_3$
+			\item $d \om_1 = \bigg(\frac{\p f_3}{\p x^2} - \frac{\p f_2}{\p x^3} \bigg) dx_2 \wedge dx_3 + \bigg( \frac{\p f_3}{\p x^1} - \frac{\p f_1}{\p x^3}\bigg)dx^1 \wedge dx_3 + \bigg( \frac{\p f_2}{\p x^1} - \frac{\p f_1}{\p x^2} \bigg) dx^1 \wedge dx_2$
+			\item $d \om_2 = \bigg( \frac{\p f_1}{\p x^1} + \frac{\p f_2}{\p x^2} + \frac{\p f_3}{\p x^3} \bigg) dx^1 \wedge dx_2 \wedge dx_3$ 
 		\end{enumerate}
 	\end{ex}
 
@@ -2723,7 +2944,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\begin{align*}
 		d \phi_I 
 		&= d\phi_{i_1} \wedge d\phi_{i_2} \wedge \cdots \wedge d \phi_{i_n} \\
-		&= (\sum_{j = 1}^n \pdv{\phi_{i_1}}{u^j} du^j) \wedge (\sum_{j = 1}^n \pdv{\phi_{i_2}}{u^j} du^j) \wedge \cdots \wedge (\sum_{j = 1}^n \pdv{\phi_{i_k}}{u^j} du^j)   \\
+		&= (\sum_{j = 1}^n \frac{\p \phi_{i_1}}{\p u^j} du^j) \wedge (\sum_{j = 1}^n \frac{\p \phi_{i_2}}{\p u^j} du^j) \wedge \cdots \wedge (\sum_{j = 1}^n\frac{\p \phi_{i_k}}{\p u^j}du^j)   \\
 		&= (\det v\phi_I)du^1 \wedge du_2 \wedge \cdots \wedge du_k
 	\end{align*}
 	Therefore 
@@ -2735,7 +2956,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{align*}
 	\end{proof}
 	
-	\subsection{Integration of Differential Forms}
+	\section{Integration of Differential Forms}
 	
 	\begin{defn}
 		Let $U \subset \R^k$ be open and $\om = f dx^1 \wedge dx_2 \wedge \cdots \wedge dx_k$ a $k$-form on $\R^k$. Define $$\int_U \om = \int_U f dx$$

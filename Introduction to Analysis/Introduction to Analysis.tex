@@ -42,6 +42,7 @@
 %    Include referenced packages here.
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
+\usepackage{environ}
 \usepackage{tikz-cd} 
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
@@ -51,6 +52,7 @@
 	linkcolor=black,  %choose some color if you want links to stand out
 	urlcolor=cyan
 }
+\usepackage[symbols,nogroupskip,sort=none]{glossaries-extra}
 
 
 
@@ -66,11 +68,12 @@
 \newtheorem{ex}[definition]{Exercise}
 \newtheorem{exmp}[definition]{Example}
 
+\setcounter{tocdepth}{3}
+
 % hide proofs
 \newif\ifhideproofs
 %\hideproofstrue %uncomment to hide proofs
 \ifhideproofs
-\usepackage{environ}
 \NewEnviron{hide}{}
 \let\proof\hide
 \let\endproof\endhide
@@ -94,6 +97,7 @@
 \newcommand{\Gam}{\Gamma}
 \newcommand{\Del}{\Delta}
 \newcommand{\Lam}{\Lambda} 
+\newcommand{\Sig}{\Sigma} 
 \newcommand{\Om}{\Omega}
 
 % blackboard bold
@@ -145,6 +149,12 @@
 \newcommand{\ld}[1]{\label{defn:#1}}
 \newcommand{\rd}[1]{Definition \ref{defn:#1}}
 
+\newcommand{\lax}[1]{\label{ax:#1}}
+\newcommand{\rax}[1]{Axiom \ref{ax:#1}}
+
+\newcommand{\lfig}[1]{\label{fig:#1}}
+\newcommand{\rfig}[1]{Figure \ref{fig:#1}}
+
 % math operators
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\sgn}{sgn}
@@ -154,6 +164,7 @@
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Homeo}{Homeo}
 \DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
 \DeclareMathOperator{\cl}{cl}
 \DeclareMathOperator{\Int}{Int}
 \DeclareMathOperator{\bal}{bal}
@@ -166,6 +177,10 @@
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rnk}{rank}
+
+% category theory
 \DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
 \DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
 \DeclareMathOperator*{\0}{\mbf{0}}
@@ -179,9 +194,12 @@
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
 \newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tcb}[1]{\textcolor{blue}{#1}}
 \newcommand{\mbf}[1]{\mathbf{#1}}
 \newcommand{\ol}[1]{\overline{#1}}
 \newcommand{\p}{\partial}
+\newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
+\newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
 
 % limits
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
@@ -223,9 +241,12 @@
 
 \newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
 
-%    For a single index; for multiple indexes, see the manual
-%    "Instructions for preparation of papers and monographs:
-%    AMS-LaTeX" (instr-l.pdf in the AMS-LaTeX distribution).
+
+% Glossary - Notation
+\glsxtrnewsymbol[description={finite measures on $(X, \MA)$}]{n000001}{$\MM_+(X, \MA)$}
+\glsxtrnewsymbol[description={velocity}]{v}{\ensuremath{v}}
+
+
 \makeindex
 
 \begin{document}
@@ -262,6 +283,7 @@
 	\setcounter{page}{4}
 	
 	\tableofcontents
+	\printunsrtglossary[type=symbols,style=long,title={Notation}]
 	
 	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
 	%\include{}
@@ -269,6 +291,7 @@
 	\mainmatter
 	%    Include main chapters here.
 	%\include{}
+	
 	\chapter*{Preface}
 	\addcontentsline{toc}{chapter}{Preface}
 
@@ -276,14 +299,22 @@
 		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
 	\end{flushleft}
 
-	
-	
 	\newpage
 	
-
-	\newpage
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	\chapter{Set Theory}
+	
 	\section{Product Sets}
 	
 	\begin{defn}
@@ -6076,55 +6107,100 @@ So that $T(\cl B(0,1))$ is bounded.
 	\section{Banach Algebras}
 	
 	\begin{defn} \ld{}
-		Let $X$ be a Banach space and an associative algebra. Then $X$ is said to be a \tbf{Banach algebra} if for each $S,T \in X$, $\|ST \|\leq \|S \|\|T \|$. 
+		Let $X$ be a Banach space and an associative algebra. Then $X$ is said to be a \tbf{Banach algebra} if for each $x,y \in X$, $\|xy \|\leq \|x \|\|y \|$. 
 	\end{defn}
 	
 	\begin{defn} \ld{}
-	Let $X$ be a Banach algebra and $I \in X$. Then $I$ is said to be an \tbf{identity} if for each $T \in X$, $IT = TI = T$. 
+	Let $X$ be a Banach algebra and $e \in X$. Then $e$ is said to be an \tbf{identity} if for each $x \in X$, $ex = xe = x$. 
 	\end{defn}
 	
+
 	\begin{defn} \ld{}
-	Let $X$ be a Banach algebra. and $I \in X$. Then $I$ is said to be an \tbf{identity} if $I \neq 0$ and for each $T \in X$, $IT = TI = T$.
-	\end{defn}
-	
-	\begin{defn} \ld{}
-	Let $X$ be a Banach algebra. Then $X$ is said to be \tbf{unital} if there exists $I \in X$ such that $I$ is an identity.
+	Let $X$ be a Banach algebra. Then $X$ is said to be \tbf{unital} if there exists $e \in X$ such that $e$ is an identity.
 	\end{defn}	
 		
 		\begin{ex} \lex{}
-		Let $X$ be a unital Banach algebra. Then there exists a unique $I \in X$ such that $I$ is an identity.
+		Let $X$ be a unital Banach algebra. Then there exists a unique $e \in X$ such that $e$ is an identity.
 		\end{ex} 
 		
-		\begin{proof}
-		Clear.
+		\begin{proof}\
+		\begin{itemize}
+			\item \tbf{Existence: } \\
+			By definition, there exists $e \in X$ such that $e$ is an identity.
+			\item \tbf{Uniqueness: }\\
+			Let $e' \in X$. Suppose that $e'$ is an identity. Then 
+			\begin{align*}
+				e' 
+				& = e' e \\
+				& = e'
+			\end{align*}	
+		\end{itemize}
 		\end{proof}
 		
-		\begin{note}
-		We denote the unique identity element by $I$.
-		\end{note}
-		
 		\begin{defn} \ld{}
-		Let $X$ be a unital Banach algebra and $T,S \in X$. Then $S$ is said to be an 
-		\tbf{inverse} of $T$ if $TS=ST = I$.
+		Let $X$ be a unital Banach algebra and $x,y \in X$. Then $y$ is said to be an 
+		\tbf{inverse} of $x$ if $xy = yx = e$.
 		\end{defn}
 
 		\begin{defn} \ld{}
-		Let $X$ be a unital Banach algebra and $T \in X$. 			Then $T$ is said to be 
-		\tbf{invertible} if there exists $S \in X$ such 		that $S$ is an inverse of $T$.
+		Let $X$ be a unital Banach algebra and $x \in X$. Then $y$ is said to be 
+		\tbf{invertible} if there exists $y \in X$ such that $y$ is an inverse of $x$.
 		\end{defn}
 		
 		\begin{ex} \lex{}
-		Let $X$ be a unital Banach algebra and $T \in X$. If $T$ is invertible, then there exists a unique $S \in X$ such that $S$ is an inverse of $T$.
+		Let $X$ be a unital Banach algebra and $x \in X$. If $x$ is invertible, then there exists a unique $y \in X$ such that $y$ is an inverse of $x$.
 		\end{ex}
 		
 		\begin{proof}
-		Clear.
+		Suppose that $x$ is invertible.
+		\begin{itemize}
+			\item \tbf{Existence: } \\
+			By definition, there exists $y \in X$ such that $y$ is an inverse of $x$.
+			\item \tbf{Uniqueness: }\\
+			Let $y' \in X$. Suppose that $y'$ is an inverse of $x$. Then 
+			\begin{align*}
+				y'
+				& = y'e \\
+				& = y'(xy) \\
+				& = (y'x)y \\
+				& = ey \\
+				& = y
+			\end{align*}
+		\end{itemize}
+		\end{proof}
+	
+		\begin{defn} \ld{}
+			Let $X$ be a unital Banach algebra. We define $G(X) = \{x \in X: x \text{ is invertible}\}$.
+		\end{defn}
+		
+		\begin{ex} \lex{}
+			Let $X$ be a unital Banach algebra. Then $G(X)$ is a group.  
+		\end{ex}
+		
+		\begin{proof}
+			Clear.
 		\end{proof}
 		
-		\begin{note}
-		We denote the unique inverse of $T$ by $T^{-1}$.
-		\end{note}
+		\begin{defn} \ld{}
+		Let $X$ be a unital Banach algebra and $x \in G(X)$. We define the \textbf{inverse of $x$}, denoted $x^{-1}$, to be the unique $y \in X$ such that $yx = xy = e$.
+		\end{defn}
 		
+		\begin{ex}
+			Let $X$ be a unital Banach algebra and $x,y \in G(X)$. Then $xy \in G(X)$ is and $(xy)^{-1} = y^{-1}x^{-1}$.
+		\end{ex}
+	
+		\begin{proof}
+			Suppose that $x,y$ are invertible. Then 
+			\begin{align*}
+				(y^{-1}x^{-1})(xy)
+				& = y^{-1}(x^{-1} (x y)) \\
+				& = y^{-1}((x^{-1} x) y) \\
+				& = y^{-1} (e y) \\
+				& = y^{-1} y \\
+				& = e
+			\end{align*}
+			Similarly, $(xy)(y^{-1}x^{-1}) = e$. Hence $xy$ is invertible and $(xy)^{-1} = y^{-1}x^{-1}$.
+		\end{proof}
 			
 	\begin{ex} \lex{}\tbf{Fundamental Example:} \\
 	Let $X$ be a Banach space. Then $GL(X)$ is a unital Banach algebra.
@@ -6133,42 +6209,36 @@ So that $T(\cl B(0,1))$ is bounded.
 	\begin{proof}
 	Clear.
 	\end{proof}
-		
-		\begin{defn} \ld{}
-		Let $X$ be a unital Banach algebra. We define $GL(X) = \{T \in X: T \text{ is invertible}\}$.
-		\end{defn}
-		
-		\begin{ex} \lex{}
-		Let $X$ be a unital Banach algebra. Then $GL(X)$ is a group.  
+	
+	\begin{ex} \lex{}
+		Let $X$ be a unital Banach algebra. If $X \neq \{0\}$, then $1 \leq \|e \|$. 
 	\end{ex}
 	
 	\begin{proof}
-	Clear.
+		Suppose that $X \neq \{0\}$. Then $e \neq 0$ which implies that $\|e \| > 0$. Since 
+		\begin{align*}
+			\|e \|
+			= \|e e \|
+			& \leq \|e \|\|e \|
+		\end{align*}
+		we have that $1 \leq \|e \|$.
 	\end{proof}
 	
 	\begin{ex} \lex{}
-		Let $X$ be a unital Banach algebra. Then $1 \leq \|I \|$. 
+		Let $X$ be a Banach algebra. Then mulitplication $X \times X \rightarrow X$ is continuous. 
 	\end{ex}
 	
 	\begin{proof}
-		Since $I \neq 0$, $\|I \|\neq 0$. By definition, $$\|I \|= \|I I \|\leq \|I \|\|I \|$$ Hence $1 \leq \|I \|$.
-	\end{proof}
-	
-	\begin{ex} \lex{}
-		Let $X$ be a Banach algebra. Then mulitplication is continuous. 
-	\end{ex}
-	
-	\begin{proof}
-		Let $(S_1,T_1) \in X \times X$ and $\ep > 0$. Choose $\del = \min\{\frac{\ep}{2(\|S_1 \|+ \|T_1 \|+1)}, \frac{\sqrt{\ep}}{\sqrt{2}}\}$. Let $(S_2, T_2) \in X \times X$. Suppose that 
-		$$\|(S_1, T_1) - (S_2, T_2) \|= \max \{ \|S_2 -S_2 \|, \|T_1 - T_2 \|\} < \del$$ 
+		Let $(x_1,y_1) \in X \times X$ and $\ep > 0$. Choose $\del = \min ( \frac{\ep}{2(\|x_1 \|+ \|y_1 \|+1)}, \sqrt{\frac{\ep}{2}} )$. Let $(x_2, y_2) \in X \times X$. Suppose that 
+		$$\|(x_1, y_1) - (x_2, y_2) \|= \max \{ \|x_2 -x_2 \|, \|y_1 - y_2 \|\} < \del$$ 
 		Then 
 		\begin{align*}
-			\|S_1T_1 - S_2T_2 \|
-			&= \|S_1T_1 - S_2T_1 +S_2T_1 - S_2T_2 \|\\
-			& \leq \|S_1 -S_2 \|\|T_1 \|+ \|S_2 \|\|T_1 - T_2 \|\\
-			& \leq \|S_1 -S_2 \|\|T_1 \|+ \big( \|S_1-S_2 \|+ \|S_1 \|\big) \|T_1 - T_2 \|\\
-			& \leq \del \|T_1 \|+(\del + \|S_1 \|) \del \\
-			&= \del (\|S_1 \|+ \|T_1 \|) + \del^2 \\
+			\|x_1y_1 - x_2y_2 \|
+			&= \|x_1y_1 - x_2y_1 +x_2y_1 - x_2y_2 \|\\
+			& \leq \|x_1 -x_2 \|\|y_1 \|+ \|x_2 \|\|y_1 - y_2 \|\\
+			& \leq \|x_1 -x_2 \|\|y_1 \|+ \big( \|x_1-x_2 \|+ \|x_1 \|\big) \|y_1 - y_2 \|\\
+			& \leq \del \|y_1 \|+(\del + \|x_1 \|) \del \\
+			&= \del (\|x_1 \|+ \|y_1 \|) + \del^2 \\
 			& < \frac{\ep}{2} + \frac{\ep}{2}\\
 			&= \ep
 		\end{align*}
@@ -6178,35 +6248,75 @@ So that $T(\cl B(0,1))$ is bounded.
 	\begin{ex} \lex{}
 		Let $X$ be a unital Banach algebra. Then 
 		\begin{enumerate}
-			\item For each $T \in X$, if $\|I- T \|< 1$, then $T \in GL(X)$ and $$T^{-1} = \sum_{n=0}^{\infty}(I-T)^n$$
-			\item For each $S,T \in X$, if $S \in GL(X)$  and $\|S-T \|< \|S^{-1} \|^{-1}$, then $T \in GL(X)$. 
-			\item $GL(X)$ is open.
+			\item For each $x \in X$, if $\|e- x \|< 1$, then $x \in G(X)$ and $$x^{-1} = \sum_{n=0}^{\infty}(e-x)^n$$
+			\item For each $x,y \in X$, if $x \in G(X)$  and $\|x-y \|< \|x^{-1} \|^{-1}$, then $y \in G(X)$ and $$y^{-1} = \sum_{n=1}^{\infty} (e - x^{-1}yx^{-1})$$. 
+			\item $G(X)$ is open.
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $T \in X$. Suppose that $\|I-T \|< 1$. Then $$\sum_{n=0}^{\infty} \|(I -T)^n \| \leq \sum_{n=0}^{\infty} \|I -T \|^{n} < \infty$$ Since $X$ is a complete, $\sum\limits_{n=0}^{\infty}(I-T)^n$ converges in $X$.\\
-			Define $(S_k)_{k=0}^{\infty} \subset X$ and $S \in X$ by $S_k = \sum\limits_{n=0}^{k} (I-T)^n$ and \\ $S = \sum\limits_{n=0}^{\infty}(I-T)^n$. Then for each $k \in \N$,
+			\item Let $x \in X$. Suppose that $\|e-x \|< 1$. Then $$\sum_{n=0}^{\infty} \|(e -x)^n \| \leq \sum_{n=0}^{\infty} \|e -x \|^{n} < \infty$$ Since $X$ is a complete, $\sum\limits_{n=0}^{\infty}(e-x)^n$ converges in $X$.\\
+			Define $(s_k)_{k=0}^{\infty} \subset X$ and $s \in X$ by $s_k = \sum\limits_{n=0}^{k} (e-x)^n$ and \\ $s = \sum\limits_{n=0}^{\infty}(e-x)^n$. Then for each $k \in \N$,
 			\begin{align*}
-				S_k T
-				&= S_k - S_k(I-T) \\
-				&= (I-T)^0 - (I-T)^{k+1} \\
-				&= I - (I-T)^{k+1}
+				s_k x
+				&= s_k - s_k(e-x) \\
+				&= (e-x)^0 - (e-x)^{k+1} \\
+				&= e - (e-x)^{k+1}
 			\end{align*}
-			and $\|S_kT - I \|\leq \|I-T \|^{k+1}$. Since multiplication on Banach algebras is continuous, we have that $$ST = (\lim_{k \rightarrow \infty} S_k)T = \lim\limits_{k \rightarrow \infty}S_kT = I$$
-			Similarly $TS = I$. Thus $T \in GL(X)$ and $T^{-1} = S \in X$. \vspace{.5cm}\\
-			\item  Let $S, T \in X$. Suppose that $S \in GL(X)$ and $\|S-T \|< \|S^{-1} \|^{-1}$. Then 
+			Therefore $\|s_k x - e \|\leq \|e-x \|^{k+1}$ and $s_kx \rightarrow e$ as $k \rightarrow \infty$. Since multiplication on Banach algebras is continuous, we have that $s_kx \rightarrow sx$ as $k \rightarrow \infty$. Uniqueness of limits implies that $sx = e$. Similarly $x s = e$. Thus $x \in G(X)$ and $x^{-1} = s$. \vspace{.5cm}\\
+			\item  Let $x, y \in X$. Suppose that $x \in G(X)$ and $\|x-y \|< \|x^{-1} \|^{-1}$. Then 
 			\begin{align*}
-				\|I - S^{-1}T \|
-				& = \|S^{-1}(S - T) \|\\
-				& \leq \|S^{-1} \|\|S -T \|\\
+				\|e - x^{-1}y \|
+				& = \|x^{-1}(x - y) \|\\
+				& \leq \|x^{-1} \|\|x -y \|\\
 				&< 1
 			\end{align*}
-			So $S^{-1}T \in GL(X)$. Thus $T = S (S^{-1}T) \in GL(X)$. \vspace{.5cm}\\
-			\item Let $T \in GL(X)$. Choose $\del = \|T^{-1}\|^{-1}$. By (2), $B(T, \del) \subset GL(X)$.
+			Hence $x^{-1}y \in G(X)$ and $y = x (x^{-1}y) \in G(X)$. \vspace{.5cm}\\
+			\item Let $x \in G(X)$. Choose $\del = \|x^{-1}\|^{-1}$. By (2), $B(x, \del) \subset G(X)$.
 		\end{enumerate}
 	\end{proof}	
+
+	\begin{ex}
+		Let $X$ be a unital Banach algebra. 
+		\begin{enumerate}
+			\item 
+		\end{enumerate}
+	\end{ex}
+
+
+	
+	
+	
+	
+	
+	
+	\begin{defn}
+		Let $X$ be a unital Banach algebra and $x \in X$.
+		\begin{itemize}
+			\item We define the \textbf{resolvent} of $x$, denoted $\rho(x)$, by 
+			$$\rho(x) = \{\lam \in \C: \lam e - x \in G(X)\}$$
+			\item We define the \textbf{spectrum} of $x$, denoted $\sig(x)$, by 
+			$$\sig(x) = \rho(x)^c$$ 
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a unital Banach algebra and $x \in X$. Then 
+		\begin{enumerate}
+			\item $\sig(x)$ is closed
+			\item $\sig(x) \subset \cl B(0, \|x\|)$
+			\item 
+		\end{enumerate} 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item $\sig(x)$ is closed
+			\item $\sig(x) \subset \cl B(0, \|x\|)$
+			\item 
+		\end{enumerate} 
+	\end{proof}
 	
 	
 	
@@ -9460,7 +9570,6 @@ Then
 	
 	
 	\backmatter
-	\newpage
 	\begin{thebibliography}{4}
 \bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
 
