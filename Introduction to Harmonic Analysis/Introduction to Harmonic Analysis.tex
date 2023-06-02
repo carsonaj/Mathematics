@@ -1,7 +1,51 @@
-\documentclass[12pt]{amsart}
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{book}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+%    Include referenced packages here.
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
-
+\usepackage{tikz, tikz-cd, tkz-fct}  
+\usepackage{pgfplots}
+\usepackage{environ}
+\usepackage{tikz-cd} 
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
 \hypersetup{
@@ -10,23 +54,16 @@
 	linkcolor=black,  %choose some color if you want links to stand out
 	urlcolor=cyan
 }
+\usepackage[symbols,nogroupskip,sort=none]{glossaries-extra}
 
+\pgfplotsset{every axis/.append style={
+		axis x line=middle,    % put the x axis in the middle
+		axis y line=middle,    % put the y axis in the middle
+		axis line style={<->,color=black}, % arrows on the axis
+		xlabel={$x$},          % default put x on x-axis
+		ylabel={$y$},          % default put y on y-axis
+}}
 
-%
-%
-%
-\newif\ifhideproofs
-%\hideproofstrue %uncomment to hide proofs
-%
-%
-%
-%
-\ifhideproofs
-\usepackage{environ}
-\NewEnviron{hide}{}
-\let\proof\hide
-\let\endproof\endhide
-\fi
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
@@ -38,12 +75,18 @@
 \newtheorem{cor}[definition]{Corollary}
 \newtheorem{conj}[definition]{Conjecture}
 \newtheorem{ex}[definition]{Exercise}
+\newtheorem{exmp}[definition]{Example}
 
+\setcounter{tocdepth}{3}
 
-
-\DeclareMathOperator{\supp}{supp}
-
-\newcommand{\p}{\partial}
+% hide proofs
+\newif\ifhideproofs
+%\hideproofstrue %uncomment to hide proofs
+\ifhideproofs
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
 
 % lower-case greek
 \newcommand{\al}{\alpha}
@@ -59,7 +102,6 @@
 \newcommand{\up}{\upsilon}
 \newcommand{\om}{\omega}
 
-
 % upper-case greek
 \newcommand{\Gam}{\Gamma}
 \newcommand{\Del}{\Delta}
@@ -67,42 +109,117 @@
 \newcommand{\Sig}{\Sigma} 
 \newcommand{\Om}{\Omega}
 
+% blackboard bold
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\N}{\mathbb{N}}
 \newcommand{\E}{\mathbb{E}}
-\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathbb{O}}
+\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\T}{\mathbb{T}}
-\newcommand{\Q}{\mathbb{Q}}
-\renewcommand{\P}{\mathbb{P}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% math caligraphic
 \newcommand{\MA}{\mathcal{A}}
-\newcommand{\MC}{\mathcal{C}}
 \newcommand{\MB}{\mathcal{B}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MD}{\mathcal{D}}
+\newcommand{\ME}{\mathcal{E}}
 \newcommand{\MF}{\mathcal{F}}
 \newcommand{\MG}{\mathcal{G}}
-\newcommand{\ML}{\mathcal{L}}
-\newcommand{\MN}{\mathcal{N}}
-\newcommand{\MS}{\mathcal{S}}
-\newcommand{\MP}{\mathcal{P}}
-\newcommand{\ME}{\mathcal{E}}
-\newcommand{\MT}{\mathcal{T}}
-\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MH}{\mathcal{H}}
 \newcommand{\MI}{\mathcal{I}}
+\newcommand{\MJ}{\mathcal{J}}
+\newcommand{\MK}{\mathcal{K}}
+\newcommand{\ML}{\mathcal{L}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MO}{\mathcal{O}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\MQ}{\mathcal{Q}}
+\newcommand{\MR}{\mathcal{R}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MT}{\mathcal{T}}
+\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MV}{\mathcal{V}}
+\newcommand{\MW}{\mathcal{W}}
+\newcommand{\MX}{\mathcal{X}}
+\newcommand{\MY}{\mathcal{Y}}
+\newcommand{\MZ}{\mathcal{Z}}
 
-\newcommand{\io}{\text{ i.o.}}
-\newcommand{\ev}{\text{ ev.}}
+% tilde 
+\newcommand{\tMA}{\tilde{\MA}}
+\newcommand{\tMB}{\tilde{\MB}}
+\newcommand{\tU}{\tilde{U}}
+\newcommand{\tV}{\tilde{V}}
+\newcommand{\tphi}{\tilde{\phi}}
+\newcommand{\tpsi}{\tilde{\psi}}
+\newcommand{\tF}{\tilde{F}}
+
+% label/reference
+\newcommand{\lex}[1]{\label{ex:#1}}
+\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
+
+\newcommand{\ld}[1]{\label{defn:#1}}
+\newcommand{\rd}[1]{Definition \ref{defn:#1}}
+
+\newcommand{\lax}[1]{\label{ax:#1}}
+\newcommand{\rax}[1]{Axiom \ref{ax:#1}}
+
+\newcommand{\lfig}[1]{\label{fig:#1}}
+\newcommand{\rfig}[1]{Figure \ref{fig:#1}}
+
+% math operators
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\iso}{Iso}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\bal}{bal}
+\DeclareMathOperator{\cnv}{conv}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\Obj}{Obj}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rnk}{rank}
+
+
+% category theory
+\DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
+\DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
+\DeclareMathOperator*{\0}{\mbf{0}}
+\DeclareMathOperator*{\1}{\mbf{1}}
+\DeclareMathOperator*{\TopEq}{\text{\tbf{TopEq}}}
+\DeclareMathOperator*{\Top}{\text{\tbf{Top}}}
+\DeclareMathOperator*{\Cone}{\text{\tbf{Cone}}}
+\DeclareMathOperator*{\Cocone}{\text{\tbf{Cocone}}}
+
+% notation
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tcb}[1]{\textcolor{blue}{#1}}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\p}{\partial}
+\newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
+\newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
 
-\newcommand{\dm}{\, d m}
-\newcommand{\dmu}{\, d \mu}
-\newcommand{\dnu}{\, d \nu}
-\newcommand{\dlam}{\, d \lambda}
-
-\newcommand{\RG}{[0,\infty]}
-\newcommand{\Rg}{[0,\infty)}
-\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
-
+% limits
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
 \newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
 \newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
@@ -110,32 +227,102 @@
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
 
+% intervals
+\newcommand{\RG}{[0,\infty]}
+\newcommand{\Rg}{[0,\infty)}
+\newcommand{\Ru}{(\infty, \infty]}
+\newcommand{\Rd}{[\infty, \infty)}
+\newcommand{\ui}{[0,1]}
+
+% integration \newcommand{\dm}{\, d m}
+\newcommand{\dmu}{\, d \mu}
+\newcommand{\dnu}{\, d \nu}
+\newcommand{\dlam}{\, d \lambda}
+\newcommand{\dP}{\, d P}
+\newcommand{\dQ}{\, d Q}
+\newcommand{\dm}{\, d m}
+
+% abreviations 
+\newcommand{\lsc}{lower semicontinuous}
+
+% misc
+\newcommand{\as}[1]{\overset{#1}{\sim}}
+\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
+\newcommand{\io}{\text{ i.o.}}
+%\newcommand{\ev}{\text{ ev.}}
+\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
+
 \newcommand{\loc}{\text{loc}}
+\newcommand{\BV}{\text{BV}}
+\newcommand{\NBV}{\text{NBV}}
+\newcommand{\TV}{\text{TV}}
 
-\DeclareMathOperator*{\sgn}{sgn}
-\DeclareMathOperator*{\spn}{span}
-\DeclareMathOperator*{\Aut}{Aut}
-\DeclareMathOperator*{\id}{id}
-
-\newcommand{\lex}[1]{\label{ex:#1}}
-\newcommand{\ld}[1]{\label{defn:#1}}
-\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
-\newcommand{\rd}[1]{Definition \ref{defn:#1}}
+\newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
 
 
+% Glossary - Notation
+\glsxtrnewsymbol[description={finite measures on $(X, \MA)$}]{n000001}{$\MM_+(X, \MA)$}
+\glsxtrnewsymbol[description={velocity}]{v}{\ensuremath{v}}
+
+
+\makeindex
 
 \begin{document}
 	
-	\title{Introduction to Fourier Analysis}
+	\frontmatter
+	
+	\title{Introduction to Harmonic Analysis}
+	
+	%    Remove any unused author tags.
+	
+	%    author one information
 	\author{Carson James}
+	\thanks{}
+	
+	%    author two information
+	\author{}
+	\thanks{}
+	
+	\date{}
+	
 	\maketitle
 	
+	%    Dedication.  If the dedication is longer than a line or two,
+	%    remove the centering instructions and the line break.
+	%\cleardoublepage
+	%\thispagestyle{empty}
+	%\vspace*{13.5pc}
+	%\begin{center}
+	%  Dedication text (use \\[2pt] for line break if necessary)
+	%\end{center}
+	%\cleardoublepage
+	
+	%    Change page number to 6 if a dedication is present.
+	\setcounter{page}{4}
+	
 	\tableofcontents
+	\printunsrtglossary[type=symbols,style=long,title={Notation}]
+	
+	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+	%\include{}
+	
+	\mainmatter
+	% Include main chapters here.
+	%\include{}
+	
+	\chapter*{Preface}
+	\addcontentsline{toc}{chapter}{Preface}
+	
+	\begin{flushleft}
+		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
+	\end{flushleft}
 	
 	\newpage
-	\section{Fourier Analysis on $\R^n$}	
 	
-	\subsection{Schwartz Space}
+	\newpage
+	\chapter{Fourier Analysis on $\MS(\R^n)$}	
+	
+	\section{Schwartz Space}
 	
 	\begin{defn}
 		\ld{100} Let $\al \in \N_0^n$ and $x, y \in \R^n$. We define 
@@ -270,11 +457,7 @@
 	\end{proof}
 
 	\begin{ex}
-		\lex{102} Let $f \in \MS(\R^n)$. Then 
-		\begin{enumerate}
-			\item $f$ is Lipschitz 
-			\item for each $p \in [1, \infty]$, $f \in  L^p(\R^n)$
-		\end{enumerate}
+		\lex{102} Let $f \in \MS(\R^n)$. Then $f$ is Lipschitz.
 	\end{ex}
 	
 	\begin{proof}\
@@ -294,22 +477,7 @@
 				& \leq \sqrt{n} M |h| 
 			\end{align*}
 			Since $h \in \R^n$ is arbitrary, $\|Df(x)\| \leq \sqrt{n}M$. Since $x \in \R^n$ is arbitrary, $Df$ is bounded. Hence $f$ is Lipschitz.
-			\item Let $p \in [1, \infty]$. Suppose that $p < \infty$. The previous exercise implies that for each $x \in \R$, 
-			$$(1 + |x|)^{2p} \geq (1/2) (1 + |x|^{2p})$$
-			By definition, there exists $C \geq 0$ such that for each $x \in \R$, 
-			$$|f(x)| \leq C(1+|x|)^{-2} $$
-			Then for each $x \in \R$,
-			\begin{align*}
-				|f(x)|^p 
-				& \leq C^p(1+|x|)^{-2p} \\
-				& \leq 2C^p(1+|x|^{2p})^{-1}
-			\end{align*}
-			Define $g:\R^n \rightarrow \Rg$ defined by $g(x) = 2C^{p}(1+|x|^{2p})^{-1}$. Since $g \in L^1(m)$ and $|f|^p \leq g$, we have that $f \in L^p(\R^n)$. If $p = \infty$, then by definition, 
-			\begin{align*}
-				\|f\|_\infty 
-				& = \|f\|_{0,0} \\
-				& < \infty 
-			\end{align*}
+			
 		\end{enumerate}
 	\end{proof}
 
@@ -372,6 +540,30 @@
 	\end{defn}
 
 	\begin{ex}
+		Let $f \in \MS(\R^n)$. For each $p \in [1, \infty]$, $f \in  L^p(\R^n)$
+	\end{ex}
+
+	\begin{proof}
+		Let $p \in [1, \infty]$. Suppose that $p < \infty$. The previous exercise implies that for each $x \in \R$, 
+		$$(1 + |x|)^{2p} \geq (1/2) (1 + |x|^{2p})$$
+		By definition, there exists $C \geq 0$ such that for each $x \in \R$, 
+		$$|f(x)| \leq C(1+|x|)^{-2} $$
+		Then for each $x \in \R$,
+		\begin{align*}
+			|f(x)|^p 
+			& \leq C^p(1+|x|)^{-2p} \\
+			& \leq 2C^p(1+|x|^{2p})^{-1}
+		\end{align*}
+		Define $g:\R^n \rightarrow \Rg$ defined by $g(x) = 2C^{p}(1+|x|^{2p})^{-1}$. Since $g \in L^1(m)$ and $|f|^p \leq g$, we have that $f \in L^p(\R^n)$. If $p = \infty$, then by definition, 
+		\begin{align*}
+			\|f\|_\infty 
+			& = \|f\|_{0,0} \\
+			& < \infty 
+		\end{align*}
+		So $f \in L^p(\R^n)$. 
+	\end{proof}
+
+	\begin{ex}
 		For each $p \in [1, \infty)$, the inclusion $\iota: \MS(\R^n) \rightarrow L^p(\R^n)$ is continuous. 
 	\end{ex}
 
@@ -390,113 +582,22 @@
 		Hence $f_j \conv{L^p} f$ and $\iota: \MS(\R^n) \rightarrow L^p(\R^n)$ is continuous.
 	\end{proof}
 
-	\begin{defn}
-		Let $j \in \{1, \ldots, n\}$. We define the \textbf{$j$-th position operator}, denoted $X_j: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ by 
-		$$X_jf(x) = x_j f(x)$$
-	\end{defn}
-
 	\begin{ex}
-		Let $f \in \MS(\R^n)$. Then for each $j \in \{1, \ldots, n\}$ and $\al \in \N_0^n$, 
-		\[
-		\p^{\al}(X_jf) = 
-		\begin{cases}
-			X_j (\p^{\al}f) & \al_j = 0 \\
-			X_j (\p^{\al} f) + \al_j \p^{\al - e_j} f & \al_j > 0 \\
-		\end{cases}
-		\]
+		For each $\al \in \N_0^n$, $\p^{\al}: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ is linear. 
 	\end{ex}
 	
 	\begin{proof}
-		Let $j \in \{1, \ldots, n\}$ and $\al \in \N_0^n$. The claim is true if $\al_j = 0$ or $\al _j = 1$.  Let $k > 1$. Suppose that the claim is true for $\al_j = k - 1$ so that $\p_j^{k-1}(X_jf)= X_j(\p_j^{k-1}f) + (k - 1) \p_j^{k-2} f$. Suppose that $\al_j = k$. Then 
+		Let $\al \in \N_0^n$. The claim is true for $|\al| = 0$ and $|\al| = 1$. Let $k > 1$. Suppose that the claim is true for $|\al| = k-1$ so that for each $\be \in \N_0^n$, $|\be| = k-1$ implies that $\p^{\be}: \MS(\R^n) \rightarrow C^{\infty}$ is linear. Suppose that $|\al| = k$. Let $f, g \in \MS(\R^n)$ and $\lam \in \C$. Since $k > 0$, there exists $j \in \{1, \ldots, n\}$ such that $\al_j > 0$. Then 
 		\begin{align*}
-			\p_j^{k} (X_j f)
-			&= \p_j (\p_j^{k-1} [X_jf]) \\
-			&= \p_j (X_j[\p_j^{k-1}f] + (k - 1) \p_j^{k-2}) \\
-			&= \p_j (X_j[\p_j^{k-1}f]) + (k - 1) \p_j( \p_j^{k-2} f) \\
-			&= (X_j [\p_j^{k}f] + \p_j^{k-1}f)  + (k -1) \p_j^{k-1}f \\
-			&= X_j (\p_j^{k}f) + k \p_j^{k-1}f
-		\end{align*}
-		which implies that  
-		\begin{align*}
-			\p^{\al}(X_j f) 
-			& = \p^{\al - k e_j} (\p_j^{k} [X_j f]) \\
-			& = \p^{\al - k e_j} (X_j [\p_j^{k}f] + k \p_j^{k-1}f) \\
-			& = X_j (\p^{\al - k e_j}[\p_j^k f]) +  k \p^{\al - k e_j} (\p_j^{k-1}f) \\
-			& = X_j(\p^{\al} f) + \al_j \p^{\al - e_j} f \\
-		\end{align*}
-		So the claim is true for $\al_j = k$. By induction, the claim is true for each $\al \in \N_0^n$. 
+			\p^{\al}(f + \lam g) 
+			& = \p_j(\p^{\al - e_j} [f + \lam g]) \\
+			& =  \p_j(\p^{\al - e_j}f + \lam \p^{\al - e_j} g) \\
+			& = \p_j(\p^{\al - e_j}f ) + \lam \p_j (\p^{\al - e_j} g) \\
+			& = \p^{\al} f + \lam \p^{\al} g
+		\end{align*} 
+		Since $f, g \in \MS(\R^n)$ and $\lam \in \C$ are arbitrary, we have that $\p^{\al}$ is linear. So the claim is true for $|\al| = k$. By induction, the claim is true for each $\al \in \N_0^n$.
 	\end{proof}
 	
-	\begin{ex}
-		Let $f \in \MS(\R^n)$ and $j \in \{1, \ldots, n\}$. Then $X_jf \in \MS(\R^n)$ and for each $\al \in \N_0^n$ and $N \in \N_0$, 
-		\[
-		\|X_jf \|_{\al, N} \leq 
-		\begin{cases}
-			\|f\|_{\al, N+1} & \al_j = 0 \\
-			\|f\|_{\al, N+1} + \al_j \|f\|_{\al - e_j, N} & \al_j > 0
-		\end{cases}
-		\] 
-	\end{ex}
-	
-	\begin{proof}
-		Let $\al  \in \N_0^n$ and $N \in \N_0$. If $\al_j = 0$, then the previous exercise implies that  
-		\begin{align*}
-			\|X_j f\|_{\al, N}
-			&= \sup_{x \in \R}\bigg[ (1 + |x|)^N|\p^{\al}(X_jf)(x)| \bigg] \\
-			& = \sup_{x \in \R}\bigg[ (1 + |x|)^N|x_j\p^{\al}f(x)| \bigg] \\
-			& \leq \sup_{x \in \R}\bigg[ (1 + |x|)^{N+1}|\p^{\al}f(x)| \bigg] \\
-			&= \|f\|_{\al, N+1}
-		\end{align*}
-		If $\al_j > 0$, then the previous exercise implies that  
-		\begin{align*}
-			\|X_j f\|_{\al, N}
-			&= \sup_{x \in \R}\bigg[ (1 + |x|)^N|\p^{\al}(X_jf)(x)| \bigg] \\
-			& = \sup_{x \in \R}\bigg[ (1 + |x|)^N|x_j\p^{\al}f(x) + \al_j \p^{\al - e_j} f(x)| \bigg] \\
-			& \leq \sup_{x \in \R}\bigg[ (1 + |x|)^{N+1}|\p^{\al}f(x)| \bigg] + \al_j \sup_{x \in \R}\bigg[  (1 + |x|)^N |\p^{\al-e_j} f(x)| \bigg] \\
-			&= \|f\|_{\al, N+1} + \al_j \|f\|_{\al-e_j, N}
-		\end{align*}
-		Since $\al, N \in \N_0$ are arbitrary, $X_jf \in \MS(\R^n)$.
-	\end{proof}
-
-	\begin{ex}
-		Let $j \in \{1, \ldots, n\}$. Then 
-		\begin{enumerate}
-			\item $X_j: \MS(\R^n) \rightarrow \MS(\R^n)$ is linear
-			\item $X_j: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $f, g \in \MS(\R^n)$ and $\lam \in \C$. Then for each $x \in \R^n$, we have that
-			\begin{align*}
-				X_j(f + \lam g)(x) 
-				& = x_j(f(x) + \lam g(x)) \\
-				& = x_jf(x) + \lam x_j g(x) \\
-				& = (X_jf + \lam X_jg)(x)
-			\end{align*} 
-			Since $x \in \R^n$ is arbitrary, we have that $X_j(f + \lam g) = X_jf + \lam X_jg$. Since $f, g \in \MS(\R^n)$ and $\lam \in \C$ are arbitrary, we have that $X_j$ is linear.
-			\item Let $(f_k)_{k \in \N} \subset \MS(\R^n)$. Suppose that $f_k \rightarrow 0$. Then for each $\al, N \in \N_0$, $\|f_k\|_{\al, N} \rightarrow 0$. Let $\al \in \N_0^n$ and $N \in \N$. If $\al_j = 0$, then 
-			\begin{align*}
-				\|X_jf_k\|_{\al, N} 
-				& \leq \|f_k\|_{\al, N+1} \\
-				& \rightarrow 0
-			\end{align*}
-			If $\al_j > 0$, then 
-			\begin{align*}
-				\|X_jf_k\|_{\al, N} 
-				& \leq \|f_k\|_{\al, N+1} + \al_j\|f_k\|_{\al - e_j, N}\\
-				& \rightarrow 0
-			\end{align*}
-			So $X_jf_k \rightarrow 0$ and $X_j$ is continuous at $0$. Since $X_j$ is linear, $X_j$ is continuous.
-		\end{enumerate}
-	\end{proof}
-
-	\begin{defn}
-		Let $j \in \{1, \ldots, n\}$. We define the \textbf{$j$-th momentum operator}, denoted $P_j: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ by 
-		$$P_j = -i \p_j $$
-	\end{defn}
-
 	\begin{ex}
 		Let $f \in \MS(\R^n)$ and $\al \in \N_0^n$. Then $\p^{\al}f \in \MS(\R^n)$ and for each $\be \in \N_0^n$ and $N \in \N_0$, 
 		$$\|\p^{\al} f \|_{\be, N} \leq \|f \|_{\al + \be, N}$$ 
@@ -524,6 +625,203 @@
 	\end{proof}
 
 	\begin{ex}
+		Let $\al \in \N_0^n$. Then $\p^{\al}: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous.
+	\end{ex}
+
+	\begin{proof}
+			Let $(f_k)_{k \in \N} \subset \MS(\R^n)$. Suppose that $f_k \rightarrow 0$. Then for each $\al, N \in \N_0$, $\|f_k\|_{\al, N} \rightarrow 0$. Let $\be \in \N_0^n$ and $N \in \N$. Then
+		\begin{align*}
+			\|\p^{\al}f_k\|_{\be, N} 
+			& \leq \|f_k \|_{\al + \be, N} \\
+			& \rightarrow 0
+		\end{align*}
+		Since $\be \in \N_0^n$ and $N \in \N_0$ are arbitrary, $\p^{\al}f_k \rightarrow 0$. Thus $\p^{\al}$ is continuous at $0$. Since $\p^{\al}$ is linear, $\p^{\al}$ is continuous. 
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\section{Position and Momentum Operators}
+	\begin{defn}
+		Let $j \in \{1, \ldots, n\}$. We define the \textbf{$j$-th position operator}, denoted $X_j: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ by 
+		$$X_jf(x) = x_j f(x)$$
+	\end{defn}
+
+	\begin{ex}
+		Let $j \in \{1, \ldots, n\}$. Then $X_j: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ is linear.
+	\end{ex}
+
+	\begin{proof}
+		Let $f, g \in \MS(\R^n)$ and $\lam \in \C$. Then for each $x \in \R^n$, we have that
+		\begin{align*}
+			X_j(f + \lam g)(x) 
+			& = x_j(f(x) + \lam g(x)) \\
+			& = x_jf(x) + \lam x_j g(x) \\
+			& = (X_jf + \lam X_jg)(x)
+		\end{align*} 
+		Since $x \in \R^n$ is arbitrary, we have that $X_j(f + \lam g) = X_jf + \lam X_jg$. Since $f, g \in \MS(\R^n)$ and $\lam \in \C$ are arbitrary, we have that $X_j$ is linear.
+	\end{proof}
+
+	\begin{ex}
+		For each $j \in \{1, \ldots, n\}$ and $\al \in \N_0^n$, 
+		\[
+		\p^{\al}X_j = 
+		\begin{cases}
+			X_j \p^{\al} & \al_j = 0 \\
+			X_j \p^{\al}  + \al_j \p^{\al - e_j}  & \al_j > 0 \\
+		\end{cases}
+		\]
+	\end{ex}
+	
+	\begin{proof}
+		Let $j \in \{1, \ldots, n\}$, $\al \in \N_0^n$ and $f \in \MS(\R^n)$. The claim is true if $\al_j = 0$ or $\al _j = 1$.  Let $k > 1$. Suppose that the claim is true for $\al_j = k - 1$ so that $\p_j^{k-1}(X_jf)= X_j(\p_j^{k-1}f) + (k - 1) \p_j^{k-2} f$. Suppose that $\al_j = k$. Then 
+		\begin{align*}
+			(\p_j^k X_j) f
+			& = \p_j^k (X_j f) \\
+			&= \p_j (\p_j^{k-1} [X_jf]) \\
+			&= \p_j (X_j[\p_j^{k-1}f] + (k - 1) \p_j^{k-2}) \\
+			&= \p_j (X_j[\p_j^{k-1}f]) + (k - 1) \p_j( \p_j^{k-2} f) \\
+			&= (X_j [\p_j^{k}f] + \p_j^{k-1}f)  + (k -1) \p_j^{k-1}f \\
+			&= X_j (\p_j^{k}f) + k \p_j^{k-1}f \\
+			& = (X_j \p_j^{k} + k \p_j^{k-1}) f
+		\end{align*}
+		which implies that  
+		\begin{align*}
+			(\p^{\al} X_j) f
+			& = \p^{\al}(X_j f) \\ 
+			& = \p^{\al - k e_j} (\p_j^{k} [X_j f]) \\
+			& = \p^{\al - k e_j} (X_j [\p_j^{k}f] + k \p_j^{k-1}f) \\
+			& = X_j (\p^{\al - k e_j}[\p_j^k f]) +  k \p^{\al - k e_j} (\p_j^{k-1}f) \\
+			& = X_j(\p^{\al} f) + \al_j \p^{\al - e_j} f \\
+			& = (X_j \p^{\al}  + \al_j \p^{\al - e_j} )f
+		\end{align*}
+		So the claim is true for $\al_j = k$. By induction, the claim is true for each $\al \in \N_0^n$. 
+	\end{proof}
+	
+	\begin{ex}
+		Let $f \in \MS(\R^n)$ and $j \in \{1, \ldots, n\}$. Then $X_jf \in \MS(\R^n)$ and for each $\al \in \N_0^n$ and $N \in \N_0$, 
+		\[
+		\|X_jf \|_{\al, N} \leq 
+		\begin{cases}
+			\|f\|_{\al, N+1} & \al_j = 0 \\
+			\|f\|_{\al, N+1} + \al_j \|f\|_{\al - e_j, N} & \al_j > 0
+		\end{cases}
+		\] 
+	\end{ex}
+	
+	\begin{proof}
+		Let $\al  \in \N_0^n$ and $N \in \N_0$. If $\al_j = 0$, then the previous exercise implies that  
+		\begin{align*}
+			\|X_j f\|_{\al, N}
+			& = \sup_{x \in \R}\bigg[ (1 + |x|)^N|\p^{\al}(X_jf)(x)| \bigg] \\
+			& = \sup_{x \in \R}\bigg[ (1 + |x|)^N|x_j\p^{\al}f(x)| \bigg] \\
+			& \leq \sup_{x \in \R}\bigg[ (1 + |x|)^{N+1}|\p^{\al}f(x)| \bigg] \\
+			& = \|f\|_{\al, N+1} \\
+			& < \infty 
+		\end{align*}
+		If $\al_j > 0$, then the previous exercise implies that  
+		\begin{align*}
+			\|X_j f\|_{\al, N}
+			& = \sup_{x \in \R}\bigg[ (1 + |x|)^N|\p^{\al}(X_jf)(x)| \bigg] \\
+			& = \sup_{x \in \R}\bigg[ (1 + |x|)^N|x_j\p^{\al}f(x) + \al_j \p^{\al - e_j} f(x)| \bigg] \\
+			& \leq \sup_{x \in \R}\bigg[ (1 + |x|)^{N+1}|\p^{\al}f(x)| \bigg] + \al_j \sup_{x \in \R}\bigg[  (1 + |x|)^N |\p^{\al-e_j} f(x)| \bigg] \\
+			& = \|f\|_{\al, N+1} + \al_j \|f\|_{\al-e_j, N} \\
+			& < \infty
+		\end{align*}
+		Since $\al, N \in \N_0$ are arbitrary, $X_jf \in \MS(\R^n)$.
+	\end{proof}
+
+	\begin{ex}
+		Let $j \in \{1, \ldots, n\}$. Then $X_j: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous.
+	\end{ex}
+
+	\begin{proof} 
+		 Let $(f_k)_{k \in \N} \subset \MS(\R^n)$. Suppose that $f_k \rightarrow 0$. Then for each $\al, N \in \N_0$, $\|f_k\|_{\al, N} \rightarrow 0$. Let $\al \in \N_0^n$ and $N \in \N$. If $\al_j = 0$, then 
+		\begin{align*}
+			\|X_jf_k\|_{\al, N} 
+			& \leq \|f_k\|_{\al, N+1} \\
+			& \rightarrow 0
+		\end{align*}
+		If $\al_j > 0$, then 
+		\begin{align*}
+			\|X_jf_k\|_{\al, N} 
+			& \leq \|f_k\|_{\al, N+1} + \al_j\|f_k\|_{\al - e_j, N}\\
+			& \rightarrow 0
+		\end{align*}
+		Since $\al \in \N_0^n$ and $N \in \N_0$ are arbitrary, $X_jf_k \rightarrow 0$. Thus $X_j$ is continuous at $0$. Since $X_j$ is linear, $X_j$ is continuous.
+	\end{proof}
+
+	\begin{ex}
+		Let $j,k \in \{1, \ldots, n\}$. Then $X_jX_k = X_kX_j$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $f \in \MS(\R^n)$. Then  
+		\begin{align*}
+			([X_jX_k] f) (x) 
+			& = (X_j [X_k f]) (x) \\
+			& = x_j (X_kf) (x) \\
+			& = x_j x_k f(x) \\
+			& = x_k x_j f(x) \\
+			& = x_k (X_j f) (x) \\
+			& = (X_k [X_j f]) (x) \\
+			& = ([X_k X_j] f)(x)
+		\end{align*}
+		Since $f \in \MS(\R^n)$ and $x \in \R^n$ are arbitrary, $X_jX_k = X_kX_j$. 
+	\end{proof}
+	
+	\begin{defn}
+		Let $\al \in \N_0^n$. We define $X^{\al}: \MS(\R^n) \rightarrow \MS(\R^n)$ by 
+		$X^{\al} = X_1^{\al_1} \cdots X_n^{\al_n}$ 
+	\end{defn}
+
+	\begin{defn}
+		Let $j \in \{1, \ldots, n\}$. We define the \textbf{$j$-th momentum operator}, denoted $P_j: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ by 
+		$$P_j = -i \p_j $$
+	\end{defn}
+
+	\begin{ex}
+		Let $j \in \{1, \ldots, n\}$. Then $P_j: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ is linear. 
+	\end{ex}
+
+	\begin{proof}
+		Clear since $\p_j: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ is linear.
+	\end{proof}
+
+	\begin{ex}
 		Let $f \in \MS(\R^n)$ and $j \in \{1, \ldots, n\}$. Then $P_jf \in \MS(\R^n)$ and for each $\al \in \N_0^n$ and $N \in \N_0$, 
 		\[
 		\|P_jf \|_{\al, N} \leq \|f\|_{\al + e_j, N}
@@ -531,45 +829,88 @@
 	\end{ex}
 	
 	\begin{proof}
-		Let $\al  \in \N_0^n$ and $N \in \N_0$. A previous exercise implies that  
-		\begin{align*}
-			\|P_j f\|_{\al, N} 
-			& = \|- i \p_j f \|_{\al, N} \\
-			& = \| \p_j f \|_{\al, N} \\
-			& \leq \|f\|_{\al+ e_j, N} \\
-			& < \infty 
-		\end{align*}
-		Since $\al, N \in \N_0$ are arbitrary, $X_jf \in \MS(\R^n)$.
+		Clear since $\p_j f \in \MS(\R^n)$ and $\|\p_jf \|_{\al, N} \leq \|f\|_{\al + e_j, N}$.
 	\end{proof}
 
 	\begin{ex}
-		Let $j \in \{1, \ldots, n\}$. Then 
-		\begin{enumerate}
-			\item $P_j: \MS(\R^n) \rightarrow \MS(\R^n)$ is linear
-			\item $P_j: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous
-		\end{enumerate}
+		Let $j \in \{1, \ldots, n\}$. Then $P_j: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous.
 	\end{ex}
 	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $f, g \in \MS(\R^n)$ and $\lam \in \C$. Then 
-			\begin{align*}
-				P_j(f + \lam g) 
-				& = -i\p_j (f + \lam g) \\
-				& = -i \p f -i\lam \p g  \\
-				& = P_jf + \lam P_jg 
-			\end{align*} 
-			Since $f, g \in \MS(\R^n)$ and $\lam \in \C$ are arbitrary, we have that $P_j$ is linear.
-			\item Let $(f_k)_{k \in \N} \subset \MS(\R^n)$. Suppose that $f_k \rightarrow 0$. Then for each $\al, N \in \N_0$, $\|f_k\|_{\al, N} \rightarrow 0$. Let $\al \in \N_0^n$ and $N \in \N$. Then
-			\begin{align*}
-				\|P_jf_k\|_{\al, N} 
-				& \leq \|f_k \|_{\al + e_j, N} \\
-				& \rightarrow 0
-			\end{align*}
-			So $P_jf_k \rightarrow 0$ and $P_j$ is continuous at $0$. Since $P_j$ is linear, $P_j$ is continuous. 
-		\end{enumerate}
+	\begin{proof}
+		Clear cince $\p_j: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous.
 	\end{proof}
 
+	\begin{ex}
+		Let $j,k \in \{1, \ldots, n\}$. Then $P_jP_k = P_kP_j$.
+	\end{ex}
+	
+	\begin{proof}
+		Clear since $\p_j \p_k = \p_k \p_j$. 
+	\end{proof}
+	
+	\begin{defn}
+		Let $\al \in \N_0^n$. We define $P^{\al}: \MS(\R^n) \rightarrow \MS(\R^n)$ by 
+		$P^{\al} = P_1^{\al_1} \cdots P_n^{\al_n}$ 
+	\end{defn}
+
+	\begin{ex}
+		Let $j, k \in \{1, \ldots, n\}$. Then $[X_j, P_k] = i \del_{j,k}$.
+	\end{ex}
+
+	\begin{proof}
+		A previous exercise implies that $\p_k X_j = X_j \p_k + \del_{j,k}I$. Therefore
+		\begin{align*}
+			[X_j, P_k]
+			& = X_j P_k - P_k X_j \\
+			& = -i (X_j \p_k - \p_k X_j) \\
+			& = -i (X_j \p_k - [X_j \p_k + \del_{j,k}I]) \\
+			& = -i \del_{j,k}I
+		\end{align*}
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	\newpage
+	\section{Translation and Rotation Operators}
 	\begin{defn}
 		Let $y \in \R^n$. We define the \textbf{translation by $y$ operator}, denoted $\tau_y: \MS(\R^n) \rightarrow \C^{\infty}(\R^n)$, by $\tau_yf(x) = f(x-y)$.
 	\end{defn}
@@ -590,16 +931,17 @@
 	\end{proof}
 
 	\begin{ex}
-		Let $f \in \MS(\R^n)$ and $\al \in \N_0$.  Then for each $y \in \R^n$, 
-		$$\p^{\al}\tau_yf = \tau_y \p^{\al}f$$
+		Let $\al \in \N_0$.  Then for each $y \in \R^n$, 
+		$$\p^{\al}\tau_y = \tau_y \p^{\al}$$
 	\end{ex}
 
 	\begin{proof}
 		Let $y \in \R^n$. The claim is true if $|\al| = 0$. Let $k \geq 1$. Suppose that the claim is true for $|\al| \leq k-1$ so that for each $\be \in \N_0^n$, $|\be| \leq k-1$ implies that
-		$$\p^{\be}\tau_yf = \tau_y \p^{\be}f$$ 
-		Suppose that $|\al| = k$. Since $k >0$, there exists $j \in \{1, \ldots, n\}$ such that $\al_j >0$. Define $g: \R^n \rightarrow \R^n$ and $g_k : \R^n \rightarrow \R$ by $g(x) = x-y$ and $g_k = \pi_k \circ g$. Then the chain rule implies that
+		$$\p^{\be}\tau_y = \tau_y \p^{\be}$$ 
+		Suppose that $|\al| = k$. Since $k >0$, there exists $j \in \{1, \ldots, n\}$ such that $\al_j >0$. Let $f \in \MS(\R^n)$. Define $g: \R^n \rightarrow \R^n$ and $g_k : \R^n \rightarrow \R$ by $g(x) = x-y$ and $g_k = \pi_k \circ g$. Then the chain rule implies that
 		\begin{align*}
-			\p^{\al}( \tau_y f)
+			(\p^{\al} \tau_y) f
+			& = \p^{\al}( \tau_y f) \\
 			& = \p_j (\p^{\al-e_j} [\tau_y f]) \\
 			& = \p_j (\tau_y [\p^{\al-e_j} f]) \\
 			& = \p_j ([\p^{\al-e_j} f] \circ g) \\
@@ -607,8 +949,9 @@
 			& = \p_j(\p^{\al - e_j} f) \circ g \\
 			& = (\p^{\al} f) \circ g \\ 
 			& = \tau_y ( \p^{\al} f) \\
+			& = (\tau_y  \p^{\al}) f
 		\end{align*}
-		So the claim is true for $|\al| = k$. By induction, the claim is true for each $\al \in \N_0^n$.
+		Since $f \in \MS(\R^n)$ is arbitrary, $\p^{\al} \tau_y = \tau_y  \p^{\al}$. Hence the claim is true for $|\al| = k$. By induction, the claim is true for each $\al \in \N_0^n$.
 	\end{proof}
 
 	\begin{ex} 
@@ -641,7 +984,9 @@
 			& = (1+|y|)^N\sup_{x \in \R} \bigg[ (1 + |x -y|)^N |\p^{\al} f(x - y)|\bigg] \\ 
 			& = (1+|y|)^N\sup_{x \in \R} \bigg[ (1 + |x|)^N |\p^{\al} f(x)|\bigg] \\ 
 			& = (1+|y|)^N \|f\|_{\al, N} \\ 
+			& < \infty
 		\end{align*}
+		Since $\al \in \N_0^n$ and $N \in \N_0$ are arbitrary, $\tau_y f \in \MS(\R^n)$.
 	\end{proof}
 
 	\begin{ex}
@@ -658,6 +1003,19 @@
 		\end{align*}
 		Since $\al, N \in \N_0$ are arbitrary, $\tau_yf_k \rightarrow 0$. So $\tau_y$  is continuous at $0$. Since $\tau_y$ is linear, $\tau_y$ is continuous.
 	\end{proof}
+
+	\begin{defn}
+		Let $f \in \MS(\R^n)$. Define $\tau f: \R^n \rightarrow \MS(\R^n)$ by $\tau f(y) = \tau_y f$. 
+	\end{defn}
+	
+	\begin{ex}
+		Let $f \in \MS(\R^n)$. Then $\tau f : \R^n \rightarrow \MS(\R^n)$ is continuous.
+	\end{ex}
+	
+	\begin{proof}
+		content...
+	\end{proof}
+
 
 	\begin{defn}
 		Let $\xi \in \R^n$. We define the \textbf{rotation by $\xi$ operator}, denoted $\rho_{\xi}: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$, by $\rho_{\xi}f(x) = e^{-i \l \xi, x \r }f(x)$.
@@ -679,25 +1037,66 @@
 	\end{proof}
 
 	\begin{ex}
-		Let $f \in \MS(\R^n)$ and $\xi \in \R^n$. Then for each $\al \in \N_0^n$,  
+		Let $\xi \in \R^n$. Then for each $\al \in \N_0^n$,  
 		\begin{align*}
-			\p^{\al} (\rho_{\xi} f)
-			& =  \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!} (-i \xi)^{\be} \rho_{\xi}( \p^{\gam} f) \\
-			& =  \rho_{\xi}[(-i\xi I + \p)^{\al} f]
+			\p^{\al} \rho_{\xi}
+			& =   \rho_{\xi}  \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!} (-i \xi)^{\be}  \p^{\gam} 
 		\end{align*}
 	\end{ex}
 	
 	\begin{proof}
-		Let $\al \in \N_0^n$. Define $g \in C^{\infty}(\R^n)$ by $g(x) = e^{-i \l \xi, x \r}$. A previous exercise implies that 
+		Let $\al \in \N_0^n$ and $f \in \MS(\R^n)$. Define $g \in C^{\infty}(\R^n)$ by $g(x) = e^{-i \l \xi, x \r}$. A previous exercise implies that 
 		\begin{align*}
-			\p^{\al}(\p^{\al} \rho_{\xi}f)\rho_{\xi} f 
+			(\p^{\al} \rho_{\xi})f
+			& = \p^{\al} (\rho_{\xi} f) \\
 			& = \p^{\al} (gf) \\
 			& = \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!}( \p^{\be} g) (\p^{\gam} f) \\
 			& = \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!}((-i \xi)^{\be} g) (\p^{\gam} f) \\
 			& = \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!} (-i \xi)^{\be} \rho_{\xi}( \p^{\gam} f) \\
 			& = \rho_{\xi} \bigg( \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!} (-i \xi)^{\be}  \p^{\gam} f \bigg ) \\
-			& = \rho_{\xi}[(-i\xi I + \p)^{\al} f]
+			& = \bigg( \rho_{\xi}  \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!} (-i \xi)^{\be}  \p^{\gam}  \bigg) f
 		\end{align*}
+		Since $f \in \MS(\R^n)$ is arbitrary, 
+		$$\p^{\al} \rho_{\xi} = \rho_{\xi}  \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!} (-i \xi)^{\be}  \p^{\gam} $$
+	\end{proof}
+
+	\begin{ex}
+		Let $f \in \MS(\R^n)$ and $\xi \in \R^n$. Then $\rho_{\xi} f \in \MS(\R^n)$ and for each $\al \in \N_0^n$ and $N \in \N_0$, 
+		$$\|\rho_{\xi}f\|_{\al, N} \leq \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!} |\xi^{\be}|  \|f\|_{\gam, N}$$
+	\end{ex}
+	
+	\begin{proof}
+		Let $\al \in \N_0^n$, $N \in \N_0$ and $x \in \R^n$. Then  
+		\begin{align*}
+			(1+|x|)^N |\p^{\al} (\rho_{\xi}f)(x)|
+			& = (1+|x|)^N \bigg |\rho_{\xi} \bigg( \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!} (-i \xi)^{\be}  \p^{\gam} f \bigg )(x) \bigg| \\
+			& = (1+|x|)^N \bigg |e^{-i \l \xi, x \r} \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!} (-i \xi)^{\be}  \p^{\gam} f(x) \bigg| \\
+			& \leq (1+|x|)^N \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!}  |\xi^{\be}|  |\p^{\gam} f (x)| \\
+			& = \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!}  |\xi^{\be}|  |(1+|x|)^N \p^{\gam} f (x)| \\
+			& \leq \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!}  |\xi^{\be}| \|f\|_{\gam, N} \\
+		\end{align*}
+		Since $x \in \R^n$ is arbitrary, we have that
+		\begin{align*}
+			\|\rho_{\xi} f\|_{\al, N}
+			& = \sup_{x \in \R} \bigg[ (1+|x|)^N |\p^{\al} (\rho_{\xi} f)(x)|\bigg] \\
+			& \leq \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!}  |\xi^{\be}| \|f\|_{\gam, N} \\
+			& < \infty
+		\end{align*}
+		Since $\al \in \N_0^n$ and $N \in \N_0$ are arbitrary, $\rho_{\xi} f \in \MS(\R^n)$.
+	\end{proof}
+	
+	\begin{ex}
+		Let $\xi \in \R^n$. Then $\rho_{\xi}: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous.
+	\end{ex}
+	
+	\begin{proof} 
+		Let $(f_k)_{k \in \N} \subset \MS(\R^n)$. Suppose that $f_k \rightarrow 0$. Then for each $\al,N \in \MN_0$, $\|f_k\|_{\al, N} \rightarrow 0$. Let $\al,N \in \MN_0$. Then 
+		\begin{align*}
+			\|\rho_{\xi}f_k\|_{\al, N} 
+			& \leq \sum_{(\be, \gam) \in \Om_{\al}} \frac{\al!}{\be! \gam!}  |\xi^{\be}| \|f_k\|_{\gam, N} \\
+			& \rightarrow 0
+		\end{align*}
+		Since $\al, N \in \N_0$ are arbitrary, $\rho_{\xi} f_k \rightarrow 0$. So $\rho_{\xi}$  is continuous at $0$. Since $\rho_{\xi}$ is linear, $\rho_{\xi}$ is continuous.
 	\end{proof}
 
 
@@ -718,296 +1117,376 @@
 
 
 
+
+
+
+
+
+
 	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Dilation and Concentration Operators}
+
 	\begin{defn}
-		Let $f \in \MS(\R^n)$ and $y \in \R$. Then
-		\begin{itemize}
-			\item for each e$y \in \R$ we define the \textbf{translation of $f$ by $y$}, denoted $\tau_yf: \R^n \rightarrow \C$, by $\tau_yf(x) = f(x-y)$
-			\item for each $\xi \in \R$, we define the \textbf{rotation of $f$} by $\xi$, denoted $\rho_{\xi} f: \R^n \rightarrow \C$ by $\rho_{\xi}f(x) = e^{-i\xi x}f(x)$
-			\item for each $t \neq 0$, we define the \textbf{dilation of $f$} by $t$, denoted $\del_t f: \R^n \rightarrow \C$ by $\del_tf(x) = f(tx)$
-		\end{itemize}
+		Let $\xi \in \R^n$. We define the \textbf{dilation by $t$ operator}, denoted $\gam_t: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$, by $\gam_t f(x) = f(tx)$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $t \neq 0$. Then $\gam_t: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ is linear.
+	\end{ex}
+	
+	\begin{proof}
+		Let $f, g \in \MS(\R^n)$ and $\lam \in \C$. Then for each $x \in \R^n$, we have that
+		\begin{align*}
+			\gam_t(f + \lam g)(x) 
+			& =(f+ \lam g)(tx) \\
+			& = f(tx) + \lam g(tx) \\
+			& = \gam_tf (x) + \lam \gam_t g(x)
+		\end{align*}
+		Since $x \in \R^n$ is arbitrary, we have that $\gam_t (f + \lam g) = \gam_t f + \lam \gam_t g$. Since $f, g \in \MS(\R^n)$ are arbitary, $\gam_t$ is linear. 
+	\end{proof}
+	
+	\begin{ex}
+		Let $t \neq 0$. Then for each $\al \in \N_0^n$,  
+		$$\p^{\al} \gam_t = t^{|\al|} \gam_t \p^{\al} $$
+	\end{ex}
+	
+	\begin{proof}
+		Let $\al \in \N_0^n$ and $f \in \MS(\R^n)$. The chain rule implies that the claim is true if $|\al| = 0$ or $|\al| = 1$. Let $k > 1$. Suppose the claim is true for $|\al| = k-1$ so that for each $\be \in \N_0$, $|\be| = k-1$ implies that $\p^{\be} (\gam_t f) = t^{|\be|} \gam_t( \p^{\be} f)$. Suppose that $|\al| = k$. Since $k > 0$, there exists $j \in \{1, \ldots, n\}$ such that $\al_j > 0$. The chain rule implies that
+		\begin{align*}
+			(\p^{\al} \gam_t) f
+			& = \p^{\al} (\gam_t f) \\
+			& = \p_j (\p^{\al - e_j} [\gam_t f]) \\
+			& = \p_j (t^{|\al - e_j|} \gam_t [\p^{\al - e_j} f]) \\
+			& = t^{|\al - e_j|} \p_j (\gam_t [\p^{\al - e_j} f]) \\
+			& = t^{|\al - e_j|} t \gam_t (\p_j [\p^{\al - e_j} f]) \\
+			& = t^{|\al|} \gam_t (\p^{\al} f) \\
+			& = (t^{|\al|} \gam_t \p^{\al}) f
+		\end{align*} 
+		Since $f \in \MS(\R^n)$ is arbitrary, $\p^{\al} \gam_t = t^{|\al|} \gam_t \p^{\al}$. So the claim is true for $|\al| = k$. By induction the claim is true for each $\al \in \N_0^n$. 
+	\end{proof}
+
+	\begin{ex} Let $y \in \R$ and $t \neq 0$. Then there exists $C > 0$ such that for each $x \in \R^n$, $1+|x| \leq C(1 + |tx|)^2$.
+	\end{ex}
+	
+	\begin{proof}
+		Choose $C = \max(1/(2|t|), 1)$. Let $x \in \R^n$. Then 
+		\begin{align*}
+			C(1 + |tx|)^2 - (1 + |x|) 
+			& = C + 2C|tx| + C|tx|^2 - 1 - |x| \\
+			& = C + (2C|t| - 1)|x| + C|tx|^2 - 1 \\
+			& = (C-1) + (2C|t| - 1)|x| + C|tx|^2 \\
+			& \geq 0
+		\end{align*}
+		So $1 + |x| \leq C(1 + |tx|)^2$. 
+	\end{proof}
+
+	\begin{ex}
+		Let $f \in \MS(\R^n)$ and $t \neq 0$. Then $ \gam_t f \in \MS(\R^n)$ and there exists $C > 0$ such that for each $\al \in \N_0^n$ and $N \in \N_0$, 
+		$$\| \gam_t f\|_{\al, N} \leq |t|^{|\al|} C^N\|f\|_{\al, 2N}$$
+	\end{ex}
+	
+	\begin{proof}
+		The previous exercise implies that there exists $C > 0$ such that for each $x \in \R^n$, $1+|x| \leq C(1 + |tx|)^2$. Let $\al \in \N_0^n$, $N \in \N_0$ and $x \in \R^n$. Then  
+		\begin{align*}
+			(1+|x|)^N |\p^{\al}( \gam_t f)(x)|
+			& = (1+|x|)^N |t^{|\al|} (\gam_t \p^{\al} f)(x)| \\
+			& \leq C(1+|tx|)^{2N} |t|^{|\al|} |(\gam_t \p^{\al} f)(x)| \\
+			& = C(1+|tx|)^{2N} |t|^{|\al|}  |\p^{\al} f(tx)| \\
+			& \leq C |t|^{|\al|} \|f\|_{\al, 2N}
+		\end{align*}
+		Since $x \in \R^n$ is arbitrary, we have that
+		\begin{align*}
+			\|\gam_t f\|_{\al, N}
+			& = \sup_{x \in \R} \bigg[ (1+|x|)^N |\p^{\al} (\gam_t f)(x)|\bigg] \\
+			& \leq C t^{|\al|} \|f\|_{\al, 2N} \\
+			& < \infty
+		\end{align*}
+		Since $\al \in \N_0^n$ and $N \in \N_0$ are arbitrary, $\gam_t f \in \MS(\R^n)$.
+	\end{proof}
+	
+	\begin{ex}
+		Let $t \neq 0$. Then $\gam_t: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous.
+	\end{ex}
+	
+	\begin{proof} 
+		Let $(f_k)_{k \in \N} \subset \MS(\R^n)$. Suppose that $f_k \rightarrow 0$. Then for each $\al,N \in \MN_0$, $\|f_k\|_{\al, N} \rightarrow 0$. The previous exercise implies that  there exists $C > 0$ such that for each $\al \in \N_0^n$ and $N \in \N_0$, 
+		$$\| \gam_t f\|_{\al, N} \leq |t|^{|\al|} C^N\|f\|_{\al, 2N}$$ 
+		Let $\al,N \in \MN_0$. Then 
+		\begin{align*}
+			\|\gam_tf_k\|_{\al, N} 
+			& \leq C |t|^{|\al|} \|f\|_{\al, 2N} \\
+			& \rightarrow 0
+		\end{align*}
+		Since $\al, N \in \N_0$ are arbitrary, $\gam_t f_k \rightarrow 0$. So $\gam_t$  is continuous at $0$. Since $\gam_t$ is linear, $\rho_{\xi}$ is continuous.
+	\end{proof}
+
+	\begin{defn}
+		Let $\xi \in \R^n$. We define the \textbf{concentration by $t$ operator}, denoted $\kap_t: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$, by $\kap_t f(x) = t^{-1} \gam_{t^{-1}} f$.
 	\end{defn}
 
 	\begin{ex}
-		Let $f \in \MS(\R^n)$ and $\al \in \N_0$.  Then   
-		\begin{enumerate}
-			\item for each $y \in \R$, $\p^{\al}\tau_yf = \tau_y \p^{\al}f$ 
-			\item for each $\xi \in \R$ ,
-			\begin{align*}
-				\p^{\al} \rho_{\xi} f 
-				& =  \rho_{\xi} [(-i\xi + \p)^{\al}f] \\ 
-				& =   \sum\limits_{k=0}^{\al} {\al \choose k} (-i\xi)^{\al-k}\rho_{\xi}\p^{k}f 
-			\end{align*}
-			\item for each $t \neq 0$, $\p^{\al} \del_tf = t^{\al} \del_t \p^{\al}f$
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Clear by chain rule.
-			\item Let $\xi \in \R$. The claim is clear for $\al = 0$ and $\al = 1$. Suppose that $\al >1$ and the claim is true for $\al-1$ so that
-			$\p^{\al-1} \rho_{\xi} f =  \rho_{\xi} [(-i\xi + \p)^{\al-1}f]$. Set $g = (-i\xi + \p)^{\al-1}f$. Then 
-			\begin{align*}
-				\p^{\al} \rho_{\xi}f 
-				& = \p [\p^{\al-1} \rho_{\xi} f ] \\
-				& = \p \rho_{\xi} [(-i\xi + \p)^{\al-1}f] \\
-				& = \p \rho_{\xi} g \\
-				& = \rho_{\xi} [(-i\xi + \p)g] \\
-				& = \rho_{\xi} [(-i\xi + \p)^{\al}f] 
-			\end{align*}
-		 	Since $-i \xi \id_{\MS}$ and $\p$ commute, the binomial theorem implies that 
-		 	\begin{align*}
-		 		\rho_{\xi}[(-i\xi + \p)^{\al}f] 
-		 		& = \rho_{\xi}[\sum\limits_{k=0}^{\al} {\al \choose k}] (-i\xi)^{\al-k}\p^{k}f \\
-		 		& = \sum\limits_{k=0}^{\al} {\al \choose k}] (-i\xi)^{\al-k}\rho_{\xi}\p^{k}f
-		 	\end{align*}
-	 		\item Clear by chain rule
-		\end{enumerate}
-	\end{proof}
-
-	\begin{ex} Let $y \in \R$ and $t \neq 0$. Then
-		\begin{enumerate}
-			\item for each $x \in \R$,  $(1+|x|) \leq (1 + |y|)(1+ |x-y|)$
-			\item there exists $C > 0$ such that for each $x \in \R$, $1+|x| \leq C(1 + |tx|)^2$ 
-		\end{enumerate}
+		Let $t \neq 0$. Then $\kap_t: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ is linear.
 	\end{ex}
 	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $x \in \R$. Then 
-			\begin{align*}
-				(1 + |y|)(1+ |x-y|) 
-				& = 1 + |x-y| + |y| + |y||x-y| \\
-				& \geq 1 + |x| + |y||x-y| \\
-				& \geq 1 + |x| 
-			\end{align*}
-			\item Choose $C = \max(1/(2|t|), 1)$. Let $x \in \R$. Then 
-			\begin{align*}
-				C(1 + |tx|)^2 - (1 + |x|) 
-				& = C + 2C|tx| + C(tx)^2 - 1 - |x| \\
-				& = C + (2C|t| - 1)|x| + C(tx)^2 - 1 \\
-				& = (C-1) + (2C|t| - 1)|x| + C(tx)^2 \\
-				& \geq 0
-			\end{align*}
-			So $1 + |x| \leq C(1 + |tx|)^2$. 
-		\end{enumerate}
+	\begin{proof}
+		Clear since $\gam_t: \MS(\R^n) \rightarrow C^{\infty}(\R^n)$ is linear.
 	\end{proof}
-
+	
 	\begin{ex}
-		Let $f \in \MS(\R^n)$. Then 
-		\begin{enumerate}
-			\item for each $y \in \R$, $\tau_y f \in \MS(\R^n)$ and for each $\al, N \in \N_0$, $\|\tau_yf\|_{\al, N} \leq (1 + |y|)^N \|f\|_{\al, N}$
-			\item for each $\xi \in \R$, $\rho_{\xi} f \in \MS(\R^n)$ and for each $\al,N \in \N_0$, $$\|\rho_{\xi} f\|_{\al,N} \leq \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} \|f\|_{k, N}$$
-			\item for each $t \neq 0$, $\del_t f \in \MS(\R^n)$ and there exists $C_t > 0$ such that for each $\al,N \in \N_0$, $\|\del_t f\|_{\al, N} \leq |t|^{\al} C_t^N\|f\|_{\al, 2N}$
-		\end{enumerate}
+		Let $t \neq 0$. Then for each $\al \in \N_0^n$,  
+		$$\p^{\al} \kap_t = t^{-|\al|} \kap_t \p^{\al} $$
 	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item  Let $y \in \R$ and $\al,N \in \N_0$. Then 
-			\begin{align*}
-				\sup_{x \in \R} \bigg[ (1+|x|)^N |\p^{\al} \tau_yf(x)|\bigg] 
-				& =  \sup_{x \in \R} \bigg[ (1+|x|)^N | \tau_y\p^{\al} f(x)|\bigg] \\ 
-				& =  \sup_{x \in \R} \bigg[ (1+|x|)^N |\p^{\al} f(x - y)|\bigg] \\ 
-				& \leq \sup_{x \in \R} \bigg[ (1+|y|)^N(1 + |x -y|)^N |\p^{\al} f(x - y)|\bigg] \\ 
-				& = (1+|y|)^N\sup_{x \in \R} \bigg[ (1 + |x -y|)^N |\p^{\al} f(x - y)|\bigg] \\ 
-				& = (1+|y|)^N\sup_{x \in \R} \bigg[ (1 + |x|)^N |\p^{\al} f(x)|\bigg] \\ 
-				& = (1+|y|)^N \|f\|_{\al, N} \\ 
-			\end{align*}
-			\item Let $\xi \in \R$ and $\al, N \in \N_0$. Then for each $x \in \R$, we have that
-			\begin{align*}
-				(1 + |x|)^N |\p^{\al} \rho_{\xi} f(x)| 
-				& = (1 + |x|)^N\bigg| \sum\limits_{k=0}^{\al} {\al \choose k} (-i\xi)^{\al-k}\rho_{\xi} \p^{k}f(x) \bigg| \\
-				& = (1 + |x|)^N\bigg| \sum\limits_{k=0}^{\al} {\al \choose k} (-i\xi)^{\al-k} e^{-i\xi x}\p^{k}f(x) \bigg| \\
-				& \leq (1 + |x|)^N \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} |\p^{k}f(x)| \\
-				& = \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} (1 + |x|)^N|\p^{k}f(x)| \\
-				& \leq \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} \|f\|_{k, N}
-			\end{align*}
-			Therefore,
-			\begin{align*}
-				\|\rho_{\xi}f\|_{\al,N} 
-				& = \sup_{x \in \R} \bigg[ (1 + |x|)^N |\p^{\al} \rho_{\xi} f(x)|  \bigg] \\
-				& \leq \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} \|f\|_{k, N}
-			\end{align*}
-			\item Let $t \neq 0$ and $\al, N \in \N_0$. The previous exercise implies that there exists $C_t > 0$ such that for each $x \in \R$, $1 + |x| \leq C_t(1 + |tx|)^2$. Then for each $x \in \R$, we have that 
-			\begin{align*}
-				(1 + |x|)^N |\p^{\al} \del_t f(x)| 
-				& = (1 + |x|)^N |t|^{\al}|\del_t \p^{\al} f(x)| \\
-				& = |t|^{\al} (1 + |x|)^N |\p^{\al} f(tx)| \\
-				& \leq |t|^{\al} C_t^N(1 + |tx|)^{2N} | \p^{\al} f(tx)| \\
-				& \leq |t|^{\al} C_t^N\|f\|_{\al, 2N}
-			\end{align*}
-			Therefore 
-			\begin{align*}
-				\|\del_tf\|_{\al, N} 
-				& = \sup_{x \in \R} \bigg[(1 + |x|)^N |\p^{\al} \del_t f(x)|  \bigg] \\
-				& \leq |t|^{\al} C_t^N\|f\|_{\al, 2N}
-			\end{align*}
-		\end{enumerate}
+	
+	\begin{proof}
+		Let $\al \in \N_0^n$. Then 
+		\begin{align*}
+			\p^{\al} \kap_t 
+			& = \p^{\al} t^{-1} \gam_{t^{-1}} \\
+			& = t^{-1} \p^{\al} \gam_{t^{-1}} \\
+			& = t^{-1} (t^{-1})^{|\al|} \gam_{t^{-1}} \p^{\al} \\
+			& = t^{-|\al|} \kap_{t} \p^{\al}
+		\end{align*}
 	\end{proof}
-
-	\begin{ex} For each $y, \xi \in \R$, $t \neq 0$, we have that $\tau_y: \MS(\R^n) \rightarrow \MS(\R^n)$, $\rho_{\xi}: \MS(\R^n) \rightarrow \MS(\R^n)$ and $\del_t: \MS(\R^n) \rightarrow \MS(\R^n)$ are 
-		\begin{enumerate}
-			\item linear
-			\item continuous
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof} Let $y, \xi \in \R$ and $t \neq 0$.
-		\begin{enumerate}
-			\item Clear.
-			\item Let $(f_n)_{n \in \N} \subset \MS(\R^n)$. Suppose that $f_n \rightarrow 0$. Then for each $\al,N \in \MN_0$, $\|f_n\|_{\al, N} \rightarrow 0$. 
-			\begin{itemize}
-				\item Let $\al,N \in \MN_0$. Then 
-				\begin{align*}
-					\|\tau_yf_n\|_{\al, N} 
-					& \leq (1 + |y|)^N\|f_n\|_{\al, N} \\
-					& \rightarrow 0
-				\end{align*}
-				Since $\al, N \in \N_0$ are arbitrary, $\tau_yf_n \rightarrow 0$. So $\tau_y$  is continuous at $0$. Since $\tau_y$ is linear, $\tau_y$ is continuous.
-				\item Let $\al,N \in \MN_0$. Then 
-				\begin{align*}
-					\|\rho_{\xi}f_n\|_{\al, N} 
-					& \leq \sum\limits_{k=0}^{\al} {\al \choose k} |\xi|^{\al-k} \|f_n\|_{k, N} \\
-					& \rightarrow 0
-				\end{align*}
-				Since $\al, N \in \N_0$ are arbitrary, $\rho_{\xi}f_n \rightarrow 0$. So $\rho_{\xi}$  is continuous at $0$. Since $\rho_{\xi}$ is linear, $\rho_{\xi}$ is continuous.
-				\item Let $\al,N \in \MN_0$. Define $C_t$ as in the previous exercise. Then 
-				\begin{align*}
-					\|\del_t f_n\|_{\al, N} 
-					& \leq |t|^{\al} C_t^N \|f_n\|_{\al, 2N} \\
-					& \rightarrow 0
-				\end{align*}
-				Since $\al, N \in \N_0$ are arbitrary, $\del_t f_n \rightarrow 0$. So $\del_t$  is continuous at $0$. Since $\del_t$ is linear, $\del_t$ is continuous.
-			\end{itemize} 
-		\end{enumerate}
-	\end{proof}
-
+	
 	\begin{ex}
+		Let $f \in \MS(\R^n)$ and $t \neq 0$. Then $ \kap_t f \in \MS(\R^n)$ and there exists $C > 0$ such that for each $\al \in \N_0^n$ and $N \in \N_0$, 
+		$$\| \kap_t f\|_{\al, N} \leq |t|^{-(|\al|+1)} C^N\|f\|_{\al, 2N}$$
+	\end{ex}
+	
+	\begin{proof}
+		A previous exercise implies that there exists $C > 0$ such that for each $\al \in \N_0^n$ and $N \in \N_0$, 
+		$$\| \gam_t f\|_{\al, N} \leq |t|^{|\al|} C^N\|f\|_{\al, 2N}$$
+		Let $\al \in \N_0^n$ and $N \in \N_0$. Then
+		\begin{align*}
+			\|\kap_t f\|_{\al, N}
+			& = \|t^{-1} \gam_{t^{-1}} f \|_{\al, N} \\
+			& = |t^{-1}| \|\gam_{t^{-1}} f \|_{\al, N} \\
+			& \leq |t^{-1}| |t^{-1}|^{|\al|} C^N\|f\|_{\al, 2N} \\
+			& = |t|^{-(|\al| + 1)} C^N \|f\|_{\al, 2N} \\
+			& < \infty 
+		\end{align*}
+		Since $\al \in \N_0^n$ and $N \in \N_0$ are arbitrary, $\kap_t f \in \MS(\R^n)$.
+	\end{proof}
+	
+	\begin{ex}
+		Let $t \neq 0$. Then $\kap_t: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous.
+	\end{ex}
+	
+	\begin{proof} 
+	Since $\gam_{t^{-1}}: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous, $\kap_t = t^{-1} \gam_{t^{-1}}$ is continuous.
+	\end{proof}
+
+
+		\begin{ex}
 		Let $t \neq 0$ and $f \in \MS(\R^n)$. Then 
-		$$\int_{\R} t^{-1} \del_{t^{-1}} f \dm  = \int_{\R} f \dm$$
+		$$\int_{\R} \kap_t f \dm  = \int_{\R} f \dm$$
 	\end{ex}
-
+	
 	\begin{proof}
 		We have that 
 		\begin{align*}
-			\int_{\R} t^{-1} \del_{t^{-1}} f \dm 
+			\int_{\R} \kap_t f \dm
+			& = \int_{\R} t^{-1} \gam_{t^{-1}} f \dm \\
 			& = \int_{\R} t^{-1} f(t^{-1} y) \dm(y) \\
 			& = \int_{\R}  f(z) \dm(z) \\
 		\end{align*}
 	\end{proof}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{The Convolution on $\MS(\R^n)$}
+
 	\begin{defn}
-		Let $f \in \MS(\R^n)$. Define $\tau f: \R^n \rightarrow \MS(\R^n)$ by $\tau f(y) = \tau_y f$. Then $\tau f$ is continuous.
-	\end{defn}
-
-	\begin{proof}
-		Let $(y_n)_{n \in \N} \subset \R$ and $y \in \R$. Suppose that $y_n \rightarrow y$. Let $\al, N \in \N_0$. Then 
-		\begin{align*}
-			\|\tau f (y_n) - \tau f (y) \|_{\al, N}
-			& = \|\tau_{y_n} f - \tau_y f  \|_{\al, N} \\
-			& = \sup_{x \in \R} \bigg[ (1 + |x|)^N |\p^{\al}(\tau_{y_n}f - \tau_y f)(x)|\bigg] \\
-			& = \sup_{x \in \R} \bigg[(1 + |x|)^N |(\tau_{y_n} \p^{\al}f - \tau_y \p^{\al}f)(x)|\bigg] \\
-			& = \sup_{x \in \R} \bigg[(1 + |x|)^N |\tau_{y_n} \p^{\al}f(x) - \tau_y \p^{\al}f(x)|\bigg] \\
-			& = \sup_{x \in \R} \bigg[(1 + |x|)^N |\p^{\al}f(x - y_n) - \p^{\al}f(x - y)|\bigg] \\
-			& = \sup_{z \in \R} \bigg[(1 + |z + y|)^N |\p^{\al}f(z  + y - y_n) - \p^{\al}f(z)|\bigg] \\
-			& \leq \sup_{z \in \R} \bigg[(1 + |y_n|)^N(1 + |z  + y - y_n|)^N |\p^{\al}f(z  + y - y_n) - \p^{\al}f(z)|\bigg] \\
-			& = (1 + |y_n|)^N\sup_{z \in \R} \bigg[(1 + |z  + y - y_n|)^N |\p^{\al}f(z  + y - y_n) - \p^{\al}f(z)|\bigg] \\
-			& = (1 + |y_n|)^N\sup_{x \in \R} \bigg[(1 + |x|)^N |\p^{\al}f(x) - \p^{\al}f(x - y + y_n)|\bigg] \\
-		\end{align*}
-	\end{proof}
-
-	
-
-	\begin{note}
-		 Let $f,g \in \MS(\R^n)$ and $x \in \R$, Define $h: \R^n \rightarrow \R$ defined by $h_x(y) = f(x-y)g(y)$. A previous exercise implies that $h_x = (\del_{-1} \tau_xf)g \in \MS(\R^n) \subset L^1(\R^n)$ and for each $\al, N \in \N_0$, $\|h_x\|_{\al, N} \leq \sum_{\be=0}^{\al} (1+|x|)^N\|f\|_{\be, N} \|g\|_{\al - \be, 0} $ \\
-		 \textbf{FINISH FIX THIS!!!}
-	\end{note}
-
-	\begin{defn}
-		Let $f, g \in \MS(\R^n)$. We define the \textbf{convolution of $f$ and $g$}, denoted $f * g: \R^n \rightarrow \R$ by $$f*g(x) = \int_{\R} f(x-y)g(y) dm(y)$$
+		Let $f, g \in \MS(\R^n)$. We define the \textbf{convolution of $f$ and $g$}, denoted $f * g: \R^n \rightarrow \C$ by $$f*g(x) = \int_{\R^n} \tau_yf(x) g(y) \dm(y)$$
 	\end{defn}
 
 	\begin{ex}
-		Let $f,g \in \MS(\R^n)$. Then for each $\al \in \N_0$, $\p^{\al}(f*g) = (\p^{\al}f)*g$.
+		Let $f,g \in \MS(\R^n)$. Then $f*g \in C^{\infty}(\R^n)$ and for each $\al \in \N_0^n$
+		$$\p^{\al}(f*g) = (\p^{\al}f)*g$$ 
+		\tbf{Hint:} exchange integration and differentiation
 	\end{ex}
 
 	\begin{proof}
-			The claim is clear if $\al = 0$. Suppose that $\al > 0$ and that the claim is true for $\al - 1$ so that  $\p^{\al-1}(f*g) = (\p^{\al-1}f)*g$. Define $h: \R^2 \rightarrow \R$ by $h(x,y) = \p_x^{\al-1}f(x-y)g(y)$. Then for each $x,y \in \R$, 
+			Let $\al \in \N_0^n$. We proceed by induction on $|\al|$.
+			\begin{itemize}
+				\item Suppose that $|\al| = 0$. Then $\al = 0$. Define $h_0 \in C^{\infty}(\R^n \times \R^n)$ by $h(x,y) = \tau_y  f(x)g(y)$. We observe that for each $x,y \in \R^n$, 
+				\begin{align*}
+					|h(x,y)| 
+					& = |\tau_y f(x)||g(y)| \\
+					& \leq \|\tau_y f\|_{0, 0} |g(y)| \\
+					& \leq \|f\|_{0,0} |g(y)|
+				\end{align*}
+			Since $\|f\|_{0,0} |g| \in \L^1(\R^n)$ and for each $y \in \R^n$, $h(x,y) \rightarrow h(x_0, y)$ as $x \rightarrow x_0$, we have that 
 			\begin{align*}
-				|h(x,y)| 
-				& = |\p_x^{\al-1}f(x-y)g(y)| \\
-				& \leq \|\tau_yf\|_{\al-1,0}|g(y)| \\
-				& \leq \|f\|_{\al-1,0}|g(y)|
+				f*g
+				& = \int_{\R^n} \tau_yf (\cdot) g(y) \dm(y) \\
+				& = \int_{\R^n} h(\cdot,y) \dm(y) 
+			\end{align*}
+			is continuous. Therefore, $f*g \in C(\R^n)$ and $\p^{\al}(f*g) = (\p^{\al}f) * g$.
+			\item Let $k > 0$. Suppose that for each $\be \in \N_0^n$, $|\be| = k-1$ implies that $f*g \in C^{|\be|}(\R^n)$ and 
+			$$\p^{\be}(f*g) = (\p^{\be}f)*g$$ 
+			Suppose that $|\al| = k$. Then there exists $j \in \{1, \ldots, n\}$ such that $\al_j > 0$. Define $h \in C^{\infty}(\R^n \times \R^n)$ by $h(x,y) = \tau_y [\p_x^{\al-e_j} f](x)g(y)$. By hypothesis,
+			\begin{align*}
+				[\p^{\al-e_j} (f*g)](x)
+				& = [(\p^{\al-e_j}f) * g](x) \\
+				& = \int_{\R^n} \tau_y [\p_x^{\al-e_j} f](x)g(y) \dm(y) \\
+				& = \int_{\R^n} h(x,y) \dm(y)
+			\end{align*}
+			We observe that for each $x,y \in \R^n$, 
+			\begin{align*}
+				\p_x^{e_j} h(x,y)
+				& = \p_x^{e_j} [\tau_y (\p_x^{\al-e_j} f)](x)g(y) \\
+				& = \p_x^{\al} [ \tau_y f](x)g(y) 
+			\end{align*}
+			which implies that
+			\begin{align*}
+				|\p_x^{e_j} h(x,y)| 
+				& = |\p_x^{\al} [ \tau_y f](x)g(y)| \\
+				& \leq \|\tau_yf\|_{\al,0}|g(y)| \\
+				& \leq \|f\|_{\al,0}|g(y)|
 			\end{align*} 
-			Since $g \in L^1(\R^n)$, we may differentiate under the integral to obtain that
-		\begin{align*}
-			[\p_x^{\al}(f*g)](x)
-			& = \p_x [\p_x^{\al-1} (f*g)](x) \\
-			& = \p_x [(\p_x^{\al-1}f)*g](x) \\
-			& = \p_x \int_{\R} \p_x^{\al-1}f(x-y)g(y) \dm(y) \\
-			& = \int_{\R} \p_x [\p_x^{\al-1}f(x-y)g(y)] \dm(y) \\
-			& = \int_{\R} \p_x^{\al}f(x-y)g(y) \dm(y) \\
-			& = [(\p_x^{\al}f)*g](x)
-		\end{align*}
-		So the claim is true for $\al$.
+			Since $g \in L^1(\R^n)$, $\p^{e_j}[\p^{\al-e_j} (f*g)]$ exists and we may exchange the order of integration and differentiation to obtain that
+			\begin{align*}
+				[\p_x^{\al}(f*g)](x)
+				& = \p^{e_j}_x [\p_x^{\al-e_j} (f*g)](x) \\
+				& = \p^{e_j}_x \int_{\R^n} h(x,y) \dm(y) \\
+				& = \int_{\R^n} \p^{e_j}_x h(x,y) \dm(y) \\
+				& = \int_{\R^n} \p^{e_j}_x [\tau_y (\p_x^{\al-e_j} f)](x)g(y) \dm(y) \\
+				& = \int_{\R^n} \tau_y [\p_x^{\al} f](x)g(y) \dm(y) \\
+				& = [(\p_x^{\al}f)*g](x) 
+			\end{align*}
+			So $f*g \in C^{|\al|}(\R^n)$ and $\p^{\al}(f*g) = (\p^{\al}f) * g$. 
+			\item By induction, for each $\al \in \N_0$, $f*g \in C^{|\al|}(\R^n)$ and $\p^{\al}(f*g) = (\p^{\al}f) * g$.
+			\end{itemize}
+			 Since for each $\al \in \N_0^n$, $f*g \in C^{|\al|}(\R^n)$, we have that $f*g \in C^{\infty}(\R^n)$.
 	\end{proof}
 
 	\begin{ex}
-		Let $f, g \in \MS(\R^n)$, then $f *g \in \MS(\R^n)$ and there exists $C >0$ such that for each $\al,N \in \N_0$, $\|f*g\|_{\al,N} \leq C\|f\|_{\al, N} \|g\|_{0, N+2}$. 
+		Let $f, g \in \MS(\R^n)$, then $f *g \in \MS(\R^n)$ and there exists $C >0$ such that for each $\al \in \N_0^n$ and $N \in \N_0$, 
+		$$\|f*g\|_{\al,N} \leq C\|f\|_{\al, N} \|g\|_{0, N+2}$$
 	\end{ex}
 
 	\begin{proof}
 		Set 
 		$$C = \int_{\R} \frac{1}{(1+|y|)^2} \dm(y)$$
-		Let $\al,N \in \N_0$ and $x \in \R$. Then 
+		Let $\al \in \N_0^n$, $N \in \N_0$ and $x \in \R$. Then 
 		\begin{align*}
 			(1+|x|)^N |\p^{\al} (f*g)(x)|
 			& =   (1+|x|)^N |(\p^{\al}f )*g(x)| \\
-			& =   (1+|x|)^N \bigg| \int_{\R}\p^{\al}f(x-y) g(y) \dm(y) \bigg|\\
-			& \leq   \int_{\R}(1+|x|)^N|\p^{\al}f(x-y) g(y)| \dm(y) \\
-			& \leq   \int_{\R}(1+|y|)^N(1+|x-y|)^N|\p^{\al}f(x-y)| |g(y)| \dm(y) \\
-			& \leq  \|f\|_{\al, N} \int_{\R}(1+|y|)^N |g(y)| \dm(y) \\
-			& =  \|f\|_{\al, N} \int_{\R}(1+|y|)^{N+2} \frac{|g(y)|}{(1+|y|)^2} \dm(y) \\
-			& \leq \|f\|_{\al, N} \|g\|_{0, N+2} \int_{\R} \frac{1}{(1+|y|)^2} \dm(y) \\
-			& =  C\|f\|_{\al, N} \|g\|_{0, N+2}
+			& =   (1+|x|)^N \bigg| \int_{\R}  \tau_y[\p_x^{\al} f ](x) g(y) \dm(y) \bigg|\\
+			& =   \bigg| \int_{\R}  (1+|x|)^N \p_x^{\al} [ \tau_y f ](x) g(y) \dm(y) \bigg|\\
+			& \leq \int_{\R}  (1+|x|)^N |\p_x^{\al} [ \tau_y f ](x)| |g(y) | \dm(y) \\
+			& \leq \int_{\R}  \|\tau_y f\|_{\al, N} |g(y) | \dm(y) \\
+			& \leq \int_{\R}  (1 + |y|)^N \|f\|_{\al, N} |g(y) | \dm(y) \\ 
+			& = \|f\|_{\al, N}  \int_{\R} (1 + |y|)^{N+2} |g(y)| (1 + |y|)^{-2} \dm(y) \\
+			& \leq \|f\|_{\al, N}  \int_{\R}  \|g\|_{0, N+2} (1 + |y|)^{-2} \dm(y) \\
+			& = \|f\|_{\al, N} \|g\|_{0, N+2} \int_{\R}  (1 + |y|)^{-2} \dm(y) \\
+			&  = C \|f\|_{\al, N} \|g\|_{0, N+2}
 		\end{align*}
 		Since $x \in \R$ is arbitrary, we have that 
 		\begin{align*}
 			\|f*g\|_{\al, N}
 			& = \sup_{x \in \R} \bigg[ (1+|x|)^N |\p^{\al} (f*g)(x)| \bigg] \\
-			& \leq C\|f\|_{\al, N} \|g\|_{0, N+2}
+			& \leq C\|f\|_{\al, N} \|g\|_{0, N+2} \\
+			& < \infty
 		\end{align*}
+		Since $\al \in \N_0^n$ and $N \in \N_0$ are arbitrary, we have that $f*g \in \MS(\R^n)$.
 	\end{proof}
 
 	\begin{ex}
-		The convolution $*: \MS(\R^n) \times \MS(\R^n) \rightarrow \MS(\R^n)$ 
-		\begin{enumerate}
-			\item is bilinear
-			\item is continuous
-		\end{enumerate}
+		The convolution $*: \MS(\R^n) \times \MS(\R^n) \rightarrow \MS(\R^n)$ is bilinear.
+	\end{ex}
+	
+	\begin{proof} 
+		Let $f, g, h \in \MS(\R^n)$, $\lam \in \C$ and $x \in \R^n$. Since $\tau_y: \MS(\R^n) \rightarrow \MS(\R^n)$ is linear, we have that
+		\begin{align*}
+			[(f + \lam g) * h](x) 
+			& = \int_{\R^n} \tau_y[f + \lam g](x) h(y) \dm(y) \\
+			& = \int_{\R^n} \bigg( \tau_y[f](x) + \lam \tau_y[g](x) \bigg) h(y) \dm(y) \\
+			& = \int_{\R^n} \tau_y[f](x) h(y) \dm(y)  + \lam \int_{\R^n} \tau_y[g](x) h(y) \dm(y) \\
+			& = [f* h](x) + [\lam g * h](x)  
+		\end{align*}
+		Since $x \in \R^n$ is arbitrary, $(f + \lam g) * h = f* h + \lam g * h$. Similarly, $f* (g + \lam h) = f* g + \lam f* h$.
+	\end{proof}
+	
+	\begin{ex}
+		The convolution $*: \MS(\R^n) \times \MS(\R^n) \rightarrow \MS(\R^n)$ is commutative.
+	\end{ex}
+	
+	\begin{proof}
+		Let $f,g \in \MS(\R^n)$ and $x \in \R^n$. Then 
+		\begin{align*}
+			f*g(x)
+			& = \int_{\R} f(x-y)g(y) \dm(y) \\
+			& = \int_{\R} f(z)g(x-z) \dm(z) \\
+			& = \int_{\R} g(x-z)f(z) \dm(z) \\
+			& = g*f(x) 
+		\end{align*}
+		Since $x \in \R^n$ is arbitrary, $f*g = g*f$.
+	\end{proof}
+
+	\begin{ex}
+		The convolution $*: \MS(\R^n) \times \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous.
 	\end{ex}
 
-	\begin{proof}\
-		\begin{enumerate}
-			\item Clear.
-			\item Let $(f_n,g_n)_{n \in \N} \subset \MS(\R^n) \times \MS(\R^n)$ and $(f,g) \in \MS(\R^n) \times \MS(\R^n)$. Suppose that $(f_n, g_n) \rightarrow (f,g)$. Then $f_n \rightarrow f$ and $g_n \rightarrow g$. Hence for each $\al, N \in \N_0$, $\|f_n - f\|_{\al, N} \rightarrow 0$ and $\|g_n - g\|_{\al, N} \rightarrow 0$. In particular 
-			\begin{align*}
-				\bigg|\|g_n\|_{0,N+2} - \|g\|_{0, N+2} \bigg| 
-				& \leq \|g_n - g\|_{0, N+2}  \\
-				& \rightarrow 0
-			\end{align*}
-			So that $(\|g_n\|_{0,N+2})_{n \in \N}$ is bounded.
-			Let $\al,N \in \N_0$. Define $C >0$ as in the previous exercise. Then 
-			\begin{align*}
-				\|f_n *g_n - f*g\|_{\al,N} 
-				& = \|f_n *g_n - f*g_n + f*g_n - f*g\|_{\al,N} \\ 
-				& \leq \|(f_n -f )*g_n\|_{\al,N} + \|f_ *(g_n -g)\|_{\al,N} \\
-				& \leq C\|f_n -f\|_{\al,N}\|g_n\|_{0, N+2} + C\|f\|_{\al,N}\|g_n-g\|_{0, N+2} \\
-				& \rightarrow 0
-			\end{align*}
-			Since $\al,N \in \N_0$ are arbitrary, $f_n *g_n \rightarrow f*g$. Thus $*:\MS(\R^n) \times \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous.
-		\end{enumerate}
+	\begin{proof}
+		Let $(f_n,g_n)_{n \in \N} \subset \MS(\R^n) \times \MS(\R^n)$ and $(f,g) \in \MS(\R^n) \times \MS(\R^n)$. Suppose that $(f_n, g_n) \rightarrow (f,g)$. Then $f_n \rightarrow f$ and $g_n \rightarrow g$. Hence for each $\al \in \N_0^n$ and $N \in \N_0$, $\|f_n - f\|_{\al, N} \rightarrow 0$ and $\|g_n - g\|_{\al, N} \rightarrow 0$. In particular 
+		\begin{align*}
+			\bigg|\|g_n\|_{0,N+2} - \|g\|_{0, N+2} \bigg| 
+			& \leq \|g_n - g\|_{0, N+2}  \\
+			& \rightarrow 0
+		\end{align*}
+		So that $(\|g_n\|_{0,N+2})_{n \in \N}$ is bounded.
+		Let $\al \in \N_0^n$ and $N \in \N_0$. Define $C >0$ as in the previous exercise. Then 
+		\begin{align*}
+			\|f_n *g_n - f*g\|_{\al,N} 
+			& = \|f_n *g_n - f*g_n + f*g_n - f*g\|_{\al,N} \\ 
+			& \leq \|(f_n -f )*g_n\|_{\al,N} + \|f_ *(g_n -g)\|_{\al,N} \\
+			& \leq C\|f_n -f\|_{\al,N}\|g_n\|_{0, N+2} + C\|f\|_{\al,N}\|g_n-g\|_{0, N+2} \\
+			& \rightarrow 0
+		\end{align*}
+		Since $\al \in \N_0^n$ and $N \in \N_0$ are arbitrary, $f_n *g_n \rightarrow f*g$. Thus $*:\MS(\R^n) \times \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous.
 	\end{proof}
 
 	\begin{ex}
@@ -1026,31 +1505,6 @@
 			& = \|f\|_1 \int_{\R} |g(y)| \dm(y) \\
 			& = \|f\|_1\|g\|_1
 		\end{align*}
-	\end{proof}
-
-	\begin{ex}
-		Let $f, g \in \MS(\R^n)$, then $f*g = g*f$.
-	\end{ex}
-
-	\begin{proof}
-		Let $x \in R$. Define $a,b:\R^n \rightarrow \R$ by $a(z) = f(z)g(x-z)$ and $b(y) = x-y$. Then for each $A \in \MB(\R)$, 
-		\begin{align*}
-			b_*m(A)
-			& = m(b^{-1}(A)) \\
-			& = m(x - A) \\
-			& = m(A)
-		\end{align*}
-		So $b_*m = m$ and  
-		\begin{align*}
-			f*g(x)
-			& = \int_{\R} f(x-y)g(y) \dm(y) \\
-			& = \int_{b^{-1}(\R)} a \circ b \dm \\
-			& = \int_{\R} a \, d b_*m \\
-			& = \int_{\R} a \dm \\
-			& = \int_{\R} g(x-z) f(z) \dm(z) \\
-			& = g*f(x)
-		\end{align*}
-		Since $x \in \R$ is arbitrary, $f*g = g*f$.
 	\end{proof}
 
 	\begin{defn}
@@ -1127,11 +1581,27 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
-	\subsection{The Fourier Transform on $\MS(\R^n)$}
+	\section{The Fourier Transform on $\MS(\R^n)$}
 	
 	\begin{ex}
-		\lex{300} Let $\phi:\R^n \rightarrow S^1$ be a measurable homomorphism. 
+		\lex{300} Let $\phi:\R \rightarrow S^1$ be a measurable homomorphism. 
 		\begin{enumerate}
 			\item Then $\phi \in L^1_{\loc}(\R)$ and there exists $a > 0$ such that $$\int_{(0,a]}\phi dm \neq 0$$
 			\item Define $$c = \bigg[ \int_{(0,a]}\phi dm \bigg]^{-1}$$ 
@@ -1178,27 +1648,32 @@
 	\end{proof}
 	
 	\begin{note}
-		To summarize, for each measurable homomorphism $\phi:\R^n \rightarrow S^1$, there exists $\xi \in \R$ such  such that for each $x \in \R$, $\phi(x) = e^{2 \pi i  \xi x}$. 
+		To summarize, for each measurable homomorphism $\phi:\R \rightarrow S^1$, there exists $\xi \in \R$ such  such that for each $x \in \R$, $\phi(x) = e^{2 \pi i  \xi x}$. 
 	\end{note}
+
+	\begin{ex}
+		Let $\phi:\R^n \rightarrow S^1$ be a measurable homomorphism. Then there exists $\xi \in \R^n$ such such that for each $x \in \R$, $\phi(x) = e^{2 \pi i \l \xi,  x \r}$. 
+	\end{ex}
 	
 	\begin{defn}
-		Let $f \in \MS(\R^n)$. We define the \textbf{Fourier transform of $f$}, denoted $\hat{f} : \R^n \rightarrow \C$, by $$ \hat{f}(\xi) = \int_{\R} e^{-i \xi x}f(x) \, dm(x)$$ 
+		Let $f \in \MS(\R^n)$. We define the \textbf{Fourier transform of $f$}, denoted $\hat{f} : \R^n \rightarrow \C$, by $$ \hat{f}(\xi) = \int_{\R} \rho_{\xi} f \, dm$$ 
 	\end{defn}
 
 	\begin{ex}
-		Let $f \in \MS(\R^n)$. Then $\hat{f} \in C_b(\R)$.
+		Let $f \in \MS(\R^n)$. Then $\hat{f} \in C_b(\R^n)$.
 	\end{ex}
 
 	\begin{proof}
 		Since $f \in \MS(\R^n)$, $f \in L^1(\R^n)$. Then for each $\xi \in \R$,
 		\begin{align*}
 			|\hat{f}(\xi)| 
-			& = \bigg| \int_{\R} e^{-i\xi x}f(x) \dm(x) \bigg| \\
-			& \leq \int_{\R} |e^{-i\xi x}f(x)| \dm(x) \\
+			& = \bigg| \int_{\R} \rho_{\xi}f \dm \bigg| \\
+			& \leq  \int_{\R} |\rho_{\xi} f| \dm \\
+			& = \int_{\R} |e^{-i \l \xi,  x\r}f(x)| \dm(x) \\
 			& = \int_{\R} |f(x)| \dm(x) \\
 			& = \|f\|_1
 		\end{align*}
-		So $f$ is bounded. Let $(\xi_n)_{n \in \N} \subset \R$ and $\xi \in \R$. Suppose that $\xi_n \rightarrow \xi$. Define $(\phi_n)_{n \in \N} \subset L^1(\R^n)$ and $\phi \in L^1(\R^n)$ by $\phi_n(x) = e^{-i\xi_n x}f(x)$ and $\phi(x) = e^{-i\xi x}f(x)$. Then $\phi_n \convt{p.w.} \phi$ and for each $n \in \N$, 
+		So $f$ is bounded. Let $(\xi_n)_{n \in \N} \subset \R$ and $\xi \in \R$. Suppose that $\xi_n \rightarrow \xi$. Define $(\phi_n)_{n \in \N} \subset L^1(\R^n)$ and $\phi \in L^1(\R^n)$ by $\phi_n(x) = \rho_{\xi_n}f(x)$ and $\phi(x) = \rho_{\xi}f(x)$. Then $\phi_n \convt{p.w.} \phi$ and for each $n \in \N$, 
 		\begin{align*}
 			|\phi_n|
 			& = |f| \\
@@ -1207,82 +1682,79 @@
 		The dominated convergence theorem implies that 
 		\begin{align*}
 			\hat{f}(\xi_n)
-			& = \int_{\R} e^{-i\xi_n x}f(x) \dm(x) \\
 			& = \int_{\R} \phi_n \dm \\
 			& \rightarrow \int_{\R} \phi \dm \\
-			& = \int_{\R} e^{-i\xi x}f(x) \dm(x) \\
 			& = \hat{f}(\xi)
 		\end{align*}
 		So $\hat{f}$ is continuous. Hence $\hat{f} \in C_b(\R)$.
 	\end{proof}
 
 	\begin{defn}
-		We define the \textbf{Fourier transform on $\MS(\R^n)$}, denoted $\MF: \MS(\R^n) \rightarrow C_b(\R)$, by 
+		We define the \textbf{Fourier transform on $\MS(\R^n)$}, denoted $\MF: \MS(\R^n) \rightarrow C_b(\R^n)$, by 
 		$$\MF(f) = \hat{f}$$
 	\end{defn}
 	
 	\begin{ex}
-		We have that $\MF: \MS(\R^n) \rightarrow C_b(\R)$ is linear. 
+		We have that $\MF: \MS(\R^n) \rightarrow C_b(\R^n)$ is linear. 
 	\end{ex}
 	
 	\begin{proof}
-		Let $f,g \in \MS(\R^n)$ and $\lam \in \C$. Then 
+		Let $f,g \in \MS(\R^n)$, $\lam \in \C$ and $\xi \in \R^n$. Since $\rho_{\xi}: \MS(\R^n) \rightarrow \MS(\R^n)$ is linear, we have that 
 		\begin{align*}
-			\MF(f + \lam g) 
-			& = \int_{\R} e^{-i \xi x} [f(x) + \lam g(x)] \dm(x) \\
-			& = \int_{\R} e^{-i \xi x} f(x) + \lam e^{-i \xi x} g(x) \dm(x) \\
-			& = \int_{\R} e^{-i \xi x} f(x) \dm(x) + \lam \int_{\R} e^{-i \xi x} g(x) \dm(x) \\
-			&= \MF(f) + \lam \MF(g)
+			\MF(f + \lam g)(\xi) 
+			& = \int_{\R} \rho_{\xi} (f + \lam g) \dm \\
+			& = \int_{\R} \rho_{\xi}f + \lam \rho_{\xi} g \dm \\
+			& = \int_{\R} \rho_{\xi} f \dm + \lam \int_{\R} \rho_{\xi} g \dm \\
+			&= \MF(f)(\xi) + \lam \MF(g)(\xi)
 		\end{align*}
 	\end{proof}
 
 	\begin{ex}
-		Let $f \in \MS(\R^n)$ and $\al \in \N^0$. Then 
+		Let $f \in \MS(\R^n)$ and $\al \in \N_0^n$. Then 
 		\begin{enumerate}
-			\item $\MF(X^{\al}f) = (-1)^{\al}D^{\al} \MF(f)$ 
-			\item $\MF(D^{\al}f) = X^{\al} \MF(f)$
+			\item $\MF(X^{\al}f) = (-1)^{|\al|}P^{\al} \MF(f)$ 
+			\item $\MF(P^{\al}f) = X^{\al} \MF(f)$
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item The claim is clear for $\al = 0$. Suppose that $\al > 0$ and that the claim is true for $\al -1$ so that $\MF(X^{\al-1}f) = (-1)^{\al-1}D^{\al-1} \MF(f)$. Define $\phi:\R^n \times \R^n \rightarrow \R$ by $\phi(\xi, x) = e^{-i\xi x} x^{\al - 1}f(x)$. Then for each $\xi, x \in \R$, 
+			\item Let $\al \in \N_0^n$. The claim is true if $|\al| = 0$. Let $k > 0$. Suppose that the claim is true for $|\al| = k-1$ so that for each $\be \in \N_0^n$, $|\be| = k-1$ implies that $\MF(X^{\be}f) = (-1)^{|\be|}P^{\be} \MF(f)$. Suppose that $|\al| = k$. Since $k > 0$, there exists $j \in \{1, \ldots, n\}$ such that $\al_j > 0$. Define $\phi:\R^n \times \R^n \rightarrow \R$ by $\phi(\xi, x) = \rho_{\xi} X^{\al - e_j}f(x)$. Then for each $\xi, x \in \R$, 
 			\begin{align*}
-				|\p_{\xi} \phi(\xi, x)|
-				& = |-ix e^{-i\xi x} x^{\al - 1}f(x)| \\
-				& = |x^{\al}f(x)| \\
-				& = |(X^{\al}f)(x)|
+				\p^{e_j}_{\xi} \phi(\xi, x)
+				& = -ix^{e_j} \phi(x) \\
+				& = -i \rho_{\xi} X^{\al}f(x) \\
 			\end{align*}
-			Since $X^{\al}f \in \MS(\R^n) \subset L^1$, we may switch the order of differentiation and integration to obtain 
+			Hence for each $x, \xi \in \R^n$, 
+			\begin{align*}
+				|\p^{e_j}_{\xi} \phi(\xi, x)|
+				& = |-i \rho_{\xi} X^{\al}f(x)| \\
+				& = |X^{\al}f(x)|
+			\end{align*}
+			Since $X^{\al}f \in \MS(\R^n) \subset L^1$, we may exchange the order of integration and differentiation to obtain that
 			\begin{align*}
 				\MF(X^{\al}f) (\xi)
-				& = \int_{\R} e^{-i\xi x}x^{\al}f(x) dm(x) \\
-				& = \int_{\R} i \p_{\xi}\bigg[ e^{-i\xi x}x^{\al-1}f(x) \bigg] dm(x) \\
-				& = i \p_{\xi} \bigg[  \int_{\R} e^{-i\xi x}x^{\al-1}f(x) dm(x) \bigg] \\
-				& = i \p_{\xi} \MF(X^{\al-1}f) (\xi) \\
-				& = -D \MF(X^{\al-1}f)(\xi) \\
-				& = (-1)^{\al}D^{\al} \MF(f) (\xi)
+				& = \int_{\R} \rho_{\xi} X^{\al}f(x) dm(x) \\
+				& = \int_{\R^n} i\p^{e_j}_{\xi} \phi(\xi, x) \dm(x) \\
+				& = i \p^{e_j}  \int_{\R} e^{-i\xi x}x^{\al-e_j}f(x) dm(x)  \\
+				& = -P^{e_j} \MF(X^{\al-e_j}f) (\xi) \\
+				& = -P^{e_j} \bigg[ (-1)^{|\al| - 1} P^{\al - e_j} \MF(f) \bigg] (\xi) \\
+				& = (-1)^{|\al|}P^{\al} \MF(f) (\xi)
 			\end{align*}
-			So the claim is true for $\al$.
-			\item The claim is clear for $\al = 0$. Suppose that $\al > 0$ and that the claim is true for $\al -1$ so that $\MF(D^{\al-1}f) = X^{\al-1} \MF(f)$. Then integration by parts yields 
+			So the claim is true for $\al$. By induction, the claim is true for each $\al \in \N_0^n$.
+			\item  Let $\al \in \N_0^n$. The claim is true if $|\al| = 0$. Let $k > 0$. Suppose that the claim is true for $|\al| = k-1$ so that for each $\be \in \N_0^n$, $|\be| = k-1$ implies that $\MF(P^{\be}f) = X^{\be} \MF(f)$. Suppose that $|\al| = k$. Since $k > 0$, there exists $j \in \{1, \ldots, n\}$ such that $\al_j > 0$.
+			Then integration by parts yields 
 			\begin{align*}
-				\MF(D^{\al}f)(\xi)
-				& = \int_{\R} e^{-i \xi x} [-i \p_x D^{\al-1}f(x)] \dm(x) \\
-				&= - \int_{\R} -i \xi e^{-i \xi x} [-iD^{\al-1}f(x)] \dm(x) \\
-				&= \xi \int_{\R}   e^{-i \xi x} D^{\al-1}f(x) \dm(x) \\
-				&= X \MF(D^{\al-1}f)(\xi) \\
+				\MF(P^{\al}f)(\xi)
+				& = \int_{\R} e^{-i \l \xi , x \r} [-i \p_x P^{\al-e_j}f(x)] \dm(x) \\
+				&= - \int_{\R} -i \xi^{e_j} e^{-i \l \xi , x \r} [-iP^{\al-e_j}f(x)] \dm(x) \\
+				&= \xi^{e_j} \int_{\R}   e^{-i \l \xi , x \r} P^{\al-e_j}f(x) \dm(x) \\
+				&= X^{e_j} \MF(P^{\al-e_j}f)(\xi) \\
+				& = X^{e_j} \bigg[ X^{\al-e_j}\MF(f) \bigg](\xi) \\
 				&= X^{\al} \MF(f)(\xi) \\
 			\end{align*}
-			So the claim is true for $\al$.  
+			So the claim is true for $\al$. By induction, the claim is true for each $\al \in \N_0^n$.
 		\end{enumerate}
-	\end{proof}
-
-	\begin{ex}
-		Let $P()$
-	\end{ex}
-
-	\begin{proof}
-		content...
 	\end{proof}
 
 	\begin{ex}
@@ -1296,13 +1768,13 @@
 		Let $f \in \MS(\R^n)$. Let $\xi \in \R$. Then 
 		\begin{align*}
 			|\hat{f}(\xi)| 
-			& = \bigg| \int_{\R} e^{-i\xi x} f(x) \dm(x) \bigg| \\
+			& = \bigg| \int_{\R} \rho_{\xi} f(x) \dm(x) \bigg| \\
 			& \leq  \int_{\R} | f(x)| \dm(x) \\
 			& =  \int_{\R} \frac{(1+|x|)^2|f(x)|}{(1+|x|)^2} \dm(x) \\
 			& \leq \|f\|_{0, 2} \int_{\R} \frac{1}{(1+|x|)^2} \dm(x) \\
 			& = C\|f\|_{0, 2}
 		\end{align*}
-		Since $\xi \in \R$ is arbitrary, $\|\hat{f}\|_{0,0} \leq \|f\|_{0, 2}$.
+		Since $\xi \in \R$ is arbitrary, $\|\hat{f}\|_{0,0} \leq C\|f\|_{0, 2}$.
 	\end{proof}
 
 	\begin{ex}
@@ -1322,37 +1794,46 @@
 	\end{proof}
 
 	\begin{ex}
-		We have that $ \MF(\MS) \subset \MS(\R^n)$ and $\MF: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous. 
+		Let $f \in \MS(\R^n)$. Then $\MF(f) \in \MS(\R^n)$ and there exists $C>0$ such that for each $\al \in \N_0^n$ and $N \in \N_0$, 
+		$$ \|\MF(f)\|_{\al, N} \leq C2^{N-1}\| X^{\al} f \|_{0,2} +  C2^{N-1}\|  P^N X^{\al} f\|_{0,2} $$
 	\end{ex}
 
 	\begin{proof}
-		Let $f \in \MS(\R^n)$ and $\al, N \in \N_0$. Then the previous exercise implies that for each $\xi \in \R$,
+		Let $f \in \MS(\R^n)$ and $\al \in \N_0^n$ and $N \in \N_0$. Then the previous exercise implies that for each $\xi \in \R$,
 		\begin{align*}
-			\xi^{N}\p_{\xi}^{\al} \MF(f)(\xi)
-			& =  (-i)^{\al} X^{N} D^{\al} \MF(f)(\xi) \\
-			&= i^{\al} X^N \MF(X^{\al} f)(\xi) \\
-			&= i^{\al} \MF(D^{N} X^{\al} f)(\xi) \\ 
+			\xi^{N}\p^{\al} \MF(f)(\xi)
+			& = (-i)^{N} X^{N} P^{\al} \MF(f)(\xi) \\
+			&= i^{N} X^N \MF(X^{\al} f)(\xi) \\
+			&= i^{N} \MF(P^{N} X^{\al} f)(\xi) 
 		\end{align*}
 		Set 
 		$$C = \int_{\R} \frac{1}{(1+|x|)^2} \dm(x)$$ 
-		as in the previous exercise. Since $\MF(X^{\al}f)$, $\MF(D^NX^{\al}f) \in C_b(\R)$, we have that
+		as in the previous exercise. Since $\MF(X^{\al}f)$, $\MF(P^NX^{\al}f) \in C_b(\R)$, we have that
 		\begin{align*}
 			\|\MF(f)\|_{\al, N}
-			& = \sup_{\xi \in \R} \bigg[ (1 + |\xi|)^N |\p_{\xi}^{\al} \MF(f)(\xi)|\bigg] \\
-			& \leq \sup_{\xi \in \R} \bigg[ 2^{N-1}(1 + |\xi|^N) |\p_{\xi}^{\al} \MF(f)(\xi)| \bigg] \\
-			& = \sup_{\xi \in \R} \bigg[ |2^{N-1} \p_{\xi}^{\al} \MF(f)(\xi)| + |2^{N-1}\xi^N \p_{\xi}^{\al} \MF(f)(\xi)| \bigg] \\
-			& = \sup_{\xi \in \R} \bigg[  |\MF( 2^{N-1} X^{\al} f)(\xi)| + |\MF(2^{N-1} D^N X^{\al} f)(\xi)| \bigg] \\
-			& \leq  \| \MF( 2^{N-1} X^{\al} f) \|_{0,0} + \| \MF(2^{N-1} D^N X^{\al} f)\|_{0,0} \\
-			& \leq C2^{N-1}\| X^{\al} f \|_{0,2} +  C2^{N-1}\|  D^N X^{\al} f\|_{0,2} \\
+			& = \sup_{\xi \in \R} \bigg[ (1 + |\xi|)^N |\p^{\al} \MF(f)(\xi)|\bigg] \\
+			& \leq \sup_{\xi \in \R} \bigg[ 2^{N-1}(1 + |\xi|^N) |\p^{\al} \MF(f)(\xi)| \bigg] \\
+			& = \sup_{\xi \in \R} \bigg[ |2^{N-1} \p^{\al} \MF(f)(\xi)| + |2^{N-1}\xi^N \p^{\al} \MF(f)(\xi)| \bigg] \\
+			& = \sup_{\xi \in \R} \bigg[  |\MF( 2^{N-1} X^{\al} f)(\xi)| + |\MF(2^{N-1} P^N X^{\al} f)(\xi)| \bigg] \\
+			& \leq  \| \MF( 2^{N-1} X^{\al} f) \|_{0,0} + \| \MF(2^{N-1} P^N X^{\al} f)\|_{0,0} \\
+			& \leq C2^{N-1}\| X^{\al} f \|_{0,2} +  C2^{N-1}\|  P^N X^{\al} f\|_{0,2} \\
 			& < \infty
 		\end{align*}
-		Since $\al, N \in \N_0$ are arbitrary, $\MF(f) \in \MS(\R^n)$ and since $f \in \MS(\R^n)$ is arbitrary, $\MF(\MS) \subset \MS(\R^n)$. Let $(f_n)_{n \in \N} \subset \MS(\R^n)$. Suppose that $f_n \rightarrow 0$. Since $X,D: \MS(\R^n) \rightarrow \MS(\R^n)$ are continuous, $X^{\al}f_n \rightarrow 0$ and $D^NX^\al f_n \rightarrow 0$. Therefore, $\|X^{\al}f_n\|_{0, 2} \rightarrow 0$ and $\|D^NX^{\al}f_n\|_{0, 2} \rightarrow 0$. From above, we see that 
+		Since $\al, N \in \N_0$ are arbitrary, $\MF(f) \in \MS(\R^n)$.
+	\end{proof}
+
+	\begin{ex}
+		We have that $\MF: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous. 
+	\end{ex}
+
+	\begin{proof}
+		Let $(f_n)_{n \in \N} \subset \MS(\R^n)$. Suppose that $f_n \rightarrow 0$. Since $X,P: \MS(\R^n) \rightarrow \MS(\R^n)$ are continuous, $X^{\al}f_n \rightarrow 0$ and $P^NX^\al f_n \rightarrow 0$. Therefore, $\|X^{\al}f_n\|_{0, 2} \rightarrow 0$ and $\|P^NX^{\al}f_n\|_{0, 2} \rightarrow 0$. The previous exercise implies there exists $C >0$ such that for each $\al \in \N_0^n$ and $N \in \N_0$, 
 		\begin{align*}
 			\|\MF(f_n)\|_{\al, N} 
-			& \leq C2^{N-1}\| X^{\al} f_n \|_{0,2} +  C2^{N-1}\|  D^N X^{\al} f_n \|_{0,2} \\
+			& \leq C2^{N-1}\| X^{\al} f_n \|_{0,2} +  C2^{N-1}\|  P^N X^{\al} f_n \|_{0,2} \\
 			& \rightarrow 0
 		\end{align*}
-		Hence $\MF(f_n) \rightarrow 0$ and $\MF$ is continuous. 
+		Hence $\MF(f_n) \rightarrow 0$ and $\MF$ is continuous at $0$. Since $\MF$ is linear, $\MF: \MS(\R^n) \rightarrow \MS(\R^n)$ is continuous. 
 	\end{proof}
 
 	\begin{ex}
@@ -1360,7 +1841,7 @@
 		\begin{enumerate}
 			\item for each $y \in \R$, $\MF(\tau_yf) = \rho_{y} \MF(f)$ 
 			\item for each $\eta \in \R$, $\MF(\rho_{\eta} f) = \tau_{-\eta} \MF(f)$
-			\item $\MF(\del_t f) = t^{-1} \del_{t^{-1}} \MF(f)$
+			\item $\MF(\gam_t f) = \kap_{t} \MF(f)$
 		\end{enumerate}
 	\end{ex}
 
@@ -1385,11 +1866,11 @@
 			\end{align*}
 			\item Let $\xi \in \R$. Then 
 			\begin{align*}
-				\MF(\del_t f)(\xi) 
+				\MF(\gam_t f)(\xi) 
 				& = \int_{\R} e^{-i\xi x} f(tx) \dm(x) \\
 				& = \int_{\R} e^{-i\xi t^{-1} z} f(z) t^{-1}\dm(z) \\
 				& = t^{-1}\MF(f)(t^{-1} \xi) \\
-				& = t^{-1} \del_{t^{-1}} \MF(f)(\xi)
+				& = t^{-1} \gam_{t^{-1}} \MF(f)(\xi)
 			\end{align*}
 		\end{enumerate}
 	\end{proof}
@@ -1493,7 +1974,7 @@
 	\end{proof}
 
 	\begin{defn}
-		Let $f \in \MS(\R^n)$ and $t \neq 0$. We define $f_t \in \MS(\R^n)$ by $f_t = t^{-1} \del_{t^{-1}} f$.   
+		Let $f \in \MS(\R^n)$ and $t \neq 0$. We define $f_t \in \MS(\R^n)$ by $f_t = t^{-1} \gam_{t^{-1}} f$.   
 	\end{defn}
 
 	\begin{ex}
@@ -1576,8 +2057,49 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
-	\subsection{The Fourier Transform on $\MM(\R)$}
+	\section{Tempered Distributions}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{The Fourier Transform on $\MM(\R)$}
 	
 	\begin{note}
 		Recall that $$\MM(\R) = \{\mu: \MB(\R) \rightarrow \C: \mu \text{ is a complex measure}\}$$
@@ -1702,9 +2224,9 @@
 	
 	
 	\newpage
-	\section{Fourier Analysis on $\R^n$}	
+	\chapter{Fourier Analysis on $\R^n$}	
 
-	\subsection{Schwartz Space}
+	\section{Schwartz Space}
 	\begin{defn}
 	\ld{100} Let $\al \in \N_0^n$ and $x, y \in \R^n$. We define 
 	\begin{enumerate}
@@ -1745,7 +2267,7 @@
 	
 	
 	\newpage
-	\subsection{The Convolution}
+	\section{The Convolution}
 	\begin{defn}
 	\ld{200}Let $f, g \in L^0(\R^n)$. If for a.e. $x \in \R^n$, $$\int_{\R^n} |f(x-y)g(y)| dm(y) < \infty$$  
 	we define the \textbf{convolution of $f$ with $g$}, denoted $f * g: \R^n \rightarrow \C$, by $$ f * g(x) = \int_{\R^n} f(x-y)g(y) dm(y)$$
@@ -1890,7 +2412,7 @@
 	
 	
 	\newpage
-	\subsection{The Fourier Transform}
+	\section{The Fourier Transform}
 	
 	\begin{defn}
 	
@@ -1982,12 +2504,12 @@
 	
 	
 	\newpage
-	\section{Fourier Analysis on LCA Groups}
+	\chapter{Fourier Analysis on LCA Groups}
 	
 	
 	
 
-	\subsection{The Convolution}	
+	\section{The Convolution}	
 	\begin{note}
 	For the remainder of the section, we fix a locally compact abelian group $G$ and a Haar measure $\mu$ on $G$. 
 	\end{note}
@@ -2036,45 +2558,62 @@
 
 
 
-	\newpage
-	\section{Fourier Analysis on Banach Spaces}
+\newpage
+\chapter{Fourier Analysis on Banach Spaces}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\begin{thebibliography}{4}
-	
-\bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
 
-\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
+\appendix
 
-\bibitem{foranal}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Fourier\%20Analysis/Introduction\%20to\%20Fourier\%20Analysis.pdf}{Introduction to Fourier Analysis}
-
-\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
+\chapter{Summation}
 
 
+\newpage	
+
+\chapter{Asymptotic Notation}
+
+
+
+
+
+
+
+
+\backmatter
+\begin{thebibliography}{4}
+	\bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
+	
+	\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
+	
+	\bibitem{foranal}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Fourier\%20Analysis/Introduction\%20to\%20Fourier\%20Analysis.pdf}{Introduction to Fourier Analysis}
+	
+	\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
+	
+	
+	
 \end{thebibliography}
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
