@@ -1893,9 +1893,11 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that $X$ is $T_1$. Let $a \in \{x\}^x$. Then there exists $U_{a} \in |MN_a$ such that $U_a$ is open and $U_{a} \subset \{x\}^c$. Therefore 
-		$$\{x\}^c = \bigcap_{a \in \{x\}^c} U_a$$ 
-		which is open. Hence $\{x\}$ is closed. \\
+		Suppose that $X$ is $T_1$. Let $a \in \{x\}^c$. Then there exists $U_{a} \in \MN_a$ such that $U_a$ is open and $U_{a} \subset \{x\}^c$. Therefore 
+		$$\{x\}^c = \bigcup_{a \in \{x\}^c} U_a$$ 
+		which is open. Hence 
+		$$\{x\} = \bigcap_{a \in \{x\}^c} U_a^c$$
+		which is closed. \\
 		Conversely, suppose that for each $x \in X$, $\{x\}$ is closed. Let $x, y \in X$. Suppose that $x \neq y$. Since $\{y\}$ is closed, $\{y\}^c$ is open and $x \in \{y\}^c$. 
 	\end{proof}
 
@@ -2543,13 +2545,25 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 	
 	\begin{ex}
-		Let $X$ be a topological vector space, $a \in X$ and $\lam \in \C^{\times}$. Define $f,g: X \rightarrow X$ by $f(x) = x + y$ and $g(x) = \lam x$. Then $f$ and $g$ are homeomorphisms. 
+		Let $X$ be a topological vector space, $y \in X$ and $\lam \in \C^{\times}$. Define $f,g: X \rightarrow X$ by $f(x) = x + y$ and $g(x) = \lam x$. Then $f$ and $g$ are homeomorphisms. 
 	\end{ex}
 	
 	\begin{proof}
 		Since $X$ is a topological vector space, $f$ and $g$ are continuous. Clearly $f$ and $g$ are bijections with $f^{-1}(x) = x - y$ and $g^{-1}(x) = \lam^{-1}x$. Again, since $X$ is a topological vector space, $f^{-1}$ and $g^{-1}$ are continuous.
 	\end{proof}
 
+	\begin{ex}
+		Let $X$ be a topological vector space. Then $X$ is Hausdorff iff $\{0\}$ is closed.
+	\end{ex}
+
+	\begin{proof}
+		An exercise in a previous section implies that $X$ is Hausdorff iff for each $x \in X$, $\{x\}$ is closed. Thus, if $X$ is Hausdorff, then $\{0\}$. Conversely, if $\{0\}$ is closed, then the previous exercise implies that for each $x \in X$, $\{x\}$ is closed. Hence $X$ is Hausdorff.
+	\end{proof}
+	
+	\begin{ex}
+		Let $(\C, \MT)$ be a topological vector space.  
+	\end{ex}
+	
 	\begin{ex}
 		Let $X$ be a topological vector space, $x,y \in X$ and $U \in \MN_x$. If $U$ is open, then there exists $r >0$ such that for each $t \in \R$, $|t| \leq r$ implies that $x+ ty \in U$.
 	\end{ex}
@@ -2724,7 +2738,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 
 
-	
+		
 
 
 
@@ -3750,7 +3764,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\section{Locally Convex Spaces}
 	
 	\begin{defn}
-		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. We equip $X / \ker p$ with the topology induced by the norm $\bar{p}:X / \ker p \rightarrow \Rg$. We define the projection $\pi_p: X \rightarrow X / \ker p$ by $\pi_p(x) = \bar{x} = x + \ker p$.
+		Let $X$ be a vector space and $p:X \rightarrow [0, \infty)$ a seminorm on $X$. We equip $X / \ker p$ with the topology induced by the norm $\bar{p}:X /  p \rightarrow \Rg$. We define the projection $\pi_p: X \rightarrow X / \ker p$ by $\pi_p(x) = \bar{x} = x + \ker p$.
 	\end{defn}
 	
 	\begin{defn}
@@ -4069,11 +4083,21 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	\end{proof}
 
 	\begin{ex}
-		Let $X$ be a topological vector space and $M \subset X$ a subspace. If $M$ is closed, then $X / M$ is Hausdorff. 
+		Let $X$ be a topological vector space and $M \subset X$ a subspace. Then $M$ is closed iff $X / M$ is Hausdorff. 
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that $M$ is closed. Define the action $\phi: M \times X \rightarrow X$ by $m \cdot x = m  + x$. Denote by $\sim$, the equivalence relation induced by $\phi$ (i.e. $x \sim y$ iff $x-y \in M$). A previous exercise implies that $\pi: X \rightarrow X /M$ is open. Let $(x_{\al},y_{\al})_{\al \in A} \subset \, \sim$ be a net and $(x,y) \in X \times X$. Suppose that $(x_{\al},y_{\al}) \rightarrow (x,y)$. Then $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$. Therefore $x_{\al} - y_{\al} \rightarrow x -y$. Since for each $\al \in A$, $x_{\al} - y_{\al} \in M$ and $M$ is closed, we have that $x -y \in M$. Hence $(x,y) \in \, \sim$ and $\sim$ is closed. Since $\pi$ is open, a previous exercise in the section on separation and countability implies that $X / M$ is Hausdorff.
+		Suppose that $M$ is closed. Define the action $\phi: M \times X \rightarrow X$ by $m \cdot x = m  + x$. Denote by $\sim$, the equivalence relation induced by $\phi$ (i.e. $x \sim y$ iff $x-y \in M$). A previous exercise implies that $\pi: X \rightarrow X /M$ is open. Let $(x_{\al},y_{\al})_{\al \in A} \subset \, \sim$ be a net and $(x,y) \in X \times X$. Suppose that $(x_{\al},y_{\al}) \rightarrow (x,y)$. Then $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$. Therefore $x_{\al} - y_{\al} \rightarrow x -y$. Since for each $\al \in A$, $x_{\al} - y_{\al} \in M$ and $M$ is closed, we have that $x -y \in M$. Hence $(x,y) \in \, \sim$ and $\sim$ is closed. Since $\pi$ is open, a previous exercise in the section on separation and countability implies that $X / M$ is Hausdorff. \\
+		Conversely, suppose that $X/ M$ is Hausdorff. Then $\{0 + M\}$ is closed in $X /M$. Since $\pi: X \rightarrow X/M$ is continuous, we have that $M =  \pi^{-1}(0 + M)$ is closed in $X$.
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological vector spaces and $\phi : X \rightarrow \C$ linear. Then $\ker \phi$ is closed iff $\phi$ is continuous. \\
+		\tbf{Note: need to show that if $T:X \rightarrow Y$ is linear, then $T$ is continuous iff $\bar{T}: X / \ker T \rightarrow Y$ is continuous}
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\phi$ is continuous. Since $\{0\} \subset \C$ is closed, $\ker \phi = \phi^{-1}(\{0\})$ is closed. \\ Conversely, suppose that $\ker \phi$ is closed. Then $X/ \ker \phi$ is Hausdorff. Hence 
 	\end{proof}
 	
 	\begin{ex}
@@ -4123,17 +4147,9 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		\end{align*} 
 	\end{proof}
 
-	\begin{ex}
-		
-	\end{ex}
+
 	
-	\begin{ex}
-		Let $X, Y$ be topological vector spaces.  and $\phi: X \rightarrow Y$ linear. Then $\ker \phi$ is closed iff $\phi$ is continuous. 
-	\end{ex}
 	
-	\begin{proof}
-		Suppose that $\phi$ is continuous. Since $\{0\} \subset Y$ is closed, $\ker \phi = \phi^{-1}(\{0\})$ is closed. Conversely, suppose that $\ker \phi$ is closed. 
-	\end{proof}
 	
 	
 	
@@ -8154,7 +8170,7 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 \end{proof}
 
 \begin{defn}
-	Let $X$ be a unital Banach algebra and $x \in X$. We define the \textbf{resolvent function} of $x$, denoted $R_x: \rho(x) \rightarrow X$, by  
+	Let $X$ be a unital Banach algebra and $x \in X$. We define the \textbf{resolvent function} of $x$, denoted $R_x: \rho(x) \rightarrow G(X)$, by  
 	$$R_x(\lam) = (\lam e - x)^{-1}$$
 \end{defn}
 
@@ -8192,6 +8208,46 @@ So $$\int_{(x_0, x_0 + h]}f - f(x_0) dm = o(\|h\|) \hspace{1cm}\text{ as }h \rig
 		Since $\lam \in \rho(x)$ is arbitrary, $R_x: \rho(x) \rightarrow X$ is differentiable.
 	\end{enumerate}
 \end{proof}
+
+\begin{ex}
+	Let $X$ be a unital Banach algebra and $x \in X$. Then $\sig(x) \neq \varnothing$. \\
+	\tbf{Hint:} $R_x$ is bounded and apply Louiville's theorem
+\end{ex}
+
+\begin{proof}
+	Suppose that $\sig(x) = \varnothing$. Then $\rho(x) = \C$ and the previous exercise implies that $R_x: \C \rightarrow G(X)$ is differentiable. We observe that for each $\lam \in \C^{\times}$, 
+	\begin{align*}
+		R_x(\lam)
+		& = (\lam e - x)^{-1} \\
+		& = \lam^{-1} (e - \lam^{-1}x)^{-1} \\
+	\end{align*} 
+	Since $\lam^{-1} \rightarrow 0$ as $\lam \rightarrow \infty$ and $\iota: G(X) \rightarrow G(X)$ is continuous, we have that
+	\begin{align*}
+		(e - \lam^{-1}x)^{-1}
+		& \rightarrow e^{-1} \\
+		&= e
+	\end{align*}
+	as $\lam \rightarrow \infty$. Hence $R_x(\lam) \rightarrow 0$ as $\lam \rightarrow \infty$. Thus $R_x: \C \rightarrow G(X)$ is bounded. Louiville's theorem implies that $R_x = 0$. This is a contradiction since $0 \not \in G(X)$.   
+\end{proof}
+
+	\begin{defn}
+		Let $X$ be a unital Banach algebra and $x \in X$. We define the \tbf{spectral radius of $x$}, denoted by $r_(x)$, by $$r_(x) = \sup \{|\lam|: \lam \in \sig(x)\}$$
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a unital Banach algebra and $x \in X$ and $\lam \in \C$. If $\lam \in \sig(x)$, then $\lam^n \in \sig(x^n)$. \\
+		\tcb{Hint:} $\lam^n e -x^n = (\lam e - x) \sum_{j=0}^{n-1} \lam^j x^{n-1 -j}$
+	\end{ex}
+
+	\begin{proof}
+		Since 
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a unital Banach algebra and $x \in X$. Then 
+		$$r(x) = \lim_{n \rightarrow \infty} \|x^n\|^{1/n}$$
+	\end{ex}
+
 	
 	
 	
