@@ -261,10 +261,6 @@
 	\author{Carson James}
 	\thanks{}
 	
-	%    author two information
-	\author{}
-	\thanks{}
-	
 	\date{}
 	
 	\maketitle
@@ -1874,439 +1870,7 @@
 	\end{proof}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	\newpage
-	\section{Borel Spaces}
 	
-	\begin{defn} \lex{28007} 
-		Let $(X, \MA)$ be a measurable space. Then $(X, \MA)$ is said to be a \textbf{Borel space} if there exists $S \in \MB(\R)$ such that $(X, \MA)$ is isomorphic to $(S, \MB(\R) \cap S)$.
-	\end{defn}
-
-	\begin{ex}
-		Let $(X, \MA)$ be a Borel space. Then there exists a metric $d:X^2 \rightarrow \Rg$ such that $(X, d)$ is separable and $\MA = \MB(X, \MT_{d})$.
-	\end{ex}
-
-	\begin{proof}
-		Since $(X, \MA)$ is a Borel space, there exists $S \in \MB(\R)$ and $\phi: (X, \MA) \rightarrow (S, \MB(S))$ such that $\phi$ is an isomorphism. Define $d: X^2 \rightarrow \Rg$ by $d(x,y) = |\phi(x) - \phi(y)|$. Then $d$ is a metric on $X$ and $\phi: (X, d) \rightarrow (S, |\cdot|)$ is a homeomorphism. Since for each $x \in X$ and $r > 0$, $B_X(x, r) = \phi^{-1}((\phi(x) - r, \phi(x) + r))$, we have that $\MT_d = \phi^*\MT_{S}$. Therefore, 
-		\begin{align*}
-			\MA 
-			& = \phi^* \MB(S) \\
-			& = \MB(X, \MT_d)  \text{\tcb{ Maybe not}}
-		\end{align*} 
-	
-		\tcb{FINISH!!!}
-	\end{proof}
-	
-	\begin{ex} \lex{28001} 
-		For each $x \in [0, 1]$, there exists $(x_n)_{n \in \N} \subset \{0,1\}^{\N}$ such that $x = \sum\limits_{j \in \N} x_j2^{-j}$.
-		\textbf{Hint:} Set $x_1 = 
-		\begin{cases}
-			0, & x < 1/2 \\
-			1, & x \geq 1/2 
-		\end{cases}$
-		and proceed inductively. 
-	\end{ex}
-
-	\begin{proof}
-		Let $x \in [0,1]$. Set 
-		$$x_1 = 
-		\begin{cases}
-			0, & x < 1/2 \\
-			1, & x \geq 1/2 
-		\end{cases}$$
-	and for $j \geq 2$, set 
-	$$x_j = \begin{cases}
-		0, & x - \sum\limits_{k = 1}^{j-1}x_k2^{-k} < 2^{-j} \\
-		1, & x - \sum\limits_{k = 1}^{j-1}x_k2^{-k} \geq 2^{-j} 
-	\end{cases}$$
-	Note that for each $j \in \N$, $x - \sum\limits_{k = 1}^{j}x_k2^{-k} \in [0, 2^{-j}]$. Hence $x = \sum\limits_{j \in \N} x_j2^{-j}$
-	\end{proof}
-
-	\begin{ex} \lex{28002} 
-		Let $(x_n)_{n \in \N}, (y_n)_{n \in \N} \subset \{0,1\}^{\N}$. Suppose that $(x_n)_{n \in \N} \neq (y_n)_{n \in \N}$. Set $N = \min\{j \in \N: x_j \neq y_j\}$. Suppose that $x_N = 0$ and $y_N = 1$. Then
-		$$\sum\limits_{j \in \N} x_j 2^{-j} = \sum\limits_{j \in \N} y_j 2^{-j}$$ 
-		iff for each $j \in \N$, $j > N$ implies that $x_j = 1$ and $y_j = 0$. 
-	\end{ex}
-
-	\begin{proof}
-		Suppose that 
-		$$\sum\limits_{j \in \N} x_j 2^{-j} = \sum\limits_{j \in \N} y_j 2^{-j}$$
-		By definition of $N$, for each $j \in \N$, $j < N$ implies that $x_j = y_j$. Hence 
-		$$\sum\limits_{j = N} x_j 2^{-j} = \sum\limits_{j = N} y_j 2^{-j}$$ 
-		Since $x_N = 0$ and $y_N = 1$, we have that 
-		$$\sum\limits_{j = N +1} x_j 2^{-j} = 2^{-N} + \sum\limits_{j = N+1} y_j 2^{-j}$$ 
-		Thus $2^{-N} = \sum\limits_{j = N+1} (x_j - y_j) 2^{-j}$. For the sake of contradiction, suppose that there exists $m > N$ and $x_m \neq 1$ or $y_m \neq 0$. Then
-		\begin{align*}
-			2^{-N} 
-			&= \sum\limits_{j = N+1} (x_j - y_j) 2^{-j} \\
-			& < \sum\limits_{j = N+1} (1 - 0) 2^{-j} \\
-			& = 2^{-N}
-		\end{align*}
-		which is a contradiction. Hence for each $m \in \N$, $m > N$ implies that $x_m = 1$ and $y_m = 0$. \vspace{.2cm}\\
-		Conversely, suppose that for each $j \in \N$, $j > N$ implies that $x_j = 1$ and $y_j = 0$. Then 
-		\begin{align*}
-			\sum\limits_{j \in \N} x_j 2^{-j}
-			& = \sum_{j=1}^{N-1} x_j + \sum_{j \geq N+1} 2^{-j} \\
-			& = \sum_{j=1}^{N-1} x_j + 2^{-N} \sum_{j \in \N} 2^{-j} \\
-			& = \sum_{j=1}^{N-1} y_j + 2^{-N} \\
-			& = \sum_{j=1}^N y_j2^{-j} \\
-			& = \sum\limits_{j \in \N} y_j 2^{-j}
-		\end{align*}
-	\end{proof}
-
-	\begin{defn} \lex{28003} \
-		\begin{itemize}
-			\item We equip $\{0,1\}^{\N}$ with the product topology 
-			\item We define $Z \subset \{0,1\}^{\N}$ by 
-			$$Z = \bigg \{(x_n)_{n \in \N} \in \{0,1\}^{\N}: \# \{n \in \N: x_n = 0\} = \infty  \bigg \} \cup \{(1, 1, 1, \ldots)\}$$ 
-			\item We define $\phi: Z \rightarrow [0,1]$ by 
-			$$\phi(x) = \sum\limits_{n \in \N} x_n2^{-n}$$
-			\item For $n \in \N$ and $l \in \{0,1\}$ we define $Z_n^l = \{\pi_n^{-1}(\{l\})\} \cap Z$ where $\pi_n: \{0,1 \}^{\N} \rightarrow \{0,1\}$ is the projection onto the $n$-th coordinate.
-		\end{itemize}
-	\end{defn}
-
-	\begin{ex}
-		We have that $\phi:Z \rightarrow [0,1]$ is a bijection.
-	\end{ex}
-
-	\begin{proof}
-		Let $x \in [0,1]$. Then \rex{28001} implies that there exists $(x_n)_{n \in \N} \in \{0,1\}^{\N}$ such that $x = \sum\limits_{n \in \N} x_n2^{-n}$. If for each $n \in \N$, $x_n = 1$, then $(x_n)_{n \in \N} \in Z$. Suppose that there exists $n \in \N$ such that $x_n = 0$. If $\# \{n \in \N: x_n = 0\} = \infty$, then $(x_n)_{n \in \N} \in Z$. Suppose that $ \# \{n \in \N: x_n = 0\} < \infty$. Set $N = \max \{ n \in \N: x_n = 0\}$. Define $(y_n)_{n \in \N} \in Z$ by 
-		\[
-		y_n = 
-		\begin{cases}
-			x_n, & n \in \{1, \ldots, N-1\} \\
-			1, & n = N \\
-			0, & n > N
-		\end{cases}
-		\]
-		Then \rex{28002} implies that $\phi((y_n)_{n \in \N}) = x$. Since $x \in [0,1]$ is arbitrary, $\phi$ is surjective. \vspace{.2cm}\\  Let $(x_n)_{n \in \N}, (y_n)_{n \in \N} \in Z$. Suppose that $(x_n)_{n \in \N} \neq (y_n)_{n \in \N}$. If  $\phi((x_n)_{n \in \N}) = \phi((y_n)_{n \in \N})$, then \rex{28002} implies that $(x_n)_{n \in \N} \not \in Z$ or $(y_n)_{n \in \N} \not \in Z$, which is a contradiction. Hence $\phi((x_n)_{n \in \N}) \neq \phi((y_n)_{n \in \N})$. Since $(x_n)_{n \in \N}, (y_n)_{n \in \N} \in Z$ are arbitrary, $\phi$ is injective. So $\phi$ is a bijection. \\
-	\end{proof}
-
-	\begin{ex} \lex{28003} 
-		We have that $Z \in \MB(\{0,1\}^{\N})$. \\
-		\textbf{Hint:} Note that $Z^c$ is countable. 
-	\end{ex}
-
-	\begin{proof}
-		Since the product of $T_1$ spaces is $T_1$, $\{0,1\}^{\N}$ is $T_1$. Since $\{0,1\}^{\N}$ is $T_1$, for each $x \in Z^c$, $\{x \}$ is closed. Since $Z^c$ is countable, we have that 
-		\begin{align*}
-			Z^c
-			& = \bigcup_{x \in  Z^c} \{x\} \\
-			& \in  \MB(\{0,1\}^{\N})
-		\end{align*} 
-		Therefore $Z \in  \MB(\{0,1\}^{\N})$.
-	\end{proof}
-
-	\begin{defn} \lex{28004} 
-		We define $(\theta_n)_{n \in \N_0} \subset Z^Z$ by
-		\begin{itemize}
-			\item 	$\theta_0 = \id_Z$
-			\item $\theta_1 (z) = \phi^{-1}(2 \phi(z) - z_1)$ 
-			\item for $n \geq 2$, $\theta_n = \theta_1 \circ \theta_{n-1}$
-		\end{itemize}
-	\end{defn}
-
-	\begin{ex} \lex{28005} 
-		For each $n \in \N$ and $z \in Z$, $\theta_n(z) = (z_{j+n})_{j \in \N}$.
-	\end{ex}
-
-	\begin{proof} \
-		Let $z \in Z$. Since  
-		\begin{align*}
-			\theta_1(z) 
-			& = \phi^{-1}(2 \phi(z) - z_1) \\
-			& = \phi^{-1}(2 \sum_{j \in \N} z_j2^{-j} - z_1) \\
-			& = \phi^{-1}(\sum_{j \in \N} z_j2^{-j+1} - z_1) \\
-			& = \phi^{-1}(\sum_{j \in \N} z_{j+1}2^{-j}) \\
-			& = (z_{j+1})_{j \in \N}
-		\end{align*}
-		The claim is true for $n =1$. Let $n \in \N$. Suppose that the claim is true for $n-1$. Let $z \in Z$. Set $w = \theta_{n-1}(z)$. Then $(w_{j})_{j \in \N} = (z_{j+n -1})_{j \in \N}$ and therefore
-		\begin{align*}
-			\theta_n(z) 
-			& = \theta_1 \circ \theta_{n-1} (z) \\
-			& = \theta_1 (w) \\
-			& = (w_{j + 1})_{j \in \N} \\
-			& = (z_{(j+ 1) +  n-1} )_{j \in \N} \\
-			& = (z_{j+  n })_{j \in \N}
-		\end{align*}
-	\end{proof}
-
-
-	\begin{ex} \lex{28005.1} 
-		For each $n \in \N$, 
-		\begin{enumerate}
-			\item $$\phi(Z_n^0) \subset \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k}{2^n}, \frac{2k+1}{2^n} \bigg)$$
-			\item $$\phi(Z_n^1) \subset \bigg[ \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k + 1}{2^n}, \frac{2(k+1)}{2^n} \bigg) \bigg] \cup \{1\}$$
-		\end{enumerate}
-		\tbf{Hint:} Induction
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item The claim is clearly true for $n = 1$. Let $n \geq 2$. Suppose the claim is true for $n-1$. Let $z \in Z_n^0$. Set $w = \theta_1 (z)$. 
-			Then 
-			\begin{align*}
-				w_{n-1} 
-				& = z_n \\
-				& = 0
-			\end{align*}
-			Hence $w \in Z_{n-1}^0$. Our induction hypothesis implies that $\phi(w) \in \bigcup\limits_{k =0}^{2^{n-2} -1} \bigg[ \frac{2k}{2^{n-1}}, \frac{2k+1}{2^{n-1}} \bigg)$.
-			Therefore, there exists $k \in \{0, \ldots, 2^{n-2} -1\}$ such that $$\phi(w) \in \bigg[ \frac{2k}{2^{n-1}}, \frac{2k+1}{2^{n-1}} \bigg)$$ Since 
-			\begin{align*}
-				\phi(w) 
-				& = \phi(\theta_1(z)) \\
-				& = 2 \phi(z) - z_1
-			\end{align*}
-			We have that
-			\begin{align*}
-				\phi(z) 
-				& = 2^{-1}\phi(w) + 2^{-1} z_1 \\
-				& \in \bigg[ \frac{2k}{2^n} + 2^{-1}z_1, \frac{2k + 1}{2^n} +  2^{-1}z_1 \bigg) \\
-				& = \bigg[ \frac{2(k+ 2^{n-2}z_1)}{2^n}, \frac{2(k+ 2^{n-2}z_1) + 1}{2^n} \bigg) 
-			\end{align*}
-			Since $k \in \{0, \ldots, 2^{n-2} -1\}$ and $1 + z_1 \leq 2$, we have that 
-			\begin{align*}
-				k+ 2^{n-2}z_1 
-				& \leq 2^{n-2} -1 + 2^{n-2}z_1  \\
-				&  =  2^{n-2}(1 + z_1) - 1 \\
-				& \leq 2^{n-1} - 1
-			\end{align*} 
-			Therefore $	k+ 2^{n-2}z_1 \in \{0, \ldots, 2^{n-1} - 1\}$ which implies that $\phi(z) \in  \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k}{2^n}, \frac{2k+1}{2^n} \bigg)$. Since $z \in \phi(Z_n^0)$ is arbitrary, we have that
-			$$\phi(Z_n^0) \subset \bigcup\limits_{k =0}^{2^{n-1} - 1} \bigg[ \frac{2k}{2^n}, \frac{2k+1}{2^n} \bigg)$$
-			\item The claim is clearly true for $n =1$. Let $n \geq 2$. Suppose that the claim is true for $n-1$. Let $z \in Z_n^1$. If for each $j \in \N$, $z_j = 1$, then $\phi(z) = 1$ and the claim is true. Suppse that there exists $j \in \N$ such that $z_j \neq 1$. Set $w = \theta_1(z)$. Then 
-			\begin{align*}
-				w_{n-1} 
-				& = z_n \\
-				& = 1
-			\end{align*} 
-			Thus $w \in Z_{n-1}^1$. Our induction hypothesis implies that $\phi(w) \in \bigcup\limits_{k =0}^{2^{n-2} -1} \bigg[ \frac{2k+1}{2^{n-1}}, \frac{2(k+1)}{2^{n-1}} \bigg)$. Therefore, there exists $k \in \{0, \ldots, 2^{n-2} -1\}$ such that $$\phi(w) \in \bigg[ \frac{2k+1}{2^{n-1}}, \frac{2(k+1)}{2^{n-1}} \bigg)$$ Since 
-			\begin{align*}
-				\phi(w) 
-				& = \phi(\theta_1(z)) \\
-				& = 2 \phi(z) - z_1
-			\end{align*}
-			We have that
-			\begin{align*}
-				\phi(z) 
-				& = 2^{-1}\phi(w) + 2^{-1} z_1 \\
-				& \in \bigg[ \frac{2k+1}{2^n} + 2^{-1}z_1, \frac{2(k + 1)}{2^n} +  2^{-1}z_1 \bigg) \\
-				& = \bigg[ \frac{2(k+ 2^{n-2}z_1) + 1}{2^n}, \frac{2[(k+ 2^{n-2}z_1) + 1]}{2^n} \bigg) 
-			\end{align*}
-			Since $k \in \{0, \ldots, 2^{n-2} -1\}$ and $1 + z_1 \leq 2$, we have that 
-			\begin{align*}
-				k+ 2^{n-2}z_1 
-				& \leq 2^{n-2} -1 + 2^{n-2}z_1  \\
-				&  =  2^{n-2}(1 + z_1) - 1 \\
-				& \leq 2^{n-1} - 1
-			\end{align*} 
-			Therefore $	k+ 2^{n-2}z_1 \in \{0, \ldots, 2^{n-1} - 1\}$ which implies that $\phi(z) \in  \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k+1}{2^n}, \frac{2(k+1)}{2^n} \bigg)$. Since $z \in \phi(Z_n^1) \setminus \{\phi^{-1}(1)\}$ is arbitrary, we have that
-			$$\phi(Z_n^1 ) \subset \bigg[ \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k + 1}{2^n}, \frac{2(k+1)}{2^n} \bigg) \bigg] \cup \{1\}$$
-		\end{enumerate}
-	\end{proof}
-
-
-
-	\begin{ex} \lex{28005.2}
-		For each $n \in \N$, 
-		\begin{enumerate}
-			\item $$\phi(Z_n^0) = \bigcup_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k}{2^n}, \frac{2k+1}{2^n} \bigg)$$
-			\item $$\phi(Z_n^1) = \bigg[ \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k + 1}{2^n}, \frac{2(k+1)}{2^n} \bigg) \bigg] \cup \{1\}$$
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $n \in \N$. Set 
-			$$A =  \bigcup\limits_{k =0}^{2^{n-1} - 1} \bigg[ \frac{2k}{2^n}, \frac{2k+1}{2^n} \bigg)$$ 
-			and 
-			$$B = \bigg[ \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k + 1}{2^n}, \frac{2(k+1)}{2^n} \bigg) \bigg] \cup \{1\}$$ 
-			Part $(1)$ of \rex{28005.1} implies that $\phi(Z_n^0) \subset A$. Since $A \cap B = \varnothing$, part $(2)$ of \rex{28005.1} implies that 
-			\begin{align*}
-				\phi(Z_n^0)^c 
-				& = \phi(Z_n^1) \\
-				& \subset B \\
-				& \subset A^c
-			\end{align*} 
-			Therefore $A \subset \phi(Z_n^0)$. Hence $\phi(Z_n^0) = A$.
-			\item Similar to part $(1)$
-		\end{enumerate}
-	\end{proof}
-
-	\begin{ex} \lex{28006} 
-		We have that
-		\begin{enumerate}
-			\item $\phi$ is $(\MB(Z), \MB([0,1]))$-measurable
-			\item $\phi^{-1}$ is $(\MB([0,1]), \MB(Z))$-measurable
-			\item $(Z, \MB(Z))$ is a Borel space
-		\end{enumerate}
-		\textbf{Hint: } \begin{enumerate}
-			\item Weierstrass M-test.
-			\item Recall that $\MB(Z) = Z \cap \MB(\{0,1\}^{\N})$ and $\MB(\{0,1\})^{\otimes \N} = \sig_{\{0,1\}^{\N}} (\pi_j: j \in \N)$
-		\end{enumerate} 
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item For $n \in \N$, define $\phi_n: Z \rightarrow [0, 1]$ by $\phi_n = 2^{-n}\pi_n|_{Z}$. Then $\phi = \sum\limits_{n \in \N} \phi_n$ and $\|\phi_n\|_{\infty} = 2^{-n}$. The Weierstrass M-test implies that $\phi$ is continuous. Thus $\phi$ is $(\MB(Z), \MB([0,1]))$-measurable. \\
-			\item Since 
-			\begin{align*}
-				\MB(Z) 
-				& = \MB(\{0, 1\}^{\N}) \cap Z \\
-				& = \bigg[ \MB(\{0,1\})^{\otimes \N} \bigg] \cap Z \\
-				& = \sig(\{\pi_n^{-1}(\{0\}): n \in \N\}) \cap Z \\
-				& = \sig (\{\pi_n^{-1}(\{0\}) \cap Z: n \in \N\} )\\
-				& = \sig (\{Z_n^0: n \in \N\})
-			\end{align*}
-			\rex{28005.2} implies that for each $n \in \N$, 
-			\begin{align*}
-				(\phi^{-1})^{-1} (Z_n^0) 
-				& = \phi(Z_n^0) \\
-				& \in \MB([0,1]) \\
-			\end{align*}
-			and therefore $\phi^{-1}$ is $(\MB([0,1]), \MB(Z))$-measurable.
-			\item Clear by definition.
-		\end{enumerate}
-	\end{proof}
-
-		\begin{defn}
-		We define $a: \N^2 \rightarrow \N$ by $a(k,n) = 2^{k-1}(2n-1)$. 
-	\end{defn}
-	
-	\begin{ex}
-		We have that $a: \N^2 \rightarrow \N$ is a bijection.
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{itemize}
-			\item \textbf{Injectivity} \\ 
-			Let $(k,n), (k', n') \in \N^2$. Suppose that $a(k,n) = a(k',n')$. Then $2^{k-1}(2n-1) = 2^{k'-1}(2n'-1)$. Set $l = 2n-1$ and $l' = 2n'-1$. Then $l = 2^{k'-k}l'$. Since $l,l' \in \N$ and $l' \equiv 1 \pmod{2}$, we have that $k'-k \geq 0$. Since $l \equiv 1 \pmod{2}$, we have that $k'-k = 0$. Therefore $l = l'$ which implies that $n = n'$. Therefore $(k,n) = (k', n')$. Since  $(k,n), (k', n') \in \N^2$ are arbitrary, $a$ is injective.
-			\item \textbf{Surjectivity:} \\
-			Let $j \in \N$. Define $k_0,l_0 \in \N$ by $k_0 = \max \{k \in \N: \gcd(j, 2^{k-1}) = 2^{k-1}\}$ and $l_0 = j/2^{k_0-1}$. Since $l_0 \equiv 1 \pmod{2}$ there exists $n_0 \in \N$ such that $l_0 = 2n_0-1$. Thus, $a(k_0, n_0) = j$. Since $j \in \N$ is arbitrary, $a$ is surjective.
-		\end{itemize}
-	\end{proof}
-
-	\begin{defn}\
-		\begin{itemize}
-			\item We equip $(\{0,1\}^{\N})^{\N}$ with the product topology.
-			\item We define $\eta_0, \eta_1: \{0,1\}^{\N} \rightarrow \{0,1\}^{\N}$ and $H: \{0,1\}^{\N} \rightarrow (\{0,1\}^{\N})^{\N}$ by
-			\begin{itemize}
-				\item  $\eta_0(x) = (x_{2n})_{n \in \N}$
-				\item $\eta_1(x) = (x_{2n-1})_{n \in \N}$ 
-				\item for $k \in \N$, $[H(x)]_k = \eta_1 \circ (\eta_0)^{k-1}(x)$. 
-			\end{itemize}
-		\end{itemize}
-	\end{defn}
-	
-	\begin{ex}\
-		\begin{enumerate}
-			\item For each $x \in \{0,1\}^{\N}$, $[H(x)]_k = (x_{2^{k-1}(2n-1)})_{n \in \N}$
-			\item $H: \{0,1\}^{\N} \rightarrow (\{0,1\}^{\N})^{\N}$ is a bijection
-			\item $H: \{0,1\}^{\N} \rightarrow (\{0,1\}^{\N})^{\N}$ is a homeomorphism
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $x \in \{0,1\}^{\N}$ and $k \in \N$. Define $y \in \{0,1\}^{\N}$ by $ y = (\eta_0)^{k-1}(x)$. Clearly $y = (x_{2^{k-1}n})_{n \in \N}$. Then 
-			\begin{align*}
-				[H(x)]_k
-				& = \eta_1 \circ (\eta_0)^{k-1}(x) \\
-				& = \eta_1(y) \\
-				& = (y_{2n-1})_{n \in \N} \\
-				& =  (x_{2^{k-1}(2n-1)})_{n \in \N}
-			\end{align*}
-			\item  
-			\begin{itemize}
-				\item \textbf{Injectivity:} \\
-				Let $x, y \in \{0,1\}^{\N}$. Suppose that $H(x) = H(y)$. Let $j \in \N$. Define $(k,n) \in \N^2$ by $(k,n) = a^{-1}(j)$. Then $j = 2^{k-1}(2n-1)$ and
-				\begin{align*}
-					x_j
-					& = x_{2^{k-1}(2n-1)} \\
-					& = ([H(x)]_k)_n \\
-					& = ([H(y)]_k)_n \\
-					& = y_{2^{k-1}(2n-1)} \\
-					& = y_j
-				\end{align*}
-				Since $j \in \N$ is arbitrary, $x = y$. Since $x,y \in \{0,1\}^{\N}$ are arbitrary, $H$ is injective.
-				\item \textbf{Surjectivity:} \\
-				Let $X \in (\{0,1\}^{\N})^{\N}$. Define $(k_j,n_j)_{j \in \N} \in (\N^2)^{\N}$ and $x \in \{0,1\}^{\N}$ by $(k_j,n_j) = a^{-1}(j)$ and $x_j = (X_{k_j})_{n_j}$. Let $(k,n) \in \N$. Define $j \in \N$ by $j = a(k,n)$. Then
-				\begin{align*}
-					([H(x)]_{k})_{n} 
-					& = x_{2^{k-1}(2n-1)} \\
-					& = x_{a(k, n)} \\
-					& = x_j \\
-					& = (X_{k})_{n}
-				\end{align*}
-				Hence $X = H(x)$. Since $X \in (\{0,1\}^{\N})^{\N}$ is arbitrary, $H$ is surjective.
-			\end{itemize}
-			Therefore $H$ is a bijection.
-			\item Let $(x_{\al})_{\al \in A} \subset \{0,1\}^{\N}$ be a net and $x \in \{0,1\}^{\N}$. Suppose that $x_{\al} \rightarrow x$. Then for each $n \in \N$, 
-			\begin{align*}
-				(x_{\al})_n
-				& = \pi_n(x_{\al}) \\
-				& \rightarrow \pi_n(x) \\
-				& = x_n 
-			\end{align*}
-			Let $k \in \N$. Then for each $n \in \N$,
-			\begin{align*}
-				\pi_{n}(\pi_k(H(x_{\al})))
-				& = (x_{\al})_{ 2^{k-1}(2n -1)} \\
-				& \rightarrow x_{2^{k-1}(2n -1)} \\
-				& = \pi_n(\pi_k(H(x)))
-			\end{align*}
-			Thus 
-			$$\pi_k(H(x_{\al})) \rightarrow \pi_k(H(x))$$
-			Since $k \in \N$ is arbitrary, we have that 
-			$$H(x_{\al}) \rightarrow H(x)$$
-			Hence $H$ is continuous. \\
-			Conversely, let $(X_{\al})_{\al \in A} \subset (\{0,1\}^{\N})^{\N}$ be a net and $X \in (\{0,1\}^{\N})^{\N}$. Suppose that $X_{\al} \rightarrow X$. Then for each $k, n \in \N$, 
-			\begin{align*}
-				([X_{\al}]_k)_n  
-				& = \pi_n(\pi_k(X_{\al})) \\
-				& \rightarrow \pi_n(\pi_k(X)) \\ 
-				& = (X_k)_n
-			\end{align*}
-			Let $j \in \N$. Define $(k,n) \in \N^2$ by $(k,n) = a^{-1}(j)$. Then 
-			\begin{align*}
-				\pi_j(H^{-1}(X_{\al}))
-				& = [H^{-1}(X_{\al})]_j \\
-				& = ([X_{\al}]_k)_n \\
-				& \rightarrow (X_k)_n \\
-				& = [H^{-1}(X)]_j \\
-				& = \pi_j(H^{-1}(X))
-			\end{align*}
-		Since $j \in \N$ is arbitrary, 
-		$$H^{-1}(X_{\al}) \rightarrow H^{-1}(X)$$
-		Hence $H^{-1}$ is continuous. Thus $H$ is a homeomorphism.
-		\end{enumerate}
-	\end{proof}
 		
 	
 	
@@ -2572,8 +2136,469 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
-	\section{Measures}
+	\section{Borel Spaces}
+	
+	\begin{defn} \lex{28007} 
+		Let $(X, \MA)$ be a measurable space. Then $(X, \MA)$ is said to be a \textbf{Borel space} if there exists $S \in \MB(\R)$ such that $(X, \MA)$ is isomorphic to $(S, \MB(\R) \cap S)$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $(X, \MA)$ be a Borel space. Then there exists a metric $d:X^2 \rightarrow \Rg$ such that $(X, d)$ is separable and $\MA = \MB(X, \MT_{d})$.
+	\end{ex}
+	
+	\begin{proof}
+		Since $(X, \MA)$ is a Borel space, there exists $S \in \MB(\R)$ and $\phi: (X, \MA) \rightarrow (S, \MB(S))$ such that $\phi$ is an isomorphism. Define $d: X^2 \rightarrow \Rg$ by $d(x,y) = |\phi(x) - \phi(y)|$. Then $d$ is a metric on $X$ and $\phi: (X, d) \rightarrow (S, |\cdot|)$ is a homeomorphism. Since for each $x \in X$ and $r > 0$, $B_X(x, r) = \phi^{-1}((\phi(x) - r, \phi(x) + r))$, we have that $\MT_d = \phi^*\MT_{S}$. Therefore, 
+		\begin{align*}
+			\MA 
+			& = \phi^* \MB(S) \\
+			& = \MB(X, \MT_d)  \text{\tcb{ Maybe not}}
+		\end{align*} 
+		
+		\tcb{FINISH!!!}
+	\end{proof}
+	
+	\begin{ex} \lex{28001} 
+		For each $x \in [0, 1]$, there exists $(x_n)_{n \in \N} \subset \{0,1\}^{\N}$ such that $x = \sum\limits_{j \in \N} x_j2^{-j}$.
+		\textbf{Hint:} Set $x_1 = 
+		\begin{cases}
+			0, & x < 1/2 \\
+			1, & x \geq 1/2 
+		\end{cases}$
+		and proceed inductively. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $x \in [0,1]$. Set 
+		$$x_1 = 
+		\begin{cases}
+			0, & x < 1/2 \\
+			1, & x \geq 1/2 
+		\end{cases}$$
+		and for $j \geq 2$, set 
+		$$x_j = \begin{cases}
+			0, & x - \sum\limits_{k = 1}^{j-1}x_k2^{-k} < 2^{-j} \\
+			1, & x - \sum\limits_{k = 1}^{j-1}x_k2^{-k} \geq 2^{-j} 
+		\end{cases}$$
+		Note that for each $j \in \N$, $x - \sum\limits_{k = 1}^{j}x_k2^{-k} \in [0, 2^{-j}]$. Hence $x = \sum\limits_{j \in \N} x_j2^{-j}$
+	\end{proof}
+	
+	\begin{ex} \lex{28002} 
+		Let $(x_n)_{n \in \N}, (y_n)_{n \in \N} \subset \{0,1\}^{\N}$. Suppose that $(x_n)_{n \in \N} \neq (y_n)_{n \in \N}$. Set $N = \min\{j \in \N: x_j \neq y_j\}$. Suppose that $x_N = 0$ and $y_N = 1$. Then
+		$$\sum\limits_{j \in \N} x_j 2^{-j} = \sum\limits_{j \in \N} y_j 2^{-j}$$ 
+		iff for each $j \in \N$, $j > N$ implies that $x_j = 1$ and $y_j = 0$. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that 
+		$$\sum\limits_{j \in \N} x_j 2^{-j} = \sum\limits_{j \in \N} y_j 2^{-j}$$
+		By definition of $N$, for each $j \in \N$, $j < N$ implies that $x_j = y_j$. Hence 
+		$$\sum\limits_{j = N} x_j 2^{-j} = \sum\limits_{j = N} y_j 2^{-j}$$ 
+		Since $x_N = 0$ and $y_N = 1$, we have that 
+		$$\sum\limits_{j = N +1} x_j 2^{-j} = 2^{-N} + \sum\limits_{j = N+1} y_j 2^{-j}$$ 
+		Thus $2^{-N} = \sum\limits_{j = N+1} (x_j - y_j) 2^{-j}$. For the sake of contradiction, suppose that there exists $m > N$ and $x_m \neq 1$ or $y_m \neq 0$. Then
+		\begin{align*}
+			2^{-N} 
+			&= \sum\limits_{j = N+1} (x_j - y_j) 2^{-j} \\
+			& < \sum\limits_{j = N+1} (1 - 0) 2^{-j} \\
+			& = 2^{-N}
+		\end{align*}
+		which is a contradiction. Hence for each $m \in \N$, $m > N$ implies that $x_m = 1$ and $y_m = 0$. \vspace{.2cm}\\
+		Conversely, suppose that for each $j \in \N$, $j > N$ implies that $x_j = 1$ and $y_j = 0$. Then 
+		\begin{align*}
+			\sum\limits_{j \in \N} x_j 2^{-j}
+			& = \sum_{j=1}^{N-1} x_j + \sum_{j \geq N+1} 2^{-j} \\
+			& = \sum_{j=1}^{N-1} x_j + 2^{-N} \sum_{j \in \N} 2^{-j} \\
+			& = \sum_{j=1}^{N-1} y_j + 2^{-N} \\
+			& = \sum_{j=1}^N y_j2^{-j} \\
+			& = \sum\limits_{j \in \N} y_j 2^{-j}
+		\end{align*}
+	\end{proof}
+	
+	\begin{defn} \lex{28003} \
+		\begin{itemize}
+			\item We equip $\{0,1\}^{\N}$ with the product topology 
+			\item We define $Z \subset \{0,1\}^{\N}$ by 
+			$$Z = \bigg \{(x_n)_{n \in \N} \in \{0,1\}^{\N}: \# \{n \in \N: x_n = 0\} = \infty  \bigg \} \cup \{(1, 1, 1, \ldots)\}$$ 
+			\item We define $\phi: Z \rightarrow [0,1]$ by 
+			$$\phi(x) = \sum\limits_{n \in \N} x_n2^{-n}$$
+			\item For $n \in \N$ and $l \in \{0,1\}$ we define $Z_n^l = \{\pi_n^{-1}(\{l\})\} \cap Z$ where $\pi_n: \{0,1 \}^{\N} \rightarrow \{0,1\}$ is the projection onto the $n$-th coordinate.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		We have that $\phi:Z \rightarrow [0,1]$ is a bijection.
+	\end{ex}
+	
+	\begin{proof}
+		Let $x \in [0,1]$. Then \rex{28001} implies that there exists $(x_n)_{n \in \N} \in \{0,1\}^{\N}$ such that $x = \sum\limits_{n \in \N} x_n2^{-n}$. If for each $n \in \N$, $x_n = 1$, then $(x_n)_{n \in \N} \in Z$. Suppose that there exists $n \in \N$ such that $x_n = 0$. If $\# \{n \in \N: x_n = 0\} = \infty$, then $(x_n)_{n \in \N} \in Z$. Suppose that $ \# \{n \in \N: x_n = 0\} < \infty$. Set $N = \max \{ n \in \N: x_n = 0\}$. Define $(y_n)_{n \in \N} \in Z$ by 
+		\[
+		y_n = 
+		\begin{cases}
+			x_n, & n \in \{1, \ldots, N-1\} \\
+			1, & n = N \\
+			0, & n > N
+		\end{cases}
+		\]
+		Then \rex{28002} implies that $\phi((y_n)_{n \in \N}) = x$. Since $x \in [0,1]$ is arbitrary, $\phi$ is surjective. \vspace{.2cm}\\  Let $(x_n)_{n \in \N}, (y_n)_{n \in \N} \in Z$. Suppose that $(x_n)_{n \in \N} \neq (y_n)_{n \in \N}$. If  $\phi((x_n)_{n \in \N}) = \phi((y_n)_{n \in \N})$, then \rex{28002} implies that $(x_n)_{n \in \N} \not \in Z$ or $(y_n)_{n \in \N} \not \in Z$, which is a contradiction. Hence $\phi((x_n)_{n \in \N}) \neq \phi((y_n)_{n \in \N})$. Since $(x_n)_{n \in \N}, (y_n)_{n \in \N} \in Z$ are arbitrary, $\phi$ is injective. So $\phi$ is a bijection. \\
+	\end{proof}
+	
+	\begin{ex} \lex{28003} 
+		We have that $Z \in \MB(\{0,1\}^{\N})$. \\
+		\textbf{Hint:} Note that $Z^c$ is countable. 
+	\end{ex}
+	
+	\begin{proof}
+		Since the product of $T_1$ spaces is $T_1$, $\{0,1\}^{\N}$ is $T_1$. Since $\{0,1\}^{\N}$ is $T_1$, for each $x \in Z^c$, $\{x \}$ is closed. Since $Z^c$ is countable, we have that 
+		\begin{align*}
+			Z^c
+			& = \bigcup_{x \in  Z^c} \{x\} \\
+			& \in  \MB(\{0,1\}^{\N})
+		\end{align*} 
+		Therefore $Z \in  \MB(\{0,1\}^{\N})$.
+	\end{proof}
+	
+	\begin{defn} \lex{28004} 
+		We define $(\theta_n)_{n \in \N_0} \subset Z^Z$ by
+		\begin{itemize}
+			\item 	$\theta_0 = \id_Z$
+			\item $\theta_1 (z) = \phi^{-1}(2 \phi(z) - z_1)$ 
+			\item for $n \geq 2$, $\theta_n = \theta_1 \circ \theta_{n-1}$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{28005} 
+		For each $n \in \N$ and $z \in Z$, $\theta_n(z) = (z_{j+n})_{j \in \N}$.
+	\end{ex}
+	
+	\begin{proof} \
+		Let $z \in Z$. Since  
+		\begin{align*}
+			\theta_1(z) 
+			& = \phi^{-1}(2 \phi(z) - z_1) \\
+			& = \phi^{-1}(2 \sum_{j \in \N} z_j2^{-j} - z_1) \\
+			& = \phi^{-1}(\sum_{j \in \N} z_j2^{-j+1} - z_1) \\
+			& = \phi^{-1}(\sum_{j \in \N} z_{j+1}2^{-j}) \\
+			& = (z_{j+1})_{j \in \N}
+		\end{align*}
+		The claim is true for $n =1$. Let $n \in \N$. Suppose that the claim is true for $n-1$. Let $z \in Z$. Set $w = \theta_{n-1}(z)$. Then $(w_{j})_{j \in \N} = (z_{j+n -1})_{j \in \N}$ and therefore
+		\begin{align*}
+			\theta_n(z) 
+			& = \theta_1 \circ \theta_{n-1} (z) \\
+			& = \theta_1 (w) \\
+			& = (w_{j + 1})_{j \in \N} \\
+			& = (z_{(j+ 1) +  n-1} )_{j \in \N} \\
+			& = (z_{j+  n })_{j \in \N}
+		\end{align*}
+	\end{proof}
+	
+	
+	\begin{ex} \lex{28005.1} 
+		For each $n \in \N$, 
+		\begin{enumerate}
+			\item $$\phi(Z_n^0) \subset \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k}{2^n}, \frac{2k+1}{2^n} \bigg)$$
+			\item $$\phi(Z_n^1) \subset \bigg[ \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k + 1}{2^n}, \frac{2(k+1)}{2^n} \bigg) \bigg] \cup \{1\}$$
+		\end{enumerate}
+		\tbf{Hint:} Induction
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item The claim is clearly true for $n = 1$. Let $n \geq 2$. Suppose the claim is true for $n-1$. Let $z \in Z_n^0$. Set $w = \theta_1 (z)$. 
+			Then 
+			\begin{align*}
+				w_{n-1} 
+				& = z_n \\
+				& = 0
+			\end{align*}
+			Hence $w \in Z_{n-1}^0$. Our induction hypothesis implies that $\phi(w) \in \bigcup\limits_{k =0}^{2^{n-2} -1} \bigg[ \frac{2k}{2^{n-1}}, \frac{2k+1}{2^{n-1}} \bigg)$.
+			Therefore, there exists $k \in \{0, \ldots, 2^{n-2} -1\}$ such that $$\phi(w) \in \bigg[ \frac{2k}{2^{n-1}}, \frac{2k+1}{2^{n-1}} \bigg)$$ Since 
+			\begin{align*}
+				\phi(w) 
+				& = \phi(\theta_1(z)) \\
+				& = 2 \phi(z) - z_1
+			\end{align*}
+			We have that
+			\begin{align*}
+				\phi(z) 
+				& = 2^{-1}\phi(w) + 2^{-1} z_1 \\
+				& \in \bigg[ \frac{2k}{2^n} + 2^{-1}z_1, \frac{2k + 1}{2^n} +  2^{-1}z_1 \bigg) \\
+				& = \bigg[ \frac{2(k+ 2^{n-2}z_1)}{2^n}, \frac{2(k+ 2^{n-2}z_1) + 1}{2^n} \bigg) 
+			\end{align*}
+			Since $k \in \{0, \ldots, 2^{n-2} -1\}$ and $1 + z_1 \leq 2$, we have that 
+			\begin{align*}
+				k+ 2^{n-2}z_1 
+				& \leq 2^{n-2} -1 + 2^{n-2}z_1  \\
+				&  =  2^{n-2}(1 + z_1) - 1 \\
+				& \leq 2^{n-1} - 1
+			\end{align*} 
+			Therefore $	k+ 2^{n-2}z_1 \in \{0, \ldots, 2^{n-1} - 1\}$ which implies that $\phi(z) \in  \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k}{2^n}, \frac{2k+1}{2^n} \bigg)$. Since $z \in \phi(Z_n^0)$ is arbitrary, we have that
+			$$\phi(Z_n^0) \subset \bigcup\limits_{k =0}^{2^{n-1} - 1} \bigg[ \frac{2k}{2^n}, \frac{2k+1}{2^n} \bigg)$$
+			\item The claim is clearly true for $n =1$. Let $n \geq 2$. Suppose that the claim is true for $n-1$. Let $z \in Z_n^1$. If for each $j \in \N$, $z_j = 1$, then $\phi(z) = 1$ and the claim is true. Suppse that there exists $j \in \N$ such that $z_j \neq 1$. Set $w = \theta_1(z)$. Then 
+			\begin{align*}
+				w_{n-1} 
+				& = z_n \\
+				& = 1
+			\end{align*} 
+			Thus $w \in Z_{n-1}^1$. Our induction hypothesis implies that $\phi(w) \in \bigcup\limits_{k =0}^{2^{n-2} -1} \bigg[ \frac{2k+1}{2^{n-1}}, \frac{2(k+1)}{2^{n-1}} \bigg)$. Therefore, there exists $k \in \{0, \ldots, 2^{n-2} -1\}$ such that $$\phi(w) \in \bigg[ \frac{2k+1}{2^{n-1}}, \frac{2(k+1)}{2^{n-1}} \bigg)$$ Since 
+			\begin{align*}
+				\phi(w) 
+				& = \phi(\theta_1(z)) \\
+				& = 2 \phi(z) - z_1
+			\end{align*}
+			We have that
+			\begin{align*}
+				\phi(z) 
+				& = 2^{-1}\phi(w) + 2^{-1} z_1 \\
+				& \in \bigg[ \frac{2k+1}{2^n} + 2^{-1}z_1, \frac{2(k + 1)}{2^n} +  2^{-1}z_1 \bigg) \\
+				& = \bigg[ \frac{2(k+ 2^{n-2}z_1) + 1}{2^n}, \frac{2[(k+ 2^{n-2}z_1) + 1]}{2^n} \bigg) 
+			\end{align*}
+			Since $k \in \{0, \ldots, 2^{n-2} -1\}$ and $1 + z_1 \leq 2$, we have that 
+			\begin{align*}
+				k+ 2^{n-2}z_1 
+				& \leq 2^{n-2} -1 + 2^{n-2}z_1  \\
+				&  =  2^{n-2}(1 + z_1) - 1 \\
+				& \leq 2^{n-1} - 1
+			\end{align*} 
+			Therefore $	k+ 2^{n-2}z_1 \in \{0, \ldots, 2^{n-1} - 1\}$ which implies that $\phi(z) \in  \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k+1}{2^n}, \frac{2(k+1)}{2^n} \bigg)$. Since $z \in \phi(Z_n^1) \setminus \{\phi^{-1}(1)\}$ is arbitrary, we have that
+			$$\phi(Z_n^1 ) \subset \bigg[ \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k + 1}{2^n}, \frac{2(k+1)}{2^n} \bigg) \bigg] \cup \{1\}$$
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	\begin{ex} \lex{28005.2}
+		For each $n \in \N$, 
+		\begin{enumerate}
+			\item $$\phi(Z_n^0) = \bigcup_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k}{2^n}, \frac{2k+1}{2^n} \bigg)$$
+			\item $$\phi(Z_n^1) = \bigg[ \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k + 1}{2^n}, \frac{2(k+1)}{2^n} \bigg) \bigg] \cup \{1\}$$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $n \in \N$. Set 
+			$$A =  \bigcup\limits_{k =0}^{2^{n-1} - 1} \bigg[ \frac{2k}{2^n}, \frac{2k+1}{2^n} \bigg)$$ 
+			and 
+			$$B = \bigg[ \bigcup\limits_{k =0}^{2^{n-1} -1} \bigg[ \frac{2k + 1}{2^n}, \frac{2(k+1)}{2^n} \bigg) \bigg] \cup \{1\}$$ 
+			Part $(1)$ of \rex{28005.1} implies that $\phi(Z_n^0) \subset A$. Since $A \cap B = \varnothing$, part $(2)$ of \rex{28005.1} implies that 
+			\begin{align*}
+				\phi(Z_n^0)^c 
+				& = \phi(Z_n^1) \\
+				& \subset B \\
+				& \subset A^c
+			\end{align*} 
+			Therefore $A \subset \phi(Z_n^0)$. Hence $\phi(Z_n^0) = A$.
+			\item Similar to part $(1)$
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{28006} 
+		We have that
+		\begin{enumerate}
+			\item $\phi$ is $(\MB(Z), \MB([0,1]))$-measurable
+			\item $\phi^{-1}$ is $(\MB([0,1]), \MB(Z))$-measurable
+			\item $(Z, \MB(Z))$ is a Borel space
+		\end{enumerate}
+		\textbf{Hint: } \begin{enumerate}
+			\item Weierstrass M-test.
+			\item Recall that $\MB(Z) = Z \cap \MB(\{0,1\}^{\N})$ and $\MB(\{0,1\})^{\otimes \N} = \sig_{\{0,1\}^{\N}} (\pi_j: j \in \N)$
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item For $n \in \N$, define $\phi_n: Z \rightarrow [0, 1]$ by $\phi_n = 2^{-n}\pi_n|_{Z}$. Then $\phi = \sum\limits_{n \in \N} \phi_n$ and $\|\phi_n\|_{\infty} = 2^{-n}$. The Weierstrass M-test implies that $\phi$ is continuous. Thus $\phi$ is $(\MB(Z), \MB([0,1]))$-measurable. \\
+			\item Since 
+			\begin{align*}
+				\MB(Z) 
+				& = \MB(\{0, 1\}^{\N}) \cap Z \\
+				& = \bigg[ \MB(\{0,1\})^{\otimes \N} \bigg] \cap Z \\
+				& = \sig(\{\pi_n^{-1}(\{0\}): n \in \N\}) \cap Z \\
+				& = \sig (\{\pi_n^{-1}(\{0\}) \cap Z: n \in \N\} )\\
+				& = \sig (\{Z_n^0: n \in \N\})
+			\end{align*}
+			\rex{28005.2} implies that for each $n \in \N$, 
+			\begin{align*}
+				(\phi^{-1})^{-1} (Z_n^0) 
+				& = \phi(Z_n^0) \\
+				& \in \MB([0,1]) \\
+			\end{align*}
+			and therefore $\phi^{-1}$ is $(\MB([0,1]), \MB(Z))$-measurable.
+			\item Clear by definition.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		We define $a: \N^2 \rightarrow \N$ by $a(k,n) = 2^{k-1}(2n-1)$. 
+	\end{defn}
+	
+	\begin{ex}
+		We have that $a: \N^2 \rightarrow \N$ is a bijection.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item \textbf{Injectivity} \\ 
+			Let $(k,n), (k', n') \in \N^2$. Suppose that $a(k,n) = a(k',n')$. Then $2^{k-1}(2n-1) = 2^{k'-1}(2n'-1)$. Set $l = 2n-1$ and $l' = 2n'-1$. Then $l = 2^{k'-k}l'$. Since $l,l' \in \N$ and $l' \equiv 1 \pmod{2}$, we have that $k'-k \geq 0$. Since $l \equiv 1 \pmod{2}$, we have that $k'-k = 0$. Therefore $l = l'$ which implies that $n = n'$. Therefore $(k,n) = (k', n')$. Since  $(k,n), (k', n') \in \N^2$ are arbitrary, $a$ is injective.
+			\item \textbf{Surjectivity:} \\
+			Let $j \in \N$. Define $k_0,l_0 \in \N$ by $k_0 = \max \{k \in \N: \gcd(j, 2^{k-1}) = 2^{k-1}\}$ and $l_0 = j/2^{k_0-1}$. Since $l_0 \equiv 1 \pmod{2}$ there exists $n_0 \in \N$ such that $l_0 = 2n_0-1$. Thus, $a(k_0, n_0) = j$. Since $j \in \N$ is arbitrary, $a$ is surjective.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{defn}\
+		\begin{itemize}
+			\item We equip $(\{0,1\}^{\N})^{\N}$ with the product topology.
+			\item We define $\eta_0, \eta_1: \{0,1\}^{\N} \rightarrow \{0,1\}^{\N}$ and $H: \{0,1\}^{\N} \rightarrow (\{0,1\}^{\N})^{\N}$ by
+			\begin{itemize}
+				\item  $\eta_0(x) = (x_{2n})_{n \in \N}$
+				\item $\eta_1(x) = (x_{2n-1})_{n \in \N}$ 
+				\item for $k \in \N$, $[H(x)]_k = \eta_1 \circ (\eta_0)^{k-1}(x)$. 
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}\
+		\begin{enumerate}
+			\item For each $x \in \{0,1\}^{\N}$, $[H(x)]_k = (x_{2^{k-1}(2n-1)})_{n \in \N}$
+			\item $H: \{0,1\}^{\N} \rightarrow (\{0,1\}^{\N})^{\N}$ is a bijection
+			\item $H: \{0,1\}^{\N} \rightarrow (\{0,1\}^{\N})^{\N}$ is a homeomorphism
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x \in \{0,1\}^{\N}$ and $k \in \N$. Define $y \in \{0,1\}^{\N}$ by $ y = (\eta_0)^{k-1}(x)$. Clearly $y = (x_{2^{k-1}n})_{n \in \N}$. Then 
+			\begin{align*}
+				[H(x)]_k
+				& = \eta_1 \circ (\eta_0)^{k-1}(x) \\
+				& = \eta_1(y) \\
+				& = (y_{2n-1})_{n \in \N} \\
+				& =  (x_{2^{k-1}(2n-1)})_{n \in \N}
+			\end{align*}
+			\item  
+			\begin{itemize}
+				\item \textbf{Injectivity:} \\
+				Let $x, y \in \{0,1\}^{\N}$. Suppose that $H(x) = H(y)$. Let $j \in \N$. Define $(k,n) \in \N^2$ by $(k,n) = a^{-1}(j)$. Then $j = 2^{k-1}(2n-1)$ and
+				\begin{align*}
+					x_j
+					& = x_{2^{k-1}(2n-1)} \\
+					& = ([H(x)]_k)_n \\
+					& = ([H(y)]_k)_n \\
+					& = y_{2^{k-1}(2n-1)} \\
+					& = y_j
+				\end{align*}
+				Since $j \in \N$ is arbitrary, $x = y$. Since $x,y \in \{0,1\}^{\N}$ are arbitrary, $H$ is injective.
+				\item \textbf{Surjectivity:} \\
+				Let $X \in (\{0,1\}^{\N})^{\N}$. Define $(k_j,n_j)_{j \in \N} \in (\N^2)^{\N}$ and $x \in \{0,1\}^{\N}$ by $(k_j,n_j) = a^{-1}(j)$ and $x_j = (X_{k_j})_{n_j}$. Let $(k,n) \in \N$. Define $j \in \N$ by $j = a(k,n)$. Then
+				\begin{align*}
+					([H(x)]_{k})_{n} 
+					& = x_{2^{k-1}(2n-1)} \\
+					& = x_{a(k, n)} \\
+					& = x_j \\
+					& = (X_{k})_{n}
+				\end{align*}
+				Hence $X = H(x)$. Since $X \in (\{0,1\}^{\N})^{\N}$ is arbitrary, $H$ is surjective.
+			\end{itemize}
+			Therefore $H$ is a bijection.
+			\item Let $(x_{\al})_{\al \in A} \subset \{0,1\}^{\N}$ be a net and $x \in \{0,1\}^{\N}$. Suppose that $x_{\al} \rightarrow x$. Then for each $n \in \N$, 
+			\begin{align*}
+				(x_{\al})_n
+				& = \pi_n(x_{\al}) \\
+				& \rightarrow \pi_n(x) \\
+				& = x_n 
+			\end{align*}
+			Let $k \in \N$. Then for each $n \in \N$,
+			\begin{align*}
+				\pi_{n}(\pi_k(H(x_{\al})))
+				& = (x_{\al})_{ 2^{k-1}(2n -1)} \\
+				& \rightarrow x_{2^{k-1}(2n -1)} \\
+				& = \pi_n(\pi_k(H(x)))
+			\end{align*}
+			Thus 
+			$$\pi_k(H(x_{\al})) \rightarrow \pi_k(H(x))$$
+			Since $k \in \N$ is arbitrary, we have that 
+			$$H(x_{\al}) \rightarrow H(x)$$
+			Hence $H$ is continuous. \\
+			Conversely, let $(X_{\al})_{\al \in A} \subset (\{0,1\}^{\N})^{\N}$ be a net and $X \in (\{0,1\}^{\N})^{\N}$. Suppose that $X_{\al} \rightarrow X$. Then for each $k, n \in \N$, 
+			\begin{align*}
+				([X_{\al}]_k)_n  
+				& = \pi_n(\pi_k(X_{\al})) \\
+				& \rightarrow \pi_n(\pi_k(X)) \\ 
+				& = (X_k)_n
+			\end{align*}
+			Let $j \in \N$. Define $(k,n) \in \N^2$ by $(k,n) = a^{-1}(j)$. Then 
+			\begin{align*}
+				\pi_j(H^{-1}(X_{\al}))
+				& = [H^{-1}(X_{\al})]_j \\
+				& = ([X_{\al}]_k)_n \\
+				& \rightarrow (X_k)_n \\
+				& = [H^{-1}(X)]_j \\
+				& = \pi_j(H^{-1}(X))
+			\end{align*}
+			Since $j \in \N$ is arbitrary, 
+			$$H^{-1}(X_{\al}) \rightarrow H^{-1}(X)$$
+			Hence $H^{-1}$ is continuous. Thus $H$ is a homeomorphism.
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Measures}
+	
+	\section{Introduction}
 	
 	\begin{defn} \ld{00000} 
 		Let $(X, \MA)$ be a measurable space and $\mu:\MA \rightarrow \RG$. Then $\mu$ is said to be a \textbf{measure} on $(X, \MA)$ if 
