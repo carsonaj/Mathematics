@@ -193,6 +193,7 @@
 % notation
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
+\renewcommand{\Im}{\text{Im} \,}
 \newcommand{\tbf}[1]{\textbf{#1}}
 \newcommand{\tcb}[1]{\textcolor{blue}{#1}}
 \newcommand{\mbf}[1]{\mathbf{#1}}
@@ -223,6 +224,7 @@
 \newcommand{\dP}{\, d P}
 \newcommand{\dQ}{\, d Q}
 \newcommand{\dm}{\, d m}
+\newcommand{\dsh}{\, d \#}
 
 % abreviations 
 \newcommand{\lsc}{lower semicontinuous}
@@ -1870,6 +1872,22 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\begin{proof}
 	Suppose that $f$ is a quotient map. Let $V \subset Y$. Suppose that $V$ is open. By definition, $f^{-1}(V)$ is open. Hence $f$ is continuous.  
 	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MA)$, $(Y, \MB), (Z, \MC)$ be topological spaces, $f:X \rightarrow Y$ and $g: Y \rightarrow Z$. If $f$ is a quotient map, then $g$ is continuous iff $g \circ f$ is continuous.
+	\end{ex}
+	
+	\begin{proof}
+		Since $f$ is a quotient map, $\MB = f_* \MA$. An exercise in the section on continuous maps implies that $g: Y \rightarrow Z$, $g$ is continuous iff $g \circ f$ is continuous.
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MA)$, $(Y_1, \MB_1)$, $(Y_2, \MB_2)$ be topological spaces, $f_1:X \rightarrow Y_1$, $f_2:X \rightarrow Y_2$ and $\phi: Y_1 \rightarrow Y_2$. Suppose that $f_1$ and $f_2$ are quotient maps and $\phi$ is a bijection. If $\phi \circ f_1 = f_2$, then $\phi$ is a homeomorphism. 
+	\end{ex}
+	
+	\begin{proof}
+		Since $f_1$ and $f_2$ are quotient maps, they are continous. Suppose that $\phi \circ f_1 = f_2$. Since $f_2$ is continuous, the previous exercise implies that $\phi$ is continuous. Since $\phi$ is a bijection, $f_1 = \phi^{-1} \circ f_2$. Similarly, since $f_1$ is continuous, the previous exercise implies that $\phi^{-1}$ is continuous. Hence $\phi$ is a homeomorphism.
+	\end{proof}
 	
 	\begin{ex} \lex{36003}
 	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is continuous and surjective. Then $f$ is a quotient map iff 
@@ -1892,7 +1910,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 	
 	\begin{ex} \lex{36004}
-	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is continuous and surjective. If $f$ is open or closed, then $f$ is a quotient map. 
+	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is continuous and surjective. If $f$ is open or $f$ is closed, then $f$ is a quotient map. 
 	\end{ex}
 	
 	\begin{proof}\
@@ -1956,6 +1974,34 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		Let $(X, \MT)$ be a topological space, $\sim$ an eqivalence relation on $X$ and $\pi:X \rightarrow X/\sim$ the projection map given by $x \mapsto \bar{x}$. We define the \tbf{quotient topology on $X / \sim$} on $X/ \sim$, denoted $\MT_{X/ \sim}$, by $$\MT_{X/ \sim} = \pi_{*}\MT$$
 	\end{defn}
 
+	\begin{ex}
+		Let $(X, \MT)$, $(Y, \MB)$ be topological spaces, $\sim$ an eqivalence relation on $X$, $\pi:X \rightarrow X/\sim$ the projection map and $f:X \rightarrow Y$. Suppose $f$ is a quotient map. If for each $a, b \in X$, $a \sim b$ iff $f(a) = f(b)$, then $(X/\sim)$ is homeomorphic to $(X, \MB)$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that for each $a, b \in X$, $a \sim b$ iff $f(a) = f(b)$. Define $\phi: {X / \sim } \rightarrow Y$ by $\phi(\bar{x}) = f(x)$. Let $\bar{a}, \bar{b} \in X/ \sim$. Suppose that $\bar{a} = \bar{b}$. Then $a \sim b$. Hence 
+		\begin{align*}
+			\phi(\bar{a})
+			& = f(a) \\
+			& = f(b) \\
+			& = \phi(b)
+		\end{align*}
+		Since $\bar{a}, \bar{b} \in X/ \sim$ are arbitrary, $\phi$ is well defined. Let $y \in Y$. Since $f$ is a quotient map, $f$ is surjective. Therefore there exists $x \in X$ such that $f(x) = y$. Thus 
+		\begin{align*}
+			\phi(\bar{x}) 
+			& = f(x) \\
+			& = y 
+		\end{align*}
+		Since $y \in Y$ is arbitrary, $\phi$ is surjective. Let $\bar{a}, \bar{b} \in X/\sim$. Suppose that $\phi(\bar{a}) = \phi(\bar{b})$. Then 
+		\begin{align*}
+			f(a)
+			& = \phi(\bar{a}) \\
+			& = \phi(\bar{b}) \\
+			& = f(b)
+		\end{align*}
+		By assumption, $a \sim b$. Hence $\bar{a} = \bar{b}$. Since $\bar{a}, \bar{b} \in X/\sim$ are arbitrary, $\phi$ is injective. Therefore, $\phi$ is a bijection. By construction $\phi \circ \pi = f$. A previous exercise implies that $\phi$ is a homeomorphism.
+	\end{proof}
+	
 	\begin{defn}\ld{36010}
 		Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $\sim_X$ an equivalence relation on $X$, $\sim_Y$ and equivalence relation on $Y$ and $f : X \rightarrow Y $. Then $f$ is said to be \tbf{$(\sim_X, \sim_Y)$-invariant} if for each $x, y \in X$, $x \sim_X y$ implies that $f(x) \sim_Y f(y)$.
 	\end{defn}
@@ -2004,38 +2050,6 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		By definition of the quotient topology, $\bar{f}^{-1}(V) \in (\pi_X)_*\MT_X$. So $\bar{f}$ is $((\pi_X)_*\MT_X, (\pi_Y)_*\MT_Y)$-continuous.
 	\end{itemize}
 	\end{proof}
-
-	\begin{ex} \lex{36012}
-		Let $(X, \MA)$ $(Y, \MB)$ be topological spaces, $\sim$ an eqivalence relation on $X$ and $f:X \rightarrow Y$. Suppose that $f$ is a quotient map and $f$ is open. If for each $a,b \in X$ $a \sim b$ iff $f(a) = f(b)$, then $\bar{f}: {X/ \sim} \rightarrow Y$ is a $(\MA, \MB)$-homeomorphism. \\
-		\tbf{Hint:} for $U \in \MT_{X/\sim}$, $\bar{f}(U) = f(\pi^{-1}(U))$
-	\end{ex}
-
-	\begin{proof}
-		Suppose that for each $a,b \in X$ $a \sim b$ iff $f(a) = f(b)$. Let $\bar{y} \in Y$. Since $f$ is surjective there exists $x \in X$ such that $f(x) = y$. Then 
-		\begin{align*}
-			\bar{f}(\bar{x})
-			& = \ol{f(x)} \\
-			& = \bar{y}
-		\end{align*}
-		so that $\bar{f}$ is surjective. Let $\bar{a}, \bar{b} \in {X/ \sim}$. Then 
-		\begin{align*}
-			\bar{f}(\bar{a}) = \bar{f}(\bar{b})
-			& \implies \ol{f(a)} = \ol{f(b)} \\
-			& \implies f(a) = f(b) \\
-			& \implies a \sim b \\
-			& \implies \bar{a} = \bar{b}
-		\end{align*}
-		So that $\bar{f}$ is injective. Hence $\bar{f}$ is a bijection. \\
-		Since $f$ is $(\MA, \MB)$-continuous and $\sim$-invariant, the previous exercise implies that $\bar{f}: {X / \sim} \rightarrow Y$ is $(\MT_{X/\sim}, \MB)$-continuous. \\
-		Let $U \subset \MT_{X/\sim}$. Then $\pi^{-1}(U) \in \MA$. Since $f$ is open, 
-		\begin{align*}
-			\bar{f}(U) 
-			& = f(\pi^{-1}(U)) \\
-			& \in \MB
-		\end{align*}
-		Since $U \subset \MT_{X/\sim}$ is arbitrary, $\bar{f}$ is open. Therefore, $\bar{f}^{-1}$ is continuous. So $\bar{f}$ is a homeomorphism.
-	\end{proof}
-	
 
 	\begin{defn} \ld{}
 		We define the category $\TopEq$ 
@@ -6788,22 +6802,37 @@ Hence $\|x + y\| \leq \|x\| + \|y\|$.
 \end{defn}
 
 \begin{ex} \lex{}\tbf{Bessel's Inequality:}\\
-Let $H$ be an inner product space and $S \subset H$. If $S$ is orthonormal, then for each $x \in H$, $$\sum_{u \in S} | \l u, x \r |^2  \leq \|x\|$$
-and in particular, $\{u \in S: \l u, x\r \neq 0\}$ is countable.
+Let $H$ be an inner product space and $S \subset H$. If $S$ is orthonormal, then for each $x \in H$, 
+\begin{enumerate}
+	\item $\sum\limits_{u \in S} | \l u, x \r |^2  \leq \|x\|$
+	\item  $\{u \in S: \l u, x\r \neq 0\}$ is countable.
+\end{enumerate}
 \end{ex}
 
 \begin{proof}
-Suppose that $S$ is orthonormal. Let $x \in H$ and $F \subset S$ finite. Then the Pythagorean theorem implies that  
-\begin{align*}
-0 
-& \leq \bigg \|x - \sum_{u \in F} \l u, x \r u \bigg \|^2 \\
-&= \|x\|^2 + \bigg \| \sum_{u \in F} \l u, x \r u \bigg \|^2 - 2 \Re \bigg \l x, \sum_{u \in F} \l u, x \r u \bigg \r  \\
-&= \|x\|^2 +  \sum_{u \in F} |\l u, x \r|^2 \|u\|^2 - 2 \sum_{u \in F} | \l u, x \r|^2  \\
-&= \|x\|^2 -  \sum_{u \in F} |\l u, x \r|^2 
-\end{align*}
-So $$\sum_{u \in F} | \l u, x \r |^2  \leq \|x\|$$
-By definition of the sum, $$\sum_{u \in S} | \l u, x \r |^2  \leq \|x\|$$
-Basic integration theory then tells us that $\{u \in S: \l u, x\r \neq 0\}$ is countable.
+\begin{enumerate}
+	\item Suppose that $S$ is orthonormal. Let $x \in H$. We consider the measure space $(S, \MP(S), \#)$. Define $f_x: S \rightarrow \Rg$ by $f_x(u) = \l u, x\r $. Basic results about counting measure imply that
+	\begin{align*}
+		\sum_{u \in S} |\l u, x\r |^2
+		& = \int |f_x|^2 \, d\# \\
+		& = \sup \bigg \{\sum_{u \in F} |f_x(u)|^2: F \subset S \text{ and } \#(F) < \infty \bigg\}
+	\end{align*}
+	Let $F \subset S$ finite. Then the Pythagorean theorem implies that  
+	\begin{align*}
+		0 
+		& \leq \bigg \|x - \sum_{u \in F} \l u, x \r u \bigg \|^2 \\
+		&= \|x\|^2 + \bigg \| \sum_{u \in F} \l u, x \r u \bigg \|^2 - 2 \Re \bigg \l x, \sum_{u \in F} \l u, x \r u \bigg \r  \\
+		&= \|x\|^2 +  \sum_{u \in F} |\l u, x \r|^2 \|u\|^2 - 2 \sum_{u \in F} | \l u, x \r|^2  \\
+		&= \|x\|^2 -  \sum_{u \in F} |\l u, x \r|^2 
+	\end{align*}
+	Thus 
+	$$\sum_{u \in F} | \l u, x \r |^2  \leq \|x\|$$
+	Since $F \subset X$ such that $\#(F) < \infty$ was arbitrary, we have that  
+	$$\sum_{u \in S} | \l u, x \r |^2  \leq \|x\|$$
+	\item Since 
+	$$\int |f_x|^2 \dsh < \infty$$
+	basic results about counting measure imply that $\{u \in S: \l u, x\r \neq 0\}$ is countable.
+\end{enumerate}
 \end{proof}
 
 \begin{defn} \ld{}
@@ -6811,7 +6840,7 @@ Basic integration theory then tells us that $\{u \in S: \l u, x\r \neq 0\}$ is c
 \end{defn}
 
 \begin{ex} \lex{}
-Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. Then the followong are equivalent: 
+Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. Then the following are equivalent: 
 \begin{enumerate}
 \item For each $x \in H$, if for each $u \in S$, $\l u, x \r = 0$, then $x =0$.
 \item For each $x \in H$, there exist $(u_j)_{j\in \N} \subset S$ such that $x = \sum\limits_{j \in \N} \l u_j, x\r u_j$ and for each $u \not \in (u_j)_{j\in \N}$, $\l u, x\r =0$.
@@ -6867,7 +6896,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 		&= \sum_{j \in \N}|\l u_j, x\r |^2  \\
 		&= \sum_{u \in S}|\l u, x\r |^2 
 		\end{align*}
-		\item $(3) \implies (4)$:\\
+		\item $(3) \implies (1)$:\\
 		Suppose that for each $x \in H$, $\|x\|^2 = \sum\limits_{u \in S} | \l u, x \r |^2$. Let $x \in H$. Suppose that for each $u \in S$, $\l u,x \r = 0$. Then 
 		\begin{align*}
 		\| x\|^2 
@@ -9759,9 +9788,259 @@ Then
 	\begin{defn} \ld{00000} 
 		Let $G$ be a topological group. We say that $G$ is a \tbf{locally compact group} if $G$ is locally compact and Hausdorff.
 	\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\section{Group Actions}
+	
+	\subsection{Introduction}
+	
+	\begin{note}
+		Let $X,Y,X$. We recall that for $f:X \times Y \rightarrow Z$, $a \in X$ and $b \in Y$, the maps $f_a:Y \rightarrow Z$ and $f^b:X \rightarrow Z$ are defined by 
+		$$f_a(y) = f(a,y) \quad f^b(x) = f(x, b)$$
+	\end{note}
+	
+	\begin{defn}
+		Let $\MC$ a category with products, $G, X \in \Obj(C)$ and $\phi \in \Hom_{\MC}( G \times X,  X)$. Suppose that $G$ is a group. Then $\phi$ is said to be a \tbf{group action} of $G$ on $X$ if 
+		\begin{enumerate}
+			\item for each $x \in X$, $\phi_e = \id_X$ 
+			\item for each $g, h \in G$, $\phi_{gh} = \phi_g \circ \phi_h$
+		\end{enumerate}
+	\end{defn}
+
+	\begin{note}
+		When the context is clear, we will write $g \cdot x$ in place of $\phi(g, x)$. 
+	\end{note}
+
+	\begin{ex}
+		Let $\MC$ a category with products, $G, X \in \Obj(C)$ and $\phi \in \Hom_{\MC}( G \times X,  X)$. Suppose that $G$ is a group and $\phi$ group action. Then for each $g \in G$, $\phi_g \in \Aut(X)$.
+	\end{ex}
+
+	\begin{proof}
+		Let $g \in G$. Then 
+		\begin{align*}
+			\phi_g \circ \phi_{g^{-1}}(x) 
+			& = \phi_g (\phi_{g^{-1}}(x)) \\
+			& = g \cdot (g^{-1} \cdot x) \\
+			& = (g g^{-1}) \cdot x \\
+			& = e \cdot x \\
+			& = x 
+		\end{align*} 
+		Since $x \in X$ is arbitrary, $\phi_g \circ \phi_{g^{-1}} = \id_X$. Similarly, $\phi_{g^{-1}} \circ \phi_g = \id_X$. Hence $\phi_g \in \Aut(X)$.
+	\end{proof}
+
+	\begin{defn}
+		Let $\MC$ a category with products, $G, X \in \Obj(C)$ and $\phi \in \Hom_{\MC}( G \times X,  X)$. Suppose that $G$ is a group and $\phi$ group action. We define $\hat{\phi}: G \rightarrow \Aut(X)$ by $\hat{\phi}(g) = \phi_g$.
+	\end{defn}
+
+	\begin{ex}
+		Let $\MC$ a category with products, $G, X \in \Obj(C)$ and $\phi \in \Hom_{\MC}( G \times X,  X)$. Suppose that $G$ is a group and $\phi$ group action. Then $\hat{\phi}: G \rightarrow \Aut(X)$ is a group homomorphism.
+	\end{ex}
+
+	\begin{proof}
+		Clear by definition.
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\subsection{Homogeneous Spaces}
+	
+	\begin{defn}
+		Let $G$ be a topological group, $X$ a topological space and $\phi: G \times X \rightarrow X$ a continous group action. Then $(X, \phi)$ is said to be a \tbf{homogeneous $G$-space} if
+		\begin{itemize}
+			\item $\phi$ is transitive
+			\item for each $x \in X$, $\phi_x : G \rightarrow X$ is open
+		\end{itemize} 
+	\end{defn}
+
+	\begin{defn}
+		Let $G$ be a topological group, $H < G$. We define $\phi_H: H \times G \rightarrow G$ by $\phi(h, g) = g h^{-1}$.
+	\end{defn}
+
+	\begin{ex}
+		
+	\end{ex}
+
+	\begin{ex}
+		Let $G$ be a topological group, $H < G$ a closed subgroup of $G$. Then $(G/H, \phi_H)$
+	\end{ex}
+	
+	\begin{ex}
+		Let $G$ be a topological group, $H < G$ a closed subgroup of $G$ and $(X, \phi)$ a homogeneous $G$-space. 
+	\end{ex}
 	
 	
 	
+	
+	
+	
+	\subsection{Common Examples}
+		\begin{ex}
+		Let $H$ be a Hilbert space and $x, y \in H$. Then $\| x \| = \|y\|$ iff there exists $U \in U(H)$ such that $x = Uy$.   
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item ($\implies$) :
+			Suppose that $\| x \| = \|y\|$. An exercise 
+			\item ($\impliedby$): 
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+		Let $H$ be a Hilbert space. Then 
+		\begin{enumerate}
+			\item $\|\cdot\|: H \rightarrow \Rg$ is a quotient map
+			\item $H / U(H)$ is homeomorphic to $\Rg$ 
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}
+		content...
+	\end{proof}
+	
+	\begin{defn}
+		Let $n,k \in \N$. Suppose that $n \geq k$.  We define the \tbf{Stiefel manifold}, denoted $V_k(\R^n)$, by 
+		$$V_k(\R^n) = \{A \in \R^{n \times k}: A^* A = I\}$$ 
+		We define the \tbf{orthogonal matrices}, denoted by $O(n)$, by 
+		$$O(n) = V_n(\R^n)$$ 
+	\end{defn}
+	
+	\begin{note}
+		We note that for each $X \in V_k(\R^n)$, $\rnk X = k$ and for each $U \in O(n)$, $UU^* = I$.
+	\end{note}
+	
+	\begin{ex}
+		Let $X, Y \in \R^{n \times k}$. Suppose that $\rnk X = k$ and $\rnk Y = k$. Then $XX^* = YY^*$ iff there exists $U \in O(k)$ such that $X = YU$. \\
+		\tbf{Hint:} $\rnk X = \rnk X^*X$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $XX^* = YY^*$. Since $\rnk X = k$, we have that  
+			\begin{align*}
+				\rnk XX^* 
+				& = \rnk X \\
+				& = k
+			\end{align*}
+			Since $X^*X \in \R^{k \times k}$, $X^*X$ is invertible. Hence 
+			\begin{align*}
+				X
+				& = XI \\
+				& = X(X^*X)(X^*X)^{-1} \\
+				& = (XX^*) X (X^*X)^{-1} \\
+				& = (YY^*) X (X^*X)^{-1} \\
+				& = Y(Y^*X)(X^*X)^{-1}
+			\end{align*}
+			Set $U =(Y^*X)(X^*X)^{-1}$. Then $X = YU$ and  
+			\begin{align*}
+				U^*U
+				& = \bigg( (Y^*X)(X^*X)^{-1} \bigg)^* (Y^*X)(X^*X)^{-1} \\
+				& = (X^*X)^{-1} (X^* Y) (Y^*X) (X^*X)^{-1} \\
+				& = (X^*X)^{-1} X^* (YY^*)X (X^*X)^{-1} \\
+				& = (X^*X)^{-1} X^* (XX^*)X (X^*X)^{-1} \\
+				& = (X^*X)^{-1} (X^* X) (X^*X) (X^*X)^{-1} \\
+				& = I
+			\end{align*}
+			Thus $U \in O(k)$.
+			\item $(\impliedby)$: \\
+			Suppose that there exists $U \in O(k)$ such that $X = YU$. Then 
+			\begin{align*}
+				XX^*
+				& = (YU) (YU)^* \\
+				& = (YU) (U^* Y^*)  \\
+				& =  Y (UU^*) Y^* \\
+				& = Y I Y^* \\
+				& = YY^*
+			\end{align*}
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+		Define $f: V$
+	\end{ex}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		\section{Quotient Groups}
+	\begin{defn}
+		Let 
+	\end{defn}
 	
 	
 	

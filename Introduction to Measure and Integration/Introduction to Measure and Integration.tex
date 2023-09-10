@@ -193,6 +193,7 @@
 % notation
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
+\renewcommand{\Im}{\text{Im} \,}
 \newcommand{\tbf}[1]{\textbf{#1}}
 \newcommand{\tcb}[1]{\textcolor{blue}{#1}}
 \newcommand{\mbf}[1]{\mathbf{#1}}
@@ -223,6 +224,7 @@
 \newcommand{\dP}{\, d P}
 \newcommand{\dQ}{\, d Q}
 \newcommand{\dm}{\, d m}
+\newcommand{\dsh}{\, d \#}
 
 % abreviations 
 \newcommand{\lsc}{lower semicontinuous}
@@ -2840,6 +2842,48 @@
 		\end{enumerate}
 	\end{proof}
 
+	\begin{defn}
+		Let $X$ be a set. We define \tbf{counting measure} on $X$, denoted $\#: \MP(X) \rightarrow \RG$, by
+		$$\#(E) = |E|$$ where $|\cdot|: \MP(X) \rightarrow \RG$ denotes the cardinality of $E$. 
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a set. Then $\#: \MP(X) \rightarrow \RG$ is a measure. \\
+		\tcb{COMPARE WITH BOOK}\\
+		\tcb{FINISH!!!}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Clearly $\#(\varnothing) = 0$
+			\item Let $(A_n)_{n \in \N} \subset \MP(X)$. Suppose that $(A_n)_{n \in \N}$ is disjoint. Set $A = \bigcup\limits_{n \in \N} A_n$ and $J = \{n \in \N: A_n \neq \varnothing\}$. We note that $A = \bigcup\limits_{n \in J} A_n$. Suppose that $|J| = \infty$. Since $(A_n)_{n \in \N}$ is disjoint, we have that 
+			\begin{align*}
+				\infty
+				& = \sum_{n \in J} 1 \\
+				& \leq \sum_{n \in J} |A_n| \\
+				& = \sum_{n \in \N} |A_n| \\
+				& = \sum_{n \in \N} \#(A_n) 
+			\end{align*}
+			and 
+			\begin{align*}
+				\infty
+				& = \bigg| \bigcup_{n \in J} A_n \bigg| \\
+				& \leq \bigg| A \bigg| \\
+				& = \#(A)
+			\end{align*}
+			Thus 
+			\begin{align*}
+				\#(A) 
+				& = \infty \\
+				& = \sum_{n \in J} \#(A_n) 
+			\end{align*}
+			Suppose that $|J| < \infty$. Then there exists $N \in \N$ such that $A = \bigcup\limits_{n=1}^N A_n$. Then the principal of inclusion-exclusion implies that 
+			\begin{align*}
+				A
+				& = 
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
 
 
 
@@ -3224,59 +3268,154 @@
 		Hence $$\limpn \int_E f_n \leq \int_E f \leq \limfn \int_E f_n$$ and therefore $$\limn \int_E f_n = \int_E f.$$ 
 		
 		If we drop the assumption that $\int f < \infty$, then the result would fail to be true for the functions $f = \infty \chi_{(0,1)}$ and $ f_n = \infty \chi_{(0,1)} + n \chi_{(1,1+1/n)}$. Here $f_n \xrightarrow{\text{p.w.}} f$, $\limn \int f_n = \int f = \infty$ and $\limn \int_{(1,\infty)} f_n = 1$ while $\int_{(1,\infty)} f = 0$.  
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $X$ be a set and $f \in L^+(X, \MP(X))$. Then 
+		$$\int f \dsh =  \sup \bigg \{\sum_{x \in F}f(x): F \subset X \text{ and } \#(F) < \infty \bigg \}$$
+	\end{ex} 
+
+	\begin{proof}
+		Define $A,B \subset \RG$ by 
+		$$A_1 = \bigg \{\int \phi: \phi \in S^+(X, \MA) \text{ and } \phi \leq f \bigg \}, \quad A_2 = \bigg \{\sum_{x \in F}f(x): F \subset X \text{ and } \#(F) < \infty \bigg \}$$ 
+		Let $y \in A_1$. Then there exists $\phi \in S^+(X, \MA)$ such that $\phi \leq f$ and 
+		$$y = \int \phi \dsh$$  
+		Thus there exist $(E_j)_{j=1}^n \subset \MP(X)$ and $(a_j)_{j =1}^n \subset \Rg$ such that $\Im \phi = (a_j)_{j =1}^n$, $(E_j)_{j=1}^n$ is disjoint and $\phi = \sum\limits_{j=1}^n a_j \chi_{E_j}$. \\
+		Suppose that $y = \infty$. Then $\sup A_1 = \infty$. If for each $j \in \{1, \ldots, n\}$, $a_j = 0$ or $\#(E_j) \neq \infty$, then 
+		\begin{align*}
+			y
+			& = \int \phi \dsh \\
+			& = \sum_{j=1}^n a_j \#(E_j) \\
+			& < \infty 
+		\end{align*}
+		which is a contradiction. Therefore, there exists $j_0 \in \{1, \ldots, n\}$ such that $a_{j_0} >0$ and $\#(E_{j_0}) = \infty$. Then there exists $(x_l)_{l \in \N} \subset E_{j_0}$ such that for each $k, l \in \N$, $k \neq l$ implies that $x_k \neq x_l$. For $k \in \N$, define $F_k \subset E_{j_0}$ by 
+		$$F_k = \bigcup_{l=1}^k \{x_l\}$$
+		Then for each $k \in \N$, $\#(F_k) = k$ and 
+		\begin{align*}
+			a_{j_0} k
+			& = \sum_{x \in F_k} \phi(x) \\
+			& \leq \sum_{x \in F_k}f(x) \\
+			& \in A_2
+		\end{align*}
+		which implies that
+		\begin{align*}
+			\sup A_2
+			& \geq \sup_{k \in \N}  \sum_{x \in F_k}f(x) \\
+			& \geq \sup_{k \in \N} a_{j_0} k
+		\end{align*}
+		Since $k \in \N$ is arbitrary, $\sup A_2 = \infty$ and in particular, $y \leq \sup A_2$.\\
+		Suppose that $y \neq \infty$. Then for each $j \in \{1, \ldots, n\}$, $a_j = 0$ or $\#(E_j) < \infty$. Define $J \subset \{1, \ldots, n\}$ and $F \subset X$ by 
+		$$J = \{j \in \{1, \ldots, n\}: \#(E_j) < \infty \}, \quad F = \bigcup_{j \in J}E_j$$
+		We note that since $J$ is finite, $\#(F) < \infty$ and for each $j \in J^c$, $a_j = 0$. Therefore
+		\begin{align*}
+			y
+			& = \int \phi \dsh \\
+			& = \sum_{j =1}^n a_j \#(E_j) \\
+			& = \sum_{j \in J} a_j \#(E_j) \\
+			& = \sum_{j \in J} \sum_{x \in E_j} \phi(x) \\
+			& = \sum_{x \in F} \phi(x) \\
+			& \leq \sum_{x \in F} f(x) \\
+			& \leq \sup A_2 
+		\end{align*}
+		Since for each $y \in A_1$, $y \leq \sup A_2$, we have that $\sup A_1 \leq \sup A_2$. \\
+		Conversely, let $y \in A_2$. Then there exists $F \subset X$ such that $\#(F) < \infty$ and $y = \sum\limits_{x \in F} f(x)$.
+		Define $\phi \in S^+(X, \MP(X))$ by $\phi = f \chi_F$. Then $\phi \leq f$ and 
+		\begin{align*}
+			y 
+			& = \int \phi \dsh \\
+			& \in A_1
+		\end{align*}
+		Since $y \in A_2$ is arbitrary, $A_2 \subset A_1$. Thus $\sup A_2 \leq \sup A_1$. Therefore
+		\begin{align*}
+			\int f \dsh 
+			& = \sup A_1 \\
+			& = \sup A_2
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		 	Let $X$ be a set and $f \in L^+(X, \MP(X))$. If $f$ is integrable, then $\{x \in X: f(x) > 0\}$ is countable.
+	\end{ex}
+
+	\begin{proof} \lex{00000}
+		Suppose that $f$ is integrable. For $n \in \N$, set $X_n = \{x \in X: f(x) > 1/n\}$ and define $X_+ = \{x \in X: f(x) > 0\}$. Then $X_+ = \bigcup\limits_{n \in \N}X_n$. Since $f$ is integrable, we have that for each $n \in \N$,
+		\begin{align*}
+			\infty 
+			&> \int f \dsh\\
+			&\geq \int_{X_n} f \dsh \\
+			&\geq \frac{1}{n} \#(X_n).
+		\end{align*}
 		
+		Thus for each $n \in \N$, $X_n$ is finite and $X_+$ is countable.
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $f \in L^+$. Define $\lam: \MA \rightarrow \RG$ by $\lam(E) = \int_E f d\mu$ for $E \in \MA$
-		Then $\lam$ is a measure on $(X, \MA)$ and for each $g \in L^+$, $\int g d\lam = \int g f d\mu$.
+		Let $(X, \MA, \mu)$ be a measure space and $f \in L^+(X, \MA)$. Define $\lam_f: \MA \rightarrow \RG$ by 
+		$$\lam_f(E) = \int_E f d\mu$$ 
+		Then 
+		\begin{enumerate}
+			\item $\lam_f$ is a measure on $(X, \MA)$ 
+			\item for each $g \in L^+(X, \MA)$, 
+			$$\int g d\lam_f = \int g f d\mu$$
+		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
-		Clearly $\lam(\varnothing) = 0$. Let $(A_j)_{j \in \N} \subset \MA$ and suppose that for each $i, j \in \N$, if $i \neq j$, then $A_i \cap A_j = \varnothing$. For now, suppose that $f$ is simple. Then there exist $E_1, E_2, \cdots, E_n \in \MA$ and  $a_1, a_2, \cdots, a_n \in \Rg$ such that $f = \sum\limits_{i=1}^n a_i \chi_{E_i}$.  Then 
-		\begin{align*}
-			\lam\bigg(\bigcup_{j \in \N} A_j\bigg) 
-			&= \int_{\bigcup_{j \in \N} A_j} f\\
-			&= \sum_{i = 1} ^n a_i\mu\bigg(E_i \cap \bigg(\bigcup_{j \in \N} A_j\bigg)\bigg)\\
-			&= \sum_{i = 1} ^n a_i\mu\bigg(\bigcup_{j \in \N} E_i \cap A_j\bigg)\\
-			&= \sum_{i = 1} ^n a_i \sum_{j \in \N} \mu(E_i \cap A_j)\\
-			&= \sum_{j \in \N} \sum_{i = 1} ^n a_i \mu(E_i \cap A_j)\\
-			&= \sum_{j \in \N} \int_{A_j} f\\
-			&= \sum_{j \in \N} \lam(A_j)
-		\end{align*} 
-		Hence $\lam$ is a measure on $(X, \MA)$. Now, for a general f, there exist $(\phi_n)_{n \in \N} \subset L^+$ such that for each $n \in \N$, $\phi_n$ is simple, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \xrightarrow{\text{p.w.}} f$. Put $A = \bigcup_{j \in \N}A_j$ and define the measures $\lam_n$ by $\lam_n(E) = \int_E \phi_n$. Note that we may define a monotonically increasing sequence of functions $g_n: \|\rightarrow \RG$ by $g_n(j) = \int_{A_j} \phi_n$. Using monotone convergence three times and a nice application of the counting measure on $\N$, we may write
-		
-		\begin{align*}
-			\lam(A) 
-			&= \int_A f\\
-			&= \limn \int_A \phi_n\\
-			&= \limn \sum_{j \in \N} \int_{A_j} \phi_n\\
-			&= \sum_{j \in \N} \limn \int_{A_j} \phi_n \hspace{4mm} \text{(by the above)}\\
-			&= \sum_{j \in \N} \int_{A_j} f\\
-			&= \sum_{j \in \N} \lam(A_j).
-		\end{align*} 
-		
-		Hence $\lam$ is a measure on $(X, \MA)$. Let $g \in L^+$. First assume that $g$ is simple. Then there exist $E_1, E_2, \cdots, E_n \in \MA$ and  $a_1, a_2, \cdots, a_n \in \Rg$ such that $g = \sum\limits_{i=1}^n a_i \chi_{E_i}$.
-		In this case, we have that 
-		\begin{align*}
-			\int g d\lam 
-			&= \sum_{i=1}^n a_i \lam(E_i)\\
-			&= \sum_{i=1}^n a_i \int_{E_i} f d\mu\\
-			&= \int \bigg(\sum_{i=1}^n a_i\chi_{E_i} \bigg) f d\mu\\
-			&= \int gf d\mu.
-		\end{align*}
-		
-		Now for a general $g \in L^+$, there exist $(\psi_n)_{n \in \N} \subset L^+$ such that for each $n \in \N$, $\psi_n$ is simple, $\psi_n \leq \psi_{n+1} \leq f$ and $\psi_n \xrightarrow{\text{p.w.}} g$. Monotone convergence then gives us 
-		\begin{align*}
-			\int g d\lam 
-			&= \limn \int \psi_n d\lam\\
-			&= \limn \int \psi_n f d\mu\\
-			&= \int g f d\mu \text{ as required.}
-		\end{align*}
+	\begin{proof}\
+		\begin{enumerate}
+			\item Clearly $\lam_f(\varnothing) = 0$. Let $(A_j)_{j \in \N} \subset \MA$ and suppose that for each $i, j \in \N$, if $i \neq j$, then $A_i \cap A_j = \varnothing$. Suppose that $f \in S^+(X, \MA)$. Then there exist $E_1, E_2, \cdots, E_n \in \MA$ and  $a_1, a_2, \cdots, a_n \in \Rg$ such that $f = \sum\limits_{i=1}^n a_i \chi_{E_i}$.  Then 
+			\begin{align*}
+				\lam_f\bigg(\bigcup_{j \in \N} A_j\bigg) 
+				&= \int_{\bigcup_{j \in \N} A_j} f\\
+				&= \sum_{i = 1} ^n a_i\mu\bigg(E_i \cap \bigg(\bigcup_{j \in \N} A_j\bigg)\bigg)\\
+				&= \sum_{i = 1} ^n a_i\mu\bigg(\bigcup_{j \in \N} E_i \cap A_j\bigg)\\
+				&= \sum_{i = 1} ^n a_i \sum_{j \in \N} \mu(E_i \cap A_j)\\
+				&= \sum_{j \in \N} \sum_{i = 1} ^n a_i \mu(E_i \cap A_j)\\
+				&= \sum_{j \in \N} \int_{A_j} f\\
+				&= \sum_{j \in \N} \lam_f(A_j)
+			\end{align*} 
+			Hence $\lam_f$ is a measure on $(X, \MA)$. Suppose that $f \not \in S^+(X, \MA)$. Then there exist $(\phi_n)_{n \in \N} \subset L^+$ such that for each $n \in \N$, $\phi_n$ is simple, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \xrightarrow{\text{p.w.}} f$. Set $A = \bigcup_{j \in \N}A_j$ and for $n \in \N$, define $\lam_n: \MA \rightarrow \RG$ by 
+			$$\lam_n(E) = \int_E \phi_n \dmu$$ 
+			From above, we have that for each $n \in \N$, $\lam_n \in \MM(X, \MA)$. For $n \in \N$, we define $g_n \in L^+(\N, \MP(\N))$ by 
+			$$g_n(j) = \int_{A_j} \phi_n \dmu $$ 
+			Then for each $n \in \N$, $g_n \leq g_{n+1}$. 
+			The monotone convergence theorem implies that
+			\begin{align*}
+				\lam_f(A) 
+				& = \int_A f \dmu\\
+				& = \limn \int_A \phi_n \dmu \hspace{4mm} \text{(by monotone convergence theorem)} \\ 
+				& = \limn \lam_n(A) \hspace{4mm} \text{(by definition)} \\ 
+				& = \limn \sum_{j \in \N} \lam_n(A_j)  \hspace{4mm} \text{(by the above)} \\
+				& = \limn \sum_{j \in \N} \int_{A_j} \phi_n \\
+				& = \limn \sum_{j \in \N} g_n(j) \\
+				& = \limn \int g_n \, \dsh \\
+				& = \int \limn g_n \, \dsh \hspace{4mm} \text{(by monotone convergence theorem)} \\ 
+				& = \sum_{j \in \N} \limn \int_{A_j} \phi_n \hspace{4mm} \\
+				& = \sum_{j \in \N} \int_{A_j} f \\
+				& = \sum_{j \in \N} \lam_f(A_j).
+			\end{align*} 
+			Hence $\lam$ is a measure on $(X, \MA)$. 
+			\item Let $g \in L^+$. First assume that $g$ is simple. Then there exist $E_1, E_2, \cdots, E_n \in \MA$ and  $a_1, a_2, \cdots, a_n \in \Rg$ such that $g = \sum\limits_{i=1}^n a_i \chi_{E_i}$.
+			In this case, we have that 
+			\begin{align*}
+				\int g d\lam 
+				&= \sum_{i=1}^n a_i \lam(E_i)\\
+				&= \sum_{i=1}^n a_i \int_{E_i} f d\mu\\
+				&= \int \bigg(\sum_{i=1}^n a_i\chi_{E_i} \bigg) f d\mu\\
+				&= \int gf d\mu.
+			\end{align*}
+			Now for a general $g \in L^+$, there exist $(\psi_n)_{n \in \N} \subset S^+(X, \MA)$ such that for each $n \in \N$, $\psi_n \leq \psi_{n+1} \leq g$ and $\psi_n \xrightarrow{\text{p.w.}} g$. Therefore for each $n \in \N$, $\psi_n f \leq \psi_{n+1}f \leq gf$ and $\psi_nf \xrightarrow{\text{p.w.}} gf$. Monotone convergence implies that
+			\begin{align*}
+				\int g \dlam 
+				&= \limn \int \psi_n \dlam\\
+				&= \limn \int \psi_n f \dmu \\
+				&= \int g f \dmu 
+			\end{align*}
+		\end{enumerate}
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Let $(f_n)_{n \in \N} \subset L^+$ and $f \in L^+$. Suppose that for each $n \in \N$, $f_n \geq f_{n+1}$, $f_n \xrightarrow{\text{p.w.}} f$ and $\int f_1 < \infty$. Then $\limn \int f_n = \int f$.
+		Let $(f_n)_{n \in \N} \subset L^+$ and $f \in L^+$. Suppose that for each $n \in \N$, $f_n \geq f_{n+1}$, $f_n \xrightarrow{\text{p.w.}} f$ and $f_1$ is integrable. Then 
+		$$\limn \int f_n = \int f$$
 	\end{ex}
 	
 	\begin{proof}
@@ -3356,6 +3495,10 @@
 		\end{align*}
 		Hence $|g - h| = 0$ $f_*\mu$-a.e. and $g = h$ $f_*\mu$-a.e.
 	\end{proof}
+
+	\begin{note}
+		The previous exercise says that in the category of measurable spaces where morphisms are measure preserving (under pushforward) measurable maps, then all morphisms are epimorphisms.
+	\end{note}
 
 	
 	
@@ -3658,34 +3801,11 @@
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
-		Denote by $\#$ the counting measure on the measurable space $(X, \MP(X))$. Let $f:X \rightarrow \C$ and suppose that $f \in L^1$. Then $$\int f d\# = \sum_{x \in X}f(x).$$ In particular, if $f$ is integrable, then $\{x \in X: f(x) \neq 0\}$ is countable.
+		Let $X$ be a set and $f \in L^1(X, \MP(X), \#)$. Then $\{x \in X: f(x) \neq 0\}$ is countable.
 	\end{ex}
 	
-	\begin{proof} Please refer to the definition of the sum in the appendix. First suppose that $f(X) \subset \Rg$. For $n \in \N$, put $X_n = \{x \in X: f(x) > 1/n\}$ and define $X_+ = \{x \in X: f(x) > 0\}$, $X_0 = \{x \in X: f(x) = 0\}$ Then $X_+ = \bigcup\limits_{n \in \N}X_n$. Since $f \in L^1$, we have that for each $n \in \N$,
-		\begin{align*}
-			\infty 
-			&> \int f d\#\\
-			&\geq \int_{X_n} f d\# \\
-			&\geq \frac{1}{n} \#(X_n).
-		\end{align*}
-		
-		Thus for each $n \in \N$, $X_n$ is finite and $X_+$ is countable. Thus there exists $\{x_n\}_{n \in \N} \subset X$ such that $X_+ = \{x_n\}_{n \in \N}$. For $n \in \N$, define $E_n = \{x_1, x_2, \cdots, x_n\}$ and 
-		\begin{align*}
-			f_n 
-			&= f \chi_{E_n}\\
-			&= \sum_{i = 1}^n f(x_i)\chi_{\{x_i\}}
-		\end{align*}
-		
-		Then $f_n \xrightarrow{\text{p.w.}} f\chi_{X_+} = f$ and for each $n \in \N, f_n \leq f_{n+1}$. So
-		\begin{align*}
-			\int f 
-			&= \sup_{n \in \N} \int f_n\\
-			&= \sup_{n \in \N} \sum_{i =1}^n f(x_i)\\
-			&= \sum_{x \in X_+} f(x)\\
-			&=\sum_{x \in X} f(x).
-		\end{align*} 
-		
-		For $f:X \rightarrow \C$, our $L^1$ assumption and the result above tell us that $$\sum_{x \in X}|f(x)| < \infty.$$ Thus writing $f = g+ih$, we see that the same is true for $f^+,f^-,g^+,g^-$. Simply using the definitions of the sum and the integral, as well as the result from above, we have that $$\int fd\# = \sum_{x \in X}f(x).$$
+	\begin{proof} 
+		Since $\{x \in X: f(x) \neq 0\} = \{x \in X: |f|(x) > 0\}$ and $|f| \in L^1(X, \MP(X))$, an exercise in the previous section implies that $\{x \in X: f(x) \neq 0\}$ is countable.
 	\end{proof}
 	
 	\begin{ex} \lex{00000} 
