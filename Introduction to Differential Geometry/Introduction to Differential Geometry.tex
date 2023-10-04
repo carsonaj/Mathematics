@@ -151,6 +151,9 @@
 \newcommand{\MY}{\mathcal{Y}}
 \newcommand{\MZ}{\mathcal{Z}}
 
+% mathfrak
+\newcommand{\MFX}{\mathfrak{X}}
+
 % tilde 
 \newcommand{\tMA}{\tilde{\MA}}
 \newcommand{\tMB}{\tilde{\MB}}
@@ -197,10 +200,15 @@
 \DeclareMathOperator{\diam}{diam}
 \DeclareMathOperator{\rnk}{rank}
 \DeclareMathOperator{\prj}{\text{proj}}
+\DeclareMathOperator{\nab}{\nabla}
+\DeclareMathOperator{\diag}{\text{diag}}
+\DeclareMathOperator*{\ind}{\text{\text{ind}}}
 
 
 % category theory
 \DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
+\DeclareMathOperator*{\Maninf}{\text{\tbf{Man}}^{\infty}} 
+\DeclareMathOperator*{\Buninf}{\text{\tbf{Bun}}^{\infty}} 
 \DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
 \DeclareMathOperator*{\0}{\mbf{0}}
 \DeclareMathOperator*{\1}{\mbf{1}}
@@ -212,7 +220,9 @@
 % notation
 \renewcommand{\r}{\rangle}
 \renewcommand{\l}{\langle}
+\renewcommand{\div}{\text{div}}
 \renewcommand{\Im}{\text{Im} \,}
+\newcommand{\grad}{\text{grad}}
 \newcommand{\tbf}[1]{\textbf{#1}}
 \newcommand{\tcb}[1]{\textcolor{blue}{#1}}
 \newcommand{\mbf}[1]{\mathbf{#1}}
@@ -221,6 +231,8 @@
 \newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
 \newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
 \newcommand{\Perm}{\text{Perm}}
+
+
 
 % limits
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
@@ -362,7 +374,7 @@
 	\section{Linear Algebra}
 	
 	\begin{note}
-		We denote the standard basis on $\R^n$ by $(e_1, \ldots, e^n)$.
+		We denote the standard basis on $\R^n$ by $(e_1, \ldots, e_n)$.
 	\end{note}
 
 	\begin{defn}
@@ -455,21 +467,21 @@
 	
 	
 	\begin{defn}
-		Define $\phi: S_n \rightarrow GL(n, \R)$ as in the previous exercise. Let $P \in GL(n, \R)$. Then $P$ is said to be a \tbf{permutation matrix} if there exists $\sig \in S_n$ such that $P = \phi(\sig)$. We denote the set of $n \times n$ permutation matrices by $\Perm(n, \R)$.
+		Define $\phi: S_n \rightarrow GL(n, \R)$ as in the previous exercise. Let $P \in GL(n, \R)$. Then $P$ is said to be a \tbf{permutation matrix} if there exists $\sig \in S_n$ such that $P = \phi(\sig)$. We denote the set of $n \times n$ permutation matrices by $\Perm(n)$.
 	\end{defn}
 
 	\begin{ex}
 		We have that
 		\begin{enumerate} 
-			\item $\Perm(n, \R)$ is a subgroup of $GL(n, \R)$
-			\item $\Perm(n, \R)$ is a subgroup of $O(n)$
+			\item $\Perm(n)$ is a subgroup of $GL(n, \R)$
+			\item $\Perm(n)$ is a subgroup of $O(n)$
 		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
-			\item By definition, $\Perm(n, \R) = \Im \phi$. Since $\phi: S_n \rightarrow GL(n, \R)$ is a group homomorphism, $\Im \phi$ is a subgroup of $GL(n, \R)$. Hence $\Perm(n, \R)$ is a subgroup of $GL(n, \R)$.
-			\item Let $P \in \Perm(n, \R)$. Then there exists $\sig \in S_n$ such that $P = \phi(\sig)$. Then 
+			\item By definition, $\Perm(n) = \Im \phi$. Since $\phi: S_n \rightarrow GL(n, \R)$ is a group homomorphism, $\Im \phi$ is a subgroup of $GL(n, \R)$. Hence $\Perm(n)$ is a subgroup of $GL(n, \R)$.
+			\item Let $P \in \Perm(n)$. Then there exists $\sig \in S_n$ such that $P = \phi(\sig)$. Then 
 			\begin{align*}
 				PP^*
 				& = 
@@ -494,7 +506,7 @@
 				& = (\l e_{\sig(i)}, e_{\sig(j)} \r)_{i,j} \\
 				& = I
 			\end{align*}
-			A previous exercise implies that $P^*P = I$. Hence $P \in O(n)$. Since $P \in \Perm(n, \R)$ is arbitrary, $\Perm(n, \R) \subset O(n)$. Part $(1)$ implies that $\Perm(n, \R)$ is a group. Hence $\Perm(n, \R)$ is a subgroup of $O(n)$
+			A previous exercise implies that $P^*P = I$. Hence $P \in O(n)$. Since $P \in \Perm(n)$ is arbitrary, $\Perm(n) \subset O(n)$. Part $(1)$ implies that $\Perm(n)$ is a group. Hence $\Perm(n)$ is a subgroup of $O(n)$
 		\end{enumerate}
 	\end{proof}
 
@@ -531,10 +543,24 @@
 		\end{align*}
 		\end{proof}
 
+	\begin{defn}
+		Let $A \in \R^{n \times p}$. Then $A$ is said to be a \tbf{diagonal matrix} if for each $i \in [n]$ and $j \in [p]$, $i \neq j$ implies that $A_{i,j} = 0$. We denote the set of $n \times p$ diagonal  matrices by $D(n, p, \R)$. We write $D(n, \R)$ in place of $D(n, n, \R)$.
+	\end{defn}
+
+	\begin{defn}
+		For $(n, k)$, $(m, l)$ \ $\diag_{p, (n \times p)} : \R^p \rightarrow \R^{n \times p}$ and $\diag_{n, (n \times p)} : \R^p \rightarrow \R^{n \times p}$  by $\diag(v)$
+		\tcb{FINISH!!!}
+	\end{defn}
 
 
+	\begin{defn}
+		Let $A \in \R^{n \times n}$ and $\lam \in \sig(A)$. Suppose that $A$ is symmetric. We define the \tbf{geometric multiplicity} of $\lam$, denoted $\mu(\lam)$, by 
+		$$\mu(\lam) = \dim \ker ([\phi_{\al}] - \lam I)$$
+	\end{defn}
 
-
+	\begin{defn}
+		Let $V$ be an $n$-dimensional vector space, $U \subset V$ a $k$-dimensional subspace and $(e_j)_{j=1}^n \subset V$ a be a basis. Then $(e_j)_{j=1}^n$ is said to be \tbf{adapted to $U$} if $(e_j)_{j=1}^k$ is a basis for $U$.
+	\end{defn}
 
 
 
@@ -908,6 +934,8 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\newpage
 	\section{Covariant $k$-Tensors}	
 	
+	\subsection{Symmetric and Alternating Covariant $k$-Tensors}
+	
 	\begin{defn}
 		Let $\al: V^k \rightarrow \R$. Then $\alpha$ is said to be a \tbf{covariant k-tensor on V} if $\al \in T^0_k(V)$. We denote the set of covariant $k$-tensors by $T_k(V)$.
 	\end{defn}
@@ -1073,19 +1101,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{proof}
 		Clear.
 	\end{proof}
-	
-	\begin{defn}
-		Let $\al \in \Lam^k(V)$ and $\be \in \Lam^l(V)$. The \tbf{exterior product} of $\al$ and $\be$ is defined to be the map $\al \wedge \be \in \Lam^{k+l}(V)$ given by $$\al \wedge \be = \frac{(k+l)!}{k! l!} \Alt(\al \otimes \be)$$ 
-		Thus $\wedge: \Lam^k(V) \times \Lam^l(V) \rightarrow \Lam^{k+l}(V)$.
-	\end{defn}
-
-	\begin{ex}
-		The exterior product $\wedge: \Lam^k(V) \times \Lam^l(V) \rightarrow \Lam^{k+l}(V)$ is bilinear.
-	\end{ex}
-	
-	\begin{proof}
-		Clear.
-	\end{proof}
 
 	\begin{ex}
 		Let $\al \in T_k(V)$ and $\be \in T_l(V)$. Then 
@@ -1094,7 +1109,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\item $\Alt(\al \otimes \Alt(\be)) = \Alt(\al \otimes \be)$
 		\end{enumerate}
 	\end{ex}
-
+	
 	\begin{proof}
 		First note that if we fix $\mu \in S_{k+1}$, then for each $\tau \in S_k$, choosing $\sig = \mu \tau^{-1}$ yields $\sig \tau = \mu$. For each $\mu \in S_{k+l}$, the map $\phi_{\mu}: S_{k} \rightarrow S_{k+l}$ given by $\phi_{\mu}(\tau) = \mu \tau^{-1}$ is injective. Thus for each $\mu \in S_{k+l}$, we have that $\# \{ (\sig, \tau) \in S_{k+l} \times S_{k}: \mu = \sig \tau \} = k!$ 
 		\begin{enumerate}
@@ -1110,8 +1125,43 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 				&=  \frac{1}{(k+l)!} \sum_{\mu \in S_{k+l} }  \sgn(\mu) \mu (\al  \otimes \be)\\
 				&= \Alt(\al \otimes \be)
 			\end{align*} 
-		\item Similar to (1).
+			\item Similar to (1).
 		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Exterior Product}
+	
+	\begin{defn}
+		Let $\al \in \Lam^k(V)$ and $\be \in \Lam^l(V)$. The \tbf{exterior product} of $\al$ and $\be$ is defined to be the map $\al \wedge \be \in \Lam^{k+l}(V)$ given by $$\al \wedge \be = \frac{(k+l)!}{k! l!} \Alt(\al \otimes \be)$$ 
+		Thus $\wedge: \Lam^k(V) \times \Lam^l(V) \rightarrow \Lam^{k+l}(V)$.
+	\end{defn}
+
+	\begin{ex}
+		The exterior product $\wedge: \Lam^k(V) \times \Lam^l(V) \rightarrow \Lam^{k+l}(V)$ is bilinear.
+	\end{ex}
+	
+	\begin{proof}
+		Clear.
 	\end{proof}
 
 	\begin{ex}
@@ -1280,12 +1330,460 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{proof}
 		Let $(a_I)_{I \in \MI_k} \subset \R$. Let $\al = \sum\limits_{I \in \MI_k}a_I \ep^{\wedge I} $. Suppose that $\al = 0$. Then for each $J \in \MI_k$, $\al(e^J) = a_J = 0$. Thus $\{\ep^{\wedge I} : I \in \MI_k\}$ is linearly independent. Let $\be \in \Lam^k(V)$. For $I \in \MI_k$, put $b_I = \be(e^I)$. Define $\mu = \sum\limits_{I \in \MI_k} b_I\ep^{\wedge I} \in \Lam^k(V)$. Then for each $J \in \MI_k$, $\mu(e^J) = b_J = \be(e^J)$. Hence $\mu = \be$ and therefore $\be \in \spn \{\ep^{\wedge I} :I \in \MI_k\}$.
 	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	\subsection{Interior Product}
+	\begin{defn}
+		Let $V$ be a finite dimensional vector space and $v \in V$. We define \tbf{interior multiplication by $v$}, denoted $\iota_v: T_k \rightarrow T_{k-1}$, by 
+		$$\iota_v \al (w_1, \ldots, w_{k-1}) = \al(v, w_1, \ldots, w_{k-1})$$
+	\end{defn}
+
+	\begin{ex}
+		Let $V$ be a finite dimensional vector space and $v \in V$. Then $\iota_v|_{\Lam^k(V)} : \Lam^k(V) \rightarrow \Lam^{k-1}(V)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $\al \in \Lam^k(V)$. Define $\be \in \Lam^{k}(V)$ by $\be(w_1, \ldots, w_k) = \al(w_k, w_1, \ldots, w_{k-1})$ . Let $\sig \in S_{k-1}$. Define $\tau \in S_k$ by 
+		$\tau(j) = 
+		\begin{cases}
+			1       & j = k \\
+			\sig(j) & j \neq k 
+		\end{cases}$. 
+		Let $w_1, \ldots, w_{k-1} \in V$. Set $w_k = v$. Then 
+		\begin{align*}
+			\sig (\iota_v \al) (w_1, \ldots, w_{k-1})
+			& = \iota_v \al (w_{\sig(1)}, \ldots, w_{\sig(k-1)}) \\
+			& = \al (v, w_{\sig(1)}, \ldots, w_{\sig(k-1)}) \\
+			& = \be(w_{\sig(1)}, \ldots, w_{\sig(k-1)}, v) \\
+			& = \be(w_{\sig(1)}, \ldots, w_{\sig(k-1)}, w_k) \\
+			& = \be(w_{\tau(1)}, \ldots, w_{\tau(k-1)}, w_{\tau(k)}) \\
+			& = \sgn (\tau) \be (w_1, \ldots, w_{k-1}, w_k) \\
+			& = \sgn(\sig) \be (w_1, \ldots, w_{k-1}, v) \\
+			& = \sgn(\sig) \al (v, w_1, \ldots, w_{k-1}) \\
+			& = \sgn(\sig) (\iota_v \al) (w_1, \ldots, w_{k-1})
+		\end{align*}
+		Since $w_1, \ldots, w_{k-1} \in V$ are arbitrary, $\sig(\iota_v \al) = \sgn(\sig) \iota_v \al$. Hence $\iota_v \al \in \Lam^{k-1}(V)$.
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	\newpage
+	\section{$(0,2)$-Tensors}
+	\begin{defn}
+		Let $V$ be a finite dimensional vector space, $v \in V$ and $\al \in T^0_2(V)$. Then $\al$ is said to be \tbf{degenerate} if  there exists $v \in V$ such that for each $w \in V$, $\al(v, w) = 0$ and $v \neq 0$. 
+	\end{defn}
+
+	\begin{defn}
+		Let $V$ be a finite dimensional vector space, $\al \in T^0_2(V)$. We define $\phi_{\al}: V \rightarrow V^*$ by 
+		$$ \phi_{\al}(v) = \iota_v \al $$
+	\end{defn}	
+
+	\begin{ex}
+		Let $V$ be a finite dimensional vector space, $\al \in T^0_2(V)$. Then $\phi_{\al} \in L(V;V^*)$.
+	\end{ex}
+
+	\begin{proof}
+		Let $v_1, v_2 \in V$ and $\lam \in \R$. Then for each $w \in V$,
+		\begin{align*}
+			\phi_{\al}(v_1 + \lam v_2) (w)
+			& = (\iota_{v_1 + \lam v_2} \al) (w) \\
+			& = \al (v_1 + \lam v_2, w) \\
+			& = \al(v_1, w) + \lam \al(v_2, w) \\
+			& = (\iota_{v_1} \al) (w) + \lam (\iota_{v_2} \al) (w) \\
+			& = \phi_{\al}(v_1)(w) + \lam \phi_{\al}(v_2)(w) \\
+			& = [\phi_{\al}(v_1) + \lam \phi_{\al}(v_2)](w)
+		\end{align*}
+		Therefore, $\phi_{\al}(v_1 + \lam v_2) = \phi_{\al}(v_1) + \lam \phi_{\al}(v_2)$. Thus $\phi_{\al} \in L(V; V^*)$.
+	\end{proof}
+
+	\begin{ex}
+		Let $V$ be a finite dimensional vector space and $\al \in T^0_2(V)$. Then $\al$ is nondegenerate iff $\phi_{\al}$ is an isomorphism. 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item ($\implies$:) \\
+			Suppose that $\al$ is nondegenerate. Let $v \in \ker \phi_{\al}$. Then for each $w \in V$,
+			\begin{align*}
+				\al(v, w) 
+				& = (\iota_v \al) (w) \\
+				& = \phi_{\al}(v)(w) \\
+				& = 0 \\
+			\end{align*}
+			Since $\al$ is nondegenerate, $v = 0$. Since $v \in \ker \phi_{\al}$ is arbitrary, $\ker \phi_{\al} = \{0\}$. Hence $\phi_{\al}$ is injective. Since $\dim V = \dim V^*$, $\phi_{\al}$ is surjective. Hence $\phi_{\al}$ is an isomorphism.   
+			\item ($\impliedby$:) \\
+			Suppose that $\phi_{\al}$ is an isomorphism. Let $v \in V$. Suppose that for each $w \in V$, $\al(v, w) = 0$. Then for each $w \in V$,
+			\begin{align*}
+				\phi_{\al}(v)(w)
+				& = (\iota_v \al) (w) \\
+				& = \al(v, w) \\
+				& = 0
+			\end{align*}
+			Thus $\phi_{\al}(v) = 0$ which implies that $v \in \ker \phi_{\al}$. Since $\phi_{\al}$ is an isomorphism, $v = 0$. Hence $\al$ is nondegenerate. 
+		\end{itemize}
+	\end{proof}
+
+	\begin{ex}
+		Let $V$ be a finite dimensional vector space and $\al \in T^0_2(V)$. Then
+		\begin{enumerate}
+			\item $[\phi_{\al}]_{i,j} = \al(e_j, e_i)$
+			\item for each $v, w \in V$, 
+			$$\al(v, w) = [w]^*[\phi_{\al}] [v]$$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		\begin{enumerate}
+			\item Set $A = [\phi_{\al}]$. Let $i, j \in \{1, \ldots, n\}$. By definition,
+			$$\phi_{\al}(e_j) = \sum\limits_{k =1}^n A_{k,j} \ep^{k}$$ 
+			Then 
+			\begin{align*}
+				\phi_{\al}(e_j)(e_i)
+				& = \sum\limits_{k =1}^n A_{k,j} \ep^{k}(e_i) \\
+				& =  \sum\limits_{k =1}^n A_{k,j} \del_{k,i} \\
+				& =  A_{i,j} 
+			\end{align*}
+			\item Let $v, w \in V$. Then there exist $(v^i)_{i=1}^n, (w^j)_{j=1}^n \subset \R$ such that $v = \sum\limits_{i=1}^n v^i e_i$ and $w = \sum\limits_{j=1}^n v^j e_i$. Part $(1)$ implies that
+			\begin{align*}
+				\al(v, w)
+				& = \sum_{i=1}^n \sum_{j=1}^n v^i w^j \al(e_i, e_j) \\
+				& = \sum_{i=1}^n \sum_{j=1}^n v^i w^j [\phi_{\al}]_{j, i} \\
+				& = \sum_{i=1}^n \sum_{j=1}^n [v]_i [w]_j [\phi_{\al}]_{j, i} \\
+				& = [w]^* [\phi_{\al}] [v]
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\subsection{Scalar Product Spaces}
+	
+	\begin{defn}
+		Let $V$ be a finite dimensional vector space and $\al \in \Sig^2(V)$. Then $\al$ is said to be 
+		\begin{itemize}
+			\item \tbf{positive semidefinite} if for each $v \in V$, $\al(v, v) \geq 0$
+			\item \tbf{positive definite} if for each $v \in V$, $v \neq 0$ implies that $\al(v, v) > 0$
+			\item \tbf{negative semidefinite} if $-\al$ is positive semidefinite
+			\item \tbf{negative definite} if $-\al$ is positive definite
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $V$ be a finite dimensional vector space and $\al \in \Sig^2(V)$. Then 
+		\begin{enumerate}
+			\item $\al$ is positive definite iff for each $\lam \in \sig([\phi_{\al}])$, $\lam > 0$
+			\item $\al$ is positive definite iff for each $\lam \in \sig([\phi_{\al}])$, $\lam \geq 0$
+		\end{enumerate}
+		
+		\begin{proof}\
+			\begin{enumerate}
+				\item Suppose that $\al$ is positive definite. Write $\sig(\phi_{\al}) = \{ \lam_1, \ldots, \lam_n\}$. Define $\Lam \in \R^{n \times n}$ by $\Lam = \diag(\lam_1, \ldots, \lam_n)$.  Since $\al$ is symmetric, $[\phi_{\al}]$ is symmetric. There exists $U \in O(n)$ such that $[\phi_{\al}] = U \Lam U^*$. 
+			\end{enumerate}
+		\end{proof}
+	\end{ex}
+
+		\begin{defn}
+		Let $V$ be a finite dimensional vector space and $\al \in \Sig^2(V)$. Then $\al$ is said to be a \tbf{scalar product} if $\al$ is nondegenerate. In this case, $(V, \al)$ is said to be a \tbf{scalar product space}. 
+	\end{defn}
+	
+	\begin{defn}
+		Let $V$ be a finite dimensional vector space and $\al \in \Sig^2(V)$ a scalar product on $V$. We define the \tbf{index} of $\al$, denoted $\ind \al$ by 
+		$$\ind \al = \max \{ \dim W: W \text{ is a subspace of $V$ and $\al|_{W \times W}$ is negative definite} \}$$
+	\end{defn}
+
+	\begin{defn}
+		Let $(V, \al)$ be a scalar product space. 
+		\begin{itemize}
+			\item Let $v_1, v_2 \in V$. Then $v_1$ and $v_2$ are said to be \tbf{orthogonal} if $\al(v_1, v_2) = 0$. 
+			\item Let $U \subset V$ be a subspace. We define the \tbf{orthogonal subspace of $U$}, denoted by $U^{\perp}$, by 
+			$$U^{\perp} = \{v \in V: \text{ for each $u \in U$, $\al(u, v) = 0$}\}$$
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $(V, \al)$ be a scalar product space and $U \subset V$ a subspace. Then
+		$U^{\perp}$ is a subspace of $V$.
+	\end{ex}
+
+	\begin{proof}
+		We note that since $U^{\perp} = \bigcap_{u \in U} \ker \phi_{\al}(u)$, $U^{\perp}$ is a subspace of $V$.
+	\end{proof}
+
+	\begin{ex}
+		Let $(V, \al)$ be an $n$-dimensional scalar product space, $U \subset V$ a $k$-dimensional subspace and $(e_j)_{j=1}^n \subset V$ a basis for $V$. Suppose that $(e_j)_{j=1}^k$ is a basis for $U$. Then for each $v \in V$, $v \in U^{\perp}$ iff for each $j \in [k]$, $\al(v, e_j) = 0$. 
+	\end{ex}
+
+	\begin{proof} Let $v \in V$.
+		\begin{itemize}
+			\item ($\implies$): Suppose that $v \in U^{\perp}$. Since $(e_j)_{j=1}^k \subset U$, we have that for each $j \in [k]$, $\al(v, e_j) = 0$. 
+			\item ($\impliedby$): Suppose that for each $j \in [k]$, $\al(v, e_j) = 0$. Let $u \in U$. Then there exist $(a^j)_{j=1}^k \subset \R$ such that $u = \sum\limits_{j=1}^k a^j u_j$. This implies that 
+			\begin{align*}
+				\al(v, u) 
+				& = \sum_{j=1}^k a^j \al (v, u_j) \\
+				& = 0
+			\end{align*}
+			Since $u \in U$ is arbitrary, we have that $v \in U^{\perp}$. 
+		\end{itemize}
+	\end{proof}
+
+	\begin{ex}
+		Let $(V, \al)$ be a scalar product space and $U \subset V$ a subspace. Then
+		\begin{enumerate}
+			\item $\dim V = \dim U + \dim U^{\perp}$
+			\item $(U^{\perp})^{\perp} = U$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		\begin{enumerate}
+			\item Set $n = \dim V$ and $k = \dim U$. Choose a basis $(e_j)_{j=1}^n$ such that $(e_j)_{j=1}^k$ is a basis for $U$. 
+			\item 
+		\end{enumerate}
+	\end{proof}	
+	
+
+	\begin{ex}
+		Let $V$ be a finite dimensional vector space and $\al \in \Sig^2(V)$. Set $\sig([\phi_{\al}])^- = \{\lam \in \sig([\phi_{\al}]): \lam < 0\}$. Then
+		$$\ind \al = \sum_{ \lam \in \sig([\phi_{\al}])^-} \mu(\lam)$$
+	\end{ex}
+
+	\begin{proof}
+		Since $\al$ is symmetric, there exist $U \in O(n)$ and $\Lam \in D(n, \R)$ such that $[\phi_{\al}] = U \Lam U^*$. Define $(u_j)_{j=1}^n \subset V$ by $u_j = \sum\limits_{i=1}^n U_{i,j} e_j$. Define $J^- = \{j \in [n]: \Lam_{j,j} < 0\}$, $n^- = \# J^-$ and $V^- = \spn \{u_j: j \in J^-\}$. Let $v \in V^-$. Then there exist $(a^j)_{j \in J^-}$ such that $v = \sum\limits_{j \in J^-} a^j u_j$. We note that 
+		\begin{align*}
+			U^* [\phi_{\al}] U 
+			& = U^* (U \Lam U^*)U \\
+			& = (U^*U) \Lam (U^*U) \\
+			& = I \Lam I \\
+			& = \Lam
+		\end{align*} 
+		A previous exercise implies that
+		\begin{align*}
+			\al(v, v)
+			& = \sum_{j \in J^-} \sum_{k \in J^-} a^j a^k \al(u_j, u_k) \\
+			& = \sum_{j \in J^-} \sum_{k \in J^-} a^j a^k [u_j]^*[\phi_{\al}] [u_k] \\
+			& = \sum_{j \in J^-} \sum_{k \in J^-} a^j a^k ([e_j]^* U^*)[\phi_{\al}] (U [e_k] )\\
+			& = \sum_{j \in J^-} \sum_{k \in J^-} a^j a^k (U^*[\phi_{\al}] U)_{j,k} \\
+			& = \sum_{j \in J^-} \sum_{k \in J^-} a^j a^k (\Lam)_{j,k} \\
+			& = \sum_{j \in J^-} |a^j|^2 \Lam_{j,j} \\
+			& < 0
+		\end{align*}
+		Since $v \in V^-$ is arbitrary, $\al|_{V^- \times V^-}$ is negative definite. Thus 
+		\begin{align*}
+			\ind \al 
+			& \geq \dim V^- \\
+			& = n^-
+		\end{align*}
+		Set $J^+ = (J^-)^c$. Let $W \subset V$ be a subspace. Suppose that $\al|_{W \times W}$ is negative definite. For the sake of contradiction, suppose that there exists $j_0 \in J^+$ such that $u_{j_0} \in W$. Then
+		\begin{align*}
+			\al(u_{j_0}, u_{j_0})
+			& = [u_{j_0}]^* [\phi_{\al}] [u_{j_0}] \\
+			& = [u_{j_0}]^* U \Lam U^* [u_{j_0}] \\
+			& = \Lam_{j_0, j_0} \\
+			& \geq 0
+		\end{align*}
+		which is a contradiction since $\al|_{W \times W}$ is negative definite. Thus for each $j \in J^+$, $u_j \not \in W$.
+	\end{proof}
+
 	
 	
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Symplectic Vector Spaces}
+	
+	\begin{defn}
+		Let $V$ be a finite dimensional vector space and $\om \in \Lam^2(V)$. Then $\om$ is said to be a \tbf{symplectic form} if $\om$ is nondegenerate. In this case $(V, \om)$ is said to be a \tbf{symplectic space}.
+	\end{defn}
+	
+	\begin{ex}
+		Let $V$ be a $2n$-dimensional vector space with basis $(a_j, b_j)_{j=1}^n$ and corresponding dual basis $(\al^j, \be^j)_{j=1}^n$. Define $\om \in \Lam^2(V)$ by 
+		$$\om = \sum_{j=1}^n \al^j \wedge \be^j$$
+		Then 
+		\begin{enumerate}
+			\item for each $j,k \in \{1, \ldots, n\}$, 
+			\begin{enumerate}
+				\item $\om(a_j, a_k) = 0$
+				\item $\om(b_j, b_k) = 0$
+				\item $\om(a_j, b_k) = \del_{j,k}$
+			\end{enumerate}
+			\item $(V, \om)$ is a symplectic space
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $j,k \in \{1, \ldots, n\}$.
+			\begin{enumerate}
+				\item \begin{align*}
+					\om(a_j, a_k)
+					& = \sum_{l=1}^n \al^l \wedge \be^l (a_j, a_k) \\
+					& = \sum_{l=1}^n [\al^l(a_j) \be^l (a_k) - \al^l(a_k) \be^l(a_j)] \\
+					& = 0 
+				\end{align*}
+				\item Similar to (a)
+				\item 
+				\begin{align*}
+					\om(a_j, b_k)
+					& = \sum_{l=1}^n \al^l \wedge \be^l (a_j, b_k) \\
+					& = \sum_{l=1}^n [\al^l(a_j) \be^l (b_k) - \al^l(b_k) \be^l(a_j)] \\
+					& = \sum_{l=1}^n \al^l(a_j) \be^l (b_k) \\
+					& = \sum_{l=1}^n \del_{j,l} \del_{l,k} \\
+					& = \del_{j,k}
+				\end{align*}
+			\end{enumerate}
+			\item Let $v \in V$. Then there exist $(q^j, p^j)_{j=1}^n \subset \R$ such that $v = \sum\limits_{j=1}^n q^j a_j + p^j b_j$. Suppose that for each $w \in V$, $\om(v, w) = 0$. Let $k \in \{1, \ldots, n\}$. Then 
+			\begin{align*}
+				0
+				& = \om(v, a_k) \\
+				& = \sum_{j=1}^n q^j \om(a_j, a_k) + p^j \om(b_j, a_k) \\
+				& = \sum_{j=1}^n p^j \del_{j,k} \\
+				& = p^k
+			\end{align*}
+			Similarly, 
+			\begin{align*}
+				0
+				& = \om(v, b_k) \\
+				& = \sum_{j=1}^n q^j \om(a_j, b_k) + p^j \om(b_j, b_k) \\
+				& = \sum_{j=1}^n q^j \del_{j,k} \\
+				& = q^k
+			\end{align*}
+			Since $k \in \{1, \ldots, n\}$ is arbitrary, $v = 0$. Hence $\om$ is nondegenerate. Therefore $(V, \om)$ is symplectic.  
+		\end{enumerate}
+	\end{proof}
+	
+	
+	\begin{ex}
+		Let $(V, \om)$ be a symplectic space. Then $\dim V$ is even. 
+	\end{ex}
+	
+	\begin{proof}
+		Set $n = \dim V$. Let $(e_j)_{j=1}^n$ be a basis for $V$. Define $[\om] \in \R^{n \times n}$ by $[\om]_{i,j} = \om(e_i, e_j)$. Since $\om \in \Lam^2(V)$, $[\om]^* = - [\om]$. Therefore
+		\begin{align*}
+			\det[\om]
+			& = \det [\om]^* \\
+			& = \det (- [\om]) \\
+			& = (-1)^{n} \det [\om] 
+		\end{align*}
+		For the sake of contradiction, suppose that $n$ is odd. Then $\det [\om] = - \det [\om]$ which implies that $\det [\om] = 0$. Since $\om$ is nondegenerate, $[\om] \in GL(n, \R)$. This is a contradiction. Hence $n$ is even. 
+	\end{proof}
+	
+	\begin{defn}
+		Let $(V, \om)$ be a symplectic space and $S \subset V$ a subspace. We define the \tbf{symplectic complement of $V$}, denoted $S^{\perp}$, by 
+		$$S^{\perp} = \{v \in V: \text{ for each $w \in S$, $\om(v, w) = 0$}\}$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $(V, \om)$ be a symplectic space and $S \subset V$ a subspace. Then $S^{\perp}$ is a subspace.
+	\end{ex}
+	
+	\begin{proof}
+		We note that 
+		$$S^{\perp} = \bigcap_{v \in S} \ker \iota_v\om$$ 
+		Hence $S^{\perp}$ is a subspace.
+	\end{proof}
+	
+	
+	\begin{ex}
+		Let $(V, \om)$ be a symplectic space and $S \subset V$ a subspace. Then 
+		$$\dim V = \dim S + \dim S^{\perp}$$ 
+	\end{ex}
+	
+	\begin{proof}
+		
+	\end{proof}
+	
+	\begin{ex}
+		Let $(V, \om)$ be a symplectic space and $S \subset V$ a subspace. Then $(S^{\perp})^{\perp} = S$. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $v \in (S^{\perp})^{\perp}$. Then for each $w \in S^{\perp}$, $\om(v, w) = 0$. 
+	\end{proof}
 	
 	
 	
@@ -1911,11 +2409,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\section{Smooth Maps}	
 	
 	\begin{defn} \ld{42001}
-		Let $(M, \MA)$ be a smooth manifold and $f: M \rightarrow \R$. Then $f$ is said to be smooth if for each coordinate chart $(U, \phi) \in \MA$, $f \circ \phi^{-1}$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M)$. 
+		Let $(M, \MA)$ be a smooth manifold and $f: M \rightarrow \R$. Then $f$ is said to be smooth if for each coordinate chart $(U, \phi) \in \MA$, $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M)$. 
 	\end{defn}
 
 	\begin{ex} \ld{42002}
-		We have that $C^{\infty}(M)$ is a vector space.
+		Let $(M, \MA)$ be a smooth manifold. Then $C^{\infty}(M)$ is a vector space.
 	\end{ex}
 
 	\begin{proof}
@@ -1925,15 +2423,31 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{ex}
-		Let $(M, \MA)$ be a smooth manifold and $U \subset M$. 
+		Let $(M, \MA)$ be a smooth manifold, $\MB$ an atlas on $M$ and $f:M \rightarrow \R$. Suppose that $\MB \subset \MA$. Then $f$ is smooth iff for each $(U, \phi) \in \MB$, $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth.
 	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item ($\implies$): \\
+			Suppose that $f$ is smooth. Let $(U, \phi) \in \MB$. Since $\MB \subset \MA$, $(U, \phi) \in \MA$. Since $f$ is smooth, $ f \circ \phi^{-1}$ is smooth. Since $(U, \phi) \in \MB$ is arbitrary, we have that for each $(U, \phi) \in \MB$, $f \circ \phi^{-1}$ is smooth.
+			\item ($\impliedby$): \\
+			Suppose that for each $(V, \psi) \in \MB$, $f \circ \psi^{-1}: \psi(V) \rightarrow \R$ is smooth. Let $(U, \phi) \in \MA$ and $q \in \phi(U)$. Set $p = \phi^{-1}(q)$. Since $\MB$ is an atlas, there exists $(V, \psi) \in \MB$ such that $p \in V$. Since $\MB \subset \MA$, $(V, \psi) \in \MA$. Set $W = U \cap V$ and $\tilde{\phi} = \phi|_W$ and $\tilde{\psi} = \psi|_W$. We note that $\phi(W) \in \MN_q$ and $\phi(W)$ is open. An exercise in the section on smooth manifolds implies that $(W, \tilde{\phi}), (W, \tilde{\psi}) \in \MA$. Therefore $\tilde{\psi} \circ \tilde{\phi}^{-1}: \phi(W) \rightarrow \psi(W)$ is smooth. By assumption, $f \circ \psi^{-1}: \psi(V) \rightarrow \R$ is smooth. This implies that $(f \circ \psi^{-1})|_{\psi(W)}: \psi(W) \rightarrow \R$ is smooth. Hence
+			\begin{align*}
+				(f \circ \phi^{-1})|_{\phi(W)}
+				& = f \circ \tilde{\phi}^{-1} \\
+				& = f \circ (\tilde{\psi}^{-1} \circ \tilde{\psi}) \circ \tilde{\phi}^{-1} \\
+				& = (f \circ \tilde{\psi}^{-1}) \circ (\tilde{\psi} \circ \tilde{\phi}^{-1})
+			\end{align*}
+			is smooth. Since $q \in \phi(U)$ is arbitrary, for each $q \in \phi(U)$, there exists $A \in \MN_q$ such that $A$ is open and $(f \circ \phi^{-1})|_{A}:A \rightarrow \R$ is smooth. This implies that $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth. Since $(U, \phi) \in \MA$ is arbitrary, $f$ is smooth.
+		\end{itemize}
+	\end{proof}
 	
 	\begin{ex}
 	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C^{\infty}(M)$. Then $f|_U \in C^{\infty}(U)$.
 	\end{ex}
 	
 	\begin{proof}\
-	\tbf{FINISH!!!}
+	Let 
 	\end{proof}
 	
 	\begin{defn}
@@ -2139,17 +2653,9 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 %	\begin{defn}
 %		Let $p \in M$. Define the relation $\sim_p$ on $C^{\infty}(M)$ by $f \sim_p g$ iff there exists $U \in \MN_p$ such that $U$ is open and $f|_U = g|_U$. Clearly $\sim_p$ is an equivalence relation on $C^{\infty}(M)$. We denote $C^{\infty}(M) / \sim_p$ by $C^{\infty}_p(M)$. For $f \in C^{\infty}(M)$, we define the \tbf{germ of $f$ at $p$} to be the equivalence class of $f$ under $\sim_p$. 
 %	\end{defn}
-	
-	\begin{ex}
-		Let $p \in M$. We have that $C_p^{\infty}(M)$ is a vector space. 
-	\end{ex}
-	
-	\begin{proof}
-		Clear.
-	\end{proof}
 
 	\begin{defn}
-		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. For $i \in \{1, \cdots, n\}$, define the partial derivative with respect to $x^i$ at $p$, denoted $$\frac{\p}{\p x^i} \bigg|_p: C_p^{\infty}(M) \rightarrow \R  \text{, or } \p_i|_p: C_p^{\infty}(M) \rightarrow \R $$ by $$ \frac{\p}{\p x^i} \bigg |_p  f =  \frac{\p f}{\p x^i}(p) $$
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. For $i \in \{1, \cdots, n\}$, define the partial derivative with respect to $x^i$ at $p$, denoted $$\frac{\p}{\p x^i} \bigg|_p: C^{\infty}(M) \rightarrow \R  \text{, or } \p_i|_p: C^{\infty}(M) \rightarrow \R $$ by $$ \frac{\p}{\p x^i} \bigg |_p  f =  \frac{\p f}{\p x^i}(p) $$
 	\end{defn}
 
 	\begin{ex}
@@ -2427,7 +2933,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	\begin{defn}
 		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. We define the \tbf{rank map of $F$}, denoted $\rnk F: M \rightarrow \N_0$ by 
-		$$\rnk_p F = \dim \Im D_p F$$
+		$$\rnk_p F = \dim \Im D F(p)$$
 		and $F$ is said to have  \tbf{constant rank} if for each $p, q \in M$, $\rnk_p F = \rnk_q F$. If $F$ has constant rank, we define the \tbf{rank of $F$}, denoted $\rnk F$, by $\rnk F = \rnk_p F$ for $p \in M$.
 	\end{defn}
 
@@ -2446,64 +2952,128 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{ex} \tbf{Constant Rank Theorem:} \\
-			Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds of dimensions $m$ and $n$ respectively, $F \in C^{\infty}(M,N)$. Suppose that $F$ has constant rank. Then for each $p \in U$, there exist $(U', \phi') \in \MA$ and $(V', \psi') \in \MB$ such that $U' \subset U$, $V' \subset V$, $p \in U'$, $F(p) \in V'$ and
-		$$\psi \circ F \circ \phi^{-1}(x^1, \ldots, x^k, x^{k+1}, \ldots, x^m) = (x^1, \ldots, x^k, 0, \ldots, 0)$$ 
+			Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds of dimensions $m$ and $n$ respectively, $F \in C^{\infty}(M,N)$. Suppose that $F$ has constant rank and $\rnk F = k$. Then for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$ and
+			$$\psi \circ F \circ \phi^{-1}(x^1, \ldots, x^k, x^{k+1}, \ldots, x^m) = (x^1, \ldots, x^k, 0, \ldots, 0)$$ 
 	\end{ex}
 	
-	\begin{proof}
-		Let $p \in U$. Since $\rnk DF(p) = k$ there exist $A \in GL(k, \R)$, $B \in \R^{(m-k) \times k}$, $C \in \R^{(n-k) \times k}$, $D \in \R^{(m-k) \times (n-k)}$, $\sig \in S_m$ and $\tau \in S_n$ such that 
-		$$P_{\tau} DF(p) P_{\sig}^* = 
-		\begin{pmatrix}
-			A & B \\
-			C & D
-		\end{pmatrix}
-		$$
-		We define the change of coordinates $\phi_{\sig}: \R^n \rightarrow \R^n$ and $\psi_{\tau}: \R^m \rightarrow \R^m$ by $\phi_{\sig} = \sig \id_{\R^n}|_{U}$ and $\psi_{\tau} = \tau \id_{\R^n}|_{V}$. Define $F_{\sig, \tau}: \phi_{\sig}(U) \rightarrow \psi_{\tau}(V)$ by 
-		$$F_{\sig, \tau} = \psi_{\tau}|_V \circ F \circ \phi_{\sig}^{-1}|_{\phi_{\sig}(U)}$$
-		The previous exercises imply that $D\psi_{\tau}(F(p)) = P_{\tau}$ and 
+	\begin{proof} Let $p \in M$. The previous exercise implies that there exist $(U_0, \phi_0) \in \MA$, $(V_0, \psi_0) \in \MB$ and $L \in GL(k, \R)$ such that $p \in U$, $F(p) \in V_0$ and for each $i,j \in \{1, \ldots, k\}$, 
+		$$([DF(p)]_{\phi_0, \psi_0})_{i,j} = L_{i,j} $$ 
+		Define $\hat{M} \subset \R^m$, $\hat{N} \subset \R^n$ and $\hat{F}: \hat{M} \rightarrow \hat{N}$ by $\hat{M} = \phi_0(U_0)$, $\hat{N} = \psi_0(V_0)$ and $\hat{F} = \psi_0 \circ F \circ \phi_0^{-1}$. Set $\hat{p} = \phi_0(p)$. Let $(x, y)$ be the standard coordinates on $\R^m$, with $\pi_x: \R^m \rightarrow \R^k$ and $\pi_y: \R^m \rightarrow \R^{m-k}$ the standard projection maps. Write $\hat{p} = (x_0, y_0)$. There exist $Q: \hat{M} \rightarrow \R^k$ and $R: \hat{M} \rightarrow  \R^{n-k}$ such that $\hat{F} = (Q, R)$. By construction, $[D_xQ(x_0, y_0)] = A$. Define $G: \hat{M} \rightarrow \R^m$ by $G(x, y) = (Q(x, y), y)$. Then
 		\begin{align*}
-			D \phi^{-1}_{\sig}(\phi_{\sig}(p))
-			& = [D \phi_{\sig}(p)]^{-1} \\
-			& = P_{\sig}^{-1} \\
-			& = P_{\sig}^*
-		\end{align*}
-		Hence
-		\begin{align*}
-			D F_{\sig, \tau}(\phi_{\sig}(p))
-			& = D \psi_{\tau}(F(p)) \circ DF(p) \circ D\phi^{-1}(\phi_{\sig}(p)) \\
-			& = P_{\tau} DF(p) P_{\sig}^* \\
-			& = 
-			\begin{pmatrix}
-				A & B \\
-				C & D
-			\end{pmatrix}
-		\end{align*}
-		Define $\pi_1: $ so that $F = (Q, R)$. Define $\phi:U \rightarrow \R^m$ by $\phi(u_1, u_2) = (Q(u_1, u_2), u_2)$. Then for each $u_1 \in \R^{k}$, $u_2 \in \R^{m-k}$, 
-		\begin{align*}
-			[D \phi (u_1, u_2)] 
+			[D G (x_0, y_0)] 
 			& = \begin{pmatrix}
-				D_{u_1}Q(u_1, u_2) & D_{u_2}Q(u_1, u_2) \\
-				D_{u_1} \pi_{u_2}(u_1, u_2) &  	D_{u_2} \pi_{u_2}(u_1, u_2) 
+				[D_{x}Q(x_0, y_0)] & [D_{x}Q(x_0, y_0)] \\
+				[D_{x} \pi_{y}(x_0, y_0)] &  	[D_{y} \pi_{y}(x_0, y_0) ]
 			\end{pmatrix}  \\
 			& = 
 			\begin{pmatrix}
-				D_{u_1}Q(u_1, u_2) & D_{u_2}Q(u_1, u_2) \\
+				[D_{x}Q(x_0, y_0)] & [D_{y}Q(x_0, y_0)] \\
+				0 & I 
+			\end{pmatrix} \\
+			& = 
+			\begin{pmatrix}
+				L & [D_{y}Q(x_0, y_0)] \\
 				0 & I 
 			\end{pmatrix} 
 		\end{align*}  
+		Hence 
+		\begin{align*}
+			\det([D G (x_0, y_0)]) 
+			& = \det(L) \det(I) \\
+			& = \det(L) \\
+			& \neq 0
+		\end{align*}
+		The inverse function theorem implies that there exist $\hat{U} \subset \hat{M}$ such that $\hat{U}$ is open, $\hat{p} \in \hat{U}$ and $G|_{\hat{U}}: \hat{U} \rightarrow G(\hat{U})$ is a diffeomorphism. Since 
+		$$\{U_1 \times U_2: U_1 \subset \R^k, U_2 \subset \R^{m-k} \text{ and $U_1$, $U_2$ are open} \}$$ 
+		is a basis for the topology on $\R^m$, there exist $\hat{U}_1 \subset \R^k$ and $\hat{U}_2 \subset \R^{m-k}$ such that $\hat{U}_1$, $\hat{U}_2$ are open, $\hat{p} \in \hat{U}_1 \times \hat{U}_2$ and $\hat{U_1} \times \hat{U}_2 \subset \hat{U}$. Set $\hat{U}_{12} = \hat{U_1} \times \hat{U}_2$. Since $ G(\hat{U}_1 \times \hat{U}_2) = Q(\hat{U}_{12}) \times \hat{U}_2$, we have that  $G|_{\hat{U}_{12}}: \hat{U}_{12} \rightarrow Q(\hat{U}_{12}) \times \hat{U}_2$ is a diffeomorphism. Since $\pi_x$ is open, $Q(\hat{U}_{12})$ is open. There exist $A: Q(\hat{U}_{12}) \times \hat{U}_2 \rightarrow \hat{U}_1$ and $B: Q(\hat{U}_{12}) \times \hat{U}_2 \rightarrow \hat{U}_2$ such that $G^{-1} = (A, B)$. Define $\tilde{R}: Q(\hat{U}_{12}) \times \hat{U}_2 \rightarrow \R^{n-k}$ by $\tilde{R}(x,y) = R(A(x,y), y)$. Let $(x,y) \in Q(\hat{U}_{12}) \times \hat{U}_2$. Then
+		\begin{align*}
+			(x,y)
+			& = G \circ G^{-1}(x,y) \\
+			& = G(A(x,y), B(x,y)) \\
+			& = (Q(A(x,y), B(x,y)), B(x,y)) \\
+		\end{align*}
+		This implies that $B(x,y) = y$,
+		\begin{align*}
+			x
+			& = Q(A(x,y), B(x,y)) \\
+			& = Q(A(x,y), y)
+		\end{align*}
+		Hand 
+		\begin{align*}
+			G^{-1}(x,y) 
+			& = (A(x,y), B(x,y)) \\
+			& = (A(x,y), y)
+		\end{align*}
 		Therefore, 
 		\begin{align*}
-			\rnk D
+			\hat{F} \circ G^{-1}(x,y) 
+			& = \hat{F}(A(x,y), y) \\
+			& = (Q(A(x,y), y), R(A(x,y), y)) \\
+			& = (x, R(A(x,y), y)) \\
+			& = (x, \tilde{R}(x, y))
 		\end{align*}
-
+		We note that 
+		\begin{align*}
+			[D(\hat{F} \circ G^{-1})(x,y)]
+			& = 
+			\begin{pmatrix}
+				[D_x \pi_x(x,y)] & [D_y \pi_x(x,y)] \\
+				[D_x \tilde{R}(x,y)]    & [D_y \tilde{R}(x,y)]   
+			\end{pmatrix} \\
+			& = 
+			\begin{pmatrix}
+				I                & 0 \\
+				[D_x \tilde{R}(x,y)]    & [D_y \tilde{R}(x,y)]   
+			\end{pmatrix}
+		\end{align*}
+		Since $G^{-1}: Q(\hat{U}_{12}) \times \hat{U}_2 \rightarrow \hat{U}_{12}$ is a diffeomorphism, we have that $[DG^{-1}(x, y)] \in GL(m, \R)$. Since $\hat{F}$ has constant rank and $\rnk \hat{F} = k$, we have that
+		\begin{align*}
+			\rnk [D(\hat{F} \circ G^{-1})(x,y)] 
+			& = \rnk ([D\hat{F}(G^{-1}(x,y))] [DG^{-1}(x,y)]) \\
+			& = \rnk [D\hat{F}(G^{-1}(x,y))] \\
+			& = k
+		\end{align*}
+		Since $\rnk 
+		\begin{pmatrix}
+			I \\
+			[D_x \tilde{R}(x,y)]  
+		\end{pmatrix}
+		= k$, we have that $\rnk 
+		\begin{pmatrix}
+		0 \\
+		[D_y \tilde{R}(x,y)]  
+		\end{pmatrix}
+		= 0$. Thus $[D_y \tilde{R}(x,y)] = 0$. Since $(x,y) \in Q(\hat{U}_{12}) \times \hat{U}_2$ is arbitrary, for each $(x,y) \in Q(\hat{U}_{12}) \times \hat{U}_2$, 
+		$$\tilde{R}(x, y) = \tilde{R}(x, y_0)$$
+		Define $\tilde{S}: Q(\hat{U}_{12}) \rightarrow \R^{n-k}$ by $\tilde{S}(x) = \tilde{R}(x, y_0)$. Then for each $(x,y) \in Q(\hat{U}_{12}) \times \hat{U}_2$, 
+		$$\hat{F} \circ G^{-1}(x,y) = (x, \tilde{S}(x))$$
+		Let $(a, b)$ be the standard coordinates on $\R^n$, with $\pi_a: \R^n \rightarrow \R^k$ and $\pi_b: \R^n \rightarrow \R^{n-k}$ the standard projection maps. Write $\hat{F}(\hat{p}) = (a_0, b_0)$. Set 
+		\begin{align*}
+		 	\hat{V}
+		 	& = [(\pi_a)|_{\hat{N}}]^{-1}(Q(\hat{U}_{12})) \\
+		 	& = \pi_a^{-1}(Q(\hat{U}_{12})) \cap \hat{N} 
+		\end{align*}
+		Since $Q(\hat{U}_{12})$ is open, $\hat{N}$ is open and $\pi_a$ is continuous, we have that $\hat{V}$ is open. Since 
+		\begin{align*}
+			Q(\hat{U}_{12})
+		 	& = (\pi_a)|_{\hat{N}} \circ \hat{F} \circ G^{-1} (Q(\hat{U}_{12})  \times \hat{U}_2) \\
+		 	& = (\pi_a)|_{\hat{N}} \circ \hat{F} (\hat{U}_{12})
+		\end{align*}
+	 	we have that $\hat{F} (\hat{U}_{12}) \subset \hat{V}$. In particular, $\hat{F}(\hat{p}) \in \hat{V}$. Define $H: \hat{V} \rightarrow \R^n$ by $H(a,b) = (a, b - \tilde{S}(a))$. Then $H \circ \hat{F} \circ G^{-1}(x, y) = (x, 0)$. Define $(U, \phi) \in \MA$ and $(V, \psi) \in \MN$ by $U = \phi_0^{-1}(\hat{U}_{12})$, $V = \psi_0^{-1}(\hat{V})$, $\phi = G \circ \phi_0$ and $\psi = H \circ \psi_0$. Then for each $(x,y) \in \phi(U)$,
+	 	\begin{align*}
+	 		\psi \circ F \circ \phi^{-1}(x, y)
+	 		& = H \circ \psi_0 \circ F \circ \phi_0^{-1} \circ G^{-1} (x,y) \\
+	 		& = H \circ \hat{F} \circ G^{-1}(x,y) \\
+	 		& = (x, 0)
+	 	\end{align*}
 	\end{proof}
 	
 	\begin{defn}
 		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. Then $F$ is said to be 
 		\begin{itemize}
 		
-			\item an \tbf{immersion} if for each $p \in M$, $dF_p:T_pM\rightarrow T_{F(p)}N$ is injective
-			\item a \tbf{submersion} if for each $p \in M$, $dF_p:T_pM\rightarrow T_{F(p)}N$ is surjective
+			\item an \tbf{immersion} if for each $p \in M$, $DF(p):T_pM\rightarrow T_{F(p)}N$ is injective
+			\item a \tbf{submersion} if for each $p \in M$, $DF(p) :T_pM\rightarrow T_{F(p)}N$ is surjective
 		\end{itemize}
 	\end{defn}
 	
@@ -2637,7 +3207,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 	
 	\newpage
-	\chapter{Fiber Bundles and Sections}
+	\chapter{Bundles and Sections}
 	
 	\section{Introduction}
 	
@@ -2689,24 +3259,58 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Let $E$, $M$ and $F$ be smooth manifolds and $\pi: E \rightarrow M$ a smooth surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{smooth fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
 	\end{defn}
 
+	\begin{note}
+		When the context is clear, we will supress the fiber manifold $F$.
+	\end{note}
+
 	\begin{defn}
-		Let $E$ and $M$ be smooth manifolds $\pi : E \rightarrow M$ a smooth submersion. Then $(E, M, \pi)$ is said to be a \tbf{fibered manifold with total space $E$, base space $M$ and projection $\pi$}.
+		Let $(E_1, M_1, \pi_1)$ and $(E_2, M_2, \pi_2)$ be smooth fiber bundles, $\Phi \in \Hom_{\Maninf}(E_1, E_2)$ and $\phi \in \Hom_{\Maninf}(M_1, M_2)$. Then $(\Phi, \phi)$ is said to be a \tbf{smooth bundle morphism} from $(E_1, M_1, \pi_1)$ to $(E_2, M_2, \pi_2)$ if 
+		$\pi_2 \circ \Phi = \phi \circ \pi_1$, 
+		i.e. the following diagram commutes:
+		\[ 
+		\begin{tikzcd}
+			E_1 \arrow[r, "\Phi"] \arrow[d, "\pi_1"'] & E_2  \arrow[d, "\pi_2"] \\
+			M_1 \arrow[r, "\phi"']                  & M_2
+		\end{tikzcd}
+		\] 
+	\end{defn}
+	
+	\begin{defn}
+		We define the category of smooth fiber bundles, denoted $\Buninf$, by 
+		\begin{itemize}
+			\item $\Obj(\Buninf) = \{(E, M, \pi): (E, M, \pi) \text{ is a smooth fiber bundle}\}$ 
+			\item For $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\Buninf)$, 
+			\begin{align*}
+				& \Hom_{\Buninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \\
+				& \{(\Phi, \phi): (\Phi, \phi) \text{ is a smooth bundle morphism from $(E, M, \pi_E)$ to $(F, N, \pi_F)$} \}
+			\end{align*}
+			\item For 
+			\begin{itemize}
+				\item $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2), (E_3, M_3, \pi_3) \in \Obj(\Buninf)$ 
+				\item $(\Phi_{12}, \phi_{12}) \in \Hom_{\Buninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2))$
+				\item $(\Phi_{23}, \phi_{23}) \in \Hom_{\Buninf}((E_2, M_2, \pi_2), (E_3, M_3, \pi_3))$ 
+			\end{itemize}
+			we define $(\Phi_{23}, \phi_{23}) \circ (\Phi_{12}, \phi_{12}) \in \Hom_{\Buninf}((E_1, M_1, \pi_1), (E_3, M_3, \pi_3))$ by 
+			$$(\Phi_{23}, \phi_{23}) \circ (\Phi_{12}, \phi_{12}) = (\Phi_{23} \circ \Phi_{12}, \phi_{23} \circ \phi_{12})$$
+		\end{itemize}
 	\end{defn}
 
-	
-
-
-
-
-
 	\begin{ex}
-		Let $(E, M, \pi, F)$ be a smooth fiber bundle. Then for each $p \in M$, $E_p$ is diffeomorphic to $F$.
+		We have that $\Buninf$ is a full subcategory of $(\id_{\Maninf} \downarrow \id_{\Maninf})$.
 	\end{ex}
-
-	\begin{proof}
-		Let $p \in M$. By assumption, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. By definition $\Phi$ is a diffeomorphism. Hence $\Phi|_{E_p}: E_p \rightarrow \{p\} \times F$.
+	
+	\begin{proof} Set $\MC = (\id_{\Maninf} \downarrow \id_{\Maninf})$. We note that 
+		\begin{itemize}
+			\item $\Obj(\Buninf) \subset \Obj(\MC)$
+			\item for each $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\Buninf)$, 
+			$$\Hom_{\Buninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \Hom_{\MC}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2))$$
+		\end{itemize}
+		So $\Buninf$ is a full subcategory of $\MC$.
 	\end{proof}
 
+	\begin{ex}
+		
+	\end{ex}
 	
 
 
@@ -2762,13 +3366,233 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 \end{enumerate}
 \end{proof}
 
-	\begin{thm}
-		Let $E$ and $M$ be smooth manifolds and $\pi: E \rightarrow M$ a smooth surjection.
-	\end{thm}
+\begin{thm}
+	Let $E$ and $M$ be smooth manifolds and $\pi: E \rightarrow M$ a smooth surjection.
+\end{thm}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	\newpage
+	\section{Bundle Morphisms}
 	
+	\begin{defn}
+		Let $(E, M, \pi_E)$ and $(F, N, \pi_F)$ be smooth fiber bundles and $\Phi: E \rightarrow F$ and $\phi: M \rightarrow N$. Then $(\Phi, \phi)$ is said to be a \tbf{smooth fiber bundle morphism} from $(E, M, \pi_E)$ to $(F, N, \pi_F)$ if $\Phi$ is smooth, $\phi$ is smooth and $\pi_F \circ \Phi = \phi \circ \pi_E$, 
+		i.e. the following diagram commutes:
+		\[ 
+		\begin{tikzcd}
+			E \arrow[r, "\Phi"] \arrow[d, "\pi_E"'] & F  \arrow[d, "\pi_F"] \\
+			M \arrow[r, "\phi"']                  & N
+		\end{tikzcd}
+		\] 
+		and we write $(\Phi, \phi): (E, M, \pi_E) \rightarrow (F, N, \pi_F)$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $(E, M, \pi_E)$ and $(F, N, \pi_F)$ be smooth fiber bundles and $(\Phi, \phi): (E, M, \pi_E) \rightarrow (F, N, \pi_F)$. Suppose that $(\Phi, \phi)$ is smooth. Then for each $p \in M$, 
+		$$\Phi^{-1}(F_{\phi(p)}) = E_{p}$$
+	\end{ex}
+
+	\begin{proof}
+		Let $p \in M$. Set $q = \phi(p)$. Then 
+		\begin{align*}
+			\Phi^{-1}(F_{q})
+			& = \Phi^{-1}(\pi_F^{-1}(\{q\})) \\
+			& = (\pi_F \circ \Phi)^{-1}(\{q\}) \\
+			& = (\phi \circ \pi_E)^{-1} (\{q\}) \\
+			& = \pi_E^{-1} ( \phi^{-1}( \{\phi(p)\})) \\
+		\end{align*}
+	\tcb{FINISH!!!, multiple fibers get mapped to same fiber}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Subbundles}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Vertical and Horizontal Subbundles}
+	
+	\begin{defn}
+		Let $(E, M, \pi_M) \in \Obj(\Buninf)$. We define the \tbf{vertical bundle associated to $(E, M, \pi_M)$ }, denoted $(VE, M, \pi_{V}) \in \Buninf$, by 
+		$$VE = \coprod_{q \in E} \ker D\pi(q)$$
+	\end{defn}
+
+	
+	\tcb{relocate this to after tangent bundle is introduced}
+	\begin{ex}
+		Let $(M, \MA)$ be an $n$-dimensional smooth manifold and $(U, \phi) \in \MA$ with $\phi = (x^1, \ldots, x^n)$,  $(\pi^{-1}(U), \Phi_{\phi}) \in \MA_{TM}$ the induced chart on $TM$ with $\Phi_{\phi} = (\tilde{x}^1, \ldots, \tilde{x}^n,  \tilde{y}^1, \ldots, \tilde{y}^n)$. Then 
+		$$V(TM)|_{\pi^{-1}(U)} = \coprod_{(p, \xi) \in \pi^{-1}(U)} \spn \bigg \{ \frac{\p}{\p \tilde{y}^j} \bigg|_{(p, \xi)}: j \in \{1, \ldots, n\} \bigg \}$$
+		\tcb{Split into smaller exercises}
+	\end{ex}
+
+	\begin{proof}
+		Let $f \in C^{\infty}(M)$ and $(u^1, \ldots, u^n, v^1, \ldots, v^n)$ the standard coordinates on $\R^n \times \R^n$. We note that by definition, $\Phi_{\phi}(p, \xi) = (\phi(p), \psi(\xi))$ where $\psi: \bigcup\limits_{p \in U} T_pM \rightarrow \R^n$ is given by 
+		$$\psi \bigg (\sum_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_p \bigg) = (\xi^1, \ldots, \xi^n)$$
+		\begin{align*}
+			 x^k \circ \pi \circ \Phi_{\phi}^{-1}(u,v)
+			 & =  x^k \circ \pi (\phi^{-1}(u), \psi^{-1}(v)) \\
+			 & = x^k \circ \phi^{-1}(u) 
+		\end{align*}	
+		Therefore
+		\begin{align*}
+			\frac{\p }{\p \tilde{x}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
+			& = \frac{\p }{\p u^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
+			& = \frac{\p }{\p u^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
+			& = \frac{\p }{\p u^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
+			& =  \frac{\p }{\p x^i} \bigg|_{p} x^k \\
+			& = \del_{i,k}
+		\end{align*}
+		and 
+		\begin{align*}
+			\frac{\p }{\p \tilde{y}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
+			& = \frac{\p }{\p v^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
+			& = \frac{\p }{\p v^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
+			& = \frac{\p }{\p v^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
+			& = 0
+		\end{align*}
+		This implies that for each $i \in \{1, \ldots, n\}$, we have that 
+		\begin{align*}
+			D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{x}^i } \bigg|_{(p, \xi)} \bigg) (f)
+			& = \frac{\p}{\p \tilde{x}^i} \bigg|_{(p, \xi)} f \circ \pi \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{x}^i}(p,\xi) \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) \del_{i,k} \\
+			& = \frac{\p f }{\p x^i}(p) 
+		\end{align*}
+		and 
+		\begin{align*}
+			D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{y}^i } \bigg|_{(p, \xi)} \bigg) (f)
+			& = \frac{\p}{\p \tilde{y}^i} \bigg|_{(p, \xi)} f \circ \pi \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{y}^i}(p,\xi) \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) 0 \\
+			& = 0
+		\end{align*}
+		Hence 
+		\begin{align*}
+			V(TM)|_{\pi^{-1}(U)}
+			& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \ker D \pi(p, \xi) \\
+			& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \spn \bigg \{ \frac{\p}{\p \tilde{y}^j} \bigg|_{(p, \xi)}: j \in \{1, \ldots, n\} \bigg \} 
+		\end{align*}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{The Tangent Bundle}
 	\begin{defn}
 		We define the \tbf{tangent bundle of $M$}, denoted $TM$, by $$TM = \coprod_{p \in M} T_pM$$ 
 		We denote the natrual projection map by $\pi: TM \rightarrow M$.
@@ -2955,14 +3779,14 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\section{$(r,s)$-Tensor Fields}
 	
 	\begin{defn}
-		Let $\al: M \rightarrow T^r_sM$. Then $\al$ is said to be a \tbf{$(r,s)$-tensor field on $M$} if for each $p \in M$, $\al_p \in T^r_s(T_pM)$. \\
+		Let $\al: M \rightarrow T^r_sM$. Then $\al$ is said to be an \tbf{$(r,s)$-tensor field on $M$} if for each $p \in M$, $\al_p \in T^r_s(T_pM)$. \\
 		For each $\om \in \Gam_1(M)^r$ and $X \in \Gam^1(M)^s$, we define $\al(\om, X) : M \rightarrow \R$ by $$\al(\om, X)_p = \al_p(\om_p, X_p)$$
 		and $\al$ is said to be \tbf{smooth} if for each $\om \in \Gam_1(M)^r$ and $X \in \Gam^1(M)^s$, $\al(\om, X)$ is smooth. \\
-		The set of smooth $(r,s)$-tensor fields on $M$ is denoted $\Gam^r_s(M)$.\\
+		The set of smooth $(r,s)$-tensor fields on $M$ is denoted $T^r_s(M)$.\\
 	\end{defn}
 
 	\begin{defn}
-	Let $f \in C^{\infty}(M)$ and $\al,\be \in \Gam^r_s(M)$. We define 
+	Let $f \in C^{\infty}(M)$ and $\al,\be \in T^r_s(M)$. We define 
 	\begin{itemize}
 	\item $f\al: M \rightarrow T^r_sM$ by $$(f\om)_p = f(p)\om_p$$
 	\item $\al+\be:  M \rightarrow T^r_sM$ by $$(\al+\be)_p = \al_p+\be_p$$
@@ -2970,10 +3794,10 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{defn}
 	
 	\begin{ex}
-	Let $f \in C^{\infty}(M)$ and $\al,\be \in \Gam^r_s(M)$. Then
+	Let $f \in C^{\infty}(M)$ and $\al,\be \in T^r_s(M)$. Then
 	\begin{enumerate}
-	\item $f\al \in \Gam^r_s(M)$ by $$(f\om)_p = f(p)\om_p$$
-	\item $\al+\be \in \Gam^r_s(M)$ by $$(\al+\be)_p = \al_p+\be_p$$
+	\item $f\al \in T^r_s(M)$ by $$(f\om)_p = f(p)\om_p$$
+	\item $\al+\be \in T^r_s(M)$ by $$(\al+\be)_p = \al_p+\be_p$$
 	\end{enumerate}
 	\end{ex}
 	
@@ -2982,7 +3806,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 	
 	\begin{ex}
-	The set $\Gam^r_s(M)$ is a $C^{\infty}(M)$-module.
+	The set $T^r_s(M)$ is a $C^{\infty}(M)$-module.
 	\end{ex}
 	
 	\begin{proof}
@@ -3074,7 +3898,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 	
 	\begin{ex}
-		Let $\al \in \Gam^r_s(M)$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then there exist $(f^I_J)_{I \in \MI_r, J \in \MI_s} \subset C^{\infty}(M)$ such that $$\al|_U = \sum_{(I,J) \in \MI_r \times \MI_s} f^I_J \partial_{x^{\otimes I}} \otimes dx^{\otimes J}$$ 
+		Let $\al \in T^r_s(M)$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then there exist $(f^I_J)_{I \in \MI_r, J \in \MI_s} \subset C^{\infty}(M)$ such that $$\al|_U = \sum_{(I,J) \in \MI_r \times \MI_s} f^I_J \partial_{x^{\otimes I}} \otimes dx^{\otimes J}$$ 
 	\end{ex}
 
 	\begin{proof}
@@ -3146,19 +3970,19 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 		Let $\om: M \rightarrow \Lam^k (TM)$. Then $\om$ is said to be a \tbf{$k$-form on $M$} if for each $p \in M$, $\om_p \in \Lam^k(T_pM)$.\\
 		For each $X \in \Gam^1(M)^k$, we define $\om(X) : M \rightarrow \R$ by $$\om(X)_p = \om_p(X_p)$$
 		and $\om$ is said to be \tbf{smooth} if for each $X \in \Gam^1(M)^k$, $\om(X)$ is smooth.\\
-		The set of smooth $k$-forms on $M$ is denoted $\Om_k(M)$.\\
+		The set of smooth $k$-forms on $M$ is denoted $\Om^k(M)$.\\
 	\end{defn} 
 
 	\begin{note}
 		Observe that 
 		\begin{enumerate}
-		\item $\Om_k(M) \subset \Gamma^0_k(M)$
-		\item $\Om_0(M) = C^{\infty}(M)$
+		\item $\Om^k(M) \subset \Gamma^0_k(M)$
+		\item $\Om^0(M) = C^{\infty}(M)$
 		\end{enumerate}
 	\end{note}
 	
 	\begin{ex}
-	The set $\Om_k(M)$ is a $C^{\infty}(M)$-submodule of $\Gam^0_k(M)$.
+	The set $\Om^k(M)$ is a $C^{\infty}(M)$-submodule of $\Gam^0_k(M)$.
 	\end{ex}
 	
 	\begin{proof}
@@ -3168,19 +3992,19 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	
 
 	\begin{defn}
-		Define the \tbf{exterior product} $$\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $$ by $$(\al \wedge \be)_p = (\al)_p \wedge (\be)_p$$
+		Define the \tbf{exterior product} $$\wedge: \Om^k(M) \times \Om^l(M) \rightarrow \Om^{k+l}(M) $$ by $$(\al \wedge \be)_p = (\al)_p \wedge (\be)_p$$
 	\end{defn}
 	
 	\begin{note}
-		For $f \in \Om_0(M)$ and $\al \in \Om_k(M)$, we have that $f \wedge \al = f \al$.
+		For $f \in \Om^0(M)$ and $\al \in \Om^k(M)$, we have that $f \wedge \al = f \al$.
 	\end{note}
 	
 	\begin{ex}
-	The exterior product $\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $ is well defined.
+	The exterior product $\wedge: \Om^k(M) \times \Om^l(M) \rightarrow \Om^{k+l}(M) $ is well defined.
 	\end{ex}
 	
 	\begin{proof}
-	Let $\al \in \Om_k(M)$, $\be \in \Om_l(M)$, $(x^i)_{i=1}^k \subset \Gam^1(M)$, $(y^j)_{i=1}^l \subset \Gam^1(M)$ and $p \in M$. Then 
+	Let $\al \in \Om^k(M)$, $\be \in \Om^l(M)$, $(x^i)_{i=1}^k \subset \Gam^1(M)$, $(y^j)_{i=1}^l \subset \Gam^1(M)$ and $p \in M$. Then 
 	\begin{align*}
 	\al \wedge \be (X_1, \dots, X_{k+l})_p
 	&= (\al \wedge \be)_p ({X_1}(p), \cdots, {X_{k+l}}(p)) \\
@@ -3193,14 +4017,14 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 	
 	\begin{ex}
-	The exterior product $\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $ is $C^{\infty}(M)$-bilinear.
+	The exterior product $\wedge: \Om^k(M) \times \Om^l(M) \rightarrow \Om^{k+l}(M) $ is $C^{\infty}(M)$-bilinear.
 	\end{ex}
 	
 	\begin{proof}\
 	\begin{enumerate}
 	\item 
 	$C^{\infty}(M)$-linearity in the first argument:\\
-	Let $\al \in \Om_k(M)$, $\be, \gam \in \Om_l(M)$, $f \in C^{\infty}(M)$ and $p \in M$. Bilinearity of $\wedge: \Lam^k(T_pM) \times \Lam^l(T_pM) \rightarrow \Lam^{k+l}(T_pM)$ implies that
+	Let $\al \in \Om^k(M)$, $\be, \gam \in \Om^l(M)$, $f \in C^{\infty}(M)$ and $p \in M$. Bilinearity of $\wedge: \Lam^k(T_pM) \times \Lam^l(T_pM) \rightarrow \Lam^{k+l}(T_pM)$ implies that
 	\begin{align*}
 	[(\be + f \gam ) \wedge \al]_p 
 	&= (\be + f \gam)_p \wedge \al_p  \\
@@ -3208,7 +4032,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	&= \be_p \wedge \al_p + f(p)( \gam_p \wedge \al_p) \\
 	&=  [\be \wedge \al + f (\gam \wedge \al)]_p \\
 	\end{align*}
-	So that $$(\be + f \gam ) \wedge \al = \be \wedge \al  + f  (\gam \wedge \al)$$ and $\wedge: \Om_k(M) \times \Om_l(M) \rightarrow \Om_{k+l}(M) $ is $C^{\infty}(M)$-linear in the first argument. 
+	So that $$(\be + f \gam ) \wedge \al = \be \wedge \al  + f  (\gam \wedge \al)$$ and $\wedge: \Om^k(M) \times \Om^l(M) \rightarrow \Om^{k+l}(M) $ is $C^{\infty}(M)$-linear in the first argument. 
 	\item $C^{\infty}(M)$-linearity in the second argument:\\
 	Similar to $(1)$.
 	\end{enumerate}
@@ -3219,11 +4043,11 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{note}
 
 	\begin{defn}
-		We define the \tbf{exterior derivative} $d: \Om_k(M) \rightarrow \Om_{k+1}(M)$ inductively by 
+		We define the \tbf{exterior derivative} $d: \Om^k(M) \rightarrow \Om^{k+1}(M)$ inductively by 
 		\begin{enumerate}
-			\item $d(d \al) = 0$ for $\al \in \Om_p(M)$
-			\item $df(X) = Xf$ for $f \in \Om_0(M)$
-			\item $d(\al \wedge \be) = d\al \wedge \be + (-1)^p \al \wedge d\be$ for $\al \in \Om_p(M)$ and $\be \in \Om_q(M)$
+			\item $d(d \al) = 0$ for $\al \in \Om^p(M)$
+			\item $df(X) = Xf$ for $f \in \Om^0(M)$
+			\item $d(\al \wedge \be) = d\al \wedge \be + (-1)^p \al \wedge d\be$ for $\al \in \Om^p(M)$ and $\be \in \Om^q(M)$
 			\item extending linearly
 		\end{enumerate}
 	\end{defn}
@@ -3265,7 +4089,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 	
 	\begin{ex}
-	Let $f \in \Om_0(M)$. If $f$ is constant, then $df = 0$. 
+	Let $f \in \Om^0(M)$. If $f$ is constant, then $df = 0$. 
 	\end{ex}
 	
 	\begin{proof}
@@ -3282,7 +4106,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{ex}
 
 	\begin{defn}
-		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $I = (i_1, \cdots, i_k) \in \MI_k$. We define $$dx^i = dx_{i_1} \wedge \cdots \wedge dx_{i_k} \in \Om_k(M)$$ 
+		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $I = (i_1, \cdots, i_k) \in \MI_k$. We define $$dx^i = dx_{i_1} \wedge \cdots \wedge dx_{i_k} \in \Om^k(M)$$ 
 		and we define $$\frac{\p}{\p x^i}= \bigg(\frac{\p}{\p x^{i_1}}, \cdots, \frac{\p}{\p x^{i_k}} \bigg)$$
 
 	\end{defn}
@@ -3290,12 +4114,12 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\begin{note} We have that
 	\begin{enumerate}
 	\item  $$d x^i \bigg (\frac{\p}{\p x^j} \bigg) = \del_{I,J}$$
-	\item Since $\frac{\p}{\p x^i} \in \Gam(U)^k$, by definition, for each $\om \in \Om_k(U)$, $$\om \bigg(\frac{\p}{\p x^i} \bigg) \in C^{\infty}(U)$$
+	\item Since $\frac{\p}{\p x^i} \in \Gam(U)^k$, by definition, for each $\om \in \Om^k(U)$, $$\om \bigg(\frac{\p}{\p x^i} \bigg) \in C^{\infty}(U)$$
 	\end{enumerate}
 	\end{note}
 
 	\begin{ex}
-		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then $$\om = \sum_{I \in \MI_k}\om \bigg(\frac{\p}{\p x^i} \bigg) dx^i$$
+		Let $\om \in \Om^k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. Then $$\om = \sum_{I \in \MI_k}\om \bigg(\frac{\p}{\p x^i} \bigg) dx^i$$
 	\end{ex}
 
 	\begin{proof}
@@ -3308,7 +4132,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 
 	\begin{ex}
-		Let $\om \in \Om_k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. If $\om = \sum\limits_{I \in \MI_k}f_I dx^i$, then $$d \om  = \sum_{I \in \MI_k} \sum_{i =1}^n \frac{\p f_I}{\p x^i} dx^i \wedge dx^i$$.
+		Let $\om \in \Om^k(M)$ and $(U, \phi)$ be a chart on $M$ with $\phi = (x^1, \cdots, x^n)$. If $\om = \sum\limits_{I \in \MI_k}f_I dx^i$, then $$d \om  = \sum_{I \in \MI_k} \sum_{i =1}^n \frac{\p f_I}{\p x^i} dx^i \wedge dx^i$$.
 	\end{ex}
 
 	\begin{proof}
@@ -3325,14 +4149,528 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	
 	
 	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ be a diffeomorphism. Define the \tbf{pullback of $F$}, denoted $F^*: \Om_k(N) \rightarrow \Om_k(M)$ by  $$(F^* \om)_p (v_1, \cdots, v_k) = \om_{F(p)} (dF_p(v_1), \cdots, dF_p(v_k))$$ for $\om \in \Om_k(N)$, $p \in M$ and $v_1, \cdots, v_k \in T_{p}M$
+		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ be a diffeomorphism. Define the \tbf{pullback of $F$}, denoted $F^*: \Om^k(N) \rightarrow \Om^k(M)$ by  $$(F^* \om)_p (v_1, \cdots, v_k) = \om_{F(p)} (dF_p(v_1), \cdots, dF_p(v_k))$$ for $\om \in \Om^k(N)$, $p \in M$ and $v_1, \cdots, v_k \in T_{p}M$
 	\end{defn}
 
 
 
 
 
+	
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	\newpage
+	\chapter{Connections}
+	
+	\section{Koszul Connections}
+	
+	\begin{defn}
+		Let $(E, M, \pi)$ be a smooth vector bundle and $\nab : \MFX(M) \times \Gam(E) \rightarrow \Gam(E)$. Then $\nab$ is said to be a \tbf{Koszul connection} in $E$ if 
+		\begin{enumerate}
+			\item for each $Y \in \Gam(E)$, $\nab(\cdot, Y)$ is $C^{\infty}(M)$-linear
+			\item for each $X \in \MFX(M)$, $\nab(X, \cdot)$ is $\R$-linear
+			\item for each $X \in \MFX(M)$, $Y \in \Gam(E)$ and $f \in C^{\infty}(M)$, 
+			$$\nab(X, fY) = f \nab(X, Y) + X(f)Y$$ 
+		\end{enumerate}
+	\end{defn}
+
+	\begin{note}
+		When the context is clear, we will write $\nab_X Y$ in place of $\nab(X,Y)$ and we will refer to $\nab$ as a connection.
+	\end{note}
+
+	\begin{ex}
+		Let $(E, M, \pi)$ be a smooth vector bundle, $\nab$ a connection in $E$, $X \in \MFX(M)$ and $Y \in \Gam(E)$. If $X = 0$ or $Y = 0$, then $\nab_X Y = 0$.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item If $X = 0$, then 
+			\begin{align*}
+				\nab_X Y
+				& = \nab_{0 X} Y \\
+				& = 0 \nab_X Y \\
+				& = 0
+			\end{align*}
+			\item Similarly, if $Y = 0$, then $\nab_X Y = 0$.
+		\end{itemize}
+	\end{proof}
+
+	\begin{ex}
+		Let $(E, M, \pi)$ be a smooth vector bundle, $\nab$ a connection in $E$, $X \in \MFX(M)$, $Y \in \Gam(E)$ and $p \in M$. If $X \sim_p 0$ or $Y \sim_p 0$, then $[\nab_{X}Y]_p = 0$.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item Suppose that $X \sim_p 0$. Then there exists $U \subset M$ such that $U$ is open and $X|_U = 0$. Choose $\phi  \in C^{\infty}(M)$ such that $\supp \phi  \subset U$ and $\phi \sim_p 1$. Then $\phi  X = 0$. The previous exercise implies that $\nab_{\phi  X} Y = 0$. Therefore
+			\begin{align*}
+				\nab_X Y
+				& = \nab_{\phi  X + (1- \phi )X}Y \\
+				& = \nab_{\phi  X}Y + \nab_{(1 - \phi ) X}Y \\
+				& = 0 + (1 - \phi )\nab_X Y \\
+				& = (1 - \phi )\nab_X Y \\
+			\end{align*}
+			Hence 
+			\begin{align*}
+				[\nab_X Y]_p
+				& =[(1 - \phi )\nab_X Y]_p \\
+				& = (1 - \phi (p))[\nab_X Y]_p \\
+				& = 0 
+			\end{align*} 
+			\item Suppose that $Y \sim_p 0$. Then there exists $U \subset M$ such that $U$ is open and $Y|_U = 0$. Choose $\phi \in C^{\infty}(M)$ such that $\supp \phi  \subset U$ and $\phi \sim_p = 1$. Then $\phi  Y = 0$. The previous exercise implies that $\nab_X \phi Y = 0$. Since $\phi \sim_p 1$, we have that $1 - \phi \sim_p 0$. Thus $X (1 - \phi) \sim_p 0$ and 
+			\begin{align*}
+				\nab_X Y
+				& = \nab_X [\phi Y + (1- \phi)Y] \\
+				& = \nab_X [\phi Y] + \nab_X[(1 - \phi) Y] \\
+				& = \nab_X[(1 - \phi) Y] \\
+				& = (1- \phi) \nab_X Y + [X(1 - \phi)] \nab_X Y \\
+			\end{align*}
+			Hence
+			\begin{align*}
+				[\nab_X Y]_p
+				& = (1- \phi(p)) [\nab_X Y]_p + [X(1 - \phi)](p) [\nab_X Y]_p \\ 
+				& = 0
+			\end{align*} 
+		\end{itemize}
+	\end{proof}
+
+	\begin{ex}
+		Let $(E, M, \pi)$ be a smooth vector bundle and $\nab$ a connection in $E$. Then for each $X_1, X_2 \in \MFX(M)$ and $Y_1, Y_2 \in \Gam(E)$, $X_1 \sim_p X_2$ and $Y_1 \sim_p Y_2$ implies that $[\nab_{X_1}Y_1]_p = [\nab_{X_2}Y_2]_p $.
+	\end{ex}
+
+	\begin{proof}
+		Let $X_1, X_2 \in \MFX(M)$ and $Y_1, Y_2 \in \Gam(E)$. Suppose that $X_1 \sim_p X_2$ and $Y_1 \sim_p Y_2$. Define $X \in \MFX(M)$ and $Y \in \Gam(E)$ by $X = X_2 - X_1$ and $Y = Y_2 - Y_1$. Then $X \sim_p 0$ and $Y \sim_p 0$. The previous exercise implies that $[\nab_{X}Y_1]_p = 0$ and $[\nab_{X_2} Y]_p = 0$. Therefore
+		\begin{align*}
+			[\nab_{X_1} Y_1]_p
+			& = [\nab_{X_1} Y_1]_p + [\nab_X Y_1]_p \\
+			& = [\nab_{X_1} Y_1 + \nab_X Y_1]_p \\
+			& = [\nab_{X_1 + X} Y_1]_p \\
+			& = [\nab_{X_2} Y_1]_p \\
+			& = [\nab_{X_2} Y_1]_p + [\nab_{X_2} Y]_p \\
+			& = [\nab_{X_2} Y_1 + \nab_{X_2} Y]_p \\
+			& = [\nab_{X_2} (Y_1 + Y)]_p \\
+			& = [\nab_{X_2} Y_2]_p \\
+		\end{align*}
+	\end{proof}
+
+	\begin{ex}
+		Let $(E, M, \pi)$ be a smooth vector bundle, $\nab$ a connection in $E$ and $U \subset M$. If $U$ is open, then there exists a unique connection $\nab^U: \MFX(U) \times \Gam(E|_U) \rightarrow \Gam(E|_U)$ such that for each $X \in \MFX(M)$ and $Y \in \Gam(E)$, 
+		$$\nab^U_{X|_U} Y|_U = (\nab_X Y)|_U$$
+	\end{ex}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\chapter{Riemannian Geometry}
+	
+	\begin{defn}
+		Let $M$ be a manifold and $g \in T^0_2(M)$. Then $g$ is said to be a \tbf{metric tensor} on $M$ if 
+		\begin{enumerate}
+			\item $g$ is nondegenerate
+			\item $g$ is symmetric
+			\item $g$ has constant index
+		\end{enumerate}
+		 $(M, g)$
+	\end{defn}
+
+
+
+	\begin{defn}
+		Let $M$ be a smooth manifold and $g \in T^0_2(M)$ a metric tensor on $M$. We define $\hat{g} \in T^2_0(M)$ by $\hat{g}(\om, \eta) = g(\phi_g^{-1}(\om), \phi_g^{-1}(\eta))$. 
+	\end{defn}
+
+	\begin{ex}
+		content...
+	\end{ex}
+
+	\begin{ex}
+		Let $(M, g)$ be a semi-Riemannian manifold and $(U, \phi) \in \MA$. Then the induced metric $\l \r_{T^*M \otimes TM}$ on $T^*M \otimes TM$ is given by 
+		$$\bigg \l dx^i \otimes \frac{\p }{\p x^k}, dx^j \otimes \frac{\p}{\p x^l} \bigg \r_{T^*M \otimes TM} = g^{i,j}g_{kl}$$
+	\end{ex}
+
+	\begin{proof}
+		We have that 
+		\begin{align*}
+			\bigg \l dx^i \otimes \frac{\p }{\p x^k}, dx^j \otimes \frac{\p}{\p x^l} \bigg \r_{T^*M \otimes TM}
+			& = \l dx^i , dx^j \r_{T^*M} \bigg \l \frac{\p }{\p x^k}, \frac{\p }{\p x^l} \bigg \r_{TM} \\
+			& = g^{i,j}g_{k,l}
+		\end{align*}
+	\end{proof}
+
+
+\begin{ex}
+	Let $(M, g)$ be an $n$-dimensional Riemannian manifold.
+	\begin{enumerate}
+		\item There exists $\lam \in \Om^n(M)$ such that for each orthonormal frame $e_1, \ldots, e_n$, 
+		$$\lam(e_1, \ldots, e_n) = 1$$
+		\tbf{Hint:} Choose a frame $z_1, \ldots, z_n$ on $M$ with corresponding dual frame $\ze^1, \ldots, \ze^n$. Define $$\lam = \det [g(z_i, z_j)]^{1/2} \ze^1 \wedge \cdots \wedge \ze^n$$
+		\item Let $N \in \mathfrak{X}(M)$ be the outward pointing normal to $\p M$ and $X \in \mathfrak{X}(M)$. Then 
+		$$\int_M \div X \lam = \int_{\p M} g(X, N) \tilde{\lam}$$
+		\item For each $u \in \C^{\infty}(M)$ and $X \in \mathfrak{X}(M)$, we have that 
+		$$\div(uX) = u \div(X) + du(X)$$ 
+		and therefore
+		$$\int_M du(X) \lam = \int_{\p M} u g(X, N) \tilde{\lam} - \int_{M} u \div(X) \lam$$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Let $z_1, \ldots, z_n$ be a frame on $M$ and $\ze^1, \ldots, \ze^n$ with corresponding dual frame $\ze^1, \ldots, \ze^n$. Define 
+		$$\lam = \det [g(z_i, z_j)]^{1/2} \ze^1 \wedge \cdots \wedge \ze^n$$
+		Let $e_1, \ldots, e_n$, be an orthonormal frame on $M$ with corresponding dual coframe $\ep^1, \ldots, \ep^n$. Let $i,j \in \{1, \ldots, n\}$. Then there exist $(a_{k,i}) \subset \R$ such that $\ze^i = \sum\limits_{k=1}^n a_{k,i} \ep^k$.
+		Then 
+		\begin{align*}
+			\hat{g}(\ep^j, \ze^i)
+			& = \sum\limits_{k=1}^n a_{k,i} \hat{g}(\ep^j, \ep^k) \\
+			& = \sum\limits_{k=1}^n a_{k,i} g( \phi_g^{-1}(\ep^j), \phi_g^{-1}(\ep^k)) \\
+			& = \sum\limits_{k=1}^n a_{k,i} g(e_j, e_k) \\
+			& = \sum\limits_{k=1}^n a_{k,i} \del_{j,k} \\
+			& = a_{j,i}
+		\end{align*}
+		which implies that
+		\begin{align*}
+			\del_{i,j}
+			& = \ze^i(z_j) \\
+			& = \sum\limits_{k=1}^n a_{k,i} \ep^k(z_j) \\
+			& = \sum\limits_{k=1}^n a_{k,i} g(e_k, z_j) \\
+			& = \sum\limits_{k=1}^n \hat{g}(\ep^k, \ze^i) g(e_k, z_j) 
+		\end{align*}
+		Define $U, V \in \R^{n \times n}$ by $U_{i,k} = \hat{g}(\ze^i, \ep^k)$ and $V_{k,j} = g(e_k, z_j)$. Then from above, we have that $UV = I$. Since $U,V \in \R^{n \times n}$, $VU = I$. Hence $U = V^{-1}$. Since 
+		\begin{align*}
+			\ze^i(e_j)
+			& = \sum_{k=1}^n a_{k,i}\ep^k(e_j) \\
+			& = \sum_{k=1}^n a_{k,i} \del_{k, j} \\
+			& = a_{j, i} \\
+			& = \hat{g}(\ep^j, \ze^i) \\
+			& = U_{i,j}
+		\end{align*}
+		and 
+		\begin{align*}
+			g(z_i, z_j)
+			& = \bigg( \sum_{k=1}^n g(e_k, z_i)e_k , \sum_{l=1}^n g(e_l, z_j) e_l \bigg) \\
+			& = \sum_{k=1}^n \sum_{l=1}^n g(e_k, z_i) g(e_l, z_j) g(e_k, e_l) \\
+			& = \sum_{k=1}^n \sum_{l=1}^n g(e_k, z_i) g(e_l, z_j) \del_{k,l} \\
+			& = \sum_{k=1}^n  g(e_k, z_i) g(e_k, z_j) \\
+			& = (V^*V)_{i,j}
+		\end{align*}
+		we have that
+		\begin{align*}
+			\lam(e_1, \ldots, e_n)
+			& = \det [g(z_i, z_j)]^{1/2} \ze^1 \wedge \cdots \wedge \ze^n(e_1, \ldots, e_n) \\
+			& = \det [g(z_i, z_j)]^{1/2} \det [\ze^i(e_j)] \\
+			& = \det (V^*V)^{1/2} \det U \\
+			& = \det V (\det V)^{-1} \\
+			& = 1
+		\end{align*}
+		\item Choose an orthonormal frame $e_1, \ldots, e_{n-1} \in \mathfrak{X}(\p M)$ with dual coframe $\ep^1, \ldots, \ep^{n-1}$. Define $\nu \in \Om^1(M)$ to be the dual covector to $N$. We note that $N, e_1, \ldots, e_{n-1}$ is an orthonormal frame on $\mathfrak{X}(M)$. Let $X_1, \ldots, X_{n-1} \in \mathfrak{X}(\p M)$. Since for each $j \in \{1, \ldots, n-1\}$, $X_j \in \mathfrak{X}(\p M)$ and for each $p \in \p M$, $N_p \in (T_p \p M)^{\perp}$, we have that for each $j \in \{1, \ldots, n-1\}$, $g(X_j, N) = 0$. This implies that 
+		\begin{align*}
+			\iota^* \iota_X \lam (X_1, \ldots, X_{n-1})
+			& = \lam(X, X_1, \ldots, X_{n-1}) \\
+			& = \nu \wedge \ep^1 \wedge \cdots \wedge \ep^{n-1} (X, X_1, \ldots, X_{n-1})  \\
+			& = \det 
+			\begin{pmatrix}
+				\nu(X)     & \nu(X_1)     & \cdots & \nu(X_{n-1}) \\
+				\ep^1(X) & \ep^1(X_1) & \cdots & \ep^1(X_{n-1}) \\ 
+				\vdots   &            &        &  \vdots \\
+				\ep^{n-1}(X) & \ep^{n-1}(X_1) & \cdots & \ep^{n-1}(X_{n-1})
+			\end{pmatrix} \\
+			& = \det 
+			\begin{pmatrix}
+				g(X, N)    & g(X_1, N)     & \cdots & g(X_{n-1}, N) \\
+				\ep^1(X)   & \ep^1(X_1)    & \cdots & \ep^1(X_{n-1}) \\ 
+				\vdots     &               &        &  \vdots \\
+				\ep^{n-1}(X) & \ep^{n-1}(X_1) & \cdots & \ep^{n-1}(X_{n-1})
+			\end{pmatrix} \\
+			& = g(X, N) \det (\ep^i(X_j)) \\
+			& = g(X,N) \ep^1 \wedge \ldots \wedge \ep^{n-1}(X_1, \ldots, X_{n-1}) \\
+			& =  g(X, N) \tilde{\lam}(X_1, \ldots, X_n) 
+		\end{align*}
+		Therefore $	\iota^* \iota_X \lam  = g(X,N) \tilde{\lam}$ and 
+		\begin{align*}
+			\int_M \div X \lam 
+			& = \int_M d(\iota_X \lam) \\
+			& = \int_{\p M} \iota^* (\iota_X \lam) \\
+			& = \int_{\p M} g(X, N) \tilde{\lam}
+		\end{align*}
+		\item We note that
+		\begin{align*}
+			0
+			& = \iota_X(d u \wedge \lam) \\
+			& = \iota_X(du) \wedge \lam - du \wedge (\iota_X \lam) \\
+			& = du(X) \lam  - du \wedge (\iota_X \lam) 
+		\end{align*} 
+		which implies that 
+		\begin{align*}
+			\div (uX) \lam 
+			& = d(\iota_{uX} \lam) \\
+			& = d (u \iota_X \lam) \\
+			& = du \wedge (\iota_X \lam) + u d(\iota_X \lam ) \\
+			& = du(X) \lam + u \div(X) \lam \\
+			& = [du(X) + u \div(X)] \lam 
+		\end{align*}
+		This implies that $	\div (uX) = du(X) + u \div(X)$. From before, we have that 
+		\begin{align*}
+			\int_M du(X) \lam 
+			& = \int_M \div (uX) \lam - \int_M u \div(X) \lam \\
+			& = \int_{\p M} g(uX, N) \tilde{\lam} - \int_M u \div(X) \lam \\
+			& = \int_{\p M} u g(X, N) \tilde{\lam} - \int_M u \div(X) \lam \\
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+
+\begin{ex}
+	$$\div(X) = \sum_{j = 1}^n (\nab_{\p_j} X)^j$$
+\end{ex}
+
+\begin{proof}
+	We have that 
+	\begin{align*}
+		\nab_{\p_i}(X) 
+		& = \sum_{j=1}^n \nab_{\p_i}(X^j \p_j) \\
+		& = \sum_{j=1}^n \bigg[ X^j \nab_{\p_i} \p_j + \p_i(X^j) \p_j \bigg] \\
+		& = \sum_{j=1}^n \bigg[ X^j (\sum_{k=1}^n \Gam_{i,j}^k \p_k) + \p_i(X^j) \p_j \bigg] \\
+		& = \sum_{j=1}^n \bigg[ X^j \bigg(\sum_{k=1}^n \Gam_{i,j}^k \p_k \bigg) + \p_i(X^j) \p_j \bigg] \\
+		& = \sum_{j=1}^n  X^j \bigg(\sum_{k=1}^n \Gam_{i,j}^k \p_k \bigg) + \sum_{j=1}^n \p_i(X^j) \p_j \\
+		& = \sum_{k=1}^n \bigg(\sum_{j=1}^n  X^j\Gam_{i,j}^k \bigg)\p_k + \sum_{k=1}^n \p_i(X^k) \p_k  \\
+		& = \sum_{k=1}^n \bigg[ \bigg(\sum_{j=1}^n  X^j\Gam_{i,j}^k  \bigg) + \p_i(X^k) \bigg] \p_k \\
+	\end{align*}
+	so that $(\nab_{\p_i}(X) )^i = \bigg(\sum_{j=1}^n  X^j\Gam_{i,j}^i  \bigg) + \p_i(X^i)$. We note that 
+	\begin{align*}
+		\div(X)
+		& = \sum_{i=1}^n \div(X^i \p_i) \\
+		& = \sum_{i=1}^n [X^i \div(\p_i) + dx^i(\p_i)] \\
+		& = \sum_{i=1}^n [X^i \div(\p_i) + 1] \\
+	\end{align*}
+	Since $\lam = [\det g(\p_i, \p_j)]^{1/2} dx^1 \wedge \cdots \wedge dx^n = (\det g)^{1/2} dx$, we have that
+	\begin{align*}
+		d(\iota_{\p_i} \lam )
+		& = d((\det g)^{1/2} \iota_{\p_i} dx) \\
+		& = d [(\det g)^{1/2}] \iota_{\p_i} dx + (\det g)^{1/2} d(\iota_{\p_i} dx ) \\
+		& = d[(\det(g)^{1/2}]  \sum_{k=1}^n (-1)^{k-1} dx^1 \wedge \cdots \wedge \widehat{dx^k} \wedge \cdots dx^n + (\det g)^{1/2} \sum_{k=1}^n (-1)^{k-1} dx^1 \wedge \cdots \wedge \widehat{dx^k} \wedge \cdots dx^n) 
+	\end{align*}
+\tcb{FINISH!!!}
+\end{proof}
+
+
+\begin{ex}
+	Let $(M, g)$ be a Riemannian manifold. 
+	\begin{enumerate}
+		\item For each $u,v \in C^{\infty}(M)$. Then
+		\begin{enumerate}
+			\item $$\int_{M} u \Del v \lam + \int_M g(\nab u, \nab v) \lam = \int_{\p M} u N(v) \tilde{\lam}$$ 
+			\item $$\int_{M} [u \Del v - v \Del u] \lam = \int_{\p M} [u N(v) - v N(u)] \tilde{\lam} $$
+		\end{enumerate}
+		\item 
+		\begin{enumerate}
+			\item If $\p M \neq \varnothing$, then for each $u,v \in C^{\infty(M)}$, $u$ and $v$ are harmonic and $u|_{\p M} = v|_{\p M}$ implies that $u = v$. 
+			\item If $\p M = \varnothing$, then for each $u \in C^{\infty}(M)$, $u$ is harmonic implies that  $u$ is constant. 
+		\end{enumerate}
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Let $u,v \in C^{\infty}(M)$. Then
+		\begin{enumerate}
+			\item 
+			\begin{align*}
+				\int_{M} u \Del v \lam 
+				& = \int_M u \div (\nab v ) \lam \\
+				& = \int_{\p M} u g(\nab v, N) \tilde{\lam}  - \int_M du( \nab v) \lam \\
+				& =  \int_{\p M} u dv(N) \tilde{\lam} -  \int_M g(\nab u, \nab v) \lam \\
+				& = \int_{\p M} u N(v)  \tilde{\lam}  -  \int_M g(\nab u, \nab v) \lam \\
+			\end{align*} 
+			\item From above, we have that
+			\begin{align*}
+				\int_{M} [u \Del v - v \Del u] \lam
+				& = \int_{M} u \Del v \lam - \int_{M} v \Del u \lam \\
+				& = \int_{\p M} u N(v) \tilde{\lam}   -  \int_M g(\nab u, \nab v) \lam - \bigg (\int_{\p M} v N(u) \tilde{\lam}  -  \int_M g(\nab v, \nab u) \lam \bigg) \\
+				& = \int_{\p M} u N(v) \tilde{\lam}  - \int_{\p M} v N(u) \tilde{\lam} \\
+				& = \int_{\p M} [u N(v) - v N(u)] \tilde{\lam} 
+			\end{align*}
+		\end{enumerate}
+		\item 
+		\begin{enumerate}
+			\item Suppose that $\p M \neq \varnothing$. Let $u,v \in C^{\infty(M)}$. Suppose that $u$ and $v$ are harmonic and $u|_{\p M} = v|_{\p M}$. Then $u-v$ is harmonic and 
+			\begin{align*}
+				\int_M \|\nab (u-v)\|_g^2 \lam 
+				& = \int_M g(\nab (u-v), \nab(u-v)) \lam \\
+				& = 0 + \int_M g(\nab (u-v), \nab(u-v)) \lam \\
+				& = \int_{M} (u-v) \Del (u-v) \lam + \int_M g(\nab (u-v), \nab(u-v)) \lam \\
+				& = \int_{\p M} (u-v) N(u-v) \tilde{\lam} \\
+				& = 0
+			\end{align*} 
+			Thus $\nab (u-v) = 0$ and $u - v$ is constant. Since $u|_{\p M} = v|_{\p M}$, we have that $u - v = 0$ and thus $u = v$.
+			\item Suppose that $\p M = \varnothing$. Let $u \in C^{\infty}(M)$. Suppose that $u$ is harmonic. Then
+			\begin{align*}
+				\int_M \|\nab u\|_g^2 \lam 
+				& = \int_M g(\nab u, \nab u) \lam \\
+				& = 0 + \int_M g(\nab u, \nab u) \lam \\
+				& = \int_{M} u \Del u \lam + \int_M g(\nab u, \nab u) \lam \\
+				& = \int_{\p M} (u-v) g(\nab (u-v), N) \tilde{\lam} \\
+				& = 0
+			\end{align*}
+			Therefore $\nab u - 0$ and $u$ is constant.
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\chapter{Symplectic Geometry}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Symplectic Manifolds}
+	
+	\begin{defn}
+		Let $M \in \Maninf$ and $\om \in \Om^2(M)$. Then $\om$ is said to be \tbf{symplectic} if 
+		\begin{enumerate}
+			\item $\om$ is nondegenerate
+			\item $\om$ is closed
+		\end{enumerate} 
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 
