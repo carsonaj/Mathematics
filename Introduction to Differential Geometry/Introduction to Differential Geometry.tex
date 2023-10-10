@@ -46,6 +46,7 @@
 \usepackage{pgfplots}
 \usepackage{environ}
 \usepackage{tikz-cd} 
+\usepackage{enumitem}
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
 \hypersetup{
@@ -153,6 +154,8 @@
 
 % mathfrak
 \newcommand{\MFX}{\mathfrak{X}}
+\newcommand{\MFg}{\mathfrak{g}}
+\newcommand{\MFh}{\mathfrak{h}}
 
 % tilde 
 \newcommand{\tMA}{\tilde{\MA}}
@@ -209,6 +212,7 @@
 \DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
 \DeclareMathOperator*{\Maninf}{\text{\tbf{Man}}^{\infty}} 
 \DeclareMathOperator*{\Buninf}{\text{\tbf{Bun}}^{\infty}} 
+\DeclareMathOperator*{\VecBuninf}{\text{\tbf{VecBun}}^{\infty}} 
 \DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
 \DeclareMathOperator*{\0}{\mbf{0}}
 \DeclareMathOperator*{\1}{\mbf{1}}
@@ -1530,6 +1534,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\begin{proof}\
 			\begin{enumerate}
 				\item Suppose that $\al$ is positive definite. Write $\sig(\phi_{\al}) = \{ \lam_1, \ldots, \lam_n\}$. Define $\Lam \in \R^{n \times n}$ by $\Lam = \diag(\lam_1, \ldots, \lam_n)$.  Since $\al$ is symmetric, $[\phi_{\al}]$ is symmetric. There exists $U \in O(n)$ such that $[\phi_{\al}] = U \Lam U^*$. 
+				\tcb{FINISH!!!}
 			\end{enumerate}
 		\end{proof}
 	\end{ex}
@@ -2370,12 +2375,45 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{defn}
 		Let $(M, \MA)$ be a $n$-dimensional smooth manifold. We define $\MA|_{\p M}$ to be the unique smooth structure on $\p M$ such that $\ol{\MA} \subset \MA|_{\p M}$. We define the \tbf{smooth boundary submanifold of $M$} to be $(\p M, \MA|_{\p M})$.
 	\end{defn}
+
+	\begin{ex} \tbf{Topological Manifold Chart Lemma:} \\
+		Let $M$ be a set, $A$ an index set and for each $\al \in A$, $U_{\al} \subset M$ and $\phi_{\al}: U_{\al} \rightarrow \R^n$. Suppose that 
+		\begin{enumerate}[label=(\alph*)]
+			\item for each $\al \in A$, $\phi_{\al}(U_{\al})$ is open in $\R^n$ and $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a bijection
+			\item for each $\al, \be \in A$, $\phi_{\al}(U_{\al} \cap U_{\be})$ and $\phi_{\be}(U_{\al} \cap U_{\be})$ are open in $\H^n$
+			\item for each $\al, \be \in A$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is continuous
+			\item there exists $B \subset A$ such that $B$ is countable and $M \subset \bigcup\limits_{\be \in B} U_{\be}$
+			\item for each $p,q \in M$, there exist $\al,\be \in A$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
+		\end{enumerate}
+		Then there exists a unique topology $\MT$ on $M$ such that $(U_{\al})_{\al \in A} \subset \MT$. Assumtion $(c)$ implies that \\\
+		\tcb{FINISH!!!}
+	\end{ex}
 	
-	\begin{note}
-		For the rest of this section, we assume that $(M, \MA)$ is a $n$-dimensional smooth manifold and we denote the standard coordinate functions on $\R^n$ by $u^1, \cdots, u^n$. For a coordinate chart $(U, \phi)$ $\in \MA$ and $i \in \{1, \cdots, n\}$, we will typically denote the $i$th coordinate of $\phi$ by $x^i$, that is,  $x^i = u^i(\phi)$.
-	\end{note}
+	\begin{proof}
+			We define $\MB = \{\phi_{\al}^{-1}(V): V \subset \H^n \text{ is open in $\H^n$ and $\al \in A$} \}$. 
+		\begin{enumerate}
+			\item By assumption, $M \subset \bigcup\limits_{\al \in A} U_{\al}$
+			\item Let $U_1, U_2 \in \MB$ and $x \in U_1 \cap U_2$. Then there exist $\al_1, \al_2 \in A$ and $V_1, V_2 \subset \H^n$ such that $V_1$, $V_2$ are open in $\H^n$, $U_1 = \phi_{\al_1}^{-1}(V_1)$ and $U_2 = \phi_{\al_2}^{-1}(V_2)$. Then $U_1 \cap U_2 = \phi$. 
+		\end{enumerate}
+	\end{proof}
 	
-	
+	\begin{ex} \tbf{Smooth Manifold Chart Lemma:} \\
+		Let $M$ be a set, $A$ an index set and for each $\al \in A$, $U_{\al} \subset M$ and $\phi_{\al}: U_{\al} \rightarrow \R^n$. Suppose that 
+		\begin{itemize}
+			\item for each $\al \in A$, $\phi_{\al}(U_{\al})$ is open in $\R^n$ and $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a bijection
+			\item for each $\al, \be \in A$, $\phi_{\al}(U_{\al} \cap U_{\be})$ and $\phi_{\be}(U_{\al} \cap U_{\be})$ are open in $\H^n$
+			\item for each $\al, \be \in A$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is smooth
+			\item there exists $B \subset A$ such that $B$ is countable and $M \subset \bigcup\limits_{\be \in B} U_{\be}$
+			\item for each $p,q \in M$, there exist $\al,\be \in A$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
+		\end{itemize}
+		Then there exists a unique topology $\MT$ on $M$ and smooth structure $\MA$ on $M$ such that $(U_{\al})_{\al \in A} \subset \MT$ and $(U_{\al}, \phi_{\al})_{\al \in A} \subset \MA$.
+	\end{ex}
+
+	\begin{proof}
+		\begin{enumerate}
+			content...
+		\end{enumerate}
+	\end{proof}
 	
 	
 	
@@ -2674,7 +2712,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{ex} \tbf{Change of Coordinates:}\\
-		Let $(U, \phi), (V, \psi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$, $p \in U \cap V$ and $f \in C_p^{\infty}(M)$. Then for each $i \in \{1, \cdots, n\}$, 
+		Let $(U, \phi), (V, \psi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$, $p \in U \cap V$ and $f \in C^{\infty}(M)$. Then for each $i \in \{1, \cdots, n\}$, 
 		 $$\frac{\p}{\p y^i} \bigg|_p = \sum_{j =1}^n {\frac{\p}{\p x^j}{y^i}}(p) \frac{\p}{\p x^i} \bigg|_p    $$
 	\end{ex}
 
@@ -2691,16 +2729,16 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{defn}
-		Let $p \in M$ and $v: C^{\infty}_p(M) \rightarrow \R$. Then $v$ is said to be \tbf{Leibnizian} if for each $f,g \in  C^{\infty}_p(M)$, $$v(fg) = v(f)g(p) + f(p)v(g)$$ and $v$ is said to be a \tbf{derivation at $p$} if for each $f, g \in C^{\infty}_p(M)$ and $a \in \R$,
+		Let $p \in M$ and $v: C^{\infty}(M) \rightarrow \R$. Then $v$ is said to be \tbf{Leibnizian} if for each $f,g \in  C^{\infty}(M)$, $$v(fg) = v(f)g(p) + f(p)v(g)$$ and $v$ is said to be a \tbf{derivation at $p$} if for each $f, g \in C^{\infty}(M)$ and $a \in \R$,
 		\begin{enumerate}
 			\item $v$ is linear 
 			\item $v$ is Leibnizian
 		\end{enumerate}
-		We define the \tbf{tangent space of $M$ at $p$}, denoted $T_pM$, by $$T_pM = \{ v: C^{\infty}_p(M) \rightarrow \R: v \text{ is a derivation at }p\}$$
+		We define the \tbf{tangent space of $M$ at $p$}, denoted $T_pM$, by $$T_pM = \{ v: C^{\infty}(M) \rightarrow \R: v \text{ is a derivation at }p\}$$
 	\end{defn}
 
 	\begin{ex}
-		Let $f \in C^{\infty}_p(M)$ and $v \in T_pM$. If $f$ is constant, then $vf = 0$.
+		Let $f \in C^{\infty}(M)$ and $v \in T_pM$. If $f$ is constant, then $vf = 0$.
 	\end{ex}
 
 	\begin{proof}
@@ -2721,7 +2759,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			&= a_j
 		\end{align*}
 		Hence $\bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$ is independent.\\
-		Now, let $v \in T_pM$ and $f \in \C^{\infty}_p(M)$. By Taylor's theorem, there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x^i - x^i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \frac{\p}{\p x^i} \bigg |_p  f $$ Then 
+		Now, let $v \in T_pM$ and $f \in \C^{\infty}(M)$. By Taylor's theorem, there exist $g_1, \cdots g_n \in C_p^{\infty}(M)$ such that $$f = f(p) + \sum_{i=1}^n(x^i - x^i(p)) g_i$$ and for each $i \in \{1, \cdots, n\}$, $$g_i(p) = \frac{\p}{\p x^i} \bigg |_p  f $$ Then 
 		\begin{align*}
 			v(f)
 			&= \sum_{i=1}^nv(x^i - x^i(p)) g_i(p) + \sum_{i=1}^n(x^i(p) - x^i(p)) v(g_i) \\
@@ -2735,13 +2773,13 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. We define the \tbf{differential of $F$ at $p$}, denoted $dF_p: T_pM \rightarrow T_{F(p)}N$, by $$\bigg[ dF_p(v) \bigg] (f) = v (f \circ F)$$  for $v \in T_pM$ and $f \in C^{\infty}_{F(p)}(N)$.
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. We define the \tbf{differential of $F$ at $p$}, denoted $DF_p: T_pM \rightarrow T_{F(p)}N$, by $$\bigg[ DF_p(v) \bigg] (f) = v (f \circ F)$$  for $v \in T_pM$ and $f \in C^{\infty}(N)$.
 	\end{defn}
 	
 	
 	
 	\begin{ex}
-	Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. Then for each $v \in T_pM$, $dF_p(v)$ is a derivation.
+	Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. Then for each $v \in T_pM$, $DF_p(v)$ is a derivation.
 	\end{ex}
 	
 	\begin{proof}
@@ -2749,31 +2787,31 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{enumerate}
 	\item 
 	\begin{align*}
-		dF_p(v)(f+cg) 
+		DF_p(v)(f+cg) 
 		&= v((f+cg) \circ F) \\
 		&= v(f \circ F + c g \circ F) \\
 		&= v(f \circ F) + cv(g \circ F) \\
-		&= dF_p(v)(f) + c dF_p(v)(g)
+		&= DF_p(v)(f) + c DF_p(v)(g)
 	\end{align*}
-	So $dF_p(v)$ is linear.
+	So $DF_p(v)$ is linear.
 	\item 
 	\begin{align*}
-	dF_p(v)(fg) 
+	DF_p(v)(fg) 
 	&= v (fg \circ F) \\
 	&= v((f \circ F)* (g \circ F)) \\
 	&= v(f \circ F)*(g \circ F)(p) +  (f \circ F)(p)* v(g \circ F) \\
-	&= dF_p(v)(f) * g(F(p)) + f(F(p))*dF_p(v)(g) \\
+	&= DF_p(v)(f) * g(F(p)) + f(F(p))*DF_p(v)(g) \\
 	\end{align*}
 	\end{enumerate}
-	So $dF_p(v)$ is Leibnizian and hence $dF_p(v) \in T_{F(p)}N$
+	So $DF_p(v)$ is Leibnizian and hence $DF_p(v) \in T_{F(p)}N$
 	\end{proof}
 
 	\begin{ex}
-		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. If $F$ is a diffeomorphism, then $dF_p$ is an isomorphism.
+		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ smooth and $p \in M$. If $F$ is a diffeomorphism, then $DF_p$ is an isomorphism.
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that $F$ is a diffeomorphism. Since $F$ is a homeomorphism, $\dim N = n$. Choose $(U, \phi) \in \MA$ such that $p \in U$. A previous exercise tells us that $(F(U), \phi \circ F^{-1}) \in \MB$. Write $\phi = (x^1, \cdots, x^n)$ and $\phi \circ F^{-1} = (y^1, \cdots, y^n)$. Let $f \in C^{\infty}_{F(p)}(N)$ Then 
+		Suppose that $F$ is a diffeomorphism. Since $F$ is a homeomorphism, $\dim N = n$. Choose $(U, \phi) \in \MA$ such that $p \in U$. A previous exercise tells us that $(F(U), \phi \circ F^{-1}) \in \MB$. Write $\phi = (x^1, \cdots, x^n)$ and $\phi \circ F^{-1} = (y^1, \cdots, y^n)$. Let $f \in C^{\infty}(N)$ Then 
 		\begin{align*}
 			\frac{\p}{\p y^i} \bigg|_{F(p)} f
 			&= 	\frac{\p}{\p u^i} \bigg|_{\phi \circ F^{-1} (F(p))} f \circ (\phi \circ F^{-1})^{-1} \\
@@ -2782,32 +2820,32 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{align*}
 		Therefore 
 		\begin{align*}
-			\bigg[ dF_p \bigg( \frac{\p}{\p x^i} \bigg|_p \bigg) \bigg] (f)
+			\bigg[ DF_p \bigg( \frac{\p}{\p x^i} \bigg|_p \bigg) \bigg] (f)
 			&= \frac{\p}{\p x^i} \bigg|_p f \circ F \\
 			&= \frac{\p}{\p y^i} \bigg|_{F(p)} f 
 		\end{align*}
-	Hence $$dF_p \bigg( \frac{\p}{\p x^i} \bigg|_p \bigg) = \frac{\p}{\p y^i} \bigg|_{F(p)}$$ 
-	Since $\bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$ is a basis for $T_pM$ and $\bigg \{\frac{\p}{\p y^1} \bigg|_{F(p)}, \cdots, \frac{\p}{\p y^n} \bigg|_{F(p)} \bigg \}$ is a basis for $T_{F(p)}N$, $dF_p$ is an isomorphism.
+	Hence $$DF_p \bigg( \frac{\p}{\p x^i} \bigg|_p \bigg) = \frac{\p}{\p y^i} \bigg|_{F(p)}$$ 
+	Since $\bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$ is a basis for $T_pM$ and $\bigg \{\frac{\p}{\p y^1} \bigg|_{F(p)}, \cdots, \frac{\p}{\p y^n} \bigg|_{F(p)} \bigg \}$ is a basis for $T_{F(p)}N$, $DF_p$ is an isomorphism.
 	\end{proof}
 
 	\begin{ex}
 		Let $(M, \MA)$ be a smooth $m$-dimensional manifold, $(N, \MB)$ a $n$-dimensional smooth manifold, $F: M \rightarrow N$ smooth, $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^m)$ and $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$. Suppose that $p \in U$ and $F(p) \in V$. Define the ordered bases $B_\phi = \bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^m} \bigg|_p \bigg \}$ and $B_{\psi} = \bigg \{\frac{\p}{\p y^1} \bigg|_{F(p)}, \cdots, \frac{\p}{\p y^n} \bigg|_{F(p)} \bigg \}$ .
-		Then the matrix representation of $dF_p$ with respect to the bases
-		$B_{\phi}$ and $B_{\psi}$ is $$ dF_p^{i,j} =  \frac{\p F^i}{\p x^j}(p)$$
+		Then the matrix representation of $DF_p$ with respect to the bases
+		$B_{\phi}$ and $B_{\psi}$ is $$ DF_p^{i,j} =  \frac{\p F^i}{\p x^j}(p)$$
 	\end{ex}
 
 	\begin{proof}
-		Let $(dF_p)_{B_\phi, B_{\psi}} = (a_{i,j})_{i,j} \in \R^{n \times m}$. Then for each $j \in \{1, \dots, m\}$, $$dF_p \bigg(\frac{\p }{\p x^j} \bigg|_p\bigg) = \sum_{i=1}^n a_{i,j}\frac{\p }{\p y^i} \bigg|_{F(p)}$$
+		Let $(DF_p)_{B_\phi, B_{\psi}} = (a_{i,j})_{i,j} \in \R^{n \times m}$. Then for each $j \in \{1, \dots, m\}$, $$DF_p \bigg(\frac{\p }{\p x^j} \bigg|_p\bigg) = \sum_{i=1}^n a_{i,j}\frac{\p }{\p y^i} \bigg|_{F(p)}$$
 		This implies that 
 		\begin{align*}
-			dF_p \bigg(\frac{\p }{\p x^j} \bigg|_p\bigg) (y^k )
+			DF_p \bigg(\frac{\p }{\p x^j} \bigg|_p\bigg) (y^k )
 			&=   \sum_{i=1}^n a_{i,j}\frac{\p }{\p y^i} \bigg|_{F(p)} (y^k) \\
 			&= \sum_{i=1}^n a_{i,j} \del_{i,k} \\
 			&= a_{k, j}
 		\end{align*}
 		By definition, 
 		\begin{align*}
-			dF_p \bigg(\frac{\p }{\p x^j} \bigg|_p\bigg) (y^k )
+			DF_p \bigg(\frac{\p }{\p x^j} \bigg|_p\bigg) (y^k )
 			&=  \frac{\p }{\p x^j} \bigg|_p y^k \circ F \\
 			&= \frac{\p }{\p x^j} \bigg|_p F^k \\
 			&= \frac{\p F^k}{\p x^j} (p)
@@ -2816,18 +2854,13 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	\begin{note}
-	Since $\rnk dF_p$ is independent of basis, it is independent of coordinate charts $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$. 
+	Since $\rnk DF_p$ is independent of basis, it is independent of coordinate charts $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$. 
 	\end{note}	
 	
 	
 	
 	
 
-	\newpage
-
-	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold, $F: M \rightarrow N$ a diffeomorphism. Define the \tbf{push forward of $F$}, denoted $$F_*:M \rightarrow \coprod_{p \in M} \iso(T_pM, T_{F(p)}N)$$ by $$p \mapsto dF_p$$
-	\end{defn}
 	
 	
 
@@ -3205,26 +3238,204 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Vector Fields}
+	
+\section{The Tangent Bundle}
+	
+\begin{defn}
+	Let $(M, \MA_M)$ be an $n$-dimensional smooth manifold. We define the \tbf{tangent bundle of $M$}, denoted $TM$, by  
+	$$TM = \coprod_{p \in M} T_p M $$ 
+	and we define the \tbf{tangent bundle projection}, denoted $\pi: TM \rightarrow M$, by 
+	$$\pi(p, v) = p$$
+	Let $(U, \phi) \in \MA_M$ with $\phi = (x^1, \ldots, x^n)$. We define $\Phi_{\phi}: \pi^{-1}(U) \rightarrow \R^{2n}$ by 
+	$$\Phi_{\phi} \bigg(p, \sum_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_p \bigg) = (\phi(p), \xi^1, \ldots, \xi^n)$$ 
+	We define $\MT_{TM} = \tau_{TM}(\iota_p : p \in M)$.
+\end{defn}
+	
+	\begin{ex}
+		$\psi: \bigcup\limits_{p \in U} T_pM \rightarrow \R^n$ is given by 
+		$$\psi \bigg (\sum_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_p \bigg) = (\xi^1, \ldots, \xi^n)$$
+		\begin{align*}
+			x^k \circ \pi \circ \Phi_{\phi}^{-1}(u,v)
+			& =  x^k \circ \pi (\phi^{-1}(u), \psi^{-1}(v)) \\
+			& = x^k \circ \phi^{-1}(u) 
+		\end{align*}	
+		Therefore
+		\begin{align*}
+			\frac{\p }{\p \tilde{x}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
+			& = \frac{\p }{\p u^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
+			& = \frac{\p }{\p u^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
+			& = \frac{\p }{\p u^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
+			& =  \frac{\p }{\p x^i} \bigg|_{p} x^k \\
+			& = \del_{i,k}
+		\end{align*}
+		and 
+		\begin{align*}
+			\frac{\p }{\p \tilde{y}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
+			& = \frac{\p }{\p v^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
+			& = \frac{\p }{\p v^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
+			& = \frac{\p }{\p v^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
+			& = 0
+		\end{align*}
+		This implies that for each $i \in \{1, \ldots, n\}$, we have that 
+		\begin{align*}
+			D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{x}^i } \bigg|_{(p, \xi)} \bigg) (f)
+			& = \frac{\p}{\p \tilde{x}^i} \bigg|_{(p, \xi)} f \circ \pi \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{x}^i}(p,\xi) \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) \del_{i,k} \\
+			& = \frac{\p f }{\p x^i}(p) 
+		\end{align*}
+		and 
+		\begin{align*}
+			D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{y}^i } \bigg|_{(p, \xi)} \bigg) (f)
+			& = \frac{\p}{\p \tilde{y}^i} \bigg|_{(p, \xi)} f \circ \pi \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{y}^i}(p,\xi) \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) 0 \\
+			& = 0
+		\end{align*}
+		Hence 
+		\begin{align*}
+			V(TM)|_{\pi^{-1}(U)}
+			& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \ker D \pi(p, \xi) \\
+			& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \spn \bigg \{ \frac{\p}{\p \tilde{y}^j} \bigg|_{(p, \xi)}: j \in \{1, \ldots, n\} \bigg \} 
+		\end{align*}
+	\end{ex}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Lie Theory}
+	
+	\section{Lie Groups}
+	
+	\begin{defn}
+		Let $G$ be a smooth manifold and group. Then $G$ is said to be a \tbf{Lie group} if 
+		\begin{itemize}
+			\item multiplication $G \times G \rightarrow G$ given by $(g, h) \mapsto gh$ is smooth
+			\item inversion $G \rightarrow G$  given by $g \mapsto g^{-1}$ is smooth 
+		\end{itemize} 
+	\end{defn}
+
+	
+
+
+	\begin{defn}
+		Let $\MFg$ be a vector space and $[\cdot, \cdot]: \MFg \times \MFg \rightarrow \MFg$. 
+		Then $[\cdot, \cdot]$ is said to be a \tbf{Lie bracket} on $\MFg$ if  
+		\begin{enumerate}
+			\item $[\cdot, \cdot]$ is bilinear
+			\item $[\cdot, \cdot]$ is antisymmetric
+			\item $[\cdot, \cdot]$ satisfies the Jacobi identity: \\
+			for each $x, w, y \in \MF g$, 
+			$$[x, [y,z]] + [y, [z,x]] + [z, [x,y]] = 0$$
+		\end{enumerate}
+		In this case, $(\MFg, [\cdot, \cdot])$ is said to be a \tbf{Lie algebra}.
+	\end{defn}
+
+	\begin{defn}
+		Let $X \in $
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	\newpage
 	\chapter{Bundles and Sections}
 	
-	\section{Introduction}
-	
-	\subsection{Fiber Bundles}
+	\section{Fiber Bundles}
 	
 	\begin{note}
-		Let $U, F$ be sets, we write $\prj_U: U \times F \rightarrow U$ to denote the projection onto $U$.
+		Let $U, F$ be sets, we write $\prj_1: U \times F \rightarrow U$ to denote the projection onto $U$.
 	\end{note}
 	
 	\begin{defn}
-		Let $E$, $M$ and $F$ be smooth manifolds and $\pi: E \rightarrow M$ a smooth surjection, $U \subset M$ open and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{smooth local trivialization of $E$ over $U$ with fiber $F$}  if 
+		Let $E, M, F \in \Maninf$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection, $U \subset M$ open and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{smooth local trivialization of $E$ over $U$ with fiber $F$}  if 
 		\begin{enumerate}
 			\item $\Phi$ is a diffeomorphism
-			\item $\prj_U \circ \Phi = \pi|_{\pi^{-1}(U)}$, i.e. the following diagram commutes:
+			\item $\prj_1 \circ \Phi = \pi|_{\pi^{-1}(U)}$, i.e. the following diagram commutes:
 			\[ 
 			\begin{tikzcd}
-			\pi^{-1}(U) \arrow[r, "\Phi"] \arrow[dr, "\pi"'] & U \times F \arrow[d, "\prj_U"]  \\
+			\pi^{-1}(U) \arrow[r, "\Phi"] \arrow[dr, "\pi"'] & U \times F \arrow[d, "\prj_1"]  \\
 			& U
 			\end{tikzcd}
 			\]
@@ -3232,16 +3443,16 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 
 	\begin{ex}
-		Let $E$, $M$ and $F$ be sets and $\pi: E \rightarrow M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ a bijection. If $\prj_U \circ \Phi = \pi|_{\pi^{-1}(U)}$, then for each $A \subset U$, $$\Phi( \pi^{-1}(A)) = A \times F$$
+		Let $E$, $M$ and $F$ be sets and $\pi: E \rightarrow M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ a bijection. If $\prj_1 \circ \Phi = \pi|_{\pi^{-1}(U)}$, then for each $A \subset U$, $$\Phi( \pi^{-1}(A)) = A \times F$$
 		\tbf{Hint:} consider $\Phi^{-1}(A \times F)$ 
 	\end{ex}
 	
 	\begin{proof}
-		Let $A \subset U$. Since $\prj_U^{-1}(A) = A \times F$, we have that 
+		Let $A \subset U$. Since $\prj_1^{-1}(A) = A \times F$, we have that 
 		\begin{align*}
 			\Phi^{-1}(A \times F)
-			& = \Phi^{-1}(\prj_U^{-1}(A)) \\
-			& = (\prj_U \circ \Phi)^{-1}(A) \\
+			& = \Phi^{-1}(\prj_1^{-1}(A)) \\
+			& = (\prj_1 \circ \Phi)^{-1}(A) \\
 			& = (\pi|_{\pi^{-1}(U)})^{-1}(A) \\
 			& = \pi^{-1}(A) \cap \pi^{-1}(U) \\
 			&  \pi^{-1}(A \cap U) \\
@@ -3256,7 +3467,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{defn}
-		Let $E$, $M$ and $F$ be smooth manifolds and $\pi: E \rightarrow M$ a smooth surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{smooth fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
+		Let $E,M, F \in\Obj( \Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{smooth fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
 	\end{defn}
 
 	\begin{note}
@@ -3264,7 +3475,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{note}
 
 	\begin{defn}
-		Let $(E_1, M_1, \pi_1)$ and $(E_2, M_2, \pi_2)$ be smooth fiber bundles, $\Phi \in \Hom_{\Maninf}(E_1, E_2)$ and $\phi \in \Hom_{\Maninf}(M_1, M_2)$. Then $(\Phi, \phi)$ is said to be a \tbf{smooth bundle morphism} from $(E_1, M_1, \pi_1)$ to $(E_2, M_2, \pi_2)$ if 
+		Let $(E_1, M_1, \pi_1, F_1)$ and $(E_2, M_2, \pi_2, F_2)$ be smooth fiber bundles, $\Phi \in \Hom_{\Maninf}(E_1, E_2)$ and $\phi \in \Hom_{\Maninf}(M_1, M_2)$. Then $(\Phi, \phi)$ is said to be a \tbf{smooth bundle morphism} from $(E_1, M_1, \pi_1, F_1)$ to $(E_2, M_2, \pi_2, F_2)$ if 
 		$\pi_2 \circ \Phi = \phi \circ \pi_1$, 
 		i.e. the following diagram commutes:
 		\[ 
@@ -3278,19 +3489,19 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{defn}
 		We define the category of smooth fiber bundles, denoted $\Buninf$, by 
 		\begin{itemize}
-			\item $\Obj(\Buninf) = \{(E, M, \pi): (E, M, \pi) \text{ is a smooth fiber bundle}\}$ 
-			\item For $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\Buninf)$, 
+			\item $\Obj(\Buninf) = \{(E, M, \pi, F): (E, M, \pi, F) \text{ is a smooth fiber bundle}\}$ 
+			\item For $(E_1, M_1, \pi_1, F_1), (E_2, M_2, \pi_2, F_2) \in \Obj(\Buninf)$, 
 			\begin{align*}
-				& \Hom_{\Buninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \\
-				& \{(\Phi, \phi): (\Phi, \phi) \text{ is a smooth bundle morphism from $(E, M, \pi_E)$ to $(F, N, \pi_F)$} \}
+				& \Hom_{\Buninf}((E_1, M_1, \pi_1, F_1), (E_2, M_2, \pi_2, F_2)) = \\
+				& \{(\Phi, \phi): (\Phi, \phi) \text{ is a smooth bundle morphism from $(E_1, M_1, \pi_1, F_1)$ to $(E_2, M_2, \pi_2, F_2)$} \}
 			\end{align*}
 			\item For 
 			\begin{itemize}
-				\item $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2), (E_3, M_3, \pi_3) \in \Obj(\Buninf)$ 
-				\item $(\Phi_{12}, \phi_{12}) \in \Hom_{\Buninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2))$
-				\item $(\Phi_{23}, \phi_{23}) \in \Hom_{\Buninf}((E_2, M_2, \pi_2), (E_3, M_3, \pi_3))$ 
+				\item $(E_1, M_1, \pi_1, F_1), (E_2, M_2, \pi_2, F_2), (E_3, M_3, \pi_3) \in \Obj(\Buninf)$ 
+				\item $(\Phi_{12}, \phi_{12}) \in \Hom_{\Buninf}((E_1, M_1, \pi_1, F_1), (E_2, M_2, \pi_2, F_2))$
+				\item $(\Phi_{23}, \phi_{23}) \in \Hom_{\Buninf}((E_2, M_2, \pi_2, F_2), (E_3, M_3, \pi_3))$ 
 			\end{itemize}
-			we define $(\Phi_{23}, \phi_{23}) \circ (\Phi_{12}, \phi_{12}) \in \Hom_{\Buninf}((E_1, M_1, \pi_1), (E_3, M_3, \pi_3))$ by 
+			we define $(\Phi_{23}, \phi_{23}) \circ (\Phi_{12}, \phi_{12}) \in \Hom_{\Buninf}((E_1, M_1, \pi_1, F_1), (E_3, M_3, \pi_3))$ by 
 			$$(\Phi_{23}, \phi_{23}) \circ (\Phi_{12}, \phi_{12}) = (\Phi_{23} \circ \Phi_{12}, \phi_{23} \circ \phi_{12})$$
 		\end{itemize}
 	\end{defn}
@@ -3302,15 +3513,78 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{proof} Set $\MC = (\id_{\Maninf} \downarrow \id_{\Maninf})$. We note that 
 		\begin{itemize}
 			\item $\Obj(\Buninf) \subset \Obj(\MC)$
-			\item for each $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\Buninf)$, 
-			$$\Hom_{\Buninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \Hom_{\MC}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2))$$
+			\item for each $(E_1, M_1, \pi_1, F_1), (E_2, M_2, \pi_2, F_2) \in \Obj(\Buninf)$, 
+			$$\Hom_{\Buninf}((E_1, M_1, \pi_1, F_1), (E_2, M_2, \pi_2, F_2)) = \Hom_{\MC}((E_1, M_1, \pi_1, F_1), (E_2, M_2, \pi_2, F_2))$$
 		\end{itemize}
 		So $\Buninf$ is a full subcategory of $\MC$.
 	\end{proof}
 
+
 	\begin{ex}
-		
+		Let $(E, M, \pi, F) \in \Buninf$ and $(U, \Phi)$ a local trivialization of $E$ over $U$ and $(V, \Psi)$ a local trvialization of $E$ over $V$. Then 
+		\begin{enumerate}
+			\item $\prj_{U \cap V} \circ \Psi|_{\pi^{-1}(U \cap V)} \circ (\Phi|_{\pi^{-1}(U \cap V)})^{-1} = \prj_1$
+			\item there exists $\sig \in \Hom_{\Maninf}(( U \cap V) \times F,  F)$ such that for each $p \in U \cap V$, $\sig(p, \cdot): F \rightarrow F$ is a diffeomorphism.
+		\end{enumerate}
 	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item By definition, the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				(U \cap V) \times F  \arrow[dr, "\prj_{1}"'] & \pi^{-1}(U \cap V) \arrow[d, "{\pi}"'] \arrow[l, "{\Phi}"'] \arrow[r, "\Psi"] & (U \cap V) \times F \arrow[dl, "{\prj_1}"]  \\
+													                & N
+			\end{tikzcd}
+			\] 
+			
+			$\prj_1 \circ \Psi|_{\pi^{-1}(U \cap V)} \circ (\Phi|_{\pi^{-1}(U \cap V)})^{-1} = \prj_1$
+			\item there exists $\sig \in \Hom_{\Maninf}(( U \cap V) \times F,  F)$ such that for each $p \in U \cap V$ and $x \in F$, 
+			$$\Psi|_{\pi^{-1}(U \cap V)} \circ (\Phi|_{\pi^{-1}(U \cap V)})^{-1}(p, x) = (p, \sig(p, x))$$ 
+			and $\sig(p, \cdot): F \rightarrow F$ is a diffeomorphism.
+		\end{enumerate}
+	\end{proof}
+
+
+	\begin{defn}
+		Let $(E, M, \pi, F) \in \Buninf$ and $(U_{\al}, \Phi_{\al})_{\al \in A}$ a collection of smooth local trivializations of $E$. Then $(U_{\al}, \Phi_{\al})_{\al \in A}$ is said to be a \tbf{fiber bundle atlas} if for each $p \in M$, there exists $\al \in A$ such that $p \in U_{\al}$. For $\al, \be \in A$, we define $\phi_{}$
+	\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{$G$-Bundles}
+
+\begin{defn}
+	Let $G$ be a Lie group and $(E, M, \pi, F) \in \Obj(\Buninf)$. Then  
+\end{defn}
+
+
 	
 
 
@@ -3339,23 +3613,51 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-	\subsection{Vector Bundles}
+
+
+
+
+	\newpage
+	\section{Vector Bundles}
 
 	\begin{note}
 		Let $M$ be a set and $p \in M$. We endow $\{p\} \times \R^n$ with the natural vector space structure such that $\{p\} \times \R^n \cong \R^n$.
 	\end{note}
 
 	\begin{defn}
-		Let $E$ and $M$ be smooth manifolds and $\pi: E \rightarrow M$ a smooth surjection. Then $(E, M, \pi)$ is said to be a \tbf{smooth vector bundle of rank $n$} if 
+		Let $E,M \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection. Then $(E, M, \pi)$ is said to be a \tbf{rank $n$ smooth vector bundle} if 
 		\begin{enumerate}
-			\item for each $p \in M$, $\pi^{-1}(\{p\})$ is a $n$-dimensional real vector space
-			\item for each $p \in M$, there exist open $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times \R^n$ such that $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$
-			\item for each $p \in M$, $$\Phi|_{\pi^{-1}(\{p\})}: \pi^{-1}(\{p\}) \rightarrow \{p\} \times \R^n$$ is a vector space isomorphism
+			\item $(E, M, \pi, \R^n) \in \Obj(\Buninf)$
+			\item for each $p \in M$, $E_p$ is a $n$-dimensional real vector space
+			\item for each smooth local trivialization $(U, \Phi)$ of $E$ over $U$ with fiber $\R^n$ and $p \in U$, $$\Phi|_{E_p}: E_p \rightarrow \{p\} \times \R^n$$ is a vector space isomorphism
 		\end{enumerate}
+		In this case we define the \tbf{rank of $(E, M, \pi)$}, denoted $\rnk (E, M, \pi)$ by $ \rnk (E, M, \pi) = n$.
 	\end{defn}
 
+\begin{defn}
+	We define the category of smooth vector bundles, denoted $\VecBuninf$, by 
+	\begin{itemize}
+		\item $\Obj(\VecBuninf) = \{(E, M, \pi): (E, M, \pi) \text{ is a smooth vector bundle}\}$
+		\item For $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\VecBuninf)$ with $\rnk (E_1, M_1, \pi_1) = n_1$ and $\rnk (E_2, M_2, \pi_2) = n_2$,  
+		$$\Hom_{\VecBuninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \Hom_{\Buninf}((E_1, M_1, \pi_1, \R^{n_1}), (E_2, M_2, \pi_2, \R^{n_2}))$$
+	\end{itemize}
+\end{defn}
+
 \begin{ex}
-Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define $\pi: E \rightarrow M$ by $\pi(p, x) = p $. Then $(E, M, \pi)$ is a smooth vector bundle of rank $n$.
+	We have that $\VecBuninf$ is a full subcategory of $\Buninf$.
+\end{ex}
+
+\begin{proof} We note that 
+	\begin{itemize}
+		\item $\Obj(\VecBuninf) \subset \Obj(\Buninf)$
+		\item for each $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\Buninf)$ with $\rnk (E_1, M_1, \pi_1) = n_1$ and $\rnk (E_2, M_2, \pi_2) = n_2$, 
+		$$\Hom_{\VecBuninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \Hom_{\Buninf}((E_1, M_1, \pi_1, \R^{n_1}), (E_2, M_2, \pi_2, \R^{n_2}))$$
+	\end{itemize}
+	So $\Buninf$ is a full subcategory of $\MC$.
+\end{proof}
+
+\begin{ex}
+Let $M \in \Maninf$. Set $n = \dim M$, $E = M \times \R^n$ and define $\pi: E \rightarrow M$ by $\pi(p, x) = p $. Then $(E, M, \pi)$ is a smooth vector bundle of rank $n$.
 \end{ex}
 
 \begin{proof}\
@@ -3366,8 +3668,13 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 \end{enumerate}
 \end{proof}
 
+
+\begin{ex}
+	Let $(E, M, \pi) \in \VecBuninf$ with $\rnk (E, M, \pi) = n$. 
+\end{ex}
+
 \begin{thm}
-	Let $E$ and $M$ be smooth manifolds and $\pi: E \rightarrow M$ a smooth surjection.
+	Let $(E,)$ and $M$ be smooth manifolds and $\pi: E \rightarrow M$ a smooth surjection.
 \end{thm}
 	
 	
@@ -3848,7 +4155,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 	
 	\begin{defn}
-	Let $(N, \MB)$ be a smooth manifold, $F:M \rightarrow N$ a smooth map and $\al \in \Gam^0_k(N)$. We define the \tbf{pullback of $\al$ by $F$}, denoted $F^*\al \in \Gam^0_k(M)$, by  $$(F^*\al)_p(v_1, \dots, v_k) = \al_{F(p)} (dF_p(v_1), \dots, dF_p(v_k))$$ for $p \in M$ and $v_1, \dots, v_k \in T_pM$
+	Let $(N, \MB)$ be a smooth manifold, $F:M \rightarrow N$ a smooth map and $\al \in \Gam^0_k(N)$. We define the \tbf{pullback of $\al$ by $F$}, denoted $F^*\al \in \Gam^0_k(M)$, by  $$(F^*\al)_p(v_1, \dots, v_k) = \al_{F(p)} (DF_p(v_1), \dots, DF_p(v_k))$$ for $p \in M$ and $v_1, \dots, v_k \in T_pM$
 	\end{defn}
 
 	\begin{ex}
@@ -3867,8 +4174,8 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\item 
 	\begin{align*}
 	[F^*(f \al)]_p(v_1, \dots, v_k) 
-	&= (f \al )_{F(p)}(dF_p(v_1), \dots, dF_p(v_k)) \\
-	&= f (F(p)) \al_{F(p)} (dF_p(v_1), \dots, dF_p(v_k)) \\
+	&= (f \al )_{F(p)}(DF_p(v_1), \dots, DF_p(v_k)) \\
+	&= f (F(p)) \al_{F(p)} (DF_p(v_1), \dots, DF_p(v_k)) \\
 	&= (f \circ F)(p) (F^*\al)_p(v_1, \dots, v_k)
 	\end{align*}
 	So that $F^*(f \al) = (f \circ F) F^* \al$
@@ -4149,7 +4456,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	
 	
 	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ be a diffeomorphism. Define the \tbf{pullback of $F$}, denoted $F^*: \Om^k(N) \rightarrow \Om^k(M)$ by  $$(F^* \om)_p (v_1, \cdots, v_k) = \om_{F(p)} (dF_p(v_1), \cdots, dF_p(v_k))$$ for $\om \in \Om^k(N)$, $p \in M$ and $v_1, \cdots, v_k \in T_{p}M$
+		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ be a diffeomorphism. Define the \tbf{pullback of $F$}, denoted $F^*: \Om^k(N) \rightarrow \Om^k(M)$ by  $$(F^* \om)_p (v_1, \cdots, v_k) = \om_{F(p)} (DF_p(v_1), \cdots, DF_p(v_k))$$ for $\om \in \Om^k(N)$, $p \in M$ and $v_1, \cdots, v_k \in T_{p}M$
 	\end{defn}
 
 
@@ -4190,12 +4497,21 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\section{Koszul Connections}
 	
 	\begin{defn}
-		Let $(E, M, \pi)$ be a smooth vector bundle and $\nab : \MFX(M) \times \Gam(E) \rightarrow \Gam(E)$. Then $\nab$ is said to be a \tbf{Koszul connection} in $E$ if 
+		Let $(E, M, \pi) \in \Obj(\VecBuninf)$ and $\nab : \MFX(M) \times \Gam(E) \rightarrow \Gam(E)$. Then $\nab$ is said to be a \tbf{Koszul connection on $E$ in the first representation} if 
 		\begin{enumerate}
-			\item for each $Y \in \Gam(E)$, $\nab(\cdot, Y)$ is $C^{\infty}(M)$-linear
+			\item for each $\sig \in \Gam(E)$, $\nab(\cdot, \sig)$ is $C^{\infty}(M)$-linear
 			\item for each $X \in \MFX(M)$, $\nab(X, \cdot)$ is $\R$-linear
-			\item for each $X \in \MFX(M)$, $Y \in \Gam(E)$ and $f \in C^{\infty}(M)$, 
-			$$\nab(X, fY) = f \nab(X, Y) + X(f)Y$$ 
+			\item for each $X \in \MFX(M)$, $\sig \in \Gam(E)$ and $f \in C^{\infty}(M)$, 
+			$$\nab(X, f\sig) = f \nab(X, \sig) + X(f) \sig$$ 
+		\end{enumerate}
+	\end{defn}
+
+	\begin{defn}
+		Let $(E, M, \pi) \in \Obj(\VecBuninf)$ be a smooth vector bundle and $\nab : \Gam(E) \rightarrow T^*M \otimes \Gam(E)$. Then $\nab$ is said to be a \tbf{Koszul connection on $E$ in the second representation} if 
+		\begin{enumerate}
+			\item $\nab$ is $\R$-linear
+			\item for each $\sig \in \Gam(E)$ and $f \in C^{\infty}(M)$, 
+			$$\nab(f\sig) = f \nab \sig + df \otimes \sig $$ 
 		\end{enumerate}
 	\end{defn}
 
@@ -4204,7 +4520,17 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{note}
 
 	\begin{ex}
-		Let $(E, M, \pi)$ be a smooth vector bundle, $\nab$ a connection in $E$, $X \in \MFX(M)$ and $Y \in \Gam(E)$. If $X = 0$ or $Y = 0$, then $\nab_X Y = 0$.
+		Define $\phi:  \Gam(E)^{\MFX(M) \times \Gam(E)} \rightarrow [T^*M \otimes \Gam(E)]^{\Gam(E)}$ by 
+		$$\phi(\nab)(X) = \nab_X \sig$$
+		Then $\nab$ is a Koszul connection on $E$ in the first representation iff $\phi(\nab)$ Koszul connection on $E$ in the second representation.
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+
+	\begin{ex}
+		Let $(E, M, \pi) \in \Obj(\VecBuninf)$, $\nab$ a connection on $E$, $X \in \MFX(M)$ and $Y \in \Gam(E)$. If $X = 0$ or $Y = 0$, then $\nab_X Y = 0$.
 	\end{ex}
 
 	\begin{proof}\
@@ -4221,7 +4547,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 
 	\begin{ex}
-		Let $(E, M, \pi)$ be a smooth vector bundle, $\nab$ a connection in $E$, $X \in \MFX(M)$, $Y \in \Gam(E)$ and $p \in M$. If $X \sim_p 0$ or $Y \sim_p 0$, then $[\nab_{X}Y]_p = 0$.
+		Let $(E, M, \pi)$ be a smooth vector bundle, $\nab$ a connection on $E$, $X \in \MFX(M)$, $Y \in \Gam(E)$ and $p \in M$. If $X \sim_p 0$ or $Y \sim_p 0$, then $[\nab_{X}Y]_p = 0$.
 	\end{ex}
 
 	\begin{proof}\
@@ -4259,7 +4585,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 
 	\begin{ex}
-		Let $(E, M, \pi)$ be a smooth vector bundle and $\nab$ a connection in $E$. Then for each $X_1, X_2 \in \MFX(M)$ and $Y_1, Y_2 \in \Gam(E)$, $X_1 \sim_p X_2$ and $Y_1 \sim_p Y_2$ implies that $[\nab_{X_1}Y_1]_p = [\nab_{X_2}Y_2]_p $.
+		Let $(E, M, \pi)$ be a smooth vector bundle and $\nab$ a connection on $E$. Then for each $X_1, X_2 \in \MFX(M)$ and $Y_1, Y_2 \in \Gam(E)$, $X_1 \sim_p X_2$ and $Y_1 \sim_p Y_2$ implies that $[\nab_{X_1}Y_1]_p = [\nab_{X_2}Y_2]_p $.
 	\end{ex}
 
 	\begin{proof}
@@ -4278,12 +4604,12 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 	\end{proof}
 
 	\begin{ex}
-		Let $(E, M, \pi)$ be a smooth vector bundle, $\nab$ a connection in $E$ and $U \subset M$. If $U$ is open, then there exists a unique connection $\nab^U: \MFX(U) \times \Gam(E|_U) \rightarrow \Gam(E|_U)$ such that for each $X \in \MFX(M)$ and $Y \in \Gam(E)$, 
+		Let $(E, M, \pi)$ be a smooth vector bundle, $\nab$ a connection on $E$ and $U \subset M$. If $U$ is open, then there exists a unique connection $\nab^U: \MFX(U) \times \Gam(E|_U) \rightarrow \Gam(E|_U)$ such that for each $X \in \MFX(M)$ and $Y \in \Gam(E)$, 
 		$$\nab^U_{X|_U} Y|_U = (\nab_X Y)|_U$$
 	\end{ex}
 
 	
-	
+
 	
 	
 	
@@ -4328,19 +4654,80 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 
 
 	\newpage
-	\chapter{Riemannian Geometry}
+	\chapter{Semi-Riemannian Geometry}
 	
 	\begin{defn}
-		Let $M$ be a manifold and $g \in T^0_2(M)$. Then $g$ is said to be a \tbf{metric tensor} on $M$ if 
+		Let $M$ be a manifold and $g \in \Gamma(\Sig^2 M)$. Then $g$ is said to be nondegenerate if for each $p \in M$, $g_p$ is nondegenerate.
+		\end{defn}
+	
+	\begin{defn}
+		Let $M$ be a manifold and $g \in \Gam(\Sig^2 M)$. Then $g$ is said to be a \tbf{metric tensor field} on $M$ if 
 		\begin{enumerate}
 			\item $g$ is nondegenerate
-			\item $g$ is symmetric
 			\item $g$ has constant index
 		\end{enumerate}
-		 $(M, g)$
+		In this case $(M, g)$ is said to be a \tbf{semi-Riemannian manifold}
 	\end{defn}
 
+	\begin{defn}
+		\tcb{Define Interval\\
+		FINISH!!!}
+	\end{defn}
 
+	\begin{defn}
+		Let $(E, M, \pi) \in \Obj(\Buninf)$, $I \subset \R$ an interval, $\al \in \Hom_{\Maninf}(I, M)$ and $\gam \in \Hom_{\Maninf}(I, E)$. Then $\gam$ is said to be a \tbf{section of $E$ over $\al$} if $\pi \circ \gam = \al$. We denote the set of sections of $E$ over $\al$ by $\Gam(E, \al)$. 
+	\end{defn}
+
+	\begin{defn}
+		Let $(E, M, \pi) \in \Obj(\Buninf)$, $I \subset \R$ an interval, $\al \in \Hom_{\Maninf}(I, M)$ and $\gam \in \Gam(E, \al)$. Then $\gam$ is said to be said to be \tbf{extendible} if there exists $U \in \MN_{\al(I)}$ and $\tilde{\gam} \in \Gam(E|_U)$ such that $U$ is open and $\tilde{\gam} \circ \al = \gam $.
+	\end{defn}
+
+	\begin{ex}
+		figure 8 not extendible
+		\tcb{FINISH!!!}
+	\end{ex}
+
+	\begin{ex}
+		Let $(E, M, \pi) \in \Obj(\VecBuninf)$, $\nab$ a connection on $E$, $I \subset \R$ an interval and $\al \in \Hom_{\Maninf}(I, M)$. There exists a unique $D_{\al}: \Gam(E, \al) \rightarrow \Gam(E, \al)$ such that 
+		\begin{enumerate}
+			\item for each $\lam \in \R$ and $\gam, \sig \in \Gam(E, \al)$, 
+			$$D_{\al}(\gam + \lam \sig) = D_{\al} \gam + \lam D_{\al} \sig $$
+			\item for each $f \in C^{\infty}(I)$ and $\gam \in \Gam(E, \al)$, 
+			$$D_{\al}(f \gam) = f' \gam + f D_{\al} \gam $$
+			\item for each $\gam \in \Gam(E)$, if $\tilde{\gam}$ extends $\gam$, then 
+			$$D_{\al} \gam = \nab_{\al'} \gam$$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\chapter{Riemannian Geometry}
 
 	\begin{defn}
 		Let $M$ be a smooth manifold and $g \in T^0_2(M)$ a metric tensor on $M$. We define $\hat{g} \in T^2_0(M)$ by $\hat{g}(\om, \eta) = g(\phi_g^{-1}(\om), \phi_g^{-1}(\eta))$. 
@@ -4371,9 +4758,9 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 		\item There exists $\lam \in \Om^n(M)$ such that for each orthonormal frame $e_1, \ldots, e_n$, 
 		$$\lam(e_1, \ldots, e_n) = 1$$
 		\tbf{Hint:} Choose a frame $z_1, \ldots, z_n$ on $M$ with corresponding dual frame $\ze^1, \ldots, \ze^n$. Define $$\lam = \det [g(z_i, z_j)]^{1/2} \ze^1 \wedge \cdots \wedge \ze^n$$
-		\item Let $N \in \mathfrak{X}(M)$ be the outward pointing normal to $\p M$ and $X \in \mathfrak{X}(M)$. Then 
+		\item Let $N \in \MFX(M)$ be the outward pointing normal to $\p M$ and $X \in \MFX(M)$. Then 
 		$$\int_M \div X \lam = \int_{\p M} g(X, N) \tilde{\lam}$$
-		\item For each $u \in \C^{\infty}(M)$ and $X \in \mathfrak{X}(M)$, we have that 
+		\item For each $u \in \C^{\infty}(M)$ and $X \in \MFX(M)$, we have that 
 		$$\div(uX) = u \div(X) + du(X)$$ 
 		and therefore
 		$$\int_M du(X) \lam = \int_{\p M} u g(X, N) \tilde{\lam} - \int_{M} u \div(X) \lam$$
@@ -4429,7 +4816,7 @@ Let $M$ be a $n$-dimensional smooth manifold. Set $E = M \times \R^n$ and define
 			& = \det V (\det V)^{-1} \\
 			& = 1
 		\end{align*}
-		\item Choose an orthonormal frame $e_1, \ldots, e_{n-1} \in \mathfrak{X}(\p M)$ with dual coframe $\ep^1, \ldots, \ep^{n-1}$. Define $\nu \in \Om^1(M)$ to be the dual covector to $N$. We note that $N, e_1, \ldots, e_{n-1}$ is an orthonormal frame on $\mathfrak{X}(M)$. Let $X_1, \ldots, X_{n-1} \in \mathfrak{X}(\p M)$. Since for each $j \in \{1, \ldots, n-1\}$, $X_j \in \mathfrak{X}(\p M)$ and for each $p \in \p M$, $N_p \in (T_p \p M)^{\perp}$, we have that for each $j \in \{1, \ldots, n-1\}$, $g(X_j, N) = 0$. This implies that 
+		\item Choose an orthonormal frame $e_1, \ldots, e_{n-1} \in \MFX(\p M)$ with dual coframe $\ep^1, \ldots, \ep^{n-1}$. Define $\nu \in \Om^1(M)$ to be the dual covector to $N$. We note that $N, e_1, \ldots, e_{n-1}$ is an orthonormal frame on $\MFX(M)$. Let $X_1, \ldots, X_{n-1} \in \MFX(\p M)$. Since for each $j \in \{1, \ldots, n-1\}$, $X_j \in \MFX(\p M)$ and for each $p \in \p M$, $N_p \in (T_p \p M)^{\perp}$, we have that for each $j \in \{1, \ldots, n-1\}$, $g(X_j, N) = 0$. This implies that 
 		\begin{align*}
 			\iota^* \iota_X \lam (X_1, \ldots, X_{n-1})
 			& = \lam(X, X_1, \ldots, X_{n-1}) \\

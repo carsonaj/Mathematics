@@ -9829,12 +9829,12 @@ Then
 	\subsection{Introduction}
 	
 	\begin{note}
-		Let $X,Y,X$. We recall that for $f:X \times Y \rightarrow Z$, $a \in X$ and $b \in Y$, the maps $f_a:Y \rightarrow Z$ and $f^b:X \rightarrow Z$ are defined by 
+		Let $X,Y,X$ be sets. We recall that for $f:X \times Y \rightarrow Z$, $a \in X$ and $b \in Y$, the maps $f_a:Y \rightarrow Z$ and $f^b:X \rightarrow Z$ are defined by 
 		$$f_a(y) = f(a,y) \quad f^b(x) = f(x, b)$$
 	\end{note}
 	
 	\begin{defn}
-		Let $\MC$ a category with products, $G, X \in \Obj(C)$ and $\phi \in \Hom_{\MC}( G \times X,  X)$. Suppose that $G$ is a group. Then $\phi$ is said to be a \tbf{group action} of $G$ on $X$ if 
+		Let $\MC$ a concrete category with products, $G, X \in \Obj(C)$ and $\phi \in \Hom_{\MC}( G \times X,  X)$. Suppose that $G$ is a group. Then $\phi$ is said to be a \tbf{group action} of $G$ on $X$ if 
 		\begin{enumerate}
 			\item for each $x \in X$, $\phi_e = \id_X$ 
 			\item for each $g, h \in G$, $\phi_{gh} = \phi_g \circ \phi_h$
@@ -10176,11 +10176,11 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	
 	
 	\newpage
-	\chapter{Group Actions on Metric Spaces}
+	\chapter{Group Actions}
 	
 	\section{Introduction}
 	\begin{note}
-	For a set $X$, a group $G$ and a (left) group action $\phi: G \times X \rightarrow X$, we will write $\phi(g, x)$ as $g \cdot x$. We denote the projection map by $\pi: X \rightarrow X/G$.
+	For a set $X$, a group $G$ and a (left) group action $\phi: G \times X \rightarrow X$, we will write $\phi(g, x)$ as $g \cdot x$.
 	\end{note}	
 	
 	\begin{defn} \ld{00000} 
@@ -10191,19 +10191,19 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	\end{defn}
 	
 	\begin{defn}
-	Let $X$ be a topological space, $G$ a group and $\phi: G \times X \rightarrow X$ a group action. Then $\phi$ is said to be $X$-continuous if for each $g \in G$, $l_g$ is continuous.
+	Let $X$ be a topological space, $G$ a group and $\phi: G \times X \rightarrow X$ a group action. Then $\phi$ is said to be $X$-continuous if for each $g \in G$, $\phi_g$ is continuous.
 	\end{defn}
 	
 	\begin{ex}
-	Let $X$ be a topological space, $G$ a group and $\phi: G \times X \rightarrow X$ an $X$-continuous group action. Then for each $g \in G$, $l_g \in \Homeo(X)$.
+	Let $X$ be a topological space, $G$ a group and $\phi: G \times X \rightarrow X$ an $X$-continuous group action. Then for each $g \in G$, $\phi_g \in \Homeo(X)$.
 	\end{ex}
 	
 	\begin{proof}
-	Let $g \in G$, then $l_g$ and $l_{g}^{-1} = l_{g^{-1}}$ are continuous, so $l_g \in \Homeo(G)$. 
+	Let $g \in G$, then $\phi_g$ and $\phi_{g}^{-1} = \phi_{g^{-1}}$ are continuous, so $\phi_g \in \Homeo(G)$. 
 	\end{proof}
 	
 	\begin{defn} \ld{}
-	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ a group action. Then $\phi$ is said to be an \tbf{isometric group action} if for each $g \in G$, $l_g:X \rightarrow X$ is an isometry. 
+	Let $(X, d)$ be a metric space, $G$ a group, and $\phi: G \times X \rightarrow X$ a group action. Then $\phi$ is said to be an \tbf{isometric group action} if for each $g \in G$, $\phi_g:X \rightarrow X$ is an isometry. 
 	\end{defn}
 	
 	\begin{ex}
@@ -10212,42 +10212,65 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	
 	\begin{proof}
 	Clear since isometries are continuous.
-\end{proof}		
+	\end{proof}		
 	
 	\begin{defn}
-	Let $X$ be a set, $G$ a group and $\phi: G \times X \rightarrow X$ an $X$-continuous group action. Let $g \in G$. Define $L_g:\C^X \rightarrow \C^X$ by 
-	\begin{align*}
-	L_g(f)(x) 
-	&= f \circ l_g^{-1} \\
-	&= f \circ l_{g^{-1}}
-	\end{align*}
+		Let $X$ be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action. We define the relation $\sim_{\phi} \subset X \times X$ by 
+		$$\sim_{\phi} = \{(a, b) \in X \times X: \text{ there exists $g \in G: a = g \cdot b$} \}$$
+	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action. Then $\sim_{\phi}$ is an equivalence relation on $X$.
+	\end{ex}
+
+	\begin{proof} Let $a, b, c \in X$.
+		\begin{itemize}
+			\item \tbf{(reflexivity): } Then $a = e \cdot a$. Hence $a \sim_{\phi} a$.
+			\item \tbf{(symmetry): }Suppose that $a \sim_{\phi} b$. Then there exists $g \in G$ such that $a = g \cdot b$. Hence $b = g^{-1} \cdot a$. Thus $b \sim_{\phi} a$.
+			\item \tbf{(transitivity): }Suppose that $a \sim_{\phi} b$ and $b \sim_{\phi} c$. Then there exist $g, h \in G$ such that $a = g \cdot b$ and $b = h \cdot c$. Then 
+			\begin{align*}
+				a
+				& = g \cdot b \\
+				& = g \cdot (h \cdot c) \\
+				& = (gh) \cdot c 
+			\end{align*}
+			Hence $a \sim_{\phi} c$.
+		\end{itemize}
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a set, $G$ a group and $\phi: G \times X \rightarrow X$ a group action. We define the \tbf{quotient of $X$ by $G$}, denoted $X / G$, by 
+		$$X/ G = X / \sim_{\phi}$$
+		We denote the projection from $X$ onto $X/G$ by $\pi: X \rightarrow X/ G$.
 	\end{defn}
 	
-	
 	\begin{defn}
-	Let X be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $f:X \rightarrow \C$. Then $f$ is said to be \tbf{$G$-invariant} if for each $g \in G$, $L_g f = f$.
+	Let $X$ be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $f:X \rightarrow \C$. Then $f$ is said to be \tbf{$\phi$-invariant} if for each $g \in G$ and $x \in X$, $f(g \cdot x) = f(x)$.
 	\end{defn}
 	
 	\begin{ex}
-	Let X be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $f:X \rightarrow \C$. Then $f$ is $G$-invariant iff for each $g \in G$ $x \in X$, $f(g \cdot x) = f(x)$.  
+	Let $X$ be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $f:X \rightarrow \C$. Then $f$ is $\phi$-invariant iff $f$ is $\sim_{\phi}$-invariant.  
 	\end{ex}
 	
-	\begin{proof}
-	Clear.
+	\begin{proof}\
+		\begin{itemize}
+		\item $(\implies):$ \\ 
+		Suppose that $f$ is $\phi$-invariant. Let $a,b \in X$. Suppose that $a \sim_{\phi} b$. Then there exists $g \in G$ such that $a = g \cdot b$. Since $f$ is $\phi$-invariant, 
+		\begin{align*}
+			f(a)
+			& = f(g \cdot b) \\
+			& = f(b)		
+		\end{align*}
+		Since $a,b \in X$ such that $a \sim_{\phi} b$ are arbitrary, we have that $f$ is $\sim_{\phi}$-invariant.
+ 		\item $(\impliedby):$ \\
+ 		Suppose that $f$ is $\sim_{\phi}$-invariant. Let  $g \in G$ and $x \in X$. By definition, $x \sim_{\phi} g \cdot x$. Since $f$ is $\sim_{\phi}$-invariant, $f(g \cdot x) = f(x)$. Since $g \in G$ and $x \in X$ are arbitrary, $f$ is $\phi$-invariant.
+		\end{itemize}
 	\end{proof}
-	
-	\begin{defn}
-	Let X be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $f:X \rightarrow \C$. Suppose that $f$ is $G$-invariant. Define $\bar{f}:X/ G \rightarrow \C$ by $\bar{f}(\bar{x}) = f(x)$. 
-	\end{defn}
 	
 	\begin{ex}
-	Let X be a set, $G$ a group, $\phi: G \times X \rightarrow X$ a group action and $f:X \rightarrow \C$. Suppose that $f$ is $G$-invariant. Then $f = \bar{f} \circ \pi$. 
+		Let $X, Y$ be a topological spaces, $G$ a topological group, $\phi: G \times X \rightarrow X$ a continuous group action and $f:X \rightarrow Y$ a homeomorphism.
 	\end{ex}
-	
-	\begin{proof}
-	Clear.
-	\end{proof}
-	
+
 	
 	
 	
@@ -10257,7 +10280,7 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	
 	
 	\newpage
-	\section{Induced Metrics on Orbit Spaces}
+	\section{Group Actions on Metric Spaces}
 	
 	\begin{note}
 	This section establishes the criteria for the existence of a metric on the orbit space of a metric space under a group action. 
@@ -10432,7 +10455,7 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	\begin{equation*}
 	\pi^{-1}(\pi(U)) = \bigcup_{g \in G} g \cdot U
 	\end{equation*}		
-	Since for each $g \in G$, $l_g$ is an isometry and thus a homeomorphism, we have that for each $g \in G$, $g \cdot U$ is open. Therefore 
+	Since for each $g \in G$, $\phi_g$ is an isometry and thus a homeomorphism, we have that for each $g \in G$, $g \cdot U$ is open. Therefore 
 	$$\pi^{-1}(\pi(U)) = \bigcup\limits_{g \in G} g \cdot U$$
 	is open. \rex{36005} implies that $\pi$ is open.
 	\end{proof}
