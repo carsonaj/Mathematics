@@ -2385,15 +2385,77 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\item there exists $B \subset A$ such that $B$ is countable and $M \subset \bigcup\limits_{\be \in B} U_{\be}$
 			\item for each $p,q \in M$, there exist $\al,\be \in A$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
 		\end{enumerate}
-		Then there exists a unique topology $\MT$ on $M$ such that $(U_{\al})_{\al \in A} \subset \MT$. Assumtion $(c)$ implies that \\\
-		\tcb{FINISH!!!}
+		Define $$\MB = \{\phi_{\al}^{-1}(V): V \subset \H^n \text{ is open in $\H^n$ and $\al \in A$} \}$$
+		Then  
+		\begin{enumerate}
+			\item $\MB$ is a basis for $\tau(\MB)$
+			\item $(M, \tau(\MB))$ is an $n$-dimensional topological manifold
+		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
-			We define $\MB = \{\phi_{\al}^{-1}(V): V \subset \H^n \text{ is open in $\H^n$ and $\al \in A$} \}$. 
+	\begin{proof} \
 		\begin{enumerate}
-			\item By assumption, $M \subset \bigcup\limits_{\al \in A} U_{\al}$
-			\item Let $U_1, U_2 \in \MB$ and $x \in U_1 \cap U_2$. Then there exist $\al_1, \al_2 \in A$ and $V_1, V_2 \subset \H^n$ such that $V_1$, $V_2$ are open in $\H^n$, $U_1 = \phi_{\al_1}^{-1}(V_1)$ and $U_2 = \phi_{\al_2}^{-1}(V_2)$. Then $U_1 \cap U_2 = \phi$. 
+			\item \begin{itemize}
+				\item By assumption, $M \subset \bigcup\limits_{\al \in A} U_{\al}$
+				\item Let $A_1, A_2 \in \MB$ and $p \in A_1 \cap A_2$. By definition, there exist $\al_1, \al_2 \in A$ and $B_1, B_2 \subset \H^n$ such that $B_1$, $B_2$ are open in $\H^n$ and 
+				\begin{align*}
+					A_1 & = \phi_{\al_1}^{-1}(B_1)  & A_2 & = \phi_{\al_2}^{-1}(B_2) \\
+					& \subset U_{\al_1}         &     & \subset U_{\al_2}
+				\end{align*}
+				Set $\psi_1 = \phi_{\al_1}|_{U_{\al_1} \cap U_{\al_2}}$ and $\psi_2 = \phi_{\al_2}|_{U_{\al_1} \cap U_{\al_2}}$. We note that  
+				\begin{align*}
+					\psi_1^{-1}(B_1) & = U_{\al_2} \cap \phi_{\al_1}^{-1}(B_1) &  \psi_2^{-1}(B_2) & = U_{\al_1} \cap \phi_{\al_2}^{-1}(B_2) \\
+					& = U_{\al_2} \cap A_1                    &                   & = U_{\al_1} \cap A_2 \\
+					& \subset U_{\al_1} \cap U_{\al_2}        &                   & \subset U_{\al_1} \cap U_{\al_2}
+				\end{align*}
+				Let $q \in \phi_{\al_1}^{-1}(B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$. Then $\phi_{\al_1}(q) \in B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]$. Hence $\phi_{\al_1}(q) \in B_1$ and $\phi_{\al_1}(q) \in \psi_1 \circ \psi_2^{-1}(B_2)$. This implies that  
+				\begin{align*}
+					q 
+					& \in \phi_{\al_1}^{-1}(B_1) \\
+					& = A_1
+				\end{align*}
+				and since $\psi_2^{-1}(B_2) \subset U_{\al_1} \cap U_{\al_2}$ and $\phi_{\al_1}: U_{\al_1} \rightarrow \phi_{\al_1}(U_{\al_1})$ is a bijection, we have that
+				\begin{align*}
+					q 
+					& \in \phi_{\al_1}^{-1}(\psi_1 \circ \psi_2^{-1}(B_2)) \\
+					& = \psi_2^{-1}(B_2) \\
+					& = U_{\al_1} \cap A_2 
+				\end{align*} 
+				Thus 
+				\begin{align*}
+					q 
+					& \in A_1 \cap (U_{\al_1} \cap A_2) \\
+					& = A_1 \cap A_2
+				\end{align*}
+				Since $q \in \phi_{\al_1}^{-1}(B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$ is arbitrary, we have that $\phi_{\al_1}^{-1}(B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]) \subset A_1 \cap A_2$. \\
+				Conversely, let  
+				\begin{align*}
+					q 
+					& \in A_1 \cap A_2 \\ 
+					& = \phi_{\al_1}^{-1}(B_1) \cap \phi_{\al_2}^{-1}(B_2)
+				\end{align*}
+				Then $\phi_{\al_1}(q) \in B_1$ and $\phi_{\al_2}(q) \in B_2$. Since $A_1 \cap A_2 \subset U_{\al_1} \cap U_{\al_2}$, we have that 
+				\begin{align*}
+					\psi_2(q)
+					& = \phi_{\al_2}(q) \\
+					& \in B_2
+				\end{align*}
+				which implies that $q \in \psi_2^{-1}(B_2)$. Therefore 
+				\begin{align*}
+					\phi_{\al_1}(q)
+					& = \psi_1(q) \\
+					& \in \psi_1 ( \psi_2^{-1}(B_2)) \\
+					& =  \psi_1 \circ \psi_2^{-1}(B_2) 
+				\end{align*}
+				Hence $\phi_{\al_1}(q) \in B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]$. This implies that $q \in \phi_{\al_1}^{-1}( B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$. Since $q \in A_1 \cap A_2$ is arbitrary, we have that $A_1 \cap A_2 \subset \phi_{\al_1}^{-1}( B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$. Thus 
+				\begin{align*}
+					A_1 \cap A_2 
+					& = \phi_{\al_1}^{-1}( B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]) \\
+					& \in \MB
+				\end{align*}
+				Thus $\MB$ is a basis for $\tau(\MB)$.
+			\end{itemize}
+			\item 
 		\end{enumerate}
 	\end{proof}
 	
