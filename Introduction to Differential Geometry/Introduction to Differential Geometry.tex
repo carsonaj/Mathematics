@@ -2377,18 +2377,20 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 
 	\begin{ex} \tbf{Topological Manifold Chart Lemma:} \\
-		Let $M$ be a set, $A$ an index set and for each $\al \in A$, $U_{\al} \subset M$ and $\phi_{\al}: U_{\al} \rightarrow \R^n$. Suppose that 
+		Let $M$ be a set, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\phi_{\al}: U_{\al} \rightarrow \H^n$. Suppose that 
 		\begin{enumerate}[label=(\alph*)]
-			\item for each $\al \in A$, $\phi_{\al}(U_{\al})$ is open in $\R^n$ and $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a bijection
-			\item for each $\al, \be \in A$, $\phi_{\al}(U_{\al} \cap U_{\be})$ and $\phi_{\be}(U_{\al} \cap U_{\be})$ are open in $\H^n$
-			\item for each $\al, \be \in A$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is continuous
-			\item there exists $B \subset A$ such that $B$ is countable and $M \subset \bigcup\limits_{\be \in B} U_{\be}$
-			\item for each $p,q \in M$, there exist $\al,\be \in A$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
+			\item for each $\al \in \Gam$, $\phi_{\al}(U_{\al})$ is open in $\H^n$ 
+			\item for each $\al \in \Gam$, $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a bijection
+			\item for each $\al, \be \in \Gam$, $\phi_{\al}(U_{\al} \cap U_{\be})$ is open in $\H^n$
+			\item for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is continuous
+			\item there exists $B \subset \Gam$ such that $B$ is countable and $M \subset \bigcup\limits_{\be \in B} U_{\be}$
+			\item for each $p,q \in M$, there exist $\al,\be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
 		\end{enumerate}
-		Define $$\MB = \{\phi_{\al}^{-1}(V): V \subset \H^n \text{ is open in $\H^n$ and $\al \in A$} \}$$
+		Define $$\MB = \{\phi_{\al}^{-1}(V): V \subset \H^n \text{ is open in $\H^n$ and $\al \in \Gam$} \}$$
 		Then  
 		\begin{enumerate}
-			\item $\MB$ is a basis for $\tau(\MB)$
+			\item $\MB$ is a basis for $\tau(\MB)$ \\
+			\tbf{Hint:} For $B_1, B_2 \subset \H^n$, $\phi_{\al_1}^{-1}(B_1) \cap \phi_{\al_2}^{-1}(B_2) = \phi_{\al_1}^{-1}( B_1 \cap [\phi_{\al_1}|_{U_{\al_1} \cap U_{\al_2}} \circ (\phi_{\al_2}|_{U_{\al_1} \cap U_{\al_2}})^{-1}(B_2)])$
 			\item $(M, \tau(\MB))$ is an $n$-dimensional topological manifold
 		\end{enumerate}
 	\end{ex}
@@ -2396,8 +2398,8 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{proof} \
 		\begin{enumerate}
 			\item \begin{itemize}
-				\item By assumption, $M \subset \bigcup\limits_{\al \in A} U_{\al}$
-				\item Let $A_1, A_2 \in \MB$ and $p \in A_1 \cap A_2$. By definition, there exist $\al_1, \al_2 \in A$ and $B_1, B_2 \subset \H^n$ such that $B_1$, $B_2$ are open in $\H^n$ and 
+				\item By assumption, $M \subset \bigcup\limits_{\al \in \Gam} U_{\al}$
+				\item Let $A_1, A_2 \in \MB$ and $p \in A_1 \cap A_2$. By definition, there exist $\al_1, \al_2 \in \Gam$ and $B_1, B_2 \subset \H^n$ such that $B_1$, $B_2$ are open in $\H^n$ and 
 				\begin{align*}
 					A_1 & = \phi_{\al_1}^{-1}(B_1)  & A_2 & = \phi_{\al_2}^{-1}(B_2) \\
 					& \subset U_{\al_1}         &     & \subset U_{\al_2}
@@ -2456,6 +2458,48 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 				Thus $\MB$ is a basis for $\tau(\MB)$.
 			\end{itemize}
 			\item 
+			\begin{enumerate}
+				\item Set $\MT_{M} = \tau(\MB)$. Let $\al \in \Gam$. By definition, for each $B \subset \MT_{\H^n}$, 
+				\begin{align*}
+					\phi_{\al}^{-1}(B) 
+					& \in \MB \\
+					& \subset \MT_M
+				\end{align*}
+				Hence $\phi_{\al}$ is continuous. \\
+				Let $A \in \MT_{U_{\al}}$. Then there exists $U \subset \MT_M$ such that $A = U \cap U_{\al}$. Since $\MB$ is a basis for $\MT_M$, there exists $\Gam' \subset \Gam$, $(V_{\be})_{\be \in \Gam'} \subset \MT_{\H^n}$ such that $U = \bigcup_{ \be \in \Gam'} \phi_{\be}^{-1}(V_{\be})$. Thus 
+				\begin{align*}
+					A
+					& = U \cap U_{\al} \\
+					& = \bigg[\bigcup_{\be \in \Gam'} \phi_{\be}^{-1}(V_{\be}) \bigg] \cap U_{\al} \\ 
+					& = \bigcup_{\be \in \Gam'} [\phi_{\be}^{-1}(V_{\be}) \cap U_{\al}] \\
+				\end{align*} 
+				Let $\be \in \Gam'$. Since $\phi_{\al}(U_{\al} \cap U_{\be}) \subset \phi_{\al}(U_{\al})$ and $\phi_{\al}(U_{\al} \cap U_{\be}) \in \MT_{\H^n}$, we have that
+				\begin{align*}
+					\phi_{\al}(U_{\al} \cap U_{\be})
+					& = \phi_{\al}(U_{\al}) \cap \phi_{\al}(U_{\al} \cap U_{\be}) \\
+					& \in \MT_{\phi_{\al}(U_{\al})}
+				\end{align*}
+				Therefore $\MT_{\phi_{\al}(U_{\al} \cap U_{\be})} \subset \MT_{\phi_{\al}(U_{\al})}$. Since $(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is continuous, we have that $(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \H^n$
+				is continuous and therefore 
+				\begin{align*}
+					[(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}]^{-1}(V_{\be}) 
+					& \in \MT_{\phi_{\al}(U_{\al} \cap U_{\be})} \\
+					& \subset \MT_{\phi_{\al}(U_{\al})}
+				\end{align*} 
+				Since $\be \in \Gam'$ is arbitrary, we have that
+				\begin{align*}
+					\phi_{\al}(A)
+					& = \phi_{\al} \bigg( \bigcup_{\be \in \Gam'} [\phi_{\be}^{-1}(V_{\be}) \cap U_{\al}] \bigg) \\
+					& = \bigcup_{\be \in \Gam'} \phi_{\al}(\phi_{\be}^{-1}(V_{\be}) \cap U_{\al}) \\
+					& =  \bigcup_{\be \in \Gam'} (\phi_{\al}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\be}|_{U_{\al} \cap U_{\be}})^{-1}(V_{\be}) \\
+					& =  \bigcup_{\be \in \Gam'} [(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}]^{-1}(V_{\be}) \\
+					& \in \MT_{\phi_{\al}(U_{\al})}
+				\end{align*} 
+				Since $A \in \MT_{U_{\al}}$ is arbitrary, $\phi_{\al}^{-1}: \phi_{\al}(U_{\al}) \rightarrow U_{\al}$ is continuous. Hence $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a homeomorphism and $(U_{\al}, \phi_{\al}) \in X^n(M)$. Since $M = \bigcup\limits_{\al \in \Gam} U_{\al}$, we have that $M$ is locally Euclidean of dimension $n$.
+				\item 
+				\item 
+			\end{enumerate} 
+			\tcb{FINISH!!!}
 		\end{enumerate}
 	\end{proof}
 	
