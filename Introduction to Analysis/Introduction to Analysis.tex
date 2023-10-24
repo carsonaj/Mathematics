@@ -313,6 +313,69 @@
 	
 	\chapter{Set Theory}
 	
+	\section{Functions}
+	
+	\begin{ex}
+		Let $X, Y$ be sets, $f:X \rightarrow Y$ and $B \subset Y$. Then $f(f^{-1}(B)) = B \cap f(X)$. 
+	\end{ex}
+
+	\begin{proof}
+		Let $y \in f(f^{-1}(B))$. Then there exists $x \in f^{-1}(B)$ such that $f(x) = y$. Thus 
+		\begin{align*}
+			y
+			& = f(x) \\
+			& \in B
+		\end{align*}
+		Since 
+		\begin{align*}
+			f^{-1}(B) 
+			& = \{x \in X: f(x) \in B\} \\
+			& \subset X
+		\end{align*}
+		\begin{align*}
+			y
+			& = f(x) \\
+			& \in f(X) \\
+		\end{align*}
+			Hence $y \in B \cap f(X)$. Since $y \in f(f^{-1}(B))$ is arbitrary, $f(f^{-1}(B)) \subset  B \cap f(X)$.\\
+			Conversely, let $y \in B \cap f(X)$. Since $y \in f(X)$, there exists $x \in X$ such that $f(x) = y$. Since $y \in B$, $x \in f^{-1}(B)$. Hence 
+			\begin{align*}
+				y
+				& = f(x) \\
+				& \in f(f^{-1}(B)) \\
+			\end{align*}
+			Since $y \in B \cap f(X)$ is arbitrary, $B \cap f(X) \subset f(f^{-1}(B))$. Thus $f(f^{-1}(B)) =  B \cap f(X)$.
+		\end{proof}
+	
+		\begin{ex}
+			Let $X, Y$ be sets, $f:X \rightarrow Y$ and $\MA \subset \MP(X)$. Then 
+			$$f\bigg( \bigcup_{A \in \MA} A\bigg) = \bigcup_{A \in \MA} f(A)$$ 
+		\end{ex}
+	
+		\begin{proof}
+			Let $y \in f\bigg( \bigcup_{A \in \MA} A \bigg)$
+		\end{proof}
+	
+	\section{Bijections}
+	
+	\begin{defn}
+		Let $X, Y$ be sets and $f:X \rightarrow Y$. Then $f$ is said to be a \tbf{surjection} if for each $y \in Y$, there exists $x \in X$ such that $f(x) = y$.
+	\end{defn}
+
+	\begin{ex}
+			Let $X, Y$ be sets and $f:X \rightarrow Y$. Suppose that $f$ is a surjection. Then for each $B \subset Y$, $f(f^{-1}(B)) = B$. 
+	\end{ex}
+
+	\begin{proof}
+		Let $B subset Y$. Since $f$ is surjective, $f(X) = Y$. A previous exercise implies that 
+		\begin{align*}
+			f(f^{-1}(B))
+			& = B \cap f(X) \\
+			& = B \cap Y \\
+			& = B
+		\end{align*}
+	\end{proof}
+	
 	\section{Product Sets}
 	
 	\begin{defn}
@@ -1129,6 +1192,23 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 			& \in \MS
 		\end{align*}
 		Since $U \in \MT$ is arbitrary, $f$ is open.
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $f:X \rightarrow Y$ and $\MB_X$ a basis for $\MT_X$.  Suppose that $f$ is surjective, continuous and open. Then $\{f(A): A \in \MB_X\}$ is a basis for $\MT_Y$ is a basis for $\MT_Y$.
+	\end{ex}
+	
+	\begin{proof}
+		Set $\MB_{Y} = \{f(A):A \in A \in \MT_X\}$. Since $f$ is open, $\MB_{Y} \subset \MT_Y$. Let $V \in \MT_Y$. Set $U = f^{-1}(V)$. Since $f$ is continuous, $U \in \MT_X$. Since $\MB_X$ is a basis for $\MT_X$, there exist $\MB_X' \subset \MB_X$ such that $U = \bigcup\limits_{A \in \MB_X'}A$. Define $\MB_Y' \subset \MB_Y$ by $\MB_Y' = \{f(A): A \in \MB_X'\}$. Since $f$ is surjective, we have that $f(f^{-1}(V)) = f(V)$ and therefore
+		\begin{align*}
+			V
+			& = f(f^{-1}(V)) \\
+			& = f(U) \\
+			& = f \bigg( \bigcup_{A \in \MB_X'} B \bigg) \\
+			& = \bigcup_{A \in \MB_X'} f(A) \\
+			& = \bigcup_{B \in \MB_Y'} B \\
+		\end{align*} 
+		Since $V \in \MT_Y$ is arbitrary, we have that for each $V \in \MT_Y$, there exists $\MB_Y' \subset \MB_Y$ such that $V = \bigcup\limits_{B \in \MB_Y'} B$. Thus $\MB_Y$ is a basis for $\MT_Y$.
 	\end{proof}
 	
 	\begin{ex}\lex{} \tbf{Doob-Dynkin Lemma:} \\
@@ -2062,7 +2142,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 			\phi(\bar{a})
 			& = f(a) \\
 			& = f(b) \\
-			& = \phi(b)
+			& = \phi(\bar{b})
 		\end{align*}
 		Since $\bar{a}, \bar{b} \in X/ \sim$ are arbitrary, $\phi$ is well defined. Let $y \in Y$. Since $f$ is a quotient map, $f$ is surjective. Therefore there exists $x \in X$ such that $f(x) = y$. Thus 
 		\begin{align*}
@@ -2232,9 +2312,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	
 	
 	\newpage
-	\section{Separation and Countability}
-	
-	\subsection{Separation Axioms}
+	\section{Separation Axioms}
 	
 	\begin{defn}
 		Let $X$ be a topological space. Then $X$ is said to be 
@@ -2464,8 +2542,9 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	
 	
 	
-	
-	\subsection{Countability Axioms}
+	\newpage
+	\section{Countability Axioms}
+	\subsection{Introduction}
 
 	\begin{defn}
 		Let $(X, \MT)$ be a topological space. Then $(X, \MT)$ is said to be \tbf{second-countable} if there exists $\MB \subset \MT$ such that 
@@ -2475,6 +2554,61 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\end{enumerate} 
 	\end{defn}
 
+	\begin{ex}
+		Let $(X, \MT)$ be a topological space. Suppose that there exist $(U_n)_{n \in \N} \subset \MT$ such that 
+		\begin{enumerate}
+			\item $X = \bigcup\limits_{n \in \N}U_n$
+			\item for each $n \in \N$, $(U_n, \MT \cap U_n)$ is second-countable
+		\end{enumerate}
+		Then $(X, \MT)$ is second-countable
+	\end{ex}
+	
+	\begin{proof}
+		Since for each $n \in \N$, $(U_n, \MT_ \cap U_n)$ is second-countable, we have that for each $n \in \N$, there exists $\MB_n \subset \MT_ \cap U_n$ such that $\MB_n$ is a basis for $\MT_ \cap U_n$ and $\MB_n$ is countable. Since $(U_n)_{n \in \N} \subset \MT$, we have that for each $n \in \N$,
+		\begin{align*}
+			\MB_n 
+			& \subset \MT \cap U_n \\
+			& \subset \MT 
+		\end{align*}
+		Define $\MB \subset \MT$ by $\MB = \bigcup\limits_{n \in \N} \MB_n$. Then $\MB$ is countable. 
+		Let $V \in \MT$ and $n \in \N$. Then $V \cap U_n \in \MT \cap U_n$. Since $V \cap U_n \in \MT \cap U_n$, there exist $(B_{n, j})_{j \in \N} \subset \MB_n$ such that $V \cap U_n = \bigcup\limits_{j \in \N} B_{n,j}$.
+		Then $(B_{n,j})_{n,j \in \N} \subset \MB$ and 
+		\begin{align*}
+			V
+			& = V \cap X \\
+			& = V \cap \bigg( \bigcup_{n \in \N} U_n \bigg) \\
+			& = \bigcup_{n \in \N} V \cap U_n \\
+			& = \bigcup_{n \in \N} \bigcup_{j \in \N} B_{n,j} 
+		\end{align*}
+		Since $V \in \MT$ is arbitrary, we have that for each $V \in \MT$, there exits $\MB' \subset \MB$ such that $V = \bigcup\limits_{B \in \MB'} B$. Hence $\MB$ is a basis for $\MT$. Since $\MB$ is countable, $(X, \MT)$ is second-countable.
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is surjective, continuous and open. If $X$ is second countable, then $Y$ is second-countable. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $X$ is second-countable. Then there exists $\MB_X \subset \MT_X$ such that $\MB_X$ is a basis for $\MT_X$ and $\MB_X$ is countable. Set $\MB_{Y} = \{f(A):A \in A \in \MT_X\}$. Since $\MB_X$ is countable, $\MB_Y$ is countable. Since $f$ is surjective, continuous and open, a previous exercise implies that $\MB_{Y}$ is a basis for $\MT_Y$. Hence $(Y, \MT_Y)$ is second countable.
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is a homoemorphism. Then $(X, \MT_X)$ is second countable iff $(Y, \MT_Y)$ is second countable.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies):$ \\
+			Suppose that $(X, \MT_X)$ is second-countable. Since $f$ is surjective, continuous and open, the previous exercise implies that $(Y, \MT_Y)$ is second countable.
+			\item $(\impliedby):$ \\
+			Conversely, suppose that $(Y, \MT_Y)$ is second-countable. Since $f^{-1}: Y \rightarrow X$ is  surjective, continuous and open, the previous exercise implies that $(X, \MT_X)$ is second countable.
+		\end{itemize}
+	\end{proof}
+
+	\subsection{Second Countability and Subspaces}
+	
+	
+
+	\subsection{Second Countability and Product Spaces}
 	\begin{ex}
 		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Set $X = \prod\limits_{\al \in A} X_{\al}$ and denote the product topology on $X$ by $\MT_X$. Suppose that $A$ is countable. If for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is second-countable, then $(X, \MT_X)$ is second-countable. 
 	\end{ex}
@@ -2489,6 +2623,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		An exercise in the section on the product topology implies that $\MB$ is a basis for $\MT_X$. Since $A$ is countable, $\MB$ is countable. Hence $\MT_X$ is second-countable. 
 	\end{proof}
 
+	\subsection{Second Countability and Quotient Spaces}
 
 	
 	
