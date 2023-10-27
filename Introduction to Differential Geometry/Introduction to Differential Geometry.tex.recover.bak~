@@ -213,7 +213,6 @@
 \DeclareMathOperator*{\Maninf}{\text{\tbf{Man}}^{\infty}} 
 \DeclareMathOperator*{\Buninf}{\text{\tbf{Bun}}^{\infty}} 
 \DeclareMathOperator*{\VecBuninf}{\text{\tbf{VecBun}}^{\infty}} 
-\DeclareMathOperator*{\VectR}{\text{\tbf{Vect}}_{\R}} 
 \DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
 \DeclareMathOperator*{\0}{\mbf{0}}
 \DeclareMathOperator*{\1}{\mbf{1}}
@@ -1867,18 +1866,14 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}		
 	
 	\begin{defn}
-		Let $(M, \MT)$ be a topological space and $n \in \N_0$. Let $U \subset M$ and $V \subset \H^n$ and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \tbf{$n$-coordinate chart on $(M, \MT)$} if 
+		Let $M$ be a topological space and $n \in \N_0$. Let $U \subset M$ and $V \subset \H^n$ and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \tbf{$n$-coordinate chart on $M$} if 
 		\begin{itemize}
-			\item $U \in \MT$ 
-			\item $V \in \MT_{\H^n}$
-			\item $\phi$ is a $(\MT \cap U, \MT_{\H^n} \cap V)$-homeomorphism 
+			\item $U$ is open in $M$
+			\item $V$ is open in $\H^n$
+			\item $\phi$ is a homeomorphism 
 		\end{itemize}
-	We denote the set of all $n$-coordinate charts on $M$ by $X^n(M, \MT)$.
+	We denote the set of all $n$-coordinate charts on $M$ by $X^n(M)$.
 	\end{defn}
-
-	\begin{note}
-		We will write $X^n(M)$ in place of $X^n(M, \MT)$ when the topology is not ambiguous.
-	\end{note} 
 
 	\begin{defn}
 		Let $M$ be a topological space and $n \in \N$. Then $M$ is said to be \tbf{locally Euclidean of dimension $n$} if for each $p \in M$, there exists $(U, \phi) \in X^n(M)$ such that $p \in U$. 
@@ -2347,7 +2342,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 				& = \phi_{\al_1}^{-1}( B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]) \\
 				& \in \MB
 			\end{align*}
-			Thus $\MB$ is a basis for $\MT_M$.
+			Thus $\MB$ is a basis for $\tau(\MB)$.
 		\end{itemize}
 		\item 
 		\begin{enumerate}
@@ -2415,10 +2410,10 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		& \subset \tau(\MT) \\
 		& = \MT
 	\end{align*}
-	Conversely, Let $U \in \MT$ and $\al \in \Gam$. Then $U \cap U_{\al} \in \MT \cap U_{\al}$. Since $\phi_{\al}:U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a $(\MT \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism, we have that $\phi_{\al}(U \cap U_{\al}) \in \MT_{\H^n} \cap \phi_{\al}(U_{\al})$. Since $U_{\al} \in \MT_M$, $\MT_M \cap U_{\al} \subset \MT_M$. Since $\phi_{\al}:U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a $(\MT_M \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism, we have that 
+	Conversely, Let $U \in \MT$. Then $U \cap U_{\al} \in \MT \cap U_{\al}$. Let $\al \in \Gam$. Since $\phi_{\al}:U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a $(\MT \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism, we have that $\phi_{\al}(U \cap U_{\al}) \in \MT_{\H^n} \cap \phi_{\al}(U_{\al})$. Since $U_{\al} \in \MT_M$, $\MT_M \cap U_{\al} \subset \MT_M$. Since $\phi_{\al}:U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a $(\MT_M \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism, we have that 
 	\begin{align*}
 		U \cap U_{\al}
-		& = \phi_{\al}^{-1}( \phi_{\al}(U \cap U_{\al})) \\
+		& = \phi_{\al}( \phi_{\al}^{-1}(U \cap M)) \\
 		& \in \MT_M \cap U_{\al} \\
 		& \subset \MT_M 
 	\end{align*}
@@ -2446,10 +2441,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{enumerate}
 	Then there exists a unique topology $\MT_M$ on $M$ such that $(M, \MT_M)$ is an $n$-dimensional topological manifold and $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset X^n(M, \MT_M)$.
 \end{ex}
-
-	\begin{proof}
-		Immediate by previous exercise. 
-	\end{proof}
 
 
 
@@ -2587,13 +2578,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{ex}
 
 	\begin{proof}
-		Define
-		\begin{itemize}
-			\item $\MB = \{\phi_{\al}^{-1}(V): \al \in \Gam \text{ and } V \in \MT_{\H^n}\}$ 
-			\item $\MT_M = \tau(\MB)$ 
-			\item $\MA' = \{(U_{\al}, \phi_{\al}) : \al \in \Gam\}$.
-		\end{itemize}
-		The topological manifold chart lemma implies that $(M, \MT_M)$ is an $n$-dimensional topological manifold and $\MA' \subset X^n(M, \MT_M)$. Since $M = \bigcup_{\al \in \Gam} U_{\al}$, $\MA'$ is an atlas on $M$. Since for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is smooth, we have that $\MA'$ is smooth. A previous exercise implies that there exists a unique smooth structure $\MA$ on $M$ such that $\MA' \subset \MA$. 
+		Set $\MB = \{\phi_{\al}^{-1}(V): \al \in \Gam \text{ and } V \in \MT_{\H^n}\}$ and $\MA' = \{(U_{\al}, \phi_{\al}) : \al \in \Gam\}$. The topological manifold chart lemma implies that $(M, \tau(\MB))$ is an $n$-dimensional topological manifold and $\MA' \subset X^n(M)$. Since $M = \bigcup_{\al \in \Gam} U_{\al}$, $\MA'$ is an atlas on $M$. Since for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is smooth, we have that $\MA'$ is smooth. A previous exercise implies that there exists a unique smooth structure $\MA$ on $M$ such that $\MA' \subset \MA$. 
 	\end{proof}
 	
 	
@@ -3608,23 +3593,23 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{note}
 		Let $U, F$ be sets, we write $\prj_1: U \times F \rightarrow U$ to denote the projection onto $U$.
 	\end{note}
-
+	
 	\begin{defn}
-		Let $E, M, F \in \Obj(\Set)$ and $\pi \in \Hom_{\Set}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{local trivialization of $E$ over $U$ with fiber $F$}  if 
+		Let $E, M, F \in \Maninf$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection, $U \subset M$ open and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{smooth local trivialization of $E$ over $U$ with fiber $F$}  if 
 		\begin{enumerate}
-			\item $\Phi$ is a bijection
+			\item $\Phi$ is a diffeomorphism
 			\item $\prj_1 \circ \Phi = \pi|_{\pi^{-1}(U)}$, i.e. the following diagram commutes:
 			\[ 
 			\begin{tikzcd}
-				\pi^{-1}(U) \arrow[r, "\Phi"] \arrow[dr, "\pi"'] & U \times F \arrow[d, "\prj_1"]  \\
-				& U
+			\pi^{-1}(U) \arrow[r, "\Phi"] \arrow[dr, "\pi"'] & U \times F \arrow[d, "\prj_1"]  \\
+			& U
 			\end{tikzcd}
 			\]
 		\end{enumerate}
 	\end{defn}
-	
+
 	\begin{ex}
-		Let $E, M, F \in \Obj(\Set)$ and $\pi \in \Hom_{\Set}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ a local trivialization of $E$ over $U$ with fiber $F$. Then for each $A \subset U$, $$\Phi( \pi^{-1}(A)) = A \times F$$
+		Let $E$, $M$ and $F$ be sets and $\pi: E \rightarrow M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ a bijection. If $\prj_1 \circ \Phi = \pi|_{\pi^{-1}(U)}$, then for each $A \subset U$, $$\Phi( \pi^{-1}(A)) = A \times F$$
 		\tbf{Hint:} consider $\Phi^{-1}(A \times F)$ 
 	\end{ex}
 	
@@ -3646,15 +3631,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			&= A \times F
 		\end{align*}
 	\end{proof}
-	
-	\begin{defn}
-		Let $E, M, F \in \Maninf$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{smooth local trivialization of $E$ over $U$ with fiber $F$}  if 
-		\begin{enumerate}
-			\item $(U, \Phi)$ is a local trivialization of $E$ over $U$ with fiber $F$
-			\item $U$ is open
-			\item $\Phi$ is a diffeomorphism
-		\end{enumerate}
-	\end{defn}
 
 	\begin{defn}
 		Let $E,M, F \in\Obj( \Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{smooth fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
@@ -3811,25 +3787,25 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\section{Vector Bundles}
 
 	\begin{note}
-		Let $M$ be a set and $p \in M$. We endow $\{p\} \times \R^n$ with the natural vector space structure such that $\{p\} \times \R^k \cong \R^k$.
+		Let $M$ be a set and $p \in M$. We endow $\{p\} \times \R^n$ with the natural vector space structure such that $\{p\} \times \R^n \cong \R^n$.
 	\end{note}
 
 	\begin{defn}
-		Let $E,M \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection. Then $(E, M, \pi)$ is said to be a \tbf{rank $k$ smooth vector bundle} if 
+		Let $E,M \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection. Then $(E, M, \pi)$ is said to be a \tbf{rank $n$ smooth vector bundle} if 
 		\begin{enumerate}
-			\item $(E, M, \pi, \R^k) \in \Obj(\Buninf)$
-			\item for each $p \in M$, $E_p$ is a $k$-dimensional real vector space
-			\item for each smooth local trivialization $(U, \Phi)$ of $E$ over $U$ with fiber $\R^k$ and $p \in U$, $$\Phi|_{E_p}: E_p \rightarrow \{p\} \times \R^k$$ is a vector space isomorphism
+			\item $(E, M, \pi, \R^n) \in \Obj(\Buninf)$
+			\item for each $p \in M$, $E_p$ is a $n$-dimensional real vector space
+			\item for each smooth local trivialization $(U, \Phi)$ of $E$ over $U$ with fiber $\R^n$ and $p \in U$, $$\Phi|_{E_p}: E_p \rightarrow \{p\} \times \R^n$$ is a vector space isomorphism
 		\end{enumerate}
-		In this case we define the \tbf{rank of $(E, M, \pi)$}, denoted $\rnk (E, M, \pi)$, by $ \rnk (E, M, \pi) = k$.
+		In this case we define the \tbf{rank of $(E, M, \pi)$}, denoted $\rnk (E, M, \pi)$ by $ \rnk (E, M, \pi) = n$.
 	\end{defn}
 
 \begin{defn}
 	We define the category of smooth vector bundles, denoted $\VecBuninf$, by 
 	\begin{itemize}
 		\item $\Obj(\VecBuninf) = \{(E, M, \pi): (E, M, \pi) \text{ is a smooth vector bundle}\}$
-		\item For $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\VecBuninf)$ with $\rnk (E_1, M_1, \pi_1) = k_1$ and $\rnk (E_2, M_2, \pi_2) = k_2$,  
-		$$\Hom_{\VecBuninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \Hom_{\Buninf}((E_1, M_1, \pi_1, \R^{k_1}), (E_2, M_2, \pi_2, \R^{k_2}))$$
+		\item For $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\VecBuninf)$ with $\rnk (E_1, M_1, \pi_1) = n_1$ and $\rnk (E_2, M_2, \pi_2) = n_2$,  
+		$$\Hom_{\VecBuninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \Hom_{\Buninf}((E_1, M_1, \pi_1, \R^{n_1}), (E_2, M_2, \pi_2, \R^{n_2}))$$
 	\end{itemize}
 \end{defn}
 
@@ -3840,46 +3816,32 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \begin{proof} We note that 
 	\begin{itemize}
 		\item $\Obj(\VecBuninf) \subset \Obj(\Buninf)$
-		\item for each $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\Buninf)$ with $\rnk (E_1, M_1, \pi_1) = k_1$ and $\rnk (E_2, M_2, \pi_2) = k_2$, 
-		$$\Hom_{\VecBuninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \Hom_{\Buninf}((E_1, M_1, \pi_1, \R^{k_1}), (E_2, M_2, \pi_2, \R^{k_2}))$$
+		\item for each $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\Buninf)$ with $\rnk (E_1, M_1, \pi_1) = n_1$ and $\rnk (E_2, M_2, \pi_2) = n_2$, 
+		$$\Hom_{\VecBuninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \Hom_{\Buninf}((E_1, M_1, \pi_1, \R^{n_1}), (E_2, M_2, \pi_2, \R^{n_2}))$$
 	\end{itemize}
 	So $\Buninf$ is a full subcategory of $\MC$.
 \end{proof}
 
 \begin{ex}
-Let $M \in \Maninf$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi: E \rightarrow M$ by $\pi(p, x) = p $. Then $(E, M, \pi)$ is a rank $k$ smooth vector bundle.
+Let $M \in \Maninf$. Set $n = \dim M$, $E = M \times \R^n$ and define $\pi: E \rightarrow M$ by $\pi(p, x) = p $. Then $(E, M, \pi)$ is a smooth vector bundle of rank $n$.
 \end{ex}
 
 \begin{proof}\
 \begin{enumerate}
-\item For each $p \in M$, $\pi_1^{-1}(\{p\}) = \{p\} \times \R^k$ is an $n$-dimensional real vector space.
-\item Let $p \in M$. Set $U = M$. Then $\pi^{-1}(U) = E$. Define $\Phi: \pi^{-1}(U) \rightarrow U \times \R^k$ by $\Phi = \id_E$. Then $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$.   
-\item Let $p \in M$. Then $\Phi|_{\pi^{-1}(\{p\})}: \pi^{-1}(\{p\}) \rightarrow \{p\} \times \R^k$ is clearly an isomorphism. 
+\item For each $p \in M$, $\pi_1^{-1}(\{p\}) = \{p\} \times \R^n$ is an $n$-dimensional real vector space.
+\item Let $p \in M$. Set $U = M$. Then $\pi^{-1}(U) = E$. Define $\Phi: \pi^{-1}(U) \rightarrow U \times \R^n$ by $\Phi = \id_E$. Then $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$.   
+\item Let $p \in M$. Then $\Phi|_{\pi^{-1}(\{p\})}: \pi^{-1}(\{p\}) \rightarrow \{p\} \times \R^n$ is clearly an isomorphism. 
 \end{enumerate}
 \end{proof}
 
 
-\begin{ex} \tbf{Smooth Vector Bundle Chart Lemma:} \\
-	Let $M \in \Obj(\Maninf)$. Denote the topology on $M$ by $\MT_M$. Suppose that for each $p \in M$, there exists $E_p \in \Obj(\VectR)$ such that $\dim E_p = k$. We define $E \in \Obj(\Set)$ and $\pi \in \Hom_{\Set}(E, M)$ by
-	$$E = \coprod_{p \in M} E_p$$ 
-	and 
-	$\pi(p, v) = p$. Let $\Gam$ be an index set and $(U_{\al})_{\al \in \Gam} \subset \MT_M$. Suppose that
-	\begin{enumerate}
-		\item $M \subset \bigcup\limits_{\al \in \Gam} U_{\al}$
-		\item for each $\al \in \Gam$, there exists $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times \R^k$ such that 
-		\begin{itemize}
-			\item $\Phi_{\al} : \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times \R^k$ is a bijection
-			\item $\Phi_{\al}|_{E_p}:E_p \rightarrow \{p\} \times \R^k$ is a vector space isomorphism
-		\end{itemize}
-		\item for each $\al, \be \in \Gam$, there exists $\tau_{\al, \be}: U_{\al} \cap U_{\be} \rightarrow GL(k, \R)$ such that 
-		\begin{itemize}
-			\item $\tau_{\al, \be}: U_{\al} \cap U_{\be} \rightarrow GL(k, \R)$ is smooth
-			\item $\Phi_{\al}|_{\pi^{-1}(U_{\al} \cap U_{\be})} \circ (\Phi_{\be}|_{\pi^{-1}(U_{\al} \cap U_{\be})})^{-1}: (U_{\al} \cap U_{\be}) \times \R^k \rightarrow (U_{\al} \cap U_{\be}) \times \R^k$ is given by 
-			$$$$
-		\end{itemize}
-	\end{enumerate}
-	
+\begin{ex}
+	Let $(E, M, \pi) \in \VecBuninf$ with $\rnk (E, M, \pi) = n$. 
 \end{ex}
+
+\begin{thm}
+	Let $(E,)$ and $M$ be smooth manifolds and $\pi: E \rightarrow M$ a smooth surjection.
+\end{thm}
 	
 	
 	
