@@ -3676,9 +3676,9 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{ex} \tbf{Topological Fiber Bundle Chart Lemma:} \\
 		Let $E \in \Obj(\Set)$, $M, F \in \Obj(\Man0)$, $\pi: E \rightarrow M$ a surjection, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$. Set $n = \dim M$ and $k = \dim F$. Suppose that 
 		\begin{itemize}
-			\item for each $\al \in \Gam$, $U_{\al}$ is open
+			\item for each $\al \in \Gam$, $U_{\al} \in \MT_M$
 			\item $M \subset \bigcup\limits_{\al \in \Gam} U_{\al}$ 
-			\item for each $\al \in \Gam$, $(U_{\al}, \Phi_{\al})$ is a continuous local trivialization of $E$ over $U$
+			\item for each $\al \in \Gam$, $(U_{\al}, \Phi_{\al})$ is a local trivialization of $E$ over $U_{\al}$
 			\item for each $\al,\be \in \Gam$, $\Phi_{\be}|_{\pi^{-1}(U_{\al} \cap U_{\be})} \circ (\Phi_{\al}|_{\pi^{-1}(U_{\al} \cap U_{\be})})^{-1}: (U_{\al} \cap U_{\be}) \times F \rightarrow  (U_{\al} \cap U_{\be}) \times F$ is continuous.
 		\end{itemize}
 		Then there exist a unique topology, $\MT_E$, on $E$ such that
@@ -3690,35 +3690,81 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{ex}
 	
 	\begin{proof}
-		Let $(p,q) \in M \times F$. There exists $\al_p \in \Gam$, $(V_p^M, \psi^M_p) \in X^n(M, \MT_M)$ and $(V_p^M, \psi^M_p) \in X^k(F, \MT_F)$ such that $p \in V^M_p$, $V^M_p \subset U_{\al_p}$ and $q \in V_q^F$. \\ 
-		Define $V_{p,q} \subset E$ and $\psi_{p,q}: V_{p,q} \rightarrow \psi_p^M(V_p^M) \times \psi_q^F(V_q^F)$ by 
+		For $\al \in \Gam$, we define $X^n_{\al}(M, \MT_M) \subset X^n(M, \MT_M)$ by 
+		$$X^n_{\al}(M, \MT_M) = \{(V^M, \psi^M) \in X^n(M, \MT_M): V^M \subset U_{\al}\}$$ 
+		Choose index sets $(\Pi_{\al}^M)_{\al \in \Gam}$ and $\Pi^F$ such that for each $\al \in \Gam$, $X^n_{\al}(M, \MT_M) = (V^M_{\mu}, \psi^M_\mu)_{\mu \in \Pi^M_{\al}}$ and $X^k(F, \MT_F) = (V^F_{\nu}, \psi^F_{\nu})_{\nu \in \Pi^F}$. Set $\Pi^M = \coprod_{\al \in \Gam} \Pi_{\al}^M$. For $(\al, \mu) \in \Pi^M, \nu \in \Pi^F$, we define $V^E_{\mu, \nu} \subset E$ and $\psi^E_{\mu, \nu}: V^E_{\mu, \nu} \rightarrow \psi^M_{\mu}(V^M_{\mu}) \times \psi^F_{\nu}(V^F_{\nu})$ by 
 		\begin{itemize}
-			\item $V_{p,q} = \Phi_{\al_p}^{-1}(V^M_p \times V^F_q)$ 
-			\item $\psi_{p,q} = (\psi_p^M \times \psi_q^F) \circ \Phi_{\al_p}|_{V_{p,q}}$
+			\item $V^E_{\mu, \nu} = \Phi_{\al}^{-1}(V^M_{\mu} \times V^F_{\nu})$ 
+			\item $\psi^E_{\mu, \nu} = (\psi^M_{\mu} \times \psi^F_{\nu}) \circ \Phi_{\al}|_{V^E_{\mu, \nu}}$
 		\end{itemize}
 		We have the following:
 		\begin{itemize}
-			\item Let $(p,q) \in M \times F$. Then $\psi_{p,q}(V_{p,q}) = \psi_p^M(V_p^M) \times \psi_q^F(V_q^F)$ and thus $\psi_{p,q}(V_{p,q}) \in \MT_{\H^{n + k}}$ 
-			\item for each $(p_1,q_1), (p_2, q_2) \in M \times F$, 
+			\item $(\al, \mu) \in \Pi^M$ and $\nu \in \Pi^F$. Then $\psi^E_{\mu, \nu}(V^E_{\mu, \nu}) = \psi^M_{\mu}(V^M_{\mu}) \times \psi^F_{\nu}(V^F_{\nu})$ and thus $\psi^E_{\mu, \nu}(V^E_{\mu, \nu}) \in \MT_{\H^{n + k}}$ 
+			\item for each $(\al_1, \mu_1), (\al_2, \mu_2) \in \Pi^M$ and $\nu_1, \nu_2 \in \Pi^F$, 
 			\begin{align*}
-				\psi_{p_1, q_1}(V_{p_1, q_1} \cap V_{p_2, q_2}) 
-				& = (\psi_{p_1}^M \times \psi_{q_1}^F) \circ \Phi_{\al_{p_1}}|_{V_{p_1,q_1}} (\Phi_{\al_{p_1}}^{-1}([V^M_{p_1} \times V^F_{q_1})] \cap [V^M_{p_2} \times V^F_{q_2}])) \\
-				& = (\psi_{p_1}^M \times \psi_{q_1}^F)([V^M_{p_1} \times V^F_{q_1})] \cap [V^M_{p_2} \times V^F_{q_2}]) \\
-				& = (\psi_{p_1}^M \times \psi_{q_1}^F)([V^M_{p_1} \cap V^M_{p_2}] \times [V^F_{q_1} \cap V^F_{q_2}]) \\
-				& = \psi_{p_1}^M (V^M_{p_1} \cap V^M_{p_2}) \times \psi_{q_1}^F(V^F_{q_1} \cap V^F_{q_2}) \\
+				\psi^E_{\mu_1, \nu_1}(V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}) 
+				& = (\psi^M_{\mu_1} \times \psi^F_{\nu_1}) \circ \Phi_{\al_1}|_{V^E_{\mu_1, \nu_1}} (\Phi_{\al_1}^{-1}([V^M_{\mu_1} \times V^F_{\nu_1})] \cap [V^M_{\mu_2} \times V^F_{\nu_2}])) \\
+				& = (\psi^M_{\mu_1} \times \psi^F_{\nu_1})([V^M_{\mu_1} \times V^F_{\nu_1})] \cap [V^M_{\mu_2} \times V^F_{\nu_2}]) \\
+				& = (\psi_{\mu_1}^M \times \psi_{\nu_1}^F)([V^M_{\mu_1} \cap V^M_{p_2}] \times [V^F_{\nu_1} \cap V^F_{q_2}]) \\
+				& = \psi_{\mu_1}^M (V^M_{\mu_1} \cap V^M_{p_2}) \times \psi_{\nu_1}^F(V^F_{\nu_1} \cap V^F_{q_2}) \\
 				& \in \MT_{\H^{n+k}}
 			\end{align*}
-			\item Let $(p,q) \in M \times F$. Then $\psi_{p,q}: V_{p,q} \rightarrow \psi_p^M(V_p^M) \times \psi_q^F(V_q^F)$ is a bijection
-			\item Let $(p_1,q_1), (p_2, q_2) \in M \times F$. For notational convenience, set $\psi_1 = \psi_{p_1, q_1}$, $\psi_2 = \psi_{p_2, q_2}$, $V = V_{p_1, q_1} \cap V_{p_2, q_2}$, $V^M = V_{p_1}^M \cap V^M_{p_2}$ and $V^F = V^F_{q_1} \cap V^F_{q_2}$. Then $\psi_2|_V \circ (\psi_1|_V)^{-1}: \psi_1(V) \rightarrow \psi_2(V)$ is given by
+			\item Let $(\al, \mu) \Pi^M$ and $\nu \in \Pi^F$. Then $\psi^E_{\mu,\nu}: V^E_{\mu,\nu} \rightarrow \psi^M_{\mu}(V^M_{\mu}) \times \psi^F_{\nu}(V^F_{\nu})$ is a bijection
+			\item Let $(\al_1, \mu_1), (\al_2, \mu_2) \in \Pi^M$ and $\nu_1, \nu_2 \in \Pi^F$. For notational convenience, set $\psi^E_1 = \psi^E_{\mu_1, \nu_1}$, $\psi^E_2 = \psi_{\mu_2, \nu_2}$, $V^E = V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}$, $V^M = V_{\mu_1}^M \cap V^M_{\mu_2}$ and $V^F = V^F_{\nu_1} \cap V^F_{\nu_2}$. Then $\psi_2|_{V^E} \circ (\psi_1|_{V^E})^{-1}: \psi_1(V^E) \rightarrow \psi_2(V^E)$ is given by
 			\begin{align*}
-				\psi_2|_V \circ (\psi_1|_V)^{-1}
-				& = [(\psi_{p_2}^M|_{V^M} \times \psi_{q_2}^F|_{V^F}) \circ \Phi_{\al_{p_2}}|_V] \circ [(\psi_{p_1}^M|_{V^M} \times \psi_{q_1}^F|_{V^F}) \circ \Phi_{\al_{p_1}}|_V]^{-1} \\
-				& = [(\psi_{p_2}^M|_{V^M} \times \psi_{q_2}^F|_{V^F}) \circ \Phi_{\al_{p_2}}|_{V}] \circ [(\Phi_{\al_{p_1}}|_{V})^{-1} \circ (\psi_{p_1}^M|_{V^M} \times \psi_{q_1}^F|_{V^F})^{-1}] \\
-				& = (\psi_{p_2}^M|_{V^M} \times \psi_{q_2}^F|_{V^F}) \circ [\Phi_{\al_{p_2}}|_{V} \circ (\Phi_{\al_{p_1}}|_{V})^{-1}] \circ (\psi_{p_1}^M|_{V^M} \times \psi_{q_1}^F|_{V^F})^{-1}
+				\psi^E_2|_{V^E} \circ (\psi^E_1|_{V^E})^{-1}
+				& = [(\psi_{\mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ \Phi_{\al_2}|_{V^E}] \circ [(\psi_{\mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F}) \circ \Phi_{\al_1}|_{V^E}]^{-1} \\
+				& = [(\psi_{\mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ \Phi_{\al_2}|_{V^E}] \circ [(\Phi_{\al_1}|_{V^E})^{-1} \circ (\psi_{\mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F})^{-1}] \\
+				& = (\psi_{\mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ [\Phi_{\al_2}|_{V^E} \circ (\Phi_{\al_1}|_{V^E})^{-1}] \circ (\psi_{\mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F})^{-1}
 			\end{align*}
-			Since $\Phi_{\al_{p_2}}|_V \circ (\Phi_{\al_{p_1}}|_V)^{-1}$ is continuous, we have that $\psi_{p_2, q_2}|_{V_{p_1, q_1} \cap V_{p_2, q_2}} \circ (\psi_{p_1, q_1}|_{V_{p_1, q_1} \cap V_{p_2, q_2}})^{-1}: \psi_{p_1, q_1}(V_{p_1, q_1} \cap V_{p_2, q_2}) \rightarrow \psi_{p_2, q_2}(V_{p_1, q_1} \cap V_{p_2, q_2})$ is continuous.
-			\item \tcb{countable}
-			\item \tcb{Hausdorff}
+			Since $\Phi_{\al_2}|_{V^E} \circ (\Phi_{\al_1}|_{V^E})^{-1}$ is continuous, we have that 
+			$$\psi^E_{\mu_2, \nu_2}|_{V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}} \circ (\psi^E_{\mu_1, \nu_1}|_{V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}})^{-1}: \psi^E_{\mu_1, \nu_1}(V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}) \rightarrow \psi^E_{\mu_2, \nu_2}(V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2})$$ 
+			is continuous.
+			\item A previous exercise in the section on topological manifolds implies that $(V^M_{\mu})_{(\al, \mu) \in \Pi^M}$ is an open cover of $M$ and $(V^F_{\nu})_{\nu \in \Pi^F}$ is an open cover of $F$. Since $M,F$ are second-countable $M,F$ are Lindel\"{o}f and there exists $S^M \subset \Pi^M$, $S^F \subset \Pi^F$ such that $S^M, S^F$ are countable and $(V_{\mu}^M )_{(\al, \mu) \in S^M}$ is an open cover of $M$ and $(V^F_{\nu})_{\nu \in \Pi^F}$ is an open cover of $F$. Then $S^M \times S^F$ is countable and $(V_{\mu}^M \times V_{\nu}^F)_{(\al, \mu, \nu) \in S^M \times S^F}$ is an open cover of $M \times F$. \\
+			Let $a \in E$. Set $p = \pi(a)$. Choose $(\al, \mu) \in S^M$ such that $p \in V_{\mu}^M$. Since $V^M_{\mu} \subset U_{\al}$, $a \in \pi^{-1}(U_{\al})$ which implies that
+			\begin{align*}
+				p
+				& = \pi(a) \\
+				& = \prj_1 \circ \Phi_{\al}(a)
+			\end{align*}
+			Set $q = \prj_2 \circ \Phi_{\al}(a)$. Choose $\nu \in S^F$ such that $q \in V^F_{\nu}$. Then 
+			\begin{align*}
+				\Phi_{\al_{p}}(a)
+				& = (\prj_1 \circ \Phi_{\al_{p}}(a), \prj_2 \circ \Phi_{\al_{p}}(a)) \\
+				& = (p, q) \\
+				& \in V_{\mu}^M \times V_{\nu}^F
+			\end{align*}
+			Thus 
+			\begin{align*}
+				a 
+				& \in \Phi^{-1}_{\al_{p}}(V_{p}^M \times V_{q}^F) \\
+				& = V^E_{\mu, \nu} 
+			\end{align*}
+			Since $a \in E$ is arbitrary, we have that for each $a \in E$, there exists $(\al, \mu, \nu) \in S^M \times S^F$ such that $a \in V^E_{\mu,\nu}$. Thus 
+			$$E \subset \bigcup_{(\al, \mu, \nu) \in S^M \times S^F} V_{\mu, \nu}$$
+			\item Let $a_1, a_2 \in E$. Set $p_1 = \pi(a_1)$ and $p_2 = \pi(a_2)$. \\
+			Suppose that $p_1 \neq p_2$. Since $M$ is Hausdorff, there exist $(\al_1, \mu_1), (\al_2, \mu_2) \in \Pi^M$ such that $p_1 \in V^M_{\mu_1}$, $p_2 \in V^M_{\mu_2}$ and $V^M_{\mu_1} \cap V^M_{\mu_2} = \varnothing$. Set $q_1 = \prj_2 \circ \Phi_{\al_1}(a_1)$ and  $q_2 = \prj_2 \circ \Phi_{\al_2}(a_2)$. Choose $\nu_1, \nu_2 \in \Pi^F$ such that $q_1 \in V^F_{\nu_1}$ and $q_2 \in V^F_{\nu_2]}$. Then similarly to the previous part, $a_1 \in V^E_{\mu_1, \nu_1}$ and $a_2 \in V^E_{\mu_2, \nu_2}$. Then
+			\begin{align*}
+				V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}
+				& = \Phi_{\al_1}^{-1}(V^M_{\mu_1} \times V^F_{\nu_1}) \cap \Phi_{\al_2}^{-1}(V^M_{\mu_2} \times V^F_{\nu_2}) \\
+				& \subset \pi^{-1}(V^M_{\mu_1}) \cap \pi^{-1}(V^M_{\mu_2}) \\
+				& = \pi^{-1}(V^M_{\mu_1} \cap V^M_{\mu_2}) \\
+				& = \pi^{-1}(\varnothing) \\
+				& = \varnothing
+			\end{align*}  
+			Suppose that $p_1 = p_2$. 
+			\begin{align*}
+				\Phi_{\al_1}( V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2})
+				& = \Phi_{\al_1} \bigg [ \Phi_{\al_1}^{-1}(V^M_{\mu_1} \times V^F_{\nu_2}) \cap \Phi_{\al_2}^{-1}(V^M_{\mu_2} \times V^F_{\nu_2}) \bigg ]\\
+				& = (V^M_{\mu_1} \times V^F_{\nu_2}) \cap \Phi_{\al_1} ( \Phi_{\al_2}^{-1}(V^M_{\mu_2} \times V^F_{\nu_2})) 
+			\end{align*}  
+			Using the hint on the \tcb{Topological Manifold Chart Lemma}, we have that
+			\begin{align*}
+				V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}
+				& = \Phi_{\al_1} \bigg[ (V^M_{\mu_1} \times V^F_{\nu_2}) \cap \Phi_{\al_1}^{-1} \Phi_{\al_2}^{-1}(V^M_{\mu_2} \times V^F_{\nu_2}) \bigg] \\
+				& = \Phi_{\al_1}^{-1}(V^M_{\mu_1} \times V^F_{\nu_2}) \cap \Phi_{\al_2}^{-1}(V^M_{\mu_2} \times V^F_{\nu_2}) 
+			\end{align*}  
+		
 		\end{itemize}
 		\tcb{FINISH!!!} 
 	\end{proof}
