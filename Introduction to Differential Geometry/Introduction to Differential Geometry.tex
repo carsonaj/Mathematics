@@ -39,247 +39,7 @@
 %    For use when working on individual chapters
 %\includeonly{}
 
-%    Include referenced packages here.
-\usepackage[margin=1in]{geometry} 
-\usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
-\usepackage{tikz, tikz-cd, tkz-fct}  
-\usepackage{pgfplots}
-\usepackage{environ}
-\usepackage{tikz-cd} 
-\usepackage{enumitem}
-\usepackage{color}   %May be necessary if you want to color links
-\usepackage{hyperref}
-\hypersetup{
-	colorlinks=true, %set true if you want colored links
-	linktoc=all,     %set to all if you want both sections and subsections linked
-	linkcolor=black,  %choose some color if you want links to stand out
-	urlcolor=cyan
-}
-\usepackage[symbols,nogroupskip,sort=none]{glossaries-extra}
-
-\pgfplotsset{every axis/.append style={
-		axis x line=middle,    % put the x axis in the middle
-		axis y line=middle,    % put the y axis in the middle
-		axis line style={<->,color=black}, % arrows on the axis
-		xlabel={$x$},          % default put x on x-axis
-		ylabel={$y$},          % default put y on y-axis
-}}
-
-
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[subsection]
-\newtheorem{defn}[definition]{Definition}
-\newtheorem{note}[definition]{Note}
-\newtheorem{thm}[definition]{Theorem}
-\newtheorem{lem}[definition]{Lemma}
-\newtheorem{prop}[definition]{Proposition}
-\newtheorem{cor}[definition]{Corollary}
-\newtheorem{conj}[definition]{Conjecture}
-\newtheorem{ex}[definition]{Exercise}
-\newtheorem{exmp}[definition]{Example}
-
-\setcounter{tocdepth}{3}
-
-% hide proofs
-\newif\ifhideproofs
-%\hideproofstrue %uncomment to hide proofs
-\ifhideproofs
-\NewEnviron{hide}{}
-\let\proof\hide
-\let\endproof\endhide
-\fi
-
-% lower-case greek
-\newcommand{\al}{\alpha}
-\newcommand{\be}{\beta}
-\newcommand{\gam}{\gamma}
-\newcommand{\del}{\delta}
-\newcommand{\ep}{\epsilon}
-\newcommand{\ze}{\zeta} 
-\newcommand{\kap}{\kappa} 
-\newcommand{\lam}{\lambda}  
-\newcommand{\sig}{\sigma} 
-\newcommand{\omi}{\omicron}
-\newcommand{\up}{\upsilon}
-\newcommand{\om}{\omega}
-
-% upper-case greek
-\newcommand{\Gam}{\Gamma}
-\newcommand{\Del}{\Delta}
-\newcommand{\Lam}{\Lambda} 
-\newcommand{\Sig}{\Sigma} 
-\newcommand{\Om}{\Omega}
-
-% blackboard bold
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\F}{\mathbb{F}}
-\renewcommand{\H}{\mathbb{H}}
-\newcommand{\K}{\mathbb{K}}
-\newcommand{\N}{\mathbb{N}}
-\renewcommand{\O}{\mathbb{O}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\T}{\mathbb{T}}
-\newcommand{\V}{\mathbb{V}}
-\newcommand{\Z}{\mathbb{Z}}
-
-% math caligraphic
-\newcommand{\MA}{\mathcal{A}}
-\newcommand{\MB}{\mathcal{B}}
-\newcommand{\MC}{\mathcal{C}}
-\newcommand{\MD}{\mathcal{D}}
-\newcommand{\ME}{\mathcal{E}}
-\newcommand{\MF}{\mathcal{F}}
-\newcommand{\MG}{\mathcal{G}}
-\newcommand{\MH}{\mathcal{H}}
-\newcommand{\MI}{\mathcal{I}}
-\newcommand{\MJ}{\mathcal{J}}
-\newcommand{\MK}{\mathcal{K}}
-\newcommand{\ML}{\mathcal{L}}
-\newcommand{\MM}{\mathcal{M}}
-\newcommand{\MN}{\mathcal{N}}
-\newcommand{\MO}{\mathcal{O}}
-\newcommand{\MP}{\mathcal{P}}
-\newcommand{\MQ}{\mathcal{Q}}
-\newcommand{\MR}{\mathcal{R}}
-\newcommand{\MS}{\mathcal{S}}
-\newcommand{\MT}{\mathcal{T}}
-\newcommand{\MU}{\mathcal{U}}
-\newcommand{\MV}{\mathcal{V}}
-\newcommand{\MW}{\mathcal{W}}
-\newcommand{\MX}{\mathcal{X}}
-\newcommand{\MY}{\mathcal{Y}}
-\newcommand{\MZ}{\mathcal{Z}}
-
-% mathfrak
-\newcommand{\MFX}{\mathfrak{X}}
-\newcommand{\MFg}{\mathfrak{g}}
-\newcommand{\MFh}{\mathfrak{h}}
-
-% tilde 
-\newcommand{\tMA}{\tilde{\MA}}
-\newcommand{\tMB}{\tilde{\MB}}
-\newcommand{\tU}{\tilde{U}}
-\newcommand{\tV}{\tilde{V}}
-\newcommand{\tphi}{\tilde{\phi}}
-\newcommand{\tpsi}{\tilde{\psi}}
-\newcommand{\tF}{\tilde{F}}
-
-% label/reference
-\newcommand{\lex}[1]{\label{ex:#1}}
-\newcommand{\rex}[1]{Exercise \ref{ex:#1}}
-
-\newcommand{\ld}[1]{\label{defn:#1}}
-\newcommand{\rd}[1]{Definition \ref{defn:#1}}
-
-\newcommand{\lax}[1]{\label{ax:#1}}
-\newcommand{\rax}[1]{Axiom \ref{ax:#1}}
-
-\newcommand{\lfig}[1]{\label{fig:#1}}
-\newcommand{\rfig}[1]{Figure \ref{fig:#1}}
-
-% math operators
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\spn}{span}
-\DeclareMathOperator{\iso}{Iso}
-\DeclareMathOperator{\id}{id}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Homeo}{Homeo}
-\DeclareMathOperator{\Sym}{Sym}
-\DeclareMathOperator{\Alt}{Alt}
-\DeclareMathOperator{\cl}{cl}
-\DeclareMathOperator{\Int}{Int}
-\DeclareMathOperator{\bal}{bal}
-\DeclareMathOperator{\cnv}{conv}
-\DeclareMathOperator{\epi}{epi}
-\DeclareMathOperator{\dom}{dom}
-\DeclareMathOperator{\cod}{cod}
-\DeclareMathOperator{\Obj}{Obj}
-\DeclareMathOperator{\Hom}{Hom}
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator{\diam}{diam}
-\DeclareMathOperator{\rnk}{rank}
-\DeclareMathOperator{\prj}{\text{proj}}
-\DeclareMathOperator{\nab}{\nabla}
-\DeclareMathOperator{\diag}{\text{diag}}
-\DeclareMathOperator*{\ind}{\text{\text{ind}}}
-
-
-% category theory
-\DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
-\DeclareMathOperator*{\Maninf}{\text{\tbf{Man}}^{\infty}} 
-\DeclareMathOperator*{\Man0}{\text{\tbf{Man}}^{0}}
-\DeclareMathOperator*{\Buninf}{\text{\tbf{Bun}}^{\infty}} 
-\DeclareMathOperator*{\VecBuninf}{\text{\tbf{VecBun}}^{\infty}} 
-\DeclareMathOperator*{\VectR}{\text{\tbf{Vect}}_{\R}} 
-\DeclareMathOperator*{\Cat}{\text{\tbf{Cat}}}
-\DeclareMathOperator*{\0}{\mbf{0}}
-\DeclareMathOperator*{\1}{\mbf{1}}
-\DeclareMathOperator*{\TopEq}{\text{\tbf{TopEq}}}
-\DeclareMathOperator*{\Top}{\text{\tbf{Top}}}
-\DeclareMathOperator*{\Cone}{\text{\tbf{Cone}}}
-\DeclareMathOperator*{\Cocone}{\text{\tbf{Cocone}}}
-
-% notation
-\renewcommand{\r}{\rangle}
-\renewcommand{\l}{\langle}
-\renewcommand{\div}{\text{div}}
-\renewcommand{\Im}{\text{Im} \,}
-\newcommand{\grad}{\text{grad}}
-\newcommand{\tbf}[1]{\textbf{#1}}
-\newcommand{\tcb}[1]{\textcolor{blue}{#1}}
-\newcommand{\mbf}[1]{\mathbf{#1}}
-\newcommand{\ol}[1]{\overline{#1}}
-\newcommand{\p}{\partial}
-\newcommand{\Tn}[1]{T^{r_{#1}}_{s_{#1}}(V)}
-\newcommand{\Tnp}{T^{r_1 + r_2}_{s_1 + s_2}(V)}
-\newcommand{\Perm}{\text{Perm}}
-
-
-
-% limits
-\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
-\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
-\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
-\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
-\newcommand{\conv}[1]{\xrightarrow{#1}} 
-\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
-
-% intervals
-\newcommand{\RG}{[0,\infty]}
-\newcommand{\Rg}{[0,\infty)}
-\newcommand{\Ru}{(\infty, \infty]}
-\newcommand{\Rd}{[\infty, \infty)}
-\newcommand{\ui}{[0,1]}
-
-% integration \newcommand{\dm}{\, d m}
-\newcommand{\dmu}{\, d \mu}
-\newcommand{\dnu}{\, d \nu}
-\newcommand{\dlam}{\, d \lambda}
-\newcommand{\dP}{\, d P}
-\newcommand{\dQ}{\, d Q}
-\newcommand{\dm}{\, d m}
-\newcommand{\dsh}{\, d \#}
-
-% abreviations 
-\newcommand{\lsc}{lower semicontinuous}
-
-% misc
-\newcommand{\as}[1]{\overset{#1}{\sim}}
-\newcommand{\astx}[1]{\overset{\text{#1}}{\sim}}
-\newcommand{\io}{\text{ i.o.}}
-%\newcommand{\ev}{\text{ ev.}}
-\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
-
-\newcommand{\loc}{\text{loc}}
-\newcommand{\BV}{\text{BV}}
-\newcommand{\NBV}{\text{NBV}}
-\newcommand{\TV}{\text{TV}}
-
-\newcommand{\op}[1]{\mathcal{#1}^{\text{op}}}
+\input{"../Book Preamble/Book Preamble.tex"}
 
 
 % Glossary - Notation
@@ -2584,7 +2344,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\item there exists $\Gam' \subset \Gam$ such that $\Gam'$ is countable and $M \subset \bigcup\limits_{\al \in \Gam'} U_{\al}$
 			\item for each $p,q \in M$, there exists $\al \in \Gam$ such that $p,q \in U_{\al}$ or there exist $\al,\be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
 		\end{enumerate}
-		Then there exists a unique smooth structure $\MA$ on $M$ such that $(M, \MA)$ is an $n$-dimensional smooth manifold and $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset \MA$.
+		Then there exists a unique smooth structure $\MA_M$ on $M$ such that $(M, \MA_M)$ is an $n$-dimensional smooth manifold and $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset \MA_M$.
 	\end{ex}
 
 	\begin{proof}
@@ -2594,7 +2354,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\item $\MT_M = \tau(\MB)$ 
 			\item $\MA' = \{(U_{\al}, \phi_{\al}) : \al \in \Gam\}$.
 		\end{itemize}
-		The topological manifold chart lemma implies that $(M, \MT_M)$ is an $n$-dimensional topological manifold and $\MA' \subset X^n(M, \MT_M)$. Since $M = \bigcup_{\al \in \Gam} U_{\al}$, $\MA'$ is an atlas on $M$. Since for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is smooth, we have that $\MA'$ is smooth. A previous exercise implies that there exists a unique smooth structure $\MA$ on $M$ such that $\MA' \subset \MA$. 
+		The topological manifold chart lemma implies that $(M, \MT_M)$ is an $n$-dimensional topological manifold and $\MA' \subset X^n(M, \MT_M)$. Since $M = \bigcup_{\al \in \Gam} U_{\al}$, $\MA'$ is an atlas on $M$. Since for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is smooth, we have that $\MA'$ is smooth. A previous exercise implies that there exists a unique smooth structure $\MA_M$ on $M$ such that $\MA' \subset \MA_M$. 
 	\end{proof}
 	
 	
@@ -3611,7 +3371,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{note}
 
 	\begin{defn}
-		Let $E, M, F \in \Obj(\Set)$, $\pi \in \Hom_{\Set}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{local trivialization of $E$ over $U$ with fiber $F$}  if 
+		Let $E, M, F \in \Obj(\Set)$, $\pi \in \Hom_{\Set}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$}  if 
 		\begin{enumerate}
 			\item $\Phi$ is a bijection
 			\item $\prj_1 \circ \Phi = \pi|_{\pi^{-1}(U)}$, i.e. the following diagram commutes:
@@ -3625,7 +3385,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 	
 	\begin{ex}
-		Let $E, M, F \in \Obj(\Set)$ and $\pi \in \Hom_{\Set}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ a local trivialization of $E$ over $U$ with fiber $F$. Then for each $A \subset U$, $$\Phi( \pi^{-1}(A)) = A \times F$$
+		Let $E, M, F \in \Obj(\Set)$ and $\pi \in \Hom_{\Set}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ a local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$. Then for each $A \subset U$, $$\Phi( \pi^{-1}(A)) = A \times F$$
 		\tbf{Hint:} consider $\Phi^{-1}(A \times F)$ 
 	\end{ex}
 	
@@ -3662,111 +3422,153 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 	
-	\subsection{Topological Fiber Bundles}
+	\subsection{$\Man0$ Fiber Bundles}
 	
 	\begin{defn}
-		Let $E, M, F \in \Obj(\Man0)$ and $\pi \in \Hom_{\Man0}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{continuous local trivialization of $E$ over $U$ with fiber $F$}  if 
+		Let $E, M, F \in \Obj(\Man0)$ and $\pi \in \Hom_{\Man0}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{continuous local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$}  if 
 		\begin{enumerate}
 			\item $U$ is open
-			\item $(U, \Phi)$ is a local trivialization of $E$ over $U$ with fiber $F$
+			\item $(U, \Phi)$ is a local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$
 			\item $\Phi$ is a homeomorphism
 		\end{enumerate}
 	\end{defn}
 
-	\begin{ex} \tbf{Topological Fiber Bundle Chart Lemma:} \\
+	\begin{defn}
+		Let $E,M, F \in \Obj(\Man0)$ and $\pi \in \Hom_{\Man0}(E, M)$ a surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{$\Man0$ fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a continuous local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
+	\end{defn}
+
+	\begin{ex} \tbf{$\Man0$ Fiber Bundle Chart Lemma:} \\
 		Let $E \in \Obj(\Set)$, $M, F \in \Obj(\Man0)$, $\pi: E \rightarrow M$ a surjection, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$. Set $n = \dim M$ and $k = \dim F$. Suppose that 
 		\begin{itemize}
 			\item for each $\al \in \Gam$, $U_{\al} \in \MT_M$
 			\item $M \subset \bigcup\limits_{\al \in \Gam} U_{\al}$ 
-			\item for each $\al \in \Gam$, $(U_{\al}, \Phi_{\al})$ is a local trivialization of $E$ over $U_{\al}$
+			\item for each $\al \in \Gam$, $(U_{\al}, \Phi_{\al})$ is a local trivialization with respect to $\pi$ of $E$ over $U_{\al}$ with fiber $F$ 
 			\item for each $\al,\be \in \Gam$, $\Phi_{\be}|_{\pi^{-1}(U_{\al} \cap U_{\be})} \circ (\Phi_{\al}|_{\pi^{-1}(U_{\al} \cap U_{\be})})^{-1}: (U_{\al} \cap U_{\be}) \times F \rightarrow  (U_{\al} \cap U_{\be}) \times F$ is continuous.
 		\end{itemize}
 		Then there exist a unique topology, $\MT_E$, on $E$ such that
 		\begin{enumerate}
-			\item $(E, \MT_E)$ is a $n+k$-dimensional topological manifold
-			\item $(E, \MT_E)$  
+			\item $(E, \MT_E)$ is a $n+k$-dimensional topological manifold 
+			\item $\pi: E \rightarrow M$ is continuous
+			\item for each $\al \in \Gam$, $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$ is a continuous local trivialization with respect to $\pi$ of $E$ over $U_{\al}$ with fiber $F$
+			\item $(E, M, \pi, F)$ is an $\Man0$ fiber bundle
 		\end{enumerate}
-		$(U_{\al}, \Phi_{\al})$ a local trivialization of $E$ over $U$. Suppose that 
 	\end{ex}
 	
-	\begin{proof}
-		For $\al \in \Gam$, we define $X^n_{\al}(M, \MT_M) \subset X^n(M, \MT_M)$ by 
-		$$X^n_{\al}(M, \MT_M) = \{(V^M, \psi^M) \in X^n(M, \MT_M): V^M \subset U_{\al}\}$$ 
-		Choose index sets $(\Pi_{\al}^M)_{\al \in \Gam}$ and $\Pi^F$ such that for each $\al \in \Gam$, $X^n_{\al}(M, \MT_M) = (V^M_{\mu}, \psi^M_\mu)_{\mu \in \Pi^M_{\al}}$ and $X^k(F, \MT_F) = (V^F_{\nu}, \psi^F_{\nu})_{\nu \in \Pi^F}$. Set $\Pi^M = \coprod_{\al \in \Gam} \Pi_{\al}^M$. For $(\al, \mu) \in \Pi^M, \nu \in \Pi^F$, we define $V^E_{\mu, \nu} \subset E$ and $\psi^E_{\mu, \nu}: V^E_{\mu, \nu} \rightarrow \psi^M_{\mu}(V^M_{\mu}) \times \psi^F_{\nu}(V^F_{\nu})$ by 
-		\begin{itemize}
-			\item $V^E_{\mu, \nu} = \Phi_{\al}^{-1}(V^M_{\mu} \times V^F_{\nu})$ 
-			\item $\psi^E_{\mu, \nu} = (\psi^M_{\mu} \times \psi^F_{\nu}) \circ \Phi_{\al}|_{V^E_{\mu, \nu}}$
-		\end{itemize}
-		We have the following:
-		\begin{itemize}
-			\item $(\al, \mu) \in \Pi^M$ and $\nu \in \Pi^F$. Then $\psi^E_{\mu, \nu}(V^E_{\mu, \nu}) = \psi^M_{\mu}(V^M_{\mu}) \times \psi^F_{\nu}(V^F_{\nu})$ and thus $\psi^E_{\mu, \nu}(V^E_{\mu, \nu}) \in \MT_{\H^{n + k}}$ 
-			\item for each $(\al_1, \mu_1), (\al_2, \mu_2) \in \Pi^M$ and $\nu_1, \nu_2 \in \Pi^F$, 
+	\begin{proof}\
+		\begin{enumerate}
+			\item For $\al \in \Gam$, we define $X^n_{\al}(M, \MT_M) \subset X^n(M, \MT_M)$ by 
+			$$X^n_{\al}(M, \MT_M) = \{(V^M, \psi^M) \in X^n(M, \MT_M): V^M \subset U_{\al}\}$$ 
+			Choose index sets $(\Pi_{\al}^M)_{\al \in \Gam}$ and $\Pi^F$ such that for each $\al \in \Gam$, $X^n_{\al}(M, \MT_M) = (V^M_{\al, \mu}, \psi^M_{\al, \mu})_{\mu \in \Pi^M_{\al}}$ and $X^k(F, \MT_F) = (V^F_{\nu}, \psi^F_{\nu})_{\nu \in \Pi^F}$. Set $\Pi^M = \coprod_{\al \in \Gam} \Pi_{\al}^M$ and $\Pi^E = \Pi^M \times \Pi^F$. For $(\al, \mu, \nu) \in \Pi^E$, we define $V^E_{\al, \mu, \nu} \subset E$ and $\psi^E_{\al, \mu, \nu}: V^E_{\al, \mu, \nu} \rightarrow \psi^M_{\al, \mu}(V^M_{\al, \mu}) \times \psi^F_{\nu}(V^F_{\nu})$ by 
+			\begin{itemize}
+				\item $V^E_{\al, \mu, \nu} = \Phi_{\al}^{-1}(V^M_{\al, \mu} \times V^F_{\nu})$ 
+				\item $\psi^E_{\al, \mu, \nu} = (\psi^M_{\al, \mu} \times \psi^F_{\nu}) \circ \Phi_{\al}|_{V^E_{\al, \mu, \nu}}$
+			\end{itemize}
+			We have the following:
+			\begin{itemize}
+				\item For each $(\al, \mu, \nu) \in \Pi^E$, $\psi^E_{\al, \mu, \nu}(V^E_{\al, \mu, \nu}) = \psi^M_{\mu}(V^M_{\al, \mu}) \times \psi^F_{\nu}(V^F_{\nu})$ and thus $\psi^E_{\al, \mu, \nu}(V^E_{\al, \mu, \nu}) \in \MT_{\H^{n + k}}$ 
+				\item For each $(\al_1, \mu_1, \nu_1), (\al_2, \mu_2, \nu_2) \in \Pi^E$,
+				\begin{align*}
+					\psi^E_{\al_1, \mu_1, \nu_1}(V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2}) 
+					& = (\psi^M_{\al_1, \mu_1} \times \psi^F_{\nu_1}) \circ \Phi_{\al_1}|_{V^E_{\al_1, \mu_1, \nu_1}} (\Phi_{\al_1}^{-1}([V^M_{\al_1, \mu_1} \times V^F_{\nu_1}] \cap [V^M_{\al_2, \mu_2} \times V^F_{\nu_2}])) \\
+					& = (\psi^M_{\al_1, \mu_1} \times \psi^F_{\nu_1})([V^M_{\al_1, \mu_1} \times V^F_{\nu_1}] \cap [V^M_{\al_2, \mu_2} \times V^F_{\nu_2}]) \\
+					& = (\psi_{\al_1, \mu_1}^M \times \psi_{\nu_1}^F)([V^M_{\al_1, \mu_1} \cap V^M_{\al_2, \mu_2}] \times [V^F_{\nu_1} \cap V^F_{q_2}]) \\
+					& = \psi_{\al_1, \mu_1}^M (V^M_{\al_1, \mu_1} \cap V^M_{\al_2, \mu_2}) \times \psi_{\nu_1}^F(V^F_{\nu_1} \cap V^F_{\nu_2}) \\
+					& \in \MT_{\H^{n+k}}
+				\end{align*}
+				\item For each $(\al, \mu, \nu) \in \Pi^E$, $\psi^E_{\al, \mu, \nu}: V^E_{\al, \mu, \nu} \rightarrow \psi^M_{\al, \mu}(V^M_{\al, \mu}) \times \psi^F_{\nu}(V^F_{\nu})$ is a bijection
+				\item Let $(\al_1, \mu_1, \nu_1), (\al_2, \mu_2, \nu_2) \in \Pi^E$. For notational convenience, set $\psi^E_1 = \psi^E_{\al_1, \mu_1, \nu_1}$, $\psi^E_2 = \psi_{\al_2, \mu_2, \nu_2}$, $V^E = V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2}$, $V^M = V_{\al_1, \mu_1}^M \cap V^M_{\al_2, \mu_2}$ and $V^F = V^F_{\nu_1} \cap V^F_{\nu_2}$. Then $\psi_2|_{V^E} \circ (\psi_1|_{V^E})^{-1}: \psi_1(V^E) \rightarrow \psi_2(V^E)$ is given by
+				\begin{align*}
+					\psi^E_2|_{V^E} \circ (\psi^E_1|_{V^E})^{-1}
+					& = [(\psi_{\al_2, \mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ \Phi_{\al_2}|_{V^E}] \circ [(\psi_{\al_1, \mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F}) \circ \Phi_{\al_1}|_{V^E}]^{-1} \\
+					& = [(\psi_{\al_2, \mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ \Phi_{\al_2}|_{V^E}] \circ [(\Phi_{\al_1}|_{V^E})^{-1} \circ (\psi_{\al_1, \mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F})^{-1}] \\
+					& = (\psi_{\al_2, \mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ [\Phi_{\al_2}|_{V^E} \circ (\Phi_{\al_1}|_{V^E})^{-1}] \circ (\psi_{\al_1, \mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F})^{-1}
+				\end{align*}
+				Since $\Phi_{\al_2}|_{V^E} \circ (\Phi_{\al_1}|_{V^E})^{-1}$ is continuous, we have that 
+				$\psi^E_{\al_2, \mu_2, \nu_2}|_{V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2}} \circ (\psi^E_{\al_1, \mu_1, \nu_1}|_{V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2}})^{-1}: \psi^E_{\al_1, \mu_1, \nu_1}(V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2}) \rightarrow \psi^E_{\al_2, \mu_2, \nu_2}(V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2})$
+				is continuous.
+				\item A previous exercise in the section on topological manifolds implies that $(V^M_{\al, \mu})_{(\al, \mu) \in \Pi^M}$ is an open cover of $M$ and $(V^F_{\nu})_{\nu \in \Pi^F}$ is an open cover of $F$. Since $M,F$ are second-countable $M,F$ are Lindel\"{o}f and there exists $S^M \subset \Pi^M$, $S^F \subset \Pi^F$ such that $S^M, S^F$ are countable, $(V_{\al, \mu}^M )_{(\al, \mu) \in S^M}$ is an open cover of $M$ and $(V^F_{\nu})_{\nu \in \Pi^F}$ is an open cover of $F$. Then $S^M \times S^F$ is countable and $(V_{\al, \mu}^M \times V_{\nu}^F)_{(\al, \mu, \nu) \in S^M \times S^F}$ is an open cover of $M \times F$. \\
+				Let $a \in E$. Set $p = \pi(a)$. Choose $(\al, \mu) \in S^M$ such that $p \in V_{\al, \mu}^M$. Since $V^M_{\al, \mu} \subset U_{\al}$, $a \in \pi^{-1}(U_{\al})$ which implies that
+				\begin{align*}
+					p
+					& = \pi(a) \\
+					& = \prj_1 \circ \Phi_{\al}(a)
+				\end{align*}
+				Set $q = \prj_2 \circ \Phi_{\al}(a)$. Choose $\nu \in S^F$ such that $q \in V^F_{\nu}$. Then 
+				\begin{align*}
+					\Phi_{\al}(a)
+					& = (\prj_1 \circ \Phi_{\al}(a), \prj_2 \circ \Phi_{\al}(a)) \\
+					& = (p, q) \\
+					& \in V_{\al, \mu}^M \times V_{\nu}^F
+				\end{align*}
+				Thus 
+				\begin{align*}
+					a 
+					& \in \Phi^{-1}_{\al}(V_{\al, \mu}^M \times V_{\nu}^F) \\
+					& = V^E_{\al, \mu, \nu} 
+				\end{align*}
+				Since $a \in E$ is arbitrary, we have that for each $a \in E$, there exists $(\al, \mu, \nu) \in S^M \times S^F \subset \Pi^E$ such that $a \in V^E_{\al, \mu, \nu}$. Thus 
+				$$E \subset \bigcup_{(\al, \mu, \nu) \in S^M \times S^F} V_{\al, \mu, \nu}$$
+				\item Let $a_1, a_2 \in E$. \\
+				For now, suppose that $\pi(a_1) \neq \pi(a_2)$. Set $p_1 = \pi(a_1)$ and $p_2 = \pi(a_2)$. Since $M$ is Hausdorff, there exist $(\al_1, \mu_1), (\al_2, \mu_2) \in \Pi^M$ such that $p_1 \in V^M_{\al_1, \mu_1}$, $p_2 \in V^M_{\al_2, \mu_2}$ and $V^M_{\al_1, \mu_1} \cap V^M_{\al_2, \mu_2} = \varnothing$. Set $q_1 = \prj_2 \circ \Phi_{\al_1}(a_1)$ and  $q_2 = \prj_2 \circ \Phi_{\al_2}(a_2)$. Choose $\nu_1, \nu_2 \in \Pi^F$ such that $q_1 \in V^F_{\nu_1}$ and $q_2 \in V^F_{\nu_2}$. Then similarly to the previous part, $a_1 \in V^E_{\al_1, \mu_1, \nu_1}$ and $a_2 \in V^E_{\al_2, \mu_2, \nu_2}$ and therefore
+				\begin{align*}
+					V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2}
+					& = \Phi_{\al_1}^{-1}(V^M_{\al_1, \mu_1} \times V^F_{\nu_1}) \cap \Phi_{\al_2}^{-1}(V^M_{\al_2, \mu_2} \times V^F_{\nu_2}) \\
+					& \subset \pi^{-1}(V^M_{\al_1, \mu_1}) \cap \pi^{-1}(V^M_{\al_2, \mu_2}) \\
+					& = \pi^{-1}(V^M_{\al_1, \mu_1} \cap V^M_{\al_2, \mu_2}) \\
+					& = \pi^{-1}(\varnothing) \\
+					& = \varnothing
+				\end{align*}  
+				Now suppose that $\pi(a_1) = \pi(a_2)$. Set $p = \pi(a_1)$. Then there exists $(\al, \mu) \in \Pi^M$ such that $p \in V^M_{\al, \mu} \subset U_{\al}$. \\
+				For now, suppose that $\prj_2 \circ \Phi_{\al}(a_1) \neq \prj_2 \circ \Phi_{\al}(a_2)$. Set $q_1 = \prj_2 \circ \Phi_{\al}(a_1)$ and  $q_2 = \prj_2 \circ \Phi_{\al}(a_2)$. \\
+				Since $F$ is Hausdorff, there exist $\nu_1, \nu_2 \in \Pi^F$ such that $q_1 \in V^F_{\nu_1}$ and $q_2 \in V^F_{\nu_2}$ and $V^F_{\nu_1} \cap V^F_{\nu_2} = \varnothing$. Then $a_1 \in V^E_{\al, \mu, \nu_1}$, $a_2 \in V^E_{\al, \mu, \nu_2}$ and 
+				\begin{align*}
+					V^E_{\al, \mu, \nu_1} \cap V^E_{\al, \mu, \nu_2}
+					& = \Phi_{\al}^{-1}(V^M_{\al, \mu} \times V^F_{\nu_1}) \cap \Phi_{\al}^{-1}(V^M_{\al, \mu} \times V^F_{\nu_2}) \\
+					& = \Phi_{\al}^{-1}([V^M_{\al, \mu} \times V^F_{\nu_1}] \cap [V^M_{\al, \mu} \times V^F_{\nu_2}]) \\
+					& = \Phi_{\al}^{-1}([V^M_{\al, \mu} \cap V^M_{\al, \mu} ] \times [ V^F_{\nu_1} \cap V^F_{\nu_2}]) \\
+					& = \Phi_{\al}^{-1}(V^M_{\al, \mu} \times [ V^F_{\nu_1} \cap V^F_{\nu_2}]) \\
+					& = \Phi_{\al}^{-1}(V^M_{\al, \mu} \times \varnothing) \\
+					& = \Phi_{\al}^{-1}(\varnothing) \\
+					& = \varnothing
+				\end{align*}
+				Now, suppose that $\prj_2 \circ \Phi_{\al}(a_1) = \prj_2 \circ \Phi_{\al}(a_2)$. Set $q = \prj_2 \circ \Phi_{\al}(a_1)$. Choose $\nu \in \Pi^F$ such that $q \in V^F_{\nu}$. Since
+				\begin{align*}
+					\Phi_{\al}(a_1) 
+					& = (\prj_1 \circ \Phi_{\al}(a_1), \prj_2 \circ \Phi_{\al}(a_1)) \\
+					& = (p, q) \\
+					& = (\prj_1 \circ \Phi_{\al}(a_2), \prj_2 \circ \Phi_{\al}(a_2)) \\
+					& = \Phi_{\al}(a_2) 
+				\end{align*}
+				we have that $a_1 = a_2$ and $a_1, a_2 \in V^E_{\al, \mu, \nu}$. 
+				Therefore, for each $a_1,a_2 \in E$, there exists $(\al, \mu, \nu) \in \Pi^E$ such that $p,q \in V^E_{\al, \mu, \nu}$ or there exist $(\al_1, \mu_1, \nu_1), (\al_2, \mu_2, \nu_2) \in \Pi^E$ such that $a_1 \in V^E_{\al_1, \mu_1, \nu_1}$, $a_2 \in V^E_{\al_2, \mu_2, \nu_2}$ and $V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2} = \varnothing$.
+			\end{itemize}
+			The topological manifold chart lemma implies that there exists a unique topology $\MT_E$ on $E$ such that $(E, \MT_E)$ is an $n+k$-dimensional topological manifold and $(V^E_{\al, \mu, \nu}, \psi^E_{\al, \mu, \nu})_{(\al, \mu, \nu) \in \Pi^E} \subset X^{n+k}(E, \MT_E)$.
+			\item Let $(\al, \mu, \nu) \in \Pi^E$ and $a \in V^E_{\al, \mu, \nu}$. Then there exist $(p,q) \in V^M_{\al, \mu} \times V^F_{\nu}$ such that $a = \Phi_{\al}^{-1}(p,q)$. Since $V^M_{\al, \mu} \subset U_{\al}$, and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$, we have that 
 			\begin{align*}
-				\psi^E_{\mu_1, \nu_1}(V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}) 
-				& = (\psi^M_{\mu_1} \times \psi^F_{\nu_1}) \circ \Phi_{\al_1}|_{V^E_{\mu_1, \nu_1}} (\Phi_{\al_1}^{-1}([V^M_{\mu_1} \times V^F_{\nu_1})] \cap [V^M_{\mu_2} \times V^F_{\nu_2}])) \\
-				& = (\psi^M_{\mu_1} \times \psi^F_{\nu_1})([V^M_{\mu_1} \times V^F_{\nu_1})] \cap [V^M_{\mu_2} \times V^F_{\nu_2}]) \\
-				& = (\psi_{\mu_1}^M \times \psi_{\nu_1}^F)([V^M_{\mu_1} \cap V^M_{p_2}] \times [V^F_{\nu_1} \cap V^F_{q_2}]) \\
-				& = \psi_{\mu_1}^M (V^M_{\mu_1} \cap V^M_{p_2}) \times \psi_{\nu_1}^F(V^F_{\nu_1} \cap V^F_{q_2}) \\
-				& \in \MT_{\H^{n+k}}
+				a
+				& = \Phi_{\al}^{-1}(p,q) \\
+				& \in \pi^{-1}(U_{\al})
 			\end{align*}
-			\item Let $(\al, \mu) \Pi^M$ and $\nu \in \Pi^F$. Then $\psi^E_{\mu,\nu}: V^E_{\mu,\nu} \rightarrow \psi^M_{\mu}(V^M_{\mu}) \times \psi^F_{\nu}(V^F_{\nu})$ is a bijection
-			\item Let $(\al_1, \mu_1), (\al_2, \mu_2) \in \Pi^M$ and $\nu_1, \nu_2 \in \Pi^F$. For notational convenience, set $\psi^E_1 = \psi^E_{\mu_1, \nu_1}$, $\psi^E_2 = \psi_{\mu_2, \nu_2}$, $V^E = V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}$, $V^M = V_{\mu_1}^M \cap V^M_{\mu_2}$ and $V^F = V^F_{\nu_1} \cap V^F_{\nu_2}$. Then $\psi_2|_{V^E} \circ (\psi_1|_{V^E})^{-1}: \psi_1(V^E) \rightarrow \psi_2(V^E)$ is given by
+			Hence $\pi(a) = \prj_1 \circ \Phi_{\al}(a)$. Since $a \in V^E_{\al, \mu, \nu}$ is arbitrary, we have that
+			$\pi|_{V^E_{\al, \mu, \nu}} = \prj_1|_{V^M_{\al, \mu} \times V^F_{\nu}} \circ \Phi_{\al}|_{V^E_{\al, \mu, \nu}}$ 
+			$\pi^{-1}(V^M_{\al, \mu}) \subset \pi^{-1}(U_{\al})$. Since $\prj_1|_{V^M_{\al, \mu} \times V^F_{\nu}}: V^M_{\al, \mu} \times V^F_{\nu} \rightarrow V^M_{\al, \mu}$ is continuous and $\Phi_{\al}|_{V^E_{\al, \mu, \nu}}: V^E_{\al, \mu, \nu} \rightarrow V^M_{\al, \mu} \times V^F_{\nu}$ is continuous, $\pi|_{V^E_{\al, \mu, \nu}}: V^E_{\al, \mu, \nu} \rightarrow V^M_{\al, \mu}$ is continuous. Since  $(\al, \mu, \nu) \in \Pi^E$ is arbitrary, and $(V^E_{\al, \mu, \nu})_{(\al, \mu, \nu) \in \Pi^E}$ is an open cover of $E$, $\pi:E \rightarrow M$ is continuous.
+			\item Let $\al \in \Gam$. By assumption $U_{\al} \in \MT_M$. Let $\mu \in \Pi^M_{\al}$ and $\nu \in \Pi^F$. Then $(\al, \mu, \nu) \in \Pi^E$. Since $\psi^E_{\al, \mu, \nu}: V^E_{\al, \mu, \nu} \rightarrow \psi^M_{\al, \mu}(V^M_{\al, \mu}) \times \psi^F_{\nu}(V^F_{\nu})$ is a homeomorphism, $\psi^M_{\al, \mu} \times \psi^F_{\nu}: V^M_{\al, \mu} \times V^F_{\nu} \rightarrow \psi^M_{\al, \mu}(V^M_{\al, \mu}) \times \psi^F_{\nu}(V^F_{\nu})$ is a homeomorphism and $\Phi_{\al}|_{V^E_{\al, \mu, \nu}}: V^E_{\al, \mu, \nu} \rightarrow V^M_{\al, \mu} \times V^F_{\nu}$ is given by 
+			$\Phi_{\al}|_{V^E_{\al, \mu, \nu}} =  (\psi^M_{\al, \mu} \times \psi^F_{\nu})^{-1} \circ \psi^E_{\al, \mu, \nu}$,
+			we have that 
+			$\Phi_{\al}|_{V^E_{\al, \mu, \nu}}: V^E_{\al, \mu, \nu} \rightarrow V^M_{\al, \mu} \times V^F_{\nu}$ is a homeomorphism. Since $\mu \in \Pi^M_{\al}$ and $\nu \in \Pi^F$ are arbitrary we have that for each $\mu \in \Pi^M_{\al}$ and $\nu \in \Pi^F$, $\Phi_{\al}|_{V^E_{\al, \mu, \nu}}: V^E_{\al, \mu, \nu} \rightarrow V^M_{\al, \mu} \times V^F_{\nu}$ is a homeomorphism. Since $(V^M_{\al, \mu})_{\mu \in \Pi^M_{\al}}$ is an open cover of $U_{\al}$ and $(V^M_{\al, \mu}\times V^F_{\nu})_{(\mu, \nu) \in \Pi^M_{\al} \times \Pi^F}$ is an open cover of $U_{\al} \times F$ we have that 
 			\begin{align*}
-				\psi^E_2|_{V^E} \circ (\psi^E_1|_{V^E})^{-1}
-				& = [(\psi_{\mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ \Phi_{\al_2}|_{V^E}] \circ [(\psi_{\mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F}) \circ \Phi_{\al_1}|_{V^E}]^{-1} \\
-				& = [(\psi_{\mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ \Phi_{\al_2}|_{V^E}] \circ [(\Phi_{\al_1}|_{V^E})^{-1} \circ (\psi_{\mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F})^{-1}] \\
-				& = (\psi_{\mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ [\Phi_{\al_2}|_{V^E} \circ (\Phi_{\al_1}|_{V^E})^{-1}] \circ (\psi_{\mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F})^{-1}
+				\pi^{-1}(U_{\al})
+				& = \pi^{-1}\bigg( \bigcup_{\mu \in \Pi^M_{\al}} V^M_{\al, \mu} \bigg) \\
+				& = \bigcup_{\mu \in \Pi^M_{\al}} \pi^{-1}(V^M_{\al, \mu}) \\
+				& = \bigcup_{\mu \in \Pi^M_{\al}} \Phi_{\al}^{-1}(V^M_{\al, \mu} \times F) \\
+				& = \bigcup_{\mu \in \Pi^M_{\al}} \Phi_{\al}^{-1} \bigg( V^M_{\al, \mu} \times \bigg[ \bigcup_{\nu \in \Pi^F} V^F_{\nu} \bigg] \bigg) \\
+				& = \bigcup_{\mu \in \Pi^M_{\al}} \Phi_{\al}^{-1} \bigg(  \bigcup_{\nu \in \Pi^F} [V^M_{\al, \mu} \times V^F_{\nu} ] \bigg) \\
+				& = \bigcup_{\mu \in \Pi^M_{\al}} \bigg[ \bigcup_{\nu \in \Pi^F}\Phi_{\al}^{-1} ( V^M_{\al, \mu} \times V^F_{\nu} ) \bigg] \\
+				& = \bigcup_{(\mu, \nu) \in \Pi^M_{\al} \times \Pi^F} V^E_{\al, \mu, \nu} 
 			\end{align*}
-			Since $\Phi_{\al_2}|_{V^E} \circ (\Phi_{\al_1}|_{V^E})^{-1}$ is continuous, we have that 
-			$$\psi^E_{\mu_2, \nu_2}|_{V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}} \circ (\psi^E_{\mu_1, \nu_1}|_{V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}})^{-1}: \psi^E_{\mu_1, \nu_1}(V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}) \rightarrow \psi^E_{\mu_2, \nu_2}(V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2})$$ 
-			is continuous.
-			\item A previous exercise in the section on topological manifolds implies that $(V^M_{\mu})_{(\al, \mu) \in \Pi^M}$ is an open cover of $M$ and $(V^F_{\nu})_{\nu \in \Pi^F}$ is an open cover of $F$. Since $M,F$ are second-countable $M,F$ are Lindel\"{o}f and there exists $S^M \subset \Pi^M$, $S^F \subset \Pi^F$ such that $S^M, S^F$ are countable and $(V_{\mu}^M )_{(\al, \mu) \in S^M}$ is an open cover of $M$ and $(V^F_{\nu})_{\nu \in \Pi^F}$ is an open cover of $F$. Then $S^M \times S^F$ is countable and $(V_{\mu}^M \times V_{\nu}^F)_{(\al, \mu, \nu) \in S^M \times S^F}$ is an open cover of $M \times F$. \\
-			Let $a \in E$. Set $p = \pi(a)$. Choose $(\al, \mu) \in S^M$ such that $p \in V_{\mu}^M$. Since $V^M_{\mu} \subset U_{\al}$, $a \in \pi^{-1}(U_{\al})$ which implies that
-			\begin{align*}
-				p
-				& = \pi(a) \\
-				& = \prj_1 \circ \Phi_{\al}(a)
-			\end{align*}
-			Set $q = \prj_2 \circ \Phi_{\al}(a)$. Choose $\nu \in S^F$ such that $q \in V^F_{\nu}$. Then 
-			\begin{align*}
-				\Phi_{\al_{p}}(a)
-				& = (\prj_1 \circ \Phi_{\al_{p}}(a), \prj_2 \circ \Phi_{\al_{p}}(a)) \\
-				& = (p, q) \\
-				& \in V_{\mu}^M \times V_{\nu}^F
-			\end{align*}
-			Thus 
-			\begin{align*}
-				a 
-				& \in \Phi^{-1}_{\al_{p}}(V_{p}^M \times V_{q}^F) \\
-				& = V^E_{\mu, \nu} 
-			\end{align*}
-			Since $a \in E$ is arbitrary, we have that for each $a \in E$, there exists $(\al, \mu, \nu) \in S^M \times S^F$ such that $a \in V^E_{\mu,\nu}$. Thus 
-			$$E \subset \bigcup_{(\al, \mu, \nu) \in S^M \times S^F} V_{\mu, \nu}$$
-			\item Let $a_1, a_2 \in E$. Set $p_1 = \pi(a_1)$ and $p_2 = \pi(a_2)$. \\
-			Suppose that $p_1 \neq p_2$. Since $M$ is Hausdorff, there exist $(\al_1, \mu_1), (\al_2, \mu_2) \in \Pi^M$ such that $p_1 \in V^M_{\mu_1}$, $p_2 \in V^M_{\mu_2}$ and $V^M_{\mu_1} \cap V^M_{\mu_2} = \varnothing$. Set $q_1 = \prj_2 \circ \Phi_{\al_1}(a_1)$ and  $q_2 = \prj_2 \circ \Phi_{\al_2}(a_2)$. Choose $\nu_1, \nu_2 \in \Pi^F$ such that $q_1 \in V^F_{\nu_1}$ and $q_2 \in V^F_{\nu_2]}$. Then similarly to the previous part, $a_1 \in V^E_{\mu_1, \nu_1}$ and $a_2 \in V^E_{\mu_2, \nu_2}$. Then
-			\begin{align*}
-				V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}
-				& = \Phi_{\al_1}^{-1}(V^M_{\mu_1} \times V^F_{\nu_1}) \cap \Phi_{\al_2}^{-1}(V^M_{\mu_2} \times V^F_{\nu_2}) \\
-				& \subset \pi^{-1}(V^M_{\mu_1}) \cap \pi^{-1}(V^M_{\mu_2}) \\
-				& = \pi^{-1}(V^M_{\mu_1} \cap V^M_{\mu_2}) \\
-				& = \pi^{-1}(\varnothing) \\
-				& = \varnothing
-			\end{align*}  
-			Suppose that $p_1 = p_2$. 
-			\begin{align*}
-				\Phi_{\al_1}( V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2})
-				& = \Phi_{\al_1} \bigg [ \Phi_{\al_1}^{-1}(V^M_{\mu_1} \times V^F_{\nu_2}) \cap \Phi_{\al_2}^{-1}(V^M_{\mu_2} \times V^F_{\nu_2}) \bigg ]\\
-				& = (V^M_{\mu_1} \times V^F_{\nu_2}) \cap \Phi_{\al_1} ( \Phi_{\al_2}^{-1}(V^M_{\mu_2} \times V^F_{\nu_2})) 
-			\end{align*}  
-			Using the hint on the \tcb{Topological Manifold Chart Lemma}, we have that
-			\begin{align*}
-				V^E_{\mu_1, \nu_1} \cap V^E_{\mu_2, \nu_2}
-				& = \Phi_{\al_1} \bigg[ (V^M_{\mu_1} \times V^F_{\nu_2}) \cap \Phi_{\al_1}^{-1} \Phi_{\al_2}^{-1}(V^M_{\mu_2} \times V^F_{\nu_2}) \bigg] \\
-				& = \Phi_{\al_1}^{-1}(V^M_{\mu_1} \times V^F_{\nu_2}) \cap \Phi_{\al_2}^{-1}(V^M_{\mu_2} \times V^F_{\nu_2}) 
-			\end{align*}  
-		
-		\end{itemize}
-		\tcb{FINISH!!!} 
+			Hence $(V^E_{\al, \mu, \nu})_{(\mu, \nu) \in \Pi^M_{\al} \times \Pi^F}$ is an open cover of $\pi^{-1}(U_{\al})$. Similarly to the previous part, we have that $\Phi_{\al}:\pi^{-1}(U_{\al}) \rightarrow  U_{\al} \times F$ and $\Phi^{-1}_{\al}:  U_{\al} \times F \rightarrow \pi^{-1}(U_{\al})$ are continuous. Hence $\Phi_{\al}:\pi^{-1}(U_{\al}) \rightarrow  U_{\al} \times F$ is a homeomorphism. Since $\al \in \Gam$ is arbitrary, we have that for each $\al \in \Gam$, $(\pi^{-1}(U_{\al}), \Phi_{\al})$ is a continuous local trivialization with respect to $\pi$ of $E$ over $U_{\al}$ with fiber $F$.
+			\item Let $a \in E$. Set $p = \pi(a)$. By assumption, there exists $\al \in \Gam$ such that $p \in U_{\al}$. Hence $a \in \pi^{-1}(U_{\al})$. The previous part implies that $(\pi^{-1}(U_{\al}), \Phi_{\al})$ is a continuous local trivialization with respect to $\pi$ of $E$ over $U_{\al}$ with fiber $F$. Since $a \in E$
+		\end{enumerate}
 	\end{proof}
 	
 
@@ -3785,7 +3587,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-	\subsection{Smooth Fiber Bundles}
+	\subsection{$\Maninf$ Fiber Bundles}
 	
 	\begin{defn}
 		Let $E, M, F \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{smooth local trivialization of $E$ over $U$ with fiber $F$}  if 
@@ -3797,15 +3599,49 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 
 	\begin{defn}
-		Let $E,M, F \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{smooth fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
+		Let $E,M, F \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{$\Maninf$ fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
 	\end{defn}
 
-	\begin{note}
-		When the context is clear, we will supress the fiber manifold $F$.
-	\end{note}
+	\begin{ex} \tbf{$\Maninf$ Fiber Bundle Chart Lemma:} \\
+		Let $E \in \Obj(\Set)$, $M, F \in \Obj(\Maninf)$, $\pi: E \rightarrow M$ a surjection, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$. Set $n = \dim M$ and $k = \dim F$. Suppose that 
+		\begin{itemize}
+			\item for each $\al \in \Gam$, $U_{\al} \in \MT_M$
+			\item $M \subset \bigcup\limits_{\al \in \Gam} U_{\al}$ 
+			\item for each $\al \in \Gam$, $(U_{\al}, \Phi_{\al})$ is a local trivialization with respect to $\pi$ of $E$ over $U_{\al}$ with fiber $F$ 
+			\item for each $\al,\be \in \Gam$, $\Phi_{\be}|_{\pi^{-1}(U_{\al} \cap U_{\be})} \circ (\Phi_{\al}|_{\pi^{-1}(U_{\al} \cap U_{\be})})^{-1}: (U_{\al} \cap U_{\be}) \times F \rightarrow  (U_{\al} \cap U_{\be}) \times F$ is smooth.
+		\end{itemize}
+		Then there exist a unique smooth structure $\MA_E$ on $E$ such that
+		\begin{enumerate}
+			\item $(E, \MA_E)$ is a $n+k$-dimensional smooth manifold 
+			\item $\pi: E \rightarrow M$ is smooth
+			\item for each $\al \in \Gam$, $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$ is a smooth local trivialization with respect to $\pi$ of $E$ over $U_{\al}$ with fiber $F$
+			\item $(E, M, \pi, F)$ is an $\Maninf$ fiber bundle
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		The $\Man0$ fiber bundle chart lemma implies that there exists a unique topology $\MT_E$ on $E$ such that 
+		\begin{enumerate}
+			\item Define $(V^E_{\al, \mu, \nu}, \psi^E_{\al, \mu, \nu})_{(\al, \mu, \nu) \in \Pi^E} \subset X^{n+k}(E, \MT_E)$ as in the proof of the $\Man0$ fiber bundle chart lemma. Let $(\al_1, \mu_1, \nu_1), (\al_2, \mu_2, \nu_2) \in \Pi^E$. For notational convenience, set $\psi^E_1 = \psi^E_{\al_1, \mu_1, \nu_1}$, $\psi^E_2 = \psi_{\al_2, \mu_2, \nu_2}$, $V^E = V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2}$, $V^M = V_{\al_1, \mu_1}^M \cap V^M_{\al_2, \mu_2}$ and $V^F = V^F_{\nu_1} \cap V^F_{\nu_2}$. Then $\psi_2|_{V^E} \circ (\psi_1|_{V^E})^{-1}: \psi_1(V^E) \rightarrow \psi_2(V^E)$ is given by
+			\begin{align*}
+				\psi^E_2|_{V^E} \circ (\psi^E_1|_{V^E})^{-1}
+				& = [(\psi_{\al_2, \mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ \Phi_{\al_2}|_{V^E}] \circ [(\psi_{\al_1, \mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F}) \circ \Phi_{\al_1}|_{V^E}]^{-1} \\
+				& = [(\psi_{\al_2, \mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ \Phi_{\al_2}|_{V^E}] \circ [(\Phi_{\al_1}|_{V^E})^{-1} \circ (\psi_{\al_1, \mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F})^{-1}] \\
+				& = (\psi_{\al_2, \mu_2}^M|_{V^M} \times \psi_{\nu_2}^F|_{V^F}) \circ [\Phi_{\al_2}|_{V^E} \circ (\Phi_{\al_1}|_{V^E})^{-1}] \circ (\psi_{\al_1, \mu_1}^M|_{V^M} \times \psi_{\nu_1}^F|_{V^F})^{-1}
+			\end{align*}
+			Since $\Phi_{\al_2}|_{V^E} \circ (\Phi_{\al_1}|_{V^E})^{-1}$ is smooth, we have that 
+			$\psi^E_{\al_2, \mu_2, \nu_2}|_{V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2}} \circ (\psi^E_{\al_1, \mu_1, \nu_1}|_{V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2}})^{-1}: \psi^E_{\al_1, \mu_1, \nu_1}(V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2}) \rightarrow \psi^E_{\al_2, \mu_2, \nu_2}(V^E_{\al_1, \mu_1, \nu_1} \cap V^E_{\al_2, \mu_2, \nu_2})$
+			is smooth. Since $(\al_1, \mu_1, \nu_1), (\al_2, \mu_2, \nu_2) \in \Pi^E$ are arbitrary, we have that $(V^E_{\al, \mu, \nu}, \psi^E_{\al, \mu, \nu})_{(\al, \mu, \nu) \in \Pi^E}$ is a smooth atlas on $E$. An exercise in the section on smooth manifolds imlies that there exists a unique smooth structure $\MA_E$ on $E$ such that  $(E, \MA_E)$ is an $n+k$-dimensional smooth manifold. 
+			\item $\pi: E \rightarrow M$ is smooth.
+			\item for each $\al \in \Gam$, $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$ is a smooth local trivialization with respect to $\pi$ of $E$ over $U_{\al}$ with fiber $F$
+			\item $(E, M, \pi, F)$ is an $\Man0$ fiber bundle
+		\end{enumerate}
+	
+	\tcb{replace continuous local trivialization with $\Man0$ fiber bundle chart and smooth local trivialization with $\Maninf$ fiber bundle chart}
+	\end{proof}
 
 	\begin{defn}
-		Let $(E_1, M_1, \pi_1, F_1)$ and $(E_2, M_2, \pi_2, F_2)$ be smooth fiber bundles, $\Phi \in \Hom_{\Maninf}(E_1, E_2)$ and $\phi \in \Hom_{\Maninf}(M_1, M_2)$. Then $(\Phi, \phi)$ is said to be a \tbf{smooth bundle morphism} from $(E_1, M_1, \pi_1, F_1)$ to $(E_2, M_2, \pi_2, F_2)$ if 
+		Let $(E_1, M_1, \pi_1, F_1)$ and $(E_2, M_2, \pi_2, F_2)$ be $\Maninf$ fiber bundles, $\Phi \in \Hom_{\Maninf}(E_1, E_2)$ and $\phi \in \Hom_{\Maninf}(M_1, M_2)$. Then $(\Phi, \phi)$ is said to be a \tbf{smooth bundle morphism} from $(E_1, M_1, \pi_1, F_1)$ to $(E_2, M_2, \pi_2, F_2)$ if 
 		$\pi_2 \circ \Phi = \phi \circ \pi_1$, 
 		i.e. the following diagram commutes:
 		\[ 
@@ -3817,9 +3653,9 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 	
 	\begin{defn}
-		We define the category of smooth fiber bundles, denoted $\Buninf$, by 
+		We define the category of $\Maninf$ fiber bundles, denoted $\Buninf$, by 
 		\begin{itemize}
-			\item $\Obj(\Buninf) = \{(E, M, \pi, F): (E, M, \pi, F) \text{ is a smooth fiber bundle}\}$ 
+			\item $\Obj(\Buninf) = \{(E, M, \pi, F): (E, M, \pi, F) \text{ is a $\Maninf$ fiber bundle}\}$ 
 			\item For $(E_1, M_1, \pi_1, F_1), (E_2, M_2, \pi_2, F_2) \in \Obj(\Buninf)$, 
 			\begin{align*}
 				& \Hom_{\Buninf}((E_1, M_1, \pi_1, F_1), (E_2, M_2, \pi_2, F_2)) = \\
@@ -4047,7 +3883,7 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 	\section{Bundle Morphisms}
 	
 	\begin{defn}
-		Let $(E, M, \pi_E)$ and $(F, N, \pi_F)$ be smooth fiber bundles and $\Phi: E \rightarrow F$ and $\phi: M \rightarrow N$. Then $(\Phi, \phi)$ is said to be a \tbf{smooth fiber bundle morphism} from $(E, M, \pi_E)$ to $(F, N, \pi_F)$ if $\Phi$ is smooth, $\phi$ is smooth and $\pi_F \circ \Phi = \phi \circ \pi_E$, 
+		Let $(E, M, \pi_E)$ and $(F, N, \pi_F)$ be $\Maninf$ fiber bundles and $\Phi: E \rightarrow F$ and $\phi: M \rightarrow N$. Then $(\Phi, \phi)$ is said to be a \tbf{$\Maninf$ fiber bundle morphism} from $(E, M, \pi_E)$ to $(F, N, \pi_F)$ if $\Phi$ is smooth, $\phi$ is smooth and $\pi_F \circ \Phi = \phi \circ \pi_E$, 
 		i.e. the following diagram commutes:
 		\[ 
 		\begin{tikzcd}
@@ -4059,7 +3895,7 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 	\end{defn}
 	
 	\begin{ex}
-		Let $(E, M, \pi_E)$ and $(F, N, \pi_F)$ be smooth fiber bundles and $(\Phi, \phi): (E, M, \pi_E) \rightarrow (F, N, \pi_F)$. Suppose that $(\Phi, \phi)$ is smooth. Then for each $p \in M$, 
+		Let $(E, M, \pi_E)$ and $(F, N, \pi_F)$ be $\Maninf$ fiber bundles and $(\Phi, \phi): (E, M, \pi_E) \rightarrow (F, N, \pi_F)$. Suppose that $(\Phi, \phi)$ is smooth. Then for each $p \in M$, 
 		$$\Phi^{-1}(F_{\phi(p)}) = E_{p}$$
 	\end{ex}
 

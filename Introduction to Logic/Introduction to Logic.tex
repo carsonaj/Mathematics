@@ -1,0 +1,171 @@
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{book}
+
+\input{"../Book Preamble/Book Preamble.tex"}
+
+% Glossary - Notation
+\glsxtrnewsymbol[description={finite measures on $(X, \MA)$}]{n000001}{$\MM_+(X, \MA)$}
+\glsxtrnewsymbol[description={velocity}]{v}{\ensuremath{v}}
+
+
+\makeindex
+
+\begin{document}
+	
+	\frontmatter
+	
+	\title{Introduction to Logic}
+	
+	%    Remove any unused author tags.
+	
+	%    author one information
+	\author{Carson James}
+	\thanks{}
+	
+	\date{}
+	
+	\maketitle
+	
+	%    Dedication.  If the dedication is longer than a line or two,
+	%    remove the centering instructions and the line break.
+	%\cleardoublepage
+	%\thispagestyle{empty}
+	%\vspace*{13.5pc}
+	%\begin{center}
+	%  Dedication text (use \\[2pt] for line break if necessary)
+	%\end{center}
+	%\cleardoublepage
+	
+	%    Change page number to 6 if a dedication is present.
+	\setcounter{page}{4}
+	
+	\tableofcontents
+	\printunsrtglossary[type=symbols,style=long,title={Notation}]
+	
+	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+	%\include{}
+	
+	\mainmatter
+	% Include main chapters here.
+	%\include{}
+	
+	\chapter*{Preface}
+	\addcontentsline{toc}{chapter}{Preface}
+	
+	\begin{flushleft}
+		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
+	\end{flushleft}
+	
+	\newpage
+	
+	\chapter{Review of Fundamentals}
+	
+	\section{Set Theory}
+	
+	\begin{defn}\
+	\begin{itemize}
+		\item We define $[0] = \varnothing$ and for $k \in \N$, we define $[k] = \{1, \ldots, k\}$. 
+		\item Let $S$ be a set and $k \in \N_0$. We define the \tbf{set of $k$-tupels with entries in $S$}, denoted $S^k$, by 
+		$$S^k = \{u: [k] \rightarrow S\}$$
+		\item Let $S$ be a set. We define the \tbf{set of all tuples with entries in $S$}, denoted $S^*$, by 
+		$$S^* = \bigcup_{k \in \N_0} S^k$$
+		\item Let $S$ be a set and $k \in \N_0$. We define the \tbf{set of $k$-ary operations on $S$}, denoted $\MF^k(S)$, by $\MF^k(S) = S^{(S^k)}$. We define the \tbf{set of finitary operations on $S$}, denoted $\MF^*(S)$, by
+		$$\MF^*(S) = \bigcup_{k \in \N_0} \MF^k(S)$$
+		\item Let $S$ be a set. We define the \tbf{arity map}, denoted $\ar: S^* \rightarrow \N_0$, by 
+		$$\ar f = k, \quad f \in \MF^k(S)$$
+		\item Let $S$ be a set, $\MF \subset \MF^*(S)$ and $k \in \N_0$. We define the \tbf{$k$-ary members of $\MF$}, denoted $\MF_k$, by 
+		$$\MF_k = \MF \cap \MF^k(S)$$
+	\end{itemize}
+	\end{defn}
+
+	\begin{defn}
+		Let $S$ be a set, $\MF \subset \MF^*(S)$ and $C \subset S$. Then $C$ is said to be  $\MF$-closed if for each $k \in \N_0$, $f \in \MF_k$ and $a_1, \ldots, a_k \in C$, $f(a_1, \ldots, a_k) \in C$.
+	\end{defn}
+
+	\begin{defn}
+		Let $S$ be a set, $\MF \subset \MF^*(S)$ and $\MC \subset \MP(S)$. If for each $C \in \MC$, $C$ is  $\MF$-closed, then $\bigcap\limits_{C \in \MC} C$ is $\MF$-closed
+	\end{defn}
+
+	\begin{proof}
+		Suppose that for each $C \in \MC$, $C$ is  $\MF$-closed. Let $k \in \N_0$, $f \in \MF_k$, $a_1, \ldots, a_k \in \bigcap\limits_{C \in \MC} C$ and $C_0 \in \MC$. Since $C_0 \in \MC$, we have that 
+		\begin{align*}
+			a_1, \ldots, a_k 
+			& \in \bigcap_{C \in \MC} C \\
+			& \subset C_0
+		\end{align*}
+		Since $C_0$ is $\MF$-closed, we have that $f(a_1, \ldots, a_k) \in C_0$. Since $C_0 \in \MC$ is arbitrary, we have that for each $C \in \MC$, $f(a_1, \ldots, a_k) \in C$. Hence $f(a_1, \ldots, a_k) \in \bigcap\limits_{C \in \MC} C$. Since $k \in \N_0$ and $a_1, \ldots, a_k \in \bigcap\limits_{C \in \MC} C$ are arbitrary, we have that $\bigcap\limits_{C \in \MC} C$ is $\MF$-closed.
+	\end{proof}
+
+	\begin{defn}
+		Let $S$ be a set, $\MF \subset \MF^*(S)$ and $B, C \subset S$. Then $C$ is said to be $\MF$-inductive over $\MB$ if 
+		\begin{enumerate}
+			\item $C$ is $\MF$-closed
+			\item $B \subset C$
+		\end{enumerate}
+	\end{defn}
+	
+	
+	\chapter{Propositional Logic}
+	\begin{defn} 
+		Let $\MA$ be a set, $\MV \subset \MA$, $\MF \subset \bigcup\limits_{k \in \N_0} A^k$, $\MC \subset \bigcup\limits_{k \in \N_0} \MF^{(\MF^k)}$. Then $(\MA, \MV, \MA)$ is said to be a \tbf{propositional calculus} 
+		if 
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $\MV \subset \MF$
+				\item for each $k \in \N_0$, $p_1, \ldots, p_k \in \MF$, and $f \in \MC_k$, $f(p_1, \ldots, p_k) \in \MF$
+				\item for each $p \in \MF$, there exists some tree $f in \MT^k(\MF)$ such that $ \in \MF^{k}$ 
+			\end{itemize}
+		\end{enumerate}
+		define the \tbf{alphabet} $\MA$
+		define the $\tbf{variables}$ $\MV$
+		define the $\tbf{formulas}$ $\MF$
+		define the $\tbf{connectives}$ $\MC$
+		the \tbf{formulas of $\ML$,}
+	\end{defn}
+
+	\begin{ex}
+		
+	\end{ex}
+	
+	
+	
+	
+	
+	
+\end{document}
