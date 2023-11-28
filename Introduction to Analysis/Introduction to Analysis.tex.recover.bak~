@@ -2939,7 +2939,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \chapter{Metric Spaces}
 \section{Introduction}
 \begin{defn} \ld{}
-	Let $X$ be a set and $d: X \times X \rightarrow \R$. Then $d$ is said to be a \tbf{metric on $X$} if for each $x,y,z \in X$, 
+	Let $M$ be a set and $d: M \times M \rightarrow \R$. Then $d$ is said to be a \tbf{metric on $M$} if for each $x,y,z \in M$, 
 	\begin{enumerate}
 		\item $d(x,y) = 0$ iff $x = y$
 		\item $d(x, y) \leq d(x, z) + d(z, y)$
@@ -2947,11 +2947,11 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \end{defn}	
 
 \begin{ex} \lex{}
-	Let $X$ be a set and $d: X \times X \rightarrow \R$ a metric on $X$. Then for each $x,y \in X$, $d(x,y) \geq 0$. 
+	Let $M$ be a set and $d: M \times M \rightarrow \R$ a metric on $M$. Then for each $x,y \in M$, $d(x,y) \geq 0$. 
 \end{ex}
 
 \begin{proof}
-	Let $x, y, z \in X$. Then $d(x,z) \leq d(x, y) + d(y,z)$. This implies that $d(x,z) - d(x, y) \leq d(y, z)$. Since $z$ is arbitrary, taking $z=x$, we obtain 
+	Let $x, y, z \in M$. Then $d(x,z) \leq d(x, y) + d(y,z)$. This implies that $d(x,z) - d(x, y) \leq d(y, z)$. Since $z$ is arbitrary, taking $z=x$, we obtain 
 	\begin{align*}
 		d(x,x) - d(x, y) \leq d(y, x)
 		& \implies - d(x, y) \leq d(x, y) \\
@@ -2961,18 +2961,18 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \end{proof}	
 
 \begin{defn} \ld{}
-	Let $X$ be a set and $d: X \times X \rightarrow \Rg$ a metric. Then $(X, d)$ is called a \tbf{metric space}.
+	Let $M$ be a set and $d: M \times M \rightarrow \Rg$ a metric. Then $(M, d)$ is called a \tbf{metric space}.
 \end{defn}	
 
 \begin{note}
-	We usually suppress the metric and write $X$ in place of $(X, d)$.
+	We usually suppress the metric and write $M$ in place of $(M, d)$.
 \end{note}	
 
 \begin{defn}
-	Let $X$ be a metric space, $x \in X$ and $r > 0$. We define the 
+	Let $M$ be a metric space, $x \in M$ and $r > 0$. We define the 
 	\begin{itemize}
-		\item \tbf{open ball of radius $r$ at $x$}, denoted $B(x, r)$, by $$B(x, r) = \{y \in X: d(x,y) < r\}$$
-		\item \tbf{closed ball of radius $r$ at $x$}, denoted $\bar{B}(x, r)$, by $$\bar{B}(x, r) = \{y \in X: d(x,y) \leq r\}$$
+		\item \tbf{open ball of radius $r$ at $x$}, denoted $B(x, r)$, by $$B(x, r) = \{y \in M: d(x,y) < r\}$$
+		\item \tbf{closed ball of radius $r$ at $x$}, denoted $\bar{B}(x, r)$, by $$\bar{B}(x, r) = \{y \in M: d(x,y) \leq r\}$$
 	\end{itemize}
 \end{defn}
 
@@ -2985,7 +2985,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \end{ex}
 
 \begin{ex}
-	Let $X$ be a metric space and $A \subset X$. Then $A \in \MT_d$ iff for each $x \in A$, there exists $r > 0$ such that $B(x, r) \subset A$.
+	Let $M$ be a metric space and $A \subset M$. Then $A \in \MT_d$ iff for each $x \in A$, there exists $r > 0$ such that $B(x, r) \subset A$.
 \end{ex}
 
 	\begin{proof}
@@ -3008,40 +3008,14 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \subsection{$\Top$-Equivalent Metrics}
 
 \begin{defn} \ld{}
-	Let $X$ be a set, $d_1, d_2: X \times X \rightarrow \Rg$ metrics on $X$. Then $d_1$ and $d_2$ are said to be  \tbf{$\Top$-equivalent}, denoted $d_1 \sim_{\Top} d_2$, if for each $(x_n)_{n \in \N} \subset X$ and $x \in X$, $x_n \conv{d_1} x$ iff $x_n \conv{d_2} x$.	
+	Let $M$ be a set, $d_1, d_2: M \times M \rightarrow \Rg$ metrics on $M$. Then $d_1$ and $d_2$ are said to be  \tbf{$\Top$-equivalent}, denoted $d_1 \sim_{\Top} d_2$, if for each $(x_n)_{n \in \N} \subset M$ and $x \in M$, $x_n \conv{d_1} x$ iff $x_n \conv{d_2} x$.	
 \end{defn}	
 
 \begin{defn}
-	Let $\phi: \Rg \rightarrow \Rg$. Then $\phi$ is said to be \tbf{$\Top$ metric-preserving} if for each set $X$ and metric $d$ on $X$, 
-	\begin{enumerate}
-		\item $\phi \circ d$ is a metric on $X$
-		\item $\phi \circ d \sim_{\Top} d$
-	\end{enumerate} 
+	Let $\phi: \Rg \rightarrow \Rg$. Then $\phi$ is said to be \tbf{$\Top$ metric-preserving} if for each set $X$ and metric $d$ on $X$, $\phi \circ d \sim_{\Top} d$. 
 \end{defn}
 
-\begin{defn}
-	Let $(X, d)$ be a metric space and $\phi: \Rg \rightarrow \Rg$. Suppose that $\phi$ is said to be $\Top$ metric-preserving. We define the \tbf{$\phi$-iterate of $d$}, denoted $d_{\phi}$, by $d_{\phi} = \phi \circ d$.  
-\end{defn}
-
-\begin{ex}
-	Let $\phi: \Rg \rightarrow \Rg$. Suppose that  
-	\begin{enumerate}
-		\item $\phi$ is continuous
-		\item $\phi$ is increasing
-		\item $\phi^{-1}(\{0\}) = \{0\}$ 
-	\end{enumerate}
-	Then for each $(s_n)_{n \in \N} \subset \Rg$, $s_n \rightarrow 0$ iff $\phi(s_n) \rightarrow 0$. 
-\end{ex}
-
-\begin{proof}
-	Let $(s_n)_{n \in \N} \subset \Rg$. Suppose that $s_n \rightarrow 0$. Since $\phi$ is continuous, 
-	\begin{align*}
-		\phi(s_n) 
-		& \rightarrow \phi(0) \\
-		& = 0
-	\end{align*}
-	Conversely, suppos that $\phi(s_n) \rightarrow 0$. For the sake of contradiction, suppose that $s_n \not \rightarrow 0$. Then there exists $\ep >0$ and a subsequence $(s_{n_k})_{k \in \N} \subset (s_n)_{n \in \N}$ such that $(s_{n_k})_{k \in \N} \subset B(0, \ep)^c$. Since $\phi^{-1}(\{0\}) = \{0\}$, for each $k \in \N$, $\phi(s_{n_k}) >0$. Since $\phi(s_{n_k}) \rightarrow 0$, there exists a subsequence $(s_{n_{k_j}})_{j \in \N} \subset (s_{n_k})_{k \in \N}$ such that for each $j \in \N$, $\phi(s_{n_{k_{j+1}}}) < \phi(s_{n_{k_j}})$. Define $(t_j)_{j \in \N} \subset B(0,\ep)^c$ by $t_j = s_{n_{k_j}}$. For the sake of contradiction, suppose that there exists $j \in \N$ such that $t_j \leq t_{j+1}$. Since $\phi$ is increasing, $\phi(t_j) \leq \phi(t_{j+1})$. This is a contradiction since by construction, $\phi(t_{j+1}) < \phi(t_j)$. Therefore for each $j \in \N$, $t_{j+1} < t_j$. Hence $(t_j)_{j \in \N}$ is decreasing and $t_j \rightarrow \inf_{j \in \N} t_j$. Set $t = \inf_{j \in \N} t_j$. Since $(t_j)_{j \in \N} \subset B(0, \ep)^c$, $t \in B(0, \ep)^c$. Since $t \neq 0$ and $\phi^{-1}(\{0\}) = \{0\}$, we have that $\phi(t) \neq 0$. Since $\phi$ is continuous, $\phi(t_j) \rightarrow \phi(t)$. By construction $\phi(t_j) \rightarrow 0$. Hence $\phi(t) = 0$. This is a contradiction. Hence $s_n \rightarrow 0$.
-\end{proof}
+\b
 
 \begin{ex}
 	Let $\phi: \Rg \rightarrow \Rg$. Suppose that
@@ -3055,51 +3029,28 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \end{ex}
 
 \begin{proof}
-	Let $(X, d)$ be a metric space.
 	\begin{enumerate}
-		\item
-		\begin{enumerate}
-			\item Let $x, y \in X$. Suppose that $x = y$. Then $d(x,y) = 0$. Since $0 \in \phi^{-1}(\{0\})$, we have that
-			\begin{align*}
-				d_{\phi} (x,y)
-				& = \phi(d(x,y)) \\
-				& = \phi(0) \\
-				& = 0
-			\end{align*}
-			Conversely, suppose that $ d_{\phi}(x,y) = 0$. Then $\phi(d(x,y)) = 0$ and therefore
-			\begin{align*}
-				d(x,y)
-				& \in \phi^{-1}(\{0\}) \\
-				& = \{0\}
-			\end{align*}
-			Thus $d(x,y) = 0$. Since $d$ is a metric on $X$, $x = y$. Hence $d_{\phi}(x,y) = 0$ iff $x = y$.
-			\item Let $x,y,z \in X$. Since $\phi$ is increasing and subadditive, we have that
-			\begin{align*}
-				d_{\phi(x,z)}
-				& = \phi(d(x,z)) \\
-				& \leq \phi(d(x,y) + d(y,z)) \\
-				& \leq \phi(d(x,y)) + \phi(d(y,z)) \\
-				& = d_{\phi(x,y)} + d_{\phi(y,z)}
-			\end{align*}
-		\end{enumerate}
-		Therefore $d_{\phi}$ is a metric on $X$. 
-		\item Let $(x_n)_{n \in \N} \subset X$ and $x \in X$. Suppose that $x_n \conv{d} x$. Then $d(x_n, x) \rightarrow 0$. Since $\phi$ is continuous, 
+		\item Let $(X, d)$ be a metric space and $x, y \in X$. Suppose that $x = y$. Then $d(x,y) = 0$. Since $0 \in \phi^{-1}(\{0\})$, we have that
 		\begin{align*}
-			d_{\phi}(x_n, x)
-			& = \phi(d(x_n,x)) \\
-			& \rightarrow 0 
+			\phi \circ d (x,y)
+			& = \phi(d(x,y)) \\
+			& = \phi(0) \\
+			& = 0
 		\end{align*}
-		So $x_n \conv{d_{\phi}} x$. \\
-		Conversely, suppose that $x_n \conv{d_{\phi}} x$. Then 
+		Conversely, suppose that $\phi \circ d(x,y) = 0$. Then 
 		\begin{align*}
-			\phi(d(x_n,x))
-			& = d_{\phi}(x_n, x) \\
-			& \rightarrow 0
+			d(x,y)
+			& \in \phi^{-1}(\{0\}) \\
+			& = \{0\}
 		\end{align*}
-		The previous exercise implies that $d(x_n,x) \rightarrow 0$. Hence $x_n \conv{d} x$. Since $(x_n)_{n \in \N} \subset X$ and $x \in X$ are arbitrary, we have that $(x_n)_{n \in \N} \subset X$ and $x \in X$, $x_n \conv{d} x$ iff $x_n \conv{d_{\phi}} x$. Therefore $d_{\phi} \sim_{\Top} d$. 
+		Thus $d(x,y) = 0$. Since $d$ is a metric on $X$, $x = y$. Hence $\phi \circ$
+		\item 
 	\end{enumerate}
-	Since $(X, d)$ is arbitrary, $\phi$ is $\Top$ metric-preserving.
 \end{proof}
+
+\begin{note}
+	Since $\phi$ is concave, $\phi$ is continuous. Since $\phi|_{[0, \del]}$ is strictly increasing and continuous, $\phi|_{[0, \del]}$ is a homeomorphism.
+\end{note}
 
 \begin{ex}
 	Define $\phi:\Rg \rightarrow [0,1)$ by 
@@ -3107,14 +3058,16 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	Then $\phi$ is $\Top$ metric-preserving.
 \end{ex}
 
-\begin{proof}\
-\begin{enumerate}
-	\item We note that $\phi \in C^{\infty}(\Rg)$ and for each $t \in \Rg$, 
+\begin{proof}
+	We note that $\phi$ is a bijection and for each $s \in [0,1)$, 
+	$$\phi^{-1}(s) = \frac{s}{1-s}$$
+	In addition, $\phi \in C^{\infty}(\Rg)$, $\phi^{-1} \in C^{\infty}([0,1))$ and for each $t \in \Rg$, 
 	$$\phi'(t) = \frac{1}{(1+t)^2} \quad \text{and} \quad \phi''(t) = -\frac{2}{(1+t)^3}$$
-	In particular, $\phi$ is continuous.
+\begin{enumerate}
+	\item Clearly $\phi(0) = 0$.
 	\item Since $\phi' > 0$, $\phi$ is strictly increasing. 
-	\item Since $\phi'' < 0$, $\phi$ is strictly concave. Since $\phi(0) = 0$, an exercise in the section on convex functions implies that $\phi$ is subadditive. \tcb{reference section on convex functions}
-	\item Clearly $\phi^{-1}(\{0\}) = \{0\}$.
+	\item Since $\phi'' < 0$, $\phi$ is strictly concave. \tcb{reference section on convex functions}
+	\item By the earlier observation, $\phi$ is a homeomorphism. 
 \end{enumerate}	
 	So $\phi$ is $\Top$ metric-preserving.
 \end{proof}
@@ -3123,20 +3076,89 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 	Let $a \in (0, \infty)$. Define $\phi_a:\Rg \rightarrow \Rg$ by 
 	$$\phi_a(t) = t \wedge a$$
 	Then $\phi_a$ is $\Top$ metric-preserving.
+	\begin{enumerate}
+		\item Clearly $\phi(0) = 0$.
+		\item Clearly, $\phi$ is increasing. 
+		\item Since the minimum of two concave functions is concave, $\phi$ is concave. \tcb{reference section on convex functions}
+		\item Choose $\del \in (0, a)$. Then for each $\phi_a|_{[0,\del]} = \id_{[0,\del]}$ which is a homeomorphism.
+	\end{enumerate}	
+	So $\phi_a$ is $\Top$ metric-preserving.
 \end{ex}
 
 \begin{proof}
-	\begin{enumerate}
-		\item Clearly $\phi$ is continuous.
-		\item Clearly, $\phi$ is increasing. 
-		\item Since the minimum of two concave functions is concave, $\phi$ is concave. Since $\phi(0) = 0$, an exercise in the section on convex functions implies that $\phi$ is subadditive. \tcb{reference section on convex functions}
-		\item Clearly $\phi^{-1}(\{0\}) = \{0\}$.	
-	\end{enumerate}	
-	So $\phi_a$ is $\Top$ metric-preserving.
+	
 \end{proof}
 
+\begin{defn}
+	Let $(M, d)$ be a metric space and $\phi:\Rg \rightarrow \Rg$. Suppose that $\phi$ is $\Top$ metric-preserving. We define the \tbf{$\phi$-iterate of $d$}, denoted $d_{\phi}: M \times M \rightarrow \Rg$, by 
+	$$d_{\phi} = \phi \circ d$$ 
+\end{defn}
 
+\begin{ex}
+	Let $(M, d)$ be a metric space and $\phi:\Rg \rightarrow \Rg$. Suppose that $\phi$ is $\Top$ metric-preserving. Then $d_{\phi}$ is a metric on $M$.
+\end{ex}
 
+\begin{proof}
+	Since $\phi$ is concave, \rex{91004.2} implies that $\phi$ is subadditive so that for each $x,y \in \Rg$, $\phi(x+y) \leq \phi(x) + \phi(y)$. 
+	\begin{itemize}
+		\item Let $x,y \in M$. Then 
+		\begin{align*}
+			d_{\phi}(x,y)
+			& = \phi(d(x,y)) \\
+			& = \phi(d(y,x)) \\
+			& = d_{\phi}(y,x)
+		\end{align*}
+		\item Let $x,y \in M$. Suppose that $x=y$. Then 
+		\begin{align*}
+			d_{\phi}(x,y)
+			& = d_{\phi}(x,x) \\
+			& = \phi(d(x,x)) \\
+			& = \phi(0) \\
+			& = 0
+		\end{align*}
+		Conversely, suppose that $d_{\phi}(x,y) = 0$. Then 
+		\begin{align*}
+			0
+			& = d_{\phi}(x,y) \\
+			& = \phi(d(x,y)) 
+		\end{align*} 
+		Since $\phi^{-1}(\{0\}) = \{0\}$, we have that $d(x,y) = 0$. Since $d$ is a metric on $M$, $x = y$.
+		\item Let $x,y, z \in M$. Since $\phi$ is increasing, we have that 
+		\begin{align*}
+			d_{\phi}(x,y)
+			& = \phi (d(x,y)) \\
+			& \leq \phi(d(x,z) + d(z,y)) \\
+			& \leq \phi(d(x,z)) + \phi(d(z,y)) \\
+			& = d_{\phi}(x,z) + d_{\phi}(z,y)
+		\end{align*}
+	\end{itemize}
+	So $d_{\phi}$ is a metric on $M$. 
+\end{proof}
+
+\begin{ex}
+	Let $(M, d)$ be a metric space and $\phi: \Rg \rightarrow \Rg$. Suppose that $\phi$ is $\Top$ metric-preserving. Then $d_{\phi} \sim_{\Top} d$.
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+	\item Let $(x_n)_{n \in \N} \subset M$ and $x \in M$. Suppose that $x_n \conv{d} x$. Then $d(x_n, x) \rightarrow 0$. Since $\phi$ is continuous, we have that 
+	\begin{align*}
+		d_{\phi}(x_n, x) 
+		& = \phi(d(x_n, x)) \\
+		& \rightarrow 0
+	\end{align*}
+	So $x_n \conv{d_{\phi}} x$. \\
+	Conversely, suppose that $x_n \conv{d_{\phi}} x$. Then $d_{\phi}(x_n, x) \rightarrow 0$. By assumption there exists $\del >0$ such that $\phi|_{[0,\del]}$ is a homeomorphism. Choose $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $d(x_n, x) < \del$. Let $n \in \N$, Suppose that $n \geq N$. Then  
+	\begin{align*}
+		d(x_n, x)
+		& = \phi|_{[0,\del]}^{-1} \circ \phi|_{[0,\del]}(d(x_n, x)) \\ 
+		& = \phi|_{[0,\del]} (d_{\phi}(x_n, x)) \\
+		& \rightarrow \phi|_{[0,\del]}(0) \\
+		& = 0
+	\end{align*}
+	This implies that $d(x_n, x) \rightarrow 0$. Hence $x_n \conv{d} x$. Since $(x_n)_{n \in \N} \subset M$ and $x \in M$ are arbitrary, we have that for each $(x_n)_{n \in \N} \subset M$ and $x \in M$, $x_n \conv{d_{\phi}} x$ iff $x_n \conv{d} x$. Thus $d_{\phi} \sim_{\Top} d$.
+	\end{enumerate}
+\end{proof}
 
 
 
@@ -3174,11 +3196,11 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 \newpage
 \begin{defn}
-	Let $X$ be a metric space. Then $X$ is said to be \tbf{separable} if there exists $D \subset X$ such that $D$ is countable and for each $x \in X$ and $\ep >0$, there exists $y \in D$ such that $d(x, y) < \ep$.
+	Let $M$ be a metric space. Then $M$ is said to be \tbf{separable} if there exists $D \subset M$ such that $D$ is countable and for each $x \in M$ and $\ep >0$, there exists $y \in D$ such that $d(x, y) < \ep$.
 \end{defn}
 
 \begin{ex}
-	Let $X$ be a metric space. If $X$ is separable, then for each $A \subset X$, if $A$ is open, then 
+	Let $M$ be a metric space. If $M$ is separable, then for each $A \subset M$, if $A$ is open, then 
 	\begin{enumerate}
 		\item there there exist $(x_n)_{n \in \N} \subset X$ and $(r_n)_{n \in \N} \subset (0, \infty)$ such that $$A = \bigcup\limits_{n \in \N} B(x_n, r_n)$$
 		i.e. $A$ is a countable union of open balls
@@ -3188,7 +3210,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \end{ex}
 
 \begin{proof}
-	Suppose that $X$ is separable. Then there exists $(x_n)_{n \in \N} \subset X$ such that for each $x \in X$ and $\ep >0$, there exists $N \in \N$ such that $d(x, x_N) < \ep$. Let $A \subset X$. Suppose that $A$ is open.
+	Suppose that $M$ is separable. Then there exists $(x_n)_{n \in \N} \subset M$ such that for each $x \in M$ and $\ep >0$, there exists $N \in \N$ such that $d(x, x_N) < \ep$. Let $A \subset X$. Suppose that $A$ is open.
 	\begin{enumerate}
 		\item  Set 
 		$$\MB = \{B(x_n, r): r \in \Q \text{ and } B(x_n, r) \subset A\}$$ 
@@ -3212,15 +3234,15 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \end{proof}
 
 \begin{defn} \ld{}
-	Let $(X,d)$ be a metric space and $A,B \subset X$. We define the \tbf{distance between $A$ and $B$}, denoted $d(A,B)$, by $$d(A,B) = \inf_{\substack{a \in A \\ b \in B}} d(a,b)$$
+	Let $(M,d)$ be a metric space and $A,B \subset M$. We define the \tbf{distance between $A$ and $B$}, denoted $d(A,B)$, by $$d(A,B) = \inf_{\substack{a \in A \\ b \in B}} d(a,b)$$
 \end{defn}
 
 \begin{ex} \lex{}
-	Let $(X,d)$ be a metric space. Then for each $A,B \subset X$ and $c \in X$, $$d(A,B) \leq d(A,c) + d(c, B)$$
+	Let $(M,d)$ be a metric space. Then for each $A,B \subset M$ and $c \in M$, $$d(A,B) \leq d(A,c) + d(c, B)$$
 \end{ex}
 
 \begin{proof}
-	Let $A,B \subset X$, $c \in X$ and $\ep>0$. Choose $a \in A$ and $b \in B$ such that $d(a,c) < d(A,c)+ \ep/2$ and  $d(c,b) < d(c,B)+ \ep/2$. Then 
+	Let $A,B \subset M$, $c \in M$ and $\ep>0$. Choose $a \in A$ and $b \in B$ such that $d(a,c) < d(A,c)+ \ep/2$ and  $d(c,b) < d(c,B)+ \ep/2$. Then 
 	\begin{align*}
 		d(A,B) 
 		&\leq d(a,b) \\
@@ -3232,7 +3254,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \end{proof}
 
 \begin{defn} \ld{}
-	Let $X$ be a set, $d_1, d_2: X \times X \rightarrow \Rg$ metrics on $X$. Then $d_1$ and $d_2$ are said to be \tbf{equivalent} if there exist $A, B > 0$ such that $$A d_1 \leq d_2 \leq B d_1$$		
+	Let $M$ be a set, $d_1, d_2: M \times M \rightarrow \Rg$ metrics on $M$. Then $d_1$ and $d_2$ are said to be \tbf{equivalent} if there exist $A, B > 0$ such that $$A d_1 \leq d_2 \leq B d_1$$		
 \end{defn}	
 
 \begin{defn} \ld{}
@@ -3280,7 +3302,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \end{note}
 
 \begin{defn} \ld{}
-	Let $(X,d)$ be a metric space. Then $(X,d)$ is said to be a \tbf{Polish space} if $(X,d)$ is complete and separable. 
+	Let $(M,d)$ be a metric space. Then $(M,d)$ is said to be a \tbf{Polish space} if $(M,d)$ is complete and separable. 
 \end{defn}
 
 
@@ -3303,7 +3325,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \end{proof}
 
 \begin{defn} \ld{}
-	Let $S$ be a set, $(X, d)$ a metric space and $B(S, X) = \{f: S \rightarrow X: f \text{ is bounded} \}$. We define the \tbf{supremum metric}, denoted $d_u:B(S,X) \times B(S,X) \rightarrow \Rg$, by $$d_u(f, g) = \sup_{x \in X}d(f(x), g(x)) $$ 
+	Let $S$ be a set, $(M, d)$ a metric space and $B(S, M) = \{f: S \rightarrow M: f \text{ is bounded} \}$. We define the \tbf{supremum metric}, denoted $d_u:B(S,M) \times B(S,M) \rightarrow \Rg$, by $$d_u(f, g) = \sup_{x \in X}d(f(x), g(x)) $$ 
 \end{defn}
 
 \begin{ex} \lex{211111111}
@@ -3542,22 +3564,22 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \section{Product Spaces}
 
 \begin{defn}
-	Let $(X_n, d_n)_{n \in \N}$ be a collection of metric spaces and $d$ a metric on $\prod_{n \in \N} X_n $. Then $d$ is said to be \tbf{product compatible} if there exists $f: \Rg^{\N} \rightarrow \Rg$ such that 
+	Let $(M_n, d_n)_{n \in \N}$ be a collection of metric spaces and $d$ a metric on $\prod_{n \in \N} M_n $. Then $d$ is said to be \tbf{product compatible} if there exists $f: \Rg^{\N} \rightarrow \Rg$ such that 
 	\begin{itemize}
-		\item $d = f \circ \prod_{n \in \N} d_n$
+		\item for each $x,y \in \prod_{n \in \N} M_n$, $d(x, y) = f[(d_n(x_n, y_n))_{n \in \N}]$
 		\item $f$ is continuous
-		\item $f^{-1}(0) = \{(0)_{n \in \N}$\}
+		\item $f(0^{\times \N}) = 0$
 		\item for each $t \in \Rg^{\N}$ and $n \in \N$, $t_n \leq f(t)$
 	\end{itemize}
 \end{defn}
 
 \begin{ex}
-	Let $(X_n, d_n)_{n \in \N}$ be a collection of metric spaces and $d$ a metric on $\prod_{n \in \N} X_n$. Suppose that $d$ is product compatible. Then $d$ metrizes the product topology on $\prod_{n \in \N} X_n$.
+	Let $(M_n, d_n)_{n \in \N}$ be a collection of metric spaces and $d$ a metric on $\prod_{n \in \N} M_n$. Suppose that $d$ is product compatible. Then $d$ metrizes the product topology on $\prod_{n \in \N} M_n$.
 \end{ex}
 
 \begin{proof}
-	Set $X = \prod_{n \in \N} X_n$. Let $(x_n)_{n \in \N} \in X$
-	Since $X$ is first countable. 
+	Set $M = \prod_{n \in \N} M_n$. Let $(x_n)_{n \in \N} \in M$
+	Since $M$ is first countable. 
 \end{proof}
 
 
@@ -3603,10 +3625,10 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 
 
-\newpage
+
 \section{Ultrametric Spaces}
 
-Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in \N}$, where for each $j$ and $E \in \MP_j$, there exists $\ME \subset \MP_{j+1}$ such that $E = \bigcup_{F \in \MR} F$. Then set $d(x, y) = 2^{-n}$ if $n = \max(j \in \N: \text{there exists $E \in \MP_j:$ such that $x,y \in E$})$.
+Ultrametric spaces are given by sequences of partitions of $M$, $(\MP_j)_{j \in \N}$, where for each $j$ and $E \in \MP_j$, there exists $\ME \subset \MP_{j+1}$ such that $E = \bigcup_{F \in \MR} F$. Then set $d(x, y) = 2^{-n}$ if $n = \max(j \in \N: \text{there exists $E \in \MP_j:$ such that $x,y \in E$})$.
 
 
 

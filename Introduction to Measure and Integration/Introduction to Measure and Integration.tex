@@ -771,7 +771,7 @@
 		\end{enumerate}
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{Measurabl Functions:0008}
 		Let $(X,\MA), (Y,\MB)$ be measurable spaces and $f: X \rightarrow Y$. If $f$ is an isomorphism, then
 		\begin{enumerate}
 			\item $f^*(\MB) = \MA$
@@ -1955,7 +1955,7 @@
 	\section{Borel Spaces}
 	
 	\begin{defn} \lex{28007} 
-		Let $(X, \MA)$ be a measurable space. Then $(X, \MA)$ is said to be a \textbf{Borel space} if there exists $S \in \MB(\R)$ such that $(X, \MA)$ is isomorphic to $(S, \MB(\R) \cap S)$.
+		Let $(X, \MA)$ be a measurable space. Then $(X, \MA)$ is said to be a \textbf{Borel space} if there exists a polish space $E$ and $S \in \MB(E)$ such that $(X, \MA)$ is isomorphic to $(S, \MB(E) \cap S)$.
 	\end{defn}
 	
 	\begin{ex}
@@ -3606,7 +3606,7 @@
 		Since $\{x \in X: f(x) \neq 0\} = \{x \in X: |f|(x) > 0\}$ and $|f| \in L^1(X, \MP(X))$, an exercise in the previous section implies that $\{x \in X: f(x) \neq 0\}$ is countable.
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{Integration of Complex Valued Functions 00010} 
 		Let $f,g:X \rightarrow \R$. Suppose that $f,g \in L^1$. Then $f \leq g$ a.e. iff for each $E \in \MA$, $$\int_E f \leq \int_E g$$  
 	\end{ex}
 	
@@ -4606,7 +4606,7 @@
 	\end{defn}
 	
 	\begin{thm}
-		Let $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$, $\lam$ $\sig$-finite measures on $(X,\MA)$. Suppose that $\nu \ll \mu$ and $\mu \ll \lam$. Then 
+		Let $(X, \MA)$ be a measurable space, $\nu$ a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$, $\lam$ $\sig$-finite measures on $(X,\MA)$. Suppose that $\nu \ll \mu$ and $\mu \ll \lam$. Then 
 		\begin{enumerate}
 			\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and $$\int g d\nu = \int g \frac{d\nu}{d\mu} \dmu$$
 			\item $\nu \ll \lam$ and $$\frac{d \nu}{d\lam} = \frac{d \nu}{d\mu} \frac{d\mu}{d\lam} \hspace{4mm} \lam \text{-a.e.}$$
@@ -4669,9 +4669,25 @@
 			So $\lam = \mu$. This is a contradiction since $\mu \not \perp m$.
 		\end{enumerate}
 	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MA)$ be a measurable space and $\mu$ be a $\sig$-finite measures on $(X, \MA)$. Suppose that $\nu \ll \mu$. Then $d\nu / \dmu \geq 0$ $\mu$-a.e.
+	\end{ex}
+
+	\begin{proof}
+		Let $E \in \MA$. Then 
+		\begin{align*}
+			\int_E \frac{d \nu}{d \mu} \dmu 
+			& = \mu(E) \\
+			& \geq 0 \\
+			& = \int_E 0 \dmu 
+		\end{align*}
+		Since $E \in \MA$ is arbitrary, \rex{Integration of Complex Valued Functions 00010}  implies that $\frac{d \nu}{d \mu} \geq 0$ $\mu$-a.e.
+		\tcb{fix this}
+	\end{proof}
 	
 	\begin{ex}
-		Let $(X, \MA)$ be a measurable space and $\mu, \nu$ $\sig$-finite measures on $(X, \MA)$. Suppose that $\nu \ll \mu$. Then $d\nu / \dmu > 0$ $\mu$-a.e. iff for each $E \in \MA$, $\mu(E) \neq 0$ implies that $\nu(E) > 0$. 
+		Let $(X, \MA)$ be a measureable space, $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X,\MA)$. Suppose that $\nu \ll \mu$. Then $d\nu / \dmu > 0$ $\mu$-a.e. iff for each $E \in \MA$, $\mu(E) \neq 0$ implies that $\nu(E) > 0$. 
 	\end{ex}
 
 	\begin{proof}
@@ -4694,7 +4710,9 @@
 			& = \int_E \frac{d \nu}{d\mu}\chi_E  \dmu \\
 			& = 0
 		\end{align*}
+	\tcb{fix this}
 	\end{proof}
+
 	
 	
 	
@@ -4962,9 +4980,97 @@
 	\begin{proof}
 	Clear by an exercise in section $3.2$.
 	\end{proof}
+
+	\subsection{Pushforward and Radon-Nikodym Derivative:}
+	
+	\begin{ex} \lex{43011} 
+		Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. Then $ L^1(X, \MB, \mu|_{\MB}) \subset L^1(X, \MA, \mu)$ and for each $f \in L^1(X, \MB, \mu|_{\MB})$ and $B \in \MB$, 
+		$$\int_B f \dmu|_{\MB} = \int_B f \dmu$$
+	\end{ex}
+	
+	\begin{proof}
+		Set $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$ and $B \in \MB$. Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
+		\begin{align*}
+			\infty 
+			&> \mu_{\MB}(B_i) \\
+			&= \mu(B_i)
+		\end{align*}
+		So $f \in L^1(X, \MA, \mu)$ and 
+		\begin{align*}
+			\int_B f \dmu_{\MB} 
+			&= \int_B \sum_{i=1}^n b_i \chi_{B_i} \dmu_{\MB} \\
+			&= \sum_{i=1}^n b_i \mu_{\MB}(B_i \cap B)\\
+			&= \sum_{i=1}^n b_i \mu(B_i \cap B)\\
+			&= \int_B \sum_{i=1}^n b_i\chi_{B_i} \dmu \\
+			&= \int_B f \dmu
+		\end{align*}
+		If $f \geq 0$, then there exist $(\phi_n)_{n \in \N} \subset S^+(X, \MB)$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \convt{p.w.} f$. The monotone convergence theorem implies that for each $B \in \MB$,
+		\begin{align*}
+			\int_B f \dmu
+			&= \limn \int_B \phi_n \dmu \\
+			&= \limn \int_B \phi_n \dmu_{\MB} \\
+			& = \int_B f \dmu_{\MB} \\
+			& < \infty
+		\end{align*}
+		So $f \in L^1(X, \MA, \mu)$.
+		Similarly, the statement also holds for general $f \in L^1(X, \MB, \mu_B)$ by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
+	\end{proof}
+	
+	\begin{note}
+		Denote the $L^1$ norms on $L^1(X, \MA, \mu)$ and $L^1(X, \MB, \mu|_{\MB})$ by $N$ and $N_{\MB}$ respectively. The previous exercise implies that $L^1(X, \MB, \mu|_{\MB})$ is a subspace of $L^1(X, \MA, \mu)$ and $N|_{L^1(X, \MB,\mu|_{\MB})} = N_{\MB}$.
+	\end{note}
 	
 	
+	\begin{ex} \lex{43012}
+		Let $(X, \MA)$, $(Y, \MB)$ be measurable spaces, $\mu, \nu \in \MM(X,\MA)$ and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$-measurable. If $\nu \ll \mu$, then $f_*\nu \ll f_*\mu$ and 
+		$$\frac{d f_*\nu}{d f_*\mu} \circ f = \frac{d\nu|_{f^* \MB}}{d \mu|_{f^*\MB}}  \hspace{.5cm} \text{ $\mu|_{f^*\MB}$-a.e.}$$ 
+	\end{ex}
 	
+	\begin{proof}
+		Suppose that $\nu \ll \mu$. Let $E \in \MB$. Suppose that $f_*\mu(E) = 0$. By definition, $\mu(f^{-1}(E)) = 0$. Since $\nu \ll \mu$, we have that 
+		\begin{align*}
+			f_*\nu(E)
+			& = \nu(f^{-1}(E)) \\
+			& = 0
+		\end{align*}
+		Since $E \in \MB$ is arbitrary, $f_*\nu \ll f_*\mu$. \\
+		Since $f$ is $(\MA, \MB)$-measurable, $f$ is $(f^*\MB, \MB)$-measurable. Since $d(f_*\nu)/d(f_*\mu)$ is $(\MB, \MB(\C))$-measurable and $f$ is $(f^*\MB, \MB)$-measurable, we have that $d(f_*\nu)/d(f_*\mu) \circ f$ is $(f^*\MB, \MB(\C))$-measurable. Set $\mu' = \mu|_{f^*\MB}$ and $\nu' = \nu|_{f^*\MB}$. Let $A \in f^*\MB$. Then there exists $B \in \MB$ such that $A = f^{-1}(B)$. \rex{43011} implies that  
+		\begin{align*}
+			\int_A \frac{d f_* \nu}{d f_* \mu} \circ f \dmu' 
+			& = \int_{f^{-1}(B)} \frac{d f_* \nu}{d f_* \mu} \circ f \dmu \\
+			& = \int_B \frac{d f_* \nu}{d f_* \mu} \, d f_* \mu \\
+			& = f_* \nu(B) \\
+			& = \nu(f^{-1}(B)) \\
+			& = \nu(A) \\
+			& = \nu'(A)
+		\end{align*}
+		Since $A \in f^*\MB$ is arbitrary, 
+		$$\frac{d f_* \nu}{d f_* \mu} \circ f = \frac{d\nu'}{d\mu'} \hspace{.5cm} \text{ $\mu'$-a.e.}$$
+	\end{proof}
+	
+	\begin{ex} \lex{43013}
+		Let $(X, \MA)$, $(Y, \MB)$ be measurable spaces, $\mu, \nu \in \MM(X, \MA)$ and $f: X \rightarrow Y$. Suppose that $f$ is an isomorphism. If $\nu \ll \mu$, then $f_*\nu \ll f_*\mu$ and 
+		$$\frac{d f_*\nu}{d f_*\mu} \circ f = \frac{d\nu}{d \mu}  \hspace{.5cm} \text{ $\mu$-a.e.}$$ 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\nu \ll \mu$. \rex{43012} implies that $f_*\nu \ll f_*\mu$ and  
+		$$\frac{d f_*\nu}{d f_*\mu} \circ f = \frac{d\nu|_{f^* \MB}}{d \mu|_{f^*\MB}}  \hspace{.5cm} \text{ $\mu|_{f^*\MB}$-a.e.}$$
+		\rex{Measurabl Functions:0008} implies that $f^*\MB = \MA$ and therefore
+		$$\frac{d f_*\nu}{d f_*\mu} \circ f = \frac{d\nu}{d \mu}  \hspace{.5cm} \text{ $\mu$-a.e.}$$
+		Let $B \in \MB$. Since $\MA = f^*\MB$, $f^{-1}(B) \in \MA$. Set $A = f^{-1}(B)$. Then
+		\begin{align*}
+			\int_{B} \frac{d\nu}{d \mu} \circ f^{-1} \, d f_* \mu 
+			& = \int_{f^{-1}(B)} \frac{d\nu}{d \mu} \circ f^{-1} \circ f  \dmu \\
+			& = \int_{A} \frac{d\nu}{d \mu}  \dmu \\
+			& = \nu(A) \\
+			& = \nu(f^{-1}(B)) \\
+			& = f_*\nu(B)
+		\end{align*}
+		Since $B \in \MB$ is arbitrary, 
+		$$\frac{d f_*\nu}{d f_*\mu}  = \frac{d\nu}{d \mu} \circ f^{-1} \hspace{.5cm} \text{ $f_*\mu$-a.e.}$$
+		
+	\end{proof}
 	
 	
 	
@@ -5732,41 +5838,15 @@
 	\newpage
 	\section{Disintegration of Measure}
 	
-	\begin{ex} \lex{00000} 
-		Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. Define $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$. Then $ L^1(X, \MB, \mu_{\MB}) \subset L^1(X, \MA, \mu)$ and for each $f \in L^1(X, \MB, \mu_{\MB})$ and $B \in \MB$, 
-		$$\int_B f \dmu_{\MB} = \int_B f \dmu$$
-	\end{ex}
-	
-	\begin{proof}
-		Let $f \in L^1(X, \MB, \mu_{\MB})$ and $B \in \MB$. Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
-		\begin{align*}
-			\infty 
-			&> \mu_{\MB}(B_i) \\
-			&= \mu(B_i)
-		\end{align*}
-		So $f \in L^1(X, \MA, \mu)$ and 
-		\begin{align*}
-			\int_B f \dmu_{\MB} 
-			&= \int_B \sum_{i=1}^n b_i \chi_{B_i} \dmu_{\MB} \\
-			&= \sum_{i=1}^n b_i \mu_{\MB}(B_i \cap B)\\
-			&= \sum_{i=1}^n b_i \mu(B_i \cap B)\\
-			&= \int_B \sum_{i=1}^n b_i\chi_{B_i} \dmu \\
-			&= \int_B f \dmu
-		\end{align*}
-		If $f \geq 0$, then there exist $(\phi_n)_{n \in \N} \subset S^+(X, \MB)$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \convt{p.w.} f$. The monotone convergence theorem implies that for each $B \in \MB$,
-		\begin{align*}
-			\int_B f \dmu
-			&= \limn \int_B \phi_n \dmu \\
-			&= \limn \int_B \phi_n \dmu_{\MB} \\
-			& = \int_B f \dmu_{\MB} \\
-			& < \infty
-		\end{align*}
-		So $f \in L^1(X, \MA, \mu)$.
-		Similarly, the statement also holds for general $f \in L^1(X, \MB, \mu_B)$ by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
-	\end{proof}
+	\subsection{TO DO}
+	\begin{itemize}
+		\item Look at compactifications, i.e. stone-cech, 
+		\item read conditional probabilities and conditional expectation by david simmons, try to define the weak* limit of measures on a topological space in terms of its compactification, show its support is on the fibers,
+	\end{itemize}
 	
 	\begin{note}
-		Denote the $L^1$ norms on $L^1(X, \MA, \mu)$ and $L^1(X, \MB, \mu_{\MB})$ by $N$ and $N_{\MB}$ respectively. The previous exercise implies that $L^1(X, \MB, \mu_{\MB})$ is a subspace of $L^1(X, \MA, \mu)$ and $N|_{L^1(X, \MB, \mu_{\MB})} = N_{\MB}$.
+		Let $(X, \MA, \mu)$ be a measure space and $\MB \subset \MA$ a sub $\sig$-algebra. We recall \rex{43011} that  Then $ L^1(X, \MB, \mu|_{\MB}) \subset L^1(X, \MA, \mu)$ and for each $f \in L^1(X, \MB, \mu|_{\MB})$ and $B \in \MB$, 
+		$$\int_B f \dmu|_{\MB} = \int_B f \dmu$$
 	\end{note}
 	
 	\begin{ex}
@@ -5915,12 +5995,13 @@
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $f \geq 0$. Then $\nu_f: \MB \rightarrow [0, \infty)$ is a finite measure. Hence 
+		Suppose that $f \geq 0$. Then $\nu_f: \MB \rightarrow [0, \infty)$ is a finite measure. For the sake of contradiction, suppose that Hence 
 		\begin{align*}
 			P^{\mu}_{\MB}f 
 			& = \frac{d \nu_f}{d \mu_{\MB}} \\
 			& \geq 0 \text{ $\mu_{\MB}$-a.e.}
 		\end{align*}
+	\tcb{cite exercise or fill in why}
 	\end{proof}
 
 	\begin{ex}
@@ -7304,6 +7385,32 @@ and $\mu$ is inner regular on $E$.
 
 		it is also (Since $G$ is locally compact, there exists $S \in \MB(G)$ such that $S$ is symmetric and $\mu(S) > 0$. Then 
 		$$\mu(S) = \mu(S^{-1}) = \iota_*\mu(S)$$ Since $\iota_*\mu$ is a right Haar measure on $G$ and $G$ is unimodular, $\iota_*\mu(S)$ is also a left Haar measure on $G$. Then there exists $\lam > 0$ such that $\mu(S) = \lam\iota_*\mu(S)$.
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MA, \lam)$ be a probability space, $G$ a locally compact group and $\mu$ a left Haar measure on $G$. Suppose that $G$ is unimodular and $f_*\lam \ll \mu$. Then 
+		\begin{enumerate}
+			\item for each $f \in \Hom_{\Meas}[(X, \MA), (G, \MB(G))]$, $(f^{-1})_*\lam \ll \mu$ and 
+			$$\frac{d f^{\odot -1}_*\lam}{d \mu} = \frac{d f_*\lam }{d\mu} \circ \iota_{\mu} \text{ \hspace{.2cm} $\mu$-a.e.}$$ 
+			\item for each $f,g \in \Hom_{\Meas}[(X, \MA), (G, \MB(G))]$, $(f^{-1})_*\lam \ll \mu$ and 
+			$$\frac{d (f \odot g)_*\lam}{d \mu} = \frac{d f_*\lam }{d\mu} * \frac{d g_*\lam }{d\mu} \text{ \hspace{.2cm} $\mu$-a.e.}$$ 
+		\end{enumerate} 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $f \in \Hom_{\Meas}[(X, \MA), (G, \MB(G))]$. The previous exercise implies that $(\iota_{\mu})_* \mu = \mu$. SInce we have that $\iota_{\mu}$ is an isomorphism, \rex{43013} implies that $(\iota_{\mu})_* f_*\lam \ll (\iota_{\mu})_*\mu$ and therefore
+			\begin{align*}
+				\frac{d (f^{\odot -1})_*\lam}{d \mu}
+				& = \frac{d (\iota_{\mu} \circ f)_*\lam}{d (\iota_{\mu})_*\mu} \\
+				& = \frac{d f_*\lam}{d \mu} \circ \iota_{\mu}^{-1} \\
+				& = \frac{d f_*\lam}{d \mu} \circ \iota_{\mu} \\
+			\end{align*}
+
+			$$\frac{d [f^{-1}_*\lam]}{d \mu} = \frac{f_*\lam }{d\mu} \circ \iota_{\mu} \text{ \hspace{.2cm} $\mu$-a.e.}$$ 
+			\item for each $f,g \in \Hom_{\Meas}[(X, \MA), (G, \MB(G))]$, $(f^{-1})_*\lam \ll \mu$ and 
+			$$\frac{d [(f \odot g)_*\lam]}{d \mu} = \frac{d f_*\lam }{d\mu} * \frac{d g_*\lam }{d\mu} \text{ \hspace{.2cm} $\mu$-a.e.}$$ 
+		\end{enumerate} 
 	\end{proof}
 
 
