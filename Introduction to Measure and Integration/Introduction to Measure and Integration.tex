@@ -1144,6 +1144,18 @@
 		Conversely, from the previous exercise, we have that $\MG = \{S \subset X: S \cap A \in \sig_A(\MC \cap A)\}$ is a $\sig$-algebra on $X$. Clearly $\MC \subset \MG$. Then $\sig_X(\MC) \subset \MG$. The definition of $\MG$ implies that $\sig_X(\MC) \cap A \subset \sig_A(\MC \cap A)$. Hence $\sig_X(\MC) \cap A = \sig_A(\MC \cap A)$.
 	\end{proof}
 
+	\begin{ex}
+		Let $(X, \MA)$ be a measurable space and $E \subset X$. If $E \in \MA$, then $\MA \cap E \subset \MA$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $E \in \MA$. Then for each $A \in \MA$, $A \cap E \in \MA$. Hence $\MA \cap E \subset \MA$.
+	\end{proof}
+
+	\begin{defn}
+		Let $(X, \MA)$ be a measurable space and $E \in \MA$. We define the \tbf{subspace $\sig$-algebra on $E$} to be $\MA \cap E$.
+	\end{defn}
+
 	\begin{ex} \lex{24005}
 		Let $(X, \MT)$ be a topological space and $A \subset X$. Let $\MT_A$ be the subspace topology on $A$. Then $\MB(A, \MT_A) = \MB(X, \MT) \cap A$.
 	\end{ex}
@@ -2708,64 +2720,131 @@
 	\section{Outer Measures}
 	
 	\begin{defn} \ld{00000} 
-		Let $X$ be a set and $\mu* : \MP(X) \rightarrow [0, \infty]$. Then $\mu^*$ is said to be an \textbf{outer measure on X} if 
+		Let $X$ be a set and $\nu : \MP(X) \rightarrow [0, \infty]$. Then $\nu$ is said to be an \textbf{outer measure on X} if 
 		\begin{enumerate}
-			\item $\mu^*(\varnothing) = 0$
-			\item for each $A,B \subset X $, if $A \subset B$, then $\mu^*(A) \leq \mu^*(B)$.
-			\item for each $(A_n)_{n \in \N} \subset \MP(X)$, $$\mu^*\big(\bigcup\limits_{n \in \N} A_n\big) \leq \sum\limits_{n \in \N}\mu^*(A_n) $$
+			\item $\nu(\varnothing) = 0$
+			\item for each $A,B \subset X $, if $A \subset B$, then $\nu(A) \leq \nu(B)$.
+			\item for each $(A_n)_{n \in \N} \subset \MP(X)$, $$\nu\big(\bigcup\limits_{n \in \N} A_n\big) \leq \sum\limits_{n \in \N}\nu(A_n) $$
 		\end{enumerate}
 	\end{defn}
 	
 		\begin{defn} \ld{00000} 
-		Let $X$ be a set, $\mu^*$ an outer measure on $X$ and $A \subset X$. Then $A$ is said to be $\mu^*$-\textbf{outer measurable} if for each $E \subset X$, 
+		Let $X$ be a set, $\nu$ an outer measure on $X$ and $A \subset X$. Then $A$ is said to be $\nu$-\textbf{outer measurable} if for each $E \subset X$, 
 	\begin{equation*}
-	\mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c)
+	\nu(E) = \nu(E \cap A) + \nu(E \cap A^c)
 	\end{equation*}
 	\end{defn}
 	
 	\begin{ex}
-	Let $X$ be a set, $\mu^*$ an outer measure on $X$ and $A \subset X$. Then $A$ is $\mu^*$-outer measurable iff for each $E \subset X$, $\mu^*(E) < \infty$ implies that 
+	Let $X$ be a set, $\nu$ an outer measure on $X$ and $A \subset X$. Then $A$ is $\nu$-outer measurable iff for each $E \subset X$, $\nu(E) < \infty$ implies that 
 	\begin{equation*}
-	\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)
+	\nu(E) \geq \nu(E \cap A) + \nu(E \cap A^c)
 	\end{equation*}
 	\end{ex}	
 	
 	\begin{proof}
-	Suppose that $A$ is $\mu^*$-outer measurable. Let $E \subset X$, Suppose that $\mu^*(E) < \infty$. By definition $\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)$. \\
-	Conversely, suppose that for each $E \subset X$, $\mu^*(E) < \infty$ implies that $\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)$. Let $E \subset X$. 
+	Suppose that $A$ is $\nu$-outer measurable. Let $E \subset X$, Suppose that $\nu(E) < \infty$. By definition $\nu(E) \geq \nu(E \cap A) + \nu(E \cap A^c)$. \\
+	Conversely, suppose that for each $E \subset X$, $\nu(E) < \infty$ implies that $\nu(E) \geq \nu(E \cap A) + \nu(E \cap A^c)$. Let $E \subset X$. 
 	\begin{itemize}
-	\item If $\mu^*(E) < \infty$, then by assumption, 
+	\item If $\nu(E) < \infty$, then by assumption, 
 	\begin{equation*}
-	\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)
+	\nu(E) \geq \nu(E \cap A) + \nu(E \cap A^c)
 	\end{equation*}		
-	If $\mu^*(E) = \infty$, then trivially, 
+	If $\nu(E) = \infty$, then trivially, 
 	\begin{equation*}
-	\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)
+	\nu(E) \geq \nu(E \cap A) + \nu(E \cap A^c)
 	\end{equation*}	 
-	So $\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E \cap A^c)$
+	So $\nu(E) \geq \nu(E \cap A) + \nu(E \cap A^c)$
 	\item Since $E = (E \cap A) \cup (E \cap A^c)$, by definition, 
 	\begin{equation*}
-	\mu^*(E) \leq \mu^*(E \cap A) + \mu^*(E \cap A^c)
+	\nu(E) \leq \nu(E \cap A) + \nu(E \cap A^c)
 	\end{equation*}	
 	\end{itemize}
-	So $\mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c)$ and $A$ is $\mu^*$-outer measurable.
+	So $\nu(E) = \nu(E \cap A) + \nu(E \cap A^c)$ and $A$ is $\nu$-outer measurable.
 	\end{proof}
-	
-	\begin{thm}\textbf{Construction of Outer Measures:} \\
-		Let $X$ be a set and $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. Define $\mu^*:\MP(X) \rightarrow [0, \infty]$ by $$\mu^*(A) = \inf \bigg \{\sum_{n \in \N}\rho(E_n): (E_n)_{n \in \N} \subset \ME \text{ and }A \subset \bigcup_{n \in \N}E_n \bigg \}$$ Then $\mu^*$ is an outer measure on $X$.
-	\end{thm}
-	
-	\begin{note}
-		In particular, for each $A \in \ME$, $\mu^*(A) = \rho(A)$.
-	\end{note}
-	
-	\begin{defn} \ld{00000} 
-		Let $X$ be a set and $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. Let $\mu^*$ be the outer measure on $X$ defined as in the last theorem. Then $\mu^*$ is called the \textbf{outer measure on $X$ induced by $\rho$}.
+
+	\begin{defn}
+		Let $X$ be a set and $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. We define the \tbf{outer measure on $X$ induced by $\rho$}, denoted $\rho^*:\MP(X) \rightarrow [0, \infty]$, by 
+		$$\rho^*(A) = \inf \bigg \{\sum_{n \in \N}\rho(E_n): (E_n)_{n \in \N} \subset \ME \text{ and }A \subset \bigcup_{n \in \N}E_n \bigg \}$$ 
 	\end{defn}
 	
-	\begin{thm}
-		Let $X$ be a set and $\mu^*$ an outer measure on $X$. Define $\MA = \{A \subset X: A \text{ is }\mu^*\text{-measurable}\}$. Then $\MA$ is a $\sig$-algebra on $X$ and $\mu^*|_{\MA}$ is a complete measure on $(X, \MA)$.
-	\end{thm}
+	\begin{ex}\textbf{Construction of Outer Measures:} \\
+		Let $X$ be a set and $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. Then $\rho^*$ is an outer measure on $X$.
+	\end{ex}
+
+	\begin{proof}For $A \subset \MP(X)$, set 
+		$$V(A) = \bigg \{\sum_{n \in \N}\rho(E_n): (E_n)_{n \in \N} \subset \ME \text{ and }A \subset \bigcup_{n \in \N}E_n \bigg \}$$
+		\begin{enumerate}
+			\item Since $\rho(\varnothing) = 0$, 
+			\begin{align*}
+				\rho^*(\varnothing) 
+				& =  \inf V(\varnothing) \\
+				& \leq \rho(\varnothing) \\
+				& = 0
+			\end{align*}
+			So $\rho^*(\varnothing) = 0$.
+			\item Let $A,B \subset X$. Suppose that $A \subset B$. Let $a \in V(B)$. Then there exist $(E_n)_{n \in \N} \subset \ME$ such that $B \subset \bigcup\limits_{n \in \N} E_n$ and $a = \sum\limits_{n \in \N} \rho(E_n)$. Then 
+			\begin{align*}
+				A
+				& \subset B \\
+				& \subset  \bigcup\limits_{n \in \N} E_n \\
+			\end{align*}
+			Hence $a \in V(A)$. Since $a \in V(B)$ is arbitrary, we have that $V(B) \subset V(A)$. Thus 
+			\begin{align*}
+				\rho^*(A)
+				& = \inf V(A) \\
+				& \leq \inf V(B) \\
+				& = \rho^*(B)
+			\end{align*}
+			\item Let $(A_n)_{n \in \N} \subset \MP(X)$. Suppose that there exists $n_0 \in \N$ such that $\rho^*(A_n)= \infty$. Then 
+			\begin{align*}
+				\infty 
+				& = \rho^*(A_{n_0}) \\
+				& \leq \rho^*\bigg(  \bigcup\limits_{n \in \N}A_n \bigg)
+			\end{align*}
+			Therefore
+			\begin{align*}
+				\rho^* \bigg( \bigcup_{n \in \N} A_n \bigg)
+				& = \infty \\
+				& = \sum_{n \in \N} \rho^*(A_n)
+			\end{align*}
+			Suppose that for each $n \in \N$, $\rho^*(A_n) < \infty$. Let $\ep > 0$. Then for each $n \in \N$, there exists $(E_{n,j})_{j \in \N} \subset \ME$ such that $A_n \subset \bigcup\limits_{j \in \N} E_{n,j}$ and
+			$$\sum_{j \in \N} \rho(E_{n,j}) < \rho^*(A_n) + \ep2^{-n}$$
+			Then $(E_{n,j})_{n,j \in \N} \subset \ME$ and 
+			\begin{align*}
+				\sum_{n,j \in \N} \rho(E_{n,j}) 
+				& = \sum_{n \in \N} \bigg[ \sum_{j \in \N} \rho(E_{n,j})  \bigg] \\
+				& \leq \sum_{n \in \N} (\rho^*(A_n) + \ep 2^{-n}) \\
+				& = \sum_{n \in \N} \rho^*(A_n) + \ep
+			\end{align*}
+			This implies that 
+			\begin{align*}
+				\rho^* \bigg( \bigcup\limits_{n \in \N} A_n \bigg) 
+				& = \inf V \bigg( \bigcup\limits_{n \in \N} A_n \bigg) \\
+				& \leq \sum_{n,j \in \N} \rho(E_{n,j})  \\
+				& \leq \sum_{n \in \N} \rho^*(A_n) + \ep
+			\end{align*}
+		 	Since $\ep >0$ is arbitrary, we have that
+		 	$$\rho^* \bigg( \bigcup\limits_{n \in \N} A_n \bigg) \leq \sum_{n \in \N} \rho^*(A_n)$$
+		\end{enumerate}
+		Hence $\rho^*$ is an outer measure on $X$.
+	\end{proof}
+	
+	\begin{note}
+		In particular, for each $A \in \ME$, $\rho^*(A) = \rho(A)$.
+	\end{note}
+
+	\begin{defn}
+		Let $X$ be a set and $\nu$ and outer measure on $X$. We define $\MA_{\nu} = \{A \subset X: A \text{ is }\nu \text{-measurable}\}$. 
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a set and $\nu$ an outer measure on $X$. Define $\MA_{\nu}$ is a $\sig$-algebra on $X$ and $\nu|_{\MA}$ is a complete measure on $(X, \MA)$.
+	\end{ex}
+	
+	\begin{proof}
+		\tcb{FINISH!!!}
+	\end{proof}
 	
 	\begin{defn} \ld{00000} 
 		Let $X$ be a set, $\MA_0$ be an algebra on $X$ and $\mu_0:\MA_0 \rightarrow [0, \infty]$. Then $\mu_0$ is said to be a \textbf{premeasure on $(X,\MA_0)$} if 
@@ -2780,10 +2859,139 @@
 	\end{note}
 	
 	\begin{thm}
-		Let $X$ be a set, $\MA_0$ an algebra on $X$, $\mu_0$ a premeasure on $(X,\MA_0)$ and $\mu^*$ the outer measure on $X$ induced by $\mu_0$. Put $\MA = \sig(\MA_0)$. If $\mu_0$ is $\sig$-finite, then there exists a unique measure $\mu$ on $(X, \MA)$ such that $\mu|_{\MA_0} = \mu^*|_{\MA_0} = \mu_0$. 
+		Let $X$ be a set, $\MA_0$ an algebra on $X$ and $\mu_0$ a premeasure on $(X,\MA_0)$. Set $\MA = \sig(\MA_0)$. If $\mu_0$ is $\sig$-finite, then there exists a unique measure $\mu$ on $(X, \MA)$ such that $\mu|_{\MA_0} = \mu_0^*|_{\MA_0} = \mu_0$. 
 	\end{thm}
 	
 	
+	
+	
+	\begin{defn}
+		Let $X$ be a set, $\mu$ an outer measure on $X$, $\MF \subset \MP(X)$ and $A \subset X$. Then $\MF$ is said to \tbf{$\mu$-cover $A$} if 
+		$$\mu \bigg(A \setminus \bigg[ \bigcup_{F \in \MF} F \bigg] \bigg) = 0$$
+	\end{defn}
+	
+	
+	
+	
+	
+	\begin{defn}
+		Let $(X, \MA)$ be a measurable space, $\mu,\nu$ measures on $(X, \MA)$. We define $\nu_{\mu}: \MP(X) \rightarrow \C$ by 
+		$$\nu_{\mu}(A) = \inf \{\nu(E): E \in \MA \text{ and $E$ $\mu^*$-covers $A$} \}$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $(X, \MA)$ be a measurable space, $\mu,\nu$ measures on $(X, \MA)$. Then $\nu_{\mu}$ is an outer measure on $X$.
+	\end{ex}
+	
+	\begin{proof} For each $A$ set $V(A) = \{\nu(E): E \in \MA \text{ and $E$ $\mu^*$-covers $A$} \}$.
+		\begin{enumerate}
+			\item Since $\varnothing \in \MA$ and $\varnothing$ $\mu$-covers $\varnothing$, we have that
+			\begin{align*}
+				\nu_{\mu}(\varnothing) 
+				& = \inf V(\varnothing) \\
+				& \leq \nu(\varnothing) \\
+				& = 0
+			\end{align*}
+			Hence $\nu_{\mu}(\varnothing) = 0$. 
+			\item Let $A, B \in \MP(X)$. Suppose that $A \subset B$. Let $a \in V(B)$. Then there exists $E \in \MA$ such that $E$ $\mu^*$-covers $B$ and $a = \nu(E)$. Since $A \subset B$, we have that $A \cap E^c \subset B \cap E^c$. Therefore
+			\begin{align*}
+				\mu^*(A \setminus E)
+				& \leq \mu^*(B \setminus E) \\
+				& = 0
+			\end{align*}
+			Hence $E$ $\mu^*$-covers $A$. Thus 
+			\begin{align*}
+				a
+				& = \nu(E) \\
+				& \in V(A)
+			\end{align*}
+			Since $a \in V(B)$ is arbitrary, $V(B) \subset V(A)$. Hence 
+			\begin{align*}
+				\nu_{\mu}(A)
+				& = \inf V(A) \\
+				& \leq \inf V(B) \\
+				& = \nu_{\mu}(B)
+			\end{align*}
+			\item Let $(A_n)_{n \in \N} \subset \MP(X)$.  Suppose that there exists $n_0 \in \N$ such that $\nu_{\mu}(A_n) = \infty$. Then 
+			\begin{align*}
+				\infty 
+				& = \nu_{\mu}(A_{n_0}) \\
+				& \leq \nu_{\mu}\bigg(  \bigcup\limits_{n \in \N}A_n \bigg)
+			\end{align*}
+			Therefore
+			\begin{align*}
+				\nu_{\mu} \bigg( \bigcup_{n \in \N} A_n \bigg)
+				& = \infty \\
+				& = \sum_{n \in \N} \nu_{\mu}(A_n)
+			\end{align*}
+			Suppose that for each $n \in \N$, $\nu_{\mu}(A_n) < \infty$. Let $\ep > 0$. Then for each $n \in \N$, there exists $E_n \in \MA$ such that $E_n$ $\mu^*$-covers $A_n$ and $\nu(E_n) < \nu_{\mu}(A_n) + \ep 2^{-n}$. We observe that $\bigcup_{n \in \N} E_n \in \MA$ and 
+			\begin{align*}
+				\bigg( \bigcup_{n \in \N} A_n \bigg)  \setminus  \bigg( \bigcup_{j \in \N} E_j \bigg)
+				& =  \bigg( \bigcup_{n \in \N} A_n \bigg) \cap 	\bigg( \bigcup_{j \in \N} E_j \bigg)^c \\
+				& =  \bigg( \bigcup_{n \in \N} A_n \bigg) \cap 	\bigg( \bigcap_{j \in \N} E_j^c \bigg) \\
+				& =  \bigcup_{n \in \N}  \bigg( A_n  \cap \bigg[ \bigcap_{j \in \N} E_j^c \bigg] \bigg) \\
+				& \subset \bigcup_{n \in \N}  [ A_n  \cap E_n^c ] \\
+				& = \bigcup_{n \in \N}  [ A_n  \setminus E_n ] \\
+			\end{align*}
+			This implies that 
+			\begin{align*}
+				\mu^* \bigg[ \bigg( \bigcup_{n \in \N} A_n \bigg)  \setminus  \bigg( \bigcup_{j \in \N} E_j \bigg) \bigg]
+				& \leq \mu^* \bigg( \bigcup_{n \in \N}  [ A_n  \setminus E_n ] \bigg)  \\ 
+				& \leq \sum_{n \in \N} \mu^*(A_n \setminus E_n) \\
+				& = 0
+			\end{align*}
+			so that $ \bigcup\limits_{n \in \N} E_n$ $\mu^*$-covers $\bigcup\limits_{n \in \N} A_n$. Therefore 
+			\begin{align*}
+				\nu_{\mu} \bigg( \bigcup_{n \in \N} A_n \bigg) 
+				& = \inf V \bigg( \bigcup_{n \in \N} A_n \bigg) \\  
+				& \leq \nu \bigg( \bigcup_{n \in \N} E_n \bigg) \\
+				& \leq \sum_{n \in \N} \nu(E_n) \\
+				& \leq \sum_{n \in \N} [\nu_{\mu}(A_n) + \ep 2^{-n}] \\
+				& = \sum_{n \in \N} \nu_{\mu}(A_n) + \ep 
+			\end{align*}
+			Since $\ep >0$ is arbitrary, 
+			$$ \nu_{\mu} \bigg( \bigcup_{n \in \N} A_n \bigg)  \leq \sum_{n \in \N} \nu_{\mu}(A_n) $$
+		\end{enumerate} 
+		Hence $\nu_{\mu}$ is an outer measure on $X$.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Subspace Measures}
+	
+	\begin{defn}
+		Let $(X, \MA, \mu)$ be a measure space and $E \in \MA$. Then $\MA \cap E \subset \MA$. We define the \tbf{subspace measure on $E$}, denoted $\mu|_E: \MA \cap E \rightarrow \RG$, by 
+		$$\mu|_E(A) = \mu(A)$$
+	\end{defn}
 	
 	
 	
@@ -5103,7 +5311,89 @@
 	
 	
 	
+	\newpage
+	\section{Differentiation on ?? Spaces}
 	
+	
+	\subsection{Covering Lemmas}
+	
+	\begin{note}
+		Let $X$ be a set. In what follows, we equip $X \times \MP(X)$  with the standard projection maps $\pi_1: X \times \MP(X) \rightarrow X$ and $\pi_2: X \times \MP(X) \rightarrow \MP(X)$. 
+	\end{note}
+	
+	\begin{defn}
+		Let $(X,d)$ be a metric space. 
+		\begin{itemize}
+			\item Let $\MC \subset X \times \MP(X)$. Then $\MC$ is said to be a \tbf{covering relation} on $X$ if for each $A \in X \times \MP(X)$, 
+			$$\pi_1(A) \in \pi_2(A)$$ 
+			i.e. if for each $(x, S) \in \MC$, $x \in S$.
+			\item Let $\MC$ be a covering relation on $X$ and $Z \subset X$. We define the restriction of $\MC$ to $Z$, denoted $\MC|_Z$, by 
+			$$\MC|_Z = \pi_1|_{\MC}^{-1}(Z)$$
+			i.e. $\MC|_Z = \{(x, S) \in \MC: x \in Z\}$.
+			\item Let $\MC$ be a covering relation on $X$ and $x \in \pi_1(\MC)$. Then $\MC$ is said to be \tbf{fine} at $x$ if 
+			$$\inf\limits_{S \in \pi_2(\MC|_x)} \diam(S) = 0$$
+			i.e. if $\inf \{\diam(S): (x,S) \in \MC\} = 0$.
+		\end{itemize} 
+	\end{defn}
+
+	\begin{defn}
+		Let $(X, d)$ be a metric space, $\mu \in \MM(X)$ and $\MV$ be a covering relation on $X$. Then $\MV$ is said to be \tbf{$\mu$-Vitali} if 
+		\begin{enumerate}
+			\item $\pi_2(\MV) \subset \MB(X)$
+			\item for each $x \in X$, $\MV$ is fine at $x$
+			\item for each $\MC \subset \MV$ and $Z \subset \pi_1(\MC)$, if for each $x \in Z$, $\MC$ is fine at $x$, then there exists $\MF \subset \pi_2(\MC|_Z)$ such that 
+			\begin{enumerate}
+				\item $\MF$ is countable
+				\item $\MF$ is disjoint
+				\item $\MF$ $\mu$-covers $Z$ 
+			\end{enumerate}
+		\end{enumerate}
+	\end{defn}
+
+
+
+	\begin{ex}
+		Let $(X, d)$ be a separable metric space and $\MP:\N \rightarrow \Part(X)$. Suppose that $X$ is separable and  
+		\begin{enumerate}
+			\item for each $n \in \N$, $\MP_n \subset \MB(X)$ and $\MP_n$ is countable
+			\item $\MP$ is decreasing \tcb{as in analysis notes - ultrametric spaces}
+			\item $\limsup\limits_{n \rightarrow \infty} \bigg[ \sup\limits_{S \in \MP_n} \diam(S) \bigg]  = 0$
+		\end{enumerate}
+		Set $\MV(\MP) = \bigg \{(x, S): S \in \bigcup\limits_{n \in \N}\MP_{n} \text{ and $x \in S$} \bigg\}$. Then $\MV(P)$ is $\mu$-Vitali
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item We have that 
+			\begin{align*}
+				\pi_2(\MV(\MP))
+				& \subset \bigcup_{n \in \N} \MP_n \\
+				& \subset \MB(X)
+			\end{align*}
+			\item Let $x \in X$ and $\ep >0$. Suppose Since $\limsup\limits_{n \rightarrow \infty} \bigg[ \sup\limits_{S \in \MP_n} \diam(S) \bigg]  = 0$, there exists $N \in \N$ such that for each $n \geq N$ and $S \in \MP_n$, $\diam(S)< \ep$. Since $\MP_N$ is a partition, there exists $S_x \in \MP_N$, such that $x \in S_x$. Then 
+			\begin{align*}
+				\inf\limits_{S \in \pi_2(\MC|_x)} \diam(S)
+				& \leq \diam(S_x) \\
+				& < \ep 
+			\end{align*} 
+			Since $\ep > 0$ is arbitrary, $\inf\limits_{S \in \pi_2(\MC|_x)} \diam(S) = 0$. Hence $\MC$ is fine at $x$.  
+			\item Let $\MC \subset \MV(\MP)$ and $Z \subset \pi_1(\MC)$. Suppose that for each $x \in Z$, $\MC$ is fine at $x$. Let $z \in Z$. \tcb{Define $\pi_n: X \rightarrow X/ \sim_n$ as in the analysis notes -ultrametric spaces.} Since $Z \subset \pi_1(\MC)$, there exists $n \in \N$ such that $\pi_n(z) \in \MC$. Set $n_z = \min \{n \in \N: \pi_n(z) \in \MC \}$. Then $\{\pi_{n_z}(z): z \in Z\}$ is a disjoint cover of $Z$. \\
+			\tcb{FINISH!!!: WTS this set is countable or can take a countable subcover using separability that $\mu$-covers $Z$}. I think the interiors of $\pi_{n_z}(z)$ need to be nonempty. 
+			
+			Since $X$ is separable, $Z$ is separable. Thus, there exists $(z_j)_{j \in \N} \subset Z$ such that $(z_j)_{j \in \N}$ is dense in $Z$.
+			\begin{enumerate}
+				\item Choose
+				\item 
+				\item 
+			\end{enumerate}
+		\end{enumerate}
+	\end{proof}
+
+
+
+	
+
+
 	
 	
 	\newpage
@@ -5119,6 +5409,10 @@
 	
 	\begin{defn} \ld{00000} 
 		For $f \in \Ll$, $r>0$, $x \in \R^n$, we define the \textbf{average of $f$ over $B(x,r)$}, denoted by $Af(x,r)$, to be $$Af(x,r) = \frac{1}{m(B(x,r))}\int_{B(x,r)}f\dm$$
+	\end{defn}
+
+	\begin{defn} \ld{00000} 
+		Let $f \in \Ll$. We define its \textbf{Hardy-Littlewood maximal function}, denoted by $Hf$ to be $$Hf(x) = \sup_{r>0} A|f|(x,r) \hspace{4mm} x \in \R^n$$
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
@@ -5143,10 +5437,6 @@
 	\begin{lem}
 		Let $f \in \Ll$, then $Af:\R^n \times (0, \infty)\rightarrow \R$ is continuous.
 	\end{lem}
-	
-	\begin{defn} \ld{00000} 
-		Let $f \in \Ll$. We define its \textbf{Hardy Littlewood maximal function}, denoted by $Hf$ to be $$Hf(x) = \sup_{r>0} A|f|(x,r) \hspace{4mm} x \in \R^n$$
-	\end{defn}
 	
 	\begin{thm}
 		There exists $C >0$ such that for each $f \in L^1(m)$ and $\al > 0$, $$m(\{x \in \R^n: Hf(x) > \al\}) \leq \frac{C}{a} \int |f|\dm$$
@@ -6523,6 +6813,11 @@
 	
 	
 	
+	
+	
+	
+	
+	
 
 	
 	
@@ -6530,7 +6825,7 @@
 	\newpage
 	\chapter{Borel Measures}
 	
-	\section{Radon Measures}
+	\section{Introduction}
 	
 	\begin{defn} \ld{00000} 
 	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a measure and $E \in \MB(X)$. Then $\mu$ is said to be 
@@ -6551,7 +6846,85 @@
 	\item  \textbf{regular} if $\mu$ is inner regular and $\mu$ is outer regular
 	\end{enumerate}
 	\end{defn}
+
+	\begin{ex}
+		Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a measure. If 
+	\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+	\subsection{Borel Outer Measures}
 	
+	\begin{defn}
+		Let $X$ be a topological space and $\mu$ and outer measure on $X$. Then $\mu$ is said to be \tbf{Borel} if $\MB(X) \subset \MA_{\mu}$. 
+	\end{defn}
+
+	\begin{note}
+		We recall $\nu_{\mu}$ from the section on outer measures. \\
+		\tcb{FINISH!!!}
+	\end{note}
+	
+	\begin{ex}
+		Let $\mu, \nu$ be Radon measures. Then for each $A \in \MB(X)$,  
+		$$\nu_{\mu}(A) = \inf \{\nu(U): \text{ $U \subset X$ is open and $U$ $\mu$-covers $A$} \}$$
+	\end{ex}
+
+	\begin{proof}
+		For each $A \subset X$, set 
+		$$V(A) = \{\nu(U): \text{ $E \in \MB(X)$ and $U$ $\mu$-covers $A$} \}$$ 
+		and  
+		$$V'(A) = \{\nu(U): \text{ $U \subset X$ is open and $U$ $\mu$-covers $A$} \}$$
+		Since $V'(A) \subset V(A)$, we have that 
+		\begin{align*}
+			\nu_{\mu}(A) 
+			& = \inf V(A) \\
+			& \leq \inf V'(A) 
+		\end{align*}
+		Let $A \subset X$. Let $\ep > 0$. Then there exists $E \in \MB(X)$ such that $\mu(A \setminus E) = 0$ and $\nu(E) < \nu_{\mu}(A) + \ep/2$. Since $\nu$ is outer regular on $E$, there exists $U \subset X$ such that $U$ is open and $\nu(U) < \nu(E) + \ep/2$. Since $E \subset U$, we have that $U^c \subset E^c$ which implies that 
+		\begin{align*}
+			\mu(A \setminus U)
+			& = \mu(A \cap U^c) \\
+			& \leq \mu(A \cap E^c) \\
+			& = \mu(A \setminus E) \\
+			& = 0
+		\end{align*}
+		Hence $U$ $\mu$-covers $A$ and therefore
+		\begin{align*}
+			\inf V'(A)
+			& \leq \nu(U) \\
+			& < \nu(E) + \ep/2 \\
+			& < \nu_{\mu}(A) + \ep 
+		\end{align*} 
+		Since $\ep >0$ is arbitrary, $\inf V'(A) \leq \nu_{\mu}(A)$. Thus $\nu_{\mu}(A) = \inf V'(A)$. 
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Radon Measures}
 	\begin{defn} \ld{00000} 
 	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a measure and $E \in \MB(X)$. Then $\mu$ is said to be a \textbf{Radon measure} if for each $E \in \MB(X)$, 
 	\begin{enumerate}
@@ -6562,7 +6935,7 @@
 	\end{defn}
 
 	\begin{defn}
-		Let $X$ be a topological space, $\mu \in \MM(X)$. Then $\mu$ is said to be \textbf{Radon} if $\|\mu\|$ is Radon.  
+		Let $X$ be a topological space, $\mu \in \MM(X)$. Then $\mu$ is said to be \textbf{Radon} if $|\mu|$ is Radon.  
 	\end{defn}
 	
 	\begin{ex} \lex{00000} 
@@ -7032,8 +7405,30 @@ and $\mu$ is inner regular on $E$.
 	\begin{proof}
 		Clear by preceeding exercises.
 	\end{proof}
+
+
+	\begin{note}
+		Recall definition of $\nu_\mu$. We will mean the restriction of $\nu_{\mu}$ to $\MB(X)$.
+	\end{note}
+
+	\begin{ex}
+		Suppose that $\nu$ is Radon. Show that $\nu_{\mu}(E) = \nu(E \cap \supp \mu)$ for each $E \in \MB(X)$
+	\end{ex}
+
+
+	\begin{ex}
+		Suppose that $\mu$ is Radon. Then $\nu_{\mu}: \MB(X) \rightarrow \RG$ is Radon. Show that $\nu_{\mu}(E) = \nu(E \cap \supp \mu)$ for each $E \in \MB(X)$. 
+	\end{ex}
+
+
+
+
+
+
+
+
 	
-	
+	\subsection{Weak* Convergence}
 	\begin{defn}
 		Let $X$ be a topological space. For $f \in C_b(X)$, define $\lam_f: \MM(X) \rightarrow \C$ by $$\lam_f(\mu) = \int f \dmu$$.
 	\end{defn}

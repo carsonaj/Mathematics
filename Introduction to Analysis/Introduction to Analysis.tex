@@ -2941,6 +2941,7 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 \begin{defn} \ld{}
 	Let $X$ be a set and $d: X \times X \rightarrow \R$. Then $d$ is said to be a \tbf{metric on $X$} if for each $x,y,z \in X$, 
 	\begin{enumerate}
+		\item $d(x,y) = d(y,x)$
 		\item $d(x,y) = 0$ iff $x = y$
 		\item $d(x, y) \leq d(x, z) + d(z, y)$
 	\end{enumerate}	 
@@ -3001,6 +3002,19 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 		Clear.
 	\end{proof}
 
+
+
+\begin{defn}
+	Let $(X,d)$ be a metric space and $S \subset X$. Then $S$ is said to be \tbf{discrete} if for each $x \in X$, there exists $r > 0$ such that $B(0, r) \cap X = \{x\}$. 
+\end{defn}
+
+\begin{ex}
+	Let $(X, d)$ be a metric space and $S \subset X$. Then $S$ is discrete iff $\MT_{d|_S} = \MT_{dscrt(X)}$.   
+\end{ex}
+
+\begin{proof}
+	\tcb{FINISH!!!}
+\end{proof}
 
 
 \newpage
@@ -3608,7 +3622,423 @@ Then $V_{\ep}^o \in \MN_{x_0}$ is open and
 
 Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in \N}$, where for each $j$ and $E \in \MP_j$, there exists $\ME \subset \MP_{j+1}$ such that $E = \bigcup_{F \in \MR} F$. Then set $d(x, y) = 2^{-n}$ if $n = \max(j \in \N: \text{there exists $E \in \MP_j:$ such that $x,y \in E$})$.
 
+\begin{defn}
+	Let $X$ be a set and $d:X \times X \rightarrow \Rg$. Then $d$ is said to be and \tbf{ultrametric on $X$} if for each $x, y, z \in X$,
+	\begin{enumerate}
+		\item \tbf{(symmetry):} $d(x,y) = d(y,x)$
+		\item \tbf{(definiteness):} $d(x,y) = 0$ iff $x= y$
+		\item \tbf{(strong triangle inequality):} $d(x,z) \leq \max(d(x,y), d(y,z))$ 
+	\end{enumerate} 
+ \end{defn}
 
+\begin{ex}
+	Let $X$ be a set and $d$ an ultrametric on $X$. Then $d$ is a metric on $X$.
+\end{ex}
+
+\begin{proof}
+	Let $x,y,z \in X$. Since $(d(x,y) , d(y,z) \geq 0$, we have that $d(x,y), d(y,z) \leq  d(x,y) + d(y,z)$. Therefore
+	\begin{align*}
+		d(x,y)
+		& \leq \max(d(x,y) , d(y,z)) \\
+		& \leq  d(x,y) + d(y,z)
+	\end{align*}
+\end{proof}
+
+\begin{defn}
+	Let $X$ be a set and $d$ an ultrametric on $X$. Then $(X, d)$ is said to be an \tbf{ultrametric space}.
+\end{defn}
+
+\begin{ex} \tbf{Isosceles Triangle Property:} \\
+	Let $(X,d)$ be an ultrametric space and $x,y, z \in X$. 
+	\begin{enumerate}
+		\item If $d(x,y) < d(y,z)$, then 
+		\begin{align*}
+			d(y,z)
+			& = d(x,z) \\
+			& = \max(d(x,y), d(y,z)) \\
+			& = \max(d(x,y), d(x,z))
+		\end{align*}
+		\item If $d(x,y) \neq d(y,z)$, then $d(x,y) = \max(d(x,y), d(y,z))$.
+	\end{enumerate} 
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item  $d(x,y) < d(y,z)$. Then 
+		\begin{align*}
+			d(x,z)
+			& \leq \max(d(x,y), d(y,z)) \\
+			& = d(y,z)
+		\end{align*}
+		For the sake of contradiction, suppose that $d(x,z) \leq d(x,y)$. Since $d(x,y) < d(y,z)$, we have that 
+		\begin{align*}
+			d(y,z) 
+			\leq \max(d(x,y), d(x,z)) \\
+			= d(x, y) \\
+			& < d(y, z)
+		\end{align*}
+		which is a contradictiton. Hence $d(x, y) < d(x,z)$. Therefore, we have that 
+		\begin{align*}
+			d(x,z)
+			& \leq \max(d(x,y), d(y,z)) \\
+			& = d(y,z) \\
+			& \leq \max(d(y, x), d(x, z)) \\
+			& = d(x, z) \\
+		\end{align*}
+		Hence
+		\begin{align*}
+			d(y,z)
+			& = d(x,z) \\
+			& = \max(d(x,y), d(y,z)) \\
+			& = \max(d(x,y), d(x,z))
+		\end{align*}
+		and we have the following isosceles triangle: 
+		\[ 
+		\begin{tikzcd}
+			& z \arrow[dddr, dash, "{d(x, z)}"] \arrow[dddl, dash, "{d(y,z)}"']& \\
+			& & \\
+			& & \\
+			y  \arrow[rr, dash, "{d(x,y)}"']  & & x 
+		\end{tikzcd}
+		\] 
+		\item Suppose that $d(x,y) \neq d(y,z)$. \\
+		If $d(x,y) < d(y,z)$, then part $(1)$ implies that $d(x,z) = \max(d(x,y), d(y,z))$. \\
+		Suppose that $d(y,z) < d(x,y)$. Then $d(z,y) < d(y, x)$. If we permute $x$ and $z$ in part $(1)$, we see that
+		\begin{align*}
+			d(x,z) 
+			& = \max(d(z,y), d(y,x)) \\
+			& = \max(d(x,y), d(y,z))
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Let $(X,d)$ be an ultrametric space and $r > 0$. We define the 
+	\begin{itemize}
+		\item \tbf{open $r$-ball relation} on $X$, denoted $\sim_r \subset X \times X$ by $x \sim_r y$ iff $d(x,y) < r$
+		\item \tbf{closed $r$-ball relation} on $X$, denoted $\simeq_r \subset X \times X$ by $x \simeq_r y$ iff $d(x,y) \leq r$
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $(X,d)$ be an ultrametric space and $r > 0$. Then
+	\begin{enumerate}
+		\item $\sim_r$ is an equivalence relation on $X$
+		\item $\simeq_r$ is an equivalence relation on $X$. 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item  Let $x \in X$. Since 
+			\begin{align*}
+				d(x,x) 
+				& = 0 \\
+				& < r
+			\end{align*}
+			we have that $x \sim_r x$. 
+			\item Let $x,y \in X$. Suppose that $x \sim_r y$. Then $d(x,y) < r$. This implies that
+			\begin{align*}
+				d(y,x) 
+				& = d(x,y) \\
+				& < r
+			\end{align*}
+			So $y \sim_r x$.
+			\item Let $x,y,z \in X$. Suppose that $x \sim_r y$ and $y \sim_r z$. Then $d(x,y) < r$ and $d(y,z) < r$. The strong triangle inequality implies that
+			\begin{align*}
+				d(x,z) 
+				& \leq \max(d(x,y), d(y,z)) \\
+				& < r
+			\end{align*}
+			Hence $x \sim_r z$.
+		\end{enumerate}
+		\item 
+		\begin{enumerate}
+			\item  Let $x \in X$. Since 
+			\begin{align*}
+				d(x,x) 
+				& = 0 \\
+				& \leq r
+			\end{align*}
+			we have that $x \simeq_r x$. 
+			\item Let $x,y \in X$. Suppose that $x \simeq_r y$. Then $d(x,y) \leq r$. This implies that
+			\begin{align*}
+				d(y,x) 
+				& = d(x,y) \\
+				& \leq r
+			\end{align*}
+			So $y \simeq_r x$.
+			\item Let $x,y,z \in X$. Suppose that $x \simeq_r y$ and $y \simeq_r z$. Then $d(x,y) \leq r$ and $d(y,z) \leq r$. The strong triangle inequality implies that
+			\begin{align*}
+				d(x,z) 
+				& \leq \max(d(x,y), d(y,z)) \\
+				& \leq r
+			\end{align*}
+			Hence $x \simeq_r z$.
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Let $(X, d)$ be an ultrametric space and $r > 0$. We denote
+	\begin{itemize}
+		\item the projection of $X$ onto $X/ \sim_r$ by $\pi^d_r: X \rightarrow X/ \sim_r$
+		\item the projection of $X$ onto $X/ \simeq_r$ by $\bar{\pi}^d_r: X \rightarrow X/ \simeq_r$
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $(X, d)$ be an ultrametric space, $x \in X$ and $r >0$. Then 
+	\begin{enumerate}
+		\item $\pi^d_r(x) = B(x, r)$
+		\item $\bar{\pi}^d_r(x) = \bar{B}(x, r)$.
+	\end{enumerate} 
+\end{ex}
+
+\begin{proof} \
+	\begin{enumerate}
+		\item For each $y \in X$,
+		\begin{align*}
+			y \sim_r x
+			& \iff d(x,y) < r \\
+			& \iff y \in B(x, r)
+		\end{align*}
+		so that $\pi^d_r(x) = \bar{B}(x,r)$.
+		\item For each $y \in X$,
+		\begin{align*}
+			y \sim_r x
+			& \iff d(x,y) \leq r \\
+			& \iff y \in \bar{B}(x, r)
+		\end{align*}
+		so that $\bar{\pi}^d_r(x) = \bar{B}(x,r)$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $(X, d)$ be an ultrametric space, $x,y \in X$ and $s \in \Rg$. If $y \in \bar{B}(x, s)$, then for each $r \in \Rg$, $r \leq s$ implies that $\bar{B}(y, r) \subset \bar{B}(x, s)$. 
+\end{ex}
+
+\begin{proof}
+	Suppose that $y \in \bar{B}(x, s)$. Let $r \in \Rg$. Suppose that $r \leq s$. Let  
+	\begin{align*}
+		z 
+		& \in \bar{B}(y, r) \\
+		& \subset \bar{B}(y, s)
+	\end{align*}
+	Then $z \simeq_s y$. Since $y \simeq_s x$, the previous exercise implies that $z \simeq_s x$. Hence $z \in \bar{B}(x, s)$. Since $z \in \bar{B}(y, r)$ is arbitrary, $\bar{B}(y, r) \subset \bar{B}(x, s)$. 
+\end{proof}
+
+\begin{ex}
+	Let $(X, d)$ be an ultrametric space, $x \in X$ and $r > 0$. Then 
+	\begin{enumerate}
+		\item $B(x, r)$ is closed and open
+		\item $\bar{B}(x, r)$ is closed and open
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Since $d$ is a metric, for each $y \in X$, $B(y,r)$ is open. In particular, $B(x,r)$ is open. Since $\sim_r$ is an equivalence relation, we have that 
+		$$B(x,r)^c = \bigcup\limits_{y \in B(x,r)^c} B(y, r)$$
+		which is open. Hence $B(x,r)$ is closed.
+		\item Since $d$ is a metric, $\bar{B}(x,r)$ is closed. Let $y \in \p \bar{B}(x,r)$. By definition, $d(x, y) = r$. Let $z \in B(y, r)$. Then  
+		\begin{align*}
+			d(y, z) 
+			& < r \\
+			& = d(x, y)
+		\end{align*}
+		A previous exercise implies that 
+		\begin{align*}
+			d(x, z)
+			& = \max(d(x, y), d(y,z)) \\
+			& = d(x,y) \\
+			& = r
+		\end{align*}
+		Hence $z \in \p \bar{B}(x, r)$. Since $z \in B(y, r)$ is arbitrary, $B(y, r) \subset \p \bar{B}(x, r)$. Since $B(y, r)$ is open, and $y \in \p \bar{B}(x, r)$ is arbitrary, we have that for each $y \in \p \bar{B}(x, r)$, there exists $U \subset \p \bar{B}(x, r)$ such that $U$ is open and $y \in U$. Thus $\p \bar{B}(x, r)$ is open. Therefore 
+		\begin{align*}
+			\bar{B}(x, r)
+			& = B(x,r) \cup \p \bar{B}(x, r) 
+		\end{align*} 
+		which is open.
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Let $X$ be a set. We define the \tbf{collection of partitions of $X$}, denoted $\Part(X)$, by 
+	$$\Part(X) = \{\MP \subset \MP(X): \MP \text{ is a partition of $X$}\}$$ 
+	Let $\MP: \Rgp \rightarrow \Part(X)$. 
+	\begin{itemize}
+		\item For each $r \in \Rgp$, we define the \tbf{$r$-th partition relation} on $X$, denoted $\sim_{\MP_r}$, by $x \sim_{\MP_r} y$ iff there exists $E \in \MP_r$ such that $x \in E$ and $y \in E$.
+		\item For $r \in \Rgp$, we denote the projection of $X$ onto $X/\sim_{\MP_r}$ by $\pi^{\MP}_r: X \rightarrow X/ \sim_{\MP_r}$ so that $\MP_r = \{\pi^{\MP}_r(x): x \in X\}$. 
+		\item 
+		For $x,y \in X$, we define $A^{\MP}(x,y) = \{r \in \Rgp: \pi^{\MP}_r(x) = \pi^{\MP}_r(y)\}$ and $\al^{\MP}(x,y) = \sup A^{\MP}(x,y)$. 
+	\end{itemize}
+	Then 
+	\begin{itemize}
+		\item $\MP$ is said to \tbf{separate points} if for each $x,y \in X$, $x \neq y$ implies that there exists $r > 0$ such that $\pi^{\MP}_r(x) \neq \pi^{\MP}_r(y)$
+		\item $\MP$ is said to \tbf{collect points} if for each $x,y \in X$, there exists $r >0$ such that $\pi^{\MP}_{r}(x) = \pi^{\MP}_{r}(y)$.
+		\item $\MP$ is said to be 
+		\tbf{decreasing} if for each $r,s \in \Rgp$, $r \leq s$ implies that for each $x \in X$, there exists $\MF_x \subset X$ such that $\pi^{\MP}_r(x) = \bigcup\limits_{y \in \MF_x} \pi^{\MP}_s(y)$
+		\item  $\MP$ is said to be \tbf{left-continuous} if for each $x,y \in X$, $A^{\MP}(x,y) \neq \varnothing$ and $\al^{\MP}(x,y) < \infty$ implies that $\al^{\MP}(x,y) \in A^{\MP}(x,y)$
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $X$ be a set and $\MP: \Rgp \rightarrow \Part(X)$. Suppose that $\MP$ is decreasing. Then for each $x,y \in X$ and $s \in \Rgp$, if $\pi^{\MP}_s(x) = \pi^{\MP}_s(y)$, then for each $r \in \Rgp$, $r \leq s$ implies that $\pi^{\MP}_r(x) = \pi^{\MP}_r(y)$.
+\end{ex}
+
+\begin{proof}
+	Let $x,y \in X$ and $s \in \Rgp$. Suppose that $\pi^{\MP}_s(x) = \pi^{\MP}_s(y)$. Let $r \in \Rgp$. Suppose that $r \leq s$. Since $\MP$ is decreasing, there exists $\MF_x \subset X$ such that $\pi^{\MP}_r(x) = \bigcup\limits_{z \in \MF_x} \pi^{\MP}_s(z)$. Since $\MP_s$ is a partition of $X$,  there exists $x' \in \MF_x$ such that $\pi^{\MP}_s(x') = \pi^{\MP}_s(x)$. Since $\pi^{\MP}_s(x) = \pi^{\MP}_s(y)$, we have that
+	\begin{align*}
+		 y
+		 & \in \bigcup\limits_{z \in \MF_x} \pi^{\MP}_s(z) \\
+		 & = \pi^{\MP}_r(x)
+	\end{align*}
+	Since $\MP_r$ is a partition of $X$, $\pi^{\MP}_r(y) = \pi^{\MP}_r(x)$.
+\end{proof}
+
+\begin{ex}
+	Let $X$ be a set and $\MP: \Rgp \rightarrow \Part(X)$. Suppose that $\MP$ is decreasing. Let $x,y \in X$. Suppose that there exists $r >0$ such that $\pi^{\MP}_r(x) \neq \pi^{\MP}_r(y)$. Then for each $s \geq r$, $\pi^{\MP}_s(x) \neq \pi^{\MP}_s(y)$.
+\end{ex}
+
+\begin{proof}
+	Let $x,y \in X$. Let $s \geq r$. Since $\MP$ is decreasing, there exist $\MF_x, \MF_y \subset X$ such that $\pi^{\MP}_r(x) = \bigcup\limits_{z \in \MF_x} \pi^{\MP}_s(z)$ and $\pi^{\MP}_r(y) = \bigcup\limits_{w \in \MF_y} \pi^{\MP}_s(w)$. Since $\pi^{\MP}_r(x) \cap \pi^{\MP}_r(y) = \varnothing$, we have that for each $z \in \MF_x$ and $w \in \MF_y$, $\pi^{\MP}_s(z) \cap \pi^{\MP}_s(w) = \varnothing$. Since $\MP_s$ is a partition of $X$, there exist $x' \in \MF_x$ and $y' \in \MF_y$ such that $\pi^{\MP}_s(x') = \pi^{\MP}_s(x)$ and $\pi^{\MP}_s(y') = \pi^{\MP}_s(y)$. Therefore $\pi^{\MP}_s(x) \cap \pi^{\MP}_s(y) = \varnothing$ and thus $\pi^{\MP}_s(x) \neq \pi^{\MP}_s(y)$. 
+\end{proof}
+
+\begin{ex}
+	 Let $X$ be a set and $\MP: \Rgp \rightarrow \Part(X)$. Suppose that $\MP$ separates points, collects points, is decreasing and is left-continuous. Then for each $x,y \in X$, if $x \neq y$, then $\al^{\MP}(x,y)$ exists and $A^{\MP}(x,y) = [0, \al^{\MP}(x,y)]$
+\end{ex}
+
+\begin{proof}
+	Let $x,y \in X$. Suppose that $x \neq y$. Since $\MP$ collects points, there exists $r > 0$ such that $\pi^{\MP}_r(x) = \pi^{\MP}_r(y)$. Hence $A^{\MP}(x,y) \neq \varnothing$. Since $\MP$ separates points, there exists $r > 0$ such that $\pi^{\MP}_r(x) \neq \pi^{\MP}_r(y)$. The previous exercise implies that $A^{\MP}(x,y) \subset [0, r)$. Since $A^{\MP}(x,y)$ is nonempty and bounded above, $\al^{\MP}(x,y)$ exists and $\al^{\MP}(x,y) < \infty$. By definition of the supremum, $A^{\MP}(x,y) \subset [0, \al^{\MP}(x,y)]$. Since $\MP$ is left-continuous, $\al^{\MP}(x,y) \in A^{\MP}(x,y)$. A previous exercise implies that $[0, \al^{\MP}(x,y)] \subset A^{\MP}(x,y)$. Hence $A^{\MP}(x,y) = [0, \al^{\MP}(x,y)]$.
+\end{proof}
+
+\begin{ex} \tbf{(Fundamental Example):} 
+	Let $X$ be a set and $\MP: \Rgp \rightarrow \Part(X)$. Suppose that $\MP$ separates points, collects points, is decreasing and is left-continuous. Define $d^{\MP}: X \times X \rightarrow \Rgp$ by 
+	\[
+	d^{\MP}(x,y) =
+	\begin{cases}
+			e^{-a(x,y)} & x \neq y \\
+			0 &  x = y
+		\end{cases}
+	\]
+	Then $d^{\MP}$ is an ultrametric on $X$.
+\end{ex}
+
+\begin{proof}
+	Let $x, y \in X$. 
+	\begin{enumerate}
+			\item Suppose that $x \neq y$. Since $\sim_{\MP_r}$ is symmetric, $\al^{\MP}(x,y) = \al^{\MP}(y,x)$. Hence $d^{\MP}(x,y) = d^{\MP}(y,x)$. If $x = y$, then $d^{\MP}(x,y) = d^{\MP}(y,x)$. 
+			\item By definition, $d^{\MP}(x,y) = 0$ iff $x = y$.  
+			\item If $x = z$, $x = y$ or $y=z$, then $d^{\MP}(x,z) \leq \max(d^{\MP}(x,y), d^{\MP}(y,z))$. Suppose that $x \neq z$, $x \neq y$ and $y \neq z$. Then $d^{\MP}(x,z) \neq 0$, $d^{\MP}(x,y) \neq 0$ and $d^{\MP}(y,z) \neq 0$. \\
+			Suppose that $d^{\MP}(x,y) \leq d^{\MP}(y,z)$. Then $\al^{\MP}(y,z) \leq \al^{\MP}(x,y)$. The previous exercises imply that $\al^{\MP}(y,z) \in A^{\MP}(x,y) \cap A^{\MP}(y,z)$. Hence
+			\begin{align*}
+				\pi^{\MP}_{\al^{\MP}(y,z)}(x) 
+				& = \pi^{\MP}_{\al^{\MP}(y,z)}(y) \\
+				& = \pi^{\MP}_{\al^{\MP}(y,z)}(z)
+			\end{align*}
+			Hence $\al^{\MP}(y,z) \in A^{\MP}(x, z)$. Therefore $\al^{\MP}(y,z) \leq \al^{\MP}(x,z)$ which implies that 
+			\begin{align*}
+				d^{\MP}(x,z) 
+				& \leq d^{\MP}(y,z) \\
+				& = \max(d^{\MP}(x,y), d^{\MP}(y,z))
+			\end{align*}
+			Simlilarly, if $d^{\MP}(y,z) \leq d^{\MP}(x,y)$, then 
+			\begin{align*}
+				d^{\MP}(x,z) 
+				& \leq d^{\MP}(x,y) \\
+				& = \max(d^{\MP}(x,y), d^{\MP}(y,z))
+			\end{align*}
+		\end{enumerate}
+		Hence $d^{\MP}$ satisfies the strong triangle inequality. Therefore $d^{\MP}$ is an ultrametric on $X$.  
+\end{proof}
+
+\begin{defn}
+	Let $(X, d)$ be an ultrametric space. We define $\MP^d: \Rgp \rightarrow \Part(X)$ by $$\MP^d_r = \{\bar{\pi}^d_{r^{-1}}(x): x \in X\}$$
+\end{defn}
+
+\begin{ex}
+	Let $(X, d)$ be an ultrametric space. Then 
+	\begin{enumerate}
+		\item $\MP^d$ separates points
+		\item $\MP^d$ collects points
+		\item $\MP^d$ is decreasing
+		\item $\MP^d$ is left-continuous
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Let $x, y \in X$. Suppose that $x \neq y$. Then $d(x,y) > 0$. Set $r = 2^{-1}d(x,y)^{-1}$. Then  
+		\begin{align*}
+			\pi^{\MP^d}_r(x) \cap \pi^{\MP^d}_r(y) 
+			& = \bar{B}(x,r^{-1}) \cap \bar{B}(y, r^{-1}) \\
+			& = \varnothing
+		\end{align*}
+		and therefore
+		\begin{align*}
+			\pi^{\MP^d}_r(x)
+			& \neq \pi^{\MP^d}_r(x)
+		\end{align*}
+		So $\MP^d$ separates points.
+		\item Let $x,y \in X$. Choose $r > d(x,y)$. Then 
+		\begin{align*}
+			\pi^{\MP^d}_{r^{-1}}(x) 
+			& = \bar{B}(x, r) \\
+			& = \bar{B}(y,r) \\
+			& = \pi^{\MP^d}_{r^{-1}}(y) 
+		\end{align*}
+		So $\MP^d$ collects points.
+		\item Let $r,s \in \Rgp$. Suppose that $r \leq s$. Then $s^{-1} \leq r^{-1}$. Let $x \in X$. Choose $\MF_x = \pi^{\MP^d}_r(x)$. Let $y \in \MF_x$. By definition of $\MP^d$ and a previous exercise,  
+		\begin{align*}
+			\pi^{\MP^d}_r(x) 
+			& = \pi^d_{r^{-1}}(x) \\
+			& = \bar{B}(x, r^{-1})
+		\end{align*}
+		and 
+		\begin{align*}
+			\pi^{\MP^d}_s(y) 
+			& = \pi^d_{s^{-1}}(y) \\
+			& = \bar{B}(y, s^{-1})
+		\end{align*}
+		Since $s^{-1} \leq r^{-1}$, the previous exercise implies that 
+		\begin{align*}
+			\pi^{\MP^d}_s(y) 
+			& = \bar{B}(y, s^{-1}) \\
+			& \subset \bar{B}(x, r^{-1}) \\
+			& = \pi^{\MP^d}_r(x) 
+		\end{align*} 
+		Since $y \in \MF_x$ is arbitrary, 
+		\begin{align*}
+			\pi^{\MP^d}_r(x)
+			& = \bigcup_{y \in \MF_x} \pi^{\MP^d}_s(y) 
+		\end{align*}
+		Therefore $\MP^d$ is decreasing.
+		\item Let $x,y \in X$. Suppose that $A^{\MP^d}(x,y) \neq \varnothing$ and $\al^{\MP^d}(x,y) < \infty$. Then there exists $(\al_n)_{n \in \N} \subset A^{\MP^d}(x,y)$ such that for each $n \in \N$, $\al^{\MP^d}(x,y) = \sup\limits_{n \in \N} \al_n$ and $\al_n \neq \al^{\MP^d}(x,y)$. Let $n \in \N$. Since $\al_n \in A^{\MP^d}(x,y)$, 
+		\begin{align*}
+			\pi^{\MP^d}_{\al_n}(x) = \pi^{\MP^d}_{\al_n}(y)
+			& \implies \bar{B}(x, \al_n^{-1}) = \bar{B}(y, \al_n^{-1}) \\
+			& \implies d(x,y) \leq \al_n^{-1}
+		\end{align*}
+		Since $n \in \N$ is arbitrary, 
+		\begin{align*}
+			d(x,y)
+			& \leq \inf_{n \in \N} \al_n^{-1} \\
+			& = (\sup_{n \in \N} \al_n)^{-1} \\
+			& = \al^{\MP^d}(x,y)^{-1} 
+		\end{align*}
+		Hence 
+		\begin{align*}
+			\pi^{\MP^d}_{\al^{\MP^d}(x,y)}(x)
+			& = B(x, \al^{\MP^d}(x,y)^{-1}) \\
+			& = B(y, \al^{\MP^d}(x,y)^{-1}) \\
+			& = \pi^{\MP^d}_{\al^{\MP^d}(x,y)}(y)
+		\end{align*}
+		Therefore $\al^{\MP^d}(x,y) \in A^{\MP^d}(x,y)$ and $\MP^d$ is left-continuous
+	\end{enumerate}
+\end{proof}
 
 
 
@@ -5282,10 +5712,11 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 			& = \iota(y)
 		\end{align*}
 		and $\iota$ is well defined. Define $g: \Im \phi \rightarrow \Im \psi$ by $g(y) = \tilde{\psi} \circ \iota \circ \tilde{\phi}^{-1}$. Set $\lam = g(1)$. Since $g: \C \rightarrow \C$ is linear, $g = \lam \id_{\C}$. Thus the following diagram commutates: 
-		\[ \begin{tikzcd}
+		\[ 
+		\begin{tikzcd}
 			& X_{\al} \arrow[dr, "\pi_{\psi}"] \arrow[dl, "\pi_{\phi}"'] &  \\
 			X / \ker \phi \arrow[rr, "\iota"] \arrow[d, "\tilde{\psi}"] & & X / \ker \psi  \arrow[d, "\tilde{\psi}"] \\
-			\Im \phi \arrow[rr, "g = \lam \id_{\C}"] & & \Im \psi
+			\Im \phi \arrow[rr, "g = \lam \id_{\C}"'] & & \Im \psi
 		\end{tikzcd}
 		\]
 		Hence 
