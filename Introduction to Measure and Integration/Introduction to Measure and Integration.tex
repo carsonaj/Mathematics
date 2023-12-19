@@ -3113,10 +3113,174 @@
 	\newpage
 	\section{Subspace Measures}
 	
-	\begin{defn}
-		Let $(X, \MA, \mu)$ be a measure space and $E \in \MA$. Then $\MA \cap E \subset \MA$. We define the \tbf{subspace measure on $E$}, denoted $\mu|_E: \MA \cap E \rightarrow \RG$, by 
+	\begin{defn} \ld{def:subspace_measures:00001} 
+		Let $(X, \MA)$ be a measurable space, $\mu$ a measure on $(X, \MA)$ and $E \in \MA$. We define the \tbf{restriction of $\mu$ to $E$}, denoted $\mu|_E: \MA \cap E \rightarrow \RG$, by 
 		$$\mu|_E(A) = \mu(A)$$
 	\end{defn}
+
+	\begin{ex} \lex{ex:subspace_measures:00002} 
+		Let $(X, \MA)$ be a measurable space, $\mu$ a measure on $(X, \MA)$ and $E \in \MA$. Then $\mu|_E$ is a measure on $(E, \MA \cap E)$. 
+	\end{ex}
+
+	\begin{proof}
+		Clear
+	\end{proof}
+
+	\begin{defn} \ld{def:subspace_measures:00003} 
+		Let $X$ be a set, $E \subset X$ and $\nu$ and outer measure on $X$. We define the \tbf{restriction of $\nu$ to $E$}, denoted $\nu|_E: \MP(E) \rightarrow \RG$, by 
+		$$\nu|_E(A) = \nu(A)$$
+	\end{defn}
+
+	\begin{ex} \lex{ex:subspace_measures:00004} 
+		Let $X$ be a set, $E \subset X$ and $\nu$ and outer measure on $X$. Then $\nu|_E$ is an outer measure on $E$. 
+	\end{ex}
+
+	\begin{proof}
+		Clear
+	\end{proof}
+
+	\begin{ex} \lex{ex:subspace_measures:00005} 
+		Let $(X, \MA, \mu)$ be a measure space and $E \in \MA$. Then $\mu|_E^* = \mu^*|_E$.
+	\end{ex}
+
+	\begin{proof}
+		Let $B \subset E$. Set
+		$$V(B) = \bigg \{\sum_{j \in \N} \mu(F_j): (F_j)_{j \in \N} \subset \MA \text{ and } B \subset \bigcup\limits_{j \in \N} F_j \bigg \}$$ 
+		and 
+		$$V_E(B) = \bigg \{\sum_{j \in \N} \mu|_E(F_j): (F_j)_{j \in \N} \subset \MA \cap E \text{ and } B \subset \bigcup\limits_{j \in \N} F_j \bigg \}$$
+		Since $E \in \MA$, we have that $\MA \cap E \subset \MA$. By definition, for each $F \in \MA \cap E$, $\mu|_E(F) = \mu(F)$. Hence $V_E(B) \subset V(B)$ and
+		\begin{align*}
+			\mu^*|_E(B)
+			& = \mu^*(B) \\
+			& = \inf V(B) \\
+			& \leq \inf V_E(B) \\
+			& = \mu|_E^*(B)
+		\end{align*}
+		\begin{itemize}
+			\item First, suppose that $\mu^*|_E(B) = \infty$. From before, we have that
+			\begin{align*}
+				\infty
+				& = \mu^*|_E(B) \\
+				& \leq \mu|_E^*(B) 
+			\end{align*}
+			so that 
+			\begin{align*}
+				\mu|_E^*(B)
+				& = \infty \\
+				& = \mu^*|_E(B)
+			\end{align*}
+			In particular, $\mu|_E^*(B) \leq \mu^*|_E(B)$.
+			\item Now suppose that $\mu^*|_E(B) < \infty$. Then  
+			\begin{align*}
+				\mu^*(B) 
+				& = \mu^*|_E(B) \\
+				& < \infty 
+			\end{align*}
+			Let $\ep >0$. Then there exists $(F_j)_{j \in \N} \subset \MA$ such that $B \subset \bigcup\limits_{j \in \N} F_j$ and $\sum\limits_{j \in \N} \mu(F_j) < \mu^*(B) + \ep$. We observe that $(F_j \cap E)_{j \in \N} \subset \MA \cap E$ and 
+			\begin{align*}
+				B 
+				& \subset \bigg[ \bigcup_{j \in \N} F_j \bigg] \cap E \\
+				& = \bigcup_{j \in \N} (F_j \cap E) 
+			\end{align*}
+			Hence
+			\begin{align*}
+				\mu|_E^*(B)
+				& = \inf V_E(B) \\
+				& \leq \sum_{j \in \N} \mu|_E(F_j \cap E) \\
+				& = \sum_{j \in \N} \mu(F_j \cap E) \\  
+				& \leq \sum_{j \in \N} \mu(F_j) \\
+				& < \mu^*(B) + \ep \\
+				& = \mu^*|_E(B) + \ep  
+			\end{align*}
+			Since $\ep >0$ is arbitrary, $\mu|_E^*(B) \leq \mu^*|_E(B)$. \\
+		\end{itemize}
+		Thus $\mu|_E^*(B) = \mu^*|_E(B)$. Since $B \subset E$ is arbitrary, $\mu|_E^* = \mu^*|_E$.
+	\end{proof}
+
+	\begin{ex} \lex{ex:subspace_measures:00006} 
+		Let $X$ be a set, $\nu$ an outer measures on $X$, $E, F \subset X$ and $B \subset E$. If $F$ $\nu$-covers $B$, then $F \cap E$ $\nu|_E$-covers $B$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $F$ $\nu$-covers $B$. Since $B \subset E$, we have that $B \setminus (F \cap E) \subset E$ and therefore
+		\begin{align*}
+			\nu|_E[B \setminus (F \cap E)]
+			& = \nu[B \setminus (F \cap E)] \\
+			& = \nu[B \cap (F \cap E)^c] \\
+			& = \nu[B \cap (F^c \cup E^c)] \\
+			& = \nu[(B \cap F^c) \cup (B \cap E^c)] \\
+			& = \nu[(B \cap F^c) \cup \varnothing] \\
+			& = \nu(B \cap F^c) \\
+			& = \nu(B \setminus F) \\
+			& = 0
+		\end{align*} 
+		So $F \cap E$ $\nu|_E$-covers $B$.
+	\end{proof}
+	
+	\begin{ex} \lex{ex:subspace_measures:00007} 
+		Let $(X, \MA)$ be a measurable space, $\nu, \mu$ measures on $(X, \MA)$ and $E \in \MA$. Then $\nu_{\mu}|_E = {\nu|_E}_{\mu|_E}$.  
+	\end{ex}
+	
+	\begin{proof}
+		Let $B \subset E$. Set 
+		$$V(B) = \{ \nu(F): F \in \MA\text{ and $F$ $\mu^*$-covers $B$} \}$$
+		and 
+		$$V_E(B) = \{ \nu|_E(F): F \in \MA \cap E \text{ and $F$ $\mu|_E^*$-covers $B$} \}$$
+		Let $F \in \MA \cap E$. Since $E \in \MA$,  
+		\begin{align*}
+			F
+			& \in \MA \cap E \\
+			& \subset \MA
+		\end{align*}
+		Suppose that $F$ $\mu|_E^*$-covers $B$. Since $B \subset E$, we have that $B \setminus F \subset E$. \rex{ex:subspace_measures:00005} implies that
+		\begin{align*}
+			\mu^*(B \setminus F)
+			& = \mu^*|_E(B \setminus F) \\
+			& = \mu|_E^*(B \setminus F) \\
+			& = 0
+		\end{align*} 
+		and thus $F$ $\mu^*$-covers $B$. Since $F \in \MA \cap E$ with $F$ $\mu|_E^*$-covering $B$ is arbitrary, $V_E(B) \subset V(B)$. Hence
+		\begin{align*}
+			\nu_{\mu}|_E(B) 
+			& = \nu_{\mu}(B) \\
+			& = \inf V(B) \\
+			& \leq \inf V_E(B) \\
+			& = {\nu|_E}_{\mu|_E} (B)
+		\end{align*}
+		\begin{itemize}
+			\item First, suppose that $\nu_{\mu}|_E(B)  = \infty$. From before, we have that 
+			\begin{align*}
+				\infty
+				& = \nu_{\mu}|_E(B) \\
+				& \leq {\nu|_E}_{\mu|_E} (B)
+			\end{align*} 
+			Hence 
+			\begin{align*}
+				{\nu|_E}_{\mu|_E} (B)
+				& = \infty \\
+				& = \nu_{\mu}|_E(B)
+			\end{align*}
+			In particular, ${\nu|_E}_{\mu|_E}(B) \leq \nu_{\mu}|_E(B)$.
+			\item Now suppose that $\nu_{\mu}|_E(B) < \infty$. Then 
+			\begin{align*}
+				\nu_{\mu}(B)
+				& = \nu_{\mu}|_E(B) \\
+				& < \infty 
+			\end{align*} 
+			Let $\ep >0$. Choose $F \in \MA$ such that $F$ $\mu^*$-covers $B$ and $\nu(F) < \nu_{\mu}(B) + \ep$. Then $F \cap E \in \MA \cap E$ and \rex{ex:subspace_measures:00006} implies that $F \cap E$ $\mu^*|_E$-covers $B$. \rex{ex:subspace_measures:00005} implies that $F \cap E$ $\mu|_E^*$-covers $B$. Hence 
+			\begin{align*}
+				{\nu|_E}_{\mu|_E}(B) 
+				& = \inf V_E(B) \\
+				& \leq \nu|_E(F \cap E) \\
+				& = \nu(F \cap E) \\
+				& \leq \nu(F) \\
+				& < \nu_{\mu}(B) + \ep \\
+				& = \nu_{\mu}|_E(B) + \ep 
+			\end{align*}
+			Since $\ep > 0$ is arbitrary, ${\nu|_E}_{\mu|_E}(B) \leq \nu_{\mu}|_E(B)$. 
+		\end{itemize}
+		Therefore, $\nu_{\mu}|_E(B) = {\nu|_E}_{\mu|_E}(B)$. Since $B \subset E$ is arbitrary, $\nu_{\mu}|_E = {\nu|_E}_{\mu|_E}$.
+	\end{proof}
 	
 	
 	
@@ -7008,6 +7172,65 @@
 	\end{note}
 
 	\begin{ex}
+		Let $X$ be a topological space, $\mu$ a measure on $(X, \MB(X))$ and $E \in \MB(X)$. If $\mu$ is Radon, then $\mu|_E$ is Radon. 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $U \subset E$. Suppose that $U$ is open in $E$. Then there exists $U_0 \subset X$ such that $U_0$ is open in $X$ and $U = U_0 \cap E$. Since $E \in \MB(X)$, $U \in \MB(X)$. 
+			\begin{itemize}
+				\item First, suppose that $\mu(U) = \infty$.  
+				\item Now, suppose that $\mu(U) < \infty$. Let $\ep > 0$. Outer regularity of $\mu$ implies that there exists $V_0 \subset X$ such that $V_0$ is open in $X$, $U \subset V_0$ and $\mu(V_0) < \mu(U) + \ep$. Since $U_0 \cap V_0$ is open in $X$, inner regularity of $\mu$ implies that there exists $K_0 \subset X$ such that $K_0$ is compact in $X$, $K_0 \subset U_0 \cap V_0$ and $\mu(K_0) > \mu(U_0 \cap V_0) - \ep$. Set $K = K_0 \cap E$. Then \tcb{K is compact in E?}. Since $K_0 \subset U_0 \cap V_0$, we have that 
+				\begin{align*}
+					\mu[(U_0 \cap V_0) \cap K_0] 
+					& = \mu(U_0 \cap V_0) - \mu(K_0) \\
+					& > \ep
+				\end{align*}
+				Therefore
+				\begin{align*}
+					\mu|_E(U) 
+					& = \mu(U) \\
+					& = \mu(U \cap V_0) \\
+					& = \mu(U_0 \cap V_0 \cap E) \\
+					& = \mu[(U_0 \cap V_0 \cap E) \cap K_0] + \mu[(U_0 \cap V_0 \cap E) \cap K_0^c] \\
+					& \leq \mu(K_0 \cap E) + \mu(U_0 \cap V_0 \cap K_0^c) \\
+					& = \mu(K)  + \mu(U_0 \cap V_0 \cap K_0^c) \\
+				\end{align*}
+			\end{itemize}
+			\tcb{FINISH!!!}
+			\item Let $B \in \MB(E)$. Set 
+			$$V(B) = \{\mu(U): U \subset X \text{, $U$ is open in $X$ and $B \subset U$}\}$$ 
+			and 
+			$$V_E(B) = \{\mu|_E(U): U \subset E \text{, $U$ is open in $E$ and $B \subset U$}\}$$
+			Since $\MB(E) = \MB(X) \cap E$ and $E \in \MB(X)$, there exists $A \in \MB(X)$ such that 
+			\begin{align*}
+				B 
+				& = A \cap E \\
+				& \in \MB(X) \cap E \\
+				& \subset \MB(X)
+			\end{align*}
+			\begin{itemize}
+				\item First, suppose that 
+				\item Now, suppose that $\mu(B) < \infty$. Let $\ep > 0$. Since $\mu$ is Radon, there exists $U \subset X$ such that $U$ is open in $X$, $B \subset U$ and $\mu(U) < \mu(B) + \ep$. Then $E \cap U$ is open in $E$, $B \subset U \cap E$ and 
+				\begin{align*}
+					\mu|_E(B)
+					& = \mu(B) \\
+					& \leq \mu(U) \\
+					& < \mu(B) + \ep 
+				\end{align*}
+			\end{itemize}
+			
+			
+			\item Let $K \subset E$. Suppose that $K$ is compact in $E$. Since the inclusion $\iota:E \rightarrow X$ is continuous, $K$ is compact in $X$. Since $\mu$ is Radon, we have that 
+			\begin{align*}
+				\mu|_E(K)
+				& = \mu(K) \\
+				& < \infty
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
 		Let $X$ be a topological space and $\mu, \nu$ measures on $(X, \MB(X))$. Suppose that $\mu,\nu$ are $\sig$-finite  and $\nu$ is a Radon. Set $\lam = \nu - \nu_{\mu}$. Then 
 		\begin{enumerate}
 			\item  $\lam \perp \nu_{\mu}$
@@ -7044,6 +7267,7 @@
 				& = \ep \mu(E)
 			\end{align*} 
 			which is a contradiction. Hence $\lam \perp \mu$. 
+			\tcb{FINISH!!!, do restriction of measure/outer measure stuff and do the $\sig$-finite case}
 			\item 
 		\end{enumerate}
 	\end{proof}
