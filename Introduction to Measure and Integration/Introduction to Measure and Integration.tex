@@ -453,7 +453,7 @@
 	
 	\newpage
 	
-	\chapter{Measure Spaces}
+	\chapter{Measurable Spaces}
 	
 	
 	\section{Elementary Families and Algebras}
@@ -2414,7 +2414,7 @@
 	
 	\section{Introduction}
 	
-	\begin{defn} \ld{00000} 
+	\begin{defn} \ld{def:measures:00001}
 		Let $(X, \MA)$ be a measurable space and $\mu:\MA \rightarrow \RG$. Then $\mu$ is said to be a \textbf{measure} on $(X, \MA)$ if 
 		\begin{enumerate}
 			\item there exists $A \in \MA$ such that $\mu(A)< \infty$
@@ -2422,11 +2422,11 @@
 		\end{enumerate}
 	\end{defn}
 	
-	\begin{defn} \ld{00000} 
+	\begin{defn} \ld{def:measures:00002}
 		Let $(X,\MA)$ be a measurable space and $\mu$ a measure on $(A, \MA)$. Then $(A, \MA, \mu)$ is called a \textbf{measure space}. 
 	\end{defn}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{ex:measures:00003}
 	Let $(X, \MA, \mu)$ be a measure space, $A$ and index set and $(E_{\al})_{\al \in A} \subset \MA$. Suppose that $\mu(X) < \infty$ and $(E_\al)_{\al \in A }$ is disjoint. Then $\{\al \in A: \mu(E_{\al}) >0\}$ is countable.\\
 	\textbf{Hint:} set $A_n = \{\al \in A: \mu(E_{\al}) \geq 1/n \}$ 
 	\end{ex}
@@ -2447,7 +2447,7 @@
 	which is a contradiction. So $A_>$ is countable.
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{ex:measures:00004}
 		Let $(X, \MA, \mu)$ be a measure space. Then 
 		\begin{enumerate}
 			\item (monotonicity): for each $A,B \in \MA$, if $A \subset B$, then $\mu(A) \leq \mu(B)$.
@@ -2512,7 +2512,7 @@
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{ex:measures:00005}
 		Let $(X, \MA, \mu)$ be a measure space, $(A_n)_{n \in \N} \subset \MA$ and $A \in \MA$. Then 
 		\begin{enumerate}
 			\item $\mu \bigg(\liminf\limits_{n \rightarrow \infty} A_n \bigg) \leq \liminf\limits_{n \rightarrow \infty} \mu(A_n)$
@@ -2542,7 +2542,7 @@
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{ex:measures:00006}
 		Let $(X, \MA, \mu)$ be a measure space, $(A_n)_{n \in \N} \subset \MA$ and $A \in \MA$. Suppose that $\mu\bigg(\sup\limits_{n \in \N}A_n\bigg) < \infty$. Then $A_n \rightarrow A$ implies that $\mu(A_n) \rightarrow \mu(A)$. 
 	\end{ex} 
 	
@@ -2560,11 +2560,11 @@
 		Thus $\mu(A) = \limsup\limits_{n \rightarrow \infty}\mu(A_n) = \liminf\limits_{n \rightarrow \infty}\mu(A_n)$ and $\mu(A_n) \rightarrow \mu(A)$
 	\end{proof}
 	
-	\begin{defn}
+	\begin{defn} \ld{def:measures:00007}
 		Let $(X, \MA)$ be a measurable space and $\mu: \MA \rightarrow [0, \infty]$ a measure. Then $\mu$ is said to be 
 		\begin{itemize}
 			\item \textbf{finite} if $\mu(X) < \infty$
-			\item \textbf{$\sig$-finite} if there exists $(E_j)_{j \in \N} \subset \N$ such that 
+			\item \textbf{$\sig$-finite} if there exists $(E_j)_{j \in \N} \subset \MA$ such that 
 			\begin{enumerate}
 				\item $X = \bigcup\limits_{j \in \N} E_j$
 				\item for each $j \in \N$, $\mu(E_j) < \infty$
@@ -2573,7 +2573,7 @@
 		\end{itemize}
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:measures:00008}
 		Let $(X, \MA)$ be a measurable space and $\mu: \MA \rightarrow [0, \infty]$ a measure. 
 		\begin{enumerate}
 			\item If $\mu$ is finite, then $\mu$ is $\sig$-finite. 
@@ -2616,7 +2616,49 @@
 		\end{itemize}
 	\end{proof}
 
-	\begin{defn}
+	\begin{ex} \lex{ex:measures:00009}
+		Let $(X, \MA, \mu)$ be a $\sig$-finite measure space. Then there exists $(E_n)_{n \in \N} \subset \MA$ such that 
+		\begin{enumerate}
+			\item $X = \bigcup\limits_{n \in \N} E_n$
+			\item for each $n \in \N$, $\mu(E_n) < \infty$ 
+			\item for each $n \in \N$, $E_n \subset E_{n+1}$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		Since $(X, \MA, \mu)$ is $\sig$-finite, there exists $(F_j)_{j \in \N} \subset \MA$ such that 
+		\begin{enumerate}
+			\item $X = \bigcup\limits_{j \in \N} F_j$
+			\item for each $j \in \N$, $\mu(F_j) < \infty$ 
+		\end{enumerate}
+		For $n \in \N$, define $E_n \in \MA$ by $E_n = \bigcup\limits_{j=1}^n F_j$. 
+		\begin{enumerate}
+			\item Since for each $n \in \N$, $F_n \subset E_n$, we have that 
+			\begin{align*}
+				X
+				& = \bigcup\limits_{n \in \N} F_n \\
+				& \subset \bigcup\limits_{n \in \N} E_n \\
+				& \subset X
+			\end{align*}
+			Hence $\bigcup\limits_{n \in \N} E_n = X$.
+			\item for each $n \in \N$, 
+			\begin{align*}
+				\mu(E_n)
+				& = \mu \bigg( \bigcup_{j=1}^n F_j\bigg) \\
+				& \leq \sum_{j=1}^n \mu(F_j) \\
+				& < \infty 
+			\end{align*}
+			\item for each $n \in \N$, 
+			\begin{align*}
+				E_n
+				& = \bigcup_{j=1}^n F_j \\
+				& \subset \bigcup_{j=1}^{n+1} F_j \\
+				& = E_{n+1}
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn} \ld{def:measures:00010}
 		Let $(X, \MA, \mu)$ be a measure space and $(f_\al)_{\al \in A} \subset L^0(X, \MA)$ a net. Suppose that for each $\al \in A$, $f_{\al}:X \rightarrow \R$. For each $\al, \be \in A$, define $M_{\al, \be}, N_{\al, \be} \in \MA$ by
 		$$M_{\al, \be} = \{x \in X: f_{\al}(x) \leq f_{\be}(x) \}$$ 
 		and 
@@ -2629,7 +2671,7 @@
 		\end{itemize} 
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:measures:00011}
 		Let $(X, \MA, \mu)$ be a measure space and $(f_\al)_{\al \in A} \subset L^0(X, \MA)$ a net. Suppose that for each $\al \in A$, $f_{\al}:X \rightarrow \R$. If $A$ is countable, then 
 		\begin{enumerate}
 			\item $(f_\al)_{\al \in A}$ is increasing $\mu$-a.e. iff for each $\al, \be \in A$, $\al \leq \be$ implies that $f_{\al} \leq f_{\be}$ $\mu$-a.e.
@@ -2652,12 +2694,12 @@
 		\end{enumerate}
 	\end{proof}
 
-	\begin{defn}
+	\begin{defn} \ld{def:measures:00012}
 		Let $X$ be a set. We define \tbf{counting measure} on $X$, denoted $\#: \MP(X) \rightarrow \RG$, by
 		$$\#(E) = |E|$$ where $|\cdot|: \MP(X) \rightarrow \RG$ denotes the cardinality of $E$. 
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex}  \lex{ex:measures:00013}
 		Let $X$ be a set. Then $\#: \MP(X) \rightarrow \RG$ is a measure. \\
 		\tcb{COMPARE WITH BOOK}\\
 		\tcb{FINISH!!!}
@@ -2764,12 +2806,12 @@
 	\end{proof}
 
 	\begin{defn}  \ld{def:outer_measures:00004} 
-		Let $X$ be a set and $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. We define the \tbf{outer measure on $X$ induced by $\rho$}, denoted $\rho^*:\MP(X) \rightarrow [0, \infty]$, by 
+		Let $X$ be a set, $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. We define the \tbf{outer measure on $X$ induced by $\rho$}, denoted $\rho^*:\MP(X) \rightarrow [0, \infty]$, by 
 		$$\rho^*(A) = \inf \bigg \{\sum_{n \in \N}\rho(E_n): (E_n)_{n \in \N} \subset \ME \text{ and }A \subset \bigcup_{n \in \N}E_n \bigg \}$$ 
 	\end{defn}
 	
 	\begin{ex}\textbf{Construction of Outer Measures:}  \lex{ex:outer_measures:00005}  \\
-		Let $X$ be a set and $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. Then $\rho^*$ is an outer measure on $X$.
+		Let $X$ be a set, $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow [0, \infty]$. Suppose that $\varnothing, X \in \ME$ and $\rho(\varnothing) = 0$. Then $\rho^*$ is an outer measure on $X$.
 	\end{ex}
 
 	\begin{proof}For $A \subset \MP(X)$, set 
@@ -2830,11 +2872,86 @@
 		Hence $\rho^*$ is an outer measure on $X$.
 	\end{proof}
 	
-	\begin{note}
-		In particular, for each $A \in \ME$, $\rho^*(A) = \rho(A)$.
-	\end{note}
+	\begin{ex} \lex{ex:outer_measures:00005.1} 
+		Let $(X, \MA)$ be a measurable space and $\mu: \MA \rightarrow \RG$ a measure on $(X, \MA)$. Then $\mu^*|_{\MA} = \mu$.
+	\end{ex}
 
-	\begin{defn} \ld{def:outer_measures:00005} 
+	\begin{proof}
+		Let $A \in \MA$. Define $(E_n)_{n \in \N} \subset \MA$ by 
+		\[
+		E_n = 
+		\begin{cases}
+			A & n = 1 \\
+			\varnothing & n > 1
+		\end{cases}  
+		\]
+		Then $A \subset \bigcup\limits_{n \in \N} E_n$
+		\begin{align*}
+			\mu^*(A)
+			& \leq \sum_{j \in \N} \mu(E_n) \\
+			& = \mu(A) 
+		\end{align*}
+		For the sake of contradiction, suppose that $\mu^*(A) < \mu(A)$. Then $\mu^*(A) < \infty$. Let $\ep > 0$. Then there exists $(E_j)_{j \in \N} \subset \MA$ such that $A \subset \bigcup\limits_{j \in \N} E_j$ and $\sum\limits_{j \in \N} \mu(E_j) \leq \mu^*(A) + \ep$. Therefore
+		\begin{align*}
+			\mu(A)
+			& \leq \mu \bigg ( \bigcup\limits_{j \in \N} E_j \bigg) \\
+			& \leq \sum_{j \in \N} \mu(E_j) \\
+			& \leq \mu^*(A) + \ep 
+		\end{align*}
+		Since $\ep >0$ is arbitrary,  
+		\begin{align*}
+			\mu(A) 
+			& \leq \mu^*(A) \\
+			& < \mu(A)
+		\end{align*}
+		This is a contradiction. Hence $\mu(A) \leq \mu^*(A)$. Therefore  $\mu^*(A) = \mu(A)$. Since $A \in \MA$ is arbitrary, $\mu^*|_{\MA} = \mu$.
+	\end{proof}
+
+	\begin{ex}
+		Let $(X, \MA)$ be a measurable space and $\mu: \MA \rightarrow \RG$ a measure on $(X, \MA)$. Then for each $A \subset X$, there exists $B \in \MA$ such that $A \subset B$ and $\mu^*(A) = \mu(B)$. 
+	\end{ex}
+
+	\begin{proof}
+		Let $A \subset X$.
+		\begin{itemize}
+			\item  Suppose that $\mu^*(A) = \infty$. Set $B = X$. Then \tcb{ the previous exercise} implies that
+			\begin{align*}
+				\mu(B)
+				& = \mu(X) \\
+				& = \mu^*(X) \\
+				& \geq \mu^*(A) \\
+				& = \infty 
+			\end{align*}
+			Thus $\mu(B) = \infty$ and 
+			\begin{align*}
+				\mu^*(A) 
+				& = \infty \\
+				& = \mu(B)
+			\end{align*} 
+			\item Suppose that $\mu^*(A) < \infty$. Then for each $n \in \N$, there exists $(E_{n,j})_{j \in \N} \subset \MA$ such that $A \subset \bigcup\limits_{j \in \N} E_{n,j}$ and $\sum\limits_{j \in \N} \mu(E_{n,j}) < \mu^*(A) + 1/n$. For each $n \in \N$, set $B_n = \bigcup\limits_{j \in \N} E_{n,j} $ and set $B = \bigcap\limits_{n \in \N} B_n$. Since for each $n \in \N$ $A \subset B_n$, we have that 
+			\begin{align*}
+				A
+				& \subset \bigcap\limits_{n \in \N} B_n \\
+				& = B
+			\end{align*}
+			 \tcb{The previous exercise} implies that
+			\begin{align*}
+				\mu^*(A)
+				& \leq \mu^*(B) \\
+				& = \mu(B)
+			\end{align*}
+			Let $n \in \N$. Since $B \subset B_n$, we have that 
+			\begin{align*}
+				\mu(B)
+				& \leq \mu(B_n) \\
+				& \leq \sum_{j \in \N} \mu(E_{n,j}) \\
+				& < \mu^*(A) + 1/n 
+			\end{align*}
+			Since $n \in \N$ is arbitrary, we have that $\mu(B) \leq \mu^*(A)$. Hence $\mu^*(A) = \mu(B)$
+		\end{itemize}
+	\end{proof}
+
+	\begin{defn} \ld{def:outer_measures:00005.2} 
 		Let $X$ be a set and $\nu$ and outer measure on $X$. We define $\MA_{\nu} = \{A \subset X: A \text{ is }\nu \text{-measurable}\}$. 
 	\end{defn}
 	
@@ -3013,33 +3130,28 @@
 		Set 
 		$$V(A) = \{\nu(E): E \in \MA \text{ and $E$ $\mu^*$-covers $A$} \}$$ and 
 		$$V'(A) = \{\text{$\nu(E): E \in \MA$, $E \subset A$ and $E$ $\mu^*$-covers $A$} \}$$ 
-		Suppose that $\nu_{\mu}(A) = \infty$. Since $V'(A) \subset V(A)$, we have that
+		Since $V'(A) \subset V(A)$, we have that
 		\begin{align*}
-			\infty
-			& = \nu_{\mu}(A) \\
+			\nu_{\mu}(A) 
 			& = \inf V(A) \\
 			& \leq \inf V'(A) 
 		\end{align*}
-		Hence 
-		\begin{align*}
-			 \nu_{\mu}(A) 
-			& = \infty \\
-			& = \inf V'(A) 
-		\end{align*} 
-		Suppose that $\nu_{\mu}(A) < \infty$. Let $\ep >0$. Then there exists $E \in \MA$ such that $E$ $\mu^*$-covers $A$ and $\nu(E) < \nu_{\mu}(A) + \ep$. \rex{ex:outer_measures:00010.1} implies that $A \cap E$ $\mu^*$-covers $A$. Therefore $\nu(A \cap E) \in V'(A)$ and
-		\begin{align*}
-			\inf V'(A)
-			& \leq \nu(A \cap E) \\
-			& \leq \nu(E) \\
-			& < \nu_{\mu}(A) + \ep 
-		\end{align*}
-		Since $\ep > 0$ is arbitrary, $\inf V'(A) \leq \nu_{\mu}(A)$. Since $V'(A) \subset V(A)$, we have that
-		\begin{align*}
-			\nu_{\mu}(A)
-			& = \inf V(A) \\
-			& \leq \inf V'(A)
-		\end{align*}
-		Hence $\nu_{\mu}(A) = \inf V'(A)$.
+		\begin{itemize}
+			\item First, suppose that $\nu_{\mu}(A) = \infty$. Since $\nu_{\mu}(A) \leq \inf V'(A) $, we have that
+			\begin{align*}
+				\nu_{\mu}(A) 
+				& = \infty \\
+				& = \inf V'(A) 
+			\end{align*} 
+			\item Now, suppose that $\nu_{\mu}(A) < \infty$. Let $\ep >0$. Then there exists $E \in \MA$ such that $E$ $\mu^*$-covers $A$ and $\nu(E) < \nu_{\mu}(A) + \ep$. \rex{ex:outer_measures:00010.1} implies that $A \cap E$ $\mu^*$-covers $A$. Therefore $\nu(A \cap E) \in V'(A)$ and
+			\begin{align*}
+				\inf V'(A)
+				& \leq \nu(A \cap E) \\
+				& \leq \nu(E) \\
+				& < \nu_{\mu}(A) + \ep 
+			\end{align*}
+			Since $\ep > 0$ is arbitrary, $\inf V'(A) \leq \nu_{\mu}(A)$. Hence $\nu_{\mu}(A) = \inf V'(A)$.
+		\end{itemize}
 	\end{proof}
 
 	\begin{ex}  \lex{ex:outer_measures:00013} 
@@ -4816,6 +4928,202 @@
 	\newpage
 	\chapter{The Radon-Nikodym Derivative}
 	
+	\section{Mutually Singular and Absolutely Continuous Measures}
+	
+	\begin{defn} \ld{def:Radon_Nikodym:mutually_singular_abs_cont_msrs:00001}
+		Let $(X, \MA)$ be a measurable space and $\nu, \mu$ measures on $(X, \MA)$. Then 
+		\begin{itemize}
+			\item $\nu$ and $\mu$ are said to be \tbf{mutually singular}, denoted $\nu \perp \mu$, if there exists $A,B \in \MA$ such that $A \cap B = \varnothing$, $A \cup B = X$, $\nu(A) = 0$ and $\mu(B) = 0$. 
+			\item $\nu$ is said to be \tbf{absolutely continuous with respect to $\mu$}, denoted $\nu \ll \mu$, if for each $E \in \MA$, $\mu(E) = 0$ implies that $\nu(E) = 0$.
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex} \lex{ex:Radon_Nikodym:mutually_singular_abs_cont_msrs:00002}
+		Let $(X, \MA)$ be a measurable space, $\nu, \mu$ measures on $(X, \MA)$ and $(E_n)_{n \in \N} \subset \MA$. Suppose that 
+		\begin{enumerate}
+			\item $X = \bigcup\limits_{n \in \N} E_n$
+			\item for each $n \in \N$
+			\begin{enumerate}
+				\item $E_n \subset E_{n+1}$
+				\item $\nu|_{E_n} \perp \mu|_{E_n}$
+			\end{enumerate}
+		\end{enumerate}
+		Then $\nu \perp \mu$.
+	\end{ex}
+
+	\begin{proof}
+		Let $n \in \N$. Since $E_n \in \MA$, $\MA \cap E_n \subset \MA$. Since $\nu|_{E_n} \perp \mu|_{E_n}$, there exist
+		\begin{align*}
+			A_n, B_n 
+			& \in \MA \cap E_n \\
+			& \subset \MA
+		\end{align*}
+		such that $A_n$ is $\nu|_{E_n}$-null, $B_n$ is $\mu|_{E_n}$-null, $A_n \cap B_n = \varnothing$ and $A_n \cup B_n = E_n$. Define $(A'_n)_{n \in \N}, (B'_n)_{n \in \N} \subset \MA$ by 
+		\[
+		A'_n =
+		\begin{cases}
+			A_n & n = 1 \\
+			A_n \setminus E_{n-1} & n \geq 2 \\
+		\end{cases}
+		\]
+		
+		\[
+		B'_n =
+		\begin{cases}
+			B_n & n = 1 \\
+			B_n \setminus E_{n-1} & n \geq 2 \\
+		\end{cases}
+		\]
+		Set $A' =  \bigcup\limits_{n \in \N} A'_n$ and $B' =  \bigcup\limits_{n \in \N} B'_n$. Let $n, j \in \N$. 
+		\begin{itemize}
+			\item Suppose that $n < j$. Then $n \leq j-1$. Since $E_n \subset E_{j-1}$, we have that $E_{j-1}^c \subset E_n^c$ and therefore
+			\begin{align*}
+				A'_n \cap B'_j 
+				& \subset E_n \cap (E_j \setminus E_{j-1}) \\
+				& = E_n \cap (E_j \cap E_{j-1}^c) \\
+				& \subset E_n \cap (E_j\cap E_n^c) \\
+				& = \varnothing
+			\end{align*}
+			Hence $A'_n \cap B'_j = \varnothing$.
+			\item Similarly, if $j < n$, then $A'_n \cap B'_j = \varnothing$.
+			\item Suppose that $j = n$. Since $A'_n \subset A_n$ and $B'_n \subset B_n$, we have that 
+			\begin{align*}
+				A'_n \cap B'_j
+				& = A'_n \cap B'_n \\
+				& \subset A_n \cap B_n \\
+				& = \varnothing
+			\end{align*}
+			Thus $A'_n \cap B'_j = \varnothing$.
+		\end{itemize}
+		Therefore 
+		\begin{align*}
+			A' \cap B'
+			& = \bigg[ \bigcup_{n \in \N} A'_n \bigg] \cap \bigg[ \bigcup_{j \in \N} B'_j \bigg] \\
+			& = \bigcup_{n \in \N} \bigg[ A'_n \cap \bigg( \bigcup_{j \in \N} B'_j \bigg) \bigg] \\
+			& = \bigcup_{n \in \N} \bigg[ \bigcup_{j \in \N} (A'_n \cap  B'_j) \bigg] \\
+			& = \bigcup_{n \in \N} \bigg[ \bigcup_{j \in \N} \varnothing \bigg] \\
+			& = \varnothing
+		\end{align*} 
+		Let $x \in X$. 
+		\begin{itemize}
+			\item Suppose that $x \in E_1$. Then 
+			\begin{align*}
+				x 
+				& \in E_1 \\
+				& = A_1 \cap B_1 \\
+				& = A'_1 \cap B'_1 \\
+				& \subset \bigg[ \bigcup_{n \in \N} A'_n \bigg] \cup \bigg[ \bigcup_{n \in \N} B'_n \bigg] \\
+				& = A' \cup B'
+			\end{align*} 
+			\item Suppose that $x \not \in E_1$. \\
+			For the sake of contradiction, suppose that for each $n \in \N$, $n \geq 2$ and $x \in E_n$ implies that $x \in E_{n-1}$. Since $X = \bigcup\limits_{n \in \N} E_n$, there exists $n \in \N$ such that $x \in E_n$. Since $x \not \in E_1$, $n \geq 2$. By assumption, $x \in E_{n-1}$. By induction $x \in E_1$, which is a contradiction. Therefore there exists $N \in \N$ such that $N \geq 2$, $x \in E_N$ and $x \not \in E_{N-1}$. \\
+			Since $E_N = A_N \cup B_N$, $x \in A_N$ or $x \in B_N$. If $x \in A_N$, then 
+			\begin{align*}
+				x
+				& \in A_N \cap E_{N-1}^c \\
+				& = A_N \setminus E_{N-1} \\
+				& = A'_N \\
+				& \subset \bigcup_{n \in \N} A'_n \\
+				& = A' \\
+				& \subset A' \cup B'
+			\end{align*}
+			If $x \in B_N$, then similarly, $x \in A' \cup B'$. 
+		\end{itemize}
+		Since $x \in X$ is arbitrary, $X \subset A' \cup B'$. Hence $X = A' \cup B'$. \\
+		Let $n, j \in \N$. 
+		\begin{itemize}
+			\item Suppose that $j \geq n$. Then $E_n \subset E_j$ so that $E_j^c \subset E_n^c$ and
+			\begin{align*}
+				\nu(A'_j \cap E_n)
+				& = \nu([A_j \setminus E_j] \cap E_n) \\
+				& = \nu([A_j \cap E_j^c] \cap E_n) \\
+				& \leq \nu([A_j \cap E_n^c] \cap E_n) \\ 
+				& =  \nu(\varnothing) \\
+				& = 0 
+			\end{align*}
+			Hence $\nu(A'_j \cap E_n) = 0$. 
+			\item Suppose that $j < n$. Since 
+			\begin{align*}
+				A_j 
+				& \subset E_j \\
+				& \subset E_n
+			\end{align*}  
+			we have that 
+			\begin{align*}
+				\nu(A'_j \cap E_n) 
+				& = \nu([A_j \setminus E_j] \cap E_n) \\
+				& = \nu([A_j \cap E_j^c] \cap E_n) \\
+				& = \nu(A_j \cap E_j^c) \\
+				& \leq \nu(A_j) \\
+				& = \nu|_{E_j}(A_j) \\
+				& = 0
+			\end{align*}
+		\end{itemize} 
+		We note that
+		\begin{align*}
+			A'
+			& = A' \cap X \\
+			& = A' \cap \bigg[ \bigcup_{n \in \N} E_n \bigg] \\
+			& = \bigcup_{n \in \N} (A' \cap E_n)
+		\end{align*}
+		and for each $n \in \N$, $A' \cap E_n \subset A' \cap E_{n+1}$. Since 
+		\begin{align*}
+			A' \cap E_n
+			& = \bigg[ \bigcup_{j \in \N} A'_j \bigg] \cap E_n \\
+			& = \bigcup_{j \in \N} (A'_j \cap E_n) 
+		\end{align*}
+		we have that
+		\begin{align*}
+			\nu(A')
+			& = \sup_{n \in \N} \nu(A' \cap E_n) \\
+			& \leq \sup_{n \in \N} \bigg[ \sum_{j \in \N} \nu_{\mu}^{\perp}(A'_j \cap E_n) \bigg] \\
+			& = 0
+		\end{align*}
+		Similarly, $\mu(B') = 0$. Since $A' \cup B' = X$, $A' \cap B' = \varnothing$, $A'$ is $\nu$-null and $B'$ is $\mu$-null, $\nu \perp \mu$.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\section{Signed Measures}
 	
 	\begin{defn} \ld{41001} 
@@ -4883,7 +5191,7 @@
 		The process is the same if $(E_n)_{n \in \N}$ is negative and null.
 	\end{proof}
 	
-	\begin{thm}{Hahn Decomposition:}
+	\begin{thm} \tbf{Hahn Decomposition:} \\
 		Let $\nu$ be a signed measure on $(X, \MA)$. Then there exist $P,N \in \MA$ such that $P$ is positive, $N$ is negative, $X = N \cup P$ and $N \cap P = \varnothing$. Furthermore, these two sets are unique in the following sense: For any $P',N' \in \MA$, if $N,P$ satisfy the properties above, $P' \Delta P = N' \Delta N$ is $\nu$-null.
 	\end{thm}
 	
@@ -5094,7 +5402,7 @@
 	Let $E \in \MB$. Suppose that $f_*\mu(E) = 0$. By definition, $\mu(f^{-1}(E)) = 0$. Since $\nu \ll \mu$, $\nu(f^{-1}(E)) = 0$. Hence $f_*\nu(E) = 0$ and $f_*\nu \ll f_*\mu$.
 	\end{proof}
 	
-	\begin{thm}
+	\begin{thm} \tbf{Lebesgue Decomposition Theorem:} \\
 		Let $(X, \MA)$ be a measureable space, $\nu$ be a $\sig$-finite signed measure on $(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X,\MA)$. Then there exist unique $\sig$-finite signed measures $\lam$, $\rho$ on $(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists an extended $\mu$-integrable $f \in L^0(X, \MA)$ such that $d\rho = f \dmu$ and $f$ is unique $\mu$-a.e.  
 	\end{thm}
 	
@@ -5277,6 +5585,11 @@
 	\begin{proof}
 		Since $\MT \subset \MB(X)$ is a $\pi$-system on $X$ and $X \in \MT$, the previous exercise implies that for each $A \in \sig(\MT)$, $\mu(A) = \nu(A)$. Since $\sig(\MT) = \MB(X)$, $\mu = \nu$. 
 	\end{proof}
+
+	\begin{defn}
+		Let $(X, \MA)$ be a measurable space, $\mu \in \MM(X, \MA)$ and $A \in \MA$. Then $\mu$ is said to be \tbf{supported on $A$} if for each $E \in \MA$, $\mu(E) = \mu(A \cap E)$. \\
+		\tcb{need to define for signed measures and measures}
+	\end{defn}
 	
 	\begin{note}
 		We use the same definitions for mutual orthogonality and absolute continuity when discussing complex measures instead of signed measures.
@@ -7038,13 +7351,15 @@
 	
 	\section{Radon Measures}
 	
+	\subsection{Introduction}
+	
 	\begin{defn} \ld{00000} 
 	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a measure and $E \in \MB(X)$. Then $\mu$ is said to be 
 	\begin{enumerate}
-	\item \textbf{inner regular on $E$} if
-	$$\mu(E) = \sup \{ \mu(K): K \subset E \text{ and $K$ is compact}\}$$
 	\item \textbf{outer regular on $E$} if
 	$$\mu(E) = \inf \{ \mu(U): E \subset U \text{ and $U$ is open}\}$$
+	\item \textbf{inner regular on $E$} if
+	$$\mu(E) = \sup \{ \mu(K): K \subset E \text{ and $K$ is compact}\}$$
 	\item \textbf{regular on $E$} if $\mu$ is inner regular on $E$ and $\mu$ is outer regular on $E$
 	\end{enumerate}
 	\end{defn}
@@ -7052,8 +7367,8 @@
 	\begin{defn} \ld{00000} 
 	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a measure. Then $\mu$ is said to be 
 	\begin{enumerate}
-	\item  \textbf{inner regular} if for each $E \in \MA$, $\mu$ is inner regular on $E$
 	\item  \textbf{outer regular} if for each $E \in \MA$, $\mu$ is outer regular on $E$
+	\item  \textbf{inner regular} if for each $E \in \MA$, $\mu$ is inner regular on $E$
 	\item  \textbf{regular} if $\mu$ is inner regular and $\mu$ is outer regular
 	\end{enumerate}
 	\end{defn}
@@ -7090,6 +7405,416 @@
 		Let $X$ be a topological space, $\mu \in \MM(X)$. Then $\mu$ is said to be \textbf{Radon} if $|\mu|$ is Radon.  
 	\end{defn}
 
+	\begin{ex}
+		Let $X$ be a topological space, $\mu$ a measure on $(X, \MB(X))$ and $E \in \MB(X)$. Suppose that $X$ is Hausdorff. If $E$ is closed and $\mu$ is Radon, then $\mu|_E$ is Radon. 
+	\end{ex}
+	
+	\begin{proof}Suppose that $E$ is closed and $\mu$ is Radon. 
+		\begin{enumerate}
+			\item Let $K \subset E$. Suppose that $K$ is compact in $E$. Then $K$ is compact in $X$. Since $\mu$ is Radon, we have that 
+			\begin{align*}
+				\mu|_E(K)
+				& = \mu(K) \\
+				& < \infty
+			\end{align*}
+			\item Let $B \in \MB(E)$. Set 
+			$$V(B) = \{\mu(U): U \subset X \text{, $U$ is open in $X$ and $B \subset U$}\}$$ 
+			and 
+			$$V_E(B) = \{\mu|_E(U): U \subset E \text{, $U$ is open in $E$ and $B \subset U$}\}$$
+			Since $\MB(E) = \MB(X) \cap E$ and $E \in \MB(X)$, there exists $A \in \MB(X)$ such that 
+			\begin{align*}
+				B 
+				& = A \cap E \\
+				& \in \MB(X) \cap E \\
+				& \subset \MB(X)
+			\end{align*}
+			\begin{itemize}
+				\item First, suppose that $\mu|_E(B) = \infty$. Then clearly 
+				\begin{align*}
+					\mu|_E(B)
+					& = \infty \\
+					& = \sup V_E(B)
+				\end{align*}
+				\item Now, suppose that $\mu|E(B) < \infty$. Clearly $\mu|_E(B) \leq \inf V_E(B)$. Then 
+				\begin{align*}
+					\mu(B)
+					& = \mu|_E(B) \\
+					& < \infty
+				\end{align*}
+				Let $\ep > 0$. Since $\mu$ is Radon, there exists $U_0 \subset X$ such that $U_0$ is open in $X$, $B \subset U_0$ and $\mu(U_0) < \mu(B) + \ep$. Set $U = U_0 \cap E$. Then $U$ is open in $E$, $B \subset U$ and 
+				\begin{align*}
+					\mu|_E(U)
+					& = \mu(U) \\
+					& \leq \mu(U_0) \\
+					& < \mu(B) + \ep \\
+					& = \mu|_E(B) + \ep
+				\end{align*}
+				Therefore
+				\begin{align*}
+					\inf V_E(B)
+					& \leq \mu|_E(U) \\
+					& < \mu|_E(B) + \ep
+				\end{align*}
+				Since $\ep > 0$ is arbitrary, we have that $\inf V_E(B) \leq \mu|_E(B)$. Hence $\mu|_E(B) = \inf V_E(B)$.
+			\end{itemize}
+			Thus $\mu|_E$ is outer regular on $B$.
+			\item Let $U \subset E$. Suppose that $U$ is open in $E$. Then there exists $U_0 \subset X$ such that $U_0$ is open in $X$ and $U = U_0 \cap E$. Since $E \in \MB(X)$, $U \in \MB(X)$. Set 
+			$$V_E(U) = \{\mu|_E(K): K \subset U \text{ and $K$ is compact}\}$$
+			\begin{itemize}
+				\item First, suppose that $\mu|_E(U) = \infty$. Let $M > 0$. Since $X$ is $\sig$-finite \rex{ex:measures:00009} implies that there exists $(F_n)_{n \in \N} \subset \MB(X)$ such that 
+				\begin{enumerate}
+					\item $X = \bigcup\limits_{n \in \N} F_n$
+					\item for each $n \in \N$, $\mu(F_n) < \infty$
+					\item for each $n \in \N$, $F_n \subset F_{n+1}$
+				\end{enumerate}
+				Since for each $n \in \N$, $U \cap F_n \subset U \cap F_{n+1}$ and
+				\begin{align*}
+					\bigcup_{n \in \N} (U \cap F_n)
+					& = U \cap \bigg[ \bigcup F_n \bigg] \\
+					& = U \cap X \\
+					& = U 
+				\end{align*}
+				\rex{ex:measures:00004} implies that 
+				\begin{align*}
+					\sup_{n \in \N} \mu(U \cap F_n)
+					& = \mu(U) \\
+					& = \mu|_E(U) \\
+					& = \infty 
+				\end{align*}
+				Hence there exists $N \in \N$ such that $\mu(U \cap F_N) > M + 1$. Since $\mu(F_N) < \infty$, we have that 
+				\begin{align*}
+					\mu(U \cap F_N)
+					& \leq \mu(F_N) \\
+					& < \infty 
+				\end{align*}
+				Since $U \cap F_n \in \MB(X)$, outer regularity of $\mu$ implies that there exists $V_0 \subset X$ such that $V_0$ is open in $X$, $U \cap F_N \subset V_0$ and $\mu(V_0) \leq \mu(U \cap F_N) + 1$. Since $\mu(V_0) < \infty$, we have that 
+				\begin{align*}
+					\mu(U_0 \cap V_0) 
+					& \leq \mu(V_0) \\
+					& < \infty 
+				\end{align*}
+				Since $U_0 \cap V_0$ is open in $X$, outer regularity of $\mu$ implies that there exists $K_0 \subset X$ such that $K_0$ is compact in $X$, $K_0 \subset U_0 \cap V_0$ and $\mu(K_0) > \mu(U_0 \cap V_0) - 1$. Set $K = K_0 \cap E$. Since $X$ is Hausdorff, $K_0$ is closed in $X$. Since $E$ is closed in $X$, $K$ is closed in $X$. Since $K_0$ is compact in $X$ and $K \subset K_0$, $K$ is compact in $X$. Therefore $K$ is compact in $E$. Since $K_0 \subset U_0 \cap V_0$, we have that
+				\begin{align*}
+					K 
+					& \subset U \cap V_0 \\
+					& \subset U
+				\end{align*}
+				and 
+				\begin{align*}
+					\mu[(U_0 \cap V_0) \cap K_0^c] 
+					& = \mu(U_0 \cap V_0) - \mu(K_0) \\
+					& < 1
+				\end{align*}
+				Since $U \cap F_N \subset V_0$, we have that $U \cap F_N \subset U \cap V_0$. Hence
+				\begin{align*}
+					\mu|_E(K)
+					& = \mu(K) \\
+					& = \mu(K_0 \cap E) \\
+					& = \mu(U_0 \cap V_0 \cap K_0 \cap E) \\
+					& = \mu(U_0 \cap V_0 \cap E) - \mu(U_0 \cap V_0 \cap E \cap K_0^c) \\
+					& = \mu(U \cap V_0) - [\mu(U_0 \cap V_0) - \mu(K_0)] \\
+					& \geq \mu(U \cap F_N) - [\mu(U_0 \cap V_0) - \mu(K_0)] \\
+					& > (M+1) - 1 \\
+					& = M
+				\end{align*}
+				Since $M > 0$ is arbitrary, we have that for each $M > 0$, there exists $K \subset U$ such that $K$ is compact and $\mu|_E(K) > M$. Thus 
+				\begin{align*}
+					\mu|_E(U)
+					& = \infty \\
+					& = \sup V_E(U)
+				\end{align*} 
+				\item Now, suppose that $\mu(U) < \infty$. Clearly 
+				$$\sup V_E(U) \leq \mu|_E(U)$$ 
+				Let $\ep > 0$. Outer regularity of $\mu$ implies that there exists $V_0 \subset X$ such that $V_0$ is open in $X$, $U \subset V_0$ and $\mu(V_0) < \mu(U) + \ep$. Since $U_0 \cap V_0$ is open in $X$, inner regularity of $\mu$ implies that there exists $K_0 \subset X$ such that $K_0$ is compact in $X$, $K_0 \subset U_0 \cap V_0$ and $\mu(K_0) > \mu(U_0 \cap V_0) - \ep$. Set $K = K_0 \cap E$. Since $X$ is Hausdorff and $K$ is compact in $X$, $K$ is closed in $X$. Since $E$ is closed in $X$, $K$ is closed in $X$. Therefore $K$ is compact in $X$. Hence $K$ is compact in $E$. Since $K_0 \subset U_0 \cap V_0$, we have that 
+				\begin{align*}
+					\mu[(U_0 \cap V_0) \cap K_0^c] 
+					& = \mu(U_0 \cap V_0) - \mu(K_0) \\
+					& < \ep
+				\end{align*}
+				Therefore
+				\begin{align*}
+					\mu|_E(U) 
+					& = \mu(U) \\
+					& = \mu(U \cap V_0) \\
+					& = \mu(U_0 \cap V_0 \cap E) \\
+					& = \mu[(U_0 \cap V_0 \cap E) \cap K_0] + \mu[(U_0 \cap V_0 \cap E) \cap K_0^c] \\
+					& \leq \mu(K_0 \cap E) + \mu(U_0 \cap V_0 \cap K_0^c) \\
+					& < \mu(K)  + \ep \\
+					& = \mu|_E(K) + \ep 
+				\end{align*}
+				Thus 
+				$$\sup V_E(U) \geq \mu|_E(U)$$
+				Hence $	\mu|_E(U) = \sup V_E(U)$.
+			\end{itemize}
+			Thus $\mu|_E$ is inner regular on $U$.
+		\end{enumerate}
+		Therefore $\mu|_E$ is Radon.
+	\end{proof}
+
+		\begin{defn}
+		Let $X$ be a topological space, $\mu$ a measure on $(X, \MB(X))$. Then 
+		\begin{itemize}
+			\item $\mu$ is said to be \tbf{$F_{\sig}$-finite} if there exists $(E_n)_{n \in \N} \subset \MB(X)$ such that
+			\begin{enumerate}
+				\item for each $n \in \N$, $E_n$ is closed and $\mu(E_n) < \infty$
+				\item $X = \bigcup\limits_{n \in \N} E_n$
+				\item 
+			\end{enumerate}
+			\item $\mu$ is said to be \tbf{$G_{\del}$-finite}
+			if there exists $(U_n)_{n \in \N} \subset \MB(X)$ such that
+			\begin{enumerate}
+				\item for each $n \in \N$, $U_n$ is open and $\mu(U_n) < \infty$
+				\item $X = \bigcup\limits_{n \in \N} U_n$
+			\end{enumerate}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a topological space, $\nu, \mu$ measures on $(X, \MB(X))$. If $\nu$ and $\mu$ are $F_{\sig}$-finite, then there exists $(E_n)_{n \in \N} \subset \MB(X)$ such that 
+		\begin{enumerate}
+			\item $X = \bigcup\limits_{n \in \N} E_n$
+			\item for each $n \in \N$,
+			\begin{itemize}
+				\item $E_n$ is closed 
+				\item $E_n \subset E_{n+1}$
+				\item $\nu(E_n), \mu(E_n) < \infty$
+			\end{itemize}
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\nu$ and $\mu$ are $F_{\sig}$-finite. By definition, there exist $(F^{\nu}_j)_{j \in \N}, (F^{\mu}_k)_{k \in \N} \subset \MB(X)$ such that $X = \bigcup\limits_{j \in \N} F^{\nu}_j$, $X = \bigcup\limits_{k \in \N} F^{\mu}_k$ and for each $j,k \in \N$, $F^{\nu}_j, F^{\mu}_k$ are closed and $\nu(F^{\nu}_j), \mu(F^{\nu}_k) < \infty$. Define $(F_{j,k})_{j,k \in \N} \subset \MB(X)$ and $(E_n)_{n \in \N} \subset \MB(X)$ by $F_{j,k} = F^{\nu}_j \cap F^{\mu}_k$ and $E_n = \bigcup\limits_{j,k \leq n} F_{j, k}$.
+		\begin{enumerate}
+			\item We see that 
+			\begin{align*}
+				X
+				& = X \cap X \\
+				& = \bigg[ \bigcup_{j \in \N} F^{\nu}_j \bigg] \cap \bigg[ \bigcup_{k \in \N} F^{\mu}_k \bigg] \\
+				& = \bigcup_{j \in \N} \bigg[ F^{\nu}_j  \cap \bigg( \bigcup_{k \in \N} F^{\mu}_k \bigg) \bigg] \\
+				& = \bigcup_{j \in \N} \bigg[ \bigcup_{k \in \N} (F^{\nu}_j  \cap F^{\mu}_k) \bigg] \\
+				& = \bigcup_{(j,k) \in \N^2} F_{j,k} \\
+				& = \bigcup_{n \in \N} \bigg[  \bigcup\limits_{j,k \leq n} F_{j, k} \bigg] \\
+				& = \bigcup_{n \in \N} E_n
+			\end{align*}
+			\item Let $n \in \N$
+			\begin{itemize}
+				\item Let $j,k \in \N$. Suppose that $j,k \leq n$. Since $F^{\nu}_j$ and $F^{\mu}_k$ are closed, $F_{j,k} = F^{\nu}_j  \cap F^{\mu}_k$ is closed. Since $j,k \in \N$ with $j,k \leq n$ are arbitrary, we have that $E_n = \bigcup\limits_{j,k \leq n} F_{j, k}$ is closed. 
+				\item We have that  
+				\begin{align*}
+					E_n
+					& =  \bigcup\limits_{j,k \leq n} F_{j, k} \\
+					& \subset \bigg[  \bigcup\limits_{j,k \leq n} F_{j, k}  \bigg] \cup \bigg[  \bigcup\limits_{j =1}^n F_{j, k+1} \bigg] \cup \bigg[  \bigcup\limits_{k =1}^n F_{j+1, k} \bigg] \cup F_{j+1, K+1} \\
+					& = E_{n+1} 
+				\end{align*}
+				\item Let $j,k \in \N$. Suppose that $j,k \leq n$. Since $\nu(F^{\nu}_j), \mu(F^{\nu}_k) < \infty$, we have that 
+				\begin{align*}
+					\nu(F_{j,k})
+					& = \nu( F^{\nu}_j  \cap F^{\mu}_k ) \\
+					& \leq \nu(F^{\nu}_j) \\
+					& < \infty 
+				\end{align*}
+				and 
+				\begin{align*}
+					\mu(F_{j,k})
+					& = \mu( F^{\nu}_j \cap F^{\mu}_k ) \\
+					& \leq \mu(F^{\mu}_k) \\
+					& < \infty 
+				\end{align*}
+				Since $j,k \in \N$ with $j,k \leq n$ are arbitrary, we have that
+				\begin{align*}
+					\nu(E_n)
+					& = \nu \bigg[ \bigcup\limits_{j,k \leq n} F_{j, k} \bigg] \\
+					& \leq \sum\limits_{j,k \leq n} \nu(F_{j, k}) \\
+					& < \infty 
+				\end{align*}
+				and 
+				\begin{align*}
+					\mu(E_n)
+					& = \mu \bigg[ \bigcup\limits_{j,k \leq n} F_{j, k} \bigg] \\
+					& \leq \sum\limits_{j,k \leq n} \mu(F_{j, k}) \\
+					& < \infty 
+				\end{align*}
+			\end{itemize}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn}
+		Let $X$ be a topological space and $\mu$ a measure on $(X, \MB(X))$. Suppose that $\mu$ is Radon. We define 
+		\begin{itemize}
+			\item the \tbf{$\mu$-null open sets}, denoted $\MN_{\mu} \subset \MB(X)$, by $$\MN_{\mu} = \{U \subset X: U \text{ is open and } \mu(U) = 0\}$$ 
+			\item the \tbf{support of $\mu$}, denoted $\supp \mu$, by 
+			$$\supp \mu = \bigg[ \bigcup_{U \in \MN_{\mu}} U \bigg]^c$$ 
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex} \lex{00000} 
+		Let $X$ be a topological space and $\mu$ a measure on $(X, \MB(X))$. Suppose that $\mu$ is Radon. Define $N_{\mu} = (\supp \mu)^c$. Then 
+		\begin{enumerate}
+			\item $N_{\mu}$ is open
+			\item $\supp \mu$ is closed
+			\item $\mu(N_{\mu}) = 0$
+		\end{enumerate}
+		\textbf{Hint:} use inner regularity and compactness
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since for each $U \in \MN_{\mu}$, $U$ is open and 
+			$$N_{\mu} = \bigcup_{U \in \MN_{\mu}} U $$
+			we have that $N_{\mu}$ is open.  
+			\item Since $N_{\mu}$ is open and $\supp \mu = N_{\mu}^c$, we have that $\supp \mu$ is closed.  
+			\item Let $K \subset N_{\mu}$. Suppose that $K$ is compact. Since $\MN_{\mu}$ is an open cover for $K$, there exist $U_1, \ldots, U_n \in \MN_{\mu}$ such that $$K \subset \bigcup_{j=1}^n U_j$$ 
+			This implies that 
+			\begin{align*}
+				\mu(K) 
+				&\leq \mu\bigg( \bigcup_{j=1}^n U_j \bigg) \\
+				& \leq \sum_{j=1}^n \mu(U_j) \\
+				&= 0
+			\end{align*}
+			Inner regularity implies that 
+			\begin{align*}
+				\mu(N_{\mu}) 
+				&= \sup \{ \mu(K): K \subset N_{\mu} \text{ and $K$ is compact}\} \\
+				&= 0
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a topological space and $\mu$ a measure on $(X, \MB(X))$. Suppose that $\mu$ is Radon. Let $x \in \supp \mu$. Then for each $U \in \MN_x$, $\mu(U) > 0$.
+	\end{ex}
+
+	\begin{proof}
+		Let $U \in \MN_x$. For the sake of contradiction, suppose that $\mu(U) = 0$. Then $\mu(\Int U) = 0$ and thus $\Int U \in \MN_{\mu}$. Therefore
+		\begin{align*}
+			x
+			& \in \Int U \\
+			& \subset \bigcup_{V \in \MN_{\mu}} V \\
+			& = (\supp \mu)^c 
+		\end{align*}
+		which is a contradiction. Hence $\mu(U) > 0$.
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MB(X)$. If $\mu(E) < \infty$, then for each $\ep >0$, 
+		\begin{enumerate}
+			\item there exists $U \in \MB(X)$ such that $U$ is open, $E \subset U$ and $\mu(U \setminus E) < \ep$ 
+			\item there exists $C \in \MB(X)$ such that $C$ is compact, $C \subset U$ and $\mu(U) - \ep < \mu(C)$ 
+			\item there exists $V \in \MB(X)$ such that $V$ is open, $U \setminus E \subset V$ and $\mu(V) < \ep$ 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\mu(E) < \infty$. Let $\ep >0$. 
+		\begin{enumerate}
+			\item Outer regularity om $E$ implies that there exists $U \in \MB(X)$ such that $U$ is open, $E \subset U$ and $\mu(U \setminus E) < \ep$. 
+			\item Inner regularity on $U$ implies that there exists $C \in \MB(X)$ such that $C$ is compact, $C \subset U$ and $\mu(U) - \ep < \mu(C) $.
+			\item Outer regularity on $U \setminus E$ implies that there exists $V \in \MB(X)$ such that $U$ and $V$ are open, $U \setminus E \subset V$ and $\mu(V) < \ep$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MA$. Suppose that $\mu(E) < \infty$. Let $\ep >0$. Define $U$, $C$ and $V$ as in the previous exercise. Set $K = C \setminus V$. Then $K$ is compact, $K \subset E$ and $\mu(K) > \mu(E) - 2 \ep$ 
+	\end{ex}
+	
+	\begin{proof}
+		Since $C$ is closed and $V$ is open, $C \setminus V =  C \cap V^c$ is closed. Since $C$ is compact and $C \setminus V \subset C$, we have that $K = C \setminus V $ is compact.
+		Set algebra implies that
+		\begin{align*}
+			K
+			&= C \cap V^c \\
+			& \subset U \cap V^c \\
+			& \subset U \cap (U^c \cup E) \\
+			&= (U \cap U^c) \cup (U \cap E) \\
+			&=  U \cap E \\
+			& \subset E
+		\end{align*}
+		The previous exercise implies that 
+		\begin{align*}
+			\mu(K)
+			&= \mu(C \cap V^c) \\
+			&= \mu(C) - \mu(C \cap V) \\
+			&> \mu(U) - \ep - \mu(V) \\
+			&> \mu(E) - 2 \ep
+		\end{align*}
+	\end{proof}		
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MB(X)$. If $E$ is $\sig$-finite, then $\mu$ is inner regular on $E$. \\
+		\textbf{Hint:} use the previous exercise
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $E$ is $\sig$-finite. \\
+		If $\mu(E) < \infty$, the previous exercise implies that for each $\ep > 0 $, there exists $K \in \MB(X)$ such that $K$ is compact, $K \subset E$ and $\mu(K) > \mu(E) - \ep$. Hence $\mu$ is inner regular on $E$. \\
+		If $\mu(E) = \infty$, then $\sig$-finiteness implies that there exists $(E_j)_{j \in \N} \subset \MB(X)$ such that $E = \bigcup\limits_{j \in N} E_j$, for each $j \in \N$, $\mu(E_j) < \infty$ and $\mu(E_j) \rightarrow \infty$. Let $N \in \N$. Choose $J \in \N$ such that $\mu(E_J) > N$. The above argument implies that there exists $K \in \MB(X)$ such that $K$ is compact, $K \subset E_J \subset E$ and $\mu(K) > N$. So 
+		\begin{align*}
+			\mu(E)
+			&= \infty \\
+			&= \sup_{\substack{ K \subset E \\ \text{ $K$ is compact}}} \mu(K)
+		\end{align*}	 
+		and $\mu$ is inner regular on $E$.  
+	\end{proof}		
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. If $\mu$ is $\sig$-finite, then $\mu$ is regular.
+	\end{ex}
+	
+	\begin{proof}
+		Clear by previous exercise.
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. If $X$ is $\sig$-compact, then $\mu$ is $\sig$-finite. The previous exercise implies that $\mu$ is regular. 
+	\end{ex}
+	
+	\begin{proof}
+		If $X$ is $\sig$-compact, then $\mu$ is $\sig$-finite. Hence $\mu$ is regular.
+	\end{proof}
+	
+	
+	
+	\begin{ex} \lex{00000} 
+		Let $X$ be a topological space and $\mu:\MB(X) \rightarrow \RG$ a Radon measure. Then for each $p \in [1, \infty]$, $C_c(X) \subset L^p(\mu)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $p \in [1, \infty]$ and $f \in C_c(X)$. Then $|f|^p \in C_c(X)$ and 
+		\begin{align*}
+			\|f\|_p 
+			&= \int |f|^p \dmu \\
+			& \leq \|f\|_{\infty}^p \mu(\supp (f)) \\
+			& < \infty
+		\end{align*}	 
+	\end{proof}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\subsection{Lebesgue Decomposition of Radon Measures}
 	
 	\begin{note}
 		We recall $\nu_{\mu}$ from the section on outer measures. \\
@@ -7164,111 +7889,107 @@
 		\end{align*}
 		Hence $\nu_{\mu}(A) + \ep \geq \nu_{\mu}(A \cap U) + \nu_{\mu}(A \cap U^c)$. Since $\ep > 0$ is arbitrary, we have that
 		$$\nu_{\mu}(A) \geq \nu_{\mu}(A \cap U) + \nu_{\mu}(A \cap U^c)$$
-		Since $A \subset X$ with $\nu_{\mu}(A) < \infty$ is arbitrary, $U$ is $\nu_{\mu}$-measurable. Since $U \subset X$ with $U$ is open is arbitrary, $\MB(X) \subset \MA_{\nu_{\mu}}$. 
+		Since $A \subset X$ with $\nu_{\mu}(A) < \infty$ is arbitrary, $U \in \MA_{\nu_{\mu}}$. Since $U \subset X$ with $U$ is open is arbitrary, $\MB(X) \subset \MA_{\nu_{\mu}}$. 
 	\end{proof}
 
 	\begin{note}
 		Unless otherwise specified, we will write $\nu_{\mu}$ in place of $\nu_{\mu}|_{\MB(X)}$ and think of $\nu_{\mu}$ as a measure on $(X, \MB(X))$.
 	\end{note}
 
-	\begin{ex}
-		Let $X$ be a topological space, $\mu$ a measure on $(X, \MB(X))$ and $E \in \MB(X)$. If $\mu$ is Radon, then $\mu|_E$ is Radon. 
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $U \subset E$. Suppose that $U$ is open in $E$. Then there exists $U_0 \subset X$ such that $U_0$ is open in $X$ and $U = U_0 \cap E$. Since $E \in \MB(X)$, $U \in \MB(X)$. 
-			\begin{itemize}
-				\item First, suppose that $\mu(U) = \infty$.  
-				\item Now, suppose that $\mu(U) < \infty$. Let $\ep > 0$. Outer regularity of $\mu$ implies that there exists $V_0 \subset X$ such that $V_0$ is open in $X$, $U \subset V_0$ and $\mu(V_0) < \mu(U) + \ep$. Since $U_0 \cap V_0$ is open in $X$, inner regularity of $\mu$ implies that there exists $K_0 \subset X$ such that $K_0$ is compact in $X$, $K_0 \subset U_0 \cap V_0$ and $\mu(K_0) > \mu(U_0 \cap V_0) - \ep$. Set $K = K_0 \cap E$. Then \tcb{K is compact in E?}. Since $K_0 \subset U_0 \cap V_0$, we have that 
-				\begin{align*}
-					\mu[(U_0 \cap V_0) \cap K_0^c] 
-					& = \mu(U_0 \cap V_0) - \mu(K_0) \\
-					& < \ep
-				\end{align*}
-				Therefore
-				\begin{align*}
-					\mu|_E(U) 
-					& = \mu(U) \\
-					& = \mu(U \cap V_0) \\
-					& = \mu(U_0 \cap V_0 \cap E) \\
-					& = \mu[(U_0 \cap V_0 \cap E) \cap K_0] + \mu[(U_0 \cap V_0 \cap E) \cap K_0^c] \\
-					& \leq \mu(K_0 \cap E) + \mu(U_0 \cap V_0 \cap K_0^c) \\
-					& < \mu(K)  + \ep \\
-				\end{align*}
-			\end{itemize}
-			\tcb{FINISH!!!}
-			\item Let $B \in \MB(E)$. Set 
-			$$V(B) = \{\mu(U): U \subset X \text{, $U$ is open in $X$ and $B \subset U$}\}$$ 
-			and 
-			$$V_E(B) = \{\mu|_E(U): U \subset E \text{, $U$ is open in $E$ and $B \subset U$}\}$$
-			Since $\MB(E) = \MB(X) \cap E$ and $E \in \MB(X)$, there exists $A \in \MB(X)$ such that 
-			\begin{align*}
-				B 
-				& = A \cap E \\
-				& \in \MB(X) \cap E \\
-				& \subset \MB(X)
-			\end{align*}
-			\begin{itemize}
-				\item First, suppose that 
-				\item Now, suppose that $\mu(B) < \infty$. Let $\ep > 0$. Since $\mu$ is Radon, there exists $U \subset X$ such that $U$ is open in $X$, $B \subset U$ and $\mu(U) < \mu(B) + \ep$. Then $E \cap U$ is open in $E$, $B \subset U \cap E$ and 
-				\begin{align*}
-					\mu|_E(B)
-					& = \mu(B) \\
-					& \leq \mu(U) \\
-					& < \mu(B) + \ep 
-				\end{align*}
-			\end{itemize}
-			
-			
-			\item Let $K \subset E$. Suppose that $K$ is compact in $E$. Since the inclusion $\iota:E \rightarrow X$ is continuous, $K$ is compact in $X$. Since $\mu$ is Radon, we have that 
-			\begin{align*}
-				\mu|_E(K)
-				& = \mu(K) \\
-				& < \infty
-			\end{align*}
-		\end{enumerate}
-	\end{proof}
+	\begin{defn}
+		Let $X$ be a topological space and $\mu, \nu$ measures on $(X, \MB(X))$. Suppose that $\nu$ is a Radon. We define $\nu_{\mu}^{\perp} \in \MM^+(X)$ by $\nu_{\mu}^{\perp} = \nu - \nu_{\mu}$.
+	\end{defn}
 
 	\begin{ex}
-		Let $X$ be a topological space and $\mu, \nu$ measures on $(X, \MB(X))$. Suppose that $\mu,\nu$ are $\sig$-finite  and $\nu$ is a Radon. Set $\lam = \nu - \nu_{\mu}$. Then 
-		\begin{enumerate}
-			\item  $\lam \perp \nu_{\mu}$
-			\item $\nu = \lam + \nu_{\mu}$ is the Lebesgue decomposition of $\nu$ with respect to $\mu$.
-		\end{enumerate}
+		Let $X$ be a topological space and $\mu, \nu$ measures on $(X, \MB(X))$. Suppose that $\mu,\nu$ are-finite and $\nu$ is Radon. Then $\nu_{\mu}^{\perp} \perp \nu_{\mu}$. \\
 		\tbf{Hint:} consider lemma 3.7 in Folland
 	\end{ex}
 
+	\begin{proof}
+		Since $\nu_{\mu} \leq \nu$, $\nu_{\mu}$ is finite. For the sake of contradiction, suppose that $\nu_{\mu}^{\perp} \not \perp \mu$. Then \tcb{Lemma 3.7 in Folland} implies that there exists $\ep >0$ and $E \in \MB(X)$ such that $\mu(E) > 0$ and $E$ is $(\nu_{\mu}^{\perp} - \ep \mu)$-positive. \\ 
+		Set $\del = \ep \mu(E)/2$. \rex{ex:outer_measures:00012.1} implies that there exists $F \in \MB(X)$ such that $F \subset E$, $F$ $\mu^*$-covers $E$ and $\nu(F) < \nu_{\mu}(E) + \del$. Since $\mu^*|_{\MB(X)} = \mu$, we have that 
+		\begin{align*}
+			\mu(E)
+			& = \mu(E \cap F) + \mu(E \cap F^c) \\
+			& = \mu(F) + \mu(E \setminus F) \\
+			& = \mu(F)
+		\end{align*}
+		Since $F$ $\mu^*$-covers $E$, \rex{ex:outer_measures:00014} implies that 
+		\begin{align*}
+			\nu_{\mu}(E)
+			& = \nu_{\mu}(E \cap F) \\
+			& = \nu_{\mu}(F)
+		\end{align*}
+		Therefore
+		\begin{align*}
+			\ep \mu(E)
+			& = \ep \mu(F) \\
+			& \leq \nu_{\mu}^{\perp}(F) \\
+			& = \nu(F) - \nu_{\mu}(F) \\
+			& < \nu_{\mu}(E) - \nu_{\mu}(F) + \del \\
+			& = \nu_{\mu}(F) - \nu_{\mu}(F) + \del \\
+			& = \del \\
+			& = \ep \mu(E)
+		\end{align*} 
+		which is a contradiction. Hence $\nu_{\mu}^{\perp} \perp \mu$. 
+	\end{proof}
+
+	\begin{ex}
+		Let $X$ be a Hausdorff topological space and $\mu, \nu$ measures on $(X, \MB(X))$. Suppose that $\mu,\nu$ are $F_{\sig}$-finite and $\nu$ is Radon. Then 
+		\begin{enumerate}
+			\item $\nu_{\mu} \ll \mu$
+			\item $\nu_{\mu}^{\perp} \perp \mu$
+			\item $\nu = \nu_{\mu}^{\perp} + \nu_{\mu}$ is the Lebesgue decomposition of $\nu$ with respect to $\mu$
+		\end{enumerate}
+	\end{ex}
+
 	\begin{proof}\
 		\begin{enumerate}
-			\item Suppose that $\mu, \nu $ are finite. For the sake of contradiction, suppose that $\lam \not \perp \mu$. Then \tcb{Lemma 3.7 in Folland} implies that there exists $\ep >0$ and $E \in \MB(X)$ such that $\mu(E) > 0$ and $E$ is $(\lam - \ep \mu)$-positive. \\ 
-			Suppose that $\nu_{\mu}(E) < \infty$. Set $\del = \ep \mu(E)/2$. \rex{ex:outer_measures:00012.1} implies that there exists $F \in \MB(X)$ such that $F \subset E$, $F$ $\mu^*$-covers $E$ and $\nu(F) < \nu_{\mu}(E) + \del$. Since $\mu^*|_{\MB(X)} = \mu$, we have that 
+			\item Let $E \in \MB(X)$. Suppose that $\mu(E) = 0$. Then 
 			\begin{align*}
-				\mu(E)
-				& = \mu(E \cap F) + \mu(E \cap F^c) \\
-				& = \mu(F) + \mu(E \setminus F) \\
-				& = \mu(F)
+				\mu(E \setminus \varnothing)
+				& = \mu(E \cap \varnothing^c) \\
+				& = \mu(E \cap X) \\
+				& = \mu(E) \\
+				& = 0
 			\end{align*}
-			Since $F$ $\mu^*$-covers $E$, \rex{ex:outer_measures:00014} implies that 
+			Hence $\varnothing$ $\mu^*$-covers $E$. Set 
+			$$V(E) = \{\nu(F): F \in \MB(X) \text{ and $F$ $\mu^*$-covers E}\}$$ 
+			By definition of $\nu_{\mu}$, we have that 
 			\begin{align*}
 				\nu_{\mu}(E)
-				& = \nu_{\mu}(E \cap F) \\
-				& = \nu_{\mu}(F)
+				& = \inf V(E) \\
+				& \leq \nu(\varnothing) \\
+				& = 0
 			\end{align*}
-			Therefore
+			Hence $\nu_{\mu}(E)$. Since $E \in \MB(X)$ with $\mu(E) = 0$ is arbitrary, $\nu_{\mu} \ll \mu$.
+			\item Since $\mu,\nu$ are $F_{\sig}$-finite, a previous exercise implies that there exists $(E_n)_{n \in \N} \subset \MB(X)$ such that 
+			\begin{enumerate}
+				\item $X = \bigcup\limits_{n \in \N} E_n$
+				\item for each $n \in \N$,
+				\begin{itemize}
+					\item $E_n$ is closed 
+					\item $E_n \subset E_{n+1}$ 
+					\item $\nu(E_n), \mu(E_n) < \infty$
+				\end{itemize}
+			\end{enumerate} 
+			Let $n \in \N$. Since $\nu(E_n), \mu(E_n) < \infty$, $\nu|_{E_n}$ and $\mu|_{E_n}$ are finite measures. Since $E_n$ is closed, a previous exercise implies that $\nu|_{E_n}$ is Radon.  \rex{ex:subspace_measures:00007} implies that 
 			\begin{align*}
-				\ep \mu(E)
-				& = \ep \mu(F) \\
-				& \leq \lam(F) \\
-				& = \nu(F) - \nu_{\mu}(F) \\
-				& < \nu_{\mu}(E) - \nu_{\mu}(F) + \del \\
-				& = \nu_{\mu}(F) - \nu_{\mu}(F) + \del \\
-				& = \del \\
-				& = \ep \mu(E)
-			\end{align*} 
-			which is a contradiction. Hence $\lam \perp \mu$. 
-			\tcb{FINISH!!!, do restriction of measure/outer measure stuff and do the $\sig$-finite case}
-			\item 
+				\nu_{\mu}^{\perp}|_{E_n} 
+				& = (\nu - \nu_{\mu})|_{E_n} \\
+				& = \nu|_{E_n} - \nu_{\mu}|_{E_n} \\
+				& = \nu|_{E_n} - {\nu|_{E_n}}_{\mu|_{E_n}} \\
+				& = {\nu|_{E_n}}_{\mu|_{E_n}}^{\perp}
+			\end{align*}
+			The previous exercise implies that 
+			\begin{align*}
+				\nu_{\mu}^{\perp}|_{E_n} 
+				& = {\nu|_{E_n}}_{\mu|_{E_n}}^{\perp} \\
+				& \perp \mu|_{E_n}
+			\end{align*}
+			Since for each $n \in \N$, $E_n$ is closed, $(E_n)_{n \in \N} \subset \MB(X)$. \rex{ex:Radon_Nikodym:mutually_singular_abs_cont_msrs:00002} implies that $\nu_{\mu}^{\perp} \perp \mu$.
+			\item Clear by theorem and uniqueness. \\
+			\tcb{FINISH!!! and reference exercises}
 		\end{enumerate}
 	\end{proof}
 	
@@ -7301,125 +8022,6 @@
 	
 	
 	
-	\begin{ex} \lex{00000} 
-	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. Set $$\MN_{\mu} = \{U \subset X: U \text{ is open and } \mu(U) = 0\}$$ and $$N_{\mu} = \bigcup_{U \in \MN_{\mu}} U$$ 
-	Then $N_{\mu}$ is open, $N_{\mu}^c$ is closed and $\mu(N_{\mu}) = 0$.\\
-	\textbf{Hint:} use inner regularity and compactness
-	\end{ex}
-	
-	\begin{proof}
-	Since $N_{\mu}$ is the union of open sets, it is open and $N_{\mu}^c$ is closed since $N_{\mu}$ is open. Let $K \subset N_{\mu}$. Suppose that $K$ is compact. Since $\MN_{\mu}$ is an open cover for $K$, there exist $U_1, \ldots, U_n \in \MN_{\mu}$ such that $$K \subset \bigcup_{j=1}^n U_j$$ 
-	This implies that 
-	\begin{align*}
-	\mu(K) 
-	&\leq \mu\bigg( \bigcup_{j=1}^n U_j \bigg) \\
-	& \leq \sum_{j=1}^n \mu(U_j) \\
-	&= 0
-	\end{align*}
-	Inner regularity implies that 
-	\begin{align*}
-	\mu(N_{\mu}) 
-	&= \sup \{ \mu(K): K \subset N_{\mu} \text{ and $K$ is compact}\} \\
-	&= 0
-	\end{align*}
-	\end{proof}
-	
-	\begin{defn} \ld{00000} 
-	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. Define $\MN_{\mu}$ and $N_{\mu}$ as in the previous exercise. We define the \textbf{support of $\mu$}, denoted $\supp(\mu)$, by $$\supp(\mu) = N_{\mu}^c $$
-	\end{defn}
-	
-	\begin{ex} \lex{00000} 
-	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MB(X)$. If $\mu(E) < \infty$, then for each $\ep >0$, 
-	\begin{enumerate}
-	\item there exists $U \in \MB(X)$ such that $U$ is open, $E \subset U$ and $\mu(U \setminus E) < \ep$ 
-	\item there exists $C \in \MB(X)$ such that $C$ is compact, $C \subset U$ and $\mu(U) - \ep < \mu(C)$ 
-	\item there exists $V \in \MB(X)$ such that $V$ is open, $U \setminus E \subset V$ and $\mu(V) < \ep$ 
-	\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $\mu(E) < \infty$. Let $\ep >0$. 
-	\begin{enumerate}
-	\item Outer regularity om $E$ implies that there exists $U \in \MB(X)$ such that $U$ is open, $E \subset U$ and $\mu(U \setminus E) < \ep$. 
-	\item Inner regularity on $U$ implies that there exists $C \in \MB(X)$ such that $C$ is compact, $C \subset U$ and $\mu(U) - \ep < \mu(C) $.
-	\item Outer regularity on $U \setminus E$ implies that there exists $V \in \MB(X)$ such that $U$ and $V$ are open, $U \setminus E \subset V$ and $\mu(V) < \ep$.
-	\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MA$. Suppose that $\mu(E) < \infty$. Let $\ep >0$. Define $U$, $C$ and $V$ as in the previous exercise. Set $K = C \setminus V$. Then $K$ is compact, $K \subset E$ and $\mu(K) > \mu(E) - 2 \ep$ 
-	\end{ex}
-	
-	\begin{proof}
-	Since $C$ is closed and $V$ is open, $C \setminus V =  C \cap V^c$ is closed. Since $C$ is compact and $C \setminus V \subset C$, we have that $K = C \setminus V $ is compact.
-	Set algebra implies that
-	\begin{align*}
-	K
-	&= C \cap V^c \\
-	& \subset U \cap V^c \\
-	& \subset U \cap (U^c \cup E) \\
-	&= (U \cap U^c) \cup (U \cap E) \\
-	&=  U \cap E \\
-	& \subset E
-	\end{align*}
-	The previous exercise implies that 
-	\begin{align*}
-	\mu(K)
-	&= \mu(C \cap V^c) \\
-	&= \mu(C) - \mu(C \cap V) \\
-	&> \mu(U) - \ep - \mu(V) \\
-	&> \mu(E) - 2 \ep
-	\end{align*}
-	\end{proof}		
-	
-	\begin{ex} \lex{00000} 
-	Let $X$ be a topological space, $\mu: \MB(X) \rightarrow \RG$ a Radon measure and $E \in \MB(X)$. If $E$ is $\sig$-finite, then $\mu$ is inner regular on $E$. \\
-	\textbf{Hint:} use the previous exercise
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $E$ is $\sig$-finite. \\
-	If $\mu(E) < \infty$, the previous exercise implies that for each $\ep > 0 $, there exists $K \in \MB(X)$ such that $K$ is compact, $K \subset E$ and $\mu(K) > \mu(E) - \ep$. Hence $\mu$ is inner regular on $E$. \\
-	If $\mu(E) = \infty$, then $\sig$-finiteness implies that there exists $(E_j)_{j \in \N} \subset \MB(X)$ such that $E = \bigcup\limits_{j \in N} E_j$, for each $j \in \N$, $\mu(E_j) < \infty$ and $\mu(E_j) \rightarrow \infty$. Let $N \in \N$. Choose $J \in \N$ such that $\mu(E_J) > N$. The above argument implies that there exists $K \in \MB(X)$ such that $K$ is compact, $K \subset E_J \subset E$ and $\mu(K) > N$. So 
-	\begin{align*}
-	\mu(E)
-	&= \infty \\
-	&= \sup_{\substack{ K \subset E \\ \text{ $K$ is compact}}} \mu(K)
-	\end{align*}	 
-and $\mu$ is inner regular on $E$.  
-	\end{proof}		
-	
-	\begin{ex} \lex{00000} 
-	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. If $\mu$ is $\sig$-finite, then $\mu$ is regular.
-	\end{ex}
-	
-	\begin{proof}
-	Clear by previous exercise.
-	\end{proof}
-	
-	\begin{ex} \lex{00000} 
-	Let $X$ be a topological space and $\mu: \MB(X) \rightarrow \RG$ a Radon measure. If $X$ is $\sig$-compact, then $\mu$ is $\sig$-finite. The previous exercise implies that $\mu$ is regular. 
-	\end{ex}
-	
-	\begin{proof}
-	If $X$ is $\sig$-compact, then $\mu$ is $\sig$-finite. Hence $\mu$ is regular.
-	\end{proof}
-	
-		
-	
-	\begin{ex} \lex{00000} 
-	Let $X$ be a topological space and $\mu:\MB(X) \rightarrow \RG$ a Radon measure. Then for each $p \in [1, \infty]$, $C_c(X) \subset L^p(\mu)$.
-	\end{ex}
-	
-	\begin{proof}
-	Let $p \in [1, \infty]$ and $f \in C_c(X)$. Then $|f|^p \in C_c(X)$ and 
-	\begin{align*}
-	\|f\|_p 
-	&= \int |f|^p \dmu \\
-	& \leq \|f\|_{\infty}^p \mu(\supp (f)) \\
-	& < \infty
-\end{align*}	 
-	\end{proof}
 	
 	
 	
@@ -7615,11 +8217,12 @@ and $\mu$ is inner regular on $E$.
 
 	\begin{ex}
 		Let $X$ be a metric space, $\mu: \MB(X) \rightarrow \Rg$ be a finite measure and $E \in \MB(X)$. Then 
-		$\mu(E) = \inf  \{\mu(U): E \subset U \text{ and $U$ is open} \}$ iff $\mu(E^c) = \sup  \{\mu(C): C \subset E^c \text{ and $C$ is closed} \}$ 
+		$\mu(E) = \inf  \{\mu(U): E \subset U \text{ and $U$ is open} \}$ iff $\mu(E^c) = \sup  \{\mu(C): C \subset E^c \text{ and $C$ is closed} \}$ \\
+		\tcb{move to previous section}
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $\mu(E) = \inf  \{\mu(U): E \subset U \text{ and $U$ is open} \}$. Let $\ep >0$. Then there exists $U \subset X$ such that $E \subset U$, $U$ is open and $\mu(U) < \mu(E) + \ep$. Choose $C = U^c$. Then $C \subset E^c$, $E^c$ is closed and 
+		Suppose that $\mu(E) = \inf  \{\mu(U): E \subset U \text{ and $U$ is open} \}$. Let $\ep >0$. Then there exists $U \subset X$ such that $E \subset U$, $U$ is open and $\mu(U) < \mu(E) + \ep$. Choose $C = U^c$. Then $C \subset E^c$, $C$ is closed and 
 		\begin{align*}
 			\mu(E^c) - \ep 
 			&= \mu(E^c \cap C) + \mu(E^c \cap C^c) - \ep \\
@@ -7791,6 +8394,33 @@ and $\mu$ is inner regular on $E$.
 
 
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage	
 	\subsection{Weak* Convergence}
 	\begin{defn}
 		Let $X$ be a topological space. For $f \in C_b(X)$, define $\lam_f: \MM(X) \rightarrow \C$ by $$\lam_f(\mu) = \int f \dmu$$.
@@ -7899,87 +8529,238 @@ and $\mu$ is inner regular on $E$.
 	
 	
 	\newpage
-	\section{Differentiation of Measure on Metric Spaces}
-	
-	
+	\section{Differentiation of Radon Measures on Metric Spaces}
 	
 	\subsection{Covering Lemmas}
 	
+	\tcb{Add Besicovitch Covering Lemma}
+
 	\begin{note}
-		Let $X$ be a set. In what follows, we equip $X \times \MP(X)$  with the standard projection maps $\pi_1: X \times \MP(X) \rightarrow X$ and $\pi_2: X \times \MP(X) \rightarrow \MP(X)$. 
+		We make use of some results about maps $\MP: \N \rightarrow \Part(X)$ which are decreasing. See the section on ultrametric spaces in the analysis notes for details. 
 	\end{note}
 	
 	\begin{defn}
-		Let $(X,d)$ be a metric space. 
+		Let $(X,d)$ be a metric space. We define the set of closed balls in $X$, denoted $\bar{\MB}_X$, by
+		$$\bar{\MB}_X =  \{\bar{B}(x, r): x \in X \text{ and } r > 0\}$$
+		Let $A \subset X$. 
 		\begin{itemize}
-			\item Let $\MC \subset X \times \MP(X)$. Then $\MC$ is said to be a \tbf{covering relation} on $X$ if for each $A \in X \times \MP(X)$, 
-			$$\pi_1(A) \in \pi_2(A)$$ 
-			i.e. if for each $(x, S) \in \MC$, $x \in S$.
-			\item Let $\MC$ be a covering relation on $X$ and $Z \subset X$. We define the restriction of $\MC$ to $Z$, denoted $\MC|_Z$, by 
-			$$\MC|_Z = \pi_1|_{\MC}^{-1}(Z)$$
-			i.e. $\MC|_Z = \{(x, S) \in \MC: x \in Z\}$.
-			\item Let $\MC$ be a covering relation on $X$ and $x \in \pi_1(\MC)$. Then $\MC$ is said to be \tbf{fine} at $x$ if 
-			$$\inf\limits_{S \in \pi_2(\MC|_x)} \diam(S) = 0$$
-			i.e. if $\inf \{\diam(S): (x,S) \in \MC\} = 0$.
-		\end{itemize} 
+			\item Let $\MV \subset \bar{\MB}_X$. Then $\MV$ is said to be a \tbf{centered covering} of $A$ if for each $x \in A$, there exists $r > 0$ such that $\bar{B}(x, r) \in \MV$. We define 
+			$$\MC(A) = \{ \MV \in \bar{\MB}_X: \MV \text{ is a centered covering of } A\}$$
+			\item Let $\MV \in \MC(A)$ and $x \in A$. Then $\MV$ is said to be \tbf{fine} at $x$ if 
+			$$\inf \{r > 0 : \bar{B}(x,r) \in \MV\} = 0$$
+			\item Let $\MV \in \MC(A)$. Then $\MV$ is said to be fine on $A$ if for each $x \in A$, $\MV$ is fine at $x$.
+		\end{itemize}
 	\end{defn}
 	
 	\begin{defn}
-		Let $(X, d)$ be a metric space, $\mu \in \MM(X)$ and $\MV$ be a covering relation on $X$. Then $\MV$ is said to be \tbf{$\mu$-Vitali} if 
+		Let $(X, d)$ be a metric space and $\mu$ a measure on $(X, \MB(X))$. Then $\mu$ is said to be \tbf{Vitali} if for each $A \subset X$ and $\MV \in \MC(A)$, $\MV$ is fine on $A$ implies that there exists $\MF \subset \MV$ such that 
 		\begin{enumerate}
-			\item $\pi_2(\MV) \subset \MB(X)$
-			\item for each $x \in X$, $\MV$ is fine at $x$
-			\item for each $\MC \subset \MV$ and $Z \subset \pi_1(\MC)$, if for each $x \in Z$, $\MC$ is fine at $x$, then there exists $\MF \subset \pi_2(\MC|_Z)$ such that 
-			\begin{enumerate}
-				\item $\MF$ is countable
-				\item $\MF$ is disjoint
-				\item $\MF$ $\mu$-covers $Z$ 
-			\end{enumerate}
+			\item $\MF$ is countable
+			\item $\MF$ is disjoint
+			\item $\MF$ $\mu^*$-covers $A$ 
 		\end{enumerate}
 	\end{defn}
-	
-	
+
+	\begin{note}
+		\tcb{We recall the characterization of ultrametrics in terms of ultrametric-equivalent $\MP: \Rgp \rightarrow \Part(X)$ outlined in the analysis notes.}
+	\end{note}
 	
 	\begin{ex}
-		Let $(X, d)$ be a separable metric space and $\MP:\N \rightarrow \Part(X)$. Suppose that $X$ is separable and  
+		Let $(X, d)$ be a seprable ultrametric space and $\mu$ a measure on $(X, \MB(X))$. Suppose that there exists $\MP: \N \rightarrow \Part(X)$ such that $\MP^d = \bar{\MP}$. Then $\mu$ is Vitali. \\
+		\tbf{Hint: For each $x \in A$, there exists a maximal $\pi^{\MP^d}_n(x) \in \MV$}.
+	\end{ex}
+
+	\begin{proof}
+		Let $A \subset X$ and $\MV \in \MC(A)$. Suppose that $\MV$ is fine on $A$. 
+		\tcb{(Add some details about how $\MP^d = \bar{\MP}$ and that we can do everything with $\MP$)}.
+		Let $a \in A$. Since $\MV \in \MC(A)$, there exists $r > 0$ such that $\bar{B}(a, r) \in \MV$. By assumption \tcb{(add details)}, there exists $n \in \N$ such that $\pi^{\MP}_n(a) = \bar{B}(a, r)$. Since $a \in A$ is arbitrary, we have that for each $a \in A$, $\{n \in \N: \pi^{\MP}_n(a) \in \MV \} \neq \varnothing$. Since $X$ is separable, $A$ is separable \tcb{(needs an exercise, not trivial)}. Thus there exists $(a_n)_{n \in \N} \subset A$ such that $(a_n)_{n \in \N}$ is dense in $A$. For each $k \in \N$, set $n_k = \min \{n \in \N: \pi^{\MP}_n(a_k) \in \MV \}$. Define $\MF \subset \MV$ by $\MF = \{\pi^{\MP}_{n_k}(a_k): k \in \N\}$. 
 		\begin{enumerate}
-			\item for each $n \in \N$, $\MP_n \subset \MB(X)$ and $\MP_n$ is countable
-			\item $\MP$ is decreasing \tcb{as in analysis notes - ultrametric spaces}
+			\item By construction $\MF$ is countable.
+			\item Let $k_1, k_2 \in \N$. Suppose that $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) \neq \varnothing$. Then there exists $x \in X$ such that $x \in \pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2})$. 
+			\begin{itemize}
+				\item For the sake of contradiction, suppose that $n_{k_1} < n_{k_2}$. Since $\MP$ is decreasing, \tcb{an exercise in the section on ultrametric spaces in the analysis notes } implies that $\pi^{\MP}_{n_{k_2}}(a_{k_2}) \subset \pi^{\MP}_{n_{k_1}}(a_{k_2})$. Then
+				\begin{align*}
+					x
+					& \in \pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) \\
+					& \subset \pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_1}}(a_{k_2}) 
+				\end{align*}
+				Since $\MP_{n_{k_1}} \in \Part(X)$ and $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_1}}(a_{k_2}) \neq \varnothing$, we have that 
+				\begin{align*}
+					\pi^{\MP}_{n_{k_1}}(a_{k_2})
+					& = \pi^{\MP}_{n_{k_1}}(a_{k_1}) \\
+					& \in \MV
+				\end{align*}
+				Therefore
+				\begin{align*}
+					\min \{n \in \N: \pi^{\MP}_n(a_{k_2}) \in \MV\}
+					& \leq n_{k_1} \\
+					& < n_{k_2} \\
+					& = \min \{n \in \N: \pi^{\MP}_n(a_{k_2}) \in \MV\}
+				\end{align*}
+				which is a contradiction. Hence $n_{k_1} \geq n_{k_2}$. 
+				\item Similarly, $n_{k_1} \leq n_{k_2}$.
+			\end{itemize}
+			Thus $n_{k_1} = n_{k_2}$. Since $k_1, k_2 \in \N$ are arbitrary, we have that for each $k_1, k_2 \in \N$, $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) \neq \varnothing$ implies that $\pi^{\MP}_{n_{k_1}}(a_{k_1}) = \pi^{\MP}_{n_{k_2}}(a_{k_2})$. Equivalently, for each $k_1, k_2 \in \N$, $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \neq \pi^{\MP}_{n_{k_2}}(a_{k_2})$ implies that $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) = \varnothing$. Hence $\MF$ is disjoint.
+			\item Let $a \in A$. Since $\MV \in \MC(A)$, there exists $r > 0$ such that $\bar{B}(a, r) \in \MV$. Therefore there exists $n \in \N$ such that $\bar{B}(a, r) = \pi^{\MP}_n(a)$ \tcb{(give more details)}. \tcb{An exercise in the section on ultrametric spaces in the analysis notes} implies that $\bar{B}(a, r)$ is open in $X$. Then $\bar{B}(a, r) \cap A$ is open in $A$. Since $(a_n)_{n \in \N}$ is dense in $A$, there exists $k \in \N$ such that 
+			\begin{align*}
+				a_k 
+				& \in \bar{B}(a, r) \cap A \\
+				& \subset \bar{B}(a, r) \\
+				& = \pi^{\MP}_n(a)
+			\end{align*}
+			Since $\MP_n \in \Part(X)$, 
+			\begin{align*}
+				a
+				& \in \pi^{\MP}_n(a) \\
+				& = \pi^{\MP}_n(a_k) \\
+			\end{align*}
+			Since $\MP$ is decreasing, we have that 
+			\begin{align*}
+				a
+				& \in \pi^{\MP}_n(a_k) \\
+				& \subset \pi^{\MP}_{n_k}(a_k) \\
+				& \in \MF 
+			\end{align*}
+			Since $a \in A$ is arbitrary, we have that $A \subset \bigcup\limits_{S \in \MF}S$. Therefore 
+			\begin{align*}
+				\mu \bigg[ A \setminus \bigg(\bigcup_{S \in \MF}S \bigg) \bigg] 
+				& = \mu \bigg[ A \cap \bigg(\bigcup_{S \in \MF}S \bigg)^c \bigg] \\ 
+				& = \mu(\varnothing) \\
+				& = 0
+			\end{align*}
+			Hence $\MF$ $\mu^*$-covers $A$. 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X, d)$ be an ultra metric space and  $\mu$ a measure on $(X, \MB(X))$ and $\MP:\N \rightarrow \Part(X)$. Suppose that $X$ is separable and  
+		\begin{enumerate}
+			\item for each $n \in \N$ and $S \in \MP_n$, there exists $x \in X$ and $r > 0$ such that $S = \bar{B}(x, r)$
+			\item $\MP$ is decreasing 
 			\item $\limsup\limits_{n \rightarrow \infty} \bigg[ \sup\limits_{S \in \MP_n} \diam(S) \bigg]  = 0$
 		\end{enumerate}
-		Set $\MV(\MP) = \bigg \{(x, S): S \in \bigcup\limits_{n \in \N}\MP_{n} \text{ and $x \in S$} \bigg\}$. Then $\MV(P)$ is $\mu$-Vitali
+		Set $\MV(\MP) \defeq \bigcup\limits_{n \in \N}\MP_{n}$. Then $\MV(\MP)$ is $\mu$-Vitali
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item We have that 
+			\item Let $x \in X$. Since $\MP_1 \in \Part(X)$, there exists $S_x \in \MP_1$ such that $x \in S$. Then 
 			\begin{align*}
-				\pi_2(\MV(\MP))
-				& \subset \bigcup_{n \in \N} \MP_n \\
-				& \subset \MB(X)
+				x 
+				& \in S_x \\
+				& \subset \bigcup_{S \in \MV(\MP)} S
 			\end{align*}
-			\item Let $x \in X$ and $\ep >0$. Suppose Since $\limsup\limits_{n \rightarrow \infty} \bigg[ \sup\limits_{S \in \MP_n} \diam(S) \bigg]  = 0$, there exists $N \in \N$ such that for each $n \geq N$ and $S \in \MP_n$, $\diam(S)< \ep$. Since $\MP_N$ is a partition, there exists $S_x \in \MP_N$, such that $x \in S_x$. Then 
+			Since $x \in X$ is arbitrary, we have that $X \subset \bigcup\limits_{S \in \MV(\MP)} S$. So $\MV(\MP)$ is a covering of $X$.
+			\item Let $x \in X$ and $\ep >0$. Since $\limsup\limits_{n \rightarrow \infty} \bigg[ \sup\limits_{S \in \MP_n} \diam(S) \bigg]  = 0$, there exists $N \in \N$ such that for each $n \geq N$ and $S \in \MP_n$, $\diam(S)< \ep$. Since $\MP_N \in \Part(X)$, there exists $S_x \in \MP_N$, such that $x \in S_x$. Then $S_x \in \MV(\MP)$ and 
 			\begin{align*}
-				\inf\limits_{S \in \pi_2(\MC|_x)} \diam(S)
+				\inf \{\diam(S): S \in \MV(\MP) \text{ and } x \in S\}
 				& \leq \diam(S_x) \\
 				& < \ep 
 			\end{align*} 
-			Since $\ep > 0$ is arbitrary, $\inf\limits_{S \in \pi_2(\MC|_x)} \diam(S) = 0$. Hence $\MC$ is fine at $x$.  
-			\item Let $\MC \subset \MV(\MP)$ and $Z \subset \pi_1(\MC)$. Suppose that for each $x \in Z$, $\MC$ is fine at $x$. Let $z \in Z$. \tcb{Define $\pi_n: X \rightarrow X/ \sim_n$ as in the analysis notes -ultrametric spaces.} Since $Z \subset \pi_1(\MC)$, there exists $n \in \N$ such that $\pi_n(z) \in \MC$. Set $n_z = \min \{n \in \N: \pi_n(z) \in \MC \}$. Then $\{\pi_{n_z}(z): z \in Z\}$ is a disjoint cover of $Z$. \\
-			\tcb{FINISH!!!: WTS this set is countable or can take a countable subcover using separability that $\mu$-covers $Z$}. I think the interiors of $\pi_{n_z}(z)$ need to be nonempty. 
-			
-			Since $X$ is separable, $Z$ is separable. Thus, there exists $(z_j)_{j \in \N} \subset Z$ such that $(z_j)_{j \in \N}$ is dense in $Z$.
+			Since $\ep > 0$ is arbitrary, $\inf \{\diam(S): S \in \MV(\MP) \text{ and } x \in S\} = 0$. Hence $\MV(\MP)$ is fine at $x$.  
+			\item \tcb{Recall $\pi^{\MP}_n: X \rightarrow X/ \sim_{\MP_n}$ as in the analysis notes -ultrametric spaces. Then for each $n \in \N$, $\MP_n = \{\pi^{\MP}_n(z): x \in X\}$}\\
+			Let $A \subset X$ and $\MV' \subset \MV(\MP)$. Suppose that $\MV'$ is a covering of $A$ and for each $x \in A$, $\MV'$ is fine at $x$. \\
+			Let $z \in A$. Since $\MV'$ is a covering of $A$, there exists $S \in \MV'$ such that $z \in S$. Since 
+			\begin{align*}
+				S
+				& \in  \MV'\\
+				& \subset \MV(\MP) \\
+				& = \bigcup_{n \in \N} \MP_n \\
+				& = \bigcup_{n \in \N} \{\pi^{\MP}_n(x): x \in X\} \\
+				& = \{\pi^{\MP}_n(x): x \in X \text{ and } n \in \N\} 
+			\end{align*} 
+			there exists $n \in \N$ and $x \in X$ such that $S = \pi^{\MP}_n(x)$. Since $z \in \pi^{\MP}_n(x)$ and $\MP_n \in \Part(X)$, we have that 
+			\begin{align*}
+				\pi^{\MP}_n(z) 
+				& = \pi^{\MP}_n(x) \\
+				& = S \\
+				& \in \MV'
+			\end{align*}
+			Since $z \in A$ is arbitrary, we have that for each $z \in A$, $\{n \in \N: \pi^{\MP}_n(z) \in \MV'\} \neq \varnothing$. \\
+			Since $X$ is separable, $A$ is separable. Thus there exists $(z_n)_{n \in \N} \subset A$ such that $(z_n)_{n \in \N}$ is dense in $A$. For each $k \in \N$, set $n_k = \min \{n \in \N: \pi^{\MP}_n(z_k) \in \MV' \}$. Define $\MF \subset \MV'$ by $\MF = \{\pi^{\MP}_{n_k}(z_k): k \in \N\}$. 
 			\begin{enumerate}
-				\item Choose
-				\item 
-				\item 
+				\item By construction $\MF$ is countable.
+				\item Let $k_1, k_2 \in \N$. Suppose that $\pi^{\MP}_{n_{k_1}}(z_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(z_{k_2}) \neq \varnothing$. Then there exists $x \in X$ such that $x \in \pi^{\MP}_{n_{k_1}}(z_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(z_{k_2})$. 
+				\begin{itemize}
+					\item For the sake of contradiction, suppose that $n_{k_1} < n_{k_2}$. Since $\MP$ is decreasing, \tcb{an exercise in the section on ultrametric spaces in the analysis notes } implies that $\pi^{\MP}_{n_{k_2}}(z_{k_2}) \subset \pi^{\MP}_{n_{k_1}}(z_{k_2})$. Then
+					\begin{align*}
+						x
+						& \in \pi^{\MP}_{n_{k_1}}(z_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(z_{k_2}) \\
+						& \subset \pi^{\MP}_{n_{k_1}}(z_{k_1}) \cap \pi^{\MP}_{n_{k_1}}(z_{k_2}) 
+					\end{align*}
+					Since $\MP_{n_{k_1}} \in \Part(X)$ and $\pi^{\MP}_{n_{k_1}}(z_{k_1}) \cap \pi^{\MP}_{n_{k_1}}(z_{k_2}) \neq \varnothing$, we have that 
+					\begin{align*}
+						\pi^{\MP}_{n_{k_1}}(z_{k_2})
+						& = \pi^{\MP}_{n_{k_1}}(z_{k_1}) \\
+						& \in \MV'
+					\end{align*}
+					Therefore
+					\begin{align*}
+						\min \{n \in \N: \pi^{\MP}_n(z_{k_2}) \in \MV'\}
+						& \leq n_{k_1} \\
+						& < n_{k_2} \\
+						& = \min \{n \in \N: \pi^{\MP}_n(z_{k_2}) \in \MV'\}
+					\end{align*}
+					which is a contradiction. Hence $n_{k_1} \geq n_{k_2}$. 
+					\item Similarly, $n_{k_1} \leq n_{k_2}$.
+				\end{itemize}
+				Thus $n_{k_1} = n_{k_2}$. Since $k_1, k_2 \in \N$ are arbitrary, we have that for each $k_1, k_2 \in \N$, $\pi^{\MP}_{n_{k_1}}(z_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(z_{k_2}) \neq \varnothing$ implies that $\pi^{\MP}_{n_{k_1}}(z_{k_1}) = \pi^{\MP}_{n_{k_2}}(z_{k_2})$. Equivalently, for each $k_1, k_2 \in \N$, $\pi^{\MP}_{n_{k_1}}(z_{k_1}) \neq \pi^{\MP}_{n_{k_2}}(z_{k_2})$ implies that $\pi^{\MP}_{n_{k_1}}(z_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(z_{k_2}) = \varnothing$. Hence $\MF$ is disjoint.
+				\item Let $z \in A$. Since $\MV'$ is a covering of $A$, there exists $S \in \MV'$ such that $z \in S$. As in part (b), there exists $n \in \N$ such that $S = \pi^{\MP}_n(z)$. By assumption, there exists $x \in X$ and $r > 0$ such that 
+				\begin{align*}
+					\pi^{\MP}_n(z) 
+					& = S \\
+					& = \bar{B}(x, r)
+				\end{align*}
+				Then $\Int \pi^{\MP}_n(z)  \neq \varnothing$ and since $(z_k)_{k \in \N}$ is dense in $A$, there exists $k \in \N$ such that $z_k \in \Int \pi^{\MP}_n(z)$. Since $\MP_n \in \Part(X)$, $\pi^{\MP}_n(z_k) = \pi^{\MP}_n(z)$. Since $\MP$ is decreasing, we have that 
+				\begin{align*}
+					z
+					& \in \pi^{\MP}_n(z_k) \\
+					& \subset \pi^{\MP}_{n_k}(z_k) \\
+					& \in \MF 
+				\end{align*}
+				Since $z \in A$ is arbitrary, we have that $A \subset \bigcup\limits_{S \in \MF}S$. Therefore 
+				\begin{align*}
+					\mu \bigg[ A \setminus \bigg(\bigcup_{S \in \MF}S \bigg) \bigg] 
+					& = \mu \bigg[ A \cap \bigg(\bigcup_{S \in \MF}S \bigg)^c \bigg] \\ 
+					& = \mu(\varnothing) \\
+					& = 0
+				\end{align*}
+				Hence $\MF$ $\mu^*$-covers $A$. 
 			\end{enumerate}
+			So $\MV(\MP)$ is $\mu$-Vitali.
 		\end{enumerate}
 	\end{proof}
 
 	\begin{ex}
-		Let $(X, d)$ be a metric space, $\mu, \al, \be \in \MM^+(X)$ and $\MV$ covering relation on $X$. Suppose that $\MV$ is $\mu$-Vitali. Let $c > 0$ and $A \subset X$. If $A \subset \bigg\{x \in X: \liminf\limits_{\MV \rightarrow x} \al / \be \leq  \bigg \}$  
+		Let $(X, d)$ be a metric space, $\mu$, $\al$ and $\be$ measures on $(X, \MB(X))$ and $\MV$ a covering of $X$. Suppose that $\al, \be, \mu$ are Radon, $\be$ is finite and $\MV$ is $\mu$-Vitali. Let $c > 0$ and $A \subset \bigg\{x \in X: \liminf\limits_{\MV \rightarrow x} \al / \be < c \bigg \}$, then $\al_{\mu}^*(A) \leq c \be_{\mu}^*(A)$.
 	\end{ex}
+
+	\subsection{Differentiation}
+
+	\begin{ex}
+		Let $X$ be a metric space and $\mu$ a Radon measure on $(X, \MB(X))$. Suppose that $\mu$ is finite. Let $r > 0$. Define $f: X \rightarrow \Rg$ by $f(x) = \mu(\bar{B}(x, r))$. Then $f$ is upper semi-continuous.
+	\end{ex}
+
+	\begin{proof}
+		Let $(x_n)_{n \in \N} \subset X$, $x \in X$ and $\ep > 0$. Let $k \in \N$. Suppose that $x_n \rightarrow x$. \tcb{An exercise in the introduction section on metric spaces in the analysis notes} implies that there exists $N_0 \in \N$ such that for each $n \in \N$, $n \geq N_0$ implies that $\bar{B}(x_n, r) \subset \bar{B}(x, r + k^{-1})$. Let $n \in \N$. Suppose that $n \geq N_0$. Then $\mu(\bar{B}(x_n, r)) \leq  \bar{B}(x, r + k^{-1})$. Since $n \in \N$ with $n \geq N_0$ is arbitrary, we have that $\sup\limits_{n \geq N_0} \mu(\bar{B}(x_n, r)) \leq \mu(\bar{B}(x, r + k^{-1}))$. Therefore
+		\begin{align*}
+			\limsup_{n \rightarrow \infty} f(x_n)
+			& = \limsup_{n \rightarrow \infty}  \mu(\bar{B}(x_n, r)) \\
+			& = \inf_{N \in \N} \sup_{n \geq N} \mu(\bar{B}(x_n, r)) \\
+			& \leq \sup_{n \geq N_0} \mu(\bar{B}(x_n, r)) \\
+			& \leq \mu(\bar{B}(x, r + k^{-1}))
+		\end{align*} 
+		Since $k \in \N$ is arbitrary, we have that 
+		$$\limsup\limits_{n \rightarrow \infty} f(x_n) \leq \inf\limits_{k \in \N} \mu(\bar{B}(x, r + k^{-1}))$$ 
+		Since $\mu$ is finite, $(\bar{B}(x, r + k^{-1}))_{k \in \N}$ is decreasing and $ \inf\limits_{k \in \N} \bar{B}(x, r + k^{-1}) = \bar{B}(x, r)$, we have that 
+		\begin{align*}
+			\limsup_{n \rightarrow \infty} f(x_n)
+			& \leq \inf_{k \in \N} \mu(\bar{B}(x, r + k^{-1})) \\
+			& = \mu(\bar{B}(x, r) )\\
+			& = f(x)
+		\end{align*}
+		Since $(x_n)_{n \in \N} \subset X$ and $x \in X$ with $x_n \rightarrow x$ are arbitrary, we have that $f$ is upper semicontinuous. 
+	\end{proof}
 	
 
 
