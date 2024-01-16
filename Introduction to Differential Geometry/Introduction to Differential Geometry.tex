@@ -1648,9 +1648,9 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 	\newpage
 	
-	\chapter{Smooth Manifolds}
+	\chapter{Topological Manifolds}
 	
-	\section{Topological Manifolds}
+	\section{Introduction}
 	
 	\begin{ex}
 		We have that $\R$ is homeomorphic to $(0, \infty)$
@@ -1929,6 +1929,254 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 	\end{proof}
 
+
+	\begin{ex} \tbf{Graph of Continuous Function:} \\
+		Let $f \in C(\R)$. Set $M = \{(x,y) \in \R^2: f(x) = y\}$ (i.e. the graph of $f$). Then $M$ is a $1$-dimensional manifold.  
+	\end{ex}
+	
+	\begin{proof}
+		Set $U = \R$ and define $\phi: U \rightarrow M$ by $\phi(x) = (x, f(x))$. Then $\phi^{-1} = \pi_1$. Since $f$ is continuous, $\phi$ is continous. Since $\pi_1$ is continiuous, $\phi$ is a homeomorphism.  
+	\end{proof}
+	
+	\begin{ex} \tbf{Nodal Cubic:}\\
+		Let $M = \{(x,y) \in \R^2: y^2 = x^2 - x^3\}$. We equip $M$ with the subspace topology.
+		\begin{center}
+			\begin{tikzpicture}
+				\begin{axis}[
+					height=6cm,
+					width=8cm,
+					xmin=-.8,xmax=1.2,
+					ymin= -1,ymax=1,
+					]
+					\addplot [domain=-2:2,samples=1000, thick]({1-x^2},{x*(1-x^2)}); 
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		Then $M$ is not a $1$-dimensional topological manifold.\\
+		\tbf{Hint:} connected components
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $M$ is a $1$-dimensional manifold. Set $p = (0,0)$. Then there exists $(U, \phi) \in X(M)$ such that $p \in U$. Since $\phi(U)$ is open (in $\R$ or $\H$), there exists a $B \subset \phi(U)$ such that $B$ is open (in $\R$ or $\H$), $B$ is connected and $\phi(p) \in B$. Set $V = \phi^{-1}(B)$, $V' = V \setminus \{p\}$ and $B' = B \setminus \{\phi(p)\}$. Then $\phi: V \rightarrow B$ and $\phi': V' \rightarrow B'$ are homeomorphisms. Since $B$ is open (in $\R$ or $\H$) and connected, $B'$ has at most two connected components. Then $V'$ This is a contradiction since $V'$ has four connected components and $B'$ and $V'$ are homeomorphic. 
+	\end{proof}
+	
+	
+	
+	\begin{ex} \tbf{Topological Manifold Chart Lemma:} \\
+		Let $M$ be a set, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\phi_{\al}: U_{\al} \rightarrow \H^n$. Suppose that 
+		\begin{itemize}
+			\item for each $\al \in \Gam$, $\phi_{\al}(U_{\al}) \in \MT_{\H^n}$ 
+			\item for each $\al, \be \in \Gam$, $\phi_{\al}(U_{\al} \cap U_{\be}) \in \MT_{\H^n}$
+			\item for each $\al \in \Gam$, $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a bijection
+			\item for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is continuous
+			\item there exists $\Gam' \subset \Gam$ such that $\Gam'$ is countable and $M \subset \bigcup\limits_{\al \in \Gam'} U_{\al}$
+			\item for each $p,q \in M$, there exists $\al \in \Gam$ such that $p,q \in U_{\al}$ or there exist $\al,\be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
+		\end{itemize}
+		Define 
+		\begin{itemize}
+			\item $\MB = \{\phi_{\al}^{-1}(V): V \in \MT_{\H^n} \text{ and $\al \in \Gam$} \}$
+			\item $\MT_M = \tau(\MB)$
+		\end{itemize}
+		Then  
+		\begin{enumerate}
+			\item $\MB$ is a basis for $\MT_M$ \\
+			\tbf{Hint:} For $B_1, B_2 \subset \H^n$, $\phi_{\al_1}^{-1}(B_1) \cap \phi_{\al_2}^{-1}(B_2) = \phi_{\al_1}^{-1}( B_1 \cap [\phi_{\al_1}|_{U_{\al_1} \cap U_{\al_2}} \circ (\phi_{\al_2}|_{U_{\al_1} \cap U_{\al_2}})^{-1}(B_2)])$
+			\item $(M, \MT_M)$ is an $n$-dimensional topological manifold
+			\item $\MT_M$ is the unique topology $\MT$ on $M$ such that $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset X^n(M, \MT)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} \
+		\begin{enumerate}
+			\item \begin{itemize}
+				\item By assumption, $M \subset \bigcup\limits_{\al \in \Gam} U_{\al}$
+				\item Let $A_1, A_2 \in \MB$ and $p \in A_1 \cap A_2$. By definition, there exist $\al_1, \al_2 \in \Gam$ and $B_1, B_2 \subset \H^n$ such that $B_1$, $B_2$ are open in $\H^n$ and 
+				\begin{align*}
+					A_1 & = \phi_{\al_1}^{-1}(B_1)  & A_2 & = \phi_{\al_2}^{-1}(B_2) \\
+					& \subset U_{\al_1}         &     & \subset U_{\al_2}
+				\end{align*}
+				Set $\psi_1 = \phi_{\al_1}|_{U_{\al_1} \cap U_{\al_2}}$ and $\psi_2 = \phi_{\al_2}|_{U_{\al_1} \cap U_{\al_2}}$. We note that  
+				\begin{align*}
+					\psi_1^{-1}(B_1) & = U_{\al_2} \cap \phi_{\al_1}^{-1}(B_1) &  \psi_2^{-1}(B_2) & = U_{\al_1} \cap \phi_{\al_2}^{-1}(B_2) \\
+					& = U_{\al_2} \cap A_1                    &                   & = U_{\al_1} \cap A_2 \\
+					& \subset U_{\al_1} \cap U_{\al_2}        &                   & \subset U_{\al_1} \cap U_{\al_2}
+				\end{align*}
+				Let $q \in \phi_{\al_1}^{-1}(B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$. Then $\phi_{\al_1}(q) \in B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]$. Hence $\phi_{\al_1}(q) \in B_1$ and $\phi_{\al_1}(q) \in \psi_1 \circ \psi_2^{-1}(B_2)$. This implies that  
+				\begin{align*}
+					q 
+					& \in \phi_{\al_1}^{-1}(B_1) \\
+					& = A_1
+				\end{align*}
+				and since $\psi_2^{-1}(B_2) \subset U_{\al_1} \cap U_{\al_2}$ and $\phi_{\al_1}: U_{\al_1} \rightarrow \phi_{\al_1}(U_{\al_1})$ is a bijection, we have that
+				\begin{align*}
+					q 
+					& \in \phi_{\al_1}^{-1}(\psi_1 \circ \psi_2^{-1}(B_2)) \\
+					& = \psi_2^{-1}(B_2) \\
+					& = U_{\al_1} \cap A_2 
+				\end{align*} 
+				Thus 
+				\begin{align*}
+					q 
+					& \in A_1 \cap (U_{\al_1} \cap A_2) \\
+					& = A_1 \cap A_2
+				\end{align*}
+				Since $q \in \phi_{\al_1}^{-1}(B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$ is arbitrary, we have that $\phi_{\al_1}^{-1}(B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]) \subset A_1 \cap A_2$. \\
+				Conversely, let  
+				\begin{align*}
+					q 
+					& \in A_1 \cap A_2 \\ 
+					& = \phi_{\al_1}^{-1}(B_1) \cap \phi_{\al_2}^{-1}(B_2)
+				\end{align*}
+				Then $\phi_{\al_1}(q) \in B_1$ and $\phi_{\al_2}(q) \in B_2$. Since $A_1 \cap A_2 \subset U_{\al_1} \cap U_{\al_2}$, we have that 
+				\begin{align*}
+					\psi_2(q)
+					& = \phi_{\al_2}(q) \\
+					& \in B_2
+				\end{align*}
+				which implies that $q \in \psi_2^{-1}(B_2)$. Therefore 
+				\begin{align*}
+					\phi_{\al_1}(q)
+					& = \psi_1(q) \\
+					& \in \psi_1 ( \psi_2^{-1}(B_2)) \\
+					& =  \psi_1 \circ \psi_2^{-1}(B_2) 
+				\end{align*}
+				Hence $\phi_{\al_1}(q) \in B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]$. This implies that $q \in \phi_{\al_1}^{-1}( B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$. Since $q \in A_1 \cap A_2$ is arbitrary, we have that $A_1 \cap A_2 \subset \phi_{\al_1}^{-1}( B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$. Thus 
+				\begin{align*}
+					A_1 \cap A_2 
+					& = \phi_{\al_1}^{-1}( B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]) \\
+					& \in \MB
+				\end{align*}
+				Thus $\MB$ is a basis for $\MT_M$.
+			\end{itemize}
+			\item 
+			\begin{enumerate}
+				\item \tbf{(locally Euclidean of dimension $n$):}\\
+				Let $\al \in \Gam$. By definition, for each $B \subset \MT_{\H^n}$, 
+				\begin{align*}
+					\phi_{\al}^{-1}(B) 
+					& \in \MB \\
+					& \subset \MT_M
+				\end{align*}
+				Hence $\phi_{\al}$ is continuous. \\
+				Let $A \in \MT_{U_{\al}}$. Then there exists $U \subset \MT_M$ such that $A = U \cap U_{\al}$. Since $\MB$ is a basis for $\MT_M$, there exists $\Gam' \subset \Gam$, $(V_{\be})_{\be \in \Gam'} \subset \MT_{\H^n}$ such that $U = \bigcup_{ \be \in \Gam'} \phi_{\be}^{-1}(V_{\be})$. Thus 
+				\begin{align*}
+					A
+					& = U \cap U_{\al} \\
+					& = \bigg[\bigcup_{\be \in \Gam'} \phi_{\be}^{-1}(V_{\be}) \bigg] \cap U_{\al} \\ 
+					& = \bigcup_{\be \in \Gam'} [\phi_{\be}^{-1}(V_{\be}) \cap U_{\al}] \\
+				\end{align*} 
+				Let $\be \in \Gam'$. Since $\phi_{\al}(U_{\al} \cap U_{\be}) \subset \phi_{\al}(U_{\al})$ and $\phi_{\al}(U_{\al} \cap U_{\be}) \in \MT_{\H^n}$, we have that
+				\begin{align*}
+					\phi_{\al}(U_{\al} \cap U_{\be})
+					& = \phi_{\al}(U_{\al}) \cap \phi_{\al}(U_{\al} \cap U_{\be}) \\
+					& \in \MT_{\phi_{\al}(U_{\al})}
+				\end{align*}
+				Therefore $\MT_{\phi_{\al}(U_{\al} \cap U_{\be})} \subset \MT_{\phi_{\al}(U_{\al})}$. Since $(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is continuous, we have that $(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \H^n$
+				is continuous and therefore 
+				\begin{align*}
+					[(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}]^{-1}(V_{\be}) 
+					& \in \MT_{\phi_{\al}(U_{\al} \cap U_{\be})} \\
+					& \subset \MT_{\phi_{\al}(U_{\al})}
+				\end{align*} 
+				Since $\be \in \Gam'$ is arbitrary, we have that
+				\begin{align*}
+					\phi_{\al}(A)
+					& = \phi_{\al} \bigg( \bigcup_{\be \in \Gam'} [\phi_{\be}^{-1}(V_{\be}) \cap U_{\al}] \bigg) \\
+					& = \bigcup_{\be \in \Gam'} \phi_{\al}(\phi_{\be}^{-1}(V_{\be}) \cap U_{\al}) \\
+					& =  \bigcup_{\be \in \Gam'} (\phi_{\al}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\be}|_{U_{\al} \cap U_{\be}})^{-1}(V_{\be}) \\
+					& =  \bigcup_{\be \in \Gam'} [(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}]^{-1}(V_{\be}) \\
+					& \in \MT_{\phi_{\al}(U_{\al})}
+				\end{align*} 
+				Since $A \in \MT_{U_{\al}}$ is arbitrary, $\phi_{\al}^{-1}: \phi_{\al}(U_{\al}) \rightarrow U_{\al}$ is continuous. Hence $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a homeomorphism and $(U_{\al}, \phi_{\al}) \in X^n(M)$. Since $M = \bigcup\limits_{\al \in \Gam} U_{\al}$, we have that $M$ is locally Euclidean of dimension $n$.
+				\item \tbf{(Hausdorff):} \\
+				Let $p, q \in M$. Suppose that $p \neq q$. Then there exists $\al \in \Gam$ such that $p,q \in U_{\al}$ or there exist $\al, \be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$.
+				\begin{itemize}
+					\item Suppose that there exists $\al \in \Gam$ such that $p,q \in U_{\al}$. Since $p \neq q$, $\phi_{\al}(p) \neq \phi_{\al}(q)$. Since $\H^n$ is Hausdorff, there exist $V_p , V_q \subset \phi(U_{\al})$ such that $V_p$ and $V_q$ are open in $\H^n$, $p \in V_p$, $q \in V_q$ and $V_p \cap V_q = \varnothing$. Set $U_p = \phi_{\al}^{-1}(V_p)$ and $U_q = \phi_{\al}^{-1}V_q$. Then $U_p, U_q$ are open, $p \in U_p$, $q \in U_q$ and $U_q \cap U_p = \varnothing$.
+					\item Suppose that there exist $\al, \be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$. Set $U_p = U_{\al}$ and $U_q = U_{\be}$. Then $U_p, U_q$ are open, $p \in U_p$, $q \in U_q$ and $U_q \cap U_p = \varnothing$.
+				\end{itemize}
+				Thus for each $p, q \in M$ there exist $U_p, U_q \subset M$ such that $U_p, U_q$ are open, $p \in U_p$, $q \in U_q$ and $U_q \cap U_p = \varnothing$. Hence 
+				\item \tbf{(second-countable):} \\
+				By assumption, there exists $\Gam' \subset \Gam$ such that $\Gam'$ is countable and $M \subset \bigcup\limits_{\al \in \Gam'} U_{\al}$. Let $\al \in \Gam'$. Since $\phi_{\al}(U_{\al}) \in \MT_{\H^n}$ and $\H^n$ is second-countable, we have that $\phi_{\al}(U_{\al})$ is second-countable. Since $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a homeomorphism, we have that $U_{\al}$ is second-countable. Since $M = \bigcup\limits_{\al \in \Gam'} U_{\al}$, an exercise in topology \tcb{cite} implies that $M$ is second-countable.
+			\end{enumerate} 
+			\item Let $\MT$ be a topology on $M$. Suppose that $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset X^n(M, \MT)$. Then for each $\al \in \Gam$, $U_{\al} \in \MT$ and $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a $(\MT \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism. \\ 
+			Let $U \in \MB$. By definition, there exists $\al \in \Gam$ and $V \in \MT_{\H^n}$ such that $U = \phi_{\al}^{-1}(V)$. Since $U_{\al} \in \MT$, we have that $\MT \cap U_{\al} \subset \MT$. Since $V \cap \phi_{\al}(U_{\al}) \in \MT_{\H^n} \cap \phi_{\al}(U_{\al})$, and $\phi_{\al}$ is a  $(\MT \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism, we have that
+			\begin{align*}
+				U
+				& = \phi_{\al}^{-1}(V) \\
+				& = \phi_{\al}^{-1}(V \cap \phi_{\al}(U_{\al})) \\
+				& \in \MT \cap U_{\al} \\
+				& \subset \MT 
+			\end{align*}
+			Since $U \in \MB$ is arbitrary, $\MB \subset \MT$. Therefore 
+			\begin{align*}
+				\MT_M 
+				& = \tau(\MB) \\
+				& \subset \tau(\MT) \\
+				& = \MT
+			\end{align*}
+			Conversely, Let $U \in \MT$ and $\al \in \Gam$. Then $U \cap U_{\al} \in \MT \cap U_{\al}$. Since $\phi_{\al}:U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a $(\MT \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism, we have that $\phi_{\al}(U \cap U_{\al}) \in \MT_{\H^n} \cap \phi_{\al}(U_{\al})$. Since $U_{\al} \in \MT_M$, $\MT_M \cap U_{\al} \subset \MT_M$. Since $\phi_{\al}:U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a $(\MT_M \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism, we have that 
+			\begin{align*}
+				U \cap U_{\al}
+				& = \phi_{\al}^{-1}( \phi_{\al}(U \cap U_{\al})) \\
+				& \in \MT_M \cap U_{\al} \\
+				& \subset \MT_M 
+			\end{align*}
+			Then 
+			\begin{align*}
+				U
+				& = U \cap M \\
+				& = U \cap \bigg(\bigcup_{\al \in \Gam} U_{\al} \bigg) \\
+				& = \bigcup_{\al \in \Gam} (U \cap U_{\al}) \\
+				& \in \MT_M 
+			\end{align*}
+			Since $U \in \MT$ is arbitrary, $\MT \subset \MT_M$. Thus $\MT = \MT_M$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $M$ be a set, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\phi_{\al}: U_{\al} \rightarrow \H^n$. Suppose that 
+		\begin{itemize}
+			\item for each $\al \in \Gam$, $\phi_{\al}(U_{\al}) \in \MT_{\H^n}$ 
+			\item for each $\al, \be \in \Gam$, $\phi_{\al}(U_{\al} \cap U_{\be}) \in \MT_{\H^n}$
+			\item for each $\al \in \Gam$, $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a bijection
+			\item for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is continuous
+			\item there exists $\Gam' \subset \Gam$ such that $\Gam'$ is countable and $M \subset \bigcup\limits_{\al \in \Gam'} U_{\al}$
+			\item for each $p,q \in M$, there exists $\al \in \Gam$ such that $p,q \in U_{\al}$ or there exist $\al,\be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
+		\end{itemize}
+		Then there exists a unique topology $\MT_M$ on $M$ such that $(M, \MT_M)$ is an $n$-dimensional topological manifold and $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset X^n(M, \MT_M)$.
+	\end{ex}
+	
+	\begin{proof}
+		Immediate by previous exercise. 
+	\end{proof}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\section{Open and Boundary Submanifolds}
 	\begin{defn}
 		Let $M$ be an $n$-dimensional topological manifold and $\pi:\p \H^n \rightarrow \R^{n-1}$ the projection map. For $(U, \phi) \in X_{\p}(M)$, we define $\bar{U} \subset \p M$ and $\bar{\phi}: \bar{U} \rightarrow \pi (\phi(\bar{U}))$ by $\bar{U} = U \cap \p M$ and $\bar{\phi} = \pi \circ \phi|_{\bar{U}}$ respectively. 
 	\end{defn}
@@ -1947,7 +2195,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Hence $(\bar{U}, \bar{\phi}) \in  X^{n-1}_{\Int}(\p M)$.
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \tbf{Topological Boundary Submanifold:} \\
 		Let $M$ be an $n$-dimensional topological manifold. Then 
 		\begin{enumerate}
 			\item $\p M$ is an $(n-1)$-dimensional topological manifold
@@ -2053,226 +2301,49 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\tcb{label exercises and reference them!!!}
 	\end{proof}
 
-	\begin{ex} \tbf{Graph of Continuous Function:} \\
-		Let $f \in C(\R)$. Set $M = \{(x,y) \in \R^2: f(x) = y\}$ (i.e. the graph of $f$). Then $M$ is a $1$-dimensional manifold.  
-	\end{ex}
-	
-	\begin{proof}
-		Set $U = \R$ and define $\phi: U \rightarrow M$ by $\phi(x) = (x, f(x))$. Then $\phi^{-1} = \pi_1$. Since $f$ is continuous, $\phi$ is continous. Since $\pi_1$ is continiuous, $\phi$ is a homeomorphism.  
-	\end{proof}
-	
-	\begin{ex} \tbf{Nodal Cubic:}\\
-		Let $M = \{(x,y) \in \R^2: y^2 = x^2 - x^3\}$. We equip $M$ with the subspace topology.
-		\begin{center}
-			\begin{tikzpicture}
-				\begin{axis}[
-					height=6cm,
-					width=8cm,
-					xmin=-.8,xmax=1.2,
-					ymin= -1,ymax=1,
-					]
-					\addplot [domain=-2:2,samples=1000, thick]({1-x^2},{x*(1-x^2)}); 
-				\end{axis}
-			\end{tikzpicture}
-		\end{center}
-		Then $M$ is not a $1$-dimensional topological manifold.\\
-		\tbf{Hint:} connected components
-	\end{ex}
-
-	\begin{proof}
-		Suppose that $M$ is a $1$-dimensional manifold. Set $p = (0,0)$. Then there exists $(U, \phi) \in X(M)$ such that $p \in U$. Since $\phi(U)$ is open (in $\R$ or $\H$), there exists a $B \subset \phi(U)$ such that $B$ is open (in $\R$ or $\H$), $B$ is connected and $\phi(p) \in B$. Set $V = \phi^{-1}(B)$, $V' = V \setminus \{p\}$ and $B' = B \setminus \{\phi(p)\}$. Then $\phi: V \rightarrow B$ and $\phi': V' \rightarrow B'$ are homeomorphisms. Since $B$ is open (in $\R$ or $\H$) and connected, $B'$ has at most two connected components. Then $V'$ This is a contradiction since $V'$ has four connected components and $B'$ and $V'$ are homeomorphic. 
-	\end{proof}
 
 
 
-	\begin{ex} \tbf{Topological Manifold Chart Lemma:} \\
-	Let $M$ be a set, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\phi_{\al}: U_{\al} \rightarrow \H^n$. Suppose that 
-	\begin{itemize}
-		\item for each $\al \in \Gam$, $\phi_{\al}(U_{\al}) \in \MT_{\H^n}$ 
-		\item for each $\al, \be \in \Gam$, $\phi_{\al}(U_{\al} \cap U_{\be}) \in \MT_{\H^n}$
-		\item for each $\al \in \Gam$, $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a bijection
-		\item for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is continuous
-		\item there exists $\Gam' \subset \Gam$ such that $\Gam'$ is countable and $M \subset \bigcup\limits_{\al \in \Gam'} U_{\al}$
-		\item for each $p,q \in M$, there exists $\al \in \Gam$ such that $p,q \in U_{\al}$ or there exist $\al,\be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
-	\end{itemize}
-	Define 
-	\begin{itemize}
-		\item $\MB = \{\phi_{\al}^{-1}(V): V \in \MT_{\H^n} \text{ and $\al \in \Gam$} \}$
-		\item $\MT_M = \tau(\MB)$
-	\end{itemize}
-	Then  
-	\begin{enumerate}
-		\item $\MB$ is a basis for $\MT_M$ \\
-		\tbf{Hint:} For $B_1, B_2 \subset \H^n$, $\phi_{\al_1}^{-1}(B_1) \cap \phi_{\al_2}^{-1}(B_2) = \phi_{\al_1}^{-1}( B_1 \cap [\phi_{\al_1}|_{U_{\al_1} \cap U_{\al_2}} \circ (\phi_{\al_2}|_{U_{\al_1} \cap U_{\al_2}})^{-1}(B_2)])$
-		\item $(M, \MT_M)$ is an $n$-dimensional topological manifold
-		\item $\MT_M$ is the unique topology $\MT$ on $M$ such that $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset X^n(M, \MT)$
-	\end{enumerate}
-\end{ex}
 
-\begin{proof} \
-	\begin{enumerate}
-		\item \begin{itemize}
-			\item By assumption, $M \subset \bigcup\limits_{\al \in \Gam} U_{\al}$
-			\item Let $A_1, A_2 \in \MB$ and $p \in A_1 \cap A_2$. By definition, there exist $\al_1, \al_2 \in \Gam$ and $B_1, B_2 \subset \H^n$ such that $B_1$, $B_2$ are open in $\H^n$ and 
-			\begin{align*}
-				A_1 & = \phi_{\al_1}^{-1}(B_1)  & A_2 & = \phi_{\al_2}^{-1}(B_2) \\
-				& \subset U_{\al_1}         &     & \subset U_{\al_2}
-			\end{align*}
-			Set $\psi_1 = \phi_{\al_1}|_{U_{\al_1} \cap U_{\al_2}}$ and $\psi_2 = \phi_{\al_2}|_{U_{\al_1} \cap U_{\al_2}}$. We note that  
-			\begin{align*}
-				\psi_1^{-1}(B_1) & = U_{\al_2} \cap \phi_{\al_1}^{-1}(B_1) &  \psi_2^{-1}(B_2) & = U_{\al_1} \cap \phi_{\al_2}^{-1}(B_2) \\
-				& = U_{\al_2} \cap A_1                    &                   & = U_{\al_1} \cap A_2 \\
-				& \subset U_{\al_1} \cap U_{\al_2}        &                   & \subset U_{\al_1} \cap U_{\al_2}
-			\end{align*}
-			Let $q \in \phi_{\al_1}^{-1}(B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$. Then $\phi_{\al_1}(q) \in B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]$. Hence $\phi_{\al_1}(q) \in B_1$ and $\phi_{\al_1}(q) \in \psi_1 \circ \psi_2^{-1}(B_2)$. This implies that  
-			\begin{align*}
-				q 
-				& \in \phi_{\al_1}^{-1}(B_1) \\
-				& = A_1
-			\end{align*}
-			and since $\psi_2^{-1}(B_2) \subset U_{\al_1} \cap U_{\al_2}$ and $\phi_{\al_1}: U_{\al_1} \rightarrow \phi_{\al_1}(U_{\al_1})$ is a bijection, we have that
-			\begin{align*}
-				q 
-				& \in \phi_{\al_1}^{-1}(\psi_1 \circ \psi_2^{-1}(B_2)) \\
-				& = \psi_2^{-1}(B_2) \\
-				& = U_{\al_1} \cap A_2 
-			\end{align*} 
-			Thus 
-			\begin{align*}
-				q 
-				& \in A_1 \cap (U_{\al_1} \cap A_2) \\
-				& = A_1 \cap A_2
-			\end{align*}
-			Since $q \in \phi_{\al_1}^{-1}(B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$ is arbitrary, we have that $\phi_{\al_1}^{-1}(B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]) \subset A_1 \cap A_2$. \\
-			Conversely, let  
-			\begin{align*}
-				q 
-				& \in A_1 \cap A_2 \\ 
-				& = \phi_{\al_1}^{-1}(B_1) \cap \phi_{\al_2}^{-1}(B_2)
-			\end{align*}
-			Then $\phi_{\al_1}(q) \in B_1$ and $\phi_{\al_2}(q) \in B_2$. Since $A_1 \cap A_2 \subset U_{\al_1} \cap U_{\al_2}$, we have that 
-			\begin{align*}
-				\psi_2(q)
-				& = \phi_{\al_2}(q) \\
-				& \in B_2
-			\end{align*}
-			which implies that $q \in \psi_2^{-1}(B_2)$. Therefore 
-			\begin{align*}
-				\phi_{\al_1}(q)
-				& = \psi_1(q) \\
-				& \in \psi_1 ( \psi_2^{-1}(B_2)) \\
-				& =  \psi_1 \circ \psi_2^{-1}(B_2) 
-			\end{align*}
-			Hence $\phi_{\al_1}(q) \in B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]$. This implies that $q \in \phi_{\al_1}^{-1}( B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$. Since $q \in A_1 \cap A_2$ is arbitrary, we have that $A_1 \cap A_2 \subset \phi_{\al_1}^{-1}( B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)])$. Thus 
-			\begin{align*}
-				A_1 \cap A_2 
-				& = \phi_{\al_1}^{-1}( B_1 \cap [\psi_1 \circ \psi_2^{-1}(B_2)]) \\
-				& \in \MB
-			\end{align*}
-			Thus $\MB$ is a basis for $\MT_M$.
-		\end{itemize}
-		\item 
-		\begin{enumerate}
-			\item \tbf{(locally Euclidean of dimension $n$):}\\
-			Let $\al \in \Gam$. By definition, for each $B \subset \MT_{\H^n}$, 
-			\begin{align*}
-				\phi_{\al}^{-1}(B) 
-				& \in \MB \\
-				& \subset \MT_M
-			\end{align*}
-			Hence $\phi_{\al}$ is continuous. \\
-			Let $A \in \MT_{U_{\al}}$. Then there exists $U \subset \MT_M$ such that $A = U \cap U_{\al}$. Since $\MB$ is a basis for $\MT_M$, there exists $\Gam' \subset \Gam$, $(V_{\be})_{\be \in \Gam'} \subset \MT_{\H^n}$ such that $U = \bigcup_{ \be \in \Gam'} \phi_{\be}^{-1}(V_{\be})$. Thus 
-			\begin{align*}
-				A
-				& = U \cap U_{\al} \\
-				& = \bigg[\bigcup_{\be \in \Gam'} \phi_{\be}^{-1}(V_{\be}) \bigg] \cap U_{\al} \\ 
-				& = \bigcup_{\be \in \Gam'} [\phi_{\be}^{-1}(V_{\be}) \cap U_{\al}] \\
-			\end{align*} 
-			Let $\be \in \Gam'$. Since $\phi_{\al}(U_{\al} \cap U_{\be}) \subset \phi_{\al}(U_{\al})$ and $\phi_{\al}(U_{\al} \cap U_{\be}) \in \MT_{\H^n}$, we have that
-			\begin{align*}
-				\phi_{\al}(U_{\al} \cap U_{\be})
-				& = \phi_{\al}(U_{\al}) \cap \phi_{\al}(U_{\al} \cap U_{\be}) \\
-				& \in \MT_{\phi_{\al}(U_{\al})}
-			\end{align*}
-			Therefore $\MT_{\phi_{\al}(U_{\al} \cap U_{\be})} \subset \MT_{\phi_{\al}(U_{\al})}$. Since $(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is continuous, we have that $(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \H^n$
-			is continuous and therefore 
-			\begin{align*}
-				[(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}]^{-1}(V_{\be}) 
-				& \in \MT_{\phi_{\al}(U_{\al} \cap U_{\be})} \\
-				& \subset \MT_{\phi_{\al}(U_{\al})}
-			\end{align*} 
-			Since $\be \in \Gam'$ is arbitrary, we have that
-			\begin{align*}
-				\phi_{\al}(A)
-				& = \phi_{\al} \bigg( \bigcup_{\be \in \Gam'} [\phi_{\be}^{-1}(V_{\be}) \cap U_{\al}] \bigg) \\
-				& = \bigcup_{\be \in \Gam'} \phi_{\al}(\phi_{\be}^{-1}(V_{\be}) \cap U_{\al}) \\
-				& =  \bigcup_{\be \in \Gam'} (\phi_{\al}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\be}|_{U_{\al} \cap U_{\be}})^{-1}(V_{\be}) \\
-				& =  \bigcup_{\be \in \Gam'} [(\phi_{\be}|_{U_{\al} \cap U_{\be}}) \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}]^{-1}(V_{\be}) \\
-				& \in \MT_{\phi_{\al}(U_{\al})}
-			\end{align*} 
-			Since $A \in \MT_{U_{\al}}$ is arbitrary, $\phi_{\al}^{-1}: \phi_{\al}(U_{\al}) \rightarrow U_{\al}$ is continuous. Hence $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a homeomorphism and $(U_{\al}, \phi_{\al}) \in X^n(M)$. Since $M = \bigcup\limits_{\al \in \Gam} U_{\al}$, we have that $M$ is locally Euclidean of dimension $n$.
-			\item \tbf{(Hausdorff):} \\
-			Let $p, q \in M$. Suppose that $p \neq q$. Then there exists $\al \in \Gam$ such that $p,q \in U_{\al}$ or there exist $\al, \be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$.
-			\begin{itemize}
-				\item Suppose that there exists $\al \in \Gam$ such that $p,q \in U_{\al}$. Since $p \neq q$, $\phi_{\al}(p) \neq \phi_{\al}(q)$. Since $\H^n$ is Hausdorff, there exist $V_p , V_q \subset \phi(U_{\al})$ such that $V_p$ and $V_q$ are open in $\H^n$, $p \in V_p$, $q \in V_q$ and $V_p \cap V_q = \varnothing$. Set $U_p = \phi_{\al}^{-1}(V_p)$ and $U_q = \phi_{\al}^{-1}V_q$. Then $U_p, U_q$ are open, $p \in U_p$, $q \in U_q$ and $U_q \cap U_p = \varnothing$.
-				\item Suppose that there exist $\al, \be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$. Set $U_p = U_{\al}$ and $U_q = U_{\be}$. Then $U_p, U_q$ are open, $p \in U_p$, $q \in U_q$ and $U_q \cap U_p = \varnothing$.
-			\end{itemize}
-			Thus for each $p, q \in M$ there exist $U_p, U_q \subset M$ such that $U_p, U_q$ are open, $p \in U_p$, $q \in U_q$ and $U_q \cap U_p = \varnothing$. Hence 
-			\item \tbf{(second-countable):} \\
-			By assumption, there exists $\Gam' \subset \Gam$ such that $\Gam'$ is countable and $M \subset \bigcup\limits_{\al \in \Gam'} U_{\al}$. Let $\al \in \Gam'$. Since $\phi_{\al}(U_{\al}) \in \MT_{\H^n}$ and $\H^n$ is second-countable, we have that $\phi_{\al}(U_{\al})$ is second-countable. Since $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a homeomorphism, we have that $U_{\al}$ is second-countable. Since $M = \bigcup\limits_{\al \in \Gam'} U_{\al}$, an exercise in topology \tcb{cite} implies that $M$ is second-countable.
-		\end{enumerate} 
-	\item Let $\MT$ be a topology on $M$. Suppose that $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset X^n(M, \MT)$. Then for each $\al \in \Gam$, $U_{\al} \in \MT$ and $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a $(\MT \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism. \\ 
-	Let $U \in \MB$. By definition, there exists $\al \in \Gam$ and $V \in \MT_{\H^n}$ such that $U = \phi_{\al}^{-1}(V)$. Since $U_{\al} \in \MT$, we have that $\MT \cap U_{\al} \subset \MT$. Since $V \cap \phi_{\al}(U_{\al}) \in \MT_{\H^n} \cap \phi_{\al}(U_{\al})$, and $\phi_{\al}$ is a  $(\MT \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism, we have that
-	\begin{align*}
-		U
-		& = \phi_{\al}^{-1}(V) \\
-		& = \phi_{\al}^{-1}(V \cap \phi_{\al}(U_{\al})) \\
-		& \in \MT \cap U_{\al} \\
-		& \subset \MT 
-	\end{align*}
-	Since $U \in \MB$ is arbitrary, $\MB \subset \MT$. Therefore 
-	\begin{align*}
-		\MT_M 
-		& = \tau(\MB) \\
-		& \subset \tau(\MT) \\
-		& = \MT
-	\end{align*}
-	Conversely, Let $U \in \MT$ and $\al \in \Gam$. Then $U \cap U_{\al} \in \MT \cap U_{\al}$. Since $\phi_{\al}:U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a $(\MT \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism, we have that $\phi_{\al}(U \cap U_{\al}) \in \MT_{\H^n} \cap \phi_{\al}(U_{\al})$. Since $U_{\al} \in \MT_M$, $\MT_M \cap U_{\al} \subset \MT_M$. Since $\phi_{\al}:U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a $(\MT_M \cap U_{\al}, \MT_{\H^n} \cap \phi_{\al}(U_{\al}))$-homeomorphism, we have that 
-	\begin{align*}
-		U \cap U_{\al}
-		& = \phi_{\al}^{-1}( \phi_{\al}(U \cap U_{\al})) \\
-		& \in \MT_M \cap U_{\al} \\
-		& \subset \MT_M 
-	\end{align*}
-	Then 
-	\begin{align*}
-		U
-		& = U \cap M \\
-		& = U \cap \bigg(\bigcup_{\al \in \Gam} U_{\al} \bigg) \\
-		& = \bigcup_{\al \in \Gam} (U \cap U_{\al}) \\
-		& \in \MT_M 
-	\end{align*}
-	Since $U \in \MT$ is arbitrary, $\MT \subset \MT_M$. Thus $\MT = \MT_M$.
-	\end{enumerate}
-\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Product Manifolds}
 
 \begin{ex}
-	Let $M$ be a set, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\phi_{\al}: U_{\al} \rightarrow \H^n$. Suppose that 
-	\begin{itemize}
-		\item for each $\al \in \Gam$, $\phi_{\al}(U_{\al}) \in \MT_{\H^n}$ 
-		\item for each $\al, \be \in \Gam$, $\phi_{\al}(U_{\al} \cap U_{\be}) \in \MT_{\H^n}$
-		\item for each $\al \in \Gam$, $\phi_{\al}: U_{\al} \rightarrow \phi_{\al}(U_{\al})$ is a bijection
-		\item for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is continuous
-		\item there exists $\Gam' \subset \Gam$ such that $\Gam'$ is countable and $M \subset \bigcup\limits_{\al \in \Gam'} U_{\al}$
-		\item for each $p,q \in M$, there exists $\al \in \Gam$ such that $p,q \in U_{\al}$ or there exist $\al,\be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
-	\end{itemize}
-	Then there exists a unique topology $\MT_M$ on $M$ such that $(M, \MT_M)$ is an $n$-dimensional topological manifold and $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset X^n(M, \MT_M)$.
+	Let $(M, \MT_M)$, $(N, \MT_N)$ be topological manifolds. Set $m = \dim M$ and $n = \dim N$. Then 
+	$$\{(U \times V, \phi \times \psi): (U, \phi) \in X^m(M) \text{ and } (V, \psi) \in X^n(N)\} \subset X^{m+n}(M \times N)$$
 \end{ex}
 
-	\begin{proof}
-		Immediate by previous exercise. 
-	\end{proof}
-
+\begin{proof}
+	Let $(U, \phi) \in X^m(M, \MT_M)$ and $(V, \psi) \in X^n(N, \MT_N)$. 
+	\begin{itemize}
+		\item Since $U \in \MT_M$ and $V \in \MT_N$, $U \times V \in \MT_M \otimes \MT_N$. 
+		\item Since $\phi(U) \in \MT_{\H^m}$ and $\psi(V) \in \MT_{\H^n}$, $\phi(U) \times \psi(V) \in \MT_M \otimes \MT_N$. 
+		\item Since $\phi:U \rightarrow \phi(U)$ is a $(\MT_M \cap U, \MT_{\H^m} \cap \phi(U))$-homeomorphism and $\psi: V \rightarrow \psi(V)$ is a $(\MT_N \cap V, \MT_{\H^n} \cap \psi(V))$-homeomorphism, \tcb{an exercise in the section on product topologies in the analysis notes} implies that $\phi \times \psi: U \times V \rightarrow \phi(U) \times \phi(V)$ is a $([\MT_M \otimes \MT_N] \cap [U \times V], [\MT_{\H^m} \otimes \MT_{\H^n}] \cap [\phi(U) \times \psi(V)])$-homeomorphism. Since $\MT_{\H^m} \otimes \MT_{\H^n} = \MT_{\H^{m+n}}$
+	\end{itemize}
+	Hence $(U \times V, \phi \times \psi) \in X^{}$
+\end{proof}
+	
 
 
 
@@ -2291,7 +2362,10 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	\newpage
-	\section{Smooth Manifolds}
+	
+	\chapter{Smooth Manifolds}
+	
+	\section{Introduction}
 
 	\begin{defn}
 		Let $M$ be an $n$-dimensional topological manifold and $(U, \phi), (V, \psi) \in X(M)$. Then $(U, \phi)$ and $(V, \psi)$ are said to be \tbf{smoothly compatible} if $$\psi|_{U \cap V} \circ (\phi|_{U \cap V})^{-1}: \phi(U \cap V) \rightarrow \psi (U \cap V) \text{ is a diffeomorphism}$$ 
@@ -2306,95 +2380,34 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{itemize}
 	\end{defn}
 
+	\begin{defn}
+		Let $M$ be a topological manifold and $\MB$ a smooth atlas on $M$. We define the \tbf{smooth structure on $M$ generated by $\MB$}, denoted $\al_M(\MB)$, by 
+		$$\al_M(\MB) = \{(U, \phi) \in X(M): \text{ for each $(V, \psi) \in \MB$,  $(U, \phi)$ and $(V, \psi) $ are smoothly compatible}\}$$
+	\end{defn}
+
+	\begin{note}
+		When the context is clear, we write $\al(\MB)$ in place of $\al_M(\MB)$.
+	\end{note}
+
 	\begin{ex}
-		Let $M$ be an $n$-dimensional topological manifold and $\MB$ a smooth atlas on $M$. Then there exists a unique smooth structure $\MA$ on $M$ such that $\MB \subset \MA$.
+		Let $M$ be an $n$-dimensional topological manifold and $\MB$ a smooth atlas on $M$. Then $\al(\MB)$ is the unique smooth structure $\MA$ on $M$ such that $\MB \subset \MA$.
 	\end{ex}
 
 	\begin{proof}
-		Define 
-		$$\MA = \{(U, \phi) \in X(M): \text{ for each $(V, \psi) \in \MB$,  $(U, \phi)$ and $(V, \psi) $ are smoothly compatible}\}$$ 
-		Clearly $\MB \subset \MA$. Let $(U, \phi)$ and $(V, \psi) \in \MA$. Define $F: \phi(U \cap V) \rightarrow \psi (U \cap V)$ by 
+		Clearly $\MB \subset \al(\MB)$. Let $(U, \phi)$ and $(V, \psi) \in \al(\MB)$. Define $F: \phi(U \cap V) \rightarrow \psi (U \cap V)$ by 
 		$$F = \psi|_{U \cap V} \circ (\phi|_{U \cap V})^{-1}$$
-		Let $q \in \phi(U \cap V)$. Set $p = \phi^{-1}(q)$. Since $p \in U \cap V \subset M$, there exists $(W, \chi) \in \MB$ such that $p \in W$. By definition of $\MA$, $\psi|_{W \cap V} \circ (\chi|_{W \cap V})^{-1} : \chi(W \cap V) \rightarrow \psi(W \cap V)$ and $ \chi|_{U \cap W} \circ (\phi|_{U \cap W})^{-1} : \phi(U \cap W) \rightarrow \chi(U \cap W)$ are diffeomorphisms. Set $N = U \cap W \cap V$. Then $q \in \phi(N) \subset \phi(U \cap V)$ and 
+		Let $q \in \phi(U \cap V)$. Set $p = \phi^{-1}(q)$. Since $p \in U \cap V \subset M$, there exists $(W, \chi) \in \MB$ such that $p \in W$. By definition of $\al(\MB)$, $\psi|_{W \cap V} \circ (\chi|_{W \cap V})^{-1} : \chi(W \cap V) \rightarrow \psi(W \cap V)$ and $ \chi|_{U \cap W} \circ (\phi|_{U \cap W})^{-1} : \phi(U \cap W) \rightarrow \chi(U \cap W)$ are diffeomorphisms. Set $N = U \cap W \cap V$. Then $q \in \phi(N) \subset \phi(U \cap V)$ and 
 		\begin{align*}
 			F|_{\phi(N)}
 			& = \psi|_{N} \circ (\phi|_{N})^{-1} \\
 			& = [\psi|_{N} \circ (\chi|_{N})^{-1}] \circ [\chi|_{N} \circ (\phi|_{N})^{-1}]
 		\end{align*}
 		is a diffeomorphism. 
-		Thus, for each $q \in \phi(U \cap V)$, there exists $N' \subset \phi(U \cap V)$ such that $F|_{N'}$ is a diffeomorphism. Hence $F$ is a diffeomorphism and $(U, \phi)$, $(V, \psi)$ are smoothly compatible. Therefore $\MA$ is a smooth atlas.\\
-		To see that $\MA$ is maximal, let $\MB'$ be a smooth atlas on $M$. Suppose that $\MA \subset \MB'$ and let $(U, \phi) \in \MB'$. By definition, for each chart $(V, \psi) \in \MB'$, $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. Since $\MB \subset \MA \subset \MB'$, we have that $(U, \phi) \in \MA$. So $\MA = \MB'$ and $\MA$ is a maximal smooth atlas on $M$.
+		Thus, for each $q \in \phi(U \cap V)$, there exists $N' \subset \phi(U \cap V)$ such that $F|_{N'}$ is a diffeomorphism. Hence $F$ is a diffeomorphism and $(U, \phi)$, $(V, \psi)$ are smoothly compatible. Therefore $\al(\MB)$ is a smooth atlas.\\
+		To see that $\al(\MB)$ is maximal, let $\MB'$ be a smooth atlas on $M$. Suppose that $\al(\MB) \subset \MB'$ and let $(U, \phi) \in \MB'$. By definition, for each chart $(V, \psi) \in \MB'$, $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. Since $\MB \subset \al(\MB) \subset \MB'$, we have that $(U, \phi) \in \al(\MB)$. So $\al(\MB) = \MB'$ and $\al(\MB)$ is a maximal smooth atlas on $M$.
 	\end{proof}
 
-	\begin{ex}
-		Let $(M, \MA)$ be an $n$-dimensional smooth manifold, $(U, \phi) \in \MA$ and $U' \subset U$. If $U'$ is open, then $(U', \phi|_{U'}) \in \MA$. 
-	\end{ex}
-
-	\begin{proof}
-	Set $\phi' = \phi|_{U'}$. A previous exercise implies that $(U', \phi') \in X(U)$. Define $\MB = \MA \cup \{(U', \phi')\}$. Let $(V, \psi) \in \MB$. If $(V, \psi) = (U', \phi')$, then 
-	$$\phi' \circ \psi^{-1} = \id_{U'}$$
-	which is a diffeomorphism. Thus $(U', \phi')$, $(V, \psi)$ are smoothly compatible. Suppose that $(V, \psi) \in \MA$. Since $\MA$ is smooth, $\psi|_{U \cap V} \circ (\phi|_{U \cap V})^{-1}: \phi(U \cap V) \rightarrow \psi(U \cap V)$ is a diffeomorphism. Therefore $\psi|_{U' \cap V} \circ (\phi'|_{U' \cap V})^{-1}: \phi'(U' \cap V) \rightarrow \psi(U' \cap V)$ is a diffeomorphism and $(U', \phi')$, $(V, \psi)$ are smoothly compatible. Since $(V, \psi) \in \MA$ is arbitrary, $\MB$ is smooth. Since $\MA$ is maximal and $\MA \subset \MB$, we have that $\MA = \MB$ and $(U', \phi') \in \MA$.
-	\end{proof}
-
-	\begin{ex}
-		Let $(M, \MA)$ be a $n$-dimensional smooth manifold and $U \subset M$ open. Set $\MB = \{(V, \psi) \in \MA: V \subset U\}$. Then $\MB$ is a smooth atlas on $U$.
-	\end{ex}
-
-	\begin{proof}\
-		\begin{itemize}
-			\item Some previous exercises imply that $U$ is an $n$-dimensional topological manifold and $X(U) = \{(V, \psi) \in X(M): V \subset U\}$. Since 
-			\begin{align*}
-				\MB 
-				& \subset \MA \\
-				& \subset X(M)
-			\end{align*}
-			we have that $\MB \subset X(U)$. Let $p \in U$. Then there exists $(V, \psi) \in \MA$ such that $p \in V$. Set $V' = U \cap V$ and $\psi' = \psi|_{V'}$. The previous exercise implies that $(V', \psi') \in \MA$. By definition, $(V', \psi') \in \MB$. Since $p \in U$ is arbitrary, we have that for each $p \in U$, there exists $(V', \psi') \in \MB$ such that $p \in V'$. Hence $\MB$ is an atlas on $U$. 
-			\item Let $(V_1, \psi_1), (V_2, \psi_2) \in \MB$. Then $(V_1, \psi_1), (V_2, \psi_2) \in \MA$. Since $\MA$ is smooth, $(V_1, \psi_1)$ and $(V_2, \psi_2)$ are smoothly compatible. Since $(V_1, \psi_1), (V_2, \psi_2) \in \MB$ are arbitrary, $\MB$ is smooth.
-		\end{itemize}
- 	\end{proof}
- 
- 	\begin{defn} \tbf{Smooth Open Submanifold:} \\
- 		Let $(M, \MA)$ be an $n$-dimensional smooth manifold and $U \subset M$ open. A previous exercise implies that $U$ is an $n$-dimensional topological manifold. We define $\MA|_{U} \subset X(U)$ to be the unique smooth structure on $U$ such that $\{(V, \psi) \in \MA: V \subset U\} \subset \MA|_{\MU}$. Then $(U, \MA|_{U})$ is said to be a \tbf{smooth open submanifold of $(M, \MA)$}.
- 	\end{defn}
- 
- 	\begin{ex}
- 		Let $\pi: \p \H^n \rightarrow \R^{n-1}$ be the projection map given by $\pi(x_1, \ldots, x_{n-1}, 0) = (x_1, \ldots, x_{n-1})$. Then $\pi$ is a diffeomorphism. 
- 	\end{ex}
- 
- 	\begin{proof}
- 		Define projection map $\pi': \R^n \rightarrow \R^{n-1}$ by $\pi'(x_1, \ldots, x_{n-1}, x_n) = (x_1, \ldots, x_{n-1})$. Then $\R^n$ is an open neighborhood of $\p H^n$, $\pi'|_{\p H^n} = \pi$ and $\pi'$ is smooth. Then by definition, $\pi$ is smooth. Clearly, $\pi^{-1}$ is smooth. So $\pi$ is a diffeomorphism.
- 	\end{proof}
-
-	\begin{defn} 
-		Let $(M, \MA)$ be a $n$-dimensional smooth manifold and $\pi: \p \H^n \rightarrow \R^{n-1}$ the projection map. Recall that for $(U, \phi) \in X^n_{\p}(M)$, the $(n-1)$-coordinate chart $(\bar{U}, \bar{\phi}) \in X^{n-1}_{\Int}(\p M)$ is defined by $\bar{U} = U \cap \p M$ and $\bar{\phi} = \pi|_{\phi(\bar{U})} \circ \phi|_{\bar{U}}$. \\
-		We define 
-		$$\ol{\MA} = \{(\bar{U}, \bar{\phi}): (U, \phi) \in \MA \cap X^n_{\p}(M) \}$$
-	\end{defn}
-	
-	\begin{ex}
-		Let $(M, \MA)$ be a $n$-dimensional smooth manifold. Then $\ol{\MA}$ is a smooth atlas on $\p M$.
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{itemize}
-			\item A previous exercise implies that $\p M$ is an $(n-1)$-dimensional topological manifold. Let $p \in \partial M$. Then there exists $(U, \phi) \in \MA$ such that $p \in U$. Since $\MA \subset X^n(M)$ and $p \in \p M$, we have that $p \in \bar{U}$ and a previous exercise implies that $(U, \phi) \in X^n_{\p}(M)$. By definition of $\ol{\MA}$, $(\bar{U}, \bar{\phi}) \in \ol{\MA}$. Since $p \in \p M$ is arbitrary, $\ol{\MA}$ is an atlas on $\p M$. 
-			
-			
-			\item Let $(\bar{U}, \bar{\phi})$, $(\bar{V}, \bar{\psi}) \in \ol{\MA}$. Since $(U, \phi)$ and $(V, \psi)$ are smoothly compatible, $\psi|_{U \cap V} \circ (\phi|_{U \cap V})^{-1}$ is a diffeomorphism. Thus $\psi|_{\bar{U} \cap \bar{V}} \circ (\phi|_{\bar{U} \cap \bar{V}})^{-1}$ is a diffeomorphism. Since $\pi|_{\phi(U \cap V)}$ and $\pi|_{\psi(U \cap V)}$ are diffeomorphisms, $\pi|_{\phi(\bar{U} \cap \bar{V})}$ and $\pi|_{\psi(\bar{U} \cap \bar{V})}$ are diffeomorphisms. Then 
-			\begin{align*}
-				\bar{\psi}|_{\bar{U} \cap \bar{V}} \circ (\bar{\phi}|_{\bar{U} \cap \bar{V}})^{-1}
-				& = \bigg[ \pi|_{\psi(\bar{U} \cap \bar{V})} \circ \psi|_{\bar{U} \cap \bar{V}} \bigg] \circ \bigg[ (\phi|_{\bar{U} \cap \bar{V}})^{-1} \circ( \pi|_{\phi(\bar{U} \cap \bar{V})})^{-1} \bigg] \\
-				& =\pi|_{\psi(\bar{U} \cap \bar{V})} \circ \bigg[ \psi|_{\bar{U} \cap \bar{V}} \circ (\phi|_{\bar{U} \cap \bar{V}})^{-1} \bigg] \circ (\pi|_{\phi(\bar{U} \cap \bar{V})})^{-1}
-			\end{align*}
-			is a diffeomorphism. Therefore $(\bar{U}, \bar{\phi})$ and $(\bar{V}, \bar{\psi})$ are smoothly compatible. Since $(\bar{U}, \bar{\phi}), (\bar{V}, \bar{\psi}) \in \ol{\MA}$ are arbitrary, $\MA$ is smooth.
-		\end{itemize}
-	\end{proof}
-
-	\begin{defn}
-		Let $(M, \MA)$ be a $n$-dimensional smooth manifold. We define $\MA|_{\p M}$ to be the unique smooth structure on $\p M$ such that $\ol{\MA} \subset \MA|_{\p M}$. We define the \tbf{smooth boundary submanifold of $M$} to be $(\p M, \MA|_{\p M})$.
-	\end{defn}
-
-	
+		
 	\begin{ex} \tbf{Smooth Manifold Chart Lemma:} \\
 		Let $M$ be a set, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\phi_{\al}: U_{\al} \rightarrow \H^n$. Suppose that 
 		\begin{enumerate}[label=(\alph*)]
@@ -2407,7 +2420,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 		Then there exists a unique smooth structure $\MA_M$ on $M$ such that $(M, \MA_M)$ is an $n$-dimensional smooth manifold and $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset \MA_M$.
 	\end{ex}
-
+	
 	\begin{proof}
 		Define
 		\begin{itemize}
@@ -2415,7 +2428,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\item $\MT_M = \tau(\MB)$ 
 			\item $\MA' = \{(U_{\al}, \phi_{\al}) : \al \in \Gam\}$.
 		\end{itemize}
-		The topological manifold chart lemma implies that $(M, \MT_M)$ is an $n$-dimensional topological manifold and $\MA' \subset X^n(M, \MT_M)$. Since $M = \bigcup_{\al \in \Gam} U_{\al}$, $\MA'$ is an atlas on $M$. Since for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is smooth, we have that $\MA'$ is smooth. A previous exercise implies that there exists a unique smooth structure $\MA_M$ on $M$ such that $\MA' \subset \MA_M$. 
+		The topological manifold chart lemma implies that $(M, \MT_M)$ is an $n$-dimensional topological manifold and $\MA' \subset X^n(M, \MT_M)$. Since $M = \bigcup_{\al \in \Gam} U_{\al}$, $\MA'$ is an atlas on $M$. Since for each $\al, \be \in \Gam$, $\phi_{\be}|_{U_{\al} \cap U_{\be}} \circ (\phi_{\al}|_{U_{\al} \cap U_{\be}})^{-1}: \phi_{\al}(U_{\al} \cap U_{\be}) \rightarrow \phi_{\be}(U_{\al} \cap U_{\be})$ is smooth, we have that $\MA'$ is smooth. Set $\MA_M = \al(\MA')$. A previous exercise implies that $\MA_M$ is the unique smooth structure $\MA$ on $M$ such that $\MA' \subset \MA$. Hence $(M, \MA_M)$ is an $n$-dimensional smooth manifold and $\MA' \subset \MA_M$.
 	\end{proof}
 	
 	
@@ -2424,12 +2437,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	
-	
-	
-	
-	
-	
-
 	
 	
 	
@@ -2632,6 +2639,180 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Open and Boundary Submanifolds}
+
+\begin{ex}
+	Let $(M, \MA)$ be an $n$-dimensional smooth manifold, $(U, \phi) \in \MA$ and $U' \subset U$. If $U'$ is open, then $(U', \phi|_{U'}) \in \MA$. 
+\end{ex}
+
+\begin{proof}
+	Set $\phi' = \phi|_{U'}$. A previous exercise implies that $(U', \phi') \in X(U)$. Define $\MB = \MA \cup \{(U', \phi')\}$. Let $(V, \psi) \in \MB$. If $(V, \psi) = (U', \phi')$, then 
+	$$\phi' \circ \psi^{-1} = \id_{U'}$$
+	which is a diffeomorphism. Thus $(U', \phi')$, $(V, \psi)$ are smoothly compatible. Suppose that $(V, \psi) \in \MA$. Since $\MA$ is smooth, $\psi|_{U \cap V} \circ (\phi|_{U \cap V})^{-1}: \phi(U \cap V) \rightarrow \psi(U \cap V)$ is a diffeomorphism. Therefore $\psi|_{U' \cap V} \circ (\phi'|_{U' \cap V})^{-1}: \phi'(U' \cap V) \rightarrow \psi(U' \cap V)$ is a diffeomorphism and $(U', \phi')$, $(V, \psi)$ are smoothly compatible. Since $(V, \psi) \in \MB$ is arbitrary, $\MB$ is smooth. Since $\MA$ is maximal and $\MA \subset \MB$, we have that $\MA = \MB$ and $(U', \phi') \in \MA$.
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ be a $n$-dimensional smooth manifold and $U \subset M$ open. Set $\MB = \{(V, \psi) \in \MA: V \subset U\}$. Then $\MB$ is a smooth atlas on $U$.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item Some previous exercises imply that $U$ is an $n$-dimensional topological manifold and $X(U) = \{(V, \psi) \in X(M): V \subset U\}$. Since 
+		\begin{align*}
+			\MB 
+			& \subset \MA \\
+			& \subset X(M)
+		\end{align*}
+		we have that $\MB \subset X(U)$. Let $p \in U$. Then there exists $(V, \psi) \in \MA$ such that $p \in V$. Set $V' = U \cap V$ and $\psi' = \psi|_{V'}$. The previous exercise implies that $(V', \psi') \in \MA$. By definition, $(V', \psi') \in \MB$. Since $p \in U$ is arbitrary, we have that for each $p \in U$, there exists $(V', \psi') \in \MB$ such that $p \in V'$. Hence $\MB$ is an atlas on $U$. 
+		\item Let $(V_1, \psi_1), (V_2, \psi_2) \in \MB$. Then $(V_1, \psi_1), (V_2, \psi_2) \in \MA$. Since $\MA$ is smooth, $(V_1, \psi_1)$ and $(V_2, \psi_2)$ are smoothly compatible. Since $(V_1, \psi_1), (V_2, \psi_2) \in \MB$ are arbitrary, $\MB$ is smooth.
+	\end{itemize}
+\end{proof}
+
+\begin{defn} \tbf{Smooth Open Submanifold:} \\
+	Let $(M, \MA)$ be an $n$-dimensional smooth manifold and $U \subset M$ open. A previous exercise implies that $U$ is an $n$-dimensional topological manifold. We define the \tbf{induced smooth structure on $U$}, denoted $\MA|_{U} \subset X(U)$, by 
+	$$\MA|_{U} = \al_U(\{(V, \psi) \in \MA: V \subset U\} \subset \MA|_{\MU})$$
+	Then $(U, \MA|_{U})$ is said to be a \tbf{smooth open submanifold of $(M, \MA)$}.
+\end{defn}
+
+\begin{ex}
+	Let $\pi: \p \H^n \rightarrow \R^{n-1}$ be the projection map given by $\pi(x_1, \ldots, x_{n-1}, 0) = (x_1, \ldots, x_{n-1})$. Then $\pi$ is a diffeomorphism. 
+\end{ex}
+
+\begin{proof}
+	Define projection map $\pi': \R^n \rightarrow \R^{n-1}$ by $\pi'(x_1, \ldots, x_{n-1}, x_n) = (x_1, \ldots, x_{n-1})$. Then $\R^n$ is an open neighborhood of $\p H^n$, $\pi'|_{\p H^n} = \pi$ and $\pi'$ is smooth. Then by definition, $\pi$ is smooth. Clearly, $\pi^{-1}$ is smooth. So $\pi$ is a diffeomorphism.
+\end{proof}
+
+\begin{defn} 
+	Let $(M, \MA)$ be a $n$-dimensional smooth manifold and $\pi: \p \H^n \rightarrow \R^{n-1}$ the projection map. Recall that for $(U, \phi) \in X^n_{\p}(M)$, the $(n-1)$-coordinate chart $(\bar{U}, \bar{\phi}) \in X^{n-1}_{\Int}(\p M)$ is defined by $\bar{U} = U \cap \p M$ and $\bar{\phi} = \pi|_{\phi(\bar{U})} \circ \phi|_{\bar{U}}$. \\
+	We define 
+	$$\bar{\MA} = \{(\bar{U}, \bar{\phi}) \in X^{n-1}_{\p}(M): (U, \phi) \in \MA \}$$
+\end{defn}
+
+\begin{ex}
+	Let $(M, \MA)$ be a $n$-dimensional smooth manifold. Then $\bar{\MA}$ is a smooth atlas on $\p M$.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item A previous exercise implies that $\p M$ is an $(n-1)$-dimensional topological manifold. Let $p \in \partial M$. Then there exists $(U, \phi) \in \MA$ such that $p \in U$. Since $\MA \subset X^n(M)$ and $p \in \p M$, we have that $p \in \bar{U}$ and a previous exercise implies that $(U, \phi) \in X^n_{\p}(M)$. By definition of $\bar{\MA}$, $(\bar{U}, \bar{\phi}) \in \bar{\MA}$. Since $p \in \p M$ is arbitrary, $\bar{\MA}$ is an atlas on $\p M$. 
+		
+		
+		\item Let $(\bar{U}, \bar{\phi})$, $(\bar{V}, \bar{\psi}) \in \bar{\MA}$. Since $(U, \phi)$ and $(V, \psi)$ are smoothly compatible, $\psi|_{U \cap V} \circ (\phi|_{U \cap V})^{-1}$ is a diffeomorphism. Thus $\psi|_{\bar{U} \cap \bar{V}} \circ (\phi|_{\bar{U} \cap \bar{V}})^{-1}$ is a diffeomorphism. Since $\pi|_{\phi(U \cap V)}$ and $\pi|_{\psi(U \cap V)}$ are diffeomorphisms, $\pi|_{\phi(\bar{U} \cap \bar{V})}$ and $\pi|_{\psi(\bar{U} \cap \bar{V})}$ are diffeomorphisms. Then 
+		\begin{align*}
+			\bar{\psi}|_{\bar{U} \cap \bar{V}} \circ (\bar{\phi}|_{\bar{U} \cap \bar{V}})^{-1}
+			& = \bigg[ \pi|_{\psi(\bar{U} \cap \bar{V})} \circ \psi|_{\bar{U} \cap \bar{V}} \bigg] \circ \bigg[ (\phi|_{\bar{U} \cap \bar{V}})^{-1} \circ( \pi|_{\phi(\bar{U} \cap \bar{V})})^{-1} \bigg] \\
+			& =\pi|_{\psi(\bar{U} \cap \bar{V})} \circ \bigg[ \psi|_{\bar{U} \cap \bar{V}} \circ (\phi|_{\bar{U} \cap \bar{V}})^{-1} \bigg] \circ (\pi|_{\phi(\bar{U} \cap \bar{V})})^{-1}
+		\end{align*}
+		is a diffeomorphism. Therefore $(\bar{U}, \bar{\phi})$ and $(\bar{V}, \bar{\psi})$ are smoothly compatible. Since $(\bar{U}, \bar{\phi}), (\bar{V}, \bar{\psi}) \in \bar{\MA}$ are arbitrary, $\MA$ is smooth.
+	\end{itemize}
+\end{proof}
+
+\begin{defn}
+	Let $(M, \MA)$ be a $n$-dimensional smooth manifold. We define the \tbf{induced smooth structure on the boundary}, denoted $\MA|_{\p M}$, by 
+	$$\MA|_{\p M} = \al(\bar{\MA})$$ 
+	We define the \tbf{smooth boundary submanifold of $M$} to be $(\p M, \MA|_{\p M})$.
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Product Manifolds}
+
+\begin{defn}
+	Let $(M, \MA)$, $(N, \MB)$ be smooth manifolds. We define the \tbf{product smooth structure}, denoted $\MA \otimes \MB$, by 
+	$$\MA \otimes \MB = \al_{M \times N}(\{(U \times V, \phi \times \psi): (U, \phi) \in \MA \text{ and } (V, \psi) \in \MB\})$$ 
+	We define the \tbf{smooth product manifold of $(M, \MA)$ and $(N, \MB)$} to be $(M \times N, \MA \otimes \MB)$.
+\end{defn}
+
+\begin{ex}
+	
+\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2983,7 +3164,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		$$(P_{\tau} Z P_{\sig}^*)_{i, j} = A_{i,j}$$
 		Define $\phi: U \rightarrow \sig \phi(U)$ and $\psi: V \rightarrow \tau \psi(V)$ by 
 		$$\phi = \sig \phi', \quad \psi = \tau \psi'$$
-		A previous exercise implies that 
+		\tcb{A previous exercise implies that }
 		$$[DF(p)]_{\phi, \psi} = P_{\tau} Z P_{\sig}^*$$
 	\end{proof}
 	
@@ -3260,157 +3441,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-\chapter{Vector Fields}
-	
-\section{The Tangent Bundle}
-	
-\begin{defn}
-	Let $(M, \MA_M)$ be an $n$-dimensional smooth manifold. We define the \tbf{tangent bundle of $M$}, denoted $TM$, by  
-	$$TM = \coprod_{p \in M} T_p M $$ 
-	and we define the \tbf{tangent bundle projection}, denoted $\pi: TM \rightarrow M$, by 
-	$$\pi(p, v) = p$$
-	Let $(U, \phi) \in \MA_M$ with $\phi = (x^1, \ldots, x^n)$. We define $\Phi_{\phi}: \pi^{-1}(U) \rightarrow \R^{2n}$ by 
-	$$\Phi_{\phi} \bigg(p, \sum_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_p \bigg) = (\phi(p), \xi^1, \ldots, \xi^n)$$ 
-	We define $\MT_{TM} = \tau_{TM}(\iota_p : p \in M)$.
-\end{defn}
-	
-	\begin{ex}
-		$\psi: \bigcup\limits_{p \in U} T_pM \rightarrow \R^n$ is given by 
-		$$\psi \bigg (\sum_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_p \bigg) = (\xi^1, \ldots, \xi^n)$$
-		\begin{align*}
-			x^k \circ \pi \circ \Phi_{\phi}^{-1}(u,v)
-			& =  x^k \circ \pi (\phi^{-1}(u), \psi^{-1}(v)) \\
-			& = x^k \circ \phi^{-1}(u) 
-		\end{align*}	
-		Therefore
-		\begin{align*}
-			\frac{\p }{\p \tilde{x}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
-			& = \frac{\p }{\p u^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
-			& = \frac{\p }{\p u^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
-			& = \frac{\p }{\p u^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
-			& =  \frac{\p }{\p x^i} \bigg|_{p} x^k \\
-			& = \del_{i,k}
-		\end{align*}
-		and 
-		\begin{align*}
-			\frac{\p }{\p \tilde{y}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
-			& = \frac{\p }{\p v^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
-			& = \frac{\p }{\p v^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
-			& = \frac{\p }{\p v^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
-			& = 0
-		\end{align*}
-		This implies that for each $i \in \{1, \ldots, n\}$, we have that 
-		\begin{align*}
-			D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{x}^i } \bigg|_{(p, \xi)} \bigg) (f)
-			& = \frac{\p}{\p \tilde{x}^i} \bigg|_{(p, \xi)} f \circ \pi \\
-			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{x}^i}(p,\xi) \\
-			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) \del_{i,k} \\
-			& = \frac{\p f }{\p x^i}(p) 
-		\end{align*}
-		and 
-		\begin{align*}
-			D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{y}^i } \bigg|_{(p, \xi)} \bigg) (f)
-			& = \frac{\p}{\p \tilde{y}^i} \bigg|_{(p, \xi)} f \circ \pi \\
-			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{y}^i}(p,\xi) \\
-			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) 0 \\
-			& = 0
-		\end{align*}
-		Hence 
-		\begin{align*}
-			V(TM)|_{\pi^{-1}(U)}
-			& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \ker D \pi(p, \xi) \\
-			& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \spn \bigg \{ \frac{\p}{\p \tilde{y}^j} \bigg|_{(p, \xi)}: j \in \{1, \ldots, n\} \bigg \} 
-		\end{align*}
-	\end{ex}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\chapter{Lie Theory}
-	
-	\section{Lie Groups}
-	
-	\begin{defn}
-		Let $G$ be a smooth manifold and group. Then $G$ is said to be a \tbf{Lie group} if 
-		\begin{itemize}
-			\item multiplication $G \times G \rightarrow G$ given by $(g, h) \mapsto gh$ is smooth
-			\item inversion $G \rightarrow G$  given by $g \mapsto g^{-1}$ is smooth 
-		\end{itemize} 
-	\end{defn}
-
-	
-
-
-	\begin{defn}
-		Let $\MFg$ be a vector space and $[\cdot, \cdot]: \MFg \times \MFg \rightarrow \MFg$. 
-		Then $[\cdot, \cdot]$ is said to be a \tbf{Lie bracket} on $\MFg$ if  
-		\begin{enumerate}
-			\item $[\cdot, \cdot]$ is bilinear
-			\item $[\cdot, \cdot]$ is antisymmetric
-			\item $[\cdot, \cdot]$ satisfies the Jacobi identity: \\
-			for each $x, w, y \in \MF g$, 
-			$$[x, [y,z]] + [y, [z,x]] + [z, [x,y]] = 0$$
-		\end{enumerate}
-		In this case, $(\MFg, [\cdot, \cdot])$ is said to be a \tbf{Lie algebra}.
-	\end{defn}
-
-	\begin{defn}
-		Let $X \in $
-	\end{defn}
-	
 	
 	
 	
@@ -3440,51 +3470,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\chapter{Bundles and Sections}
 	
 	\section{Fiber Bundles}
-	
-	\subsection{Fibered Manifolds}
-	
-	\begin{defn}
-		Let $E, M \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$. Then $(E, M, \pi)$ is said to be a \tbf{smooth fibered manifold} if $\pi$ is a surjective submersion. 
-	\end{defn}
-
-	\begin{note}
-		We write $\prj^n_1: \R^n \times \R^k \rightarrow \R^n$ to denote the projection onto $M$.
-	\end{note}
-
-	\begin{defn}
-		Let $(E, M, \pi)$ be a smooth fibered manifold and $(V, \psi) \in \MA_{E}$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Then $(V, \psi)$ is said to be a \tbf{$\pi$-fibered chart on $E$} if there exists $(U, \phi) \in \MA_{M}$ such that 
-		\begin{enumerate}
-			\item $U = \pi(V)$
-			\item $\phi \circ \pi|_V = \prj^n_1 \circ \psi$
-		\end{enumerate}
-		i.e. if $\psi = (y^1, \ldots, y^{n+k})$ and $\phi = (x^1, \ldots, x^n)$, then $\psi = (x^1 \circ \pi, \ldots, x^n \circ \pi, y^{n+1}, \ldots, y^{n+k})$.
-	\end{defn}
-
-	\begin{ex}
-		Let $(E, M, \pi)$ be a smooth fibered manifold. Then for each $a \in E$, there exists $(V, \psi) \in \MA_E$ such that $a \in V$ and $(V, \psi)$ is a $\pi$-fibered chart on $E$. \\
-		\tbf{Hint:} Constant rank theorem
-	\end{ex}
-
-	\begin{proof}
-		Set $n \defeq \dim M$, $k \defeq \dim E - n$. Let $a \in E$. Set $p \defeq \pi(a)$. Since $\pi:E \rightarrow M$ is a submersion, $\pi$ has constant rank and $\rnk \pi = n$. The constant rank theorem implies that there exist $(V_0, \psi_0) \in \MA_E$, $(U_0, \phi_0) \in \MA_M$ such that $a \in V_0$, $p \in U$ and $\phi_0 \circ \pi \circ \psi_0^{-1} = \prj^n_1|_{\psi_0(V \cap \pi^{-1}(U))}$. Hence $\phi_0 \circ \pi = \prj^n_1 \circ \psi_0 $. Define $V \defeq V_0 \cap \pi^{-1}(U_0)$, $U = U_0 \cap \pi(V_0)$, $\psi = \psi_0|_V$ and $\phi = \phi_0|_U$. Then 
-		\begin{enumerate}
-			\item 
-			\begin{align*}
-				\pi(V)
-				& = \pi(\pi^{-1}(U_0) \cap V_0) \\
-				& = U_0 \cap \pi(V_0) \\
-				& = U
-			\end{align*}
-			\item 
-			\begin{align*}
-				\phi \circ \pi|_V
-				& = \phi_0|_U \circ \pi|_V  \\
-				& = \prj^n_1 \circ \psi_0|_V \\
-				& = \prj^n_1 \circ \psi
-			\end{align*}
-		\end{enumerate}
-		So that $(V, \psi)$ is a $\pi$-fibered chart on $E$. 
-	\end{proof}
 	
 	\subsection{Local Trivializations}
 	
@@ -3733,21 +3718,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Let $E,M, F \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{$\Maninf$ fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
 	\end{defn}
 
-	\begin{ex}
-		Let $(E, M, \pi, F)$ be a $\Maninf$ fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$. Then $(E, M, \pi)$ is a smooth fibered manifold. 
-	\end{ex}
-
-	\begin{proof}
-		Let $a \in E$. Set $p = \pi(a)$. Then there exists $U \in \MN_p$ and $\Phi:\pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. Then $\Phi$ is a diffeomorphim and 
-		\begin{align*}
-			\rnk_a \pi
-			& = \rnk D\pi(a) \\
-			& = \rnk D \prj_1(\Phi(a)) \\
-			& = \dim M 
-		\end{align*} 
-		Since $a \in E$ is arbitrary, $\pi$ has constant rank. Thus $\pi$ is a submersion. Hence $(E, M, \pi)$ is a smooth fibered manifold.
-	\end{proof}
-
 	\begin{ex} \tbf{$\Maninf$ Fiber Bundle Chart Lemma:} \\
 		Let $E \in \Obj(\Set)$, $M, F \in \Obj(\Maninf)$, $\pi: E \rightarrow M$ a surjection, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$. Set $n = \dim M$ and $k = \dim F$. Suppose that 
 		\begin{itemize}
@@ -3886,39 +3856,226 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Let $(E, M, \pi, F) \in \Buninf$ and $(U_{\al}, \Phi_{\al})_{\al \in A}$ a collection of smooth local trivializations of $E$. Then $(U_{\al}, \Phi_{\al})_{\al \in A}$ is said to be a \tbf{fiber bundle atlas} if for each $p \in M$, there exists $\al \in A$ such that $p \in U_{\al}$. For $\al, \be \in A$, we define $\phi_{}$
 	\end{defn}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Subbundles}
+	
+	\begin{defn}
+		
+	\end{defn}
+	
+	
+	
+	
+	\newpage
+	\section{G-Bundles}
+	
+	\begin{defn}
+		Let $(E, M, \pi, F)$ be a $\Maninf$ fiber bundle, $\Gam$ an index set and for each $\al \in \Gam$, $(U_{\al}, \Phi_{\al})_{\al \in \Gam}$ a local trivializations with respect to $\pi$ of $E$ over $U_{\al}$. Then $(U_{\al}, \Phi_{\al})_{\al \in \Gam}$ is said to be a \tbf{$\Maninf$ bundle atlas on $E$} if $(U_{\al})_{\al}$ is an open cover of $E$. 
+	\end{defn}
+
+	\begin{defn}
+		Let $(E, M, \pi, F)$ be a $\Maninf$ fiber bundle, $\Gam$ an index set and $(U_{\al}, \Phi_{\al})_{\al \in \Gam}$ a $\Maninf$ bundle atlas on $E$. For each $\al,\be \in \Gam$, we define $U_{\al,\be} \subset M$ and $\Phi_{\al,\be}: U_{\al,\be} \times F \rightarrow U_{\al,\be} \times F$ by 
+		\begin{itemize}
+			\item $U_{\al, \be} = U_{\al} \cap U_{\be}$
+			\item $\Phi_{\al, \be} = \Phi_{\al}|_{U_{\al, \be}} \circ \Phi_{\be}|_{U_{\al, \be}}^{-1}$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $(E, M, \pi, F)$ be a $\Maninf$ fiber bundle, $\Gam$ an index set and $(U_{\al}, \Phi_{\al})_{\al \in \Gam}$ a $\Maninf$ bundle atlas on $E$. Then for each $\al, \be \in \Gam$ and $p \in U_{\al, \be}$, $\Phi_{\al,\be}(p, \cdot) \in \Aut(F)$.
+	\end{ex}
+
+	\begin{proof}
+		Let $\al, \be \in \Gam$ and $p \in U_{\al, \be}$. Since 
+	\end{proof}
+
+	\begin{ex} \tbf{Cocycle Condition:} \\
+		Let $(E, M, \pi, F)$ be a $\Maninf$ fiber bundle, $\Gam$ an index set and $(U_{\al}, \Phi_{\al})_{\al \in \Gam}$ a $\Maninf$ bundle atlas on $E$. Then for each $\al, \be \in \Gam$ and $p \in U_{\al, \be}$, $\Phi_{\al,\be}(p, \cdot) \in \Aut(F)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $\al, \be \in \Gam$ and $p \in U_{\al, \be}$. Since 
+	\end{proof}
+	
+	\begin{defn}
+		
+	\end{defn}
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		\newpage
+	\section{Product Bundles}
+	
+	\begin{defn}
+		
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Vertical and Horizontal Subbundles}
+	
+	\begin{defn}
+		Let $(E, M, \pi_M) \in \Obj(\Buninf)$. We define the \tbf{vertical bundle associated to $(E, M, \pi_M)$ }, denoted $(VE, M, \pi_{V}) \in \Buninf$, by 
+		$$VE = \coprod_{q \in E} \ker D\pi(q)$$
+	\end{defn}
+	
+	
+	\tcb{relocate this to after tangent bundle is introduced}
+	\begin{ex}
+		Let $(M, \MA)$ be an $n$-dimensional smooth manifold and $(U, \phi) \in \MA$ with $\phi = (x^1, \ldots, x^n)$,  $(\pi^{-1}(U), \Phi_{\phi}) \in \MA_{TM}$ the induced chart on $TM$ with $\Phi_{\phi} = (\tilde{x}^1, \ldots, \tilde{x}^n,  \tilde{y}^1, \ldots, \tilde{y}^n)$. Then 
+		$$V(TM)|_{\pi^{-1}(U)} = \coprod_{(p, \xi) \in \pi^{-1}(U)} \spn \bigg \{ \frac{\p}{\p \tilde{y}^j} \bigg|_{(p, \xi)}: j \in \{1, \ldots, n\} \bigg \}$$
+		\tcb{Split into smaller exercises}
+	\end{ex}
+	
+	\begin{proof}
+		Let $f \in C^{\infty}(M)$ and $(u^1, \ldots, u^n, v^1, \ldots, v^n)$ the standard coordinates on $\R^n \times \R^n$. We note that by definition, $\Phi_{\phi}(p, \xi) = (\phi(p), \psi(\xi))$ where $\psi: \bigcup\limits_{p \in U} T_pM \rightarrow \R^n$ is given by 
+		$$\psi \bigg (\sum_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_p \bigg) = (\xi^1, \ldots, \xi^n)$$
+		\begin{align*}
+			x^k \circ \pi \circ \Phi_{\phi}^{-1}(u,v)
+			& =  x^k \circ \pi (\phi^{-1}(u), \psi^{-1}(v)) \\
+			& = x^k \circ \phi^{-1}(u) 
+		\end{align*}	
+		Therefore
+		\begin{align*}
+			\frac{\p }{\p \tilde{x}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
+			& = \frac{\p }{\p u^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
+			& = \frac{\p }{\p u^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
+			& = \frac{\p }{\p u^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
+			& =  \frac{\p }{\p x^i} \bigg|_{p} x^k \\
+			& = \del_{i,k}
+		\end{align*}
+		and 
+		\begin{align*}
+			\frac{\p }{\p \tilde{y}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
+			& = \frac{\p }{\p v^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
+			& = \frac{\p }{\p v^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
+			& = \frac{\p }{\p v^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
+			& = 0
+		\end{align*}
+		This implies that for each $i \in \{1, \ldots, n\}$, we have that 
+		\begin{align*}
+			D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{x}^i } \bigg|_{(p, \xi)} \bigg) (f)
+			& = \frac{\p}{\p \tilde{x}^i} \bigg|_{(p, \xi)} f \circ \pi \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{x}^i}(p,\xi) \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) \del_{i,k} \\
+			& = \frac{\p f }{\p x^i}(p) 
+		\end{align*}
+		and 
+		\begin{align*}
+			D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{y}^i } \bigg|_{(p, \xi)} \bigg) (f)
+			& = \frac{\p}{\p \tilde{y}^i} \bigg|_{(p, \xi)} f \circ \pi \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{y}^i}(p,\xi) \\
+			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) 0 \\
+			& = 0
+		\end{align*}
+		Hence 
+		\begin{align*}
+			V(TM)|_{\pi^{-1}(U)}
+			& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \ker D \pi(p, \xi) \\
+			& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \spn \bigg \{ \frac{\p}{\p \tilde{y}^j} \bigg|_{(p, \xi)}: j \in \{1, \ldots, n\} \bigg \} 
+		\end{align*}
+	\end{proof}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-\section{$G$-Bundles}
-
-\begin{defn}
-	Let $G$ be a Lie group and $(E, M, \pi, F) \in \Obj(\Buninf)$. Then  
-\end{defn}
 
 
 	
@@ -3945,6 +4102,14 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
+	
+
+
+
+
+
+
+
 
 
 
@@ -3954,7 +4119,30 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 	\newpage
-	\section{Vector Bundles}
+	\newpage
+	\chapter{$G$-Bundles}
+	
+	\begin{defn}
+		Let $G$ be a Lie group and $(E, M, \pi, F) \in \Obj(\Buninf)$. Then  
+	\end{defn}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\chapter{Vector Bundles}
 
 	\begin{note}
 		Let $M$ be a set and $p \in M$. We endow $\{p\} \times \R^n$ with the natural vector space structure such that $\{p\} \times \R^k \cong \R^k$.
@@ -4049,198 +4237,6 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 	
 	
 	
-	\newpage
-	\section{Bundle Morphisms}
-	
-	\begin{defn}
-		Let $(E, M, \pi_E)$ and $(F, N, \pi_F)$ be $\Maninf$ fiber bundles and $\Phi: E \rightarrow F$ and $\phi: M \rightarrow N$. Then $(\Phi, \phi)$ is said to be a \tbf{$\Maninf$ fiber bundle morphism} from $(E, M, \pi_E)$ to $(F, N, \pi_F)$ if $\Phi$ is smooth, $\phi$ is smooth and $\pi_F \circ \Phi = \phi \circ \pi_E$, 
-		i.e. the following diagram commutes:
-		\[ 
-		\begin{tikzcd}
-			E \arrow[r, "\Phi"] \arrow[d, "\pi_E"'] & F  \arrow[d, "\pi_F"] \\
-			M \arrow[r, "\phi"']                  & N
-		\end{tikzcd}
-		\] 
-		and we write $(\Phi, \phi): (E, M, \pi_E) \rightarrow (F, N, \pi_F)$.
-	\end{defn}
-	
-	\begin{ex}
-		Let $(E, M, \pi_E)$ and $(F, N, \pi_F)$ be $\Maninf$ fiber bundles and $(\Phi, \phi): (E, M, \pi_E) \rightarrow (F, N, \pi_F)$. Suppose that $(\Phi, \phi)$ is smooth. Then for each $p \in M$, 
-		$$\Phi^{-1}(F_{\phi(p)}) = E_{p}$$
-	\end{ex}
-
-	\begin{proof}
-		Let $p \in M$. Set $q = \phi(p)$. Then 
-		\begin{align*}
-			\Phi^{-1}(F_{q})
-			& = \Phi^{-1}(\pi_F^{-1}(\{q\})) \\
-			& = (\pi_F \circ \Phi)^{-1}(\{q\}) \\
-			& = (\phi \circ \pi_E)^{-1} (\{q\}) \\
-			& = \pi_E^{-1} ( \phi^{-1}( \{\phi(p)\})) \\
-		\end{align*}
-	\tcb{FINISH!!!, multiple fibers get mapped to same fiber}
-	\end{proof}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\section{Subbundles}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\section{Vertical and Horizontal Subbundles}
-	
-	\begin{defn}
-		Let $(E, M, \pi_M) \in \Obj(\Buninf)$. We define the \tbf{vertical bundle associated to $(E, M, \pi_M)$ }, denoted $(VE, M, \pi_{V}) \in \Buninf$, by 
-		$$VE = \coprod_{q \in E} \ker D\pi(q)$$
-	\end{defn}
-
-	
-	\tcb{relocate this to after tangent bundle is introduced}
-	\begin{ex}
-		Let $(M, \MA)$ be an $n$-dimensional smooth manifold and $(U, \phi) \in \MA$ with $\phi = (x^1, \ldots, x^n)$,  $(\pi^{-1}(U), \Phi_{\phi}) \in \MA_{TM}$ the induced chart on $TM$ with $\Phi_{\phi} = (\tilde{x}^1, \ldots, \tilde{x}^n,  \tilde{y}^1, \ldots, \tilde{y}^n)$. Then 
-		$$V(TM)|_{\pi^{-1}(U)} = \coprod_{(p, \xi) \in \pi^{-1}(U)} \spn \bigg \{ \frac{\p}{\p \tilde{y}^j} \bigg|_{(p, \xi)}: j \in \{1, \ldots, n\} \bigg \}$$
-		\tcb{Split into smaller exercises}
-	\end{ex}
-
-	\begin{proof}
-		Let $f \in C^{\infty}(M)$ and $(u^1, \ldots, u^n, v^1, \ldots, v^n)$ the standard coordinates on $\R^n \times \R^n$. We note that by definition, $\Phi_{\phi}(p, \xi) = (\phi(p), \psi(\xi))$ where $\psi: \bigcup\limits_{p \in U} T_pM \rightarrow \R^n$ is given by 
-		$$\psi \bigg (\sum_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_p \bigg) = (\xi^1, \ldots, \xi^n)$$
-		\begin{align*}
-			 x^k \circ \pi \circ \Phi_{\phi}^{-1}(u,v)
-			 & =  x^k \circ \pi (\phi^{-1}(u), \psi^{-1}(v)) \\
-			 & = x^k \circ \phi^{-1}(u) 
-		\end{align*}	
-		Therefore
-		\begin{align*}
-			\frac{\p }{\p \tilde{x}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
-			& = \frac{\p }{\p u^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
-			& = \frac{\p }{\p u^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
-			& = \frac{\p }{\p u^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
-			& =  \frac{\p }{\p x^i} \bigg|_{p} x^k \\
-			& = \del_{i,k}
-		\end{align*}
-		and 
-		\begin{align*}
-			\frac{\p }{\p \tilde{y}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
-			& = \frac{\p }{\p v^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
-			& = \frac{\p }{\p v^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
-			& = \frac{\p }{\p v^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
-			& = 0
-		\end{align*}
-		This implies that for each $i \in \{1, \ldots, n\}$, we have that 
-		\begin{align*}
-			D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{x}^i } \bigg|_{(p, \xi)} \bigg) (f)
-			& = \frac{\p}{\p \tilde{x}^i} \bigg|_{(p, \xi)} f \circ \pi \\
-			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{x}^i}(p,\xi) \\
-			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) \del_{i,k} \\
-			& = \frac{\p f }{\p x^i}(p) 
-		\end{align*}
-		and 
-		\begin{align*}
-			D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{y}^i } \bigg|_{(p, \xi)} \bigg) (f)
-			& = \frac{\p}{\p \tilde{y}^i} \bigg|_{(p, \xi)} f \circ \pi \\
-			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{y}^i}(p,\xi) \\
-			& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) 0 \\
-			& = 0
-		\end{align*}
-		Hence 
-		\begin{align*}
-			V(TM)|_{\pi^{-1}(U)}
-			& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \ker D \pi(p, \xi) \\
-			& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \spn \bigg \{ \frac{\p}{\p \tilde{y}^j} \bigg|_{(p, \xi)}: j \in \{1, \ldots, n\} \bigg \} 
-		\end{align*}
-	\end{proof}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -4285,6 +4281,21 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	\newpage
 	\section{The cotangent Bundle}
 	
@@ -4292,6 +4303,14 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 		We define the \tbf{cotangent bundle of $M$}, denoted $T^*M$, by 
 		$$T^*M = \coprod_{p \in M} T_p^*M$$ 
 	\end{defn}
+
+
+
+
+
+
+
+
 
 
 
@@ -4810,6 +4829,174 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 	\end{defn}
 
 
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Vector Fields}
+
+\section{The Tangent Bundle}
+
+\begin{defn}
+	Let $(M, \MA_M)$ be an $n$-dimensional smooth manifold. We define the \tbf{tangent bundle of $M$}, denoted $TM$, by  
+	$$TM = \coprod_{p \in M} T_p M $$ 
+	and we define the \tbf{tangent bundle projection}, denoted $\pi: TM \rightarrow M$, by 
+	$$\pi(p, v) = p$$
+	Let $(U, \phi) \in \MA_M$ with $\phi = (x^1, \ldots, x^n)$. We define $\Phi_{\phi}: \pi^{-1}(U) \rightarrow \R^{2n}$ by 
+	$$\Phi_{\phi} \bigg(p, \sum_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_p \bigg) = (\phi(p), \xi^1, \ldots, \xi^n)$$ 
+	We define $\MT_{TM} = \tau_{TM}(\iota_p : p \in M)$.
+\end{defn}
+
+\begin{ex}
+	$\psi: \bigcup\limits_{p \in U} T_pM \rightarrow \R^n$ is given by 
+	$$\psi \bigg (\sum_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_p \bigg) = (\xi^1, \ldots, \xi^n)$$
+	\begin{align*}
+		x^k \circ \pi \circ \Phi_{\phi}^{-1}(u,v)
+		& =  x^k \circ \pi (\phi^{-1}(u), \psi^{-1}(v)) \\
+		& = x^k \circ \phi^{-1}(u) 
+	\end{align*}	
+	Therefore
+	\begin{align*}
+		\frac{\p }{\p \tilde{x}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
+		& = \frac{\p }{\p u^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
+		& = \frac{\p }{\p u^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
+		& = \frac{\p }{\p u^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
+		& =  \frac{\p }{\p x^i} \bigg|_{p} x^k \\
+		& = \del_{i,k}
+	\end{align*}
+	and 
+	\begin{align*}
+		\frac{\p }{\p \tilde{y}^i} \bigg|_{(p,\xi)} [x^k \circ \pi  ]
+		& = \frac{\p }{\p v^i} \bigg|_{\Phi_{\phi}(p,\xi)}[ x^k \circ \pi \circ \Phi_{\phi}^{-1} ]\\
+		& = \frac{\p }{\p v^i} \bigg|_{(\phi(p), \psi(\xi))} [x^k \circ \pi \circ \Phi_{\phi}^{-1}] \\
+		& = \frac{\p }{\p v^i} \bigg|_{\phi(p)}  [x^k \circ \phi^{-1}] \\
+		& = 0
+	\end{align*}
+	This implies that for each $i \in \{1, \ldots, n\}$, we have that 
+	\begin{align*}
+		D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{x}^i } \bigg|_{(p, \xi)} \bigg) (f)
+		& = \frac{\p}{\p \tilde{x}^i} \bigg|_{(p, \xi)} f \circ \pi \\
+		& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{x}^i}(p,\xi) \\
+		& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) \del_{i,k} \\
+		& = \frac{\p f }{\p x^i}(p) 
+	\end{align*}
+	and 
+	\begin{align*}
+		D \pi (p, \xi) \bigg( \frac{\p}{\p \tilde{y}^i } \bigg|_{(p, \xi)} \bigg) (f)
+		& = \frac{\p}{\p \tilde{y}^i} \bigg|_{(p, \xi)} f \circ \pi \\
+		& = \sum_{k=1}^n \frac{\p f }{\p x^k}(\pi (p,\xi)) \frac{\p x^k \circ \pi }{\p \tilde{y}^i}(p,\xi) \\
+		& = \sum_{k=1}^n \frac{\p f }{\p x^k}(p) 0 \\
+		& = 0
+	\end{align*}
+	Hence 
+	\begin{align*}
+		V(TM)|_{\pi^{-1}(U)}
+		& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \ker D \pi(p, \xi) \\
+		& = \coprod_{(p, \xi) \in \pi^{-1}(U)} \spn \bigg \{ \frac{\p}{\p \tilde{y}^j} \bigg|_{(p, \xi)}: j \in \{1, \ldots, n\} \bigg \} 
+	\end{align*}
+\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Lie Theory}
+
+\section{Lie Groups}
+
+\begin{defn}
+	Let $G$ be a smooth manifold and group. Then $G$ is said to be a \tbf{Lie group} if 
+	\begin{itemize}
+		\item multiplication $G \times G \rightarrow G$ given by $(g, h) \mapsto gh$ is smooth
+		\item inversion $G \rightarrow G$  given by $g \mapsto g^{-1}$ is smooth 
+	\end{itemize} 
+\end{defn}
+
+
+
+
+\begin{defn}
+	Let $\MFg$ be a vector space and $[\cdot, \cdot]: \MFg \times \MFg \rightarrow \MFg$. 
+	Then $[\cdot, \cdot]$ is said to be a \tbf{Lie bracket} on $\MFg$ if  
+	\begin{enumerate}
+		\item $[\cdot, \cdot]$ is bilinear
+		\item $[\cdot, \cdot]$ is antisymmetric
+		\item $[\cdot, \cdot]$ satisfies the Jacobi identity: \\
+		for each $x, w, y \in \MF g$, 
+		$$[x, [y,z]] + [y, [z,x]] + [z, [x,y]] = 0$$
+	\end{enumerate}
+	In this case, $(\MFg, [\cdot, \cdot])$ is said to be a \tbf{Lie algebra}.
+\end{defn}
+
+\begin{defn}
+	Let $X \in $
+\end{defn}
+
+
 
 
 
@@ -4877,7 +5064,106 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 
 
 
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Jet Bundles}
+
+\section{Fibered Manifolds}
+
+\begin{defn}
+	Let $E, M \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$. Then $(E, M, \pi)$ is said to be a \tbf{smooth fibered manifold} if $\pi$ is a surjective submersion. 
+\end{defn}
+
+\begin{note}
+	We write $\prj^n_1: \R^n \times \R^k \rightarrow \R^n$ to denote the projection onto $M$.
+\end{note}
+
+\begin{defn}
+	Let $(E, M, \pi)$ be a smooth fibered manifold and $(V, \psi) \in \MA_{E}$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Then $(V, \psi)$ is said to be a \tbf{$\pi$-fibered chart on $E$} if there exists $(U, \phi) \in \MA_{M}$ such that 
+	\begin{enumerate}
+		\item $U = \pi(V)$
+		\item $\phi \circ \pi|_V = \prj^n_1 \circ \psi$
+	\end{enumerate}
+	i.e. if $\psi = (y^1, \ldots, y^{n+k})$ and $\phi = (x^1, \ldots, x^n)$, then $\psi = (x^1 \circ \pi, \ldots, x^n \circ \pi, y^{n+1}, \ldots, y^{n+k})$.
+\end{defn}
+
+\begin{ex}
+	Let $(E, M, \pi)$ be a smooth fibered manifold. Then for each $a \in E$, there exists $(V, \psi) \in \MA_E$ such that $a \in V$ and $(V, \psi)$ is a $\pi$-fibered chart on $E$. \\
+	\tbf{Hint:} Constant rank theorem
+\end{ex}
+
+\begin{proof}
+	Set $n \defeq \dim M$, $k \defeq \dim E - n$. Let $a \in E$. Set $p \defeq \pi(a)$. Since $\pi:E \rightarrow M$ is a submersion, $\pi$ has constant rank and $\rnk \pi = n$. The constant rank theorem implies that there exist $(V_0, \psi_0) \in \MA_E$, $(U_0, \phi_0) \in \MA_M$ such that $a \in V_0$, $p \in U$ and $\phi_0 \circ \pi \circ \psi_0^{-1} = \prj^n_1|_{\psi_0(V \cap \pi^{-1}(U))}$. Hence $\phi_0 \circ \pi = \prj^n_1 \circ \psi_0 $. Define $V \defeq V_0 \cap \pi^{-1}(U_0)$, $U = U_0 \cap \pi(V_0)$, $\psi = \psi_0|_V$ and $\phi = \phi_0|_U$. Then 
+	\begin{enumerate}
+		\item 
+		\begin{align*}
+			\pi(V)
+			& = \pi(\pi^{-1}(U_0) \cap V_0) \\
+			& = U_0 \cap \pi(V_0) \\
+			& = U
+		\end{align*}
+		\item 
+		\begin{align*}
+			\phi \circ \pi|_V
+			& = \phi_0|_U \circ \pi|_V  \\
+			& = \prj^n_1 \circ \psi_0|_V \\
+			& = \prj^n_1 \circ \psi
+		\end{align*}
+	\end{enumerate}
+	So that $(V, \psi)$ is a $\pi$-fibered chart on $E$. 
+\end{proof}
+
+\begin{ex}
+	Let $(E, M, \pi, F)$ be a $\Maninf$ fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$. Then $(E, M, \pi)$ is a smooth fibered manifold. 
+\end{ex}
+
+\begin{proof}
+	Let $a \in E$. Set $p = \pi(a)$. Then there exists $U \in \MN_p$ and $\Phi:\pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. Then $\Phi$ is a diffeomorphim and 
+	\begin{align*}
+		\rnk_a \pi
+		& = \rnk D\pi(a) \\
+		& = \rnk D \prj_1(\Phi(a)) \\
+		& = \dim M 
+	\end{align*} 
+	Since $a \in E$ is arbitrary, $\pi$ has constant rank. Thus $\pi$ is a submersion. Hence $(E, M, \pi)$ is a smooth fibered manifold.
+\end{proof}
+
+
+
+
+
+
+
+
+
 
 
 

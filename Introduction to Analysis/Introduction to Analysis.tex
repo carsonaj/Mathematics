@@ -1627,6 +1627,29 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 \end{proof}
 
 
+\begin{ex} \tbf{Basis for Subspace Topology:} \\
+	Let $(X, \MT)$ be a topological space, $\MB \subset \MT$ a basis for $\MT$ on $X$ and $A \subset X$. Then $\MB \cap A$ is a basis for $\MT \cap A$ on $A$. 
+\end{ex}
+
+\begin{proof}
+	Let $E \in \MT \cap A$. Then there exists $E' \in \MT$ such that $E = E' \cap A$. Since $\MB$ is a basis for $\MT$ on $X$, there exists $\MU' \subset \MB$ such that $E' = \bigcup\limits_{U' \in \MU'} U'$. Define $\MU \subset \MT \cap A$ by $\MU \defeq \MU' \cap A$. Then 
+	\begin{align*}
+		\MU
+		& = \MU' \cap A \\
+		& \subset \MB \cap A
+	\end{align*}
+	and
+	\begin{align*}
+		E
+		& = E' \cap E \\
+		& = \bigg( \bigcup\limits_{U' \in \MU} U' \bigg)  \cap A \\
+		& = \bigcup\limits_{U' \in \MU'} (U' \cap A) \\
+		& = \bigcup\limits_{U \in \MU' \cap A} U \\
+		& = \bigcup\limits_{U \in \MU} U 
+	\end{align*}
+	Since $E \in \MT \cap A$ is arbitrary, we have that for each $E \in \MT \cap A$, there exists $\MU \subset \MB \cap A$ such that $E = \bigcup\limits_{U \in \MU} U $. Hence $\MB \cap A$ is a basis for $\MT \cap A$ on $A$.
+\end{proof}
+
 
 
 
@@ -1848,16 +1871,24 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\begin{proof}
 		Immediate by a previous exercise about the initial topology.
 	\end{proof}
+
+	\begin{defn}
+		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ and $(Y_{\al}, \MS_{\al})_{\al \in A}$ be collections of topological spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. We define the \tbf{product of $(f_{\al})_{\al \in A}$}, denoted $\prod_{\al \in A} f_{\al}: \prod\limits_{\al \in A} X_{\al} \rightarrow  \prod\limits_{\al \in A} Y_{\al}$ by 
+		$$\bigg( \bigg[\prod_{\al \in A} f_{\al} \bigg] (x) \bigg)_{\be} = f_{\be}(x_{\be})$$
+	\end{defn}
 	
 	\begin{ex}
-		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ and $(Y_{\al}, \MS_{\al})_{\al \in A}$ be collections of topological spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. Set $X = \prod\limits_{\al \in A} X_{\al}$ and $Y = \prod\limits_{\al \in A}Y_{\al}$. Define $f: X \rightarrow Y$ by $(f(x))_{\al} = f_{\al}(x_{\al})$. Then 
-		\begin{enumerate}
-			\item if for each $\al \in A$, $f_{\al}$ is continuous, then $f$ is continous
-			\item if $A$ is finite and for each $\al \in A$, $f_{\al}$ is open, then $f$ is open iff for each $\al \in A$, $f_{\al}$ is continuous
-		\end{enumerate}
+		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ and $(Y_{\al}, \MS_{\al})_{\al \in A}$ be collections of topological spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. Denote the $\al$-th projection maps on $\prod\limits_{\al \in A} X_{\al}$ and $\prod\limits_{\al \in A} Y_{\al}$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Then for each $\al \in A$, $\pi^Y_{\al} \circ \bigg[ \prod\limits_{\al \in A} f_{\al} \bigg]  = f_{\al} \circ \pi^X_{\al}$, i.e. the following diagram commutes:
+		\[ 
+		\begin{tikzcd}
+			\prod\limits_{\al \in A} X_{\al}  \arrow[r, "\prod\limits_{\al \in A} f_{\al}"]  \arrow[d, "\pi^X_{\al}"'] & \prod\limits_{\al \in A} Y_{\al} \arrow[d, "\pi^Y_{\al}"]\\
+			X_{\al} \arrow[r, "f_{\al}"'] &  Y_{\al} \\
+		\end{tikzcd}
+		\]
 	\end{ex}
 
-	\begin{proof} Denote the $\al$-th projection maps on $X$ and $Y$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Denote the product topologies on $X$ and $Y$ by $\MT$ and $\MS$ respectively. Let $\al \in A$ and $x \in X$. Then
+	\begin{proof}
+		Set $X \defeq \prod\limits_{\al \in A} X_{\al}$, $Y \defeq \prod\limits_{\al \in A}Y_{\al}$ and define $f: X \rightarrow Y$ by $f \defeq \prod\limits_{\al \in A} f_{\al}$. Let $\al \in A$ and $x \in X$. Then
 		\begin{align*}
 			\pi^Y_{\al} \circ f(x) 
 			& = (f(x))_{\al} \\
@@ -1865,28 +1896,66 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 			& = f_{\al} \circ \pi^X_{\al}(x) 
 		\end{align*}
 		Since $\al \in A$ and $x \in X$ are arbitrary, for each $\al \in A$, $\pi^Y_{\al} \circ f = f_{\al} \circ \pi^X_{\al}$.
-		\begin{enumerate}
-			\item Suppose that for each $\al \in A$, $f_{\al}$ is continuous. Let $\al \in A$. Then $f_{\al} \circ \pi^X_{\al}$ is continuous. Hence $\pi^Y_{\al} \circ f$ is continuous. Since $\al \in A$ is arbitrary, the previous exercise implies that $f$ is continuous.
-			\item Suppose that $A$ is finite and for each $\al \in A$, $f_{\al}$ is open. Set 
-			$$\MB_X = \bigg\{ \prod\limits_{\al \in A} U_{\al} : \text{for each $\al \in A$, } U_{\al} \in \MT_{\al}\bigg\}$$ 
-			$$\MB_Y = \bigg\{ \prod\limits_{\al \in A} V_{\al} : \text{for each $\al \in A$, } U_{\al} \in \MS_{\al}\bigg\}$$ 
-			A previous exercise implies that $\MB_X$ is a basis for $\MT$ and $\MB_Y$ is a basis for $\MS$. For each $\al \in A$, let $U_{\al} \in \MT_{\al}$. Then for each $\al \in A$, $f_{\al}(U_{\al}) \in \MS_{\al}$. Hence
-			\begin{align*}
-				f\bigg( \prod\limits_{\al \in A} U_{\al}\bigg) 
-				& = \prod_{\al \in A} f_{\al}(U_{\al}) \\
-				& \in \MB_{Y} \\
-				& \subset \MS
-			\end{align*}
-			Thus for each $U \in \MB_Y$, $f(U) \in \MS$. An exercise about open maps in the section on continuous maps implies that $f$ is open.
-		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ and $(Y_{\al}, \MS_{\al})_{\al \in A}$ be collections of topological spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. If for each $\al \in A$, $f_{\al}$ is continuous, then $\prod\limits_{\al \in A} f_{\al}$ is continous.
+	\end{ex}
+
+	\begin{proof}
+		Set $X \defeq \prod\limits_{\al \in A} X_{\al}$, $Y \defeq \prod\limits_{\al \in A}Y_{\al}$ and define $f: X \rightarrow Y$ by $f \defeq \prod\limits_{\al \in A} f_{\al}$. Denote the $\al$-th projection maps on $X$ and $Y$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Set $\MT \defeq \bigotimes\limits_{\al \in A}\MT_{\al}$ and $\MS \defeq \bigotimes\limits_{\al \in A} \MS_{\al}$. Let $\al \in A$ and $x \in X$. Then
+		\begin{align*}
+			\pi^Y_{\al} \circ f(x) 
+			& = (f(x))_{\al} \\
+			& = f_{\al}(x_{\al}) \\
+			& = f_{\al} \circ \pi^X_{\al}(x) 
+		\end{align*}
+		Since $\al \in A$ and $x \in X$ are arbitrary, for each $\al \in A$, $\pi^Y_{\al} \circ f = f_{\al} \circ \pi^X_{\al}$. Suppose that for each $\al \in A$, $f_{\al}$ is continuous. Let $\al \in A$. Then $f_{\al} \circ \pi^X_{\al}$ is continuous. Hence $\pi^Y_{\al} \circ f$ is continuous. Since $\al \in A$ is arbitrary, the previous exercise implies that $f$ is continuous.
 	\end{proof}
 
 	\begin{ex}
-		Let $X_1, X_2,Y_1,Y_2$ be topological spaces and $f_1:X_1 \rightarrow Y_1$, $f_2:X_2 \rightarrow Y_2$. If $f_1$ and $f_2$ are open, then $f_1 \times f_1$ is open.
+		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ and $(Y_{\al}, \MS_{\al})_{\al \in A}$ be collections of topological spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. If $\# \{\al \in A: f_{\al} \text{ is not surjective}\} < \infty$ and for each $\al \in A$, $f_{\al}$ is open, then $\prod\limits_{\al \in A} f_{\al}$ is open.
+	\end{ex}
+
+	\begin{proof} Set $X \defeq \prod\limits_{\al \in A} X_{\al}$, $Y \defeq \prod\limits_{\al \in A}Y_{\al}$ and define $f: X \rightarrow Y$ by $f \defeq \prod\limits_{\al \in A} f_{\al}$. Denote the $\al$-th projection maps on $X$ and $Y$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Set $\MT \defeq \bigotimes\limits_{\al \in A}\MT_{\al}$ and $\MS \defeq \bigotimes\limits_{\al \in A} \MS_{\al}$. Suppose that $\# \{\al \in A: f_{\al} \text{ is not surjective}\} < \infty$ and for each $\al \in A$, $f_{\al}$ is open. Set 
+		$$\MB_X \defeq \bigg \{\prod_{\al \in A}U_{\al}: \text{ for each $\al \in A$,  $U_{\al} \in \MT_{\al}$ and $\# \{\al \in A: U_{\al} \neq X_{\al}\} < \infty$} \bigg\}$$
+		$$\MB_Y \defeq \bigg \{\prod_{\al \in A}V_{\al}: \text{ for each $\al \in A$,  $V_{\al} \in \MS_{\al}$ and $\# \{\al \in A: V_{\al} \neq Y_{\al}\} < \infty$} \bigg\}$$
+		A previous exercise implies that $\MB_X$ is a basis for $\MT$ and $\MB_Y$ is a basis for $\MS$. Let $U \in \MB_X$. Then for each $\al \in A$ there exist $U_{\al} \in \MT_{\al}$ such that $U = \prod\limits_{\al \in A} U_{\al}$. Define 
+		\begin{itemize}
+			\item $B_1 \defeq \{\al \in A: f_{\al} \text{ is not surjective}\}$ 
+			\item $B_2 \defeq \{\al \in A: U_{\al} \neq X_{\al}\}$ 
+			\item $B_3 \defeq \{\al \in A: f_{\al}(U_{\al}) \neq Y_{\al}\}$
+		\end{itemize}
+		Let $\al \in A$. Suppose that $\al \in B_1^c \cap B_2^c$. Then $f_{\al}$ is surjective and $U_{\al} = X_{\al}$. Thus $f_{\al}(U_{\al}) = Y_{\al}$ and $\al \in B_3^c$. Therefore if $\al \in B_3$, then $\al \in B_1 \cup B_2$. Since $\al \in A$ is arbitrary, $B_3 \subset B_1 \cup B_2$. By assumption, $\# B_1 < \infty$ and $\# B_2 < \infty$. Thus 
+		\begin{align*}
+			\# B_3
+			& \leq \# (B_1 \cup B_2) \\
+			& \leq \# B_1 + \# B_2 \\
+			& < \infty
+		\end{align*}
+		Since for each $\al \in A$, $f_{\al}$ is open, we have that for each $\al \in A$, $f_{\al}(U_{\al}) \in \MS_{\al}$. Thus
+		\begin{align*}
+			f\bigg( \prod\limits_{\al \in A} U_{\al}\bigg) 
+			& = \prod_{\al \in A} f_{\al}(U_{\al}) \\
+			& \in \MB_{Y} \\
+			& \subset \MS
+		\end{align*}
+		Since $U \in \MB_X$ is arbitrary, we have that for each $U \in \MB_X$, $f(U) \in \MS$. Since $\MB_X$ is a basis for $\MT$, an exercise about open maps in the section on continuous maps implies that $f$ is open.
+	\end{proof}
+
+	\begin{ex}
+		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ and $(Y_{\al}, \MS_{\al})_{\al \in A}$ be collections of topological spaces and for each $\al \in A$, $U_{\al} \subset X_{\al}$, $V_{\al} \subset Y_{\al}$ and $f_{\al}:U_{\al} \rightarrow V_{\al}$. If for each $\al \in A$, $f_{\al}$ is $(\MT_{\al} \cap U_{\al})$-continuous, then $\prod\limits_{\al \in A} f_{\al}$ is $\bigg( \bigg[ \bigotimes\limits_{\al \in A} \MT_{\al} \bigg] \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg], \bigg[ \bigotimes\limits_{\al \in A} \MS_{\al} \bigg] \cap \bigg[ \prod\limits_{\al \in A} V_{\al} \bigg] \bigg)$-continuous.
 	\end{ex}
 	
 	\begin{proof}
-		Let $A_1 \subset X_1, A_2 \subset X_2$ be open. Then $f_1 \times f_2(A_1 \times A_2) = f_1(A_1) \times f_2(A_2)$ which is open in $Y_1 \times Y_2$. Since $\MB = \{A_1 \times A_2:  \text{$A_1 \subset X_1$ and $A_2 \subset X_2$ are open} \}$ is a basis for the product topology on $X_1 \times X_2$, an exercise in the section on continuous maps implies that $f_1 \times f_2$ is open.
+		Denote the $\al$-th projection maps on $X$ and $Y$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Let $(x_{\gam})_{\gam \in \Gam} \subset \prod\limits_{\al \in A} U_{\al}$ and $x \in \prod\limits_{\al \in A}$. Suppose that $x_{\gam} \rightarrow x$ in $\bigg( \prod\limits_{\al \in A} U_{\al} , \bigg[ \bigotimes\limits_{\al \in A} \MT_{\al} \bigg] \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg] \bigg)$. \tcb{An exercise in the section on the subspace topology} implies that $x_{\gam} \rightarrow x$ in $\bigg( \prod\limits_{\al \in A} X_{\al}, \bigotimes\limits_{\al \in A} \MT_{\al}  \bigg)$. Let $\al \in A$. Since $\pi^X_{\al}$ is $\bigg(\bigotimes\limits_{\be \in A} \MT_{\be}, \MT_{\al} \bigg)$-continuous, we have that $\pi^X_{\al}(x_{\gam}) \rightarrow \pi^X_{\al}(x)$ in $(X_{\al}, \MT_{\al})$. \tcb{Another application of the same exercise} implies that $\pi^X_{\al}(x_{\gam}) \rightarrow \pi^X_{\al}(x)$ in $(U_{\al}, \MT_{\al} \cap U_{\al})$. Since $f_{\al}$ is $\bigg(\MT_{\al} \cap U_{\al}, \MS_{\al} \cap V_{\al} \bigg)$-continuous, 
+		\begin{align*}
+			\pi^Y_{\al} \circ \bigg[ \prod\limits_{\al \in A}f_{\al} \bigg] (x_{\gam})
+			& = f_{\al} \circ \pi^X_{\al}(x_{\gam}) \\
+			& \rightarrow f_{\al} \circ \pi^X_{\al}(x) \\
+			& = \pi^Y_{\al} \circ \bigg[ \prod\limits_{\al \in A}f_{\al} \bigg] (x)  \text{ in $(V_{\al}, \MS_{\al} \cap V_{\al})$} 
+		\end{align*}
+		\tcb{Another application of the exercise} implies that $\pi^Y_{\al} \circ \bigg[ \prod\limits_{\al \in A}f_{\al} \bigg] (x_{\gam}) \rightarrow \pi^Y_{\al} \circ \bigg[ \prod\limits_{\al \in A}f_{\al} \bigg] (x) $ in $(Y_{\al}, \MS_{\al})$. Since $(x_{\gam})_{\gam \in \Gam} \subset \prod\limits_{\al \in A} U_{\al}$ and $x \in \prod\limits_{\al \in A}$ with $x_{\gam} \rightarrow x$ in $\bigg( \prod\limits_{\al \in A} U_{\al} , \bigg[ \bigotimes\limits_{\al \in A} \MT_{\al} \bigg] \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg] \bigg)$ is arbitary, we have that $\prod\limits_{\al \in A}f_{\al}$ is $\bigg( \bigg[ \bigotimes\limits_{\al \in A} T_{\al} \bigg]  \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg], \bigotimes\limits_{\al \in A} S_{\al} \bigg)$-continuous. \tcb{Another application of the exercise} implies that $\prod\limits_{\al \in A}f_{\al}$ is $\bigg( \bigg[ \bigotimes\limits_{\al \in A} T_{\al} \bigg]  \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg], \bigg[ \bigotimes\limits_{\al \in A} S_{\al} \bigg] \cap \bigg[ \prod\limits_{\al \in A} V_{\al} \bigg] \bigg)$-continuous.
 	\end{proof}
 	
 	\begin{ex}
