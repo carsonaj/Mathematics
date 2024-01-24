@@ -1686,7 +1686,18 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Then $\pi$ is a homeomorphism.
 		\item Define $f: \R^n \rightarrow \Int \H^n$ by $f(x_1, \ldots, x_{n-1}, x_n) = (x_1, \ldots, x_{n-1}, e^{x_n})$. Then $f$ is a homeomorphism.
 	\end{enumerate}
-	\end{proof}		
+	\end{proof}	
+
+	\begin{ex}
+		Let $A \subset \H^n$. Suppose that $A$ is open in $\H^n$. Then $A$ is open in $\R^n$ iff $A \cap \p \H^n = \varnothing$. \\
+		\tbf{Hint:} simply connected?
+		\tcb{FINISH!!!}
+	\end{ex}	
+
+	\begin{proof}
+		Suppose that $A$ is open in $\R^n$. For the sake of contradiction, suppose that $A \cap \p \H^n \neq \varnothing$. Then there exists $x \in A$ such that $x \in \p \H^n$. Since $A$ is open in $\R^n$, there exists $B \subset A$ such that $B$ is open in $\R^n$, $p \in B$ and $B$ is simply connected. Set $B' \defeq B \setminus \{x\}$. Then $B'$ is not simply connected.  get a simply connected ball around $p$
+		\tcb{FINISH!!!}
+	\end{proof}
 	
 	\begin{defn}
 		Let $(M, \MT)$ be a topological space and $n \in \N_0$. Let $U \subset M$ and $V \subset \H^n$ and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be a \tbf{$n$-coordinate chart on $(M, \MT)$} if 
@@ -1726,8 +1737,8 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{defn}
 		Let $M$ be an $n$-dimensional topological manifold and $(U, \phi) \in X(M)$. Then $(U, \phi)$ is said to be an
 		\begin{itemize}
-			\item \tbf{interior chart} if $\phi(U)$ is open in $\R^n$ 
-			\item \tbf{boundary chart} if $\phi(U)$ is open in $\H^n$ and $\phi(U) \cap \p \H^n \neq \varnothing$
+			\item \tbf{interior chart} if $\phi(U) \cap \p \H^n = \varnothing$
+			\item \tbf{boundary chart} if $\phi(U) \cap \p \H^n \neq \varnothing$
 		\end{itemize}
 		We denote the set of all interior charts on $M$ and the set of all boundary charts on $M$ by $X_{\Int}(M)$ and $X_{\p}(M)$ respectively. 
 	\end{defn}
@@ -1742,26 +1753,20 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 	\begin{proof}\
 		\begin{enumerate}
-			\item By definition, $X_{\Int}(M) \cup X_{\p}(M) \subset X(M)$. Let $(U, \phi) \in X(M)$. Since $(U, \phi)$ is a coordinate chart on $M$, $\phi(U)$ is open in $\R^n$ or $\phi(U)$ is open in $\H^n$. If $\phi(U)$ is open in $\R^n$, then 
+			\item By definition, $X_{\Int}(M) \cup X_{\p}(M) \subset X(M)$. Let $(U, \phi) \in X(M)$. Since $(U, \phi)$ is a coordinate chart on $M$, $\phi(U)$ is open in $\H^n$. If  $\phi(U) \cap \p \H^n = \varnothing$, then 
 			\begin{align*}
 				(U, \phi) 
 				& \in X_{\Int}(M) \\
 				& \subset X_{\Int}(M) \cup X_{\p}(M)
 			\end{align*}
-			Suppose that $\phi(U)$ is open in $\H^n$. If $\phi(U) \cap \p \H^n = \varnothing$, then $\phi(U)$ is open in $\R^n$ and 
-			\begin{align*}
-				(U, \phi) 
-				& \in X_{\Int}(M) \\
-				& \subset X_{\Int}(M) \cup X_{\p}(M)
-			\end{align*}
-			Suppose that $\phi(U) \cap \p \H^n \neq \varnothing$. Then 
+			If $\phi(U) \cap \p \H^n \neq \varnothing$, then 
 			\begin{align*}
 				(U, \phi) 
 				& \in X_{\p}(M) \\
 				& \subset X_{\Int}(M) \cup X_{\p}(M)
 			\end{align*}
 			Since $(U, \phi) \in X(M)$ is arbitrary, $X(M) \subset X_{\Int}(M) \cup X_{\p}(M)$. Therefore $X(M) = X_{\Int}(M) \cup X_{\p}(M)$.
-			\item For the sake of contradiction, suppose that $X_{\Int}(M) \cup X_{\p}(M) \neq \varnothing$. Then there exists $(U, \phi) \in X(M)$ such that $(U, \phi) \in X_{\Int}(M)$ and $(U, \phi) \in X_{\p}(M)$. Therefore $\phi(U)$ is open in $\R^n$, $\phi(U)$ is open in $\H^n$ and $\phi(U) \cap \p \H^n \neq \varnothing$. Since $\phi(U)$ is open in $\R^n$ and $\phi(U) \subset \H^n$, $\phi(U) \subset \Int \H^n$ and therefore $\phi(U) \cap \p \H^n = \varnothing$ which is a contradiction.
+			\item For the sake of contradiction, suppose that $X_{\Int}(M) \cup X_{\p}(M) \neq \varnothing$. Then there exists $(U, \phi) \in X(M)$ such that $(U, \phi) \in X_{\Int}(M)$ and $(U, \phi) \in X_{\p}(M)$. Therefore $\phi(U) \cap \p \H^n = \varnothing$ and $\phi(U) \cap \p \H^n \neq \varnothing$. This is a contradiction. Hence $X_{\Int}(M) \cup X_{\p}(M) = \varnothing$.
 		\end{enumerate}
 	\end{proof}
 
@@ -1780,6 +1785,15 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	\begin{proof}
 		Let $p \in U$. Since $(U, \phi) \in X_{\Int}(M)$ and $p \in U$, by definition, $p \in \Int M$. Since $p \in U$ is arbitrary, $U \subset \Int M$.
+	\end{proof}
+
+	\begin{ex}
+		Let $M$ be an $n$-dimensional topological manifold and $(U, \phi) \in X(M)$. Then $(U, \phi) \in X_{\Int}(M)$ iff $\phi(U)$ is open in $\R^n$. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $(U, \phi) \in X_{\Int}(M)$. Then $\phi(U) \cap \p \H^n = \varnothing$. Since $\phi(U)$ is open in $\H^n$, \tcb{a previous exercise} implies that $\phi(U)$ is open in $\R^n$. 
+		Conversely, suppose that $\phi(U)$ is open in $\R^n$. Since $\phi(U)$ is open in $\H^n$, \tcb{a previous exercise} implies that $\phi(U) \cap \p \H^n = \varnothing$. Thus $(U, \phi) \in X_{\Int}(M)$.
 	\end{proof}
 
 	\begin{ex}
@@ -2175,7 +2189,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-
+	\newpage
 	\section{Open and Boundary Submanifolds}
 	\begin{defn}
 		Let $M$ be an $n$-dimensional topological manifold and $\pi:\p \H^n \rightarrow \R^{n-1}$ the projection map. For $(U, \phi) \in X_{\p}(M)$, we define $\bar{U} \subset \p M$ and $\bar{\phi}: \bar{U} \rightarrow \pi (\phi(\bar{U}))$ by $\bar{U} = U \cap \p M$ and $\bar{\phi} = \pi \circ \phi|_{\bar{U}}$ respectively. 
@@ -2326,24 +2340,124 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-
+\newpage
 \section{Product Manifolds}
 
 \begin{ex}
-	Let $(M, \MT_M)$, $(N, \MT_N)$ be topological manifolds. Set $m = \dim M$ and $n = \dim N$. Then 
-	$$\{(U \times V, \phi \times \psi): (U, \phi) \in X^m(M) \text{ and } (V, \psi) \in X^n(N)\} \subset X^{m+n}(M \times N)$$
+	\tcb{show $\H^m \times \Int \H^n \in \Man0$}.
+\end{ex}
+
+\begin{ex}
+	Let $m \in \N$ and $n \in \N_0$. Then there exists $\lam: \H^m \times \Int \H^n \rightarrow \H^{m+n}$ such that 
+	\begin{enumerate}
+		\item $\lam$ is a $(\MT_{\H^m} \otimes \MT_{\Int \H^n}, \H^{m+n})$-homeomorphism
+		\item $\lam(\p \H^m \times \Int \H^n) = \p \H^{m+n}$
+	\end{enumerate}
 \end{ex}
 
 \begin{proof}
-	Let $(U, \phi) \in X^m(M, \MT_M)$ and $(V, \psi) \in X^n(N, \MT_N)$. 
+	Define $\lam: \H^m \times \Int \H^n \rightarrow \H^{m+n}$ by 
+	$$\lam((x^1, \ldots, x^{m-1}, x^m), (y^1, \ldots, y^n)) = (x^1, \ldots, x^{m-1}, \log y^1, \ldots, \log y^n, x^m)$$
+	\begin{enumerate}
+		\item Clearly $\lam$ is a homeomorphism.
+		\item Clearly $\lam(\p \H^m \times \Int \H^n) = \p \H^{m+n}$
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	We define 
+	$$\Aut_{0}^{m,n} = \{\lam: \H^m \times \Int \H^n \rightarrow \H^{m+n} : \lam \in \Aut_{\Man0}(\H^m \times \Int \H^n, \H^{m+n}) \text{ and } \lam(\p \H^m \times \Int \H^n) = \p \H^{m+n} \}$$
+\end{defn}
+
+\begin{ex}
+	Let $m \in \N$ and $n \in \N_0$. Then $\Aut_{0}^{m,n} \neq \varnothing$.
+\end{ex}
+
+\begin{proof}
+	Immediate by previous exercise.
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MT_M)$, $(N, \MT_N)$ be topological manifolds. Set $m = \dim M$ and $n = \dim N$. Suppose that $\p N = \varnothing$. Then for each $\lam \in \Aut_0^{m,n}$, $(U, \phi) \in X^m(M, \MT_M)$ and $(V, \psi) \in X^n(N, \MT_N)$, 
+	$$(U \times V, \lam|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi]) \in X^{m+n}(M \times N, \MT_M \otimes \MT_N)$$ 
+\end{ex}
+
+\begin{proof}
+	Let $\lam \in \Aut_0^{m,n}$, $(U, \phi) \in X^m(M, \MT_M)$ and $(V, \psi) \in X^n(N, \MT_N)$. 
 	\begin{itemize}
 		\item Since $U \in \MT_M$ and $V \in \MT_N$, $U \times V \in \MT_M \otimes \MT_N$. 
-		\item Since $\phi(U) \in \MT_{\H^m}$ and $\psi(V) \in \MT_{\H^n}$, $\phi(U) \times \psi(V) \in \MT_M \otimes \MT_N$. 
-		\item Since $\phi:U \rightarrow \phi(U)$ is a $(\MT_M \cap U, \MT_{\H^m} \cap \phi(U))$-homeomorphism and $\psi: V \rightarrow \psi(V)$ is a $(\MT_N \cap V, \MT_{\H^n} \cap \psi(V))$-homeomorphism, \tcb{an exercise in the section on product topologies in the analysis notes} implies that $\phi \times \psi: U \times V \rightarrow \phi(U) \times \phi(V)$ is a $([\MT_M \otimes \MT_N] \cap [U \times V], [\MT_{\H^m} \otimes \MT_{\H^n}] \cap [\phi(U) \times \psi(V)])$-homeomorphism. Since $\MT_{\H^m} \otimes \MT_{\H^n} = \MT_{\H^{m+n}}$
+		\item Since $\phi(U) \in \MT_{\H^m}$ and $\psi(V) \in \MT_{\H^n}$, $\phi(U) \times \psi(V) \in \MT_{\H^m} \otimes \MT_{\H^n}$. Since $\p N = \varnothing$, $(V, \psi) \in X^n_{\Int}(N, \MT_N)$ and therefore $\psi(V) \subset \Int \H^n$. Since $\lam: \H^m \times \Int \H^n \rightarrow \H^{m+n}$ is a homeomorphism, 
+		\begin{align*}
+			\lam|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi](U \times V)
+			& = \lam (\phi(U) \times \psi(V)) \\
+			& \in \MT_{\H^{m+n}}
+		\end{align*}
+		\item Since $\phi:U \rightarrow \phi(U)$ is a $(\MT_M \cap U, \MT_{\H^m} \cap \phi(U))$-homeomorphism and $\psi: V \rightarrow \psi(V)$ is a $(\MT_N \cap V, \MT_{\H^n} \cap \psi(V))$-homeomorphism, \tcb{an exercise in the section on product topologies in the analysis notes} implies that $\phi \times \psi: U \times V \rightarrow \phi(U) \times \phi(V)$ is a $([\MT_M \otimes \MT_N] \cap [U \times V], [\MT_{\H^m} \otimes \MT_{\H^n}] \cap [\phi(U) \times \psi(V)])$-homeomorphism. Since $\lam|_{\phi(U) \times \psi(V)}: \phi(U) \times \psi(V) \rightarrow \lam(\phi(U) \times \psi(V))$ is a $([\MT_{\H^m} \otimes \MT_{\Int \H^n}] \cap[ \phi(U) \times \psi(V)], \MT_{\H^{m+n}} \cap \lam(\phi(U) \times \psi(V)))$-homeomorphism, $\lam|_{\phi(U) \times \psi(V)} \circ (\phi \times \psi)$ is a $([\MT_M \otimes \MT_N] \cap [U \times V], \MT_{\H^{m+n}} \cap \lam(U \times V))$-homeomorphism.
 	\end{itemize}
-	Hence $(U \times V, \phi \times \psi) \in X^{}$
+	Hence $(U \times V,\lam|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi]) \in X^{m+n}(M \times N, \MT_M \otimes \MT_N)$. Since $\lam \in \Aut_0^{m,n}$, $(U, \phi) \in X^m(M, \MT_M)$ and $(V, \psi) \in X^n(N, \MT_N)$ are arbitrary, we have that for each $\lam \in \Aut_0^{m,n}$, $(U, \phi) \in X^m(M, \MT_M)$ and $(V, \psi) \in X^n(N, \MT_N)$, $$(U \times V, \lam|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi]) \in X^{m+n}(M \times N,  \MT_M \otimes \MT_N)$$ 
+\end{proof}
+
+\begin{ex}
+	Let $M$, $N$ be topological manifolds. Set $m = \dim M$ and $n = \dim N$. Suppose that $\p N = \varnothing$. Then for each $\lam \in \Aut_0^{m,n}$, $(U, \phi) \in X^m_p(M, \MT_M)$ and $(V, \psi) \in X^n(N, \MT_N)$, 
+	$$(U \times V, \lam|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi]) \in X^{m+n}_{\p}(M \times N,  \MT_M \otimes \MT_N)$$ 
+\end{ex}
+
+\begin{proof}
+	Let $\lam \in \Aut_0^{m,n}$, $(U, \phi) \in X^m_{\p}(M)$ and $(V, \psi) \in X^n(N)$. Define $\eta: U \times V \rightarrow \lam(\phi(U) \times \psi(V))$ by 
+	$$\eta \defeq \lam|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi]$$ 
+	Since $(U, \phi) \in X^m_{\p}(M)$, $\phi(U) \cap \p \H^m \neq \varnothing$. Then there exists $p \in U$ such that $\phi(p) \in \p \H^m$. So $\eta(p,q) \in \p \H^{m+n}$. Thus $\eta(U \times V) \cap \p \H^{m+n} \neq \varnothing$ and $(U \times V, \eta) \in X^{m+n}_{\p}(M \times N)$. Since $\lam \in \Aut_0^{m,n}$, $(U, \phi) \in X^m_{\p}(M)$ and $(V, \psi) \in X^n(N, \MT_N)$ are arbitrary, we have that for each $\lam \in \Aut_0^{m,n}$, $(U, \phi) \in X^m_p(M, \MT_M)$ and $(V, \psi) \in X^n(N, \MT_N)$, 
+	$$(U \times V, \lam|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi]) \in X^{m+n}_{\p}(M \times N,  \MT_M \otimes \MT_N)$$ 
 \end{proof}
 	
+\begin{ex}
+	Let $M,N$ be topological manifolds. Suppose that $\p N = \varnothing$. Then 
+	\begin{enumerate}
+		\item $M \times N$ is a topological manifold
+		\item $\p(M \times N) = \p M \times N$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	 Set $m = \dim M$ and $n = \dim N$. 
+	 \begin{enumerate}
+	 	\item Let $\lam \in \Aut_0^{m,n}$.
+	 	\begin{itemize}
+	 		\item Since $M$ and $N$ are Hausdorff, $M \times N$ is Hausdorff.
+	 		\item Since $M$ and $N$ are second-countable, $M \times N$ is second-countable.
+	 		\item Let $a \in M \times N$. Then there exist $p \in M$ and $q \in N$ such that $a = (p,q)$. Since $M$ and and $N$ are locally Euclidean, there exist $(U, \phi) \in X^m(M)$ and $(V, \psi) \in X^n(N)$ such that $p \in U$ and $q \in V$. Then $(p,q) \in U \times V$. \tcb{The previous exercise} implies that $(U \times V, \lam \circ [\phi \times \psi]) \in X^{m+n}(M \times N)$. Since $a \in M \times N$ is arbitrary, $M \times N$ is locally Euclidean of dimension $m+n$.   
+	 	\end{itemize}
+ 		Thus $M \times N$ is an $(m+n)$-dimensional topological manifold.
+	 	\item 
+	 	\begin{itemize}
+	 		\item Let $a \in \p(M \times N)$. Then there exists $p \in M$ and $q \in N$ such that $a = (p,q)$. Since $(M, \MT_M)$ and and $(N)$ are locally Euclidean, there exist $(U, \phi) \in X^m(M)$ and $(V, \psi) \in X^n(N)$ such that $p \in U$ and $q \in V$. Define $\eta: U \times V \rightarrow \lam(\phi(U) \times \psi(V))$ by 
+	 		$$\eta \defeq \lam|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi]$$ 
+	 		\tcb{The previous exercise} implies that $\eta \in X^{m+n}(M \times N)$. Since $(p, q) \in \p (M \times N)$, \tcb{a previous exercise} implies that $\eta \in X^{m+n}_{\p}(M \times N)$ and $\eta(p,q) \in \p \H^{m+n}$. Therefore 
+	 		\begin{align*}
+	 			\phi \times \psi(p,q)
+	 			& = \lam|_{\phi(U) \times \psi(V)}^{-1} \circ \eta \\
+	 			& \in \p \H^m \times \Int \H^n 
+	 		\end{align*}
+	 		Hence $\phi(p) \in \p \H^m$ and $\psi(q) \in \Int \H^n$. Thus $(U, \phi) \in X^m_{\p}(M)$ and $p \in \p M$. Therefore  
+	 		\begin{align*}
+	 			a
+	 			& = (p,q) \\
+	 			& \in \p M \times N
+	 		\end{align*}
+	 		Since $a \in \p(M \times N)$ is arbitrary, we have that $\p(M \times N) \subset \p M \times N$.
+	 		\item Let $a \in \p M \times N$. Then there exists $p \in \p M$ and $q \in N$ such that $a = (p,q)$. By definition, there exists $(U, \phi) \in X^m_{\p}(M)$ and $(V, \psi) \in X^n(N)$ such that $p \in U$, $q \in V$ and $\phi(p) \in \p \H^m$. Since $\p N = \varnothing$, $\psi(q) \in \Int \H^n$. Define $\eta: U \times V \rightarrow \lam(\phi(U) \times \psi(V))$ by 
+	 		$$\eta \defeq \lam|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi]$$ 
+	 		\tcb{A previous exercise} implies that $(U \times V, \eta) \in X^{m+n}(M \times N \otimes \MT_N)$. Then
+	 		\begin{align*}
+	 			\eta(a)
+	 			& = \eta(p,q) \\
+	 			& = \lam(\phi(p), \psi(q)) \\
+	 			& \in \p \H^{m+n}
+	 		\end{align*} 
+	 		Thus $\eta \in X^{m+n}_{\p}(M \times N)$ and $a \in \p (M \times N)$. Since $a \in \p M \times N$ is arbitrary, $\p M \times N \subset \p (M \times N)$. 
+	 	\end{itemize}
+ 		Thus $\p (M \times N) = \p M \times N$. 
+	 \end{enumerate}
+\end{proof}
 
 
 
@@ -2453,224 +2567,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	
-	\newpage 
-	\section{Smooth Maps}	
 	
-	\begin{defn} \ld{42001}
-		Let $(M, \MA)$ be a smooth manifold and $f: M \rightarrow \R$. Then $f$ is said to be smooth if for each coordinate chart $(U, \phi) \in \MA$, $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M)$. 
-	\end{defn}
-
-	\begin{ex} \ld{42002}
-		Let $(M, \MA)$ be a smooth manifold. Then $C^{\infty}(M)$ is a vector space.
-	\end{ex}
-
-	\begin{proof}
-		Let $f,g \in C^{\infty}(M)$, $\lam \in \R$ and $(U, \phi) \in \MA$. By assumption, $f \circ \phi^{-1}$ and $g \circ \phi^{-1}$ are smooth. Hence 
-		$$(f + \lam g) \circ \phi^{-1} = f \circ \phi^{-1} + \lam g \circ \phi^{-1} $$
-		is smooth. Since $(U, \phi) \in \MA$ is arbitrary, $f + \lam g \in C^{\infty}(M)$. Since $f,g \in C^{\infty}(M)$ and $\lam \in \R$ are arbitrary, $C^{\infty}(M)$ is a vector space.
-	\end{proof}
-
-	\begin{ex}
-		Let $(M, \MA)$ be a smooth manifold, $\MB$ an atlas on $M$ and $f:M \rightarrow \R$. Suppose that $\MB \subset \MA$. Then $f$ is smooth iff for each $(U, \phi) \in \MB$, $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth.
-	\end{ex}
-
-	\begin{proof}\
-		\begin{itemize}
-			\item ($\implies$): \\
-			Suppose that $f$ is smooth. Let $(U, \phi) \in \MB$. Since $\MB \subset \MA$, $(U, \phi) \in \MA$. Since $f$ is smooth, $ f \circ \phi^{-1}$ is smooth. Since $(U, \phi) \in \MB$ is arbitrary, we have that for each $(U, \phi) \in \MB$, $f \circ \phi^{-1}$ is smooth.
-			\item ($\impliedby$): \\
-			Suppose that for each $(V, \psi) \in \MB$, $f \circ \psi^{-1}: \psi(V) \rightarrow \R$ is smooth. Let $(U, \phi) \in \MA$ and $q \in \phi(U)$. Set $p = \phi^{-1}(q)$. Since $\MB$ is an atlas, there exists $(V, \psi) \in \MB$ such that $p \in V$. Since $\MB \subset \MA$, $(V, \psi) \in \MA$. Set $W = U \cap V$ and $\tilde{\phi} = \phi|_W$ and $\tilde{\psi} = \psi|_W$. We note that $\phi(W) \in \MN_q$ and $\phi(W)$ is open. An exercise in the section on smooth manifolds implies that $(W, \tilde{\phi}), (W, \tilde{\psi}) \in \MA$. Therefore $\tilde{\psi} \circ \tilde{\phi}^{-1}: \phi(W) \rightarrow \psi(W)$ is smooth. By assumption, $f \circ \psi^{-1}: \psi(V) \rightarrow \R$ is smooth. This implies that $(f \circ \psi^{-1})|_{\psi(W)}: \psi(W) \rightarrow \R$ is smooth. Hence
-			\begin{align*}
-				(f \circ \phi^{-1})|_{\phi(W)}
-				& = f \circ \tilde{\phi}^{-1} \\
-				& = f \circ (\tilde{\psi}^{-1} \circ \tilde{\psi}) \circ \tilde{\phi}^{-1} \\
-				& = (f \circ \tilde{\psi}^{-1}) \circ (\tilde{\psi} \circ \tilde{\phi}^{-1})
-			\end{align*}
-			is smooth. Since $q \in \phi(U)$ is arbitrary, for each $q \in \phi(U)$, there exists $A \in \MN_q$ such that $A$ is open and $(f \circ \phi^{-1})|_{A}:A \rightarrow \R$ is smooth. This implies that $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth. Since $(U, \phi) \in \MA$ is arbitrary, $f$ is smooth.
-		\end{itemize}
-	\end{proof}
-	
-	\begin{ex}
-	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C^{\infty}(M)$. Then $f|_U \in C^{\infty}(U)$.
-	\end{ex}
-	
-	\begin{proof}\
-	Let 
-	\end{proof}
-	
-	\begin{defn}
-	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i \in \{1, \cdots, n\}$. We define the \tbf{partial derivative of $f$ with respect to $x^i$}, denoted $$ \p f / \p x^i: U \rightarrow \R \hspace{.1cm} \text{ or } \hspace{.1cm} \p_{i} f: U \rightarrow \R$$ by 
-	\begin{equation*}
-	\frac{\p f}{\p x^i}(p) = {\frac{\p}{\p u^i}[f \circ \phi^{-1}] }( \phi(p)) 
-	\end{equation*}
-	or equivalently,
-	\begin{equation*}
-	\frac{\p f}{\p x^i} = \bigg({\frac{\p}{\p u^i}[f \circ \phi^{-1}] \bigg) \circ \phi }
-	\end{equation*}
-	\end{defn}
-	
-	\begin{ex}
-	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i \in \{1, \cdots, n\}$. Then $\p / \p x^i:  C^{\infty}(U) \rightarrow C^{\infty}(U)$ is linear.
-	\end{ex}
-	
-	\begin{proof}
-	\tbf{FINISH!!!}
-	\end{proof}
-	
-	\begin{ex}
-	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i,j \in \{1, \cdots, n\}$. Then 
-	$$\frac{\p}{\p x^i}\frac{\p}{\p x^j} f =  \bigg(\frac{\p}{\p u^i} \frac{\p}{\p u^j}[f \circ \phi^{-1}] \bigg) \circ \phi $$
-	\end{ex}
-	
-	\begin{proof}
-	
-	\begin{align*}
-	\frac{\p}{\p x^i}\frac{\p}{\p x^j} f 
-	&=\frac{\p}{\p x^i} \bigg(\frac{\p}{\p x^j} f \bigg) \\
-	&=\frac{\p}{\p x^i} \bigg( \bigg[\frac{\p}{\p u^j} [f \circ \phi^{-1}] \bigg] \circ \phi \bigg) \\
-	&=  \bigg( \frac{\p}{\p u^i} \bigg[ \bigg( \bigg[\frac{\p}{\p u^j} [f \circ \phi^{-1}] \bigg] \circ \phi \bigg) \circ \phi^{-1} \bigg] \bigg) \circ \phi \\
-	&= \bigg( \frac{\p}{\p u^i} \bigg[\frac{\p}{\p u^j} [f \circ \phi^{-1}] \bigg]  \bigg) \circ \phi \\
-	&= \bigg( \frac{\p}{\p u^i} \frac{\p}{\p u^j} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
-	\end{align*}
-	\end{proof}
-	
-	\begin{ex}
-	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $i,j \in \{1, \cdots, n\}$. Then 
-	\begin{equation*}
-	\frac{\p}{\p x^i}\frac{\p}{\p x^j} =\frac{\p}{\p x^j}\frac{\p}{\p x^i}
-	\end{equation*}
-	\end{ex}
-	
-	\begin{proof}
-	Let $f \in C^{\infty}(U)$. Since $f \circ \phi^{-1}$ is smooth, $$\frac{\p}{\p u^i} \frac{\p}{\p u^j} [f \circ \phi^{-1}] = \frac{\p}{\p u^j} \frac{\p}{\p u^i} [f \circ \phi^{-1}] $$
-	The previous exercise implies that 
-	
-	\begin{align*}
-	\frac{\p}{\p x^i}\frac{\p}{\p x^j}f 
-	&= \bigg( \frac{\p}{\p u^i} \frac{\p}{\p u^j} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
-	&= \bigg( \frac{\p}{\p u^j} \frac{\p}{\p u^i} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
-	&=\frac{\p}{\p x^j}\frac{\p}{\p x^i}f 
-	\end{align*}
-	\end{proof}
-	
-	\begin{ex}
-	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $f \in C^{\infty}(U)$. Then for each $\al \in \N_0^n$, $$\p^{\al} f = (\p^{\al}[ f \circ \phi^{-1}] ) \circ \phi$$
-	\end{ex}	
-	
-	\begin{proof}
-	The claim is clearly true when $|\al| =0$ or by definition if $|\al| = 1$. Let $n \in \N$ and suppose the claim is true for each $|\al| \in \{1, \ldots, n-1 \}$. Then there exists $i \in \{1, \ldots, n\}$ such that $\al_i \geq 1$. Hence 
-	\begin{align*}
-	\p^{\al}f 
-	&= \p^{e^i} (\p^{\al - e^i} f) \\
-	&= \p^{e^i} (\p^{\al - e^i}[ f \circ \phi^{-1}] \circ \phi) \\
-	&= (\p^{e^i} [(\p^{\al - e^i}[ f \circ \phi^{-1}] \circ \phi) \circ \phi^{-1} ]) \circ \phi\\
-	&= (\p^{e^i} [\p^{\al - e^i}[ f \circ \phi^{-1}]] )\circ \phi\\
-	&= (\p^{\al}[ f \circ \phi^{-1}] )\circ \phi\\
-	\end{align*}
-	\end{proof}
-	
-	
-	\begin{ex} \tbf{Taylor's Theorem:} \\
-	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \ldots, x^n)$ and $\phi(U)$ convex, $p \in U$, $f \in C^{\infty}(U)$ and $T \in \N$. Then there exist $(g_{\al})_{|\al| = T+1} \subset C^{\infty}(U)$ such that
-		$$f = \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x - p)^{\al} \p^{\al} f (x_0) \bigg] + \sum_{|\al| = T+1}(x^i - x^i(p))^{\al} g_{\al}$$ and for each $|\al|= T+1$, $$g_{\al}(p) = \frac{1}{(T+1)!}\p^{\al} f(p)$$
-	\end{ex}
-	
-	\begin{proof}
-	Since $\phi(U)$ is open and convex and $f \circ \phi^{-1} \in C^{\infty}(\phi(U))$, Taylors thorem in section $2.1$ implies that there exist $(\tilde{g}_{\al})_{|\al| = T+1} \subset C^{\infty}(\phi(U))$ such that for each $q \in U$, 
-	$$f \circ \phi^{-1} (\phi(q)) = \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} [f \circ \phi^{-1}] (\phi(p)) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} \tilde{g}_{\al}(\phi(q)) $$	
-		and for each $|\al|= T+1$, 
-		\begin{align*}
-		\tilde{g}_{\al}(\phi(p)) 
-		&= \frac{1}{(T+1)!}\p^{\al} [f \circ \phi^{-1}](\phi(p)) \\
-		&= \frac{1}{(T+1)!}\p^{\al} f (p)
-		\end{align*}
-		For $|\al| = T+1$, set $g_{\al} = \tilde{g} \circ \phi$. Then 
-		\begin{align*}
-	f(q) 
-	&= f \circ \phi^{-1} (\phi(q)) \\
-	&= \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} [f \circ \phi^{-1}] (\phi(p)) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} \tilde{g}_{\al}(\phi(q)) \\
-	&= \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} f(p) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} g_{\al}(q) \\
-\end{align*}			
-	\end{proof}
-
-	\begin{defn}
-		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$. Then $F$ is said to be 
-		\begin{itemize}
-		\item \tbf{smooth} if for each $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$, $$\psi \circ F \circ \phi^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$$ is smooth 
-		\item a \tbf{diffeomorphism} if $F$ is a bijection and $F,F^{-1}$ are smooth.
-		\end{itemize}
-	\end{defn}
-	
-	\begin{ex}
-	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifold and $F: M \rightarrow N$. If $F$ is smooth, then $F$ is continuous. 
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $F$ is smooth. Let $p \in M$. Choose $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$ and $F(p) \in V$. Put $\tU = U \cap F^{-1}(V)$ and $\tV = F(U) \cap V$. \\
-	Define $\tphi: \tU \rightarrow \phi(\tU)$ and $\tpsi: \tV \rightarrow \psi(\tV)$ by $$\tphi = \phi|_{\tU}, \hspace{.2cm} \tphi = \psi|_{\tV}$$ Then $\tphi$ and $\tpsi$ are homeomorphisms, $p \in \tU$ and $F(\tU) \subset \tV$. Define $\tF: \phi(\tU) \rightarrow \psi(\tV) $ by $$ \tF = \tpsi \circ F \circ \tphi^{-1}$$  
-	By definition, $\tF$ is smooth and therefore continuous. Since $\phi$ and $\psi$ are homeomorphisms and $F|_{\tU} = \tpsi^{-1} \circ \tF \circ \tphi$, we have that $F|_{\tU}$ is continuous. In particular, $F$ is continuous at $p$ and since $p \in M$ is arbitrary, $F$ is continuous.
-	\end{proof}
-	
-	\begin{ex}
-	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifold and $F: M \rightarrow N$. If $F$ is a diffeomorphism, then $F$ is a homeomorphism. 
-	\end{ex}	
-	
-	\begin{proof}
-	Suppose that $F$ is a diffeomorphism. By definition, $F$ and  $F^{-1}$ are smooth. The previous exercise implies that $F$ and $F^{-1}$ are continuous. Hence $F$  is a homeomorphism. 
-	\end{proof}
-	
-	\begin{ex}
-		Let $(N, \MB)$ be a smooth manifold and $F: M \rightarrow N$ a diffeomorphism. Then for each $(U, \phi) \in \MA$, $(F(U), \phi \circ F^{-1}) \in \MB$.
-	\end{ex}
-	
-	\begin{proof}
-		Let $(V, \psi) \in \MB$. 
-		\begin{enumerate}
-		\item Since $\phi$ and $F^{-1}$ are homeomorphisms, $\phi \circ F^{-1}: F(U) \cap V \rightarrow \phi(U \cap F^{-1}(V))$ is a homeomorphism
-		\item Since $F$ is a diffeomorphism, $$\phi \circ F^{-1} \circ \psi^{-1}: \psi(F(U) \cap V) \rightarrow \phi(U \cap F^{-1}(V))$$ and $$\psi \circ F \circ \phi^{-1}: \phi(F^{-1}(V) \cap U) \rightarrow \psi(V \cap F(U))$$ are smooth. 
-		\end{enumerate}
-		
-		Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
-	\end{proof}
-
-
-	\begin{defn}
-		Let $(N, \MB)$ be a smooth  $n$-dimensional manifold, $F: M \rightarrow N$ smooth and $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$. For $i \in \{1, \dots, n\}$, We define the \tbf{$i$-th component of $F$ with respect to $(V, \psi)$},  denoted $F^i: V \rightarrow \R$, by $$F^i = y^i \circ F$$  
-	\end{defn}
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \newpage
 \section{Open and Boundary Submanifolds}
+
+\tcb{in order for a smooth structure on a subspace to make sense, we need to have a notion of smoothness of a map $A \rightarrow \R^k$ to make sense when $A \subset \R^n$. But we already have this, think of them as banach spaces, use the definitions of differentiation at a point in $A$ in terms of locally extend to an open neighborhood containing the point}.
 
 \begin{ex}
 	Let $(M, \MA)$ be an $n$-dimensional smooth manifold, $(U, \phi) \in \MA$ and $U' \subset U$. If $U'$ is open, then $(U', \phi|_{U'}) \in \MA$. 
@@ -2701,7 +2602,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 \begin{defn} \tbf{Smooth Open Submanifold:} \\
 	Let $(M, \MA)$ be an $n$-dimensional smooth manifold and $U \subset M$ open. A previous exercise implies that $U$ is an $n$-dimensional topological manifold. We define the \tbf{induced smooth structure on $U$}, denoted $\MA|_{U} \subset X(U)$, by 
-	$$\MA|_{U} = \al_U(\{(V, \psi) \in \MA: V \subset U\} \subset \MA|_{\MU})$$
+	$$\MA|_{U} = \al_U(\{(V, \psi) \in \MA: V \subset U\})$$
 	Then $(U, \MA|_{U})$ is said to be a \tbf{smooth open submanifold of $(M, \MA)$}.
 \end{defn}
 
@@ -2710,7 +2611,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \end{ex}
 
 \begin{proof}
-	Define projection map $\pi': \R^n \rightarrow \R^{n-1}$ by $\pi'(x_1, \ldots, x_{n-1}, x_n) = (x_1, \ldots, x_{n-1})$. Then $\R^n$ is an open neighborhood of $\p H^n$, $\pi'|_{\p H^n} = \pi$ and $\pi'$ is smooth. Then by definition, $\pi$ is smooth. Clearly, $\pi^{-1}$ is smooth. So $\pi$ is a diffeomorphism.
+	Define projection map $\pi': \R^n \rightarrow \R^{n-1}$ by $\pi'(x_1, \ldots, x_{n-1}, x_n) = (x_1, \ldots, x_{n-1})$. Then $\R^n$ is an open neighborhood of $\p \H^n$, $\pi'|_{\p H^n} = \pi$ and $\pi'$ is smooth. Then by definition, $\pi$ is smooth. Clearly, $\pi^{-1}$ is smooth. So $\pi$ is a diffeomorphism.
 \end{proof}
 
 \begin{defn} 
@@ -2782,9 +2683,69 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \newpage
 \section{Product Manifolds}
 
+\tcb{in order for a smooth structure on a product to make sense, we need to have a notion of smoothness of a map $\R^m \times \R^m \rightarrow \R^k$ to make sense. But we already have this, think of them as banach spaces, use the definitions of differnetiation of maps from a product}.
+
+\begin{ex}
+	\tcb{show $\H^m \times \Int \H^n \in \Maninf$}.
+\end{ex}
+
+\begin{ex}
+	Let $m \in \N$ and $n \in \N_0$. Then there exists $\lam: \H^m \times \Int \H^n \rightarrow \H^{m+n}$ such that 
+	\begin{enumerate}
+		\item $\lam$ is a diffeomorphism
+		\item $\lam(\p \H^m \times \Int \H^n) = \p \H^{m+n}$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	Define $\lam: \H^m \times \Int \H^n \rightarrow \H^{m+n}$ by 
+	$$\lam((x^1, \ldots, x^{m-1}, x^m), (y^1, \ldots, y^n)) = (x^1, \ldots, x^{m-1}, \log y^1, \ldots, \log y^n, x^m)$$
+	\begin{enumerate}
+		\item Clearly $\lam$ is a diffeomorphism \tcb{(show in detail that locally can be extended to smooth function on open neighborhood for each boundary point)}.
+		\item Clearly $\lam(\p \H^m \times \Int \H^n) = \p \H^{m+n}$
+	\end{enumerate}
+\end{proof}
+
 \begin{defn}
-	Let $(M, \MA)$, $(N, \MB)$ be smooth manifolds. We define the \tbf{product smooth structure}, denoted $\MA \otimes \MB$, by 
-	$$\MA \otimes \MB = \al_{M \times N}(\{(U \times V, \phi \times \psi): (U, \phi) \in \MA \text{ and } (V, \psi) \in \MB\})$$ 
+	We define 
+	$$\Aut_{\infty}^{m,n} = \{\lam: \H^m \times \Int \H^n \rightarrow \H^{m+n} : \lam \in \Aut_{\Maninf}(\H^m \times \Int \H^n, \H^{m+n}) \text{ and } \lam(\p \H^m \times \Int \H^n) = \p \H^{m+n} \}$$
+\end{defn}
+
+\begin{ex}
+	Let $m \in \N$ and $n \in \N_0$. Then $\lam \in \Aut_{\infty}^{m,n} \neq \varnothing$.
+\end{ex}
+
+\begin{proof}
+	Immediate by previous exercise.
+\end{proof}
+
+\begin{defn}
+	Let $M$, $N$ be smooth manifolds of dimension $m$ and $n$ respectively, $\MA \subset X^m(M)$ and $\MB \subset X^n(N)$. Suppose that $\MA$ and $\MB$ are smooth atlases on $M$ and $N$ respectively and $\p N = \varnothing$. We define the \tbf{product atlas of $\MA$ and $\MB$ on $M \times N$}, denoted $\MA \otimes' \MB$, by 
+	$$\MA \otimes' \MB = \{(U \times V, \lam|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi]): \lam \in \Aut_{\infty}^{m,n} \text{, }(U, \phi) \in \MA \text{ and } (V, \psi) \in \MB\}$$ 
+\end{defn}
+
+\begin{ex}
+	Let $M$, $N$ be smooth manifolds of dimension $m$ and $n$ respectively, $\MA \subset X^m(M)$ and $\MB \subset X^n(N)$. Suppose that $\MA$ and $\MB$ are smooth atlases on $M$ and $N$ respectively and $\p N = \varnothing$. Then $\MA \otimes' \MB$ is a smooth atlas on $M \times N$. 
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item \tcb{An exercise in the section on products of topological manifolds} implies that $\MA \otimes' \MB$ is an atlas on $M \times N$. 
+		\item Let $(W_1, \eta_1), (W_2, \eta_2) \in \MA \otimes' \MB$. Then there exist $\lam_1, \lam_2 \in \Aut_{\infty}^{m,n}$, $(U_1, \phi_1), (U_2, \phi_2)\in \MA$ and $(V_1, \psi_1), (V_2, \psi_2) \in \MB$ such that $W_1 = U_1 \times V_1$, $W_2 = U_2 \times V_2$, $\eta_1 = \lam_1|_{\phi_1(U_1) \times \psi_1(V_1)} \circ [\phi_1 \times \psi_1]$ and $\eta_2 = \lam_2|_{\phi_2(U_2) \times \psi_2(V_2)} \circ [\phi_2 \times \psi_2]$. For notational convenience, set $U \defeq U_1 \cap U_2$ and $V \defeq V_1 \cap V_2$. Then $W_1 \cap W_2 = U \cap V$ and
+		\begin{align*}
+			\eta_2|_{W_1 \cap W_2} \circ \eta_1|_{W_1 \cap W_2}^{-1}
+			& = \eta_2|_{U \cap V} \circ \eta_1|_{U \cap V}^{-1} \\
+			& = \lam_2|_{\phi_2(U) \times \psi_2(V)} \circ [\phi_2 \times \psi_2]|_{U \times V} \circ [\phi_1 \times \psi_1]|_{U \times V}^{-1} \circ \lam_1|_{\phi_1(U) \times \psi_1(V)}^{-1} \\
+			& = \lam_2|_{\phi_2(U) \times \psi_2(V)} \circ [\phi_2|_U \times \psi_2|_V] \circ [\phi_1|_U^{-1} \times \psi_1|_V^{-1}] \circ \lam_1|_{\phi_1(U) \times \psi_1(V)}^{-1} \\
+			& = \lam_2|_{\phi_2(U) \times \psi_2(V)} \circ [(\phi_2|_U \circ \phi_1|_U^{-1}) \times( \psi_2|_V \circ \psi_1|_V^{-1})] \circ \lam_1|_{\phi_1(U) \times \psi_1(V)}^{-1} 
+		\end{align*} 
+		Since $(U_1, \phi_1)$ and $(U_2, \phi_2)$ are smoothly compatible, $\phi_2|_U \circ \phi_1|_U^{-1}$ is a diffeomorphism. Similarly, $\psi_2|_V \circ \psi_1|_V^{-1}$ is a diffeomorphism. Thus $(\phi_2|_U \circ \phi_1|_U^{-1}) \times( \psi_2|_V \circ \psi_1|_V^{-1})$ is a diffeomorphism. Since $\lam_1|_{\phi_1(U) \times \psi_1(V)}^{-1}$ and $\lam_2|_{\phi_2(U) \times \psi_2(V)}$ are diffeomorphisms, we have that $\eta_2|_{W_1 \cap W_2} \circ \eta_1|_{W_1 \cap W_2}^{-1}$ is a diffeomorphism. Hence $(W_1, \eta_1)$ and $(W_2, \eta_2)$ are smoothly compatible. Since $(W_1, \eta_1), (W_2, \eta_2) \in \MA \otimes' \MB$ are arbitrary, we have that $\MA \otimes' \MB$ is smooth. 
+	\end{itemize}
+\end{proof}
+
+\begin{defn}
+	Let $(M, \MA)$, $(N, \MB)$ be smooth manifolds. Suppose that $\p N = \varnothing$. We define the \tbf{product smooth structure}, denoted $\MA \otimes \MB$, by 
+	$$\MA \otimes \MB = \al_{M \times N}(\MA \otimes' \MB)$$ 
 	We define the \tbf{smooth product manifold of $(M, \MA)$ and $(N, \MB)$} to be $(M \times N, \MA \otimes \MB)$.
 \end{defn}
 
@@ -2823,36 +2784,555 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
+\newpage 
+\chapter{Smooth Maps}
+
+\section{$\R$-Valued Smooth Maps}	
+
+\begin{defn} \ld{42001}
+	Let $(M, \MA)$ be a smooth manifold and $f: M \rightarrow \R$. Then $f$ is said to be \tbf{smooth} if for each coordinate chart $(U, \phi) \in \MA$, $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M, \MA)$. 
+\end{defn}
+
+\begin{note}
+	When the context is clear, we write $C^{\infty}(M, \MA)$ in place of $C^{\infty}(M)$
+\end{note}
+
+\begin{ex} \ld{42002}
+	Let $M$ be a smooth manifold. Then $C^{\infty}(M)$ is a vector space.
+\end{ex}
+
+\begin{proof}
+	Let $f,g \in C^{\infty}(M)$, $\lam \in \R$ and $(U, \phi) \in \MA$. By assumption, $f \circ \phi^{-1}$ and $g \circ \phi^{-1}$ are smooth. Hence 
+	$$(f + \lam g) \circ \phi^{-1} = f \circ \phi^{-1} + \lam g \circ \phi^{-1} $$
+	is smooth. Since $(U, \phi) \in \MA$ is arbitrary, $f + \lam g \in C^{\infty}(M)$. Since $f,g \in C^{\infty}(M)$ and $\lam \in \R$ are arbitrary, $C^{\infty}(M)$ is a vector space.
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $\MB \subset \MA$. Suppose that $\MB$ is an atlas on $M$ and $f:M \rightarrow \R$. Then $f$ is smooth iff for each $(U, \phi) \in \MB$, $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item ($\implies$): \\
+		Suppose that $f$ is smooth. Let $(U, \phi) \in \MB$. Since $\MB \subset \MA$, $(U, \phi) \in \MA$. Since $f$ is smooth, $ f \circ \phi^{-1}$ is smooth. Since $(U, \phi) \in \MB$ is arbitrary, we have that for each $(U, \phi) \in \MB$, $f \circ \phi^{-1}$ is smooth.
+		\item ($\impliedby$): \\
+		Suppose that for each $(V, \psi) \in \MB$, $f \circ \psi^{-1}: \psi(V) \rightarrow \R$ is smooth. Let $(U, \phi) \in \MA$ and $q \in \phi(U)$. Set $p = \phi^{-1}(q)$. Since $\MB$ is an atlas, there exists $(V, \psi) \in \MB$ such that $p \in V$. Since $\MB \subset \MA$, $(V, \psi) \in \MA$. Set $W = U \cap V$ and $\tilde{\phi} = \phi|_W$ and $\tilde{\psi} = \psi|_W$. We note that $\phi(W) \in \MN_q$ and $\phi(W)$ is open. An exercise in the section on smooth manifolds implies that $(W, \tilde{\phi}), (W, \tilde{\psi}) \in \MA$. Therefore $\tilde{\psi} \circ \tilde{\phi}^{-1}: \phi(W) \rightarrow \psi(W)$ is smooth. By assumption, $f \circ \psi^{-1}: \psi(V) \rightarrow \R$ is smooth. This implies that $(f \circ \psi^{-1})|_{\psi(W)}: \psi(W) \rightarrow \R$ is smooth. Hence
+		\begin{align*}
+			(f \circ \phi^{-1})|_{\phi(W)}
+			& = f \circ \tilde{\phi}^{-1} \\
+			& = f \circ (\tilde{\psi}^{-1} \circ \tilde{\psi}) \circ \tilde{\phi}^{-1} \\
+			& = (f \circ \tilde{\psi}^{-1}) \circ (\tilde{\psi} \circ \tilde{\phi}^{-1})
+		\end{align*}
+		is smooth. Since $q \in \phi(U)$ is arbitrary, for each $q \in \phi(U)$, there exists $A \in \MN_q$ such that $A$ is open and $(f \circ \phi^{-1})|_{A}:A \rightarrow \R$ is smooth. This implies that $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth. Since $(U, \phi) \in \MA$ is arbitrary, $f$ is smooth.
+	\end{itemize}
+\end{proof}
+
+\begin{defn}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i \in \{1, \cdots, n\}$. We define the \tbf{partial derivative of $f$ with respect to $x^i$}, denoted $$ \p f / \p x^i: U \rightarrow \R \hspace{.1cm} \text{ or } \hspace{.1cm} \p_{i} f: U \rightarrow \R$$ by 
+	\begin{equation*}
+		\frac{\p f}{\p x^i}(p) = {\frac{\p}{\p u^i}[f \circ \phi^{-1}] }( \phi(p)) 
+	\end{equation*}
+	or equivalently,
+	\begin{equation*}
+		\frac{\p f}{\p x^i} = \bigg({\frac{\p}{\p u^i}[f \circ \phi^{-1}] \bigg) \circ \phi }
+	\end{equation*}
+\end{defn}
+
+\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i \in \{1, \cdots, n\}$. Then $\p / \p x^i:  C^{\infty}(U) \rightarrow C^{\infty}(U)$ is linear.
+\end{ex}
+
+\begin{proof}
+	\tbf{FINISH!!!}
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i,j \in \{1, \cdots, n\}$. Then 
+	$$\frac{\p}{\p x^i}\frac{\p}{\p x^j} f =  \bigg(\frac{\p}{\p u^i} \frac{\p}{\p u^j}[f \circ \phi^{-1}] \bigg) \circ \phi $$
+\end{ex}
+
+\begin{proof}
+	
+	\begin{align*}
+		\frac{\p}{\p x^i}\frac{\p}{\p x^j} f 
+		&=\frac{\p}{\p x^i} \bigg(\frac{\p}{\p x^j} f \bigg) \\
+		&=\frac{\p}{\p x^i} \bigg( \bigg[\frac{\p}{\p u^j} [f \circ \phi^{-1}] \bigg] \circ \phi \bigg) \\
+		&=  \bigg( \frac{\p}{\p u^i} \bigg[ \bigg( \bigg[\frac{\p}{\p u^j} [f \circ \phi^{-1}] \bigg] \circ \phi \bigg) \circ \phi^{-1} \bigg] \bigg) \circ \phi \\
+		&= \bigg( \frac{\p}{\p u^i} \bigg[\frac{\p}{\p u^j} [f \circ \phi^{-1}] \bigg]  \bigg) \circ \phi \\
+		&= \bigg( \frac{\p}{\p u^i} \frac{\p}{\p u^j} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $i,j \in \{1, \cdots, n\}$. Then 
+	\begin{equation*}
+		\frac{\p}{\p x^i}\frac{\p}{\p x^j} =\frac{\p}{\p x^j}\frac{\p}{\p x^i}
+	\end{equation*}
+\end{ex}
+
+\begin{proof}
+	Let $f \in C^{\infty}(U)$. Since $f \circ \phi^{-1}$ is smooth, $$\frac{\p}{\p u^i} \frac{\p}{\p u^j} [f \circ \phi^{-1}] = \frac{\p}{\p u^j} \frac{\p}{\p u^i} [f \circ \phi^{-1}] $$
+	The previous exercise implies that 
+	
+	\begin{align*}
+		\frac{\p}{\p x^i}\frac{\p}{\p x^j}f 
+		&= \bigg( \frac{\p}{\p u^i} \frac{\p}{\p u^j} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
+		&= \bigg( \frac{\p}{\p u^j} \frac{\p}{\p u^i} [f \circ \phi^{-1}]  \bigg) \circ \phi \\
+		&=\frac{\p}{\p x^j}\frac{\p}{\p x^i}f 
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $f \in C^{\infty}(U)$. Then for each $\al \in \N_0^n$, $$\p^{\al} f = (\p^{\al}[ f \circ \phi^{-1}] ) \circ \phi$$
+\end{ex}	
+
+\begin{proof}
+	The claim is clearly true when $|\al| =0$ or by definition if $|\al| = 1$. Let $n \in \N$ and suppose the claim is true for each $|\al| \in \{1, \ldots, n-1 \}$. Then there exists $i \in \{1, \ldots, n\}$ such that $\al_i \geq 1$. Hence 
+	\begin{align*}
+		\p^{\al}f 
+		&= \p^{e^i} (\p^{\al - e^i} f) \\
+		&= \p^{e^i} (\p^{\al - e^i}[ f \circ \phi^{-1}] \circ \phi) \\
+		&= (\p^{e^i} [(\p^{\al - e^i}[ f \circ \phi^{-1}] \circ \phi) \circ \phi^{-1} ]) \circ \phi\\
+		&= (\p^{e^i} [\p^{\al - e^i}[ f \circ \phi^{-1}]] )\circ \phi\\
+		&= (\p^{\al}[ f \circ \phi^{-1}] )\circ \phi\\
+	\end{align*}
+\end{proof}
+
+
+\begin{ex} \tbf{Taylor's Theorem:} \\
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \ldots, x^n)$ and $\phi(U)$ convex, $p \in U$, $f \in C^{\infty}(U)$ and $T \in \N$. Then there exist $(g_{\al})_{|\al| = T+1} \subset C^{\infty}(U)$ such that
+	$$f = \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x - p)^{\al} \p^{\al} f (x_0) \bigg] + \sum_{|\al| = T+1}(x^i - x^i(p))^{\al} g_{\al}$$ and for each $|\al|= T+1$, $$g_{\al}(p) = \frac{1}{(T+1)!}\p^{\al} f(p)$$
+\end{ex}
+
+\begin{proof}
+	Since $\phi(U)$ is open and convex and $f \circ \phi^{-1} \in C^{\infty}(\phi(U))$, Taylors thorem in section $2.1$ implies that there exist $(\tilde{g}_{\al})_{|\al| = T+1} \subset C^{\infty}(\phi(U))$ such that for each $q \in U$, 
+	$$f \circ \phi^{-1} (\phi(q)) = \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} [f \circ \phi^{-1}] (\phi(p)) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} \tilde{g}_{\al}(\phi(q)) $$	
+	and for each $|\al|= T+1$, 
+	\begin{align*}
+		\tilde{g}_{\al}(\phi(p)) 
+		&= \frac{1}{(T+1)!}\p^{\al} [f \circ \phi^{-1}](\phi(p)) \\
+		&= \frac{1}{(T+1)!}\p^{\al} f (p)
+	\end{align*}
+	For $|\al| = T+1$, set $g_{\al} = \tilde{g} \circ \phi$. Then 
+	\begin{align*}
+		f(q) 
+		&= f \circ \phi^{-1} (\phi(q)) \\
+		&= \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} [f \circ \phi^{-1}] (\phi(p)) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} \tilde{g}_{\al}(\phi(q)) \\
+		&= \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} f(p) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} g_{\al}(q) \\
+	\end{align*}			
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \newpage 
 \section{Partitions of Unity}
-	
-	\begin{defn}
+
+\begin{defn}
 	Let $p \in M$, $U \in \MN_a$ open and $\rho \in C_c^{\infty}(M)$. Then $\rho$ is said to be a \tbf{bump function at p supported in $U$} if 
 	\begin{enumerate}
-	\item $\rho \geq 0$ 
-	\item there exists $V \in \MN_p$ such that $V$ is open and $\rho|_V = 1$ 
-	\item $\supp \rho \subset U$
+		\item $\rho \geq 0$ 
+		\item there exists $V \in \MN_p$ such that $V$ is open and $\rho|_V = 1$ 
+		\item $\supp \rho \subset U$
 	\end{enumerate}
-	\end{defn}
-	
-	\begin{ex}
+\end{defn}
+
+\begin{ex}
 	Define $f:\R \rightarrow \R$ by 
 	\[
 	f(t) = 
 	\begin{cases}
-	e^{-\frac{1}{1-t^2}} & t \in (-1,1)\\
-	0 &  t \not \in (-1,1)
+		e^{-\frac{1}{1-t^2}} & t \in (-1,1)\\
+		0 &  t \not \in (-1,1)
 	\end{cases}
 	\]
 	Then $f \in C_c^{\infty}(\R)$.
-	\end{ex}
+\end{ex}
+
+\begin{proof}
 	
-	\begin{proof}
-	
-	\end{proof}
-	
-	
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+\section{Smooth Maps between Manifolds}
+
+\begin{defn}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then $F$ is said to be 
+	\begin{itemize}
+		\item \tbf{smooth} if for each $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$, $$\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$$ is smooth 
+		\item a \tbf{diffeomorphism} if $F$ is a bijection and $F,F^{-1}$ are smooth. 
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $\MA_0 \subset \MA$, $\MB_0 \subset \MB$ and $F: M \rightarrow N$. Suppose that $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$. Then $F$ is smooth iff for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$ is smooth.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item $(\implies)$: \\
+		Suppose that $F$ is smooth. Since $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, by definition, for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$ is smooth.
+		\item $(\impliedby)$: \\
+		Suppose that for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$ is smooth. \\
+		\tcb{FINISH!!!}
+	\end{itemize}
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then $F$ is smooth iff for each $U \subset M$, $U$ is open in $M$ implies that $F|_U: U \rightarrow N$ is smooth. 
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item $(\implies)$: \\
+		Suppose that $F:M \rightarrow N$ is smooth. Let $U \subset M$. Suppose that $U$ is open in $M$. Set $G = F|_U$. Let $(W, \eta) \in \MA$ and $(V, \psi) \in \MB$. Suppose that $W \subset U$. Since $F$ is smooth, $\psi|_{F(W) \cap V} \circ F|_{W \cap F^{-1}(V)} \circ \phi|_{W \cap F^{-1}(V)}^{-1}$ is smooth. Since $W \subset U$, 
+		\begin{itemize}
+			\item $\psi|_{F(W) \cap V} = \psi|_{G(W) \cap V}$
+			\item $\phi|_{W \cap F^{-1}(V)} = \phi|_{W \cap G^{-1}(V)}$
+			\item $F|_{W \cap F^{-1}(V)} = G|_{W \cap G^{-1}(V)}$
+		\end{itemize}
+		we have that 
+		$$\psi|_{G(W) \cap V} \circ G|_{W \cap G^{-1}(V)} \circ \phi|_{W \cap G^{-1}(V)}^{-1} = \psi|_{F(W) \cap V} \circ F|_{W \cap F^{-1}(V)} \circ \phi|_{W \cap F^{-1}(V)}^{-1}$$ 
+		Therefore $\psi|_{G(W) \cap V} \circ G|_{W \cap G^{-1}(V)} \circ \phi|_{W \cap G^{-1}(V)}^{-1}$ is smooth. Since $(W, \eta) \in \MA$ with $W \subset U$ is arbitrary, we have that $\psi|_{G(W) \cap V} \circ G|_{G^{-1}(V)}$\\
+		\tcb{FINISH!!!}
+		\item $(\impliedby)$: \\
+		Suppose that for each $U \subset M$, $U$ is open in $M$ implies that $F|_U: U \rightarrow N$ is smooth. Let $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$. An exercise in the section on smooth open submanifolds implies that $(U, \phi) \in \MA|_{U}$. Set $G \defeq F|_U$. By assumption, $G:U \rightarrow N$ is smooth. Therefore $\psi|_{G(U) \cap V} \circ G_{U \cap G^{-1}(V)} \circ \phi|_{U \cap G^{-1}(V)}^{-1}$ is smooth. Since 
+		\begin{itemize}
+			\item $G^{-1}(V) = U \cap F^{-1}(V)$
+			\item $G(U) = F(U)$
+			\item $\psi|_{G(U) \cap V} \circ G_{U \cap G^{-1}(V)} \circ \phi|_{U \cap G^{-1}(V)}^{-1}$ is smooth
+			\item $\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1} = \psi|_{G(U) \cap V} \circ G_{U \cap G^{-1}(V)} \circ \phi|_{U \cap G^{-1}(V)}^{-1}$
+		\end{itemize}
+		we have that $\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. Since $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ are arbitrary, $F$ is smooth.
+	\end{itemize}
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifold and $F: M \rightarrow N$. If $F$ is smooth, then $F$ is continuous. 
+\end{ex}
+
+\begin{proof}
+	Suppose that $F$ is smooth. Let $p \in M$. Choose $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$ and $F(p) \in V$. Put $\tU = U \cap F^{-1}(V)$ and $\tV = F(U) \cap V$. \\
+	Define $\tphi: \tU \rightarrow \phi(\tU)$ and $\tpsi: \tV \rightarrow \psi(\tV)$ by $$\tphi = \phi|_{\tU}, \hspace{.2cm} \tphi = \psi|_{\tV}$$ Then $\tphi$ and $\tpsi$ are homeomorphisms, $p \in \tU$ and $F(\tU) \subset \tV$. Define $\tF: \phi(\tU) \rightarrow \psi(\tV) $ by $$ \tF = \tpsi \circ F \circ \tphi^{-1}$$  
+	By definition, $\tF$ is smooth and therefore continuous. Since $\phi$ and $\psi$ are homeomorphisms and $F|_{\tU} = \tpsi^{-1} \circ \tF \circ \tphi$, we have that $F|_{\tU}$ is continuous. In particular, $F$ is continuous at $p$ and since $p \in M$ is arbitrary, $F$ is continuous.
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$, $(N, \MB)$ $(E, \MC)$be smooth manifolds and $F: M \rightarrow N$, $G: N \rightarrow E$ smooth. Then $G \circ F: M \rightarrow E$ is smooth.  
+\end{ex}
+
+\begin{proof}
+	Let $(U, \phi) \in \MA$ and $()$
+\end{proof}
+
+\begin{ex}
+	Let  $(M, \MA)$ and $(N, \MB)$ be a smooth manifolds and $F: M \rightarrow N$ a diffeomorphism. Then 
+	\begin{enumerate}
+		\item for each $(V, \psi) \in \MB$, $(F^{-1}(V), \psi \circ F|_{F^{-1}(V)} \in \MA$
+		\item for each $(U, \phi) \in \MA$, $(F(U), \phi \circ F|_{F(U)})^{-1} \in \MB$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof} Set $n \defeq \dim M$. 
+	\begin{enumerate}
+		\item Let $(V, \psi) \in \MB$. 
+		\begin{enumerate}
+			\item Since $(V, \psi) \in \MB$ and $F|_{F^{-1}(V)}^{-1}$ is a homeomorphisms, we have that
+			\begin{itemize}
+				\item $F^{-1}(V)$ is open in $M$.
+				\item $\psi(V)$ is open in $\H^n$
+				\item $\psi \circ F|_{F^{-1}(V)}: F^{-1}(V)  \rightarrow \psi(V)$ is a homeomorphism
+			\end{itemize}
+			So $(F^{-1}(V), \psi \circ F|_{F^{-1}(V)}) \in X^n(M)$. \tcb{discuss in terms of the pullback of charts are charts}
+			\item Since $\psi:V \rightarrow \psi(V)$ and $F|_{F^{-1}(V)}:$ are diffeomorphisms, $$(\psi \circ F) \circ \phi^{-1}: \phi(F^{-1}(V) \cap U) \rightarrow \psi(V \cap F(U))$$
+			and 
+			$$\phi \circ (F^{-1} \circ \psi^{-1}): \psi(F(U) \cap V) \rightarrow \phi(U \cap F^{-1}(V))$$ are smooth. 
+		\end{enumerate}
+		Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
+		\item Let $(U, \phi) \in \MB$. 
+		\begin{enumerate}
+			\item Since $\phi$ and $F^{-1}$ are homeomorphisms, $\phi \circ F^{-1}: F(U) \cap V \rightarrow \phi(U \cap F^{-1}(V))$ is a homeomorphism
+			\item Since $F$ is a diffeomorphism, $$\phi \circ F^{-1} \circ \psi^{-1}: \psi(F(U) \cap V) \rightarrow \phi(U \cap F^{-1}(V))$$ and $$\psi \circ F \circ \phi^{-1}: \phi(F^{-1}(V) \cap U) \rightarrow \psi(V \cap F(U))$$ are smooth. 
+		\end{enumerate}
+		Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
+		\item Let $(U, \phi) \in \MA$. 
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$, $(N, \MB)$ and $(O, \MC)$ be smooth manifolds and $F: M \rightarrow N$, $G:N \rightarrow O$. If $F$ and $G$ are smooth, then $G \circ F$ are smooth. 
+\end{ex}
+
+\begin{proof}
+	Let $(U, \phi) \in \MA$ and $(V, \psi) \in \MC$. 
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then $F$ is smooth iff for each $(V, \psi) \in \MB$ with $\psi = (y^1, \ldots, y^n)$, $y^i \circ F$ is smooth.
+\end{ex}
+
+\begin{proof}
+	Suppose that $F$ is smooth. Let $(V, \psi) \in \MB$ with $\psi = (y^1, \ldots, y^n)$. Then for each $i \in \{1, \ldots, n\}$, $F^i$ is smooth. \\
+	Conversely, suppose that for each $(V, \psi) \in \MB$ with $\psi = (y^1, \ldots, y^n)$ and $i \in \{1, \ldots, n\}$, $y^i \circ F$ is smooth. 
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. If $F$ is a diffeomorphism, then $F$ is a homeomorphism. 
+\end{ex}	
+
+\begin{proof}
+	Suppose that $F$ is a diffeomorphism. By definition, $F$ and  $F^{-1}$ are smooth. The previous exercise implies that $F$ and $F^{-1}$ are continuous. Hence $F$  is a homeomorphism. 
+\end{proof}
+
+
+\begin{defn}
+	Let $(N, \MB)$ be a smooth  $n$-dimensional manifold, $F: M \rightarrow N$ smooth and $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$. For $i \in \{1, \dots, n\}$, We define the \tbf{$i$-th component of $F$ with respect to $(V, \psi)$},  denoted $F^i: V \rightarrow \R$, by $$F^i = y^i \circ F$$  
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+\section{Smooth Maps on Open and Boundary Submanifolds}
+
+
+\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C^{\infty}(M, \MA)$. Then $f|_U \in C^{\infty}(U, \MA|_U)$.
+\end{ex}
+
+\begin{proof}
+	Let 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+\section{Smooth Maps and Product Manifolds}
+
+\begin{defn}
+	Let $M$ and $N$ be smooth manifolds. We define the \tbf{projection maps onto $M$ and $N$}, denoted by $\pi_M: M \times N \rightarrow M$ and $\pi_N: M \times N \rightarrow N$  respectively, by 
+	\begin{itemize}
+		\item $\pi_M(p,q) = p$ 
+		\item $\pi_N(p,q) = q$ 
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $M$ and $N$ be smooth manifolds. Then $\pi_M: M \times N \rightarrow M$ and $\pi_N: M \times N \rightarrow N$ are smooth.
+\end{ex}
+
+\begin{proof}
+	Set $m = \dim M$ and $n = \dim N$. Let $(U, \phi)$, $(U', \phi') \in \MA_M$ and $(V, \psi) \in \MA_N$. Then for each $(a,b) \in \phi(U) \times \psi(V)$
+	\begin{align*}
+		\phi'|_{U' \cap U} \circ \pi_M \circ [\phi \times \psi]^{-1}|_{\phi(U) \times \psi(V)} (a,b)
+		& = \phi'|_{U' \cap U} \circ \pi_M \circ [\phi|_{\phi(U)}^{-1} \times \psi|_{\psi(V)}^{-1}] (a,b)\\ 
+		& = \phi' \circ \phi^{-1}(a) 
+	\end{align*}
+	Since $(a,b) \in \phi(U) \times \psi(V)$ is arbitrary, 
+	$$\phi'|_{U' \cap U} \circ \pi_M \circ [\phi \times \psi]^{-1}|_{\phi(U \cap U') \times \psi(V)} = \phi'|_{U' \cap U} \circ \phi|_{U' \cap U}^{-1} \circ \prj_1|_{\phi(U \cap U') \times \psi(V)}$$ 
+	where $\prj_1: \R^m \times \R^n \rightarrow \R^m$ is the usual projection map. Since $(U, \phi)$, $(U', \phi') \in \MA_M$, $(U, \phi)$ and $(U', \phi')$ are smoothly compatible. Hence $\phi'|_{U \cap U'} \circ \phi|_{U \cap U'}^{-1}$ is smooth and therefore $\phi'|_{U' \cap U} \circ \pi_M \circ [\phi \times \psi]^{-1}|_{\phi(U) \times \psi(V)}$ is smooth. Since \tcb{fix here } and $(V, \psi) \in \MA_N$ are arbitrary, we have that $\pi_M: M \times N \rightarrow M$ is smooth.  we have that $(U, \phi)$ and $(U', \phi')$ are smoothly compatible. Thus $\phi'|_{U \cap U'} \circ \phi^{-1}|_{U \cap U'}^{-1}$ is smooth.  
+\end{proof}
+
+\begin{defn}
+	Let $M$ and $N$ be smooth manifolds and $(p,q) \in M \times N$. We define the \tbf{slice maps at $q$ and $p$}, denoted by $\iota^M_q: M \rightarrow M \times N$ and $\iota^N_p: N \rightarrow M \times N$ respectively, by 
+	\begin{itemize}
+		\item $\iota^M_q(a) = (a, q)$ 
+		\item $\iota^N_p(b) = (p, b)$ 
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $M$ and $N$ be smooth manifolds and $(p,q) \in M \times N$. Then $\iota^M_q: M \rightarrow M \times N$ and $\iota^N_p: N \rightarrow M \times N$ are smooth
+	\begin{enumerate}
+		\item $\iota^M_q: M \rightarrow M \times N$ and $\iota^N_p: N \rightarrow M \times N$ are smooth
+		\item 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	Let $()$
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2870,6 +3350,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 	\newpage
+	\chapter{The Tangent and Cotangent Spaces}
 	\section{The Tangent Space}
 
 %	\begin{defn}
