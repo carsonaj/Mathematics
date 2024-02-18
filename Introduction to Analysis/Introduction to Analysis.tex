@@ -1545,6 +1545,26 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 \end{proof}
 
 \begin{ex}
+	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Then $f$ is $(\MA, \MB)$-continuous iff for each $x \in X$, there exists $U \in \MA$ such that $x \in U$ and $f|_U$ is $(\MA \cap U, \MB)$-continuous.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item $(\implies)$: \\
+		Suppose that $f$ is continuous. Let $x \in X$. Define $U \in \MA$ by $U \defeq X$. Then $x \in U$ and $f|_U$ is $(\MA \cap U, \MB)$-continuous. 
+		\item $(\impliedby)$: \\
+		Suppose that for each $x \in X$, there exists $U \in \MA$ such that $x \in U$ and $f|_U$ is $(\MA \cap U, \MB)$-continuous. Let $x \in X$ and $V \in \MB$. Suppose that $f(x) \in V$. By assumption, there exists $U_0 \in \MA$ such that $x \in U_0$ and $f|_{U_0}$ is $(\MA \cap U_0, \MB)$-continuous. Define $U \subset X$ by $U = f|_{U_0}^{-1}(V)$. Since $V \in \MB$ and $f|_{U_0}$ is $(\MA \cap U_0, \MB)$-continuous, $U \in \MA \cap U_0$. Since $U_0 \in \MA$, $\MA \cap U_0 \subset \MA$ and therefore $U \in \MA$. We note that $x \in U$. Since $f|_{U_0}^{-1}(V) = U_0 \cap f^{-1}(V)$, we have that 
+		\begin{align*}
+			f(U)
+			& = f(U_0 \cap f|_{U_0}^{-1}(V)) \\
+			& = f(U_0 \cap f^{-1}(V)) \\
+			& \subset V
+		\end{align*} 
+		Since $V \in \MB$ with $f(x) \in V$ is arbitrary, we have that for each $V \in \MB$, $f(x) \in V$ implies that there exists $U \in \MA$ such that $x \in U$ and $f(U) \subset V$. Thus $f$ is continuous at $x$. Since $x \in X$ is arbitrary, $f$ is continuous. 
+	\end{itemize}
+\end{proof}
+
+\begin{ex}
 	Let $(X, \MT)$ be a topological space, $A \subset X$ and $F \subset A$. Then $F$ is closed in $A$ iff there exists $C \subset X$ such that $C$ is closed in $X$ and $F = C \cap A$. 
 \end{ex}
 

@@ -470,6 +470,186 @@
 
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Differentiation on Subspaces}
+	
+	\begin{defn}
+		Let $A \subset \R^m$ and $f: A \rightarrow \R^n$. Then $f$ is said to be \tbf{smooth} if for each $a \in A$, there exists $B \subset \R^m$ and $g:B \rightarrow \R^n$ such that $a \in B$, $B$ is open in $\R^m$, $g$ is smooth and $g|_{A \cap B} = f|_{A \cap B}$. 
+	\end{defn}
+
+	\begin{ex}
+		Let $A \subset \R^m$ and $f: A \rightarrow \R^n$. If $f$ is smooth, then $f$ is continuous.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f$ is smooth. Let $a \in A$. Since $f$ is smooth, there exists $B \subset \R^m$ such that $a \in B$, $B$ is open in $\R^m$, $g$ is smooth and $g|_{A \cap B} = f|_{A \cap B}$.
+		Since $g$ is smooth, $g$ is continuous. Let $V \subset \R^n$. Suppose that $V$ is open in $\R^n$ and $f(a) \in V$. Since $f(a) = g(a)$ and $g$ is continuous, there exists $U_g \subset B$ such that $U_g$ is open in $B$, $a \in U_g$ and $g(U_g) \subset V$. Since $B$ is open in $\R^m$ and $U_g$ is open in $B$, we have that $U_g$ is open in $\R^m$. Set $U_f = U_g \cap A$. Then $a \in U_f$, $U_f$ is open in $A$ and 
+		\begin{align*}
+			f(U_f)
+			& = f(U_g \cap A) \\
+			& = g(U_g \cap A) \\
+			& \subset g(U_g) \\
+			& \subset V 
+		\end{align*}
+		Since $V \subset \R^n$ such that $V$ is open in $\R^n$ and $f(a) \in V$ is arbitrary, we have that for each $V \subset \R^n$, if $V$ is open in $\R^n$ and $f(a) \in V$, then there exists $U_f \subset A$ such that $U_f$ is open in $A$, $a \in U_f$ and $f(U_f) \subset V$. Thus $f$ is continuous at $a$. Since $a \in A$ is arbitrary, $f$ is continuous. 
+	\end{proof}
+
+	\begin{ex}
+		Let $A \subset \R^m$, $B \subset A$ and $f: A \rightarrow \R^n$. If $f$ is smooth, then $f|_B$ is smooth.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f$ is smooth. Let $b \in B$. Since $B \subset A$, $b \in A$. Since $b \in A$ and $f$ is smooth, there exists $U \subset \R^m$ and $F:U \rightarrow \R^n$ such that $b \in U$, $U$ is open in $\R^m$, $F$ is smooth and $F|_{U \cap A} = f|_{U \cap A}$. Define $g: B \rightarrow \R^n$ by $g \defeq f|_B$. Since $B \subset A$, 
+		\begin{align*}
+			F|_{U \cap B} 
+			& = f|_{U \cap B} \\
+			& = g|_{U \cap B}
+		\end{align*} 
+		Since $b \in B$ is arbitrary, we have that for each $b \in B$, there exists $U \subset \R^m$ and $F:U \rightarrow \R^n$ such that $b \in U$, $U$ is open in $\R^m$, $F$ is smooth and $F|_{U \cap B} = g|_{U \cap B}$. Thus $g$ is smooth.
+	\end{proof}
+
+	\begin{ex}
+		Let $A \subset \R^m$ and $f:A \rightarrow \R^n$. Then $f$ is smooth iff for each $a \in A$, there exists $U \subset A$ such that $a \in U$, $U$ is open in $A$ and $f|_U$ is smooth.  
+	\end{ex}
+
+	\begin{proof} \
+		\begin{itemize}
+			\item $(\implies): $ \\
+			Suppose that $f$ is smooth. Let $a \in A$. Set $U \defeq A$. Then $a \in U$, $U$ is open in $A$ and $f|_U = f$ which is smooth. 
+			\item $(\impliedby): $ \\
+			Suppose that for each $a \in A$, there exists $U \subset A$ such that $a \in U$ and $f|_U$ is smooth. Let $a \in A$. By assumption, there exists $U \subset A$ such that $a \in U$, $U$ is open in $A$ and $f|_U$ is smooth. Define $h:U \rightarrow \R^n$ by $h \defeq f|_U$. Since $a \in U$ and $h$ is smooth, there exists $U_0 \subset \R^m$ and $g_0:U_0 \rightarrow \R^n$ such that $a \in U_0$, $U_0$ is open in $\R^m$ and $g_0|_{U \cap U_0} = h|_{U \cap U_0}$. Since $U$ is open in $A$, there exists $\tilde{U} \subset \R^m$ such that $\tilde{U}$ is open in $\R^m$ and $U = \tilde{U} \cap A$. Define $B \subset \R^m$ and $g:B \rightarrow \R^n$ by $B \defeq U_0 \cap \tilde{U}$ and $g = g_0|_B$. Then $a \in B$ and $B$ is open in $\R^m$. The previous exercise implies that $g$ is smooth. Furthermore,
+			\begin{align*}
+				g|_{B \cap A}
+				& = g|_{U_0 \cap \tilde{U} \cap A} \\
+				& = g|_{U_0 \cap U} \\
+				& = h|_{U_0 \cap U} \\
+				& = f|_{U_0 \cap U} \\
+				& = f|_{U_0 \cap \tilde{U} \cap A} \\
+				& = f|_{B \cap A} 
+			\end{align*}
+			Since $a \in A$ is arbitrary, we have that for each $a \in A$, there exists $B \subset \R^m$ and $g:B \rightarrow \R^n$ such that $a \in B$, $B$ is open in $\R^m$, $g$ is smooth and $g|_{A \cap B} = f|_{A \cap B}$. Hence $f$ is smooth.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+		Let $A \subset \R^m$, $B \subset \R^n$, $f:A \rightarrow B$ and $g: B \rightarrow \R^p$. If $f$ and $g$ are smooth, then $g \circ f$ is smooth.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ and $g$ are smooth. Let $a \in A$. Set $b = f(a)$. Then $b \in B$. Since $f$ is smooth, there exists $U \subset \R^m$ and $F:U \rightarrow \R^n$ such that $a \in U$, $U$ is open in $\R^m$, $F$ is smooth and $F|_{U \cap A} = f|_{U \cap A}$. Since $g$ is smooth, there exists $V \subset \R^n$ and $G:V \rightarrow \R^p$ such that $b \in V$, $V$ is open in $\R^n$, $G$ is smooth and $G|_{V \cap B} = g|_{V \cap B}$. We define $W \subset \R^m$ and $H:W \rightarrow \R^p$ by $W \defeq U \cap F^{-1}(V)$ and $H \defeq G \circ F|_W$. 
+		\begin{itemize}
+			\item By construction, $a \in W$. 
+			\item Since $F$ is smooth, $F$ is continuous. Thus $F^{-1}(V)$ is open in $\R^m$ which implies that $W$ is open in $\R^m$. 
+			\item Since $F$ is smooth, \tcb{an exercise in the section on differentiation} implies that $F|_W$ is smooth. Since $F|_W$ and $G$ are smooth, \tcb{a previous exercise in the section on differentiation} implies that $H$ is smooth. 
+			\item Let $x \in W \cap A$. Since $W \cap A \subset A \cap U$, $f(x) = F(x)$. Since $f(x) \in B$ and $W \subset F^{-1}(V)$, we have that $F(x) \in V \cap B$. Thus  
+			\begin{align*}
+				g \circ f(x)
+				& = g (F(x)) \\
+				& = G(F(x)) \\
+				& = H(x) 
+			\end{align*} 
+			Since $x \in W \cap A$ is arbitrary, we have that $H|_{W \cap A} = (g \circ f)|_{W \cap A}$.
+		\end{itemize}
+		Thus $g \circ f$ is smooth.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	
 	\subsection{Integration}
 
 
@@ -1612,8 +1792,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	
-	\newpage
-	\section{Vector-Valued Covariant $k$-Tensors}	
 	
 	
 	
@@ -1645,7 +1823,18 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
 	
 	\chapter{Topological Manifolds}
@@ -2521,6 +2710,45 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		To see that $\al(\MB)$ is maximal, let $\MB'$ be a smooth atlas on $M$. Suppose that $\al(\MB) \subset \MB'$ and let $(U, \phi) \in \MB'$. By definition, for each chart $(V, \psi) \in \MB'$, $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. Since $\MB \subset \al(\MB) \subset \MB'$, we have that $(U, \phi) \in \al(\MB)$. So $\al(\MB) = \MB'$ and $\al(\MB)$ is a maximal smooth atlas on $M$.
 	\end{proof}
 
+	\begin{defn}
+		Let $n \in \N_0$. We define the \tbf{standard smooth structure} on $\R^n$, denoted $\MA_{\R^n}$, by $\MA_{\R^n} = \al_{\R^n}(\R^n, \id_{\R^n})$. 
+	\end{defn}
+
+	\begin{ex}
+		Define $U \subset \R$ and $\phi: U \rightarrow \R$ by $U \defeq \R$ and $\phi(x) \defeq x^3$. Then 
+		\begin{enumerate}
+			\item $(U, \phi) \in X^1(\R)$ 
+			\item $(U, \phi) \not \in \MA_{\R}$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item
+			\begin{itemize}
+				\item Trivially, $U$ is open in $\R$.
+				\item Trivially, $\R$ is open in $\R$
+				\item  Clearly $\phi$ is continuous. Also, $\phi$ is a bijection. and since for each $x \in \R$, $\phi^{-1}(x) = x^{1/3}$, $\phi^{-1}$ is continuous. Hence $\phi$ is a homeomorphism. 
+			\end{itemize}
+			So $(U, \phi) \in X^1(\R)$.
+			\item Define $V \subset M$ and $\psi: V \rightarrow \R$ by $V \defeq \R$ and $\psi \defeq \id_{\R}$. By defintion, $(V, \psi) \in \MA_{\R}$. Since $\phi^{-1}$ is not differentiable at $x=0$ and $\psi \circ \phi^{-1} = \phi^{-1}$, we have that $\psi \circ \phi^{-1}$ is not smooth and therefore $\psi \circ \phi^{-1}$ is not a diffeomorphism. Hence $(U, \phi)$ and $(V, \psi)$ are not smoothly compatible. Thus $(U, \phi) \not \in \MA_{\R}$. 
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex}
+		Let $(M, \MA)$ be a smooth manifold and $\MA_0 \subset \MA$. Suppose that $\MA_0$ is an atlas on $M$. Let $(U, \phi) \in X(M)$. Then $(U, \phi) \in \MA$ iff for each $(V, \psi) \in \MA_0$, $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. 
+	\end{ex}
+
+	\begin{proof}
+		Set $n \defeq \dim M$.
+		\begin{itemize}
+			\item $(\implies)$: \\ 
+			Suppose that $(U, \phi) \in \MA$. Since $\MA$ is smooth, for each $(V, \psi) \in \MA$, $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. Since $\MA_0 \subset \MA$, we have that for each $(V, \psi) \in \MA_0$, $(U, \phi)$ and $(V, \psi)$ are smoothly compatible.
+			\item$(\impliedby)$: \\ 
+			Suppose that for each $(V, \psi) \in \MA_0$, $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. Let $(V, \psi) \in \MA$ and $a \in \phi(U \cap V)$. Set $p \defeq \phi^{-1}(a)$. Since $\MA_0$ is an atlas on $M$, there exists $(W_0, \al_0) \in \MA_0$ such that $p \in W_0$. Define $f: \phi(U \cap W_0) \rightarrow \al_0(U \cap W_0)$, $g: \al_0(W_0 \cap V) \rightarrow \psi(W_0 \cap V)$ and $h:\phi(U \cap V) \rightarrow \psi(U \cap V)$ by $f \defeq \al_0|_{U \cap W_0} \circ \phi|_{U \cap W_0}^{-1}$, $g \defeq \psi|_{W_0 \cap V} \circ \al_0|_{W_0 \cap V}^{-1}$ and $h \defeq \psi|_{U \cap V} \circ \phi|_{U \cap V}^{-1}$. By assumption, $(U, \phi)$ and $(W_0, \al_0)$ are smoothly compatible. Thus $f$ is a diffeomorphism and therefore $f$ is smooth. Since $(W_0, \al_0), (V, \psi) \in \MA$, we have that $(W_0, \al_0)$ and $(V, \psi)$ are smoothly compatible. Thus $g$ is a diffeomorphism and therefore $g$ is smooth. Define $A \subset M$ and $A' \subset \R^n$ by $A \defeq U \cap V \cap W_0$ and $A' = \phi(A)$. Since $p \in A$, $a \in A'$. Since $A$ is open in $U \cap V$ and $\phi$ is a homeomorphism, $A'$ is open in $\phi(U \cap V)$. \tcb{An exercise in the section on differentiation on subspaces} implies that $f|_{A'}$ is smooth. Since $h|_{A'} = g \circ f|_{A'}$, $h|_{A'}$ is smooth. Since $a \in \phi(U \cap V)$ is arbitrary, we have that for each $a \in \phi(U \cap V)$, there exists $A' \subset \phi(U \cap V)$ such that $a \in A'$, $A'$ is open in $\phi(U \cap V)$ and $h|_{A'}$ is smooth. \tcb{An exercise in the section on differentiation on subspaces} implies that $h$ is smooth. Thus $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. Since $(V, \psi) \in \MA$ is arbitrary, we have that $\MA \cup \{(U, \phi)\}$ is a smooth atlas on $M$. Since $\MA$ is maximal, $\MA \cup \{(U, \phi)\} = \MA$. Thus $(U, \phi) \in \MA$. 
+		\end{itemize}
+	\end{proof}
+
 		
 	\begin{ex} \tbf{Smooth Manifold Chart Lemma:} \\
 		Let $M$ be a set, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\phi_{\al}: U_{\al} \rightarrow \H^n$. Suppose that 
@@ -2571,6 +2799,8 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \newpage
 \section{Open and Boundary Submanifolds}
 
+\subsection{Open Submanifolds}
+
 \tcb{in order for a smooth structure on a subspace to make sense, we need to have a notion of smoothness of a map $A \rightarrow \R^k$ to make sense when $A \subset \R^n$. But we already have this, think of them as banach spaces, use the definitions of differentiation at a point in $A$ in terms of locally extend to an open neighborhood containing the point}.
 
 \begin{ex}
@@ -2605,6 +2835,53 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	$$\MA|_{U} = \al_U(\{(V, \psi) \in \MA: V \subset U\})$$
 	Then $(U, \MA|_{U})$ is said to be a \tbf{smooth open submanifold of $(M, \MA)$}.
 \end{defn}
+
+\begin{ex}
+	Let $(M, \MA)$ be an $n$-dimensional smooth manifold and $U \subset M$ open. Then 
+	\begin{enumerate}
+		\item $\MA|_U \subset \MA$.
+		\item $\MA|_U = \{(V, \psi) \in \MA: V \subset U\}$.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Set $\MB = \{(V, \psi) \in \MA: V \subset U\}$. Let $(U', \phi) \in \MA|_U$, $(V, \psi) \in \MA$ and $a \in \phi(U' \cap V)$. Set $p = \phi^{-1}(a)$. \tcb{A previous exercise} implies that $\MB$ is a smooth atlas on $U$. Thus there exists $(W, \al) \in \MB$ such that $p \in W$. Set $A \defeq W \cap U' \cap V$ and $A_0 \defeq \phi(A)$. Then $p \in A$, $a \in A_0$, $A$ is open in $M$ and $A_0$ is open in $\phi(U' \cap V)$. Define $f: \phi(W \cap U') \rightarrow \al(W \cap U')$, $g: \al(W \cap V) \rightarrow \psi(W \cap V)$ and $h: \phi(U' \cap V) \rightarrow \psi(U' \cap V)$ by $f \defeq \al|_{W \cap U'} \circ \phi|_{W \cap U'}^{-1}$, $g \defeq \psi|_{W \cap V} \circ \al|_{W \cap V}^{-1}$ and $h \defeq \psi_{U' \cap V} \circ \phi|_{U' \cap V}^{-1}$. Since $\MB \subset \MA$, $g$ is smooth. Since $\MB \subset \MA|_U$, $f$ is smooth. \tcb{An exercise in the section on differentiability on subspaces} implies that $f|_{A_0}$ is smooth. Since $h|_{A_0} = g \circ f|_{A_0}$, \tcb{an exercise in the section on differentiability} implies that $h|_{A_0}$ is smooth. Since $a \in \phi(U' \cap V)$ is arbitrary, we have that for each $a \in \phi(U' \cap V)$, there exists $A_0 \subset \phi(U' \cap V)$ such that $a \in A_0$, $A_0$ is open in $\phi(U' \cap V)$ and $h|_{A_0}$ is smooth. \tcb{An exercise in the section on differentiability on subspaces} implies that $h$ is smooth. Similarly $h^{-1}$ is smooth. Thus $h$ is a diffeomorphism. Therefore $(V, \psi)$ and $(U', \phi)$ are smoothly compatible. Since $(V, \psi) \in \MA$ is arbitrary, we have that $\{(U', \phi)\} \cup \MA$ is a smooth atlas. Since $\MA$ is maximal, $\{(U', \phi)\} \cup \MA = \MA$. Thus $(U', \phi) \in \MA$. Since $(U', \phi) \in \MA|_U$ is arbitrary, we have that $\MA|_U \subset \MA$. 
+		\item By definition, 
+		\begin{align*}
+			\MB
+			& \subset \al_U(\MB) \\
+			& = \MA|_U
+		\end{align*}
+		Since $\MA|_U \subset \MA$, the definition of $\MB$ implies that $\MA|_U \subset \MB$. Hence $\MA|_U = \MB$.
+	\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Boundary Submanifolds}
 
 \begin{ex}
 	Let $\pi: \p \H^n \rightarrow \R^{n-1}$ be the projection map given by $\pi(x_1, \ldots, x_{n-1}, 0) = (x_1, \ldots, x_{n-1})$. Then $\pi$ is a diffeomorphism. 
@@ -2683,7 +2960,8 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \newpage
 \section{Product Manifolds}
 
-\tcb{in order for a smooth structure on a product to make sense, we need to have a notion of smoothness of a map $\R^m \times \R^m \rightarrow \R^k$ to make sense. But we already have this, think of them as banach spaces, use the definitions of differnetiation of maps from a product}.
+\section{To Do}
+\tcb{Define a $\E$-space as an open subset of a real finite-dim vector space and define differentiation on these and show that products of $\E$-spaces are $\E$-spaces, then define differentiation on subspaces of euclidean spaces and define $\H$-spaces as half-spaces of $\E$-spaces}
 
 \begin{ex}
 	\tcb{show $\H^m \times \Int \H^n \in \Maninf$}.
@@ -2692,7 +2970,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \begin{ex}
 	Let $m \in \N$ and $n \in \N_0$. Then there exists $\lam: \H^m \times \Int \H^n \rightarrow \H^{m+n}$ such that 
 	\begin{enumerate}
-		\item $\lam$ is a diffeomorphism
+		\item $\lam$ is a diffeomorphism \tcb{(need to define differentiation on product spaces)}
 		\item $\lam(\p \H^m \times \Int \H^n) = \p \H^{m+n}$
 	\end{enumerate}
 \end{ex}
@@ -2749,9 +3027,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	We define the \tbf{smooth product manifold of $(M, \MA)$ and $(N, \MB)$} to be $(M \times N, \MA \otimes \MB)$.
 \end{defn}
 
-\begin{ex}
-	
-\end{ex}
+
 
 
 
@@ -2787,15 +3063,637 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \newpage 
 \chapter{Smooth Maps}
 
-\section{$\R$-Valued Smooth Maps}	
+\section{Smooth Maps between Manifolds}
 
-\begin{defn} \ld{42001}
-	Let $(M, \MA)$ be a smooth manifold and $f: M \rightarrow \R$. Then $f$ is said to be \tbf{smooth} if for each coordinate chart $(U, \phi) \in \MA$, $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M, \MA)$. 
+\begin{defn}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then $F$ is said to be 
+	\begin{itemize}
+		\item \tbf{$(\MA, \MB)$-smooth} if for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$, $F(U) \subset V$ and $\psi \circ F \circ \phi^{-1}$ is smooth. 
+		\item a \tbf{$(\MA, \MB)$-diffeomorphism} if $F$ is a bijection and $F,F^{-1}$ are smooth. 
+	\end{itemize}
 \end{defn}
 
 \begin{note}
-	When the context is clear, we write $C^{\infty}(M, \MA)$ in place of $C^{\infty}(M)$
+	When the context is clear, we write ``smooth" in place of ``$(\MA, \MB)$-smooth". 
 \end{note}
+
+\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifold and $F: M \rightarrow N$. If $F$ is smooth, then $F$ is continuous. 
+\end{ex}
+
+\begin{proof}
+	Suppose that $F$ is smooth. Let $p \in M$. By defintion, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$, $F(U) \subset V$ and $\psi \circ F \circ \phi^{-1}$ is smooth. Define $F_0: \phi(U) \rightarrow \psi(V) $ by $$ F_0 = \psi \circ F \circ \phi^{-1}$$  
+	By definition, $F_0$ is smooth. \tcb{An exercise in the section on differentiation in subspaces} implies that $F_0$ is continuous. Since $\phi$ and $\psi$ are homeomorphisms and $F|_{U} = \psi^{-1} \circ F_0 \circ \phi$, we have that $F|_{U}$ is continuous. In particular, $F$ is continuous at $p$. Since $p \in M$ is arbitrary, $F$ is continuous.
+\end{proof}
+
+\begin{ex} \tbf{Equivalence of Smoothness:} \\
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then the following are equivalent:
+	\begin{enumerate}
+		\item $F:M \rightarrow N$ is smooth
+		\item for each $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, if $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$, then for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth.
+		\item for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. 
+		\item $F$ is continuous and there exist $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$ such that $\MA_0$ is an atlas on $\MA$, $\MB_0$ is an atlas on $N$ and for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof} Set $m \defeq \dim M$ and $n \defeq \dim N$.
+	\begin{enumerate}
+		\item $(1) \implies (2)$: \\
+		Suppose that $F$ is smooth. Let $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$. Suppose that $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$. Let $(U_0, \phi_0) \in \MA_0$ and $(V_0, \psi_0) \in \MB_0$. Since $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, we have that $(U_0, \phi_0) \in \MA$ and $(V_0, \psi_0) \in \MB$. Since $F$ is smooth, $F$ is continuous and therefore $U_0 \cap F^{-1}(V_0)$ is open in $M$. Define $F_0:\phi_0(U_0 \cap F^{-1}(V_0)) \rightarrow \psi_0(V_0)$ by $F_0 \defeq \psi_0 \circ F \circ \phi_0|_{U_0 \cap F^{-1}(V_0)}^{-1}$. Let $a \in \phi_0(U_0 \cap F^{-1}(V_0))$. Define $p \in M$ by $p \defeq \phi_0^{-1}(a)$. Since $F$ is smooth, by definition 
+		%\tcb{$(2)$ in the previous exercise on smooth equivalence} implies that 
+		there exists $(U_1, \phi_1) \in \MA$ and $(V_1, \psi_1) \in \MB$ such that $p \in U_1$, $F(p) \in V_1$, $F(U_1) \subset V_1$ and $\psi_1 \circ F \circ \phi_1^{-1}$ is smooth. Define $U \subset M$, $\al: \phi_1(U_0 \cap U_1) \rightarrow \phi_0(U_0 \cap U_1)$, $\be: \psi_1(V_0 \cap V_1) \rightarrow \psi_0(V_0 \cap V_1)$ and $F_1: \phi_1(U_1) \rightarrow \psi_1(V_1)$ by $U = U_0 \cap U_1 \cap F^{-1}(V_0 \cap V_1)$, $\al = \phi_0|_{U_0 \cap U_1} \circ \phi_1|_{U_0 \cap U_1}^{-1}$, $\be = \psi_0|_{V_0 \cap V_1} \circ \psi_1|_{V_0 \cap V_1}^{-1}$ and $F_1 = \psi_1 \circ F \circ \phi_1^{-1}$.
+		
+		
+		 We note the following:
+		\begin{itemize}
+			\item since $p \in U$ and $a = \phi_0(p)$, we have that $a \in \phi_0(U)$
+			\item $\phi_0(U)$ is open in $\phi_0(U_0 \cap F^{-1}(V_0))$
+			\item since $(U_0, \phi_0), (U_1, \phi_1) \in \MA$, $(U_0, \phi_0)$ and $(U_1, \phi_1)$ are smoothly compatible and $\al$ is a diffeomorphism
+			\item since $(V_0, \psi_0), (V_1, \psi_1) \in \MB$, $(V_0, \psi_0)$ and $(V_1, \psi_1)$ are smoothly compatible and $\be$ is a diffeomorphism
+			\item since $F_1$ is smooth, \tcb{an exercise in the section on differentiation on subspaces} implies that $F_1|_{\phi_1(U)}$ is smooth
+			\item since $\al^{-1}$ is smooth, \tcb{an exercise in the section on differentiation on subspaces} implies that $ \al|_{\phi_1(U)}^{-1}$ is smooth
+			\item since $F_0|_{\phi_0(U)} = \be \circ F_1 \circ \al|_{\phi_1(U)}^{-1}$, we have that $F_0|_{\phi_0(U)}$ is smooth
+		\end{itemize}
+		Since $a \in \phi_0(U_0 \cap F^{-1}(V_0))$ is arbitrary, we have that for each $a \in \phi_0(U_0 \cap F^{-1}(V_0))$, there exists $A \subset \phi_0(U_0 \cap F^{-1}(V_0))$ such that $a \in A$, $A$ is open in $\phi_0(U_0 \cap F^{-1}(V_0))$ and $F_0|_A$ is smooth. \tcb{An exercise in the section on differentiation on subspaces} implies that $F_0$ is smooth. 
+		
+		Since $(U_0, \phi_0) \in \MA_0$ and $(V_0, \psi_0) \in \MB_0$ are arbitrary, we have that for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. 
+		
+		Since $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$ such that $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$ are arbitrary, we have that for each $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, if $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$, then for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth.
+		\item $(2) \implies (3)$: \\
+		Suppose that for each $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, if $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$, then for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. Let $p \in M$. Since $\MA$ is an atlas on $M$ and $\MB$ is an atlas on $N$, there exists $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$ and $F(p) \in V$. By assumption, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. Since $p \in M$ is arbitrary, we have that for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. 
+		\item $(3) \implies (4)$: \\
+		Suppose that for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. 
+		\begin{itemize}
+			\item Let $p \in M$. By assumption, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. Define $A \subset M$, $A_1 \subset \H^m$ and $F_1: A_1 \rightarrow \R^n$ by $A \defeq U \cap F^{-1}(V)$, $A_1 \defeq \phi(A)$ and $F_1 \defeq \psi \circ F \circ \phi|_{A}^{-1}$. Since $F_1$ is smooth, \tcb{an exercise in the section on differentiability on subspaces} implies that $F_1:A_1 \rightarrow \R^n$ is continuous. Since $\phi|_{A}$ and $\psi$ are homeomorphisms, 
+			\begin{align*}
+				F|_A
+				& = \psi^{-1} \circ (\psi \circ F \circ \phi|_A ) \circ \phi|_A^{-1} \\
+				& = \psi^{-1} \circ F_1 \circ \phi_{A}^{-1} 
+			\end{align*}
+			which is continuous. We note that $p \in A$ and $A$ is open in $M$. Since $p \in M$ is arbitrary, we have that for each $p \in M$, there exists $A \subset M$ such that $p \in A$, $A$ is open in $M$ and $F|_A$ is continuous. Thus $F$ is continuous.  
+			\item 
+			\begin{itemize}
+				\item By assumption, for each $p \in M$, there exists $(U_p, \phi_p) \in \MA$ and $(V_p, \psi_p) \in \MB$ such that $p \in U_p$, $F(p) \in V_p$, $U_p \cap F^{-1}(V_p)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(p)}^{-1}$ is smooth. The axiom of choice implies that there exist $(U_p, \phi_p)_{p \in M} \subset \MA$ and $(V_p, \psi_p)_{p \in M} \subset \MB$ such that for each $p \in M$, $p \in U_p$, $F(p) \in V_p$, $U_p \cap F^{-1}(V_p)$ is open in $M$ and $\psi_p \circ F \circ \phi_p|_{U_p \cap F^{-1}(V_p)}^{-1}$ is smooth. Define $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$ by $\MA_0 \defeq (U_p, \phi_p)_{p \in M}$ and $\MB_0 \defeq (B_p, \psi_p)_{p \in M}$ respectively. By construction, $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$.
+				\item Let $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$. Define $\tilde{A} \subset \H^m$ and $\tilde{F}: \tilde{A} \rightarrow \R^n$ by $\tilde{A} = \phi(U \cap F^{-1}(V))$ and $\tilde{F} = \psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$. Since $F$ is continuous, $U \cap F^{-1}(V)$ is open in $M$. Since $\phi$ is a homeomorphism, $\tilde{A}$ is open in $\H^n$. Let $a \in \tilde{A}$. Set $p \defeq \phi^{-1}(a)$. Define $A \subset M$ by $A \defeq U \cap U_p \cap F^{-1}(V \cap V_p)$. We note that $p \in A$ and since $F$ is continuous, $A$ is open in $M$. Define $A_0 \subset \H^m$ and $F_0: A_0 \rightarrow \R^n$ by $A_0 = \phi_p(A)$ and $F_0 = \psi_p \circ F \circ \phi_p|_A^{-1}$. By construction, $\psi_p \circ F \circ \phi_p|_{U_p \cap F^{-1}(V_p)}^{-1}$ is smooth. \tcb{An exercise about restriction in the section on differentation on subspaces} implies that $F_0$ is smooth. We define $\al: \phi_p(U \cap U_p) \rightarrow \phi(U \cap U_p)$ and $\be:  \psi_p(V \cap V_p) \rightarrow \psi(V \cap V_p)$ by 
+				$$\al \defeq \phi|_{U \cap U_p} \circ \phi_p|_{U \cap U_p}^{-1}, \quad \be \defeq \psi|_{V \cap V_p} \circ \psi_p|_{V \cap V_p}^{-1}$$ 
+				Since $\phi, \phi_p \in \MA$, we know that $\phi$ and $\phi_p$ are smoothly compatible. Therefore $\al$ is a diffeomorphism. Similarly, $\be$ is a diffeomorphism. \tcb{the restriction exercise again implies that} $\al|_{A_0}$ is a diffeomorphism. Since $\tilde{F}|_{\phi(A)} = \be \circ F_0 \circ \al|_{A_0}^{-1}$, we have that $\tilde{F}|_{\phi(A)}$ is smooth. We note that $a \in \phi(A)$, $\phi(A)$ is open in $\tilde{A}$. Since $a \in \tilde{A}$ is arbitrary, we have that for each $a \in \tilde{A}$, there exists $E \subset \tilde{A}$ such that $a \in E$, $E$ is open in $\tilde{A}$ and $\tilde{F}|_E$ is smooth. \tcb{An exercise in the section on differentiation on subspaces} implies that $\tilde{F}$ is smooth. Since $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$ are arbitrary, we have that for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth.
+			\end{itemize}
+		\end{itemize}
+		\item $(4) \implies (1)$: \\
+		Suppose that $F$ is continuous and there exist $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$ such that $\MA_0$ is an atlas on $\MA$, $\MB_0$ is an atlas on $N$ and for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. Let $p \in M$. Since $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$, there exists $(U',\phi') \in \MA_0$ and $(V, \psi) \in \MB_0$ such that $p \in U'$ and $F(p) \in V$. Define $A_0 \subset \H^m$ and $F_0:A_0 \rightarrow \R^n$ by $A_0 = \phi'(U' \cap F^{-1}(V))$ and $F_0 = \psi \circ F \circ \phi'|_{U' \cap F^{-1}(V)}^{-1}$. By assumption $F_0$ is smooth. Since $F$ is continuous, $F(p) \in V$ and $V$ is open in $N$, we have that there exists $U_0 \subset M$ such that $p \in U_0$, $U_0$ is open in $M$ and $F(U_0) \subset V$. Define $U \subset M$ and $\phi:U \rightarrow \phi'(U)$ by $U \defeq U' \cap U_0$ and $\phi = \phi'|_U$. Then $p \in U$, $U$ is open in $M$ and 
+		\begin{align*}
+			F(U)
+			& = F(U' \cap U_0) \\
+			& \subset F(U_0) \\
+			& \subset V
+		\end{align*} 
+		\tcb{An exercise in the section on smooth manifolds} implies that $(U, \phi) \in \MA$. Since $F_0$ is smooth, \tcb{an exercise in the section on subspace differentiation} implies that $F_0|_{\phi(U)}$ is smooth. Since $\psi \circ F \circ \phi^{-1} = F_0|_{\phi(U)}$, we have that $\psi \circ F \circ \phi^{-1}$. Since $p \in M$ is arbitrary, we have that for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$, $F(U) \subset V$ and $\psi \circ F \circ \phi^{-1}$ is smooth. Hence $F$ is smooth. 
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$, $(N, \MB)$ $(E, \MC)$be smooth manifolds and $F: M \rightarrow N$, $G: N \rightarrow E$. If $F$ and $G$ are smooth, then $G \circ F: M \rightarrow E$ is smooth.  
+\end{ex}
+
+\begin{proof}
+	Set $m = \dim M$, $n = \dim N$ and $e = \dim E$. Suppose that $F$ and $G$ are smooth. Let $p_0 \in M$. Since $F$ is smooth, there exists $(U_0, \phi_0) \in \MA$ and $(V_0, \psi_0) \in \MB$ such that $p_0 \in U_0$, $F(p_0) \in V_0$, $F(U_0) \subset V_0$ and $\psi_0 \circ F \circ \phi_0^{-1}$ is smooth. Set $p_1 = F(p_0)$. Since $G$ is smooth, there exists $(U_1, \phi_1) \in \MB$ and $(V_1, \psi_1) \in \MC$ such that $p_1 \in U_1$, $G(p_1) \in V_1$, $G(U_1) \subset V_1$ and $\psi_1 \circ F \circ \phi_1^{-1}$ is smooth. Define $f:\phi_0(U_0) \rightarrow \H^n$ and $g: \phi_1(U_1) \rightarrow \H^e$ by $f = \psi_0 \circ F \circ \phi_0^{-1}$ and $g = \psi_1 \circ G \circ \phi_1^{-1}$ respectively. Set $W_1 = U_1 \cap V_0$ and $W_0 = F^{-1}(W_1)$. Since $W_1$ is open in $N$ and $F$ is continuous, $W_0$ is open in $M$. \tcb{An exercise in the section on open submanifolds} implies that  
+	\begin{align*}
+		(W_0, \phi_0|_{W_0}) 
+		& \in \MA|_{W_0} \\
+		& \subset \MA 
+	\end{align*}
+	Since $p_1 \in W_1$, $p_0 \in W_0$. Furthermore, 
+	\begin{align*}
+		G \circ F (p_0)
+		& = G(p_1) \\
+		& \in V_1
+	\end{align*}
+	and 
+	\begin{align*}
+		G \circ F(W_0)
+		& = G(F(W_0)) \\
+		& \subset G(W_1) \\
+		& \subset G(U_1) \\
+		& \subset V_1
+	\end{align*}
+	Since $(U_1, \phi_1), (V_0, \psi_0) \in \MB$, $(U_1, \phi_1)$ and $(V_0, \psi_0)$ are smoothly-compatible. Thus $\phi_1|_{W_1} \circ \psi_0|_{W_1}^{-1}: \psi_0(W_1) \rightarrow \phi_1(W_1)$ is smooth. Since $f$ and $g$ are smooth, we have that $f|_{\phi_0(W_0)}$ is smooth and therefore
+	\begin{align*}
+		\psi_1 \circ (G \circ F) \circ \phi_0|_{W_0}^{-1}
+		& = (\psi_1 \circ G \circ \phi_1|_{W_1}^{-1}) \circ (\phi_1|_{W_1}  \circ \psi_0|_{W_1}^{-1}) \circ  (\psi_0 \circ F \circ \phi_0|_{W_0}^{-1}) \\
+		& = g \circ (\phi_1|_{W_1}  \circ \psi_0|_{W_1}^{-1}) \circ f|_{\phi_0(W_0)}
+	\end{align*}
+	is smooth. Since $p_0 \in M$ is arbitrary, we have that for each $p_0 \in M$, there exists $(W_0, \phi) \in \MA$ and $(V, \psi) \in \MC$ such that $p_0 \in W_0$, $G \circ F(p_0) \in V$, $G \circ F(W_0) \subset V$ and $\psi \circ (G \circ F) \circ \phi^{-1}$ is smooth. Thus $G \circ F$ is smooth.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+\section{Smooth Maps on Open and Boundary Submanifolds}
+
+
+
+\begin{ex} \tbf{Locality of Smoothness:} \\
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then the following are equivalent: 
+	\begin{enumerate}
+		\item $F$ is smooth
+		\item for each $U \subset M$, if $U$ is open in $M$, then $F|_U: U \rightarrow N$ is smooth.
+		\item for each $p \in M$, there exists $U \subset M$ such that $p \in U$, $U$ is open in $M$ and $F|_U: U \rightarrow N$ is smooth. 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof} \
+	\begin{itemize}
+		\item $(1) \implies (2)$: \\
+		Suppose that $F$ is smooth. Let $U \subset M$. Suppose that $U$ is open in $M$. Let $p \in U$. Since $\MA|_U$ is an atlas on $U$ and $\MB$ is an atlas on $N$, there exist $(U_0, \phi_0) \in \MA|_U$ and $(V, \psi) \in \MB$ such that $p \in U_0$ and $F(p) \in V$. Since $p \in U$, we have that 
+		\begin{align*}
+			F|_U(p) 
+			& = F(p) \\
+			& \in V
+		\end{align*}
+		\tcb{An exercise in the section on open submanifolds} implies that $\MA|_U \subset \MA$. Thus $(U_0, \phi_0) \in \MA$. Since $F$ is smooth \tcb{a previous exercise} implies that $U_0 \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi_0|_{U_0 \cap F^{-1}(V)}$ is smooth. Since $U_0 \subset U$, we have that 
+		\begin{align*}
+			U_0 \cap F|_U^{-1}(V) 
+			& = U_0 \cap (U \cap F^{-1}(V))  \\
+			& = U_0 \cap F^{-1}(V)
+		\end{align*}
+		and $\psi \circ F|_U \circ \phi_0|_{U_0 \cap F|_U^{-1}(V)}^{-1} = \psi \circ F \circ \phi_0|_{U_0 \cap F^{-1}(V)}^{-1}$. Thus $U_0 \cap F|_U^{-1}(V)$ is open in $U$ and $\psi \circ F|_U \circ \phi_0|_{U_0 \cap F|_U^{-1}(V)}^{-1}$ is smooth. Since $p \in U$ is arbitrary, we have that for each $p \in U$, there exists $(U_0, \phi_0) \in \MA|_U$ and $(V, \psi) \in \MB$ such that $p \in U_0$, $F|_U(p) \in V$, $U_0 \cap F|_U^{-1}(V)$ is open in $U$ and $\psi \circ F|_U \circ \phi_0|_{U_0 \cap F|_U^{-1}(V)}^{-1}$ is smooth. \tcb{(3) in smooth equivalence} implies that $F|_U$ is smooth. Since $U \subset M$ with $U$ open in $M$ is arbitrary, we have that for each $U \subset M$, if $U$ is open in $M$, then $F|_U: U \rightarrow N$ is smooth.
+		\item  $(2) \implies (3)$: \\
+		Suppose that for each $U \subset M$, if $U$ is open in $M$, then $F|_U: U \rightarrow N$ is smooth. Let $p \in M$. Since $\MA$ is an atlas on $M$, there exists $(U, \phi) \in \MA$ such that $p \in U$. Since $(U, \phi) \in X(M)$, $U$ is open in $M$. By assumption, $F|_U:U \rightarrow N$ is smooth. Since $p \in M$ is arbitrary, we have that for each $p \in M$, there exists $U \subset M$ such that $p \in U$, $U$ is open in $M$ and $F|_U: U \rightarrow N$ is smooth.  
+		\item  $(3) \implies (1)$: \\
+		Suppose that for each $p \in M$, there exists $U \subset M$ such that $p \in U$, $U$ is open in $M$ and $F|_U: U \rightarrow N$ is smooth. Let $p \in M$. Let $p \in M$. By assumption, there exists $U \subset M$ such that $p \in U$, $U$ is open in $M$ and $F|_U: U \rightarrow N$ is smooth. Since $F|_U$ is smooth, there exist $(U', \phi) \in  \MA|_U$ and $(V, \psi) \in \MB$ such that $p \in U'$, $F(p) \in V$, $F|_U(U') \subset V$ and $\psi \circ F|_U \circ \phi^{-1}$ is smooth. \tcb{An exercise in the section on open submanifolds} implies that $\MA|_U \subset \MA$. Thus $(U', \phi) \in \MA$. Since $p \in M$ is arbitrary, we have that for each $p \in M$, there exists $(U', \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U'$, $F(p) \in V$, $F(U') \subset V$ and $\psi \circ F \circ \phi^{-1}$ is smooth. Thus $F$ is smooth.   
+	\end{itemize}
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $U \subset M$ and $F: M \rightarrow N$. Suppose that $U$ is open in $M$. If $F$ is a diffeomorphism, then $F|_U: U \rightarrow F(U)$ is a diffeomorphism.
+\end{ex}
+
+\begin{proof}
+	Suppose that $F$ is a diffeomorphism. Then $F$ and $F^{-1}$ are smooth. Hence $F$ is a homeomorphism and $F(U)$ is open in $N$., By definition, $F$ and $F^{-1}$ are smooth. \tcb{A previous exercise about locality of smoothness} implies that $F|_U$ and $F^{-1}|_{F(U)}$ are smooth. Since $F|_U^{-1} = F^{-1}|_{F(U)}$, $F|_U$ is a diffeomorphism. 
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold and $(U, \phi) \in \MA$. Then $\phi:U \rightarrow \phi(U)$ is a diffeomorphism.
+\end{ex}
+
+\begin{proof}
+	Set $n \defeq \dim M$. Let $(V, \psi) \in \MA$. By definition, $\phi$ is continuous. Since $(U, \phi), (V, \psi) \in \MA$, we have that $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. Hence $\phi|_{U \cap V} \circ \psi|_{U \cap V}^{-1}$ is a diffeomorphism. Define $\al: \psi(U \cap V) \rightarrow \phi(U \cap V)$ by $\al = \phi|_{U \cap V} \circ \psi|_{U \cap V}^{-1}$. Since $V \cap \phi^{-1}(\phi(U)) = U \cap V$ and $\phi(U) \cap (\phi^{-1})^{-1}(V) = \phi(U \cap V)$, we have that $V \cap \phi^{-1}(\phi(U))$ and $\phi(U) \cap (\phi^{-1})^{-1}(V) $ are open. Furthermore,
+	\begin{align*}
+		\id_{\phi(U)} \circ \phi \circ \psi|_{V \cap \phi^{-1}(\phi(U))}^{-1} 
+		& = \id_{\phi(U)} \circ \phi \circ \psi|_{V \cap U}^{-1} \\
+		& = \id_{\phi(U)} \circ \al \\
+		& = \al
+	\end{align*}
+	and
+	\begin{align*}
+		\psi \circ \phi^{-1} \circ \id_{\phi(U)}|_{\phi(U) \cap (\phi^{-1})^{-1}(V)} 
+		& = \psi \circ \phi^{-1} \circ \id_{\phi(U)}|_{\phi(U \cap V)} \\
+		& = \al^{-1} \circ \id_{\phi(U \cap V)} \\
+		& = \al^{-1} 
+	\end{align*}
+	Since $\al$ is a diffeomorphism, we have that $\id_{\phi(U)} \circ \phi \circ \psi|_{V \cap \phi^{-1}(\phi(U))}^{-1}$ and $\psi \circ \phi^{-1} \circ \id_{\phi(U)}|_{\phi(U) \cap (\phi^{-1})^{-1}(V)}$ are smooth. Since $\MA_{\phi(U)} = \al(\id_{\phi(U)})$, $\MA = \al(\MA)$ and $(V, \psi) \in \MA$ is arbitrary, \tcb{a previous exercise about smoothness depending on a smooth atlas} implies that $\phi$ and $\phi^{-1}$ are smooth. Hence $\phi$ is a diffeomorphism. 
+\end{proof}
+
+\begin{ex}
+	Let  $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$ a diffeomorphism. Then 
+	\begin{enumerate}
+		\item for each $(V, \psi) \in \MB$, $(F^{-1}(V), \psi \circ F|_{F^{-1}(V)}) \in \MA$
+		\item for each $(U, \phi) \in \MA$, $(F(U), \phi \circ F|_{F(U)}^{-1}) \in \MB$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof} Set $n \defeq \dim M$. 
+	\begin{enumerate}
+		\item Let $(V, \psi) \in \MB$. Since $F^{-1}(V)$ is open in $M$, \tcb{a previous exercise} implies that $F|_{F^{-1}(V)}^{-1}$ is a diffeomorphism. \tcb{A previous exercise implies that $\psi$} is a diffeomorphism. Therefore $\psi \circ F|_{F^{-1}(V)}^{-1}$ is a diffeomorphism.
+		\begin{enumerate}
+			\item Since $(V, \psi) \in \MB$ and $F|_{F^{-1}(V)}^{-1}$ is a homeomorphism, we have that
+			\begin{itemize}
+				\item $F^{-1}(V)$ is open in $M$.
+				\item $\psi(V)$ is open in $\H^n$
+				\item $\psi \circ F|_{F^{-1}(V)}: F^{-1}(V)  \rightarrow \psi(V)$ is a homeomorphism
+			\end{itemize}
+			So $(F^{-1}(V), \psi \circ F|_{F^{-1}(V)}) \in X^n(M)$. 
+			\item Let $(U, \phi) \in \MA$. \tcb{A previous exercise implies that} $\psi$ is a diffeomorphism. \tcb{A previous exercise} implies that $\phi|_{U \cap F^{-1}(V)}$ and $\psi \circ F|_{U \cap F^{1}(V)}$ are diffeomorphisms. Hence $(\psi \circ F|_F^{-1}(V))|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is a diffeomorphism. Therefore $(F(U), \psi \circ F|_{F^{-1}(V)}^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $(U, \phi) \in \MA$ is arbitrary, we have that for each $(U, \phi) \in \MA$, $(U, \phi)$ and $(F^{-1}(V), \psi \circ F|_{F^{-1}(V)})$ are smoothly compatible. Since $\MA$ is maximal, $(F^{-1}(V), \psi \circ F^{-1}) \in \MA$.
+		\end{enumerate}
+		\item Similar to $(1)$.
+	\end{enumerate}
+\end{proof}
+
+
+\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then $F$ is smooth iff for each $(V, \psi) \in \MB$ with $\psi = (y^1, \ldots, y^n)$, $y^i \circ F$ is smooth.
+\end{ex}
+
+\begin{proof}
+	Suppose that $F$ is smooth. Let $(V, \psi) \in \MB$ with $\psi = (y^1, \ldots, y^n)$. Then for each $i \in \{1, \ldots, n\}$, $F^i$ is smooth. \\
+	Conversely, suppose that for each $(V, \psi) \in \MB$ with $\psi = (y^1, \ldots, y^n)$ and $i \in \{1, \ldots, n\}$, $y^i \circ F$ is smooth. 
+\end{proof}
+
+
+\begin{defn}
+	Let $(N, \MB)$ be a smooth  $n$-dimensional manifold, $F: M \rightarrow N$ smooth and $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$. For $i \in \{1, \dots, n\}$, We define the \tbf{$i$-th component of $F$ with respect to $(V, \psi)$},  denoted $F^i: V \rightarrow \R$, by $$F^i = y^i \circ F$$  
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C^{\infty}(M, \MA)$. Then $f|_U \in C^{\infty}(U, \MA|_U)$.
+\end{ex}
+
+\begin{proof}
+	Let 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+\section{Smooth Maps and Product Manifolds}
+
+\begin{ex}
+	Let $(M,\MA)$, $(N, \MB)$, $(E, \MC)$ be smooth manifolds, $\MA_0 \subset \MA$, $\MB_0 \subset \MB$, $\MC_0 \subset \MC$ and $F: M \times N \rightarrow E$. Suppose that $\p N = \varnothing$, $\MA_0$ is an atlas on $M$, $\MB_0$ is an atlas on $N$ and $\MC_0$ is an atlas on $E$. Then $F$ is smooth iff for each $(U, \phi) \in \MA_0$, $(V, \psi) \in \MB_0$, $(W, \chi) \in \MC_0$, $\chi \circ F \circ (\phi \times \psi)|_{(U \times V) \cap F^{-1}(W)}^{-1}$ is smooth. 
+\end{ex}
+
+\begin{proof}
+	Set $m \defeq \dim M$, $n = \dim N$ and $e = \dim E$. 
+	\begin{itemize}
+		\item $(\implies)$: \\
+		Suppose that $F$ is smooth. Let $(U, \phi) \in \MA_0$, $(V, \psi) \in \MB_0$ and $(W, \chi) \in \MC_0$. \tcb{An exercise in the section on product manifolds} implies that there exists $\lam: \H^m \times \Int \H^n \rightarrow \H^{m+n}$ such that $\lam$ is a diffeomorphism and $\lam(\p \H^m \times \Int \H^n) = \p \H^{m+n}$. Set $\eta \defeq \lam|_{\phi(U) \times \psi(V)} \circ (\phi \times \psi)$. \tcb{An exercise in the section on product manifolds} implies that $\eta \in \MA \otimes \MB$. Since $F$ is smooth \tcb{ and exercise in the section on smooth maps} implies that $\chi \circ F \circ \eta|_{(U \times V) \cap F^{-1}(W)}^{-1}$ is smooth. Since
+		$$ \chi \circ F \circ (\phi \times \psi)|_{(U \times V) \cap F^{-1}(W)}^{-1} = \chi \circ F \circ \eta|_{(U \times V) \cap F^{-1}(W)}^{-1} \circ \lam|_{(\phi(U) \times \phi(V)) \cap (\phi \times \psi)(F^{-1}(W))} $$
+		we have that $\chi \circ F \circ (\phi \times \psi)|_{(U \times V) \cap F^{-1}(W)}^{-1}$ is smooth. 
+		
+		Since $(U, \phi) \in \MA_0$, $(V, \psi) \in \MB_0$ and $(W, \chi) \in \MC_0$ are arbitrary, we have that for each $(U, \phi) \in \MA_0$, $(V, \psi) \in \MB_0$, $(W, \chi) \in \MC_0$, $\chi \circ F \circ (\phi \times \psi)|_{(U \times V) \cap F^{-1}(W)}^{-1}$ is smooth. 
+		\item $(\impliedby)$: \\
+		Suppose that for each $(U, \phi) \in \MA_0$, $(V, \psi) \in \MB_0$, $(W, \chi) \in \MC_0$, $\chi \circ F \circ (\phi \times \psi)|_{(U \times V) \cap F^{-1}(W)}^{-1}$ is smooth. Let $(U, \phi) \in \MA_0$, $(V, \psi) \in \MB_0$, $(W, \chi) \in \MC_0$ and $\lam \in \Aut_{\infty}^{m, n}$. 
+		
+		 Set $G \defeq \chi \circ F \circ (\phi \times \psi)|_{(U \times V) \cap F^{-1}(W)}^{-1}$. By assumption, $G$ is smooth. Since $\lam$ is a diffeomorphism, $G \circ \lam|_{(\phi(U) \times \psi(V)) \cap (\phi \times \psi)(F^{-1}(V))}^{-1}$ is smooth. Since 
+		$$\chi \circ F \circ [\lam|_{\phi(U) \times \psi(V)} \circ (\phi \times \psi)]|_{(U \times V) \cap F^{-1}(W)}^{-1} = G \circ \lam|_{(\phi(U) \times \psi(V)) \cap (\phi \times \psi)(F^{-1}(V))}^{-1}$$
+		we have that $\chi \circ F \circ [\lam|_{\phi(U) \times \psi(V)} \circ (\phi \times \psi)]|_{(U \times V) \cap F^{-1}(W)}^{-1}$ is smooth. 
+		
+		\tcb{An exercise in the section on products of manifolds} implies that $\{(U \times V, \lam|_{\phi(U) \times \psi(V)} \circ (\phi \times \psi)): \text{$\lam \in \Aut_{\infty}^{m,n}$, $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$} \}$ is an atlas on $M \times N$. 
+		
+		Since $(U, \phi) \in \MA_0$, $(V, \psi) \in \MB_0$, $(W, \chi) \in \MC_0$ and $\lam \in \Aut_{\infty}^{m, n}$ are arbitrary, \tcb{an exercise in the section on smooth maps} implies that $F$ is smooth. 
+	\end{itemize}
+\end{proof}
+
+\begin{defn}
+	Let $(M,\MA)$ and $(N, \MB)$ be smooth manifolds. We define the \tbf{projection maps onto $M$ and $N$}, denoted by $\pi_M: M \times N \rightarrow M$ and $\pi_N: M \times N \rightarrow N$  respectively, by 
+	\begin{itemize}
+		\item $\pi_M(p,q) = p$ 
+		\item $\pi_N(p,q) = q$ 
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $M$ and $N$ be smooth manifolds. Then $\pi_M: M \times N \rightarrow M$ and $\pi_N: M \times N \rightarrow N$ are smooth.
+\end{ex}
+
+\begin{proof}
+	Set $m = \dim M$ and $n = \dim N$. Let $(U, \phi)$, $(U', \phi') \in \MA_M$ and $(V, \psi) \in \MA_N$. Then for each $(a,b) \in \phi(U) \times \psi(V)$
+	\begin{align*}
+		\phi'|_{U' \cap U} \circ \pi_M \circ [\phi \times \psi]^{-1}|_{\phi(U) \times \psi(V)} (a,b)
+		& = \phi'|_{U' \cap U} \circ \pi_M \circ [\phi|_{\phi(U)}^{-1} \times \psi|_{\psi(V)}^{-1}] (a,b)\\ 
+		& = \phi' \circ \phi^{-1}(a) 
+	\end{align*}
+	Since $(a,b) \in \phi(U) \times \psi(V)$ is arbitrary, 
+	$$\phi'|_{U' \cap U} \circ \pi_M \circ [\phi \times \psi]^{-1}|_{\phi(U \cap U') \times \psi(V)} = \phi'|_{U' \cap U} \circ \phi|_{U' \cap U}^{-1} \circ \prj_1|_{\phi(U \cap U') \times \psi(V)}$$ 
+	where $\prj_1: \R^m \times \R^n \rightarrow \R^m$ is the usual projection map. Since $(U, \phi)$, $(U', \phi') \in \MA_M$, $(U, \phi)$ and $(U', \phi')$ are smoothly compatible. Hence $\phi'|_{U \cap U'} \circ \phi|_{U \cap U'}^{-1}$ is smooth and therefore $\phi'|_{U' \cap U} \circ \pi_M \circ [\phi \times \psi]^{-1}|_{\phi(U) \times \psi(V)}$ is smooth. Since \tcb{fix here } and $(V, \psi) \in \MA_N$ are arbitrary, we have that $\pi_M: M \times N \rightarrow M$ is smooth.  we have that $(U, \phi)$ and $(U', \phi')$ are smoothly compatible. Thus $\phi'|_{U \cap U'} \circ \phi^{-1}|_{U \cap U'}^{-1}$ is smooth.  
+\end{proof}
+
+\begin{defn}
+	Let $M$ and $N$ be smooth manifolds and $(p,q) \in M \times N$. We define the \tbf{slice maps at $q$ and $p$}, denoted by $\iota^M_q: M \rightarrow M \times N$ and $\iota^N_p: N \rightarrow M \times N$ respectively, by 
+	\begin{itemize}
+		\item $\iota^M_q(a) = (a, q)$ 
+		\item $\iota^N_p(b) = (p, b)$ 
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $M$ and $N$ be smooth manifolds and $(p,q) \in M \times N$. Then $\iota^M_q: M \rightarrow M \times N$ and $\iota^N_p: N \rightarrow M \times N$ are smooth
+	\begin{enumerate}
+		\item $\iota^M_q: M \rightarrow M \times N$ and $\iota^N_p: N \rightarrow M \times N$ are smooth
+		\item 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	Let $()$
+\end{proof}
+
+
+
+\newpage
+\begin{defn}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds. We define the \tbf{canonical projection maps}, denoted $\pi_M: M \times N \rightarrow M$ and  $\pi_N: M \times N \rightarrow N$, by $\pi_M(p,q) = p$ and $\pi_N(p,q) = q$ respectively. 
+\end{defn}
+
+\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds. Then $\pi_M: M \times N \rightarrow M$ and $\pi_N: M \times N \rightarrow N$ are smooth.
+\end{ex}
+
+\begin{proof}
+	Let $(U_0, \phi_0) \in \MA$, $(V_0, \psi_0), (V_1, \psi_1) \in \MB$ and $\lam \in \Aut_{\infty}^{m,n}$. Then for each $(a,b) \in \R^m \times \R^n$, we have that
+	\begin{align*}
+			\psi_1 \circ \pi_M \circ (\lam \circ [\phi_0 \times \psi_0])^{-1}(a,b)
+			& = \psi_1 \circ \pi_M \circ [\phi_0^{-1} \times \psi_0^{-1}] \circ \lam^{-1} (a,b) \\
+			& = \psi_1 \circ \phi_0^{-1} \circ \lam^{-1}(a) \\
+			& = \psi_1 \circ \phi_0^{-1} \circ \lam^{-1} \circ \pi_{\R^m}(a,b)
+		\end{align*}
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$, $(N, \MB)$ and $(E, \MC)$ be smooth manifolds and $F: E \rightarrow M \times N$. Then $F$ is smooth iff $\pi_M \circ F$ is smooth and $\pi_N \circ F$ is smooth.  
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $F$ is smooth. 
+			\item $(\impliedby)$: \\
+		\end{itemize}
+\end{proof}
+
+\begin{defn}
+	Let $(M, \MA)$, $(N, \MB)$ be smooth manifolds and $(p_0, q_0) \in M \times N$. We define the \tbf{product inclusion maps}, denoted $\iota^M_{q_0}: M \rightarrow M \times N$ and $\iota^N_{p_0}: N \rightarrow M \times N$, by $\iota^M_{q_0}(p) = (p, q_0)$ and $\iota^N_{p_0}(q) = (p_0, q)$ respectively.
+\end{defn}
+
+\begin{ex}
+	Let $(M, \MA)$, $(N, \MB)$ be smooth manifolds and $(p_0, q_0) \in M \times N$. Then $\iota^M_{q_0}$ and $\iota^N_{p_0}$ are smooth.
+\end{ex}
+
+\begin{proof}
+	
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+\section{Partitions of Unity}
+
+\begin{defn}
+	Let $p \in M$, $U \in \MN_a$ open and $\rho \in C_c^{\infty}(M)$. Then $\rho$ is said to be a \tbf{bump function at p supported in $U$} if 
+	\begin{enumerate}
+		\item $\rho \geq 0$ 
+		\item there exists $V \in \MN_p$ such that $V$ is open and $\rho|_V = 1$ 
+		\item $\supp \rho \subset U$
+	\end{enumerate}
+\end{defn}
+
+\begin{ex}
+	Define $f:\R \rightarrow \R$ by 
+	\[
+	f(t) = 
+	\begin{cases}
+		e^{-\frac{1}{1-t^2}} & t \in (-1,1)\\
+		0 &  t \not \in (-1,1)
+	\end{cases}
+	\]
+	Then $f \in C_c^{\infty}(\R)$.
+\end{ex}
+
+\begin{proof}
+	
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Smooth Functions on Manifolds}	
+
+\begin{defn} \ld{42001}
+	Let $(M, \MA)$ be a smooth manifold and $f: M \rightarrow \R$. Then $f$ is said to be \tbf{smooth} if for each $(U, \phi) \in \MA$, $f \circ \phi^{-1}$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M, \MA)$.
+\end{defn}
+
+\begin{note}
+	When the context is clear, we write $C^{\infty}(M)$ in place of $C^{\infty}(M, \MA)$.
+\end{note}
+
+\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold and $f: M \rightarrow \R$. Then $f$ is smooth iff $f$ is $(\MA, \MA_{\R})$-smooth.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item $(\implies)$: \\
+		Suppose that $f$ is smooth. Let $(U, \phi) \in \MA$. Since $\id_{\R} \circ f \circ \phi^{-1} = f \circ \phi^{-1}$ and $f \circ \phi^{-1}$ is smooth, we have that $\id_{\R} \circ f \circ \phi^{-1}$ is smooth. Since $\MA = \al(\MA)$ and $\MA_{\R} = \al((\R, \id_{\R}))$, \tcb{an exercise in the section on smooth maps} implies that $f$ is $(\MA, \MA_{\R})$-smooth.
+		\item $(\impliedby)$: \\
+		Suppose that $f$ is $(\MA, \MA_{\R})$-smooth. Let $(U, \phi) \in \MA$. Since $(\R, \id_{\R}) \in \MA_{\R}$ and $f \circ \phi^{-1} = \id_{\R} \circ f \circ \phi^{-1}$, we have that $f \circ \phi^{-1}$ is smooth. Since $(U, \phi) \in \MA$ is arbitrary, we have that $f$ is smooth. 
+	\end{itemize}
+\end{proof}
+
+\begin{note}
+	When the context is clear, we write $C^{\infty}(M, \MA)$ in place of $C^{\infty}(M)$.
+\end{note}
+
+\begin{ex}
+	Let $(M, \MA)$ be a smooth manifold, $\MA_0 \subset \MA$. Suppose that $\MA_0$ is an atlas on $M$ and $f:M \rightarrow \R$. Then $f$ is smooth iff for each $(U, \phi) \in \MA_0$, $f \circ \phi^{-1}$ is smooth.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item ($\implies$): \\
+		Suppose that $f$ is smooth. Let $(U, \phi) \in \MA_0$. Since $\MA_0 \subset \MA$, $(U, \phi) \in \MA$. Since $f$ is smooth, $f \circ \phi^{-1}$ is smooth. Since $(U, \phi) \in \MA_0$ is arbitrary, we have that for each $(U, \phi) \in \MA_0$, $f \circ \phi^{-1}$ is smooth.
+		\item ($\impliedby$): \\
+		Suppose that for each $(U, \phi) \in \MA_0$, $f \circ \phi^{-1}$ is smooth. Then for each $(U, \phi) \in \MA_0$, $\id_{\R} \circ f \circ \phi^{-1}$ is smooth. Since $\MA = \al(\MA_0)$ and $\MA_{\R} = \al(\R, \id_{\R})$, \tcb{an exercise in the section on smooth maps} implies that $f$ is $(\MA, \MA_{\R})$-smooth. \tcb{A previous exercise} implies that $f$ is smooth.
+	\end{itemize}
+\end{proof}
+
+\begin{ex}
+	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F:M \rightarrow N$. Then $F$ is smooth iff $F$ is continuous and for each $g \in C^{\infty}(N)$, $g \circ F$ is smooth.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item $(\implies)$: \\
+		Suppose that $F$ is smooth. Then $F$ is continuous. Let $g \in C^{\infty}(N)$. Then $g \circ F$ is smooth. Since $g \in C^{\infty}(N)$ is arbitrary, we have that for each $g \in C^{\infty}(N)$, $g \circ F$ is smooth.
+		\item $(\impliedby)$: \\
+		Suppose that $F$ is continuous and for each $g \in C^{\infty}(N)$, $g \circ F$ is smooth. Let $p \in U$. 
+		
+		
+		Let $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$. Set $W = U \cap F^{-1}(V)$. Since $F$ is continuous, $W$ is open in $M$. Define $G:W \rightarrow V$ by $G \defeq F|_W$. 
+		\tcb{FINISH!!!, maybe use bump functions to go from a smooth $g$ on $V$ to $N$}
+	\end{itemize}
+\end{proof}
 
 \begin{ex} \ld{42002}
 	Let $M$ be a smooth manifold. Then $C^{\infty}(M)$ is a vector space.
@@ -2805,26 +3703,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	Let $f,g \in C^{\infty}(M)$, $\lam \in \R$ and $(U, \phi) \in \MA$. By assumption, $f \circ \phi^{-1}$ and $g \circ \phi^{-1}$ are smooth. Hence 
 	$$(f + \lam g) \circ \phi^{-1} = f \circ \phi^{-1} + \lam g \circ \phi^{-1} $$
 	is smooth. Since $(U, \phi) \in \MA$ is arbitrary, $f + \lam g \in C^{\infty}(M)$. Since $f,g \in C^{\infty}(M)$ and $\lam \in \R$ are arbitrary, $C^{\infty}(M)$ is a vector space.
-\end{proof}
-
-\begin{ex}
-	Let $(M, \MA)$ be a smooth manifold, $\MB \subset \MA$. Suppose that $\MB$ is an atlas on $M$ and $f:M \rightarrow \R$. Then $f$ is smooth iff for each $(U, \phi) \in \MB$, $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth.
-\end{ex}
-
-\begin{proof}\
-	\begin{itemize}
-		\item ($\implies$): \\
-		Suppose that $f$ is smooth. Let $(U, \phi) \in \MB$. Since $\MB \subset \MA$, $(U, \phi) \in \MA$. Since $f$ is smooth, $ f \circ \phi^{-1}$ is smooth. Since $(U, \phi) \in \MB$ is arbitrary, we have that for each $(U, \phi) \in \MB$, $f \circ \phi^{-1}$ is smooth.
-		\item ($\impliedby$): \\
-		Suppose that for each $(V, \psi) \in \MB$, $f \circ \psi^{-1}: \psi(V) \rightarrow \R$ is smooth. Let $(U, \phi) \in \MA$ and $q \in \phi(U)$. Set $p = \phi^{-1}(q)$. Since $\MB$ is an atlas, there exists $(V, \psi) \in \MB$ such that $p \in V$. Since $\MB \subset \MA$, $(V, \psi) \in \MA$. Set $W = U \cap V$ and $\tilde{\phi} = \phi|_W$ and $\tilde{\psi} = \psi|_W$. We note that $\phi(W) \in \MN_q$ and $\phi(W)$ is open. An exercise in the section on smooth manifolds implies that $(W, \tilde{\phi}), (W, \tilde{\psi}) \in \MA$. Therefore $\tilde{\psi} \circ \tilde{\phi}^{-1}: \phi(W) \rightarrow \psi(W)$ is smooth. By assumption, $f \circ \psi^{-1}: \psi(V) \rightarrow \R$ is smooth. This implies that $(f \circ \psi^{-1})|_{\psi(W)}: \psi(W) \rightarrow \R$ is smooth. Hence
-		\begin{align*}
-			(f \circ \phi^{-1})|_{\phi(W)}
-			& = f \circ \tilde{\phi}^{-1} \\
-			& = f \circ (\tilde{\psi}^{-1} \circ \tilde{\psi}) \circ \tilde{\phi}^{-1} \\
-			& = (f \circ \tilde{\psi}^{-1}) \circ (\tilde{\psi} \circ \tilde{\phi}^{-1})
-		\end{align*}
-		is smooth. Since $q \in \phi(U)$ is arbitrary, for each $q \in \phi(U)$, there exists $A \in \MN_q$ such that $A$ is open and $(f \circ \phi^{-1})|_{A}:A \rightarrow \R$ is smooth. This implies that $f \circ \phi^{-1}: \phi(U) \rightarrow \R$ is smooth. Since $(U, \phi) \in \MA$ is arbitrary, $f$ is smooth.
-	\end{itemize}
 \end{proof}
 
 \begin{defn}
@@ -2961,362 +3839,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-\newpage 
-\section{Partitions of Unity}
-
-\begin{defn}
-	Let $p \in M$, $U \in \MN_a$ open and $\rho \in C_c^{\infty}(M)$. Then $\rho$ is said to be a \tbf{bump function at p supported in $U$} if 
-	\begin{enumerate}
-		\item $\rho \geq 0$ 
-		\item there exists $V \in \MN_p$ such that $V$ is open and $\rho|_V = 1$ 
-		\item $\supp \rho \subset U$
-	\end{enumerate}
-\end{defn}
-
-\begin{ex}
-	Define $f:\R \rightarrow \R$ by 
-	\[
-	f(t) = 
-	\begin{cases}
-		e^{-\frac{1}{1-t^2}} & t \in (-1,1)\\
-		0 &  t \not \in (-1,1)
-	\end{cases}
-	\]
-	Then $f \in C_c^{\infty}(\R)$.
-\end{ex}
-
-\begin{proof}
-	
-\end{proof}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage 
-\section{Smooth Maps between Manifolds}
-
-\begin{defn}
-	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then $F$ is said to be 
-	\begin{itemize}
-		\item \tbf{smooth} if for each $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$, $$\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$$ is smooth 
-		\item a \tbf{diffeomorphism} if $F$ is a bijection and $F,F^{-1}$ are smooth. 
-	\end{itemize}
-\end{defn}
-
-\begin{ex}
-	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $\MA_0 \subset \MA$, $\MB_0 \subset \MB$ and $F: M \rightarrow N$. Suppose that $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$. Then $F$ is smooth iff for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$ is smooth.
-\end{ex}
-
-\begin{proof}\
-	\begin{itemize}
-		\item $(\implies)$: \\
-		Suppose that $F$ is smooth. Since $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, by definition, for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$ is smooth.
-		\item $(\impliedby)$: \\
-		Suppose that for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}: \phi(U \cap F^{-1}(V)) \rightarrow \psi(F(U) \cap V)$ is smooth. \\
-		\tcb{FINISH!!!}
-	\end{itemize}
-\end{proof}
-
-\begin{ex}
-	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then $F$ is smooth iff for each $U \subset M$, $U$ is open in $M$ implies that $F|_U: U \rightarrow N$ is smooth. 
-\end{ex}
-
-\begin{proof}\
-	\begin{itemize}
-		\item $(\implies)$: \\
-		Suppose that $F:M \rightarrow N$ is smooth. Let $U \subset M$. Suppose that $U$ is open in $M$. Set $G = F|_U$. Let $(W, \eta) \in \MA$ and $(V, \psi) \in \MB$. Suppose that $W \subset U$. Since $F$ is smooth, $\psi|_{F(W) \cap V} \circ F|_{W \cap F^{-1}(V)} \circ \phi|_{W \cap F^{-1}(V)}^{-1}$ is smooth. Since $W \subset U$, 
-		\begin{itemize}
-			\item $\psi|_{F(W) \cap V} = \psi|_{G(W) \cap V}$
-			\item $\phi|_{W \cap F^{-1}(V)} = \phi|_{W \cap G^{-1}(V)}$
-			\item $F|_{W \cap F^{-1}(V)} = G|_{W \cap G^{-1}(V)}$
-		\end{itemize}
-		we have that 
-		$$\psi|_{G(W) \cap V} \circ G|_{W \cap G^{-1}(V)} \circ \phi|_{W \cap G^{-1}(V)}^{-1} = \psi|_{F(W) \cap V} \circ F|_{W \cap F^{-1}(V)} \circ \phi|_{W \cap F^{-1}(V)}^{-1}$$ 
-		Therefore $\psi|_{G(W) \cap V} \circ G|_{W \cap G^{-1}(V)} \circ \phi|_{W \cap G^{-1}(V)}^{-1}$ is smooth. Since $(W, \eta) \in \MA$ with $W \subset U$ is arbitrary, we have that $\psi|_{G(W) \cap V} \circ G|_{G^{-1}(V)}$\\
-		\tcb{FINISH!!!}
-		\item $(\impliedby)$: \\
-		Suppose that for each $U \subset M$, $U$ is open in $M$ implies that $F|_U: U \rightarrow N$ is smooth. Let $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$. An exercise in the section on smooth open submanifolds implies that $(U, \phi) \in \MA|_{U}$. Set $G \defeq F|_U$. By assumption, $G:U \rightarrow N$ is smooth. Therefore $\psi|_{G(U) \cap V} \circ G_{U \cap G^{-1}(V)} \circ \phi|_{U \cap G^{-1}(V)}^{-1}$ is smooth. Since 
-		\begin{itemize}
-			\item $G^{-1}(V) = U \cap F^{-1}(V)$
-			\item $G(U) = F(U)$
-			\item $\psi|_{G(U) \cap V} \circ G_{U \cap G^{-1}(V)} \circ \phi|_{U \cap G^{-1}(V)}^{-1}$ is smooth
-			\item $\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1} = \psi|_{G(U) \cap V} \circ G_{U \cap G^{-1}(V)} \circ \phi|_{U \cap G^{-1}(V)}^{-1}$
-		\end{itemize}
-		we have that $\psi|_{F(U) \cap V} \circ F|_{U \cap F^{-1}(V)} \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. Since $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ are arbitrary, $F$ is smooth.
-	\end{itemize}
-\end{proof}
-
-\begin{ex}
-	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifold and $F: M \rightarrow N$. If $F$ is smooth, then $F$ is continuous. 
-\end{ex}
-
-\begin{proof}
-	Suppose that $F$ is smooth. Let $p \in M$. Choose $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$ and $F(p) \in V$. Put $\tU = U \cap F^{-1}(V)$ and $\tV = F(U) \cap V$. \\
-	Define $\tphi: \tU \rightarrow \phi(\tU)$ and $\tpsi: \tV \rightarrow \psi(\tV)$ by $$\tphi = \phi|_{\tU}, \hspace{.2cm} \tphi = \psi|_{\tV}$$ Then $\tphi$ and $\tpsi$ are homeomorphisms, $p \in \tU$ and $F(\tU) \subset \tV$. Define $\tF: \phi(\tU) \rightarrow \psi(\tV) $ by $$ \tF = \tpsi \circ F \circ \tphi^{-1}$$  
-	By definition, $\tF$ is smooth and therefore continuous. Since $\phi$ and $\psi$ are homeomorphisms and $F|_{\tU} = \tpsi^{-1} \circ \tF \circ \tphi$, we have that $F|_{\tU}$ is continuous. In particular, $F$ is continuous at $p$ and since $p \in M$ is arbitrary, $F$ is continuous.
-\end{proof}
-
-\begin{ex}
-	Let $(M, \MA)$, $(N, \MB)$ $(E, \MC)$be smooth manifolds and $F: M \rightarrow N$, $G: N \rightarrow E$ smooth. Then $G \circ F: M \rightarrow E$ is smooth.  
-\end{ex}
-
-\begin{proof}
-	Let $(U, \phi) \in \MA$ and $()$
-\end{proof}
-
-\begin{ex}
-	Let  $(M, \MA)$ and $(N, \MB)$ be a smooth manifolds and $F: M \rightarrow N$ a diffeomorphism. Then 
-	\begin{enumerate}
-		\item for each $(V, \psi) \in \MB$, $(F^{-1}(V), \psi \circ F|_{F^{-1}(V)} \in \MA$
-		\item for each $(U, \phi) \in \MA$, $(F(U), \phi \circ F|_{F(U)})^{-1} \in \MB$
-	\end{enumerate}
-\end{ex}
-
-\begin{proof} Set $n \defeq \dim M$. 
-	\begin{enumerate}
-		\item Let $(V, \psi) \in \MB$. 
-		\begin{enumerate}
-			\item Since $(V, \psi) \in \MB$ and $F|_{F^{-1}(V)}^{-1}$ is a homeomorphisms, we have that
-			\begin{itemize}
-				\item $F^{-1}(V)$ is open in $M$.
-				\item $\psi(V)$ is open in $\H^n$
-				\item $\psi \circ F|_{F^{-1}(V)}: F^{-1}(V)  \rightarrow \psi(V)$ is a homeomorphism
-			\end{itemize}
-			So $(F^{-1}(V), \psi \circ F|_{F^{-1}(V)}) \in X^n(M)$. \tcb{discuss in terms of the pullback of charts are charts}
-			\item Since $\psi:V \rightarrow \psi(V)$ and $F|_{F^{-1}(V)}:$ are diffeomorphisms, $$(\psi \circ F) \circ \phi^{-1}: \phi(F^{-1}(V) \cap U) \rightarrow \psi(V \cap F(U))$$
-			and 
-			$$\phi \circ (F^{-1} \circ \psi^{-1}): \psi(F(U) \cap V) \rightarrow \phi(U \cap F^{-1}(V))$$ are smooth. 
-		\end{enumerate}
-		Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
-		\item Let $(U, \phi) \in \MB$. 
-		\begin{enumerate}
-			\item Since $\phi$ and $F^{-1}$ are homeomorphisms, $\phi \circ F^{-1}: F(U) \cap V \rightarrow \phi(U \cap F^{-1}(V))$ is a homeomorphism
-			\item Since $F$ is a diffeomorphism, $$\phi \circ F^{-1} \circ \psi^{-1}: \psi(F(U) \cap V) \rightarrow \phi(U \cap F^{-1}(V))$$ and $$\psi \circ F \circ \phi^{-1}: \phi(F^{-1}(V) \cap U) \rightarrow \psi(V \cap F(U))$$ are smooth. 
-		\end{enumerate}
-		Therefore $(F(U), \phi \circ F^{-1})$ and $(V, \psi)$ are smoothly compatible. Since $\MB$ is maximal, $(F(U), \phi \circ F^{-1}) \in \MB$.
-		\item Let $(U, \phi) \in \MA$. 
-	\end{enumerate}
-\end{proof}
-
-\begin{ex}
-	Let $(M, \MA)$, $(N, \MB)$ and $(O, \MC)$ be smooth manifolds and $F: M \rightarrow N$, $G:N \rightarrow O$. If $F$ and $G$ are smooth, then $G \circ F$ are smooth. 
-\end{ex}
-
-\begin{proof}
-	Let $(U, \phi) \in \MA$ and $(V, \psi) \in \MC$. 
-\end{proof}
-
-\begin{ex}
-	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then $F$ is smooth iff for each $(V, \psi) \in \MB$ with $\psi = (y^1, \ldots, y^n)$, $y^i \circ F$ is smooth.
-\end{ex}
-
-\begin{proof}
-	Suppose that $F$ is smooth. Let $(V, \psi) \in \MB$ with $\psi = (y^1, \ldots, y^n)$. Then for each $i \in \{1, \ldots, n\}$, $F^i$ is smooth. \\
-	Conversely, suppose that for each $(V, \psi) \in \MB$ with $\psi = (y^1, \ldots, y^n)$ and $i \in \{1, \ldots, n\}$, $y^i \circ F$ is smooth. 
-\end{proof}
-
-\begin{ex}
-	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. If $F$ is a diffeomorphism, then $F$ is a homeomorphism. 
-\end{ex}	
-
-\begin{proof}
-	Suppose that $F$ is a diffeomorphism. By definition, $F$ and  $F^{-1}$ are smooth. The previous exercise implies that $F$ and $F^{-1}$ are continuous. Hence $F$  is a homeomorphism. 
-\end{proof}
-
-
-\begin{defn}
-	Let $(N, \MB)$ be a smooth  $n$-dimensional manifold, $F: M \rightarrow N$ smooth and $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$. For $i \in \{1, \dots, n\}$, We define the \tbf{$i$-th component of $F$ with respect to $(V, \psi)$},  denoted $F^i: V \rightarrow \R$, by $$F^i = y^i \circ F$$  
-\end{defn}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage 
-\section{Smooth Maps on Open and Boundary Submanifolds}
-
-
-\begin{ex}
-	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $p \in U$ and $f \in C^{\infty}(M, \MA)$. Then $f|_U \in C^{\infty}(U, \MA|_U)$.
-\end{ex}
-
-\begin{proof}
-	Let 
-\end{proof}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage 
-\section{Smooth Maps and Product Manifolds}
-
-\begin{defn}
-	Let $M$ and $N$ be smooth manifolds. We define the \tbf{projection maps onto $M$ and $N$}, denoted by $\pi_M: M \times N \rightarrow M$ and $\pi_N: M \times N \rightarrow N$  respectively, by 
-	\begin{itemize}
-		\item $\pi_M(p,q) = p$ 
-		\item $\pi_N(p,q) = q$ 
-	\end{itemize}
-\end{defn}
-
-\begin{ex}
-	Let $M$ and $N$ be smooth manifolds. Then $\pi_M: M \times N \rightarrow M$ and $\pi_N: M \times N \rightarrow N$ are smooth.
-\end{ex}
-
-\begin{proof}
-	Set $m = \dim M$ and $n = \dim N$. Let $(U, \phi)$, $(U', \phi') \in \MA_M$ and $(V, \psi) \in \MA_N$. Then for each $(a,b) \in \phi(U) \times \psi(V)$
-	\begin{align*}
-		\phi'|_{U' \cap U} \circ \pi_M \circ [\phi \times \psi]^{-1}|_{\phi(U) \times \psi(V)} (a,b)
-		& = \phi'|_{U' \cap U} \circ \pi_M \circ [\phi|_{\phi(U)}^{-1} \times \psi|_{\psi(V)}^{-1}] (a,b)\\ 
-		& = \phi' \circ \phi^{-1}(a) 
-	\end{align*}
-	Since $(a,b) \in \phi(U) \times \psi(V)$ is arbitrary, 
-	$$\phi'|_{U' \cap U} \circ \pi_M \circ [\phi \times \psi]^{-1}|_{\phi(U \cap U') \times \psi(V)} = \phi'|_{U' \cap U} \circ \phi|_{U' \cap U}^{-1} \circ \prj_1|_{\phi(U \cap U') \times \psi(V)}$$ 
-	where $\prj_1: \R^m \times \R^n \rightarrow \R^m$ is the usual projection map. Since $(U, \phi)$, $(U', \phi') \in \MA_M$, $(U, \phi)$ and $(U', \phi')$ are smoothly compatible. Hence $\phi'|_{U \cap U'} \circ \phi|_{U \cap U'}^{-1}$ is smooth and therefore $\phi'|_{U' \cap U} \circ \pi_M \circ [\phi \times \psi]^{-1}|_{\phi(U) \times \psi(V)}$ is smooth. Since \tcb{fix here } and $(V, \psi) \in \MA_N$ are arbitrary, we have that $\pi_M: M \times N \rightarrow M$ is smooth.  we have that $(U, \phi)$ and $(U', \phi')$ are smoothly compatible. Thus $\phi'|_{U \cap U'} \circ \phi^{-1}|_{U \cap U'}^{-1}$ is smooth.  
-\end{proof}
-
-\begin{defn}
-	Let $M$ and $N$ be smooth manifolds and $(p,q) \in M \times N$. We define the \tbf{slice maps at $q$ and $p$}, denoted by $\iota^M_q: M \rightarrow M \times N$ and $\iota^N_p: N \rightarrow M \times N$ respectively, by 
-	\begin{itemize}
-		\item $\iota^M_q(a) = (a, q)$ 
-		\item $\iota^N_p(b) = (p, b)$ 
-	\end{itemize}
-\end{defn}
-
-\begin{ex}
-	Let $M$ and $N$ be smooth manifolds and $(p,q) \in M \times N$. Then $\iota^M_q: M \rightarrow M \times N$ and $\iota^N_p: N \rightarrow M \times N$ are smooth
-	\begin{enumerate}
-		\item $\iota^M_q: M \rightarrow M \times N$ and $\iota^N_p: N \rightarrow M \times N$ are smooth
-		\item 
-	\end{enumerate}
-\end{ex}
-
-\begin{proof}
-	Let $()$
-\end{proof}
 
 
 
@@ -4655,7 +5177,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \begin{proof} We note that 
 	\begin{itemize}
 		\item $\Obj(\VecBuninf) \subset \Obj(\Buninf)$
-		\item for each $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\Buninf)$ with $\rnk (E_1, M_1, \pi_1) = k_1$ and $\rnk (E_2, M_2, \pi_2) = k_2$, 
+		\item for each $(E_1, M_1, \pi_1), (E_2, M_2, \pi_2) \in \Obj(\VecBuninf)$ with $\rnk (E_1, M_1, \pi_1) = k_1$ and $\rnk (E_2, M_2, \pi_2) = k_2$, 
 		$$\Hom_{\VecBuninf}((E_1, M_1, \pi_1), (E_2, M_2, \pi_2)) = \Hom_{\Buninf}((E_1, M_1, \pi_1, \R^{k_1}), (E_2, M_2, \pi_2, \R^{k_2}))$$
 	\end{itemize}
 	So $\Buninf$ is a full subcategory of $\MC$.
