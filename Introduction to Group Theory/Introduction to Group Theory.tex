@@ -1,0 +1,306 @@
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{book}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+\input{"../Book Preamble/Book Preamble.tex"}
+
+% Glossary - Notation
+\glsxtrnewsymbol[description={finite measures on $(X, \MA)$}]{n000001}{$\MM_+(X, \MA)$}
+\glsxtrnewsymbol[description={velocity}]{v}{\ensuremath{v}}
+
+
+\makeindex
+
+\begin{document}
+	
+	\frontmatter
+	
+	\title{Introduction to Group Theory}
+	
+	%    Remove any unused author tags.
+	
+	%    author one information
+	\author{Carson James}
+	\thanks{}
+	
+	\date{}
+	
+	\maketitle
+	
+	%    Dedication.  If the dedication is longer than a line or two,
+	%    remove the centering instructions and the line break.
+	%\cleardoublepage
+	%\thispagestyle{empty}
+	%\vspace*{13.5pc}
+	%\begin{center}
+	%  Dedication text (use \\[2pt] for line break if necessary)
+	%\end{center}
+	%\cleardoublepage
+	
+	%    Change page number to 6 if a dedication is present.
+	\setcounter{page}{4}
+	
+	\tableofcontents
+	\printunsrtglossary[type=symbols,style=long,title={Notation}]
+	
+	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+	%\include{}
+	
+	\mainmatter
+	%    Include main chapters here.
+	%\include{}
+	
+	\chapter*{Preface}
+	\addcontentsline{toc}{chapter}{Preface}
+	
+	\begin{flushleft}
+		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
+	\end{flushleft}
+	
+	\newpage
+	
+	
+	\chapter{Representation Theory}
+	
+	\section{Tannaka-Krein Duality}
+	
+	\begin{defn}
+		Let $G \in \Obj(\TopMon)$, $V \in \Obj(\Top\Vect_{\C})$ and $\pi \in \Hom_{\TopMon}(G, \End_{\TopVect_{\C}}(V))$. Then $(V, \pi)$ is said to be a \tbf{$\C$-representation of $G$}.  We denote the set of $\C$-representations of $G$ by $\MR(G, \C)$.
+	\end{defn}
+
+	\begin{defn}
+		 Let $(V, \pi) \in \MR(G< \C)$. We define the \tbf{dimension of $(V, \pi)$}, denoted $\dim (V, \pi)$, by $\dim (V, \pi) = \dim V$. Then $(V, \pi)$ is said to be \tbf{finite dimensional} if $\dim (V, \pi) < \infty$. 
+	\end{defn}
+
+	\begin{defn}
+		Let $G \in \Obj(\TopMon)$, $(V, \pi), (W, \rho) \in \MR(G, \C)$ and $T\in \Hom_{\TopVect_{\C}}(V, W)$ Then $T$ is said to be \tbf{$(\pi, \rho)$-equivariant} if for each $g \in G$, $T \circ \pi(g) = \rho(g) \circ T$, i.e. the following diagram commutes:
+		\[
+		\begin{tikzcd}
+			V \arrow[r, "T"] \arrow[d, "\pi(g)"']  & W  \arrow[d, "\rho(g)"] \\
+			V \arrow[r, "T"']                   & W
+		\end{tikzcd}
+		\]
+	\end{defn}
+
+	\begin{defn} \ld{13009}
+		Let $G \in \Obj(\TopMon)$. We define $\Rep(G, \C)$ by 
+		\begin{itemize}
+			\item $\Obj(\Rep(G, \C)) = \MR(G, \C)$.
+			\item for $(V, \pi),(W, \rho) \in \Obj(\Rep(G, \C))$, 
+			$$\Hom_{\Rep(G, \C)}((V, \pi), (W, \rho)) = \{T \in \Hom_{\TopVect_{\C}}(V, W): T \text{ is $(\pi, \rho)$-equivariant} \}$$
+			\item for $(V, \pi), (W, \rho), (Z, \mu) \in \Obj(\Rep(G, \C))$, $T \in \Hom_{\Rep(G, \C)}((V, \pi), (W, \rho))$ and $S \in  \Hom_{\Rep(G, \C)}((W, \rho), (Z, \mu))$, $$S \circ_{\Rep(G, \C)} T = S \circ T$$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $G \in \Obj(\TopMon)$. Then $\Rep(G, \C)$ is a category.
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+
+	\begin{defn}
+		Let $G \in \Obj(\TopMon)$. We define the \tbf{forgetful functor from $\Rep(G, \C)$ to $\TopVect_{\C}$}, denoted $U: \Rep(G, \C) \rightarrow \TopVect_{\C}$, by 
+		\begin{itemize}
+			\item $U (V, \pi) = V$, \quad $(V, \pi) \in \Obj(\Rep(G, \C))$
+			\item $U (T) = T$, \quad $T \in \Hom_{\Rep(G, \C)}((V, \pi), (W, \rho))$.
+		\end{itemize}
+	\end{defn}
+
+
+	\begin{defn}
+		Let $G \in \Obj(\TopMon)$ and $g \in G$. We define $\hat{g}: U \Rightarrow U$ by $\hat{g}_{(V, \pi)} = \pi(g)$. 
+	\end{defn}
+
+	\begin{ex}
+		Let $G \in \Obj(\TopMon)$ and $g \in G$. Then 
+		\begin{enumerate}
+			\item $\hat{g}: U \Rightarrow U$ is a natural transformation.
+			\item $\hat{g} \in \End_{\TopVect_{\C}^{\Rep(G, \C)}}(U)$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item \begin{enumerate}
+				\item Let $(V, \pi) \in \Obj(\Rep(G, \C))$. By definition,  
+				\begin{align*}
+					\hat{g}_{(V, \pi)}
+					& = \pi(g) \\
+					& \in \End_{\TopVect_{\C}}(V) \\
+					& = \Hom_{\TopVect_{\C}}(U(V, \pi), U(V, \pi))
+				\end{align*}
+				\item Let $(V, \pi), (W, \rho) \in \Obj(\Rep(G, \C))$ and $T \in \Hom_{\Rep(G, \C)}((V, \pi), (W, \rho))$. By definition, $T \in \Hom_{\TopVect_{\C}}(V, W)$ and $T$ is $(\pi, \rho)$-equivariant. Therefore
+				\begin{align*}
+					U(T) \circ \hat{g}_{(V, \pi)}
+					& = T \circ \pi(g) \\
+					& = \rho(g) \circ T \\
+					& = \hat{g}_{(W, \rho)} \circ U(T) 
+				\end{align*}
+				i.e. the following diagram commutes: 
+				\[ 
+				\begin{tikzcd}
+					U(V, \pi)  \arrow[r, "\hat{g}_{(V,\pi)}"]  \arrow[d, "U(T)"']  & U(V, \pi)   \arrow[d, "U(T)"]\\
+					U(W, \rho) \arrow[r, "\hat{g}_{(W, \rho)}"] &  U(W, \rho) \\
+				\end{tikzcd}
+				\]
+			\end{enumerate}
+			Thus $\hat{g}: U \Rightarrow U$ is a natural transformation. 
+			\item The previous part implies that  
+			\begin{align*}
+				\hat{g} 
+				& \in \Hom_{\TopVect_{\C}^{\Rep(G, \C)}}(U, U) \\
+				& = \End_{\TopVect_{\C}^{\Rep(G, \C)}}(U)
+			\end{align*} 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $G \in \Obj(\TopMon)$ and $(V, \pi) \in \Obj(\Rep(G, \C))$. We define the \tbf{$(V, \pi)$-projection}, denoted $\pi_{(V, \pi)}: \End_{\TopVect_{\C}^{\Rep(G, \C)}}(U) \rightarrow \End_{\TopVect_{\C}}(V)$, by $\pi_{(V, \pi)}(\al) = \al_{(V, \pi)}$. We define the \tbf{topology of endomorphisms of $U$}, denoted $\MT_{\ME(U)}$, by 
+		$$\MT_{\ME(U)} = \tau(\pi_{(V, \pi)}: (V, \pi) \in \Rep(G, \C))$$
+	\end{defn}
+	
+	\begin{defn}
+		\tcb{define addition of endomorphisms of $U$ pointwise}
+	\end{defn}
+	
+	\begin{ex}
+		Let $G \in \Obj(\TopMon)$. Then $(\End_{\TopVect_{\C}^{\Rep(G, \C)}}(U), \MT_{\ME(U)})$ is a topological unital algebra.
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Groupoids}
+	
+	\begin{defn}
+		
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\backmatter
+	\begin{thebibliography}{4}
+		\bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
+		
+		\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
+		
+		\bibitem{foranal}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Fourier\%20Analysis/Introduction\%20to\%20Fourier\%20Analysis.pdf}{Introduction to Fourier Analysis}
+		
+		\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
+		
+		
+		
+	\end{thebibliography}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
+

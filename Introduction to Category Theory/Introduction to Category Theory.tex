@@ -120,9 +120,37 @@
 		Let $x$ be a class. Then $x$ is said to be a set iff there exists a class $A$ such that $x \in A$. 
 	\end{defn}
 
+	\begin{defn}
+		product of two classes
+	\end{defn}
+	
+	\begin{defn}
+		Let $A$, $B$ be classes and $R \subset A \times B$. elation from $A$ to $B$.
+	\end{defn}
+
 	\begin{note}
 		We can define cartesion products, relations, and functions for classes just like for sets. 
 	\end{note}
+
+	\begin{ax} \lax{11001.1a} \textbf{Axiom of Extensionality:}  \\
+		Let $x$ and $y$ be classes. If for each set $a$, $a \in x$ iff $a \in y$, then $x = y$.
+	\end{ax}
+	
+	\begin{ax} \lax{11001.1b} \textbf{Axiom of Pairing:}  \\
+		Let $a$, $b$ be sets. Then there exists a set $p$ such that for each for each set $x$, $x \in p$ iff $x = a$ or $x = b$. 
+	\end{ax}
+
+	\begin{ex}
+		Let $a$, $b$ be sets. Then there exists a unique set $p$ such that for each for each set $x$, $x \in p$ iff $x = a$ or $x = b$. 
+	\end{ex}
+	
+	\begin{proof}
+		By \rax{11001.1b} implies that there exists a set $p$ such that for each for each set $x$, $x \in p$ iff $x = a$ or $x = b$. Let $q$ be a set. Suppose that for each for each set $x$, $x \in q$ iff $x = a$ or $x = b$. Then  
+	\end{proof}
+
+	\begin{defn}
+		Let $x$ and $y$ be sets. We define $(x,y) = \{\}$, denoted 
+	\end{defn}
 	
 	\begin{ax} \lax{11001.1} \textbf{Axiom of Replacement:}  \\
 		Let $A$, $B$ be classes and $f:A \rightarrow B$. If $A$ is a set, then $f(A)$ is a set. 
@@ -158,8 +186,13 @@
 		Then there exists a class $A$ such that for each set $G$ and  $*: G \times G \rightarrow G$, $(G, *) \in A$ iff $\phi(G, *)$ $(G, *) \text{ ``is a group"}$. Therefore, for each group $(G, *)$, $(G, *) \in A$.
 		\textbf{FINISH!!!}
 	\end{proof}
-
 	
+	
+	\subsection{TO DO}
+	\begin{enumerate} 
+		\item \tcb{ cover existence of subclasses, products of classes to be able to define class relations and subsequently class functions}
+		\item 
+	\end{enumerate}
 	
 	
 	
@@ -203,16 +236,38 @@
 		Let $\MC_0$, $\MC_1$ be classes and $\dom, \cod : \MC_1 \rightarrow \MC_0$ class functions. Set $\MC = (C_0, C_1, \dom, \cod)$. Then $\MC$ is said to be a \textbf{category} if 
 		\begin{enumerate}
 			\item (composition): for each $f,g \in C_1$, if $\cod(f) = \dom(g)$, then there exists $g \circ f \in C_1$ such that $\dom(g \circ f) = \dom(f)$ and $\cod(g \circ f) = \cod(g)$
-			\item (associativity): for each $f,g,h \in C_1$, if $\cod(f) = \dom(g)$ and $\cod(g) = \dom(h)$, then $$(h \circ g) \circ f = h \circ (g \circ f)$$  
-			\item (identity): for each $X \in \MC_0$, there exists $\id_{X} \in C_1$ such that $\dom(\id_X) = \cod(\id_X) = X$ and for each $f, g \in C_1$, if $\dom(f) = X$ and $\cod(g) = X$, then $$f \circ \id_X = f \text{ and } \id_X \circ g = g$$ 
+			\item (associativity): for each $f,g,h \in C_1$, if $\cod(f) = \dom(g)$ and $\cod(g) = \dom(h)$, then $$(h \circ_{\MC} g) \circ_{\MC} f = h \circ_{\MC} (g \circ_{\MC} f)$$  
+			\item (identity): for each $X \in \MC_0$, there exists $\id^{\MC}_{X} \in C_1$ such that $\dom(\id^{\MC}_X) = \cod(\id^{\MC}_X) = X$ and for each $f, g \in C_1$, if $\dom(f) = X$ and $\cod(g) = X$, then $$f \circ_{\MC} \id^{\MC}_X = f \text{ and } \id^{\MC}_X \circ_{\MC} g = g$$ 
 		\end{enumerate}
 		We define the
 		\begin{itemize}
 			\item \textbf{objects of $\MC$}, denoted $\Obj(\MC)$, by $\Obj(\MC) = C_0$
 			\item \textbf{morphisms of $\MC$}, denoted $\Hom_{\MC}$, by $\Hom_{\MC} = C_1$
 		\end{itemize}
-		For $X, Y \in \Obj(\MC)$, we define the \textbf{morphisms from $X$ to $Y$}, denoted $\Hom_{\MC}(X, Y)$, by $\Hom_{\MC}(X, Y) = \{f \in \Hom(\MC): \dom(f) = X \text{ and } \cod(f) = Y\}$.
+		For $X, Y \in \Obj(\MC)$, we define the \textbf{morphisms of $\MC$ from $X$ to $Y$}, denoted $\Hom_{\MC}(X, Y)$, by $\Hom_{\MC}(X, Y) = \{f \in \Hom(\MC): \dom(f) = X \text{ and } \cod(f) = Y\}$.
 	\end{defn}
+
+	\begin{note}
+		When the context is clear, we write $g \circ f$ and $\id_X$ in place of $g \circ_{\MC} f $ and $\id^{\MC}_{X}$ respectively.
+	\end{note}
+
+	\begin{defn}
+		Let $\MC$ be a category. We define $\Hom_{\MC}^{(2)} = \{(g,f) \in \Hom_{\MC} \times \Hom_{\MC} : \cod(f) = \dom(g) \}$.
+	\end{defn}
+
+	\begin{ex}
+		Let $\MC$ be a category. Then 
+		\begin{enumerate}
+			\item $\circ \in \MR$
+			\item $\circ: \Hom_\MC^{(2)} \rightarrow \Hom_{\MC}$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		\begin{itemize}
+			Let $(g, f ) \in \Hom_{\MC}^{(2)}$. Since $\MC$ is a category, there exists $g$
+		\end{itemize}
+	\end{proof}
 
 	\begin{note} 
 		We typically define a category $\MC$ by specifying 
@@ -486,8 +541,67 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Subcategories}
+
+\begin{defn}
+	Let $\MC$ and $\MD$ be categories. Then $\MD$ is said to be a \tbf{subcategory of $\MC$}, denoted $\MD \subset \MC$, if 
+	\begin{enumerate}
+		\item $\Obj(\MD) \subset \Obj(\MC)$
+		\item for each $A, B \in \Obj(\MD)$, $\Hom_{\MD}(A,B) \subset \Hom_{\MC}(A, B)$
+		\item for each $A,B,C \in \Obj(\MD)$, $d \in \Hom_{\MD}(A, B)$ and $g \in \Hom_{\MD}(B, C)$, $g \circ_{\MD} f = g \circ_{\MC} f$
+		\item for each $A \in \Obj(\MD)$, $\id_A $
+	\end{enumerate}
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
-	\subsection{Product Category}
+	\subsection{Product Categories}
 	
 	\begin{defn}
 		Let $\MC$ and $\MD$ be categories. We define the \textbf{product category of $\MC$ and $\MD$}, denoted $\MC \times \MD$ by 
@@ -617,7 +731,7 @@
 	\end{proof}
 
 	\begin{defn}
-		Let $\MC, \MD$ be categories and $X \in \MD$. We define the \textbf{constant functor} from $\MC$ onto $X$, denoted $\Del^{\MC}_X: \MC \rightarrow \MD$ by 
+		Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. We define the \textbf{constant functor} from $\MC$ onto $X$, denoted $\Del^{\MC}_X: \MC \rightarrow \MD$ by 
 		\begin{itemize}
 			\item $\Del^{\MC}_X (A) = X$
 			\item $\Del^{\MC}_X (f) = \id_X$
@@ -2262,6 +2376,35 @@
 	
 	
 	
+	\chapter{Monoidal Categories}
+	
+	\begin{defn}
+		
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -2273,9 +2416,28 @@
 	\appendix
 	\chapter{App}
 	
+	\section{Reading Diagrams and associated digraphs of diagrams}
+	
+	\begin{defn}
+		Let 
+		\[ 
+		\begin{tikzcd}[baseline= 7]
+			C \arrow[r, "g"] \arrow[d, "h"'] & A \arrow[d, "f"] \\
+			A \arrow[r, "f"'] & B\\
+		\end{tikzcd}
+		\implies
+		\begin{tikzcd}[baseline= 7]
+			C \arrow[bend right=60, swap]{r}{h} \arrow[bend right=-60]{r}{g} & A  \\
+		\end{tikzcd}
+		\]
+		
+		see an intro to the language of category theory by roman for description
+	\end{defn}
 	
 	
-	
+	\begin{defn}
+		A diagram is said to be \tbf{commutative} if for each path of length $\geq 2$, in the associated digraph gives the same morphism.  
+	\end{defn}
 	
 	
 	
