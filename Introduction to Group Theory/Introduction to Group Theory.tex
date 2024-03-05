@@ -97,94 +97,199 @@
 	\newpage
 	
 	
+	\section{Category Theory}
+	
+	\begin{itemize}
+		\item $\Hilb$:  
+		\begin{itemize}
+			\item $\Obj(\Hilb) = \{H: H \text{ is a Hilbert space}\}$
+			\item $\Hom_{\Hilb}(H_1, H_2) = \{T \in \Vect_{\C}(H_1, H_2): T \text{ is continuous}\}$
+		\end{itemize}
+		\item $\Mon$
+	\end{itemize}
+	
+	
 	\chapter{Representation Theory}
 	
-	\section{Tannaka-Krein Duality}
+	\section{Representations of Groups}
+
+	
+	\subsection{The Unitary Group}
 	
 	\begin{defn}
-		Let $G \in \Obj(\TopMon)$, $V \in \Obj(\Top\Vect_{\C})$ and $\pi \in \Hom_{\TopMon}(G, \End_{\TopVect_{\C}}(V))$. Then $(V, \pi)$ is said to be a \tbf{$\C$-representation of $G$}.  We denote the set of $\C$-representations of $G$ by $\MR(G, \C)$.
+		Let $H_1, H_2 \in \Obj(\Hilb)$. We define the \tbf{unitary group from $H_1$ to $H_2$}, denoted $U(H_1, H_2)$, by 
+		$$U(H_1, H_2) = \{T \in \Iso_{\Hilb}(H_1, H_2): T^* = T^{-1}\}$$ 
+		We write $U(H)$ in place of $U(H,H)$. We equip $U(H_1, H_2)$ with the strong operator topology. 
 	\end{defn}
 
-	\begin{defn}
-		 Let $(V, \pi) \in \MR(G< \C)$. We define the \tbf{dimension of $(V, \pi)$}, denoted $\dim (V, \pi)$, by $\dim (V, \pi) = \dim V$. Then $(V, \pi)$ is said to be \tbf{finite dimensional} if $\dim (V, \pi) < \infty$. 
-	\end{defn}
+	\begin{ex}
+		Let $H \in \Obj(\Hilb)$. Then $\MT_{U(H)}^s = \MT_{U(H)}^w$. \tcb{strong weak operator topologies coincide}
+	\end{ex}
+
+	\begin{ex}
+		Let $H \in \Obj(\Hilb)$. Then $U(H)$ is a topological group.
+	\end{ex}
+	
+	\begin{proof}
+		content...
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Unitary representations}
 
 	\begin{defn}
-		Let $G \in \Obj(\TopMon)$, $(V, \pi), (W, \rho) \in \MR(G, \C)$ and $T\in \Hom_{\TopVect_{\C}}(V, W)$ Then $T$ is said to be \tbf{$(\pi, \rho)$-equivariant} if for each $g \in G$, $T \circ \pi(g) = \rho(g) \circ T$, i.e. the following diagram commutes:
+		Let $G \in \Obj(\TopGrp)$, $H \in \Obj(\Hilb)$ and $\pi \in \Hom_{\TopGrp}(G, U(H))$. Then $(H, \pi)$ is said to be a \tbf{unitary representation of $G$}. We define the \tbf{dimension of $(H, \pi)$}, denoted $\dim (H, \pi)$, by $\dim (H, \pi) \defeq \dim V$.
+	\end{defn}
+	
+	\begin{defn}
+		Let $G \in \Obj(\TopGrp)$, $(H_{\pi}, \pi)$, $(H_{\rho}, \rho)$ unitary representations of $G$ and $T \in \Hom_{\Hilb}(H_{\pi}, H_{\rho})$. Then $T$ is said to be \tbf{$(\pi, \rho)$-equivariant} if for each $g \in G$, $T \circ \pi(g) = \rho(g) \circ T$, i.e. the following diagram commutes:
 		\[
 		\begin{tikzcd}
-			V \arrow[r, "T"] \arrow[d, "\pi(g)"']  & W  \arrow[d, "\rho(g)"] \\
-			V \arrow[r, "T"']                   & W
+			H_{\pi} \arrow[r, "T"] \arrow[d, "\pi(g)"']  & H_{\rho}  \arrow[d, "\rho(g)"] \\
+			H_{\pi} \arrow[r, "T"']                   & H_{\rho}
 		\end{tikzcd}
 		\]
 	\end{defn}
 
 	\begin{defn} \ld{13009}
-		Let $G \in \Obj(\TopMon)$. We define $\Rep(G, \C)$ by 
+		Let $G \in \Obj(\TopGrp)$. We define $\URep(G)$ by 
 		\begin{itemize}
-			\item $\Obj(\Rep(G, \C)) = \MR(G, \C)$.
-			\item for $(V, \pi),(W, \rho) \in \Obj(\Rep(G, \C))$, 
-			$$\Hom_{\Rep(G, \C)}((V, \pi), (W, \rho)) = \{T \in \Hom_{\TopVect_{\C}}(V, W): T \text{ is $(\pi, \rho)$-equivariant} \}$$
-			\item for $(V, \pi), (W, \rho), (Z, \mu) \in \Obj(\Rep(G, \C))$, $T \in \Hom_{\Rep(G, \C)}((V, \pi), (W, \rho))$ and $S \in  \Hom_{\Rep(G, \C)}((W, \rho), (Z, \mu))$, $$S \circ_{\Rep(G, \C)} T = S \circ T$$
+			\item $\Obj(\URep(G)) = \{(H, \pi): (H, \pi) \text{ is a unitary representation of $G$}\}$.
+			\item for $(H_{\pi}, \pi),(H_{\rho}, \rho) \in \Obj(\URep(G))$, 
+			$$\Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho)) = \{T \in \Hom_{\Hilb}(H_{\pi}, H_{\rho}): T \text{ is $(\pi, \rho)$-equivariant} \}$$
+			\item for $(H_{\pi}, \pi), (H_{\rho}, \rho), (H_{\mu}, \mu) \in \Obj(\URep(G))$, $T \in \Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho))$ and \\
+			$S \in  \Hom_{\URep(G)}((H_{\rho}, \rho), (H_{\mu}, \mu))$, 
+			$$S \circ_{\URep(G)} T = S \circ T$$
 		\end{itemize}
 	\end{defn}
 	
 	\begin{ex}
-		Let $G \in \Obj(\TopMon)$. Then $\Rep(G, \C)$ is a category.
+		Let $G \in \Obj(\TopGrp)$. Then $\URep(G)$ is a category.
 	\end{ex}
-
+	
 	\begin{proof}
-		
+		\tcb{FINISH!!!}
 	\end{proof}
 
 	\begin{defn}
-		Let $G \in \Obj(\TopMon)$. We define the \tbf{forgetful functor from $\Rep(G, \C)$ to $\TopVect_{\C}$}, denoted $U: \Rep(G, \C) \rightarrow \TopVect_{\C}$, by 
+		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a subspace. Then $E$ is said to be 
 		\begin{itemize}
-			\item $U (V, \pi) = V$, \quad $(V, \pi) \in \Obj(\Rep(G, \C))$
-			\item $U (T) = T$, \quad $T \in \Hom_{\Rep(G, \C)}((V, \pi), (W, \rho))$.
-		\end{itemize}
+			\item \tbf{nontrivial} if $E \neq H, \varnothing$
+			\item \tbf{$(H, \pi)$-invariant} if for each $g \in G$, $\pi(g)(E) \subset E$
+		\end{itemize} 
 	\end{defn}
 
+	
+	
+	\begin{defn}
+		Let $G \in \Obj(\Grp)$ and $\K \in \Obj(\Field)$ and $(V, \pi) \in \Obj(\Rep(G, \K))$. Then $(V, \pi)$ is said to be \tbf{irriducible} if for each subspace $E \subset V$, $E$ is trivial or $E$ is not  $(V, \pi)$-invariant.
+	\end{defn}
+	
 
 	\begin{defn}
-		Let $G \in \Obj(\TopMon)$ and $g \in G$. We define $\hat{g}: U \Rightarrow U$ by $\hat{g}_{(V, \pi)} = \pi(g)$. 
+		Let $G \in \Obj(\TopGrp)$. Let $(H_{\pi}, \pi), (H_{\rho}, \rho) \in \URep(G)$. Then $(H_{\pi}, \pi)$ and $(H_{\rho}, \rho)$ are said to be \tbf{unitarily equivalent} if there exists $\Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho)) \cap U(H_{\pi, H_{\rho}}) \neq \varnothing$.
+	\end{defn}
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage 
+
+	\section{Tannaka Duality}
+	
+	\begin{defn}
+		Let $G \in \Obj(\TopGrp)$. We define the \tbf{forgetful functor from $\URep(G)$ to $\Hilb$}, denoted $U: \Rep(G) \rightarrow \Hilb$, by 
+		\begin{itemize}
+			\item $U (H, \pi) = H$, \quad $(H, \pi) \in \Obj(\URep(G))$
+			\item $U (T) = T$, \quad $T \in \Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho))$.
+		\end{itemize}
+	\end{defn}
+	
+	
+	\tcb{Need to find out if quotienting by equivalence of isomorphism makes $\URep(G)$ a small category so that we can talk about the functor category $\Hilb^{\URep(G)}$ containing the forgetful functor as an object.}
+
+	\begin{defn}
+		Let $G \in \Obj(\TopGrp)$ and $g \in G$. We define $\hat{g}: U \Rightarrow U$ by 
+		$$\hat{g}_{(H, \pi)} = \pi(g)$$
 	\end{defn}
 
 	\begin{ex}
-		Let $G \in \Obj(\TopMon)$ and $g \in G$. Then 
+		Let $G \in \Obj(\TopGrp)$ and $g \in G$. Then 
 		\begin{enumerate}
 			\item $\hat{g}: U \Rightarrow U$ is a natural transformation.
-			\item $\hat{g} \in \End_{\TopVect_{\C}^{\Rep(G, \C)}}(U)$
+			\item $\hat{g} \in \Aut_{\Hilb^{\URep(G)}}(U)$
 		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
 			\item \begin{enumerate}
-				\item Let $(V, \pi) \in \Obj(\Rep(G, \C))$. By definition,  
+				\item Let $(H, \pi) \in \Obj(\URep(G))$. By definition,  
 				\begin{align*}
-					\hat{g}_{(V, \pi)}
+					\hat{g}_{(H, \pi)}
 					& = \pi(g) \\
-					& \in \End_{\TopVect_{\C}}(V) \\
-					& = \Hom_{\TopVect_{\C}}(U(V, \pi), U(V, \pi))
+					& \in U(H) \\
+					& \subset \Aut_{\Hilb}(U(H, \pi))
 				\end{align*}
-				\item Let $(V, \pi), (W, \rho) \in \Obj(\Rep(G, \C))$ and $T \in \Hom_{\Rep(G, \C)}((V, \pi), (W, \rho))$. By definition, $T \in \Hom_{\TopVect_{\C}}(V, W)$ and $T$ is $(\pi, \rho)$-equivariant. Therefore
+				\item Let $(H_{\pi}, \pi), (H_{\rho}, \rho) \in \Obj(\URep(G))$ and $T \in \Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho))$. By definition, $T \in \Hom_{\Hilb}(H_{\pi}, H_{\rho})$ and $T$ is $(\pi, \rho)$-equivariant. Therefore
 				\begin{align*}
-					U(T) \circ \hat{g}_{(V, \pi)}
+					U(T) \circ \hat{g}_{(H_{\pi}, \pi)}
 					& = T \circ \pi(g) \\
 					& = \rho(g) \circ T \\
-					& = \hat{g}_{(W, \rho)} \circ U(T) 
+					& = \hat{g}_{(H_{\rho}, \rho)} \circ U(T) 
 				\end{align*}
 				i.e. the following diagram commutes: 
 				\[ 
 				\begin{tikzcd}
-					U(V, \pi)  \arrow[r, "\hat{g}_{(V,\pi)}"]  \arrow[d, "U(T)"']  & U(V, \pi)   \arrow[d, "U(T)"]\\
-					U(W, \rho) \arrow[r, "\hat{g}_{(W, \rho)}"] &  U(W, \rho) \\
+					U(H_{\pi}, \pi)  \arrow[r, "\hat{g}_{(H_{\pi} ,\pi)}"]  \arrow[d, "U(T)"']  & U(H_{\pi}, \pi)   \arrow[d, "U(T)"]\\
+					U(H_{\rho}, \rho) \arrow[r, "\hat{g}_{(H_{\rho}, \rho)}"] &  U(H_{\rho}, \rho) \\
+				\end{tikzcd}
+				= 
+				\begin{tikzcd}
+					H_{\pi}  \arrow[r, "\pi(g)"]  \arrow[d, "T"']  & H_{\pi}   \arrow[d, "T"]\\
+					H_{\rho} \arrow[r, "\rho(g)"] &  H_{\rho} \\
 				\end{tikzcd}
 				\]
 			\end{enumerate}
 			Thus $\hat{g}: U \Rightarrow U$ is a natural transformation. 
-			\item The previous part implies that  
+			\item Set $h = g^{-1}$. Part $(1)$ implies that $\hat{g}, \hat{h} \in \Endo_{\Hilb^{\URep(G)}}(U)$. Let $(H, \pi) \in \Obj(\URep(G))$. Then 
+			\begin{align*}
+				(\hat{g} \circ \hat{h})_{(H, \pi)}
+				& = \hat{g}_{(H, \pi)}
+			\end{align*}
+			The previous part implies that  
 			\begin{align*}
 				\hat{g} 
 				& \in \Hom_{\TopVect_{\C}^{\Rep(G, \C)}}(U, U) \\
@@ -194,7 +299,7 @@
 	\end{proof}
 	
 	\begin{defn}
-		Let $G \in \Obj(\TopMon)$ and $(V, \pi) \in \Obj(\Rep(G, \C))$. We define the \tbf{$(V, \pi)$-projection}, denoted $\pi_{(V, \pi)}: \End_{\TopVect_{\C}^{\Rep(G, \C)}}(U) \rightarrow \End_{\TopVect_{\C}}(V)$, by $\pi_{(V, \pi)}(\al) = \al_{(V, \pi)}$. We define the \tbf{topology of endomorphisms of $U$}, denoted $\MT_{\ME(U)}$, by 
+		Let $G \in \Obj(\TopGrp)$ and $(V, \pi) \in \Obj(\Rep(G, \C))$. We define the \tbf{$(V, \pi)$-projection}, denoted $\pi_{(V, \pi)}: \End_{\TopVect_{\C}^{\Rep(G, \C)}}(U) \rightarrow \End_{\TopVect_{\C}}(V)$, by $\pi_{(V, \pi)}(\al) = \al_{(V, \pi)}$. We define the \tbf{topology of endomorphisms of $U$}, denoted $\MT_{\ME(U)}$, by 
 		$$\MT_{\ME(U)} = \tau(\pi_{(V, \pi)}: (V, \pi) \in \Rep(G, \C))$$
 	\end{defn}
 	
@@ -203,7 +308,7 @@
 	\end{defn}
 	
 	\begin{ex}
-		Let $G \in \Obj(\TopMon)$. Then $(\End_{\TopVect_{\C}^{\Rep(G, \C)}}(U), \MT_{\ME(U)})$ is a topological unital algebra.
+		Let $G \in \Obj(\TopGrp)$. Then $(\Aut_{\TopVect_{\C}^{\Rep(G, \C)}}(U), \MT_{\ME(U)})$ is a topological unital algebra.
 	\end{ex}
 
 	\begin{proof}

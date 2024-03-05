@@ -121,16 +121,12 @@
 	\end{defn}
 
 	\begin{defn}
-		product of two classes
-	\end{defn}
-	
-	\begin{defn}
-		Let $A$, $B$ be classes and $R \subset A \times B$. elation from $A$ to $B$.
+		Let $x$ and $y$ be classes. Then $x$ is said to be a \tbf{subclass} of $y$, denoted $x \subset y$, if for each set $a$, $a \in x$ implies that $a \in y$. 
 	\end{defn}
 
-	\begin{note}
-		We can define cartesion products, relations, and functions for classes just like for sets. 
-	\end{note}
+	\begin{defn}
+		Let $x$ and $y$ be classes. Then $x$ is said to be \tbf{equal} to $y$ if $x \subset y$ and $y \subset x$. 
+	\end{defn}
 
 	\begin{ax} \lax{11001.1a} \textbf{Axiom of Extensionality:}  \\
 		Let $x$ and $y$ be classes. If for each set $a$, $a \in x$ iff $a \in y$, then $x = y$.
@@ -139,6 +135,18 @@
 	\begin{ax} \lax{11001.1b} \textbf{Axiom of Pairing:}  \\
 		Let $a$, $b$ be sets. Then there exists a set $p$ such that for each for each set $x$, $x \in p$ iff $x = a$ or $x = b$. 
 	\end{ax}
+
+	\begin{defn}
+		product of two classes
+	\end{defn}
+	
+	\begin{defn}
+		Let $A$, $B$ be classes and $R \subset A \times B$. elation from $A$ to $B$.
+	\end{defn}
+	
+	\begin{note}
+		We can define cartesion products, relations, and functions for classes just like for sets. 
+	\end{note}
 
 	\begin{ex}
 		Let $a$, $b$ be sets. Then there exists a unique set $p$ such that for each for each set $x$, $x \in p$ iff $x = a$ or $x = b$. 
@@ -193,25 +201,6 @@
 		\item \tcb{ cover existence of subclasses, products of classes to be able to define class relations and subsequently class functions}
 		\item 
 	\end{enumerate}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -1549,20 +1538,26 @@
 	
 	\newpage
 	\section{Algebra of Morphisms}
+
 	
-	\subsection{Isomorphisms}
+	\subsection{Classes of Morphisms}
+	
+	\begin{defn} \ld{15000.1}
+		Let $\MC$ be a category, $A \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, A)$. Then $f$ is said to be an \textbf{endomorphism of $A$}. We define the \tbf{class of endomorphisms of $A$}, denoted $\Endo_{\MC}(A)$, by 
+		$$\Endo_{\MC}(A) = \Hom_{\MC}(A, A)$$ 
+	\end{defn}
 	
 	\begin{ex} \lex{15001} \textbf{Uniqueness of Identities:} \\
-		Let $\MC$ be a category. Then for each $A \in \Obj(\MC)$, there exists a unique $e_A \in \Hom_{\MC}(A, A)$ such that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ e_A = f$ and $e_{A} \circ g = g$.
+		Let $\MC$ be a category. Then for each $A \in \Obj(\MC)$, there exists a unique $e_A \in \Endo_{\MC}(A)$ such that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ e_A = f$ and $e_{A} \circ g = g$.
 	\end{ex}
 	
 	\begin{proof}
 		Let $A \in \Obj(\MC)$. 
 		\begin{itemize}
 			\item \tbf{Existence:} \\
-			Since $\MC$ is a category, by definition there exists $\id_A \in \Hom_{\MC}(A, A)$ such that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ \id_A = f$ and $\id_{A} \circ g = g$. 
+			Since $\MC$ is a category, by definition there exists $\id_A \in \Endo_{\MC}(A)$ such that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ \id_A = f$ and $\id_{A} \circ g = g$. 
 			\item \tbf{Uniqueness: } \\
-			Let $e_A \in \Hom_{\MC}(A, A)$. Suppose that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ e_A = f$ and $e_{A} \circ g = g$. Then 
+			Let $e_A \in \Endo_{\MC}(A)$. Suppose that for each $B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$, $f \circ e_A = f$ and $e_{A} \circ g = g$. Then 
 			\begin{align*}
 				e_A
 				& = e_A \circ \id_A \\
@@ -1572,20 +1567,25 @@
 	\end{proof}
 	
 	\begin{defn} \ld{15002}
-		Let $\MC$ be a category, $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then $f$ is said to be an \textbf{isomorphism} if there exists $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_{A}$ and $f \circ g = \id_{B}$. 
+		Let $\MC$ be a category, $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then $f$ is said to be an \textbf{isomorphism} if there exists $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_{A}$ and $f \circ g = \id_{B}$. We define the \tbf{class of isomorphisms from $A$ to $B$}, denoted $\Iso(A,B)$, by 
+		$$\Iso(A, B) = \{f \in \Hom_{\MC}(A,B): f \text{ is an isomorphism}\}$$
+	\end{defn}
+
+	\begin{defn} \ld{15002.1}
+		Let $\MC$ be a category, $A \in \Obj(\MC)$ and $f \in \Endo_{\MC}(A)$. Then $f$ is said to be an \textbf{automorphism} if $f$ is an isomorphism. We define the \tbf{class of automorphisms of $A$}, denoted $\Aut(A)$, by 
+		$$\Aut(A) = \{f \in \Endo_{\MC}(A): f \text{ is an automorphism}\}$$
 	\end{defn}
 	
 	\begin{ex} \lex{15003} \textbf{Uniqueness of Inverses:} \\
-		Let $\MC$ be a category, $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. If $f$ is an isomorphism, then there exists a unique $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_A$ and $f \circ g = \id_B$.
+		Let $\MC$ be a category, $A,B \in \Obj(\MC)$ and $f \in \Iso_{\MC}(A, B)$. Then there exists a unique $g \in \Iso_{\MC}(B, A)$ such that $g \circ f = \id_A$ and $f \circ g = \id_B$.
 	\end{ex}
 	
-	\begin{proof}
-		Suppose that $f$ is an isomorphism. 
+	\begin{proof}\
 		\begin{itemize}
 			\item \tbf{Existence:} \\
-			By definition, there exists $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_{A}$ and $f \circ g = \id_B$.
+			By definition, since $f$ is an isomorphism, there exists $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_{A}$ and $f \circ g = \id_B$. By definition, $g$ is an isomorphism and therefore $g \in \Iso_{\MC}(B, A)$.
 			\item \tbf{Uniqueness: } \\
-			Let $g' \in \Hom_{\MC}(B, A)$. Suppose that $g' \circ f = \id_A$, $f \circ g' = \id_B$. Then 
+			Let $g' \in \Iso_{\MC}(B, A)$. Suppose that $g' \circ f = \id_A$, $f \circ g' = \id_B$. Then 
 			\begin{align*}
 				g'
 				& = g' \circ \id_{B} \\
@@ -1771,17 +1771,49 @@
 			So $f$ is an epimorphism.
 		\end{itemize}
 	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	\subsection{Natural Isomorphisms}
 	
 	\begin{defn} \ld{15011.1}
-		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Then $\al$ is said to be a \textbf{natural isomorphism} if for each $A \in \Obj(\MC)$, $\al_A$ is an isomorphism.
+		Let $\MC$ and $\MD$ be categories, $F,G : \MC \rightarrow \MD$ and $\al: F \Rightarrow G$. Then $\al$ is said to be a \textbf{natural isomorphism} if for each $A \in \Obj(\MC)$, $\al_A \in \Iso_{\MD}(F(A), G(A))$. 
 	\end{defn}
-
+	
 	\begin{defn} \ld{15011.2}
 		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Suppose that $\al$ is a natural isomorphism. We define $\al^{-1}: G \Rightarrow F$ by $(\al^{-1})_A = \al_A^{-1}$. 
 	\end{defn}
-
+	
 	\begin{ex} \lex{15011.3}
-		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Suppose that $\al$ is a natural isomorphism. Then $\al^{-1}: G \Rightarrow F$ is a natural transformation. 
+		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Suppose that $\al$ is a natural isomorphism. Then $\al^{-1}: G \Rightarrow F$ is a natural transformation
 	\end{ex}
 	
 	\begin{proof}\
@@ -1812,22 +1844,22 @@
 				& = \al_B^{-1} \circ (G(f) \circ \id_{G(A)}) \\
 				& = \al_B^{-1} \circ G(f) \\
 				& = (\al^{-1})_B \circ G(f) 
- 			\end{align*}
- 			i.e. the following diagram commutes:
- 			\[ 
- 			\begin{tikzcd}
- 				G(A)  \arrow[r, "(\al^{-1})_A"]  \arrow[d, "G(f)"']  & F(A)   \arrow[d, "F(f)"]\\
- 				G(B) \arrow[r, "(\al^{-1})_B"] &  F(B) \\
- 			\end{tikzcd}
- 			\]
- 			So $\al^{-1}: G \Rightarrow F$.
+			\end{align*}
+			i.e. the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				G(A)  \arrow[r, "(\al^{-1})_A"]  \arrow[d, "G(f)"']  & F(A)   \arrow[d, "F(f)"]\\
+				G(B) \arrow[r, "(\al^{-1})_B"] &  F(B) \\
+			\end{tikzcd}
+			\]
+			So $\al^{-1}: G \Rightarrow F$.
 		\end{enumerate}
 	\end{proof}
 
 	\begin{ex} \lex{15011.4}
 		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Suppose that $\al$ is a natural isomorphism. Then $\al^{-1} \circ \al = \id_{F}$ and $\al \circ \al^{-1} = \id_G$.
 	\end{ex}
-
+	
 	\begin{proof}
 		Let $A \in \Obj(\MC)$. Then 
 		\begin{align*}
@@ -1838,7 +1870,7 @@
 			& = (\id_F)_A
 		\end{align*}
 		and 
-			\begin{align*}
+		\begin{align*}
 			(\al \circ \al^{-1} )_A 
 			& = \al_A \circ (\al^{-1})_A\\
 			& = \al_A \circ \al_A^{-1}\\
@@ -1847,29 +1879,27 @@
 		\end{align*}
 		Since $A \in \Obj(\MC)$ is arbitrary, $\al^{-1} \circ \al = \id_F$ and $\al \circ \al^{-1} = \id_G$.
 	\end{proof}
-
+	
 	\begin{ex} \lex{15011.5}
-		Let $\MC$ and $\MD$ be categories. Suppose that $\MC$ is small. Let $F,G \in \MD^{\MC}$ and $\al \in \Hom_{\MD^{\MC}}(F, G)$. Then $\al$ is an isomorphism iff $\al$ is a natural isomorphism.  
+		Let $\MC$ and $\MD$ be categories. Suppose that $\MC$ is small. Let $F,G \in \Obj(\MD^{\MC})$ and $\al \in \Hom_{\MD^{\MC}}(F, G)$. Then $\al$ is a natural isomorphism iff $\al \in \Iso_{\MD^{\MC}}(F, G)$. 
 	\end{ex}
 
-	\begin{proof}
-		Suppose that $\al$ is an isomorphism. Then there exists $\be \in \Hom_{\MD^{\MC}}(G, F)$ such that $\be \circ \al = \id_F$ and $\al \circ \be - \id_G$. Let $A \in \Obj(\MC)$. Then
-		\begin{align*}
-			\be_A \circ \al_A 
-			& = (\be \circ \al)_A \\
-			& = (\id_F)_A \\
-			& = \id_{F(A)}
-		\end{align*}
-		and 
-		\begin{align*}
-			\al_A \circ \be_A
-			& = (\al \circ \be)_A \\
-			& = (\id_G)_A \\
-			& = \id_{G(A)}
-		\end{align*}
-		Hence $\al_A$ is an isomorphism. Since $A \in \Obj(\MC)$ is arbitrary, $\al$ is a natural isomorphism. \\
-		Conversely, suppose that $\al$ is a natural isomorphism. \rex{15011.3} and \rex{15011.4} imply that $\al$ is an isomorphism.
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $\al$ is a natural isomorphism. \rex{15011.4} implies that $\al \in \Iso_{\MD^{\MC}}(F, G)$. 
+			\item $(\impliedby)$: \\
+			Suppose that $\al \in \Iso_{\MD^{\MC}}(F, G)$. Let $A \in \Obj(\MC)$. Then 
+			\begin{align*}
+				\al_A \circ (\al^{-1})_A
+				& = (\al \circ \al^{-1})_A \\
+				& = (\id_{G})_A \\
+				& = \id_{G(A)} \\
+			\end{align*}
+			and similarly, $\al_A^{-1} \circ \al_A = \id_{F(A)}$. Thus $\al_A \in \Iso_{\MD}(F(A), G(A))$. Since $A \in \Obj(\MC)$ is arbitrary, we have that for each $A \in \Obj(\MC)$, $\al_A \in \Iso_{\MD}(F(A), G(A))$. By definition, $\al$ is a natural isomorphism.
+		\end{itemize}
 	\end{proof}
+
 
 
 
