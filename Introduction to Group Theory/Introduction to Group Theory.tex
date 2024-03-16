@@ -97,6 +97,9 @@
 	\newpage
 	
 	
+	
+	\chapter{Prelimiaries} 
+	
 	\section{Category Theory}
 	
 	\begin{itemize}
@@ -107,13 +110,39 @@
 		\end{itemize}
 		\item $\Mon$
 	\end{itemize}
-	
-	
-	\chapter{Representation Theory}
-	
-	\section{Representations of Groups}
 
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
 	\subsection{The Unitary Group}
 	
 	\begin{defn}
@@ -121,11 +150,11 @@
 		$$U(H_1, H_2) = \{T \in \Iso_{\Hilb}(H_1, H_2): T^* = T^{-1}\}$$ 
 		We write $U(H)$ in place of $U(H,H)$. We equip $U(H_1, H_2)$ with the strong operator topology. 
 	\end{defn}
-
+	
 	\begin{ex}
 		Let $H \in \Obj(\Hilb)$. Then $\MT_{U(H)}^s = \MT_{U(H)}^w$. \tcb{strong weak operator topologies coincide}
 	\end{ex}
-
+	
 	\begin{ex}
 		Let $H \in \Obj(\Hilb)$. Then $U(H)$ is a topological group.
 	\end{ex}
@@ -148,9 +177,54 @@
 	
 	
 	
-	\subsection{Unitary representations}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Representation Theory}
+	
+	\section{Group Representations}
 
-	\begin{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Unitary representations}
+	
+		\begin{defn}
 		Let $G \in \Obj(\TopGrp)$, $H \in \Obj(\Hilb)$ and $\pi \in \Hom_{\TopGrp}(G, U(H))$. Then $(H, \pi)$ is said to be a \tbf{unitary representation of $G$}. We define the \tbf{dimension of $(H, \pi)$}, denoted $\dim (H, \pi)$, by $\dim (H, \pi) \defeq \dim V$.
 	\end{defn}
 	
@@ -163,7 +237,7 @@
 		\end{tikzcd}
 		\]
 	\end{defn}
-
+	
 	\begin{defn} \ld{13009}
 		Let $G \in \Obj(\TopGrp)$. We define $\URep(G)$ by 
 		\begin{itemize}
@@ -183,26 +257,326 @@
 	\begin{proof}
 		\tcb{FINISH!!!}
 	\end{proof}
-
+	
 	\begin{defn}
-		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a subspace. Then $E$ is said to be 
+		Let $G \in \Obj(\TopGrp)$ and $(H_{\pi}, \pi), (H_{\rho}, \rho) \in \URep(G)$. Then $(H_{\pi}, \pi)$ is said to be \tbf{unitarily equivalent} to $(H_{\rho}, \rho)$, denoted $(H_{\pi}, \pi) \equiv (H_{\rho}, \rho)$, if $\Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho)) \cap U(H_{\pi}, H_{\rho}) \neq \varnothing$.
+	\end{defn}
+	
+	\begin{note}
+		Let $\pi \in \Hom_{\TopGrp}(G, U(H))$. Since $U(H)$ is equipped with the strong operator topology, we have that for each $u \in H$, the map $g \mapsto \pi(g)u$ is continuous.  
+	\end{note}
+	
+	\begin{defn}
+		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$. We define the \tbf{induced group action of $G$ on $H$}, denoted $\phi_{(H, \pi)}: G \times H \rightarrow H$, by 
+		$$\phi_{(H, \pi)}(g, v) = \pi(g)v$$ 
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we write $g \cdot v$ in place of $\phi_{(H, \pi)}(g, v)$. 
+	\end{note}
+	
+	\begin{ex}
+		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$. Then 
+		\begin{enumerate}
+			\item $\phi_{(H, \pi)}$ is a linear group action. 
+			\item $G$ is locally compact implies that $\phi_{(H, \pi)}$ is continuous
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item Let $g,h \in G$ and $v \in H$. 
+				\begin{enumerate}
+					\item Since $\pi \in \Hom_{\TopGrp}(G, U(H))$, 
+					\begin{align*}
+						e \cdot v
+						& = \pi(e)v \\
+						& = \id_H v \\
+						& = v
+					\end{align*}
+					\item Since $\pi \in \Hom_{\TopGrp}(G, U(H))$, 
+					\begin{align*}
+						g \cdot (h \cdot v) 
+						& = \pi(g)[\pi(h) v] \\
+						& = [\pi(g) \pi(h)] v \\
+						& = \pi(gh) v \\
+						& = (gh) \cdot v
+					\end{align*}
+				\end{enumerate}
+				Since $g,h \in G$ and $v \in H$ are arbitrary, $\phi_{(H, \pi)}$ is a group action of $G$ on $H$.
+				\item Let $g \in G$, $\lam \in \C$ and $v,w \in H$. Then 
+				\begin{align*}
+					g \cdot (\lam v + w) \\
+					& = \pi(g)(\lam v + w) \\
+					& = \lam \pi(g) v + \pi(g) w \\
+					& = \lam g \cdot v + g \cdot w
+				\end{align*} 
+				Since $g \in G$, $\lam \in \C$ and $v,w \in H$ are arbitrary, $\phi_{(H, \pi)}$ is a linear action.
+			\end{itemize}
+			\item Suppose that $G$ is locally compact. Let $(g_0, v_0) \in G \times H$ and $\ep > 0$. Since $G$ is locally compact, there exists $K \subset G$ such that $g_0 \in \Int K$ and $K$ is compact. Let $v \in H$. Define $f_v:G \rightarrow H$ by $f_v(g) = g \cdot v$. Since $\pi: G \rightarrow U(H)$ is continuous, $f_v$ is continuous. Thus $\|f_v\|$ is continuous. Since $K$ is compact, $\|f_v\|(K)$ is compact. Thus 
+			\begin{align*}
+				\sup\limits_{g \in K} \|g \cdot v\| 
+				& = \sup\limits_{g \in K} \|f_v(g)\| \\
+				& < \infty
+			\end{align*}  
+			Since $v \in H$ is arbitrary, we have that for each $v \in H$, $\sup\limits_{g \in K} \|g \cdot v\| < \infty$. The uniform boundedness principle implies that  there exists $M > 0$ such that $\sup\limits_{g \in K} \| \pi(g) \| \leq M$. Since $f_{v_0}$ is continuous, there exists $U \subset K$ such that $U$ is open, $g_0 \in U$, and $f_{v_0}(U) \subset B(f_{v_0}(g_0), \ep/2)$. Let $(g_1, v_1) \in U \times B(v_0, (2M)^{-1} \ep)$. Then 
+			\begin{align*}
+				\|\phi_{(H, \pi)}(g_0, v_0) - \phi_{(H, \pi)}(g_1, v_1)\|
+				& = \|g_0 \cdot v_0 - g_1 \cdot v_1\| \\
+				& \leq 	\|g_0 \cdot v_0 - g_1 \cdot v_0\| + \|g_1 \cdot v_0 - g_1 \cdot v_1\| \\
+				& = \|f_{v_0}(g_0) - f_{v_0}(g_1)\| + \|\pi(g_1)(v_0 - v_1)\| \\
+				& \leq \|f_{v_0}(g_0) - f_{v_0}(g_1)\| + \|\pi(g_1)\| \|v_0 - v_1\| \\
+				& \leq \|f_{v_0}(g_0) - f_{v_0}(g_1)\| + M \|v_0 - v_1\| \\
+				& \leq \frac{\ep}{2} + M \frac{\ep}{2M} \\
+				& = \ep
+			\end{align*}
+			Since $\ep > 0$ is arbitrary, we have that $\phi_{(H, \pi)}$ is continuous at $(g_0, v_0)$. Since $(g_0, v_0) \in G \times H$ is arbitrary, we have that $\phi_{(H, \pi)}: G \times H \rightarrow H$ is continuous.
+		\end{enumerate}
+	\end{proof}
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	\subsection{Subrepresentations}
+	
+	\begin{defn}
+		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. Then $E$ is said to be 
 		\begin{itemize}
 			\item \tbf{nontrivial} if $E \neq H, \varnothing$
-			\item \tbf{$(H, \pi)$-invariant} if for each $g \in G$, $\pi(g)(E) \subset E$
+			\item \tbf{$(H, \pi)$-invariant} if for each $g \in G$, $\pi(g)(E) = E$
 		\end{itemize} 
 	\end{defn}
 
+	\begin{defn}
+		Let $G \in \Obj(\TopGrp)$ and $\K \in \Obj(\Field)$ and $(H, \pi) \in \Obj(\URep(G))$. Then 
+		\begin{itemize}
+			\item $(H, \pi)$ is said to be \tbf{reducible} if there exists a closed subspace $E \subset H$ such that $E$ is not trivial and $E$ is $(H, \pi)$-invariant 
+			\item $(H, \pi)$ is said to be \tbf{irreducible} if $(H, \pi)$ is not reducible.
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. Suppose that $E$ is $(H, \pi)$-invariant. Then for each $g \in G$, $\pi(g)|_E \in U(E)$. 
+	\end{ex}
+
+	\begin{proof}
+		Let $g \in G$. Since $E$ is $(H, \pi)$-invariant, for each $g \in G$, $\pi(g)(E) = E$. Since $\pi(g) \in U(H)$, $\pi(g)|_E \in U(E)$.
+	\end{proof}
+
+	\begin{defn}
+		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. Suppose that $E$ is $(H, \pi)$-invariant. 
+		\begin{itemize}
+			\item We define $\pi^E \in \Hom_{\TopGrp}(G, U(E))$ by $\pi^E(g) \defeq \pi(g)|_E$
+			\item We define the \tbf{restriction $(H, \pi)$ to $E$}, denoted $(H, \pi)|_E$, by $(H, \pi)|_E \defeq (E, \pi^E)$
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. 
+		\begin{enumerate}
+			\item If $E$ is nontrivial, then $E^{\perp}$ is nontrivial.
+			\item If $E$ is $(H, \pi)$-invariant, then $E^{\perp}$ is  $(H, \pi)$-invariant.  
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $E$ is nontrivial. Then $E \neq \{0\}, H$. Then $E^{\perp} \neq \{0\}, H$. Thus $E^{\perp}$ is nontrivial.
+			\item Suppose that $E$ is $(H, \pi)$-invariant. Let $g \in G$. Since $\pi(g) \in U(H)$ and $\pi(g)(E) = E$, \tcb{An exercise in the analysis notes section on Hilbert spaces} implies that $\pi(g)(E^{\perp}) = E^{\perp}$. Since $g \in G$ is arbitrary, $E^{\perp}$ is $(H, \pi)$-invariant. 
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn}
+		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $u \in H$. We define the \tbf{cyclic subspace of $H$ generated by $u$ under $(H, \pi)$}, denoted $\cyc_{(H, \pi)}(u)$, by 
+		$$\cyc_{(H, \pi)}(u) \defeq \cl \spn (\phi_{(H, \pi)}(G, u))$$
+	\end{defn}
+
+	\begin{note}
+		When the context is clear, we write $\cyc(u)$ in place of $\cyc_{(H, \pi)}(u)$.
+	\end{note}
+	
+	\begin{ex}
+		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $u \in H$. Then $\cyc(u)$ is $(H, \pi)$-invariant. \tcb{this should largely be a result about linear group actions.}
+	\end{ex}
+	
+	\begin{proof}
+		Let $g \in G$. Since $G$ acts linearly and homeomorphically on $H$, 
+		\begin{align*}
+			g \cdot \cyc(u) 
+			& = g \cdot \cl \spn (G \cdot u) \\
+			& = \cl g \cdot \spn (G \cdot u) \\
+			& = \cl \spn [g \cdot (G \cdot u)] \\
+			& = \cl \spn (G \cdot u) \\
+			& = \cyc(u)
+		\end{align*}
+		Since $g \in G$ is arbitrary, $\cyc(u)$ is $G$-invariant. 
+	\end{proof}
+	
+	\begin{defn}
+		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$. 
+		\begin{itemize}
+			\item Let $u \in H$. Then $u$ is said to be \tbf{$(H, \pi)$-cyclic} if $\cyc(u) = H$. 
+			\item Then $(H, \pi)$ is said to be \tbf{cyclic} if there exists $u \in H$ such that $u$ is $(H, \pi)$-cyclic.
+		\end{itemize}
+	\end{defn}
+
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+	\subsection{Direct Sum of Representations}
+	
+	\begin{defn}
+		Let $G \in \Obj(\TopGrp)$ and $(H_{\al}, \pi_{\al})_{\al \in A} \subset \Obj(\URep(G))$. 
+		\begin{itemize}
+			\item We define $\bigoplus\limits_{\al \in A} \pi_{\al} \in \Hom_{\TopGrp}(G, U(\bigoplus\limits_{\al \in A} H_{\al}))$ by 
+			$$\bigg[ \bigoplus\limits_{\al \in A} \pi_{\al} \bigg](g) = \bigoplus\limits_{\al \in A} \pi_{\al}(g)$$
+			\item We define the \tbf{direct sum} of $(H_{\al}, \pi_{\al})_{\al \in A}$, denoted $\bigoplus\limits_{\al \in A} (H_{\al}, \pi_{\al})$, by 
+			$$\bigoplus\limits_{\al \in A} (H_{\al}, \pi_{\al}) = \bigg(\bigoplus\limits_{\al \in A} H_{\al}, \bigoplus\limits_{\al \in A} \pi_{\al} \bigg)$$ 
+		\end{itemize}
+	\end{defn}
+
+	\begin{note}
+		\tcb{FINISH!!!} the last definition works for internal or external direct sum, just need to define inner or external sum of $H_{\al}$ and $\pi_{\al}$ in either case. 
+	\end{note}
+
+	\begin{ex}
+		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. If $E$ is nontrivial and $(H, \pi)$-invariant, then $(H, \pi) = (E \oplus E^{\perp}, \pi^E \oplus \pi^{E^{\perp}})$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that  $E$ is nontrivial and $(H, \pi)$-invariant. \tcb{A previous exercise} implies that $E^{\perp}$ is nontrivial and $(H, \pi)$-invariant. \tcb{It is clear that} $H = E \oplus E^{\perp}$. Let $g \in G$ and $u \in H$. Since $H = E \oplus E^{\perp}$, there exists $v \in E$ and $w \in E^{\perp}$ such that $u = v + w$. Then  
+		\begin{align*}
+			\pi(g)(u)
+			& = \pi(g)(v +w) \\
+			& = \pi(g)(v) + \pi(g)(w) \\
+			& = \pi(g)|_E(v) + \pi(g)|_{E^{\perp}}(w) \\
+			& = \pi^E(g)(v) + \pi^{E^{\perp}}(g)(w) \\
+			& = [\pi^E(g) \oplus \pi^E(g)](v+w) \\
+			& = [\pi^E \oplus \pi^E](g)(v+w) \\
+			& = [\pi^E \oplus \pi^E](g)(u)
+		\end{align*}
+		 Since $u \in H$ is arbitrary, $\pi(g) = [\pi^E \oplus \pi^E](g)$. Since $g \in G$ is arbitrary, $\pi = \pi^E \oplus \pi^E$.
+	\end{proof}
 	
 	
 	\begin{defn}
-		Let $G \in \Obj(\Grp)$ and $\K \in \Obj(\Field)$ and $(V, \pi) \in \Obj(\Rep(G, \K))$. Then $(V, \pi)$ is said to be \tbf{irriducible} if for each subspace $E \subset V$, $E$ is trivial or $E$ is not  $(V, \pi)$-invariant.
+		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $\ME \subset \MP(H)$. Then $\ME$ is said to be an \tbf{$(H, \pi)$-orthocyclic system} if for each $E, F \in \ME$,
+		\begin{enumerate}
+			\item $E$ is a closed subspace of $H$
+			\item $(H, \pi)|_E$ is cyclic
+			\item if $E \neq F$, then $E \perp F$
+		\end{enumerate}
 	\end{defn}
+
+	\begin{ex}
+		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$. Then there exists $(H_{\al}, \pi_{\al})_{\al \in A} \subset \Obj(\URep(G))$ such that for each $\al \in A$, $(H_{\al}, \pi_{\al})$ is cyclic and $(H, \pi) =  \bigoplus\limits_{\al \in A} (H_{\al}, \pi_{\al}) $. \\
+		\tbf{Hint:} Zorn's lemma
+	\end{ex}
+
+
+
+	\begin{proof}
+		Define $\MP = \{\ME: \text{$\ME$ is an $(H, \pi)$-orthocyclic system}\}$. We partially order $\MP$ by inclusion. Let $\MC \subset \MP$ be a chain. Set $\ME_0 = \bigcup\limits_{\ME \in \MC} \ME$. Let $E_1, E_2 \in \ME_0$. Then there exist $\ME_1, \ME_2 \in \MC$ such that $E_1 \in \ME_1$ and $E_2 \in \ME_2$. Since $\MC$ is a chain, $\ME_1 \subset \ME_2$ or $\ME_2 \subset \ME_1$. 
+		
+		Suppose that $\ME_1 \subset \ME_2$. Then $E_1 \in \ME_2$. Since $\ME_2$ is an $(H, \pi)$-orthocyclic system, we have that $E_1$ is a closed subspaces of $H$, $(H, \pi)|_{E_1}$ is cyclic and if $E_1 \neq E_2$, then $E_1 \perp E_2$. Similarly, $\ME_2 \subset \ME_1$ implies the same conclusion. Since $E_1, E_2 \in \ME_0$ are arbitrary, we have that for each $E_1, E_2 \in \ME_0$ 
+	 	\begin{enumerate}
+	 		\item $E_1$ is a closed subspaces of $H$ and $E_1$ is $(H, \pi)$-invariant
+	 		\item $(H, \pi)|_{E_1}$ is cyclic
+	 		\item if $E_1 \neq E_2$, then $E_1 \perp E_2$
+	 	\end{enumerate}
+ 	
+ 		Thus $\ME_0$ is an $(H, \pi)$-orthocyclic system. Hence $\ME_0 \in \MP$. By construction, for each $\ME \in \MC$, $\ME \subset \ME_0$. So $\ME_0$ is an upper bound of $\MC$. Since $\MC \subset \MP$ such that $\MC$ is a chain is arbitrary, we have that for each $\MC \subset \MP$, if $\MC$ is a chain, then there exists $\ME_0 \in \MP$ such that $\ME_0$ is an upper bound of $\MC$. Zorn's lemma implies that there exists $\ME \in \MP$ such that $\ME$ is maximal. Set $E =  \bigoplus\limits_{E_0 \in \ME} E_0$. For the sake of contradiction, suppose that $H \neq E$. Then $E^{\perp} \neq \{0\}$. Thus there exists $u \in E^{\perp}$ such that $u \neq 0$. Therefore $\cyc(u) \neq 0$ and $\cyc(u) \subset E^{\perp}$. Let $E_0 \in \ME$. By construction, $E_0 \subset E$. Thus
+ 		\begin{align*}
+ 			\cyc(u) 
+ 			& \subset E^{\perp} \\
+ 			& \subset E_0^{\perp}
+ 		\end{align*}
+ 		Since $E_0 \in \ME$ is arbitrary, we have that for each $E_0 \in \ME$, $\cyc(u) \subset E_0^{\perp}$. Set $\ME' = \ME \cup \{\cyc(u)\}$. Then for each $E,F \in \ME'$, 
+ 		\begin{enumerate}
+ 			\item $E$ is a closed subspaces of $H$ and $E$ is $(H, \pi)$-invariant
+ 			\item $(H, \pi)|_{E}$ is cyclic
+ 			\item if $E \neq F$, then $E \perp F$
+ 		\end{enumerate}
+ 		Hence $\ME' \in \MP$. Since $\ME \subset \ME'$ and $\ME$
+	\end{proof}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
-	\begin{defn}
-		Let $G \in \Obj(\TopGrp)$. Let $(H_{\pi}, \pi), (H_{\rho}, \rho) \in \URep(G)$. Then $(H_{\pi}, \pi)$ and $(H_{\rho}, \rho)$ are said to be \tbf{unitarily equivalent} if there exists $\Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho)) \cap U(H_{\pi, H_{\rho}}) \neq \varnothing$.
-	\end{defn}
-
+	
 	
 	
 
@@ -230,7 +604,7 @@
 	\section{Tannaka Duality}
 	
 	\begin{defn}
-		Let $G \in \Obj(\TopGrp)$. We define the \tbf{forgetful functor from $\URep(G)$ to $\Hilb$}, denoted $U: \Rep(G) \rightarrow \Hilb$, by 
+		Let $G \in \Obj(\TopGrp)$. We define the \tbf{forgetful functor from $\URep(G)$ to $\Hilb$}, denoted $U: \URep(G) \rightarrow \Hilb$, by 
 		\begin{itemize}
 			\item $U (H, \pi) = H$, \quad $(H, \pi) \in \Obj(\URep(G))$
 			\item $U (T) = T$, \quad $T \in \Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho))$.
@@ -292,15 +666,15 @@
 			The previous part implies that  
 			\begin{align*}
 				\hat{g} 
-				& \in \Hom_{\TopVect_{\C}^{\Rep(G, \C)}}(U, U) \\
-				& = \End_{\TopVect_{\C}^{\Rep(G, \C)}}(U)
+				& \in \Hom_{\TopVect_{\C}^{\URep(G)}}(U, U) \\
+				& = \End_{\TopVect_{\C}^{\URep(G)}}(U)
 			\end{align*} 
 		\end{enumerate}
 	\end{proof}
 	
 	\begin{defn}
-		Let $G \in \Obj(\TopGrp)$ and $(V, \pi) \in \Obj(\Rep(G, \C))$. We define the \tbf{$(V, \pi)$-projection}, denoted $\pi_{(V, \pi)}: \End_{\TopVect_{\C}^{\Rep(G, \C)}}(U) \rightarrow \End_{\TopVect_{\C}}(V)$, by $\pi_{(V, \pi)}(\al) = \al_{(V, \pi)}$. We define the \tbf{topology of endomorphisms of $U$}, denoted $\MT_{\ME(U)}$, by 
-		$$\MT_{\ME(U)} = \tau(\pi_{(V, \pi)}: (V, \pi) \in \Rep(G, \C))$$
+		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$. We define the \tbf{$(H, \pi)$-projection}, denoted $\pi_{(H, \pi)}: \End_{\TopVect_{\C}^{\URep(G)}}(U) \rightarrow \End_{\TopVect_{\C}}(V)$, by $\pi_{(H, \pi)}(\al) = \al_{(H, \pi)}$. We define the \tbf{topology of endomorphisms of $U$}, denoted $\MT_{\ME(U)}$, by 
+		$$\MT_{\ME(U)} = \tau(\pi_{(H, \pi)}: (H, \pi) \in \URep(G))$$
 	\end{defn}
 	
 	\begin{defn}
@@ -308,7 +682,7 @@
 	\end{defn}
 	
 	\begin{ex}
-		Let $G \in \Obj(\TopGrp)$. Then $(\Aut_{\TopVect_{\C}^{\Rep(G, \C)}}(U), \MT_{\ME(U)})$ is a topological unital algebra.
+		Let $G \in \Obj(\TopGrp)$. Then $(\Aut_{\TopVect_{\C}^{\URep(G)}}(U), \MT_{\ME(U)})$ is a topological unital algebra.
 	\end{ex}
 
 	\begin{proof}
