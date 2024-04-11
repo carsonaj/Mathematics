@@ -1,0 +1,327 @@
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{book}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+\input{"../Book Preamble/Book Preamble.tex"}
+
+
+% Glossary - Notation
+\glsxtrnewsymbol[description={finite measures on $(X, \MA)$}]{n000001}{$\MM_+(X, \MA)$}
+\glsxtrnewsymbol[description={velocity}]{v}{\ensuremath{v}}
+
+
+\makeindex
+
+\begin{document}
+	
+	\frontmatter
+	
+	\title{Introduction to Dynamical Systems}
+	
+	%    Remove any unused author tags.
+	
+	%    author one information
+	\author{Carson James}
+	\thanks{}
+	
+	\date{}
+	
+	\maketitle
+	
+	%    Dedication.  If the dedication is longer than a line or two,
+	%    remove the centering instructions and the line break.
+	%\cleardoublepage
+	%\thispagestyle{empty}
+	%\vspace*{13.5pc}
+	%\begin{center}
+	%  Dedication text (use \\[2pt] for line break if necessary)
+	%\end{center}
+	%\cleardoublepage
+	
+	%    Change page number to 6 if a dedication is present.
+	\setcounter{page}{4}
+	
+	\tableofcontents
+	\printunsrtglossary[type=symbols,style=long,title={Notation}]
+	
+	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+	%\include{}
+	
+	\mainmatter
+	%    Include main chapters here.
+	%\include{}
+	
+	\chapter*{Preface}
+	\addcontentsline{toc}{chapter}{Preface}
+	
+	\begin{flushleft}
+		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
+	\end{flushleft}
+	
+	\newpage
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\chapter{Basic Concepts}
+	
+	\section{Measure Preserving Transformations}
+	
+	\begin{defn}
+		We define $\Meas$ by 
+		\begin{itemize}
+			\item $\Obj(\Meas) \defeq \{(X, \MA): (X, \MA) \text{ is a measurable space}\}$.
+			\item for $(X, \MA), (Y, \MB) \in \Obj(\Meas)$, 
+			$$\Hom_{\Meas}((X, \MA), (Y, \MB)) \defeq \{f:X \rightarrow Y: f \text{ is $(\MA, \MB)$-measurable} \}$$
+			\item for $(X, \MA), (Y, \MB), (Z, \MC) \in \Obj(\Meas)$, $f \in \Hom_{\Meas}((X, \MA), (Y, \MB))$ and \\
+			$g \in \Hom_{\Meas}((Y, \MB), (Z, \MC))$, 
+			$$g \circ_{\Meas} f \defeq g \circ_{\Set} f $$
+		\end{itemize}
+	\end{defn}
+
+	\begin{ex}
+		We have that $\Meas$ is a category.
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+
+	\begin{ex}
+		We have that $\Meas$ is a Cartesian monoidal category. 
+	\end{ex}
+	
+	\begin{defn}
+		Let $(X, \MA, \mu), (Y, \MB, \nu)$ be probability spaces and $f \in \Hom_{\Meas}((X, \MA), (Y, \MB))$. Then $T$ is said to be \tbf{measure preserving} if $f_* \mu = \nu$. 
+	\end{defn}
+
+	\begin{ex}
+		Let $(X, \MA, \mu), (Y, \MB, \nu)$ be probability spaces and $f \in \Hom_{\Meas}((X, \MA), (Y, \MB))$. Then $f$ is measure preserving iff for each $\phi \in L^1(Y, \MB, \nu)$, $\phi \circ f \in L^1(X, \MA, \mu)$ and 
+		$$\int_Y \phi \dnu = \int_X \phi \circ f \dmu $$
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $f$ is measure preserving. $\phi \in L^1(Y, \MB, \nu)$. Then the \tcb{a basic result on the change of variables} implies that $\phi \circ f \in L^1(X, \MA, \mu)$ and 
+			\begin{align*}
+				\int_Y \phi \dnu 
+				& = \int_Y \phi d \, f_* mu \\
+				& = \int_X \phi \dmu \\
+			\end{align*} 
+			\item $(\impliedby)$: \\
+			Suppose that for each $\phi \in L^1(Y, \MB, \nu)$, $\phi \circ f \in L^1(X, \MA, \mu)$ and 
+			$$\int_Y \phi \dnu = \int_X \phi \circ f \dmu $$
+			Let $B \in \MB$. Since $\nu$ is a probability measure, $\chi_B \in L^1(Y, \MB, \nu)$. Thus 
+			\begin{align*}
+				\nu(B)
+				& = \int_Y \chi_B \dnu \\
+				& = \int_X \chi_B \circ f \dmu \\
+				& = \int_X \chi_{f^{-1}(B)} \dmu \\
+				& = \mu(f^{-1}(B)) \\
+				& = f_*\mu(B)
+			\end{align*}
+			Since $B \in \MB$ is arbitrary, $f_* \mu = \nu$. 
+		\end{itemize}
+	\end{proof}
+
+	\begin{defn}
+		We define $\Prob$ by 
+		\begin{itemize}
+			\item $\Obj(\Prob) = \{(X, \MA, \mu): (X, \MA, \mu) \text{ is a probability space}\}$.
+			\item for $(X, \MA, \mu), (Y, \MB, \nu) \in \Obj(\Prob)$, 
+			$$\Hom_{\Prob}((X, \MA, \mu), (Y, \MB, \nu)) = \{f \in  \Hom_{\Meas}((X, \MA), (Y, \MB)): f \text{ is measure preserving} \}$$
+			\item for $(X, \MA, \mu), (Y, \MB, \nu), (Z, \MC, \lam) \in \Obj(\Prob)$, $f \in \Hom_{\Prob}((X, \MA, \mu), (Y, \MB, \nu))$ and \\
+			$g \in  \Hom_{\Prob}((Y, \MB, \nu), (Z, \MC, \lam))$, 
+			$$g \circ_{\Prob} f \defeq g \circ_{\Set} f$$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		We have that $\Prob$ is a category.
+	\end{ex}
+	
+	\begin{proof}
+		
+	\end{proof}
+	
+	\begin{ex}
+		We have that $\Prob$ is not a Cartesian monoidal category. 
+	\end{ex}
+
+	\begin{proof}
+		content...
+	\end{proof}
+	
+	Even though $\Prob$ does not have products, when applying the forgetful functor $U: \Prob \rightarrow \Meas$, we get a category with products $\Meas$, so in some sense, an object in $\Meas$ is an equivalence class of objects in $\Prob$ where we ignore our notions of size/interaction of sub-objects. After applying the $U$ to a potential product $(Z, \MC, \lam) \in \Obj(\Prob)$ (i.e. there are associated measure preserving maps $f_X:Z \rightarrow X$ and $f_Y:Z \rightarrow Y$) to get $(Z, \MC) \in \Obj(\Meas)$, then $(Z, \MC) \in \Obj(\Meas)$ is a potential product with the same associated maps and we get the unique map $h: Z \rightarrow X \times Y$ in $\Meas$ yielding the typical commutative diagram for products in $\Meas$ (i.e. $h = f_X, f_Y$). In general $h$ does not preserve measure unless $\lam$ can be written as a tensor product. We can quantify how far off a potential product $(Z, \MC, \lam) \in \Obj(\Prob)$ (i.e. an element of the equivalence class) is from being a product by looking at the information loss (relative entropy) across $h$  
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Measure Preserving Systems}
+	
+	\begin{defn}
+		Let $(X, \MA) \in \Obj(\Meas)$, $f \in \End_{\Meas}(X, \MA)$ and $\mu \in \MM(X, \MA)$. Then $\mu$ is said to be \tbf{$f$-invariant} if $f_* \mu = \mu$. 
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a compact metric space and $f \in \End_{\Top}(X)$. Then there exists $\mu \in \MP(X, \MA)$ such that $\mu$ is $f$-invariant. \\
+		\tbf{Hint:} 
+	\end{ex}
+
+	\begin{proof}
+		
+	\end{proof}
+	
+	\begin{defn}
+		Let $(X, \MA, \mu) \in \Prob$ and $f \in \End_{\Prob}(X, \MA, \mu)$. Then $(X, \MA, \mu, f)$ is said to be a \tbf{measure-preserving dynamical system}. 
+	\end{defn}
+	
+	\begin{ex}
+		
+	\end{ex}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\appendix
+	\chapter{App}
+	
+	\section{Reading Diagrams and associated digraphs of diagrams}
+	
+	\begin{defn}
+		Let 
+		\[ 
+		\begin{tikzcd}[baseline= 7]
+			C \arrow[r, "g"] \arrow[d, "h"'] & A \arrow[d, "f"] \\
+			A \arrow[r, "f"'] & B\\
+		\end{tikzcd}
+		\implies
+		\begin{tikzcd}[baseline= 7]
+			C \arrow[bend right=60, swap]{r}{h} \arrow[bend right=-60]{r}{g} & A  \\
+		\end{tikzcd}
+		\]
+		
+		see an intro to the language of category theory by roman for description
+	\end{defn}
+	
+	
+	\begin{defn}
+		A diagram is said to be \tbf{commutative} if for each path of length $\geq 2$, in the associated digraph gives the same morphism.  
+	\end{defn}
+	
+	
+	
+	\backmatter
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}

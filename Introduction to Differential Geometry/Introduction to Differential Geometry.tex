@@ -5870,7 +5870,7 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 
 
 \newpage
-\chapter{Vector Fields}
+\chapter{The Tangent Bundle}
 
 \section{The Tangent Bundle}
 
@@ -5935,6 +5935,56 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 
 
 
+\begin{defn}
+	Let $M,N \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(M,N)$. We define the \tbf{push-forward of $F$}, denoted $F_*:TM \rightarrow TN$, by $F_*(p, v) = (F(p), DF(p)(v))$. 
+\end{defn}
+
+\begin{ex}
+	Let $M,N \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(M,N)$. Then $F_* \in \Hom_{\Maninf}(TM, TN)$.
+\end{ex}
+
+\begin{proof}
+	
+\end{proof}
+
+\begin{defn}
+	Let $M,N \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(M,N)$. We define the \tbf{tangent functor}, denoted $T: \Maninf \rightarrow \Maninf$, by 
+	\begin{itemize}
+		\item $T(M) = TM$
+		\item $TF = F_*$ 
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $M,N \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(M,N)$. Then $T: \Maninf \rightarrow \Maninf$ is a functor.
+\end{ex}
+
+\begin{proof}
+	content...
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Vector Fields}
+
+
+\begin{ex}
+	
+\end{ex}
 
 
 
@@ -5972,15 +6022,176 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 \section{Lie Groups}
 
 \begin{defn}
-	Let $G$ be a smooth manifold and group. Then $G$ is said to be a \tbf{Lie group} if 
+	Let $G$ be a group, we denote $\mult:G \times G \rightarrow G$ and $\inv: G \rightarrow G$ by $\mult(g, h) = gh$ and $\inv(g) = g^{-1}$.
+\end{defn}
+
+\begin{defn}
+	Let $G$ be a smooth manifold and group. Then $G$ is said to be a \tbf{Lie group} if $\mult:G \times G \rightarrow G$ is smooth and $\inv: G \rightarrow G$ is smooth.
+\end{defn}
+
+\begin{ex}
+	Let $G$ be a smooth manifold and group. Define $f:G \times G \rightarrow G$ by $f(g, h) = g h^{-1}$. Then $G$ is a Lie group iff $f$ is smooth. 
+\end{ex}
+
+\begin{proof}\
 	\begin{itemize}
-		\item multiplication $G \times G \rightarrow G$ given by $(g, h) \mapsto gh$ is smooth
-		\item inversion $G \rightarrow G$  given by $g \mapsto g^{-1}$ is smooth 
-	\end{itemize} 
+		\item $(\implies)$: \\
+		Suppose that $G$ is a Lie group. Then $\mult:G \times G \rightarrow G$ and $\inv:G \rightarrow G$ are smooth. Thus $\id_G \times \inv$ is smooth since $f = m \circ (\id_G \times \inv)$, $f$ is smooth. 
+		\item $(\impliedby)$: \\
+		Suppose that $f$ is smooth.  \tcb{An exercise in the section on smooth maps on product manifolds} implies that the embedding $\iota^2_e: G \rightarrow G \times G$, given by $\iota^2_e(h) = (e, h)$, is smooth. Since $\inv = f \circ \iota^2_e$, $\inv$ is smooth. Therefore $id_G \times \inv$ is smooth and since $\mult = f \circ (\id_G \times \inv)$, $\mult$ is smooth. Since $\mult$ and $\inv$ are smooth, $G$ is a Lie group.
+	\end{itemize}
+\end{proof}
+
+\begin{ex}
+	Let $G$ and $H$ be Lie groups and $\phi: G \rightarrow H$. Then $\phi$ is said to be a \tbf{Lie group homomorphism} if $\phi \in \Hom_{\Grp}(G, H) \cap \Hom_{\Maninf}(G, H)$.
+\end{ex}
+
+\begin{defn}
+	We define the category of Lie groups, denoted $\LieGrp$, by 
+	\begin{itemize}
+		\item $\Obj(\LieGrp) = \{G \in \Obj(\Grp): G \text{ is a Lie group} \}$ 
+		\item For $G_1, G_2 \in \Obj(\LieGrp)$, 
+		\begin{align*}
+			& \Hom_{\LieGrp}(G_1, G_2) = \{\phi \in \Hom_{\Grp}(G_1, G_2): \phi \text{ is a Lie group homomorphism} \}
+		\end{align*}
+		\item For 
+		\begin{itemize}
+			\item $G_1, G_2, G_3 \in \Obj(\LieGrp)$ 
+			\item $\phi_{12} \in \Hom_{\LieGrp}(G_1, G_2)$
+			\item $\phi_{23} \in \Hom_{\LieGrp}(G_2, G_3)$
+		\end{itemize}
+		we define $ \phi_{23} \circ_{\LieGrp} \phi_{12} \in \Hom_{\LieGrp}(G_1, G_3)$ by 
+		$$ \phi_{23} \circ_{\LieGrp} \phi_{12} = \phi_{23} \circ_{\Set} \phi_{12}$$
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	We have that $\LieGrp$ is a subcategory of $\Grp$ and $\Maninf$.
+\end{ex}
+
+\begin{proof}
+	\tcb{FINISH!!!}
+\end{proof}
+
+\begin{defn} \ld{00000} 
+	Let $G$ be a group and $g \in G$. We define the \tbf{left and right translation maps}, denoted $l_g:G \rightarrow G$ and $r_g:G \rightarrow G$ respectively, by $l_g(x) = gx$ and $r_g(x) = xg^{-1}$ respectively. 
+\end{defn}
+
+\begin{ex}
+	Let $G \in \Obj(\LieGrp)$. Then for each $g \in G$, $l_g,r_g \in \Aut_{\LieGrp}(G)$.
+\end{ex}
+
+\begin{proof}
+	By definition, for each $g \in G$, $l_g, r_g \in \End_{\LieGrp}(G)$ and \tcb{FINISH!!!}.   
+\end{proof}
+
+\begin{ex}
+	Let $G, H \in \Obj(\LieGrp)$ and $\phi \in \Hom_{\LieGrp}(G, H)$. Then $\phi$ has constant rank. 
+\end{ex}
+
+\begin{proof}
+	Let $g \in G$. Since $\phi$ is a homomorphism, we have that for each $x \in G$, $\phi(g x) = \phi(g) \phi(x)$. Thus $\phi \circ l_g = l_{\phi(g)} \circ \phi$, i.e. the following diagram commutes: 
+	\[ 
+	\begin{tikzcd}
+		G \arrow[r, "\phi"] \arrow[d, "l_g"'] & H \arrow[d, "l_{\phi(g)}"]  \\
+		G \arrow[r, "\phi"]                   & H
+	\end{tikzcd}
+	\]
+	Let $x \in G$. Then
+	\begin{align*}
+		D\phi(gx) \circ D l_g (x) 
+		& = D(\phi \circ l_g) (x) \\
+		& = D(l_{\phi(g)} \circ \phi) \\
+		& = D l_{\phi(g)} (\phi(x)) \circ D \phi (x) 
+	\end{align*}
+	Since $l_g \in \Aut_{\Maninf}(G), l_{\phi(g)} \in \Aut_{\Maninf}(H)$, $D l_g (x) \in \Iso_{\VectR}(T_x G, T_{g x} G)$ and $D l_{\phi(g)}(\phi(x)) \in \Iso_{\VectR}(T_{\phi(x)}, T_{\phi(g) \phi(x)}H)$. Hence 
+	\begin{align*}
+		\rnk D\phi(gx)
+		& = \rnk D\phi(gx) \circ D l_g (x) \\
+		& = \rnk D l_{\phi(g)} (\phi(x)) \circ D \phi (x) \\
+		& = \rnk  D \phi (x)
+	\end{align*} 
+	Since $x \in G$ is arbitrary, for each $x \in G$, $\rnk D\phi(gx) = \rnk  D \phi (x)$. In particular, $\rnk D\phi(g) = \rnk  D \phi (e)$. Since $g \in G$ is arbitrary, for each $g \in G$, $\rnk D\phi(g) = \rnk  D \phi (e)$ and $\phi$ has constant rank. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{ex}
+	
+\end{ex}
+
+\begin{defn} \ld{00000} 
+	Let $G$ be a group, $y \in G$ and $f \in L^0$.  Define $L_y, R_y: L^0(G) \rightarrow L^0(G)$ by $L_y f = f \circ l_y^{-1}$ and $R_y f = f \circ r_y^{-1}$, that is, $L_yf(x) = f(y^{-1}x)$ and $R_yf(x) = f(xy)$.
+\end{defn}
+
+
+\begin{defn}
+	content...
 \end{defn}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Lie Algebras}
 
 \begin{defn}
 	Let $\MFg$ be a vector space and $[\cdot, \cdot]: \MFg \times \MFg \rightarrow \MFg$. 
@@ -5989,15 +6200,21 @@ Let $M \in \Obj(\Maninf)$. Set $n = \dim M$, $E = M \times \R^k$ and define $\pi
 		\item $[\cdot, \cdot]$ is bilinear
 		\item $[\cdot, \cdot]$ is antisymmetric
 		\item $[\cdot, \cdot]$ satisfies the Jacobi identity: \\
-		for each $x, w, y \in \MF g$, 
+		for each $x, y, z \in \MFg$, 
 		$$[x, [y,z]] + [y, [z,x]] + [z, [x,y]] = 0$$
 	\end{enumerate}
 	In this case, $(\MFg, [\cdot, \cdot])$ is said to be a \tbf{Lie algebra}.
 \end{defn}
 
 \begin{defn}
-	Let $X \in $
+	Let $G \in \Obj(\LieGrp)$ and $X \in \MFX(G)$. Then $X$ is said to be \tbf{left $G$-invariant} if for 
 \end{defn}
+
+\begin{ex}
+	Let $G \in \Obj(\LieGrp)$ and $X \in \MFX(G)$. Then  
+\end{ex}
+
+
 
 
 
