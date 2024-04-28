@@ -2614,7 +2614,7 @@
 	\end{defn}
 
 	\begin{ex} \lex{ex:measures:00008}
-		Let $(X, \MA)$ be a measurable space and $\mu: \MA \rightarrow [0, \infty]$ a measure. 
+		Let $(X, \MA)$ be a measurable space and $\mu \in M_+(X, \MA)$.
 		\begin{enumerate}
 			\item If $\mu$ is finite, then $\mu$ is $\sig$-finite. 
 			\item If $\mu$ is $\sig$-finite, then $\mu$ is semifinite.
@@ -2902,6 +2902,166 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Pushforward Measures}
+
+\begin{defn} \ld{def:pushforward_measure:0001}
+	Let $(X, \MA)$, $(Y, \MB)$ be a measurable spaces and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$ measurable. Let $\mu \in M_+(X, \MA)$. We define the \textbf{pushforward of $\mu$ by $f$ on $(Y, \MB)$}, denoted $f_*\mu: \MB \rightarrow [0, \infty]$, by 
+	$$f_*\mu(B) = \mu(f^{-1}(B))$$
+\end{defn}
+
+\begin{ex} \lex{ex:pushforward_measure:0002}
+	Let $(X, \MA)$, $(Y, \MB)$ be a measurable spaces and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$ measurable. For each $\mu \in M_+(X, \MA)$, $f_*\mu \in M_+(Y, \MB)$.
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Since $f^{-1}(\varnothing) = \varnothing$, 
+		\begin{align*}
+			f_*\mu(\varnothing) 
+			& = \mu(f^{-1}(\varnothing)) \\
+			& = \mu(\varnothing) \\
+			& = 0
+		\end{align*}
+		\item Let $(B_j)_{j \in \N} \subset \MB$. Suppose that $(B_j)_{j \in \N}$ is disjoint. Then $(f^{-1}(B_j))_{j \in \N}$ is disjoint. Hence 
+		\begin{align*}
+			f_*\mu \bigg( \bigcup_{j \in \N} B_j \bigg)
+			& = \mu \bigg( \bigcup_{j \in \N} f^{-1}(B_j) \bigg) \\
+			& = \sum_{j \in \N} \mu(f^{-1}(B_j)) \\
+			& = \sum_{j \in \N} f_*\mu(B_j)
+		\end{align*}
+	\end{enumerate}
+	Hence $f_* \mu$ is a measure.
+\end{proof}
+
+\begin{ex} \lex{ex:pushforward_measure:0003}
+	Let $(X, \MA)$, $(Y, \MB)$ be a measurable spaces and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$ measurable. Let $\mu \in M_+(X, \MA)$. If $f_*\mu$ is $\sig$-finite, then $\mu$ is $\sig$-finite.
+\end{ex}
+
+\begin{proof}
+	Suppose that $f_*\mu$ is $\sig$-finite. Then there exists $(B_n)_{n \in \N} \subset \MA$ such that $Y = \bigcup\limits_{n \in \N} B_n$ and for each $n \in \N$, $f_*\mu(B_n) < \infty$. Define $(A_n)_{n \in \N} \subset \MA$ by $A_n \defeq f^{-1}(B_n)$. Then 
+	\begin{align*}
+		X
+		& = f^{-1}(Y) \\
+		& =  f^{-1} \bigg( \bigcup\limits_{n \in \N} B_n \bigg) \\
+		& =  \bigcup\limits_{n \in \N} f^{-1}(B_n) \\
+		& =  \bigcup_{n \in \N} A_n \\
+	\end{align*}
+	and for each $n \in \N$,
+	\begin{align*}
+		\mu(A_n)
+		& = \mu(f^{-1}(B_n)) \\
+		& = f_*\mu(B_n) \\
+		& < \infty 
+	\end{align*}
+	Thus $\mu$ is $\sig$-finite.
+\end{proof}
+
+\begin{ex} \lex{ex:pushforward_measure:0004}
+	Let $(X, \MA)$, $(Y, \MB)$ be a measurable spaces and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$ measurable. Let $\mu \in M_+(X, \MA)$. Suppose that 
+	\begin{itemize}
+		\item $f$ is injective
+		\item for each $A \in \MA$, $f(A) \in \MB$.
+	\end{itemize} 
+	Then $\mu$ $\sig$-finite iff $f_*\mu$ is $\sig$-finite.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item $(\implies):$ \\
+		Suppose that $\mu$ is $\sig$-finite. Then there exists $(A_n)_{n \in \N} \subset \MA$ such that $X = \bigcup\limits_{n \in \N} A_n$ and for each $n \in \N$, $\mu(A_n) < \infty$. Define $(B_n)_{n \in \N} \subset \MP(Y)$ by 
+		\[
+		B_n = 
+		\begin{cases}
+			f(X)^c, & n = 1 \\
+			f(A_{n-1}), & n \geq 2
+		\end{cases}\]
+		By assumption $f(X) \in \MB$ and for each $n \in \N$, $f(A_n) \in \MB$. Therefore $(B_n)_{n \in \N} \subset \MB$. Furthermore, 
+		\begin{align*}
+			Y
+			& = f(X)^c \cup f(X) \\
+			& =  f(X)^c \cup f\bigg( \bigcup_{n \in \N} A_n \bigg) \\
+			& =  f(X)^c \cup \bigg( \bigcup_{n \in \N} f(A_n) \bigg) \\
+			& =  \bigcup_{n \in \N} B_n \\
+		\end{align*}
+		We note that 
+		\begin{align*}
+			f_*\mu(B_1)
+			& = \mu(f^{-1}(B_1)) \\
+			& = \mu(f^{-1} (f(X)^c)) \\
+			& = \mu(f^{-1}(f(X))^c) \\
+			& = \mu(X^c) \\
+			& = \mu(\varnothing) \\
+			& = 0
+		\end{align*}
+		and for each $n \geq 2$, 
+		\begin{align*}
+			f_*\mu(B_n) 
+			& = \mu(f^{-1}(B_n)) \\
+			& = \mu(f^{-1}(f(A_{n-1}))) \\ 
+			& = \mu(A_{n-1})
+		\end{align*}
+		Therefore for each $n \in \N$, $f_* \mu(B_n) < \infty$. Therefore $f_*\mu$ is $\sig$-finite.
+		\item $(\impliedby):$ \\
+		Suppose that $f_*\mu$ is $\sig$-finite. \rex{ex:pushforward_measure:0003} implies that $\mu$ is $\sig$-finite.
+	\end{itemize}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	
@@ -3020,7 +3180,7 @@
 		The same reasoning applied to measures shows that $\mu_0(\varnothing) = 0$.
 	\end{note}
 	
-	\begin{thm} \lex{ex:outer_measures:00008} 
+	\begin{thm} \lex{ex:outer_measures:00008} \tbf{Caratheodory Extension Theorem:} \\
 		Let $X$ be a set, $\MA_0$ an algebra on $X$ and $\mu_0$ a premeasure on $(X,\MA_0)$. Set $\MA = \sig(\MA_0)$. If $\mu_0$ is $\sig$-finite, then there exists a unique measure $\mu$ on $(X, \MA)$ such that $\mu|_{\MA_0} = \mu_0^*|_{\MA_0} = \mu_0$. 
 	\end{thm}
 
@@ -3329,7 +3489,7 @@
 		\end{enumerate}
 	\end{ex}
 
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
 			\item Let $A \subset X$. 
 			\begin{itemize}
@@ -3528,19 +3688,66 @@
 	\end{defn}
 
 	\begin{ex} \lex{ex:subspace_measures:00002} 
-		Let $(X, \MA)$ be a measurable space, $\mu$ a measure on $(X, \MA)$ and $E \in \MA$. Then $\mu|_E \in M_+(E, \MA \cap E)$. 
+		Let $(X, \MA)$ be a measurable space, $\mu$ a measure on $(X, \MA)$ and $E \in \MA$. Then 
+		\begin{enumerate}
+			\item \begin{enumerate}
+				\item $\mu|_E \in M_+(E, \MA \cap E)$
+				\item $\mu_E \in M_+(X, \MA)$
+			\end{enumerate}
+			\item Define $\iota:R \rightarrow X$ by $\iota(x) = x$. Then $\mu_E = \iota_*\mu|_E$
+		\end{enumerate} 
 	\end{ex}
 
 	\begin{proof}
-		Clear
+		\tcr{FINISH!!!}
 	\end{proof}
 
 	\begin{ex} \lex{ex:subspace_measures:00004} 
-		Let $X$ be a set, $E \subset X$ and $\nu$ and outer measure on $X$. Then $\nu_E \in M_+(X, \MA)$. 
+		Let $X$ be a set, $E \subset X$ and $\nu$ and outer measure on $X$. 
+		\begin{enumerate}
+			\item \begin{enumerate}
+				\item $\nu|_E$ is an outer measure on $E$
+				\item $\nu_E$ is an outer measure on $X$
+			\end{enumerate}
+			\item Define $\iota:R \rightarrow X$ by $\iota(x) = x$. Then $\nu_E = \iota_*\nu|_E$.
+		\end{enumerate}
+		
 	\end{ex}
 
 	\begin{proof}
-		Clear
+		\tcr{FINISH!!!}
+	\end{proof}
+
+	\begin{ex} \lex{ex:subspace_measures:00004.1} 
+		Let $X$ be a set, $E \in \MA$ and $\mu \in M_+(X, \MA)$. Then $\mu|_E$ is $\sig$-finite iff $\mu_E$ is $\sig$-finite.
+	\end{ex}
+
+	\begin{proof} 
+		Define $\iota:E \rightarrow X$ by $\iota(x) = x$. Since $\MA \cap E = \iota^*\MA$, we have that $\iota$ is $(\MA \cap E, \MA)$-measurable. Clearly $\iota$ is injective. Since $\MA \cap E \subset \MA$, we have that for each $A \in \MA \cap E$,  
+		\begin{align*}
+			\iota(A) 
+			& = A \\
+			& \in \MA.
+		\end{align*}
+		Since $\mu_E = \iota_* \mu|_E$, \rex{ex:pushforward_measure:0004} implies that $\mu|_E$ is $\sig$-finite iff $\mu_E$ is $\sig$-finite.
+	\end{proof}
+
+	\begin{defn} \ld{def:subspace_measures:00004.2} 
+		Let $X$ be a set, $E \in \MA$ and $\mu \in M_+(X, \MA)$. Then $E$ is said to be \tbf{$\sig$-finite with respect to $\mu$} if $\mu|_E$ is $\sig$-finite
+	\end{defn}
+
+	\begin{ex} \lex{ex:subspace_measures:00004.1}
+		Let $(X, \MA)$ be a measurable space, $\mu \in M_+(X, \MA)$ and $E,F \in \MA$. Suppose that $E \subset F$. If $F$ is $\sig$-finite with respect to $\mu$, then $E$ is $\sig$-finite with respect to $\mu$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $F$ is $\sig$-finite with respect to $\mu$. Then $\mu_F$ is $\sig$-finite. Thus there exist $(A_n)_{n \in \N} \subset \MB(X)$ such that $X = \bigcup\limits_{n \in \N} A_n$ and for each $n \in \N$, $\mu_F(A_n) < \infty$. Then for each $n \in \N$, 
+		\begin{align*}
+			\mu_E(A_n)
+			& = \mu(A_n \cap E) \\
+			& \leq \mu(A_n \cap F) \\
+			& = \mu_F(A_n) 
+		\end{align*}
 	\end{proof}
 
 	\begin{ex} \lex{ex:subspace_measures:00005} 
@@ -3888,36 +4095,7 @@
 
 
 
-	\newpage
-	\section{Pushforward Measures}
 	
-	\begin{defn}
-		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$ measurable. We define the \textbf{pushforward of $\mu$ by $f$ on $(Y, \MB)$}, denoted $f_*\mu: \MB \rightarrow [0, \infty]$, by $$f_*\mu(B) = \mu(f^{-1}(B))$$
-	\end{defn}
-
-	\begin{ex}
-		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$ measurable. Then $f_*\mu: \MB \rightarrow \RG$ is a measure.
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Since $f^{-1}(\varnothing) = \varnothing$, 
-			\begin{align*}
-				f_*\mu(\varnothing) 
-				& = \mu(f^{-1}(\varnothing)) \\
-				& = \mu(\varnothing) \\
-				& = 0
-			\end{align*}
-			\item Let $(B_j)_{j \in \N} \subset \MB$. Suppose that $(B_j)_{j \in \N}$ is disjoint. Then $(f^{-1}(B_j))_{j \in \N}$ is disjoint. Hence 
-			\begin{align*}
-				f_*\mu \bigg( \bigcup_{j \in \N} B_j \bigg)
-				& = \mu \bigg( \bigcup_{j \in \N} f^{-1}(B_j) \bigg) \\
-				& = \sum_{j \in \N} \mu(f^{-1}(B_j)) \\
-				& = \sum_{j \in \N} f_*\mu(B_j)
-			\end{align*}
-		\end{enumerate}
-		Hence $f_* \mu$ is a measure.
-	\end{proof}
 	
 	
 	
@@ -3938,12 +4116,13 @@
 	
 	\section{Integration of Nonnegative Functions}
 	
-	\begin{thm}\textbf{Monotone Convergence Theorem:} \\
+	\begin{thm} \lex{ex:integration_nonnegative_functions:0001} \textbf{Monotone Convergence Theorem:} \\
 		Let $(f_n)_{n \in \N} \subset L^+$. Suppose that for each $n \in \N$, $f_n \leq f_{n+1}$. Then $$\sup_{n \in \N} \int f_n = \int \sup_{n \in \N} f_n$$.
 	\end{thm}
 	
-	\begin{ex} \lex{00000} 
-		Let $\mu_1, \mu_2$ be measures on $(X, \MA)$, $\lam \geq 0$ and $f \in L^+$. Then $$\int f d (\mu_1 + \lam \mu_2) = \int f d\mu_1 + \lam \int f d\mu_2$$.  
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0002} 
+		Let $\mu_1, \mu_2 \in M_+(X, \MA)$, $\lam \geq 0$ and $f \in L^+$. Then 
+		$$\int f d (\mu_1 + \lam \mu_2) = \int f d\mu_1 + \lam \int f d\mu_2$$.  
 	\end{ex}
 	
 	\begin{proof}
@@ -3967,8 +4146,8 @@
 	\end{proof}
 	
 	
-	\begin{ex} \lex{00000} 
-		Let $\mu_1, \mu_2$ be measures on $(X,\MA)$. Suppose that $\mu_1 \leq \mu_2$. Then for each $f \in L^+$, $$\int f d\mu_1 \leq \int f d\mu_2$$
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0003}
+		Let $\mu_1, \mu_2 \in M_+(X,\MA)$. Suppose that $\mu_1 \leq \mu_2$. Then for each $f \in L^+$, $$\int f d\mu_1 \leq \int f d\mu_2$$
 	\end{ex}
 	
 	\begin{proof}
@@ -3990,16 +4169,20 @@
 		
 	\end{proof}
 	
-	\begin{thm} \textbf{Fatou's Lemma:}\\
-		Let $(f_n)_{n \in \N} \subset L^+$. Then $$\int \limfn f_n \leq \limfn \int f_n.$$
+	\begin{thm} \lex{ex:integration_nonnegative_functions:0004} \textbf{Fatou's Lemma:}\\
+		Let $(f_n)_{n \in \N} \subset L^+$. Then 
+		$$\int \limfn f_n \leq \limfn \int f_n.$$
 	\end{thm}
 	
-	\begin{thm}
-		Let $(f_n)_{n \in \N} \subset L^+$. Then $$\int \sum_{n \in \N} f_n= \sum_{n \in \N} \int f_n.$$
+	\begin{thm} \lex{ex:integration_nonnegative_functions:0005}
+		Let $(f_n)_{n \in \N} \subset L^+$. Then 
+		$$\int \sum_{n \in \N} f_n= \sum_{n \in \N} \int f_n.$$
 	\end{thm}
 	
-	\begin{ex} \lex{00000} 
-		Let $f \in L^+$ and suppose that $\int f < \infty$. Put $N = \{x \in X: f(x) = \infty\}$ and $S = \{x \in X: f(x) > 0\}$. Then $\mu(N) = 0$ and $S$ is $\sig$-finite.
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0005.1}
+		Let $f \in L^+$ and suppose that $\int f < \infty$. Define $N, S \in \MB(X)$ by 
+		$$N = \{x \in X: f(x) = \infty\}, \quad S = \{x \in X: f(x) > 0\}.$$ 
+		Then $\mu(N) = 0$ and $S$ is $\sig$-finite.
 	\end{ex}
 	
 	\begin{proof}
@@ -4020,10 +4203,9 @@
 		\end{align*}
 		
 		So for each $n \in \N$, $\mu(S_n) < \infty$ and $S$ is $\sig$-finite.
-		
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex}  \lex{ex:integration_nonnegative_functions:0006}
 		Let $f \in L^+$. Then $f =0$ a.e. iff for each $E \in \MA$, $\int_E f =0$.
 	\end{ex}
 	
@@ -4040,7 +4222,7 @@
 		
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0007}
 		Let $(X, \MA, \mu)$ be a measure space, $(f_n)_{n \in \N} \subset L^+(X, \MA)$ and $f \in L^+(X, \MA)$. Suppose that $f_n \xrightarrow{\text{p.w.}} f$, 
 		$$\lim \limits_{n \rightarrow \infty} \int f_n = \int f \text{ and } \int f < \infty$$
 		Then for each $E \in \MA$, 
@@ -4051,7 +4233,6 @@
 	\end{ex}
 	
 	\begin{proof}
-		
 		Let $E \in \MA$. By Fatou's lemma, 
 		$$\int_E f \dmu \leq \limfn \int_E f_n.$$ 
 		Note that since 
@@ -4070,13 +4251,12 @@
 			&= \int f - \int f  + \limpn \int_{E} f_n\\
 			&= \limpn \int_E f_n.
 		\end{align*}
-		
-		Hence $$\limpn \int_E f_n \leq \int_E f \leq \limfn \int_E f_n$$ and therefore $$\limn \int_E f_n = \int_E f.$$ 
-		
+		Hence 
+		$$\limpn \int_E f_n \leq \int_E f \leq \limfn \int_E f_n$$ and therefore $$\limn \int_E f_n = \int_E f.$$ 
 		If we drop the assumption that $\int f < \infty$, then the result would fail to be true for the functions $f = \infty \chi_{(0,1)}$ and $ f_n = \infty \chi_{(0,1)} + n \chi_{(1,1+1/n)}$. Here $f_n \xrightarrow{\text{p.w.}} f$, $\limn \int f_n = \int f = \infty$ and $\limn \int_{(1,\infty)} f_n = 1$ while $\int_{(1,\infty)} f = 0$.  
 	\end{proof}
 
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0008} 
 		Let $X$ be a set and $f \in L^+(X, \MP(X))$. Then 
 		$$\int f \dsh =  \sup \bigg \{\sum_{x \in F}f(x): F \subset X \text{ and } \#(F) < \infty \bigg \}$$
 	\end{ex} 
@@ -4139,11 +4319,11 @@
 		\end{align*}
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0009}
 		 	Let $X$ be a set and $f \in L^+(X, \MP(X))$. If $f$ is integrable, then $\{x \in X: f(x) > 0\}$ is countable.
 	\end{ex}
 
-	\begin{proof} \lex{00000}
+	\begin{proof} 
 		Suppose that $f$ is integrable. For $n \in \N$, set $X_n = \{x \in X: f(x) > 1/n\}$ and define $X_+ = \{x \in X: f(x) > 0\}$. Then $X_+ = \bigcup\limits_{n \in \N}X_n$. Since $f$ is integrable, we have that for each $n \in \N$,
 		\begin{align*}
 			\infty 
@@ -4151,11 +4331,10 @@
 			&\geq \int_{X_n} f \dsh \\
 			&\geq \frac{1}{n} \#(X_n).
 		\end{align*}
-		
 		Thus for each $n \in \N$, $X_n$ is finite and $X_+$ is countable.
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0010}
 		Let $(X, \MA, \mu)$ be a measure space and $f \in L^+(X, \MA)$. Define $\lam_f: \MA \rightarrow \RG$ by 
 		$$\lam_f(E) = \int_E f d\mu$$ 
 		Then 
@@ -4219,7 +4398,7 @@
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{00000} 
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0011}
 		Let $(f_n)_{n \in \N} \subset L^+$ and $f \in L^+$. Suppose that for each $n \in \N$, $f_n \geq f_{n+1}$, $f_n \xrightarrow{\text{p.w.}} f$ and $f_1$ is integrable. Then 
 		$$\limn \int f_n = \int f$$
 	\end{ex}
@@ -4241,13 +4420,11 @@
 			&= \limn \bigg[ \int f + \int (f_1-f_n)\bigg] \\
 			&= \limn \bigg[ \int f + \int f_1- \int f_n\bigg] 
 		\end{align*}
-		
 		Since $\limn \int f$ and $\limn \int f_1$ exist, $\limn \int f_n = \int f$ as required.  
-		
 	\end{proof}
 
 
-	\begin{ex}
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0012}
 		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$-measurable. Then for each $g \in L^+(Y, \MB)$ and $B \in \MB$, $$\int_{f^{-1}(B)} g \circ f \dmu = \int_B g \, d f_*\mu$$
 	\end{ex}
 
@@ -4287,7 +4464,7 @@
  		\end{align*}
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0013}
 		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$-measurable. Let $g, h \in L^0(Y, \MB)$. Then $g \circ f = h \circ f$ $\mu$-a.e. iff $g = h$ $f_*\mu$-a.e.
 	\end{ex}
 
@@ -4552,8 +4729,10 @@
 	\begin{ex} \lex{ex:integration_complex_functions:00015} 
 		Let $f \in L^1$. 
 		\begin{enumerate}
-			\item If $f$ is bounded, then for each $\ep >0$, there exists $\del >0$ such that for each $E \in \MA$, if $\mu(E) < \del$, then $\int_E |f| < \ep $.
-			\item The same conclusion holds for general $f \in L^1$.
+			\item If $f$ is bounded, then for each $\ep >0$, there exists $\del >0$ such that for each $E \in \MA$,  
+			$$\mu(E) < \del \text{ implies that } \int_E |f| < \ep .$$
+			\item For each $\ep >0$, there exists $\del >0$ such that for each $E \in \MA$,  
+			$$\mu(E) < \del \text{ implies that } \int_E |f| < \ep .$$
 		\end{enumerate} 
 	\end{ex}
 	
@@ -4568,7 +4747,11 @@
 				&< \ep
 			\end{align*}
 			
-			\item Suppose that $f$ is unbounded. Let $\epsilon >0$. Then there exists $\phi \in L^1$ such that $\phi$ is simple and $\int|f-\phi| < \ep/2$. Since $\phi$ is bounded, there exists $\del >0 $ such that for each $E \in \MA$, if $\mu(E) < \del$, then $\int_E |\phi| < \ep/2$. Let $E \in \MA$. Suppose that $\mu(E) < \del$. Then 
+			\item Suppose that $f$ is unbounded. Let $\epsilon >0$. Then there exists $\phi \in L^1$ such that $\phi$ is simple and 
+			$$\int|f-\phi| < \ep/2.$$ 
+			Since $\phi$ is bounded, there exists $\del >0 $ such that for each $E \in \MA$, if $\mu(E) < \del$, then 
+			$$\int_E |\phi| < \ep/2.$$ 
+			Let $E \in \MA$. Suppose that $\mu(E) < \del$. Then 
 			\begin{align*}
 				\int_E|f|
 				& \leq \int_E |f-\phi| + \int_E |\phi|\\
@@ -5973,21 +6156,85 @@
 	\newpage	
 	\section{Complex Measures}
 	
-	\begin{defn} \ld{43001} 
+	\begin{defn} \ld{def:complex_measures:0001} 
 		Let $(X, \MA)$ be a measurable space and $\nu:\MA \rightarrow \C$. Then $\nu$ is said to be a \textbf{complex measure} if 
 		\begin{enumerate}
 			\item $\nu (\varnothing) = 0$
-			\item for each sequence $(E_n)_{n \in \N} \subset \MA$, if $(E_n)_{n \in \N}$ is disjoint, then $\nu(\bigcup_{n \in \N} E_n) = \sum_{n \in \N} \nu(E_n)$ and $\sum_{n \in \N} \nu(E_n)$ converges absolutely. 
+			\item for each sequence $(E_n)_{n \in \N} \subset \MA$, if $(E_n)_{n \in \N}$ is disjoint, then $\nu \bigg( \bigcup\limits_{n \in \N} E_n \bigg) = \sum\limits_{n \in \N} \nu(E_n)$ and $\sum\limits_{n \in \N} \nu(E_n)$ converges absolutely. 
 		\end{enumerate}
 	\end{defn}
 	
-	\begin{defn} \ld{43002} 
+	\begin{defn} \ld{def:complex_measures:0002} 
 	Let $(X, \MA)$ be a measurable space. We define 
 	$$M(X, \MA) = \{\mu:\MA \rightarrow \C: \mu \text{ is a complex measure}\}$$
 	When $X$ is a topological space, we write $M(X)$ in place of $M(X, \MB(X))$.
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:complex_measures:0003} 
+		Let $(X, \MA)$ be a measurable space. Then $M(X, \MA)$ is a vector space.
+	\end{ex}
+
+	\begin{proof}
+		Let $\mu, \nu \in M(X, \MA)$ and $\lam \in \C$. Then
+		\begin{enumerate}
+			\item Since $\mu,\nu \in M(X, \MA)$, $\mu(\varnothing) = 0$ and $\nu(\varnothing) = 0$. Hence
+			\begin{align*}
+				(\mu + \lam \nu)(\varnothing)
+				& = \mu(\varnothing) + \lam \nu(\varnothing) \\
+				& = 0
+			\end{align*}
+			\item $(E_n)_{n \in \N} \subset \MA$. Suppose that $(E_n)_{n \in \N}$ is disjoint. Since $\mu,\nu \in M(X, \MA)$, we have that $\mu \bigg( \bigcup\limits_{n \in \N} E_n \bigg ) = \sum\limits_{n \in \N} \mu(E_n)$, $\nu \bigg( \bigcup\limits_{n \in \N} E_n \bigg) = \sum\limits_{n \in \N} \nu(E_n)$ and  $\sum\limits_{n \in \N} \mu(E_n)$, $\sum\limits_{n \in \N} \nu(E_n)$ converge absolutely. Therefore 
+			\begin{align*}
+				[\mu + \lam \nu] \bigg(  \bigcup_{n \in \N} E_n \bigg)
+				& = \mu \bigg( \bigcup_{n \in \N} E_n \bigg ) + \lam \nu \bigg( \bigcup_{n \in \N} E_n \bigg ) \\
+				& = \sum_{n \in \N} \mu(E_n) + \lam \sum_{n \in \N} \nu(E_n) \\
+				& = \sum_{n \in \N} \mu(E_n) + \sum_{n \in \N} \lam \nu(E_n) \\
+				& = \sum_{n \in \N}  [\mu(E_n)  + \lam \nu(E_n)] \\
+				& = \sum_{n \in \N} [\mu + \lam \nu](E_n) \\
+			\end{align*}
+			and 
+			\begin{align*}
+				\sum_{n \in \N} | (\mu + \lam \nu)(E_n) |
+				& = \sum_{n \in \N} | \mu(E_n)  + \lam \nu(E_n) | \\
+				& \leq \sum_{n \in \N}  | \mu(E_n) |  + |\lam| | \nu(E_n) | \\
+				& \leq \sum_{n \in \N}  | \mu(E_n) |  + |\lam|  \sum_{n \in \N} | \nu(E_n) | \\
+				& < \infty 
+			\end{align*}
+			so that $\sum\limits_{n \in \N} | (\mu + \lam \nu)(E_n) |$ converges absolutely.
+		\end{enumerate}
+		Therefore $\mu + \lam \nu \in M(X, \MA)$. Since $\mu, \nu \in M(X, \MA)$ and $\lam \in \C$ are arbitrary, we have that $M(X, \MA)$ is a vector space.
+	\end{proof}
+
+	\begin{ex} \lex{ex:complex_measures:0004} 
+		Let $(X, \MA)$ be a measurable space and $\nu \in M(X, \MA)$ with $\nu = \nu_1 + i \nu_2$. Then $\nu_1, \nu_2$ are signed measures.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $E \in \MA$. Since $\nu(E) \in \C$, $\nu_1(E), \nu_2(E) \in \R$. Since $E \in \MA$ is arbitrary, we have that for each $E \in \MA$, $\nu_1(E), \nu_2(E) < \infty$ or $\nu_1(E), \nu_2(E) > -\infty$.
+			\item 
+			Since $\nu(\varnothing) = 0$, $\nu_1(E) = 0$ and $\nu_2(E) = 0$. 
+			\item Let $(E_n)_{n \in \N} \subset \MA$. Suppose that $(E_n)_{n \in \N}$ is disjoint. Then 
+			\begin{align*}
+				\nu_1 \bigg( \bigcup_{n \in \N} E_n \bigg) + i \nu_2 \bigg( \bigcup_{n \in \N} E_n \bigg)
+				& = \nu \bigg( \bigcup_{n \in \N} E_n \bigg) \\
+				& = \sum_{n \in \N} \nu(E_n) \\
+				& = \sum_{n \in \N} [\nu_1(E_n) +  i\nu_2(E_n)] \\
+				& = \sum_{n \in \N} \nu_1(E_n)  + i \sum_{n \in \N} \nu_2(E_n) \\
+			\end{align*}
+			Therefore $\nu_1 \bigg( \bigcup\limits_{n \in \N} E_n \bigg) = \sum\limits_{n \in \N} \nu_1(E_n)$ and $\nu_2 \bigg( \bigcup\limits_{n \in \N} E_n \bigg) = \sum\limits_{n \in \N} \nu_2(E_n)$. Since $\nu \in M(X, \MA)$, we have that $\sum\limits_{n \in \N} \nu (E_n)$ converges absolutely. Since $\|\cdot\|_1 : \R^2 \rightarrow \Rg$ and $\|\cdot\|_2: \R^2 \rightarrow \Rg$ are equivalent, there exists $C > 0$ such that for each $x \in \R^2$, $\|x\|_1 \leq C \|x\|_2$. Therefore
+			\begin{align*}
+				\sum_{n \in \N} |\nu_1 (E_n)|, \sum_{n \in \N} |\nu_2 (E_n)|
+				& \leq \sum_{n \in \N} |\nu_1 (E_n)| + |\nu_2 (E_n)|  \\ 
+				& \leq \sum_{n \in \N} C |\nu_1 (E_n) +  i \nu_2 (E_n)| \\ 
+				& = C \sum_{n \in \N}  |\nu (E_n) |  \\ 
+				& < \infty 
+			\end{align*}
+		\end{enumerate}
+		Therefore $\nu_1$ and $\nu_2$ are signed measures.
+	\end{proof}
+
+	\begin{ex} \lex{ex:complex_measures:0005} 
 		Let $(X, \MA)$ be a measurable space and $\mu, \nu \in M(X, \MA)$. Set $\ML_{\mu,\nu} = \{A \in \MA: \mu(A) = \nu(A)\}$. If $X \in \ML_{\mu, \nu}$, then $\ML_{\mu, \nu}$ is a $\lam$-system on $X$.
 	\end{ex}
 	
@@ -6013,7 +6260,7 @@
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:complex_measures:0006} 
 		Let $(X, \MA)$ be a measurable space, $\mu, \nu \in M(X, \MA)$ and $\MP \subset \MA$ a $\pi$-system on $X$. Suppose that $X \in \MP$ and that for each $A \in \MP$, $\mu(A) = \nu(A)$. Then for each $A \in \sig(\MP)$, $\mu(A) = \nu(A)$.
 	\end{ex}
 	
@@ -6021,7 +6268,7 @@
 		The previous exercise implies that $\ML_{\mu, \nu}$ is a $\lam$-system on $X$. By assumtion, $\MP \subset \ML_{\mu, \nu}$. Dynkin's theorem implies that $\sig(\MP) \subset \ML_{\mu, \nu}$. So for each $A \in \sig(\MP)$, $\mu(A) = \nu(A)$.
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:complex_measures:0007} 
 		Let $(X, \MT)$ be a topological space and $\mu, \nu \in M(X)$. If for each $A \in \MT$, $\mu(A) = \nu(A)$, then $\mu = \nu$.
 	\end{ex}
 
@@ -6029,16 +6276,26 @@
 		Since $\MT \subset \MB(X)$ is a $\pi$-system on $X$ and $X \in \MT$, the previous exercise implies that for each $A \in \sig(\MT)$, $\mu(A) = \nu(A)$. Since $\sig(\MT) = \MB(X)$, $\mu = \nu$. 
 	\end{proof}
 
-	\begin{defn}
+	\begin{defn} \ld{def:complex_measures:0008} 
 		Let $(X, \MA)$ be a measurable space, $\mu \in M(X, \MA)$ and $A \in \MA$. Then $\mu$ is said to be \tbf{supported on $A$} if for each $E \in \MA$, $\mu(E) = \mu(A \cap E)$. \\
 		\tcb{need to define for signed measures and measures}
 	\end{defn}
+
+	\begin{ex} \lex{ex:complex_measures:0009} 
+		Let $(X, \MA)$ be a measurable space, $\mu \in M(X, \MA)$ and $f \in L^1(X, \MA, \mu)$. Define $\nu: \MA \rightarrow \C$ by 
+		$$ \nu(E) = \int_E f \dmu $$
+		Then $\nu \in M(X, \MA)$.
+	\end{ex}
+
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
 	
 	\begin{note}
 		We use the same definitions for mutual orthogonality and absolute continuity when discussing complex measures instead of signed measures.
 	\end{note}
 	
-	\begin{defn} \ld{43003} 
+	\begin{defn} \ld{def:complex_measures:0010} 
 		Let $(X,\MA)$ be a measurable space and $\nu \in M(X, \MA)$ with $\nu = \nu_1 + i\nu_2$. We define $L^1(\nu) = L^1(\nu_1)\cap L^1(\nu_2)$. For $f \in L^1(\nu)$, we define $$\int f d\nu = \int fd\nu_1 + i \int f d \nu_2$$
 	\end{defn}
 	
@@ -6046,7 +6303,7 @@
 		Let $(X,\MA)$ be a measurable space, $\nu \in M(X, \MA)$ and $\mu$ a $\sig$-finite measure on $(X, \MA)$. Then there exists unique $\lam$, $\rho \in M(X, \MA)$ such that $\lam \perp \mu$, $\rho \ll \mu$ and $\nu = \lam + \rho$, and there exists $f \in L^1(\mu)$ such that $d\rho = f \dmu$ and $f$ is unique $\mu$-a.e.  
 	\end{thm}
 	
-	\begin{ex} \lex{43003.2}
+	\begin{ex} \lex{ex:complex_measures:0011} 
 		Let $\nu \in M(X, \MA)$ and $\mu$, $\lam$ $\sig$-finite measures on $(X,\MA)$. Suppose that $\nu \ll \mu$ and $\mu \ll \lam$. Then 
 		\begin{enumerate}
 			\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and $$\int g d\nu = \int g \frac{d\nu}{d\mu} \dmu$$
@@ -6054,23 +6311,23 @@
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{defn} \ld{43004} 
+	\begin{defn} \ld{def:complex_measures:0012}
 	Let $(X,\MA)$ be a measurable space and $\nu \in M(X,\MA)$ with $ \nu = \nu_1 + i \nu_2$. Define $\mu = |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$ and thus there exists $f \in L^1(\mu)$ such that $d\nu = f \dmu$. We define the \textbf{total variation of $\nu$}, denoted $|\nu|: \MA \rightarrow \Rg$, by $$|\nu|(E) = \int_E |f|\dmu$$ 
 	\end{defn}
 	
-	\begin{ex} \lex{43004.5} 
+	\begin{ex} \lex{def:complex_measures:0013} 
 	Let $(X,\MA)$ be a measurable space, $\nu \in M(X,\MA)$ and $\lam$ a $\sig$-finite measure on $(X, \MA)$. Suppose that $\nu \ll \lam$. Set $g = d\nu / d\lam$. Then for each $E \in \MA$, $$|\nu|(E) = \int_E |g| \dlam$$
 	\end{ex}
 	
 	\begin{proof}
-	Write $\nu = \nu_1 + i \nu_2$. Then $\nu_1, \nu_2 \ll \lam$. Set $f_1 = d\nu_1 / d\lam$ and $f_2 = d\nu_2 / d\lam$. Then \rex{41016} implies that $d|\nu_1| = |f_1| \dlam$ and $d|\nu_2| = |f_2|d\lam$. Set $\mu = |\nu_1| + |\nu_2|$ and $f = d\nu / \dmu$ as in \rd{43004}. Then by construction, 
+	Write $\nu = \nu_1 + i \nu_2$. Then $\nu_1, \nu_2 \ll \lam$. Set $f_1 = d\nu_1 / d\lam$ and $f_2 = d\nu_2 / d\lam$. Then \rex{41016} implies that $d|\nu_1| = |f_1| \dlam$ and $d|\nu_2| = |f_2|d\lam$. Set $\mu = |\nu_1| + |\nu_2|$ and $f = d\nu / \dmu$ as in \rd{def:complex_measures:0012}. Then by construction, 
 	\begin{align*}
 	d\mu
 	&= d|\nu_1| + d|\nu_2| \\
 	&= |f_1| \dlam + |f_2| \dlam \\
 	&= (|f_1| + |f_2|) \dlam
 	\end{align*}
-	So that $\mu \ll \lam$ with $d\mu / d \lam = |f_1| + |f_2|$. Then \rex{43003.2} implies that $\nu \ll \lam$ with 
+	So that $\mu \ll \lam$ with $d\mu / d \lam = |f_1| + |f_2|$. Then \rex{ex:complex_measures:0011} implies that $\nu \ll \lam$ with 
 	\begin{align*}
 	\frac{d\nu}{d\lam} 
 	&= \frac{d\nu}{d\mu} \frac{d\mu}{d\lam}\\
@@ -6086,7 +6343,7 @@
 	\end{align*}
 	\end{proof}
 	
-	\begin{ex} \lex{43005} 
+	\begin{ex} \lex{def:complex_measures:0014} 
 		Let $\nu \in M(X, \MA)$ and $\mu$ a $\sig$-finite measures on $(X,\MA)$. If $\nu \ll \mu$, then $\{x \in X: d\nu / \dmu(x) = 0 \}$ is $\nu$-null.
 	\end{ex}
 	
@@ -6099,7 +6356,7 @@
 		\end{align*} 
 	\end{proof}
 	
-	\begin{ex} \lex{43006} 
+	\begin{ex} \lex{def:complex_measures:0015} 
 		Let $(X, \MA)$ be a measurable space and $\nu \in M(X, \MA)$ with $\nu = \nu_1 + i\nu_2$. Then $|\nu_1|, |\nu_2| \leq |\nu| \leq |\nu_1| + |\nu_2|$.
 		
 	\end{ex}
@@ -6111,11 +6368,8 @@
 			&= \int_E f \dmu\\
 			&= \int_E f_1 \dmu + i \int_E f_2 \dmu
 		\end{align*}
-		
-		and $$\nu(E) = \nu_1(E) + i\nu_2(E)$$
-		
+		and $$\nu(E) = \nu_1(E) + i\nu_2(E),$$
 		we know that $\nu_1 = f_1 \dmu$ and $\nu_2 = f_2 \dmu$. 
-		
 		A previous exercise tells us that $d|\nu_1| = |f_1|\dmu$ and $d |\nu_2| = |f_2|\dmu$. Since $|f_1|, |f_2| \leq |f| \leq |f_1|+|f_2|$, we have that 
 		\begin{align*}
 			|\nu_1|, |\nu_2| 
@@ -6124,7 +6378,7 @@
 		\end{align*}
 	\end{proof}
 	
-	\begin{ex} \lex{43007} 
+	\begin{ex} \lex{def:complex_measures:0016} 
 		Let  $(X, \MA)$ be a measurable space, $\nu \in M(X, \MA)$ and $c \in \C$. Then $| c \nu | = | c | | \nu |$.
 	\end{ex}
 	
@@ -6139,7 +6393,7 @@
 		So $| c \nu | = | c | |  \nu |$.
 	\end{proof}
 
-	\begin{ex} \lex{43008} 
+	\begin{ex} \lex{def:complex_measures:0017} 
 	Define $\|\cdot \|: M(X, \MA) \rightarrow \Rg$ by $$\|\mu \|= | \mu | (X)$$ 
 	Then $\|\cdot \|$ is a norm on $M(X, \MA)$. 
 	\end{ex}
@@ -6148,7 +6402,7 @@
 		Let $\mu, \nu \in M(X, \MA)$ and $\al \in \C$. The previous exercises tell us that $| \mu + \nu | \leq | \mu | + | \nu |$ and $| \al \mu | = | \al | | \mu |$. So clearly $\|\mu + \nu \|\leq \|\mu \|+ \|\nu \|$ and $\|c \mu \|= | c | \|\mu \|$. If $\|\mu \|= 0$, then $X$ is $\mu$-null and $\mu$ is the zero measure.
 	\end{proof}
 	
-	\begin{ex} \lex{43009} 
+	\begin{ex} \lex{def:complex_measures:0018} 
 		Let $(X, \MA)$ be a measurable space and $\nu \in M(X, \MA)$. Then 
 		
 		\begin{enumerate}
@@ -6168,17 +6422,13 @@
 				& \leq \int_E |f| \dmu\\
 				&= |\nu|(E)
 			\end{align*}
-			
 			\item Let $E \in \MA$ and suppose that $|\nu|(E)=0$. The previous part implies $|\nu(E)|=0$ and $\nu \ll |\nu|$. Put $g = d \nu / d|\nu|$. Then 
 			\begin{align*}
 				f 
 				&= \frac{d\nu}{d\mu}\\
 				&= g|f| \hspace{2mm }\mu\text{-a.e.}
 			\end{align*}
-			
-			Hence $|f| = |g||f|$ $\mu$-a.e. Since $|\nu| \ll \mu$, $|f| = |g||f|$ $|\nu|$-a.e.
-			
-			A previous exercise tells us that $|f| \neq 0$ $|\nu|$-a.e. Thus $|g|=1$ $|\nu|$-a.e.\\
+			Hence $|f| = |g||f|$ $\mu$-a.e. Since $|\nu| \ll \mu$, $|f| = |g||f|$ $|\nu|$-a.e. A previous exercise tells us that $|f| \neq 0$ $|\nu|$-a.e. Thus $|g|=1$ $|\nu|$-a.e.\\
 			\item Write $\nu = \nu_1 + i\nu_2$ and $f = f_1 + if_2$. First we observe that
 			\begin{align*}
 				L^1(\nu)
@@ -6226,13 +6476,47 @@
 	\end{proof}
 
 
-	\begin{ex} \lex{43010} 
+	\begin{ex} \lex{def:complex_measures:0019} 
 	Let $(X, \MA)$ be a measurable space, $\mu_1, \mu_2 \in M(X, \MA)$ and $\lam \in \C$. Then for each $f \in L^1(\mu_1 + \lam \mu_2)$, $$\int f d(\mu_1 + \lam \mu_2) = \int f \dmu_1 + \lam \int f \dmu_2$$
 	\end{ex}
 	
 	\begin{proof}
 	Clear by an exercise in section $3.2$.
 	\end{proof}
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	\subsection{Pushforward and Radon-Nikodym Derivative:}
 	
@@ -7815,7 +8099,28 @@
 		\end{enumerate}
 	\end{itemize}
 	\end{defn}
-	
+
+	\begin{ex} \lex{ex:introduction_radon_measures:0001.1}
+		Let $X$ be a topological space and $\mu \in M_+(X)$. Suppose that $\mu$ is finite. If $\mu$ is inner regular, then $\mu$ is regular.
+	\end{ex}	
+
+	\begin{proof}
+		Suppose that $\mu$ is inner regular. Let $E \in \MB(X)$. Define $V_O(E) = \{\mu(U): E \subset U \text{ and $U$ is open}\}$. By definition, $\mu(E) \leq \inf V_O(E)$. Let $\ep > 0$. Since $\mu$ is finite, $\mu(E^c) -\ep < \mu(E^c)$. Inner regularity implies that there exists $K \subset E^c$ such that $\mu(K) > \mu(E^c) - \ep$. Define $U \in \MB(X)$ by $U \defeq K^c$. Then $U$ is open and $E \subset U$. By construction,
+		\begin{align*}
+			\mu(U) - \mu(E) 
+			& = [\mu(X) - \mu(U^c)] - [\mu(X) - \mu(E^c)] \\
+			& = \mu(E^c) - \mu(U^c) \\
+			& = \mu(E^c) - \mu(K) \\
+			& < \ep.
+		\end{align*}
+		Therefore
+		\begin{align*}
+			\inf V_O(E)
+			& \leq \mu(U) \\
+			& < \mu(E) + \ep 
+		\end{align*}
+		Since $\ep > 0$ is arbitrary, we have that $\inf V_O(E) \leq \mu(E)$. Therefore $\mu(E) = \inf V_O(E)$ and $\mu$ is outer regular on $E$. Since $E \in \MB(X)$ is arbitrary, we have that $\mu$ is outer regular. Hence $\mu$ is regular.
+	\end{proof}
 
 	\begin{defn} \ld{def:introduction_radon_measures:0002} 
 	Let $X$ be a topological space. 
@@ -7826,15 +8131,27 @@
 			\item $\mu$ is outer regular on $E$
 			\item $E$ is open implies that $\mu$ is inner regular on $E$
 		\end{enumerate}
-		\item Let $\mu \in M(X)$. Then $\mu$ is said to be \textbf{Radon} if $|\mu|$ is Radon.
 		\item We define 
 		\begin{itemize}
 			\item $\MM_+(X) = \{\mu \in M_+(X): \mu \text{ is Radon}\}$
-			\item $\MM(X) = \{\mu \in M(X): \mu \text{ is Radon}\}$
 			\item $\MM_1(X) = \{\mu \in \MM_+(X) : \mu \text{ is a probability measure}\}$
 		\end{itemize}
 	\end{itemize}
 	\end{defn}
+
+	\begin{ex} \lex{ex:introduction_radon_measures:0002.1} 
+		Let $X$ be a topological space and $\mu, \nu \in \MM_+(X)$ and $\lam \geq 0$. Then $\mu + \lam \nu \in \MM_+(X)$.
+	\end{ex}
+
+	\begin{proof}
+		\rex{} implies that $\mu + \lam \nu \in M_+(X)$. 
+		\begin{enumerate}
+			\item 
+			\item 
+			\item 
+		\end{enumerate}
+		\tcr{FINISH!!!}
+	\end{proof}
 
 
 	\begin{defn} \ld{def:introduction_radon_measures:0003}
@@ -7971,12 +8288,12 @@
 	\end{proof}		
 	
 	\begin{ex} \lex{ex:introduction_radon_measures:0008} 
-		Let $X$ be a topological space, $\mu \in \MM_+(X)$ and $E \in \MB(X)$. If $\mu|_E$ is $\sig$-finite, then $\mu$ is inner regular on $E$. \\
+		Let $X$ be a topological space, $\mu \in \MM_+(X)$ and $E \in \MB(X)$. If $E$ is $\sig$-finite with respect to $\mu$, then $\mu$ is inner regular on $E$. \\
 		\textbf{Hint:} use the previous exercise
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that $\mu|_E$ is $\sig$-finite. 
+		Suppose that $E$ is $\sig$-finite with respect to $\mu$. Then $\mu|_E$ is $\sig$-finite.
 		\begin{itemize}
 			\item Suppose that $\mu|_E(E) < \infty$. Then
 			\begin{align*}
@@ -8011,97 +8328,7 @@
 		If $X$ is $\sig$-compact, then $\mu$ is $\sig$-finite. \rex{ex:introduction_radon_measures:0009} implies that $\mu$ is regular.
 	\end{proof}
 	
-	\begin{ex} \lex{ex:introduction_radon_measures:0010.1} 
-		Let $X$ be a topological space, $\mu \in \MM_+(X)$ and $f \in L^1(X, \MB(X), \mu)$. Define $\nu \in M(X)$ by 
-		$$\nu(E) = \int_E f \dmu.$$
-		If $\mu$ is $\sig$-finite, then $\nu \in \MM(X)$. \\
-		\tbf{Hint:} consider \rex{ex:integration_complex_functions:00015}.
-	\end{ex}
-
-	\begin{proof} Suppose that $\mu$ is $\sig$-finite.
-	\begin{enumerate}
-		\item Let $K \subset X$. Suppose that $K$ is compact. Since $f \in L^1(X, \MB(X), \mu)$, we have that
-		\begin{align*}
-			|\nu|(K)
-			& = \int_K |f| \dmu \\
-			& \leq \int_X |f| \dmu \\
-			& = \|f\|_1 \\
-			& < \infty 
-		\end{align*}
-		Since $K \subset X$ with $K$ is compact, we have that for each $K \subset X$, $K$ is compact implies that $|\nu|(K) < \infty$.
-		\item Let $E \in \MB(X)$. By construction, $|\nu|(E) \leq \inf \{|\nu|(U'): \text{$E \subset U'$ and $U'$ is open}\}$. Let $\ep > 0$. 
-		\begin{itemize}
-			\item Suppose that $\mu(E) < \infty$. \rex{ex:integration_complex_functions:00015} implies that there exists $\del > 0$ such that for each $A \in \MB(X)$, $\mu(A)< \del$ implies that 
-			\begin{align*}
-				|\nu|(A)
-				& = \int_A |f| \dmu \\
-				& < \ep.
-			\end{align*}
-			Since $\mu$ is outer regular on Borel sets, there exists $U \subset X$ such that $U$ is open, $E \subset U$ and $\mu(U) < \mu(E) + \del$. Since $U = E \cup (U \setminus E)$, we have that 
-			\begin{align*}
-				\mu(U)
-				& = \mu(E) + \mu(U \setminus U)
-			\end{align*} 
-			Therefore 
-			\begin{align*}
-				\mu(U \setminus U)
-				& = \mu(U) - \mu(E) \\
-				& < \del 
-			\end{align*}
-			Hence 
-			\begin{align*}
-				|\nu|(U)
-				& = |\nu|(E) + |\nu|(U \setminus E) \\
-				& < |\nu|(E) + \ep
-			\end{align*} 
-			So there exists $U \subset X$ such that $U$ is open, $E \subset U$ and $|\nu|(U) < |\nu|(E) + \ep$.
-			\item Suppose that $\mu(E) = \infty$. Since $\mu$ is $\sig$-finite, there exist $(A_n)_{n \in \N} \subset \MB(X)$ such that $(A_n)_{n \in \N}$ is disjoint, $X = \bigcup\limits_{n \in \N} A_n$ and for each $n \in \N$, $\mu(A_n) < \infty$. For each $n \in \N$, define $E_n = E \cap A_n$. Then $(E_n)_{n \in \N}$ is disjoint,
-			\begin{align*}
-				E 
-				& = E \cap X \\
-				& = E \cap \bigg( \bigcup\limits_{n \in \N} A_n  \bigg) \\
-				& = \bigcup\limits_{n \in \N} (E \cap A_n) \\
-				& = \bigcup\limits_{n \in \N} E_n
-			\end{align*}
-			and for each $n \in \N$,
-			\begin{align*}
-				\mu(E_n)
-				& = \mu(E \cap A_n) \\
-				& \leq \mu(A_n) \\
-				& < \infty 
-			\end{align*}
-			From above, for each $n \in \N$, there exists $U_n \subset X$ such that $U_n$ is open and $E_n \subset U_n$ and $|\nu|(U_n) < |\nu|(E_n) + \ep2^{-(n+1)}$. Define $U \subset X$ by $U \defeq \bigcup\limits_{n \in \N} U_n$. Then $U$ is open, 
-			\begin{align*}
-				E
-				& = \bigcup_{n \in \N} E_n \\
-				& \subset \bigcup_{n \in \N} U_n \\
-				& = U
-			\end{align*}
-			and 
-			\begin{align*}
-				|\nu|(U)
-				& = |\nu| \bigg( \bigcup_{n \in \N} U_n \bigg) \\
-				& \leq \sum_{n \in \N} |\nu|(U_n) \\
-				& \leq \sum_{n \in \N} [|\nu|(E_n) + \ep 2^{-(n+1)}] \\
-				& = \sum_{n \in \N} |\nu|(E_n) + \ep/2 \\
-				& = |\nu| \bigg( \bigcup_{n \in \N} E_n \bigg) + \ep/2 \\
-				& = |\nu|(E) + \ep/2 \\
-				& < |\nu|(E) + \ep
-			\end{align*}
-			So there exists $U \subset X$ such that $U$ is open, $E \subset U$ and $|\nu|(U) < |\nu|(E) + \ep$.
-		\end{itemize}
-		Since there exists $U \subset X$ such that $U$ is open, $E \subset U$ and $|\nu|(U) < |\nu|(E) + \ep$, we have that 
-		\begin{align*}
-			\inf \{|\nu|(U'): \text{$E \subset U'$ and $U'$ is open}\}
-			& \leq |\nu|(U) \\
-			& < |\nu|(E) + \ep 
-		\end{align*} 
-		Since $\ep > 0$ is arbitrary, we have that $\inf \{|\nu|(U'): \text{$E \subset U'$ and $U'$ is open}\} \leq |\nu|(E)$. Thus 
-		$$|\nu|(E) = \inf \{|\nu|(U'): \text{$E \subset U'$ and $U'$ is open}\}$$
-		and $|\nu|$ is outer regular on $E$. Since $E \in \MB(X)$ is arbitrary, we have that $|\nu|$ is outer regular on Borel sets.
-		\item 
-	\end{enumerate}  
-	\end{proof}
+	
 	
 	
 
@@ -8111,7 +8338,7 @@
 
 
 
-
+	
 
 
 
@@ -8316,6 +8543,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 	\subsection{Lebesgue Decomposition of Radon Measures}
 	
 	\tcr{
@@ -8414,10 +8652,6 @@
 		$$\nu_{\mu}(A) \geq \nu_{\mu}(A \cap U) + \nu_{\mu}(A \cap U^c)$$
 		Since $A \subset X$ with $\nu_{\mu}(A) < \infty$ is arbitrary, \rex{ex:outer_measures:00006} implies that $U \in \MA_{\nu_{\mu}}$. Since $U \subset X$ with $U$ is open is arbitrary, $\MB(X) \subset \MA_{\nu_{\mu}}$. 
 	\end{proof}
-
-	\begin{note}
-		When the context is clear, we will write $\nu_{\mu}$ in place of $\nu_{\mu}|_{\MB(X)}$ so that of $\nu_{\mu} \in M_+(X)$.
-	\end{note}
 
 	\begin{ex} \lex{ex:lebesgue_decomposition_radon_measures:0002.1}
 		Let $X$ be a topological space, $\mu, \nu \in M_+(X)$. Suppose that $\nu$ is Radon. Then $\nu_{\mu} = (\nu_{\mu})_{\supp \nu}$. 
@@ -8790,9 +9024,153 @@
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Complex Radon Measures}
+	
+	\begin{defn} \ld{def:complex_radon_measures:0001}
+		Let $X$ be a topological space.
+		\begin{itemize}
+			\item Let $\mu \in M(X)$. Then $\mu$ is said to be \textbf{Radon} if $|\mu|$ is Radon.
+			\item We define $\MM(X) = \{\mu \in M(X): \mu \text{ is Radon}\}$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:complex_radon_measures:0002}
+		Let $X$ be a topological space and $\nu \in M(X)$. Then $\nu$ is Radon iff $\pi_{\Re} \circ \nu $ is Radon and $\pi_{\Im} \circ \nu$ is Radon.  
+	\end{ex}
 
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
 
+	\begin{ex} \lex{ex:complex_radon_measures:0003}
+		Let $X$ be a topological space. Then $\MM(X)$ is a vector space. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $\mu, \nu \in \MM(X)$ and $\lam \in \C$. \rex{ex:complex_radon_measures:0002} implies that  \rex{ex:introduction_radon_measures:0002.1} implies that
+		\begin{align*}
+			\pi_{\Re} \circ (\mu + \lam \nu) 
+			& = \pi_{\Re} \circ \mu + \pi_{\Re}(\lam) \pi_{\Re} \circ \nu \\
+			& \in M_+(X)
+		\end{align*}
+		and 
+		\begin{align*}
+			\pi_{\Im} \circ (\mu + \lam \nu) 
+			& = \pi_{\Im} \circ \mu + \pi_{\Im}(\lam) \pi_{\Im} \circ \nu \\
+			& \in M_+(X)
+		\end{align*}  
+		\rex{ex:complex_radon_measures:0002} implies that 
+		\begin{align*}
+			\mu + \lam \nu 
+			& = \pi_{\Re} \circ (\mu + \lam \nu)  + \pi_{\Im} \circ (\mu + \lam \nu) \\
+			& \in \MM(X)
+		\end{align*}
+		\tcr{FINISH!!!}
+	\end{proof}
 
+	\begin{ex} \lex{ex:introduction_radon_measures:0010.1} 
+		Let $X$ be a topological space, $\mu \in \MM_+(X)$ and $f \in L^1(X, \MB(X), \mu)$. Define $\nu \in M(X)$ by 
+		$$\nu(E) = \int_E f \dmu.$$
+		Then 
+		\begin{enumerate}
+			\item $|\nu|$ is inner regular, \\
+			\tbf{Hint:} consider \rex{ex:integration_nonnegative_functions:0005.1} and  \rex{ex:integration_complex_functions:00015}
+			\item $|\nu|$ is regular,
+			\item $\nu$ is Radon.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $E \in \MB(X)$. Define $V_I(E) = \{|\nu|(K'): \text{$K' \subset E$ and $K'$ is compact}\}$. By construction, $\sup V_I(E) \leq |\nu|(E)$. Let $\ep > 0$. \rex{ex:integration_complex_functions:00015} implies that there exists $\del > 0$ such that for each $A \in \MB(X)$, $\mu(A)< \del$ implies that 
+			\begin{align*}
+				|\nu|(A)
+				& = \int_A |f| \dmu \\
+				& < \ep.
+			\end{align*}
+			\begin{itemize}
+				\item Suppose that $\mu(E) < \infty$. Then $\mu(E) - \del < \mu(E)$. Since $\mu$ is inner regular on Borel sets, there exists $K \subset E$ such that $K$ is compact and $\mu(K) > \mu(E) - \del$.
+				Since $E = K \cup (E \setminus K)$, we have that 
+				\begin{align*}
+					\mu(E)
+					& = \mu(K) + \mu(E \setminus K)
+				\end{align*} 
+				Since $\mu(E) < \infty$, we have that  
+				\begin{align*}
+					\mu(E \setminus K)
+					& = \mu(E) - \mu(K) \\
+					& < \del 
+				\end{align*}
+				Hence $|\nu|(E \setminus K) < \ep$ and therefore
+				\begin{align*}
+					|\nu|(K)
+					& = |\nu|(E) - |\nu|(E \setminus K) \\
+					& > |\nu|(E) - \ep
+				\end{align*} 
+				So there exists $K \subset E$ such that $K$ is compact, $K \subset E$ and $|\nu|(K) > |\nu|(E) - \ep$.
+				\item Suppose that $\mu(E) = \infty$. Define $A \in \MB(X)$ by $A \defeq \{x \in X: |f(x)| > 0\}$. \rex{ex:integration_nonnegative_functions:0005.1} implies that $A$ is $\sig$-finite with respect to $\mu$. Then \rex{ex:subspace_measures:00004.1} implies that $E \cap A$ is $\sig$-finite with respect to $\mu$. \rex{ex:introduction_radon_measures:0008} implies that $\mu$ is inner regular on $E \cap A$. Since $E \cap A \in \MB(A)$, there exists $K \subset E \cap A$ such that $K$ is compact and $\mu(K) > \mu(E \cap A) - \del$. Then $K \subset E$ and $\mu[(E \cap A) \setminus K] < \del$. Therefore $|\nu|[(E \cap A) \setminus K] < \ep$. Since $|\nu|(E \cap A) < \infty$ and $|\nu|(E \cap A) = |\nu|(K) + |\nu|[(E \cap A) \setminus K]$, we have that 
+				\begin{align*}
+					|\nu|(E \cap A) - |\nu|(K) 
+					& = |\nu|[(E \cap A) \setminus K] \\
+					& < \ep.
+				\end{align*}
+				Hence
+				\begin{align*}
+					|\nu|(E)
+					& = |\nu|(E \cap A) + |\nu|(E \cap A^c) \\
+					& = |\nu|(E \cap A) \\
+					& < |\nu|(K) + \ep 
+				\end{align*}
+				so that 
+				\begin{align*}
+					\sup V_I(E)
+					& \geq |\nu|(K) \\
+					& > |\nu|(E) - \ep
+				\end{align*}
+			\end{itemize}
+			Since $\ep > 0$ is arbitrary, we have that $\sup V_I(E) \geq |\nu|(E)$. Therefore $\sup V_I(E) = |\nu|(E)$ and $|\nu|$ is inner regular on $E$. Since $E \subset X$ with $E$ open is arbitrary, we have that $|\nu|$ is inner regular.
+			\item Since $\nu \in M(X)$, $|\nu|$ is finite. Since $|\nu|$ is inner regular, \rex{ex:introduction_radon_measures:0001.1} implies that $|\nu|$ is regular. 
+			\item Since $|\nu|$ is regular, $|\nu|$ is Radon. By definition, $\nu$ is Radon.
+		\end{enumerate}  
+	\end{proof}
+
+	\tcr{(maybe make an exercise in the radon-nikodym derivative section establishing equivalence of $\nu$ being absolutely continuous wrt $\mu$ and having the form of integration over a set wrt $\mu$, then establish the equivalence with the $\ep$, $\del$ instead of citing \rex{ex:integration_complex_functions:00015}.) }
+	
+	\begin{ex}
+		content...
+	\end{ex}
+
+	\begin{defn}
+		Let $X$ be a topological space, $\mu \in M_+(X)$ and $\nu \in \MM(X)$. 
+		\begin{itemize}
+			\item If $\pi_{\Im} \circ \nu = 0$, we define $\nu_{\mu} \in M(X, \MA)$ by 
+			$$\nu_{\mu} = \nu^+_{\mu} - \nu^-_{\mu}$$
+			\item We define $\nu_{\mu} \in M(X, \MA)$ by 
+			$$\nu_{\mu} = [\pi_{\Re} \circ \nu]_{\mu} + i [\pi_{\Im} \circ \nu]_{\mu}$$
+		\end{itemize}
+	\end{defn}
+
+	
 
 
 
@@ -8982,7 +9360,7 @@
 	
 	
 	
-	\subsection{Differentiating Radon Measures}
+	\subsection{Differentiation of Radon Measures}
 
 	\begin{defn} \ld{def:diff_radon_measures:0004.1}
 		Let $(X, d)$ be a metric space and $\mu \in \MM_+(X)$. Then
@@ -9411,7 +9789,6 @@
 		$$\nu_{\mu}(E) = \int_{E}  D_{\mu} \nu \dmu.$$
 		Since $E \in \MB(X)$ is arbitrary, we have that $D_{\mu} \nu = d \nu_{\mu}/d \mu$.
 	\end{proof}
-
 	
 	
 	
@@ -9429,32 +9806,70 @@
 	
 	
 	
+	\subsection{Differentiation of Complex Radon Measures}
+	\tcr{show that if $\nu \in \MM(X)$ is Radon, then its real and imaginary parts are Radon and if $\nu$ is finite signed, then its positive and negative parts are Radon.}
 	
-	
-	
-	\subsection{Differentiating Complex Radon Measures}
-	
-	\begin{defn}
-		Let $(X, d)$ be a metric space, $\mu \in \MM_+(X, d)$ and $\nu \in \MM(X)$. 
+	\begin{defn} \ld{def:differentiation_complex_measures:0001}
+		Let $(X, d)$ be a metric space and $\nu \in \MM(X)$.
+		\begin{itemize}
+			\item If $\pi_{\Im} \circ \nu = 0$, we define $D_{\mu} \nu = D_{\mu} \nu^+ - D_{\mu} \nu^-$.
+			\item We define $D_{\mu} \nu = D_{\mu} (\pi_{\Re} \circ \nu) + i D_{\mu} (\pi_{\Im} \circ \nu)$.
+		\end{itemize}
 	\end{defn}
 
-	\tcr{what should it mean for a complex Radon measure to be $d$-Vitali?}
+	\begin{ex} \lex{ex:differentiation_complex_measures:0002}
+		Let $(X, d)$ be a metric space, $\mu \in \MM_+(X, d)$ and $\nu \in \MM(X)$. Then 
+		\begin{enumerate}
+			\item $$D_{\mu} \nu = \frac{d\nu_{\mu}}{d \mu}.$$
+			\item If $\mu$ is $d$-Vitalu, then for $\mu$-a.e. $x \in X$, 
+			$$D_{\mu} \nu(x) = \lim_{r \rightarrow 0^+} \frac{ \nu(\bar{B}(x, r))}{\mu(\bar{B}(x, r))}$$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item By definition, 
+			\begin{align*}
+				D_{\mu} \nu
+				& = D_{\mu} (\pi_{\Re} \nu) + i D_{\mu} (\pi_{\Im} \nu) \\
+				& = [D_{\mu} (\pi_{\Re} \nu)^+ - D_{\mu} (\pi_{\Re} \nu)^-] + i [D_{\mu} (\pi_{\Im} \nu)^+ - D_{\mu} (\pi_{\Im} \nu)^-] \\
+				& = \bigg[ \frac{ d(\pi_{\Re} \nu)^+_{\mu}}{d\mu} - \frac{d (\pi_{\Re} \nu)^-_{\mu}}{d \mu} \bigg] + i \bigg[ \frac{d (\pi_{\Im} \nu)^+_{\mu}}{d \mu} - \frac{d (\pi_{\Im} \nu)^-_{\mu}}{d \mu} \bigg] \\
+				& = \frac{d (\pi_{\Re} \nu)_{\mu} }{d \mu} + i \frac{d (\pi_{\Im} \nu)_{\mu}}{d \mu} \\
+				& = \frac{d \nu_{\mu}}{d \mu}
+			\end{align*}
+			\item Suppose that $\mu$ is $d$-Vitali. \rex{ex:diff_radon_measures:0011} implies that for $\mu$-a.e. $x \in X$, 
+			\begin{align*}
+				D_{\mu} \nu(x)
+				& = [D_{\mu} (\pi_{\Re} \nu)^+ - D_{\mu} (\pi_{\Re} \nu)^-] + i [D_{\mu} (\pi_{\Im} \nu)^+ - D_{\mu} (\pi_{\Im} \nu)^-] \\
+				& = \lim_{r \rightarrow 0^+} \frac{ (\pi_{\Re} \nu)^+(\bar{B}(x, r))}{\mu(\bar{B}(x, r))} + \lim_{r \rightarrow 0^+} \frac{ (\pi_{\Re} \nu)^-(\bar{B}(x, r))}{\mu(\bar{B}(x, r))} \\
+				& \quad \quad \quad \quad  + \lim_{r \rightarrow 0^+} \frac{ (\pi_{\Im} \nu)^+(\bar{B}(x, r))}{\mu(\bar{B}(x, r))} + \lim_{r \rightarrow 0^+} \frac{ (\pi_{\Im} \nu)^- (\bar{B}(x, r))}{\mu(\bar{B}(x, r))} \\
+				& = \lim_{r \rightarrow 0^+} \frac{\nu(\bar{B}(x, r))}{\mu(\bar{B}(x, r))}
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{ex:differentiation_complex_measures:0002.1}
+		Let $(X, d)$ be a metric space, $\mu \in \MM_+(X, d)$ and $\nu \in \MM(X)$. If $\nu \ll \mu$, Then $\nu_{\mu} = \nu$.
+	\end{ex}
+
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
 	
-	
-	\begin{defn} \ld{def:diff_radon_measures:0014}
+	\begin{defn} \ld{def:differentiation_complex_measures:0003}
 		Let $(X, d)$ be a metric space, $\mu \in \MM_+(X, d)$ and $f \in L^1(X, \MB(X), \mu)$. For each $r > 0$, we define the \tbf{$r$-average of $f$}, denoted $A_rf: X \rightarrow \C$ by 
 		$$A_rf(x) = \frac{1}{\mu(\bar{B}(x, r))} \int_{\bar{B}(x, r)} f \dmu$$
 	\end{defn}
 
-	\begin{ex} \lex{ex:diff_radon_measures:0015} \tbf{Lebesgue Differentiation Theorem:} \\
-		Let $(X, d)$ be a metric space, $\mu \in \MM_+(X, d)$ and $f \in L^1(X, \MB(X), \mu)$. Suppose that $\mu$ is $d$-Vitali. Then for $\mu$-a.e. $x \in X$,
+	\begin{ex} \lex{ex:differentiation_complex_measures:0004} \tbf{Lebesgue Differentiation Theorem:} \\
+		Let $(X, d)$ be a metric space and $\mu \in \MM_+(X, d)$ and $f \in L^1(X, \MB(X), \mu)$. Suppose that $\mu$ is $d$-Vitali. Then for $\mu$-a.e. $x \in X$,
 		$$\lim_{r \rightarrow 0^+} A_r f(x) = f(x).$$
 	\end{ex}
 
-	\begin{proof}
-		Define $\nu \in \MM(X)$ by 
-		$$\nu(E) = \int_E f \dmu $$
-		\rex{ex:introduction_radon_measures:0010.1} implies that $\nu \in \MM(X, d)$. Since $\nu \ll \mu$, we have that $\nu_{\mu}|_{\MB(X)} = \nu$ and therefore for $\mu$-a.e. $x \in X$,
+	\begin{proof} 
+		Define $\nu \in M(X)$ by 
+		$$\nu(E) = \int_E f \dmu $$ 
+		Since $\mu \in \MM_+(X)$ and $f \in L^1(X, \MA, \mu)$, \rex{ex:introduction_radon_measures:0010.1} implies that $\nu \in \MM(X)$. Since $\nu \ll \mu$, \rex{ex:differentiation_complex_measures:0002.1} implies that $\nu_{\mu} = \nu$. \rex{ex:differentiation_complex_measures:0002} implies that for $\mu$-a.e. $x \in X$,
 		\begin{align*}
 			f(x)
 			& = \frac{d \nu}{d \mu}(x) \\
@@ -9978,7 +10393,7 @@
 			& \leq \|f\|_u \|\mu\|
 		\end{align*}
 		
-		\rex{43010} implies that $\lam_f$ is linear. So $\lam_f \in \MM(X)^*$.
+		\rex{def:complex_measures:0019} implies that $\lam_f$ is linear. So $\lam_f \in \MM(X)^*$.
 	\end{proof}
 	
 	\begin{defn}
@@ -10537,7 +10952,7 @@
 	\end{ex}
 	
 	\begin{proof}
-	\rex{43004.5} implies that
+	\rex{def:complex_measures:0013} implies that
 	\begin{align*}
 	\|g \cdot \nu\| 
 	&= \int \bigg | \frac{d (g \cdot \nu)}{d\mu} \bigg | \dmu \\
