@@ -113,7 +113,21 @@
 	
 	\section{Functions}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:set_theory:functions:0001}
+		Let $X, Y$ be sets, $f:X \rightarrow Y$ and $A \subset X$. Then $A \subset f^{-1}(f(A))$.
+	\end{ex}
+
+	\begin{proof}
+		Let $x \in A$. Then $f(x) \in f(A)$. Set $B \defeq f(A)$. Since $f(x) \in B$, we have that 
+		\begin{align*}
+			x 
+			& \in f^{-1}(B) \\
+			& = f^{-1}(f(A))
+		\end{align*}
+		Since $x \in A$ is arbitrary, we have that $A \subset f^{-1}(f(A))$. 
+	\end{proof}
+	
+	\begin{ex} \lex{ex:set_theory:functions:0002}
 		Let $X, Y$ be sets, $f:X \rightarrow Y$ and $B \subset Y$. Then $f(f^{-1}(B)) = B \cap f(X)$. 
 	\end{ex}
 
@@ -145,7 +159,7 @@
 			Since $y \in B \cap f(X)$ is arbitrary, $B \cap f(X) \subset f(f^{-1}(B))$. Thus $f(f^{-1}(B)) =  B \cap f(X)$.
 		\end{proof}
 	
-		\begin{ex}
+		\begin{ex} \lex{ex:set_theory:functions:0003}
 			Let $X, Y$ be sets, $f:X \rightarrow Y$ and $\MA \subset \MP(X)$. Then 
 			$$f\bigg( \bigcup_{A \in \MA} A\bigg) = \bigcup_{A \in \MA} f(A)$$ 
 		\end{ex}
@@ -395,7 +409,7 @@
 	
 	\section{Complex Numbers}
 	
-	We define $\pi_{\Re}, \pi_{\Im}: \C \rightarrow \R$ by $\pi_{\Re}(a + ib) = a$ and $\pi_{\Im}(a+ib) = b$.
+	We define $\Re, \Im: \C \rightarrow \R$ by $\Re(a + ib) = a$ and $\Im(a+ib) = b$.
 	
 	
 	
@@ -1759,6 +1773,8 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 \newpage
 \section{Subspace Topology}
 
+\subsection{Introduction}
+
 \begin{defn}
 	Let $X$ be a set and $A \subset X$. We define the \tbf{inclusion map from $A$ to $B$}, denoted $\iota: A \rightarrow X$, by $\iota(x) = x$. 
 \end{defn}
@@ -1768,22 +1784,58 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 \end{defn}
 
 \begin{ex}
-	Let $(X, \MT)$ be a topological space and $A \subset X$. Then $$\MT \cap A = \{U \cap A: U \in \MT\}$$
+	Let $(X, \MT)$ be a topological space and $A \subset X$. Then 
+	\begin{enumerate}
+		\item $\MT \cap A = \{U \cap A: U \in \MT\}$,
+		\item for each $E \subset A$, $E \in \MT \cap A$ iff there exists $U \in \MT$ such that $E = U \cap A$. 
+	\end{enumerate}
 \end{ex}
 
-\begin{note}
-	The previous exercise just says that $E \subset A$ is open in $A$ iff there exists $U \subset X$ such that $U$ is open in $X$ and $E = U \cap A$. 
-\end{note}
+\begin{proof}\
+	\begin{enumerate}
+		\item Since for each $U \subset X$, $\iota^{-1}(U) = U \cap A$, we have that 
+		\begin{align*}
+			\MT \cap A
+			& = \iota^* \MT \\
+			& = \{\iota^{-1}(U): U \in \MT\} \\
+			& = \{ U \cap A: U \in \MT\} \\
+		\end{align*}
+		\item Clear
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $(X, \MT)$ be a topological space, $A \subset X$ and $B \subset A$. Then $\MT \cap B = (\MT \cap A) \cap B$.
+\end{ex}
 
 \begin{proof}
-	Since for each $U \subset X$, $\iota^{-1}(U) = U \cap A$, we have that 
-	\begin{align*}
-		\MT \cap A
-		& = \iota^* \MT \\
-		& = \{\iota^{-1}(U): U \in \MT\} \\
-		& = U \cap A: U \in \MT\} \\
-	\end{align*}
+	\begin{itemize}
+		\item Let $U \in (\MT \cap A) \cap B$. Then there exists $U_A \in \MT \cap A$ such that $U = U_A \cap B$. Similarly, there exists $U_X \in \MT$ such that $U_A = U_X \cap A$. Therefore 
+		\begin{align*}
+			U
+			& = U_A \cap B \\
+			& = (U_X \cap A) \cap B \\
+			& U_X \cap (A \cap B) \\
+			& = U_X \cap B \\
+			& \in \MT \cap B
+		\end{align*}
+		Since $U \in (\MT \cap A) \cap B$ is arbitrary, we have that $(\MT \cap A) \cap B \subset \MT \cap B$. \\
+		\item Conversely, let $U \in \MT \cap B$. Then there exists $U_X \in \MT$ such that $U = U_X \cap B$. Then 
+		\begin{align*}
+			U
+			& = U_X \cap B \\
+			& = U_X \cap (A \cap B) \\
+			& = (U_X \cap A) \cap B \\
+			& \in (\MT \cap A) \cap B
+		\end{align*}
+		Since $U \in U_X \cap B$ is arbitrary, we have that $U_X \cap B \subset (\MT \cap A) \cap B$. 
+	\end{itemize}
+	Therefore $\MT \cap B = (\MT \cap A) \cap B$.
 \end{proof}
+
+\begin{note}
+	The previous exercise just indicates that the subspace topology on $B$ does not depend on choice of the containing space as long as each containing space is a subspace of the original space \tcr{maybe rephrase this in terms of projective system or something}.
+\end{note}
 
 \begin{ex}
 	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Then $f$ is $(\MA, \MB)$-continuous iff for each $x \in X$, there exists $U \in \MA$ such that $x \in U$ and $f|_U$ is $(\MA \cap U, \MB)$-continuous.
@@ -2271,27 +2323,102 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\newpage
 	\section{Quotient Topology}
 	
-	\begin{defn} \ld{36001}
+	\begin{defn} \ld{def:quotient_topology:0001}
 	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Then $f$ is said to be an \tbf{$(\MA , \MB)$ quotient map} if 
 	\begin{enumerate}
 	\item $f$ is surjective
-	\item $\MB = f_*\MA$, i.e. for each $V \subset Y$, $V \in \MB$ iff $f^{-1}(V) \in \MA$.
+	\item $\MB = f_*\MA$
 	\end{enumerate}
 	\end{defn}
 	
 	\begin{note}
 	We typically avoid specifying the topologies when they are clear from the context.
 	\end{note}
+
+	\begin{ex} \lex{ex:quotient_topology:0002}
+		Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is surjective. Then 
+		\begin{enumerate}
+			\item $f$ is a quotient map iff 
+			$$ \text{for each $V \subset Y$, $V$ is open iff $f^{-1}(V)$ is open} $$
+			\item $f$ is a quotient map iff 
+			$$ \text{for each $C \subset Y$, $C$ is closed iff $f^{-1}(C)$ is closed} $$
+		\end{enumerate}
+	\end{ex}
 	
-	\begin{ex} \lex{36002}
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item ($\implies$) \\
+				Suppose that $f$ is a quotient map.\\
+				Let $V \subset Y$. Suppose that $V$ is open, then 
+				\begin{align*}
+					V 
+					& \in \MB \\
+					& = f_*\MA \\
+					& = \{V' \subset Y: f^{-1}(V') \in \MA \}
+				\end{align*} 
+				Thus $f^{-1}(V) \in \MA$. Hence $f^{-1}(V)$ is open. \\
+				Conversely, suppose that $f^{-1}(V)$ is open. Then $f^{-1}(V) \in \MA$. Since
+				\begin{align*}
+					\MB 
+					& = f_*\MA \\
+					& = \{V' \subset Y: f^{-1}(V') \in \MA \},
+				\end{align*}
+				we have that $V \in \MB$. Hence $V$ is open. \\ 
+				Thus $V$ is open iff $f^{-1}(V)$ is open. Since $V \subset Y$ is arbitrary, we have that for each $V \subset Y$, $V$ is open iff $f^{-1}(V)$ is open.
+				\item ($\impliedby$) \\
+				Suppose that for each $V \subset Y$, $V$ is open iff $f^{-1}(V)$ is open. Then 
+				\begin{align*}
+					\MB
+					& = \{V \subset Y: f^{-1}(V) \in \MA \} \\
+					& = f_* \MA
+				\end{align*}
+				So $f$ is a quotient map.
+			\end{itemize}
+			\item 
+			\begin{itemize}
+				\item ($\implies$) \\
+				Suppose that $f$ is a quotient map.\\
+				Let $C \subset Y$. Suppose that $C$ is closed, then $C^c \in \MB$. Continuity implies that
+				\begin{align*}
+					f^{-1}(C)^c 
+					& = f^{-1}(C^c) \\
+					& \in \MA 
+				\end{align*}
+				Thus $f^{-1}(C)$ is closed. \\
+				Conversely, suppose that $f^{-1}(C)$ is closed. Then 
+				\begin{align*}
+					f^{-1}(C^c) 
+					& = f^{-1}(C)^c \\
+					& \in \MA 
+				\end{align*}
+				Since $f$ is a quotient map, $C^c \in \MB$. Hence $C$ is closed. \\
+				Thus $C$ is closed iff $f^{-1}(C)$ is closed. Since $C \subset Y$ is arbitrary, we have that for each $C \subset Y$, $C$ is closed iff $f^{-1}(C)$ is closed.
+				\item ($\impliedby$) \\
+				Suppose that for each $C \subset Y$, $C$ is closed iff $f^{-1}(C)$ is closed. \\
+				Let $V \subset Y$. Suppose that $V$ is open. Then $V^c$ is closed. By assumption $f^{-1}(V^c)$ is closed and therefore
+				\begin{align*}
+					f^{-1}(V)
+					& = f^{-1}(V^c)^c \\
+					& \in \MA. 
+				\end{align*}
+				Thus $f^{-1}(V)$ is open. \\
+				Conversely, suppose that $f^{-1}(V)$ is open. Then $f^{-1}(V)^c$ is closed. Since $f^{-1}(V^c) = f^{-1}(V)^c$, we have that $f^{-1}(V^c)$ is closed. By assumption, $V^c$ is closed. Thus $V$ is open. \\
+				Thus $V$ is open iff $f^{-1}(V)$ is open. Since $V \subset Y$ is arbitrary, we have that for each $V \subset Y$, $V$ is open iff $f^{-1}(V)$ is open. Part $(1)$ implies that $f$ is a quotient map.
+			\end{itemize}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:quotient_topology:0003}
 	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. If $f$ is a quotient map, then $f$ is continuous.
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $f$ is a quotient map. Let $V \subset Y$. Suppose that $V$ is open. By definition, $f^{-1}(V)$ is open. Hence $f$ is continuous.  
+	Suppose that $f$ is a quotient map. Let $V \subset Y$. Suppose that $V$ is open. \tcb{The previous exercise} implies that $f^{-1}(V)$ is open. Since $V \subset Y$ with $V$ open is arbitrary, we have that for each $V \subset Y$, $V$ is open implies that $f^{-1}(V)$ is open. Hence $f$ is continuous.  
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:quotient_topology:0004}
 		Let $(X, \MA)$, $(Y, \MB), (Z, \MC)$ be topological spaces, $f:X \rightarrow Y$ and $g: Y \rightarrow Z$. If $f$ is a quotient map, then $g$ is continuous iff $g \circ f$ is continuous.
 	\end{ex}
 	
@@ -2299,7 +2426,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		Suppose that $f$ is a quotient map. Then $\MB = f_* \MA$. \tcb{An exercise in the section on continuous maps} implies that $g$ is continuous iff $g \circ f$ is continuous.
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:quotient_topology:0005}
 		Let $(X, \MA)$, $(Y_1, \MB_1)$, $(Y_2, \MB_2)$ be topological spaces, $f_1:X \rightarrow Y_1$, $f_2:X \rightarrow Y_2$ and $\phi: Y_1 \rightarrow Y_2$. Suppose that $f_1$ and $f_2$ are quotient maps and $\phi$ is a bijection. If $\phi \circ f_1 = f_2$, then $\phi$ is a homeomorphism. 
 	\end{ex}
 	
@@ -2307,35 +2434,15 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		Since $f_1$ and $f_2$ are quotient maps, they are continous. Suppose that $\phi \circ f_1 = f_2$. Since $f_2$ is continuous, the previous exercise implies that $\phi$ is continuous. Since $\phi$ is a bijection, $f_1 = \phi^{-1} \circ f_2$. Similarly, since $f_1$ is continuous, the previous exercise implies that $\phi^{-1}$ is continuous. Hence $\phi$ is a homeomorphism.
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:quotient_topology:0006}
 		\tcb{Restate the last exercise categorically: Let $U: \Top \rightarrow \Set$ be the forgetful functor. If $\phi \in \Iso_{U(X)/U(\Top)}(U(f_1), U(f_2))$, then there exists $\phi' \in \Iso_{X/\Top}(f_1, f_2)$ such that $U(\phi') = \phi$, adjoint functor?...}
 	\end{ex}
 
 	\begin{proof}
-		
+		\tcr{FINISH!!!}
 	\end{proof}
 	
-	\begin{ex} \lex{36003}
-	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is continuous and surjective. Then $f$ is a quotient map iff 
-	\begin{equation*}
-	\text{for each $C \subset Y$, $C$ is closed iff $f^{-1}(C)$ is closed} 
-	\end{equation*}	
-	\end{ex}
-	
-	\begin{proof}\
-	\begin{itemize}
-	\item ($\implies$) \\
-	Suppose that $f$ is a quotient map.\\
-	Let $C \subset Y$. If $C$ is closed, then continuity implies that $f^{-1}(C)$ is closed.\\ 
-	Conversely, suppose that $f^{-1}(C)$ is closed. Then $f^{-1}(C^c) = (f^{-1}(C))^c$ is open. Since $f$ is a quotient map, $f(f^{-1}(C^c))$ is open. Surjectivity implies that $f(f^{-1}(C^c)) = C^c$. So $C$ is closed. 
-	\item ($\impliedby$) \\
-	Suppose that for each $C \subset Y$, $C$ is closed iff $f^{-1}(C)$ is closed. \\
-	Let $V \subset Y$. If $V$ is open. Continuity implies that $f^{-1}(V)$ is open.\\ 
-	Conversely, suppose that $f^{-1}(V)$ is open. Then $ f^{-1}(V^c) = (f^{-1}(V))^c$ is closed. Therefore, $f(f^{-1}(V^c))$ is closed. Surjectivity implies that $V^c = f(f^{-1}(V^c))$. So $U$ is open.
-	\end{itemize}
-	\end{proof}
-	
-	\begin{ex} \lex{36004}
+	\begin{ex} \lex{ex:quotient_topology:0007}
 	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is continuous and surjective. If $f$ is open or $f$ is closed, then $f$ is a quotient map. 
 	\end{ex}
 	
@@ -2348,26 +2455,40 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{itemize}
 	\end{proof}
 	
-	\begin{ex} \lex{36005}
-	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is a quotient map. Then $f$ is open iff 
-	\begin{equation*}
-	\text{for each $U \subset X$, $U$ is open implies that $f^{-1}(f(U))$ is open} 
-	\end{equation*}
+	\begin{ex} \lex{ex:quotient_topology:0008}
+	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is a quotient map. Then 
+	\begin{enumerate}
+		\item $f$ is open iff 
+		$$\text{for each $U \subset X$, $U$ is open implies that $f^{-1}(f(U))$ is open} $$
+		\item $f$ is closed iff 
+		$$\text{for each $C \subset X$, $C$ is closed implies that $f^{-1}(f(C))$ is closed} $$
+	\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
-	\begin{itemize}	
-	\item ($\implies$) \\
-	Suppose that $f$ is open.\\
-	Let $U \subset X$. Suppose that $U$ is open. Since $f$ is open, $f(U)$ is open. Continuity implies that $f^{-1}(f(U))$ is open.\\ 
-	\item ($\impliedby$) \\
-	Suppose that for each $U \subset X$, $U$ is open implies that $f^{-1}(f(U))$ is open. \\
-	Since $f$ is a quotient map, $f(U)$ is open. So $f$ is open.
-	
-	\end{itemize}
+	\begin{enumerate}
+		\item 
+		\begin{itemize}	
+			\item ($\implies$) \\
+			Suppose that $f$ is open.\\
+			Let $U \subset X$. Suppose that $U$ is open. Since $f$ is open, $f(U)$ is open. Continuity implies that $f^{-1}(f(U))$ is open.\\ 
+			\item ($\impliedby$) \\
+			Suppose that for each $U \subset X$, $U$ is open implies that $f^{-1}(f(U))$ is open. \\
+			Let $U \subset X$. Suppose that $U$ is open. By assumption, $f^{-1}(f(U))$ is open. Since $f$ is a quotient map, $f(U)$ is open. Since $U \subset X$ with $U$ open is arbitrary, we have that for each $U \subset X$, $U$ is open implies $f(U)$ is open. Thus $f$ is open.
+		\end{itemize}
+		\item 
+		\begin{itemize}	
+			\item ($\implies$) \\
+			Suppose that $f$ is closed.\\
+			Let $C \subset X$. Suppose that $C$ is closed. Since $f$ is closed, $f(C)$ is closed. Continuity implies that $f^{-1}(f(C))$ is closed.\\ 
+			\item ($\impliedby$) \\
+			Suppose that for each $X \subset X$, $C$ is closed implies that $f^{-1}(f(C))$ is closed. \\
+			Let $C \subset X$. Suppose that $C$ is closed. By assumption, $f^{-1}(f(C))$ is closed. Since $f$ is a quotient map, $f(C)$ is closed. Since $C \subset X$ with $C$ closed is arbitrary, we have that for each $C \subset X$, $C$ is closed implies $f(C)$ is closed. Thus $f$ is closed.
+		\end{itemize}
+	\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{36006}
+	\begin{ex} \lex{ex:quotient_topology:0009}
 	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces, and $f:X \rightarrow Y$. Suppose that $f$ is surjective and continuous. If $f$ is open or closed, then $f$ is a quotient map.
 	\end{ex}
 	
@@ -2379,7 +2500,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{itemize}
 	\end{proof}
 	
-	\begin{ex} \lex{36007}
+	\begin{ex} \lex{ex:quotient_topology:0010}
 	Let $(X, \MT)$ be a topological space, $Y$ a set and $f:X \rightarrow Y$. Suppose that $f$ is surjective. Then $f: X \rightarrow Y$ is a $(\MT, f_*\MT)$ quotient map. 
 	\end{ex}
 	
@@ -2388,7 +2509,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 	
 	
-	\begin{ex} \lex{36008}
+	\begin{ex} \lex{ex:quotient_topology:0011}
 	Let $(X, \MT)$ be a topological space, $\sim$ an eqivalence relation on $X$ and $\pi:X \rightarrow X/\sim$ the projection map given by $x \mapsto \bar{x}$. Then $\pi$ is a $(\MT, \pi_*\MT)$-quotient map. 
 	\end{ex}
 	
@@ -2396,11 +2517,11 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	Since $\pi$ is surjective, the previous exercise implies that $\pi$ is a $(\MT, \pi_*\MT)$-quotient map. 
 	\end{proof}
 
-	\begin{defn} \ld{36009}
+	\begin{defn} \ld{def:quotient_topology:0012}
 		Let $(X, \MT)$ be a topological space, $\sim$ an eqivalence relation on $X$ and $\pi:X \rightarrow X/\sim$ the projection map given by $x \mapsto \bar{x}$. We define the \tbf{quotient topology on $X / \sim$} on $X/ \sim$, denoted $\MT_{X/ \sim}$, by $$\MT_{X/ \sim} = \pi_{*}\MT$$
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:quotient_topology:0013}
 		Let $(X, \MT)$, $(Y, \MB)$ be topological spaces, $\sim$ an eqivalence relation on $X$, $\pi:X \rightarrow X/\sim$ the projection map and $f:X \rightarrow Y$. Suppose $f$ is a quotient map. If for each $a, b \in X$, $a \sim b$ iff $f(a) = f(b)$, then $(X/\sim)$ is homeomorphic to $(Y, \MB)$.
 	\end{ex}
 
@@ -2428,11 +2549,11 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		By assumption, $a \sim b$. Hence $\bar{a} = \bar{b}$. Since $\bar{a}, \bar{b} \in X/\sim$ are arbitrary, $\phi$ is injective. Therefore, $\phi$ is a bijection. By construction $\phi \circ \pi = f$. A previous exercise implies that $\phi$ is a homeomorphism.
 	\end{proof}
 	
-	\begin{defn}\ld{36010}
+	\begin{defn} \ld{def:quotient_topology:0014}
 		Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $\sim_X$ an equivalence relation on $X$, $\sim_Y$ and equivalence relation on $Y$ and $f : X \rightarrow Y $. Then $f$ is said to be \tbf{$(\sim_X, \sim_Y)$-invariant} if for each $x, y \in X$, $x \sim_X y$ implies that $f(x) \sim_Y f(y)$.
 	\end{defn}
 	
-	\begin{ex} \lex{36011}
+	\begin{ex} \lex{ex:quotient_topology:0015}
 	Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $\sim_X, \sim_Y$ eqivalence relations on $X$ and $Y$ respectively, $\pi_X:X \rightarrow X/\sim_X$, $\pi_Y:Y \rightarrow Y/\sim_Y$ the respective projection maps and $f:X \rightarrow Y$ continuous. If $f$ is $(\sim_X, \sim_Y)$-invariant, then there exists a unique $\bar{f}:X / {\sim}_X \rightarrow Y/ {\sim_Y}$ such that $\bar{f}$ is continuous and $\bar{f} \circ \pi_X = \pi_Y \circ f$, i.e. the following diagram commutes:
 	\[ 
 	\begin{tikzcd}
@@ -2477,7 +2598,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{itemize}
 	\end{proof}
 
-	\begin{defn} \ld{}
+	\begin{defn} \ld{def:quotient_topology:0016} 
 		We define the category $\TopEq$ 
 		\begin{itemize}
 			\item $\Obj(\TopEq) = \{(X, \sim):  \text{ $X$ is a topological space and $\sim$ is an equivalence relation on $X$}\}$
@@ -2485,7 +2606,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\end{itemize}
 	\end{defn}
 
-	\begin{defn} \ld{}
+	\begin{defn} \ld{def:quotient_topology:0017} 
 		We define $F: \TopEq \rightarrow \Top$ by
 		\begin{itemize}
 			\item $F(X, \sim) = X/\sim$
@@ -2493,7 +2614,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\end{itemize}
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:quotient_topology:0018} 
 		We have that $F: \TopEq \rightarrow \Top$ is a functor
 	\end{ex}
 
@@ -2513,7 +2634,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\end{enumerate}
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:quotient_topology:0019} 
 		Let $(X, \sim_X)$, $(Y, \sim_Y)$, $(Z, =)  \in \Obj(\TopEq)$, $\iota \in \Hom_{\TopEq}((X, \sim_X), (Y, \sim_Y))$,  $ f \in \Hom_{\TopEq}((X, \sim_X), (Z, =))$ and  $ g \in \Hom_{\TopEq}((Y, \sim_Y), (Z, =))$. 
 		Then $f = g \circ \iota $ iff $\bar{f} = \bar{g} \circ \bar{\iota}$, in which case the following diagram commutes: 
 		\[ 
@@ -2544,12 +2665,12 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\end{align*}
 	\end{proof}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:quotient_topology:0020} 
 		Let $G$ be a group, $X$ a topological space and $\phi: G \times X \rightarrow X$ a group action. Suppose that for each $g \in G$, the map $\phi_g \in \Sym(X)$ defined by $\phi_g(x) = g \cdot x$ is continuous. Then $\pi: X \rightarrow X / G$ is open. 
 	\end{ex}
 
 	\begin{proof}
-		Suppose that for each $g \in G$, $\phi_g$ is continuous. Let $g \in G$. Since $(\phi_g)^{-1} = \phi_{g^{-1}}$, $\phi_g$ is a homeomorphism. Hence for each $g \in G$ and $U \subset X$, $U$ is open iff $g \cdot U$ is open. Let $U \subset X$. Suppose that $U$ is open. Then $\pi^{-1}(\pi(U)) = \bigcup_{g \in G} g \cdot U$ is open. \tcb{A previous exercise} implies that $\pi$ is open.
+		Suppose that for each $g \in G$, $\phi_g$ is continuous. Let $g \in G$. Since $(\phi_g)^{-1} = \phi_{g^{-1}}$, $\phi_g$ is a homeomorphism. Hence for each $g \in G$ and $U \subset X$, $U$ is open iff $g \cdot U$ is open. Let $U \subset X$. Suppose that $U$ is open. Then $\pi^{-1}(\pi(U)) = \bigcup_{g \in G} g \cdot U$ is open. Since $\pi$ is a quotient map, \rex{ex:quotient_topology:0008} implies that $\pi$ is open.
 	\end{proof}
 
 	
@@ -2585,6 +2706,11 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\begin{defn}
 		Let $X$ be a topological space. Then $X$ is said to be 
 		\begin{enumerate}
+			\item $\mathbf{T_0}$ of \tbf{Kolmogorov} if for each $x,y \in X$, if $x \neq y$, then there exists $U \subset X$ such that 
+			\begin{enumerate}
+				\item $U$ is open 
+				\item $(x, y) \in U \times U^c$ or $(x,y) \in U^c \times U$
+			\end{enumerate}
 			\item $\mathbf{T_1}$ if for each $x,y \in X$, if $x \neq y$, then there exists $U \in \MN(x)$ such that $U$ is open and $y \not \in U$.
 			\item $\mathbf{T_2}$ or \tbf{Hausdorff} if for each $x,y \in X$, if $x \neq y$, then there exist $U \in \MN(x)$ and $V \in \MN(y)$ such that $U$ and $V$ are open and $U \cap V = \varnothing$.
 			\item $\mathbf{T_3}$ or \tbf{regular} if $X$ is $T_1$ and for each $A \subset X$ and $x \in A^c$, if $A$ is closed, then there exists $U \in \MN(A)$ and $V \in \MN(x)$ such that $U$ and $V$ are open and $U \cap V = \varnothing$.
@@ -2630,6 +2756,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\begin{ex}
 		Let $X$ be a topological space. Then 
 		\begin{enumerate}
+			\item $X$ is $T_1$ implies that $X$ is $T_0$
 			\item $X$ is $T_2$ implies that $X$ is $T_1$
 			\item $X$ is $T_3$ implies that $X$ is $T_2$ 
 			\item $X$ is $T_4$ implies that $X$ is $T_3$ 
@@ -2640,21 +2767,6 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		Clear by definition and the previous exercise.
 	\end{proof}
 
-	\begin{ex}
-		Let $(X, \MT)$ be a topological space and $A \subset X$. If $(X, \MT)$ is $T_1$, then $(A, \MT \cap A)$ is $T_1$.
-	\end{ex}
-	
-	\begin{proof}
-		Suppose that $(X, \MT)$ is $T_1$. Let $x \in A$. Since $(X, \MT)$ is $T_1$, $\{x\}$ is closed in $X$. Thus $\{x\} = \{x\} \cap A$ is closed in $(A, \MT \cap A)$. Since $x \in A$ is arbitrary, $(A, \MT \cap A)$ is $T_1$. 
-	\end{proof}
-
-	\begin{ex}
-		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Set $X = \prod\limits_{\al \in A} X_{\al}$ and denote the product topology on $X$ by $\MT_X$. If for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is $T_1$, then $(X, \MT_X)$ is $T_1$.
-	\end{ex}
-
-	\begin{proof}
-		Suppose that for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is $T_1$. Let $(x_{\al})_{\al \in A}, (y_{\al})_{\al \in A} \in X$. Suppose that $(x_{\al})_{\al \in A} \neq (y_{\al})_{\al \in A}$. Then there exists $\al_0 \in A$ such that $x_{\al_0} \neq y_{\al_0}$. Then there exists $U_{\al_0} \in \MT_{\al_0}$ such that $x_{\al_0} \in U_{\al_0}$ and $y_{\al_0} \not \in U_{\al_0}$. Set $U = \pi_{\al_0}^{-1}(U_{\al_0})$. Then $U \in \MT_X$, $(x_{\al})_{\al \in A} \in U$ and $(y_{\al})_{\al \in A} \not \in U$. Since $(x_{\al})_{\al \in A}, (y_{\al})_{\al \in A} \in X$ are arbitrary, $(X, \MT_X)$ is $T_1$.
-	\end{proof}
 	
 	\begin{ex}
 		Let $X$ be a topological space. Then the following are equivalent: 
@@ -2679,26 +2791,6 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 			Let $(x_{\al}, y_{\al})_{\al \in A} \subset \Del_X$ be a net and $(x,y) \in X \times X$. Then for each $\al \in A$, $x_{\al} = y_{\al}$. Suppose that $(x_{\al}, y_{\al}) \rightarrow (x,y)$. So $x_{\al} \rightarrow x$ and $x_{\al} \rightarrow y$. Hence $x = y$ and $(x,y) \in \Del_X$. Thus $\Del_X$ is closed.
 			\item $(3) \implies (1)$: \\
 			Suppose that $\Del_X$ is closed. Let $x,y \in X$. Suppose that $x \neq y$. Then $(x,y) \in \Del_X^c$. Recall that $\MB = \{A \times B: A,B \subset X \text{ and $A$, $B$ are open}\}$ is a basis for the product topology on $X \times X$. Since $\Del_X^c$ is open and $(x,y) \in \Del_X^c$, there exist $A \times B \in \MB$ such that $(x,y) \in A \times B \subset \Del_X^c$. Suppose that $A \cap B \neq \varnothing$. Then there exists $z \in A \cap B$. Hence $(z,z) \in A \times B$. This is a contradiction since $A  \times B \subset \Del_X^c$. Thus $x \in A$, $y \in B$ and $A \cap B = \varnothing$ and $A$, $B$ are open. Since $x,y \in X$ are arbitrary, $X$ is Hausdorff. 
-		\end{itemize}
-	\end{proof}
-	
-	\begin{ex}
-		Let $X$ be a topological space and $\sim$ an equivalence relation on $X$. If $\pi: X \rightarrow X / \sim$ is open, then $X / \sim$ is Hausdorff iff $\sim$ is closed in $X \times X$.
-	\end{ex}
-	
-	\begin{proof}
-		Suppose that $\pi:X \rightarrow X / \sim$ is open. 
-		\begin{itemize}
-			\item $(\implies)$: \\
-			Suppose that $X/\sim$ is Hausdorff. Let $(x_{\al}, y_{\al})_{\al \in A} \subset \, \sim$ be a net and $(x,y) \in X \times X$. Suppose that $x_{\al}, y_{\al} \rightarrow (x,y)$. Then $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$. Since $\pi:X \rightarrow X / \sim$ is continuous, $\pi(x_{\al}) \rightarrow \pi(x)$ and $\pi(y_{\al}) \rightarrow \pi(y)$. Since for each $\al \in A$, $x_{\al} \sim y_{\al}$, we have that 
-			\begin{align*}
-				\pi(x_{\al}) 
-				& = \pi(y_{\al})\\
-				& \rightarrow \pi(y)
-			\end{align*}
-			Since $X/ \sim$ is Hausdorff, $\pi(x) = \pi(y)$. Hence $x \sim y$ and $(x,y) \in \, \sim$. Thus $\sim$ is closed in $X \times X$.\\
-			\item $(\impliedby)$: \\
-			Conversely, suppose that $\sim$ is closed in $X \times X$ is closed. Let $\bar{x}, \bar{y} \in X / \sim$. Suppose that $\bar{x} \neq \bar{y}$. Then $(x,y) \in \, \sim^c$. Recall that $\MB =\{A \times B: A,B \subset X \text{ and $A, B$ are open} \}$ is a basis for $X \times X$. Since  $\sim^c$ is open and $(x,y) \in \, \sim^c$, there exist $A,B \subset X$ such that $A,B$ are open and $(x,y) \in A \times B \subset \, \sim^c$. Thus $x \in A$ and $y \in B$. Since $\pi$ is open, $\pi(A) = \bar{A}$ and $\pi(B) = \bar{B}$ are open. Suppose for the sake of contradiction that $\pi(A) \cap \pi(B) \neq \varnothing$. Then there exists $z \in X$ such that $\bar{z} \in \pi(A) \cap \pi(B)$. Therefore there exist $z_A \in A$ and $z_B \in B$ such that $z_A \sim z \sim z_B$. Then $(z_A, z_B) \in A \times B$ and $(z_A, z_B) \in \, \sim$. This is a contradiction since $A \times B \subset \, \sim^c$. So $\pi(A) \cap \pi(B) = \varnothing$. Thus $\bar{x} \in \pi(A)$, $\bar{y} \in \pi(B)$, $\pi(A)$, $\pi(B)$ are open and $\pi(A) \cap \pi(B) = \varnothing$. Since $\bar{x}, \bar{y} \in X / \sim$ are arbitrary, $X / \sim$ is Hausdorff.
 		\end{itemize}
 	\end{proof}
 
@@ -2787,6 +2879,14 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\subsection{Separation and Subspaces}
 	
 	\begin{ex}
+		Let $(X, \MT)$ be a topological space and $A \subset X$. If $(X, \MT)$ is $T_1$, then $(A, \MT \cap A)$ is $T_1$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $(X, \MT)$ is $T_1$. Let $x \in A$. Since $(X, \MT)$ is $T_1$, $\{x\}$ is closed in $X$. Thus $\{x\} = \{x\} \cap A$ is closed in $(A, \MT \cap A)$. Since $x \in A$ is arbitrary, $(A, \MT \cap A)$ is $T_1$. 
+	\end{proof}
+	
+	\begin{ex}
 		Let $(X, \MT)$ be a topological space and $A \subset X$. If $(X, \MT)$ is Hausdorff, then $(A, \MT \cap A)$ is Hausdorff.
 	\end{ex}
 	
@@ -2849,6 +2949,14 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\subsection{Separation and Product Spaces}
 	
 	\begin{ex}
+		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Set $X = \prod\limits_{\al \in A} X_{\al}$ and denote the product topology on $X$ by $\MT_X$. If for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is $T_1$, then $(X, \MT_X)$ is $T_1$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is $T_1$. Let $(x_{\al})_{\al \in A}, (y_{\al})_{\al \in A} \in X$. Suppose that $(x_{\al})_{\al \in A} \neq (y_{\al})_{\al \in A}$. Then there exists $\al_0 \in A$ such that $x_{\al_0} \neq y_{\al_0}$. Then there exists $U_{\al_0} \in \MT_{\al_0}$ such that $x_{\al_0} \in U_{\al_0}$ and $y_{\al_0} \not \in U_{\al_0}$. Set $U = \pi_{\al_0}^{-1}(U_{\al_0})$. Then $U \in \MT_X$, $(x_{\al})_{\al \in A} \in U$ and $(y_{\al})_{\al \in A} \not \in U$. Since $(x_{\al})_{\al \in A}, (y_{\al})_{\al \in A} \in X$ are arbitrary, $(X, \MT_X)$ is $T_1$.
+	\end{proof}
+	
+	\begin{ex}
 		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Set $X = \prod\limits_{\al \in A} X_{\al}$ and denote the product topology on $X$ by $\MT_X$. If for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is Hausdorff, then $(X, \MT_X)$ is Hausdorff.
 	\end{ex}
 	
@@ -2882,6 +2990,167 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Separation and Quotient Spaces}
+	
+	\begin{defn}
+		Let $(X, \MT)$ be a topological space. Define $\sim_0 \subset X \times X$ by
+		$$\sim_0 \, = \{(x,y) \in X \times X: \text{for each $U \in \MT$, $x \in U$ iff $y \in U$}\}.$$
+	\end{defn}
+
+	\begin{ex}
+		Let $(X, \MT)$ be a topological space. Then
+		\begin{enumerate}
+			\item $\sim_0$ is an equivalence relation on $X$,
+			\item for each $x,y \in X$, $x \not \sim_0 y$ iff there exists $U \in \MT$ such that $(x,y) \in U \times U^c$ or $(x,y) \in U^c \times U$,
+			\item for each $x,y \in X$, $x \sim_0 y$ iff $\cl \{x\} = \cl \{y\}$,
+			\item $X$ is $T_0$ iff for each $x,y \in X$, $x \neq y$ iff $x \not \sim_0 y$,
+			\item 
+			\begin{enumerate}
+				\item for each $U \in \MT$, $\pi^{-1}(\pi(U)) = U$ 
+				\item $\pi: X \rightarrow X / \sim_0$ is open,
+			\end{enumerate}
+			\item $X/ \sim_0$ is $T_0$,
+			\item $X$ is $T_0$ iff $X/\sim_0 \cong X$.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x,y,z \in X$.
+			\begin{itemize}
+				\item Clearly $x \sim_0 x$. 
+				\item Clearly $x \sim_0 y$ implies that $y \sim_0 x$. 
+				\item Suppose that $x \sim_0 y$ and $y \sim_0 z$. Let $U \in \MT$. 
+				\begin{itemize}
+					\item Suppose that $x \in U$. Since $x \sim_0 y$, we have that $y \in U$. Since $y \sim_0 z$, we have that $z \in U$. Thus $x \in U$ implies that $z \in U$.
+					\item Similarly, $z \in U$ implies that $x \in U$. 
+				\end{itemize}
+				Thus $x \in U$ iff $z \in U$. Since $U \in \MT$ is arbitrary, we have that for each $U \in \MT$, $x \in U$ iff $z \in U$. Therefore $x \sim_0 z$.
+			\end{itemize}
+			Since $x,y,z \in X$ are arbitrary, we have that $\sim_0$ is an equivalence relation on $X$.
+			\item Let $x, y \in X$. By definition, 
+			\begin{align*}
+				x \not \sim_0 y
+				& \iff \neg [\forall U \in \MT, (x \in U \iff y \in U)] \\
+				& \iff \exists U \in \MT \text{ s.t. } \neg [(x \in U \implies y \in U) \text{ and } (y \in U \implies x \in U)] \\
+				& \iff \exists U \in \MT \text{ s.t. } \neg (x \in U \implies y \in U) \text{ or } \neg (y \in U \implies x \in U) \\
+				& \iff \exists U \in \MT \text{ s.t. } (x \in U \wedge y \not \in U) \text{ or } (y \in U \wedge x \not \in U) \\
+				& \iff \exists U \in \MT \text{ s.t. } (x,y) \in U \times U^c \text{ or } (x,y) \in U^c \times U
+			\end{align*}
+			\item Let $x,y \in X$. 
+			\begin{itemize}
+				\item $(\implies):$ \\
+				Suppose that $x \sim_0 y$. Define $\MC_x \defeq \{C \subset X: \text{$C$ is closed and $x \in C$}\}$ and $\MC_y \defeq \{C \subset X: \text{$C$ is closed and $y \in C$}\}$. Let $C \in \MC_x$. For the sake of contradiction, suppose that $y \not \in C$. Then $y \in C^c$. Since $x \sim_0 y$, $C^c \in \MT$ and $y \in C^c$, we have that $x \in C^c$. This is a contradiction since $x \in C$. Thus $y \in C$ and therefore $C \in \MC_y$. Since $C \in \MC_x$ is arbitrary, we have that $\MC_x \subset \MC_y$. Similarly, $\MC_y \subset \MC_x$. Thus $\MC_y = \MC_x$. Therefore 
+				\begin{align*}
+					\cl \{x\} 
+					& = \bigcap_{C \in \MC_x} C \\
+					& = \bigcap_{C \in \MC_y} C \\
+					& = \cl \{y\}
+				\end{align*}
+				\item $(\impliedby):$ \\
+				Suppose that $x \not \sim_0 y$. Then part $(2)$ implies that there exists $U \in \MT$ such that $(x,y) \in U \times U^c$ or $(x,y) \in U^c \times U$. 
+				\begin{itemize}
+					\item Suppose that $(x,y) \in U \times U^c$. Then $U^c \in \MC_y$ and therefore 
+					\begin{align*}
+						\cl \{y\}
+						& = \bigcap_{C \in \MC_y} C \\
+						& \subset U^c 
+					\end{align*}
+					Since $x \in U$, $\{x\} \cap \cl \{y\} = \varnothing$. Since $x \in \cl\{x\}$, we have that $\cl \{x\} \not \subset \cl \{y\}$. Hence $\cl \{x\} \neq \cl \{y\}$.
+					\item Similarly, if $(x,y) \in U^c \times U$, then $\cl \{x\} \neq \cl \{y\}$.
+				\end{itemize}
+			\end{itemize}
+			\item 
+			\begin{itemize}
+				\item $(\implies):$ \\
+				Suppose that $X$ is $T_0$. Let $x,y \in X$. Since $X$ is $T_0$, we have that
+				\begin{align*}
+					x \neq y
+					& \iff \exists U \in \MT \text{ s.t. $(x,y) \in U \times U^c$ or $(x,y) \in U^c \times U$ } \\
+					& \iff x \not \sim_0 y 
+				\end{align*}
+				\item $(\impliedby):$ \\
+				Suppose that for each $x,y \in X$, $x \neq y$ iff $x \not \sim_0 y$. Let $x,y \in X$. Suppose that $x \neq y$. By assumption, $x \not \sim_0 y$. Thus there exists $U \in \MT$ such that $(x, y) \in U \times U^c$ or $(x, y) \in U^c \times U$. Since $x,y \in X$ are arbitrary, we have that $X$ is $T_0$.
+			\end{itemize}
+			\item 
+			\begin{enumerate}
+				\item Let $U \in \MT$ and $x \in \pi^{-1}(\pi(U))$. Then $\pi(x) \in \pi(U)$. Thus there exists $y \in U$ such that $\pi(x) = \pi(y)$. By definition of $\pi$, $x \sim_0 y$. By definition of $\sim_0$, $x \in U$. Since $x \in \pi^{-1}(\pi(U))$ is arbitrary, we have that $\pi^{-1}(\pi(U)) \subset U$. \rex{ex:set_theory:functions:0001} implies that $U \subset \pi^{-1}(\pi(U))$. Thus $\pi^{-1}(\pi(U)) = U$. Since $U \in \MT$ is arbitrary, we have that for each $U \in \MT$, $\pi^{-1}(\pi(U)) = U$. 
+				\item In particular, for each $U \in \MT$, 
+				\begin{align*}
+					\pi^{-1}(\pi(U)) 
+					& = U \\
+					& \in \MT 
+				\end{align*}
+				and since $\pi$ is a quotient map, \rex{ex:quotient_topology:0008} implies that $\pi$ is open. 
+			\end{enumerate}
+		
+		
+%			\rex{ex:set_theory:functions:0001}
+%			 Set $U' \defeq U$. Then $U' \in \MT$ and  
+%			\begin{align*}
+%				x
+%				& \in U' \\
+%				& \subset \pi^{-1}(\pi(U)) 
+%			\end{align*}
+%			Since $x \in \pi^{-1}(\pi(U))$ is arbitrary, we have that for each $x \in \pi^{-1}(\pi(U))$, there exists $U' \in \MT$ such that $x \in U'$ and $U' \subset \pi^{-1}(\pi(U))$. Hence $\pi^{-1}(\pi(U)) \in \MT$. Since $U \in \MT$ is arbitrary, we have that for each $U \in \MT$, $\pi^{-1}(\pi(U)) \in \MT$. Since $\pi: X \rightarrow X / \sim_0$ is a quotient map, 
+			\item 	Let $a,b \in X / \sim_0$. For the sake of contradiction, suppose that $a \sim_0 b$ and $a \neq b$. Since $\pi$ is surjective, there exist $x,y \in X$ such that $\pi(x) = a$ and $\pi(y) = b$. Since $\pi(x) \neq \pi(y)$, $x \not \sim_0 y$. Therefore there exists $U \in \MT$ such that $(x,y) \in U \times U^c$ or $(x,y) \in U^c \times U$. 
+			\begin{itemize}
+				\item Suppose that $(x,y) \in U \times U^c$. Since $x \in U$ and $\pi$ is open, we have that
+				\begin{align*}
+					a
+					& = \pi(x) \\
+					& \in \pi(U)
+				\end{align*}
+				Since $a \sim_0 b$, $a \in \pi(U)$ and $\pi(U) \in \MT_{X/\sim_0}$, we have that $b \in \pi(U)$. Therefore 
+				\begin{align*}
+					y 
+					& \in \pi^{-1}(\pi(U)) \\
+					& = U
+				\end{align*}
+				This is a contradiction since $y \in U^c$. 
+				\item Similarly, if $(x,y) \in U^c \times U$, then $x \in U$ which is a contradiction. 
+			\end{itemize}
+			Hence $a \sim_0 b$ implies that $a = b$. \\
+			Conversely, since $\sim_0$ is an equivalence relation, $a = b$ implies that $a \sim_0 b$. \\
+			Thus $a = b$ iff $a \sim_0 b$. Since $a, b \in X/\sim_0$ are arbitrary, we have that for each $a,b \in X/\sim_0$, $a = b$ iff $a \sim_0 b$. Part $(4)$ implies that $X / \sim_0$ is $T_0$.
+			\item \tcr{FINISH!!!}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a topological space and $\sim$ an equivalence relation on $X$. If $\pi: X \rightarrow X / \sim$ is open, then $X / \sim$ is Hausdorff iff $\sim$ is closed in $X \times X$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\pi:X \rightarrow X / \sim$ is open. 
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $X/\sim$ is Hausdorff. Let $(x_{\al}, y_{\al})_{\al \in A} \subset \, \sim$ be a net and $(x,y) \in X \times X$. Suppose that $x_{\al}, y_{\al} \rightarrow (x,y)$. Then $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$. Since $\pi:X \rightarrow X / \sim$ is continuous, $\pi(x_{\al}) \rightarrow \pi(x)$ and $\pi(y_{\al}) \rightarrow \pi(y)$. Since for each $\al \in A$, $x_{\al} \sim y_{\al}$, we have that 
+			\begin{align*}
+				\pi(x_{\al}) 
+				& = \pi(y_{\al})\\
+				& \rightarrow \pi(y)
+			\end{align*}
+			Since $X/ \sim$ is Hausdorff, $\pi(x) = \pi(y)$. Hence $x \sim y$ and $(x,y) \in \, \sim$. Thus $\sim$ is closed in $X \times X$.\\
+			\item $(\impliedby)$: \\
+			Conversely, suppose that $\sim$ is closed in $X \times X$ is closed. Let $\bar{x}, \bar{y} \in X / \sim$. Suppose that $\bar{x} \neq \bar{y}$. Then $(x,y) \in \, \sim^c$. Recall that $\MB =\{A \times B: A,B \subset X \text{ and $A, B$ are open} \}$ is a basis for $X \times X$. Since  $\sim^c$ is open and $(x,y) \in \, \sim^c$, there exist $A,B \subset X$ such that $A,B$ are open and $(x,y) \in A \times B \subset \, \sim^c$. Thus $x \in A$ and $y \in B$. Since $\pi$ is open, $\pi(A) = \bar{A}$ and $\pi(B) = \bar{B}$ are open. Suppose for the sake of contradiction that $\pi(A) \cap \pi(B) \neq \varnothing$. Then there exists $z \in X$ such that $\bar{z} \in \pi(A) \cap \pi(B)$. Therefore there exist $z_A \in A$ and $z_B \in B$ such that $z_A \sim z \sim z_B$. Then $(z_A, z_B) \in A \times B$ and $(z_A, z_B) \in \, \sim$. This is a contradiction since $A \times B \subset \, \sim^c$. So $\pi(A) \cap \pi(B) = \varnothing$. Thus $\bar{x} \in \pi(A)$, $\bar{y} \in \pi(B)$, $\pi(A)$, $\pi(B)$ are open and $\pi(A) \cap \pi(B) = \varnothing$. Since $\bar{x}, \bar{y} \in X / \sim$ are arbitrary, $X / \sim$ is Hausdorff.
+		\end{itemize}
+	\end{proof}
 	
 	
 	
@@ -5796,7 +6065,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 	\end{defn}
 
 	\begin{ex}
-		Let $X$ be a topological vector space and $\phi \in X^*$. Then $\pi_{\Re} \circ \phi$ is continuous and real-linear. 
+		Let $X$ be a topological vector space and $\phi \in X^*$. Then $\Re \phi$ is continuous and real-linear. 
 	\end{ex}
 
 	\begin{proof}
@@ -5804,7 +6073,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 	\end{proof}
 
 	\begin{ex}
-		Let $X$ be a topological vector space and $f:X \rightarrow \R$. If $f$ is continuous and real-linear, then there exists a unique $\phi \in X^*$ such that $\pi_{\Re} \circ \phi = f$. \\
+		Let $X$ be a topological vector space and $f:X \rightarrow \R$. If $f$ is continuous and real-linear, then there exists a unique $\phi \in X^*$ such that $\Re \phi = f$. \\
 		\tbf{Hint:} For each $z \in \C$, $z = \pi_{\R}(z) - i \pi_{\R}(iz)$
 	\end{ex}
 	
@@ -5819,14 +6088,14 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 			&= \phi(x) + a\phi(y) +ibf(y) \\
 			&= \phi(x) + \lam \phi(y) 
 		\end{align*}
-	So $\phi$ is linear and $\phi \in X^*$. Let $\psi \in X^*$. Suppose that $f = \pi_{\Re} \circ \psi$. 
+	So $\phi$ is linear and $\phi \in X^*$. Let $\psi \in X^*$. Suppose that $f = \Re \psi$. 
 	Then for each $x \in X$,
 	\begin{align*}
 		\phi(x) 
 		&= f(x) - if(ix) \\
-		&= \pi_{\Re}[ \psi(x)] -i \pi_{\Re}[ \psi(ix)] \\
-		&= \pi_{\Re} [\psi(x)] - \pi_{\Re} [i\psi(x)] \\
-		&= \pi_{\Re} [\psi(x)] + \pi_{\Im}[ \psi(x)] \\
+		&= \Re[ \psi(x)] -i \Re[ \psi(ix)] \\
+		&= \Re [\psi(x)] - \Re [i\psi(x)] \\
+		&= \Re [\psi(x)] + \Im[ \psi(x)] \\
 		&= \psi(x)
 	\end{align*} 
 	So $\psi = \phi$ and $\phi$ is unique.
@@ -6650,7 +6919,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 	\end{proof}
 
 	\begin{ex}
-		Let $X$ be a topological vector space, $A \subset X$ and $x_0 \in A^c$. Suppose that $A$ is convex, $A \in \MN(0)$ and $A$ is open. Then there exists $F \in X^*$ such that $\pi_{\Re} \circ F(x_0) =1$ and $\pi_{\Re} \circ F|_A < 1$. \\
+		Let $X$ be a topological vector space, $A \subset X$ and $x_0 \in A^c$. Suppose that $A$ is convex, $A \in \MN(0)$ and $A$ is open. Then there exists $F \in X^*$ such that $\Re F(x_0) =1$ and $\Re F|_A < 1$. \\
 		\tbf{Hint:} Assume $X$ is real.
 		\begin{enumerate}
 			\item \tbf{Existence:} Consider a special $f \in (\R x_0)^*$ and use $p_A$ to apply the Hahn-Banach theorem.
@@ -6694,11 +6963,11 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 		\end{align*}
 		Since $V \in \MN(0_{\R})$ is arbitrary, $F$ is continuous at $0$. Since $F$ is linear and $F$ is continuous at $0$, $F$ is continuous. Hence $F \in X^*$.
 		\end{enumerate}
-	If $X$ is complex, then the previous part implies that there exists $G:X \rightarrow \R$ such that $G$ is continuous, real-linear, $G(x_0) = 1$ and $G|_A < 1$. A previous exercise implies that there exists a unique $F \in X^*$ such that $\pi_{\Re} \circ F = G$.
+	If $X$ is complex, then the previous part implies that there exists $G:X \rightarrow \R$ such that $G$ is continuous, real-linear, $G(x_0) = 1$ and $G|_A < 1$. A previous exercise implies that there exists a unique $F \in X^*$ such that $\Re F = G$.
 	\end{proof}
 
 	\begin{ex} \tbf{Hahn-Banach Separation Theorem 1:} \\
-		Let $X$ be a topological vector space and $A$, $B \subset X$. Suppose that $A$, $B$ are nonempty, convex and disjoint. If $A$ is open, then there exists $\phi \in X^*$ and $c \in \R$ such that for each $x \in A$, $y \in B$, $$\pi_{\Re} \circ \phi(x) < c \leq \pi_{\Re} \circ \phi(y)$$
+		Let $X$ be a topological vector space and $A$, $B \subset X$. Suppose that $A$, $B$ are nonempty, convex and disjoint. If $A$ is open, then there exists $\phi \in X^*$ and $c \in \R$ such that for each $x \in A$, $y \in B$, $$\Re \phi(x) < c \leq \Re \phi(y)$$
 		\tbf{Hint:} Assume $X$ is real.
 		\begin{enumerate}
 			\item Choose $a_0 \in A$ and $b_0 \in B$ and set $x_0 = b_0 - a_0$ and $C = A - B + x_0$. Then there exists $\phi \in X^*$ such that $\phi(x_0) = 1$ and $\phi|_C < 1$.
@@ -6729,7 +6998,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 		\end{enumerate}
 	If $X$ is complex, then the previous part implies that there exists $f:X \rightarrow \R$ and $c \in \R$ such that $f$ is continuous, real-linear and for each $x \in A$ and $y \in B$, 
 	$$f(x) < c \leq f(y)$$ 
-	A previous exercise implies that there exists a unique $\phi \in X^*$ such that $\pi_{\Re} \circ \phi = f$.
+	A previous exercise implies that there exists a unique $\phi \in X^*$ such that $\Re \phi = f$.
 	\end{proof}
 	
 		\begin{defn}
@@ -7012,7 +7281,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 	\end{proof}
 	
 	\begin{ex} \tbf{Hahn-Banach Separation Theorem 2:}\\
-		Let $X$ be a locally convex space and $A$, $B \subset X$. Suppose that $A$, $B$ are nonempty, convex and disjoint. If $A$ is compact and $B$ is closed, then there exists $\phi \in X^*$ and $c_1, c_2 \in \R$ such that for each $x \in A$, $y \in B$, $$\pi_{\Re} \circ \phi(x) < c_1 < c_2 \leq \pi_{\Re} \circ \phi(y)$$
+		Let $X$ be a locally convex space and $A$, $B \subset X$. Suppose that $A$, $B$ are nonempty, convex and disjoint. If $A$ is compact and $B$ is closed, then there exists $\phi \in X^*$ and $c_1, c_2 \in \R$ such that for each $x \in A$, $y \in B$, $$\Re \phi(x) < c_1 < c_2 \leq \Re \phi(y)$$
 		\tbf{Hint:} Assume $X$ is real. Since $X$ is locally convex, there exists $V \subset U$ such that $V$ is an open absorbing disk and $(A + V) \cap B = \varnothing$. Then apply the first Hahn-Banach separation theorem to $A+V$ and $B$.
 	\end{ex}
 	
@@ -7029,7 +7298,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 		\end{align*}
 	If $X$ is complex, then the previous part implies that there exists $f:X \rightarrow \R$ and $c_1, c_2 \in \R$ such that $f$ is continuous, real-linear and for each $x \in A$ and $y \in B$, 
 	$$f(x) < c_1 < c_2 \leq f(y)$$ 
-	A previous exercise implies that there exists a unique $\phi \in X^*$ such that $\pi_{\Re} \circ \phi = f$.
+	A previous exercise implies that there exists a unique $\phi \in X^*$ such that $\Re \phi = f$.
 	\end{proof}
 
 
@@ -7127,7 +7396,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 	\end{ex}
 
 	\begin{proof}
-		Define the action $\phi: M \times X \rightarrow X$ by $m \cdot x = x + m$. Then $M \cdot x = x+ M$. Since for each $m \in M$, the map $x \mapsto x +m$ is continuous, \tcb{ an exercise in the section on the quotient topology} implies that $\pi: X \rightarrow X/M$ is open.  
+		Define the action $\phi: M \times X \rightarrow X$ by $m \cdot x = x + m$. Then $M \cdot x = x+ M$. Since for each $m \in M$, the map $x \mapsto x +m$ is continuous, \rex{ex:quotient_topology:0020} implies that $\pi: X \rightarrow X/M$ is open.  
 	\end{proof}
 	
 	\begin{ex}
@@ -9469,7 +9738,7 @@ Then for each $t \in \R$,
 0 
 & \leq f(t) \\
 &=  \|x - tz\|^2 \\
-&= \|x\|^2 + |t|^2\|z\|^2 - 2 \pi_{\Re}(t \l x,z \r) \\
+&= \|x\|^2 + |t|^2\|z\|^2 - 2 \Re(t \l x,z \r) \\
 &= \|x\|^2 + t^2\|y\|^2 - 2 t |\l x,y \r| \\
 \end{align*} 
 Thus $f$ is a quadratic with a minimum at $t_0 = \frac{|\l x, y \r|}{\|y\|^2}$. Hence 
@@ -9500,7 +9769,7 @@ So $\| \lam x \| = |\lam |\|x\|$
 \item The Cauchy-Schwarz inequality implies that
 \begin{align*}
 \|x + y\|^2 
-&= \|x\|^2 + \|y\|^2 + 2 \pi_{\Re}(\l x, y\r) \\
+&= \|x\|^2 + \|y\|^2 + 2 \Re(\l x, y\r) \\
 & \leq \|x\|^2 + \|y\|^2 + 2 |\l x, y\r | \\
 & \leq \|x\|^2 + \|y\|^2 + 2 \|x\| \|y\| \\
 &= (\|x\| + \|y\|)^2
@@ -14246,7 +14515,7 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	\begin{itemize}
 	\item Clearly $\pi$ is surjective. 
 	\item Let $C \subset X/G$. Suppose that $C$ is closed. Since $\pi$ is $(\MT_{d}, \MT_{\bar{d}})$-continuous, if $\pi^{-1}(C)$ is closed. \\
-	Conversely, suppose that $\pi^{-1}(C)$ is closed. Let $(\bar{x}_n)_{n \in \N} \subset C$ and $\bar{x} \in X/G$. Suppose that $\bar{x}_n \conv{\bar{d}} \bar{x}$. Then there exists $(g_n)_{\al \in A} \subset G$ such that $g_n \cdot x_n \conv{d} x$. Since $(g_n \cdot x_n)_{n \in \N} \subset \pi^{-1}(C)$, $x \in \pi^{-1}(C)$. Hence $\bar{x} \in C$ and $C$ is closed. Then \rex{36003} implies that $\pi$ is a $(\MT_{d}, \MT_{\bar{d}})$-quotient map.
+	Conversely, suppose that $\pi^{-1}(C)$ is closed. Let $(\bar{x}_n)_{n \in \N} \subset C$ and $\bar{x} \in X/G$. Suppose that $\bar{x}_n \conv{\bar{d}} \bar{x}$. Then there exists $(g_n)_{\al \in A} \subset G$ such that $g_n \cdot x_n \conv{d} x$. Since $(g_n \cdot x_n)_{n \in \N} \subset \pi^{-1}(C)$, $x \in \pi^{-1}(C)$. Hence $\bar{x} \in C$ and $C$ is closed. Then \rex{ex:quotient_topology:0002} implies that $\pi$ is a $(\MT_{d}, \MT_{\bar{d}})$-quotient map.
 	\end{itemize}
 	\end{proof}
 	
@@ -14261,7 +14530,7 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	\end{equation*}		
 	Since for each $g \in G$, $\phi_g$ is an isometry and thus a homeomorphism, we have that for each $g \in G$, $g \cdot U$ is open. Therefore 
 	$$\pi^{-1}(\pi(U)) = \bigcup\limits_{g \in G} g \cdot U$$
-	is open. \rex{36005} implies that $\pi$ is open.
+	is open. \rex{ex:quotient_topology:0008} implies that $\pi$ is open.
 	\end{proof}
 
 	\begin{ex}

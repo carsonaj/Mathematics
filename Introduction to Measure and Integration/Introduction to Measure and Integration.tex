@@ -8083,12 +8083,17 @@
 	\begin{defn} \ld{def:introduction_radon_measures:0001} 
 	Let $X$ be a topological space, $\mu \in M_+(X)$.
 	\begin{itemize}
-		\item Let $E \in \MB(X)$. Then $\mu$ is said to be 
+		\item Let $E \in \MB(X)$. We define 
+		\begin{itemize}
+			\item $V^{\mu}_O(E) =  \{ \mu(U): E \subset U \text{ and $U$ is open}\}$
+			\item $V^{\mu}_I(E) = \{ \mu(K): K \subset E \text{ and $K$ is compact}\}$.
+		\end{itemize}
+		Then $\mu$ is said to be 
 		\begin{enumerate}
 			\item \textbf{outer regular on $E$} if
-			$$\mu(E) = \inf \{ \mu(U): E \subset U \text{ and $U$ is open}\}$$
+			$$\mu(E) = \inf V^{\mu}_O(E) $$
 			\item \textbf{inner regular on $E$} if
-			$$\mu(E) = \sup \{ \mu(K): K \subset E \text{ and $K$ is compact}\}$$
+			$$\mu(E) = \sup V^{\mu}_I(E) $$
 			\item \textbf{regular on $E$} if $\mu$ is inner regular on $E$ and $\mu$ is outer regular on $E$
 		\end{enumerate}
 		\item Then $\mu$ is said to be 
@@ -8105,7 +8110,7 @@
 	\end{ex}	
 
 	\begin{proof}
-		Suppose that $\mu$ is inner regular. Let $E \in \MB(X)$. Define $V_O(E) = \{\mu(U): E \subset U \text{ and $U$ is open}\}$. By definition, $\mu(E) \leq \inf V_O(E)$. Let $\ep > 0$. Since $\mu$ is finite, $\mu(E^c) -\ep < \mu(E^c)$. Inner regularity implies that there exists $K \subset E^c$ such that $\mu(K) > \mu(E^c) - \ep$. Define $U \in \MB(X)$ by $U \defeq K^c$. Then $U$ is open and $E \subset U$. By construction,
+		Suppose that $\mu$ is inner regular. Let $E \in \MB(X)$. By definition, $\mu(E) \leq \inf V_O(E)$. Let $\ep > 0$. Since $\mu$ is finite, $\mu(E^c) -\ep < \mu(E^c)$. Inner regularity implies that there exists $K \subset E^c$ such that $\mu(K) > \mu(E^c) - \ep$. Define $U \in \MB(X)$ by $U \defeq K^c$. Then $U$ is open and $E \subset U$. By construction,
 		\begin{align*}
 			\mu(U) - \mu(E) 
 			& = [\mu(X) - \mu(U^c)] - [\mu(X) - \mu(E^c)] \\
@@ -8146,13 +8151,109 @@
 	\begin{proof}
 		\rex{} implies that $\mu + \lam \nu \in M_+(X)$. 
 		\begin{enumerate}
-			\item 
-			\item 
-			\item 
+			\item Let $K \in \MB(X)$. Suppose that $K$ is compact. Since $\mu, \nu \in \MM_+(X)$, $\mu(K), \nu(K) < \infty$. Hence 
+			\begin{align*}
+				(\mu + \lam \nu)(K) 
+				& = \mu(K) + \lam \nu(K) \\
+				& < \infty 
+			\end{align*} 
+			\item Let $E \in \MB(X)$. By definition, $(\mu + \lam \nu)(E) \leq \inf V^{\mu + \lam \nu}_O(E)$.
+			\begin{itemize}
+				\item Suppose that $(\mu + \lam \nu)(E) = \infty$. Since $(\mu + \lam \nu)(E) = \mu(E) + \lam \nu(E)$, we have that $\mu(E) = \infty$ or $\nu(E) = \infty$. 
+				\begin{itemize}
+					\item Suppose that $\mu(E) = \infty$. Then
+					\begin{align*}
+						(\mu + \lam \nu)(E)
+						& = \mu(E) + \lam \nu(E) \\
+						& \geq \mu(E) \\
+						& = \infty \\
+						& \geq \inf V^{\mu + \lam \nu}_O(E)
+					\end{align*}
+					Therefore $(\mu + \lam \nu)(E) = \inf V^{\mu + \lam \nu}_O(E)$.
+					\item Similarly, if $\nu(E) = \infty$, then $(\mu + \lam \nu)(E) = \inf V^{\mu + \lam \nu}_O(E)$.
+				\end{itemize}
+				\item Suppose that $(\mu + \lam \nu)(E) < \infty$. Let $\ep > 0$. Then 
+				\begin{align*}
+					\mu(E) , \nu(E)
+					& \leq \mu(E) + \lam \nu(E) \\
+					& = (\mu + \lam \nu)(E) \\
+					& < \infty
+				\end{align*}
+				Since $\mu, \nu \in \MM_+(X)$, there exist $U_{\mu}, U_{\nu} \in \MB(X)$ such that $U_{\mu}$, $U_{\nu}$ are open, $E \subset U_{\mu}$, $E \subset U_{\nu}$, $\mu(U_{\mu}) < \mu(E) + \ep/2$ and $\nu(U_{\mu}) < \nu(E) + \ep/(2 [\lam + 1])$. Set $U \defeq U_{\mu} \cap U_{\nu}$. Then $U$ is open, $E \subset U$ and
+				\begin{align*}
+					(\mu + \lam \nu)(U)
+					& = \mu(U) + \lam \nu(U) \\
+					& \leq \mu(U_{\mu}) + \lam \nu(U_{\nu}) \\
+					& < \bigg[ \mu(E) + \frac{\ep}{2} \bigg] + \lam \bigg[ \nu(E) + \frac{\ep}{2(\lam + 1)} \bigg] \\
+					& = \mu(E) + \frac{\ep}{2} + \lam \nu(E) + \frac{\ep \lam }{2 (\lam + 1)} \\
+					& < \mu(E) + \frac{\ep}{2} + \lam \nu(E) + \frac{\ep}{2} \\ 
+					& = \mu(E) + \lam \nu(E) + \ep 
+				\end{align*}
+				Since $\ep > 0$ is arbitrary, we have that 
+				\begin{align*}
+					\inf V_O^{\mu + \lam \nu}(E)
+					& \leq (\mu + \lam \nu)(U) \\
+					& \leq \mu(E) + \lam \nu(E) 
+				\end{align*}
+				Hence $(\mu + \lam \nu)(E) = \inf V^{\mu + \lam \nu}_O(E)$ and $\mu + \lam \nu$ is outer regular on $E$. Since $E \in \MB(X)$ is arbitrary, we have that for each $E \in \MB(X)$, $\mu + \lam \nu$ is outer regular on $E$.
+			\end{itemize}
+			\item Let $U \subset X$. Suppose that $U$ is open. By definition, $V_I^{\mu + \lam \nu}(U) \leq (\mu + \lam \nu)(U)$. If $\lam = 0$, then $\mu + \lam \nu = \mu$ and since $\mu \in \MM_+(X)$, we have that
+			\begin{align*}
+				\sup V_I^{\mu + \lam \nu}(U)
+				& = \sup V_I^{\mu}(U) \\
+				& = \mu(U) \\
+				& = (\mu + \lam \nu)(U)
+			\end{align*}
+			Suppose that $\lam \neq 0$. 
+			\begin{itemize}
+				\item Suppose that $(\mu + \lam \nu)(U) = \infty$. Since $(\mu + \lam \nu)(U) = \mu(U) + \lam \nu(U)$, we have that $\mu(U) = \infty$ or $\nu(U) = \infty$. 
+				\begin{itemize}
+					\item Suppose that $\mu(U) = \infty$. Let $M > 0$. Since $\mu \in \MM_+(X)$, there exists $K \subset U$ such that $K$ is compact and $\mu(K) > M$. Then 
+					\begin{align*}
+						\sup V_I^{\mu + \lam \nu}(U)
+						& \geq (\mu + \lam \nu)(U) \\
+						& \geq \mu(U) \\
+						& \geq \mu(K) \\
+						& > M
+					\end{align*}
+					Since $M > 0$ is arbitrary, we have that 
+					\begin{align*}
+						\sup V_I^{\mu + \lam \nu}(U)
+						& = \infty \\
+						& = (\mu + \lam \nu)(U).
+					\end{align*}
+					\item Suppose that $\nu(U) = \infty$. 
+					Let $M > 0$. Since $\nu \in \MM_+(X)$, there exists $K \subset U$ such that $K$ is compact and $\nu(K) > M/\lam$. Then 
+					\begin{align*}
+						\sup V_I^{\mu + \lam \nu}(U)
+						& \geq (\mu + \lam \nu)(U) \\
+						& \geq \lam \nu(U) \\
+						& \geq \lam \nu(K) \\
+						& > M
+					\end{align*} 
+					Since $M > 0$ is arbitrary, we have that 
+					\begin{align*}
+						\sup V_I^{\mu + \lam \nu}(U)
+						& = \infty \\
+						& = (\mu + \lam \nu)(U).
+					\end{align*}
+				\end{itemize}
+				\item Suppose that $(\mu + \lam \nu)(U) < \infty$. Let $\ep > 0$. Then $\mu(U) - \ep/2 < \mu(U)$ and $\nu(U) - \ep/(2 \lam) < \nu(U)$. Since $\mu, \nu \in \MM_+(X)$, there exist $K_{\mu}, K_{\nu} \subset U$ such that $K_{\mu}$, $K_{\nu}$ are compact and $\mu(K_{\mu}) > \mu(U) - \ep/2$ and $\nu(K_{\nu}) > \nu(U) - \ep/(2 \lam)$. Set $K \defeq K_{\mu} \cup K_{\nu}$. Then $K$ is compact, $K \subset U$ and  
+				\begin{align*}
+					\sup V_I^{\mu + \lam \nu}(U)
+					& = (\mu + \lam \nu)(K) \\
+					& = \mu(K) + \lam \nu (K) \\
+					& \geq \mu(K_{\mu}) + \lam \nu(K_{\nu}) \\
+					& > \bigg[  \mu(U) - \frac{\ep}{2} \bigg] + \lam \bigg[ \nu(U) - \frac{\ep}{2 \lam }\bigg] \\
+					& = \bigg[  \mu(U) - \frac{\ep}{2} \bigg] + \bigg[  \lam \nu(U) - \frac{\ep}{2} \bigg] \\
+					& = \mu(U) + \lam \nu(U) + \ep \\
+					& = (\mu + \lam \nu)(U) + \ep  
+				\end{align*}
+				Since $\ep > 0$ is arbitrary, we have that $\sup V_I^{\mu + \lam \nu}(U) \geq (\mu + \lam \nu)(U)$. Hence $\sup V_I^{\mu + \lam \nu}(U) = (\mu + \lam \nu)(U)$ and $\mu + \lam \nu$ is inner regular on $U$. Since $U \subset X$ with $U$ open is arbitrary, we have that for each $U \subset X$, if $U$ is open, then $\mu + \lam \nu$ is inner regular on $U$.
+			\end{itemize}
 		\end{enumerate}
-		\tcr{FINISH!!!}
+		Hence $\mu + \lam \nu$ is Radon. Thus $\mu + \lam \nu \in \MM_+(X)$.
 	\end{proof}
-
 
 	\begin{defn} \ld{def:introduction_radon_measures:0003}
 		Let $X$ be a topological space and $\mu \in \MM_+(X)$. We define 
@@ -9055,7 +9156,7 @@
 	\end{defn}
 	
 	\begin{ex} \lex{ex:complex_radon_measures:0002}
-		Let $X$ be a topological space and $\nu \in M(X)$. Then $\nu$ is Radon iff $\pi_{\Re} \circ \nu $ is Radon and $\pi_{\Im} \circ \nu$ is Radon.  
+		Let $X$ be a topological space and $\nu \in M(X)$. Then $\nu$ is Radon iff $\Re \nu $ is Radon and $\Im \nu$ is Radon.  
 	\end{ex}
 
 	\begin{proof}
@@ -9069,20 +9170,20 @@
 	\begin{proof}
 		Let $\mu, \nu \in \MM(X)$ and $\lam \in \C$. \rex{ex:complex_radon_measures:0002} implies that  \rex{ex:introduction_radon_measures:0002.1} implies that
 		\begin{align*}
-			\pi_{\Re} \circ (\mu + \lam \nu) 
-			& = \pi_{\Re} \circ \mu + \pi_{\Re}(\lam) \pi_{\Re} \circ \nu \\
+			\Re (\mu + \lam \nu) 
+			& = \Re \mu + \Re(\lam) \Re \nu \\
 			& \in M_+(X)
 		\end{align*}
 		and 
 		\begin{align*}
-			\pi_{\Im} \circ (\mu + \lam \nu) 
-			& = \pi_{\Im} \circ \mu + \pi_{\Im}(\lam) \pi_{\Im} \circ \nu \\
+			\Im (\mu + \lam \nu) 
+			& = \Im \mu + \Im(\lam) \Im \nu \\
 			& \in M_+(X)
 		\end{align*}  
 		\rex{ex:complex_radon_measures:0002} implies that 
 		\begin{align*}
 			\mu + \lam \nu 
-			& = \pi_{\Re} \circ (\mu + \lam \nu)  + \pi_{\Im} \circ (\mu + \lam \nu) \\
+			& = \Re (\mu + \lam \nu)  + i \Im (\mu + \lam \nu) \\
 			& \in \MM(X)
 		\end{align*}
 		\tcr{FINISH!!!}
@@ -9163,10 +9264,10 @@
 	\begin{defn}
 		Let $X$ be a topological space, $\mu \in M_+(X)$ and $\nu \in \MM(X)$. 
 		\begin{itemize}
-			\item If $\pi_{\Im} \circ \nu = 0$, we define $\nu_{\mu} \in M(X, \MA)$ by 
+			\item If $\Im \nu = 0$, we define $\nu_{\mu} \in M(X)$ by 
 			$$\nu_{\mu} = \nu^+_{\mu} - \nu^-_{\mu}$$
-			\item We define $\nu_{\mu} \in M(X, \MA)$ by 
-			$$\nu_{\mu} = [\pi_{\Re} \circ \nu]_{\mu} + i [\pi_{\Im} \circ \nu]_{\mu}$$
+			\item We define $\nu_{\mu} \in M(X)$ by 
+			$$\nu_{\mu} = [\Re \nu]_{\mu} + i [\Im \nu]_{\mu}$$
 		\end{itemize}
 	\end{defn}
 
@@ -9812,8 +9913,8 @@
 	\begin{defn} \ld{def:differentiation_complex_measures:0001}
 		Let $(X, d)$ be a metric space and $\nu \in \MM(X)$.
 		\begin{itemize}
-			\item If $\pi_{\Im} \circ \nu = 0$, we define $D_{\mu} \nu = D_{\mu} \nu^+ - D_{\mu} \nu^-$.
-			\item We define $D_{\mu} \nu = D_{\mu} (\pi_{\Re} \circ \nu) + i D_{\mu} (\pi_{\Im} \circ \nu)$.
+			\item If $\Im \nu = 0$, we define $D_{\mu} \nu = D_{\mu} \nu^+ - D_{\mu} \nu^-$.
+			\item We define $D_{\mu} \nu = D_{\mu} (\Re \nu) + i D_{\mu} (\Im \nu)$.
 		\end{itemize}
 	\end{defn}
 
@@ -9831,18 +9932,17 @@
 			\item By definition, 
 			\begin{align*}
 				D_{\mu} \nu
-				& = D_{\mu} (\pi_{\Re} \nu) + i D_{\mu} (\pi_{\Im} \nu) \\
-				& = [D_{\mu} (\pi_{\Re} \nu)^+ - D_{\mu} (\pi_{\Re} \nu)^-] + i [D_{\mu} (\pi_{\Im} \nu)^+ - D_{\mu} (\pi_{\Im} \nu)^-] \\
-				& = \bigg[ \frac{ d(\pi_{\Re} \nu)^+_{\mu}}{d\mu} - \frac{d (\pi_{\Re} \nu)^-_{\mu}}{d \mu} \bigg] + i \bigg[ \frac{d (\pi_{\Im} \nu)^+_{\mu}}{d \mu} - \frac{d (\pi_{\Im} \nu)^-_{\mu}}{d \mu} \bigg] \\
-				& = \frac{d (\pi_{\Re} \nu)_{\mu} }{d \mu} + i \frac{d (\pi_{\Im} \nu)_{\mu}}{d \mu} \\
+				& = D_{\mu} (\Re \nu) + i D_{\mu} (\Im \nu) \\
+				& = [D_{\mu} (\Re \nu)^+ - D_{\mu} (\Re \nu)^-] + i [D_{\mu} (\Im \nu)^+ - D_{\mu} (\Im \nu)^-] \\
+				& = \bigg[ \frac{ d(\Re \nu)^+_{\mu}}{d\mu} - \frac{d (\Re \nu)^-_{\mu}}{d \mu} \bigg] + i \bigg[ \frac{d (\Im \nu)^+_{\mu}}{d \mu} - \frac{d (\Im \nu)^-_{\mu}}{d \mu} \bigg] \\
 				& = \frac{d \nu_{\mu}}{d \mu}
 			\end{align*}
 			\item \rex{ex:diff_radon_measures:0011} implies that for $\mu$-a.e. $x \in X$, 
 			\begin{align*}
 				D_{\mu} \nu(x)
-				& = [D_{\mu} (\pi_{\Re} \nu)^+ - D_{\mu} (\pi_{\Re} \nu)^-] + i [D_{\mu} (\pi_{\Im} \nu)^+ - D_{\mu} (\pi_{\Im} \nu)^-] \\
-				& = \lim_{r \rightarrow 0^+} \frac{ (\pi_{\Re} \nu)^+(\bar{B}(x, r))}{\mu(\bar{B}(x, r))} + \lim_{r \rightarrow 0^+} \frac{ (\pi_{\Re} \nu)^-(\bar{B}(x, r))}{\mu(\bar{B}(x, r))} \\
-				& \quad \quad \quad \quad  + \lim_{r \rightarrow 0^+} \frac{ (\pi_{\Im} \nu)^+(\bar{B}(x, r))}{\mu(\bar{B}(x, r))} + \lim_{r \rightarrow 0^+} \frac{ (\pi_{\Im} \nu)^- (\bar{B}(x, r))}{\mu(\bar{B}(x, r))} \\
+				& = [D_{\mu} (\Re \nu)^+ - D_{\mu} (\Re \nu)^-] + i [D_{\mu} (\Im \nu)^+ - D_{\mu} (\Im \nu)^-] \\
+				& = \lim_{r \rightarrow 0^+} \frac{ (\Re \nu)^+(\bar{B}(x, r))}{\mu(\bar{B}(x, r))} + \lim_{r \rightarrow 0^+} \frac{ (\Re \nu)^-(\bar{B}(x, r))}{\mu(\bar{B}(x, r))} \\
+				& \quad \quad \quad \quad  + \lim_{r \rightarrow 0^+} \frac{ (\Im \nu)^+(\bar{B}(x, r))}{\mu(\bar{B}(x, r))} + \lim_{r \rightarrow 0^+} \frac{ (\Im \nu)^- (\bar{B}(x, r))}{\mu(\bar{B}(x, r))} \\
 				& = \lim_{r \rightarrow 0^+} \frac{\nu(\bar{B}(x, r))}{\mu(\bar{B}(x, r))}
 			\end{align*}
 		\end{enumerate}
