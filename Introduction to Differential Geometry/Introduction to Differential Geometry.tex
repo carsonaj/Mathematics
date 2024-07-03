@@ -1937,7 +1937,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\section{Introduction}
 	
 	\begin{itemize}
-		\item \tcr{redo in terms of all upper half spaces, this will make dealing with products much easier}
+		\item \tcr{redo in terms of all charts $(U, \phi)$ where for some $j$, $\phi(U) \in \MT_{\H^n_j}$ or $\phi(U) \in \MT_{\R^n}$ and then make an exercise about equivalently being $\phi(U) \in \MT_{\H^n_j}$ and if $\phi(U) \in \MT_{\R^n}$ iff interior chart.}
 		\item \tcr{show $\varnothing$ is a top manifold of every dimension}
 	\end{itemize}
 	
@@ -2018,14 +2018,26 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{defn} \ld{def:topological_manifolds_introduction:0006}
-		Let $(M, \MT)$ be a topological space, $n \in \N$, $j \in [n]$, $U \subset M$, $V \subset \H^n_j $ and $\phi:U \rightarrow V$. Then $(U, \phi)$ is said to be an \tbf{$(n,j)$-coordinate chart on $(M, \MT)$} if 
+		Let $(M, \MT)$ be a topological space, $n \in \N$, $j \in [n]$, $U \subset M$, $V \subset \R^n $ and $\phi:U \rightarrow V$. Then
 		\begin{itemize}
-			\item $U \in \MT$ 
-			\item $V \in \MT_{\H^n_j}$, 
-			\item $\phi$ is a $(\MT \cap U, \MT_{\H^n_j } \cap V)$-homeomorphism 
+			\item $(U, \phi)$ is said to be an \tbf{$\R^n$-coordinate chart on $(M, \MT)$} if 
+			\begin{itemize}
+				\item $U \in \MT$ 
+				\item $V \in \MT_{\R^n}$ 
+				\item $\phi$ is a $(\MT \cap U, \MT_{\R^n} \cap V)$-homeomorphism 
+			\end{itemize}
+			\item $(U, \phi)$ is said to be an \tbf{$\H^n_j$-coordinate chart on $(M, \MT)$} if 
+			\begin{itemize}
+				\item $U \in \MT$ 
+				\item $V \in \MT_{\H^n_j}$ 
+				\item $\phi$ is a $(\MT \cap U, \MT_{\H^n_j } \cap V)$-homeomorphism 
+			\end{itemize}
+			\item $(U, \phi)$ is said to be an \tbf{$n$-coordinate chart on $(M, \MT)$} if $(U, \phi)$ is an $\R^n$-coordinate chart on $(M, \MT)$ or there exists $j \in [n]$ such that $(U, \phi)$ is an $\H^n_j$-coordinate chart on $(M, \MT)$.
+			\item We define 
+			$$X^{n,j}(M, \MT) \defeq \{(U, \phi): (U, \phi) \text{ is an $\H^n_j$-coordinate chart on $(M, \MT)$} \}$$
+			and 
+			$$X^n(M, \MT) \defeq \{(U, \phi): (U, \phi) \text{ is an $n$-coordinate chart on $(M, \MT)$} \}$$
 		\end{itemize}
-	We define 
-	$$X^{n,j}(M, \MT) \defeq \{(U, \phi): (U, \phi) \text{ is an $(n,j)$-coordinate chart on $(M, \MT)$} \}$$
 	\end{defn}
 
 	\begin{note}
@@ -2716,17 +2728,15 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 	\newpage
-	\section{Open and Boundary Submanifolds}
+	\section{Submanifolds}
 	
-	
-
 	\subsection{Open Submanifolds}
 	
 	\begin{note} 
 		Let $(M, \MT)$ be an $n$-dimensional topological manifold and $U \subset M$. Suppose that $U$ is open in $M$. Unless otherwise specified, we equip $U$ with $\MT \cap U$. 
 	\end{note}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:topological_open_submanifolds:0001}
 		Let $M$ be an $n$-dimensional topological manifold, $(U, \phi) \in X(M)$ and $U' \subset U$. If $U'$ is open in $M$, then $(U', \phi|_{U'}) \in X^n(M)$. 
 	\end{ex}
 	
@@ -2744,7 +2754,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Since $U$ is open in $M$, $U'$ being open in $U$ is equivalent to $U'$ being open in $M$, so we could have also assumed that $U'$ is open in $U$.
 	\end{note}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:topological_open_submanifolds:0002}
 		Let $M$ be an $n$-dimensional topological manifold and $U \subset M$. If $U$ is open, then 
 		$$X^n(U) = \{(V, \psi) \in X^n(M): V \subset U\}$$
 	\end{ex}
@@ -2754,7 +2764,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Conversely, suppose that $(V, \psi) \in A$. Then $(V, \psi) \in X^n(M)$ and $V \subset U$. By definition of $X^n(M)$, $V$ is open in $M$. Since $V \subset U$, we have that $V = V \cap U$ is open in $U$. Hence $(V, \psi) \in X^n(U)$. Since $(V, \psi) \in X^n(U)$ is arbitary, $A \subset X^n(U)$. Hence $X^n(A) = A$.
 	\end{proof}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:topological_open_submanifolds:0003}
 		Let $M$ be an $n$-dimensional topological manifold, $(U, \phi) \in X(M)$ and $U' \subset U$. If $U'$ is open in $M$, then $(U', \phi|_{U'}) \in X^n(U)$. 
 	\end{ex}
 	
@@ -2762,7 +2772,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Suppose that $U'$ is open in $M$. A previous exercise implies that $(U', \phi') \in X^n(M)$. The previous exercise implies that $(U', \phi') \in X^n(U)$.
 	\end{proof}
 	
-	\begin{ex} \tbf{Topological Open Submanifolds:}\\
+	\begin{ex} \lex{ex:topological_open_submanifolds:0004} \tbf{Topological Open Submanifolds:}\\
 		Let $M$ be an $n$-dimensional topological manifold and $U \subset M$ open. Then $U$ is an $n$-dimensional topological manifold. 
 	\end{ex}
 	
@@ -2775,7 +2785,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Hence $U$ is an $n$-dimensional topological manifold.
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:topological_open_submanifolds:0005}
 		Let $M$ be an $n$-dimensional topological manifold and $U \subset M$. If $U$ is open, then 
 		\begin{enumerate}
 			\item $X_{\Int}(U) = \{(V, \psi) \in X_{\Int}(M): V \subset U\}$
@@ -2795,7 +2805,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 
-	\begin{ex}
+	\begin{ex} \lex{ex:topological_open_submanifolds:0006}
 		Let $M$ be an $n$-dimensional topological manifold and $U \subset M$. If $U$ is open, then $\p U = \p M \cap U$.
 	\end{ex}
 
@@ -3037,6 +3047,91 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Submanifolds}
+
+\begin{defn}
+	\tcr{topological embedding}
+\end{defn}
+
+\begin{defn}
+	Let $M, N$ be topological manifolds of dimensions $m, n$ respectively and $F:N \rightarrow N$ a topological embedding. Then $\{(F(V), \psi \circ F^{-1}): (V, \psi) \in X^n(N)\} \subset X^n(F(N))$. 
+\end{defn}
+
+\begin{proof}
+	Since 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	
@@ -3069,14 +3164,18 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 
 	\begin{defn} \ld{def:smooth_manifold_introduction:0002}
-		Let $M$ be an $n$-dimensional topological manifold.
+		Let $(M, \MT)$ be an $n$-dimensional topological manifold.
 		\begin{itemize}
-			\item Let $\MA \subset X(M)$. Then $\MA$ is said to be an \tbf{atlas on $M$} if  $M \subset \bigcup\limits_{(U,\phi) \in \MA} U$.
+			\item Let $\MA \subset X(M, \MT)$. Then $\MA$ is said to be an \tbf{atlas on $M$} if  $M \subset \bigcup\limits_{(U,\phi) \in \MA} U$.
 			\item Let $\MA$ be an atlas on $M$. Then $\MA$ is said to be \tbf{smooth} if for each $(U, \phi), (V, \psi) \in \MA$, $(U,\phi)$ and $(V,\psi)$ are smoothly compatible.
 			\item Let $\MA$ be a smooth atlas on $M$. Then $\MA$ is said to be \tbf{maximal} if for each smooth atlas $\MB$ on $M$, $\MA \subset \MB$ implies that $\MA = \MB$. A maximal smooth atlas on $M$ is called a \tbf{smooth structure on $M$}.
-			\item Let $\MA$ be an atlas on $M$. Then $(M, \MA)$ is said to be an \tbf{$n$-dimensional smooth manifold} if $\MA$ is a smooth structure on $M$. 
+			\item Let $\MA$ be an atlas on $M$. Then $(M, \MT, \MA)$ is said to be an \tbf{$n$-dimensional smooth manifold} if $\MA$ is a smooth structure on $M$. 
 		\end{itemize}
 	\end{defn}
+
+	\begin{note}
+		When the context is clear, we write $M$ or $(M, \MA)$ in place of $(M, \MT, \MA)$.
+	\end{note}
 
 	\begin{defn} \ld{def:smooth_manifold_introduction:0003}
 		Let $M$ be a topological manifold and $\MB$ a smooth atlas on $M$. We define the \tbf{smooth structure on $M$ generated by $\MB$}, denoted $\al_M(\MB)$, by 
@@ -3259,7 +3358,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \begin{ex} \lex{ex:smooth_open_boundary_submanifolds:0004}
 	Let $(M, \MA)$ be an $n$-dimensional smooth manifold and $U \subset M$ open. Then 
 	\begin{enumerate}
-		\item $\MA|_U \subset \MA$.
+		\item $\MA|_U \subset \MA$,
 		\item $\MA|_U = \{(V, \psi) \in \MA: V \subset U\}$.
 	\end{enumerate}
 \end{ex}
@@ -3393,12 +3492,12 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \end{note}
 
 \begin{defn} \ld{def:smooth_product_manifolds:0003}
-	Let $M$, $N$ be smooth manifolds of dimension $m$ and $n$ respectively, $\MA \subset X^m(M)$ and $\MB \subset X^n(N)$. Suppose that $\MA$ and $\MB$ are smooth atlases on $M$ and $N$ respectively and $\p N = \varnothing$. We define the \tbf{product atlas of $\MA$ and $\MB$ on $M \times N$}, denoted $\MA \otimes_0 \MB$, by 
+	Let $M$, $N$ be topological manifolds of dimension $m$ and $n$ respectively, $\MA \subset X^m(M)$ and $\MB \subset X^n(N)$. Suppose that $\MA$ and $\MB$ are smooth atlases on $M$ and $N$ respectively and $\p N = \varnothing$. We define the \tbf{product atlas of $\MA$ and $\MB$ on $M \times N$}, denoted $\MA \otimes_0 \MB$, by 
 	$$\MA \otimes_0 \MB = \{(U \times V, \lam_0|_{\phi(U) \times \psi(V)} \circ [\phi \times \psi]): (U, \phi) \in \MA \text{ and } (V, \psi) \in \MB\}$$ 
 \end{defn}
 
 \begin{ex} \lex{ex:smooth_product_manifolds:0004}
-	Let $M$, $N$ be smooth manifolds of dimension $m$ and $n$ respectively, $\MA \subset X^m(M)$ and $\MB \subset X^n(N)$. Suppose that $\MA$ and $\MB$ are smooth atlases on $M$ and $N$ respectively and $\p N = \varnothing$. Then $\MA \otimes_0 \MB$ is a smooth atlas on $M \times N$. 
+	Let $M$, $N$ be topological manifolds of dimension $m$ and $n$ respectively, $\MA \subset X^m(M)$ and $\MB \subset X^n(N)$. Suppose that $\MA$ and $\MB$ are smooth atlases on $M$ and $N$ respectively and $\p N = \varnothing$. Then $\MA \otimes_0 \MB$ is a smooth atlas on $M \times N$. 
 \end{ex}
 
 \begin{proof}\
@@ -3747,6 +3846,14 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 		\item Similar to $(1)$.
 	\end{enumerate}
+\end{proof}
+
+\begin{ex} \lex{ex:smooth_maps_open_boundary_submanifolds:0004.1}
+	Let $M$ be a topological manifold and $\MA_1, \MA_2$ smooth structures on $M$. If $\id_M$ is a $(\MA_1, \MA_2)$-diffeomorphism, then $\MA_1 = \MA_2$.
+\end{ex}
+
+\begin{proof} Set $n \defeq \dim M$. 
+	Suppose that $\id_M$ is a $(\MA_1, \MA_2)$-diffeomorphism. \rex{ex:smooth_maps_open_boundary_submanifolds:0004} implies that $\MA_1 = \MA_2$. \tcr{maybe give more details}.
 \end{proof}
 
 
@@ -4635,7 +4742,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	\newpage
-	\chapter{Submersions and Immersions}
+	\chapter{Immersions, Submersions and Associated Submanifolds}
 	
 	\section{Maps of Constant Rank}
 	
@@ -4663,7 +4770,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{ex} \lex{ex:maps_of_constant_rank:0003} \tbf{Constant Rank Theorem:} \\ \tcr{rework for $\H^m$ instead of $\R^m$}
-			Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds of dimensions $m$ and $n$ respectively, $F \in C^{\infty}(M,N)$. Suppose that, $\p M, \p N = \varnothing$, $F$ has constant rank and $\rnk F = k$. Then for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$ and
+			Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds of dimensions $m$ and $n$ respectively, $F \in C^{\infty}(M,N)$. Suppose that $\p M, \p N = \varnothing$, $F$ has constant rank and $\rnk F = k$. Then for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(U) \subset V$ and
 			$$\psi \circ F \circ \phi^{-1}(x^1, \ldots, x^k, x^{k+1}, \ldots, x^m) = (x^1, \ldots, x^k, 0, \ldots, 0)$$ 
 			\tbf{Hint: } \tcb{Needs a hint}
 	\end{ex}
@@ -4784,14 +4891,14 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	 		& \subset \hat{V}_{12}
 	 	\end{align*}
 	 	In particular, $\hat{F}(\hat{p}) \in \hat{V}_{12}$. Define $H: Q(\hat{U}_{12}) \times \R^{n-k} \rightarrow Q(\hat{U}_{12}) \times \R^{n-k}$ by $H \defeq (\pi_a, \pi_b - \tilde{S} \circ \pi_a)$, i.e. for each $(a,b) \in Q(\hat{U}_{12}) \times \R^{n-k}$, $H(a,b) = (a, b-\tilde{S}(a))$. Then $H$ is a bijection and $H^{-1}(a,b) = (\pi_a, \pi_b + \tilde{S} \circ \pi_a)$. Thus $H$ and $H^{-1}$ are smooth and therefore $H$ is a diffeomorphism. Define $H_{12}: \hat{V}_{12} \rightarrow H(\hat{V}_{12})$ by 
-	 	$H_{12} = H|_{\hat{V}_{12}}$. Then $H_{12}$ is a diffeomorphism and for each $x,y \in Q(\hat{U}_{12} \times \hat{U}_{2})$, $H_{12} \circ \hat{F} \circ G_{12}^{-1}(x, y) = (x, 0)$. Define $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ by $U \defeq \phi_0^{-1}(\hat{U}_{12})$, $V \defeq \psi_0^{-1}(\hat{V}_{12})$, $\phi \defeq G_{12} \circ \phi_0|_{U}$ and $\psi \defeq H_{12} \circ \psi_0|_V$. Then for each $(x,y) \in \phi(U)$,
+	 	$H_{12} = H|_{\hat{V}_{12}}$. Then $H_{12}$ is a diffeomorphism and for each $x,y \in Q(\hat{U}_{12} \times \hat{U}_{2})$, $H_{12} \circ \hat{F} \circ G_{12}^{-1}(x, y) = (x, 0)$. Define $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ by $U \defeq \phi_0^{-1}(\hat{U}_{12})$, $V \defeq \psi_0^{-1}(\hat{V}_{12})$, $\phi \defeq G_{12} \circ \phi_0|_{U}$ and $\psi \defeq H_{12} \circ \psi_0|_V$. \tcr{Show that $F(U) \subset V$}. Then for each $(x,y) \in \phi(U)$,
 	 	\begin{align*}
 	 		\psi \circ F \circ \phi^{-1}(x, y)
 	 		& = H_{12} \circ \psi_0|_V \circ F \circ \phi_0|_U^{-1} \circ G_{12}^{-1} (x,y) \\
 	 		& = H_{12} \circ \hat{F} \circ G_{12}^{-1}(x,y) \\
 	 		& = (x, 0)
 	 	\end{align*}
- 	\tcr{need to start with compact chart domain and add constant so we stay in $\H^{n}$, i.e. need $U$ to be compact, so set $U_1$ and $U_2$ to be compact, then $U_{12}$ will be and thus $U$.}
+ 	\tcr{need to start with compact chart domain and add constant so we stay in $\H^{n}$, i.e. need $U$ to be compact, so set $U_1$ and $U_2$ to be compact, then $U_{12}$ will be and thus $U$.} 
 	\end{proof}
 	
 	\begin{defn} \ld{def:maps_of_constant_rank:0004}
@@ -4803,10 +4910,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{itemize}
 	\end{defn}
 
-	\begin{ex} \tbf{Local Immersion Theorem:} \\
-		local immersion for manifolds with boundary
-	\end{ex}
-	
 	\begin{ex} \lex{ex:maps_of_constant_rank:0005}
 	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. Let $p \in M$.
 	\begin{enumerate}
@@ -4903,13 +5006,25 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	\newpage
-	\section{Embeddings}
+	\section{Immersions}
 	
-	\begin{defn}
-		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F:M \rightarrow N$ smooth. Then $F$ is said to be a \tbf{smooth embedding} if 
+	\begin{defn} \ld{def:immersions:0001}
+		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. Then $F$ is said to be a \tbf{smooth immersion} if for each $p \in M$, $DF(p):T_pM\rightarrow T_{F(p)}N$ is injective.
+	\end{defn}
+
+	\begin{ex} \lex{ex:immersions:0001}
+		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map and $p \in M$. If $DF(p)$ is injective, then there exists $U \subset M$ such that $U$ is open and $F|_U$ is a smooth immersion.
+	\end{ex}
+
+	\begin{proof}
+		content...
+	\end{proof}
+	
+	\begin{defn}  \ld{def:immersions:0003}
+		Let $(M, \MT_M, \MA_M), (N, \MT_N, \MA_N) \in \Obj(\Maninfbnd)$ and $F \in \Hom_{\Maninfbnd}(M,N)$. Then $F$ is said to be a \tbf{smooth embedding} if 
 		\begin{enumerate}
-			\item $F:M \rightarrow F(M)$ is a homeomorphism,
-			\item $F$ is a smooth immersion. 
+			\item $F$ is an immersion, 
+			\item $F:M \rightarrow F(M)$ is a $(\MT_M, \MT_N \cap F(M))$-homeomorphism.
 		\end{enumerate}	 
 	\end{defn}	
 
@@ -4917,7 +5032,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	Here the topology on $F(M)$ is the subspace topology.
 	\end{note}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:immersions:0004}
 		Let $(M, \MA)$ be a smooth manifold and $U \subset M$ open. Then the inclusion map $\iota:U \rightarrow M$ is a smooth embedding. 
 	\end{ex}
 
@@ -4925,7 +5040,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		content...
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:immersions:0005}
 		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $p \in M$ and $q \in N$. Suppose that $\p N = \varnothing$. Then 
 		\begin{enumerate}
 			\item $\iota^M_q: M \rightarrow M \times N$ is a smooth embedding,
@@ -4970,110 +5085,384 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-
+	\newpage
 	\section{Submersions}
 	
-	\begin{defn}
+	\tcr{give boundary assumptions being empty}
+	
+	\begin{defn} \ld{def:submersions:0001}
+		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. Then $F$ is said to be a \tbf{smooth submersion} if for each $p \in M$, $DF(p) :T_pM\rightarrow T_{F(p)}N$ is surjective.
+	\end{defn}
+
+	\begin{ex} \lex{ex:submersions:0002}
+		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. Let $p \in M$.
+		\begin{enumerate}
+			\item If that $DF(p)$ is injective, then there exists $U \subset M$ such that $U$ is open and $F|_U$ is a smooth immersion.
+			\item If $DF(p)$ is surjective, then there exists $U \subset M$ such that $U$ is open and $F|_U$ is a smooth submersion.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}	
+
+	\begin{note}
+		We denote the projection map $\prj_1: \R^n \times \R^k \rightarrow \R^n$.
+	\end{note}
+
+	\begin{ex} \lex{ex:submersions:0002.1}
+		Let $E, M$ be smooth manifolds, $\pi:E \rightarrow M$ smooth. Suppose that $\p E, \p M = \varnothing$. If $\pi$ is a submersion, then for each $a \in E$, there exist $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_E$ such that 
+		\begin{enumerate}
+			\item $a \in V$ and $U = \pi(V)$,
+			\item $\phi \circ \pi \circ \psi^{-1} = \prj_1|_{\psi(V)}$. 
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $\pi$ is a submersion. Set $n \defeq \dim M$, $k \defeq \dim E - n$. Let $a \in E$. Set $p \defeq \pi(a)$. Since $\pi:E \rightarrow M$ is a submersion, $\pi$ has constant rank and $\rnk \pi = n$. \rex{ex:maps_of_constant_rank:0003} implies that there exist $(V_0, \psi_0) \in \MA_E$, $(U_0, \phi_0) \in \MA_M$ such that $a \in V_0$, $p \in U_0$ and for each $x \in \psi_0(V_0 \cap \pi^{-1}(U_0))$, $\phi_0 \circ \pi \circ \psi_0^{-1}(x) = \prj_1(x)$. Define
+		\begin{itemize}
+			\item $V \defeq V_0 \cap \pi^{-1}(U_0)$ and $\hat{V} \defeq \psi_0(V)$,
+			\item $\hat{\pi} \defeq \phi_0 \circ \pi \circ \psi_0|_{V}^{-1}$,
+			\item $\hat{U} \defeq \hat{\pi}(\hat{V})$ and $U \defeq \phi_0^{-1}(\hat{U})$.
+		\end{itemize}
+		Then $V$ is open in $E$, $\hat{V}$ is open in $\R^{n+k}$ and $\hat{\pi} = \prj_1|_{\hat{V}}$. Since $\prj_1$ is open and $\hat{V}$ is open in $\R^{n+k}$, we have that $\prj_1|_{\hat{V}}$ is open. Thus $\hat{U}$ is open in $\R^n$ and then $U$ is open in $M$. Define $\phi \defeq \phi_0|_U$ and $\psi \defeq \psi_0|_V$. Then $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_E$.
+		\begin{enumerate}
+			\item By construction, $a \in V$. Let $b \in V$. Set $q = \pi(b)$. By construction,
+			\begin{align*}
+				q \in \pi(V)
+				& \iff p \in \pi \circ \psi_0^{-1}(\hat{V}) \\
+				& \iff \phi_0(q) \in \phi_0 \circ \pi \circ \psi_0^{-1}(\hat{V}) \\
+				& \iff \phi_0(q) \in \hat{\pi}(\hat{V}) \\
+				& \iff \phi_0(q) \in \hat{U} \\
+				& \iff q \in \phi_0^{-1}(\hat{U}) \\
+				& \iff q \in U.
+			\end{align*}
+			Thus $U = \pi(V)$.
+			\item By construction, 
+			\begin{align*}
+				\phi \circ \pi \circ \psi^{-1}
+				& = \phi_0 \circ \pi \circ \psi|_V^{-1} \\
+				& = \prj_1|_{\psi{V}}
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{ex:submersions:0002.2}
+		Let $E, M$ be smooth manifolds, $\pi:E \rightarrow M$ smooth. Suppose that $\p E, \p M = \varnothing$. 
+		\begin{enumerate}
+			\item If $\pi$ is a submersion, then $\pi$ is open. 
+			\item If $\pi$ is a surjective submersion, then $\pi$ is a quotient map.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $\pi$ is a submersion. Let $a \in E$. \rex{ex:submersions:0002.1} implies that there exist $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_E$ such that 
+			\begin{itemize}
+				\item $a \in V$ and $U = \pi(V)$,
+				\item $\phi \circ \pi \circ \psi^{-1} = \prj_1|_{\psi(V)}$. 
+			\end{itemize} 
+			Since $\prj_1$ is open and $\psi(V)$ is open in $\R^{n+k}$, we have that $\prj_1|_{\psi(V)}$ is open. Since $\phi, \psi$ are homeomorphisms and $\pi|_{V} = \phi^{-1} \circ \prj_1|_{\psi(V)} \circ \psi$, we have that $\pi|_V$ is open. Since $a \in E$ is arbitrary, we have that for each $a \in E$, there exists $V \subset E$ such that $V$ is open in $E$ and $\pi|_E$ is open. \tcb{An exercise in the analysis notes section on subspace topology} implies that $\pi$ is open.    
+			\item Suppose that $\pi$ is a surjective submersion. Part $(1)$ implies that $\pi$ is open. Since $\pi$ is surjective, open and continuous, \tcb{an exercise in the analysis notes section on quotient maps} implies that $\pi$ is a quotient map. 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{def:submersions:0003}
 		Let $E, M$ be smooth manifolds, $\pi:E \rightarrow M$ smooth, $U \subset M$ open and $\sig:U \rightarrow E$. Then 
 		\begin{itemize}
-			\item $(U, \sig)$ is said to be a \tbf{smooth local section of $\pi$} if $\sig$ is a section of $\pi|_{\pi^{-1}(U)}: \pi^{-1}(U) \rightarrow U$ if, 
+			\item $(U, \sig)$ is said to be a \tbf{smooth local section of $\pi$} if $\sig$ is smooth and $\sig$ is a section of $\pi|_{\pi^{-1}(U)}: \pi^{-1}(U) \rightarrow U$, 
 			\item for each $p \in M$, we define 
 			$$\Gam_p(\pi) \defeq \{(U, \sig): \text{$(U, \sig)$ is a local section of $\pi$ and $p \in U$}\}$$
 		\end{itemize}
 	\end{defn}
 
-	\begin{ex}
-		Let 
+	\begin{ex} \lex{ex:submersions:0004}
+		Let $(M, \MA)$, $(N, \MB)$ be smooth manifolds and $\pi: M \rightarrow N$. Suppose that $\pi$ is a surjective smooth submersion. Then $\pi$ admits local sections. \tcr{define this, maybe each $a \in E$ is in the image of a smooth section, or for each $p \in M$, there is a local section around $p$, or both}
 	\end{ex}
-	
 
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\section{Submanifolds}
-	
-	
-	\begin{ex}
-	Let $(M, \MA)$ be a smooth manifold and $S \subset M$ open. For $(U, \phi) \in \MA$, define $\tilde{U} \subset S$ and $\tilde{\phi}: \tilde{U} \rightarrow \phi(\tilde{U})$ by $\tilde{U} = U \cap S$ and $\tilde{\phi} = \phi|_{U \cap S}$. Set $\MB = \{(\tilde{U}, \tilde{\phi}): (U, \phi) \in \MA\}$.
-	Then $\MB$ is a smooth structure on $S$.
-	\end{ex}
-	
 	\begin{proof}
-	
+		Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Let $p \in M$. Since $\pi$ is surjective, there exists $a \in E$ such that $\pi(a) = p$. \rex{ex:submersions:0002.1} implies that there exist $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_E$ such that 
+		\begin{itemize}
+			\item $a \in V$ and $U = \pi(V)$,
+			\item $\phi \circ \pi \circ \psi^{-1} = \prj_1|_{\psi(V)}$. 
+		\end{itemize} 
+		Set $\hat{x} \defeq \prj_1(\psi(a))$ and $\hat{y} \defeq \prj_2(\psi(a))$ so that $\psi(a) = (\hat{x}, \hat{y})$. \tcb{An exercise in the analysis notes from the section on the product topology} implies that there exist $A \in \MT_{\R^n}$ and $B \in \MT_{\R^k}$ such that $(\hat{x}, \hat{y}) \in A \times B$ and $A \times B \subset \psi(V)$. We note that $\hat{x} = \phi(p)$, $A \subset \phi(U)$ and for each $(x^1, \ldots, x^n) \in A$, $(x^1, \ldots, x^n, \hat{y}) \in \psi(V)$. Define $\hat{\sig}:A \rightarrow \psi(V)$ by $\hat{\sig}(x^1, \ldots, x^n) \defeq (x^1, \ldots, x^n, \hat{y})$. Then $\hat{\sig}$ is smooth. Define $\sig:\phi^{-1}(A) \rightarrow V$ by $\sig \defeq \psi^{-1} \circ \hat{\sig} \circ \phi|_{\phi^{-1}(A)}$. Then $\sig$ is smooth. Let $q \in \phi^{-1}(A)$. Set $x \defeq \phi(q)$. Then 
+		\begin{align*}
+			\pi \circ \sig (q)
+			& = [\pi \circ (\psi^{-1} \circ \hat{\sig} \circ \phi|_{\phi^{-1}(A)})] (q) \\
+			& = [\pi \circ (\psi^{-1} \circ \hat{\sig} \circ \phi|_{\phi^{-1}(A)})] (\phi^{-1}(x)) \\
+			& = [\pi \circ (\psi^{-1} \circ \hat{\sig})] (x) \\
+			& = [(\pi \circ \psi^{-1}) \circ \hat{\sig}] (x) \\
+			& = (\phi^{-1} \circ \prj_1) (x, \hat{y}) \\
+			& = \phi^{-1}(x) \\
+			& = q
+		\end{align*}
+		Since $q \in \phi^{-1}(A)$ is arbitrary, we have that $\pi \circ \sig = \id_{\phi^{-1}(A)}$ and therefore $(\phi^{-1}(A), \sig) \in \Gam_{p}(\pi)$.
+	\end{proof}
+
+	\begin{ex} \lex{ex:submersions:0005}
+		Let $E, M, N$ be smooth manifolds, $\pi: E \rightarrow M$ and $F: M \rightarrow N$. Suppose that $\pi$ is a surjective smooth submersion. Then $F$ is smooth iff $F \circ \pi$ is smooth. 
+		\[ 
+		\begin{tikzcd}
+			E \arrow[d, "\pi"'] \arrow[dr, "F \circ \pi"] &   \\
+			M \arrow[r, "F"'] &  N
+		\end{tikzcd}
+		\]
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies):$ \\
+			Suppose that $F$ is smooth. Then clearly $F \circ \pi$ is smooth.
+			\item $(\impliedby):$ \\
+			Suppose that $F \circ \pi$ is smooth. Let $p \in M$. Then there exists a local section $(U, \sig) \in \Gam_p(\pi)$ such that $p \in U$. Since $F \circ \pi$ are smooth and $\sig$ is smooth, we have that 
+			\begin{align*}
+				(F \circ \pi) \circ \sig 
+				& = F \circ (\pi \circ \sig) \\
+				& = F \circ \id_U \\
+				& = F|_U 
+			\end{align*}
+			is smooth. Since $p \in M$ is arbitrary, we have that for each $p \in M$, there exists $U \subset M$ such that $U$ is open in $M$, $p \in U$ and $F|_U$ is smooth. Thus $F$ is smooth.  
+		\end{itemize}
 	\end{proof}
 	
+
+	\begin{ex} \lex{ex:submersions:0006}
+		Let $(E, \MC)$ be a smooth manifold, $M$ a topological manifold, $\MA_1$ and $\MA_2$ smooth structures on $M$ and $\pi: E \rightarrow M$. Suppose that $\pi$ is a surjective. If $\pi$ is a $(\MC, \MA_1)$-smooth subsmersion and $\pi$ is a $(\MC, \MA_2)$-smooth subsmersion, then $\MA_1 = \MA_2$. 
+	\end{ex}	
+
+	\begin{proof}
+		Suppose that $\pi$ is a $(\MC, \MA_1)$-smooth subsmersion and $\pi$ is a $(\MC, \MA_2)$-smooth subsmersion. Since $\id_M \circ \pi = \pi$ and $\pi$ is $(\MC, \MA_2)$-smooth, \rex{ex:submersions:0005} implies that $\id_M$ is $(\MA_1, \MA_2)$-smooth. Similarly, Since $\pi$ is $(\MC, \MA_1)$-smooth \rex{ex:submersions:0005} implies that $\id_M$ is $(\MA_2, \MA_1)$-smooth. Thus $\id_M$ is a $(\MA_1, \MA_2)$ diffeomorphism. \rex{ex:smooth_maps_open_boundary_submanifolds:0004.1} implies that $\MA_1 = \MA_2$. 
+	\end{proof}
+
+	\begin{ex} \lex{ex:submersions:0007}
+		Let $E, M, N$ be smooth manifolds, $\pi: E \rightarrow M$ and $F: E \rightarrow N$ smooth. Suppose that $\pi$ is a surjective smooth submersion. If for each $a,b \in E$, $\pi(a) = \pi(b)$ implies that $F(a) = F(b)$, then there exists a unique $\tl{F}: M \rightarrow N$ such that $\tl{F} \circ \pi = F$, i.e. the following diagram commutes:
+		\[ 
+		\begin{tikzcd}
+			E \arrow[d, "\pi"'] \arrow[dr, "F"] &   \\
+			M \arrow[r, "\tl{F}"', dashrightarrow] &  N
+		\end{tikzcd}
+		\]
+	\end{ex}
+
+	\begin{proof}
+		\rex{ex:submersions:0002.2} implies that $\pi$ is a quotient space. We define the relation $\sim_{\pi}$ on $E$ by $a \sim_{\pi} b$ iff $\pi(a) = \pi(b)$. Let $p_{\pi}:E \rightarrow E/{\sim_{\pi}}$ be the projection map. \tcb{An exercise in the analysis notes section on quotient spaces} implies that there exists $h: E/{\sim_{\pi}} \rightarrow M$ such that $h$ is a homeomorphism and $h \circ p_{\pi} = \pi$. Thus $p_{\pi} = h^{-1} \circ \pi$. By assumption, $F$ is $\sim_{\pi}$-invariant. \tcb{Another exercise in the analysis notes section on quotient spaces} implies that there exists a unique $\bar{F}: E/{\sim_{\pi}} \rightarrow N$ such that $\bar{F}$ is continuous and $\bar{F} \circ p_{\pi} = F$. Set $\tl{F} \defeq \bar{F} \circ h^{-1}$. Therefore,
+		\begin{align*}
+			\tl{F} \circ \pi
+			& = (\bar{F} \circ h^{-1}) \circ \pi \\
+			& = \bar{F} \circ (h^{-1} \circ \pi) \\
+			& = \bar{F} \circ p_{\pi} \\
+			& = F,
+		\end{align*}
+		i.e. the following diagram commutes: 
+		\[ 
+		\begin{tikzcd}
+			& E \arrow[dl, "F"'] \arrow[d, "p_{\pi}"] \arrow[dr, "\pi"] &   \\
+			N & E/{\sim_{\pi}} \arrow[l, "\bar{F}"] &  M \arrow[l, "h^{-1}"]
+		\end{tikzcd}
+		\]
+		Since $F$ is smooth and $\tl{F} \circ \pi = F$, we have that $\tl{F} \circ \pi$ is smooth, i.e. the following diagram commutes: 
+		\[ 
+		\begin{tikzcd}
+			E \arrow[d, "\pi"'] \arrow[dr, "\tl{F} \circ \pi"] &   \\
+			M \arrow[r, "\tl{F}"'] &  N
+		\end{tikzcd}
+		\]
+		\rex{ex:submersions:0005} then implies that $\tl{F}$ is smooth.
+	\end{proof}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Immersed Submanifolds}
+
+
+\begin{defn} \ld{def:immersed_submanifolds:0001}
+	Let $M, S \in \Obj(\Maninf)$. Suppose that $S \subset M$.
+	\begin{itemize}
+		\item Then $S$ is said to be an \tbf{immersed submanifold} of $M$ if the inclusion map $\iota_S:S \rightarrow M$ is an immersion.
+		\item If $S$ is an immersed submanifold of $M$, then $M$ is said to be the \tbf{ambient manifold of $S$}.
+		\item If $S$ is an immersed submanifold of $M$, we define the \tbf{codimension of $S$ with respect to $M$}, denoted $\codim_M(S)$, by $\codim_M(S) = \dim M - \dim S$. 
+	\end{itemize}
+\end{defn}
+
+\begin{ex} \lex{ex:immersed_submanifolds:0002}
+	Let $M, N, S \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(M, N)$. Suppose that $S$ is an immersed submanifold of $M$. Then $F|_S \in \Hom_{\Maninf}(S, N)$.   
+\end{ex}
+
+\begin{proof} 
+	Since $S$ is an immersed submanifold of $M$, the inclusion $\iota_S \in \Hom_{\Maninf}(S, M)$. Therefore
+	\begin{align*}
+		F|_S
+		& = F \circ \iota \\
+		& \in \Hom_{\Maninf}(S, N).
+	\end{align*}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	\newpage
+	\section{Embedded Submanifolds}
+	
+	\tcr{TODO: start by defining topological manifold with boundary, then define manifold as a special case, but do so with $\R^n$ instead of $\Int \H^n_j$, then reserve $\Maninf$ for manifolds without boundary} and $\Maninf_{\p}$ for manifolds with boundary. Also, need to define $\Maninf$ as manifolds $M$ with $\p M = \varnothing$ and $\Maninfbnd$ for ones with boundary
 
 	\begin{defn}
-		Let $(M, \MA)$ and  $(N, \MB)$ be smooth manifolds. Suppose that $M \subset N$. Then $(M, \MA)$ is said to be 
-		\begin{enumerate}
-		\item an \tbf{immersed submanifold} of $(N, \MB)$ if $\id:M \rightarrow N$ is a smooth immersion
-		\item an \tbf{embedded submanifold} of $(N, \MB)$ if $\id:M \rightarrow N$ is a smooth embedding
-		\end{enumerate}
+		Let $M, S$ be smooth manifolds. Suppose that $S \subset M$. Then $S$ is said to be an \tbf{embedded submanifold} of $M$ if the inclusion map $\iota_S:S \rightarrow M$ is a smooth embedding.
 	\end{defn}
-	
-	\begin{note}
-	Essentially, embedded submanifolds are immersed submanifolds with the subspace topology.
-	\end{note}
-	
-	\begin{note}
-	For the remainder of this section, we assume that $k \leq n$.
-	\end{note}
-	
-	\begin{defn}
-	Let $U \subset \R^n$ and $S \subset U$. Then $S$ is said to be a \tbf{$k$-slice} of $U$ if $S = \{u \in U: u^{k+1}, \dots, u^{n} = 0\}$.
-	\end{defn}	
-	
+
 	\begin{ex}
-	Let $U \subset \R^n$ and $S \subset U$. Suppose that $S$ is a $k$-slice of $U$. Define $\pi: \R^n \rightarrow \R^k$ by $$\pi(u^1, \dots, u^k, \dots, u^n) = (u^1, \dots, u^k)$$ Then $\pi|_{S} \rightarrow \pi(S)$ is a diffeomorphism.
+		Let $M, S$ be smooth manifolds. Suppose that $S \subset M$. If $S$ is an embedded submanifold of $M$, then $S$ is an immersed submanifold of $M$.
+	\end{ex}
+
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
+
+	\begin{ex}
+		Let $M, N \in \Obj(\Maninf)$, $p \in M$ and $q \in N$. Then $M \times \{q\}$ and $N \times \{p\}$ are embedded submanifold of $M \times N$. 
+	\end{ex}
+
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
+
+	\begin{ex}
+		Let $M, U$ be a smooth manifolds. Suppose that $U \subset M$. Then $U$ is an embedded submanifold of $M$ and $\codim_M(U) = 0$ iff $U$ is an open submanifold of $M$. 
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies):$ \\
+			Suppose that $U$ is an embedded submanifold of $M$ and $\codim_M(U) = 0$. \tcr{FINISH!!!}
+			\item $(\impliedby):$ \\
+			Suppose that $U$ is an open submanifold of $M$. \tcr{need to say why $U$ is embedded} \rex{ex:topological_open_submanifolds:0004} and \rd{def:smooth_open_boundary_submanifolds:0003} implies that $\dim U = n$, so that $\codim_M(U) = 0$.
+		\end{itemize}
+	\end{proof}
+
+	\begin{defn}
+		Let $(M, \MA), (N, \MB)$ be smooth manifolds and $F: N \rightarrow M$ a smooth embedding. We define the restriction of $\MA$ to $F(N)$, denoted $\MA|^0_{F(N)}$, by 
+		$$\MA|^0_{F(N)} \defeq \al (\{(F(V), \psi \circ F^{-1} ): (V, \psi) \in \MB\})$$
+	\end{defn}
+
+	\begin{ex}
+		Let $(M, \MA), (N, \MB)$ be smooth manifolds and $F: N \rightarrow M$ a smooth embedding. Then $\MA|^0_{F(N)}$ is a smooth atlas on $F(N)$.
+	\end{ex}
+
+	\begin{proof}
+		\tcr{exercise in topological manifold section implies that $\MA_0 \subset X^{n}(F(N))$}
+		
+	\end{proof}
+
+	\begin{defn}
+		Let $(M, \MA), (N, \MB)$ be smooth manifolds and $F: N \rightarrow M$ a smooth embedding. We define the smooth structure on $F(N)$ induced by $F$, denoted $\MA|_{F(N)}$, by 
+		$$\MA|_{F(N)} \defeq \al (\MA|_{F(N)}^0)$$
+	\end{defn}
+
+	\begin{ex}
+		Let $(M, \MA), (N, \MB)$ be smooth manifolds and $F: N \rightarrow M$ a smooth embedding. Suppose that $\p N = \varnothing$. Then $\MA|_{F(M)}$ is the unique smooth structure on $F(M)$ such that $F:M \rightarrow F(M)$ is a diffeomorphism and $(F(M), \MA_{F(M)})$ is an embedded submanifold of $N$.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item Since $F:N \rightarrow M$ is a smooth embedding, $F:N \rightarrow F(M)$ is a bijection. \tcr{F is a local diffeo}. \tcr{make exercise about local diffeo and bijecition imply diffeo}. So $F$ is a diffeomorphism 
+			\item \tcr{Show $\iota:F(N) \rightarrow M$ is smooth embedding}
+			\item Let $\MA'$ be a smooth structure on $F(N)$. Then \tcr{cite exercise in section on smooth maps} implies that $F^*\MA' = \MN$. 
+		\end{itemize}
+	
+	\tcr{Question: can I define product and boundary submanifolds while discussing embedded submanifolds in an easier way than currently?}
+		
+	\end{proof}
+
+	\begin{ex}
+		Let $M,S$ be smooth manifolds. Suppose that $S \subset M$. Then $S$ is an embedded submanifold of $M$ iff there exists smooth manifold $N$ and smooth embedding $F:N \rightarrow M$ such that $F(N) = S$.
 	\end{ex}	
 	
 	\begin{proof}
-	Clear.
+		content...
+	\end{proof}
+
+	\begin{defn}
+		Let $n \in \N$ and $k \in [n]$. We define the \tbf{$k$-slice of $\R^n$}, denoted $\S^{n,k}$, by $\S^{n,k} \defeq \{a \in \R^n : a^k+1, \ldots, a^n = 0\}$.
+	\end{defn}
+	
+	\begin{defn}
+	Let $U \subset \R^n$ and $S \subset U$. Then $S$ is said to be a \tbf{$k$-slice} of $U$ if $S = U \cap \S^{n,k}$.
+	\end{defn}		
+	
+	\begin{ex}
+		\tcr{show $\S^{n,k}$ is a $k$-slice of $\R^n$.}
+	\end{ex}
+
+	\begin{proof}
+		Clear.
 	\end{proof}
 	
 	\begin{defn}
-	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ and $S \subset U$. Then $S$ is said to be a \tbf{$k$-slice} of $U$ if $\phi(S)$ is a $k$-slice of $\phi(U)$.
-	\end{defn}	
-	
-	\begin{defn}
-	Let $(M, \MA)$ be a smooth manifold, $S \subset M$ and $(U, \phi) \in \MA$. Then $(U, \phi)$ is said to be a \tbf{$k$-slice chart for $S$} if $U \cap S$ is a $k$-slice of $U$.
+	Let $M$ be a smooth manifold, $S \subset M$ and $(U, \phi) \in \MA_M$. Then $(U, \phi)$ is said to be a \tbf{$k$-slice chart on $S$} if $\phi(U \cap S)$ is a $k$-slice of $\phi(U)$. We define
+	$$\S^k(M; S) \defeq \{(U, \phi) \in \MA_M: \text{$(U, \phi)$ is a $k$-slice chart on $S$}\}$$
 	\end{defn}	
 	
 	\begin{ex}
-	Let $(M, \MA)$ be a smooth manifold, $S \subset M$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^n)$. If $(U, \phi)$ is a $k$-slice chart for $S$, then $\phi|_S = (x^1|_S, \dots, x^k|_S, 0, \dots, 0)$.
+	Let $M$ be a smooth manifold, $S \subset M$ and $(U, \phi) \in \MA_M$ with $\phi = (x^1, \dots, x^n)$. If $(U, \phi)$ is a $k$-slice chart on $S$, then $\phi|_S = (x^1|_S, \dots, x^k|_S, 0, \dots, 0)$.
 	\end{ex}
 	
 	\begin{proof}
@@ -5081,23 +5470,199 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{defn}
-	Let $(M, \MA)$ be a smooth manifold and $S \subset M$. Then $S$ is said to satisfy the \tbf{local $k$-slice condition} if for each $p \in S$, there exists $(U, \phi) \in \MA$ such that $p \in U$ and $(U, \phi)$ is a $k$-slice chart of $S$.
+	Let $M$ be a smooth manifold and $S \subset M$. Then $S$ is said to \tbf{satisfy the local $k$-slice condition with respect to $M$} if for each $p \in S$, there exists $(U, \phi) \in \S^k(M)$ such that $p \in U$. 
 	\end{defn}
-	
+
 	\begin{ex}
-	Let $(M, \MA)$ be a $n$-dimensional smooth manifold and $S \subset M$ a subspace. If $S$ satisfies the local $k$-slice condition, then there exists a smooth structure $\tMA$ on $S$ such that $(S, \tMA)$ is an embedded submanifold of $M$.
+		Let $U \subset \R^n$ and $S \subset U$. Suppose that $S$ is a $k$-slice of $U$. Define $\pi_{n,k}: \R^n \rightarrow \R^k$ by $$\pi(u^1, \dots, u^k, \dots, u^n) = (u^1, \dots, u^k)$$ Then $\pi_{n,k}|_{S} \rightarrow \pi(S)$ is a diffeomorphism.
 	\end{ex}	
 	
 	\begin{proof}
-	Suppose that $S$ satisfies the local $k$-slice condition. Define $\pi: \R^n \rightarrow \R^k$ as above Let $(U, \phi) \in \MA$. Suppose that $(U, \phi)$ is a $k$-slice chart for $S$. Define $\tU = U \cap S$ and $\tphi: \tU \rightarrow \pi \circ \phi(\tU)$ by $$\tphi = \pi \circ \phi|_{\tU}$$ By definition, $\phi(\tU)$ is a $k$-slice of $\phi(U)$. A previous exercise implies that $\pi|_{\phi(\tU)} \rightarrow \pi \circ \phi(\tU)$ is a diffeomorphism and hence a homeomorphism. Thus $\tphi$ is a homeomorphism.\\
-	Define $$\tMB = \{(\tU, \tphi): (U, \phi) \text{ is a $k$-slice for $S$} \}$$
-	Let $p \in S$. By assumption, there exists $(U, \phi) \in \MA$ such that $p \in U$ and $(U, \phi)$ is a $k$-slice chart of $S$. Then $(\tU, \tphi) \in \tMB$ and $\MA$ is an atlas on $S$. By construction of $\tMB$, $S$ is locally half Euclidean of dimension $k$.  Since $M$ is second countable Hausdorff, so is $S$ in the subspace topology. Thus $(S, \tMB)$ is a $k$-dimensional manifold.
-	Let $(\tU, \tphi)$, $(\tV, \tpsi) \in \tMB$. Then
-	$$\tphi \circ \tpsi^{-1}|_{\tU \cap \tV} = \pi|_{\phi(\tU \cap \tV)} \circ \phi|_{\tU \cap \tV} \circ \psi|_{\tU \cap \tV}^{-1} \circ \pi|_{\psi(\tU \cap \tV)}^{-1} $$
-	which is a diffeomorphism. So $(\tU, \tphi)$ and $(\tV, \tpsi)$ smoothly compatible. Hence $\tMB$ is smooth. An exercise in section 4.1 implies that there exists a unique smooth structure $\tMA$ on $S$ such that $\tMB \subset \tMA$. So $(S, \tMA)$ is a smooth $k$-dimensional manifold.\\
-	Clearly $\id: S \rightarrow S$ is a homeomorphism. Let $(V, \psi) \in \MA$ and $(\tU, \tphi) \in \tMA$. 
+		Clear. \tcr{FINISH!!!}
+	\end{proof}
+
+	\begin{ex}
+		Let $M,S \in \Obj(\Maninf)$. Suppose that $S \subset M$. If $S$ is a $k$-dimensional embedded submanifold of $M$, then $S$ satisfies the local $k$-slice condition with respect to $M$. \\
+		\tbf{Hint:} Draw a picture
+	\end{ex}
+
+	\begin{proof}
+		Set $n \defeq \dim M$. Suppose that $S$ is a $k$-dimensional embedded submanifold of $M$. Let $p \in S$. Since $S$ is an emebedded submanifold of $M$, the inclusion map $\iota: S \rightarrow M$ is an immersion. The constant rank theorem (\rex{ex:maps_of_constant_rank:0003}) implies that Then there exists $(U_0, \phi_0) \in \MA_S$, $(V_0, \psi_0) \in \MA_M$ such that $p \in U_0$, $\iota(p) \in V_0$, $\iota(U_0) \subset V_0$ and $\psi_0 \circ \iota \circ \phi_0^{-1} = (\id_{\phi_0(U_0)}, 0)$. Since for each $q \in U_0$, $\iota(q) = q$, we have that $U_0 \subset V_0$ and $\psi_0 \circ \iota \circ \phi_0^{-1} = \psi_0 \circ \phi_0^{-1}$. Therefore for each $q \in U_0$,
+		\begin{align*}
+			\psi_0(q)
+			& =  \psi_0 \circ \phi_0^{-1} (\phi_0(q)) \\
+			& = \psi_0 \circ \iota \circ \phi_0^{-1} (\phi_0(q)) \\
+			& = (\id_{\R^k}(\phi_0(q)), 0) \\
+			& = (\phi_0(q), 0)
+		\end{align*}
+		and in particular, $\psi_0(p) = (\phi_0(p), 0)$. Since $U_0 \in \MT_S$ and $\MT_S = \MT_M \cap S$, there exists $U' \in \MT_M$ such that $U_0 = U' \cap S$. \tcb{An exercise in the analysis notes in the section on product topology} implies that there exist $A_0 \in \MT_{\R^k}$ and $B_0 \in \MT_{\R^{n-k}}$ such that $(\phi(p), 0) \in A_0 \times B_0$ and $A_0 \times B_0 \subset \psi_0(V_0 \cap U') \cap [\phi_0(U_0) \times \R^{n-k}]$. Define $(V, \psi) \in \MA_{M}$ by $V \defeq \psi_0^{-1}(A_0 \times B_0)$ and $\psi \defeq \psi_0|_V$. \tcb{A previous exercise in the subsection about smooth maps on subspaces} implies that $(V, \psi) \in \MA_M$. Then $p \in V$. 
+		\begin{itemize}
+			\item Let $y \in A_0 \times \{0\}$. Then there exists $a \in A_0$ such that $y = (a,0)$. Since $A_0 \times B_0 \subset \phi_0(U_0) \times \R^{n-k}$, we have that $A_0 \subset \phi_0(U_0)$. In particular, $a \in \phi_0(U_0)$ and $\phi_0^{-1}(a) \in U_0$. Hence
+			\begin{align*}
+				y
+				& = (a, 0) \\
+				& = \psi_0 \circ \phi_0^{-1}(a) \\
+				& \in \psi_0(U_0).
+			\end{align*} 
+			By construction,
+			\begin{align*}
+				y
+				& = (a, 0) \\
+				& = \psi_0(\psi_0^{-1}(a,0)) \\
+				& \in \psi_0[\psi_0^{-1}(A_0 \times \{0\})] \\
+				& \subset \psi_0[\psi_0^{-1}(A_0 \times B_0)] \\
+				& = \psi_0(V) .
+			\end{align*}
+			Therefore 
+			\begin{align*}
+				y
+				& \in \psi_0(U_0) \cap \psi_0(V)  \\
+				& = \psi_0[(U_0) \cap V] \\
+				& = \psi_0([(U' \cap S) \cap V_0] \cap V) \\
+				& = \psi_0(V \cap S).
+			\end{align*}
+			Since $y \in A_0 \times \{0\}$ is arbitrary, we have that $A_0 \times \{0\} \subset \psi_0(V \cap S)$.  
+			\item Conversely, we note that for each $q \in V \cap S$, 
+			\begin{align*}
+				(\phi_0(q), 0)
+				& =  \psi_0(q) \\
+				& \in \psi_0(V \cap S) \\
+				& \subset \psi_0(V) \\
+				& = A_0 \times B_0, 
+			\end{align*}
+			and therefore $\phi_0(V \cap S) \subset A_0$. Hence 
+			\begin{align*}
+				\psi_0(V \cap S)
+				& = \phi_0(V \cap S) \times \{0\} \\
+				& \subset A_0 \times \{0\}.
+			\end{align*}
+		\end{itemize}
+		Thus $A_0 \times \{0\} = \psi_0(V \cap S)$ and 
+		\begin{align*}
+			\psi(V \cap S)
+			& = \psi_0(V \cap S) \\
+			& = A_0 \times \{0\} \\
+			& = (A_0 \times B_0) \cap \S^{n,k} \\
+			& = \psi(V) \cap \S^{n,k}.
+		\end{align*}
+		Hence $\psi(V \cap S)$ is a $k$-slice of $\psi(V)$ and therefore $(V, \psi) \in \S^k(M; S)$. Since $p \in S$ is arbitrary, we have that for each $p \in S$, there exists $(V, \psi) \in \S^k(M; S)$ such that $p \in V$. Therefore $S$ satisfies the local $k$-slice condition with respect to $M$. 
+	\end{proof}
+
+	\begin{ex}
+		Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $\dim M = n$ and $S$ satisfies the local $k$-slice condition with respect to $M$. Then 
+		\begin{enumerate}
+			\item for each $(U, \phi) \in \S^k(M; S)$, if $U \cap S \neq \varnothing$, then $(U \cap S, \pi_{n, k} \circ \phi|_{U \cap S}) \in X^k(S)$, 
+			\item $(S, \MT_M \cap S) \in \Obj(\Man0)$ and $\dim S = k$.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			Let $(U_0, \phi_0) \in \S^k(M; S)$. Suppose that $U_0 \cap S \neq \varnothing$. Set $U \defeq U_0 \cap S$ and $\phi \defeq \phi_0|_U$. Since $(U_0, \phi_0) \in \S^k(M; S)$, we have that 
+			\begin{align*}
+				\phi_0(U)
+				& = \phi_0(U_0 \cap S) \\
+				& = \phi_0(U_0) \cap \S^{n,k} \\
+				& \in \MT_{\R^n} \cap \S^{n,k}
+			\end{align*}
+			\begin{enumerate}
+				\item By assumption, $U_0 \in \MT_M$. Therefore $U \in \MT_M \cap S$.
+				\item Since $(U_0, \phi_0) \in X^n(M, \MT_M)$, $\phi_0(U_0) \in \MT_{\R^n}$. Since $(U_0, \phi_0) \in \S^k(M; S)$, we have that 
+				\begin{align*}
+					\phi_0(U_0 \cap S) 
+					& = \phi_0(U_0) \cap \S^{n,k} \\
+					& \in \MT_{\R^n} \cap \S^{n,k} \\
+					& = \MT_{\S^{n,k}}
+				\end{align*}
+				By \tcb{a previous exercise}, $\pi_{n,k}|_{\S^k}$ is a $(\MT_{\S^{n,k}}, \MT_{\R^k})$-homeomorphism. Hence 
+				\begin{align*}
+					\phi(U)
+					& = \pi_{n,k} \circ \phi_0 (U_0 \cap S) \\
+					& \in \MT_{\R^k}
+				\end{align*}
+				\item Since $\phi_0|_U$ is a $(\MT_M \cap U, \MT_{\S^{n,k}} \cap \phi_0(U_0))$-homeomorphism and $\pi_{n,k}|_{\phi(U)}$ is a $(\MT_{\S^{n,k}} \cap \phi_0(U_0), \MT_{\R^k} \cap \phi(U))$-homeomorphism, we have that $\phi$ is a $(\MT_M \cap U, \MT_{\R^k} \cap \phi(U))$-homeomorphism. 
+			\end{enumerate}
+			Hence $(U, \phi) \in X^k(S)$.
+			\item 
+			\begin{enumerate}
+				\item Since $(M, \MT_M)$ is Hausdorff, $(S, \MT_M \cap S)$ is Hausdorff.
+				\item Since $(M, \MT_M)$ is second-countable, $(S, \MT_M \cap S)$ is second-countable.
+				\item Let $p \in S$. Since $S$ satisfies the local $k$-slice condition with respect to $M$, there exists $(U_0, \phi_0) \in \MA$ such that $p \in U_0$ and $(U_0, \phi_0) \in \S^k(M; S)$. Set $U \defeq U_0 \cap S$ and $\phi \defeq \pi_{n,k} \circ \phi_0|_U$. Then $p \in U$ and the prevous part implies that $(U, \phi) \in X^k(S, \MT_M \cap S)$. Since $p \in S$ is arbitrary, we have that for each $p \in S$, there exists $(U, \phi) \in X^k(S, \MT_M \cap S)$ such that $p \in U$. Hence $S$ is locally Euclidean of dimension $k$. 
+			\end{enumerate}
+			Thus $(S, \MT_M \cap S) \in \Obj(\Man0)$ and $\dim S = k$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn}
+		Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $\dim M = n$ and $S$ satisfies the local $k$-slice condition with respect to $M$. We define 
+		$$\MA|_S^0 \defeq \{(U \cap S, \pi_{n,k} \circ \phi_{U \cap S}): (U, \phi) \in \S^k(M; S)\}.$$
+	\end{defn}
+
+	\begin{ex}
+		Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $S$ satisfies the local $k$-slice condition with respect to $M$. Then 
+		\begin{enumerate}
+			\item $\MA|_S^0$ is an atlas on $S$,
+			\item $\MA|_S^0$ is smooth.
+		\end{enumerate}
+	\end{ex}
 	
-	\tbf{Finish!!}
+	\begin{proof}\
+		\begin{enumerate}
+			\item \tcb{The previous exercise} implies that $\MA|_S^0 \subset X^k(M, \MT_M \cap S)$. Let $p \in S$. Since $S$ satisifes the local $k$-slice condition with respect to $M$, there exists $(U_0, \phi_0) \in \S^k(M; S)$ such that $p \in U_0$. Set $U \defeq U_0 \cap S$ and $\phi \defeq \phi_0|_{U}$. By definition, $(U, \phi) \in \MA|_S^0$. By construction, $p \in U$. Since $p \in S$ is arbitrary, we have that for each $p \in S$, there exists $(U, \phi) \in \MA|_S^0$ such that $p \in U$. Hence $\MA|_S^0$ is an atlas on $S$.
+			\item Let $(U, \phi), (V, \psi) \in \MA|_S^0$. Then there exist $(U_0, \phi_0), (V_0, \psi_0) \in \S^k(M; S)$ such that $U = U_0 \cap S$, $V = V_0 \cap S$, $\phi = \pi_{n,k} \circ \phi_0|_U$ and $\psi = \pi_{n,k} \circ \psi_0|_V$. 
+			\begin{align*}
+				\psi|_{U \cap V} \circ \phi|_{U \cap V}^{-1}
+				& = (\pi_{n,k}|_{\psi_0(S \cap U_0 \cap V_0)} \circ \psi_0|_{S \cap (U_0 \cap V_0)}) \circ (\pi_{n,k}|_{\phi_0(S \cap U_0 \cap V_0)} \circ \phi_0|_{S \cap (U_0 \cap V_0)})^{-1} \\
+				& = (\pi_{n,k}|_{\psi_0(S \cap U_0 \cap V_0)} \circ \psi_0|_{S \cap (U_0 \cap V_0)}) \circ (\phi_0|_{S \cap (U_0 \cap V_0)}^{-1} \circ \pi_{n,k}|_{\phi_0(S \cap U_0 \cap V_0)}^{-1}) \\
+				& = \pi_{n,k}|_{\psi_0(S \cap U_0 \cap V_0)} \circ [\psi_0|_{S \cap (U_0 \cap V_0)} \circ \phi_0|_{S \cap (U_0 \cap V_0)}^{-1}] \circ \pi_{n,k}|_{\phi_0(S \cap U_0 \cap V_0)}^{-1} \\
+				& = \pi_{n,k}|_{\psi_0(S \cap U_0 \cap V_0)} \circ [\psi_0|_{U_0 \cap V_0} \circ \phi_0|_{U_0 \cap V_0}^{-1}]|_{\phi_0(S \cap (U_0 \cap V_0))} \circ \pi_{n,k}|_{\phi_0(S \cap U_0 \cap V_0)}^{-1} \\
+				& = \pi_{n,k}|_{\psi_0(U \cap V)} \circ [\psi_0|_{U_0 \cap V_0} \circ \phi_0|_{U_0 \cap V_0}^{-1}]|_{\phi_0(U \cap V)} \circ \pi_{n,k}|_{\phi_0(U \cap V)}^{-1} \\
+			\end{align*}
+			Since $\MA$ is smooth, we have that $\psi_0|_{U_0 \cap V_0} \circ \phi_0|_{U_0 \cap V_0}^{-1}$ is smooth. Thus $(\psi_0|_{U_0 \cap V_0} \circ \phi_0|_{U_0 \cap V_0}^{-1})|_{\phi_0(U \cap V)}$ is smooth. \tcb{A previous exercise} implies that $\pi_{n,k}|_{\phi_0(U \cap V)}$ and $\pi_{n,k}|_{\psi_0(U \cap V)}$ are smooth. Thus $\psi|_{U \cap V} \circ \phi|_{U \cap V}^{-1}$ is smooth. Similarly, $\phi|_{U \cap V} \circ \psi|_{U \cap V}^{-1}$ is smooth. Henc$\psi|_{U \cap V} \circ \phi|_{U \cap V}^{-1}$ is a diffeomorphism and $(U, \phi)$, $(V, \psi)$ are smoothly compatible. Since $(U, \phi), (V, \psi) \in \MA|_S^0$ are arbitrary, we have that for each $(U, \phi), (V, \psi) \in \MA|_S^0$, $(U, \phi)$ and $(V, \psi)$ are smoothly compatible. Therefore $\MA|_S^0$ is smooth.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn}
+			Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $S$ satisfies the local $k$-slice condition with respect to $M$. We define 
+			$$\MA|_S \defeq \al(\MA|_S^0).$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $S$ satisfies the local $k$-slice condition with respect to $M$. Then 
+		\begin{enumerate}
+			\item $(S, \MT_M \cap S, \MA|_S)$ is an embedded submanifold of $(M, \MT_M, \MA)$,
+			\item $\MA|_S$ is the unique smooth structure on $S$ such that $(S, \MA|_S)$ is an embedded submanifold of $(M, \MA)$. 
+		\end{enumerate}		
+	\end{ex}
+
+	\begin{proof} \
+		\begin{enumerate}
+			\item By definition, $\iota_S$ is a topological embedding \tcr{(check this)}. Let $p \in S$. Since $S$ atisfies the local $k$-slice condition with respect to $M$, there exists $(V_0, \psi_0) \in \S^k(M; S)$ such that $p \in V_0$. Set $V \defeq V_0 \cap S$ and $\psi \defeq \pi_{n,k} \circ \psi_0|_V$. By definition,  
+			\begin{align*}
+				(V, \psi) 
+				& \in \MA|_S^0 \\
+				& \subset \MA|_S.
+			\end{align*}
+			Hence 
+			\begin{align*}
+				\psi_0 \circ \iota \circ \psi^{-1} \\
+				& = \psi_0 \circ \psi^{-1} \\
+				& = \psi_0 \circ (\pi_{n,k}|_{\psi_0(V)} \circ \psi_0|_V)^{-1} \\
+				& = \psi_0 \circ \psi_0|_V^{-1} \circ \pi_{n,k}|_{\psi_0(V)}^{-1} \\
+				& = \pi_{n,k}|_{\psi_0(V)}^{-1} 
+			\end{align*}
+			\tcb{A previous exercise in the section on immersions} implies that $\pi_{n,k}|_{\psi_0(V)}^{-1}$ is an immersion and $\rnk \pi_{n,k}|_{\psi_0(V)}^{-1} = k$. Since $(V, \psi) \in \MA$ and $(V_0, \psi_0) \in \MA|_S$, \tcb{an exercise in the section on smooth maps on submaifolds} implies that $\psi$ and $\psi_0$ are diffeomorphisms. Therefore
+			\begin{align*}
+				\rnk D \iota (p)
+				& = \rnk D (\psi_0 \circ \iota \circ \psi^{-1})(\psi(p)) \\
+				& = \rnk D (\psi_0 \circ \psi^{-1})(\psi(p)) \\
+				& = \rnk D (\pi_{n,k}|_{\psi_0(V)}^{-1})(\psi(p)) \\
+				& = k
+			\end{align*}  
+			Since $p \in S$ is arbitrary, we have that for each $p \in S$, $\rnk D \iota (p) = k$. Thus $\iota$ has constant rank and $\rnk \iota = k$. Since $\dim S = k$, \tcb{an exercise in the section on maps of constant rank} implies that $\iota$ is an immersion. Thus $(S, \MA|_S)$ is an embedded submanifold of $(M, \MA)$.
+			\item \tcr{FINISH!!!} 
+		\end{enumerate}
 	\end{proof}
 	
 	
@@ -5108,10 +5673,66 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}	
 	
 	\begin{ex}
-	
+	\tcr{talk about the boundary as an embedded submanifold. In particular if $\dim M = n$, then $\p M$ satisfies the local $n-1$-slice condition} Let $M \in \Obj(\Maninfbnd)$. Then $\p M$ is an embedded submanifold of $M$. 
 	\end{ex}	
+
+	\begin{proof}
+		content...
+	\end{proof}
+
+	\begin{ex}
+		Let $M, N \in \Obj(\Maninf)$, $F \in \Hom_{\Maninf}(M,N)$ and $q_0 \in F(M)$. Suppose $F$ has constant rank and $\rnk F = r$. Then $F^{-1}(q_0)$ satisfies the local $(m-r)$-slice condition. 
+	\end{ex}
+
+	\begin{proof}
+		Set $S \defeq F^{-1}(q_0)$. Let $p \in S$. Define $\prj_{-r}: \R^m \rightarrow \R^{r}$ by $\prj_{-r}(x^1, \ldots, x^m) = (x^{m-r+1}, x^{m})$. Since $F$ has constant rank and $\rnk F = r$, \rex{ex:maps_of_constant_rank:0003} (the constant rank theorem) \tcr{(add exercise about permutations on charts to get the 0's at the beginning)} implies that there exist $(U_0, \phi_0) \in \MA_M$ and $(V, \psi) \in \MA_N$ such that $p \in U$, $F(U) \subset V$, $\psi(q_0) = 0$ and $\psi \circ F \circ \phi_0^{-1} = (0, \prj^{-r}|_{\phi_0(U_0)})$. Since $\phi(U_0) \in \MT_{\R^m}$, \tcb{an exercise about bases of the product topology in the analysis notes} implies that there exists $A_0 \in \MT_{\R^{m-r}}$ and $B_0 \in \MT_{\R^{r}}$ such that $\phi_0(p) \in A_0 \times B_0$ and $A_0 \times B_0 \subset \phi(U_0)$. Set $U \defeq \phi_0^{-1}(A_0 \times B_0)$ and $\phi \defeq \phi_0|_U$. Then $(U, \phi) \in \MA_M$, $p \in U$. 
+		\begin{itemize}
+			\item By definition, $\phi(U) = A_0 \times B_0$. Hence $\prj_{m-r}(\phi(U)) = A_0$. Since $U \subset U_0$, for each $p' \in U \cap S$, 
+			\begin{align*}
+				0
+				& = \psi(q_0) \\
+				& = \psi(F(p')) \\
+				& = \psi \circ F \circ \phi_0^{-1}(\phi_0(p)) \\
+				& = (0, \prj^{-r}(\phi(p)))
+			\end{align*}
+			Thus for each $p' \in U \cap S$, $\prj^{-r}(\phi_0(p)) = 0$ and therefore 
+			\begin{align*}
+				\phi(U \cap S) 
+				& \subset A_0 \times \{0\} \\
+				& = (A_0 \times B_0) \cap \S^{m, m-r} \\
+				& = \phi(U) \cap \S^{m, m-r}.
+			\end{align*}
+			\item Let $y \in \phi(U) \cap \S^{m, m-r}$. Then here exists $p' \in U$ such that $\phi(p') = y$. Since  $\phi(U) \cap \S^{m, m-r} = A_0 \times \{0\}$, there exists $a \in A_0$ such that $y = (a, 0)$. Let $p' \in (U \cap S)^c$. Since $p' \in U$, we have that $p' \in S^c$. Thus $F^{-1}(p') \neq q_0$. Since $\phi$ is injective, 
+			\begin{align*}
+				0
+				& = \psi(q_0) \\
+				& \neq \psi \circ F \circ \phi_0^{-1}(\phi_0(p')) \\
+				& = (0, \prj_{-r}(\phi(p'))).
+			\end{align*}
+			Therefore $\prj_{-r}(\phi(p')) \neq 0$. Hence $\phi(p') \in (\S^{m, m-r})^c$. Since $p' \in (U \cap S)^c$ is arbitrary, we have that 
+			\begin{align*}
+				\phi(U \cap S)^c
+				& = \phi((U \cap S)^c) \\
+				& \subset (\S^{m, m-r})^c \\
+				& \subset (\phi(U) \cap \S^{m, m-r})^c
+			\end{align*}
+			Thus $\phi(U) \cap \S^{m, m-r} \subset \phi(U \cap S)$. 
+		\end{itemize}
+		Therefore $\phi(U \cap S) = \phi(U) \cap \S^{m, m-r}$ and $\phi(U \cap S)$ is a $(m-r)$-slice of $\phi(U)$. Hence $(U, \phi)$ is an $(m-r)$-slice chart on $S$. Since $p \in S$ is arbitrary, we have that for each $p \in S$, there exists $(U, \phi) \in \MA_M$ such that $p \in U$ and $(U, \phi)$ is an $(m-r)$-slice chart on $S$. So $S$ satisfies the local $(m-r)$-slice condition with respect to $M$.  
+	\end{proof}
+	
+	\begin{ex}
+		\tcr{(exercise about level sets being embedded submanifolds with unique topology, cite previous exercise)} Let $M, N \in \Obj(\Maninf)$, $F \in \Hom_{\Maninf}(M,N)$ and $q_0 \in F(M)$. Then there exists a unique smooth structure on $F^{-1}(\{q\})$ 
+	\end{ex}
+
+	\begin{proof}
+		content...
+	\end{proof}
 	
 	
+	\begin{ex}
+		
+	\end{ex}
 	
 	
 	
@@ -5125,6 +5746,85 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Quotient Manifolds}
+	
+	\begin{ex}
+		Let $M, R \in \Obj(\Maninf)$. Suppose that $R$ is a closed embedded manifold of $M \times M$, $R$ is an equivlance relation on $M$, and $\prj_1|_R:R \rightarrow M$ is a surjective submersion. Then 
+		\begin{enumerate}
+			\item for each $U \in \MT_M$, $\pi^{-1}(\pi(U)) = \prj_1((M \times U) \cap R)$,
+			\item $\pi:M \rightarrow M /R$ is open.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		\begin{enumerate}
+			\item Let $U \in \MT_M$ and $x \in M$. Then
+			\begin{align*}
+				x \in \pi^{-1}(\pi(U))
+				& \iff \pi(x) \in \pi(U) \\
+				& \iff \text{ there exists $u \in U$ such that $\pi(x) = \pi(u)$} \\
+				& \iff \text{ there exists $u \in U$ such that $(x,u) \in R$} \\ 
+				& \iff \text{ there exists $u \in U$ such that $(x,u) \in (M \times U) \cap R$} \\ 
+				& \iff x \in \prj_1((M \times U) \cap R)
+			\end{align*}
+			Hence $\pi^{-1}(\pi(U)) = \prj_1((M \times U) \cap R)$. Since $U \in \MT_M$ is arbitrary, we have that for each $U \in \MT_M$, $\pi^{-1}(\pi(U)) = \prj_1((M \times U) \cap R)$.
+			\item Let $U \in \MT_M$. Then $(M \times U) \cap R \in \MT_{R}$. Since $\prj_1|_R$ is a surjective submersion, \rex{ex:submersions:0002.2} implies that $\prj_1|_R$ is open. Part $(1)$ implies that for each $U \in \MT_M$,
+			\begin{align*}
+				\pi^{-1}(\pi(U)) 
+				& = \prj_1((M \times U) \cap R) \\
+				& = \prj_1|_R((M \times U) \cap R) \\
+				& \in \MT_M
+			\end{align*} 
+			Since $\pi$ is a quotient map, \tcb{an exercise in the analysis notes section on the quotient topology} implies that $\pi$ is open. 
+		\end{enumerate}
+	\end{proof}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -5535,8 +6235,8 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{ex} \lex{ex:fiber_bundles:0012}
 		Let $(E, M, \pi, F) \in \Buninf$, $(U, \Phi)$ a local trivialization of $E$ over $U$ and $(V, \Psi)$ a local trivialization of $E$ over $V$. Then 
 		\begin{enumerate}
-			\item $\prj_{U \cap V} \circ \Psi|_{\pi^{-1}(U \cap V)} \circ \Phi|^{-1}_{\pi^{-1}(U \cap V)} = \prj_1$
-			\item there exists $\sig \in \Hom_{\Maninf}(( U \cap V) \times F,  F)$ such that for each $p \in U \cap V$, $\sig(p, \cdot): F \rightarrow F$ is a diffeomorphism. 
+			\item $\prj_1 \circ \Psi|_{\pi^{-1}(U \cap V)} \circ \Phi|^{-1}_{\pi^{-1}(U \cap V)} = \prj_1$
+			\item there exists $\sig \in \Hom_{\Maninf}(( U \cap V) \times F,  F)$ such that for each $p \in U \cap V$, $\sig(p, \cdot): F \rightarrow F$ is a diffeomorphism.  
 		\end{enumerate}
 	\end{ex}
 
@@ -7243,7 +7943,7 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 
 \section{Fibered Manifolds}
 
-\begin{defn}
+\begin{defn} \ld{def:fiber_manifolds:0001}
 	Let $E, M \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$. Then $(E, M, \pi)$ is said to be a \tbf{smooth fibered manifold} if $\pi$ is a surjective submersion. 
 \end{defn}
 
@@ -7251,42 +7951,33 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 	We write $\prj^n_1: \R^n \times \R^k \rightarrow \R^n$ to denote the projection onto $M$.
 \end{note}
 
-\begin{defn}
+\begin{defn} \ld{def:fiber_manifolds:0002}
 	Let $(E, M, \pi)$ be a smooth fibered manifold and $(V, \psi) \in \MA_{E}$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Then $(V, \psi)$ is said to be a \tbf{$\pi$-fibered chart on $E$} if there exists $(U, \phi) \in \MA_{M}$ such that 
 	\begin{enumerate}
 		\item $U = \pi(V)$
-		\item $\phi \circ \pi|_V = \prj^n_1 \circ \psi$
+		\item $\phi \circ \pi|_V = \prj^n_1 \circ \psi$, \\
+		i.e. if $\psi = (y^1, \ldots, y^{n+k})$ and $\phi = (x^1, \ldots, x^n)$, then $\psi = (x^1 \circ \pi, \ldots, x^n \circ \pi, y^{n+1}, \ldots, y^{n+k})$.
 	\end{enumerate}
-	i.e. if $\psi = (y^1, \ldots, y^{n+k})$ and $\phi = (x^1, \ldots, x^n)$, then $\psi = (x^1 \circ \pi, \ldots, x^n \circ \pi, y^{n+1}, \ldots, y^{n+k})$.
 \end{defn}
 
-\begin{ex}
+\begin{ex} \lex{ex:fiber_manifolds:0003}
 	Let $(E, M, \pi)$ be a smooth fibered manifold. Suppose that $\p E, \p M = \varnothing$. Then for each $a \in E$, there exists $(V, \psi) \in \MA_E$ such that $a \in V$ and $(V, \psi)$ is a $\pi$-fibered chart on $E$. \\
-	\tbf{Hint:} Constant rank theorem
+	\tbf{Hint:} Constant rank theorem \tcr{reference ex from submersions section}
 \end{ex}
 
 \begin{proof}
-	Set $n \defeq \dim M$, $k \defeq \dim E - n$. Let $a \in E$. Set $p \defeq \pi(a)$. Since $\pi:E \rightarrow M$ is a submersion, $\pi$ has constant rank and $\rnk \pi = n$. \tcb{The constant rank theorem} implies that there exist $(V_0, \psi_0) \in \MA_E$, $(U_0, \phi_0) \in \MA_M$ such that $a \in V_0$, $p \in U$ and $\phi_0 \circ \pi \circ \psi_0^{-1} = \prj^n_1|_{\psi_0(V \cap \pi^{-1}(U))}$. Hence $\phi_0 \circ \pi = \prj^n_1 \circ \psi_0 $. Define $V \defeq V_0 \cap \pi^{-1}(U_0)$, $U = U_0 \cap \pi(V_0)$, $\psi = \psi_0|_V$ and $\phi = \phi_0|_U$. Then 
+	Set $n \defeq \dim M$, $k \defeq \dim E - n$. Let $a \in E$. Set $p \defeq \pi(a)$. Since $\pi:E \rightarrow M$ is a submersion, $\pi$ has constant rank and $\rnk \pi = n$. \rex{ex:maps_of_constant_rank:0003} implies that there exist $(V, \psi) \in \MA_E$, $(U_0, \phi_0) \in \MA_M$ such that $a \in V$, $p \in U_0$, $\pi(V) \subset U_0$ and $\phi_0 \circ \pi \circ \psi^{-1} = \prj^n_1|_{\psi(V)}$. Hence $\phi_0 \circ \pi = \prj^n_1 \circ \psi $. Define $U = \pi(V)$ and $\phi = \phi_0|_U$. Then by construction, 
 	\begin{enumerate}
 		\item 
-		\begin{align*}
-			\pi(V)
-			& = \pi(\pi^{-1}(U_0) \cap V_0) \\
-			& = U_0 \cap \pi(V_0) \\
-			& = U
-		\end{align*}
+		$U = \pi(V)$
 		\item 
-		\begin{align*}
-			\phi \circ \pi|_V
-			& = \phi_0|_U \circ \pi|_V  \\
-			& = \prj^n_1 \circ \psi_0|_V \\
-			& = \prj^n_1 \circ \psi
-		\end{align*}
+		$\phi \circ \pi|_V = \prj_1^n \circ \psi$
 	\end{enumerate}
-	So that $(V, \psi)$ is a $\pi$-fibered chart on $E$. 
+	Hence $(V, \psi)$ is a $\pi$-fibered chart on $E$. 
 \end{proof}
 
-\begin{ex}
+
+\begin{ex} \lex{ex:fiber_manifolds:0004}
 	Let $(E, M, \pi, F)$ be a $\Maninf$ fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$. Then $(E, M, \pi)$ is a smooth fibered manifold. 
 \end{ex}
 
@@ -7302,7 +7993,7 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 \end{proof}
 
 
-
+\tcr{need to go over multi index notation for partial derivatives}
 
 \begin{defn}
 	Let $(E, M, \pi)$ be a smooth fibered manifold. 
