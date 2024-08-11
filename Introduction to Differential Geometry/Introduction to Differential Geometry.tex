@@ -4460,6 +4460,9 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 %		Let $p \in M$. Define the relation $\sim_p$ on $C^{\infty}(M)$ by $f \sim_p g$ iff there exists $U \in \MN_p$ such that $U$ is open and $f|_U = g|_U$. Clearly $\sim_p$ is an equivalence relation on $C^{\infty}(M)$. We denote $C^{\infty}(M) / \sim_p$ by $C^{\infty}_p(M)$. For $f \in C^{\infty}(M)$, we define the \tbf{germ of $f$ at $p$} to be the equivalence class of $f$ under $\sim_p$. 
 %	\end{defn}
 
+
+	\subsection{Introduction}
+
 	\begin{defn}
 		Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $p \in U$. For $i \in \{1, \cdots, n\}$, define the partial derivative with respect to $x^i$ at $p$, denoted $$\frac{\p}{\p x^i} \bigg|_p: C^{\infty}(M) \rightarrow \R  \text{, or } \p_i|_p: C^{\infty}(M) \rightarrow \R $$ by $$ \frac{\p}{\p x^i} \bigg |_p  f =  \frac{\p f}{\p x^i}(p) $$
 	\end{defn}
@@ -4644,7 +4647,88 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{ex}
 
 	
+	\subsection{Tangent Space and Product Manifolds}
 	
+	\begin{ex} \lex{ex:tangent_spaces:products:0001}
+		Let $(M, \MA), (N, \MB)$ be smooth manifolds of dimension $m,n$ respectively, $\phi_M \in \MA$ with $\phi_M = (x^1, \ldots, x^m)$ and $\phi_N \in \MB$ with $\phi_N = (y^1, \ldots, y^n)$. Define $\phi \in \MA \otimes \MB$ by $\phi \defeq \phi_M \times \phi_N$ with $\phi = (\tl{x}^1, \ldots, \tl{x}^m, \tl{y}^1, \ldots, \tl{y}^n)$. Then 
+		\begin{enumerate}
+			\item for each $j \in [m]$, $k \in [n]$ and $(p,q) \in M \times N$,
+			\begin{align*}
+				& \frac{\p }{\p \tl{x}^k} \bigg|_{(p,q)} ( x^j \circ \pi_M ) = \frac{\p}{\p x^k} \bigg|_p (x^j), 
+				&\frac{\p }{\p \tl{y}^k} \bigg|_{(p,q)} ( x^j \circ \pi_M ) &= 0, \\
+				& \frac{\p }{\p \tl{x}^k} \bigg|_{(p,q)} ( y^j \circ \pi_N ) = 0, 
+				& \frac{\p }{\p \tl{y}^k} \bigg|_{(p,q)} ( y^j \circ \pi_N ) &=  \frac{\p}{\p y^k} \bigg|_q (y^j).
+			\end{align*}
+			\item $[D \pi_M (p,q)]_{\phi_M, \phi} = 
+			\begin{pmatrix}
+				I & 0
+			\end{pmatrix}$
+			and 
+			$[D \pi_N (p,q)]_{\phi_N, \phi} = 
+			\begin{pmatrix}
+				0 & I
+			\end{pmatrix}$
+		\end{enumerate}
+	\end{ex}
+	
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $j \in [m]$, $k \in [n]$ and $(p,q) \in M \times N$. Let $(u^i,v^j) \in \R^{m+n}$ denote the usual coordinates with $(e^j)_j, (f^k)_k$ the standard bases \tcr{(use wording used elsewhere)}. Then \rex{arg1} implies that
+			\begin{align*}
+				\frac{\p }{\p \tl{x}^k} \bigg|_{(p,q)} ( x^j \circ \pi_M )
+				& = \frac{\p }{\p u^k} \bigg|_{\phi(p,q)} (x^j \circ \pi_M \circ \phi^{-1}) \\
+				& = \frac{\p }{\p u^k} \bigg|_{\phi(p,q)} (x^j \circ \phi_M^{-1} \circ \prj_{[m]}) \\
+				& = \sum_{l=1}^m \frac{\p (x^j \circ \phi_M^{-1})}{\p u^l}(\phi_M(p)) \frac{\p (u^l \circ \prj_{[m]})}{\p u^k}(\phi(p,q)) \\ 
+				& = \sum_{l=1}^m \frac{\p (x^j \circ \phi_M^{-1})}{\p u^l}(\phi_M(p)) \del_{l,k} \\ 
+				& = \frac{\p (x^j \circ \phi_M^{-1})}{\p u^k}(\phi_M(p)) \\
+				& = \frac{\p }{\p u^k} \bigg|_{\phi_M(p)} x^j \circ \phi_M^{-1} \\
+				& = \frac{\p }{\p x^k} \bigg|_{p} x^j
+			\end{align*}
+			and 
+			\begin{align*}
+				\frac{\p }{\p \tl{y}^k} \bigg|_{(p,q)} ( x^j \circ \pi_M )
+				& = \frac{\p }{\p v^k} \bigg|_{\phi(p,q)} (x^j \circ \pi_M \circ \phi^{-1}) \\
+				& = \frac{\p }{\p v^k} \bigg|_{\phi(p,q)} (x^j \circ \phi_M^{-1} \circ \prj_{[m]}) \\
+				& = \sum_{l=1}^m \frac{\p (x^j \circ \phi_M^{-1})}{\p u^l}(\phi_M(p)) \frac{\p (u^l \circ \prj_{[m]})}{\p v^k}(\phi(p,q)) \\ 
+				& = \sum_{l=1}^m \frac{\p (x^j \circ \phi_M^{-1})}{\p u^l}(\phi_M(p)) 0 \\ 
+				& = 0
+			\end{align*}
+			Similarly, 
+			$$\frac{\p }{\p \tl{x}^k} \bigg|_{(p,q)} ( y^j \circ \pi_N ) = 0, \quad \text{ and } \quad  \frac{\p }{\p \tl{y}^k} \bigg|_{(p,q)} ( y^j \circ \pi_N ) =  \frac{\p}{\p y^k} \bigg|_q (y^j)$$
+			\item \tcr{FINISH!!!}
+		\end{enumerate}
+		
+		\tcr{FINISH!!! and fix}
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5032,8 +5116,41 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	Here the topology on $F(M)$ is the subspace topology.
 	\end{note}
 
+	\begin{ex}
+		Let $M,N \in \Obj(\Maninfbnd)$, $F \in \Hom_{\Maninfbnd}(M,N)$ and $U \in \MT_M$. Then $F|_U$ is an immersion. 
+	\end{ex}
+
+	\begin{proof}
+		Let $p \in U$. Since $p \in M$ and $F$ is an immersion, $\rnk DF(p) = \dim M$. Let $(U_0, \phi_0) \in \MA_M$ and $(V', \psi') \in \MA_N$. Define $(U', \phi') \in \MA_M|_U$ by $U' \defeq U \cap U_0$ and $(\phi' \defeq \phi_0|_{U'})$. Since $\MA_M|_U \subset \MA_M$, we have that
+		\begin{align*}
+			\rnk D(F|_U)(p)
+			& = \rnk [D(F|_U)(p)]_{\phi', \psi} \\
+			& = \rnk [DF(p)]_{\phi', \psi} \\
+			& = \rnk DF(p) \\
+			& = m
+		\end{align*}
+		Since $p \in U$ is arbitrary, we have that for each $p \in U$, $D(F|_U)(p)$ is injective. Hence $F|_U$ is an immersion.  
+	\end{proof}
+
+	\begin{ex}
+		Let $M, N \in \Obj(\Maninfbnd)$ and $F \in \Hom_{\Maninfbnd}(M, N)$. Then $F$ is an immersion iff for each $p \in M$, there exists $U \in \MT_M$ such that $F|_U:U \rightarrow N$ is an embedding.
+	\end{ex}
+
+	\begin{proof} Set $\dim M = m$ and $\dim N = n$. 
+		\begin{itemize}
+			\item $(\implies):$ \\
+			Suppose that $F$ is an immersion. Let $p \in M$. 
+			\begin{itemize}
+				\item Suppose that $p \not \in \p M$. Since $F$ is an immersion, $F$ has constant rank, $\rnk F = m$ and \tcb{the previous exercise} implies that $F|_U$ is an immersion. \rex{(rank theorem)} implies that there exists $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_N$ such that $p \in U$, $F(U) \subset V$, and $\psi \circ F \circ \phi^{-1} = (\id_{\phi(U_0)}, 0)$. Define $U_0 \subset \R^m$, $V_0 \subset \R^n$ and $F_0:U_0 \rightarrow V_0$ by $U_0 \defeq \phi(U)$, $V_0 \defeq \psi(F(U))$ and $F_0 \defeq \psi \circ F \circ \phi^{-1}$. Then $F_0^{-1} = \prj^n_{[m]}|_{\phi(U) \times \{0\}}$ and therefore $F_0^{-1}$ is continuous. Hence $F_0$ is a homeomorphism. Since $\phi, \psi$ are homeomorphisms and $F|_U = \psi^{-1} \circ F_0 \circ \phi$, we have that $F|_U: U \rightarrow F(U)$ is a homeomorphism. 
+				\item Suppose that $p \in \p M$. \tcr{FINISH!!!} check out LEE pg 87.
+			\end{itemize}
+			\item $(\impliedby):$ \\
+			
+		\end{itemize}
+	\end{proof}
+
 	\begin{ex} \lex{ex:immersions:0004}
-		Let $(M, \MA)$ be a smooth manifold and $U \subset M$ open. Then the inclusion map $\iota:U \rightarrow M$ is a smooth embedding. 
+		Let $(M, \MA)$ be a smooth manifold and $U \subset M$ open. Then the inclusion map $\iota_U:U \rightarrow M$ is a smooth embedding. 
 	\end{ex}
 
 	\begin{proof}
@@ -5091,9 +5208,17 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\tcr{give boundary assumptions being empty}
 	
 	\begin{defn} \ld{def:submersions:0001}
-		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. Then $F$ is said to be a \tbf{smooth submersion} if for each $p \in M$, $DF(p) :T_pM\rightarrow T_{F(p)}N$ is surjective.
+		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. Then $F$ is said to be a \tbf{submersion} if for each $p \in M$, $DF(p) :T_pM\rightarrow T_{F(p)}N$ is surjective.
 	\end{defn}
 
+	\begin{ex} \lex{ex:submersions:0001.1}
+		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds. Suppose that $\p N = \varnothing$. Then $\pi_M: M \times N \rightarrow M$ and $\pi_N: M \times N \rightarrow N$ are submersions.
+	\end{ex}
+
+	\begin{proof}
+		\rex{ex:tangent_spaces:products:0001} implies that $[D \pi_M(p,q)]_{\phi, \phi_M} = [I_m, 0]$. Hence $\rnk [D \pi_M(p,q)]_{\phi, \phi_M} = m$. Since $\dim T_p M = m$, $D \pi_M(p,q): M \times N \rightarrow T_p M$ is surjective. Since $(p,q) \in M \times N$ is arbtrary, we have that for each $(p,q) \in M \times N$, $D\pi_M(p,q)$ is surjective. Hence $\pi_M$ is a submersion. 
+	\end{proof}
+	
 	\begin{ex} \lex{ex:submersions:0002}
 		Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds, $F: M \rightarrow N$ a smooth map. Let $p \in M$.
 		\begin{enumerate}
@@ -5376,6 +5501,15 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{proof}
 		\tcr{FINISH!!!}
 	\end{proof}
+	
+	\begin{ex}
+		Let $M, S \in \Obj(\Maninf)$. Suppose that $S$ is an immersed submanifold of $M$. Then for each $p \in S$, there exists $U \subset S$ such that $U$ is open in $S$ and $U$ is an embedded submanifold of $M$. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $p \in S$. Since $S$ is an immersed submanifold of $M$, $\iota_S:S \rightarrow M$ is an immersion. \rex{arg1} implies that there exists $U \subset S$ such that $U$ is open in $S$ and $\iota_S|_U : U \rightarrow M$ is an embedding. Since $\iota_S|_U = \iota_U$, $\iota_U$ is an embedding.
+	\end{proof}
+	
 
 	\begin{ex} \lex{ex:imm_sub:embedded_submanifolds:0003}
 		Let $M, N \in \Obj(\Maninf)$, $p \in M$ and $q \in N$. Then $M \times \{q\}$ and $N \times \{p\}$ are embedded submanifold of $M \times N$. 
@@ -5489,6 +5623,18 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{defn}
 	Let $M$ be a smooth manifold and $S \subset M$. Then $S$ is said to \tbf{satisfy the local $k$-slice condition with respect to $M$} if for each $p \in S$, there exists $(U, \phi) \in \S^k(M)$ such that $p \in U$. 
 	\end{defn}
+
+	\begin{ex}
+		Let $M, N$ be smooth manifolds and $S \subset M$. Suppose that $\dim M = m$, $\dim N = n$ and $M \subset N$. Then  
+		\begin{enumerate}
+			\item $S^{k}(M;S) \subset S^k(N;S)$
+			\item 
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
 
 	\begin{ex}
 		Let $U \subset \R^n$ and $S \subset U$. Suppose that $S$ is a $k$-slice of $U$. Define $\pi_{n,k}: \R^n \rightarrow \R^k$ by $$\pi(u^1, \dots, u^k, \dots, u^n) = (u^1, \dots, u^k)$$ Then $\pi_{n,k}|_{S} \rightarrow \pi(S)$ is a diffeomorphism.
@@ -5685,6 +5831,29 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{note}
 		Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $S$ satisfies the local $k$-slice condition with respect to $M$. Unless otherwise specified, we equip $S$ with $\MA|_S$.
 	\end{note}
+
+	\begin{ex}
+		Let $M, N \in \Obj(\Maninf)$, $F \in \Hom_{\Maninf}(N,M)$ and $S \subset M$. Suppose that $S$ satisfies the local $k$-slice condition with respect to $M$, $F(N) \subset S$ and $F \in \Hom_{\Top}(N, S)$. Then $F \in \Hom_{\Maninf}(N, S)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $(U, \phi) \in (\MA_M)|_S^0$ and $(V, \psi) \in \MA_N$. Since $F$ is continuous, we have that $V \cap F^{-1}(U)$ is open in $N$. Since $(U, \phi) \in (\MA_M)|_S^0$, there exists $(U_0, \phi_0) \in \S^k(M;S)$ such that $U = U_0 \cap S$ and $\phi = \prj^n_{[k]} \circ \phi_0|_{U}$. Since $F$ is smooth, we have that $\phi_0 \circ F \circ  \psi|_{V \cap F^{-1}(U_0)}^{-1}$ is smooth. Since $\prj^n_{[k]}$ is smooth, we have that
+		\begin{align*}
+			\phi \circ F \circ \psi|_{V \cap F^{-1}(U)}^{-1}
+			& = (\prj^n_{[k]} \circ \phi_0|_U) \circ F \circ \psi|_{V \cap F^{-1}(U)}^{-1} \\
+			& = \prj^n_{[k]} \circ (\phi_0|_U \circ F \circ  \psi|_{V \cap F^{-1}(U)}^{-1}) \\
+			& = \prj^n_{[k]} \circ (\phi_0 \circ F \circ  \psi|_{V \cap F^{-1}(U_0)}^{-1}) 
+ 		\end{align*}
+ 		is smooth. Since $(U, \phi) \in (\MA_M)|_S^0$ and $(V, \psi) \in \MA_N$ are arbitrary, we have that for each $(U, \phi) \in (\MA_M)|_S^0$ and $(V, \psi) \in \MA_N$,  $\phi \circ F \circ \psi|_{V \cap F^{-1}(U)}^{-1}$ is smooth. \rex{ex:smooth_maps_between_manifolds:0003} implies that $F \in \Hom_{\Maninf}(N, S)$.  
+	\end{proof}
+
+	\begin{ex}
+		content...
+	\end{ex}
+
+	\begin{proof}
+		content...
+	\end{proof}
 	
 	\begin{ex}
 	\tcr{talk about the boundary as an embedded submanifold. In particular if $\dim M = n$, then $\p M$ satisfies the local $n-1$-slice condition} Let $M \in \Obj(\Maninfbnd)$. Then $\p M$ is an embedded submanifold of $M$.  
@@ -5786,8 +5955,10 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\newpage
 	\section{Quotient Manifolds}
 	
+	\tcr{the surjective submersion assumption is not necessary}
+	
 	\begin{ex}
-		Let $M, R \in \Obj(\Maninf)$. Suppose that $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$, and $\prj_1|_R:R \rightarrow M$ is a surjective submersion. Then 
+		Let $M, R \in \Obj(\Maninf)$. Suppose that $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$, and $\prj_1|_R:R \rightarrow M$ the projection map. Then 
 		\begin{enumerate}
 			\item for each $U \in \MT_M$, $\pi^{-1}(\pi(U)) = \prj_1((M \times U) \cap R)$,
 			\item $\pi:M \rightarrow M /R$ is open,
@@ -5820,17 +5991,41 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 	\begin{ex}
-		Let $M, R \in \Obj(\Maninf)$. Suppose that $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$, and $\prj_1|_R:R \rightarrow M$ is a surjective submersion. Then for each $p \in M$, is a properly embedded submanifold of $M$. 
+		Let $M, R \in \Obj(\Maninf)$. Suppose that $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$, and $\prj_1|_R, \prj_2|_R:R \rightarrow M$ the projection maps. Then for each $p \in M$, $\pi(p)$ is a properly embedded submanifold of $M$ and $\dim \pi(p) = \dim M - $. \\
+		\tbf{Hint:} For each $p \in M$, $\pi(p) = \prj_1|_R(\prj_2|_R^{-1}(\{p\}))$ and $\prj_1|_{M \times \{p\}}$ is a diffeomorphism.
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in M$. Since $\pi: M \rightarrow M / R$ is a surjective submersion and $\pi(p) = \pi^{-1}(\{\pi(p)\})$, \tcr{an exercise in the section on embedded submanifolds} implies that $\pi(p)$ is an embedded submanifold of $M$. \tcr{The previous exercise} implies that $M/R$ is Hausdorff. Therefore $M/R$ is first-countable. Hence $\{\pi(p)\}$ is closed in $M/R$. Since $\pi$ is continuous $\pi(p)$ is closed in $M$. \tcr{An exercise in the section on embedded submanifolds} implies that $\pi(p)$ is properly embedded.   
+		Let $p \in M$. \rex{arg1} implies that $\prj_1: M \times M \rightarrow M$ is a submersion. \rex{} implies that $M \times \{p\}$ is an embedded submanifold of $M \times M$. \rex{arg1} implies that $\prj_2|_R$ is a submersion. Since $\prj_1|_R$ is a surjective submersion, \rex{arg1} implies that $\prj_2|_R^{-1}(\{p\})$ is a properly embedded submanifold of $M \times M$
+		
+		\tcr{(make exercise showing $\prj_1|_R, \prj_2|_R$ are surjective submersions)} \rex{arg1} implies that $\prj_2|_{R}$ is a smooth submersion. \rex{arg1} implies that $\prj_2|_R^{-1}(\{p\})$ is a properly embedded submanifold of $M \times M$. Since $\prj_2|_R^{-1}(\{p\})$ is a properly embedded submanifold of $M \times M$ and $M \times \{p\}$ and  $\prj_1|_{M \times \{p\}}$ is a diffeomorphism, we have that $\prj_1|_{M \times \{p\}}(\prj_2|_R^{-1}(\{p\}))$
+		
+		
+		if $M \subset N \subset E$
+		
+		
+		$M \times \{p\}$ is diffeomorphic to $M$. Since 
+		
+		
+		\tcr{FIX}
+		Since $\pi: M \rightarrow M / R$ is a surjective submersion and $\pi(p) = \pi^{-1}(\{\pi(p)\})$, \tcr{an exercise in the section on embedded submanifolds} implies that $\pi(p)$ is an embedded submanifold of $M$. \tcr{The previous exercise} implies that $M/R$ is Hausdorff. Therefore $M/R$ is first-countable. Hence $\{\pi(p)\}$ is closed in $M/R$. Since $\pi$ is continuous $\pi(p)$ is closed in $M$. \tcr{An exercise in the section on embedded submanifolds} implies that $\pi(p)$ is properly embedded.  
 	\end{proof}
 
 	
 	
 	
-	
+	\begin{ex}
+		Let $M, N, E$ be smooth manifolds with $\dim M = m$, $\dim N = n$ and $\dim E = e$. Suppose that $N$ is an embedded submanifold of $E$. Then $M$ is an embedded submanifold of $N$ iff $M$ is an embedded submanifold of $E$.
+	\end{ex}
+
+	\begin{proof}\rex{arg1} implies that $N$ satisfies the local $n$-slice condition with respect to $E$.
+		\begin{itemize}
+			\item $(\implies):$ \\
+			Suppose that $M$ is an embedded submanifold of $N$. \rex{arg1} implies that $M$ satisfies the local $m$-slice condition with respect to $N$. Let $p \in M$. Then there exists $(U_N, \phi_N) \in \S^m(N; M)$ and $(U_E, \phi_E) \in \S^n(E;N)$ such that $p \in U_N \cap U_E$. 
+			\item $(\impliedby):$ \\
+			
+		\end{itemize}
+	\end{proof}
 	
 	
 	
