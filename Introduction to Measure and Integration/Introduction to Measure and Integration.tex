@@ -1654,10 +1654,6 @@
 		Immediate by a previous exercise about the initial $\sig$-algebra.
 	\end{proof}
 
-	\begin{defn} \ld{25006.1}
-		Let $(X, \MA)$ be a measurable space, $(Y_{\al}, \MA_{\al})_{\al \in A}$ a collection of measurable spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^X$, i.e. for each $\al \in A$, $f_{\al}:X \rightarrow Y_{\al}$. Set $Y = \prod\limits_{\al \in A}Y_{\al}$. We define the \tbf{tuple of $(f_{\al})_{\al \in A}$}, denoted $(f_{\al})_{\al \in A}: X \rightarrow Y$, by $(f_{\al})_{\al \in A}(x) \defeq (f_{\al}(x))_{\al \in A}$.
-	\end{defn}
-
 	\begin{ex} \lex{25006.2}
 		Let $(X, \MA)$ be a measurable space, $(Y_{\al}, \MA_{\al})_{\al \in A}$ a collection of measurable spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^X$, i.e. for each $\al \in A$, $f_{\al}:X \rightarrow Y_{\al}$. Set $Y = \prod\limits_{\al \in A}Y_{\al}$. Then $(f_{\al})_{\al \in A}$ is $(\MA, \bigotimes\limits_{\al \in A} \MA_{\al})$-measurable iff for each $\al \in A$, $f_{\al}$ is $(\MA, \MA_{\al})$-measurable.
 	\end{ex}
@@ -1979,6 +1975,84 @@
 		\end{align*}
 		by definition of $\pi_*\MA$, $\bar{f}^{-1}(V) \in \pi_*\MA$. So $\bar{f}$ is $\MA$-$\pi_*\MA$ measurable.
 	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Projective Limits of Measurable Spaces}
+
+\begin{defn} \ld{def:measurable_spaces:proj_limits:0001}
+	Let $(J, \leq)$ be a directed poset, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that for each $j,k,l \in J$, 
+	\begin{enumerate}
+		\item $\pi_{j,j} = \id_{X_j}$,
+		\item $j \leq k$ and $k \leq l$ implies that $\pi_{j,k} \circ \pi_{k,l} = \pi_{j,l}$.
+	\end{enumerate}
+	Then $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is said to be a \tbf{projective system of measurable spaces}.
+\end{defn}
+
+\begin{defn} \ld{def:measurable_spaces:proj_limits:0002}
+	Let $(J, \leq)$ be a directed poset, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a projective system of topological spaces. We define the \tbf{projective topology} of $(\MA_j)_{j \in J}$ on $\varprojlim\limits_{j \in J} X_j$, denoted $\varprojlim\limits_{j \in J} \MA_j$, by $$\varprojlim\limits_{j \in J} \MA_j \defeq \bigg[ \bigotimes\limits_{j \in J} \MA_j \bigg] \cap \varprojlim\limits_{j \in J} X_j.$$
+	\tcr{define general projective limit, then show that the subsapce of the product is an inverse limit}
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	
@@ -3069,7 +3143,9 @@
 		Let $(X,\MA)$ be a measurable space. 
 		\begin{itemize}
 			\item Let $\mu$ a measure on $(X, \MA)$. Then $(X, \MA, \mu)$ is called a \textbf{measure space}. 
-			\item We define $M_+(X, \MA) \defeq \{\mu: \MA \rightarrow \RG: \mu \text{ is a measure}\}$
+			\item We define 
+			$$M_+(X, \MA) \defeq \{\mu: \MA \rightarrow \RG: \mu \text{ is a measure}\}.$$ 
+			When $X$ is a topological space, we write $M_+(X)$ in place of $M_+(X, \MB(X))$.
 		\end{itemize}
 	\end{defn}
 	
@@ -3604,7 +3680,7 @@
 		\item $f$ is injective
 		\item for each $A \in \MA$, $f(A) \in \MB$.
 	\end{itemize} 
-	Then $\mu$ $\sig$-finite iff $f_*\mu$ is $\sig$-finite.
+	Then $\mu$ is $\sig$-finite iff $f_*\mu$ is $\sig$-finite.
 \end{ex}
 
 \begin{proof}\
@@ -3648,7 +3724,37 @@
 	\end{itemize}
 \end{proof}
 
+\begin{ex} \lex{ex:pushforward_measure:0005}
+	Let $(X, \MA_X)$, $(Y, \MA_Y)$, $(Z, \MA_Z)$ be a measurable spaces, $f: X \rightarrow Y$, $g: Y \rightarrow Z$ and $\mu \in M_+(X, \MA_X)$. Suppose that $f$ is $(\MA_X, \MA_Y)$-measurable and $g$ is $(\MA_Y, \MA_Z)$-measurable. Then $(g \circ f)_*\mu = g_*(f_*\mu)$. 
+\end{ex}
 
+\begin{proof}
+	Let $E \in \MA_Z$. Then 
+	\begin{align*}
+		(g \circ f)_*\mu(E) \\
+		& = \mu((g \circ f)^{-1}(E)) \\
+		& = \mu(f^{-1}(g^{-1}(E))) \\
+		& = f_*\mu(g^{-1}(E)) \\
+		& = g_*(f_*\mu)(E).
+	\end{align*}
+	Since $E \in \MA_Z$ is arbitrary, we have that for each $(g \circ f)_*\mu(E) = g_*(f_*\mu)$.
+\end{proof}
+
+\begin{ex} \lex{ex:pushforward_measure:0006}
+	Let $(X, \MA_X)$, $(Y, \MA_Y)$ be a measurable spaces, $f: X \rightarrow Y$ and $\mu, \nu \in M_+(X, \MA_X)$. Suppose that $f$ is $(\MA_X, \MA_Y)$-measurable. Then $f_*(\mu + \nu) = f_*\mu + f_*\nu$.
+\end{ex}
+
+\begin{proof}
+	Let $E \in \MA_Y$. Then 
+	\begin{align*}
+		f_*(\mu + \nu)(E)
+		& = (\mu + \nu)(f^{-1}(E)) \\
+		& = \mu(f^{-1}(E)) + \nu(f^{-1}(E)) \\
+		& = f_*\mu(E) + f_*\nu(E) \\
+		& = (f_*\mu + f_*\nu)(E).
+	\end{align*}
+	Since $E \in \MA_Y$ is arbitrary, we have that $f_*(\mu + \nu) = f_*\mu + f_*\nu$.
+\end{proof}
 
 
 
@@ -3755,7 +3861,7 @@
 	\end{proof}
 
 	\begin{ex}
-		Let $X$ be a set, $\nu$ an outer measure on $X$ and $A \subset X$. If $\nu(A) = 0$, then $A \in \MM_{\nu}$.
+		Let $X$ be a set, $\nu$ an outer measure on $X$ and $A \subset X$. If $\nu(A) = 0$, then $A \in \MA_{\nu}$.
 	\end{ex}
 	
 	\begin{proof}
@@ -3788,9 +3894,8 @@
 	\end{note}
 	
 	\begin{thm} \lex{ex:outer_measures:00008} \tbf{Caratheodory Extension Theorem:} \\
-		Let $X$ be a set, $\MA_0$ an algebra on $X$ and $\mu_0$ a premeasure on $(X,\MA_0)$. Set $\MA = \sig(\MA_0)$. If $\mu_0$ is $\sig$-finite, then there exists a unique measure $\mu$ on $(X, \MA)$ such that $\mu|_{\MA_0} = \mu_0^*|_{\MA_0} = \mu_0$. 
+		Let $X$ be a set, $\MA_0$ an algebra on $X$ and $\mu_0$ a premeasure on $(X,\MA_0)$. Set $\MA = \sig(\MA_0)$. If $\mu_0$ is $\sig$-finite \tcr{(define $\sig$-finite for premeasures)}, then there exists a unique measure $\mu$ on $(X, \MA)$ such that $\mu|_{\MA_0} = \mu_0^*|_{\MA_0} = \mu_0$. 
 	\end{thm}
-
 
 	
 	
@@ -4289,10 +4394,12 @@
 		\begin{itemize}
 			\item We define the \tbf{restriction of $\mu$ to $E$}, denoted $\mu|_E: \MA \cap E \rightarrow \RG$, by 
 			$$\mu|_E(A) = \mu(A)$$
-			\item We define the \tbf{restriction of $\mu$ to $E$ on $X$}, denoted $\mu_E: \MA \rightarrow \RG$, by 
+			\item We define the \tbf{constriction of $\mu$ to $E$ on $X$}, denoted $\mu_E: \MA \rightarrow \RG$, by 
 			$$\mu_E(A) = \mu(A \cap E)$$
 		\end{itemize}
 	\end{defn}
+
+	\tcr{Change all $\mu_E$ to $\mu^E$, reserve $\mu_E$ to mean $\mu^E/ \mu(E)$ if $0 < \mu(E) < \infty$ (i.e. the conditional of $\mu$ on $E$)}
 
 	\begin{ex} \lex{ex:subspace_measures:00002} 
 		Let $(X, \MA)$ be a measurable space, $\mu$ a measure on $(X, \MA)$ and $E \in \MA$. Then 
@@ -6770,11 +6877,15 @@
 			\item for each sequence $(E_n)_{n \in \N} \subset \MA$, if $(E_n)_{n \in \N}$ is disjoint, then $\nu \bigg( \bigcup\limits_{n \in \N} E_n \bigg) = \sum\limits_{n \in \N} \nu(E_n)$ and $\sum\limits_{n \in \N} \nu(E_n)$ converges absolutely. 
 		\end{enumerate}
 	\end{defn}
-	
+
 	\begin{defn} \ld{def:complex_measures:0002} 
-	Let $(X, \MA)$ be a measurable space. We define 
-	$$M(X, \MA) = \{\mu:\MA \rightarrow \C: \mu \text{ is a complex measure}\}$$
-	When $X$ is a topological space, we write $M(X)$ in place of $M(X, \MB(X))$.
+	Let $(X, \MA)$ be a measurable space. 
+	\begin{itemize}
+		\item Let $\mu$ a complex measure on $(X, \MA)$. Then $(X, \MA, \mu)$ is called a \textbf{complex measure space}. 
+		\item We define 
+		$$M(X, \MA) \defeq \{\mu:\MA \rightarrow \C: \mu \text{ is a complex measure}\}.$$ 
+		When $X$ is a topological space, we write $M(X)$ in place of $M(X, \MB(X))$.
+	\end{itemize}
 	\end{defn}
 
 	\begin{ex} \lex{ex:complex_measures:0003} 
@@ -10625,8 +10736,27 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage	
 	\section{Radon Measures on LCH Spaces}
+	
 	
 	\begin{ex} \lex{00000} 
 		Let $X$ be a LCH space and $\mu \in \MM_+(X)$. Then 
@@ -10840,6 +10970,104 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Projective Systems of Complex Measures}
+
+\begin{defn} \ld{def:proj_limits_complex_measures:0001}
+	Let $(J, \leq)$ be a directed poset, $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ be a projective system of measurable spaces and $(\mu_j)_{j \in J} \in \prod\limits_{j \in J} M(X_j, \MA_j)$. Suppose that for each $(j,k) \in \, \leq$, $(\pi_{j,k})_*\mu_k = \mu_j$. Then $((X_j, \MA_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is said to be a \tbf{projective system of complex measure spaces}.
+\end{defn}
+
+\begin{ex}
+	Let $(J, \leq)$ be a countable directed poset $((X_{j \in J}), (\pi_{j,k})_{(j,k) \in \leq})$ be a projective system of topological spaces and $(\mu_j)_{j \in J} \in \prod\limits_{j \in J} \MM(X_j)$. Suppose that $((X_j, \MB(X_j), \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a projective system of complex measure spaces and for each $j \in J$, $X_j$ is a compact Hausdorff space. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j)_{j \in \N}, (\pi_{j,k})_{(j,k) \in \leq})$. 
+	\begin{enumerate}
+		\item For each $j \in J$, define $C_j \subset C(X)$ by 
+		$$C_j \defeq \{f \in C(X): \text{ for each $x,y \in X$, $\pi_j(x) = \pi_j(y)$ implies that $f(x) = f(y)$}\}$$
+		Define $C \subset C(X)$ by $C \defeq \bigcup\limits_{j \in J} C_j$. Then $C$ is a subalgebra of $C(X)$ and $C$ is dense in $C(X)$. 
+		\item For each $j \in J$, define $\sim_j \, \subset X \times X$ by $x \sim_j y$ iff $\pi_j(x) = \pi_j(y)$. For each $j \in J$, denote the projection of $X$ onto $X/{\sim_j}$ by $\pi^Q_j: X \rightarrow X/{\sim_j}$. Then for each $j \in J$,
+		\begin{enumerate}
+			\item $C_j = \{f \in C(X): \text{$f$ is $\sim_j$-invariant}\}$
+			\item there exists a unique $\bar{\pi}:X/{\sim_j} \rightarrow X_j$ such that $\bar{\pi}_j \circ \pi^Q_j = \pi_j$ and $\bar{\pi}_j$ is a homeomorphism,
+			\item for each $f \in C_j$, there exists a unique $\bar{f}:X/{\sim_j} \rightarrow \C$ such that $\bar{f} \circ \bar{\pi}_j^{-1} \circ \pi_j = f$
+		\end{enumerate}
+		for each $j \in J$, $C_j = \{f \in C(X): \text{$f$ is $\sim_j$-invariant}\}$. there exists $\phi: {X / \sim_j}  \rightarrow X_j$ such that $\phi$ homeomorphic to $X_j$ and and $\phi_j \in C(X/\sim_j)^*$ by $\phi_j(\bar{f}) = \int$. Then 
+		\item 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	 \begin{enumerate}
+	 	\item Let $f_1 , f_2 \in C$ and $\lam \in \C$. Then there exist $j_1, j_2 \in J$ such that $f_1 \in C_{j_1}$ and $f_2 \in C_{j_2}$. Since $J$ is directed, there exists $j_0 \in J$ such that $j_0 \geq j_1, j_2$. Let $x,y \in X$. Suppose that $\pi_{j_0}(x) = \pi_{j_0}(y)$. Then 
+	 	\begin{align*}
+	 		\pi_{j_1}(x)
+	 		& = \pi_{j_1, j_0} \circ \pi_{j_0}(x) \\
+	 		& =  \pi_{j_1, j_0} \circ \pi_{j_0}(y) \\
+	 		& = \pi_{j_1}(y)
+	 	\end{align*}
+	 	and similarly, $\pi_{j_2}(x) = \pi_{j_2}(y)$. Therefore $f_1(x) = f_1(y)$ and $f_{2}(x) = f_2(y)$. Hence 
+	 	\begin{align*}
+	 		(f_1 + \lam f_2)(x)
+	 		& = f_1(x) + \lam f_2(x) \\
+	 		& = f_1(y) + \lam f_2(y) \\
+	 		& = (f_1 + \lam f_2)(y)
+	 	\end{align*}
+	 	and 
+	 	\begin{align*}
+	 		(f_1 \cdot f_2)(x)
+	 		& = f_1(x)f_2(x) \\
+	 		& = f_1(y)f_2(y) \\
+	 		& = (f_1 \cdot f_2) (y).
+	 	\end{align*}
+	 	Since $x, y \in X$ with $\pi_{j_0}(x) = \pi_{j_0}(y)$ are arbitrary, we have that for each $x,y \in X$, $\pi_{j_0}(x) = \pi_{j_0}(y)$ implies that $(f_1 + \lam f_2)(x) = (f_1 + \lam f_2)(y)$ and $(f_1 \cdot f_2)(x) = (f_1 \cdot f_2)(y)$. Thus 
+	 	\begin{align*}
+	 		f_1 + \lam f_2 
+	 		& \in C_{j_0} \\
+	 		& \subset C
+	 	\end{align*} 
+	 	and 
+	 	\begin{align*}
+	 		f_1 \cdot f_2
+	 		& \in C_{j_0} \\
+	 		& \subset C
+	 	\end{align*} 
+	 	Since $f_1 , f_2 \in C$ and $\lam \in \C$ are arbitrary, for each $f_1 , f_2 \in C$ and $\lam \in \C$, $f_1 + \lam f_2 \in C$ and $f_1 \cdot f_2 \in C$. Hence $C$ is a subalgebra of $C(X)$. 
+	 	\item 
+	 \end{enumerate}
+\end{proof}
+
+
+\begin{defn} \ld{def:proj_limits_complex_measures:0002}
+	Let $(J, \leq)$ be a directed poset, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \, \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a projective system of topological spaces. We define the \tbf{projective topology} of $(\MA_j)_{j \in J}$ on $\varprojlim\limits_{j \in J} X_j$, denoted $\varprojlim\limits_{j \in J} \MA_j$, by $$\varprojlim\limits_{j \in J} \MA_j \defeq \bigg[ \bigotimes\limits_{j \in J} \MA_j \bigg] \cap \varprojlim\limits_{j \in J} X_j.$$
+\end{defn}
 
 
 
@@ -11160,9 +11388,42 @@
 	\end{proof}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
-	
+
 	
 	
 	

@@ -111,7 +111,53 @@
 	
 	\chapter{Set Theory}
 	
+	\section{Relations}
+	
+	
+	
+	\subsection{Orderings}
+	
+	\begin{defn} \ld{def:set_theory:relations:orderings:0001} \tbf{Directed Set:} \\
+		Let $A$ be a set and $\leq \, \subset A \times A$ a binary relation on $A$. Then $(A, \leq)$ is said to be a \tbf{directed set} if , 
+		\begin{enumerate}
+			\item for each $\al \in A$, $\al \leq \al$
+			\item for each $\al, \be, \gam \in A$, $\al \leq \be$ and $\be \leq \gam$ implies that $\al \leq \gam$
+			\item for each $\al, \be \in A$, there exists $\gam \in A$ such that $\al, \be \leq \gam$
+			\item $A \neq \varnothing$
+		\end{enumerate}
+	\end{defn}
+
+	
+	\begin{defn} \ld{def:set_theory:relations:orderings:0002} \tbf{Poset:} \\
+		Let $A$ be a set and $\leq \, \subset A \times A$ a binary relation on $A$. Then 
+		\begin{itemize}
+			\item $\leq$ is said to be a \tbf{ partial ordering on $A$} if for each $a,b,c \in A$,
+			\begin{enumerate}
+				\item $a \leq a$,
+				\item $a \leq b$ and $b \leq a$ implies that $a = b$,
+				\item $a \leq b$ and $b \leq c$ implies that $a \leq c$.
+			\end{enumerate}
+			\item $(A, \leq)$ is $(A, \leq)$ is said to be a \tbf{partially ordered set} or \tbf{poset} if
+			$\leq$ is a partial ordering on $A$.
+		\end{itemize}
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\section{Functions}
+	
+	
+	\subsection{Introduction}
 	
 	\begin{ex} \lex{ex:set_theory:functions:0001}
 		Let $X, Y$ be sets, $f:X \rightarrow Y$ and $A \subset X$. Then $A \subset f^{-1}(f(A))$.
@@ -191,6 +237,30 @@
 			Hence $f(A \cap f^{-1}(B)) = f(A \cap f^{-1}(B))$. 
 		\end{proof}
 	
+	
+	\begin{ex} \lex{ex:set_theory:functions:0005}
+		Let $X$ be a set, $K \subset X$, $(X_\al)_{\al \in A}$ a collection of sets and for each $\al \in A$, $f_{\al}: X \rightarrow X_{\al}$. For $\al \in A$, set $K_{\al} \defeq f_{\al}(K)$. Then $K = \bigcap\limits_{\al \in A} f_{\al}^{-1}(K_{\al})$.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item Let $x \in K$ and $\al \in A$. By definition,  
+			\begin{align*}
+				f_{\al}(x) 
+				& \in f_{\al}(K) \\
+				& = K_{\al}
+			\end{align*}
+			Thus $x \in f_{\al}^{-1}(K_{\al})$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $x \in f_{\al}^{-1}(K_{\al})$. Thus $x \in \bigcap\limits_{\al \in A} f_{\al}^{-1}(K_{\al})$. Since $x \in K$ is arbitrary, $K \subset \bigcap\limits_{\al \in A} f_{\al}^{-1}(K_{\al})$.
+			\item Let $\al \in A$. \rex{ex:set_theory:functions:0001} implies that 
+			\begin{align*}
+				K
+				& \subset f_{\al}^{-1}(f_{\al}(K)) \\
+				& = f_{\al}^{-1}(K_{\al}).
+			\end{align*}
+			Since $\al \in A$ is arbitrary, for each $\al \in A$, $K \subset f_{\al}^{-1}(K_{\al})$. Thus $K \subset \bigcap\limits_{\al \in A} f_{\al}^{-1}(K_{\al})$.
+		\end{itemize}
+		Therefore $K = \bigcap\limits_{\al \in A} f_{\al}^{-1}(K_{\al})$.
+	\end{proof}
 		
 		
 	
@@ -209,13 +279,13 @@
 	
 	
 	
-	\section{Bijections}
+	\subsection{Bijections}
 	
-	\begin{defn}
+	\begin{defn} \ld{ld:set_theory:bijections:0001}
 		Let $X, Y$ be sets and $f:X \rightarrow Y$. Then $f$ is said to be a \tbf{surjection} if for each $y \in Y$, there exists $x \in X$ such that $f(x) = y$.
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:set_theory:bijections:0002}
 			Let $X, Y$ be sets and $f:X \rightarrow Y$. Suppose that $f$ is a surjection. Then for each $B \subset Y$, $f(f^{-1}(B)) = B$. 
 	\end{ex}
 
@@ -229,8 +299,60 @@
 		\end{align*}
 	\end{proof}
 
+	\begin{ex} \lex{ex:set_theory:bijections:0003}
+		Let $X, Y, Z$ be sets, $f:X \rightarrow Y$ and $g,h:Y \rightarrow Z$. Suppose that $f$ is a surjection. If $g \circ f = h \circ f$, then $g = h$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $g \circ f = h \circ f$. Let $y \in Y$. Since $f$ is a surjection, there exists $x \in X$ such that $y = f(x)$. Then 
+		\begin{align*}
+			g(y)
+			& = g \circ f(x) \\
+			& = h \circ f(x) \\
+			& = h(y).
+		\end{align*}
+		Since $y \in Y$ is arbitrary, we have that for each $y \in Y$, $g(y) = h(y)$. Hence $g = h$.
+	\end{proof}
 
 
+
+	\subsection{Nets}
+	
+	\begin{defn} \ld{def:set_theory:nets:0001}
+		Let $X$ be a topological space, $A$ a directed set and $x:A \rightarrow Y$. Then $x$ is said to be a \tbf{net} in $X$. We typically write $(x_{\al})_{\al \in A}$. 
+	\end{defn}
+	
+	\begin{defn} \ld{def:set_theory:nets:0008.1}
+		Let $X$ be a set, $A$ a directed set and $\al_0 in A$. We define the \tbf{$\al_0$-tail operator}, denoted $L_{\al_0}: X^{A} \rightarrow X^{[\al_0, \infty)}$, by $L(x) \defeq x|_{[\al_0, \infty)}$, i.e. $L_{\al_0}((x_{\al})_{\al \in A}) \defeq (x_{\al})_{\al \in [\al_0, \infty)}$.
+	\end{defn}
+	
+	\begin{defn} \ld{def:set_theory:nets:0003}
+		Let $X$ be a topological space, $(x_{\al})_{\al \in A}$, $(y_{\be})_{\be \in B} \subset X$ nets and $\phi:B \rightarrow A$. 
+		Then $((y_{\be})_{\be \in B}, \phi)$ is said to be a \tbf{subnet of $(x_{\al})_{\al \in A}$} if 
+		\begin{enumerate}
+			\item for each $\beta \in B$, $y_{\beta} = x_{\phi(\beta)}$
+			\item for each $\al_0 \in A$, there exists $\be_0 \in B$ such that for each $\be \in B$, $\be \geq \be_0$ implies that $\phi(\be) \geq \al_0$
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{note}
+		We usually supress $\phi$ and write $\al_{\be}$ in place of ${\phi(\beta)}$.
+	\end{note}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Sequences}
 
 
 
@@ -279,17 +401,13 @@
 	\section{Products of Sets}
 	
 	\begin{defn} \ld{def:set_theory:products:0001}
-	Let $(X_{\al})_{\al \in A}$ be a collection of sets. We define the \tbf{Cartesian product} of $(X_{\al})_{\al \in A}$, denoted $\prod\limits_{\al \in A} X_{\al}$, by 
-	\begin{equation*}
-	\prod_{\al \in A}X_{\al} = \{f:A \rightarrow \bigcup_{\al \in A} X_{\al}: \text{ for each $\al \in A$, $f(\al) \in X_{\al}$}\}
-	\end{equation*}
-	\end{defn}
-	
-	\begin{defn} \ld{def:set_theory:products:0002}
-	Let $(X_{\al})_{\al \in A}$ be a collection of sets. For $\al \in A$, we define the \tbf{$\al$-th projection map of $\prod_{\al \in A} X_{\al}$ onto $X_{\al}$}, denoted $\pi_{\al}:\prod\limits_{\al \in A}X_{\al} \rightarrow X_{\al}$, by 
-	\begin{equation*}
-	\pi_{\al}(f) = f(\al)
-	\end{equation*}
+	Let $(X_{\al})_{\al \in A}$ be a collection of sets. We define 
+	\begin{itemize}
+		\item the \tbf{Cartesian product} of $(X_{\al})_{\al \in A}$, denoted $\prod\limits_{\al \in A} X_{\al}$, by 
+		$$\prod_{\al \in A}X_{\al} \defeq \{f:A \rightarrow \bigcup_{\al \in A} X_{\al}: \text{ for each $\al \in A$, $f(\al) \in X_{\al}$}\}$$
+		\item the \tbf{$\al$-th projection map of $\prod_{\al \in A} X_{\al}$ onto $X_{\al}$}, denoted $\pi_{\al}:\prod\limits_{\al \in A}X_{\al} \rightarrow X_{\al}$, by 
+		$$\pi_{\al}(f) \defeq f(\al)$$
+	\end{itemize}
 	\end{defn}
 
 	\begin{ex} \lex{ex:set_theory:products:0003}
@@ -364,8 +482,16 @@
 		Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $\pi_{\al}^X \circ g \circ f = \pi_{\al}^X$ and $\pi_{\al}^Y \circ f \circ g = \pi_{\al}^Y$. Hence $g \circ f = \id_X$ and $f \circ g = \id_Y$. Thus $f$ is a bijection and $f^{-1} = g$. 
 	\end{proof}
 
+	\begin{defn} \ld{def:set_theory:products:00010}
+		Let $X$ be a a topological space. We define 
+		\begin{itemize}
+			\item the \tbf{diagonal of $X \times X$}, denoted $\Del_X \subset X \times X$, by $\Del_X \defeq \{(x,x):x \in X\}$,
+			\item the \tbf{diagonal of $X^{\N}$}, denoted $\Del_{X^{\N}} \subset X^{\N}$, by $\Del_{X^{\N}} \defeq \{x \in X^{\N}: \text{ for each $m,n \in \N$, $\pi_m(x) = \pi_n(x)$}\}$.
+		\end{itemize}
+	\end{defn}
+
 	\begin{ex} \lex{ex:set_theory:products:0005.2}
-		Let $X$ be a set, $(B_n)_{n \in \N} \subset \MP(X)$, $(Z_n)_{n \in \N}$ a collection of sets and $(f_n) \in \prod\limits_{n \in \N} B_n^{Z_n}$. Suppose that for each $n \in \N$, $f_n$ is a bijection. Set $Z_0 \defeq \prod\limits_{n \in \N} Z_n$. Define $\Del_{X^{\N}} \subset X^{\N}$, $f_0: Z_0 \rightarrow X^{\N}$ and $Z \subset Z_0$ by $\Del_{X^{\N}} \defeq \{x \in X: \text{ for each $m,n \in \N$, $\pi_m(x) = \pi_n(x)$}\}$, $f_0 \defeq \prod\limits_{n \in \N} f_n$ and $Z \defeq f_0^{-1}(\Del_{X^{\N}})$. Then 
+		Let $X$ be a set, $(B_n)_{n \in \N} \subset \MP(X)$, $(Z_n)_{n \in \N}$ a collection of sets and $(f_n) \in \prod\limits_{n \in \N} B_n^{Z_n}$. Suppose that for each $n \in \N$, $f_n$ is a bijection. Set $Z_0 \defeq \prod\limits_{n \in \N} Z_n$. Define $f_0: Z_0 \rightarrow X^{\N}$ and $Z \subset Z_0$ by $f_0 \defeq \prod\limits_{n \in \N} f_n$ and $Z \defeq f_0^{-1}(\Del_{X^{\N}})$. Then 
 		\begin{enumerate}
 			\item for each $m,n \in \N$, $f_m \circ \pi_m|_Z = f_n \circ \pi_n|_Z$,
 			\item for each $n \in \N$, $f_n \circ \pi_n(Z) = \bigcap\limits_{n \in \N} B_n$.
@@ -424,7 +550,19 @@
 	\end{proof}
 	
 
-	\begin{defn} \ld{def:set_theory:products:0006}  
+	\begin{defn} \ld{def:set_theory:products:0005.3}
+		Let $X$ be a set, $(Y_{\al})_{\al \in A}$ a collection of sets and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^X$, i.e. for each $\al \in A$, $f_{\al}:X \rightarrow Y_{\al}$. Set $Y = \prod\limits_{\al \in A}Y_{\al}$. We define the \tbf{tuple of $(f_{\al})_{\al \in A}$}, denoted $(f_{\al})_{\al \in A}: X \rightarrow Y$, by $(f_{\al})_{\al \in A}(x) \defeq (f_{\al}(x))_{\al \in A}$.
+	\end{defn}
+
+	\begin{ex} \lex{ex:set_theory:products:0005.4}
+		Let $X$ be a set, $(Y_{\al})_{\al \in A}$ a collection of sets, $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^X$ and $E \subset X$. Then $(f_{\al})_{\al \in A}|_E = (f_{\al}|_E)_{\al \in A}$.
+	\end{ex}
+
+	\begin{proof}
+		Clear. \tcr{add details}.
+	\end{proof}
+
+	\begin{defn} \ld{def:set_theory:products:0006}  \tcr{Define slice maps here in terms of inclusion maps}
 		Let $X, Y$ be sets and $U \subset X \times Y$. For each $(x_0, y_0) \in U$, we define $U_{x_0} = \{y \in Y: (x_0,y) \in U\}$ and $U^{y_0} = \{x \in X: (x,y_0) \in U\}$.
 	\end{defn}
 
@@ -448,9 +586,9 @@
 		So $(f^{y_0})^{-1}(V) = (f^{-1}(V))^{y_0}$. Similarly, $(f_{x_0})^{-1}(V) = (f^{-1}(V))_{x_0}$. 
 	\end{proof}
 	
-	\begin{defn}
-		Let $X, Y, Z$ be sets. We define the \tbf{currying operator}, denoted $\cur: Y^{X \times Y} \rightarrow (Z^Y)^X$, by 
-		$\cur(f)(x) = f_x$.  $f: X \times Y \rightarrow Z$.
+	\begin{defn} \ld{def:set_theory:products:0009}
+		Let $X, Y, Z$ be sets. We define the \tbf{currying operator}, denoted $\cur: Z^{X \times Y} \rightarrow (Z^Y)^X$, by 
+		$\cur(f)(x)(y) = f(x, y)$. 
 	\end{defn}
 	
 	
@@ -504,16 +642,12 @@
 	
 	\begin{defn} \ld{def:set_theory:coproducts:0001}
 		Let $(X_{\al})_{\al \in A}$ be a collection of sets. We define the \tbf{disjoint union} of $(X_{\al})_{\al \in A}$, denoted $\coprod\limits_{\al \in A}X_{\al}$, by 
-		\begin{equation*}
-			\coprod_{\al \in A}X_{\al} = \{(\al, x): x \in X_{\al} \}
-		\end{equation*}
+		$$\coprod_{\al \in A}X_{\al} = \{(\al, x): x \in X_{\al} \}$$
 	\end{defn}
 	
 	\begin{defn} \ld{def:set_theory:coproducts:0002}
 		Let $(X_{\al})_{\al \in A}$ be a collection of sets. For $\al \in A$, we define the \tbf{$\al$-th embedding map if $X_{\al}$ into $\coprod_{\al \in A} X_{\al}$}, denoted $\iota_{\al}: X_{\al} \rightarrow \coprod\limits_{\al \in A}X_{\al}$, by 
-		\begin{equation*}
-			\iota_{\al}(x) = (\al, x)
-		\end{equation*}
+		$$\iota_{\al}(x) = (\al, x)$$
 	\end{defn}
 
 	\begin{defn} \ld{ex:set_theory:coproducts:0002.1}
@@ -597,14 +731,181 @@
 	
 	\newpage
 	\section{Quotients of Sets}
+	
 	\begin{defn}
 	Let $X$ be a set and $\sim$ an equivalence relation on $X$. We define the \tbf{quotient set} of $X$ by $\sim$, denoted $X/ {\sim}$, by 
 	\begin{equation*}
 	X/ {\sim} = \{\bar{x}: x \in X\}
 	\end{equation*}
 	\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
+	
+	
+	
+	
+	
+\newpage
+\section{Common Structures}
+
+\subsection{Equalizers of Maps}
+
+\begin{defn} \ld{def:set_theory:equalizers:0001}
+	Let $X, Y$ be sets and $f,g:X \rightarrow Y$. We define the \tbf{equalizer of $f$ and $g$}, denoted $\Eq(f,g)$, by 
+	$$\Eq(f,g) \defeq \{x \in X: f(x) = g(x)\}$$
+\end{defn}
+
+\begin{ex}
+	
+\end{ex}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Projective Limits of Sets}
+
+\begin{note}
+	Let $(X_j)_{j \in J}$ be a collection of sets. We denote the $j$-th projection map from $\prod\limits_{j \in J} X_j$ onto $X_j$ by $\prj_j: \prod\limits_{j \in J} X_j \rightarrow X_j$.
+\end{note}
+	
+\begin{defn} \ld{def:set_theory:proj_limits:0001}
+	Let $(J, \leq)$ be a directed poset, $(X_j)_{j \in J}$ a collection of sets and for each $(j,k) \in \leq$, $\pi_{j,k}:X_k \rightarrow X_j$. Suppose that for each $j,k,l \in J$, 
+	\begin{enumerate}
+		\item $\pi_{j,j} = \id_{X_j}$,
+		\item $j \leq k$ and $k \leq l$ implies that $\pi_{j,k} \circ \pi_{k,l} = \pi_{j,l}$.
+	\end{enumerate}
+	Then $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is said to be a \tbf{projective system of sets}.
+\end{defn}
+
+\begin{defn} \ld{def:set_theory:proj_limits:0002}
+	Let $(J, \leq)$ be a directed poset and $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of sets. We define 
+	\begin{itemize}
+		\item the \tbf{inverse limit} of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$, denoted $\varprojlim\limits_{j \in J} X_j$, by 
+		$$\varprojlim\limits_{j \in J} X_j \defeq \bigg\{ x \in \prod\limits_{j \in J} X_j: \text{ for each $(j,k) \in {\leq}$, $\pi_{j,k} \circ \prj_k(x) = \prj_j(x) $} \bigg \}$$
+		\item the \tbf{$j$-th projection map of $\varprojlim\limits_{j \in J} X_j$ onto $X_j$}, denoted $\pi_j: \varprojlim\limits_{j \in J} X_j \rightarrow X_j$, by 
+		$$\pi_j = \prj_j|_{\varprojlim\limits_{j \in J} X_j}$$
+	\end{itemize}
+\end{defn}
+
+\begin{ex} \lex{ex:set_theory:proj_limits:0003}
+	Let $(J, \leq)$ be a directed poset and $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of sets. Then for each $j,k \in J$, $j \leq k$ implies that $\pi_{j,k} \circ \pi_k = \pi_j$. 
+\end{ex}
+
+\begin{proof}
+	Let $x \in \varprojlim\limits_{j \in J} X_j$. Let $j,k \in J$. Suppose that $j \leq k$.  By definition, 
+	\begin{align*}
+		\pi_{j,k} \circ \pi_k(x)
+		& = \pi_{j,k} \circ \prj_k(x) \\
+		& = \prj_j(x) \\
+		& = \pi_j(x).
+	\end{align*}
+	Since $x \in \varprojlim\limits_{j' \in J} X_{j'}$ is arbitrary, we have that $\pi_{j,k} \circ \pi_k = \pi_j$. 
+\end{proof}
+
+\begin{ex} \lex{ex:set_theory:proj_limits:0004}
+	Let $(J, \leq)$ be a directed poset and $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of sets. Then 
+	$$\varprojlim\limits_{j \in J} X_j = \bigcap\limits_{(j,k) \in {\leq}} \Eq(\pi_{j,k} \circ \prj_k, \prj_j)$$
+\end{ex}
+
+\begin{proof}
+	Set $X \defeq $. By definition, 
+	\begin{align*}
+		\varprojlim\limits_{j \in J}
+		& = \bigcap\limits_{(j,k) \in {\leq}} \{x \in X: \pi_{j,k} \circ \prj_k(x) = \prj_j(x)\} \\
+		& = \bigcap\limits_{(j,k) \in {\leq}} \Eq( \pi_{j,k} \circ \prj_k,  \prj_j).
+	\end{align*}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
 	\chapter{Real and Complex Numbers}
 	
 	\section{Real Numbers}
@@ -703,7 +1004,7 @@
 				0 \cdot (\pm\infty) = \pm\infty \cdot 0 & = 0
 			\end{align*}
 			\item We define $\leq_{\ol{\R}} \subset \ol{\R} \times \ol{\R}$ by 
-			$$\leq_{\ol{\R}} \, = \, \leq_{\R} \cup \, \{(a,b) \in \ol{\R} \times \ol{\R}: a = - \infty \text{ or } b = \infty\}$$
+			$${\leq_{\ol{\R}}}  =  {\leq_{\R}} \cup  \{(a,b) \in \ol{\R} \times \ol{\R}: a = - \infty \text{ or } b = \infty\}$$
 		\end{itemize}
 	\end{defn}
 	
@@ -995,21 +1296,21 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	\end{note}
 	
 	\begin{defn} \ld{31013}
-	Let $X$ be a topological space and $A \subset X$. We define
+	Let $(X, \MT)$ be a topological space and $A \subset X$. We define
 	\begin{itemize}
-		\item the \tbf{collection of open subsets of $A$}, denoted $\MU_A$, by 
-		$$\MU_{A} \defeq \{U \subset X:U \subset A \text{ and $U$ is open}\},$$ 
-		\item the \tbf{collection of closed supersets of $A$}, denoted $\MC_A$, by 
-		$$\MC_{A} \defeq \{C \subset X: A \subset C \text{ and $C$ is closed}\},$$ 
+		\item the \tbf{collection of open subsets of $A$}, denoted $\MU_A(X, \MT)$, by 
+		$$\MU_{A}(X, \MT) \defeq \{U \subset X:U \subset A \text{ and $U$ is open}\},$$ 
+		\item the \tbf{collection of closed supersets of $A$}, denoted $\MC_A(X, \MT)$, by 
+		$$\MC_{A}(X, \MT) \defeq \{C \subset X: A \subset C \text{ and $C$ is closed}\},$$ 
 		the \tbf{interior of A}, denoted $\Int A$, by 
-		$$\Int A = \bigcup_{U \in \MU_{A}} U$$ 
+		$$\Int A = \bigcup_{U \in \MU_{A}(X, \MT)} U$$ 
 		the \tbf{closure of A}, denoted $\cl A$, by 
-		$$\cl A = \bigcap_{C \in \MC_{A}} C$$ 
+		$$\cl A = \bigcap_{C \in \MC_{A}(X, \MT)} C$$ 
 	\end{itemize}
 	\end{defn}
 
 	\begin{note}
-		For intuition, $\Int A$ is the largest open subset of $A$ and $\cl A$ is the smallest closed superset of $A$. 
+		When the context is clear, we write $\MU_A$ and $\MC_A$ in place of $\MU_A(X, \MT)$ and $\MC_A(X, \MT)$. For intuition, $\Int A$ is the largest open subset of $A$ and $\cl A$ is the smallest closed superset of $A$. 
 	\end{note}
 	
 	\begin{defn} \ld{31014}
@@ -1678,15 +1979,11 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 \newpage
 \section{Nets}	
 
-	\begin{defn} \ld{def:nets:0001}
-	Let $A$ be a set and $\leq \subset A \times A$ a binary relation on $A$. Then $(A, \leq)$ is said to be a \tbf{directed set} if , 
-	\begin{enumerate}
-	\item for each $\al \in A$, $\al \leq \al$
-	\item for each $\al, \be, \gam \in A$, $\al \leq \be$ and $\be \leq \gam$ implies that $\al \leq \gam$
-	\item for each $\al, \be \in A$, there exists $\gam \in A$ such that $\al, \be \leq \gam$
-	\item $A \neq \varnothing$
-	\end{enumerate}
-	\end{defn}
+\subsection{Common Directed Sets}
+
+	\begin{note}
+		We recall the definition of a directed set from \rd{def:set_theory:relations:orderings:0001}.
+	\end{note}
 	
 	\begin{defn} \ld{def:nets:0002}
 	Let $X$ be a set. Define the \tbf{reverse inclusion ordering} on $\MN(x)$, denoted $\leq$, by $U \leq V$ iff $V \subset U$. 
@@ -1763,13 +2060,35 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 		So $(A \times B, \leq)$ is directed.
 	\end{proof}
 	
-	\begin{defn} \ld{def:nets:0008}
-	Let $X$ be a topological space, $A$ a directed set and $x:A \rightarrow Y$. Then $x$ is said to be a \tbf{net} in $X$. We typically write $(x_{\al})_{\al \in A}$. 
-	\end{defn}
-
-	\begin{defn} \ld{def:nets:0008.1}
-		Let $X$ be a set, $A$ a directed set and $\al_0 \in A$. We define the \tbf{$\al_0$-tail operator}, denoted $L_{\al_0}: X^{A} \rightarrow X^{[\al_0, \infty)}$, by $L(x) \defeq x|_{[\al_0, \infty)}$, i.e. $L_{\al_0}((x_{\al})_{\al \in A}) \defeq (x_{\al})_{\al \in [\al_0, \infty)}$.
-	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Nets in Topological Spaces}
+	
+	\tcr{maybe move the basic definition of net to the set theory section and also introduce sequences there}
 	
 	\begin{defn} \ld{def:nets:0009}
 	Let $X$ be a topological space, $(x_{\al})_{\al \in A} \subset X$ a net and $U \subset X$.
@@ -1962,18 +2281,9 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\begin{defn} \ld{def:nets:0024}
 		Let $X$ be a topological space, $(x_{\al})_{\al \in A} \subset X$ a net and $x \in X$. Then $x$ is said to be a \tbf{cluster point} or \tbf{accumulation point} of $(x_{\al})_{\al \in A}$ if for each $U \in \MN(x)$, $(x_{\al})_{\al \in A}$ is frequently in $U$.
 	\end{defn}
-	
-	\begin{defn} \ld{ex:nets:0025}
-	Let $X$ be a topological space, $(x_{\al})_{\al \in A}$, $(y_{\be})_{\be \in B} \subset X$ nets and $\phi:B \rightarrow A$. 
-	Then $((y_{\be})_{\be \in B}, \phi)$ is said to be a \tbf{subnet of $(x_{\al})_{\al \in A}$} if 
-	\begin{enumerate}
-		\item for each $\beta \in B$, $y_{\beta} = x_{\phi(\beta)}$
-		\item for each $\al_0 \in A$, there exists $\be_0 \in B$ such that for each $\be \in B$, $\be \geq \be_0$ implies that $\phi(\be) \geq \al_0$
-	\end{enumerate}
-	\end{defn}
-	
+
 	\begin{note}
-		We usually supress $\phi$ and write $\al_{\be}$ in place of ${\phi(\beta)}$.
+		We recall the definition of a subnet from \rd{def:set_theory:nets:0003}
 	\end{note}
 	
 	\begin{ex} \lex{ex:nets:0026}
@@ -2374,6 +2684,26 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	Since $E \in \MT \cap A$ is arbitrary, we have that for each $E \in \MT \cap A$, there exists $\MU \subset \MB \cap A$ such that $E = \bigcup\limits_{U \in \MU} U $. Hence $\MB \cap A$ is a basis for $\MT \cap A$ on $A$.
 \end{proof}
 
+\begin{ex} \lex{ex:topology:subspaces:0009.1}
+	Let $(X, \MT)$, $(Y, \MS)$ be topological spaces and $f:X \rightarrow Y$. If $f$ is $(\MT, \MS)$-open, then for each $U \in \MT$, $f|_U$ is $(\MT \cap U, \MS)$-open.
+\end{ex}
+
+\begin{proof}
+	Suppose that $f$ is $(\MT, \MS)$-open. Let $U \in \MT$ and $V \in \MT \cap U$. Since $U \in \MT$, 
+	\begin{align*}
+		V
+		& \in \MT \cap U \\
+		& \subset \MT. 
+	\end{align*}
+	Since $f$ is $(\MT, \MS)$-open and $V \subset U$, we have that 
+	\begin{align*}
+		f|_U(V)
+		& = f(V) \\
+		& \in \MS.
+	\end{align*}
+	Since $V \in \MT \cap U$ is arbitrary, we have that for each $V \in \MT \cap U$, $f|_U(V) \in \MS$. Thus $f|_U$ is $(\MT \cap U, \MS)$. Since $U \in \MT$ is arbitrary, we have that for each $U \in \MT$, $f|_U$ is $(\MT \cap U, \MS)$. 
+\end{proof}
+
 \begin{ex} \lex{ex:topology:subspaces:0010}
 	Let $(X, \MT)$, $(Y, \MS)$ be topological spaces and $f:X \rightarrow Y$. Then $f$ is $(\MT, \MS)$-open iff for each $x \in X$, there exists $U \in \MT$ such that $x \in U$ and $f|_U$ is $(\MT \cap U, \MS)$-open.
 \end{ex}
@@ -2393,6 +2723,38 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\end{align*}
 		Since $V \in \MT$ is arbitrary, we have that for each $V \in \MT$, $f(V) \in \MS$. Hence $f$ is open.
 	\end{itemize}
+\end{proof}
+
+\begin{ex} \lex{ex:topology:subspaces:0010.01}
+	Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $f:X \rightarrow Y$ and $E \subset X$. Suppose that $f$ is $(\MT_X, \MT_Y)$-closed. If $E$ is closed in $(X, \MT_Y)$, then $f|_E$ is $(\MT_X \cap E, \MT_Y)$-closed.
+\end{ex}
+
+\begin{proof}
+	Suppose that $E$ is closed in $(X, \MT_Y)$. Let $F \subset E$. Suppose that $F$ is closed in $(E, \MT_X \cap E)$. \rex{ex:topology:subspaces:0007} implies that there exists $C \subset X$ such that $C$ is closed in $(X, \MT_X)$ and $F = C \cap E$. Since $C, E$ are closed in $(X, \MT_X)$, $F$ is closed in $(X, \MT_X)$. Since $f$ is closed, $f(F)$ is closed in $(Y, \MT_Y)$. Since $f|_E(F) = f(F)$, we have that $f|_E(F)$ is closed in $(Y, \MT_Y)$. Since $F \subset E$ with $F$ closed in $(E, \MT_X \cap E)$ is arbitrary, we have that for each $F \subset E$, $F$ is closed in $(E, \MT_X \cap E)$ implies that $f|_E(F)$ is closed in $(Y, \MT_Y)$. Hence $f|_E$ is $(\MT_X \cap E, \MT_Y)$-closed.
+\end{proof}
+
+\begin{ex} \lex{ex:topology:subspaces:0010.1}
+	Let $(X, \MT_X), (A, \MT_A)$ be topological spaces. Suppose that $A \subset X$. If $\iota_A$ is a $(\MT_A, \MT_X \cap A)$-homeomorphism, then $\MT_A = \MT_X \cap A$. 
+\end{ex}
+
+\begin{proof} Suppose that $\iota_A$ is a $(\MT_A, \MT_X \cap A)$-homeomorphism.
+	\begin{itemize}
+		\item Let $U \in \MT_A$. Since $\iota_A(U) = U$ and $\iota_A$ is $(\MT_A, \MT_X \cap A)$-open, we have that 
+		\begin{align*}
+			U 
+			& = \iota_A(U) \\
+			& \in \MT_X \cap A.
+		\end{align*}
+		Since $U \in \MT_A$ is arbitrary, we have that $\MT_A \subset \MT_X \cap A$.  
+		\item Let $U \in \MT_X \cap A$. Since $\iota_A$ is $(\MT_A, \MT_X \cap A)$-continuous and $U \subset A$, we have that we have that 
+		\begin{align*}
+			U
+			& = \iota_A^{-1}(U) \\
+			& \in \MT_A.
+		\end{align*}
+		Since $U \in \MT_X \cap A$ is arbitrary, we have that  $\MT_X \cap A \subset \MT_A$. 
+	\end{itemize}
+	Hence $\MT_A = \MT_X \cap A$. 
 \end{proof}
 
 
@@ -2706,7 +3068,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{ex}
 
 	\begin{proof}
-		Immediate by a previous exercise about the initial topology.
+		Immediate by a \rex{ex:continuous_maps:0009}.
 	\end{proof}
 	
 	\begin{ex} \lex{ex:product_topology:0010}
@@ -2762,8 +3124,19 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\tcb{Another application of the exercise} implies that $\pi^Y_{\al} \circ \bigg[ \prod\limits_{\al \in A}f_{\al} \bigg] (x_{\gam}) \rightarrow \pi^Y_{\al} \circ \bigg[ \prod\limits_{\al \in A}f_{\al} \bigg] (x) $ in $(Y_{\al}, \MS_{\al})$. Since $(x_{\gam})_{\gam \in \Gam} \subset \prod\limits_{\al \in A} U_{\al}$ and $x \in \prod\limits_{\al \in A}$ with $x_{\gam} \rightarrow x$ in $\bigg( \prod\limits_{\al \in A} U_{\al} , \bigg[ \bigotimes\limits_{\al \in A} \MT_{\al} \bigg] \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg] \bigg)$ is arbitary, we have that $\prod\limits_{\al \in A}f_{\al}$ is $\bigg( \bigg[ \bigotimes\limits_{\al \in A} T_{\al} \bigg]  \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg], \bigotimes\limits_{\al \in A} S_{\al} \bigg)$-continuous. \tcb{Another application of the exercise} implies that $\prod\limits_{\al \in A}f_{\al}$ is $\bigg( \bigg[ \bigotimes\limits_{\al \in A} T_{\al} \bigg]  \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg], \bigg[ \bigotimes\limits_{\al \in A} S_{\al} \bigg] \cap \bigg[ \prod\limits_{\al \in A} V_{\al} \bigg] \bigg)$-continuous.
 	\end{proof}
 
+	\begin{ex} \lex{ex:product_topology:0012.1}
+		Let $(X, \MT_X)$ be a topological space, $(Y_{\al}, \MT_{Y_{\al}})_{\al \in A}$ a collection of topological spaces, $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^X$. If for each $\al \in A$, $f_{\al}$ is $(\MT_X, \MT_{Y_{\al}})$-continuous, then $(f_{\al})_{\al \in A}$ is $(\MT_X, \bigotimes\limits_{\al \in A} \MT_{Y_{\al}})$-continuous.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that for each $\al \in A$, $f_{\al}$ is $(\MT_X, \MT_{Y_{\al}})$-continuous. Set $f \defeq (f_{\al})_{\al \in A}$. Since for each $\al \in A$, $\pi_{\al} \circ f = f_{\al}$, \rex{ex:product_topology:0007} implies that $f$ is $(\MT_X, \bigotimes\limits_{\al \in A} \MT_{Y_{\al}})$-continuous.
+	\end{proof}
+
+
+
+
 	\begin{defn}
-		\tcr{define slice maps and then define the below sets in terms of them.}
+		\tcr{define slice maps and then define the below sets in terms of them in the set theory section.}
 	\end{defn}
 	
 	\begin{ex} \lex{ex:product_topology:0013}
@@ -2949,7 +3322,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 
 	\begin{note}
-		Let $\Gam$ be a directed set and $\gam_0 \in \Gam$. From \rd{def:nets:0008.1}, we recall the $\gam_0$-tail operator $L_{\gam_0}: X^{\Gam} \rightarrow X^{[\gam_0, \infty)}$. 
+		Let $\Gam$ be a directed set and $\gam_0 \in \Gam$. From \rd{def:set_theory:nets:0002}, we recall the $\gam_0$-tail operator $L_{\gam_0}: X^{\Gam} \rightarrow X^{[\gam_0, \infty)}$. 
 	\end{note}
 
 	\begin{ex} \lex{ex:topology:coproducts:0003.3}
@@ -3092,11 +3465,13 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\newpage
 	\section{Quotient Topology}
 	
+	\subsection{Introduction}
+	
 	\begin{defn} \ld{def:quotient_topology:0001}
-	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Then $f$ is said to be an \tbf{$(\MA , \MB)$ quotient map} if 
+	Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces and $f:X \rightarrow Y$. Then $f$ is said to be an \tbf{$(\MT_X , \MT_Y)$-quotient map} if 
 	\begin{enumerate}
 	\item $f$ is surjective
-	\item $\MB = f_*\MA$
+	\item $\MT_Y = f_*\MT_X$
 	\end{enumerate}
 	\end{defn}
 	
@@ -3105,12 +3480,12 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{note}
 
 	\begin{ex} \lex{ex:quotient_topology:0002}
-		Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is surjective. Then 
+		Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is surjective. Then 
 		\begin{enumerate}
 			\item $f$ is a quotient map iff 
-			$$ \text{for each $V \subset Y$, $V$ is open iff $f^{-1}(V)$ is open} $$
+			$$ \text{for each $V \subset Y$, $V \in \MT_Y$ iff $f^{-1}(V) \in \MT_X$} $$
 			\item $f$ is a quotient map iff 
-			$$ \text{for each $C \subset Y$, $C$ is closed iff $f^{-1}(C)$ is closed} $$
+			$$ \text{for each $C \subset Y$, $C$ is closed in $Y$ iff $f^{-1}(C)$ is closed in $X$} $$
 		\end{enumerate}
 	\end{ex}
 	
@@ -3123,25 +3498,25 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 				Let $V \subset Y$. Suppose that $V$ is open, then 
 				\begin{align*}
 					V 
-					& \in \MB \\
-					& = f_*\MA \\
-					& = \{V' \subset Y: f^{-1}(V') \in \MA \}
+					& \in \MT_Y \\
+					& = f_*\MT_X \\
+					& = \{V' \subset Y: f^{-1}(V') \in \MT_X \}
 				\end{align*} 
-				Thus $f^{-1}(V) \in \MA$. Hence $f^{-1}(V)$ is open. \\
-				Conversely, suppose that $f^{-1}(V)$ is open. Then $f^{-1}(V) \in \MA$. Since
+				Thus $f^{-1}(V) \in \MT_X$. Hence $f^{-1}(V)$ is open. \\
+				Conversely, suppose that $f^{-1}(V)$ is open. Then $f^{-1}(V) \in \MT_X$. Since
 				\begin{align*}
-					\MB 
-					& = f_*\MA \\
-					& = \{V' \subset Y: f^{-1}(V') \in \MA \},
+					\MT_Y 
+					& = f_*\MT_X \\
+					& = \{V' \subset Y: f^{-1}(V') \in \MT_X \},
 				\end{align*}
-				we have that $V \in \MB$. Hence $V$ is open. \\ 
+				we have that $V \in \MT_Y$. Hence $V$ is open. \\ 
 				Thus $V$ is open iff $f^{-1}(V)$ is open. Since $V \subset Y$ is arbitrary, we have that for each $V \subset Y$, $V$ is open iff $f^{-1}(V)$ is open.
 				\item ($\impliedby$) \\
 				Suppose that for each $V \subset Y$, $V$ is open iff $f^{-1}(V)$ is open. Then 
 				\begin{align*}
-					\MB
-					& = \{V \subset Y: f^{-1}(V) \in \MA \} \\
-					& = f_* \MA
+					\MT_Y
+					& = \{V \subset Y: f^{-1}(V) \in \MT_X \} \\
+					& = f_* \MT_X
 				\end{align*}
 				So $f$ is a quotient map.
 			\end{itemize}
@@ -3149,20 +3524,20 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 			\begin{itemize}
 				\item ($\implies$) \\
 				Suppose that $f$ is a quotient map.\\
-				Let $C \subset Y$. Suppose that $C$ is closed, then $C^c \in \MB$. Continuity implies that
+				Let $C \subset Y$. Suppose that $C$ is closed, then $C^c \in \MT_Y$. Continuity implies that
 				\begin{align*}
 					f^{-1}(C)^c 
 					& = f^{-1}(C^c) \\
-					& \in \MA 
+					& \in \MT_X 
 				\end{align*}
 				Thus $f^{-1}(C)$ is closed. \\
 				Conversely, suppose that $f^{-1}(C)$ is closed. Then 
 				\begin{align*}
 					f^{-1}(C^c) 
 					& = f^{-1}(C)^c \\
-					& \in \MA 
+					& \in \MT_X 
 				\end{align*}
-				Since $f$ is a quotient map, $C^c \in \MB$. Hence $C$ is closed. \\
+				Since $f$ is a quotient map, $C^c \in \MT_Y$. Hence $C$ is closed. \\
 				Thus $C$ is closed iff $f^{-1}(C)$ is closed. Since $C \subset Y$ is arbitrary, we have that for each $C \subset Y$, $C$ is closed iff $f^{-1}(C)$ is closed.
 				\item ($\impliedby$) \\
 				Suppose that for each $C \subset Y$, $C$ is closed iff $f^{-1}(C)$ is closed. \\
@@ -3170,7 +3545,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 				\begin{align*}
 					f^{-1}(V)
 					& = f^{-1}(V^c)^c \\
-					& \in \MA. 
+					& \in \MT_X. 
 				\end{align*}
 				Thus $f^{-1}(V)$ is open. \\
 				Conversely, suppose that $f^{-1}(V)$ is open. Then $f^{-1}(V)^c$ is closed. Since $f^{-1}(V^c) = f^{-1}(V)^c$, we have that $f^{-1}(V^c)$ is closed. By assumption, $V^c$ is closed. Thus $V$ is open. \\
@@ -3180,7 +3555,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 	
 	\begin{ex} \lex{ex:quotient_topology:0003}
-	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. If $f$ is a quotient map, then $f$ is continuous.
+	Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces and $f:X \rightarrow Y$. If $f$ is a quotient map, then $f$ is continuous.
 	\end{ex}
 	
 	\begin{proof}
@@ -3188,15 +3563,15 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 
 	\begin{ex} \lex{ex:quotient_topology:0004}
-		Let $(X, \MA)$, $(Y, \MB), (Z, \MC)$ be topological spaces, $f:X \rightarrow Y$ and $g: Y \rightarrow Z$. If $f$ is a quotient map, then $g$ is continuous iff $g \circ f$ is continuous.
+		Let $(X, \MT_X)$, $(Y, \MT_Y), (Z, \MC)$ be topological spaces, $f:X \rightarrow Y$ and $g: Y \rightarrow Z$. If $f$ is a quotient map, then $g$ is continuous iff $g \circ f$ is continuous.
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that $f$ is a quotient map. Then $\MB = f_* \MA$. \tcb{An exercise in the section on continuous maps} implies that $g$ is continuous iff $g \circ f$ is continuous.
+		Suppose that $f$ is a quotient map. Then $\MT_Y = f_* \MT_X$. \tcb{An exercise in the section on continuous maps} implies that $g$ is continuous iff $g \circ f$ is continuous.
 	\end{proof}
 
 	\begin{ex} \lex{ex:quotient_topology:0005}
-		Let $(X, \MA)$, $(Y_1, \MB_1)$, $(Y_2, \MB_2)$ be topological spaces, $f_1:X \rightarrow Y_1$, $f_2:X \rightarrow Y_2$ and $\phi: Y_1 \rightarrow Y_2$. Suppose that $f_1$ and $f_2$ are quotient maps and $\phi$ is a bijection. If $\phi \circ f_1 = f_2$, then $\phi$ is a homeomorphism. 
+		Let $(X, \MT_X)$, $(Y_1, \MT_{Y_1})$, $(Y_2, \MT_{Y_2})$ be topological spaces, $f_1:X \rightarrow Y_1$, $f_2:X \rightarrow Y_2$ and $\phi: Y_1 \rightarrow Y_2$. Suppose that $f_1$ and $f_2$ are quotient maps and $\phi$ is a bijection. If $\phi \circ f_1 = f_2$, then $\phi$ is a homeomorphism. 
 	\end{ex}
 	
 	\begin{proof}
@@ -3212,20 +3587,20 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 	
 	\begin{ex} \lex{ex:quotient_topology:0007}
-	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is continuous and surjective. If $f$ is open or $f$ is closed, then $f$ is a quotient map. 
+	Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is $(\MT_X, \MT_Y)$-continuous and surjective. If $f$ is $(\MT_X, \MT_Y)$-open or $f$ is $(\MT_X, \MT_Y)$-closed, then $f$ is a $(\MT_X, \MT_Y)$-quotient map. 
 	\end{ex}
 	
 	\begin{proof}\
 	\begin{itemize}	
-	\item Suppose that $f$ is open. Let $V \subset Y$. \\
-	Suppose that $V$ is open. Then continuity implies that $f^{-1}(V)$ is open. Conversely, suppose that $f^{-1}(V)$ is open. Since $f$ is open $f(f^{-1}(V))$ is open. Surjectivity implies that $V = f(f^{-1}(V))$. So $V$ is open. By definition, $f$ is a quotient map.\\
+	\item Suppose that $f$ is $(\MT_X, \MT_Y)$-open. Let $V \subset Y$. \\
+	Suppose that $V \in \MT_Y$. Continuity implies that $f^{-1}(V) \in \MT_X$. Conversely, suppose that $f^{-1}(V) \in \MT_X$. Since $f$ is open $f(f^{-1}(V)) \in \MT_Y$. Surjectivity implies that $V = f(f^{-1}(V))$. So $V \in \MT_Y$. \rex{ex:quotient_topology:0002} then implies that $f$ is a quotient map.\\
 	\item   
 	Suppose that $f$ is closed. Then similarly to above, $f$ is a quotient map.
 	\end{itemize}
 	\end{proof}
 	
 	\begin{ex} \lex{ex:quotient_topology:0008}
-	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is a quotient map. Then 
+	Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces and $f:X \rightarrow Y$. Suppose that $f$ is a quotient map. Then 
 	\begin{enumerate}
 		\item $f$ is open iff 
 		$$\text{for each $U \subset X$, $U$ is open implies that $f^{-1}(f(U))$ is open} $$
@@ -3257,18 +3632,6 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{ex:quotient_topology:0009}
-	Let $(X, \MA)$, $(Y, \MB)$ be topological spaces, and $f:X \rightarrow Y$. Suppose that $f$ is surjective and continuous. If $f$ is open or closed, then $f$ is a quotient map.
-	\end{ex}
-	
-	\begin{proof}
-	By continuity, $\MB \subset f_*\MA$. 
-	\begin{itemize}
-	\item Suppose that $f$ is open. Let $V \in f_*\MA$. By definiiton, $f^{-1}(V) \in \MA$. Since $f$ is open, $f(f^{-1}(V)) \in \MB$. Surjectivity implies that $V = f(f^{-1}(V))$. So $f_*\MA = \MB$ and $f$ is a $(\MA$, $\MB)$ quotient map.
-	\item The case is similar if $f$ is closed.
-	\end{itemize}
-	\end{proof}
-	
 	\begin{ex} \lex{ex:quotient_topology:0010}
 	Let $(X, \MT)$ be a topological space, $Y$ a set and $f:X \rightarrow Y$. Suppose that $f$ is surjective. Then $f: X \rightarrow Y$ is a $(\MT, f_*\MT)$ quotient map. 
 	\end{ex}
@@ -3289,53 +3652,6 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\begin{defn} \ld{def:quotient_topology:0012}
 		Let $(X, \MT)$ be a topological space, $\sim$ an eqivalence relation on $X$ and $\pi:X \rightarrow X/\sim$ the projection map given by $x \mapsto \bar{x}$. We define the \tbf{quotient topology on $X / \sim$} on $X/ \sim$, denoted $\MT_{X/ \sim}$, by $$\MT_{X/ \sim} = \pi_{*}\MT$$
 	\end{defn}
-
-	\begin{ex} \lex{ex:quotient_topology:0013}
-		Let $(X, \MT)$, $(Y, \MB)$ be topological spaces, $\sim$ an eqivalence relation on $X$, $\pi:X \rightarrow X/\sim$ the projection map and $f:X \rightarrow Y$. Suppose $f$ is a quotient map. If for each $a, b \in X$, $a \sim b$ iff $f(a) = f(b)$, then there exists $\bar{f}: X/{\sim} \rightarrow Y$ such that $\bar{f}$ is a  $(\MT_{X/{\sim}}, \MB)$-homeomorphism and $\bar{f} \circ \pi = f$.
-	\end{ex}
-
-	\begin{proof}
-		Suppose that for each $a, b \in X$, $a \sim b$ iff $f(a) = f(b)$. Define $\bar{f}: {X / \sim } \rightarrow Y$ by $\bar{f}(\bar{x}) = f(x)$. Let $\bar{a}, \bar{b} \in X/ \sim$. Suppose that $\bar{a} = \bar{b}$. Then $a \sim b$. Hence 
-		\begin{align*}
-			\bar{f}(\bar{a})
-			& = f(a) \\
-			& = f(b) \\
-			& = \bar{f}(\bar{b})
-		\end{align*}
-		Since $\bar{a}, \bar{b} \in X/ \sim$ are arbitrary, $\bar{f}$ is well defined. Let $y \in Y$. Since $f$ is a quotient map, $f$ is surjective. Therefore there exists $x \in X$ such that $f(x) = y$. Thus 
-		\begin{align*}
-			\bar{f}(\bar{x}) 
-			& = f(x) \\
-			& = y 
-		\end{align*}
-		Since $y \in Y$ is arbitrary, $\bar{f}$ is surjective. Let $\bar{a}, \bar{b} \in X/\sim$. Suppose that $\bar{f}(\bar{a}) = \bar{f}(\bar{b})$. Then 
-		\begin{align*}
-			f(a)
-			& = \bar{f}(\bar{a}) \\
-			& = \bar{f}(\bar{b}) \\
-			& = f(b)
-		\end{align*}
-		By assumption, $a \sim b$. Hence $\bar{a} = \bar{b}$. Since $\bar{a}, \bar{b} \in X/\sim$ are arbitrary, $\bar{f}$ is injective. Therefore, $\bar{f}$ is a bijection. By construction $\bar{f} \circ \pi = f$. A previous exercise implies that $\bar{f}$ is a homeomorphism.
-	\end{proof}
-
-	\begin{defn} \ld{def:quotient_topology:0013.1}
-		Let $(X, \MT)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. We define the relation $\sim_f \subset X \times X$ by $x \sim_f y$ iff $f(x) = f(y)$. 
-	\end{defn}
-
-	\begin{ex} \lex{ex:quotient_topology:0013.2}
-		Let $(X, \MT)$, $(Y, \MB)$ be topological spaces and $f:X \rightarrow Y$. Then 
-		\begin{enumerate}
-			\item $\sim_f$ is an equivlance relation on $X$,
-			\item if $f$ is a quotient map, then there exists $\bar{f}: X/{\sim_f} \rightarrow Y$ such that $\bar{f}$ is a  $(\MT_{X/{\sim_f}}, \MB)$-homeomorphism and $\bar{f} \circ \pi = f$. 
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof} \
-		\begin{enumerate}
-			\item Clear.
-			\item Suppose that $f$ is a quotient map. \rex{ex:quotient_topology:0013} implies that then there exists $\bar{f}: X/{\sim_f} \rightarrow Y$ such that $\bar{f}$ is a  $(\MT_{X/{\sim_f}}, \MB)$-homeomorphism and $\bar{f} \circ \pi = f$. 
-		\end{enumerate}
-	\end{proof}
 	
 	\begin{defn} \ld{def:quotient_topology:0014}
 		Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $\sim_X$ an equivalence relation on $X$, $\sim_Y$ and equivalence relation on $Y$ and $f : X \rightarrow Y $. Then $f$ is said to be \tbf{$(\sim_X, \sim_Y)$-invariant} if for each $x, y \in X$, $x \sim_X y$ implies that $f(x) \sim_Y f(y)$.
@@ -3370,9 +3686,23 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\[ 
 		\begin{tikzcd}
 			X  \arrow[r, "f"]  \arrow[d, "\pi_X"']  & Y   \arrow[d, "\pi_Y"]\\
-			X/ {\sim_X} \arrow[r, "\bar{f}"'] &  Y / {\sim_Y} \\
+			X/ {\sim_X} \arrow[r, "g"'] &  Y / {\sim_Y} \\
 		\end{tikzcd}
 		\]
+		Then 
+		\begin{align*}
+			g \circ \pi_X 
+			& = \pi_Y \circ f \\
+			& = \bar{f} \circ \pi_X 
+		\end{align*}
+		i.e. the following diagram commites:
+		\[ 
+		\begin{tikzcd}
+			X  \arrow[r, "\pi_X"]  \arrow[d, "\pi_X"']  & Y   \arrow[d, "\bar{f}"]\\
+			X/ {\sim_X} \arrow[r, "g"'] &  Y / {\sim_Y} \\
+		\end{tikzcd}
+		\]
+		Since $\pi_X$ is surjective, \rex{ex:set_theory:bijections:0003} implies that $\bar{f} = g$. 
 		\item  \tbf{Continuity:} \\
 		Let $V \in \MT_{Y/ \sim_Y}$. Continuity of $f$ and $\pi_Y$ implies that 
 		\begin{align*}
@@ -3391,7 +3721,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{defn}
 
 	\begin{ex} \lex{ex:quotient_topology:0015.2}
-		Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $\sim$ an eqivalence relations on $X$, $\pi:X \rightarrow X/ {\sim}$ the projection map and $f:X \rightarrow Y$ continuous. If $f$ is $\sim$-invariant, then there exists a unique $\bar{f}:X / {\sim} \rightarrow Y$ such that $\bar{f}$ is continuous and $\bar{f} \circ \pi = f$, i.e. the following diagram commutes:
+		Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, ${\sim} \subset X \times X$ an eqivalence relation on $X$, $\pi:X \rightarrow X/ {\sim}$ the projection map and $f:X \rightarrow Y$ continuous. If $f$ is $\sim$-invariant, then there exists a unique $\bar{f}:X / {\sim} \rightarrow Y$ such that $\bar{f}$ is continuous and $\bar{f} \circ \pi = f$, i.e. the following diagram commutes:
 		\[ 
 		\begin{tikzcd}
 			X  \arrow[dr, "f"]  \arrow[d, "\pi"']  & \\
@@ -3403,9 +3733,112 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 
 	\begin{proof}
 		Set $\sim_X \defeq {\sim}$ and $\sim_Y \defeq {=_Y}$ and use \rex{ex:quotient_topology:0015}.
-		
-		\tcr{FINISH!!!}
+		\tcr{add details}
 	\end{proof}
+
+	\begin{ex} \lex{ex:quotient_topology:0013}
+		Let $(X, \MT)$, $(Y, \MT_Y)$ be topological spaces, $\sim$ an eqivalence relation on $X$, $\pi:X \rightarrow X/\sim$ the projection map and $f:X \rightarrow Y$. Suppose $f$ is a quotient map. If for each $a, b \in X$, $a \sim b$ iff $f(a) = f(b)$, then there exists a unique $\bar{f}: X/{\sim} \rightarrow Y$ such that $\bar{f}$ is a  $(\MT_{X/{\sim}}, \MT_Y)$-homeomorphism and $\bar{f} \circ \pi = f$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that for each $a, b \in X$, $a \sim b$ iff $f(a) = f(b)$. Then $f$ is ${\sim}$-invariant. Since $f$ is a quotient map, $f$ is continuous. \rex{ex:quotient_topology:0015.2} implies that there exists a unique $\bar{f}: X/{\sim} \rightarrow Y$ such that $\bar{f}$ is continuous and $\bar{f} \circ \pi = f$. 
+		Let $y \in Y$. Since $f$ is a quotient map, $f$ is surjective. Therefore there exists $x \in X$ such that $f(x) = y$. Thus 
+		\begin{align*}
+			\bar{f}(\bar{x}) 
+			& = f(x) \\
+			& = y 
+		\end{align*}
+		Since $y \in Y$ is arbitrary, $\bar{f}$ is surjective. Let $\bar{a}, \bar{b} \in X/\sim$. Suppose that $\bar{f}(\bar{a}) = \bar{f}(\bar{b})$. Then 
+		\begin{align*}
+			f(a)
+			& = \bar{f}(\bar{a}) \\
+			& = \bar{f}(\bar{b}) \\
+			& = f(b)
+		\end{align*}
+		By assumption, $a \sim b$. Hence $\bar{a} = \bar{b}$. Since $\bar{a}, \bar{b} \in X/\sim$ are arbitrary, $\bar{f}$ is injective. Therefore, $\bar{f}$ is a bijection. \rex{ex:quotient_topology:0005} implies that $\bar{f}$ is a homeomorphism.
+	\end{proof}
+	
+	\begin{defn} \ld{def:quotient_topology:0013.1}
+		Let $(X, \MT)$, $(Y, \MT_Y)$ be topological spaces and $f:X \rightarrow Y$. We define the relation ${\sim_f} \subset X \times X$ by $x \sim_f y$ iff $f(x) = f(y)$. 
+	\end{defn}
+	
+	\begin{ex} \lex{ex:quotient_topology:0013.2}
+		Let $(X, \MT)$, $(Y, \MT_Y)$ be topological spaces and $f:X \rightarrow Y$. Then 
+		\begin{enumerate}
+			\item $\sim_f$ is an equivlance relation on $X$,
+			\item if $f$ is a quotient map, then there exists a unique $\bar{f}: X/{\sim_f} \rightarrow Y$ such that $\bar{f}$ is a  $(\MT_{X/{\sim_f}}, \MT_Y)$-homeomorphism and $\bar{f} \circ \pi = f$. 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} \
+		\begin{enumerate}
+			\item Clear.
+			\item Suppose that $f$ is a quotient map. \rex{ex:quotient_topology:0013} implies that then there exists a unique $\bar{f}: X/{\sim_f} \rightarrow Y$ such that $\bar{f}$ is a  $(\MT_{X/{\sim_f}}, \MT_Y)$-homeomorphism and $\bar{f} \circ \pi = f$. 
+		\end{enumerate}
+	\end{proof}
+
+
+
+	\begin{ex} \lex{ex:quotient_topology:0013.3}
+		Let $X$, $X_1$, $X_2$ be topological spaces and $f_1:X \rightarrow X_1$, $f_2:X \rightarrow X_2$ and $f_{1,2}:X_2 \rightarrow X_1$. Suppose that $f_1$ and $f_2$ are quotient maps. If $f_1 = f_{1,2} \circ f_2$, then there exists unique $\bar{f}_1:X/{\sim_{f_1}} \rightarrow X_1$, $\bar{f}_2:X/{\sim_{f_2}} \rightarrow X_2$, $\bar{f}_{1,2}: X/{\sim_{f_2}} \rightarrow X/{\sim_{f_1}}$ such that $\bar{f}_1$, $\bar{f}_2$ are homeomorphisms, $\bar{f}_{1,2}$ is continuous, $\bar{f}_1 \circ \pi_1  = f_1$, $\bar{f}_2 \circ \pi_2  = f_2$, $f_{1,2} \circ \bar{f}_1 = \bar{f}_2 \circ \bar{f}_{1,2}$, in which case the following diagram commutes:
+		\[ 
+		\begin{tikzcd}
+			X_1  \arrow[rr, "f_{1,2}"']   & & X_2   \\
+			X/ {\sim_{f_1}} \arrow[u, "\bar{f}_1"]   \arrow[rr, "\bar{f}_{1,2}"] & &  X / {\sim_{f_2}} \arrow[u, "\bar{f}_2"']  \\
+			& X   \arrow[ul, "\pi_1"] \arrow[ur, "\pi_2"'] \arrow[bend left=90]{luu}{f_1} \arrow[bend right=90, swap]{ruu}{f_2}  & 
+		\end{tikzcd}
+		\]
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item \tbf{Existence and Uniqueness of $\bar{f}_k$:} \\
+			Since $f_1,f_2$ are quotient maps, \rex{ex:quotient_topology:0013.2} implies that there exist unique $\bar{f}_1: X/{\sim_{f_1}} \rightarrow X_1$, $\bar{f}_2:X/{\sim_{f_2}} \rightarrow X_2$ such that $\bar{f}_1$, $\bar{f}_2$ are homeomorphisms, $\bar{f}_1 \circ \pi_1 = f_1$ and $\bar{f}_2 \circ \pi_2 = f_2$.
+			\item \tbf{Existence of $\bar{f}_{1,2}$:} \\
+			Define $\bar{f}_{1,2}:X/{\sim_{f_1}} \rightarrow X/{\sim_{f_1}}$ by $\bar{f}_{1,2} \defeq \bar{f}_2^{-1} \circ f_{1,2} \circ \bar{f}_1$. Since $\bar{f}_2^{-1}$, $f_{1,2}$, $\bar{f}_1$ are continuous, $\bar{f}_{1,2}$ is continuous. By construction,
+			\begin{align*}
+				\bar{f}_2 \circ \bar{f}_{1,2} 
+				& =  \bar{f}_2 \circ (\bar{f}_2^{-1} \circ f_{1,2} \circ \bar{f}_1) \\
+				& = (\bar{f}_2 \circ \bar{f}_2^{-1}) \circ (f_{1,2} \circ \bar{f}_1) \\
+				& = \id_{X_2} \circ (f_{1,2} \circ \bar{f}_1) \\
+				& = f_{1,2} \circ \bar{f}_1. 
+			\end{align*}
+			\item \tbf{Uniqueness of $\bar{f}_{1,2}$:} \\
+			Let $g_{1,2}: X/{\sim_{f_1}} \rightarrow X/{\sim_{f_2}}$. Suppose that $\bar{f}_2 \circ g_{1,2} = f_{1,2} \circ \bar{f}_1$. Then 
+			\begin{align*}
+				g_{1,2}
+				& = \bar{f}_2^{-1} \circ f_{1,2} \circ \bar{f}_1 \\
+				& = \bar{f}_{1,2}.
+			\end{align*}
+			Thus $\bar{f}_{1,2}$ is unique.
+		\end{itemize}
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\subsection{Category of Topological Spaces with Equivalence Relations}
 
 	\begin{defn} \ld{def:quotient_topology:0016} 
 		We define the category $\TopEq$ 
@@ -3476,11 +3909,17 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	
 	\begin{ex} \lex{ex:quotient_topology:0020} 
 		Let $G$ be a group, $X$ a topological space and $\phi: G \times X \rightarrow X$ a group action. Suppose that for each $g \in G$, the map $\phi_g \in \Sym(X)$ defined by $\phi_g(x) = g \cdot x$ is continuous. Then $\pi: X \rightarrow X / G$ is open. 
+		\tcr{move this before category theory stuff}
 	\end{ex}
 
 	\begin{proof}
 		Suppose that for each $g \in G$, $\phi_g$ is continuous. Let $g \in G$. Since $(\phi_g)^{-1} = \phi_{g^{-1}}$, $\phi_g$ is a homeomorphism. Hence for each $g \in G$ and $U \subset X$, $U$ is open iff $g \cdot U$ is open. Let $U \subset X$. Suppose that $U$ is open. Then $\pi^{-1}(\pi(U)) = \bigcup_{g \in G} g \cdot U$ is open. Since $\pi$ is a quotient map, \rex{ex:quotient_topology:0008} implies that $\pi$ is open.
 	\end{proof}
+
+
+
+
+
 
 	
 	
@@ -3576,9 +4015,9 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		Clear by definition and the previous exercise.
 	\end{proof}
 
-	\begin{defn} \ld{def:topology:separation:0004}
-		Let $X$ be a a topological space. We define the \tbf{diagonal of $X \times X$}, denoted $\Del_X \subset X \times X$, by $\Del_X \defeq \{(x,x):x \in X\}$.
-	\end{defn}
+	\begin{note}
+		Let $X$ be a set, we recall \rd{def:set_theory:products:00010} of $\Delta_X$ an $\Delta_{X^{\N}}$.
+	\end{note}
 	
 	\begin{ex} \lex{ex:topology:separation:0005}
 		Let $X$ be a topological space. Then the following are equivalent: 
@@ -3607,7 +4046,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 
 	\begin{ex} \lex{ex:topology:separation:0006}
-		Let $(X, \MT)$ be a topological space. Set $\Del_{X^{\N}} \defeq \{x \in X^{\N}: \text{ for each $m,n \in \N$, $\pi_m(x) = \pi_n(x)$}\}$. If $X$ is Hausdorff, then $\Del_{X^{\N}}$ is closed in $(X^{\N}, \MT^{\otimes \N})$.
+		Let $(X, \MT)$ be a topological space. If $X$ is Hausdorff, then $\Del_{X^{\N}}$ is closed in $(X^{\N}, \MT^{\otimes \N})$.
 	\end{ex}
 
 	\begin{proof}
@@ -3710,7 +4149,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 
 	\subsection{Separation and Subspaces}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:topology:separation:subspaces:0001}
 		Let $(X, \MT)$ be a topological space and $A \subset X$. If $(X, \MT)$ is $T_1$, then $(A, \MT \cap A)$ is $T_1$.
 	\end{ex}
 	
@@ -3718,7 +4157,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		Suppose that $(X, \MT)$ is $T_1$. Let $x \in A$. Since $(X, \MT)$ is $T_1$, $\{x\}$ is closed in $X$. Thus $\{x\} = \{x\} \cap A$ is closed in $(A, \MT \cap A)$. Since $x \in A$ is arbitrary, $(A, \MT \cap A)$ is $T_1$. 
 	\end{proof}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:topology:separation:subspaces:0002}
 		Let $(X, \MT)$ be a topological space and $A \subset X$. If $(X, \MT)$ is Hausdorff, then $(A, \MT \cap A)$ is Hausdorff.
 	\end{ex}
 	
@@ -3733,7 +4172,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		Since $x,y \in A$ are arbitary, $(A, \MT \cap A)$ is Hausdorff.
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:topology:separation:subspaces:0003}
 		Let $(X, \MT)$ be a topological space and $A \subset X$. If $(X, \MT)$ is regular, then $(A, \MT \cap A)$ is regular.
 	\end{ex}
 	
@@ -3780,7 +4219,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 
 	\subsection{Separation and Product Spaces}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:topology:separation:products:0001}
 		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Set $X = \prod\limits_{\al \in A} X_{\al}$ and denote the product topology on $X$ by $\MT_X$. If for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is $T_1$, then $(X, \MT_X)$ is $T_1$.
 	\end{ex}
 	
@@ -3788,12 +4227,12 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		Suppose that for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is $T_1$. Let $(x_{\al})_{\al \in A}, (y_{\al})_{\al \in A} \in X$. Suppose that $(x_{\al})_{\al \in A} \neq (y_{\al})_{\al \in A}$. Then there exists $\al_0 \in A$ such that $x_{\al_0} \neq y_{\al_0}$. Then there exists $U_{\al_0} \in \MT_{\al_0}$ such that $x_{\al_0} \in U_{\al_0}$ and $y_{\al_0} \not \in U_{\al_0}$. Set $U = \pi_{\al_0}^{-1}(U_{\al_0})$. Then $U \in \MT_X$, $(x_{\al})_{\al \in A} \in U$ and $(y_{\al})_{\al \in A} \not \in U$. Since $(x_{\al})_{\al \in A}, (y_{\al})_{\al \in A} \in X$ are arbitrary, $(X, \MT_X)$ is $T_1$.
 	\end{proof}
 	
-	\begin{ex}
-		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Set $X = \prod\limits_{\al \in A} X_{\al}$ and denote the product topology on $X$ by $\MT_X$. If for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is Hausdorff, then $(X, \MT_X)$ is Hausdorff.
+	\begin{ex} \lex{ex:topology:separation:products:0002}
+		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Set $X = \prod\limits_{\al \in A} X_{\al}$ and $\MT \defeq \bigotimes_{\al \in A} \MT_{\al}$. If for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is Hausdorff, then $(X, \MT)$ is Hausdorff.
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is Hausdorff. Let $(x_{\al})_{\al \in A}, (y_{\al})_{\al \in A} \in X$. Suppose that $(x_{\al})_{\al \in A} \neq (y_{\al})_{\al \in A}$. Then there exists $\al_0 \in A$ such that $x_{\al_0} \neq y_{\al_0}$. Then there exists $U_{\al_0}, V_{\al_0} \in \MT_{\al_0}$ such that $x_{\al_0} \in U_{\al_0}$, $y_{\al_0} \in V_{\al_0}$ and $U_{\al_0} \cap V_{\al_0} = \varnothing$. Set $U = \pi_{\al_0}^{-1}(U_{\al_0})$ and $V = \pi_{\al_0}^{-1}(V_{\al_0})$. Then $U, V \in \MT_X$, $(x_{\al})_{\al \in A} \in U$, $(y_{\al})_{\al \in A} \in V$ and 
+		Suppose that for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is Hausdorff. Let $(x_{\al})_{\al \in A}, (y_{\al})_{\al \in A} \in X$. Suppose that $(x_{\al})_{\al \in A} \neq (y_{\al})_{\al \in A}$. Then there exists $\al_0 \in A$ such that $x_{\al_0} \neq y_{\al_0}$. Then there exists $U_{\al_0}, V_{\al_0} \in \MT_{\al_0}$ such that $x_{\al_0} \in U_{\al_0}$, $y_{\al_0} \in V_{\al_0}$ and $U_{\al_0} \cap V_{\al_0} = \varnothing$. Set $U = \pi_{\al_0}^{-1}(U_{\al_0})$ and $V = \pi_{\al_0}^{-1}(V_{\al_0})$. Then $U, V \in \MT$, $(x_{\al})_{\al \in A} \in U$, $(y_{\al})_{\al \in A} \in V$ and 
 		\begin{align*}
 			U \cap V
 			& = \pi_{\al_0}^{-1}(U_{\al_0}) \cap \pi_{\al_0}^{-1}(V_{\al_0}) \\
@@ -3801,10 +4240,10 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 			& = \pi_{\al_0}^{-1}(\varnothing) \\
 			& = \varnothing
 		\end{align*}
-		Since $(x_{\al})_{\al \in A}, (y_{\al})_{\al \in A} \in X$ are arbitrary, $(X, \MT_X)$ is Hausdorff.
+		Since $(x_{\al})_{\al \in A}, (y_{\al})_{\al \in A} \in X$ are arbitrary, $(X, \MT)$ is Hausdorff.
 	\end{proof}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:topology:separation:products:0003}
 		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Set $X = \prod\limits_{\al \in A} X_{\al}$ and denote the product topology on $X$ by $\MT_X$. If for each $\al \in A$, $(X_{\al}, \MT_{\al})$ is regular, then $(X, \MT_X)$ is regular. 
 	\end{ex}
 
@@ -3839,12 +4278,12 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	
 	\subsection{Separation and Quotient Spaces}
 	
-	\begin{defn}
+	\begin{defn} \ld{def:topology:separation:quotients:0001}
 		Let $(X, \MT)$ be a topological space. Define $\sim_0 \subset X \times X$ by
-		$$\sim_0 \, = \{(x,y) \in X \times X: \text{for each $U \in \MT$, $x \in U$ iff $y \in U$}\}.$$
+		$${\sim_0}  = \{(x,y) \in X \times X: \text{for each $U \in \MT$, $x \in U$ iff $y \in U$}\}.$$
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:topology:separation:quotients:0002}
 		Let $(X, \MT)$ be a topological space. Then
 		\begin{enumerate}
 			\item $\sim_0$ is an equivalence relation on $X$,
@@ -3964,7 +4403,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:topology:separation:quotients:0003}
 		Let $X$ be a topological space and $\sim$ an equivalence relation on $X$. If $\pi: X \rightarrow X / \sim$ is open, then $X / \sim$ is Hausdorff iff $\sim$ is closed in $X \times X$.
 	\end{ex}
 	
@@ -3972,15 +4411,15 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		Suppose that $\pi:X \rightarrow X / \sim$ is open. 
 		\begin{itemize}
 			\item $(\implies)$: \\
-			Suppose that $X/\sim$ is Hausdorff. Let $(x_{\al}, y_{\al})_{\al \in A} \subset \, \sim$ be a net and $(x,y) \in X \times X$. Suppose that $x_{\al}, y_{\al} \rightarrow (x,y)$. Then $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$. Since $\pi:X \rightarrow X / \sim$ is continuous, $\pi(x_{\al}) \rightarrow \pi(x)$ and $\pi(y_{\al}) \rightarrow \pi(y)$. Since for each $\al \in A$, $x_{\al} \sim y_{\al}$, we have that 
+			Suppose that $X/\sim$ is Hausdorff. Let $(x_{\al}, y_{\al})_{\al \in A} \subset {\sim}$ be a net and $(x,y) \in X \times X$. Suppose that $x_{\al}, y_{\al} \rightarrow (x,y)$. Then $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$. Since $\pi:X \rightarrow X / \sim$ is continuous, $\pi(x_{\al}) \rightarrow \pi(x)$ and $\pi(y_{\al}) \rightarrow \pi(y)$. Since for each $\al \in A$, $x_{\al} \sim y_{\al}$, we have that 
 			\begin{align*}
 				\pi(x_{\al}) 
 				& = \pi(y_{\al})\\
 				& \rightarrow \pi(y)
 			\end{align*}
-			Since $X/ \sim$ is Hausdorff, $\pi(x) = \pi(y)$. Hence $x \sim y$ and $(x,y) \in \, \sim$. Thus $\sim$ is closed in $X \times X$.\\
+			Since $X/ \sim$ is Hausdorff, $\pi(x) = \pi(y)$. Hence $x \sim y$ and $(x,y) \in {\sim}$. Thus $\sim$ is closed in $X \times X$.\\
 			\item $(\impliedby)$: \\
-			Conversely, suppose that $\sim$ is closed in $X \times X$ is closed. Let $\bar{x}, \bar{y} \in X / \sim$. Suppose that $\bar{x} \neq \bar{y}$. Then $(x,y) \in \, \sim^c$. Recall that $\MB =\{A \times B: A,B \subset X \text{ and $A, B$ are open} \}$ is a basis for $X \times X$. Since  $\sim^c$ is open and $(x,y) \in \, \sim^c$, there exist $A,B \subset X$ such that $A,B$ are open and $(x,y) \in A \times B \subset \, \sim^c$. Thus $x \in A$ and $y \in B$. Since $\pi$ is open, $\pi(A) = \bar{A}$ and $\pi(B) = \bar{B}$ are open. Suppose for the sake of contradiction that $\pi(A) \cap \pi(B) \neq \varnothing$. Then there exists $z \in X$ such that $\bar{z} \in \pi(A) \cap \pi(B)$. Therefore there exist $z_A \in A$ and $z_B \in B$ such that $z_A \sim z \sim z_B$. Then $(z_A, z_B) \in A \times B$ and $(z_A, z_B) \in \, \sim$. This is a contradiction since $A \times B \subset \, \sim^c$. So $\pi(A) \cap \pi(B) = \varnothing$. Thus $\bar{x} \in \pi(A)$, $\bar{y} \in \pi(B)$, $\pi(A)$, $\pi(B)$ are open and $\pi(A) \cap \pi(B) = \varnothing$. Since $\bar{x}, \bar{y} \in X / \sim$ are arbitrary, $X / \sim$ is Hausdorff.
+			Conversely, suppose that $\sim$ is closed in $X \times X$ is closed. Let $\bar{x}, \bar{y} \in X / \sim$. Suppose that $\bar{x} \neq \bar{y}$. Then $(x,y) \in {\sim^c}$. Recall that $\MB =\{A \times B: A,B \subset X \text{ and $A, B$ are open} \}$ is a basis for $X \times X$. Since  ${\sim^c}$ is open and $(x,y) \in {\sim^c}$, there exist $A,B \subset X$ such that $A,B$ are open and $(x,y) \in A \times B \subset  {\sim^c}$. Thus $x \in A$ and $y \in B$. Since $\pi$ is open, $\pi(A) = \bar{A}$ and $\pi(B) = \bar{B}$ are open. Suppose for the sake of contradiction that $\pi(A) \cap \pi(B) \neq \varnothing$. Then there exists $z \in X$ such that $\bar{z} \in \pi(A) \cap \pi(B)$. Therefore there exist $z_A \in A$ and $z_B \in B$ such that $z_A \sim z$ and $\sim z_B$. Then $(z_A, z_B) \in A \times B$ and $(z_A, z_B) \in {\sim}$. This is a contradiction since $A \times B \subset  {\sim^c}$. So $\pi(A) \cap \pi(B) = \varnothing$. Thus $\bar{x} \in \pi(A)$, $\bar{y} \in \pi(B)$, $\pi(A)$, $\pi(B)$ are open and $\pi(A) \cap \pi(B) = \varnothing$. Since $\bar{x}, \bar{y} \in X / {\sim}$ are arbitrary, $X / {\sim}$ is Hausdorff.
 		\end{itemize}
 	\end{proof}
 	
@@ -4051,7 +4490,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 
 	\begin{ex} \lex{ex:topology:countability:0003}
-		Let $(X, \MA), (Y, \MB)$ be topological spaces and $f: X \rightarrow Y$. Suppose that $(X, \MT)$ is first-countable. Then $f$ is continous iff for each sequence $(x_n)_{n \in \N} \subset X$ and $x \in X$, $x_n \rightarrow x$ implies that $f(x_n) \rightarrow x$.
+		Let $(X, \MT_X), (Y, \MT_Y)$ be topological spaces and $f: X \rightarrow Y$. Suppose that $(X, \MT)$ is first-countable. Then $f$ is continous iff for each sequence $(x_n)_{n \in \N} \subset X$ and $x \in X$, $x_n \rightarrow x$ implies that $f(x_n) \rightarrow x$.
 	\end{ex}
 
 	\begin{proof}\
@@ -4694,12 +5133,16 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\subsection{The Finite Intersection Property} 
 	
 	\begin{defn} \ld{def:topology:compactness:00012}
-		Let $X$ be a set and $\MA \subset \MP(X)$. Then $\MA$ is said to have the \tbf{finite intersection property} if for each $\MB \subset \MA$, $\MB$ is finite implies that $\bigcap\limits_{B \in \MB} B \neq \varnothing$. We define 
-		$$\FIP(X) = \{\MA \subset \MP(X): \MA \text{ has the finite intersection property} \}$$ 
-		and order $\FIP(X)$ by inclusion. 
+		Let $(X, \MT)$ be a set and $\MA \subset \MP(X)$. Then $\MA$ is said to have the \tbf{finite intersection property} if for each $\MB \subset \MA$, $\MB$ is finite implies that $\bigcap\limits_{B \in \MB} B \neq \varnothing$. We define 
+		$$\FIP(X, \MT) = \{\MA \subset \MP(X): \MA \text{ has the finite intersection property} \}$$ 
+		and order $\FIP(X, \MT)$ by inclusion. 
 	\end{defn}
 
-	\begin{ex} \rex{ex:topology:compactness:00013}
+	\begin{note}
+		When the context is clear, we write $\FIP(X)$ in place of $\FIP(X, \MT)$.
+	\end{note}
+
+	\begin{ex} \lex{ex:topology:compactness:00013}
 		Let $X$ be a set. Then $\FIP(X)$ ordered by inclusion is a poset.
 	\end{ex}
 
@@ -4707,7 +5150,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		Clear.
 	\end{proof}
 
-	\begin{ex} \rex{ex:topology:compactness:00014}
+	\begin{ex} \lex{ex:topology:compactness:00014}
 		Let $X$ be a set and $\MA_0 \in \FIP(X)$. Then there exists $\MA \in \FIP(X)$ such that $\MA$ is maximal in $[\MA_0, \infty)$. 
 	\end{ex}
 
@@ -4727,7 +5170,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\end{itemize}
 	\end{proof}
 
-	\begin{ex} \rex{ex:topology:compactness:00015}
+	\begin{ex} \lex{ex:topology:compactness:00015}
 		Let $X$ be a set and $\MA \in \FIP(X)$. Suppose that $\MA$ is maximal. Then 
 		\begin{enumerate}
 			\item for each $\MB \subset \MA$, if $\MB$ is finite, then $\bigcap\limits_{B \in \MB} B \in \MA$,
@@ -4777,18 +5220,18 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 	
 	\begin{note}
-		Recall the definition of $\MC_A$ in \rd{31013}.
+		Recall the definition of $\MC_A(X, \MT)$ in \rd{31013}.
 	\end{note}
 	
-	\begin{ex} \rex{ex:topology:compactness:00016}
-		Let $(X, \MT)$ be a topological space. Then $(X, \MT)$ is compact iff for each $\MC \subset \MC_\varnothing$, $\MC \in \FIP(X)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. \\
+	\begin{ex} \lex{ex:topology:compactness:00016}
+		Let $(X, \MT)$ be a topological space. Then $(X, \MT)$ is compact iff for each $\MC \subset \MC_\varnothing(X, \MT)$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. \\
 		\tbf{Hint:} consider $\{C^c: C \in \MC\}$ and whether it is an open cover
 	\end{ex}
 
 	\begin{proof}\
 		\begin{itemize}
 			\item $(\implies)$: \\
-			Suppose that $(X, \MT)$ is compact. Let $\MC \subset \MC_{\varnothing}$. Suppose that $\MC \in \FIP(X)$. For the sake of contradiction, suppose that $\bigcap\limits_{C \in \MC} C = \varnothing$. Define $\MU \subset \MT$ by $\MU \defeq \{C^c: C \in \MC\}$. Then 
+			Suppose that $(X, \MT)$ is compact. Let $\MC \subset \MC_{\varnothing}$. Suppose that $\MC \in \FIP(X, \MT)$. For the sake of contradiction, suppose that $\bigcap\limits_{C \in \MC} C = \varnothing$. Define $\MU \subset \MT$ by $\MU \defeq \{C^c: C \in \MC\}$. Then 
 			\begin{align*}
 				\bigcup_{U \in \MU} U
 				& = \bigcup_{C \in \MC} C^c \\
@@ -4804,9 +5247,9 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 				& = X^c \\
 				& = \varnothing
 			\end{align*}  
-			However, since $\MC \in \FIP(X)$, $\MC' \subset \MC$ and $\MC'$ is finite, we have that $\bigcap\limits_{C \in \MC'} C \neq \varnothing$. This is a contradiction. Hence $\bigcap\limits_{C \in \MC} C \neq \varnothing$. Since $\MC \subset \MC_{\varnothing}$ such that $\MC \in \FIP(X)$ is arbitrary, we have have that for each $\MC \subset \MC_\varnothing$, $\MC \in \FIP(X)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. 
+			However, since $\MC \in \FIP(X, \MT)$, $\MC' \subset \MC$ and $\MC'$ is finite, we have that $\bigcap\limits_{C \in \MC'} C \neq \varnothing$. This is a contradiction. Hence $\bigcap\limits_{C \in \MC} C \neq \varnothing$. Since $\MC \subset \MC_{\varnothing}$ such that $\MC \in \FIP(X, \MT)$ is arbitrary, we have have that for each $\MC \subset \MC_\varnothing$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. 
 			\item $(\impliedby)$: \\
-			Suppose that for each $\MC \subset \MC_\varnothing$, $\MC \in \FIP(X)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. Let $\MU \subset \MP(X)$. Suppose that $\MU$ is an open cover of $X$ in $(X, \MT)$. Then $\MU \subset \MT$ and $X = \bigcup\limits_{U \in \MU} U$. Define $\MC \subset \MC_{\varnothing}$ by $\MC = \{U^c: U \in \MU\}$. Then 
+			Suppose that for each $\MC \subset \MC_\varnothing$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. Let $\MU \subset \MP(X)$. Suppose that $\MU$ is an open cover of $X$ in $(X, \MT)$. Then $\MU \subset \MT$ and $X = \bigcup\limits_{U \in \MU} U$. Define $\MC \subset \MC_{\varnothing}$ by $\MC = \{U^c: U \in \MU\}$. Then 
 			\begin{align*}
 				\bigcap_{C \in \MC} C
 				& = \bigcap_{U \in \MU} U^c \\
@@ -4814,7 +5257,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 				& = X^c \\
 				& = \varnothing
 			\end{align*}  
-			By assumption, $\MC \not \in \FIP(X)$. Thus there exists $\MC' \subset \MC$ such that $\MC'$ is finite and $\bigcap\limits_{C \in \MC'} C = \varnothing$. Define $\MU' \subset \MU$ by $\MU' \defeq \{C^c: C \in \MC' \}$. Then $\MU'$ is finite and 
+			By assumption, $\MC \not \in \FIP(X, \MT)$. Thus there exists $\MC' \subset \MC$ such that $\MC'$ is finite and $\bigcap\limits_{C \in \MC'} C = \varnothing$. Define $\MU' \subset \MU$ by $\MU' \defeq \{C^c: C \in \MC' \}$. Then $\MU'$ is finite and 
 			\begin{align*}
 				X
 				& = \varnothing^c \\
@@ -4826,7 +5269,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 			\end{itemize}
 	\end{proof}
 
-	\begin{ex} \rex{ex:topology:compactness:00017}
+	\begin{ex} \lex{ex:topology:compactness:00017}
 		Let $(X, \MT)$ be a topological space. Then the following are equivalent:
 		\begin{enumerate}
 			\item $(X, \MT)$ is compact
@@ -4836,7 +5279,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\tbf{Hint:} 
 		\begin{itemize}
 			\item $(1) \implies (2)$: \\
-			For $\al \in A$, set $E_{\al} \defeq \{x_{\al'}: \al' \geq \al \}$. Then $\{\cl E_{\al}: \al \in A\} \in \FIP(X)$.  
+			For $\al \in A$, set $E_{\al} \defeq \{x_{\al'}: \al' \geq \al \}$. Then $\{\cl E_{\al}: \al \in A\} \in \FIP(X, \MT)$.  
 			\item $(3) \implies (1)$: \\
 			If $(X, \MT)$ is not compact, choose open cover $\MU$ of $X$ such that for each $\MU_0 \subset \MU$, $\MU_0$ is finite implies that $\MU_0$ is not an open cover of $X$. Consider $\MF_{\MU} = \{\MU' \subset \MU: \MU' \text{ is finite}\}$ ordered by inclusion. Then there exists a net $(x_{\MU'})_{\MU' \in \MF_{\MU}} \subset X$ such that for each $x_{\MU'} \not \in  \bigcup\limits_{U \in \MU'} U$. 
 		\end{itemize}
@@ -4854,7 +5297,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 				& \subset \bigcap_{\al \in A_0} E_{\al} \\
 				& \subset \bigcap_{\al \in A_0} \cl E_{\al}
 			\end{align*}
-			Since $A_0 \subset A$ with $A_0$ finite is arbitrary, we have that for each $A_0 \subset A$, $A_0$ is finite implies that $\bigcap_{\al \in A_0} \cl E_{\al} \neq \varnothing$. Thus $\ME \in \FIP(X)$. Since $(X, \MT)$ is compact, \tcb{the previous exercise} implies that $\bigcap\limits_{\al \in A} \cl E_{\al} \neq \varnothing$. Thus there exists $x \in X$ such that $x \in \bigcap\limits_{\al \in A} \cl E_{\al}$. \rex{ex:nets:0026} implies that $x$ is a cluster point of $(x_{\al})_{\al \in A}$.
+			Since $A_0 \subset A$ with $A_0$ finite is arbitrary, we have that for each $A_0 \subset A$, $A_0$ is finite implies that $\bigcap_{\al \in A_0} \cl E_{\al} \neq \varnothing$. Thus $\ME \in \FIP(X, \MT)$. Since $(X, \MT)$ is compact, \tcb{the previous exercise} implies that $\bigcap\limits_{\al \in A} \cl E_{\al} \neq \varnothing$. Thus there exists $x \in X$ such that $x \in \bigcap\limits_{\al \in A} \cl E_{\al}$. \rex{ex:nets:0026} implies that $x$ is a cluster point of $(x_{\al})_{\al \in A}$.
 			\item $(2) \implies (3)$: \\
 			Immediate by \rex{ex:nets:0026}.
 			\item $(3) \implies (1)$: \\
@@ -4879,40 +5322,117 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\end{itemize}
 	\end{proof}
 	
-	\begin{ex} \rex{ex:topology:compactness:00018} \tbf{Tychonoff's Theorem:} \\ 
+	\begin{ex} \lex{ex:topology:compactness:00018} \tbf{Tychonoff's Theorem:} \\ 
 		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Suppose that for each $\al \in A$, $(X_{\al} , \MT_{\al})$ is compact. Then $\bigg( \prod\limits_{\al \in A} X_{\al}, \bigotimes\limits_{\al \in A} \MT_{\al} \bigg)$ is compact. \\
 		\tbf{Hint:} 
 	\end{ex}
 
 	\begin{proof}
-		Set $X \defeq \prod\limits_{\al \in A} X_{\al}$ and $\MT \defeq \bigotimes\limits_{\al \in A} \MT_{\al}$. Let $\MC \subset \MC_{\varnothing}$. Suppose that $\MC \in \FIP(X)$. \tcb{A previous exercise} implies that there exists $\MD \in \FIP(X)$ such that $\MD$ is maximal in $[\MC, \infty)$. Let $\al \in A$. Set $\MD_{\al} \defeq \{\pi_{\al}(D):D \in \MD\}$. 
+		Set $X \defeq \prod\limits_{\al \in A} X_{\al}$ and $\MT \defeq \bigotimes\limits_{\al \in A} \MT_{\al}$. Let $\MC \subset \MC_{\varnothing}$. Suppose that $\MC \in \FIP(X, \MT)$. \tcb{A previous exercise} implies that there exists $\MD \in \FIP(X, \MT)$ such that $\MD$ is maximal in $[\MC, \infty)$. Let $\al \in A$. Set $\MD_{\al} \defeq \{\pi_{\al}(D):D \in \MD\}$. 
 		
-		Let $\MD_{\al, 0} \subset \MD_{\al}$. Suppose that $\MD_{\al,_0}$ is finite. Then there exist $\MD_0 \subset \MD$ such that $\MD_0$ is finite and $\MD_{\al, 0} = \{\pi_{\al}(D): D \in \MD_0\}$. Since $\MD \in \FIP(X)$, $\bigcap\limits_{D \in \MD_0} D \neq \varnothing$. Therefore 
+		Let $\MD_{\al, 0} \subset \MD_{\al}$. Suppose that $\MD_{\al,_0}$ is finite. Then there exist $\MD_0 \subset \MD$ such that $\MD_0$ is finite and $\MD_{\al, 0} = \{\pi_{\al}(D): D \in \MD_0\}$. Since $\MD \in \FIP(X, \MT)$, $\bigcap\limits_{D \in \MD_0} D \neq \varnothing$. Therefore 
 		\begin{align*}
 			\varnothing
 			& \neq \pi_{\al} \bigg( \bigcap_{D \in \MD_0} D \bigg) \\
 			& \subset \bigcap_{D \in \MD_0} \pi_{\al}(D) \\
 			& = \bigcap_{D \in \MD_{\al, 0}} D 
 		\end{align*}
-		Since $\MD_{\al, 0} \subset \MD_{\al}$ with $\MD_{\al, 0}$ finite is arbitrary, we have that for each $\MD_{\al, 0} \subset \MD_{\al}$, $\MD_{\al,0}$ is finite implies that $\bigcap\limits_{D \in \MD_{\al, 0}} D \neq \varnothing$. Hence $\MD_{\al} \in \FIP(X)$. 
+		Since $\MD_{\al, 0} \subset \MD_{\al}$ with $\MD_{\al, 0}$ finite is arbitrary, we have that for each $\MD_{\al, 0} \subset \MD_{\al}$, $\MD_{\al,0}$ is finite implies that $\bigcap\limits_{D \in \MD_{\al, 0}} D \neq \varnothing$. Hence $\MD_{\al} \in \FIP(X, \MT)$. 
 		
-		For the sake of contradiction, suppose that $\bigcap\limits_{D \in \MD} \cl \pi_{\al}(D) = \varnothing$. Then $X = \bigcup\limits_{D \in \MD} [ \cl \pi_{\al}(D) ]^c $. Since $\{[\cl \pi_{\al}(D)]^c:D \in \MD \} \subset \MT_{\al}$ and $(X_{\al}, \MT_{\al})$ is compact, there exists $\MD_0 \subset \MD$ such that $\MD_0$ is finite and $X = \bigcup\limits_{D \in \MD_0} [ \cl \pi_{\al}(D) ]^c$. Therefore $\bigcap\limits_{D \in \MD_0} \cl \pi_{\al}(D) = \varnothing$. Since $\MD_{\al} \in \FIP(X)$ and $\{ \cl \pi_{\al}(D): D \in \MD_0 \} \subset \MD_{\al}$ is finite, we have that $\bigcap\limits_{D \in \MD_0} \cl \pi_{\al}(D) \neq \varnothing$. This is a contradiction. Hence $\bigcap\limits_{D \in \MD} \cl \pi_{\al}(D) \neq \varnothing$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $\bigcap\limits_{D \in \MD} \cl \pi_{\al}(D) \neq \varnothing$.
+		For the sake of contradiction, suppose that $\bigcap\limits_{D \in \MD} \cl \pi_{\al}(D) = \varnothing$. Then $X = \bigcup\limits_{D \in \MD} [ \cl \pi_{\al}(D) ]^c $. Since $\{[\cl \pi_{\al}(D)]^c:D \in \MD \} \subset \MT_{\al}$ and $(X_{\al}, \MT_{\al})$ is compact, there exists $\MD_0 \subset \MD$ such that $\MD_0$ is finite and $X = \bigcup\limits_{D \in \MD_0} [ \cl \pi_{\al}(D) ]^c$. Therefore $\bigcap\limits_{D \in \MD_0} \cl \pi_{\al}(D) = \varnothing$. Since $\MD_{\al} \in \FIP(X, \MT)$ and $\{ \cl \pi_{\al}(D): D \in \MD_0 \} \subset \MD_{\al}$ is finite, we have that $\bigcap\limits_{D \in \MD_0} \cl \pi_{\al}(D) \neq \varnothing$. This is a contradiction. Hence $\bigcap\limits_{D \in \MD} \cl \pi_{\al}(D) \neq \varnothing$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $\bigcap\limits_{D \in \MD} \cl \pi_{\al}(D) \neq \varnothing$.
 		
 		The axiom of choice implies that there exists $x \in X$ such that for each $\al \in A$, $x_{\al} \in \bigcap\limits_{D \in \MD} \cl \pi_{\al}(D)$. Set 
 		$$\ME_x \defeq \{\pi_{\al}^{-1}(E_{\al}): \al \in A, E_{\al} \in \MT_{\al}, x_{\al} \in E_{\al}\}$$ 
-		Let $\al \in A$ and $E_{\al} \in \MT_{\al}$. Suppose that $x \in \pi_{\al}^{-1}(E_{\al})$. Then $x_{\al} \in E_{\al}$. Let $D \in \MD$. Since $x_{\al} \in  E_{\al} \cap \cl \pi_{\al}(D)$, $ E_{\al} \cap \cl \pi_{\al}(D) \neq \varnothing$. \rex{ex:nets:0018} implies that $ E_{\al} \cap \pi_{\al}(D) \neq \varnothing$. Therefore $\pi_{\al}^{-1}(E_{\al}) \cap D \neq \varnothing$. Since $D \in \MD$ is arbitrary, we have that for each $D \in \MD$, $\pi_{\al}^{-1}(E_{\al}) \cap D \neq \varnothing$. Since $\MD \in \FIP(X)$, \tcb{a previous exercise} implies that $\pi_{\al}^{-1}(E_{\al}) \in \MD$. Since $\al \in A$ and $E_{\al} \in \MT_{\al}$ are arbitrary, we have that $\ME_x \subset \MD$. Set 
+		Let $\al \in A$ and $E_{\al} \in \MT_{\al}$. Suppose that $x \in \pi_{\al}^{-1}(E_{\al})$. Then $x_{\al} \in E_{\al}$. Let $D \in \MD$. Since $x_{\al} \in  E_{\al} \cap \cl \pi_{\al}(D)$, $ E_{\al} \cap \cl \pi_{\al}(D) \neq \varnothing$. \rex{ex:nets:0018} implies that $ E_{\al} \cap \pi_{\al}(D) \neq \varnothing$. Therefore $\pi_{\al}^{-1}(E_{\al}) \cap D \neq \varnothing$. Since $D \in \MD$ is arbitrary, we have that for each $D \in \MD$, $\pi_{\al}^{-1}(E_{\al}) \cap D \neq \varnothing$. Since $\MD \in \FIP(X, \MT)$, \tcb{a previous exercise} implies that $\pi_{\al}^{-1}(E_{\al}) \in \MD$. Since $\al \in A$ and $E_{\al} \in \MT_{\al}$ are arbitrary, we have that $\ME_x \subset \MD$. Set 
 		$$\MB_x \defeq \bigg \{\bigcap_{j=1}^n V_j:(V_j)_{j=1}^n \subset \ME_x \bigg \}$$ 
-		Then \tcb{an exercise in the section on the product topology} implies that $\MB_x \subset \MT_X $ and $\MB_x$ is a local basis for $\MT$ at $x$. Since $\MD \in \FIP(X)$, \tcb{a previous exercise} implies that $\MB_x \subset \MD$. 
+		Then \tcb{an exercise in the section on the product topology} implies that $\MB_x \subset \MT_X $ and $\MB_x$ is a local basis for $\MT$ at $x$. Since $\MD \in \FIP(X, \MT)$, \tcb{a previous exercise} implies that $\MB_x \subset \MD$. 
 		
-		Let $D \in \MD$ and $E \in B_x$. Since $\MD \in \FIP(X)$ and $D, E \in \MD$, we have that $D \cap E \neq \varnothing$. Since $E \in \MB_x$ is arbitary we have that for each $E \in \MB_x$, $D \cap E \neq \varnothing$. \tcb{An exercise in the introduction to topology section} implies that $x \in \cl D$. Since $D \in \MD$ is arbitrary, we have that for each $D \in \MD$, $x \in \cl D$. Thus $x \in \bigcap\limits_{D \in \MD} \cl D $ and therefore $\bigcap\limits_{D \in \MD} \cl D \neq \varnothing$. Since $\MC \subset \MC_{\varnothing}$, for each $C \in \MC$, $C = \cl C$. By construction, $\MC \subset \MD$, which implies that 
+		Let $D \in \MD$ and $E \in B_x$. Since $\MD \in \FIP(X, \MT)$ and $D, E \in \MD$, we have that $D \cap E \neq \varnothing$. Since $E \in \MB_x$ is arbitary we have that for each $E \in \MB_x$, $D \cap E \neq \varnothing$. \tcb{An exercise in the introduction to topology section} implies that $x \in \cl D$. Since $D \in \MD$ is arbitrary, we have that for each $D \in \MD$, $x \in \cl D$. Thus $x \in \bigcap\limits_{D \in \MD} \cl D $ and therefore $\bigcap\limits_{D \in \MD} \cl D \neq \varnothing$. Since $\MC \subset \MC_{\varnothing}$, for each $C \in \MC$, $C = \cl C$. By construction, $\MC \subset \MD$, which implies that 
 		\begin{align*}
 			\varnothing
 			& \neq \bigcap_{D \in \MD} \cl D \\
 			& \subset \bigcap_{C \in \MC} \cl C \\
 			& = \bigcap_{C \in \MC} C 
 		\end{align*}
-		Since $\MC \subset \MC_{\varnothing}$ with $\MC \in \FIP(X)$ is arbitrary, we have that for each $\MC \subset \MC_{\varnothing}$, $\MC \in \FIP(X)$ implies that $\bigcap_{C \in \MC} C \neq \varnothing$. \tcb{The previous exercise} implies that $(X, \MT)$ is compact.
+		Since $\MC \subset \MC_{\varnothing}$ with $\MC \in \FIP(X, \MT)$ is arbitrary, we have that for each $\MC \subset \MC_{\varnothing}$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap_{C \in \MC} C \neq \varnothing$. \tcb{The previous exercise} implies that $(X, \MT)$ is compact.
  	\end{proof}
+ 
+ 	\begin{ex} \lex{ex:topology:compactness:00019}
+ 		Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Suppose that for each $\al \in A$, $(X_{\al} , \MT_{\al})$ is compact. Set $X \defeq \prod\limits_{\al \in A} X_{\al}$ and $\MT_X \defeq \bigotimes\limits_{\al \in A} \MT_{\al}$. Let $\al_0 \in A$. Set $A' \defeq A \setminus \{\al_0\}$,  $Y \defeq \prod\limits_{\al \in A'}X_{\al}$ and $\MT_Y \defeq \bigotimes\limits_{\al \in A'} \MT_{\al}$. Let $E \subset X$ and $a \in \pi_{\al_0}(E)^c$. Suppose that $E$ is closed in $(X, \MT_X)$.
+ 		\begin{enumerate}
+ 			\item For each $y \in Y$, there exists $x^y \in X$ such that $\pi_{\al_0}(x^y) = a$, for each $\al \in A'$, $\pi_{\al}(x^y) = y_{\al}$ and $x^y \in E^c$.
+ 			\item For each $y \in Y$, there exists $U^y_{\al_0} \in \MT_{\al_0}$, $V^y \in \MT_Y$ and $W^y \in \MT_X$ such that $U^y_{\al_0} = \pi_{\al_0}(W^y)$, $V^y = \prod\limits_{\al \in A'} \pi_{\al}(W^y)$, $a \in U^y_{\al_0}$, $y \in V^y$ and $x^y \in W^y \subset E^c$. \\
+ 			\tbf{Hint}: $E$ is closed
+ 			\item There exist $U_{\al_0} \in \MT_{\al_0}$ such that 
+ 			\begin{enumerate}
+ 				\item $a \in U_{\al_0}$, \\
+ 				\tbf{Hint:} consider the intersection of a finite open cover of $Y$.
+ 				\item $U_{\al_0} \subset \pi_{\al_0}(E)^c$ \\
+ 				\tbf{proof by contradiction}
+ 			\end{enumerate}
+ 		\end{enumerate}
+ 	\end{ex}
+ 	
+ 	\begin{proof}\
+ 		\begin{enumerate}
+ 			\item Let $y \in Y$. Define $x^y \in X$ by $x^y_{\al} \defeq 
+ 			\begin{cases}
+ 				a, & \al = \al_0 \\
+ 				y_{\al}, & \al \neq \al_0. 
+ 			\end{cases}
+ 			$
+ 			For the sake of contradiction, suppose that $x^y \in E$. Then 
+ 			\begin{align*}
+ 				a
+ 				& = x^y_{\al_0} \\
+ 				& = \pi_{\al_0}(x^y) \\
+ 				& \in \pi_{\al_0}(E).
+ 			\end{align*}
+ 			This is a contradiction since $a \in (\pi_{\al_0}(E))^c$. Hence $x^y \in E^c$. 
+ 			\item Since $E$ is closed in $(X, \MT_X)$, $E^c \in \MT_X$. \rex{ex:product_topology:0002} then implies that there exist $(U^y_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \MT_{\al}$ such that $\prod\limits_{\al \in A} U^y_{\al} \in \MT_X$, $x^y \in \prod\limits_{\al \in A} U^y_{\al} \subset E^c$ and $\# \{\al \in A: U^y_{\al} \neq X_{\al}\} < \infty$. Set $W^y \defeq \prod\limits_{\al \in A} U^y_{\al}$ and $V^y \defeq \prod\limits_{\al \in A'}U^y_{\al}$. Since $\# \{\al \in A: U^y_{\al} \neq X_{\al}\} < \infty$, we have that $\# \{\al \in A': U^y_{\al} \neq X_{\al}\} < \infty$ and therefore $V^y \in \MT_Y$. Then 
+ 			\begin{align*}
+ 				a
+ 				& = x^y_{\al_0} \\
+ 				& \in U^y_{\al_0} 
+ 			\end{align*}
+ 			and $y \in V^y$. By construction, $U^y_{\al_0} = \pi_{\al_0}(W^y)$ and $V^y = \prod\limits_{\al \in A'} \pi_{\al}(W^y)$. Since $y \in Y$ is arbitrary, we have that for each $y \in Y$, there exists $U^y_{\al_0} \in \MT_{\al_0}$, $V^y \in \MT_Y$ and $W^y \in \MT_X$ such that $U^y_{\al_0} = \pi_{\al_0}(W^y)$, $V^y = \prod\limits_{\al \in A'} \pi_{\al}(W^y)$, $a \in U^y_{\al_0}$, $y \in V^y$ and $x^y \in W^y \subset E^c$.
+ 			\item 
+ 			\begin{enumerate}
+ 				\item \rex{ex:topology:compactness:00018} implies that $(Y, \MT_Y)$ is compact. Since $Y \subset \bigcup\limits_{y \in Y} V^y$ and $(Y, \MT_Y)$ is compact, there exists $y_1, \ldots, y_n \in Y$ such that $Y \subset \bigcup\limits_{j=1}^n V^{y_j}$. Set $U_{\al_0} \defeq \bigcap\limits_{j=1}^n U^{y_j}_{\al_0}$. Then $U_{\al_0} \in \MT_{\al_0}$ and $a \in U_{\al_0}$. 
+ 				\item For the sake of contradiction, suppose that $U_{\al_0} \not \subset \pi_{\al_0}(E)^c$. Then there exists $b \in U_{\al_0}$ such that $b \in \pi_{\al_0}(E)$.  Since $b \in \pi_{\al_0}(E)$, there exists $z \in E$ such that $\pi_{\al_0}(z) = b$. Since $Y \subset \bigcup\limits_{j=1}^n V^{y_j}$, there exists $j_0 \in [n]$ such that $(z_{\al})_{\al \in A'} \in V^{y_{j_0}}$. Since 
+ 				\begin{align*}
+ 					z_{\al_0}
+ 					& = b \\
+ 					& \in U_{\al_0} \\
+ 					& = \bigcap\limits_{j=1}^n U_{\al_0}^{y_j} \\
+ 					& \subset U_{\al_0}^{y_{j_0}},
+ 				\end{align*}
+ 				\begin{align*}
+ 					(z_{\al})_{\al \in A'}
+ 					& \in V^{y_{j_0}} \\
+ 					& = \prod\limits_{\al \in A'} U_{\al}^{y_{j_0}}
+ 				\end{align*}
+ 				and $W^{y_{j_0}} = \prod\limits_{\al \in A}U_{\al}^{y_{j_0}}$, we have that $z \in W^{y_{j_0}}$. Since $z \in E$, 
+ 				\begin{align*}
+ 					z 
+ 					& \in W^{y_{j_0}} \cap E \\
+ 					& = \varnothing,
+ 				\end{align*}
+ 				which is a contradiction. Hence $U_{\al_0} \subset \pi_{\al_0}(E)^c$.
+ 			\end{enumerate}
+ 		\end{enumerate}
+ 	\end{proof}
+ 
+ 	
+ 
+ \begin{ex} \lex{ex:topology:compactness:00020}
+ 	Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces. Suppose that for each $\al \in A$, $(X_{\al} , \MT_{\al})$ is compact. Then for each $\al \in A$, $\pi_{\al}: \prod\limits_{\al \in A} X_{\al} \rightarrow X_{\al}$ is closed. \\
+ 	\tbf{Hint:} \rex{ex:topology:compactness:00019}
+ \end{ex}
+ 
+ \begin{proof}
+ 	Set $X \defeq \prod\limits_{\al \in A} X_{\al}$ and $\MT_X \defeq \bigotimes_{\al \in A} \MT_{\al}$. Let $\al_0 \in A$ and $E \subset X$. Suppose that $E$ is closed in $(X, \MT_X)$. Let $a \in \pi_{\al_0}(E)^c$. \rex{ex:topology:compactness:00019} implies that there exists $U_{\al_0} \in \MT_{\al_0}$ such that $a \in U_{\al_0}$ and $U_{\al_0} \subset \pi_{\al_0}(E)^c$. Since $a \in \pi_{\al_0}(E)^c$ is arbitrary, we have that for each $a \in \pi_{\al_0}(E)^c$, there exists $U_{\al_0} \in \MT_{\al_0}$ such that $a \in U_{\al_0}$ and $U_{\al_0} \subset \pi_{\al_0}(E)^c$. Therefore $\pi_{\al_0}(E)^c \in \MT_{\al_0}$ and $\pi_{\al_0}(E)$ is closed in $(X_{\al_0}, \MT_{\al_0})$. Since $E \subset X$ with $E$ closed in $(X, \MT_X)$ is arbitrary, we have that for each $E \subset X$, $E$ closed in $(X, \MT_X)$ implies that $\pi_{\al_0}(E)$ is closed in $(X_{\al_0}, \MT_{\al_0})$. Hence $\pi_{\al_0}$ is closed. Since $\al_0 \in A$ is arbitrary, we have that for each $\al \in A$, $\pi_{\al} : \prod\limits_{\al \in A} X_{\al} \rightarrow X_{\al}$ is closed.
+ \end{proof}
  
  
  
@@ -4960,7 +5480,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
  	Let $(X, \MT)$ be a topological space. Then $(X, \MT)$ is said to be \tbf{sequentially compact} if for each $(x_n)_{n \in \N} \subset X$, there exists $(x_{n_k})_{k \in \N} \subset (x_n)_{n \in \N}$ and $x \ in X$ such that $x_{n_k} \rightarrow x$.   
  \end{defn}
 
-\begin{ex} \rex{ex:topology:compactness:00015}
+\begin{ex} \lex{ex:topology:compactness:00015}
 	Let $(X, \MT)$ be a topological space and $(x_n)_{n \in \N} \subset X$. Suppose that $(X, \MT)$ is first-countable and $(X, \MT)$ is not sequentially compact. Then
 	\begin{enumerate}
 		\item for each $x \in X$, there exists $U_x \in \MT$ and $n_x \in \N$ such that $x \in U_x$ and for each $n \in \N$, $n \geq n_x$ implies that $x_n \in U^c$, \\
@@ -4990,7 +5510,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{enumerate}
 \end{proof}
  
- \begin{ex} \rex{ex:topology:compactness:00016}
+ \begin{ex} \lex{ex:topology:compactness:00016}
  	Let $(X, \MT)$ be a topological space and $(x_n)_{n \in \N} \subset X$. Suppose that $(X, \MT)$ is first-countable. If $(X, \MT)$ is compact, then $(X, \MT)$ is sequentially compact.
  \end{ex}
 
@@ -5034,9 +5554,9 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
  
  
  
- \section{Compactness and Continuity}
+ \subsection{Compactness and Continuity}
  
- \begin{ex} \rex{ex:topology:compactness:00017}
+ \begin{ex} \lex{ex:topology:compactness:00017}
  	Let $(X, \MT_X), (Y, \MT_Y)$ be topological spaces, $K \subset X$ and $f: X \rightarrow Y$. Suppose that $f$ is $(\MT_X, \MT_Y)$-continuous. If $K$ is compact in $(X, \MT_X)$, then $f(K)$ is compact in $(Y, \MT_Y)$.
  \end{ex}
 
@@ -5100,6 +5620,38 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
  
  
  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
@@ -5110,6 +5662,8 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
  
  	\newpage
  \section{Locally Compact Hausdorff Spaces}
+ 
+ \subsection{Introduction}
  
  \begin{defn}
  	Let $X$ be a topological space. Then 
@@ -5214,6 +5768,124 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	
 	
 	
+\subsection{Arzela-Ascoli Theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Stone-Weierstrass Theorem}
+	
+\begin{defn}
+	Let $X$ be a compact Hausdorff space and $\MA \subset C(X, \C)$ a subalgebra. Then $\MA$ is said to \tbf{separate the points of $X$} if for each $x,y \in X$, $x \neq y$ implies that there exists $f \in \MA$ such that $f(x) \neq f(y)$. 
+\end{defn}
+
+\begin{ex}
+	Equip $\R^2$ with pointwise addition and multiplication. 
+	\begin{enumerate}
+		\item For each $\MA \in \{ \{(0,0)\}, \spn \{(1, 0)\}, \spn \{(0,1)\}, \spn\{ (1,1), \R^2 \} \}$, $\MA$ is a subalgebra of $\R^2$. 
+		\item For each $\MA \subset \R^2$, $\MA$ is a subalgebra implies that $\MA \in \{ \{(0,0)\}, \spn \{(1, 0)\}, \spn \{(0,1)\}, \spn\{ (1,1), \R^2 \} \}$. \\
+		\tbf{Hint:} If $(s,t) \in \MA$, then $(s^2, t^2) \in \MA$. 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Clear.
+		\item Since $\dim \R^2 = 2$, we have that $\dim \MA \in \{0, 1, 2\}$. If $\dim \MA = 0$, then $\MA = \{(0,0)\}$. If $\dim \MA = 2$, then $\MA = \R^2$. Suppose that $\dim \MA = 1$. Then there exists $(s,t) \in \MA$ such that $\MA = \spn \{(s,t)\}$. Thus $(s,t) \neq (0,0)$. Since $(s,t) \in \MA$, $(s^2, t^2) \in \MA$. Since $(s,t) \neq (0,0)$, $(s^2, t^2) \neq (0,0)$. Since $\MA = \spn \{(s,t)\}$, there exists $\lam \in \R$ such that $(s^2, t^2) = \lam (s,t)$. Thus $s(s - \lam) = 0$ and $t(t - \lam) = 0$. Since $(s^2, t^2) \neq (0,0)$, $\lam \neq 0$. Hence $(s,t) \in \{(\lam, 0), (0, \lam), (\lam, \lam)\}$. Therefore 
+		\begin{align*}
+			\MA
+			& = \spn \{(s,t)\} \\
+			& \in \{\spn \{(1,0)\}, \spn \{(0, 1)\}, \spn \{(1,1)\} \}.
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	For each $\ep > 0$, there exists $p \in \R[x]$ such that $p(0) = 0$ and for each $x \in [-1,1]$, $\bigg| |x| - p(x) \bigg| < \ep$. \\ 
+	\tbf{Hint:} Define $f:(-1,1) \rightarrow \R$ by $f(t) \defeq (1 - t)^{1/2}$. Consider the Taylor series for $f$ at $t = 0$.  
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
+
+\begin{ex}
+	Let $X$ be a compact Hausdorff space and $\MA \subset C(X, \C)$ a closed subalgebra.
+\end{ex}
+
+
+\begin{ex} \tbf{Real Stone-Weierstrass Theorem}
+	Let $X$ be a compact Hausdorff space and $\MA \subset C(X, \C)$ a closed subalgebra. Then $\MA = C(X, \R)$ or there exists $x_0 \in X$ such that $\MA = \{f \in C(X, \R): f(x_0) = 0\}$.
+\end{ex}
+
+\begin{proof}
+	content...
+\end{proof}
+
+\tcr{FINISH!!!}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -5285,13 +5957,240 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 			\]
 		\end{enumerate}
 	\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Common Structures}
+
+
+\subsection{Equalizers of Continuous Maps}
+
+\begin{note}
+	Let $X, Y$ be sets and $f,g:X \rightarrow Y$. We denote the equalizer of $f$ and $g$ by $\Eq(f,g)$ as in \rd{def:set_theory:equalizers:0001}.
+\end{note}
+
+\begin{ex} \lex{ex:topology:equalizers:0001}
+	Let $(X, \MT_X), (Y, \MT_Y)$ be topological spaces and $f,g:X \rightarrow Y$ $(\MT_X, \MT_Y)$-continuous. If $(Y, \MT_Y)$ is Hausdorff, then $\Eq(f,g)$ is closed in $(X, \MT_X)$.
+\end{ex}
+
+\begin{proof}
+	Suppose that $(Y, \MT_Y)$ is Hausdorff. \rex{ex:topology:separation:0005} implies that $\Del_Y$ is closed in $(Y \times Y, \MT_Y \otimes \MT_Y)$. Since $f,g$ are $(\MT_X, \MT_Y)$-continuous, \rex{ex:product_topology:0012.1} implies that $(f,g): X \rightarrow Y \times Y$ is $(\MT_X, \MT_Y \otimes \MT_Y)$-continuous. Since $\Eq(f,g) = (f,g)^{-1}(\Del_Y)$, we have that $\Eq(f,g)$ is closed in $(X, \MT_X)$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Projective Limits of Topological Spaces}
+
+\begin{note}
+	Let $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of sets.
+	\begin{itemize}
+		 \item We denote the $j$-th projection map from $\prod\limits_{j \in J} X_j$ onto $X_j$ by $\prj_j: \prod\limits_{j \in J} X_j \rightarrow X_j$.
+		 \item We denote the $j$-th projection map from $\varprojlim\limits_{j \in J} X_j$ into $X_j$ by $\pi_j: \varprojlim\limits_{j \in J} X_j \rightarrow X_j$ as in \rd{def:set_theory:proj_limits:0002} 
+	\end{itemize}
+\end{note}
+
+
+\begin{defn} \ld{def:topology:proj_limits:0001}
+	Let $(J, \leq)$ be a directed poset, $(X_j, \MT_j)_{j \in J}$ a collection of topological spaces and for each $(j,k) \in {\leq}$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MT_k, \MT_j)$-continuous map. Suppose that for each $j,k,l \in J$, 
+	\begin{enumerate}
+		\item $\pi_{j,j} = \id_{X_j}$,
+		\item $j \leq k$ and $k \leq l$ implies that $\pi_{j,k} \circ \pi_{k,l} = \pi_{j,l}$.
+	\end{enumerate}
+	Then $((X_j, \MT_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is said to be a \tbf{projective system of topological spaces}.
+\end{defn}
+
+\begin{defn} \ld{def:topology:proj_limits:0002}
+	Let $(J, \leq)$ be a directed poset, $((X_j, \MT_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of topological spaces. We define the \tbf{projective limit topology} on $\varprojlim\limits_{j \in J} X_j$, denoted $\varprojlim\limits_{j \in J} \MT_j$, by $$\varprojlim\limits_{j \in J} \MT_j \defeq \tau(\pi_j: j \in J).$$
+\end{defn}
+
+\begin{ex} \lex{ex:topology:proj_limits:0003}
+	$\varprojlim\limits_{j \in J}  \MT_j = \bigg[ \bigotimes\limits_{j \in J} \MT_j \bigg] \cap \varprojlim\limits_{j \in J} X_j$.
+	\tcr{FINISH!!!}
+\end{ex}
+
+
+\begin{ex} \lex{ex:topology:proj_limits:0004}
+	Let $(J, \leq)$ be a directed poset, $((X_j, \MT_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of topological spaces. If for each $j \in J$, $(X_j, \MT_j)$ is Hausdorff, then $\varprojlim\limits_{j \in J} X_j$ is closed in $(\prod\limits_{j \in J} X_j, \bigotimes\limits_{j \in J} \MT_j)$.
+\end{ex}
+
+\begin{proof}
+	Suppose that for each $j \in J$, $(X_j, \MT_j)$ is Hausdorff. Set $X \defeq \varprojlim\limits_{j \in J} X_j$ and $\MT \defeq \varprojlim\limits_{j \in J} \MT_j$. \rex{ex:set_theory:proj_limits:0004} implies that $X = \bigcap\limits_{(j,k) \in {\leq}} \Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$. Let $(j,k) \in {\leq}$. Since $\pi_{j,k}$ is $(\MT_k, \MT_j)$-continuous and $\pi_k$ is $(\MT, \MT_k)$-continuous, we have that $\pi_{j,k} \circ \pi_k$ is $(\MT, \MT_j)$-continuous. Since $\pi_{j,k} \circ \pi_k$ and $\pi_j$ are $(\MT, \MT_j)$-continuous and $(X_j, \MT_j)$ is Hausdorff, \rex{ex:topology:equalizers:0001} implies that $\Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$ is closed in $(X, \MT)$. Since $(j,k) \in {\leq}$ is arbitrary, we have that for each $(j,k) \in {\leq}$, $\Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$ is closed in $(X, \MT)$. Since $X = \bigcap\limits_{(j,k) \in {\leq}} \Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$, we have that $X$ is closed in $(\prod\limits_{j \in J} X_j, \bigotimes\limits_{j \in J} \MT_j)$.
+\end{proof}
+
+\begin{ex} \lex{ex:topology:proj_limits:0005}
+	Let $(J, \leq)$ be a directed poset, $((X_j, \MT_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of topological spaces. Set $X \defeq \varprojlim\limits_{j \in J} X_j$ and $\MT \defeq \varprojlim\limits_{j \in J} \MT_j$. If for each $j \in J$, $(X_j, \MT_j)$ is compact Hausdorff, then for each $j \in J$, $\pi_j: X \rightarrow X_j$ is $(\MT, \MT_j)$-closed.
+\end{ex}
+
+\begin{proof}
+	Suppose that for each $j \in J$, $(X_j, \MT_j)$ is compact Hausdorff. Let $j_0 \in J$. Set $X_0 \defeq \prod\limits_{j \in J} X_j$ and $\MT_0 \defeq \bigotimes\limits_{j \in J} T_j$. Since for each $j \in J$, $(X_j, \MT_j)$ is compact, \rex{ex:topology:compactness:00020} implies that for each $j \in J$, $\prj_j: X_0 \rightarrow X_j$ is $(\MT_0, \MT_j)$-closed. Since for each $j \in J$, $(X_j, \MT_j)$ is Hausdorff, \rex{ex:topology:proj_limits:0004} implies that $X$ is closed in $(X_0, \MT_0)$. Since $\pi_{j_0} = \prj_{j_0}|_{X}$, \rex{ex:topology:subspaces:0010.01} then implies that $\pi_{j_0}:X \rightarrow X_j$ is $(\MT, \MT_j)$-closed. Since $j_0 \in J$ is arbitrary, we have that for each $j \in J$, $\pi_j:X \rightarrow X_j$ is $(\MT, \MT_j)$-closed.
+\end{proof}
+
+\begin{ex} \lex{ex:topology:proj_limits:0006}
+	Let $(J, \leq)$ be a directed poset, $((X_j, \MT_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of topological spaces. If for each $j \in J$, $(X_j, \MT_j)$ is compact Hausdorff, then $(\varprojlim\limits_{j \in J} X_j, \varprojlim\limits_{j \in J} \MT_j)$ is compact Hausdorff. 
+\end{ex}
+
+\begin{proof}
+	Suppose that for each $j \in J$, $(X_j, \MT_j)$ is compact Hausdorff. Set $X_0 \defeq \prod\limits_{j \in J} X_j$, $X \defeq \varprojlim\limits_{j \in J} X_j$, $\MT_0 \defeq \bigotimes\limits_{j \in J} \MT_j$ and $\MT \defeq \varprojlim\limits_{j \in J} \MT_j$. Since for each $j \in J$, $(X_j, \MT_j)$ is Hausdorff, \rex{ex:topology:separation:products:0001} implies that $(X_0, \MT_0)$ is Hausdorff. Since $\MT = \MT_0 \cap X$, \rex{ex:topology:separation:subspaces:0002} implies that $(X, \MT)$ is Hausdorff. Since for each $j \in J$, $(X_j, \MT_j)$ is compact, \rex{ex:topology:compactness:00018} implies that $(X_0, \MT_0)$ is compact. \rex{ex:topology:proj_limits:0004} implies that $X$ is closed in $(X_0, \MT_0)$. Since $X$ is closed in $(X_0, \MT_0)$, \rex{ex:topology:compactness:00006.1} implies that $(X, \MT)$ is compact. 
+\end{proof}
+
+\begin{defn}
+	Let $(J, \leq)$ be a directed poset $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ be a projective system of topological spaces. Set $X \defeq \varprojlim\limits_{j \in J} X_j$. For each $j \in J$, we define the \tbf{$j$-th projective equivalence relation on $X$}, denoted ${\sim_j} \subset X \times X$, by $x \sim_j y$ iff $\pi_j(x) = \pi_j(y)$ and we denote the projection of $X$ onto $X/{\sim_j}$ by $\pi^Q_j: X \rightarrow X/{\sim_j}$.
+\end{defn}
+
+\begin{ex}
+	Let $(J, \leq)$ be a directed poset $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ be a projective system of topological spaces. Suppose that for each $j \in J$, $X_j$ is a compact Hausdorff space and $\pi_j$ is surjective. Then 
+	\begin{enumerate}
+		\item for each $j \in J$, there exists a unique $\bar{\pi}:X/{\sim_j} \rightarrow X_j$ such that $\bar{\pi}_j \circ \pi^Q_j = \pi_j$ and $\bar{\pi}_j$ is a homeomorphism,
+		\item for each $(j,k) \in {\leq}$, there exists a unique $\pi_{j,k}^Q: X/{\sim_k} \rightarrow X/{\sim_j}$ such that $\pi_{j,k}^Q$ is continuous and $\pi_j^Q = \pi_{j,k}^Q \circ \pi_k^Q$, i.e. the following diagram commutes:
+		\[ 
+		\begin{tikzcd}
+			X_2  \arrow[rr, "f_{1,2}"']   & & X_1   \\
+			X/ {\sim_{f_2}} \arrow[u, "\bar{f}_2"]   \arrow[rr, "\bar{f}_{1,2}"] & &  X / {\sim_{f_1}} \arrow[u, "\bar{f}_1"']  \\
+			& X   \arrow[ul, "\pi_2"] \arrow[ur, "\pi_1"'] \arrow[bend left=90]{luu}{f_2} \arrow[bend right=90, swap]{ruu}{f_1}  & 
+		\end{tikzcd}
+		\]
+		\item $((X / {\sim_j})_{j \in J}, (\pi_{j,k}^Q)_{(j,k) \in \leq})$ is a projective system of topological spaces.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Let $j \in J$. By construction, $\pi_j$ is continuous. By assumption, $\pi_j$ is surjective. Since for each $j' \in J$, $X_{j'}$ is compact Hausdorff, \rex{ex:topology:proj_limits:0005} implies that $\pi_j$ is closed. \rex{ex:quotient_topology:0007} implies that $\pi_j$ is a quotient map. \rex{ex:quotient_topology:0013.2} then implies that there exists a unique $\bar{\pi}:X/{\sim_j} \rightarrow X_j$ such that $\pi_j = \bar{\pi}_j \circ \pi^Q_j$ and $\bar{\pi}_j$ is a homeomorphism.
+		\item Let $(j,k) \in {\leq}$. \tcr{looke here} \rex{ex:quotient_topology:0013.3} Define $\pi_{j,k}^Q : X/{\sim_k} \rightarrow X/{\sim_j}$ by $\pi_{j,k}^Q \defeq \bar{\pi}_j^{-1} \circ \pi_{j,k} \circ \bar{\pi}_k$. Since $\bar{\pi}_j^{-1}$, $\pi_{j,k}$, $\bar{\pi}_k$ are continuous, we have that $\pi_{j,k}^Q$ is continuous. By construction,
+		\begin{align*}
+			\pi^Q_{j,k} \circ \pi^Q_k
+			& = (\bar{\pi}_j^{-1} \circ \pi_{j,k} \circ \bar{\pi}_k) \circ \pi^Q_k
+		\end{align*}
+	\end{enumerate}
+\end{proof}
 	
 	
+
 	
 	
-	
-	
-	
+\begin{ex}
+	For each $j \in J$, define $C_j \subset C(X)$ by 
+	$$C_j \defeq \{f \in C(X): \text{ for each $x,y \in X$, $\pi_j(x) = \pi_j(y)$ implies that $f(x) = f(y)$}\}$$
+	Define $C \subset C(X)$ by $C \defeq \bigcup\limits_{j \in J} C_j$. Then 
+	\begin{enumerate}
+		\item $C_j = \{f \in C(X): \text{$f$ is $\sim_j$-invariant}\}$
+		\item $C$ is a subalgebra of $C(X)$,
+		\item $C$ is dense in $C(X)$ 
+		\item for each $f \in C_j$, there exists a unique $\bar{f}:X/{\sim_j} \rightarrow \C$ such that $\bar{f} \circ \bar{\pi}_j^{-1} \circ \pi_j = f$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	\begin{enumerate}
+		\item 
+		\item Let $f_1 , f_2 \in C$ and $\lam \in \C$. Then there exist $j_1, j_2 \in J$ such that $f_1 \in C_{j_1}$ and $f_2 \in C_{j_2}$. Since $J$ is directed, there exists $j_0 \in J$ such that $j_0 \geq j_1, j_2$. Let $x,y \in X$. Suppose that $\pi_{j_0}(x) = \pi_{j_0}(y)$. Then 
+		\begin{align*}
+			\pi_{j_1}(x)
+			& = \pi_{j_1, j_0} \circ \pi_{j_0}(x) \\
+			& =  \pi_{j_1, j_0} \circ \pi_{j_0}(y) \\
+			& = \pi_{j_1}(y)
+		\end{align*}
+		and similarly, $\pi_{j_2}(x) = \pi_{j_2}(y)$. Therefore $f_1(x) = f_1(y)$ and $f_{2}(x) = f_2(y)$. Hence 
+		\begin{align*}
+			(f_1 + \lam f_2)(x)
+			& = f_1(x) + \lam f_2(x) \\
+			& = f_1(y) + \lam f_2(y) \\
+			& = (f_1 + \lam f_2)(y)
+		\end{align*}
+		and 
+		\begin{align*}
+			(f_1 \cdot f_2)(x)
+			& = f_1(x)f_2(x) \\
+			& = f_1(y)f_2(y) \\
+			& = (f_1 \cdot f_2) (y).
+		\end{align*}
+		Since $x, y \in X$ with $\pi_{j_0}(x) = \pi_{j_0}(y)$ are arbitrary, we have that for each $x,y \in X$, $\pi_{j_0}(x) = \pi_{j_0}(y)$ implies that $(f_1 + \lam f_2)(x) = (f_1 + \lam f_2)(y)$ and $(f_1 \cdot f_2)(x) = (f_1 \cdot f_2)(y)$. Thus 
+		\begin{align*}
+			f_1 + \lam f_2 
+			& \in C_{j_0} \\
+			& \subset C
+		\end{align*} 
+		and 
+		\begin{align*}
+			f_1 \cdot f_2
+			& \in C_{j_0} \\
+			& \subset C
+		\end{align*} 
+		Since $f_1 , f_2 \in C$ and $\lam \in \C$ are arbitrary, for each $f_1 , f_2 \in C$ and $\lam \in \C$, $f_1 + \lam f_2 \in C$ and $f_1 \cdot f_2 \in C$. Hence $C$ is a subalgebra of $C(X)$. 
+		\item 
+	\end{enumerate}
+\end{proof}
 	
 	
 	
@@ -10415,7 +11314,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that $M$ is closed. Define the action $\phi: M \times X \rightarrow X$ by $m \cdot x = m  + x$. Denote by $\sim$, the equivalence relation induced by $\phi$ (i.e. $x \sim y$ iff $x-y \in M$). A previous exercise implies that $\pi: X \rightarrow X /M$ is open. Let $(x_{\al},y_{\al})_{\al \in A} \subset \, \sim$ be a net and $(x,y) \in X \times X$. Suppose that $(x_{\al},y_{\al}) \rightarrow (x,y)$. Then $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$. Therefore $x_{\al} - y_{\al} \rightarrow x -y$. Since for each $\al \in A$, $x_{\al} - y_{\al} \in M$ and $M$ is closed, we have that $x -y \in M$. Hence $(x,y) \in \, \sim$ and $\sim$ is closed. Since $\pi$ is open, a previous exercise in the section on separation and countability implies that $X / M$ is Hausdorff. \\
+		Suppose that $M$ is closed. Define the action $\phi: M \times X \rightarrow X$ by $m \cdot x = m  + x$. Denote by $\sim$, the equivalence relation induced by $\phi$ (i.e. $x \sim y$ iff $x-y \in M$). A previous exercise implies that $\pi: X \rightarrow X /M$ is open. Let $(x_{\al},y_{\al})_{\al \in A} \subset  {\sim}$ be a net and $(x,y) \in X \times X$. Suppose that $(x_{\al},y_{\al}) \rightarrow (x,y)$. Then $x_{\al} \rightarrow x$ and $y_{\al} \rightarrow y$. Therefore $x_{\al} - y_{\al} \rightarrow x -y$. Since for each $\al \in A$, $x_{\al} - y_{\al} \in M$ and $M$ is closed, we have that $x -y \in M$. Hence $(x,y) \in  {\sim}$ and $\sim$ is closed. Since $\pi$ is open, a previous exercise in the section on separation and countability implies that $X / M$ is Hausdorff. \\
 		Conversely, suppose that $X/ M$ is Hausdorff. Then $\{0 + M\}$ is closed in $X /M$. Since $\pi: X \rightarrow X/M$ is continuous, we have that $M =  \pi^{-1}(0 + M)$ is closed in $X$.
 	\end{proof}
 
@@ -12489,6 +13388,10 @@ So that $T(\cl B(0,1))$ is bounded.
 		\end{itemize}
 		Therefore $L(X_1, X_2; Y)$ is a vector space and $\|\cdot\|: L(X_1, X_2; Y) \rightarrow \Rg$ is a norm.
 	\end{proof}
+
+	\begin{note}
+	Let $X, Y, Z$ be sets. We recall the definition of $\cur: Y^{X \times Y} \rightarrow (Z^Y)^X$ from \rd{def:set_theory:products:0009}.
+	\end{note}
 	
 	\begin{ex} \lex{69004}
 	Let $X_1, X_2, Y$ be normed vector spaces. Then 
