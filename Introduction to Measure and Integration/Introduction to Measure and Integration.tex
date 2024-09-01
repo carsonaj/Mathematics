@@ -2020,17 +2020,50 @@
 \newpage
 \section{Projective Limits of Measurable Spaces}
 
-\begin{defn} \ld{def:measurable_spaces:proj_limits:0001}
-	Let $(J, \leq)$ be a directed poset, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that for each $j,k,l \in J$, 
+\tcr{just go over basic category theoretic systems and limits in the analysis notes, like product systems, equalizer systems, projective systems and their limits: products, equalizers, projective limits, etc}.
+
+\begin{ex} \lex{ex:measurable_spaces:proj_limits:0001}
+	Let $(J, {\leq})$ be a directed set, $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ be a $\Meas$-projective system and $(X, (\pi_j)_{j \in J})$ a $\Set$-projective limit of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$. Define $\MA_0 \subset \MP(X)$ by $\MA_0 = \bigcup\limits_{j \in J} \pi_j^*\MA_j$. Then $\MA_0$ is an algebra on $X$. 
+\end{ex}
+
+\begin{proof}\
 	\begin{enumerate}
-		\item $\pi_{j,j} = \id_{X_j}$,
-		\item $j \leq k$ and $k \leq l$ implies that $\pi_{j,k} \circ \pi_{k,l} = \pi_{j,l}$.
+		\item Since $J$ is a directed set, $J \neq \varnothing$. Thus there exists $j \in J$. Since $\MA_j$ is an algebra on $X$, $\MA_j \neq \varnothing$. Hence there exists $A_j \in \MA_j$. Then 
+		\begin{align*}
+			\pi_j^{-1}(A_j) 
+			& \in \pi_j^*\MA_j \\
+			& \subset  \bigcup\limits_{j \in J} \pi_j^*\MA_j \\
+			& = \MA_0.
+		\end{align*} 
+		Thus $\MA_0 \neq \varnothing$.
+		\item Let $A \in \MA_0$. Since $\MA_0 = \bigcup\limits_{j \in J} \pi_j^*\MA_j $, there exists $j \in J$ such that $A \in \pi_j^*\MA_j$. By definition of $\pi_j^* \MA_j$ (\rd{def:measurable_functions:00005}), there exists $A_j \in \MA_j$ such that $A = \pi_j^{-1}(A_j)$. Since $\MA_j$ is a $\sig$-algebra on $X_j$, $A_j^c \in \MA_j$. Hence 
+		\begin{align*}
+			A^c
+			& = \pi_j^{-1}(A_j)^c \\
+			& = \pi_j^{-1}(A_j^c) \\
+			& \in \pi_j^{-1} \MA_j \\
+			& \subset \bigcup\limits_{j \in J} \pi_j^*\MA_j \\
+			& = \MA_0.
+		\end{align*} 
+		Since $A \in \MA_0$ is arbitrary, we have that for each $A \in \MA_0$, $A^c \in \MA_0$. 
+		\item Let $A_1,A_2 \in \MA_0$. Then there exist $j_1,j_2 \in J$ such that $A_1 \in \pi_{j_1}^{-1}(\MA_{j_1})$ and $A_2 \in \pi_{j_2}^{-1}(\MA_{j_2})$. Therefore there exists $E_1 \in \MA_{j_1}$ and $E_2 \in \MA_{j_2}$ such that $A_1 = \pi_{j_1}^{-1}(E_1)$ and $A_2 = \pi_{j_2}^{-1}(E_2)$. Since $J$ is a directed set, there exists $j_0 \in J$ such that $j_1, j_2 \leq j_0$. Since for each $(j,k) \in {\leq}$, $p_{j,k}$ is $(\MA_k, \MA_j)$-measurable, we have that $\pi_{j_1, j_0}^{-1}(E_1), \pi_{j_2, j_0}^{-1}(E_2) \in \MA_{j_0}$. Since $\MA_0$ is a $\sig$-algebra on $X_{j_0}$ we have that $\pi_{j_1, j_0}^{-1}(E_1) \cup \pi_{j_2, j_0}^{-1}(E_2) \in \MA_{j_0}$. Hence 
+		\begin{align*}
+			A_1 \cup A_2
+			& = \pi_{j_1}^{-1}(E_1) \cup \pi_{j_2}^{-1}(E_2) \\
+			& = (\pi_{j_1, j_0} \circ \pi_{j_0})^{-1}(E_1) \cup (\pi_{j_2, j_0} \circ \pi_{j_0})^{-1}(E_2) \\
+			& = \pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1)) \cup \pi_{j_0}^{-1}(\pi_{j_2, j_0}^{-1}(E_2)) \\
+			& = \pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1) \cup \pi_{j_2, j_0}^{-1}(E_2)) \\
+			& \in \pi_{j_0}^*\MA_{j_0} \\
+			& \subset \bigcup\limits_{j \in J} \pi_j^*\MA_j \\
+			& = \MA_0.
+		\end{align*}
+		Since $A_1, A_2 \in \MA_0$ are arbitrary, we have that for each $A_1, A_2 \in \MA_0$, $A_1 \cup A_2 \in \MA_0$.
 	\end{enumerate}
-	Then $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is said to be a \tbf{projective system of measurable spaces}.
-\end{defn}
+	Thus $\MA_0$ is an algebra on $X$.
+\end{proof}
 
 \begin{defn} \ld{def:measurable_spaces:proj_limits:0002}
-	Let $(J, \leq)$ be a directed poset, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a projective system of topological spaces. We define the \tbf{projective topology} of $(\MA_j)_{j \in J}$ on $\varprojlim\limits_{j \in J} X_j$, denoted $\varprojlim\limits_{j \in J} \MA_j$, by $$\varprojlim\limits_{j \in J} \MA_j \defeq \bigg[ \bigotimes\limits_{j \in J} \MA_j \bigg] \cap \varprojlim\limits_{j \in J} X_j.$$
+	Let $(J, \leq)$ be a directed set, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a projective system of topological spaces. We define the \tbf{projective topology} of $(\MA_j)_{j \in J}$ on $\varprojlim\limits_{j \in J} X_j$, denoted $\varprojlim\limits_{j \in J} \MA_j$, by $$\varprojlim\limits_{j \in J} \MA_j \defeq \bigg[ \bigotimes\limits_{j \in J} \MA_j \bigg] \cap \varprojlim\limits_{j \in J} X_j.$$
 	\tcr{define general projective limit, then show that the subsapce of the product is an inverse limit}
 \end{defn}
 
@@ -3131,6 +3164,17 @@
 	
 	\section{Introduction}
 	
+	
+	
+	\begin{defn} \tcr{(maybe relocate or delete this)}
+		Let $X$ be a set, $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow \RG$. Then $\rho$ is said to be 
+		\begin{itemize}
+			\item \tbf{finitely-additive} if for each $A, B \in \ME$, $A \cap B = \varnothing$ and $A \cup B \in \ME$ implies that $\rho(A \cup B) = \rho(A) + \rho(B)$,
+			\item \tbf{$\sig$-additive} if for each $(A_j)_{j \in \N} \subset \ME$, $(A_j)_{j \in \N}$ is disjoint and $\bigcup\limits_{j \in \N} A_j \in \ME$ implies that $\rho \bigg( \bigcup\limits_{j \in \N} A_j \bigg) = \sum_{j \in \N} \rho(A_j)$,
+			\item \tbf{increasing} if for each $A, B \in \ME$, $A \subset B$ implies that $\rho(A) \leq \rho(B)$.
+		\end{itemize}
+	\end{defn}
+	
 	\begin{defn} \ld{def:measures:00001}
 		Let $(X, \MA)$ be a measurable space and $\mu:\MA \rightarrow \RG$. Then $\mu$ is said to be a \textbf{measure} on $(X, \MA)$ if 
 		\begin{enumerate}
@@ -3882,7 +3926,7 @@
 	\end{proof}
 	
 	\begin{defn} \ld{def:outer_measures:00007} 
-		Let $X$ be a set, $\MA_0$ be an algebra on $X$ and $\mu_0:\MA_0 \rightarrow [0, \infty]$. Then $\mu_0$ is said to be a \textbf{premeasure on $(X,\MA_0)$} if 
+		Let $X$ be a set, $\MA_0 \subset \MP(X)$ an algebra on $X$ and $\mu_0:\MA_0 \rightarrow [0, \infty]$. Then $\mu_0$ is said to be a \textbf{premeasure on $(X,\MA_0)$} if 
 		\begin{enumerate}
 			\item there exists $A \in \MA_0$ such that $\mu_0(A)< \infty$
 			\item for each $(A_n)_{n \in \N} \subset \MA_0$, if $(A_n)_{n \in \N}$ is disjoint and $\bigcup\limits_{n \in \N}A_n \in \MA_0$, then $$\mu_0 \bigg(\bigcup_{n\in \N}A_n \bigg) = \sum_{n \in \N}\mu_0(A_n)$$
@@ -3892,6 +3936,56 @@
 	\begin{note}
 		The same reasoning applied to measures shows that $\mu_0(\varnothing) = 0$.
 	\end{note}
+
+	\begin{ex} \lex{ex:outer_measures:00007.1}
+		Let $X$ be a set, $\MA_0 \subset \MP(X)$ an algebra on $X$ and $\mu_0:\MA_0 \rightarrow [0,\infty)$. Suppose that
+		\begin{itemize}
+			\item $\mu_0$ is finitely-additive,
+			\item for each $(B_n)_{n \in \N} \subset \MA_0$, $(B_n)_{n \in \N} $ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$ implies that $\mu_0(B_n) \rightarrow 0$.
+		\end{itemize}  
+		Then $\mu_0$ is a premeasure on $(X, \MA_0)$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since $\mu_0:\MA_0 \rightarrow [0, \infty)$, we have that $\mu_0(X) < \infty$.
+			\item Let $(A_n)_{n \in \N} \subset \MA_0$. Suppose that $(A_n)_{n \in \N}$ is disjoint and $\bigcup\limits_{n \in \N} A_n \in \MA_0$. Set $A \defeq \bigcup\limits_{n \in \N} A_n$. Define $(B_n)_{n \in \N} \subset \MP(X)$ by $B_n \defeq A \setminus \bigg( \bigcup\limits_{j =1}^n A_j \bigg)$. Let $n \in \N$. Since $\MA_0$ is an algebra $\bigcup\limits_{j =1}^n A_j \in \MA_0$ and since $A \in \MA_0$, we have that
+			\begin{align*}
+				B_n 
+				& = A \setminus \bigg( \bigcup\limits_{j =1}^n A_j \bigg) \\
+				& \in \MA_0.
+			\end{align*} 
+			Since $n \in \N$ is arbitrary, we have that $(B_n)_{n \in \N} \subset \MA_0$. By construction, for each $n \in \N$, $B_n \subset B_{n+1}$ and therefore $(B_n)_{n \in \N}$ is decreasing. We note that
+			\begin{align*}
+				\bigcap_{n \in \N} B_n
+				& = \bigcap_{n \in \N} \bigg[ A \setminus \bigg( \bigcup\limits_{j =1}^n A_j \bigg) \bigg] \\
+				& = \bigcap_{n \in \N} \bigg[ A \cap \bigg( \bigcup\limits_{j =1}^n A_j \bigg)^c \bigg] \\
+				& = \bigcap_{n \in \N} \bigg[ A \cap \bigg( \bigcap\limits_{j =1}^n A_j^c \bigg) \bigg] \\
+				& = A \cap \bigcap_{n \in \N} \bigg( \bigcap\limits_{j =1}^n A_j^c  \bigg) \\
+				& = A \cap \bigg( \bigcap\limits_{j =1}^n A_j^c \bigg) \\
+				& = A \cap \bigg( \bigcup\limits_{j \in \N} A_j \bigg)^c \\
+				& = A \cap A^c \\
+				& = \varnothing.
+			\end{align*} 
+			Thus $\inf_{n \in \N} B_n = \varnothing$. By assumption, $\mu_0(B_n) \rightarrow 0$. Therefore, for each $n \in \N$, we have that 
+			\begin{align*}
+				\mu_0(A)
+				& = \mu_0 \bigg( B_n \cup \bigg[ \bigcup\limits_{j=1}^n A_j \bigg]  \bigg) \\
+				& = \mu_0(B_n) + \mu_0\bigg( \bigcup\limits_{j=1}^n A_j  \bigg) \\
+				& = \mu_0(B_n) + \sum\limits_{j=1}^n \mu_0(A_j) 
+			\end{align*}
+			Hence 
+			\begin{align*}
+				\mu_0(A)
+				& = \lim_{n \rightarrow \infty} \mu_0(A) \\
+				& = \lim_{n \rightarrow \infty} \bigg[ \mu_0(B_n) + \sum\limits_{j=1}^n \mu_0(A_j) \bigg] \\
+				& = \lim_{n \rightarrow \infty} \mu_0(B_n) + \lim_{n \rightarrow \infty} \sum\limits_{j=1}^n \mu_0(A_j) \\
+				& = 0 + \sum_{j \in \N} \mu_0(A_j) \\
+				& = \sum_{j \in \N} \mu_0(A_j).
+			\end{align*}  
+			Since $(A_n)_{n \in \N} \subset \MA_0$ such that $(A_n)_{n \in \N}$ is disjoint and $\bigcup\limits_{n \in \N} A_n \in \MA_0$ is arbitrary, we have that for each $(A_n)_{n \in \N} \subset \MA_0$, $(A_n)_{n \in \N}$ is disjoint and $\bigcup\limits_{n \in \N} A_n \in \MA_0$ implies that $\mu_0 \bigg(\bigcup\limits_{n\in \N}A_n \bigg) = \sum\limits_{n \in \N}\mu_0(A_n)$. Hence $\mu_0$ is a premeasure on $(X, \MA_0)$.
+		\end{enumerate}
+	\end{proof}
 	
 	\begin{thm} \lex{ex:outer_measures:00008} \tbf{Caratheodory Extension Theorem:} \\
 		Let $X$ be a set, $\MA_0$ an algebra on $X$ and $\mu_0$ a premeasure on $(X,\MA_0)$. Set $\MA = \sig(\MA_0)$. If $\mu_0$ is $\sig$-finite \tcr{(define $\sig$-finite for premeasures)}, then there exists a unique measure $\mu$ on $(X, \MA)$ such that $\mu|_{\MA_0} = \mu_0^*|_{\MA_0} = \mu_0$. 
@@ -11003,23 +11097,42 @@
 \newpage
 \section{Projective Systems of Complex Measures}
 
-\begin{defn} \ld{def:proj_limits_complex_measures:0001}
-	Let $(J, \leq)$ be a directed poset, $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ be a projective system of measurable spaces and $(\mu_j)_{j \in J} \in \prod\limits_{j \in J} M(X_j, \MA_j)$. Suppose that for each $(j,k) \in \, \leq$, $(\pi_{j,k})_*\mu_k = \mu_j$. Then $((X_j, \MA_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is said to be a \tbf{projective system of complex measure spaces}.
+\begin{defn}
+	Let $(J, {\leq})$ be a directed set $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of topological spaces and $(\mu_j)_{j \in J} \in \prod\limits_{j \in J} M(X_j)$. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$. Suppose that $(X, (\pi_j)_{j \in J})$ is perfect. For each $j \in J$, we define the \tbf{quotient measure induced by $\pi_j$}, denoted $\mu^Q_j \in M(X^Q_j)$, by $\mu^Q_j \defeq (\bar{\pi}_j^{-1})_*\mu_j$. 
 \end{defn}
 
 \begin{ex}
-	Let $(J, \leq)$ be a countable directed poset $((X_{j \in J}), (\pi_{j,k})_{(j,k) \in \leq})$ be a projective system of topological spaces and $(\mu_j)_{j \in J} \in \prod\limits_{j \in J} \MM(X_j)$. Suppose that $((X_j, \MB(X_j), \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a projective system of complex measure spaces and for each $j \in J$, $X_j$ is a compact Hausdorff space. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j)_{j \in \N}, (\pi_{j,k})_{(j,k) \in \leq})$. 
+	Let $(J, {\leq})$ be a directed set $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ a projective system of topological spaces and $(\mu_j)_{j \in J} \in \prod\limits_{j \in J} M(X_j)$. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$. Suppose that $(X, (\pi_j)_{j \in J})$ is perfect and $((X_j, \MB(X_j), \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ is a projective system of complex measure spaces. Then $((X^Q_j, \MB(X^Q_j), \mu^Q_j), (\pi^Q_{j,k})_{(j,k) \in {\leq}})$ is a  projective system of complex measure spaces.
+\end{ex}
+
+\begin{proof}
+	Let $(j,k) \in {\leq}$. Since $((X_j, \MB(X_j), \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ is a projective system of complex measure spaces, $(\pi_{j,k})_* \mu_k = \mu_j$. Therefore
+	\begin{align*}
+		(\pi^Q_{j,k})_*\mu^Q_k
+		& = (\bar{\pi}_j^{-1} \circ \pi_{j,k} \circ \bar{\pi}_k)_*[(\bar{\pi}_k^{-1})_*\mu_k] \\
+		& = (\bar{\pi}_j^{-1} \circ \pi_{j,k} \circ \bar{\pi}_k \circ \bar{\pi}_k^{-1})_*\mu_k \\
+		& = (\bar{\pi}_j^{-1} \circ \pi_{j,k})_* \mu_k \\
+		& = (\bar{\pi}_j^{-1})_*[(\pi_{j,k})_* \mu_k] \\
+		& = (\bar{\pi}_j^{-1})_* \mu_j \\
+		& = \mu^Q_j.
+	\end{align*}
+	Since $(j,k) \in {\leq}$ is arbitrary, we have that for each $(j,k) \in {\leq}$, $(\pi^Q_{j,k})_*\mu^Q_k = \mu^Q_j$. Hence $((X^Q_j, \MB(X^Q_j, \mu^Q_j), (\pi^Q_{j,k})_{(j,k) \in {\leq}})$ is a  projective system of complex measure spaces.
+\end{proof}
+
+
+\begin{ex}
+	Let $(J, {\leq})$ be a countable directed set $((X_{j \in J}), (\pi_{j,k})_{(j,k) \in \leq})$ be a projective system of topological spaces and $(\mu_j)_{j \in J} \in \prod\limits_{j \in J} \MM(X_j)$. Suppose that $((X_j, \MB(X_j), \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ is a projective system of complex measure spaces and for each $j \in J$, $X_j$ is a compact Hausdorff space. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j)_{j \in \N}, (\pi_{j,k})_{(j,k) \in {\leq}})$. 
 	\begin{enumerate}
 		\item For each $j \in J$, define $C_j \subset C(X)$ by 
 		$$C_j \defeq \{f \in C(X): \text{ for each $x,y \in X$, $\pi_j(x) = \pi_j(y)$ implies that $f(x) = f(y)$}\}$$
 		Define $C \subset C(X)$ by $C \defeq \bigcup\limits_{j \in J} C_j$. Then $C$ is a subalgebra of $C(X)$ and $C$ is dense in $C(X)$. 
-		\item For each $j \in J$, define $\sim_j \, \subset X \times X$ by $x \sim_j y$ iff $\pi_j(x) = \pi_j(y)$. For each $j \in J$, denote the projection of $X$ onto $X/{\sim_j}$ by $\pi^Q_j: X \rightarrow X/{\sim_j}$. Then for each $j \in J$,
+		\item For each $j \in J$, define ${\sim_j}  \subset X \times X$ by $x \sim_j y$ iff $\pi_j(x) = \pi_j(y)$. For each $j \in J$, denote the projection of $X$ onto $X/{\sim_j}$ by $\pi^Q_j: X \rightarrow X/{\sim_j}$. Then for each $j \in J$,
 		\begin{enumerate}
 			\item $C_j = \{f \in C(X): \text{$f$ is $\sim_j$-invariant}\}$
 			\item there exists a unique $\bar{\pi}:X/{\sim_j} \rightarrow X_j$ such that $\bar{\pi}_j \circ \pi^Q_j = \pi_j$ and $\bar{\pi}_j$ is a homeomorphism,
 			\item for each $f \in C_j$, there exists a unique $\bar{f}:X/{\sim_j} \rightarrow \C$ such that $\bar{f} \circ \bar{\pi}_j^{-1} \circ \pi_j = f$
 		\end{enumerate}
-		for each $j \in J$, $C_j = \{f \in C(X): \text{$f$ is $\sim_j$-invariant}\}$. there exists $\phi: {X / \sim_j}  \rightarrow X_j$ such that $\phi$ homeomorphic to $X_j$ and and $\phi_j \in C(X/\sim_j)^*$ by $\phi_j(\bar{f}) = \int$. Then 
+		for each $j \in J$, $C_j = \{f \in C(X): \text{$f$ is $\sim_j$-invariant}\}$. there exists $\phi: X / {\sim_j}  \rightarrow X_j$ such that $\phi$ homeomorphic to $X_j$ and and $\phi_j \in C(X/{\sim_j})^*$ by $\phi_j(\bar{f}) = \int$. Then 
 		\item 
 	\end{enumerate}
 \end{ex}
@@ -11066,16 +11179,343 @@
 
 
 \begin{defn} \ld{def:proj_limits_complex_measures:0002}
-	Let $(J, \leq)$ be a directed poset, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \, \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a projective system of topological spaces. We define the \tbf{projective topology} of $(\MA_j)_{j \in J}$ on $\varprojlim\limits_{j \in J} X_j$, denoted $\varprojlim\limits_{j \in J} \MA_j$, by $$\varprojlim\limits_{j \in J} \MA_j \defeq \bigg[ \bigotimes\limits_{j \in J} \MA_j \bigg] \cap \varprojlim\limits_{j \in J} X_j.$$
+	Let $(J, {\leq})$ be a directed set, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in {\leq}$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ is a projective system of topological spaces. We define the \tbf{projective topology} of $(\MA_j)_{j \in J}$ on $\varprojlim\limits_{j \in J} X_j$, denoted $\varprojlim\limits_{j \in J} \MA_j$, by $$\varprojlim\limits_{j \in J} \MA_j \defeq \bigg[ \bigotimes\limits_{j \in J} \MA_j \bigg] \cap \varprojlim\limits_{j \in J} X_j.$$
 \end{defn}
 
 
 
+\tcr{idea: use this consistency theorem to obtain guassian measure $\mu$ on $\C^{\N}$ with the product sigma algebra where $(\pi_F)_*\mu$ is a gaussian measure on $\C^{|F|}$ for finite subsets $F \subset \N$ with a prescribed mean and covariance function, then try to generalize theorem 2.4 in the book on gaussian measures in hilbert spaces, for rkhs.}
 
-
-
+\begin{ex} \lex{} \tbf{Kolmogorov Extension Theorem:} \\
+	Let $(J, {\leq})$ be a directed set $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ a $\TopMsrpos$-projective system. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ in $\Top$. Suppose that 
+	\begin{itemize}
+		\item $J$ is countable
+		\item for each $j \in J$, $\pi_j$ is surjective
+		\item $\sup\limits_{j \in J} \mu_j(X_j) < \infty$ \tcr{(maybe not necessary)}
+	\end{itemize}
+	Define $\MA_0 \subset \MP(X)$ by $\MA_0 \defeq \bigcup\limits_{j \in J} \pi_j^*\MB(X_j)$ and define $\mu_0: \MA_0 \rightarrow \RG$ by $\mu_0(\pi_j^{-1}(E)) \defeq \mu_j(E)$ $(j \in J, E \in \MB(X_j))$. Then
+	\begin{enumerate}
+		\item $\MA_0$ is an algebra on $X$
+		\item $\mu_0$ is well-defined
+		\item $\mu_0(X) = \sup\limits_{j \in J} \mu_j(X_j)$
+		\item $\mu_0$ is finitely-additive.
+		\item Let $(B_n)_{n \in \N} \subset \MA_0$. Then there exists $(j_n)_{n \in \N} \in J$ and $(E_n)_{n \in \N} \in \prod\limits_{n \in \N} \MB(X_{j_n})$ such that 
+		\begin{itemize}
+			\item for each $n \in \N$, $B_n = \pi_{j_n}^{-1}(E_n)$ 
+			\item for each $j \in J$, there exists $n \in \N$ such that $j \leq j_n$
+		\end{itemize}
+		\item Suppose that $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$. Set $\del \defeq \inf\limits_{n \in \N} \mu_0(B_n)$. Suppose that $\del > 0$. Then 
+		\begin{enumerate}
+			\item for each $n \in \N$, there exists $K_n \subset E_n$ such that $K_n$ is compact and $\mu_0(E_n \setminus K_n) < \del2^{-n}$
+			\item there exists $(D_n)_{n \in \N} \subset \MA_0$ such that 
+			\begin{itemize}
+				\item for each $n \in \N$ and $m \in [n]$, $\pi_{j_m}(D_n) \subset K_m$ 
+				\item $\bigcap\limits_{n \in \N} D_n = \varnothing$
+				\item $\mu_0(B_n \setminus D_n) < \del$
+			\end{itemize}
+			\item for each $n \in \N$, $\mu_0(D_n) > 0$ 
+			\item there exists $(x_n)_{n \in \N} \in \prod\limits_{n \in \N} D_n$ and $(y_{0, m})_{m \in \N} \in \prod\limits_{m \in \N} K_m$ such that for each $m \in \N$, $\lim\limits_{n \rightarrow \infty} \pi_{j_m}(x_n) = y_{0,m}$ \\
+			\tbf{Hint:} sequential compactness
+			\item there exists $y_0 \in X$ such that for each $m \in \N$, $\pi_{j_m}(y_0) = y_{0,m}$ and $y_0 \in \bigcap\limits_{m \in \N} B_m$\\
+			\tbf{Hint:} diagonal argument 
+		\end{enumerate}
+		\item $\mu_0$ is a premeasure on $(X, \MA_0)$\\
+		\tbf{Hint:} \rex{ex:outer_measures:00007.1} 
+		\item there exists a unique measure $\mu \in \MM_+(X)$ such that $((X, \mu), (\pi_j)_{j \in J})$ is a $\TopMsrpos$-projective limit of $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$. 
+	\end{enumerate}
+\end{ex}
 	
-	
+\begin{proof}\
+	\begin{enumerate}
+		\item Clear by \rex{ex:measurable_spaces:proj_limits:0001}
+		\item Let $A_1, A_2 \in \MA_0$. Then there exist $j_1, j_2 \in J$ and $E_1 \in \MB(X_{j_1}) , E_2 \in \MB(X_{j_2})$ such that $A_1 = \pi_{j_2}^{-1}(E_1)$ and $A_2 = \pi_{j_2}^{-1}(E_2)$. Suppose that $A_1 = A_2$. Since $J$ is a directed set, there exists $j_0 \in J$ such that $j_1, j_2 \leq j_0$. Therefore 
+		\begin{align*}
+			\pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1)) 
+			& = (\pi_{j_1, j_0} \circ \pi_{j_0})^{-1}(E_1) \\
+			& = \pi_{j_1}^{-1}(E_1) \\
+			& = A_1 \\
+			& = A_2 \\
+			& = \pi_{j_2}^{-1}(E_2) \\
+			& = (\pi_{j_2, j_0} \circ \pi_{j_0})^{-1}(E_2) \\
+			& = \pi_{j_0}^{-1}(\pi_{j_2, j_0}^{-1}(E_2)).
+		\end{align*}
+		Since $(X, (\pi_j)_{j \in J})$ is perfect, $\pi_{j_0}$ is surjective. Hence 
+		\begin{align*}
+			\pi_{j_1, j_0}^{-1}(E_1)
+			& = \pi_{j_0}(\pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1))) \\
+			& = \pi_{j_0}(\pi_{j_0}^{-1}(\pi_{j_2, j_0}^{-1}(E_2))) \\
+			& = \pi_{j_2, j_0}^{-1}(E_2).
+		\end{align*} 
+		Hence 
+		\begin{align*}
+			\mu_0(A_1)
+			& = \mu_0(\pi_{j_1}^{-1}(E_1)) \\
+			& = \mu_0((\pi_{j_1, j_0} \circ \pi_{j_0})^{-1}(E_1)) \\
+			& = \mu_0(\pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1))) \\
+			& = \mu_{j_0}(\pi_{j_1, j_0}^{-1}(E_1)) \\
+			& = \mu_0(\pi_{j_0}^{-1}(\pi_{j_2, j_0}^{-1}(E_2))) \\
+			& = \mu_0((\pi_{j_2, j_0} \circ \pi_{j_0})^{-1}(E_2)) \\
+			& = \mu_0(\pi_{j_1}^{-1}(E_1)) \\
+			& = \mu_0(A_2).
+		\end{align*}
+		Thus $\mu_0$ is well-defined.
+		\item Set $S \defeq \sup\limits_{j \in J} \mu_j(X_j)$. \tcr{(maybe do case when $S = \infty$)} Since $J$ is a directed set, $J \neq \varnothing$. Thus there exists $j_0 \in J$. Then
+		\begin{align*}
+			\mu_0(X) 
+			& = \mu_0(\pi_j^{-1}(X_j)) \\
+			& = \mu_{j_0}(X_{j_0}) \\
+			& \leq S.
+		\end{align*}
+		Let $\ep > 0$. Since $S < \infty$, $S - \ep < S$. Hence there exists $j_0 \in J$ such that $\mu_{j_0}(X_{j_0}) > S - \ep$. Then 
+		\begin{align*}
+			\mu_0(X) 
+			& = \mu_0(\pi_j^{-1}(X_j)) \\
+			& = \mu_{j_0}(X_{j_0}) \\
+			& \geq S - \ep.
+		\end{align*}
+		Since $\ep > 0$ is arbitrary, we have that $\mu_0(X) \geq S$. Hence $\mu_0(X) = S$.
+		\item Let $A_1, A_2 \in \MA_0$. Then there exist $j_1, j_2 \in J$ and $E_1 \in \MB(X_{j_1})$ and $E_2 \in \MB(X_{j_2})$ such that $A_1 = \pi_{j_1}^{-1}(E_1)$ and $A_2 = \pi_{j_2}^{-1}(E_2)$. Since $J$ is directed, there exists $j_0 \in J$ such that $j_1, j_2 \leq j_0$. Suppose that $A_1 \cap A_2 = \varnothing$. Then  
+		\begin{align*}
+			\varnothing
+			& = A_1 \cap A_2 \\
+			& = \pi_{j_1}^{-1}(E_1) \cap \pi_{j_2}^{-1}(E_2) \\
+			& = (\pi_{j_1, j_0} \circ \pi_{j_0})^{-1}(E_1) \cap  (\pi_{j_2, j_0} \circ \pi_{j_0})^{-1}(E_2) \\
+			& = \pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1)) \cap \pi_{j_0}^{-1}(\pi_{j_2, j_0}^{-1}(E_2)) \\
+			& = \pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1) \cap \pi_{j_2, j_0}^{-1}(E_2)).
+		\end{align*}	
+		Since $(X, (\pi_j)_{j \in J})$ is perfect, $\pi_{j_0}$ is surjective. Therefore
+		\begin{align*}
+			\varnothing
+			& = \pi_{j_0}(\varnothing) \\
+			& = \pi_{j_0}(\pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1) \cap \pi_{j_2, j_0}^{-1}(E_2))) \\
+			& = \pi_{j_1, j_0}^{-1}(E_1) \cap \pi_{j_2, j_0}^{-1}(E_2).
+		\end{align*}
+		We note that 
+		\begin{align*}
+			A_1 \cup A_2
+			& = \pi_{j_1}^{-1}(E_1) \cup \pi_{j_2}^{-1}(E_2) \\
+			& = (\pi_{j_1, j_0} \circ \pi_{j_0})^{-1}(E_1) \cup  (\pi_{j_2, j_0} \circ \pi_{j_0})^{-1}(E_2) \\
+			& = \pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1)) \cup \pi_{j_0}^{-1}(\pi_{j_2, j_0}^{-1}(E_2)) \\
+			& = \pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1) \cup \pi_{j_2, j_0}^{-1}(E_2)).
+		\end{align*}
+		Since $\mu_{j_0}$ is a complex measure and $\pi_{j_1, j_0}^{-1}(E_1) \cap \pi_{j_2, j_0}^{-1}(E_2) = \varnothing$, we have that 
+		\begin{align*}
+			\mu_0(A_1 \cup A_2) 
+			& = \mu_0(\pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1) \cup \pi_{j_2, j_0}^{-1}(E_2))) \\
+			& = \mu_{j_0}(\pi_{j_1, j_0}^{-1}(E_1) \cup \pi_{j_2, j_0}^{-1}(E_2)) \\
+			& = \mu_{j_0}(\pi_{j_1, j_0}^{-1}(E_1)) + \mu_{j_0}(\pi_{j_2, j_0}^{-1}(E_2)) \\
+			& = \mu_0(\pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1))) + \mu_0(\pi_{j_0}^{-1}(\pi_{j_2, j_0}^{-1}(E_2))) \\
+			& = \mu_0((\pi_{j_1, j_0} \circ \pi_{j_0})^{-1}(E_1)) + \mu_0((\pi_{j_2, j_0} \circ \pi_{j_0})^{-1}(E_2)) \\
+			& = \mu_0(\pi_{j_1}^{-1}(E_1)) + \mu_0(\pi_{j_2}^{-1}(E_2)) \\
+			& = \mu_0(A_1) + \mu_0(A_2).
+		\end{align*}
+		Thus $\mu_0$ is finitely-additive. \tcr{need exercise showing that finitely additive functions are increasing wrt inclusion}
+		\item Since $J$ is countable \tcr{(assume)}, we may write $J = (j^1_n)_{n \in \N}$. By definition of $\MA_0$, for each $n \in \N$, there exists $j^2_n \in J$ and $E^2_n \in \MB(X_{j^2_n})$ such that $B_n = \pi_{j^2_n}^{-1}(E^2_n)$. Since $J$ is directed, for each $n \in \N$, there exists $j_n \in J$ such that $j^1_n, j^2_n \leq j_n$. The axiom of countable choice implies that there exists $(j_n)_{n \in \N} \subset J$ such that for each $n \in \N$, $j^1_n, j^2_n \leq j_n$. For each $n \in \N$, define $E_n \defeq \pi_{j^2_n, j_n}^{-1}(E^2_n)$. 
+		\begin{itemize}
+			\item Then for each $n \in \N$, 
+			\begin{align*}
+				B_n
+				& = \pi_{j^2_n}{-1}(E^2_n) \\
+				& = (\pi_{j^2_n, j_n} \circ \pi_{j_n}){-1}(E^2_n) \\
+				& = \pi_{j_n}^{-1}(\pi_{j^2_n, j_n}^{-1}(E^2_n)) \\
+				& = \pi_{j_n}^{-1}(E_n).
+			\end{align*}
+			\item Let $j \in J$. Then there exists $n \in \N$ such that $j = j^1_n$. By construction, 
+			\begin{align*}
+				j
+				& = j^1_n \\
+				& \leq j_n.
+			\end{align*}
+			Since $j \in J$ is arbitrary, we have that for each $j \in J$, there exists $n \in \N$ such that $j \leq j_n$. 
+		\end{itemize}
+		\item
+		\begin{enumerate}
+			\item Let $n \in \N$. Since $\mu_{j_n}$ is Radon and $\mu_{j_n}(E_n) < \infty$, there exists $K_n \subset E_n$ such that $K_n$ is compact and $\mu_{j_n}(E_n \setminus K_n) < \del2^{-n}$.
+			\item Define $(C_n)_{n \in \N} \subset \MA_0$ and $(D_n)_{n \in \N} \subset \MA_0$ by $C_n \defeq \pi_{j_n}^{-1}(K_n)$ and $D_n \defeq \bigcap_{m=1}^n C_m$. 
+			\begin{itemize}
+				\item Let $n \in \N$ and $m \in [n]$. Since $\pi_{j_m}$ is surjective \tcr{(assume)}, 
+				\begin{align*}
+					\pi_{j_m}(D_n)
+					& \subset \pi_{j_m}(C_m) \\
+					& = \pi_{j_m}(\pi_{j_m}^{-1}(K_m)) \\
+					& = K_m. 
+				\end{align*}
+				\item For each $n \in \N$, 
+				\begin{align*}
+					D_n 
+					& \subset C_n \\
+					& \subset B_n.
+				\end{align*} 
+				and therefore 
+				\begin{align*}
+					\bigcap\limits_{n \in \N} D_n 
+					& \subset \bigcap\limits_{n \in \N} B_n \\
+					& = \varnothing.
+				\end{align*} 
+				\item By construction, for each $m \in \N$, 
+				\begin{align*}
+					\mu_0(B_m \setminus C_m)
+					& = \mu_0 \bigg[ \pi_{j_m}^{-1}(E_m) \cap (\pi_{j_m}^{-1}(K_m)^c) \bigg] \\
+					& = \mu_0 \bigg[ \pi_{j_m}^{-1}(E_m) \cap \pi_{j_m}^{-1}(K_m^c) \bigg] \\
+					& = \mu_0 \bigg[ \pi_{j_m}^{-1}(E_m \cap K_m^c) \bigg] \\
+					& = \mu_0 \bigg[ \pi_{j_m}^{-1}(E_m \setminus K_m) \bigg] \\
+					& = \mu_{j_m}(E_m \setminus K_m) \\
+					& < \frac{\del}{2^m}.
+				\end{align*}
+				Since $\mu_0$ is finitely additive, \rex{arg1} \tcr{(ref ex here)} implies that $\mu_0$ is finitely-subadditive. Since $(B_n)_{n \in \N}$ is decreasing, we have that for each $n \in \N$,
+				\begin{align*}
+					\mu_0(B_n \setminus D_n)
+					& = \mu_0 \bigg[ B_n \cap (\bigcap\limits_{m=1}^n C_m)^c \bigg] \\
+					& = \mu_0 \bigg[ B_n \cap (\bigcup\limits_{m=1}^n C_m^c) \bigg] \\
+					& = \mu_0 \bigg[\bigcup\limits_{m=1}^n (B_n \cap C_m^c) \bigg] \\
+					& \leq \mu_0 \bigg[\bigcup\limits_{m=1}^n (B_m \cap C_m^c) \bigg] \\
+					& \leq \sum_{m=1}^n \mu_0(B_m \cap C_m^c) \\
+					& = \sum_{m=1}^n \mu_0(B_m \setminus C_m) \\
+					& < \sum_{m=1}^n \frac{\del}{2^m} \\
+					& < \del.
+				\end{align*}
+			\end{itemize}
+			\item Let $n \in \N$. Since 
+			\begin{align*}
+				\mu_0(B_n)
+				& = \mu_{j_n}(E_n) \\
+				& < \mu_{j_n}(X_n) \\
+				& < \infty, 
+			\end{align*}
+			\rex{arg1} \tcr{(ref exercise about finitely additive set functions )} implies
+			\begin{align*}
+				\mu_0(B_n \setminus D_n)
+				& = \mu_0(B_n) - \mu_0(D_n) \\
+				& \geq \del - \mu_0(D_n). 
+			\end{align*}
+			Thus 
+			\begin{align*}
+				\mu_0(D_n)
+				& \geq \del - \mu_0(B_n \setminus D_n) \\
+				& > \del - \del \\
+				& = 0.
+			\end{align*}
+			\item Let $n \in \N$. Since $\mu_0(D_n) > 0$, $D_n \neq \varnothing$. Since $n \in \N$ is arbitrary, we have that for each $n \in \N$, $D_n \neq \varnothing$. The axiom of countable choice implies that there exists $(x_n)_{n \in \N} \in \prod\limits_{n \in \N} D_n$. For each $m,n \in \N$, set  
+			\[
+			x_{n,m} 
+			\defeq
+			\begin{cases}
+				\pi_{j_m}(x_n), & n \geq m \\
+				\pi_{j_m}(x_m), &  n < m
+			\end{cases}
+			\]
+			Then for each $m,n \in \N$, $x_{n,m} \in K_m$. Let $m \in \N$. Since $X_{j_m}$ is Hausdorff, $K_m$ is Hausdorff and thus $K_m$ is first-countable. Since $K_m$ is compact, \tcb{an exercise in the analysis notes section on sequential compactness} implies that $K_m$ is sequentially compact. Since $m \in \N$ is arbitrary, we have that for each $m \in \N$, $K_m$ is sequentially compact. Since $(x_{n, 1})_{n \in \N} \subset K_1$ and $K_1$ is sequentially compact, there exist $\phi_1:\N \rightarrow \N$ and $y_{0,1} \in K_1$ such that $\phi_1$ is strictly increasing and $x_{\phi_1(n), 1} \rightarrow y_{0,1}$. Since $(x_{\phi_1(n), 2})_{n \in \N} \subset K_2$ and $K_2$ is sequentially compact, there exists $\phi_2:\N \rightarrow \N$ and $y_{0,2} \in K_2$ such that $\phi_2$ is strictly increasing and $x_{\phi_1( \phi_2(n)), 2} \rightarrow y_{0,2}$. Continuing inductively, for each $m \in \N$, there exist $\phi_m: \N \rightarrow \N$ and $y_{0,m} \in K_m$ such that $\phi_m$ is strictly increasing and $x_{\phi_1 \circ \cdots \circ \phi_m(n), m} \rightarrow y_{0, m}$. For each $m \in \N$, define $\psi_m: \N \rightarrow \N$ by $\psi_m \defeq \phi_1 \circ \cdots \circ \phi_m$. Then for each $m \in \N$, $\psi_m$ is strictly increasing and $x_{\psi_m(n), m} \rightarrow y_{0,m}$. For each $m,n \in \N$, define $y_{n,m} \in K_m$ by $y_{n,m} \defeq x_{\psi_n(n), m}$. Let $m \in \N$. Since $(y_{n,m})_{n \in \N}$ is a subsequence of $(x_{\psi_m(n), m})_{n \in \N}$ and $x_{\psi_m(n), m} \conv{n} y_{0,m}$, we have that $y_{n, m} \conv{n} y_{0, m}$. Since $m \in \N$ is arbitrary, we have that for each $m \in \N$, $y_{n,m} \conv{n} y_{0, m}$.
+			\item For each $j \in J$, set $A_j \defeq \{m \in \N: (j, j_m) \in {\leq}\}$. Define $y_0 \in \prod\limits_{j \in J} X_j$ by 
+			$$\prj_j(y_0) \defeq \pi_{j,j_m}(y_{0, m}), \quad \quad m \in A_j$$ 
+			\begin{itemize} 
+				\item Let $j \in J$. \tcb{A previous part} implies that there exists $m \in \N$ such that $j \leq j_m$. Then $m \in A_j$ and $A_j \neq \varnothing$. Since $j \in J$ is arbitrary, we have that for each $j \in J$, $A_j \neq \varnothing$.
+				\item  Let $j \in J$ and $m_1, m_2 \in A_j$. Then 
+				\begin{align*}
+					\pi_{j,j_{m_1}}(y_{0,m_1})
+					& = \pi_{j, j_{m_1}}(\lim\limits_{n \rightarrow \infty} y_{n,m_1}) \\
+					& = \lim\limits_{n \rightarrow \infty} \pi_{j, j_{m_1}}( y_{n,m_1}) \\
+					& = \lim\limits_{n \rightarrow \infty} \pi_{j, j_{m_1}}(x_{\psi_n(n),m_1}) \\
+					& = \lim\limits_{n \rightarrow \infty} \pi_{j, j_{m_1}}(\pi_{j_{m_1}}(x_{\psi_n(n)})) \\
+					& = \lim\limits_{n \rightarrow \infty} \pi_j(x_{\psi_n(n)}) \\
+					& = \lim\limits_{n \rightarrow \infty} \pi_{j, j_{m_2}}(\pi_{j_{m_2}}(x_{\psi_n(n)})) \\
+					& = \lim\limits_{n \rightarrow \infty} \pi_{j, j_{m_2}}(x_{\psi_n(n),m_2}) \\
+					& = \pi_{j, j_{m_2}}(\lim\limits_{n \rightarrow \infty} y_{n,m_2}) \\
+					& = \pi_{j,j_{m_2}}(y_{0,m_2})
+				\end{align*}
+			\end{itemize}
+			Therefore $y_0$ is well-defined. Let $(j,k) \in {\leq}$. \tcb{A previous part} implies that there exists $n \in \N$ such that $k \leq j_n$. Then $n \in A_k$, $n \in A_j$ and 
+			\begin{align*}
+				\pi_{j,k} \circ \prj_k(y_0)
+				& = \pi_{j,k} \circ  \pi_{k, j_n}(y_0,n) \\
+				& = \pi_{j, j_n}(y_0, n) \\
+				& = \prj_j(y_0).
+			\end{align*}
+			Since $(j,k) \in {\leq}$ is arbitrary, we have that for each $(j,k) \in {\leq}$, $\pi_{j,k} \circ \prj_k(y_0) = \prj_j(y_0)$. Thus $y_0 \in X$. By construction, for each $m \in \N$, 
+			\begin{align*}
+				\pi_{j_m}(y_0)
+				& = \prj_{j_m}|_{X}(y_0) \\
+				& = \pi_{j_m, j_m}(y_{0,m}) \\
+				& = \id_{X_m}(y_{0,m}) \\
+				& = y_{0,m} \\
+				& \in K_m.
+			\end{align*}
+			Thus for each $m \in \N$, 
+			\begin{align*}
+				y_0 
+				& \in \pi_{j_m}^{-1}(K_m) \\
+				& = C_m.
+			\end{align*}
+			Hence 
+			\begin{align*}
+				y_0
+				& \in \bigcap\limits_{m \in \N} C_m \\
+				& \subset  \bigcap\limits_{m \in \N} B_m.
+			\end{align*}
+		\end{enumerate} 
+		\item Let $(B_n)_{n \in \N} \subset \MA_0$. Suppose that $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$. Set $\del \defeq \inf\limits_{n \in \N} \mu_0(B_n)$. For the sake of contradiction, suppose that $\del > 0$. \tcb{The previous parts} imply that $\bigcap\limits_{m \in \N} B_m \neq \varnothing$. This is a contradiction. Hence $\del = 0$. Since $(B_n)_{n \in \N} \subset \MA_0$ such that $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MA_0$, $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$ implies that $\inf\limits_{n \in \N} \mu_0(B_n) = 0$. \rex{ex:outer_measures:00007.1} then implies that $\mu_0$ is a premeasure on $(X, \MA_0)$. 
+		\item Since $\MB(X) = \sig(\MA_0)$ and $\mu_0$ is finite, \rex{ex:outer_measures:00008} implies that there exists a unique $\mu \in M_+(X)$ such that $\mu|_{\MA_0} = \mu_0$. Since $X$ is a Polish space \tcr{(assume)} and 
+		\begin{align*}
+			\mu(X)
+			& = \mu_0(X) \\
+			& = \sup\limits_{j \in J} \mu_j(X) \\
+			& < \infty, 
+		\end{align*}
+		\rex{} \tcr{(Ulam's theorem) exercise on radon measures} implies that $\mu \in \MM_+(X)$.
+		\begin{itemize}
+			\item Let $j \in J$ and $E \in \MB(X_j)$. By construction, 
+			\begin{align*}
+				(\pi_j)_*\mu(E)
+				& = \mu(\pi_j^{-1}(E)) \\
+				& = \mu|_{\MA_0}(\pi_j^{-1}(E)) \\
+				& = \mu_0(\pi_j^{-1}(E)) \\
+				& = \mu_j(E).
+			\end{align*}
+			Since $E \in \MB(X_j)$ is arbitrary, we have that $(\pi_j)_*\mu = \mu_j$. Since $j \in J$ is arbitrary, we have that for each $j \in J$, $(\pi_j)_*\mu = \mu_j$. Hence $(\pi_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\TopMsrpos}((X, \mu), (X_j, \mu_j))$. Since $(X, (\pi_j)_{j \in J})$ is a $\Top$-projective limit of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$, for each $(j,k) \in {\leq}$, 
+			\begin{align*}
+				\pi_{j,k} \circ_{\TopMsrpos} \pi_k 
+				& = \pi_{j,k} \circ \pi_k \\
+				& = \pi_j.
+			\end{align*}
+			\item \tbf{Universal Property:} \\
+			Let $(Y, \nu) \in \Obj(\TopMsrpos)$ and $(\tau_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\TopMsrpos}((Y, \nu),(X_j, \mu_j))$. Suppose that for each $(j,k) \in {\leq}$, $\pi_{j,k} \circ_{\TopMsrpos} \tau_k = \tau_j$. 
+			\begin{itemize}
+				\item \tbf{Existence:} \\
+				Since $Y \in \Obj(\Top)$, $(\tau_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\Top}(Y,X_j)$ and $(X, (\pi_j)_{j \in J})$ is a $\Top$-projective limit of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$, there exists a unique $\phi \in \Hom_{\Top}(Y, X)$ such that for each $j \in J$, $\pi_j \circ \phi = \tau_j$. Then for each $j \in J$,
+				\begin{align*}
+					(\pi_j)_*[\phi_*\nu]
+					& = (\pi_j \circ \phi)_*\nu \\
+					& = (\tau_j)_*\nu \\
+					& = \mu_j.  
+				\end{align*}
+				Let $A \in \MA_0$. Then there exists $j \in J$ and $E \in \MB(X_j)$ such that $A = \pi_{j}^{-1}(E)$. Then
+				\begin{align*}
+					\phi_*\nu(A)
+					& = \nu(\phi^{-1}(A)) \\
+					& = \nu(\phi^{-1}(\pi_j^{-1}(E)) \\
+					& = \nu([\pi_j \circ \phi]^{-1}(E)) \\
+					& = \nu(\tau_j^{-1}(E)) \\
+					& = (\tau_j)_*\nu(E) \\
+					& = (\mu_j)(E) \\
+					& = (\pi_j)_*\mu(E) \\
+					& = \mu(\pi_j^{-1}(E)) \\
+					& = \mu(A).
+				\end{align*}
+				Since $A \in \MA_0$ is arbitrary, we have that 
+				\begin{align*}
+					\phi_*\nu|_{\MA_0}
+					& = \mu|_{\MA_0} \\
+					& = \mu_0. 
+				\end{align*}
+				By uniqueness, $\phi_*\nu = \mu$. Hence $\phi \in \Hom_{\TopMsrpos}((Y, \nu), (X, \mu))$.
+				\item \tbf{Uniqueness:} \\
+				Clear by uniqueness of $\phi$ in $\Top$. \tcr{(add details)}
+			\end{itemize}
+		\end{itemize}
+		Hence $((X, \mu), (\pi_j)_{j \in J})$ is a $\TopMsrpos$-projective limit of $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$.
+		\tcr{show $\mu$ is radon and consider category of top radon measr spaces}, to show radon, maybe assume $X$ is nice (polish space) and since $\mu$ is finite it is radon
+		\tcr{Change} $\TopMsrpos$ to top radon measure positive
+	\end{enumerate}
+\end{proof}
 	
 	
 	
