@@ -2460,8 +2460,10 @@
 		We define 
 		\begin{itemize}
 			\item \tbf{Cantor space}, denoted $\MC$, by $\MC \defeq \{0,1\}^{\N}$,
+			\item \tbf{Baire space}, denoted $\MN$, by $\MN \defeq \N^{\N}$,
 			\item \tbf{Hilbert Cube}, denoted $\H$, by $\H \defeq [0,1]^{\N}$.
 		\end{itemize}
+		We equip each of $\MC$, $\MN$ and $\H$ with the product topology.
 	\end{defn}
 
 
@@ -2534,7 +2536,6 @@
 	
 	\begin{defn} \ld{def:measurable_spaces:standard_borel_spaces:0005} \
 		\begin{itemize}
-			\item We equip $\MC$ with the product topology 
 			\item We define $Z \subset \MC$ by 
 			$$Z = \bigg \{(x_n)_{n \in \N} \in \MC: \# \{n \in \N: x_n = 0\} = \infty  \bigg \} \cup \{(1, 1, 1, \ldots)\}$$ 
 			\item We define $\phi: Z \rightarrow [0,1]$ by 
@@ -3099,7 +3100,7 @@
 	\end{proof}
 
 	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0023}
-		Let $X$ be a Polish space. Then for each $B \in \MB(X)$, exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $f$ is continuous and $f$ is a measurable isomorphism. \\
+		Let $X$ be a Polish space. Then for each $B \in \MB(X)$, there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $f$ is continuous and $f$ is a measurable isomorphism. \\
 		\tbf{Hint:} consider \rex{ex:measurable_spaces:standard_borel_spaces:0020} and \rex{ex:measurable_spaces:standard_borel_spaces:0020}   
 	\end{ex}
 
@@ -3125,6 +3126,46 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	\begin{defn}
+		zero dimensional
+		\tcr{FINISH!!!}
+	\end{defn}
+
+	\begin{ex} \tcr{number exercise}
+		Let $X$ be a Polish space and $B \in \MB(X)$. Then there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that 
+		\begin{itemize}
+			\item $f$ is continuous
+			\item $f$ is injective
+			\item $Z$ is zero-dimensional
+		\end{itemize}
+	\end{ex}
+
+	\begin{proof}
+		\tcr{FINSH!!!}
+	\end{proof}
+	
+	
+	\begin{ex} \tcr{number exercise}
+		Let $X$ be a Polish space and $B \in \MB(X)$. Suppose that $B$ is uncountable. Then there exists $f:\MN \rightarrow X$ such that 
+		\begin{itemize}
+			\item $f$ is continuous
+			\item $f$ is injective
+			\item $f(\MN) \subset B$ 
+			\item $B \setminus f(\MN)$ is countable 
+		\end{itemize}
+	\end{ex}
+
+	\begin{proof}
+		\tcr{FINSH!!!}
+	\end{proof}
 	
 	
 	
@@ -11187,10 +11228,10 @@
 \tcr{idea: use this consistency theorem to obtain guassian measure $\mu$ on $\C^{\N}$ with the product sigma algebra where $(\pi_F)_*\mu$ is a gaussian measure on $\C^{|F|}$ for finite subsets $F \subset \N$ with a prescribed mean and covariance function, then try to generalize theorem 2.4 in the book on gaussian measures in hilbert spaces, for rkhs.}
 
 \begin{ex} \lex{} \tbf{Kolmogorov Extension Theorem:} \\
-	Let $(J, {\leq})$ be a directed set $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ a $\TopMsrpos$-projective system. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ in $\Top$. Suppose that 
+	Let $(J, {\leq})$ be a directed set $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ a $\TopRadMsrpos$-projective system. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ in $\Top$. Suppose that 
 	\begin{itemize}
 		\item $J$ is countable
-		\item for each $j \in J$, $\pi_j$ is surjective
+		\item for each $j \in J$, $X_j$ is a Polish space and $\pi_j$ is surjective
 		\item $\sup\limits_{j \in J} \mu_j(X_j) < \infty$ \tcr{(maybe not necessary)}
 	\end{itemize}
 	Define $\MA_0 \subset \MP(X)$ by $\MA_0 \defeq \bigcup\limits_{j \in J} \pi_j^*\MB(X_j)$ and define $\mu_0: \MA_0 \rightarrow \RG$ by $\mu_0(\pi_j^{-1}(E)) \defeq \mu_j(E)$ $(j \in J, E \in \MB(X_j))$. Then
@@ -11221,7 +11262,7 @@
 		\end{enumerate}
 		\item $\mu_0$ is a premeasure on $(X, \MA_0)$\\
 		\tbf{Hint:} \rex{ex:outer_measures:00007.1} 
-		\item there exists a unique measure $\mu \in \MM_+(X)$ such that $((X, \mu), (\pi_j)_{j \in J})$ is a $\TopMsrpos$-projective limit of $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$. 
+		\item there exists a unique measure $\mu \in \MM_+(X)$ such that $((X, \mu), (\pi_j)_{j \in J})$ is a $\TopRadMsrpos$-projective limit of $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$. 
 	\end{enumerate}
 \end{ex}
 	
@@ -11259,7 +11300,7 @@
 			& = \mu_0(A_2).
 		\end{align*}
 		Thus $\mu_0$ is well-defined.
-		\item Set $S \defeq \sup\limits_{j \in J} \mu_j(X_j)$. \tcr{(maybe do case when $S = \infty$)} Since $J$ is a directed set, $J \neq \varnothing$. Thus there exists $j_0 \in J$. Then
+		\item Set $S \defeq \sup\limits_{j \in J} \mu_j(X_j)$. Since $J$ is a directed set, $J \neq \varnothing$. Thus there exists $j_0 \in J$. Then
 		\begin{align*}
 			\mu_0(X) 
 			& = \mu_0(\pi_j^{-1}(X_j)) \\
@@ -11310,7 +11351,9 @@
 			& = \mu_0(A_1) + \mu_0(A_2).
 		\end{align*}
 		Thus $\mu_0$ is finitely-additive. \tcr{need exercise showing that finitely additive functions are increasing wrt inclusion}
-		\item Since $J$ is countable \tcr{(assume)}, we may write $J = (j^1_n)_{n \in \N}$. By definition of $\MA_0$, for each $n \in \N$, there exists $j^2_n \in J$ and $E^2_n \in \MB(X_{j^2_n})$ such that $B_n = \pi_{j^2_n}^{-1}(E^2_n)$. Since $J$ is directed, for each $n \in \N$, there exists $j_n \in J$ such that $j^1_n, j^2_n \leq j_n$. The axiom of countable choice implies that there exists $(j_n)_{n \in \N} \subset J$ such that for each $n \in \N$, $j^1_n, j^2_n \leq j_n$. For each $n \in \N$, define $E_n \defeq \pi_{j^2_n, j_n}^{-1}(E^2_n)$. 
+		\item Since $J$ is countable \tcr{(assume)}, we may write $J = (j^1_n)_{n \in \N}$. By definition of $\MA_0$, for each $n \in \N$, there exists $j^2_n \in J$ and $E^2_n \in \MB(X_{j^2_n})$ such that $B_n = \pi_{j^2_n}^{-1}(E^2_n)$. The axiom of countable choice implies that there exists $(j^2_n)_{n \in \N} \subset J$ and $(E_n^2)_{n \in \N} \in \prod\limits_{n \in \N} \MB(X_{j^2_n})$ such that for each $n \in \N$, $B_n = \pi_{j^2_n}^{-1}(E^2_n)$. 
+		
+		Since $J$ is directed, for each $n \in \N$, there exists $j_n \in J$ such that $j^1_n, j^2_n \leq j_n$. The axiom of countable choice implies that there exists $(j_n)_{n \in \N} \subset J$ such that for each $n \in \N$, $j^1_n, j^2_n \leq j_n$. For each $n \in \N$, define $E_n \defeq \pi_{j^2_n, j_n}^{-1}(E^2_n)$. 
 		\begin{itemize}
 			\item Then for each $n \in \N$, 
 			\begin{align*}
@@ -11453,7 +11496,7 @@
 			\end{align*}
 		\end{enumerate} 
 		\item Let $(B_n)_{n \in \N} \subset \MA_0$. Suppose that $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$. Set $\del \defeq \inf\limits_{n \in \N} \mu_0(B_n)$. For the sake of contradiction, suppose that $\del > 0$. \tcb{The previous parts} imply that $\bigcap\limits_{m \in \N} B_m \neq \varnothing$. This is a contradiction. Hence $\del = 0$. Since $(B_n)_{n \in \N} \subset \MA_0$ such that $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MA_0$, $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$ implies that $\inf\limits_{n \in \N} \mu_0(B_n) = 0$. \rex{ex:outer_measures:00007.1} then implies that $\mu_0$ is a premeasure on $(X, \MA_0)$. 
-		\item Since $\MB(X) = \sig(\MA_0)$ and $\mu_0$ is finite, \rex{ex:outer_measures:00008} implies that there exists a unique $\mu \in M_+(X)$ such that $\mu|_{\MA_0} = \mu_0$. Since $X$ is a Polish space \tcr{(assume)} and 
+		\item Set $\MC \defeq \TopRadMsrpos$. Since $\MB(X) = \sig(\MA_0)$ and $\mu_0$ is finite, \rex{ex:outer_measures:00008} implies that there exists a unique $\mu \in M_+(X)$ such that $\mu|_{\MA_0} = \mu_0$. Since for each $j \in J$, $X_j$ is a Polish space, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $X$ is a Polish space. Since 
 		\begin{align*}
 			\mu(X)
 			& = \mu_0(X) \\
@@ -11470,14 +11513,14 @@
 				& = \mu_0(\pi_j^{-1}(E)) \\
 				& = \mu_j(E).
 			\end{align*}
-			Since $E \in \MB(X_j)$ is arbitrary, we have that $(\pi_j)_*\mu = \mu_j$. Since $j \in J$ is arbitrary, we have that for each $j \in J$, $(\pi_j)_*\mu = \mu_j$. Hence $(\pi_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\TopMsrpos}((X, \mu), (X_j, \mu_j))$. Since $(X, (\pi_j)_{j \in J})$ is a $\Top$-projective limit of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$, for each $(j,k) \in {\leq}$, 
+			Since $E \in \MB(X_j)$ is arbitrary, we have that $(\pi_j)_*\mu = \mu_j$. Since $j \in J$ is arbitrary, we have that for each $j \in J$, $(\pi_j)_*\mu = \mu_j$. Hence $(\pi_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\MC}((X, \mu), (X_j, \mu_j))$. Since $(X, (\pi_j)_{j \in J})$ is a $\Top$-projective limit of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$, for each $(j,k) \in {\leq}$, 
 			\begin{align*}
-				\pi_{j,k} \circ_{\TopMsrpos} \pi_k 
+				\pi_{j,k} \circ_{\MC} \pi_k 
 				& = \pi_{j,k} \circ \pi_k \\
 				& = \pi_j.
 			\end{align*}
 			\item \tbf{Universal Property:} \\
-			Let $(Y, \nu) \in \Obj(\TopMsrpos)$ and $(\tau_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\TopMsrpos}((Y, \nu),(X_j, \mu_j))$. Suppose that for each $(j,k) \in {\leq}$, $\pi_{j,k} \circ_{\TopMsrpos} \tau_k = \tau_j$. 
+			Let $(Y, \nu) \in \Obj(\MC)$ and $(\tau_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\MC}((Y, \nu),(X_j, \mu_j))$. Suppose that for each $(j,k) \in {\leq}$, $\pi_{j,k} \circ_{\MC} \tau_k = \tau_j$. 
 			\begin{itemize}
 				\item \tbf{Existence:} \\
 				Since $Y \in \Obj(\Top)$, $(\tau_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\Top}(Y,X_j)$ and $(X, (\pi_j)_{j \in J})$ is a $\Top$-projective limit of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$, there exists a unique $\phi \in \Hom_{\Top}(Y, X)$ such that for each $j \in J$, $\pi_j \circ \phi = \tau_j$. Then for each $j \in J$,
@@ -11506,14 +11549,12 @@
 					& = \mu|_{\MA_0} \\
 					& = \mu_0. 
 				\end{align*}
-				By uniqueness, $\phi_*\nu = \mu$. Hence $\phi \in \Hom_{\TopMsrpos}((Y, \nu), (X, \mu))$.
+				By uniqueness of $\mu$ satisfying $\mu|_{\MA_0} = \mu_0$, we have that $\phi_*\nu = \mu$. Hence $\phi \in \Hom_{\MC}((Y, \nu), (X, \mu))$.
 				\item \tbf{Uniqueness:} \\
 				Clear by uniqueness of $\phi$ in $\Top$. \tcr{(add details)}
 			\end{itemize}
 		\end{itemize}
-		Hence $((X, \mu), (\pi_j)_{j \in J})$ is a $\TopMsrpos$-projective limit of $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$.
-		\tcr{show $\mu$ is radon and consider category of top radon measr spaces}, to show radon, maybe assume $X$ is nice (polish space) and since $\mu$ is finite it is radon
-		\tcr{Change} $\TopMsrpos$ to top radon measure positive
+		Hence $((X, \mu), (\pi_j)_{j \in J})$ is a $\MC$-projective limit of $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$.
 	\end{enumerate}
 \end{proof}
 	

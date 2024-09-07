@@ -4861,8 +4861,42 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 
 	\subsubsection{Second-Countability and Quotient Spaces}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Second-Countability and Projective Limits}
+
+\tcr{make $\varprojlim\limits_{j \in J} X$ refer to set construction, always supress $\pi_j$ as in products, but $\pi_j$ always refer to $\prj|_X$, and define a projective limit of a projective system and show that $\varprojlim X_j$ is a projective limit in various categories when equipped with the corresponding structure}
 	
-	
+\begin{ex} \lex{ex:topology:countability:0016}
+	Let $(J, {\leq})$ be a directed set and $((X_j, \MT_j)_{j \in J}, (\pi_{i,j})_{(i,j) \in {\leq}})$ be a $\Top$-projective system. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j, \MT_j)_{j \in J}, (\pi_{i,j})_{(i,j) \in {\leq}})$. Suppose that $J$ is countable and for each $j \in J$, $(X_j, \MT_j)$ is second-countable. Then $(X, \MT)$ is second-countable.
+\end{ex}
+
+\begin{proof}
+	Since $J$ is countable, \rex{ex:topology:countability:0014} implies that $(X, \MT)$ is second-countable. Since $X \subset \prod\limits_{j \in J} X_j$ and $\MT = \bigg( \bigotimes_{j \in J} \MT_j \bigg) \cap X$, \rex{ex:topology:countability:0013} implies that $(X, \MT)$ is second-countable. 
+\end{proof}
 	
 	
 	
@@ -7102,7 +7136,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	Let $(X, d_X), (Y, d_Y)$ be metric spaces and $f:X \rightarrow Y$. Then $f$ is a $(d_X, d_Y)$-isometry iff $f$ is injective and $d_X = f^*d_Y$.
 \end{ex}
 
-\begin{proof}
+\begin{proof}\
 	\begin{itemize}
 		\item $(\implies):$ \\
 		Suppose that $f$ is a $(d_X, d_Y)$-isometry. \rex{ex:metric_spaces:introduction:0008.2} implies that $f$ is injective. Then for each $x_1, x_2 \in X$, we have that
@@ -8697,11 +8731,11 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 \subsection{Metrizability of Subspaces}
 
 \begin{ex} \lex{ex:metric_spaces:metrizable_spaces:0004}
-	Let $(X, \MT)$ be a topological space and $C \subset X$. Suppose that $(X, \MT)$ is completely metrizable. If $C$ is closed, then $(C, \MT \cap C)$ is completely metrizable. 
+	Let $(X, \MT)$ be a topological space and $C \subset X$. Suppose that $(X, \MT)$ is completely metrizable. If $C$ is closed in $(X, \MT)$, then $(C, \MT \cap C)$ is completely metrizable. 
 \end{ex}
 
 \begin{proof}
-	Suppose that $C$ is closed. Since $(X, \MT)$ is completely metrizable, there exists a metric $d: X \times X \rightarrow	\Rg$ such that $\MT = \MT_d$ and $(X, d)$ is complete. \rex{ex:metric_spaces:completeness:0004} implies that $(C, d|_{C \times C})$ is complete. \rex{ex:metric_spaces:subspaces:0001} implies that $\MT_{d|_{C \times C}} = \MT_d \cap C$. Hence $(C, \MT_d \cap C)$ is completely metrizable. 
+	Suppose that $C$ is closed in $(X, \MT)$. Since $(X, \MT)$ is completely metrizable, there exists a metric $d: X \times X \rightarrow	\Rg$ such that $\MT = \MT_d$ and $(X, d)$ is complete. \rex{ex:metric_spaces:completeness:0004} implies that $(C, d|_{C \times C})$ is complete. \rex{ex:metric_spaces:subspaces:0001} implies that $\MT_{d|_{C \times C}} = \MT_d \cap C$. Hence $(C, \MT_d \cap C)$ is completely metrizable. 
 \end{proof}
 
 
@@ -8802,6 +8836,29 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 
 
 
+\subsection{Metrizability of Projective Limits}
+
+\begin{ex} \lex{ex:metric_spaces:metrizable_spaces:0007}
+	Let $(J, {\leq})$ be a directed set and $((X_j, \MT_j)_{j \in J}, (\pi_{i,j})_{(i,j) \in {\leq}})$ be a $\Top$-projective system. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j, \MT_j)_{j \in J}, (\pi_{i,j})_{(i,j) \in {\leq}})$. Suppose that $J$ is countable and for each $j \in J$, $(X_j, \MT_j)$ is completely metrizable. Then $(X, \MT)$ is completely metrizable.
+\end{ex}
+
+\begin{proof}
+	Since $J$ is countable, \rex{ex:metric_spaces:metrizable_spaces:0005} implies that $(\prod\limits_{j \in J} X_j, \bigotimes\limits_{j \in J} \MT_j)$ is completely metrizable. Since for each $j \in J$, $(X_j, \MT_j)$ is metrizable, for each $j \in J$, $(X_j, \MT_j)$ is Hasudorff. \rex{ex:topology:proj_limits:0004} implies that $X$ is closed in $(\prod\limits_{j \in J} X_j, \bigotimes\limits_{j \in J} \MT_j)$. Since $\MT = \bigg( \bigotimes\limits_{j \in J} \MT_j \bigg) \cap X$, \rex{ex:metric_spaces:metrizable_spaces:0004} implies that $(X, \MT)$ is completely metrizable.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8871,6 +8928,16 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	Set $X \defeq \coprod\limits_{n \in \N} X_n$ and $\MT \defeq \bigoplus\limits_{n \in \N} \MT_n$. Since for each $n \in \N$, $(X_n, \MT_n)$ is a Polish space, for each $n \in \N$, $(X_n, \MT_n)$ is completely metrizable and second-countable. \rex{ex:metric_spaces:metrizable_spaces:0006} implies that $(X, \MT)$ is completely metrizable and \rex{ex:topology:countability:0015} implies that $(X, \MT)$ is second-countable. Hence $(X, \MT)$ is a Polish space.
 \end{proof}
 
+\begin{ex} \lex{ex:metric_spaces:polish_spaces:0003.2}
+	Let $(J, {\leq})$ be a directed set and $((X_j, \MT_j)_{j \in J}, (\pi_{i,j})_{(i,j) \in {\leq}})$ be a $\Top$-projective system. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j, \MT_j)_{j \in J}, (\pi_{i,j})_{(i,j) \in {\leq}})$. Suppose that $J$ is countable and for each $j \in J$, $(X_j, \MT_j)$ is a Polish space. Then $(X, \MT)$ is a Polish space.
+\end{ex}
+
+\begin{proof}
+	Since for each $j \in J$, $(X_j, \MT_j)$ is a polish space, for each $j \in J$, $(X_j, \MT_j)$ is completely metrizable. \rex{ex:metric_spaces:metrizable_spaces:0007} that $(X, \MT)$ is completely metrizable. Since for each $j \in J$, $(X_j, \MT_j)$ is separable, \rex{ex:metric_spaces:introduction:0025} implies that for each $j \in J$, $(X_j, \MT_j)$ is second-countable. Since $J$ is countable, \rex{ex:topology:countability:0016} implies that $(X, \MT)$ is second-countable. Another application of \rex{ex:metric_spaces:introduction:0025} implies that $(X, \MT)$ is separable. Hence $(X, \MT)$ is a Polish space.
+\end{proof}
+
+
+
 \begin{ex} \lex{ex:metric_spaces:polish_spaces:0004}
 	Let $(X, \MT_X)$ and $(Y, \MT_Y)$ be topological spaces and $f:X \rightarrow Y$ a $(\MT_X, \MT_Y)$-homeomorphism. Then $(X, \MT_X)$ is a Polish space iff $(Y, \MT_Y)$ is a Polish space.
 \end{ex}
@@ -8908,7 +8975,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 		\item $(\implies):$ \\
 		Suppose that $E$ is a $G_{\del}$-set. Set $\MS \defeq \MT \otimes (\MT_{\R})^{\otimes \N}$. Since $E$ is a $G_{\del}$-set, there exists $(U_n)_{n \in \N} \subset \MT$ such that $E = \bigcap\limits_{n \in \N} U_n$. \rex{ex:metric_spaces:introduction:0024.2} implies that there exists $C \subset X \times \R^{\N}$ and $f:E \rightarrow C$ such that $f$ is a $(\MT \cap E, \MS \cap C)$-homeomorphism and $C$ is closed in $X \times \R^{\N}$. \rex{ex:metric_spaces:polish_spaces:0003} implies that $X \times \R^{\N}$ is a Polish space. Since $C$ is closed in $X \times \R^{\N}$, \rex{ex:metric_spaces:polish_spaces:0002} implies that $(C, \MS \cap C)$ is a Polish space. \rex{ex:metric_spaces:polish_spaces:0004} implies that $(E, \MT \cap E)$ is a Polish space.
 		\item $(\impliedby):$ \\
-		Conversely, suppose that $(E, \MT \cap E)$ is a Polish space.
+		Conversely, suppose that $(E, \MT \cap E)$ is a Polish space. \tcr{FINISH!!!}
 	\end{itemize}
 \end{proof}
 
