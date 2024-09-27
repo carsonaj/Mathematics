@@ -100,6 +100,7 @@
 	\chapter{Review of Fundamentals}
 
 	\section{Set Theory}
+	\tcr{merge with set theory from analysis notes}
 	
 	\begin{defn}
 		Let $\{A_i\}_{i \in I}$ be a collection of sets. The \tbf{disjoint union of} $\{A_i\}_{i \in I}$, denoted $\coprod\limits_{i \in I} A_i$, is defined by $$\coprod_{i \in I}A_i = \bigcup_{i\in I} \{i\} \times A_i$$ 
@@ -107,8 +108,9 @@
 	\end{defn}
 
 	\begin{defn}
-		Let $E$ and $M$ be sets, $\pi:E \rightarrow B$ a surjection and $\sig: B \rightarrow E$. Then $\sig$ is said to be a section of $(E, M, \pi)$ if $\pi \circ \sig = \id_{M}$. 
+		Let $E$ and $M$ be sets, $\pi:E \rightarrow M$ a surjection and $\sig: M \rightarrow E$. Then $\sig$ is said to be a section of $(E, M, \pi)$ if $\pi \circ \sig = \id_M$. 
 	\end{defn}
+
 
 	\begin{note}
 		Let $\{A_i\}_{i \in I}$ be a collection of sets and $\sig: I \rightarrow \coprod\limits_{i \in I} A_i$. We will typically be interested in sections $\sig$ of $\bigg( \coprod\limits_{i \in I} A_i, I, \pi \bigg)$.
@@ -3275,7 +3277,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\item there exists $\Gam' \subset \Gam$ such that $\Gam'$ is countable and $M \subset \bigcup\limits_{\al \in \Gam'} U_{\al}$
 			\item for each $p,q \in M$, there exists $\al \in \Gam$ such that $p,q \in U_{\al}$ or there exist $\al,\be \in \Gam$ such that $p \in U_{\al}$, $q \in U_{\be}$ and $U_{\al} \cap U_{\be} = \varnothing$
 		\end{enumerate}
-		Then there exists a unique topology $\MT_M$ and smooth structure $\MA_M$ on $(M, \MT_M)$ such that $(M, \MA_M)$ is an $n$-dimensional smooth manifold and $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset \MA_M$.
+		Then there exists a unique topology $\MT_M$ on $M$ and smooth structure $\MA_M$ on $(M, \MT_M)$ such that $(M, \MT_M, \MA_M)$ is an $n$-dimensional smooth manifold and $(U_{\al}, \phi_{\al})_{\al \in \Gam} \subset \MA_M$.
 	\end{ex}
 	
 	\begin{proof}
@@ -4751,11 +4753,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	\begin{defn}
-	Let $p \in M$. We define the \tbf{cotangent space of $M$ at $p$}, denoted $T^*_pM$, by $$T^*_pM = (T_pM)^*$$
+	Let $p \in M$. We define the \tbf{cotangent space of $M$ at $p$}, denoted $T^*_pM$, by $$T^*_pM \defeq (T_pM)^*$$
 	\end{defn}
 	
 	\begin{defn}
-	Let $f \in C^{\infty}(M)$. We define the \tbf{differential of $f$ at $p$}, denoted $df_p:T_pM \rightarrow \R$, by $$df_p(v) = vf$$
+	Let $f \in C^{\infty}(M)$. We define the \tbf{differential of $f$ at $p$}, denoted $df_p:T_pM \rightarrow \R$, by $$df_p(v) = v(f)$$
 	\end{defn}
 	
 	\begin{ex}
@@ -5226,6 +5228,21 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 	\end{proof}
 
+\begin{ex} \lex{ex:immersions:0005} \tbf{Local Representation of Immersions:} \\
+	Let $M,N \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(M, N)$. Then $F$ is am immersion iff for each $p \in M$, there exist $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_N$ such that $p \in U$, $\phi(U) = V$, and $\psi \circ F \circ \phi^{-1} = (\id_{\phi(U)}, 0)$.
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
+
+
+
+
+
+
+
+
 
 
 
@@ -5306,7 +5323,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		We define $\prj^{n+k}_{[n]}: \R^{n+k} \rightarrow \R^n$ by $\prj^{n+k}_{[n]}(a^1, \ldots, a^{n+k}) = (a^1, \ldots, a^n)$.
 	\end{note}
 
-	\begin{ex} \lex{ex:submersions:0002.1}
+	\begin{ex} \lex{ex:submersions:0002.1} \tbf{Local Representation of Submersions:} \\
 		Let $E, M \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$. Then $\pi$ is a submersion iff for each $a \in E$, there exist $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_E$ such that $a \in V$, $U = \pi(V)$, and $\phi \circ \pi \circ \psi^{-1} = \prj^{n+k}_{[n]}|_{\psi(V)}$.
 	\end{ex}
 
@@ -5365,10 +5382,19 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 	\end{proof}
 	
+	\begin{defn} \ld{def:submersions:0002.3}
+		Let $E, M \in \Obj(\ManBndinf)$, $\pi \in \Hom_{\ManBndinf}(E, M)$ a surjection and $\sig: M \rightarrow E$. Then $\sig$ is said to be a smooth section of $\pi$ if 
+		\begin{enumerate}
+			\item $\sig \in \Hom_{\ManBndinf}(M, E)$
+			\item $\sig$ is a section of $\pi$
+		\end{enumerate}
+		We define $$\Gam(\pi) \defeq \{\sig \in \Hom_{\ManBndinf}(M, E): \text{$\sig$ is a smooth section of $\pi$.}\}$$
+	\end{defn}
+	
 	\begin{defn} \ld{def:submersions:0003}
-		Let $E, M \in \Obj(\ManBndinf)$, $\pi \in \Hom_{\ManBndinf}(E, M)$, $U \in \MT_M$ and $\sig \in \Hom_{\Maninf}(U, E)$. Then 
+		Let $E, M \in \Obj(\ManBndinf)$, $\pi \in \Hom_{\ManBndinf}(E, M)$, $U \in \MT_M$ and $\sig : U \rightarrow E$. Then 
 		\begin{itemize}
-			\item $(U, \sig)$ is said to be a \tbf{smooth local section of $\pi$} if $\sig$ is a section of $\pi|_{\pi^{-1}(U)}: \pi^{-1}(U) \rightarrow U$, 
+			\item $(U, \sig)$ is said to be a \tbf{smooth local section of $\pi$} if $\sig \in \Gam(\pi|_{\pi^{-1}(U)})$, 
 			\item for each $p \in M$, we define 
 			$$\Gam_p(\pi) \defeq \{(U, \sig): \text{$(U, \sig)$ is a smooth local section of $\pi$ and $p \in U$}\}$$
 		\end{itemize}
@@ -6139,51 +6165,960 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			
 		\end{itemize}
 	\end{proof}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{The Tangent and Cotangent Bundles}
+
+\section{Introduction}
+
+\begin{defn}
+	Let $M \in \Obj(\ManBndinf)$. Set $n \defeq \dim M$. We define the \tbf{tangent bundle of $M$}, denoted $TM$, by  
+	$$TM = \coprod_{p \in M} T_p M $$ 
+	and we define the \tbf{tangent bundle projection}, denoted $\pi_{TM}: TM \rightarrow M$, by 
+	$$\pi_{TM}(p, v) \defeq p$$
+	Let $(U, \phi) \in \MA_M$ with $\phi = (x^1, \ldots, x^n)$. We define $\tl{\phi}: \pi^{-1}(U) \rightarrow \phi(U) \times \R^n$ by 
+	$$\tl{\phi} \bigg(p, \sum_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_p \bigg) \defeq (\phi(p), \xi^1, \ldots, \xi^n)$$ 
+\end{defn}
+
+\begin{note}
+	When the context is clear, we write $\pi$ in place of $\pi_{TM}$.
+\end{note}
+
+\begin{ex}
+	Let $M \in \Obj(\ManBndinf)$ and $(U, \phi) \in \MA_M$. Set $n \defeq \dim M$. Then
+	\begin{itemize}
+		\item $\pi$ is surjective,
+		\item for each $A \subset U$, $\tl{\phi}(\pi^{-1}(A)) = \phi(A) \times \R^n$.
+	\end{itemize}
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
+
+
+\begin{ex}
+	Let $M \in \Obj(\ManBndinf)$. Then there exists a unique topology $\MT_{TM}$ on $TM$ and smooth structure $\MA_{TM}$ on $(TM, \MT_{TM})$ such that $(TM, \MT_{TM}, \MA_{TM}) \in \Obj(\ManBndinf)$,  $(\pi^{-1}(U_{\al}), \tl{\phi}_{\al})_{\al \in \Gam} \subset \MA_{TM}$ and $\pi \in \Hom_{\ManBndinf}(TM, M)$. 
+\end{ex}
+
+\begin{proof}
+	Write $\MA_M = (U_{\al}, \phi_{\al})_{\al \in \Gam}$. 
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $\al \in \Gam$. Since $U_{\al} \in \MT_M$ and $\phi_{\al}$ is a homeomorphism, $\phi_{\al}(U_{\al}) \in \MT_{\H_n^n}$. Hence 
+		\begin{align*}
+			\tl{\phi}_{\al}(\pi^{-1}(U_{\al}))
+			& = \phi_{\al}(U_{\al}) \times \R^n \\
+			& \in \H_n^{2n}.
+		\end{align*}
+		\item Let $\al, \be \in \Gam$. Since $U_{\al}, U_{\be} \in \MT_M$, we have that $U_{\al} \cap U_{\be} \in \MT_M$. Since $\phi_{\al}$ is a homeomorphism, and $\phi_{\al}(U_{\al} \cap U_{\be}) \in \MT_{\H_n^n}$. Therefore 
+		\begin{align*}
+			\tl{\phi}_{\al}(\pi^{-1}(U_{\al}) \cap \pi^{-1}(U_{\be}))
+			& = \tl{\phi}_{\al}(\pi^{-1}(U_{\al} \cap U_{\be})) \\
+			& = \phi_{\al}(U_{\al} \cap U_{\be}) \times \R^n \\
+			& \in \MT_{\H_n^{2n}}.
+		\end{align*} 
+		\item Let $\al, \be \in \Gam$. Write $\phi_{\al} = (x^1, \ldots, x^n)$. Then $\tl{\phi}_{\al}: \pi^{-1}(U_{\al}) \rightarrow \phi_{\al}(U_{\al}) \times \R^n$ is a bijection with 
+		$$\tl{\phi}_{\al}^{-1}(a, \xi^1, \ldots, \xi^n) = \bigg (\phi_{\al}^{-1}(a), \sum\limits_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg |_{\phi^{-1}(a)} \bigg).$$ 
+		\item Let $\al, \be \in \Gam$. Write $\phi_{\al} = (x^1, \ldots, x^n)$ and $\phi_{\be} = (y^1, \ldots, y^n)$. Set $f_{\al} \defeq \tl{\phi}_{\al}|_{\pi^{-1}(U_{\al}) \cap \pi^{-1}(U_{\be})}$ and $f_{\be} \defeq \tl{\phi}_{\be}|_{\pi^{-1}(U_{\al}) \cap \pi^{-1}(U_{\be})}$. Let $(a, \xi^1, \ldots, \xi^n) \in \phi_{\al}(U_{\al} \cap U_{\be}) \times \R^n$. Then
+		\begin{align*}
+			 f_{\be} \circ f_{\al}^{-1}(a, \xi^1, \ldots, \xi^n) 
+			& = \tl{\phi}_{\be} \bigg (\phi_{\al}^{-1}(a), \sum\limits_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg |_{\phi_{\al}^{-1}(a)} \bigg) \\
+			& = \tl{\phi}_{\be} \bigg (\phi_{\al}^{-1}(a), \sum_{k=1}^n \bigg[  \sum\limits_{j=1}^n \xi^j \frac{\p y^k}{\p x^j}(\phi_{\al}^{-1}(a)) \bigg] \frac{\p}{\p y^k} \bigg |_{\phi_{\al}^{-1}(a)} \bigg) \\
+			& = \bigg (\phi_{\be} (\phi_{\al}^{-1}(a)),   \sum\limits_{j=1}^n \xi^j \frac{\p y^1}{\p x^j}(\phi_{\al}^{-1}(a)), \ldots,  \sum\limits_{j=1}^n \xi^j \frac{\p y^n}{\p x^j}(\phi_{\al}^{-1}(a)) \bigg).
+		\end{align*}
+		Since $(U_{\al}, \phi_{\al}), (U_{\be}, \phi_{\be}) \in \MA_M$, we have that $(U_{\al}, \phi_{\al}), (U_{\be}, \phi_{\be})$ are smoothly compatible. Hence $\phi_{\be} \circ \phi_{\al}|^{-1}_{U_{\al} \cap U_{\be}}$ is smooth. In particular, for each $k \in [n]$, $y^k \circ \phi|_{U_{\al} \cap U_{\be}}^{-1}$ is smooth. By definition, for each $a \in \phi_{\al}(U_{\al} \cap U_{\be})$ and $j,k \in [n]$, we have that $\frac{\p y^k}{\p x^j}(\phi_{\al}^{-1}(a)) = \frac{\p}{\p u^j} [y^k \circ \phi_{\al}|_{U_{\al} \cap U_{\be}}^{-1}](a)$. Hence for each $j,k \in [n]$, $\frac{\p y^k}{\p x^j} \circ \phi_{\al}|_{U_{\al} \cap U_{\be}}^{-1}$ is smooth. Thus $\tl{\phi}_{\be}|_{\pi^{-1}(U_{\al}) \cap \pi^{-1}(U_{\be})} \circ \tl{\phi}_{\al}|_{\pi^{-1}(U_{\al}) \cap \pi^{-1}(U_{\be})}^{-1}$ is smooth.
+		\item Since $M \in \Obj(\ManBndinf)$, $M$ is second-countable. Thus $M$ is Lindelof. Since $(U_{\al}, \phi_{\al})_{\al \in A}$ is an atlas on $M$, $(U_{\al})_{\al \in \Gam}$ is an open cover of $M$. Hence there exists $\Gam' \subset \Gam$ such that $\Gam'$ is countable and $M \subset \bigcup\limits_{\al \in \Gam'} U_{\al}$. Hence 
+		\begin{align*}
+			TM
+			& = \pi^{-1}(M) \\
+			& \subset \pi^{-1} \bigg( \bigcup\limits_{\al \in \Gam'} U_{\al} \bigg) \\
+			& = \bigcup\limits_{\al \in \Gam'} \pi^{-1}(U_{\al}).
+		\end{align*}
+		\item Let $(p_1, v_1), (p_2, v_2) \in TM$. 
+		\begin{itemize}
+			\item Suppose that $p_1 \neq p_2$. Since $M \in \Obj(\ManBndinf)$, $M$ is Hausdorff. Thus there exist $U_1', U_2' \in \MT_M$ such that $p_1 \in U_1'$, $p_2 \in U_2'$ and $U_1' \cap U_2' = \varnothing$. Since $(U_{\al})_{\al \in \Gam}$ is an open cover of $M$, there exist $\al_1', \al_2' \in \Gam$ such that $p_1 \in U_{\al_1'}$ and $p_2 \in U_{\al_2'}$. Set $U_1 \defeq U_1' \cap U_{\al_1'}$, $U_2 \defeq U_2' \cap U_{\al_2'}$, $\phi_1 \defeq \phi_{\al_1'}|_{U_1}$ and $\phi_2 \defeq \phi_{\al_2'}|_{U_2}$. \rex{arg1} \tcr{(reference ex here)} implies that $(U_1, \phi_1), (U_2, \phi_2) \in \MA_M$. Hence there exists $\al_1, \al_2 \in \Gam$ such that $(U_1, \phi_1) = (U_{\al_1}, \phi_{\al_1})$ and $(U_2, \phi_2) = (U_{\al_2}, \phi_{\al_2})$. By construction, $p_1 \in U_{\al_1}$, $p_2 \in U_{\al_2}$ and $U_{\al_1} \cap U_{\al_2} = \varnothing$. Therefore $(p_1, v_1) \in \pi^{-1}(U_{\al_1})$, $(p_2, v_2) \in \pi^{-1}(U_{\al_2})$ and 
+			\begin{align*}
+				\pi^{-1}(U_{\al_1}) \cap \pi^{-1}(U_{\al_2})
+				& = \pi^{-1}(U_{\al_1} \cap U_{\al_2}) \\
+				& = \pi^{-1}(\varnothing) \\
+				& = \varnothing.
+			\end{align*}
+			\item Suppose that $p_1 = p_2$. Since $\MA_M$ is an atlas on $M$, there exists $\al \in \Gam$ such that $p_1 \in U_{\al}$. Since $p_1 = p_2$, we have that $(p_1, v_1), (p_2, v_2) \in \pi^{-1}(U_{\al})$.
+		\end{itemize}
+	\end{enumerate}
+	\rex{ex:smooth_manifold_introduction:0008} implies that there exists a unique topology $\MT_{TM}$ on $TM$ and smooth structure $\MA_{TM}$ on $(TM, \MT_{TM})$ such that $(TM, \MT_{TM}, \MA_{TM}) \in \Obj(\ManBndinf)$ and $(\pi^{-1}(U_{\al}), \tl{\phi}_{\al})_{\al \in \Gam} \subset \MA_{TM}$. \vspace{.2cm} \\
+	Let $(p,v) \in TM$. Since $(\pi^{-1}(U_{\al}), \tl{\phi}_{\al})_{\al \in \Gam} \subset \MA_{TM}$ is an atlas on $TM$, there exists $\al \in \Gam$ such that $(p,v) \in \pi^{-1}(U_{\al})$. Set $U \defeq \pi^{-1}(U_{\al})$, $V \defeq U_{\al}$, $\phi \defeq \tl{\phi}_{\al}$ and $\psi \defeq \phi_{\al}$. $(U, \phi) \in \MA_{TM}$, $(V, \psi) \in \MA_M$, $(p,v) \in U$, $\pi(p,v) \in V$ and 
+	\begin{align*}
+		U \cap \pi^{-1}(V)
+		& = \pi^{-1}(U_{\al}) \cap \pi^{-1}(U_{\al}) \\
+		& = \pi^{-1}(U_{\al}) \\
+		& \in \MT_{TM}.
+	\end{align*}
+	Write $\phi_{\al} = (x^1, \ldots, x^n)$. Then for each $(a, \xi^1, \ldots, \xi^n) \in \tl{\phi}_{\al}(\pi^{-1}(U_{\al}))$,
+	\begin{align*}
+		\psi \circ \pi \circ \phi|_{U \cap \pi^{-1}(V)}^{-1}(a, \xi^1, \ldots, \xi^n)
+		& = \phi_{\al} \circ \pi \circ \tl{\phi}_{\al}|_{\pi^{-1}(U_{\al})}^{-1}(a, \xi^1, \ldots, \xi^n) \\
+		& = \phi_{\al} \circ \pi \bigg( \phi_{\al}^{-1}(a), \sum\limits_{j=1}^n \xi^j \frac{\p}{\p x^j} \bigg|_{\phi_{\al}^{-1}(a)} \bigg) \\
+		& = \phi_{\al} (\phi_{\al}^{-1}(a)) \\
+		& = \id_{\phi_{\al}(U_{\al})} (a) 
+	\end{align*}
+	Hence $\psi \circ \pi \circ \phi|_{U \cap \pi^{-1}(V)}^{-1} = \id_{\phi_{\al}(U_{\al})}$ which is smooth. \rex{ex:smooth_maps_between_manifolds:0003} implies that $\pi$ is smooth.
+\end{proof}
+
+\begin{ex}
+	Let $M \in \Obj(\ManBndinf)$. Then $\pi: TM \rightarrow M$ is a submersion.
+\end{ex}
+
+\begin{proof}
+	Let $(p, v) \in TM$. Choose $(U, \phi) \in \MA_M$ such that $p \in U$. Set $V \defeq \pi^{-1}(U)$ and $\psi \defeq \tl{\phi}$. Then $(V, \psi) \in \MA_{TM}$, $(p,v) \in V$, $U = \pi(V)$,
+	\begin{align*}
+		\psi(V) 
+		& = \tl{\phi}(\pi^{-1}(U)) \\
+		& = \phi(U) \times \R^n,
+	\end{align*}
+	and since $\pi$ is surjective, 
+	\begin{align*}
+		\pi(V)
+		& = \pi(\pi^{-1}(U)) \\
+		& = U.
+	\end{align*}
+	Since for each $(a, \xi^1, \ldots, \xi^n) \in \psi(V)$,
+	\begin{align*}
+		\phi \circ \pi \circ \psi^{-1}(a, \xi^1, \ldots, \xi^n)
+		& = \phi \circ \pi \bigg( \phi^{-1}(a), \sum\limits_{j=1}^n  \xi^j \frac{\p}{\p x^j} \bigg|_{\phi^{-1}(a)} \bigg) \\
+		& = \phi(\phi^{-1}(a)) \\
+		& = a \\
+		& = \prj^{2n}_{[n]}(a),
+	\end{align*}
+	we have that $\phi \circ \pi \circ \psi^{-1} = \prj^{2n}_{[n]}(a)|_{\psi(V)}$. Since $(p, v) \in TM$ is arbitrary, we have that for each $(p,v) \in TM$, there exists $(U, \phi) \in \MT_M, (V, \psi) \in \MT_{TM}$ such that $(p,v) \in V$, $U = \pi(V)$ and $\phi \circ \pi \circ \psi^{-1} = \prj^{2n}_{[n]}|_{\psi(V)}$. \rex{ex:submersions:0002.1} implies that $\pi$ is a submersion.
+\end{proof}
+
+\begin{ex}
+	Let $M \in \Obj(\ManBndinf)$ and $(U, \phi) \in \MA_M$. Set $n \defeq \dim M$ and write $\phi = (x^1, \ldots, x^n)$ and $\tl{\phi} = (\tl{x}^1, \ldots, \tl{x}^n, \tl{y}^1, \ldots, \tl{y}^n)$. Then for each $(p,v) \in \pi^{-1}(U)$,
+	\begin{enumerate}
+		\item $[D \pi (p,v)]_{\tl{\phi}, \phi} = 
+		\begin{pmatrix}
+			I_n & 0_n
+		\end{pmatrix}
+		$
+		\item $\ker D \pi (p,v) = \spn \bigg\{ \frac{\p}{\p \tl{y}^j} \bigg|_{(p,v)}: j \in [n] \bigg \}$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	\begin{enumerate}
+		\item \tcr{The previous exercise} \rex{} implies that for each $(p,v) \in \pi^{-1}(U)$, $\phi \circ \pi \circ \tl{\phi}^{-1} = \prj^{2n}_{[n]}|_{\phi(U) \times \R^n}$. Hence 
+		\begin{align*}
+			[D \pi (p,v)]_{\tl{\phi}, \phi}
+			& = [D \prj^{2n}_{[n]}(p,v)] \\
+			& = 
+			\begin{pmatrix}
+				I_n & 0_n
+			\end{pmatrix}.
+		\end{align*}
+		\item Clear from previous part.
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Let $M,N \in \Obj(\ManBndinf)$ and $F \in \Hom_{\ManBndinf}(M, N)$. We define the \tbf{pushforward of $F$}, denoted by $F_*: TM \rightarrow TN$ by 
+	$$F_*(p, v) \defeq (F(p), DF(p)(v))$$
+\end{defn}
+
+\begin{note}
+	Another common notation for $F_*$ is $DF$.
+\end{note}
+
+\begin{ex}
+	Let $M,N \in \Obj(\ManBndinf)$ and $F \in \Hom_{\ManBndinf}(M, N)$. Then $F_* \in \Hom_{\ManBndinf}(TM, TN)$.
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
+
+\begin{ex}
+	Let $M,N, E \in \Obj(\ManBndinf)$, $F \in \Hom_{\ManBndinf}(M, N)$ and $G \in \Hom_{\ManBndinf}(N, E)$. 
+	\begin{enumerate}
+		\item $D(G \circ F) = DG \circ DF$
+		\item $D(\id_M) = \id_{TM}$
+		\item If $F \in \Iso_{\ManBndinf}(M, N)$, then $DF \in \Iso_{\ManBndinf}(TM, TN)$ and $D(F^{-1}) = DF^{-1}$. 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Vector Fields}
+
+\begin{defn}
+	Let $M \in \Obj(\ManBndinf)$. We define the \tbf{vector fields on $M$}, denoted $\MFX(M)$, by $\MFX(M) \defeq \Gam(\pi_{TM})$. 
+\end{defn}
+
+\begin{ex}
+	Let $M \in \Obj(\ManBndinf)$ and $X: M \rightarrow TM$. If $X$ is a section of $\pi_{TM}$, then for each $p \in M$, $X(p) \in \{p\} \times T_p M$.
+\end{ex}
+
+\begin{proof}
+	Suppose that $X$ is a section of $\pi_{TM}$. Let $p \in M$. Since $X(p) \in TM$, there exists $q \in M$ and $v \in T_qM$ such that $X(p) = (q, v)$. Since $X$ is a section of $\pi_{TM}$, 
+	\begin{align*}
+		p
+		& = \id_M(p) \\
+		& = \pi_{TM} \circ X(p) \\
+		& = \pi_{TM} (q, v) \\
+		& = q.
+	\end{align*}
+	Hence 
+	\begin{align*}
+		X(p) 
+		& = (p, v) \\
+		& \in \{p\} \times T_pM.
+	\end{align*}
+	\tcr{actually just reference exercise in set theory section}
+\end{proof}
+
+\begin{note}
+	When the context is clear, we write $X_p$ in place of $X(p)$ and if $X_p = (p, v)$, we write $X_p$ to refer to both $X_p \in TM$ and to $v \in T_pM$.
+\end{note}
+
+\begin{defn}
+	Let $M \in \Obj(\ManBndinf)$, $(U, \phi) \in \MA_M$ and $X: M \rightarrow TM$. Suppose that $X$ is a section of $\pi_{TM}$. Set $n \defeq \dim M$ and write $\phi = (x^1, \ldots, x^n)$. We define the \tbf{component functions of $X$ with respect to $(U, \phi)$}, denoted $X^1, \ldots, X^n:U \rightarrow TM$ by $X^j(p) \defeq dx^j_p(X_p)$. In particular, for each $p \in U$, 
+	$$X_p = \sum\limits_{j=1}^n X^j(p) \frac{\p}{\p x^j} \bigg|_p.$$ 
+\end{defn}
+
+\begin{note}
+	In particular, for $(U, \phi) \in \MA_M$ with $\phi = (x^1, \ldots, x^n)$, we have that for each $p \in U$, $[\tl{\phi} \circ X](p) = (\phi(p), X^1_p, \ldots, X^n_p)$.   
+\end{note}
+
+\begin{ex}
+	Let $M \in \Obj(\ManBndinf)$, $(U, \phi) \in \MA_M$ and $X: M \rightarrow TM$. Set $n \defeq \dim M$ and write $\phi = (x^1, \ldots, x^n)$. Suppose that $X$ is a section of $\pi_{TM}$. Then $X|_U \in \Hom_{\ManBndinf}(U, TM)$ iff for each $j \in [n]$, $X^j \in C^{\infty}(U)$.
+\end{ex}
+
+\begin{proof} \
+	\begin{itemize}
+		\item $(\implies)$: \\
+		Suppose that $X$ is smooth. Then $\tl{\phi} \circ X \circ \phi^{-1}$ is smooth. Since $\tl{\phi} \circ X \circ \phi^{-1} = (\id_{\phi(U)}, X^1 \circ \phi^{-1}, \ldots, X^n \circ \phi^{-1})$, we have that for each $j \in [n]$, $X^j \circ \phi^{-1}$ is smooth. Hence for each $j \in [n]$, $X^j$ is smooth. 
+		\item $(\impliedby)$: \\
+		Suppose that for each $j \in [n]$, $X^j$ is smooth. Then for each $j \in [n]$, $X^j \circ \phi^{-1}$ is smooth. Since $\tl{\phi} \circ X \circ \phi^{-1} = (\id_{\phi(U)}, X^1 \circ \phi^{-1}, \ldots, X^n \circ \phi^{-1})$, we have that $\tl{\phi} \circ X \circ \phi^{-1}$ is smooth. Since $X|_U = \tl{\phi}^{-1} \circ [\tl{\phi} \circ X \circ \phi^{-1}] \circ \phi$, we have that $X|_U$ is smooth.
+	\end{itemize}
+\end{proof}
+
+\begin{ex}
+	Let $M \in \Obj(\ManBndinf)$ and $X: M \rightarrow TM$. Set $n \defeq \dim M$. Suppose that $X$ is a section of $\pi_{TM}$. Then $X \in \MFX(M)$ iff for each $(U, \phi) \in \MA_M$, $X^1, \ldots, X^n \in C^{\infty}(M)$.
+\end{ex}
+
+\begin{proof}
+	Since $X$ is smooth iff for each $(U, \phi) \in \MA_M$, $X|_U$ is smooth, \tcb{the previous exercise} implies that $X \in \MFX(M)$ iff for each $(U, \phi) \in \MA_M$, $X^1, \ldots, X^n \in C^{\infty}(M)$.
+\end{proof}
+
+\begin{defn}
+	Let $f \in C^{\infty}(M)$ and $X,Y \in \Gam^1(M)$. We define 
+	\begin{itemize}
+		\item $fX : M \rightarrow TM$ by $$(fX)_p = f(p)X_p$$
+		\item $X+Y : M \rightarrow TM$ by $$(X+Y)_p = X_p+Y_p$$
+	\end{itemize}
+\end{defn}
+
+\begin{ex} 
+	Let $M \in \Obj(\ManBndinf)$. Then
+	\begin{enumerate}
+		\item for each $f \in C^{\infty}(M)$ and $X,Y \in \MFX(M)$, 
+		\begin{enumerate}
+			\item $fX \in \MFX(M)$
+			\item $X+Y \in \MFX(M)$
+		\end{enumerate}
+		\item $\MFX(M)$ is a $C^{\infty}(M)$-module.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
+
+\begin{ex}
+	Let $X \in \Gam^1(M)$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then $$X|_U = \sum_{i=1}^n (Xx^i)\frac{\p}{\p x^i}$$ 
+\end{ex}
+
+\begin{proof}
+	Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f^i(p) \frac{\p}{\p x^i} \bigg |_p $. Let $j \in \{1, \cdots, n\}$. Then,
+	\begin{align*}
+		X_p(x^j) 
+		&= \sum\limits_{i=1}^n f^i(p) {\frac{\p}{\p x^j}{x^i}}(p) \\
+		&= f_j(p) \\
+	\end{align*} 
+	Hence $Xx^j = f_j$ and $X|_U = \sum\limits_{i=1}^n (Xx^i)\frac{\p}{\p x^i}$.
+\end{proof}
+
+\begin{ex}
+	Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then for each $i \in \{1, \cdots, n\}$, $$\frac{\p}{\p x^i} \in \Gam(U)$$
+\end{ex}
+
+\begin{proof}
+	Let $i \in \{1, \cdots, n\}$ and $f \in C^{\infty}(M)$. Define $g: M \rightarrow \R$ by $g =\frac{\p}{\p x^i} f$. Let $(V, \psi) \in \MA$. Then for each $x \in \psi(U \cap V)$, 
+	\begin{align*}
+		g \circ \psi^{-1}(x) 
+		&= \frac{\p}{\p x^i} \bigg|_{\psi^{-1}(x)}f \\
+		&= \frac{\p}{\p u^i} \bigg|_{\phi \circ \psi^{-1}(x)}f \circ \phi^{-1}  \\
+		&= \frac{\p}{\p u^i}[f \circ \phi^{-1}] ( \phi \circ \psi^{-1} (x))\\
+	\end{align*}	 
+	Since $f \circ \phi^{-1}$ and $\phi \circ \psi^{-1}$ are smooth, $g \circ \psi^{-1}$ is smooth and hence $g$ is smooth. Since $f \in C^{\infty}(M)$ was arbitrary, by definition, $\frac{\p}{\p x^i}$ is smooth. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Cotangent Bundle}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{$1$-Forms}
+
+\begin{defn}
+	Let $\om: M \rightarrow T^*M$. Then $\om$ is said to be a \tbf{$1$-form on $M$} if for each $p \in M$, $\om_p \in T^*_p M$. \\
+	For each $X \in \Gam^1(M)$, we define $\om(X) : M \rightarrow \R$ by $$\om(X)_p = \om_p(X_p)$$
+	and $\om$ is said to be \tbf{smooth} if for each $X \in \Gam^1(M)$, $\om(X)$ is smooth. \\
+	The set of smooth $1$-forms on $M$ is denoted $\Gam_1(M)$.\\
+\end{defn}
+
+\begin{defn}
+	Let $f \in C^{\infty}(M)$ and $\al,\be \in \Gam^1(M)$. We define 
+	\begin{itemize}
+		\item $f\al \in \Gam_1(M)$ by $$(f\om)_p = f(p)\om_p$$
+		\item $\al+\be \in \Gam^1(M)$ by $$(\al+\be)_p = \al_p+\be_p$$
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	The set $\Gam_1(M)$ is a $C^{\infty}(M)$-module.
+\end{ex}
+
+\begin{proof}
+	Clear.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Vector Fields}
+
+\begin{defn}
+	content...
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Lie Groups}
+
+\section{Introduction}
+
+\begin{defn}
+	Let $G \in \Obj(\ManBndinf)$. For each $g \in G$, we define $\iota^l_g:G \rightarrow G \times G$ and $\iota^r_g:G \rightarrow G \times G$ by $\iota^l_g(x) = (g, x)$ and $\iota^r_g(x) = (x, g)$ respectively.
+\end{defn}
+
+\begin{note}
+	\rex{ex:smooth_maps_and_product_manifolds:0008} implies that for each $g \in G$, $\iota^l_g, \iota^r_h \in \Hom_{\ManBndinf}(G, G \times G)$. 
+\end{note}
+
+\begin{defn}
+	Let $G$ be a set and $\mult:G \times G \rightarrow G$. Suppose that $(G, \mult)$ is a group. We define the \tbf{inversion map}, denoted $\inv: G \rightarrow G$, by $\inv(g) = g^{-1}$.
+\end{defn}
+
+\begin{note}
+	When the context is clear, we write $gh$ in place of $\mult(g,h)$.
+\end{note}
+
+\begin{defn}
+	Let $G \in \Obj(\ManBndinf)$ and $\mult:G \times G \rightarrow G$. Suppose that $(G, \mult)$ is a group. Then $(G, \mult)$ is said to be a \tbf{Lie group} if 
+	\begin{enumerate}
+		\item $\mult \in \Hom_{\ManBndinf}(G \times G, G)$,
+		\item $\inv \in \Hom_{\ManBndinf}(G, G)$.
+	\end{enumerate}
+\end{defn}
+
+\begin{note}
+	When the context is clear, we write $G$ in place of $(G, \mult)$.
+\end{note}
+
+\begin{defn} 
+	Let $G$ be a Lie group and $g \in G$. We define the \tbf{left and right translation maps}, denoted $l_g:G \rightarrow G$ and $r_g:G \rightarrow G$ respectively, by $l_g(x) = gx$ and $r_g(x) = xg^{-1}$. 
+\end{defn}
+
+\begin{ex} 
+	Let $G$ be a Lie group. Then for each $g \in G$, 
+	\begin{enumerate}
+		\item $l_g^{-1} = l_{g^{-1}}$ and $r_g^{-1} = r_{g^{-1}}$,
+		\item $l_g, r_g \in \Hom_{\ManBndinf}(G, G)$,
+		\item $l_g, r_g \in \Aut_{\ManBndinf}(G)$. 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof} Let $g \in G$.
+	\begin{enumerate}
+		\item Clear
+		\item Since $G$ is a Lie group, $\mult$ is smooth. Since $l_g = \mult \circ \iota^l_g$ and $r_g = \mult \circ \iota^r_{g^{-1}}$, we have that $l_g$ and $r_g$ are smooth.
+		\item Since $l_g \in \Hom_{\ManBndinf}(G, G)$ and 
+		\begin{align*}
+			l_g^{-1}
+			& = l_{g^{-1}} \\
+			& \in \Hom_{\ManBndinf}(G, G),
+		\end{align*}
+		we have that $l_g \in \Aut_{\ManBndinf}(G)$. Similarly, $r_g \in \Aut_{\ManBndinf}(G)$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $G \in \Obj(\ManBndinf)$. Suppose that $G$ is a Lie Group. Then $\p G = \varnothing$. 
+\end{ex}
+
+\begin{proof}
+	Let $g \in G$. Since $\MA_G$ is a smooth atlas, there exists $(U_0, \phi_0) \in \MA_G$ such that $e \in U_0$. There exists $x \in U_0$ such that $x \in \Int G$ \tcr{(add details)}. Set $U \defeq U_0 \cap \Int G$. Since $U_0, \Int G \in \MT_G$, $x \in U_0$ and $x \in \Int G$, we have that $U \in \MT_G$ and $x \in U$. Set $\phi \defeq \phi_0|_U$. \rex{arg1} \tcr{(exercise in section on open submanifolds)} implies that $(U, \phi) \in \MA_G$. Since $l_{gx^{-1}}$ is a diffeomorphism, $l_{gx^{-1}}$ is a homeomorphism. Hence 
+	\begin{align*}
+		g
+		& = l_{gx^{-1}}(x) \\
+		& \in l_{gx^{-1}}(U) \\
+		& \subset \Int G
+	\end{align*}
+	Since $g \in G$ is arbitrary, we have that for each $g \in G$, $g \in \Int G$. Thus $\Int G = G$ and \rex{arg1} \tcr{(ref ex from intro to topological manifolds)} implies that 
+	\begin{align*}
+		\p G 
+		& = (\Int G)^c \\
+		& = \varnothing.
+	\end{align*} 
+\end{proof}
+
+\begin{ex}
+	Let $G \in \Obj(\Maninf)$. Suppose that $G$ is a group. Define $f:G \times G \rightarrow G$ by $f(g, h) = g h^{-1}$. Then $G$ is a Lie group iff $f$ is smooth. 
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item $(\implies)$: \\
+		Suppose that $G$ is a Lie group. Then $\mult$ is smooth and $\inv$ is smooth. Thus $\id_G \times \inv$ is smooth. Since $f = \mult \circ (\id_G \times \inv)$, we have that $f$ is smooth. 
+		\item $(\impliedby)$: \\
+		Suppose that $f$ is smooth. Since $\inv = f \circ \iota^l_e$, $\inv$ is smooth. Therefore $id_G \times \inv$ is smooth and since $\mult = f \circ (\id_G \times \inv)$, $\mult$ is smooth. Since $\mult$ and $\inv$ are smooth, $G$ is a Lie group. 
+	\end{itemize}
+\end{proof}
+
+\begin{ex}
+	Let $G, H \in \Obj(Maninf)$ and $\phi: G \rightarrow H$. Suppose that $G, H$ are Lie groups. Then $\phi$ is said to be a \tbf{Lie group homomorphism} if $\phi \in \Hom_{\Maninf}(G, H) \cap \Hom_{\Grp}(G, H)$.
+\end{ex}
+
+\begin{defn}
+	We define the category of Lie groups, denoted $\LieGrp$, by 
+	\begin{itemize}
+		\item $\Obj(\LieGrp) = \{G: G \text{ is a Lie group} \}$ 
+		\item For $G_1, G_2 \in \Obj(\LieGrp)$, 
+		\begin{align*}
+			& \Hom_{\LieGrp}(G_1, G_2) = \Hom_{\Maninf}(G, H) \cap \Hom_{\Grp}(G, H)
+		\end{align*}
+		\item For 
+		\begin{itemize}
+			\item $G_1, G_2, G_3 \in \Obj(\LieGrp)$ 
+			\item $\phi_{12} \in \Hom_{\LieGrp}(G_1, G_2)$
+			\item $\phi_{23} \in \Hom_{\LieGrp}(G_2, G_3)$
+		\end{itemize}
+		we define $ \phi_{23} \circ_{\LieGrp} \phi_{12} \in \Hom_{\LieGrp}(G_1, G_3)$ by 
+		$$ \phi_{23} \circ_{\LieGrp} \phi_{12} = \phi_{23} \circ_{\Set} \phi_{12}$$
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	We have that $\LieGrp$ is a subcategory of $\Grp$ and $\Maninf$.
+\end{ex}
+
+\begin{proof}
+	\tcb{FINISH!!!}
+\end{proof}
+
+\begin{ex}
+	Let $G, H \in \Obj(\LieGrp)$ and $\phi \in \Hom_{\LieGrp}(G, H)$. Then $\phi$ has constant rank. 
+\end{ex}
+
+\begin{proof}
+	Let $g \in G$. Since $\phi$ is a homomorphism, we have that for each $x \in G$, $\phi(g x) = \phi(g) \phi(x)$. Thus $\phi \circ l_g = l_{\phi(g)} \circ \phi$, i.e. the following diagram commutes: 
+	\[ 
+	\begin{tikzcd}
+		G \arrow[r, "\phi"] \arrow[d, "l_g"'] & H \arrow[d, "l_{\phi(g)}"]  \\
+		G \arrow[r, "\phi"]                   & H
+	\end{tikzcd}
+	\]
+	Let $x \in G$. Then
+	\begin{align*}
+		D\phi(gx) \circ D l_g (x) 
+		& = D(\phi \circ l_g) (x) \\
+		& = D(l_{\phi(g)} \circ \phi) \\
+		& = D l_{\phi(g)} (\phi(x)) \circ D \phi (x) 
+	\end{align*}
+	Since $l_g \in \Aut_{\Maninf}(G), l_{\phi(g)} \in \Aut_{\Maninf}(H)$, we have that $D l_g (x) \in \Iso_{\VectR}(T_x G, T_{g x} G)$ and $D l_{\phi(g)}(\phi(x)) \in \Iso_{\VectR}(T_{\phi(x)}H, T_{\phi(g) \phi(x)}H)$. Hence 
+	\begin{align*}
+		\rnk D\phi(gx)
+		& = \rnk D\phi(gx) \circ D l_g (x) \\
+		& = \rnk D l_{\phi(g)} (\phi(x)) \circ D \phi (x) \\
+		& = \rnk  D \phi (x)
+	\end{align*} 
+	Since $x \in G$ is arbitrary, for each $x \in G$, $\rnk D\phi(gx) = \rnk  D \phi (x)$. In particular, $\rnk D\phi(g) = \rnk  D \phi (e)$. Since $g \in G$ is arbitrary, for each $g \in G$, $\rnk D\phi(g) = \rnk  D \phi (e)$ and $\phi$ has constant rank. 
+\end{proof}
+
+
+\begin{ex}
+	Let $G, H \in \Obj(\LieGrp)$ and $\phi \in \Hom_{\LieGrp}(G, H)$. Then $\phi \in \Iso_{\LieGrp}(G, H)$ iff $\phi$ is a bijection.
+\end{ex}
+
+\begin{proof}
+	global rank theorem \tcr{FINISH!!!}
+\end{proof}
+
+
+\begin{defn}
+	Let $G, H \in \Obj(\LieGrp)$ and $\phi \in \Hom_{\LieGrp}(G, H)$. Then $\phi$ is said to be a 
+	\begin{itemize}
+		\item \tbf{$\LieGrp$-immersion} if $\phi$ is a $\Maninf$-immersion  
+		\item \tbf{$\LieGrp$-embedding} if $\phi$ is a $\Maninf$-embedding  
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $G, H \in \Obj(\LieGrp)$ and $\phi \in \Hom_{\LieGrp}(G, H)$. Suppose that $\phi$ is a $\LieGrp$-immersion. If $G$ is compact, then $\phi$ is a $\LieGrp$-embedding.
+\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Lie Subgroups}
+
+\begin{defn}
+	Let $G, H \in \Obj(\LieGrp)$. Suppose that $G \leqslant H$. Then $H$ is said to be an
+	\begin{itemize}
+		\item \tbf{immersed Lie subgroup} of $G$ if $G$ is an immersed submanifold of $H$,
+		\item \tbf{embedded Lie subgroup} of $G$ if $G$ is an embedded submanifold of $H$.
+	\end{itemize}
+\end{defn}
+
+\begin{defn}
+	content...
+\end{defn}
+
+
+\begin{ex}
+	Let $G, H \in \Obj(\LieGrp)$. Suppose that $G \leqslant H$. 
+\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Product Lie Groups}
+
+\begin{defn}
+	Let $G, H \in \Obj(\LieGrp)$. Suppose that $G \subset H$. Then $G$ is said to be a \tbf{Lie subgroup} of $H$ if 
+	\begin{enumerate}
+		\item $G \leqslant H$ 
+		\item $G$ is an immersed submanifold of $H$. \tcr{FIX!!!}
+	\end{enumerate} 
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Representations of Lie Groups}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	\newpage
 	\chapter{Fiber Bundles}
 	
@@ -6757,12 +7692,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	
 	
-	\newpage
-	\section{Subbundles}
-	
-	\begin{defn}
-		
-	\end{defn}
+
 	
 	
 	
@@ -6924,7 +7854,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-	
 
 
 
@@ -6948,7 +7877,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-	
 
 
 
@@ -6958,141 +7886,6 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-
-
-
-
-
-
-	\newpage
-	\chapter{Principle Bundles}
-	
-	\section{Introduction}
-	
-	\tcr{define $\trl$-invariance and $(\trl_1, \trl_2)$-equivariance}
-	
-	\begin{defn}
-		Let $X$ be a set and $G$ a group. We define the \tbf{trivial right action on $X \times G$}, denoted $\trl^{\Triv}_{X \times G}: (X \times G) \times G \rightarrow X \times G$, by 
-		$$(x,g) \trl^{\Triv}_{X \times G} h = (x, gh)$$
-	\end{defn}
-
-	\begin{ex}
-		Let $(E, M, \pi, G) \in \Obj(\Buninf)$ and $\triangleleft \in \Hom_{\Maninf}(E \times G, E)$. Suppose that $\trl$ is a right group action. Then $\pi$ is $\trl$-invariant iff for each $p \in M$, $E_p \trl G = E_p$.
-	\end{ex}
-
-	\begin{proof}\
-		\begin{itemize}
-			\item $(\implies):$ \\
-			Suppose that $\pi$ is $\trl$-invariant. Let $p \in M$, $a \in E_p$ and $g \in G$. Then 
-			\begin{align*}
-				\pi(a \trl g)
-				& = \pi(a) \\
-				& = p.
-			\end{align*}
-			Hence $a \trl g \in E_p$. Since $a \in E_p$ and $g \in G$ are arbitrary, we have that $E_p \trl G \subset E_p$. Let $a \in E_p$. Then 
-			\begin{align*}
-				a
-				& = a \trl e \\
-				& \in E_p \trl G.
-			\end{align*}
-			Since $a \in E_p$ is arbitrary, we have that $E_p \subset E_p \trl G$. Hence $E_p \trl G = E_p$. Since $p \in M$ is arbitrary, we have that for each $p \in M$, $E_p \trl G = E_p$.
-			\item $(\impliedby):$ \\
-			Conversely, suppose that for each $p \in M$, $E_p \trl G = E_p$. Let $a \in E$ and $g \in G$. Set $p \defeq \pi(a)$. Since $a \in E_p$, by assumption, we have that
-			\begin{align*}
-				a \trl g 
-				& \in E_p \trl G \\
-				& = E_p.
-			\end{align*}
-			Therefore
-			\begin{align*}
-				\pi(a \trl g) 
-				& = p \\
-				& = \pi(a).
-			\end{align*}
-			Since $a \in E$ and $g \in G$ are arbitrary, we have that for each $a \in E$ and $g \in G$, $\pi(a \trl g) = \pi(a)$. Hence $\pi$ is $\trl$-invariant.
-		\end{itemize}
-	\end{proof}
-
-	\begin{defn}
-		Let $(E, M, \pi, G) \in \Obj(\Buninf)$ and $\triangleleft \in \Hom_{\Maninf}(E \times G, E)$. Suppose that
-		\begin{itemize}
-			\item $G$ is a Lie group 
-			\item $\trl$ a right group action
-			\item $\pi$ is $\trl$-invariant.
-		\end{itemize} 
-		For each $p \in M$, we define the \tbf{right action of $G$ on $E_p$ induced by $\trl$}, denoted $\trl_p$, by $\trl_p \defeq \trl|_{E_p \times G}$. 
-	\end{defn}
-
-	\begin{ex}
-		Let Let $(E, M, \pi, G) \in \Obj(\Buninf)$ and $\triangleleft \in \Hom_{\Maninf}(E \times G, E)$. Suppose that \begin{itemize}
-			\item $G$ is a Lie group 
-			\item $\trl$ a right group action
-			\item $\pi$ is $\trl$-invariant.
-		\end{itemize}  
-		Then for each $p \in M$, $\trl_p : E_p \times G \rightarrow E_p$ is a smooth group action.
-	\end{ex}
-
-	\begin{proof}
-		Let $g,h \in G$ and $a \in E_p$.
-		\begin{itemize}
-			\item Then
-			\begin{align*}
-				a \trl_p (g h)
-				& = a \trl (gh) \\
-				& = (a \trl g) \trl h \\
-				& = (a \trl_p g) \trl_p h
-			\end{align*}
-			and 
-			\begin{align*}
-				a \trl_p e
-				& = a \trl e \\
-				& = a.
-			\end{align*}
-			Since $g,h \in G$ and $a \in E_p$ is arbitrary, we have that $\trl_p $ is a group action.
-			\item Since $\pi$ is a surjective submersion,
-			
-			\tcr{FINISH!!!}, need previous exercise showing $E_x$ is a smooth embedded submanifold of $E$ in a fiber bundle and therefore the restriction of a smooth map to a smooth embedded submanifold is smooth.
-		\end{itemize} 
-	\end{proof}
-	
-	\begin{defn}
-		Let $E, M, G \in \Obj(\Maninf)$, $\pi \in \Hom_{\Maninf}(E, M)$ a surjection, $\trl \in \Hom_{\Maninf}(E \times G , E)$, $U \in \MT_M$ and $\Phi \in \Hom_{\Maninf}(\pi^{-1}(U), U \times G)$. Suppose that  
-		\begin{itemize}
-			\item $G$ is a Lie Group, 
-			\item $\trl$ is a right group action,
-			\item $\pi$ is $\trl$-invariant.
-		\end{itemize}
-		Then $(U, \Phi)$ is said to be a \tbf{smooth principle bundle local trivialization of $E$ over $U$ with respect to $\pi$ and $\trl$} if 
-		\begin{enumerate}
-			\item $(U, \Phi)$ is a smooth fiber bundle local trivialization of $E$ over $U$ with fiber $G$ with respect to $\pi$
-			\item $\Phi$ is $(\trl, \trl^{\Triv}_{U \times G})$-equivariant
-		\end{enumerate}
-	\end{defn}
-
-	\begin{defn} \ld{def:fiber_bundles:0007}
-		Let $E,M, G \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection and $\trl \in \Hom_{\Maninf}(E \times G , E)$. Suppose that 
-		\begin{itemize}
-			\item $G$ is a Lie Group,
-			\item $\trl$ is a right group action.
-		\end{itemize}
-		Then $(E, M, \pi, G, \trl)$ is said to be a \tbf{$\Maninf$ principle bundle with total space $E$, base space $M$, structure group $G$, projection $\pi$ and action $\trl$} if 
-		\begin{enumerate}
-			\item $(E, M, \pi, G) \in \Obj(\Buninf)$, 
-			\item $\pi$ is $\trl$-invariant,
-			\item for each $p \in M$,
-			\begin{enumerate}
-				\item  $\trl_p: E_p \times G \rightarrow E_p$ is transitive and free,
-				\item  there exists $U \in \MT_M$ and $\Phi \in \Hom_{\Maninf}(\pi^{-1}(U), U \times G)$ such that $(U, \Phi)$ is a smooth principle bundle local trivialization of $E$ over $U$ with respect to $\pi$ and $\trl$.
-			\end{enumerate}
-		\end{enumerate}
-	\end{defn}
-
-
-	
-
-\begin{ex}
-	\rex{ex:fiber_bundles:0012}
-\end{ex}
 
 
 
@@ -7181,13 +7974,13 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \end{ex}
 
 \begin{proof}
-	\rex{ex:fiber_bundles:0012} implies that there exists $\sig \in \Hom_{\Maninf}(( U \cap V) \times \R^k,  \R^k)$ such that $\Psi|_{\pi^{-1}(U \cap V)} \circ \Phi|^{-1}_{\pi^{-1}(U \cap V)} = (\prj_1, \sig)$ and for each $p \in U \cap V$, $\sig(p, \cdot) \in \Aut_{\Maninf}(\R^k)$. Define $\tau: U \cap V \rightarrow \Aut_{\Maninf}(\R^k)$ by $\tau(p) = \sig(p, \cdot)$. Since $(U,\Phi)$, $(V, \Psi)$ are smooth vector bundle local trivializations, for each $q \in U\cap V$, $\Phi|_{E_q} \rightarrow \{q\} \times \R^k$ and $\Psi|_{E_q} \rightarrow \{q\} \times \R^k$ are linear isomorphism. Let $q \in U \cap V$. Then $\Psi|_{E_q} \circ \Phi|^{-1}_{E_q}: \{q\} \times \R^k \rightarrow \{q\} \times \R^k$, given by
+	\rex{ex:fiber_bundles:0012} implies that there exists $\sig \in \Hom_{\Maninf}(( U \cap V) \times \R^k,  \R^k)$ such that $\Psi|_{\pi^{-1}(U \cap V)} \circ \Phi|^{-1}_{\pi^{-1}(U \cap V)} = (\prj_1, \sig)$ and for each $p \in U \cap V$, $\sig(p, \cdot) \in \Aut_{\Maninf}(\R^k)$. Define $\tau: U \cap V \rightarrow \Aut_{\Maninf}(\R^k)$ by $\tau(p) = \sig(p, \cdot)$. Since $(U,\Phi)$, $(V, \Psi)$ are smooth vector bundle local trivializations, for each $q \in U\cap V$, $\Phi|_{E_q} \rightarrow \{q\} \times \R^k$ and $\Psi|_{E_q} \rightarrow \{q\} \times \R^k$ are linear isomorphism. Let $q \in U \cap V$. Since $\Psi|_{E_q} \circ \Phi|^{-1}_{E_q}: \{q\} \times \R^k \rightarrow \{q\} \times \R^k$, is a vector space isomorphism and for each $v \in \R^k$,
 	\begin{align*}
 		\Psi|_{E_q} \circ \Phi|^{-1}_{E_q}(q, v) 
 		& = (q, \sig(q,v)) \\
 		& = (q, \tau(q)(v)),
 	\end{align*}
-	is a vector space isomorphism. Thus $\tau(q)$ is a linear bijection and therefore $\tau(q) \in GL(k, \R)$. \tcr{need to show $\tau$ is smooth, use hint in book, make exercise in a previous section about actions}
+	we have that $\tau(q) \in GL(k, \R)$. \tcr{need to show $\tau$ is smooth, use hint in book, make exercise in a previous section about actions}
 \end{proof}
 
 \tcr{the fiber bundle construction theorems dont actually construct a fiber bundle, they just show that a given set is one and characterize the topology and smooth structure under some assumptions, maybe go back and rename them to "characterization theorem" and then actually have a construction theorem. then here, introduce a characterization theorem and then have a separate short construction theorem.}
@@ -7334,6 +8127,84 @@ Let $M \in \Obj(\Maninf)$. Set $n \defeq \dim M$, $E \defeq M \times \R^k$ and d
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Subbundles}
+
+
+\begin{defn}
+	Let $(E, M, \pi_E), (D, M, \pi_D) \in \Obj(\VecBuninf)$. Then $(D, M, \pi_D)$ is said to be a \tbf{subbundle of $(E, M , \pi_E)$} if 
+	\begin{enumerate}
+		\item $D$ is an embedded submanifold of $E$
+		\item $\pi_E|_D = \pi_D$
+		\item for each $p \in M$, $D_p$ is a subspace of $E_p$.
+	\end{enumerate}
+\end{defn}
+
+\begin{ex} \tbf{Local Frame Criterion:} \\
+	\tcr{FINISH!!!}
+\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Direct Sum Bundles}
 
 
@@ -7421,7 +8292,32 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
+	
+	\chapter{The Tangent and Cotangent Bundle}
+	
 	\section{The Tangent Bundle}
 	\begin{defn}
 		We define the \tbf{tangent bundle of $M$}, denoted $TM$, by $$TM = \coprod_{p \in M} T_pM$$ 
@@ -7539,82 +8435,7 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 		We denote the set of smooth vector fields on $M$ by $\Gam^1(M)$.
 	\end{defn}
 
-	\begin{defn}
-	Let $f \in C^{\infty}(M)$ and $X,Y \in \Gam^1(M)$. We define 
-	\begin{itemize}
-	\item $fX \in \Gam^1(M)$ by $$(fX)_p = f(p)X_p$$
-	\item $X+Y \in \Gam^1(M)$ by $$(X+Y)_p = X_p+Y_p$$
-	\end{itemize}
-	\end{defn}
 	
-	\begin{ex}
-	The set $\Gam^1(M)$ is a $C^{\infty}(M)$-module.
-	\end{ex}
-	
-	\begin{proof}
-	Clear.
-	\end{proof}
-
-	\begin{ex}
-		Let $X \in \Gam^1(M)$ and $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then $$X|_U = \sum_{i=1}^n (Xx^i)\frac{\p}{\p x^i}$$ 
-	\end{ex}
-
-	\begin{proof}
-		Let $p \in M$. Then $X_p \in T_pM$ and $\bigg \{ \frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^n} \bigg|_p \bigg \}$ is a basis of $T_pM$. So there exist $f_1(p), \cdots, f_n(p) \in \R$ such that $X_p = \sum\limits_{i=1}^n f^i(p) \frac{\p}{\p x^i} \bigg |_p $. Let $j \in \{1, \cdots, n\}$. Then,
-		\begin{align*}
-			X_p(x^j) 
-			&= \sum\limits_{i=1}^n f^i(p) {\frac{\p}{\p x^j}{x^i}}(p) \\
-			&= f_j(p) \\
-		\end{align*} 
-		Hence $Xx^j = f_j$ and $X|_U = \sum\limits_{i=1}^n (Xx^i)\frac{\p}{\p x^i}$.
-	\end{proof}
-	
-	\begin{ex}
-	Let $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$. Then for each $i \in \{1, \cdots, n\}$, $$\frac{\p}{\p x^i} \in \Gam(U)$$
-	\end{ex}
-	
-	\begin{proof}
-	Let $i \in \{1, \cdots, n\}$ and $f \in C^{\infty}(M)$. Define $g: M \rightarrow \R$ by $g =\frac{\p}{\p x^i} f$. Let $(V, \psi) \in \MA$. Then for each $x \in \psi(U \cap V)$, 
-	\begin{align*}
-	g \circ \psi^{-1}(x) 
-	&= \frac{\p}{\p x^i} \bigg|_{\psi^{-1}(x)}f \\
-	&= \frac{\p}{\p u^i} \bigg|_{\phi \circ \psi^{-1}(x)}f \circ \phi^{-1}  \\
-	&= \frac{\p}{\p u^i}[f \circ \phi^{-1}] ( \phi \circ \psi^{-1} (x))\\
-\end{align*}	 
-	Since $f \circ \phi^{-1}$ and $\phi \circ \psi^{-1}$ are smooth, $g \circ \psi^{-1}$ is smooth and hence $g$ is smooth. Since $f \in C^{\infty}(M)$ was arbitrary, by definition, $\frac{\p}{\p x^i}$ is smooth. 
-	\end{proof}
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\section{$1$-Forms}
-	
-	\begin{defn}
-		Let $\om: M \rightarrow T^*M$. Then $\om$ is said to be a \tbf{$1$-form on $M$} if for each $p \in M$, $\om_p \in T^*_p M$. \\
-		For each $X \in \Gam^1(M)$, we define $\om(X) : M \rightarrow \R$ by $$\om(X)_p = \om_p(X_p)$$
-		and $\om$ is said to be \tbf{smooth} if for each $X \in \Gam^1(M)$, $\om(X)$ is smooth. \\
-		The set of smooth $1$-forms on $M$ is denoted $\Gam_1(M)$.\\
-	\end{defn}
-
-	\begin{defn}
-	Let $f \in C^{\infty}(M)$ and $\al,\be \in \Gam^1(M)$. We define 
-	\begin{itemize}
-	\item $f\al \in \Gam_1(M)$ by $$(f\om)_p = f(p)\om_p$$
-	\item $\al+\be \in \Gam^1(M)$ by $$(\al+\be)_p = \al_p+\be_p$$
-	\end{itemize}
-	\end{defn}
-	
-	\begin{ex}
-	The set $\Gam_1(M)$ is a $C^{\infty}(M)$-module.
-	\end{ex}
-	
-	\begin{proof}
-	Clear.
-	\end{proof}
 	
 	
 	\begin{ex}
@@ -8043,6 +8864,63 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\section{Vector Bundle Valued Differential Forms}
+
+	\tcr{change notation in earlier sections so that $\Lam^k(V^*)$ is $k$-forms instead of $\Lam^k(V)$}
+	\begin{defn}
+		Let $(E, M, \pi) \in \Obj(\VecBuninf)$. For each $k \in \N_0$, we define the \tbf{$E$-valued $k$-forms on $M$}, denoted $\Om^k(M; E)$ by $\Om^k(M; E) \defeq \Gam(\Lam^k T^*M \otimes E)$. 
+	\end{defn}
+
+	\begin{note}
+		Let $(E, M, \pi) \in \Obj(\VecBuninf)$ and $V \in \Obj(\VectR)$. Then we write $\Om^k(M; V)$ in place of $\Om^k(M; M \times V)$.
+	\end{note}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
 \chapter{The Tangent Bundle}
 
@@ -8190,182 +9068,20 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 
 
 
+
+
+
+
+
+
+
+
+
+
 \newpage
-\chapter{Lie Theory}
+\chapter{Lie Algebras}
 
-\section{Lie Groups}
-
-\begin{defn}
-	Let $G$ be a group, we denote $\mult:G \times G \rightarrow G$ and $\inv: G \rightarrow G$ by $\mult(g, h) = gh$ and $\inv(g) = g^{-1}$.
-\end{defn}
-
-\begin{defn}
-	Let $G$ be a smooth manifold and group. Then $G$ is said to be a \tbf{Lie group} if $\mult:G \times G \rightarrow G$ is smooth and $\inv: G \rightarrow G$ is smooth.
-\end{defn}
-
-\begin{ex}
-	Let $G$ be a smooth manifold and group. Define $f:G \times G \rightarrow G$ by $f(g, h) = g h^{-1}$. Then $G$ is a Lie group iff $f$ is smooth. 
-\end{ex}
-
-\begin{proof}\
-	\begin{itemize}
-		\item $(\implies)$: \\
-		Suppose that $G$ is a Lie group. Then $\mult:G \times G \rightarrow G$ and $\inv:G \rightarrow G$ are smooth. Thus $\id_G \times \inv$ is smooth since $f = m \circ (\id_G \times \inv)$, $f$ is smooth. 
-		\item $(\impliedby)$: \\
-		Suppose that $f$ is smooth.  \tcb{An exercise in the section on smooth maps on product manifolds} implies that the embedding $\iota^2_e: G \rightarrow G \times G$, given by $\iota^2_e(h) = (e, h)$, is smooth. Since $\inv = f \circ \iota^2_e$, $\inv$ is smooth. Therefore $id_G \times \inv$ is smooth and since $\mult = f \circ (\id_G \times \inv)$, $\mult$ is smooth. Since $\mult$ and $\inv$ are smooth, $G$ is a Lie group.
-	\end{itemize}
-\end{proof}
-
-\begin{ex}
-	Let $G$ and $H$ be Lie groups and $\phi: G \rightarrow H$. Then $\phi$ is said to be a \tbf{Lie group homomorphism} if $\phi \in \Hom_{\Grp}(G, H) \cap \Hom_{\Maninf}(G, H)$.
-\end{ex}
-
-\begin{defn}
-	We define the category of Lie groups, denoted $\LieGrp$, by 
-	\begin{itemize}
-		\item $\Obj(\LieGrp) = \{G \in \Obj(\Grp): G \text{ is a Lie group} \}$ 
-		\item For $G_1, G_2 \in \Obj(\LieGrp)$, 
-		\begin{align*}
-			& \Hom_{\LieGrp}(G_1, G_2) = \{\phi \in \Hom_{\Grp}(G_1, G_2): \phi \text{ is a Lie group homomorphism} \}
-		\end{align*}
-		\item For 
-		\begin{itemize}
-			\item $G_1, G_2, G_3 \in \Obj(\LieGrp)$ 
-			\item $\phi_{12} \in \Hom_{\LieGrp}(G_1, G_2)$
-			\item $\phi_{23} \in \Hom_{\LieGrp}(G_2, G_3)$
-		\end{itemize}
-		we define $ \phi_{23} \circ_{\LieGrp} \phi_{12} \in \Hom_{\LieGrp}(G_1, G_3)$ by 
-		$$ \phi_{23} \circ_{\LieGrp} \phi_{12} = \phi_{23} \circ_{\Set} \phi_{12}$$
-	\end{itemize}
-\end{defn}
-
-\begin{ex}
-	We have that $\LieGrp$ is a subcategory of $\Grp$ and $\Maninf$.
-\end{ex}
-
-\begin{proof}
-	\tcb{FINISH!!!}
-\end{proof}
-
-\begin{defn} \ld{00000} 
-	Let $G$ be a group and $g \in G$. We define the \tbf{left and right translation maps}, denoted $l_g:G \rightarrow G$ and $r_g:G \rightarrow G$ respectively, by $l_g(x) = gx$ and $r_g(x) = xg^{-1}$ respectively. 
-\end{defn}
-
-\begin{ex}
-	Let $G \in \Obj(\LieGrp)$. Then for each $g \in G$, $l_g,r_g \in \Aut_{\LieGrp}(G)$.
-\end{ex}
-
-\begin{proof}
-	By definition, for each $g \in G$, $l_g, r_g \in \End_{\LieGrp}(G)$ and \tcb{FINISH!!!}.   
-\end{proof}
-
-\begin{ex}
-	Let $G, H \in \Obj(\LieGrp)$ and $\phi \in \Hom_{\LieGrp}(G, H)$. Then $\phi$ has constant rank. 
-\end{ex}
-
-\begin{proof}
-	Let $g \in G$. Since $\phi$ is a homomorphism, we have that for each $x \in G$, $\phi(g x) = \phi(g) \phi(x)$. Thus $\phi \circ l_g = l_{\phi(g)} \circ \phi$, i.e. the following diagram commutes: 
-	\[ 
-	\begin{tikzcd}
-		G \arrow[r, "\phi"] \arrow[d, "l_g"'] & H \arrow[d, "l_{\phi(g)}"]  \\
-		G \arrow[r, "\phi"]                   & H
-	\end{tikzcd}
-	\]
-	Let $x \in G$. Then
-	\begin{align*}
-		D\phi(gx) \circ D l_g (x) 
-		& = D(\phi \circ l_g) (x) \\
-		& = D(l_{\phi(g)} \circ \phi) \\
-		& = D l_{\phi(g)} (\phi(x)) \circ D \phi (x) 
-	\end{align*}
-	Since $l_g \in \Aut_{\Maninf}(G), l_{\phi(g)} \in \Aut_{\Maninf}(H)$, $D l_g (x) \in \Iso_{\VectR}(T_x G, T_{g x} G)$ and $D l_{\phi(g)}(\phi(x)) \in \Iso_{\VectR}(T_{\phi(x)}, T_{\phi(g) \phi(x)}H)$. Hence 
-	\begin{align*}
-		\rnk D\phi(gx)
-		& = \rnk D\phi(gx) \circ D l_g (x) \\
-		& = \rnk D l_{\phi(g)} (\phi(x)) \circ D \phi (x) \\
-		& = \rnk  D \phi (x)
-	\end{align*} 
-	Since $x \in G$ is arbitrary, for each $x \in G$, $\rnk D\phi(gx) = \rnk  D \phi (x)$. In particular, $\rnk D\phi(g) = \rnk  D \phi (e)$. Since $g \in G$ is arbitrary, for each $g \in G$, $\rnk D\phi(g) = \rnk  D \phi (e)$ and $\phi$ has constant rank. 
-\end{proof}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{ex}
-	
-\end{ex}
-
-\begin{defn} \ld{00000} 
-	Let $G$ be a group, $y \in G$ and $f \in L^0$.  Define $L_y, R_y: L^0(G) \rightarrow L^0(G)$ by $L_y f = f \circ l_y^{-1}$ and $R_y f = f \circ r_y^{-1}$, that is, $L_yf(x) = f(y^{-1}x)$ and $R_yf(x) = f(xy)$.
-\end{defn}
-
-
-\begin{defn}
-	content...
-\end{defn}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Lie Algebras}
+\section{Introduction}
 
 \begin{defn}
 	Let $\MFg$ be a vector space and $[\cdot, \cdot]: \MFg \times \MFg \rightarrow \MFg$. 
@@ -8387,6 +9103,254 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 \begin{ex}
 	Let $G \in \Obj(\LieGrp)$ and $X \in \MFX(G)$. Then  
 \end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Principle Bundles}
+
+\section{Introduction}
+
+\tcr{define $\trl$-invariance and $(\trl_1, \trl_2)$-equivariance}
+
+\begin{defn}
+	Let $X$ be a set and $G$ a group. We define the \tbf{trivial right action on $X \times G$}, denoted $\trl^{\Triv}_{X \times G}: (X \times G) \times G \rightarrow X \times G$, by 
+	$$(x,g) \trl^{\Triv}_{X \times G} h = (x, gh)$$
+\end{defn}
+
+\begin{ex}
+	Let $(E, M, \pi, G) \in \Obj(\Buninf)$ and $\triangleleft \in \Hom_{\Maninf}(E \times G, E)$. Suppose that $\trl$ is a right group action. Then $\pi$ is $\trl$-invariant iff for each $p \in M$, $E_p \trl G = E_p$.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item $(\implies):$ \\
+		Suppose that $\pi$ is $\trl$-invariant. Let $p \in M$, $a \in E_p$ and $g \in G$. Then 
+		\begin{align*}
+			\pi(a \trl g)
+			& = \pi(a) \\
+			& = p.
+		\end{align*}
+		Hence $a \trl g \in E_p$. Since $a \in E_p$ and $g \in G$ are arbitrary, we have that $E_p \trl G \subset E_p$. Let $a \in E_p$. Then 
+		\begin{align*}
+			a
+			& = a \trl e \\
+			& \in E_p \trl G.
+		\end{align*}
+		Since $a \in E_p$ is arbitrary, we have that $E_p \subset E_p \trl G$. Hence $E_p \trl G = E_p$. Since $p \in M$ is arbitrary, we have that for each $p \in M$, $E_p \trl G = E_p$.
+		\item $(\impliedby):$ \\
+		Conversely, suppose that for each $p \in M$, $E_p \trl G = E_p$. Let $a \in E$ and $g \in G$. Set $p \defeq \pi(a)$. Since $a \in E_p$, by assumption, we have that
+		\begin{align*}
+			a \trl g 
+			& \in E_p \trl G \\
+			& = E_p.
+		\end{align*}
+		Therefore
+		\begin{align*}
+			\pi(a \trl g) 
+			& = p \\
+			& = \pi(a).
+		\end{align*}
+		Since $a \in E$ and $g \in G$ are arbitrary, we have that for each $a \in E$ and $g \in G$, $\pi(a \trl g) = \pi(a)$. Hence $\pi$ is $\trl$-invariant.
+	\end{itemize}
+\end{proof}
+
+\begin{defn}
+	Let $(E, M, \pi, G) \in \Obj(\Buninf)$ and $\triangleleft \in \Hom_{\Maninf}(E \times G, E)$. Suppose that
+	\begin{itemize}
+		\item $G$ is a Lie group 
+		\item $\trl$ a right group action
+		\item $\pi$ is $\trl$-invariant.
+	\end{itemize} 
+	For each $p \in M$, we define the \tbf{right action of $G$ on $E_p$ induced by $\trl$}, denoted $\trl_p$, by $\trl_p \defeq \trl|_{E_p \times G}$. 
+\end{defn}
+
+\begin{ex}
+	Let Let $(E, M, \pi, G) \in \Obj(\Buninf)$ and $\triangleleft \in \Hom_{\Maninf}(E \times G, E)$. Suppose that \begin{itemize}
+		\item $G$ is a Lie group 
+		\item $\trl$ a right group action
+		\item $\pi$ is $\trl$-invariant.
+	\end{itemize}  
+	Then for each $p \in M$, $\trl_p : E_p \times G \rightarrow E_p$ is a smooth group action.
+\end{ex}
+
+\begin{proof}
+	Let $g,h \in G$ and $a \in E_p$.
+	\begin{itemize}
+		\item Then
+		\begin{align*}
+			a \trl_p (g h)
+			& = a \trl (gh) \\
+			& = (a \trl g) \trl h \\
+			& = (a \trl_p g) \trl_p h
+		\end{align*}
+		and 
+		\begin{align*}
+			a \trl_p e
+			& = a \trl e \\
+			& = a.
+		\end{align*}
+		Since $g,h \in G$ and $a \in E_p$ is arbitrary, we have that $\trl_p $ is a group action.
+		\item Since $\pi$ is a surjective submersion,
+		
+		\tcr{FINISH!!!}, need previous exercise showing $E_x$ is a smooth embedded submanifold of $E$ in a fiber bundle and therefore the restriction of a smooth map to a smooth embedded submanifold is smooth.
+	\end{itemize} 
+\end{proof}
+
+\begin{defn}
+	Let $E, M, G \in \Obj(\Maninf)$, $\pi \in \Hom_{\Maninf}(E, M)$ a surjection, $\trl \in \Hom_{\Maninf}(E \times G , E)$, $U \in \MT_M$ and $\Phi \in \Hom_{\Maninf}(\pi^{-1}(U), U \times G)$. Suppose that  
+	\begin{itemize}
+		\item $G$ is a Lie Group, 
+		\item $\trl$ is a right group action,
+		\item $\pi$ is $\trl$-invariant.
+	\end{itemize}
+	Then $(U, \Phi)$ is said to be a \tbf{smooth principle bundle local trivialization of $E$ over $U$ with respect to $\pi$ and $\trl$} if 
+	\begin{enumerate}
+		\item $(U, \Phi)$ is a smooth fiber bundle local trivialization of $E$ over $U$ with fiber $G$ with respect to $\pi$
+		\item $\Phi$ is $(\trl, \trl^{\Triv}_{U \times G})$-equivariant
+	\end{enumerate}
+\end{defn}
+
+\begin{defn} \ld{def:fiber_bundles:0007}
+	Let $E,M, G \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection and $\trl \in \Hom_{\Maninf}(E \times G , E)$. Suppose that 
+	\begin{itemize}
+		\item $G$ is a Lie Group,
+		\item $\trl$ is a right group action.
+	\end{itemize}
+	Then $(E, M, \pi, G, \trl)$ is said to be a \tbf{$\Maninf$ principle bundle with total space $E$, base space $M$, structure group $G$, projection $\pi$ and action $\trl$} if 
+	\begin{enumerate}
+		\item $(E, M, \pi, G) \in \Obj(\Buninf)$, 
+		\item $\pi$ is $\trl$-invariant,
+		\item for each $p \in M$,
+		\begin{enumerate}
+			\item  $\trl_p: E_p \times G \rightarrow E_p$ is transitive and free,
+			\item  there exists $U \in \MT_M$ and $\Phi \in \Hom_{\Maninf}(\pi^{-1}(U), U \times G)$ such that $(U, \Phi)$ is a smooth principle bundle local trivialization of $E$ over $U$ with respect to $\pi$ and $\trl$.
+		\end{enumerate}
+	\end{enumerate}
+\end{defn}
+
+
+
+
+\begin{ex}
+	\rex{ex:fiber_bundles:0012}
+\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -105,8 +105,8 @@
 	\begin{itemize}
 		\item $\Hilb$:  
 		\begin{itemize}
-			\item $\Obj(\Hilb) = \{H: H \text{ is a Hilbert space}\}$
-			\item $\Hom_{\Hilb}(H_1, H_2) = \{T \in \Vect_{\C}(H_1, H_2): T \text{ is continuous}\}$
+			\item $\Obj(\Hilb) \defeq \{H: H \text{ is a Hilbert space}\}$
+			\item $\Hom_{\Hilb}(H_1, H_2) \defeq \Hom_{\Ban}(H_1, H_2)$
 		\end{itemize}
 		\item $\Mon$
 	\end{itemize}
@@ -224,7 +224,7 @@
 	
 	\subsection{Unitary representations}
 	
-		\begin{defn}
+	\begin{defn}
 		Let $G \in \Obj(\TopGrp)$, $H \in \Obj(\Hilb)$ and $\pi \in \Hom_{\TopGrp}(G, U(H))$. Then $(H, \pi)$ is said to be a \tbf{unitary representation of $G$}. We define the \tbf{dimension of $(H, \pi)$}, denoted $\dim (H, \pi)$, by $\dim (H, \pi) \defeq \dim V$.
 	\end{defn}
 	
@@ -256,6 +256,21 @@
 	
 	\begin{proof}
 		\tcb{FINISH!!!}
+	\end{proof}
+
+	\begin{ex}
+		Let $G \in \Obj(\TopGrp)$ and $(H_{\pi}, \pi), (H_{\rho}, \rho) \in \Obj(\URep(G))$. Then $\Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho)) \in \Obj(\VectC)$.
+	\end{ex}
+
+	\begin{proof}
+		Let $S,T \in \Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho)) $ and $\lam \in \C$. Then for each $g \in G$,
+		\begin{align*}
+			(S + \lam T) \circ \pi(g) 
+			& = S \circ \pi(g)  + \lam T \circ \pi(g) \\
+			& = \rho(g) \circ S + \rho(g) \circ (\lam T) \\
+			& = \rho(g) \circ (S + \lam T).
+		\end{align*}
+		Hence $S + \lam T \in \Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho)) $. Since $S, T \in \Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho)) $ and $\lam \in \C$ is arbitrary, we have that $\Hom_{\URep(G)}((H_{\pi}, \pi), (H_{\rho}, \rho)) \in \Obj(\VectC)$.
 	\end{proof}
 	
 	\begin{defn}
@@ -384,9 +399,69 @@
 		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. Then $E$ is said to be 
 		\begin{itemize}
 			\item \tbf{nontrivial} if $E \neq H, \varnothing$
-			\item \tbf{$(H, \pi)$-invariant} if for each $g \in G$, $\pi(g)(E) = E$
+			\item \tbf{$(H, \pi)$-invariant} if for each $g \in G$, $\pi(g)(E) \subset E$
 		\end{itemize} 
 	\end{defn}
+
+	\begin{ex}
+		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. Suppose that $E$ is $(H, \pi)$-invariant. Then for each $g,h \in G$, 
+		\begin{enumerate}
+			\item $\pi(g)|_E \in \Aut_{\Hilb}(E)$, $\pi(g)|_E^{-1} = \pi(g^{-1})|_E$ and $\pi(g)(E) = E$,
+			\item $\pi(g)|_E \in U(E)$ and $\pi(g)|_E^* = \pi(g^{-1})|_E$, 
+			\item $\pi(g h)|_E = \pi(g)|_E \circ \pi(h)|_E$. 
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		Let $g,h \in G$. 
+		\begin{enumerate}
+			\item Let $x \in E$. Since $E$ is $(H, \pi)$-invariant, we have that $\pi(g)(x) \in E$. 
+			\begin{align*}
+				[\pi(g^{-1})|_E \circ \pi(g)|_E](x) 
+				& = \pi(g^{-1})|_E [\pi(g)|_E(x)] \\
+				& = \pi(g^{-1})|_E [\pi(g)(x)] \\
+				& = \pi(g^{-1}) [\pi(g)(x) ] \\
+				& = [\pi(g^{-1}) \circ \pi(g)](x)  \\
+				& = \pi(g^{-1} g)(x) \\
+				& = \pi(e)(x) \\
+				& = I(x) \\
+				& = I_E(x).
+			\end{align*}
+			Similarly, $\pi(g^{-1})(x) \in E$ and $[\pi(g)|_E \circ \pi(g^{-1})|_E](x) = I|_E(x)$. Since $x \in E$ is arbitrary, we have that $\pi(g)|_E \in \Aut_{\Hilb}(E)$ and $\pi(g^{-1})|_E = \pi(g)|_E^{-1}$. Since $\pi(g)|_E \in \Aut_{\Hilb}(E)$, we have that
+			\begin{align*}
+				\pi(g)(E)
+				& = \pi(g)|_E(E) \\
+				& = E.
+			\end{align*}
+			\item Let $x, y \in E$. Then 
+			\begin{align*}
+				\l \pi(g)|_E x, y \r
+				& = \l \pi(g) x, y \r \\
+				& = \l x, \pi(g)^* y \r \\
+				& = \l x, \pi(g)^*|_E y \r \\
+			\end{align*}
+			Since $x, y \in E$ are arbitrary, we have that $\pi(g)|_E^* = \pi(g)^*|_E$. The previous part then implies that 
+			\begin{align*}
+				\pi(g)|_E^* 
+				& = \pi(g)^*|_E \\
+				& = \pi(g)^{-1}|_E \\
+				& = \pi(g^{-1})|_E \\
+				& = \pi(g)|_E^{-1}.
+			\end{align*}
+			Since $\pi(g)|_E^* =  \pi(g)|_E^{-1}$, we have that $\pi(g)|_E \in U(E)$.
+			\item Let $x \in E$. Since $E$ is $(H, \pi)$-invariant, we have that $\pi(h)(x) \in E$ and therefore 
+			\begin{align*}
+				\pi(g h)|_E(x)
+				& = \pi(g h)(x) \\
+				& = [\pi(g) \circ \pi(g)](x) \\
+				& = \pi(g) [\pi(h)(x)] \\
+				& = \pi(g)|_E [\pi(h)(x)] \\
+				& = \pi(g)|_E [\pi(h)|_E(x)] \\
+				& = [\pi(g)|_E \circ \pi(g)|_E](x).
+			\end{align*}
+			Since $x \in E$ is arbitrary, we have that $\pi(g h)|_E = \pi(g)|_E \circ \pi(g)|_E$.
+		\end{enumerate}
+	\end{proof}
 
 	\begin{defn}
 		Let $G \in \Obj(\TopGrp)$ and $\K \in \Obj(\Field)$ and $(H, \pi) \in \Obj(\URep(G))$. Then 
@@ -395,14 +470,6 @@
 			\item $(H, \pi)$ is said to be \tbf{irreducible} if $(H, \pi)$ is not reducible.
 		\end{itemize}
 	\end{defn}
-
-	\begin{ex}
-		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. Suppose that $E$ is $(H, \pi)$-invariant. Then for each $g \in G$, $\pi(g)|_E \in U(E)$. 
-	\end{ex}
-
-	\begin{proof}
-		Let $g \in G$. Since $E$ is $(H, \pi)$-invariant, for each $g \in G$, $\pi(g)(E) = E$. Since $\pi(g) \in U(H)$, $\pi(g)|_E \in U(E)$.
-	\end{proof}
 
 	\begin{defn}
 		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. Suppose that $E$ is $(H, \pi)$-invariant. 
@@ -498,22 +565,22 @@
 	\end{note}
 
 	\begin{ex}
-		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. If $E$ is nontrivial and $(H, \pi)$-invariant, then $(H, \pi) = (E \oplus E^{\perp}, \pi^E \oplus \pi^{E^{\perp}})$.
+		Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. If $E$ is $(H, \pi)$-invariant, then $(H, \pi) = (E \oplus E^{\perp}, \pi^E \oplus \pi^{E^{\perp}})$.
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that  $E$ is nontrivial and $(H, \pi)$-invariant. \tcb{A previous exercise} implies that $E^{\perp}$ is nontrivial and $(H, \pi)$-invariant. \tcb{It is clear that} $H = E \oplus E^{\perp}$. Let $g \in G$ and $u \in H$. Since $H = E \oplus E^{\perp}$, there exists $v \in E$ and $w \in E^{\perp}$ such that $u = v + w$. Then  
+		Suppose that  $E$ is $(H, \pi)$-invariant. \tcb{A previous exercise} implies that $E^{\perp}$ is $(H, \pi)$-invariant. Since $H = E \oplus E^{\perp}$. Let $g \in G$ and $u \in H$. Since $H = E \oplus E^{\perp}$, there exists $v \in E$ and $w \in E^{\perp}$ such that $u = v + w$. Then  
 		\begin{align*}
 			\pi(g)(u)
 			& = \pi(g)(v +w) \\
 			& = \pi(g)(v) + \pi(g)(w) \\
 			& = \pi(g)|_E(v) + \pi(g)|_{E^{\perp}}(w) \\
 			& = \pi^E(g)(v) + \pi^{E^{\perp}}(g)(w) \\
-			& = [\pi^E(g) \oplus \pi^E(g)](v+w) \\
-			& = [\pi^E \oplus \pi^E](g)(v+w) \\
-			& = [\pi^E \oplus \pi^E](g)(u)
+			& = [\pi^E(g) \oplus \pi^{E^{\perp}}(g)](v+w) \\
+			& = [\pi^E \oplus \pi^{E^{\perp}}](g)(v+w) \\
+			& = [\pi^E \oplus \pi^{E^{\perp}}](g)(u)
 		\end{align*}
-		 Since $u \in H$ is arbitrary, $\pi(g) = [\pi^E \oplus \pi^E](g)$. Since $g \in G$ is arbitrary, $\pi = \pi^E \oplus \pi^E$.
+		 Since $u \in H$ is arbitrary, $\pi(g) = [\pi^E \oplus \pi^{E^{\perp}}](g)$. Since $g \in G$ is arbitrary, $\pi = \pi^E \oplus \pi^{E^\perp}$.
 	\end{proof}
 	
 	
@@ -527,22 +594,19 @@
 	\end{defn}
 
 	\begin{ex}
-		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$. Then there exists $(H_{\al}, \pi_{\al})_{\al \in A} \subset \Obj(\URep(G))$ such that for each $\al \in A$, $(H_{\al}, \pi_{\al})$ is cyclic and $(H, \pi) =  \bigoplus\limits_{\al \in A} (H_{\al}, \pi_{\al}) $. \\
+		Let $G \in \Obj(\TopGrp)$ and $(H, \pi) \in \Obj(\URep(G))$. Then there exists $\ME \subset \MP(H)$ such that $\ME$ is an $(H, \pi)$-orthocyclic system and $(H, \pi) =  \bigoplus\limits_{E \in \ME} (H, \pi)|_E $. \\
 		\tbf{Hint:} Zorn's lemma
 	\end{ex}
 
 
 
 	\begin{proof}
-		Define $\MP = \{\ME: \text{$\ME$ is an $(H, \pi)$-orthocyclic system}\}$. We partially order $\MP$ by inclusion. Let $\MC \subset \MP$ be a chain. Set $\ME_0 = \bigcup\limits_{\ME \in \MC} \ME$. Let $E_1, E_2 \in \ME_0$. Then there exist $\ME_1, \ME_2 \in \MC$ such that $E_1 \in \ME_1$ and $E_2 \in \ME_2$. Since $\MC$ is a chain, $\ME_1 \subset \ME_2$ or $\ME_2 \subset \ME_1$. 
-		
-		Suppose that $\ME_1 \subset \ME_2$. Then $E_1 \in \ME_2$. Since $\ME_2$ is an $(H, \pi)$-orthocyclic system, we have that $E_1$ is a closed subspaces of $H$, $(H, \pi)|_{E_1}$ is cyclic and if $E_1 \neq E_2$, then $E_1 \perp E_2$. Similarly, $\ME_2 \subset \ME_1$ implies the same conclusion. Since $E_1, E_2 \in \ME_0$ are arbitrary, we have that for each $E_1, E_2 \in \ME_0$ 
+		Define $\MP = \{\ME: \text{$\ME$ is an $(H, \pi)$-orthocyclic system}\}$. We partially order $\MP$ by inclusion. Let $\MC \subset \MP$ be a chain. Set $\ME_0 = \bigcup\limits_{\ME \in \MC} \ME$. Let $E_1, E_2 \in \ME_0$. Then there exist $\ME_1, \ME_2 \in \MC$ such that $E_1 \in \ME_1$ and $E_2 \in \ME_2$. Since $\MC$ is a chain, $\ME_1 \subset \ME_2$ or $\ME_2 \subset \ME_1$. Suppose that $\ME_1 \subset \ME_2$. Then $E_1 \in \ME_2$. Since $\ME_2$ is an $(H, \pi)$-orthocyclic system, we have that $E_1$ is a closed subspaces of $H$, $(H, \pi)|_{E_1}$ is cyclic and if $E_1 \neq E_2$, then $E_1 \perp E_2$. Similarly, $\ME_2 \subset \ME_1$ implies the same conclusion. Since $E_1, E_2 \in \ME_0$ are arbitrary, we have that for each $E_1, E_2 \in \ME_0$ 
 	 	\begin{enumerate}
 	 		\item $E_1$ is a closed subspaces of $H$ and $E_1$ is $(H, \pi)$-invariant
 	 		\item $(H, \pi)|_{E_1}$ is cyclic
 	 		\item if $E_1 \neq E_2$, then $E_1 \perp E_2$
 	 	\end{enumerate}
- 	
  		Thus $\ME_0$ is an $(H, \pi)$-orthocyclic system. Hence $\ME_0 \in \MP$. By construction, for each $\ME \in \MC$, $\ME \subset \ME_0$. So $\ME_0$ is an upper bound of $\MC$. Since $\MC \subset \MP$ such that $\MC$ is a chain is arbitrary, we have that for each $\MC \subset \MP$, if $\MC$ is a chain, then there exists $\ME_0 \in \MP$ such that $\ME_0$ is an upper bound of $\MC$. Zorn's lemma implies that there exists $\ME \in \MP$ such that $\ME$ is maximal. Set $E =  \bigoplus\limits_{E_0 \in \ME} E_0$. For the sake of contradiction, suppose that $H \neq E$. Then $E^{\perp} \neq \{0\}$. Thus there exists $u \in E^{\perp}$ such that $u \neq 0$. Therefore $\cyc(u) \neq 0$ and $\cyc(u) \subset E^{\perp}$. Let $E_0 \in \ME$. By construction, $E_0 \subset E$. Thus
  		\begin{align*}
  			\cyc(u) 
@@ -558,7 +622,51 @@
  		Hence $\ME' \in \MP$. Since $\ME \subset \ME'$ and $\ME$
 	\end{proof}
 
+\begin{note}
+	Let $H$ be a Hilbert space and $E \subset H$ a closed subspace. We denote the orthogonal projection onto $E$ by $P_E$.
+\end{note}
 
+\begin{ex}
+	Let $G \in \Obj(\TopGrp)$, $(H, \pi) \in \Obj(\URep(G))$ and $E \subset H$ a closed subspace. Then $E$ is $(H, \pi)$-invariant iff $P_E \in \End_{\URep(G)}((H, \pi))$.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item $(\implies):$ \\
+		Suppose that $E$ is $(H, \pi)$-invariant. Let $g \in G$ and $z \in H$. Then there exists $x \in E$ and $y \in E^{\perp}$ such that $z = x+y$. Since $E$ is $(H, \pi)$ invariant, $\pi(g)(x) \in E$. Thus 
+		\begin{align*}
+			\pi(g) \circ P_E (x) 
+			& = \pi(g)(x) \\
+			& = P_E \circ \pi(g)(x).
+		\end{align*} 
+		Since $E$ is $(H, \pi)$-invariant, \tcr{ref previous ex here} implies that $E^{\perp}$ is $(H, \pi)$-invariant. Therefore $\pi(g)(y) \in E^{\perp}$ and
+		\begin{align*}
+			\pi(g) \circ P_E (x) 
+			& = \pi(g)(0) \\
+			& = 0 \\
+			& = P_E \circ \pi(g)(y).
+		\end{align*}
+		Hence 
+		\begin{align*}
+			\pi(g) \circ P_E (z)
+			& = \pi(g) \circ P_E (x + y) \\
+			& = \pi(g) \circ P_E (x) + \pi(g) \circ P_E(y) \\
+			& = P_E \circ \pi(g)(x) + P_E \circ \pi(g)(y) \\
+			& = P_E \circ \pi(g)(x + y) \\
+			& = P_E \circ \pi(g)(z).
+		\end{align*}
+		Since $z \in H$ is arbitrary, we have that $\pi(g) \circ P_E = P_E \circ \pi(g)$. Since $g \in G$ is arbitrary, $P_E \in \End_{\URep(G)}(H, \pi)$. 
+		\item $(\impliedby):$ \\
+		Conversely, suppose that $P_E \in \End_{\URep(G)}((H, \pi))$. Let $g \in G$ and $x \in E$. Then 
+		\begin{align*}
+			\pi(g)(x) \\
+			& = \pi(g) \circ P_E (x) \\
+			& = P_E \circ \pi(g) (x) \\
+			& \in E.	
+		\end{align*}
+		Since $x \in E$ is arbitrary, $\pi(g)(E) \subset E$. Since $g \in G$ is arbitrary, $E$ is $(H, \pi)$-invariant. 
+	\end{itemize}
+\end{proof}
 	
 	
 	
