@@ -3233,6 +3233,83 @@
 			When $X$ is a topological space, we write $M_+(X)$ in place of $M_+(X, \MB(X))$.
 		\end{itemize}
 	\end{defn}
+
+	\begin{ex} \lex{ex:measures:00002.1}
+		Let $(X,\MA)$ be a measurable space and $\mu \in M_+(X, \MA)$. Then 
+		\begin{enumerate}
+			\item for each $A, B \in \MA$, $A \subset B$ implies that $\mu(A) \leq \mu(B)$,
+			\item $\mu(\varnothing) = 0$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A, B \in \MA$. Suppose that $A \subset B$. Then
+			\begin{align*}
+				\mu(B)
+				& = \mu[(B \cap A) \cup (B \cap A^c)] \\
+				& = \mu(B \cap A) + \mu(B \cap A^c) \\
+				& = \mu(A) + \mu(B \cap A^c) \\ 
+				& \geq \mu(A).
+			\end{align*}
+			\item Since $\mu$ is a measure, there exists $A \in \MA$ such that $\mu(A)< \infty$. Since $\varnothing \subset A$, the previous part implies that 
+			\begin{align*}
+				\mu(\varnothing)
+				& \leq \mu(A) \\
+				& < \infty. 
+			\end{align*}
+			Since $\varnothing \cap \varnothing = \varnothing$, we have that
+			\begin{align*}
+				\mu(\varnothing) 
+				& = \mu(\varnothing \cup \varnothing) \\
+				& = \mu(\varnothing) + \mu(\varnothing) \\
+				& = 2 \mu(\varnothing). 
+			\end{align*}
+			Thus $\mu(\varnothing) = 0$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:measures:00002.2}
+		Let $(X,\MA)$ be a measurable space and $\mu: \MA \rightarrow \RG$. Suppose that for each $(A_n)_{n \in \N} \subset \MA$, $(A_n)_{n \in \N}$ is disjoint implies that 
+		$$\mu\bigg(\bigcup_{n \in \N}A_n \bigg) = \sum_{n \in \N}\mu(A_n).$$
+		Then $\mu \in M_+(X, \MA)$ iff $\mu(\varnothing) = 0$.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies):$ \\
+			Suppose that $\mu \in M_+(X, \MA)$. \rex{ex:measures:00002.1} implies that $\mu(\varnothing) = 0$.
+			\item $(\impliedby):$ \\
+			Suppose that $\mu(\varnothing) = 0$. Then there exists $A \in \MA$ such that $\mu(A) < \infty$. Hence $\mu \in M_+(X, \MA)$.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:measures:00002.3}
+		Let $(X,\MA)$ be a measurable space and $(\mu_j)_{j \in \N} \subset M_+(X, \MA)$ and $(\lam_j) \subset \Rg$. Then $\sum\limits_{j \in \N} \lam_j \mu_j \in M_+(X, \MA).$ 
+	\end{ex}
+
+	\begin{proof} Define $\mu: \MA \rightarrow \RG$ by $\mu \defeq \sum\limits_{j \in \N} \lam_j \mu_j$.
+		\begin{enumerate}
+			\item We note that
+			\begin{align*}
+				\mu(\varnothing)
+				& = \bigg[ \sum\limits_{j \in \N} \lam_j \mu_j\bigg](\varnothing) \\
+				& = \sum\limits_{j \in \N} \lam_j \mu_j(\varnothing) \\
+				& = 0.
+			\end{align*}
+			\item Let $(E_k)_{k \in \N} \subset \MA$. Suppose that $(E_k)_{k \in \N}$ is disjoint. Then 
+			\begin{align*}
+				\mu \bigg( \bigcup_{k \in \N} E_k \bigg)
+				& = \bigg[ \sum\limits_{j \in \N} \lam_j \mu_j\bigg]\bigg( \bigcup_{k \in \N} E_k \bigg) \\
+				& = \sum\limits_{j \in \N} \lam_j \mu_j \bigg( \bigcup_{k \in \N} E_k \bigg) \\
+				& = \sum\limits_{j \in \N} \lam_j \bigg[ \sum_{k \in \N} \mu_j(E_k) \bigg] \\
+				& = \sum\limits_{j \in \N} \bigg[ \sum_{k \in \N} \lam_j \mu_j(E_k) \bigg] \\
+				& = \sum\limits_{k \in \N} \bigg[ \sum\limits_{j \in \N} \lam_j \mu_j(E_k) \bigg] \\
+				& = \sum\limits_{k \in \N} \mu(E_k).
+			\end{align*}
+		\end{enumerate}
+	Thus $\mu \in M_+(X, \MA)$.
+	\end{proof}
 	
 	\begin{ex} \lex{ex:measures:00003}
 	Let $(X, \MA, \mu)$ be a measure space, $A$ and index set and $(E_{\al})_{\al \in A} \subset \MA$. Suppose that $\mu(X) < \infty$ and $(E_\al)_{\al \in A }$ is disjoint. Then $\{\al \in A: \mu(E_{\al}) >0\}$ is countable.\\
@@ -4027,13 +4104,25 @@
 			Since $(A_n)_{n \in \N} \subset \MA_0$ such that $(A_n)_{n \in \N}$ is disjoint and $\bigcup\limits_{n \in \N} A_n \in \MA_0$ is arbitrary, we have that for each $(A_n)_{n \in \N} \subset \MA_0$, $(A_n)_{n \in \N}$ is disjoint and $\bigcup\limits_{n \in \N} A_n \in \MA_0$ implies that $\mu_0 \bigg(\bigcup\limits_{n\in \N}A_n \bigg) = \sum\limits_{n \in \N}\mu_0(A_n)$. Hence $\mu_0$ is a premeasure on $(X, \MA_0)$.
 		\end{enumerate}
 	\end{proof}
+
 	
 	\begin{thm} \lex{ex:outer_measures:00008} \tbf{Caratheodory Extension Theorem:} \\
 		Let $X$ be a set, $\MA_0$ an algebra on $X$ and $\mu_0$ a premeasure on $(X,\MA_0)$. Set $\MA = \sig(\MA_0)$. If $\mu_0$ is $\sig$-finite \tcr{(define $\sig$-finite for premeasures)}, then there exists a unique measure $\mu$ on $(X, \MA)$ such that $\mu|_{\MA_0} = \mu_0^*|_{\MA_0} = \mu_0$. 
 	\end{thm}
 
 	
+	\begin{ex} \lex{ex:outer_measures:00008.1}
+		Let $(X, \MA)$ be a measurable space and $\mu_0:\MA \rightarrow [0,\infty)$. Suppose that
+		\begin{itemize}
+			\item $\mu_0$ is finitely-additive,
+			\item for each $(B_n)_{n \in \N} \subset \MA_0$, $(B_n)_{n \in \N} $ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$ implies that $\mu_0(B_n) \rightarrow 0$.
+		\end{itemize}  
+		Then $\mu \in M_+(X, \MA)$. 
+	\end{ex}
 	
+	\begin{proof}
+		Since $\MA$ is an alegbra on $X$, \rex{ex:outer_measures:00007.1} implies that $\mu$ is a premeasure on $(X, \MA)$. Since $\MA$ is a $\sig$-algebra on $X$, $\sig(\MA) = \MA$. Since $\mu$ is finite, \rex{ex:outer_measures:00008} implies that there exists a unique $\mu' \in M_+(X, \MA)$ such that $\mu'|_{\MA} = \mu$. Since $\mu'|_{\MA} = \mu'$, we have $\mu' = \mu$. Hence $\mu \in M_+(X, \MA)$.
+	\end{proof}
 	
 	
 	
@@ -4528,13 +4617,13 @@
 		Let $(X, \MA)$ be a measurable space, $\mu$ a measure on $(X, \MA)$ and $E \in \MA$. 
 		\begin{itemize}
 			\item We define the \tbf{restriction of $\mu$ to $E$}, denoted $\mu|_E: \MA \cap E \rightarrow \RG$, by 
-			$$\mu|_E(A) = \mu(A)$$
+			$$\mu|_E(A) \defeq \mu(A)$$
 			\item We define the \tbf{constriction of $\mu$ to $E$ on $X$}, denoted $\mu_E: \MA \rightarrow \RG$, by 
-			$$\mu_E(A) = \mu(A \cap E)$$
+			$$\mu_E(A) \defeq \mu(A \cap E)$$
 		\end{itemize}
 	\end{defn}
 
-	\tcr{Change all $\mu_E$ to $\mu^E$, reserve $\mu_E$ to mean $\mu^E/ \mu(E)$ if $0 < \mu(E) < \infty$ (i.e. the conditional of $\mu$ on $E$)}
+	\tcr{reserve $\mu_{|E}$ to mean $\mu^E/ \mu(E)$ if $0 < \mu(E) < \infty$ (i.e. the conditional of $\mu$ on $E$)}
 
 	\begin{ex} \lex{ex:subspace_measures:00002} 
 		Let $(X, \MA)$ be a measurable space, $\mu$ a measure on $(X, \MA)$ and $E \in \MA$. Then 
@@ -4543,7 +4632,7 @@
 				\item $\mu|_E \in M_+(E, \MA \cap E)$
 				\item $\mu_E \in M_+(X, \MA)$
 			\end{enumerate}
-			\item Define $\iota:R \rightarrow X$ by $\iota(x) = x$. Then $\mu_E = \iota_*\mu|_E$
+			\item Define $\iota: E \rightarrow X$ by $\iota(x) = x$. Then $\mu_E = \iota_*\mu|_E$
 		\end{enumerate} 
 	\end{ex}
 
@@ -4551,14 +4640,77 @@
 		\tcr{FINISH!!!}
 	\end{proof}
 
+	\begin{ex} \lex{ex:subspace_measures:00002.1}
+		Let $(X, \MA)$ be a measurable space, $\mu$ a measure on $(X, \MA)$. Then 
+		\begin{enumerate}
+			\item for each $(E_j)_{j \in \N} \subset \MA$, $(E_j)_{j \in \N}$ is disjoint implies that  
+			$$\mu_{\bigcup\limits_{j \in \N} E_j} = \sum_{j \in \N} \mu_{E_j},$$
+			\item for each $E,F \in \MA$, if $E \subset F$, then $\mu_E \leq \mu_F$,
+			\item $\mu_X = \mu$,
+			\item $\mu_{\varnothing} = 0$.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $(E_j)_{j \in \N}$ is disjoint. Let $A \in \MA$. Since $(E_j)_{j \in \N}$ is disjoint, we have that $(A \cap E_j)_{j \in \N}$ is disjoint. Therefore
+			\begin{align*}
+				\mu_{\bigcup\limits_{j \in \N} E_j}(A)
+				& = \mu \bigg[ A \cap (\bigcup_{j \in \N} E_j) \bigg] \\
+				& = \mu \bigg[ \bigcup_{j \in \N}(A \cap E_j) \bigg] \\
+				& = \sum_{j \in \N} \mu(A \cap E_j) \\
+				& = \sum_{j \in \N} \mu_{E_j}(A) \\
+				& = \bigg[ \sum_{j \in \N} \mu_{E_j} \bigg](A).
+			\end{align*}
+			Since $A \in \MA$ is arbitrary, we have that for each $A \in \MA$, 
+			$$\mu_{\bigcup\limits_{j \in \N} E_j}(A) = \bigg[ \sum_{j \in \N} \mu_{E_j} \bigg](A).$$
+			Thus 
+			$$\mu_{\bigcup\limits_{j \in \N} E_j} = \bigg[ \sum_{j \in \N} \mu_{E_j} \bigg].$$
+			\item Let $E, F \in \MA$. Suppose that $E \subset F$. The previous part implies that
+			\begin{align*}
+				\mu_F
+				& = \mu_{(F \cap E) \cup (F \cap E^c)} \\
+				& = \mu_{F \cap E} + \mu_{F \cap E^c} \\
+				& = \mu_E + \mu_{F \cap E^c} \\
+				& \geq \mu_E.
+			\end{align*}
+			\item Let $A \in \MA$. Then 
+			\begin{align*}
+				\mu_X(A)
+				& = \mu(A \cap X) \\
+				& = \mu(A).
+			\end{align*}
+			Since $A \in \MA$ is arbitrary, we have that for each $A \in \MA$, $\mu_X(A) = \mu(A)$. Hence $\mu_X = \mu$.
+			\item Let $A \in \MA$. Then 
+			\begin{align*}
+				\mu_{\varnothing}(A)
+				& = \mu(A \cap \varnothing) \\
+				& = \mu(\varnothing) \\
+				& = 0.
+			\end{align*}
+			Since $A \in \MA$ is arbitrary, we have that for each $A \in \MA$, $\mu_{\varnothing}(A) = 0$. Hence $\mu_{\varnothing} = 0$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn} \ld{def:subspace_measures:00003} 
+		Let $X$ be a set and $\nu$ an outer measure on $X$ and $E \subset X$. 
+		\begin{itemize}
+			\item We define the \tbf{restriction of $\nu$ to $E$}, denoted $\nu|_E: \MP(E) \rightarrow \RG$, by 
+			$$\nu|_E(A) \defeq \nu(A)$$
+			\item We define the \tbf{constriction of $\nu$ to $E$ on $X$}, denoted $\nu_E: \MP(X) \rightarrow \RG$, by 
+			$$\nu_E(A) \defeq \nu(A \cap E)$$
+		\end{itemize}
+	\end{defn}
+
 	\begin{ex} \lex{ex:subspace_measures:00004} 
-		Let $X$ be a set, $E \subset X$ and $\nu$ and outer measure on $X$. 
+		Let $X$ be a set, $\nu$ and outer measure on $X$ and $E \subset X$. 
 		\begin{enumerate}
 			\item \begin{enumerate}
 				\item $\nu|_E$ is an outer measure on $E$
 				\item $\nu_E$ is an outer measure on $X$
 			\end{enumerate}
-			\item Define $\iota:R \rightarrow X$ by $\iota(x) = x$. Then $\nu_E = \iota_*\nu|_E$.
+			\item Define $\iota:E \rightarrow X$ by $\iota(x) = x$. Then $\nu_E = \iota_*\nu|_E$.
+			\tcr{might need to put pushforward measure section after outer measure section instead of before, need to see if outer measure section uses pushforward, if not move it. Then can use pushforward here}
 		\end{enumerate}
 		
 	\end{ex}
@@ -4605,9 +4757,9 @@
 
 	\begin{proof}
 		Let $B \subset E$. Set
-		$$V(B) = \bigg \{\sum_{j \in \N} \mu(F_j): (F_j)_{j \in \N} \subset \MA \text{ and } B \subset \bigcup\limits_{j \in \N} F_j \bigg \}$$ 
+		$$V(B) \defeq \bigg \{\sum_{j \in \N} \mu(F_j): (F_j)_{j \in \N} \subset \MA \text{ and } B \subset \bigcup\limits_{j \in \N} F_j \bigg \}$$ 
 		and 
-		$$V_E(B) = \bigg \{\sum_{j \in \N} \mu|_E(F_j): (F_j)_{j \in \N} \subset \MA \cap E \text{ and } B \subset \bigcup\limits_{j \in \N} F_j \bigg \}$$
+		$$V_E(B) \defeq \bigg \{\sum_{j \in \N} \mu|_E(F_j): (F_j)_{j \in \N} \subset \MA \cap E \text{ and } B \subset \bigcup\limits_{j \in \N} F_j \bigg \}$$
 		Since $E \in \MA$, we have that $\MA \cap E \subset \MA$. By definition, for each $F \in \MA \cap E$, $\mu|_E(F) = \mu(F)$. Hence $V_E(B) \subset V(B)$ and
 		\begin{align*}
 			\mu^*|_E(B)
@@ -4652,22 +4804,12 @@
 				& < \mu^*(B) + \ep \\
 				& = \mu^*|_E(B) + \ep  
 			\end{align*}
-			Since $\ep >0$ is arbitrary, $\mu|_E^*(B) \leq \mu^*|_E(B)$. \\
+			Since $\ep >0$ is arbitrary, $\mu|_E^*(B) \leq \mu^*|_E(B)$. 
 		\end{itemize}
 		Thus $\mu|_E^*(B) = \mu^*|_E(B)$. Since $B \subset E$ is arbitrary, $\mu|_E^* = \mu^*|_E$.
 	\end{proof}
-
-	\begin{defn} \ld{def:subspace_measures:00005.1}
-		Let $X$ be a set, $\nu$ an outer measure on $X$ and $E \subset X$. 
-		\begin{itemize}
-			\item We define the \tbf{restriction of $\nu$ to $E$}, denoted $\nu|_E: \MP(E) \rightarrow \RG$, by 
-			$$\nu|_E(A) = \nu(A)$$
-			\item We define the \tbf{restriction of $\nu$ to $E$ on $X$}, denoted $\nu_E: \MP(E) \rightarrow \RG$, by 
-			$$\nu_E(A) = \nu(A \cap E)$$
-		\end{itemize}
-	\end{defn}
 	
-	\begin{ex} \lex{ex:subspace_measures:00005.2} 
+	\begin{ex} \lex{ex:subspace_measures:00005.1} 
 		Let $(X, \MA)$ be a measurable space, $\mu \in M_+(X, \MA)$ and $E\in \MA$. Then $(\mu^*)_E = (\mu_E)^*$. 
 	\end{ex}
 	
@@ -4968,32 +5110,34 @@
 	\begin{thm} \lex{ex:integration_nonnegative_functions:0001} \textbf{Monotone Convergence Theorem:} \\
 		Let $(f_n)_{n \in \N} \subset L^+$. Suppose that for each $n \in \N$, $f_n \leq f_{n+1}$. Then $$\sup_{n \in \N} \int f_n = \int \sup_{n \in \N} f_n$$.
 	\end{thm}
-	
+
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0002} 
-		Let $\mu_1, \mu_2 \in M_+(X, \MA)$, $\lam \geq 0$ and $f \in L^+$. Then 
-		$$\int f d (\mu_1 + \lam \mu_2) = \int f d\mu_1 + \lam \int f d\mu_2$$.  
+		Let $(X, \MA)$ be a measurable space, $(\mu_j)_{j = 1}^m \subset M_+(X, \MA)$, $(\lam_j)_{j = 1}^m \subset \Rg$ and $f \in L^+(X, \MA)$. Define $\mu \in M_+(X, \MA)$ by $\mu \defeq \sum\limits_{j = 1}^m \lam_j \mu_j$. Then 
+		$$\int_X f \dmu = \sum_{j = 1}^m \lam_j \int_X f \dmu_j. $$  
 	\end{ex}
-	
+
 	\begin{proof}
-		Suppose that $f$ is simple. Then there exist $(a_n)_{i=1}^n \subset \Rg$ and $(E_i)_{i=1}^n \subset \MA$ such that $f = \sum\limits_{i =1}^n a_i \chi_{E_i}$. Then 
+		Suppose that $f$ is simple. Then there exist $(a_k)_{k=1}^n \subset \Rg$ and $(E_k)_{k=1}^n \subset \MA$ such that $(E_k)_{k=1}^n $ is disjoint and $f = \sum\limits_{k =1}^n a_k \chi_{E_k}$. Then 
 		\begin{align*}
-			\int f d(\mu_1 + \lam \mu_2) 
-			&= \sum\limits_{i =1}^n a_i (\mu_1 + \lam \mu_2)(E_i)\\
-			&= \sum\limits_{i =1}^n a_i (\mu_1(E_i) + \lam \mu_2(E_i))\\
-			&= \sum\limits_{i =1}^n a_i \mu_1(E_i) + \lam \sum\limits_{i =1}^n a_i   \mu_2(E_i)\\
-			&= \int f d\mu_1 + \lam \int f d\mu_2
+			\int_X f \dmu
+			& = \sum \limits_{k =1}^n a_k \mu(E_k) \\
+			& = \sum \limits_{k =1}^n a_k \bigg[ \sum_{j = 1}^m \lam_j \mu_j \bigg](E_k) \\
+			& = \sum \limits_{k =1}^n a_k \bigg[ \sum_{j = 1}^m \lam_j \mu_j(E_k) \bigg] \\
+			& = \sum \limits_{k = 1}^n \bigg[ \sum_{j = 1}^m a_k \lam_j \mu_j(E_k) \bigg] \\
+			& = \sum \limits_{j =1}^n \bigg[ \sum_{k =1}^n a_k \lam_j \mu_j(E_k) \bigg] \\
+			& = \sum \limits_{j =1}^n \lam_j \bigg[ \sum_{k = 1}^n a_k \mu_j(E_k) \bigg] \\
+			& = \sum_{j = 1}^m \lam_j \int_X f \dmu_j 
 		\end{align*}
-		
 		Now for a general $f$, choose $(\phi_n)_{n \in \N} \subset S^+$ such that $\phi_n \rightarrow f$ pointwise and for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$. Then monotone convergence tells us that 
 		\begin{align*}
-			\int f d(\mu_1 + \lam \mu_2) 
-			&= \limn \int \phi_n d(\mu_1 + \lam \mu_2)\\
-			&= \limn \int \phi_n \dmu_1 + \limn \lam \int \phi_n \dmu_2 \\
-			&= \int f \dmu_1 +  \lam \int f \dmu_2
+			\int_X f \dmu 
+			& = \limn \int_X \phi_n \dmu \\
+			& = \limn  \bigg[ \sum_{j = 1}^m \lam_j \int_X \phi_n \dmu_j  \bigg] \\
+			& = \sum_{j = 1}^m \bigg[ \limn  \lam_j \int_X \phi_n \dmu_j  \bigg] \\
+			& = \sum_{j = 1}^m  \lam_j \bigg[ \limn \int_X \phi_n \dmu_j  \bigg] \\
+			& = \sum_{j = 1}^m  \lam_j \int_X f \dmu_j  \\
 		\end{align*}
-		
 	\end{proof}
-	
 	
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0003}
 		Let $\mu_1, \mu_2 \in M_+(X,\MA)$. Suppose that $\mu_1 \leq \mu_2$. Then for each $f \in L^+$, $$\int f d\mu_1 \leq \int f d\mu_2$$
@@ -5111,65 +5255,70 @@
 	\end{ex} 
 
 	\begin{proof}
-		Define $A,B \subset \RG$ by 
-		$$A_1 = \bigg \{\int \phi: \phi \in S^+(X, \MA) \text{ and } \phi \leq f \bigg \}, \quad A_2 = \bigg \{\sum_{x \in F}f(x): F \subset X \text{ and } \#(F) < \infty \bigg \}$$ 
-		Let $y \in A_1$. Then there exists $\phi \in S^+(X, \MA)$ such that $\phi \leq f$ and 
-		$$y = \int \phi \dsh$$  
-		Thus there exist $(E_j)_{j=1}^n \subset \MP(X)$ and $(a_j)_{j =1}^n \subset \Rg$ such that $\Im \phi = (a_j)_{j =1}^n$, $(E_j)_{j=1}^n$ is disjoint and $\phi = \sum\limits_{j=1}^n a_j \chi_{E_j}$. \\
-		Suppose that $y = \infty$. Then $\sup A_1 = \infty$. If for each $j \in \{1, \ldots, n\}$, $a_j = 0$ or $\#(E_j) \neq \infty$, then 
-		\begin{align*}
-			y
-			& = \int \phi \dsh \\
-			& = \sum_{j=1}^n a_j \#(E_j) \\
-			& < \infty 
-		\end{align*}
-		which is a contradiction. Therefore, there exists $j_0 \in \{1, \ldots, n\}$ such that $a_{j_0} >0$ and $\#(E_{j_0}) = \infty$. Then there exists $(x_l)_{l \in \N} \subset E_{j_0}$ such that for each $k, l \in \N$, $k \neq l$ implies that $x_k \neq x_l$. For $k \in \N$, define $F_k \subset E_{j_0}$ by 
-		$$F_k = \bigcup_{l=1}^k \{x_l\}$$
-		Then for each $k \in \N$, $\#(F_k) = k$ and 
-		\begin{align*}
-			a_{j_0} k
-			& = \sum_{x \in F_k} \phi(x) \\
-			& \leq \sum_{x \in F_k}f(x) \\
-			& \in A_2
-		\end{align*}
-		which implies that
-		\begin{align*}
-			\sup A_2
-			& \geq \sup_{k \in \N}  \sum_{x \in F_k}f(x) \\
-			& \geq \sup_{k \in \N} a_{j_0} k
-		\end{align*}
-		Since $k \in \N$ is arbitrary, $\sup A_2 = \infty$ and in particular, $y \leq \sup A_2$.\\
-		Suppose that $y \neq \infty$. Then for each $j \in \{1, \ldots, n\}$, $a_j = 0$ or $\#(E_j) < \infty$. Define $J \subset \{1, \ldots, n\}$ and $F \subset X$ by 
-		$$J = \{j \in \{1, \ldots, n\}: \#(E_j) < \infty \}, \quad F = \bigcup_{j \in J}E_j$$
-		We note that since $J$ is finite, $\#(F) < \infty$ and for each $j \in J^c$, $a_j = 0$. Therefore
-		\begin{align*}
-			y
-			& = \int \phi \dsh \\
-			& = \sum_{j =1}^n a_j \#(E_j) \\
-			& = \sum_{j \in J} a_j \#(E_j) \\
-			& = \sum_{j \in J} \sum_{x \in E_j} \phi(x) \\
-			& = \sum_{x \in F} \phi(x) \\
-			& \leq \sum_{x \in F} f(x) \\
-			& \leq \sup A_2 
-		\end{align*}
-		Since for each $y \in A_1$, $y \leq \sup A_2$, we have that $\sup A_1 \leq \sup A_2$. \\
-		Conversely, let $y \in A_2$. Then there exists $F \subset X$ such that $\#(F) < \infty$ and $y = \sum\limits_{x \in F} f(x)$.
-		Define $\phi \in S^+(X, \MP(X))$ by $\phi = f \chi_F$. Then $\phi \leq f$ and 
-		\begin{align*}
-			y 
-			& = \int \phi \dsh \\
-			& \in A_1
-		\end{align*}
-		Since $y \in A_2$ is arbitrary, $A_2 \subset A_1$. Thus $\sup A_2 \leq \sup A_1$. Therefore
+		Define $A_1, A_2 \subset \RG$ by 
+		$$A_1 = \bigg \{\int \phi \dsh: \phi \in S^+(X, \MA) \text{ and } \phi \leq f \bigg \}, \quad A_2 = \bigg \{\sum_{x \in F}f(x): F \subset X \text{ and } \#(F) < \infty \bigg \}$$ 
+		\begin{itemize}
+			\item Let $y \in A_1$. Then there exists $\phi \in S^+(X, \MA)$ such that $\phi \leq f$ and 
+			$$y = \int \phi \dsh$$  
+			Thus there exist $(E_j)_{j=1}^n \subset \MP(X)$ and $(a_j)_{j =1}^n \subset \Rg$ such that $\Im \phi = (a_j)_{j =1}^n$, $(E_j)_{j=1}^n$ is disjoint and $\phi = \sum\limits_{j=1}^n a_j \chi_{E_j}$. \\
+			\begin{itemize}
+				\item Suppose that $y = \infty$. Then $\sup A_1 = \infty$. If for each $j \in \{1, \ldots, n\}$, $a_j = 0$ or $\#(E_j) \neq \infty$, then 
+				\begin{align*}
+					y
+					& = \int \phi \dsh \\
+					& = \sum_{j=1}^n a_j \#(E_j) \\
+					& < \infty 
+				\end{align*}
+				which is a contradiction. Therefore, there exists $j_0 \in \{1, \ldots, n\}$ such that $a_{j_0} >0$ and $\#(E_{j_0}) = \infty$. Then there exists $(x_l)_{l \in \N} \subset E_{j_0}$ such that for each $k, l \in \N$, $k \neq l$ implies that $x_k \neq x_l$. For $k \in \N$, define $F_k \subset E_{j_0}$ by 
+				$$F_k = \bigcup_{l=1}^k \{x_l\}$$
+				Then for each $k \in \N$, $\#(F_k) = k$ and 
+				\begin{align*}
+					a_{j_0} k
+					& = \sum_{x \in F_k} \phi(x) \\
+					& \leq \sum_{x \in F_k}f(x) \\
+					& \in A_2
+				\end{align*}
+				which implies that
+				\begin{align*}
+					\sup A_2
+					& \geq \sup_{k \in \N}  \sum_{x \in F_k}f(x) \\
+					& \geq \sup_{k \in \N} a_{j_0} k
+				\end{align*}
+				Since $k \in \N$ is arbitrary, $\sup A_2 = \infty$ and in particular, $y \leq \sup A_2$.\\
+				\item Suppose that $y \neq \infty$. Then for each $j \in \{1, \ldots, n\}$, $a_j = 0$ or $\#(E_j) < \infty$. Define $J \subset \{1, \ldots, n\}$ and $F \subset X$ by 
+				$$J = \{j \in \{1, \ldots, n\}: \#(E_j) < \infty \}, \quad F = \bigcup_{j \in J}E_j$$
+				We note that since $J$ is finite, $\#(F) < \infty$ and for each $j \in J^c$, $a_j = 0$. Therefore
+				\begin{align*}
+					y
+					& = \int \phi \dsh \\
+					& = \sum_{j =1}^n a_j \#(E_j) \\
+					& = \sum_{j \in J} a_j \#(E_j) \\
+					& = \sum_{j \in J} \sum_{x \in E_j} \phi(x) \\
+					& = \sum_{x \in F} \phi(x) \\
+					& \leq \sum_{x \in F} f(x) \\
+					& \leq \sup A_2 
+				\end{align*}
+			\end{itemize}
+			Since $y \in A_1$ is arbitrary, we have that for each $y \in A_1$, $y \leq \sup A_2$. Hence $\sup A_1 \leq \sup A_2$. 
+			\item Conversely, let $y \in A_2$. Then there exists $F \subset X$ such that $\#(F) < \infty$ and $y = \sum\limits_{x \in F} f(x)$.
+			Define $\phi \in S^+(X, \MP(X))$ by $\phi = f \chi_F$. Then $\phi \leq f$ and 
+			\begin{align*}
+				y 
+				& = \int \phi \dsh \\
+				& \in A_1
+			\end{align*}
+			Since $y \in A_2$ is arbitrary, $A_2 \subset A_1$. Thus $\sup A_2 \leq \sup A_1$. 
+		\end{itemize}
+		Since $\sup A_1 \leq \sup A_2$ and $\sup A_2 \leq \sup A_1$, we have that
 		\begin{align*}
 			\int f \dsh 
 			& = \sup A_1 \\
-			& = \sup A_2
+			& = \sup A_2.
 		\end{align*}
 	\end{proof}
 
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0009}
-		 	Let $X$ be a set and $f \in L^+(X, \MP(X))$. If $f$ is integrable, then $\{x \in X: f(x) > 0\}$ is countable.
+		 	Let $X$ be a set and $f \in L^+(X, \MP(X))$. If $f$ is $\#$-integrable, then $\{x \in X: f(x) > 0\}$ is countable.
 	\end{ex}
 
 	\begin{proof} 
@@ -5182,39 +5331,43 @@
 		\end{align*}
 		Thus for each $n \in \N$, $X_n$ is finite and $X_+$ is countable.
 	\end{proof}
+
+	\begin{defn} \lex{def:integration_nonnegative_functions:0009.1} 
+		Let $(X, \MA, \mu)$ be a measure space and $f \in L^+(X, \MA)$. We define $\mu_f: \MA \rightarrow \RG$ by $\mu_f(E) \defeq \int_E f \dmu$.
+	\end{defn}
 	
-	\begin{ex} \lex{ex:integration_nonnegative_functions:0010}
-		Let $(X, \MA, \mu)$ be a measure space and $f \in L^+(X, \MA)$. Define $\lam_f: \MA \rightarrow \RG$ by 
-		$$\lam_f(E) = \int_E f d\mu$$ 
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0010} 
+		Let $(X, \MA, \mu)$ be a measure space and $f \in L^+(X, \MA)$. Define $\mu_f: \MA \rightarrow \RG$ by 
+		$$\mu_f(E) = \int_E f d\mu$$ 
 		Then 
 		\begin{enumerate}
-			\item $\lam_f$ is a measure on $(X, \MA)$ 
+			\item $\mu_f$ is a measure on $(X, \MA)$ 
 			\item for each $g \in L^+(X, \MA)$, 
-			$$\int g d\lam_f = \int g f d\mu$$
+			$$\int g d\mu_f = \int g f d\mu$$
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Clearly $\lam_f(\varnothing) = 0$. Let $(A_j)_{j \in \N} \subset \MA$ and suppose that for each $i, j \in \N$, if $i \neq j$, then $A_i \cap A_j = \varnothing$. Suppose that $f \in S^+(X, \MA)$. Then there exist $E_1, E_2, \cdots, E_n \in \MA$ and  $a_1, a_2, \cdots, a_n \in \Rg$ such that $f = \sum\limits_{i=1}^n a_i \chi_{E_i}$.  Then 
+			\item Clearly $\mu_f(\varnothing) = 0$. Let $(A_j)_{j \in \N} \subset \MA$ and suppose that for each $i, j \in \N$, if $i \neq j$, then $A_i \cap A_j = \varnothing$. Suppose that $f \in S^+(X, \MA)$. Then there exist $E_1, E_2, \cdots, E_n \in \MA$ and  $a_1, a_2, \cdots, a_n \in \Rg$ such that $f = \sum\limits_{i=1}^n a_i \chi_{E_i}$. Then 
 			\begin{align*}
-				\lam_f\bigg(\bigcup_{j \in \N} A_j\bigg) 
+				\mu_f\bigg(\bigcup_{j \in \N} A_j\bigg) 
 				&= \int_{\bigcup_{j \in \N} A_j} f\\
 				&= \sum_{i = 1} ^n a_i\mu\bigg(E_i \cap \bigg(\bigcup_{j \in \N} A_j\bigg)\bigg)\\
 				&= \sum_{i = 1} ^n a_i\mu\bigg(\bigcup_{j \in \N} E_i \cap A_j\bigg)\\
 				&= \sum_{i = 1} ^n a_i \sum_{j \in \N} \mu(E_i \cap A_j)\\
 				&= \sum_{j \in \N} \sum_{i = 1} ^n a_i \mu(E_i \cap A_j)\\
 				&= \sum_{j \in \N} \int_{A_j} f\\
-				&= \sum_{j \in \N} \lam_f(A_j)
+				&= \sum_{j \in \N} \mu_f(A_j)
 			\end{align*} 
-			Hence $\lam_f$ is a measure on $(X, \MA)$. Suppose that $f \not \in S^+(X, \MA)$. Then there exist $(\phi_n)_{n \in \N} \subset L^+$ such that for each $n \in \N$, $\phi_n$ is simple, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \xrightarrow{\text{p.w.}} f$. Set $A = \bigcup_{j \in \N}A_j$ and for $n \in \N$, define $\lam_n: \MA \rightarrow \RG$ by 
+			Hence $\mu_f$ is a measure on $(X, \MA)$. Suppose that $f \not \in S^+(X, \MA)$. Then there exist $(\phi_n)_{n \in \N} \subset L^+$ such that for each $n \in \N$, $\phi_n$ is simple, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \xrightarrow{\text{p.w.}} f$. Set $A = \bigcup_{j \in \N}A_j$ and for $n \in \N$, define $\lam_n: \MA \rightarrow \RG$ by 
 			$$\lam_n(E) = \int_E \phi_n \dmu$$ 
 			From above, we have that for each $n \in \N$, $\lam_n \in M_+(X, \MA)$. For $n \in \N$, we define $g_n \in L^+(\N, \MP(\N))$ by 
 			$$g_n(j) = \int_{A_j} \phi_n \dmu $$ 
 			Then for each $n \in \N$, $g_n \leq g_{n+1}$. 
 			The monotone convergence theorem implies that
 			\begin{align*}
-				\lam_f(A) 
+				\mu_f(A) 
 				& = \int_A f \dmu\\
 				& = \limn \int_A \phi_n \dmu \hspace{4mm} \text{(by monotone convergence theorem)} \\ 
 				& = \limn \lam_n(A) \hspace{4mm} \text{(by definition)} \\ 
@@ -5225,7 +5378,7 @@
 				& = \int \limn g_n \, \dsh \hspace{4mm} \text{(by monotone convergence theorem)} \\ 
 				& = \sum_{j \in \N} \limn \int_{A_j} \phi_n \hspace{4mm} \\
 				& = \sum_{j \in \N} \int_{A_j} f \\
-				& = \sum_{j \in \N} \lam_f(A_j).
+				& = \sum_{j \in \N} \mu_f(A_j).
 			\end{align*} 
 			Hence $\lam$ is a measure on $(X, \MA)$. 
 			\item Let $g \in L^+$. First assume that $g$ is simple. Then there exist $E_1, E_2, \cdots, E_n \in \MA$ and  $a_1, a_2, \cdots, a_n \in \Rg$ such that $g = \sum\limits_{i=1}^n a_i \chi_{E_i}$.
@@ -5246,6 +5399,8 @@
 			\end{align*}
 		\end{enumerate}
 	\end{proof}
+
+	
 	
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0011}
 		Let $(f_n)_{n \in \N} \subset L^+$ and $f \in L^+$. Suppose that for each $n \in \N$, $f_n \geq f_{n+1}$, $f_n \xrightarrow{\text{p.w.}} f$ and $f_1$ is integrable. Then 
@@ -5274,7 +5429,8 @@
 
 
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0012}
-		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$-measurable. Then for each $g \in L^+(Y, \MB)$ and $B \in \MB$, $$\int_{f^{-1}(B)} g \circ f \dmu = \int_B g \, d f_*\mu$$
+		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$-measurable. Then for each $g \in L^+(Y, \MB)$ and $B \in \MB$, 
+		$$\int_{f^{-1}(B)} g \circ f \dmu = \int_B g \, d f_*\mu$$
 	\end{ex}
 
 	\begin{proof}
@@ -5304,13 +5460,31 @@
  			& = \int_{B} \sum_{j=1}^n a_j  \chi_{E_j} \, d f_*\mu \\
  			& = \int_{B} g \, d f_*\mu \\
  		\end{align*}
- 		Suppose that $g \in L^+(Y, \MB)$. Then there exists $(\phi_n)_{n \in \N} \subset S^+(Y, \MB)$ such that $\phi_n \convt{p.w.} g$ and for each $n \in \N$, $\phi_n \leq \phi_{n+1}$. Then $\phi_n \circ f \convt{p.w.} g \circ f$ and for each $n \in \N$, $\phi_n \circ f \leq \phi_{n+1} \circ f$. The monotone convergence theorem implies that 
+ 		Suppose that $g$ is not simple. Then there exists $(\phi_n)_{n \in \N} \subset S^+(Y, \MB)$ such that $\phi_n \convt{p.w.} g$ and for each $n \in \N$, $\phi_n \leq \phi_{n+1}$. Then $\phi_n \circ f \convt{p.w.} g \circ f$ and for each $n \in \N$, $\phi_n \circ f \leq \phi_{n+1} \circ f$. The monotone convergence theorem implies that 
  		\begin{align*}
  			\int_{f^{-1}(B)} g \circ f \dmu
  			& = \limn \int_{f^{-1}(B)} \phi_n \circ f \dmu \\
  			& = \limn \int_{B} \phi_n \, d f_*\mu \\
  			& = \int_{B} g \, d f_*\mu \\
  		\end{align*}
+	\end{proof}
+
+	\begin{ex} \lex{ex:integration_nonnegative_functions:0012.1}
+		Let $(X, \MA, \mu)$ be a measure space, $(Y, \MB)$ a measurable space and $f: X \rightarrow Y$. Suppose that $f$ is $(\MA, \MB)$-measurable. Then for each $g \in L^+(Y, \MB)$, 
+		$$f_*(\mu_{f^*g}) = (f_*\mu)_g.$$
+		\tcr{DEFINE $f^*g \defeq g \circ f$ in set theory section}
+	\end{ex}
+
+	\begin{proof}
+		Let $B \in \MB$. \rex{ex:integration_nonnegative_functions:0012} implies that
+		\begin{align*}
+			f_*(\mu_{f^*g})(B)
+			& = \mu_{f^*g}(f^{-1}(B)) \\
+			& = \int_{f^{-1}(B)} g \circ f \dmu \\
+			& = \int_B g \, d f_*\mu \\
+			& = (f_*\mu)_g(B).
+		\end{align*}
+		Since $B \in \MB$ is arbitrary, we have that for each $B \in \MB$, $f_*(\mu_{f^*g})(B) = (f_*\mu)_g(B)$. Thus $f_*(\mu_{f^*g}) = (f_*\mu)_g$. 
 	\end{proof}
 
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0013}
@@ -5365,6 +5539,14 @@
 	\newpage
 	\section{Integration of Complex Valued Functions}
 	
+	\begin{itemize}
+		\item \tcr{In the previous section, define
+			$$\mu_f(A) \defeq \int_A f \dmu$$ and in this section change notation to define
+			$$\mu^f(A) \defeq \int_X f \dmu_A$$ and show that when $f$ is $\pi^*\MB$-measurable,
+		$$\pi_* (\mu^f) = (\pi_* \mu)^{\pi^* f}$$ 
+		show something similar for $\mu_f$, However, this conflicts with borel measure on $\R$ notation $\mu_F$}
+	\end{itemize}
+	
 	\begin{defn} \ld{def:integration_complex_functions:00001} 
 		Let $f:X \rightarrow \C$ be measurable. Then $f$ is said to be \textbf{integrable} if $$\int |f| \dmu < \infty$$
 	\end{defn}
@@ -5414,6 +5596,59 @@
 	&= \int 2g \dmu - \limpn \int |f_n -f| \dmu \\
 	\end{align*}
 	Hence $$ \limpn \int |f_n -f| \dmu \leq 0 $$ and thus $$\int |f_n -f| \dmu \rightarrow 0$$
+	\end{proof}
+
+	\begin{defn}
+		Let $(X, \MA, \mu)$ be a measure space and $f \in L^1(X, \MA, \mu)$. We define $\mu^f: \MA \rightarrow \R$ by $$\mu^f(E) \defeq \int_X f \dmu_E$$
+	\end{defn}
+
+
+	\begin{ex} \lex{ex:integration_complex_functions:00006.1}
+		\tcr{change notation FIX!!!}
+		Let $(X, \MA, \mu)$ be a measure space and $f \in L^1(X, \MA, \mu)$. Suppose that $f \geq 0$.
+		Then $\mu^f \in M_+(X, \MA)$. \\
+		\tbf{Hint:} \rex{ex:outer_measures:00008.1}
+	\end{ex}
+	
+	\begin{proof} \
+		\begin{itemize}
+			\item Let $A, B \subset \MA$. Suppose that $A \cap B = \varnothing$. \rex{ex:subspace_measures:00002.1} and \rex{ex:integration_nonnegative_functions:0002} imply that 
+			\begin{align*}
+				\mu^f(A \cup B) 
+				& = \int_X f \dmu_{A \cup B} \\
+				& = \int_X f \, d(\mu_A + \mu_B)  \\
+				& = \int_X f \dmu_A + \int_X f \dmu_B \\
+				& = \mu^f(A) + \mu^f(B).
+			\end{align*}	
+			So $\mu^f$ is finitely additive. 
+			\item Let $(B_n)_{n \in \N} \subset \MA$. Suppose that $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$. 
+			\begin{itemize}
+				\item Suppose that $f$ is simple. Since $\mu(X) < \infty$, $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$, \rex{ex:measures:00004} implies that for each $A \in \MA$, $\mu(A \cap B_n) \rightarrow 0$. Then there exist $(a_k)_{k=1}^m \subset \Rg$ and $(E_k)_{k=1}^m \subset \MA$ such that $(E_k)_{k=1}^m$ is disjoint and $f = \sum\limits_{k=1}^m a_k \chi_{E_k}$. Then 
+				\begin{align*}
+					\mu^f(B_n)
+					& = \int_X f \dmu_{B_n} \\
+					& = \sum_{k=1}^m a_k \mu_{B_n}(E_k) \\
+					& = \sum_{k=1}^m a_k \mu(E_k \cap B_n) \\
+					& \rightarrow 0.
+				\end{align*}
+				\item Suppose that $f$ is not simple. Then there exists $(\phi_j)_{j \in \N} \subset S^+(X, \MA)$ such that $\phi_j \convt{p.w.} f$ and for each $j \in \N$, $\phi_j \leq \phi_{j+1}$. Let $\ep >0$. Dominated convergence implies that 
+				$$\lim_{j \rightarrow \infty} \int_X f - \phi_j \dmu = 0.$$ 
+				Therefore there exists $j \in \N$ such that 
+				$$\int_X f - \phi_j \dmu < \frac{\ep}{2}.$$
+				The previous part implies that there existst $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $\mu_{\phi_j}(B_n) < \ep/2$. \rex{ex:subspace_measures:00002.1} and \rex{ex:integration_nonnegative_functions:0003} then imply that
+				\begin{align*}
+					\mu^f(B_n)
+					& = \bigg[ \mu^f(B_n) - \mu_{\phi_j}(B_n) \bigg] + \mu_{\phi_j}(B_n) \\
+					& = \bigg[ \int_X f \dmu_{B_n} - \int_X \phi_j \dmu_{B_n} \bigg] + \mu_{\phi_j}(B_n) \\
+					& = \int_X f - \phi_j  \dmu_{B_n} + \mu_{\phi_j}(B_n) \\
+					& \leq  \int_X f - \phi_j  \dmu + \mu_{\phi_j}(B_n) \\
+					& < \frac{\ep}{2} + \frac{\ep}{2} \\
+					& = \ep.
+				\end{align*}
+				Since $\ep >0$ is arbitrary, we have that for each $\ep > 0$, there exists $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $\mu^f(B_n) < \ep$. Hence $\mu^f(B_n) \rightarrow 0$. 
+			\end{itemize}
+		\end{itemize}
+		\rex{ex:outer_measures:00008.1} then implies that $\mu^f \in M_+(X, \MA)$.
 	\end{proof}
 	
 	\begin{ex} \lex{ex:integration_complex_functions:00007} 
@@ -6750,7 +6985,7 @@
 	\end{ex}
 	
 	\begin{proof}
-		The previous exercise tells us that $|\nu_1 + \nu_2| \leq |\nu_1| + |\nu_2|$. Two previous exercises from the section on nonnegative functions tells us that 
+		The previous exercise tells us that $|\nu_1 + \nu_2| \leq |\nu_1| + |\nu_2|$. \tcr{Two previous exercises from the section on nonnegative functions} imply that 
 		\begin{align*}
 			\int |f|d |\nu_1 + \nu_2| 
 			& \leq \int |f| d(|\nu_1|+|\nu_2|)\\
@@ -10219,7 +10454,7 @@
 	
 	\begin{ex} \lex{ex:diff_radon_measures:0003}
 		Let $(X, d)$ be a seprable ultrametric space and $\mu \in M_+(X)$. Suppose that there exists $\MP: \N \rightarrow \Part(X)$ such that $\MP^d = \bar{\MP}$. Then $\mu$ is $d$-Vitali. \\ \tcb{FIX!!!}
-		\tbf{Hint: For each $x \in A$, there exists a maximal $\pi^{\MP^d}_n(x) \in \MV$}.
+		\tbf{Hint}: For each $x \in A$, there exists a maximal $\pi^{\MP^d}_n(x) \in \MV$.
 	\end{ex}
 	
 	\begin{proof}
@@ -11139,7 +11374,7 @@
 \section{Projective Systems of Complex Measures}
 
 \begin{defn}
-	Let $(J, {\leq})$ be a directed set $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of topological spaces and $(\mu_j)_{j \in J} \in \prod\limits_{j \in J} M(X_j)$. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$. Suppose that $(X, (\pi_j)_{j \in J})$ is perfect. For each $j \in J$, we define the \tbf{quotient measure induced by $\pi_j$}, denoted $\mu^Q_j \in M(X^Q_j)$, by $\mu^Q_j \defeq (\bar{\pi}_j^{-1})_*\mu_j$. 
+	Let $(J, {\leq})$ be a directed set $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a projective system of topological spaces and $(\mu_j)_{j \in J} \in \prod\limits_{j \in J} M(X_j)$. Set $(X, (\pi_j)_{j \in J}) \defeq \varprojlim\limits_{j \in J} ((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$. Suppose that $(X, (\pi_j)_{j \in J})$ is \tcr{perfect}. For each $j \in J$, we define the \tbf{quotient measure induced by $\pi_j$}, denoted $\mu^Q_j \in M(X^Q_j)$, by $\mu^Q_j \defeq (\bar{\pi}_j^{-1})_*\mu_j$. 
 \end{defn}
 
 \begin{ex}
@@ -11293,10 +11528,9 @@
 			& = \mu_0(\pi_{j_1}^{-1}(E_1)) \\
 			& = \mu_0((\pi_{j_1, j_0} \circ \pi_{j_0})^{-1}(E_1)) \\
 			& = \mu_0(\pi_{j_0}^{-1}(\pi_{j_1, j_0}^{-1}(E_1))) \\
-			& = \mu_{j_0}(\pi_{j_1, j_0}^{-1}(E_1)) \\
 			& = \mu_0(\pi_{j_0}^{-1}(\pi_{j_2, j_0}^{-1}(E_2))) \\
 			& = \mu_0((\pi_{j_2, j_0} \circ \pi_{j_0})^{-1}(E_2)) \\
-			& = \mu_0(\pi_{j_1}^{-1}(E_1)) \\
+			& = \mu_0(\pi_{j_2}^{-1}(E_2)) \\
 			& = \mu_0(A_2).
 		\end{align*}
 		Thus $\mu_0$ is well-defined.
@@ -11358,7 +11592,7 @@
 			\item Then for each $n \in \N$, 
 			\begin{align*}
 				B_n
-				& = \pi_{j^2_n}{-1}(E^2_n) \\
+				& = \pi_{j^2_n}^{-1}(E^2_n) \\
 				& = (\pi_{j^2_n, j_n} \circ \pi_{j_n}){-1}(E^2_n) \\
 				& = \pi_{j_n}^{-1}(\pi_{j^2_n, j_n}^{-1}(E^2_n)) \\
 				& = \pi_{j_n}^{-1}(E_n).
@@ -11870,6 +12104,60 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Disintegration of Radon Measures}
+
+\rex{ex:integration_complex_functions:00006.1}
 
 
 
