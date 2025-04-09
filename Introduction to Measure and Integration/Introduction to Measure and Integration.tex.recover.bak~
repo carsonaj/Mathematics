@@ -2488,8 +2488,9 @@
 	
 	\newpage
 	\chapter{Standard Borel Spaces}
+	\tcr{Maybe make into chapter}
 	
-	\section{Introduction}
+	\section{Zero-Dimensional Spaces} 
 	
 	\begin{defn}
 		We define the 
@@ -2500,11 +2501,18 @@
 		\end{itemize}
 		We equip each of $\MC$, $\MN$ and $\H$ with the product topology.
 	\end{defn}
-	
+
 	\begin{note}
 		We note that since $\{0,1\}$, $\N$ and $[0,1]$ are second-countable and $\MC$, $\MN$ and $\H$ are countable products of second-countable spaces, we have that $\MC$, $\MN$ and $\H$ are second-countable.
 	\end{note}
 
+	\begin{defn}
+		Let $(X, \MT)$ be a topological space. Then $(X, \MT)$ is said to be \tbf{zero-dimensional} if there exists $\MB \subset \MT$ such that $\MB$ is a basis for $\MT$ and for each $B \in \MB$, $B$ is open and $B$ is closed.
+	\end{defn}
+
+	\begin{ex}
+		Let $$
+	\end{ex
 
 
 
@@ -2512,34 +2520,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	\newpage
 	\section{The Cantor Space}
 	\tcr{(maybe rename)}
 	
@@ -3099,64 +3079,48 @@
 	\end{proof}
 
 	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0021}
-		Let $X$ be a Polish space, $(Z_n)_{n \in \N}$ a collection of Polish spaces, $(B_n)_{n \in \N} \subset \MP(X)$ and $(f_n)_{n \in \N} \in \prod\limits_{n \in \N} B_n^{Z_n}$. 
+		Let $X$ be a Polish space, $(Z_n)_{n \in \N}$ a collection of Polish spaces, $(B_n)_{n \in \N} \subset \MB(X)$ and $(f_n)_{n \in \N} \in \prod\limits_{n \in \N} B_n^{Z_n}$. Suppose that for each $n \in \N$, $f_n$ is continuous and surjective.  
 		\begin{enumerate}
-			\item Suppose that for each $n \in \N$, $f_n$ is continuous.
+			\item Set $\Del_{X^{\N}} \defeq \{x \in X: \text{ for each $m,n \in \N$, $\pi_m(x) = \pi_n(x)$}\}$. Then $\Del_{X^{\N}}$ is a Polish space.  
+			\item Set $Z_0 \defeq \prod\limits_{n \in \N} Z_n$ and define $f_0: Z_0 \rightarrow X^{\N}$ by $f_0 \defeq \prod\limits_{n \in \N} f_n$. Then $Z_0$ is a Polish space and $f_0$ is continuous
+			\item Set $Z \defeq f_0^{-1}(\Del_{X^{\N}})$. Then 
 			\begin{enumerate}
-				\item Set $\Del_{X^{\N}} \defeq \{x \in X: \text{ for each $m,n \in \N$, $\pi_m(x) = \pi_n(x)$}\}$. Then $\Del_{X^{\N}}$ is a Polish space.  
-				\item Set $Z_0 \defeq \prod\limits_{n \in \N} Z_n$ and define $f_0: Z_0 \rightarrow X^{\N}$ by $f_0 \defeq \prod\limits_{n \in \N} f_n$. Then $Z_0$ is a Polish space and $f_0$ is continuous
-				\item Set $Z \defeq f_0^{-1}(\Del_{X^{\N}})$. Then 
-				\begin{enumerate}
-					\item $Z$ is a Polish space
-					\item for each $m,n \in \N$, $f_m \circ \pi_m|_Z = f_n \circ \pi_n|_Z$,
-				\end{enumerate}
-				\item For each $n \in \N$, $f_n \circ \pi_n(Z) = \bigcap\limits_{n \in \N} B_n$.
-				\item Set $B \defeq \bigcap\limits_{n \in \N} B_n$ and define $f:Z \rightarrow B$ by $f \defeq f_1 \circ \pi_1|_Z$. Then $f$ is continous
+				\item $Z$ is a Polish space
+				\item for each $m,n \in \N$, $f_m \circ \pi_m|_Z = f_n \circ \pi_n|_Z$,
 			\end{enumerate}
-			\item If for each $n \in \N$, $f_n$ is surjective, then $f$ is surjective.
-			\item If for each $n \in \N$, $f_n$ is injective, then $f$ is injective.
+			\item For each $n \in \N$, $f_n \circ \pi_n(Z) = \bigcap\limits_{n \in \N} B_n$.
+			\item Set $B \defeq \bigcap\limits_{n \in \N} B_n$ and define $f:Z \rightarrow B$ by $f \defeq f_1 \circ \pi_1|_Z$. Then $f$ is continous and surjective.
 			\item If for each $n \in \N$, $f_n$ is a measurable isomorphism, then $f$ is a measurable isomorphism.
-			\item If for each $n \in \N$, $Z_n$ is a zero-dimensional, then $Z$ is zero-dimensional
 		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
+			\item Since $X$ is a Polish space, $X^{\N}$ is a Polish space. Since $X$ is a Polish space, $X$ is Hausdorff. \tcb{An exercise in the analysis notes section on Polish spaces} implies that $\Del_{X^{\N}}$ is a Polish space. 
+			\item 
+			\begin{itemize}
+				\item Since for each $n \in \N$, $Z_n$ is a Polish space, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $Z_0$ is a Polish space.
+				\item Since for each $n \in \N$, $f_n:Z_n \rightarrow B_n$ is continuous, \tcb{an exercise in the analysis notes section on the product topology} implies that $f_0$ is continuous.
+			\end{itemize}
 			\item 
 			\begin{enumerate}
-				\item Since $X$ is a Polish space, $X^{\N}$ is a Polish space. Since $X$ is a Polish space, $X$ is Hausdorff. \tcb{An exercise in the analysis notes section on Polish spaces} implies that $\Del_{X^{\N}}$ is a Polish space. 
-				\item 
-				\begin{itemize}
-					\item Since for each $n \in \N$, $Z_n$ is a Polish space, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $Z_0$ is a Polish space.
-					\item Since for each $n \in \N$, $f_n:Z_n \rightarrow B_n$ is continuous, \tcb{an exercise in the analysis notes section on the product topology} implies that $f_0$ is continuous.
-				\end{itemize}
-				\item 
-				\begin{enumerate}
-					\item Since $f_0$ is continous and $\Del_{X^{\N}}$ is closed in $X^{\N}$, we have that $Z$ is closed in $Z_0$. Since $Z_0$ is a Polish space and $Z$ is closed in $Z_0$, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $Z$ is a Polish space. 
-					\item \tcb{An exercise in the analysis notes section on set theory} implies that for each $m,n \in \N$, $f_m \circ \pi_m|_Z = f_n \circ \pi_n|_Z$
-				\end{enumerate}
-				\item \tcb{An exercise in the analysis notes section on set theory} implies that for each $n \in \N$, $f_n \circ \pi_n(Z) = \bigcap\limits_{n \in \N} B_n$.
-				\item Since $\pi_m$ is continuous, $\pi_m|_Z$ is continuous. Since $f_1$ is continuous, $f_1 \circ \pi_1|_Z$ is continous. Thus $f$ is continuous. 
+				\item Since $f_0$ is continous and $\Del_{X^{\N}}$ is closed in $X^{\N}$, we have that $Z$ is closed in $Z_0$. Since $Z_0$ is a Polish space and $Z$ is closed in $Z_0$, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $Z$ is a Polish space. 
+				\item \tcb{An exercise in the analysis notes section on set theory} implies that for each $m,n \in \N$, $f_m \circ \pi_m|_Z = f_n \circ \pi_n|_Z$
 			\end{enumerate}
-			\item Suppose that for each $n \in \N$, $f_n$ is surjective. Since $f = f_1 \circ \pi_1|_Z$, the previous part implies that 
-			\begin{align*}
-				f(Z)
-				& = f_1 \circ \pi_1|_Z(Z) \\
-				& = f_1 \circ \pi_1(Z) \\
-				& = B
-			\end{align*}
-			Hence $f$ is surjective. 
-			\item Suppose that for each $n \in \N$, $f_n$ is injective. Let $x, y \in Z$. Suppose that $f(x) = f(y)$. Let $n \in \N$. Then the previous part implies that
-			\begin{align*}
-				f_n(\pi_n(x))
-				& = f_1(\pi_1(x)) \\
-				& = f(x) \\
-				& = f(y) \\
-				& = f_1(\pi_1(y)) \\
-				& = f_n(\pi_n(y)).
-			\end{align*}
-			Since $f_n$ is injective, we have that $\pi_n(x) = \pi_n(x)$. Since $n \in \N$ is arbitrary, we have that for each $n \in \N$, $\pi_n(x) = \pi_n(y)$. Hence $x = y$. Since $x, y \in Z$ are arbitrary, we have that for each $x,y \in Z$, $f(x) = f(y)$ implies that $x =y$. Hence $f$ is injective.
-			\item Suppose that for each $n \in \N$, $f_n$ is a measurable isomorphism. The previous part implies that $f$ is a bijection. Define $g: B \rightarrow Z$ by $g \defeq ( f_n^{-1}|_B)_{n \in \N}$. Then for each $x \in B$, $g(x)_m \defeq f_m^{-1}(x)$. Therefore for each $x \in B$,
+			\item \tcb{An exercise in the analysis notes section on set theory} implies that for each $n \in \N$, $f_n \circ \pi_n(Z) = \bigcap\limits_{n \in \N} B_n$.
+			\item 
+			\begin{itemize}
+				\item Since $\pi_m$ is continuous, $\pi_m|_Z$ is continuous. Since $f_1$ is continuous, $f_1 \circ \pi_1|_Z$ is continous. Thus $f$ is continuous. 
+				\item Since $f = f_1 \circ \pi_1|_Z$, we have that 
+				\begin{align*}
+					f(Z)
+					& = f_1 \circ \pi_1|_Z(Z) \\
+					& = f_1 \circ \pi_1(Z) \\
+					& = B
+				\end{align*}
+				Hence $f$ is surjective. 
+			\end{itemize}
+			\item Suppose that for each $n \in \N$, $f_n$ is a measurable isomorphism. Define $g: B \rightarrow Z$ by $g \defeq ( f_n^{-1}|_B)_{n \in \N}$. Then for each $x \in B$, $g(x)_m \defeq f_m^{-1}(x)$. Therefore for each $x \in B$,
 			\begin{align*}
 				f \circ g (x)
 				& = f_1 \circ \pi_1(g(x)) \\
@@ -3173,21 +3137,14 @@
 				& = f_m^{-1}(f_m ( \pi_m(z))) \\
 				& = \pi_m(z),
 			\end{align*} 
-			so that $g \circ f = \id_Z$. Hence $f$ is a bijection and $f^{-1} = g$.
-			\begin{itemize}
-				\item Since $f$ is continuous, $f$ is measurable. 
-				\item Since for each $n \in \N$, $f_n^{-1}$ is measurable, we have that for each $n \in \N$, $f_n^{-1}|_B$ is measurable. \rex{25006.2} then implies that $f^{-1}$ is measurable. Hence $f$ is a measurable isomorphism.  
-			\end{itemize} 
-			\item Suppose that for each $n \in \N$, $Z_n$ is zero-dimensional. \tcr{An exercise in the previous section (about products)} implies that $Z_0$ is zero-dimensional. Since $Z \subset Z_0$, \rex{} \tcr{An exercise in the previous section (about subsapces)} implies that $Z$ is zero-dimensional.
+			so that $g \circ f = \id_Z$. Hence $f$ is a bijection and $f^{-1} = g$. Since $f$ is continuous, $f$ is measurable. Since for each $n \in \N$, $f_n^{-1}$ is measurable, we have that for each $n \in \N$, $f_n^{-1}|_B$ is measurable. \rex{25006.2} then implies that $f^{-1}$ is measurable. Hence $f$ is a measurable isomorphism.  
 		\end{enumerate}
 	\end{proof}
 
 	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0022}
-		Let $X$ be a Polish space, $(Z_n)_{n \in \N}$ a collection of Polish spaces, $(B_n)_{n \in \N} \subset \MP(X)$ and $(f_n)_{n \in \N} \in \prod\limits_{n \in \N} B_n^{Z_n}$. Suppose that $(B_n)_{n \in \N}$ is disjoint and for each $n \in \N$, $f_n$ is continuous and $f_n$ is surjective. 
+		Let $X$ be a Polish space, $(Z_n)_{n \in \N}$ a collection of Polish spaces, $(B_n)_{n \in \N} \subset \MB(X)$ and $(f_n)_{n \in \N} \in \prod\limits_{n \in \N} B_n^{Z_n}$. Suppose that $(B_n)_{n \in \N}$ is disjoint and for each $n \in \N$, $f_n$ is continuous and $f_n$ is surjective. 
 		\begin{enumerate}
-			\item If for each $n \in \N$, $f_n$ is continuous, then there exists $f: \coprod\limits_{n \in \N} Z_n \rightarrow \bigcup\limits_{n \in \N} B_n$ such that $f$ is continuous. 
-			\item If for each $n \in \N$, $f_n$ is surjective, then $f$ is surjective.
-			\item If for each $n \in \N$, $f_n$ is injective, then $f$ is injective.
+			\item There exists $f: \coprod\limits_{n \in \N} Z_n \rightarrow \bigcup\limits_{n \in \N} B_n$ such that $f$ is continuous and surjective. \tcr{change similar to previous exercise}
 			\item If for each $n \in \N$, $f_n$ is a measurable isomorphism, then $f$ is a measurable isomorphism. \tcr{FINISH!!!}
 		\end{enumerate}
 	\end{ex}
@@ -3196,37 +3153,11 @@
 		\begin{enumerate}
 			\item 
 			\begin{itemize}
-				\item Since for each $n \in \N$, $f_n$ is continuous, \tcb{an exercise in the analysis notes section on coproducts} implies that $f_0$ is continuous. 
-				\item Define $\phi: \coprod\limits_{n \in \N} B_n \rightarrow \bigcup\limits_{n \in \N} B_n$ by $\phi(n, x) \defeq x$. \tcb{An exercise in the analysis notes section on coproduct topologies} implies that $\phi$ is a homeomorphism. 
-				\item Define $f: \coprod\limits_{n \in \N} Z_n \rightarrow \bigcup\limits_{n \in \N}B_n$ by $f \defeq \phi \circ f_0$. Since $\phi$ and $f_0$ are continuous, $f$ is continuous.
+				\item Since for each $n \in \N$, $f_n$ is continuous, \tcb{an exercise in the analysis notes section on coproducts} implies that $f_0$ is continuous. Since for each $n \in \N$, $f_n$ is surjective, $f_0$ is surjective. \tcr{(maybe make exercise here to reference)}
+				\item Define $\phi: \coprod\limits_{n \in \N} B_n \rightarrow \bigcup\limits_{n \in \N} B_n$ by $\phi(\al, x) \defeq x$. \tcb{An exercise in the analysis notes section on coproduct topologies} implies that $\phi$ is a homeomorphism. 
+				\item Define $f: \coprod\limits_{n \in \N} Z_n \rightarrow \bigcup\limits_{n \in \N}B_n$ by $f \defeq \phi \circ f_0$. Since $\phi$ and $f_0$ are continuous, $f$ is continuous. Since $\phi$ and $f_0$ are surjective, $f$ is surjective.
 			\end{itemize}
-			\item Suppose that for each $n \in \N$, $f_n$ is surjective. Let $x \in \bigcup\limits_{n \in \N} B_n$. Then there exists $n \in \N$ such that $x \in B_n$. Since $f_n$ is surjective, there exists $z_n \in Z_n$ such that $f_n(z_n) = x$. Define $z \in \coprod\limits_{n \in \N} Z_n$ by $z \defeq (n, z_n)$. Then 
-			\begin{align*}
-				f(z)
-				& = \phi \circ f_0(n, z_n) \\
-				& = \phi(n, f_n(z_n)) \\
-				& = \phi(n, x) \\ 
-				& = x.
-			\end{align*}
-			Since $x \in \bigcup\limits_{n \in \N} B_n$ is arbitrary, we have that for each $x \in \bigcup\limits_{n \in \N} B_n$, there exists $z \in \coprod\limits_{n \in \N} Z_n$ such that $f(z) = x$. Hence $f$ is surjective.
-			\item Suppose that for each $n \in \N$, $f_n$ is injective. Let $x, y \in \coprod\limits_{n \in \N} Z_n$. Suppose that $f(x) = f(y)$. By definition, there exists $n,m \in \N$, $z_x \in Z_n$ and $z_y \in Z_m$ such that $x = (n, z_x)$ and $y = (m, z_y)$. Then 
-			\begin{align*}
-				\phi(n, f_n(z_x))
-				& = \phi \circ f_0 (n, z_x) \\
-			 	& = f(x) \\
-			 	& = f(y) \\
-			 	& = \phi \circ f_0 (m, z_y) \\
-			 	& = \phi(m, f_m(z_y)).
-			\end{align*}
-			Since $\phi$ is a bijection, $(n, f_n(z_x)) = (m, f_m(z_y))$. Thus $n = m$ and therefore $f_n(z_x) = f_n(z_y)$. Since $f_n$ is injective, $z_x = z_y$. Thus 
-			\begin{align*}
-				x
-				& = (n, z_x) \\
-				& = (n, z_y) \\
-				& = y.
-			\end{align*}
-			Since $x, y \in \coprod\limits_{n \in \N} Z_n$ are arbitrary, we have that for each $x, y \in  \coprod\limits_{n \in \N} Z_n$, $f(x) = f(y)$ implies that $x = y$. Thus $f$ is injective.
-			\item Suppose that for each $n \in \N$, $f_n$ is a measurable isomorphism. Then \tcr{make or reference exercise in section 3.6.06} \rex{ex:measurable_spaces:coproducts:0006} implies that $f_0$ is a measurable isomorphism. Since $\phi$ is a homeomorphism, $\phi$ is a measurable isomorphism. Since $\phi$ and $f_0$ are measurable isomorphisms, $f$ is a measurable isomorphism.
+			\item Suppose that for each $n \in \N$, $f_n$ is continuous and $f_n$ is a measurable isomorphism. Then \rex{ex:measurable_spaces:coproducts:0006} and \rex{ex:measurable_spaces:coproducts:0006} \tcb{an exercise in set theory section on coproducts} imply that $f_0$ is a measurable isomorphism. Since $\phi$ is a homeomorphism, $\phi$ is a measurable isomorphism. Since $\phi$ and $f_0$ are measurable isomorphisms, $f$ is a measurable isomorphism.
 		\end{enumerate}
 	\end{proof}
 
@@ -3240,7 +3171,7 @@
 		Define $\MD \defeq \{B \in \MB(X, \MT_X): \text{ there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $f$ is continuous} \\ \text{ and $f$ is a measurable isomorphism}\}$.
 		\begin{itemize}
 			\item Let $U \in \MT_X$. \tcb{An exercise in the analysis notes on polish spaces} implies that $U$ is a Polish space. Also $\id_U:U \rightarrow U$ is continuous a measurable isomorphism. Since $U \in \MT_X$ is arbitrary, we have that $\MT_X \subset \MD$.
-			\item Let $(B_n)_{n \in \N} \subset \MD$. Then $(B_n)_{n \in \N} \subset \MB(X)$ and for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n:Z_n \rightarrow B_n$ such that $f_n$ is continuous and $f_n$ is a measurable isomorphism. Define $Z \subset \prod\limits_{n \in \N} Z_n$ by $Z \defeq (\prod\limits_{n \in \N} f_n)^{-1}(\Del_{X^{\N}})$. Then \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that $Z$ is a Polish space and there exists $f: Z \rightarrow \bigcap\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. Thus $\bigcap\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, $\bigcap\limits_{n \in \N} B_n \in \MD$. 
+			\item Let $(B_n)_{n \in \N} \subset \MD$. Then $(B_n)_{n \in \N} \subset \MB(X)$ and for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n:Z_n \rightarrow B_n$ such that $f_n$ is continuous and $f_n$ is a measurable isomorphism. Define $Z \defeq \prod\limits_{n \in \N} Z_n$. Then \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that $Z$ is a Polish space and there exists $f: Z \rightarrow \bigcap\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. Thus $\bigcap\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, $\bigcap\limits_{n \in \N} B_n \in \MD$. 
 			\item Let $(B_n)_{n \in \N} \subset \MD$. Suppose that $(B_n)_{n \in \N}$ is disjoint. Set $Z \defeq \coprod\limits_{n \in \N} Z_n$. \tcb{An exercise in the analysis notes section on Polish spaces} implies that $Z$ is a Polish space. \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists $f: Z \rightarrow \bigcup\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. Thus $\bigcup\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ such that $(B_n)_{n \in \N}$ is disjoint is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, if $(B_n)_{n \in \N}$ is disjoint, then $\bigcup\limits_{n \in \N} B_n \in \MD$. 
 		\end{itemize}
 		Thus $\MD$ is a $\del$-system on $X$. Since $X$ is a Polish space, $X$ metrizable. Since $\MT_X \subset \MD$,  \rex{ex:measurable_spaces:standard_borel_spaces:0020} implies that
@@ -3269,7 +3200,7 @@
 	\begin{proof}
 		Suppose that for each $n \in \N$, $A_n$ is analytic. Then for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n: Z_n \rightarrow A_n$ such that $f_n$ is continuous and surjective. 
 		\begin{enumerate}
-			\item \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that there exists a Polish space $Z$ and $f:Z \rightarrow \bigcap\limits_{n \in \N} A_n$ such that $f$ is continuous and surjective. Thus $\bigcap\limits_{n \in \N} A_n$ is analytic. \tcr{FIX!!! these results are for borel sets, but $A_n$ are not Borel sets}
+			\item \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that there exists a Polish space $Z$ and $f:Z \rightarrow \bigcap\limits_{n \in \N} A_n$ such that $f$ is continuous and surjective. Thus $\bigcap\limits_{n \in \N} A_n$ is analytic.
 			\item \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists a Polish space $Z$ and $f:Z \rightarrow \coprod\limits_{n \in \N} A_n$ such that $f$ is continuous and surjective. Define $\phi: \coprod\limits_{n \in \N} A_n \rightarrow \bigcup\limits_{n \in \N} A_n$ by $\phi(n,  x) \defeq x$. \tcb{An excercise in the analysis notes section on coproduct topology} implies that $\phi$ is continuous. Clearly $\phi$ is surjective. Define $g: Z \rightarrow \bigcup\limits_{n \in \N} A_n$ by $g \defeq \phi \circ f$. Since $\phi$ and $f$ are continuous, $g$ is continuous. Since $\phi$ and $f$ are surjective, $g$ is surjective. Thus $\bigcup\limits_{n \in \N} A_n$ is analytic.
 			\item Define $f: \prod\limits_{n \in \N} Z_n \rightarrow \prod\limits_{n \in \N} A_n$ by $f \defeq \prod\limits_{n \in \N}f_n$. Since for each $n \in \N$, $Z_n$ is a Polish space, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $\prod\limits_{n \in \N} Z_n$ is a Polish space. Since for each $n \in \N$, $f_n$ is continuous, \tcb{an exercise in the analysis notes section on product topology} implies that $f$ is continuous. Since for each $n \in \N$, $f_n$ is surjective, $\prod\limits_{n \in \N}f_n : \prod\limits_{n \in \N} Z_n \rightarrow \prod\limits_{n \in \N} A_n$ is surjective \tcr{(maybe reference exercise)} %\extrex{analysis-ex:metric_spaces:polish_spaces:0003}.
 		\end{enumerate}
@@ -3348,56 +3279,22 @@
 	\begin{ex}
 		Let $X$ be a Polish space. Suppose that $X \neq \varnothing$. Then
 		\begin{enumerate}
-			\item there exists a Polish space $Z$ and $f:Z \rightarrow X$ such that $Z$ is zero-dimensional and $f$ a continuous bijection.
-			\item for each $B \in \MB(X)$, there exists a Polish space $A$ and $f:Z \rightarrow B$ such that $Z$ is zero-dimensional and $f$ a continuous bijection. \\
-			\tbf{Hint:} consider \rex{ex:measurable_spaces:standard_borel_spaces:0020}
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item \rex{ex:measurable_spaces:standard_borel_spaces:0006} implies that there exists $Z \subset \MC$ and $\phi: Z \rightarrow [0,1]$ such that $\phi$ is a continuous bijection. Then $\phi^{\N}: Z^{\N} \rightarrow [0,1]^{\N}$ is a continuous bijection. \tcr{An exercise in the analysis notes section on Polish spaces} implies that there exists $B \subset [0,1]^{\N}$ and $h: X \rightarrow B$ such that $B$ is a $G_{\del}$-set and $h$ is a homeomorphism. Define $Z \subset Z^{\N}$ and $f:Z \rightarrow X$ by $Z \defeq (\phi^{\N})^{-1}(B)$ and $f \defeq h^{-1} \circ \phi^{\N}|_Z$. Since $B$ is a $G_{\del}$-set and $\phi^{\N}$ is continuous, we have that $Z$ is a $G_{\del}$-set. \tcr{An exercise in the analysis notes section on Polish spaces} implies that $Z$ is Polish space. Since $Z \subset \MC$ and $\MC$ is zero-dimensional, $Z$ is zero-dimensional. Thus $Z^{\N}$ is zero-dimensional. Since $Z \subset Z^{\N}$, we have that $Z$ is zero-dimensional. Since $\phi^{\N}:Z^{\N} \rightarrow [0,1]^{\N}$ is a continuous bijection, $\phi^{\N}|_Z:Z \rightarrow B$ is a continuous bijection. Thus $f$ is a continuous bijection. 
-			\item Denote the topology on $X$ by $\MT_X$. \\
-			Define $\MD \defeq \{B \in \MB(X, \MT_X): \text{there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $Z$ is zero-dimensional } \\ \text{and $f$ is a continuous bijection}\}$.
-			\begin{itemize}
-				\item Let $U \in \MT_X$. \tcb{An exercise in the analysis notes on polish spaces} implies that $U$ is a Polish space. The previous part implies that there exists a Polish space $Z$ and $f:Z \rightarrow U$ such that $Z$ is zero-dimensional and $f$ a continuous bijection. Since $U \in \MT_X$ is arbitrary, we have that $\MT_X \subset \MD$.
-				\item Let $(B_n)_{n \in \N} \subset \MD$. Then $(B_n)_{n \in \N} \subset \MB(X)$ and for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n:Z_n \rightarrow B_n$ such that $Z_n$ is zero-dimensional and $f_n$ is a continuous bijection. Define $Z \subset \prod\limits_{n \in \N} Z_n$ by $Z \defeq (\prod\limits_{n \in \N} f_n)^{-1}(\Del_{X^{\N}})$. Then \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that $Z$ is a Polish space and there exists $f: Z \rightarrow \bigcap\limits_{n \in \N} B_n$ such that $f$ is a continuous bijection. \tcr{An exercise in the previous section} \rex{} implies that $\prod\limits_{n \in \N} Z_n$ is zero-dimensional. Since $Z \subset \prod\limits_{n \in \N} Z_n$, \tcr{an exercise in the previous section} implies that $Z$ is zero-dimensional. Thus $\bigcap\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, $\bigcap\limits_{n \in \N} B_n \in \MD$. 
-				\item Let $(B_n)_{n \in \N} \subset \MD$. Suppose that $(B_n)_{n \in \N}$ is disjoint. Set $Z \defeq \coprod\limits_{n \in \N} Z_n$. \tcb{An exercise in the analysis notes section on Polish spaces} implies that $Z$ is a Polish space. \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists $f: Z \rightarrow \bigcup\limits_{n \in \N} B_n$ such that $f$ is a continuous bijection. \tcr{An exercise in a previous section} \rex{} implies that $Z$ is zero-dimensional. Thus $\bigcup\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ such that $(B_n)_{n \in \N}$ is disjoint is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, if $(B_n)_{n \in \N}$ is disjoint, then $\bigcup\limits_{n \in \N} B_n \in \MD$. 
-			\end{itemize}
-			Thus $\MD$ is a $\del$-system on $X$. Since $X$ is a Polish space, $X$ metrizable. Since $\MT_X \subset \MD$,  \rex{ex:measurable_spaces:standard_borel_spaces:0020} implies that
-			\begin{align*}
-				\MD & \subset \MB(X, \MT_X) \\
-				& = \del(\MT_X) \\
-				& \subset \del(\MD) \\
-				& = \MD 
-			\end{align*}
-			Hence $\MD = \MB(X, \MT_X)$. 
-		\end{enumerate}
-	\end{proof}
-
-
-	\begin{defn}
-		Let $X$ be a polish space and $A \subset X$. Then $A$ is said to be \tbf{z-analytic} if there exists a Polish space $Z$ and $f:Z \rightarrow A$ such that $Z$ is zero-dimensional and $f$ is a continuous bijection. 
-	\end{defn}
-	
-	\begin{ex}
-		Let $X$ be a Polish space and $(A_n)_{n \in \N} \subset \MP(X)$. If for each $n \in \N$, $A_n$ is $z$-analytic, then 
-		\begin{enumerate}
-			\item $\bigcap\limits_{n \in \N} A_n$ is z-analytic,
-			\item $(A_n)_{n \in \N}$ is disjoint implies that $\bigcup\limits_{n \in \N} A_n$ is z-analytic,
-			\item $\prod\limits_{n \in \N} A_n$ is z-analytic.
+			\item there exists a Polish space $A$ and $f:A \rightarrow X$ such that $A$ is zero-dimensional and $f$ a continuous bijection.
+			\item for each $B \in \MB(X)$, there exists a Polish space $A$ and $f:A \rightarrow B$ such that $A$ is zero-dimensional and $f$ a continuous bijection.
 		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}
-		Suppose that for each $n \in \N$, $A_n$ is z-analytic. Then for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n: Z_n \rightarrow A_n$ such that $Z_n$ is zero-dimensional and $f_n$ is a continuous bijection. 
 		\begin{enumerate}
-			\item  \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that there exists a Polish space $Z$ and $f:Z \rightarrow \bigcap\limits_{n \in \N} A_n$ such that $Z$ is zero-dimensional and $f$ is a continuous bijection.  Hence $\bigcap\limits_{n \in \N} A_n$ is z-analytic.
-			\item Suppose that $(A_n)_{n \in \N}$ is disjoint. \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists $f: \coprod\limits_{n \in \N} Z_n \rightarrow \bigcup\limits_{n \in \N} A_n$ such that $f$ is a continuous bijection. \rex{} \tcr{Need exercise showing disjoint union of zero-dimensional spaces is zero-dimensional} implies that $\coprod\limits_{n \in \N}$ is zero-dimensional. Hence $\bigcup\limits_{n \in \N} A_n$ is z-analytic.
-			\item \tcr{FINISH!!!}
+			\item \rex{ex:measurable_spaces:standard_borel_spaces:0006} implies that there exists $Z \subset \MC$ and $\phi: Z \rightarrow [0,1]$ such that $\phi$ is a continuous bijection. Then $\phi^{\N}: Z^{\N} \rightarrow [0,1]^{\N}$ is a continuous bijection. \tcr{An exercise in the analysis notes section on Polish spaces} implies that there exists $B \subset [0,1]^{\N}$ and $h: X \rightarrow B$ such that $B$ is a $G_{\del}$-set and $h$ is a homeomorphism. Define $A \subset Z^{\N}$ and $f:A \rightarrow X$ by $A \defeq (\phi^{\N})^{-1}(B)$ and $f \defeq h^{-1} \circ \phi^{\N}|_A$. Since $B$ is a $G_{\del}$-set and $\phi^{\N}$ is continuous, we have that $A$ is a $G_{\del}$-set. \tcr{An exercise in the analysis notes section on Polish spaces} implies that $A$ is Polish space. Since $A \subset Z^{\N}$ and $Z^{\N}$ is zero-dimensional, \tcr{an exercise in the previous section} implies that that $A$ is zero-dimensional. Since $\phi^{\N}:Z^{\N} \rightarrow [0,1]^{\N}$ is a continuous bijection, $\phi^{\N}|_A:A \rightarrow B$ is a continuous bijection. Thus $f$ is a continuous bijection. 
+			\tcr{MAKE EXERCISE about $A$ being zero dimensional by subspaces and products of zero-dimensional spaces are zero-dimensional}
+			\item Let $B \in \MB(X)$. Then 
 		\end{enumerate}
 	\end{proof}
 	
+	\begin{ex}
+		
+	\end{ex}
 	
 	
 	
@@ -3411,22 +3308,38 @@
 	
 	
 	
+	
+	
+	\begin{defn}
+		zero dimensional
+		\tcr{FINISH!!!}
+	\end{defn}
 
-	
-	
-	\begin{ex} \lex{}
-		Let $Z$ be a Polish space. Suppose that $Z$ is zero-dimensional. \tcr{An exercise in analysis notes about zero-dimensional Polish spaces} implies that $Z_0$ is Polish and zero dimensional and for each $z \in Z_0$, $z$ is a condensation point of $Z_0$.
-		\begin{enumerate}
-			\item There exists $$
-			\item there exists $h:\MN \rightarrow Z$ such that $h$ is continuous and injective and $Z \setminus h(\MN)$ is countable.
-			\item 
-		\end{enumerate}
+	\begin{ex} \tcr{number exercise}
+		Let $X$ be a Polish space and $B \in \MB(X)$. Then there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that 
+		\begin{itemize}
+			\item $f$ is continuous
+			\item $f$ is injective
+			\item $Z$ is zero-dimensional
+		\end{itemize}
 	\end{ex}
 
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $\MT$ be a the topology on $Z_0$. Since $Z_0 \neq \varnothing$, there exists $z \in Z_0$. Define $U \in \MT \cap Z_0$ $U \defeq Z_0 \setminus \{z\}$. \tcr{make exercise} and exercise in the analysis notes section on separation implies that $U$ is not compact. \tcr{An exercise in the analysis notes section on Second-Countability and Zero-Dimensional Metric Spaces} implies that there 
-		\end{enumerate}
+	\begin{proof}
+		\tcr{FINSH!!!}
+	\end{proof}
+	
+	
+	\begin{ex} \tcr{number exercise}
+		Let $X$ be a Polish space and $B \in \MB(X)$. Suppose that $B$ is uncountable. Then there exists $f:\MN \rightarrow X$ such that 
+		\begin{itemize}
+			\item $f$ is continuous
+			\item $f$ is injective
+			\item $f(\MN) \subset B$ 
+			\item $B \setminus f(\MN)$ is countable 
+		\end{itemize}
+	\end{ex}
+
+	\begin{proof}
 		\tcr{FINSH!!!}
 	\end{proof}
 	
