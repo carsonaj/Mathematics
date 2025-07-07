@@ -1,189 +1,105 @@
-\documentclass[12pt]{amsart}
-\usepackage[margin=1in]{geometry} 
-\usepackage{amsmath,amsthm,amssymb,setspace, mathtools}
-\usepackage{color}   %May be necessary if you want to color links
-\usepackage{hyperref}
-\hypersetup{
-	colorlinks=true, %set true if you want colored links
-	linktoc=all,     %set to all if you want both sections and subsections linked
-	linkcolor=black,  %choose some color if you want links to stand out
-	urlcolor=cyan
-}
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
 
-
+%    AMS-LaTeX v.2 driver file template for use with amsbook
 %
-%
-%
-\newif\ifhideproofs
-%\hideproofstrue %uncomment to hide proofs
-%
-%
-%
-%
-\ifhideproofs
-\usepackage{environ}
-\NewEnviron{hide}{}
-\let\proof\hide
-\let\endproof\endhide
-\fi
+%    Remove any commented or uncommented macros you do not use.
 
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[subsection]
-\newtheorem{defn}[definition]{Definition}
-\newtheorem{note}[definition]{Note}
-\newtheorem{thm}[definition]{Theorem}
-\newtheorem{lem}[definition]{Lemma}
-\newtheorem{prop}[definition]{Proposition}
-\newtheorem{cor}[definition]{Corollary}
-\newtheorem{conj}[definition]{Conjecture}
-\newtheorem{ex}[definition]{Exercise}
+\documentclass{book}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+\input{"../Book Preamble/Book Preamble.tex"}
 
 
+% Glossary - Notation
+\glsxtrnewsymbol[description={finite measures on $(X, \MA)$}]{n000001}{$\MM_+(X, \MA)$}
+\glsxtrnewsymbol[description={velocity}]{v}{\ensuremath{v}}
 
 
-
-
-\newcommand{\al}{\alpha}
-\newcommand{\Gam}{\Gamma}
-\newcommand{\be}{\beta} 
-\newcommand{\del}{\delta} 
-\newcommand{\Del}{\Delta}
-\newcommand{\lam}{\lambda}  
-\newcommand{\Lam}{\Lambda} 
-\newcommand{\ep}{\epsilon}
-\newcommand{\sig}{\sigma} 
-\newcommand{\om}{\omega}
-\newcommand{\Om}{\Omega}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\T}{\mathbb{T}}
-\newcommand{\Q}{\mathbb{Q}}
-\renewcommand{\P}{\mathbb{P}}
-\newcommand{\MA}{\mathcal{A}}
-\newcommand{\MC}{\mathcal{C}}
-\newcommand{\MB}{\mathcal{B}}
-\newcommand{\MF}{\mathcal{F}}
-\newcommand{\MG}{\mathcal{G}}
-\newcommand{\ML}{\mathcal{L}}
-\newcommand{\MN}{\mathcal{N}}
-\newcommand{\MS}{\mathcal{S}}
-\newcommand{\MP}{\mathcal{P}}
-\newcommand{\ME}{\mathcal{E}}
-\newcommand{\MT}{\mathcal{T}}
-\newcommand{\MM}{\mathcal{M}}
-\newcommand{\MI}{\mathcal{I}}
-\newcommand{\MX}{\mathcal{X}}
-
-\newcommand{\io}{\text{ i.o.}}
-\newcommand{\ev}{\text{ ev.}}
-\renewcommand{\r}{\rangle}
-\renewcommand{\l}{\langle}
-\renewcommand{\Re}{\text{Re}}
-
-\newcommand{\RG}{[0,\infty]}
-\newcommand{\Rg}{[0,\infty)}
-\newcommand{\Ll}{L^1_{\text{loc}}(\R^n)}
-
-\newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
-\newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
-\newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
-\newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
-\newcommand{\conv}[1]{\xrightarrow{#1}} 
-\newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
-
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\spn}{span}
-\DeclareMathOperator{\Img}{Im}
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Homeo}{Homeo}
-\DeclareMathOperator{\Sym}{Sym}
-
-
-\newcommand{\dm}{\, d m}
-\newcommand{\dmu}{\, d \mu}
-\newcommand{\dnu}{\, d \nu}
-\newcommand{\dlam}{\, d \lambda}
-\newcommand{\dP}{\, d P}
-
+\makeindex
 
 \begin{document}
 	
+	\frontmatter
+	
 	\title{Introduction to Probability}
+	
+	%    Remove any unused author tags.
+	
+	%    author one information
 	\author{Carson James}
+	\thanks{}
+	
+	\date{}
+	
 	\maketitle
 	
-	\tableofcontents
+	%    Dedication.  If the dedication is longer than a line or two,
+	%    remove the centering instructions and the line break.
+	%\cleardoublepage
+	%\thispagestyle{empty}
+	%\vspace*{13.5pc}
+	%\begin{center}
+	%  Dedication text (use \\[2pt] for line break if necessary)
+	%\end{center}
+	%\cleardoublepage
 	
+	%    Change page number to 6 if a dedication is present.
+	\setcounter{page}{4}
+	
+	\tableofcontents
+	\printunsrtglossary[type=symbols,style=long,title={Notation}]
+	
+	%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+	%\include{}
+	
+	\mainmatter
+	%    Include main chapters here.
+	%\include{}
+	
+	\chapter*{Preface}
+	\addcontentsline{toc}{chapter}{Preface}
+	
+	\begin{flushleft}
+		\href{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt}{cc-by-nc-sa}
+	\end{flushleft}
+	
+	\newpage
+
 
 	
 	
-	\newpage
-	\section{Basic Probability}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\section{Kolomogorov Extension Theorem}
-	
-	Show that for each $x$, $\pi_{st}(x) = \pi_s(x)\pi_t(x)$ and this implies that for each feasible $(s,A), (t, B)$ so that  $\pi_{s t}{-1}(A \times B) = \pi_s(A) \cap \pi_t(B)$.
-	
-	For $u \subset \C^\N$, set $\pi_u \C^\N = \{x \in \C^\N: \text{for each $j \in u^c$, $x_j = 0$} \}$. Consider lattice of subspaces of $\pi_u \C^\N$, ordered by inclusion indexed by finite subsets $u \subset \N$. 
-	
-	show that if $u \subset v$, then $\MB(\pi_u \C^\N) = \iota_{u,v}^*(\MB(\pi_v \C^\N))$ where $\iota_{u,v}: \pi_u \C^\N \rightarrow \pi_v \C^\N$ is inclusion.
-	
-	Equip $(\pi_u \C^\N, \MB(\pi_u \C^\N))$ with measure $\mu_u$ such that $\pi_u$
-	
-	 with pullback sigma algebra $\iota_{u,v}^*(\MB(\pi_v \C^\N))$ where $u \subset v$ and $\iota_{u,v}: \pi_u \C^\N \rightarrow \pi_v \C^\N$. Equip each object $(\pi_u \C^\N, \MB(\pi_u \C^\N))$ with measures $\mu_u$ satisfying $\mu_u$ of in stoch has maximum 
-	
-	
-	
-	
-	\begin{defn}
-		Let 
-	\end{defn}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -195,8 +111,8 @@
 	
 	\newpage
 	
-	\section{Probability}
-	\subsection{Distributions}
+	\chapter{Probability}
+	\section{Distributions}
 	
 	\begin{defn}
 		Let $\Om$ be a set and $\MP \subset \MP(X)$. Then $\MP$ is said to be a \textbf{$\pi$-system} on $\Om$ if for each $A,B \in \MP$, $A \cap B \in \MP$.
@@ -355,7 +271,7 @@
 	\end{defn}
 	
 	
-	\subsection{Independence}
+	\section{Independence}
 	
 	\begin{defn}
 		Let $(\Om, \MF, P)$ be a probability space and $\MC \subset \MF$. Then $\MC$ is said to be \textbf{independent} if for each $(A_i)_{i=1}^n \subset \MC$, $$P \bigg( \bigcap_{k=1}^nA_k\bigg) = \prod_{k=1}^{n}P(A_k)$$
@@ -473,7 +389,7 @@
 		If for each $i = 1, \cdots, n$, $f_i \in L^1(\R, P_{X_i})$, then following the above reasoning with $\vert g \vert $ tells us that $g \in L^1(\R^n, P_X)$ and we use change of variables and Fubini's theorem to get the same result.  
 	\end{proof}
 	
-	\subsection{$L^p$ Spaces for Probability}
+	\section{$L^p$ Spaces for Probability}
 	
 	\begin{note}
 		Recall that for a probability space $(\Om, \MF, P)$ and $1 \leq p \leq q \leq \infty$ we have $L^q \subset L^p$ and for each $X \in L^q, \|X \|_p \leq  \|X\|_q$. Also recall that for $X,Y \in \L^2$, we have that $\|XY \|_1 \leq \|X\|_2 \|X\|_2$.
@@ -682,7 +598,7 @@
 	
 	
 	\newpage
-	\subsection{Borel Cantelli Lemma} 
+	\section{Borel Cantelli Lemma} 
 	
 	\begin{ex}\textbf{Borel Cantelli Lemma:}\\
 		Let $(\Om, \MF, P)$ be a probability space and $(A_n)_{n \in \N} \subset \MF$.
@@ -747,14 +663,14 @@
 
 
 	\newpage	
-	\section{Probability on locally compact Groups}
+	\chapter{Probability on locally compact Groups}
 	
 	\begin{note}
 	In this section, familiarity with Haar measure will be assumed. This section is intended as a continuation of section $7$ of \cite{measure}.
 	\end{note}
 	
 	
-	\subsection{Action on Probability Measures}
+	\section{Action on Probability Measures}
 	
 	\begin{note}
 	We recall some notation from section $7.1$ of \cite{measure}.
@@ -800,11 +716,6 @@
 	
 	
 	
-	\newpage
-	\section{Weak Convergence of Measures}
-	
-	
-	
 	
 	
 	
@@ -830,9 +741,223 @@
 	
 	
 	\newpage
-	\section{Concentration Inequalities}
+	\chapter{Gaussian Measures}
 	
-	\subsection{Introduction}
+	\section{Gaussian Measures on $\R$}
+	
+	\begin{defn}
+		Let $\mu \in \MM_1(\R)$. Then $\mu$ is said to be \tbf{Gaussian} if 
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Gaussian Measures on Topological Vector Spaces}
+	
+	\begin{defn}
+		Let $W$ be a topological vector space and $\mu \in \MM_1(W)$. Then $\mu$ is said to be \tbf{Gaussian} if for each $\phi \in W^*$, $\phi_*\mu$ is Gaussian.
+	\end{defn}
+
+	\tcr{need exercise in analysis notes showing $\R^{\N}$ is a topological vector space.}
+	
+	\begin{defn}
+		For $n \in \N$, define $\mu_n \in \MM_1(\R)$ by $$\mu_n(A) \defeq \int_A \frac{1}{\sqrt{2 \pi}} e^{-x^2/2} \dm(x).$$ \tcr{An exercise in measure theory notes section on projective limits of measure spaces} implies that there exists a unique $\mu \in \MM_1(\R^{\N})$ such that 
+		\begin{itemize}
+			\item for each $n \in \N$, $\pi_n^*\mu = \mu_n$ and for each,
+			\item for each $(A_n)_{n \in \N} \in \MB(\R)^{\N}$, 
+			$$\mu \bigg( \prod_{n \in \N} A_n \bigg) = \prod_{n \in \N} \mu_n(A_n).$$
+		\end{itemize} We refer to $\mu$ as the \tbf{standard Gaussian measure} on $\R^{\N}$.
+	\end{defn}
+	
+	\begin{ex}
+		$\mu$ is Gaussian. 
+	\end{ex}
+
+	\begin{proof}
+	Let $n \in \N$ and $\lam \in \R$. Define $\eta_{\lam}: \R^{\N} \rightarrow \R^{\N}$ by $\eta_{\lam}(x) \defeq \lam x$. Then 
+	\begin{align*}
+		(\lam \pi_n)_*\mu
+		& = (\eta_{\lam} \circ \pi_n)_*\mu \\
+		& = (\eta_{\lam})_*((\pi_n)_* \mu) \\
+		& = (\eta_{\lam})_*\mu_n
+	\end{align*} 
+		Define $\nu \in \MM_1(\R)$ by $\nu \defeq (\eta_{\lam})_*\mu_n$. If $\lam = 0$, then $\nu = \del_0$. Suppose that $\lam \neq 0$. Since $\mu_n \ll m$, \tcr{(check/give details)} we have that $\nu \ll m$. \tcr{The Radon-Nikodym-Lebesgue theorem} implies that there exists $f \in L^1(\R, \MB(R), m)$ such that $\dnu = f \dm$. \tcr{An exercise in analysis notes (need to rework in the newer general framerwork)} implies that for $m$-a.e. $x \in \R$, 
+		\begin{align*}
+			\wh{\nu}(x)
+			& = \int_{\R} e^{itx} \dnu(t)
+			& = 
+		\end{align*}
+		\begin{align*}
+			f(x) 
+			& = \lim_{r \rightarrow 0} \frac{\nu((x-r, x+r))}{m((x-r, x+ r))} \\
+			& = \lim_{r \rightarrow 0} \frac{\mu_n(\eta_{\lam}^{-1}(x-r, x+r))}{m((x-r, x+ r))} \\
+			& = \lim_{r \rightarrow 0} \frac{\mu_n(\lam^{-1}(x-r, x+r))}{m((x-r, x+ r))} \\
+			& = \lim_{r \rightarrow 0} \frac{\mu_n((\lam^{-1}x-\lam^{-1}r, \lam^{-1}x+\lam^{-1}r))}{m((x-r, x+ r))} \\
+			& = \lim_{r \rightarrow 0} \frac{1}{2r} \int_{\lam^{-1}x-\lam^{-1}r}^{\lam^{-1}x + \lam^{-1}r} \frac{1}{\sqrt{2 \pi}}e^{- x^2/2} \dm(x) \\
+			& = \lim_{r \rightarrow 0} \frac{1}{2r} \int_{u}
+		\end{align*}
+		$f(x)$
+		Let $\phi \in (\R^{\N})^*$. \tcr{An exercise in the analysis notes section on topological vector spaces subsection on products} implies that $(\R^{\N})^* = \spn\{\pi_j:j \in \N\}$. 
+		
+		
+		 Then show that the pushforward of a linear combos of projection maps is Gaussian
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Gaussian Measures on Hilbert Spaces}
+	
+	\begin{note}
+		\tcr{recall definitions of $(Y, (\tau_n)_{n \in \N})$ and $((Y_n)_{n \in \N}, (\tau_{n,k})_{(n \leq k)})$ from measure and integration notes section on projective systems of complex measure spaces, specifically the exercise on existence and uniqueness of product measures.  We still need an exercise to show that $(Y, (\tau_n)_{n \in \N})$ is a $\Top$-projective limit of $((Y_n)_{n \in \N}, (\tau_{n,k})_{(n \leq k)})$ in the analysis notes. }
+	\end{note}
+
+	
+	\begin{ex}
+		Let $a \in \C^{\N}$. Then $l^{2, a} \in \MB(\R^{\N})$.
+	\end{ex}
+
+	\begin{proof}
+		We
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Weak Convergence of Measures}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Concentration Inequalities}
+	
+	\section{Introduction}
 	
 	\begin{ex}
 		Let $(\Om, \MF, P)$ be a probability space and $X,Y \in L^0_{\R}(\Om, \MF, P)$. Then for each $s, t \in \R$, 
@@ -870,7 +995,7 @@
 
 	
 	
-	\subsection{Sub $\al$-Exponential Random Variables}
+	\section{Sub $\al$-Exponential Random Variables}
 	
 	\begin{defn}
 		Let $(\Om, \MF, P)$ be a probability space, $X \in L^0(\Om, \MF, P)$ and $\al >0$. Then $X$ is said to be \textbf{sub $\al$-exponential} if there exist $M, K > 0$ such that for each $t \geq 0$, $$P(|X| \geq t) \leq Me^{-Kt^{\al}}$$
@@ -1038,9 +1163,9 @@
 	
 	
 	\newpage
-	\section{Conditional Expectation and Probability}
+	\chapter{Conditional Expectation and Probability}
 	
-	\subsection{Conditional Expectation}
+	\section{Conditional Expectation}
 	
 	\begin{ex}
 		Let $(\Om, \MF, P)$ be a probability space, $\MG$ a sub $\sig$-algebra of $\MF$ and $X \in L^1(\Om, \MF, P)$. Define $P_{\MG} = P|_{\MG}$ and $Q: \MG \rightarrow [0,\infty)$ by $Q(G) = \int_G X d P $. Then $Q \ll P_{\MG}$. 
@@ -1102,7 +1227,7 @@
 	
 	
 	
-	\subsection{Conditional Probability}
+	\section{Conditional Probability}
 	
 	\begin{defn}
 	Let $(A, \MA)$ be a measurable space, $(B, \MB, P_Y)$ a probability space and $Q:B \times \MA \rightarrow [0,1]$. Then $Q$ is said to be a \textbf{stochastic transition kernel from $(B, \MB, P)$ to $(A, \MA)$} if 
@@ -1197,10 +1322,10 @@
 	
 	
 	\newpage
-	\section{Markov Chains}	
+	\chapter{Markov Chains}	
 
 	\begin{defn}
-		\tcr{Define Markov kernels, their composition and ''}
+		\tcr{Define Markov kernels, their composition and }
 	\end{defn}
 	
 	\begin{defn}
@@ -1230,9 +1355,9 @@
 	
 	
 	\newpage
-	\section{Probabilities Induced by Isometric Group Actions}
+	\chapter{Probabilities Induced by Isometric Group Actions}
 	
-	\subsection{Applications to Bayesian Statistics}
+	\section{Applications to Bayesian Statistics}
 	
 	\begin{ex}
 	Let $(\MX, \MA)$ be a measurable space $(\Theta, d)$ a metric space, $G$ a group, $\phi: G \times \Theta \rightarrow \Theta$ an isometric group action. Suppose that $\bar{d}$ is a metric on $\Theta / G$. Let 
@@ -1317,7 +1442,7 @@
 	
 	
 	\newpage
-	\section{Projective Systems}
+	\chapter{Projective Systems}
 	
 	
 	
@@ -1353,7 +1478,7 @@
 	
 	
 	\newpage
-	\section{Stochastic Integration}
+	\chapter{Stochastic Integration}
 	\begin{ex}
 	Let $(\Om, \MF, P)$ be a probability space, $X$ a set $\MA_0$ an algebra, $\mu_0:\MA_0 \rightarrow \C$ and $B:\MA_0 \rightarrow L^2(\Om, \MF, P)$. 
 	Suppose that 
@@ -1429,25 +1554,880 @@
 
 
 	\newpage
-		\section{TODO}
+		\chapter{TODO}
 	Incorporate vector measures to have conditional expectations of Banach space valued functions given a $\sig$-algebra
 	
 
 	
 	
 	
+
+\appendix
+
+\chapter{Summation}
+
+\begin{defn} \ld{}
+	Let $f:X \rightarrow \Rg$, Then we define $$\sum_{x \in X} f(x) := \sup_{\substack{F \subset X \\ F \text{ finite}}} \sum_{x \in F} f(x)$$ This definition coincides with the usual notion of summation when $X$ is countable. For $f:X \rightarrow \C$, we can write $f = g +ih$ where $g,h:X \rightarrow \R$. If $$\sum_{x \in X}|f(x)| < \infty,$$ then the same is true for $g^+,g^-,h^+,h^-$. In this case, we may define $$\sum_{x \in X} f(x)$$ in the obvious way.
+\end{defn} 
+
+The following note justifies the notation $\sum_{x \in X}f(x)$ where $f:X \rightarrow \C$.
+
+\begin{note}
+	Let $f:X \rightarrow \C$ and $\al:X \rightarrow X$ a bijection. If $\sum_{x \in X}|f(x)|< \infty$, then $\sum_{x \in X}f( \al (x)) = \sum_{x \in X}f(x) $.
+\end{note}
+
+\newpage	
+
+\chapter{Asymptotic Notation}
+
+\begin{defn} \ld{}
+	Let $X$ be a topological space, $Y, Z$ be normed vector spaces, $f:X \rightarrow Y$, $g: X \rightarrow Z$ and $x_0 \in X \cup \{\infty\}$. Then we write $$f = o(g) \hspace{.5cm} \text{ as } x \rightarrow x_0$$ if for each $\ep >0$, there exists $U \in \MN(x_0)$ such that for each $x \in U$, $$\|f(x)\| \leq \ep\|g(x)\|$$
+\end{defn}
+
+\begin{ex} \lex{}
+	Let $X$ be a topological space, $Y, Z$ be normed vector spaces, $f:X \rightarrow Y$, $g: X \rightarrow Z$ and $x_0 \in X \cup \{\infty\}$. If there exists $U \in \MN(x_0)$ such that for each $x \in U \setminus \{x_0\}$, $g(x) > 0$, then $$f = o(g) \text{ as } x \rightarrow x_0 \hspace{.25cm} \text{ iff } \hspace{.25cm}  \lim_{x \rightarrow x_0} \frac{\| f(x) \|}{\| g(x) \|} = 0$$
+\end{ex}	
+
+\begin{ex} \lex{}
+	Let $X$ and $Y$ a be normed vector spaces, $A \subset X$ open and $f:A \rightarrow Y$. Suppose that $0 \in A$. If $f(h) = o(\|h\|)$ as $h \rightarrow 0$, then for each $h \in X$,  $f(th) = o(|t|)$ as $t \rightarrow 0$.
+\end{ex}	
+
+\begin{proof}
+	Suppose that $f(h) = o(\|h\|)$ as $h \rightarrow 0$.  Let $h \in X$ and $\ep >0$. Choose $\del' >0 $ such that for each $h' \in B(0, \del')$, $h' \in A$ and 
+	$$\|f(h')\| \leq \frac{\ep}{\|h\|+1} \|h'\|$$ 
+	Choose $\del >0$ such that for each $t \in B(0,\del)$, $th \in B(0,\del')$. Let $t \in B(0,\del)$. Then 
+	\begin{align*}
+		\|f(th)\| 
+		&\leq \frac{\ep}{\|h\|+1} |t|\|h\| \\
+		&< \ep |t|
+	\end{align*}
+	So $f(th) = o(|t|)$ as $t \rightarrow 0$.
+\end{proof}		
+
+
+
+
+\begin{defn} \ld{}
+	Let $X$ be a topological space, $Y, Z$ be normed vector spaces, $f:X \rightarrow Y$, $g: X \rightarrow Z$ and $x_0 \in X \cup \{\infty\}$. Then we write $$f = O(g) \hspace{.5cm} \text{ as } x \rightarrow x_0$$ if there exists $U \in \MN(x_0)$ and $M \geq 0$ such that for each $x \in U$, $$\|f(x)\| \leq M\|g(x)\|$$
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Categories}
+
+\tcr{move to notation?}
+
+\begin{defn}
+	We define the category of topological measure spaces, denoted $\TopMsrpos$, by 
+	\begin{itemize}
+		\item $\Obj(\TopMsrpos) \defeq \{(X, \mu): X \in \Obj(\Top) \text{ and } \mu \in M(X)\}$			
+		\item $\Hom_{\TopMsrpos}((X, \mu), (Y, \nu)) \defeq \Hom_{\Top}(X, Y) \cap \Hom_{\Msrpos}((X, \MB(X), \mu), (Y, \MB(Y), \nu))$
+	\end{itemize}
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Rings}
+
+\chapter{Introduction}
+
+\begin{defn}
+	Let $R$ be a ring and $I, J \subset R$ ideals. We define 
+	\begin{itemize}
+		\item $I+J \subset R$ by $I + J \defeq \{i + j: i \in I \text{ and } j \in J\}$,
+		\item $IJ \subset R$ by $IJ \defeq \{i_1j_1 + i_2j_2: i_1,i_2 \in I \text{ and } j_1, j_2 \in J\}$.
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $R$ be a ring and $I, J \subset R$ ideals. Then $I + J$ and $IJ$ are ideals.
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
+
+\chapter{Quotient Rings}
+
+\begin{ex}
+	Let $R$ be a commutative unital ring and $I \subset R$ and ideal. Then $I$ is maximal iff $R/I$ is a field. 
+\end{ex}
+
+\begin{proof}
+	\tcr{A previous exercise} implies that $R/I$ is a commutative unital ring. 
+	\begin{itemize}
+		\item $(\implies):$ \\
+		Suppose that $I$ is maximal. Let $k+I \in R/I$. Suppose that $k+I \neq 0+I$. Then $k \not \in I$. Define $J \subset R$ by $J \defeq (k) + I$. \tcr{A previous exercise} implies that $J$ is an ideal. By construction $I \subset J$ and $k \in J$. Hence $I \neq J$. Since $I$ is maximal, $J = R$. Since $1 \in J$, there exists $r \in R$ and $i \in I$ such that $1 = rk + i$. Hence 
+		\begin{align*}
+			1 +I 
+			& = rk + i +I \\
+			& = rk + I \\
+			& = (r + I)(k+I).
+		\end{align*} 
+		Thus $(k+I)$ is invertible. Since $k +I \in R/I$ such that $k+I \neq 0+I$ is arbitrary, we have that for each $k+I \in R/I$, $k+I \neq 0 + I$ implies that $k+I$ is invertible. Thus $R/I$ is a field.
+		\item $(\impliedby):$ \\
+		Suppose that $R/I$ is a field. Let $J \subset R$. Suppose that $J$ is an ideal, $I \subset J$ and $I \neq J$. Then there exists $j \in J$ such that $j \not \in I$. Thus $j+I \neq 0+I$. Since $R/I$ is a field, $j+I$ is invertible. Hence there exists $k \in R$ such that $jk + I = 1+I$. Hence
+		\begin{align*}
+			1 - jk 
+			& \in I \\
+			& \subset J.
+		\end{align*}
+		Since $J$ is an ideal, $jk \in J$ and therefore
+		\begin{align*}
+			1
+			& = (1 - jk) + jk \\
+			& \in J.
+		\end{align*}
+		Since $1 \in J$, $J = R$. Since $J \subset R$ with $J$ an ideal and $I \subset J$ is arbitrary, we have that for each $J \subset R$, $J$ an ideal and $I \subset J$ implies that $J = I$ or $J = X$. Hence $I$ is maximal. 
+	\end{itemize}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Vector Spaces}
+\tcr{it might be better to cover some category theory and write everything in terms of $\Hom_{\VectK}$ and $\Obj(\VectK)$}
+
+\chapter{Introduction}
+
+\begin{defn}
+	Let $X$ be a set, $\K$ a field, $+:X \times X \rightarrow X$ and $\cdot:\K \times X \rightarrow X$. Then $(X, +, \cdot)$ is said to be a \tbf{$\K$-vector space} if 
+	\begin{enumerate}
+		\item $(X, +)$ is an abelian group
+		\item 
+	\end{enumerate} 
+\end{defn}
+
+\begin{defn}
+	Let $(X, +, \cdot) \in \Obj(\VectC)$. We define the \tbf{conjugate of $(X, +, \cdot)$}, denoted $(\bar{H}, \bar{+}, \bar{\cdot})$, by 
+	\begin{itemize}
+		\item $\bar{X} \defeq X$,
+		\item $x \bar{+} y \defeq x + y$,
+		\item $\lam \bar{\cdot} x \defeq \lam^* \cdot x$.
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $(X, +, \cdot) \in \Obj(\VectC)$. Then $(\bar{H}, \bar{+}, \bar{\cdot}) \in \Obj(\Vect_{\C})$.
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
+
+
+\begin{defn}
+	Let $(X, +_X, \cdot_X)$ and $(E, +_E, \cdot_E)$ be vector spaces. Suppose that $E \subset X$. Then $(E, +_E, \cdot_E)$ is said to be a subspace of $X$ if 
+	\begin{enumerate}
+		\item $+_E = +_X|_{E \times E}$
+		\item $\cdot_E = \cdot_X|_{\K \times E}$
+	\end{enumerate}
+\end{defn}
+
+\begin{ex}
+	Let $(X, +_X, \cdot_X)$ and $(E, +_E, \cdot_E)$ be vector spaces. Suppose that $E \subset X$. 
+\end{ex}
+
+\begin{ex}
+	Let $(X, +, \cdot)$ be a vector space and $E \subset X$. Then $E$ is a subspace of $X$
+\end{ex}
+
+
+\begin{defn}
+	Let $X$ be a vector space and $(E_j)_{j \in J}$ a collection of subspaces of $X$. Then $\bigcap\limits_{j \in J}E_j$ is a subspace of $X$. 
+\end{defn}
+
+\begin{proof}
+	Set $E \defeq \bigcap\limits_{j \in J}E_j$. Let $x,y \in E$ and $\lam \in \K$. Then for each $j \in J$, $x,y \in E_j$. Since for each $j \in J$, $E_j$ is a subspace of $X$, we have that for each $j \in J$, $x+ \lam y \in E_j$. Thus $x+\lam y \in E$. Since $x,y \in E$ and $\lam \in \K$ are arbitrary, \tcr{(cite exercise here)} we have that $E$ is a subspace of $X$. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{defn}
+	Let $X, Y$ be vector spaces and $T:X \rightarrow Y$. Then $T$ is said to be \tbf{linear} if for each $x_1, x_2 \in X$ and $\lam \in \Lam$, 
+	\begin{enumerate}
+		\item $T(x_1 + x_2) = T(x_1) + T(x_2)$,
+		\item $T(\lam x_1) = \lam T(x_1)$.
+	\end{enumerate}
+	We define $\ML(X;Y) \defeq \{T:X \rightarrow Y: \text{ $T$ is linear}\}$. 
+\end{defn}
+
+\begin{ex}
+	Let $X,Y$ be vector spaces and $T : X \rightarrow Y$. Then $T$ is linear iff for each $x_1, x_2 \in X$ and $\lam \in \Lam$, 
+	$$T(x_1 + \lam x_2) = T(x_1) + \lam T(x_2)$$
+\end{ex}
+
+\begin{proof}
+	Clear. \tcr{(add details)}
+\end{proof}
+
+\begin{ex}
+	$\ML(X;Y)$ is a vector space \tcr{FINISH!!!}
+\end{ex}
+
+\begin{proof}
+	content...
+\end{proof}
+
+\begin{defn}
+	\tcr{define addition/scalar multiplication of linear maps}
+\end{defn}
+
+\begin{ex}
+	Let $X,Y$ be vector spaces over $\K$. Then $\ML(X;Y)$ is a $\K$-vector space. 
+\end{ex}
+
+\begin{proof}
+	Clear
+\end{proof}
+
+
+\begin{ex}
+	Let $X,Y, Z$ be vector spaces over $\K$, $T \in \ML(X.Y)$ and $S \in \ML(Y, Z)$. Then $S \circ T \in \ML(X, Z)$. 
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Bases}
+
+\begin{defn}
+	Let $X$ be a vector space and $(e_{\al})_{\al \in A} \subset X$. Then $(e_{\al})_{\al \in A}$ is said to be
+	\begin{itemize}
+		\item \tbf{linearly independent} if for each $(\al_j)_{j=1}^n \subset A$, $(\lam_j)_{j=1}^n \subset \K$, $\sum\limits_{j=1}^n \lam_j e_{\al_j} = 0$ implies that for each $j \in [n]$, $\lam_j = 0$.  
+		\item a \tbf{Hamel basis for $X$} if $(e_{\al})_{\al \in A}$ is linearly independent and $\spn (e_{\al})_{\al \in A} = X$. 
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	\tcr{every vector space has a Hamel basis}
+\end{ex}
+
+\begin{proof}
+	
+\end{proof}
+
+\begin{ex}
+	
+\end{ex}
+
+
+\begin{ex}
+	Let $X$ be a $\K$-vector space and $x \in X$. Then $x = 0$ iff for each $\phi \in X^*$, $\phi(x) = 0$. 
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item $(\implies):$ \\
+		Suppose that $x = 0$. Linearity implies that for each $\phi \in X^*$ $\phi(x) = 0$. 
+		\item $(\impliedby):$ \\
+		Conversely, suppose that $x \neq 0$. Define $\ep_x: \spn(x) \rightarrow \K$ by $\ep_x(\lam x) \defeq \lam$. Let $u,v \in \spn(x)$. Then there exists $\lam_u, \lam_v \in \K$ such that $u = \lam_u x$ and $v = \lam_v x$. Suppose that $u = v$. Then 
+		\begin{align*}
+			(\lam_u - \lam_v)x
+			& = \lam_u x - \lam_v x \\
+			& = u - v \\
+			& = 0
+		\end{align*}
+		Since $x \neq 0$, we have that $\lam_u - \lam_v = 0$ and therefore $\lam_u = \lam_v$. Hence  
+		\begin{align*}
+			\lam_u 
+			& = \ep_x(u) \\
+			& = \ep_x(v) \\
+			& = \lam_v.
+		\end{align*}
+		Thus $\ep_x$ is well defined. 
+	\end{itemize}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+\chapter{Duality}
+
+\begin{defn} \ld{55001}\
+	Let $X$ be a vector space over $\K$. We define the \tbf{algebraic dual space of $X$}, denoted $X'$, by $X' \defeq \ML(X;\K)$. 
+\end{defn}
+
+
+\begin{ex}
+	Let $X$ be a vector space. Then $X'$ is a vector space. 
+\end{ex}
+
+\begin{proof}
+	Clear.
+\end{proof}
+
+
+\begin{defn}
+	Let $X, Y$ be vector spaces over $\K$. We define the algebraic adjoint of $T \in \ML(X;Y)$, denoted $T' \in \ML(Y', X')$, by $T'(\phi) \defeq \phi \circ T$. 
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Multilinear Maps}
+
+\begin{defn}
+	Let $X_1, \cdots, X_n, Y$ be vector spaces and $T: \prod\limits_{j=1}^n X_j \rightarrow \K$. Then $T$ is said to be \tbf{multilinear} if for each $j_0 \in [n]$ and $(x_j)_{j=1}^n \in \prod\limits_{j=1}^n X_j$, $T(x_1, \ldots, x_{j_0 - 1}, \cdot, x_{j_0 + 1})$ is linear. $$L^n(X_1, \dots, X_n; Y) = \bigg\{T : \prod\limits_{j=1}^n X_j \rightarrow Y: T \text{ is multilinear}\bigg \}$$ 
+	If $X_1 = \cdots = X_n = X$, we write $L^n(X;Y)$ in place of $L^n (X, \dots, X; Y) $. 
+\end{defn}
+
+\begin{defn}
+	\tcr{define addition and scalar mult of multilinear maps}
+\end{defn}
+
+\begin{ex}
+	Let $X_1, \cdots, X_n, Y$ be vector spaces. Then $L^n(X_1, \ldots, X_n;Y)$ is a $\K$-vector space.
+\end{ex}
+
+\begin{proof}
+	content...
+\end{proof}
+
+\begin{ex}
+	Let $X_1, \cdots, X_n, Y, Z$ be $\K$-vector spaces, $\al \in L^n(X_1, \ldots, X_n;Y)$ and $\phi \in L^1(Y;Z)$. Then $\phi \circ \al \in L^n(X_1, \ldots, X_n; Z)$. 
+\end{ex}
+
+\begin{proof}
+	Let $(x_j)_{j=1}^n \in \prod\limits_{j=1}^n X_j$ and $j_0 \in [n]$. Define $f:X_{j_0} \rightarrow Y$ by 
+	$$f(a) \defeq \al(x_1, \ldots, x_{j_0-1}, a , x_{j_0+1}, \ldots, x_n) $$
+	Since $\al \in L^n(X_1, \ldots, X_n;Y)$, $f$ is linear. Since $\phi$ is linear, and $\phi \circ f$ is linear. Since $(x_j)_{j=1}^n \in \prod\limits_{j=1}^n X_j$ and $j_0 \in [n]$ are arbitrary, we have that $\phi \circ \al \in L^n(X_1, \ldots, X_n;Y)$. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\chapter{Tensor Products}
+
+\begin{defn}
+	Let $X, Y$ and $T$ be vector spaces over $\K$ and $\al \in L^2(X, Y; T)$. Then $(T, \al)$ is said to be a \tbf{tensor product of $X$ and $Y$} if for each vector space $Z$ and $\be \in L^2(X, Y; Z)$, there exists a unique $\phi \in L^1(T;Z)$ such that $\phi \circ \al = \be$, i.e. the following diagram commutes:
+	\[ 
+	\begin{tikzcd}
+		X \times Y \arrow[r, "\al"] \arrow[dr, "\be"'] 	
+		& T  \arrow[d, dashed, "\phi"] \\
+		& Z 
+	\end{tikzcd}
+	\] 
+\end{defn}
+
+\begin{ex}
+	Let $X, Y, S, T$ be vector spaces, $\al \in L^2(X, Y; S)$ and $\be \in L^2(X, Y; T)$. Suppose that $(S, \al)$ and $(T, \be)$ are tensor products of $X$ and $Y$. Then $S$ and $T$ are isomorphic. 
+\end{ex}
+
+\begin{proof}
+	Since $(T, \be)$ is a tensor product of $X$ and $Y$, $\be \in L^2(X,Y; T)$ there exists a unique $f \in L^1(T;T)$ such that $f \circ \be = \be$, i.e. the following diagram commutes: 
+	\[ 
+	\begin{tikzcd}
+		& T \arrow[dd, dashed, "f"] \\
+		X \times Y \arrow[ur, "\be"] \arrow[dr, "\be"'] 
+		&   \\
+		& T 
+	\end{tikzcd}
+	\] 
+	Since $\id_T \in L^1(T;T)$ and $\id_T \circ \be = \be$, we have that $f = \id_T$. Since $(S, \al)$ is a tensor product of $X$ and $Y$, there exists a unique $\phi: S \rightarrow T$ such that $\phi \circ \al = \be$, i.e. the following diagram commutes: 
+	\[ 
+	\begin{tikzcd}
+		X \times Y \arrow[r, "\al"] \arrow[dr, "\be"'] 	
+		& S  \arrow[d, dashed, "\phi"] \\
+		& T 
+	\end{tikzcd}
+	\] 
+	Similarly, since $(T, \be)$ is a tensor product of $X$ and $Y$, there exists a unique $\psi: T \rightarrow S$ such that $\psi \circ \be = \al$, i.e. the following diagram commutes: 
+	\[ 
+	\begin{tikzcd}
+		X \times Y \arrow[r, "\be"] \arrow[dr, "\al"'] 	
+		& T  \arrow[d, dashed, "\psi"] \\
+		& S 
+	\end{tikzcd}
+	\] 
+	Therefore 
+	\begin{align*}
+		(\phi \circ \psi) \circ \be 
+		& = \phi \circ (\psi \circ \be) \\
+		& = \phi \circ \al \\
+		& = \be, 
+	\end{align*}
+	i.e. the following diagram commutes:
+	\[ 
+	\begin{tikzcd}
+		& T \arrow[d, dashed, "\psi"] \\
+		X \times Y \arrow[ur, "\be"] \arrow[dr, "\be"'] \arrow[r, "\al"]	
+		& S  \arrow[d, dashed, "\phi"] \\
+		& T 
+	\end{tikzcd}
+	\implies
+	\begin{tikzcd}
+		& T \arrow[dd, dashed, "\phi \circ \psi"] \\
+		X \times Y \arrow[ur, "\be"] \arrow[dr, "\be"'] 
+		&  \\
+		& T 
+	\end{tikzcd}
+	\] 
+	By uniqueness of $f \in L^1(T;T)$, we have that 
+	\begin{align*}
+		\id_T
+		& = f \\
+		& = \phi \circ \psi 
+	\end{align*}
+	A similar argument implies that $\psi \circ \phi = \id_S$. Hence $\phi$ and $\psi$ are isomorphisms with $\phi^{-1} = \psi$. Hence $S$ and $T$ are isomorphic.
+\end{proof}
+
+\begin{defn}
+	Let $X, Y$ be vector spaces, $x \in X$ and $y \in Y$. We define $x \otimes y: X^* \times Y^* \rightarrow  \K$ by $x \otimes y(\phi, \psi) \defeq \phi(x) \psi(y)$.  
+\end{defn}
+
+\begin{ex}
+	Let $X, Y$ be vector spaces, $x \in X$ and $y \in Y$. Then $x \otimes y \in L^2(X^*, Y^*; \K)$. 
+\end{ex}
+
+\begin{proof}
+	Let $\phi_1, \phi_2 \in X^*$, $\psi \in Y^*$ and $\lam \in \K$. Then 
+	\begin{align*}
+		x \otimes y(\phi_1 + \lam \phi_2, \psi) 
+		& = [\phi_1 + \lam \phi_2 (x)] \psi(y) \\
+		& = \phi_1(x)\psi(y) + \lam \phi_2(x)\psi(y) \\
+		& = x \otimes y(\phi_1, \psi) + \lam x \otimes y(\phi_2, \psi)
+	\end{align*}
+	Since $\phi_1, \phi_2 \in X^*$, $\psi \in Y^*$ and $\lam \in \K$ are arbitrary, we have that for each $\psi \in Y^*$, $x \otimes y(\cdot, \psi)$ is linear. Similarly for each $\phi \in X^*$, $x \otimes y(\phi, \cdot)$ is linear. Hence $x \otimes y$ is bilinear and $x \otimes y \in L^2(X^*, Y^*; \K)$. 
+\end{proof}
+
+\begin{defn}
+	Let $X, Y$ be vector spaces. We define  
+	\begin{itemize}
+		\item the \tbf{tensor product of $X$ and $Y$}, denoted $X \otimes Y \subset L^2(X^*, Y^*; \K)$, by 
+		$$X \otimes Y \defeq \spn(\text{$x \otimes y: x \in X$ and $y \in Y$}),$$
+		\item the \tbf{tensor map}, denoted $\otimes: X \times Y \rightarrow X \otimes Y$, by $\otimes(x, y) \defeq x \otimes y$.
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $X,Y$ be vector spaces, $(x_j)_{j=1}^n \subset X$ and $(y_j)_{j=1}^n \subset Y$. The following are equivalent:
+	\begin{enumerate}
+		\item $\sum\limits_{j=1}^n  x_j \otimes y_j = 0$
+		\item for each $\phi \in X^*$ and $\psi \in Y^*$, $\sum\limits_{j=1}^n  \phi(x_j) \psi(y_j) = 0$
+		\item for each $\phi \in X^*$, $\sum\limits_{j=1}^n  \phi(x_j)  y_j = 0$
+		\item for each $\psi \in Y^*$, $\sum\limits_{j=1}^n  \psi(y_j) x_j = 0$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item $(1) \implies (2):$ \\
+		Suppose that $\sum\limits_{j=1}^n x_j \otimes y_j = 0$. Let $\phi \in X^*$ and $\psi \in Y^*$. Then 
+		\begin{align*}
+			\sum\limits_{j=1}^n  \phi(x_j) \psi(y_j)
+			& = \phi \bigg( \sum\limits_{j=1}^n \psi(y_j) x_j \bigg) \\
+			& = 
+		\end{align*}
+		\item 
+		\item 
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $X, Y$ be vector spaces. Then $(X \otimes Y, \otimes)$ is a tensor product of $X$ and $Y$. 
+\end{ex}
+
+\begin{proof}
+	Let $Z$ be a vector space and $\al \in L^2(X, Y; Z)$. Define $\phi: X \otimes Y \rightarrow Z$ by $\phi \bigg( \sum\limits_{j=1}^n \lam_j x_j \otimes y_j) \defeq \sum\limits_{j =1}^n \lam_j \al(x_j, y_j)$.  
+	\begin{itemize}
+		\item \tbf{(well defined):} \\
+		Let $u \in X \otimes Y$. Then there exist $(\lam_j)_{j=1}^n \subset \K$, $(x_j)_{j=1}^n \subset X$, $(y_j)_{j=1}^n \subset Y$ such that $u = \sum\limits_{j=1}^n \lam_j x_j \otimes y_j$. Suppose that $u = 0$. Let $\phi \in Z^*$. Then $\phi \circ \al \in L^2(X,Y; Z)$.  
+	\end{itemize}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\backmatter
+\begin{thebibliography}{4}
+	\bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
+	
+	\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
+	
+	\bibitem{foranal}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Fourier\%20Analysis/Introduction\%20to\%20Fourier\%20Analysis.pdf}{Introduction to Fourier Analysis}
+	
+	\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
 	
 	
-	\newpage
-	\begin{thebibliography}{4}
-\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
 	
-\bibitem{groups} \href{https://github.com/carsonaj/Mathematics/tree/master/Introduction\%20to\%20Group\%20Theory}{Introduction to Group Theory}
-
-\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
-
-
 \end{thebibliography}
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}

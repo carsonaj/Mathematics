@@ -354,6 +354,36 @@
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Common Categories}
+	\tcr{maybe move the examples from above here or rename or something}
+
+	\begin{defn}  
+		Let $\MC$ be a category. Then $\MC$ is said to be \tbf{discrete} if $\Hom_{\MC} = \{\id_X: X \in \Obj(\MC)\}$. 
+	\end{defn}
+
+	\begin{defn}
+		Let $\MP$ be a category. Then $\MP$ is said to be a 
+		\begin{enumerate}
+			\item \tbf{proset} if $\MP$ is locally small and for each $a, b \in \Obj(\MP)$, $\# \Hom_{\MP}(a,b) \leq 1$
+			\item \tbf{poset} if $\MP$ is a proset and for each $a,b \in \Obj(\MP)$, $\# \Hom_{\MP}(a,b) = 1$ and $\# \Hom_{\MP}(b,a) = 1$ implies that $a = b$.  
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{defn}
+		Let $\MP$ be a proset. Set $P \defeq \Obj(\MP)$. We define the \tbf{less-than-or-equal-to relation} on $P$, denoted ${\leq} \subset P \times P$, by 
+		$${\leq} \defeq \{(a,b) \in P \times P: \Hom_{\MP}(a,b) \neq \varnothing\}.$$
+	\end{defn}
 
 
 
@@ -417,6 +447,46 @@
 		So $(\id_X)_{\op{C}} =  (\id_X)_{\MC}$.
 		\end{itemize}
 	\end{proof}
+
+	\begin{ex}
+		Let $\MP$ be a category. Then 
+		\begin{enumerate}
+			\item $\MP$ is a proset implies that $\op{\MP}$ is a proset
+			\item $\MP$ is a poset implies that $\op{\MP}$ is a poset
+		\end{enumerate} 
+	\end{ex}
+
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
+
+	\begin{defn}
+		Let $\MP$ be a proset. Set $P \defeq \Obj(\MP)$. We define the \tbf{greater-than-or-equal-to relation} on $P$, denoted ${\geq} \subset P \times P$, by 
+		$${\geq} \defeq \{(a,b) \in P \times P: \Hom_{\op{\MP}}(a,b) \neq \varnothing\}.$$
+	\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -595,10 +665,11 @@
 	\begin{defn}
 		Let $\MC$ and $\MD$ be categories. We define the \textbf{product category of $\MC$ and $\MD$}, denoted $\MC \times \MD$ by 
 		\begin{itemize}
-			\item $\Obj(\MC \times \MD) = \{(A, B): A \in \Obj(\MC) \text{ and } B \in \Obj(\MD)\}$
-			\item for each $(A, A'), (B, B') \in \Obj(\MC \times \MD)$, $\Hom_{\MC \times \MD}((A, A'), (B, B')) = \{(f,g): f \in \Hom_{\MC}(A, B) \text{ and }  g \in \Hom_{\MC}(A', B') \}$
+			\item $\Obj(\MC \times \MD) \defeq \{(A, B): A \in \Obj(\MC) \text{ and } B \in \Obj(\MD)\}$
+			\item for each $(A, A'), (B, B') \in \Obj(\MC \times \MD)$, 
+			$$\Hom_{\MC \times \MD}((A, A'), (B, B')) \defeq \{(f,g): f \in \Hom_{\MC}(A, B) \text{ and }  g \in \Hom_{\MC}(A', B') \}$$
 			\item for each  $(A, A'), (B, B'), (C, C') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$ and $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$, 
-			$$(g,g') \circ_{\MC \times \MD} (f, f') = (g \circ_{\MC} f, g' \circ_{\MD} f')$$
+			$$(g,g') \circ_{\MC \times \MD} (f, f') \defeq  (g \circ_{\MC} f, g' \circ_{\MD} f')$$
 		\end{itemize}
 	\end{defn}
 	
@@ -1116,8 +1187,12 @@
 		\end{itemize}
 	\end{proof}
 
+	\begin{note}
+		\tcr{explain with diagram how in the case $\al = \Del^{\1}_X$ and how we can contract one edge of the rectangle diagram to get a triangle}
+	\end{note}
+
 	\begin{defn}
-		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $X$ to $F$}, denoted $(X \downarrow F)$, by $(X \downarrow F) = (\Del^{\1}_X \downarrow F)$. \\
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $X$ to $F$}, denoted $(X \downarrow F)$, by $(X \downarrow F) \defeq (\Del^{\1}_X \downarrow F)$. \\
 		We may make the following identification:
 		\begin{itemize}
 			\item $\Obj(X \downarrow F) = \{(A, f): A \in \Obj(\MC) \text{ and } f \in \Hom_{\MD}(X, F(A))\}$ 
@@ -1142,7 +1217,7 @@
 	\end{defn}
 
 	\begin{defn}
-		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $F$ to $X$}, denoted $(F \downarrow X)$, by $(F \downarrow X) = (F \downarrow \Del^{\1}_X)$.\\
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $F$ to $X$}, denoted $(F \downarrow X)$, by $(F \downarrow X) \defeq (F \downarrow \Del^{\1}_X)$.\\
 		We may make the following identification:
 		\begin{itemize}
 			\item $\Obj(F \downarrow X) = \{(A, f): A \in \Obj(\MC) \text{ and } f \in \Hom_{\MD}(F(A), X)\}$ 
@@ -2079,7 +2154,9 @@
 		Similar to \rex{15020}.
 	\end{proof}
 	
-
+\begin{defn}
+	cont
+\end{defn}
 
 
 
@@ -2180,10 +2257,10 @@
 	\newpage
 	\chapter{Universal Morphisms and Limits}
 	
-	\subsection{Universal Morphisms}
+	\section{Universal Morphisms}
 
 	\begin{defn}
-		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$, $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(X, F(A))$. Then $(A, f)$ is said to be a \textbf{universal morphism} from $X$ to $F$ if for each $A' \in \Obj(\MC)$ $f' \in \Hom_{\MD}(X, F(A'))$, there exists a unique $\al \in \Hom_{\MC}(A, A')$ such that $f' = F(\al) \circ f$, i.e. the following diagram commutes:
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$, $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(X, F(A))$. Then $(A, f)$ is said to be a \textbf{universal morphism} from $X$ to $F$ if for each $A' \in \Obj(\MC)$ and $f' \in \Hom_{\MD}(X, F(A'))$, there exists a unique $\al \in \Hom_{\MC}(A, A')$ such that $f' = F(\al) \circ f$, i.e. the following diagram commutes:
 		\[
 		\begin{tikzcd}
 			X \arrow[r, "f"]  \arrow[dr, "f'"'] & F(A) \arrow[d, "F(\al)", dashed] \\
@@ -2198,7 +2275,7 @@
 	\end{defn}
 
 	\begin{defn}
-		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$, $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(F(A), X)$. Then $(A, f)$ is said to be a \textbf{universal morphism} from $F$ to $X$ if for each $A' \in \Obj(\MC)$ $f' \in \Hom_{\MD}(F(A'), X)$, there exists a unique $\al \in \Hom_{\MC}(A', A)$ such that $f' = f \circ F(\al)$, i.e. the following diagram commutes:
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$, $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(F(A), X)$. Then $(A, f)$ is said to be a \textbf{universal morphism} from $F$ to $X$ if for each $A' \in \Obj(\MC)$ and $f' \in \Hom_{\MD}(F(A'), X)$, there exists a unique $\al \in \Hom_{\MC}(A', A)$ such that $f' = f \circ F(\al)$, i.e. the following diagram commutes:
 		\[
 		\begin{tikzcd}
 			X   & F(A) \arrow[l, "f"'] \\
@@ -2217,16 +2294,24 @@
 	\end{ex}
 
 	\begin{proof}
-		
+		\tcr{FINISH!!!}		
 	\end{proof}
+
+	\begin{note}
+		\tcr{make a comment on how if $(A, f)$ is universal from $X$ to $F$, then for each $(A', f')$, $f'$ is a post-processing of $f$}
+	\end{note}
 
 	\begin{ex}
 		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$ $A \in \Obj(\MC)$ and $f \in \Hom_{\MD}(F(A), X)$. Then $(A, f)$ is a universal morphism from $F$ to $X$ iff $(A, f)$ is terminal in $(F \downarrow X)$.  
 	\end{ex}
 
 	\begin{proof}
-		
+		\tcr{FINISH!!!}		
 	\end{proof}
+
+	\begin{note}
+		\tcr{make a comment on how if $(A, f)$ is universal from $F$ to $X$, then for each $(A', f')$, $f'$ is a pre-processing of $f$}
+	\end{note}
 
 
 
@@ -2261,74 +2346,103 @@
 	\begin{exmp}
 		Define $\MJ$ by
 		\begin{itemize}
-			\item  $\Obj(\MJ) = \{1, 2, 3\}$ and for $i,j \in \Obj(\MJ)$, $\Hom_{\MJ}(i, j) = \{a_{i,j}\}$,
+			\item  $\Obj(\MJ) = \{1, 2, 3, 4\}$,
 			\item for $i,j \in \Obj(\MJ)$, $\Hom_{\MJ}(i,j) = \{a_{ij}\}$.
 		\end{itemize}
 		Let $\MC$ be a category and $D: \MJ \rightarrow \MC$. Without including the identity morphisms or compositions, we can visualize $D$ as follows:
 		\[
 		\begin{tikzcd}
-			&     1  \arrow[dl, "a"'] \arrow[r, "b"]        &  2 \arrow[dl, "c"] \\
-			3 \arrow[r, "d"'] &        4   & \\
+			&     1  \arrow[dl, "a_{1,3}"'] \arrow[r, "a_{1,2}"]        &  2 \arrow[dl, "a_{2,4}"] \\
+			3 \arrow[r, "a_{3,4}"'] &        4   & \\
 		\end{tikzcd}
 		\overset{D}{\longrightarrow}
 		\begin{tikzcd}
-			&     D_1  \arrow[dl] \arrow[r]        &  D2 \arrow[dl] \\
-			D_3 \arrow[r] &        D_4   & \\
+			&     D_1  \arrow[dl, "D_{1,3}"'] \arrow[r, "D_{1,2}"]        &  D_2 \arrow[dl, "D_{2,4}"] \\
+			D_3 \arrow[r, "D_{3, 4}"'] &        D_4   & \\
 		\end{tikzcd}
 		\]
 	\end{exmp}
 
 	\begin{defn}
-		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$. We define the \textbf{category of cones to $D$}, denoted $\Cone(D)$, by $\Cone(D) = (\Del^{\MJ} \downarrow D)$.
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$. We define the \textbf{category of cones over $D$}, denoted $\Cone(D)$, by $\Cone(D) = (\Del^{\MJ} \downarrow D)$.
 	\end{defn}
 
+	\begin{note}
+		By defintion,
+		\begin{align*}
+			\Obj(\Cone(D)) 
+			& = \{(X, \phi): X \in \Obj(\MC) \text{ and } \phi: \Del^{\MJ}(X) \Rightarrow D\} \\
+			& = \{(X, \phi): X \in \Obj(\MC) \text{ and } \phi: \Del^{\MJ}_X \Rightarrow D\}
+		\end{align*}
+		and for $(X, \phi), (Y, \psi) \in \Obj(\Cone(D))$,
+		\begin{align*}
+			\Hom_{\Cone(D)}((Y, \psi), (X, \phi)) 
+			& = \{\al \in \Hom_{\MC}(Y, X): \phi \circ \Del^{\MJ}(\al) = \psi \} \\
+			& = \{\al \in \Hom_{\MC}(Y, X): \phi \circ \del^{\MJ}_{\al} = \psi \}.
+		\end{align*}
+		Therefore, $(X, \phi) \in \Obj(\Cone(D))$ iff for each $i,j \in \Obj(\MJ)$ and $(i,j) \in \Hom_{\MJ}(i, j)$, the following diagram commutes:
+		\[ 
+		\begin{tikzcd}
+			&  X \arrow[dl, "\phi_i"']  \arrow[dr, "\phi_j"] & \\
+			D_i  \arrow[rr, "D_{i,j}"'] &&  D_j \\ 
+		\end{tikzcd}
+		\]  
+		and $\al \in \Hom_{\Cone(D)}((Y, \psi), (X, \phi))$ iff  for each $i,j \in \Obj(\MJ)$ and $(i,j) \in \Hom_{\MJ}(i, j)$ the following diagram commutes: 
+		\[ 
+		\begin{tikzcd}
+			& Y \arrow[d, "\al"'] \arrow[bend right=30, swap]{ddl}{\psi_i} \arrow[bend left=30]{ddr}{\psi_j} \\
+			&  X \arrow[dl, "\phi_i"']  \arrow[dr, "\phi_j"] & \\
+			D_i  \arrow[rr, "D_{i,j}"'] &&  D_j \\ 
+		\end{tikzcd}
+		\]
+	\end{note}
 
 	\begin{exmp}
-		Let $\MJ$
+		Define $\MJ$ and $\MD$ \tcr{as in previous example}. Let $(X, \phi) \in \Obj(\Cone(D))$. We can visualize $(X, \phi)$ as follows:
 		\[
 		\begin{tikzcd}
 			&  &  X \arrow[ddd, "\phi_1"'] \arrow[ddddll, "\phi_3"']  \arrow[dddrrr, "\phi_2"], \arrow[ddddr, "\phi_4"] &       &    \\
 			&       &     &       &    \\
 			&       &     &       &    \\
-			&       &  D_1  \arrow[dll] \arrow[rrr]    &       & &  D2 \arrow[dll] \\
-			D_3 \arrow[rrr] &       &     &  D_4  &    \\
+			&       &  D_1  \arrow[dll, "D_{1,3}"'] \arrow[rrr, "D_{1,2}"]    &       & &  D2 \arrow[dll, "D_{2,3}"] \\
+			D_3 \arrow[rrr, "D_{3,4}"'] &       &     &  D_4  &    \\
 		\end{tikzcd}
 		\]
 	\end{exmp}
 	
 
 	\begin{defn}
-		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$. We define the \textbf{category of cocones from $D$}, denoted $\Cocone(D)$, by $\Cocone(D) = (D \downarrow \Del^{\MJ})$.
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$. We define the \textbf{category of cocones under $D$}, denoted $\Cocone(D)$, by $\Cocone(D) = (D \downarrow \Del^{\MJ})$.
 	\end{defn}
 
 	\begin{defn}
-		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Cone(D)$. Then $(X, \phi)$ is said to be a \textbf{limit of $D$} if $(X, \phi)$ is a universal morphism from $\Del^{\MJ}$ to $D$.  
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Obj(\Cone(D))$. Then $(X, \phi)$ is said to be a \textbf{limit of $D$} if $(X, \phi)$ is a universal morphism from $\Del^{\MJ}$ to $D$.  
 	\end{defn}
 
 
 
 	\begin{note}
-		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Cone(D)$. Then 
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Obj(\Cone(D))$. Then 
 		\begin{align*}
 			\text{$(X, \phi)$  is a limit of $D$} 
 			& \iff \text{$(X, \phi)$ is terminal in $\Cone(D)$} \\
-			& \iff \text{for each $(Y, \psi) \in \Cone(D)$, there exists a unique} \\
-			& \hspace{1.3cm }\text{$f \in \Hom_{\MC}(Y, X)$ such that for each $j \in \MJ$, $\psi_j = \phi_j \circ f$}
+			& \iff \text{for each $(Y, \psi) \in \Obj(\Cone(D))$, there exists a unique} \\
+			& \hspace{1.3cm }\text{$\al \in \Hom_{\MC}(Y, X)$ such that for each $j \in \MJ$, $\psi_j = \phi_j \circ \al$}
 		\end{align*} 
 	\end{note} 
 
 
 	\begin{defn}
-		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Cocone(D)$. Then $(X, \phi)$ is said to be a \textbf{colimit of $D$} if $(X, \phi)$ is a universal morphism from $D$ to $\Del^{\MJ}$.  
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Obj(\Cocone(D))$. Then $(X, \phi)$ is said to be a \textbf{colimit of $D$} if $(X, \phi)$ is a universal morphism from $D$ to $\Del^{\MJ}$.  
 	\end{defn}
 
 	\begin{note}
-		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Cone(D)$. Then 
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$ and $(X, \phi) \in \Obj(\Cocone(D))$. Then 
 		\begin{align*}
 			\text{$(X, \phi)$  is a colimit of $D$} 
 			& \iff \text{$(X, \phi)$ is initial in $\Cocone(D)$} \\
-			& \iff \text{for each $(Y, \psi) \in \Cocone(D)$, there exists a unique} \\
-			& \hspace{1.3cm }\text{$f \in \Hom_{\MC}(X, Y)$ such that for each $j \in \MJ$, $\psi_j = f \circ \phi_j $}
+			& \iff \text{for each $(Y, \psi) \in \Obj(\Cocone(D))$, there exists a unique} \\
+			& \hspace{1.3cm }\text{$\al \in \Hom_{\MC}(X, Y)$ such that for each $j \in \MJ$, $\psi_j = \al \circ \phi_j $}
 		\end{align*} 
 	\end{note} 
 
@@ -2353,8 +2467,13 @@
 	
 	\subsection{Products and Coproducts}
 	
+	\begin{defn}
+		Let $\MJ$ be a discrete category, $\MC$ a category, $D \in \MC^{\MJ}$ and $(X, \pi) \in \Cone(D)$. Then $(X, \pi)$ is said to be a \tbf{product of $D$}.
+	\end{defn}
 	
-	
+	\begin{note}
+		We may think of a product of $D$ as a tuple $(X, )$
+	\end{note}
 	
 	
 	
@@ -2369,6 +2488,98 @@
 	
 	\subsection{Equalizers and Coequalizers}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Projective Limits}
+	
+	\begin{defn}
+		Let $\MJ$ be a \tcr{directed} poset, $\MC$ a category and $D \in \MC^{\MJ}$. Then $D$ is said to be a \tbf{$\MC$-projective system}.  
+	\end{defn}
+
+	\begin{note}
+		We may think of 
+		\begin{itemize}
+			\item a $\MC$-projective system as a tuple $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ where $(J, \leq)$ is a \tcr{directed} poset, $(X_j)_{j \in J} \subset \Obj(\MC)$ and $(\pi_{j,k})_{(j,k) \in \leq} \subset \Hom_{\MC}$ satisfy that for each $j,k,l \in J$, 
+			\begin{enumerate}
+				\item $j \leq k$ implies that $\pi_{j,k} \in \Hom_{\MC}(X_k, X_j)$,
+				\item $\pi_{j,j} = \id_{X_j}$,
+				\item $j \leq k$ and $k \leq l$ implies that $\pi_{j,k} \circ \pi_{k,l} = \pi_{j,l}$.
+			\end{enumerate}
+			\item a cone over $D$ as a tuple $(X, (\pi_j)_{j \in J})$ where $X \in \Obj(\MC)$ and $(\pi_j)_{j \in J} \subset \Hom_{\MC}$ satisfy that for each $j,k \in J$, $j \leq k$ implies that $\pi_{j,k} \circ \pi_k = \pi_j$. 
+		\end{itemize}
+	\end{note}
+	
+	\tcr{make some diagrams}
+	
+	\begin{ex}
+		Let $\MC$ be a category and $(X_j)_{j \in \N} \subset \Obj(\MC)$. Define $(Y_n)_{n \in \N} \subset \Obj(\MC)$ and $(\pi_{n, k})_{n \leq k} \in \prod\limits_{n \leq k} \Hom_{\MC}(Y_k, Y_n)$ by $Y_n \defeq \prod\limits_{j=1}^n X_j$ and $\pi_{n,k}$.  Suppose that for each  $(\prod_{n \in \N}, (\pi_n)_{n \in \N})$ \tcr{arg1}. 
+	\end{ex}
+
+	\begin{defn}
+		Let $(\MJ, \MC, D)$ be a $\MC$-projective system and $(X, \phi) \in \Obj(\Cone(D))$. Then $(X, \phi)$ is said to be a $\MC$-projective limit of $(\MJ, \MC, D)$ if $(X, \phi)$ is a limit of $D$. 
+	\end{defn}
+
+	
+\begin{note}
+	We may think of a projective limit if $(\MJ, \MC, D)$ as a cone $(X, (\pi_j)_{j \in J})$ over $D$ satisfying that for each cone $(Y, (\tau_j)_{j \in J})$ over $D$, there exists a unique $\al \in \Hom_{\MC}(Y, X)$ such that $\tau_j = \pi_j \circ \al$. 
+\end{note}
+
+\tcr{make some diagrams}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 
 	\section{TO DO}

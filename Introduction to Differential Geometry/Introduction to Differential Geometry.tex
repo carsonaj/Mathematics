@@ -377,13 +377,15 @@
 %		Let $U \subset \R^n$ and $p \in U$. Then $U$ is said to be \tbf{star-shaped} if for each $q \in U$, $\{p + t(q-p): 0 \leq t \leq 1\} \subset U$.
 %	\end{defn}
 
-	\begin{thm} \tbf{Taylor's Theorem:}\\  \lex{ex:differentiation:0007}
+	\begin{thm} \lex{ex:differentiation:0007} \tbf{Taylor's Theorem:}\\  
 		Let $U \subset \R^n$ be open and convex, $p \in U$, $f \in C^{\infty}(U)$ and $T \in \N$. Then there exist $(g_{\al})_{|\al| = T+1} \subset C^{\infty}(U)$ such that for each $x \in U$, 
-		$$f(x) = \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x - p)^{\al} \p^{\al} f (p) \bigg] + \sum_{|\al| = T+1}(x - p)^{\al} g_{\al}(x)$$ and for each $|\al|= T+1$, $$g_{\al}(p) = \frac{1}{(T+1)!}\p^{\al} f(p)$$
+		$$f(x) = \sum_{k=0}^{T} \frac{1}{k!}\bigg[\sum_{|\al| = k} \p^{\al} f (p) (x - p)^{\al}  \bigg] + \frac{1}{(T+1)!}\sum_{|\al| = T+1} g_{\al}(x) (x - p)^{\al} $$ and for each $|\al|= T+1$, $$g_{\al}(p) = \p^{\al} f(p)$$
+		\tcr{FIX!!!}
 	\end{thm}
 	
 	\begin{proof}
 	See analysis notes
+	\tcr{FINISH!!!}
 	\end{proof}
 
 %	\begin{proof}
@@ -2255,7 +2257,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\begin{enumerate}
 			\item 
 			\begin{itemize}
-				\item $(\implies:)$ \\
+				\item $(\implies):$ \\
 				For the sake of contradiction, suppose that $p \in \p \H^n_j$ and $\phi(p) \not \in \p \H^n_k$. Then 
 				\begin{align*}
 					\phi(p)
@@ -4401,7 +4403,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \newpage
 \section{Smooth Functions on Manifolds}	
 
-\begin{defn} \ld{42001}
+\begin{defn} \ld{def:smooth_maps:smooth_functions:0001} 
 	Let $(M, \MA)$ be a smooth manifold and $f: M \rightarrow \R$. Then $f$ is said to be \tbf{smooth} if for each $(U, \phi) \in \MA$, $f \circ \phi^{-1}$ is smooth. The set of all smooth functions on $M$ is denoted $C^{\infty}(M, \MA)$.
 \end{defn}
 
@@ -4409,7 +4411,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	When the context is clear, we write $C^{\infty}(M)$ in place of $C^{\infty}(M, \MA)$.
 \end{note}
 
-\begin{ex}
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0002} 
 	Let $(M, \MA)$ be a smooth manifold and $f: M \rightarrow \R$. Then $f$ is smooth iff $f$ is $(\MA, \MA_{\R})$-smooth.
 \end{ex}
 
@@ -4426,7 +4428,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	When the context is clear, we write $C^{\infty}(M, \MA)$ in place of $C^{\infty}(M)$.
 \end{note}
 
-\begin{ex}
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0003} 
 	Let $(M, \MA)$ be a smooth manifold, $\MA_0 \subset \MA$. Suppose that $\MA_0$ is an atlas on $M$ and $f:M \rightarrow \R$. Then $f$ is smooth iff for each $(U, \phi) \in \MA_0$, $f \circ \phi^{-1}$ is smooth.
 \end{ex}
 
@@ -4439,7 +4441,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{itemize}
 \end{proof}
 
-\begin{ex}
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0004} 
 	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F:M \rightarrow N$. Then $F$ is smooth iff $F$ is continuous and for each $g \in C^{\infty}(N)$, $g \circ F$ is smooth.
 \end{ex}
 
@@ -4456,7 +4458,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{itemize}
 \end{proof}
 
-\begin{ex} \ld{42002}
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0005} 
 	Let $M$ be a smooth manifold. Then $C^{\infty}(M)$ is a vector space.
 \end{ex}
 
@@ -4466,7 +4468,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	is smooth. Since $(U, \phi) \in \MA$ is arbitrary, $f + \lam g \in C^{\infty}(M)$. Since $f,g \in C^{\infty}(M)$ and $\lam \in \R$ are arbitrary, $C^{\infty}(M)$ is a vector space.
 \end{proof}
 
-\begin{defn}
+\begin{defn} \ld{def:smooth_maps:smooth_functions:0006} 
 	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i \in \{1, \cdots, n\}$. We define the \tbf{partial derivative of $f$ with respect to $x^i$}, denoted $$ \p f / \p x^i: U \rightarrow \R \hspace{.1cm} \text{ or } \hspace{.1cm} \p_{i} f: U \rightarrow \R$$ by 
 	\begin{equation*}
 		\frac{\p f}{\p x^i}(p) = {\frac{\p}{\p u^i}[f \circ \phi^{-1}] }( \phi(p)) 
@@ -4477,7 +4479,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{equation*}
 \end{defn}
 
-\begin{ex}
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0007} 
 	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i \in \{1, \cdots, n\}$. Then $\p / \p x^i:  C^{\infty}(U) \rightarrow C^{\infty}(U)$ is linear.
 \end{ex}
 
@@ -4485,7 +4487,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\tbf{FINISH!!!}
 \end{proof}
 
-\begin{ex}
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0008} 
 	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$, $f \in C^{\infty}(U)$ and $i,j \in \{1, \cdots, n\}$. Then 
 	$$\frac{\p}{\p x^i}\frac{\p}{\p x^j} f =  \bigg(\frac{\p}{\p u^i} \frac{\p}{\p u^j}[f \circ \phi^{-1}] \bigg) \circ \phi $$
 \end{ex}
@@ -4502,7 +4504,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{align*}
 \end{proof}
 
-\begin{ex}
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0009} 
 	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $i,j \in \{1, \cdots, n\}$. Then 
 	\begin{equation*}
 		\frac{\p}{\p x^i}\frac{\p}{\p x^j} =\frac{\p}{\p x^j}\frac{\p}{\p x^i}
@@ -4521,7 +4523,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{align*}
 \end{proof}
 
-\begin{ex}
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0010} 
 	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \cdots, x^n)$ and $f \in C^{\infty}(U)$. Then for each $\al \in \N_0^n$, $$\p^{\al} f = (\p^{\al}[ f \circ \phi^{-1}] ) \circ \phi$$
 \end{ex}	
 
@@ -4538,31 +4540,46 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \end{proof}
 
 
-\begin{ex} \tbf{Taylor's Theorem:} \\
-	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \ldots, x^n)$ and $\phi(U)$ convex, $p \in U$, $f \in C^{\infty}(U)$ and $T \in \N$. Then there exist $(g_{\al})_{|\al| = T+1} \subset C^{\infty}(U)$ such that
-	$$f = \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x - p)^{\al} \p^{\al} f (x_0) \bigg] + \sum_{|\al| = T+1}(x^i - x^i(p))^{\al} g_{\al}$$ and for each $|\al|= T+1$, $$g_{\al}(p) = \frac{1}{(T+1)!}\p^{\al} f(p)$$
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0011} \tbf{Taylor's Theorem:} \\
+	Let $(M, \MA)$ be a smooth manifold, $(U, \phi) \in \MA$ with $\phi = (x^1, \ldots, x^n)$ and $\phi(U)$ convex, $p \in U$, $f \in C^{\infty}(U)$ and $T \in \N$. Then there exist $(g_{\al})_{|\al| = T+1} \subset C^{\infty}(U)$ such that for each $q \in U$,
+	$$f(q) = \sum_{k=0}^{T} \frac{1}{k!} \bigg[\sum_{|\al| = k} \p^{\al} f (p) ( \phi(q) - \phi(p))^{\al} \bigg] + \frac{1}{(T+1)!} \sum_{|\al| = T+1} g_{\al}(q) (\phi(q) - \phi(p))^{\al} $$ and for each $|\al|= T+1$, $$g_{\al}(p) = \p^{\al} f(p)$$
+	\tcr{FIX!!! and put reference}.
 \end{ex}
 
 \begin{proof}
 	Since $\phi(U)$ is open and convex and $f \circ \phi^{-1} \in C^{\infty}(\phi(U))$, Taylors thorem in section $2.1$ implies that there exist $(\tilde{g}_{\al})_{|\al| = T+1} \subset C^{\infty}(\phi(U))$ such that for each $q \in U$, 
-	$$f \circ \phi^{-1} (\phi(q)) = \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} [f \circ \phi^{-1}] (\phi(p)) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} \tilde{g}_{\al}(\phi(q)) $$	
+	$$f \circ \phi^{-1} (\phi(q)) = \sum_{k=0}^{T} \frac{1}{k!} \bigg[\sum_{|\al| = k}\p^{\al} [f \circ \phi^{-1}] (\phi(p)) (\phi(q) - \phi(p))^{\al}  \bigg] + \frac{1}{(T+1)!}\sum_{|\al| = T+1} \tilde{g}_{\al}(\phi(q)) (\phi(q) - \phi(p))^{\al}  $$	
 	and for each $|\al|= T+1$, 
 	\begin{align*}
 		\tilde{g}_{\al}(\phi(p)) 
-		&= \frac{1}{(T+1)!}\p^{\al} [f \circ \phi^{-1}](\phi(p)) \\
-		&= \frac{1}{(T+1)!}\p^{\al} f (p)
+		&= \p^{\al} [f \circ \phi^{-1}](\phi(p)) \\
+		&= \p^{\al} f (p)
 	\end{align*}
-	For $|\al| = T+1$, set $g_{\al} = \tilde{g} \circ \phi$. Then 
+	For each $\al \in \N_0^n$ with $|\al| = T+1$, define $g_{\al} \in C^{\infty}(U)$ by $g_{\al} \defeq \tilde{g}_{\al} \circ \phi$. Then 
 	\begin{align*}
 		f(q) 
-		&= f \circ \phi^{-1} (\phi(q)) \\
-		&= \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} [f \circ \phi^{-1}] (\phi(p)) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} \tilde{g}_{\al}(\phi(q)) \\
-		&= \sum_{k=0}^{T} \bigg[\sum_{|\al| = k}(x^i(q) - x^i(p))^{\al} \p^{\al} f(p) \bigg] + \sum_{|\al| = T+1}(x^i(q) - x^i(p))^{\al} g_{\al}(q) \\
+		& = f \circ \phi^{-1} (\phi(q)) \\
+		& = \sum_{k=0}^{T} \frac{1}{k!} \bigg[\sum_{|\al| = k} \p^{\al} [f \circ \phi^{-1}] (\phi(p)) (\phi(q) - \phi(p))^{\al}  \bigg] + \frac{1}{(T+1)!} \sum_{|\al| = T+1} \tilde{g}_{\al}(\phi(q)) (\phi(q) - \phi(p))^{\al} \\
+		& = \sum_{k=0}^{T} \frac{1}{k!} \bigg[\sum_{|\al| = k} \p^{\al} f(p) (\phi(q) - \phi(p))^{\al} \bigg] + \frac{1}{(T+1)!} \sum_{|\al| = T+1} g_{\al}(q) (\phi(q) - \phi(p))^{\al}.
 	\end{align*}			
+	and for each $\al \in \N_0^n$ with $|\al| = T+1$, 
+	\begin{align*}
+		g_{\al}(p) 
+		 & = \tilde{g}_{\al} \circ \phi(p) \\
+		 & = \p^{\al} f(p).
+	\end{align*}
+\end{proof}
+
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0012}
+	Let $M, N \in \Obj(\ManBndinf)$ and $p \in M$. Set $n \defeq \dim N$. Then for each $b \in $ $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_N$. Then for each $b \in $  \tcr{FINISH (diff eq question for jet bundles)}
+\end{ex}
+
+\begin{proof}
+	content...
 \end{proof}
 
 
-\begin{ex}
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0013}
 	Let $M \in \Obj(\ManBndinf)$ and $(U, \phi) \in \MA_M$. Write $\phi = (x^1, \cdots, x^n)$. Then for each $i,j \in \{1, \cdots, n\}$,  
 	$$\frac{\p x^k}{\p x^j} = \del_{j,k}$$
 \end{ex}
@@ -4578,7 +4595,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{align*}
 \end{proof}
 
-\begin{ex} \tbf{Change of Coordinates:}\\
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0014} \tbf{Change of Coordinates:}\\
 	Let $M \in \Obj(\ManBndinf)$ and $(U, \phi), (V, \psi) \in \MA_M$. Write $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$. Then for each $j \in \{1, \cdots, n\}$, $p \in U \cap V$ and $f \in C^{\infty}(M)$ 
 	$$\frac{\p f}{\p y^j}(p) = \sum_{k =1}^n \frac{\p x^k}{\p y^j}(p)  \frac{\p f}{\p x^k}(p).$$
 \end{ex}
@@ -4596,7 +4613,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{align*}
 \end{proof}
 
-\begin{ex} \tbf{Chain Rule:}\\
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0015} \tbf{Chain Rule:}\\
 	Let $M \in \Obj(\ManBndinf)$ and $(U, \phi), (V, \psi) \in \MA_M$. Write $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$. Then for each $j \in \{1, \cdots, n\}$, $p \in U \cap V$ and $f \in C^{\infty}(M)$ 
 	$$\frac{\p f}{\p y^j}(p) = \sum_{k =1}^n \frac{\p x^k}{\p y^j}(p)  \frac{\p f}{\p x^k}(p).$$
 \end{ex}
@@ -4604,11 +4621,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 \tcr{DO CHAIN RULE}
 
-\begin{defn}
+\begin{defn} \ld{def:smooth_maps:smooth_functions:0016}
 	Let $M \in \Obj(\ManBndinf)$ and $(U, \phi), (V, \psi) \in \MA_M$. Write $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$. 
 \end{defn}
 
-\begin{defn}
+\begin{defn} \ld{def:smooth_maps:smooth_functions:0017}
 	Let $M, N \in \Obj(\ManBndinf)$, $F \in \Hom_{\ManBndinf}(M, N)$, $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_N$. Set $m \defeq \dim M$, $n \defeq \dim N$ and write $\phi = (x^1, \cdots, x^m)$ and $\psi = (y^1, \cdots, y^n)$. Let $I, J \in \MI_n^{\otimes k}$. Write $I = (i_1, \ldots, i_k)$ and $J = (j_1, \ldots j_k)$. We define $\p (y^J \circ F)/ \p x^I \in C^{\infty}(U)$ by 
 	$$\frac{\p (y^J \circ F)}{\p x^I} \defeq \prod\limits_{r =1}^k \frac{\p (y^{i_r} \circ F)}{\p x^{j_r}}$$
 \end{defn}
@@ -4617,7 +4634,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	If $F = \id_M$, we write $\p y^J/\p x^I$ in place of $\p (y^J \circ \id_M) / \p x^I$.
 \end{note}
 
-\begin{ex}
+\begin{ex} \lex{ex:smooth_maps:smooth_functions:0018}
 	Let $M \in \Obj(\ManBndinf)$, $(U, \phi)$ and $(V, \psi) \in \MA_M$. Set $n \defeq \dim M$ and write $\phi = (x^1, \cdots, x^n)$ and $\psi = (y^1, \cdots, y^n)$. Let $I, J \in \MI_n^{\otimes k}$. Write $I = (i_1, \ldots, i_k)$ and $J = (j_1, \ldots j_k)$. Then 
 	$$\frac{\p }{ \p x^I} = \sum_{J \in \MI_{\otimes_k}} \frac{\p y^J}{\p x^I} \frac{\p }{\p y^J}$$
 \end{ex}
@@ -5936,45 +5953,98 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{defn} \ld{def:submersions:0002.3}
-		Let $E, M \in \Obj(\ManBndinf)$, $\pi \in \Hom_{\ManBndinf}(E, M)$ a surjection and $\sig: M \rightarrow E$. Then $\sig$ is said to be a smooth section of $\pi$ if 
+		Let $E, M \in \Obj(\ManBndinf)$, $\pi \in \Hom_{\ManBndinf}(E, M)$ a surjection and $s: M \rightarrow E$. Then $s$ is said to be a $\ManBndinf$-section of $\pi$ if 
 		\begin{enumerate}
-			\item $\sig \in \Hom_{\ManBndinf}(M, E)$
-			\item $\sig$ is a section of $\pi$
+			\item $s \in \Hom_{\ManBndinf}(M, E)$
+			\item $s$ is a section of $\pi$
 		\end{enumerate}
-		We define $$\Gam(\pi) \defeq \{\sig \in \Hom_{\ManBndinf}(M, E): \text{$\sig$ is a smooth section of $\pi$.}\}$$
+		We define $$\Gam(\pi) \defeq \{s \in \Hom_{\ManBndinf}(M, E): \text{$s$ is a $\ManBndinf$-section of $\pi$.}\}$$
 	\end{defn}
 	
 	\begin{defn} \ld{def:submersions:0003}
-		Let $E, M \in \Obj(\ManBndinf)$, $\pi \in \Hom_{\ManBndinf}(E, M)$, $U \in \MT_M$ and $\sig : U \rightarrow E$. Then 
+		Let $E, M \in \Obj(\ManBndinf)$, $\pi \in \Hom_{\ManBndinf}(E, M)$, $U \in \MT_M$ and $s : U \rightarrow E$. Then 
 		\begin{itemize}
-			\item $(U, \sig)$ is said to be a \tbf{smooth local section of $\pi$} if $\sig \in \Gam(\pi|_{\pi^{-1}(U)})$, 
+			\item $(U, s)$ is said to be a \tbf{smooth local section of $\pi$} if $s \in \Gam(\pi|_{\pi^{-1}(U)})$, 
 			\item for each $p \in M$, we define 
-			$$\Gam_p(\pi) \defeq \{(U, \sig): \text{$(U, \sig)$ is a smooth local section of $\pi$ and $p \in U$}\}$$
+			$$\Gam_p(\pi) \defeq \{(U, s): \text{$(U, s)$ is a $\ManBndinf$-local section of $\pi$ and $p \in U$}\}$$
 		\end{itemize}
 	\end{defn}
 
-	\begin{ex} \lex{ex:submersions:0004}
-		Let $E, M \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$. Suppose that $\pi$ is a surjective submersion. Then $\pi$ admits local sections. \tcr{define this, maybe each $a \in E$ is in the image of a smooth section, or for each $p \in M$, there is a local section around $p$, or both}
+	\begin{ex} \lex{ex:submersions:0004} \tbf{Local Section Theorem:} \\
+		Let $E, M \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$. Then $\pi$ is a submersion iff for each $p \in M$ and $a \in \pi^{-1}(\{p\})$, there exists $(U, s) \in \Gam_p(\pi)$ such that $s(p) = a$.
 	\end{ex}
 
-	\begin{proof}
-		Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Let $p \in M$. Since $\pi$ is surjective, there exists $a \in E$ such that $\pi(a) = p$. \rex{ex:submersions:0002.1} implies that there exist $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_E$ such that 
+	\begin{proof} 
+		Set $n \defeq \dim M$ and $k \defeq \dim E - n$.
 		\begin{itemize}
-			\item $a \in V$ and $U = \pi(V)$,
-			\item $\phi \circ \pi \circ \psi^{-1} = \prj^{n+k}_{[n]}|_{\psi(V)}$. 
-		\end{itemize} 
-		Set $\hat{x} \defeq \prj^{n+k}_{[n]}(\psi(a))$ and $\hat{y} \defeq \prj^{n+k}_{[-k]}(\psi(a))$ so that $\psi(a) = (\hat{x}, \hat{y})$. \tcb{An exercise in the analysis notes from the section on the product topology} implies that there exist $A \in \MT_{\R^n}$ and $B \in \MT_{\R^k}$ such that $(\hat{x}, \hat{y}) \in A \times B$ and $A \times B \subset \psi(V)$. We note that $\hat{x} = \phi(p)$, $A \subset \phi(U)$ and for each $(x^1, \ldots, x^n) \in A$, $(x^1, \ldots, x^n, \hat{y}) \in \psi(V)$. Define $\hat{\sig}:A \rightarrow \psi(V)$ by $\hat{\sig}(x^1, \ldots, x^n) \defeq (x^1, \ldots, x^n, \hat{y})$. Then $\hat{\sig}$ is smooth. Define $\sig:\phi^{-1}(A) \rightarrow V$ by $\sig \defeq \psi^{-1} \circ \hat{\sig} \circ \phi|_{\phi^{-1}(A)}$. Then $\sig$ is smooth. Let $q \in \phi^{-1}(A)$. Set $x \defeq \phi(q)$. Then 
-		\begin{align*}
-			\pi \circ \sig (q)
-			& = [\pi \circ (\psi^{-1} \circ \hat{\sig} \circ \phi|_{\phi^{-1}(A)})] (q) \\
-			& = [\pi \circ (\psi^{-1} \circ \hat{\sig} \circ \phi|_{\phi^{-1}(A)})] (\phi^{-1}(x)) \\
-			& = [\pi \circ (\psi^{-1} \circ \hat{\sig})] (x) \\
-			& = [(\pi \circ \psi^{-1}) \circ \hat{\sig}] (x) \\
-			& = (\phi^{-1} \circ \prj^{n+k}_{[n]}) (x, \hat{y}) \\
-			& = \phi^{-1}(x) \\
-			& = q
-		\end{align*}
-		Since $q \in \phi^{-1}(A)$ is arbitrary, we have that $\pi \circ \sig = \id_{\phi^{-1}(A)}$ and therefore $(\phi^{-1}(A), \sig) \in \Gam_{p}(\pi)$.
+			\item $(\implies):$ \\
+			Suppose that $\pi$ is a submersion.  Let $p \in M$ and $a \in \pi^{-1}(\{p\})$. Then $\pi(a) = p$. \rex{ex:submersions:0002.1} implies that there exist $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_E$ such that 
+			\begin{itemize}
+				\item $a \in V$ and $U = \pi(V)$,
+				\item $\phi \circ \pi \circ \psi^{-1} = \prj^{n+k}_{[n]}|_{\psi(V)}$. 
+			\end{itemize} 
+			Set $\hat{x} \defeq \prj^{n+k}_{[n]}(\psi(a))$ and $\hat{y} \defeq \prj^{n+k}_{[-k]}(\psi(a))$ so that $\psi(a) = (\hat{x}, \hat{y})$. \tcb{An exercise in the analysis notes from the section on the product topology} implies that there exist $A \in \MT_{\R^n}$ and $B \in \MT_{\R^k}$ such that $(\hat{x}, \hat{y}) \in A \times B$ and $A \times B \subset \psi(V)$. We note that 
+			\begin{align*}
+				\hat{x} 
+				& = \prj^{n+k}_{[n]}(\psi(a)) \\
+				& = \phi \circ \pi \circ \psi^{-1}(\psi(a)) \\
+				& = \phi (\pi(a)) \\
+				& = \phi(p).
+			\end{align*}
+			Since $A \times B \subset \psi(V)$, we have that
+			\begin{align*}
+				A 
+				& = \prj^{n+k}_{[n]}(A \times B) \\
+				& = \phi \circ \pi \circ \psi^{-1}(A \times B) \\
+				& \subset \phi \circ \pi \circ \psi^{-1}(\psi(V)) \\
+				& = \phi ( \pi(V)) \\ 
+				& = \phi(U).
+			\end{align*}
+			We note that for each $(x^1, \ldots, x^n) \in A$, 
+			\begin{align*}
+				(x^1, \ldots, x^n, \hat{y})
+				& \in A \times B \\
+				& \subset \psi(V).
+			\end{align*}
+			Define $\hat{s}:A \rightarrow \psi(V)$ by $\hat{s}(x^1, \ldots, x^n) \defeq (x^1, \ldots, x^n, \hat{y})$. Then $\hat{s}$ is smooth. Define $s:\phi^{-1}(A) \rightarrow V$ by $s \defeq \psi^{-1} \circ \hat{s} \circ \phi|_{\phi^{-1}(A)}$. Then $s$ is smooth. Let $q \in \phi^{-1}(A)$. Set $x \defeq \phi(q)$. Then 
+			\begin{align*}
+				\pi \circ s (q)
+				& = [\pi \circ (\psi^{-1} \circ \hat{s} \circ \phi|_{\phi^{-1}(A)})] (q) \\
+				& = [\pi \circ (\psi^{-1} \circ \hat{s} \circ \phi|_{\phi^{-1}(A)})] (\phi^{-1}(x)) \\
+				& = [\pi \circ (\psi^{-1} \circ \hat{s})] (x) \\
+				& = [(\pi \circ \psi^{-1}) \circ \hat{s}] (x) \\
+				& = (\phi^{-1} \circ \prj^{n+k}_{[n]}) (x, \hat{y}) \\
+				& = \phi^{-1}(x) \\
+				& = q
+			\end{align*}
+			Since $q \in \phi^{-1}(A)$ is arbitrary, we have that $\pi \circ s = \id_{\phi^{-1}(A)}$ and therefore $(\phi^{-1}(A), s) \in \Gam_{p}(\pi)$. By construction, 
+			\begin{align*}
+				s(p)
+				 & = \psi^{-1} \circ \hat{s} \circ \phi(p) \\
+				 & = \psi^{-1} \circ \hat{s}(\hat{x}) \\
+				 & = \psi^{-1}(\hat{x}, \hat{y}) \\
+				 & = \psi^{-1}(\psi(a)) \\
+				 & = a.
+			\end{align*}
+			\item $(\impliedby):$ \\
+			Suppose that for each $p \in M$ and $a \in \pi^{-1}(\{p\})$, there exists $(U, s) \in \Gam_p(\pi)$ such that $s(p) = a$. Let $a \in E$. Set $p \defeq \pi(a)$. Since $\pi \circ s = \id_U$, we have that 
+			\begin{align*}
+				\id_{T_pU}
+				& = D \id_U (p) \\
+				& = D[ \pi \circ s](p) \\
+				& = D\pi(s(p)) \circ D s(p) \\
+				& = D \pi(a) \circ D s(p).
+			\end{align*}
+			Thus 
+			\begin{align*}
+				n
+				& = \rnk \id_{T_pU} \\
+				& = \rnk (D \pi(a) \circ D s(p)) \\
+				& \leq \rnk D \pi(a) \\
+				& \leq n.
+			\end{align*}
+			Hence $\rnk D \pi(a) = n$. Since $a \in E$ is arbitrary, we have that for each $a \in E$, $\rnk D \pi(a) = \dim M$. Hence $\pi$ is a submersion. 
+		\end{itemize}
 	\end{proof}
 
 	\begin{ex} \lex{ex:submersions:0005}
@@ -5992,10 +6062,10 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\item $(\implies):$ \\
 			Suppose that $F$ is smooth. Then clearly $F \circ \pi$ is smooth.
 			\item $(\impliedby):$ \\
-			Suppose that $F \circ \pi$ is smooth. Let $p \in M$. Then there exists a local section $(U, \sig) \in \Gam_p(\pi)$ such that $p \in U$. Since $F \circ \pi$ are smooth and $\sig$ is smooth, we have that 
+			Suppose that $F \circ \pi$ is smooth. Let $p \in M$. Then there exists a local section $(U, s) \in \Gam_p(\pi)$ such that $p \in U$. Since $F \circ \pi$ are smooth and $s$ is smooth, we have that 
 			\begin{align*}
-				(F \circ \pi) \circ \sig 
-				& = F \circ (\pi \circ \sig) \\
+				(F \circ \pi) \circ s 
+				& = F \circ (\pi \circ s) \\
 				& = F \circ \id_U \\
 				& = F|_U 
 			\end{align*}
@@ -9539,7 +9609,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
  
 	\begin{defn} \ld{def:fiber_bundles:0004}
-		Let $E,M, F \in \Obj(\Man0)$ and $\pi \in \Hom_{\Man0}(E, M)$ a surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{$\Man0$ fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $(U, \Phi)$ is a continuous local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
+		Let $E,M, F \in \Obj(\Man0)$ and $\pi \in \Hom_{\Man0}(E, M)$ a surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{$\Man0$ fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MT_M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $p \in U$ and $(U, \Phi)$ is a continuous local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
 	\end{defn}
 
 	\begin{ex} \lex{ex:fiber_bundles:0005} \tbf{$\Man0$ Fiber Bundle Chart Lemma:} \\
@@ -9704,7 +9774,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\subsection{$\Maninf$ Fiber Bundles}
 	
 	\begin{defn} \ld{def:fiber_bundles:0006}
-		Let $E, M, F \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{smooth fiber bundle local trivialization of $E$ over $U$ with fiber $F$}  if 
+		Let $E, M, F \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{smooth fiber bundle local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$}  if 
 		\begin{enumerate}
 			\item $U$ is open in $M$
 			\item $(U, \Phi)$ is a local trivialization of $E$ over $U$ with fiber $F$ with respect to $\pi$
@@ -9713,7 +9783,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 
 	\begin{defn} \ld{def:fiber_bundles:0007}
-		Let $E,M, F \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{$\Maninf$ fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MN_p$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $U$ is open and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
+		Let $E,M, F \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(E, M)$ a surjection. Then $(E, M, \pi, F)$ is said to be a \tbf{$\Maninf$ fiber bundle with total space $E$, base space $M$, fiber $F$ and projection $\pi$} if for each $p \in M$, there exist $U \in \MT_M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ such that $p \in U$ and $(U, \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. For $p \in M$, we define the \tbf{fiber over $p$}, denoted $E_p$, by $E_p = \pi^{-1}(\{p\})$.
 	\end{defn}
 
 	\begin{ex} \lex{ex:fiber_bundles:0008} \tbf{$\Maninf$ Fiber Bundle Chart Lemma:} \\
@@ -9724,7 +9794,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\item for each $\al \in \Gam$, $(U_{\al}, \Phi_{\al})$ is a local trivialization with respect to $\pi$ of $E$ over $U_{\al}$ with fiber $F$ 
 			\item for each $\al,\be \in \Gam$, $\Phi_{\be}|_{\pi^{-1}(U_{\al} \cap U_{\be})} \circ (\Phi_{\al}|_{\pi^{-1}(U_{\al} \cap U_{\be})})^{-1}: (U_{\al} \cap U_{\be}) \times F \rightarrow  (U_{\al} \cap U_{\be}) \times F$ is smooth.
 		\end{itemize}
-		Then there exist a unique topology $\MT_E$ on $E$ and smooth structure $\MA_E \subset X^{n+k}(M, \MT_E)$ on $E$ such that
+		Then there exists a unique topology $\MT_E$ on $E$ and smooth structure $\MA_E \subset X^{n+k}(M, \MT_E)$ on $E$ such that
 		\begin{enumerate}
 			\item $(E, \MT_E)$ is an $n+k$-dimensional topologocal manifold and $(E, \MT_E, \MA_E)$ is a smooth manifold,
 			\item for each $\al \in \Gam$, $ \pi^{-1}(U_{\al}) \in \MT_E$ and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$ is a diffeomorphism
@@ -11638,7 +11708,7 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 	\end{enumerate}
 \end{defn}
 
-\begin{defn} \ld{def:fiber_bundles:0007}
+\begin{defn} \ld{}
 	Let $P,X, G \in \Obj(\Maninf)$ and $\pi \in \Hom_{\Maninf}(P, X)$ a surjection and $\trl \in \Hom_{\Maninf}(P \times G , P)$. Suppose that 
 	\begin{itemize}
 		\item $G$ is a Lie Group,
@@ -11824,6 +11894,10 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 
 \chapter{Jet Bundles}
 
+\begin{note}
+	The motivation is the following: Suppose you have a manifold $M$ and $L:C^{\infty}(M) \rightarrow \R$, given by $L(\phi) \defeq \int_M [\phi^2 + \sum\limits_{i=1}^n (\p^2_{x^i} \phi)^2] \,d x^1 \wedge \cdots \wedge dx^n$. At first glance it might seem we would need infinite dimensional tools to analyze $L$ since its domain is $C^{\infty}(M)$ which is infinite dimensional. Fortunately for us, we can reduce an analyze $L$ with the usual finite dimensional toolset if we make one very powerful observation: $L$ only depends on $\phi$ in through its derivatives of order $\leq 2$. Specifically this means that if $\phi_1$ and $\phi_2$ have the same derivatives of order $\leq 2$, then $L(\phi_1) = L(\phi_2)$. This provides us with an equivalence relation $\sim$ on $C^{\infty}(M)$ and when we reduce $C^{\infty}(M)$ modulo this equivalence relation, we obtain a finite dimensional space $ M / \sim$ and factor $\bar{L}: M / \sim \rightarrow \R$ such that $L = \bar{L} \circ \pi_{\sim}$. We can then analyze $L$ by analyzing $\bar{L}$. These constructions will allow us to talk about differential equations and variational optimiization in a more unified geometric framework.
+\end{note}
+
 \section{Fibered Manifolds}
 
 \begin{defn} \ld{def:fiber_manifolds:0001}
@@ -11921,7 +11995,101 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 	Since $(E, M, \pi, F) \in \Obj(\Buninf)$, $\pi$ is surjective. \tcr{An exercise in the section on smooth fiber bundles} implies that $\pi$ is a submersion. Since $\pi$ is a surjective submersion, $(E, M, \pi)$ is a smooth fibered manifold.
 \end{proof}
 
+\begin{ex} \lex{ex:fiber_manifolds:0005}
+	Let $(E, M, \pi)$ be a smooth fibered manifold, $(V, \psi) \in \MA_E^{\pi}$ and $r \geq 1$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$ and $N \defeq n  + k \sum\limits_{j=0}^r {n-1 + j \choose j}$. Then there exists $(V_0, \psi_0) \in \MA_M$ such that $V_0 = \pi(V)$ and $\prj^{n+k}_{n} \circ \psi = \psi_0 \circ \pi$. Write $\psi = (\tl{x}^1, \ldots, \tl{x}^n, \tl{y}^1, \ldots, \tl{y}^k)$ and $\psi_0 = (\hat{x}^1, \ldots, \hat{x}^n)$. Then for each $p \in V_0$, $a \in \pi^{-1}(\{p\}) \cap V$ and $(C^{\sig}_{\al})_{\sig \in [k], \al \in \N^n_{\leq r}} \in \R^{N-k-n}$, there exists $(U, s) \in \Gam_p(\pi)$ such that $U \subset V_0$, $s(p) = a$ and for each $\sig \in [k]$, $\al \in \N^n_{\leq r}$, $\p_{\al}[\tl{y}^{\sig} \circ s](p) = C^{\sig}_{\al}$. \\
+	\tbf{Hint:} same idea as \rex{ex:submersions:0004} 
+\end{ex}
 
+\begin{proof}
+	Let $p \in V_0$, $a \in \pi^{-1}(\{p\}) \cap V$ and $(C^{\sig}_{\al})_{\sig \in [k], \al \in \N^n_{\leq r}} \in \R^{N-k-n}$. Then $\pi(a) = p$, $a \in V$ and $\psi_0 \circ \pi \circ \psi^{-1} = \prj^{n+k}_{n}|_{\psi(V)}$. Set $\hat{u}_0 \defeq \prj^{n+k}_{[n]}(\psi(a))$ and $\hat{v}_0 \defeq \prj^{n+k}_{[-k]}(\psi(a))$ so that $\psi(a) = (\hat{u}_0, \hat{v}_0)$. \tcb{An exercise in the analysis notes from the section on the product topology} implies that there exist $A \in \MT_{\R^n}$ and $B \in \MT_{\R^k}$ such that $(\hat{u}_0, \hat{v}_0) \in A \times B$ and $A \times B \subset \psi(V)$. We note that 
+	\begin{align*}
+		\hat{u}_0 
+		& = \prj^{n+k}_{[n]}(\psi(a)) \\
+		& = \psi_0 \circ \pi \circ \psi^{-1}(\psi(a)) \\
+		& = \psi_0 (\pi(a)) \\
+		& = \psi_0(p).
+	\end{align*}
+	Since $A \times B \subset \psi(V)$, we have that
+	\begin{align*}
+		A 
+		& = \prj^{n+k}_{[n]}(A \times B) \\
+		& = \psi_0 \circ \pi \circ \psi^{-1}(A \times B) \\
+		& \subset \psi_0 \circ \pi \circ \psi^{-1}(\psi(V)) \\
+		& = \psi_0 ( \pi(V)) \\ 
+		& = \psi_0(V_0)
+	\end{align*}
+	and therefore $\psi_0^{-1}(A) \subset V_0$.
+	We note that for each $(\hat{u}^1, \ldots, \hat{u}^n) \in A$, 
+	\begin{align*}
+		(\hat{u}^1, \ldots, \hat{u}^n, \hat{v}_0)
+		& \in A \times B \\
+		& \subset \psi(V).
+	\end{align*}
+	For each $\sig \in [k]$, we define $C^{\sig}_{0^{\oplus n}} \in \N^n_{0, \leq r}$ by $C^{\sig}_{0^{\oplus n}} \defeq \tl{y}^{\sig}(a)$. For each $\sig \in [k]$, define $\hat{v}^{\sig}: \psi_0(V_0) \rightarrow \R$ by 
+	$$\hat{v}^{\sig}(\hat{u}) \defeq \sum_{k=0}^r \frac{1}{k!} \sum_{\substack{\al \in \N^n_{\leq r} \\ |\al| = k}} C^{\sig}_{\al} (\hat{u} - \hat{u}_0)^{\al}.$$
+	We note that for each $\sig \in [k]$, $\hat{v}^{\sig}$ is smooth. For each $\sig \in [k]$, define $v^{\sig}: V_0 \rightarrow \R$ by $v^{\sig} \defeq \hat{v}^{\sig} \circ \psi_0$. Since 
+	\begin{align*}
+		\psi_0(p)
+		& = \psi_0 \circ \pi(a) \\
+		& = \psi_0 \circ \pi \circ \psi{-1}(\psi(a)) \\
+		& = \prj^{n+k}_{[n]}(\psi(a)) \\
+		& = \hat{u}_0,
+	\end{align*}
+	we have that 
+	\begin{align*}
+		p
+		& = \psi_0^{-1}(\hat{u}_0) \\
+		& \in \psi_0^{-1}(A) 
+	\end{align*}
+	and for each $q \in V_0$, 
+	$$v^{\sig}(q) = \sum_{k=0}^r \frac{1}{k!} \sum_{\substack{\al \in \N^n_{\leq r} \\ |\al| = k}} C^{\sig}_{\al} (\psi_0(q) - \psi_0(p))^{\al}.$$
+	Define $v: V_0 \rightarrow \R^k$ by $v \defeq (v^{\sig})_{\sig \in [k]}$. Then $U \subset V_0$ and $p \in U$.
+	Since for each $\sig \in [k]$, $\hat{v}^{\sig}$ is smooth, we have that $v$ is smooth. We note that for each $\sig \in [k]$,
+	\begin{align*}
+		v^{\sig}(p)
+		& = \sum_{k=0}^r \frac{1}{k!} \sum_{\substack{\al \in \N^n_{\leq r} \\ |\al| = k}} C^{\sig}_{\al} (\psi_0(q) - \psi_0(p))^{\al} \\
+		& = C^{\sig}_{0^{\oplus n}} \\
+		& = \tl{y}^{\sig} (a).
+	\end{align*}
+	Since $v$ is continuous, $\psi_0^{-1}(A) \in \MT_M$, $B \in \MT_{\R^k}$, $p \in \psi_0^{-1}(A)$ and 
+	\begin{align*}
+		v(p) 
+		& = (v^{\sig}(p))_{\sig \in [k]} \\
+		& = (\tl{y}^{\sig}(p))_{\sig \in [k]} \\
+		& = \hat{v}_0 \\
+		& \in B,
+	\end{align*}
+	there exists $U \subset \psi_0^{-1}(A)$ such that $p \in U$ and $v(U) \subset B$. Define $\hat{s}:\psi_0(U) \rightarrow \psi(V)$ by $\hat{s}(u) \defeq (u, \hat{v}(u))$. Then $\hat{s}$ is smooth. Define $s:U \rightarrow V$ by $s \defeq \psi^{-1} \circ \hat{s} \circ \psi_0|_{U}$. Then $s$ is smooth. Let $q \in U$. Set $x \defeq \psi_0(q)$. Then 
+	\begin{align*}
+		\pi \circ s (q)
+		& = [\pi \circ (\psi^{-1} \circ \hat{s} \circ \psi_0|_U)] (q) \\
+		& = [\pi \circ (\psi^{-1} \circ \hat{s} \circ \psi_0|_U)] (\psi_0^{-1}(x)) \\
+		& = [\pi \circ (\psi^{-1} \circ \hat{s})] (x) \\
+		& = [(\pi \circ \psi^{-1}) \circ \hat{s}] (x) \\
+		& = (\psi_0^{-1} \circ \prj^{n+k}_{[n]}) (x, \hat{v}(x)) \\
+		& = \psi_0^{-1}(x) \\
+		& = q
+	\end{align*}
+	Since $q \in \psi_0^{-1}(A)$ is arbitrary, we have that $\pi \circ s = \id_{\psi_0^{-1}(A)}$ and therefore $(U, s) \in \Gam_{p}(\pi)$. By construction, 
+	\begin{align*}
+		s(p)
+		& = \psi^{-1} \circ \hat{s} \circ \psi_0(p) \\
+		& = \psi^{-1} \circ \hat{s}(\hat{u}_0) \\
+		& = \psi^{-1}(\hat{u}_0, \hat{v}_0) \\
+		& = \psi^{-1}(\psi(a)) \\
+		& = a
+	\end{align*}
+	and for each $\sig\in [k]$, $\al \in \N^n_{\leq r}$, 
+	\begin{align*}
+		\p_{\al}[\tl{y}^{\sig} \circ s](p) 
+		& = \p_{\al}[\tl{y}^{\sig} \circ \psi^{-1} \circ \hat{s} \circ \psi_0|_U](p) \\
+		& = \p_{\al}[\prj^{n+k}_{n+\sig} \circ \psi \circ \psi^{-1} \circ \hat{s} \circ \psi_0|_U](p) \\
+		& = \p_{\al}[\prj^{n+k}_{n+\sig} \circ \hat{s} \circ \psi_0|_U ](p) \\
+		& = \p_{\al}[ \hat{v}^{\sig} \circ \psi_0|_U](p) \\
+		& = \p_{\al}[ v^{\sig}|_U](p) \\
+		& = C^{\sig}_{\al}.
+	\end{align*}
+\end{proof}
 
 
 
@@ -11961,7 +12129,7 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 \section{Contact Order} 
 
 \begin{defn}
-	Let $M, N \in \Obj(\ManBndinf)$, $F, G: M \rightarrow N$, $p \in M$ and $r \in \N_0$. Set $m \defeq \dim M$ and $n \defeq \dim N$. Then $F$ and $G$ are said to have a \tbf{contact of order $r$ at $p$} if there exists $(U, \phi) \in \MA_M$ with $\phi = (x^1, \ldots, x^m)$ and $(V, \psi) \in \MA_N$ with $\psi = (y^1, \ldots, y^n)$ such that $p \in U$, $F(p), G(p) \in V$ and for each $j \in [n]$ and $\al \in \N_0$, $|\al| \leq r$ implies that
+	Let $M, N \in \Obj(\ManBndinf)$, $A, B \in \MT_M$, $F \in \Hom_{\Maninf}(A, N)$, $G \in \Hom_{\Maninf}(B, N)$, $p \in A \cap B$ and $r \in \N_0$. Set $m \defeq \dim M$ and $n \defeq \dim N$. Then $F$ and $G$ are said to have a \tbf{contact of order $r$ at $p$} if there exists $(U, \phi) \in \MA_M|_{A \cap B}$ with $\phi = (x^1, \ldots, x^m)$ and $(V, \psi) \in \MA_N$ with $\psi = (y^1, \ldots, y^n)$ such that $p \in U$, $F(p), G(p) \in V$ and for each $j \in [n]$ and $\al \in \N_0$, $|\al| \leq r$ implies that
 	$$\frac{\p^{|\al|} (y^j \circ F)}{\p x^{\al}}(p) =  \frac{\p^{|\al|} (y^j \circ G)}{\p x^{\al}}(p)$$
 \end{defn}
 
@@ -12011,7 +12179,7 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 		\end{itemize}
 		\item Suppose that $p_0 \in (U \cap \tl{U}) \cap F^{-1}(V \cap \tl{V})$.
 		\begin{itemize}
-			\item $(\implies:)$ \\ 
+			\item $(\implies):$ \\ 
 			Suppose that for each $j \in [n]$ and $\al \in \N_0^n$, $|\al| \leq r$ implies that 
 			$$\frac{\p^{|\al|} (y^j \circ F)}{\p x^{\al}}(p) =  \frac{\p^{|\al|} (y^j \circ G)}{\p x^{\al}}(p).$$
 			Let $j \in [n]$ and $\al \in \N_0^n$. Suppose that $|\al| \leq r$. Then
@@ -12030,17 +12198,17 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 \begin{defn}
 	Let $M, N \in \Obj(\ManBndinf)$, $p \in M$, $q \in N$ and $r \in \N_0$. We define 
 	\begin{itemize}
-		\item $C^{\infty}_{(p,q)}(M, N) \defeq \{ F \in \Hom_{\ManBndinf}(U, N): U \in \MT_M, p \in U, F(p) = q\}$
-		\item ${\sim_r} \subset C^{\infty}_{(p,q)}(M, N) \times C^{\infty}_{(p,q)}(M, N)$ by $F {\sim_r} G$ iff $F$ and $G$ have a contact of order $r$ at $p$.  
+		\item $C^{\infty}_p(M, N) \defeq \{ F \in \Hom_{\ManBndinf}(U, N): U \in \MT_M, p \in U\}$ \tcr{move this definition to before definition of contact order at $p$ and rework that defintion using this notation.}
+		\item ${\sim_r} \subset C^{\infty}_{p}(M, N) \times C^{\infty}_p(M, N)$ by $F {\sim_r} G$ iff $F$ and $G$ have a contact of order $r$ at $p$.  
 	\end{itemize}
 \end{defn}
 
 \begin{ex}
-	Let $M, N \in \Obj(\ManBndinf)$, $p \in M$, $q \in N$ and $r \in \N_0$. Then $\sim_r$ is an equivlaence relation on $C^{\infty}_{(p,q)}(M, N)$.
+	Let $M, N \in \Obj(\ManBndinf)$, $p \in M$, $q \in N$ and $r \in \N_0$. Then $\sim_r$ is an equivlaence relation on $C^{\infty}_p(M, N)$.
 \end{ex}
 
 \begin{proof}
-	Set $m \defeq \dim M$ and $n \defeq \dim N$. 
+	Set $m \defeq \dim M$ and $n \defeq \dim N$. \tcr{use previous exercise and definition}
 	\begin{itemize}
 		\item 
 		\item 
@@ -12052,11 +12220,19 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 	Let $M, N \in \Obj(\ManBndinf)$, $p \in M$, $q \in N$, $r \in \N_0$ and $F \in C^{\infty}_{(p,q)}(M, N)$. We define the 
 	\begin{itemize}
 		\item \tbf{$r$-jet of $F$ at $p$}, denoted $J^r_p F$, by $J^r_p F \defeq [F]_{\sim_r}$
-		\item \tbf{$r$-jets with source $p$ and target $q$}, denoted $J_{(p,q)}^r$, by $J_{(p,q)}^r \defeq C^{\infty}_{(p, q)}(M, N) / {\sim_r}$
+		\item \tbf{$r$-jets with source $p$}, denoted $J_p^r(M,N)$, by $J_p^r(M,N) \defeq C^{\infty}_p(M, N) / {\sim_r}$
 	\end{itemize}
 \end{defn}
 
+\begin{defn}
+	Let $(E, M, \pi)$ be a smooth fibered manifold and $r \in \N_0$. We define the \tbf{$r$-th jet manifold of $\pi$}, denoted $J^r \pi$, by $J^r \pi \defeq J^r_p$.
+\end{defn}
 
+\begin{ex}
+	Let $(E, M, \pi)$ be a smooth fibered manifold and $r \in \N_0$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Then for each $p \in M$ and $a \in \pi^{-1}(a)$, there exists $(U, \sig) \in \Gam_p(\pi)$ such that $s(p) = a$ and for each $\sig \in [k]$, $\al \in \N_0$, $\p_{\al}[y^{\sig} \circ s](p) = C^{\sig}_{\al}$. 
+	\rex{ex:smooth_maps:smooth_functions:0011} \rex{ex:submersions:0004}.
+	\tcr{FINISH!!, maybe make iff submersion like in local section theorem?}
+\end{ex}
 
 
 
@@ -12104,30 +12280,227 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 \section{Jet Bundles of Fiber Bundles}
 
 \begin{defn}
-	Let $(E, M, \pi, F) \in \Obj(\Buninf)$, $r \in \N_0$ and $(V, \psi) \in \MA_E^{\pi}$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Write $\psi = (x^1, \ldots, x^n, y^1, \ldots, y^k)$. We define the \tbf{$r$-th jet manifold of $\pi$}, denoted $J^r \pi$, by $J^r \pi \defeq \{ J^r_p s: p \in M \text{ and } s \in \Gam_p(\pi)\}$.
+	Let $(E, M, \pi, F) \in \Obj(\Buninf)$, $r \in \N_0$ and $(V, \psi) \in \MA_E^{\pi}$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Write $\psi = (x^1, \ldots, x^n, y^1, \ldots, y^k)$. We define the \tbf{$r$-th jet manifold of $\pi$}, denoted $J^r \pi$, by $J^r \pi \defeq \coprod\limits_{p \in M} J^r_p(M, E) \cap \Gam_p(\pi)$. We define the \tbf{$r$-th jet bundle projection of $J^r \pi$ onto $M$}, denoted $\pi_r: J^r \pi \rightarrow M$, by $\pi_r(p, s) \defeq p$. 
 \end{defn}
 
+\begin{note}
+	Let $(E, M, \pi, F) \in \Obj(\Buninf)$ and $(U, \phi) \in \MA_E^{\pi}$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Then there exists $(U_0, \phi_0) \in \MA_M$ such that $U_0 = \pi(U)$ and $\prj^{n+k}_{n} \circ \psi = \psi_0 \circ \pi$. 
+	\begin{itemize}
+		\item Let $p \in U_0$ and $s \in \Gam_p(\pi)$. Since 
+		\begin{align*}
+			\pi \circ s(p)
+			& = p \\
+			& \in U_0,
+		\end{align*}
+		we have that $s(p) \in \pi^{-1}(U_0)$. 
+		\item Let $b_1, b_2 \in \pi_r^{-1}(U_0)$. Suppose that $b_1 = b_2$. Then there exists $p_1, p_2 \in U_0$ and $s_1, s_2 \in \Gam_p(\pi)$ such that $b_1 = J^r_{p_1}$ and $b_2 = J^r_{p_2}$. Then 
+		\begin{align*}
+			p_1
+			& = \pi_r(J_{p_1} s_1) \\ 
+			& = \pi_r(J_{p_2} s_2) \\
+			& = p_2. 
+		\end{align*}
+	
+	\end{itemize}
+	Let $J^r_{p_1} s_1, J^r_{p_2} s_2 \in \pi_r^{-1}(U_0)$. Suppose that $J^r_{p_1} s_1 = J^r_{p_2} s_2$. Then 
+	\begin{align*}
+		p_1
+		& = \pi_r(J_{p_1} s_1) \\ 
+		& = \pi_r(J_{p_2} s_2) \\
+		& = p_2. 
+	\end{align*}
+	
+\end{note}
+
+
+\vspace{5cm}
+
+\tcr{try to define $J^r_p s$ as a bundle, specifically a disjoint union over $p$}
+$J^r \pi \defeq \coprod\limits_{p \in M} J^r_p(M, E) \cap \Gam_p(\pi)$. We would identify $J^r_p s$ with $(p, J^r_p s)$ in the disjoint union. Define projective system of projections $(\pi_{r,k})_{r \leq k} \in \prod\limits_{r \leq k} \Hom_{\Top}(J^k \pi, J^r \pi)$ defined by $\pi_{r, k}(J^k_p s) \defeq J^r_p s$. Can we define the smooth structure on $J^r \pi$ inductively to be the unique smooth structure such that $(\pi_{r, k})_{r \leq k}$ are smooth? 
+
+
+\tcr{(on that note, can we define the product atlas to be the unique atlas such that $\pi_M:M \times N \rightarrow M$ and $\pi_N:M \times N \rightarrow N$ are smooth?)}
+
+\vspace{5cm}
+
+
+
+
 \begin{defn}
-	Let $(E, M, \pi, F) \in \Obj(\Buninf)$ and $(V, \psi) \in \MA_E^{\pi}$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Then there exists $(V_0, \psi_0) \in \MA_M$ such that $V_0 = \pi(V)$ and $\prj^{n+k}_{n} \circ \psi = \psi_0 \circ \pi$. Write $\psi = (\tl{x}^1, \ldots, \tl{x}^n, \tl{y}^1, \ldots, \tl{y}^k)$ and $\psi_0 = (\hat{x}^1, \ldots, \hat{x}^n)$. For $j \in [n]$, $\sig \in [k]$ and $\al \in \N_0^{n}$ with $|\al| \leq r$, define $x^j, y^{\sig}, y^{\sig}_{\al}: J^r \pi \rightarrow \R$ by $x^j(J^r_p s) \defeq \hat{x}(p)$, $y^{\sig}(J^r_p s) \defeq \tl{y}(s(p))$ and $y^{\sig}_{\al}(J^r_p s) \defeq \p_{\al} (\tl{y}^{\sig} \circ s) (p)$. Set $N \defeq n  + k \sum\limits_{j=0}^r {n-1 + j \choose j} $. We define the \tbf{jet manifold chart induced by $(V, \psi)$}, denoted $\Psi_{\psi}: J^r \rightarrow \R^{N}$ by $\Psi_{\psi} \defeq (x^j, y^{\sig}, y^{\sig}_{\al}: j \in [n], \sig \in [k], \al \in \N_0, |\al| \leq r)$.
+	Let $(E, M, \pi, F) \in \Obj(\Buninf)$ and $(V, \psi) \in \MA_E^{\pi}$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Then there exists $(V_0, \psi_0) \in \MA_M$ such that $V_0 = \pi(V)$ and $\prj^{n+k}_{n} \circ \psi = \psi_0 \circ \pi$. Write $\psi = (\tl{x}^1, \ldots, \tl{x}^n, \tl{y}^1, \ldots, \tl{y}^k)$ and $\psi_0 = (\hat{x}^1, \ldots, \hat{x}^n)$. For $j \in [n]$, $\sig \in [k]$ and $\al \in \N_0^{n}$ with $|\al| \leq r$, define $x^j, y^{\sig}, y^{\sig}_{\al}: J^r \pi \rightarrow \R$ by $x^j(p, J^r_p s) \defeq \hat{x}^j(p)$, $y^{\sig}(p, J^r_p s) \defeq \tl{y}^{\sig}(s(p))$ and $y^{\sig}_{\al}(p, J^r_p s) \defeq \p_{\al} (\tl{y}^{\sig} \circ s) (p)$. Set $N \defeq n  + k \sum\limits_{j=0}^r {n-1 + j \choose j} $. We define the \tbf{jet manifold chart induced by $(V, \psi)$}, denoted $\Psi_{\psi}: J^r \rightarrow \R^{N}$ by $\Psi_{\psi} \defeq (x^j, y^{\sig}, y^{\sig}_{\al}: j \in [n], \sig \in [k], \al \in \N, |\al| \leq r)$.
 \end{defn}
 
 \begin{note}
 	Since $\prj^{n+k}_{n} \circ \psi = \psi_0 \circ \pi$ and $s \in \Gam_p(\pi)$, we have that 
 	\begin{align*}
-		x^j(J^r_p s)
+		x^j(p, J^r_p s)
 		& = \hat{x}^j(p) \\
 		& = \hat{x}^j \circ \id_M (p) \\
 		& = \hat{x}^j \circ \pi \circ s (p) \\
 		& = \tl{x}^j \circ s (p)
 	\end{align*}
-	so that the definition of $x^j$ and $y^j$ are consistent.
+	so that the definition of $x^j$ is consistent with that of and $y^{\sig}$ and $y^{\sig}_{\al}$.
 \end{note}
 
 
+
+\begin{defn}
+	Let $(E, M, \pi, F) \in \Obj(\Buninf)$, $(U_{\phi}, \phi) \in \MA_E^{\pi}$ and $(U_{0, \Phi}, \Phi)$ a smooth fiber bundle local trivialization with respect to $\pi$ of $E$ over $U_{0, \Phi}$ with fiber $F$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Then there exists $(U_{0, \phi}, \phi_0) \in \MA_M$ such that $U_{0, \phi} = \pi(U_{\phi})$ and $\prj^{n+k}_{n} \circ \phi = \phi_0 \circ \pi$. Write $\phi = (\tl{x}^1, \ldots, \tl{x}^n, \tl{y}^1, \ldots, \tl{y}^k)$. Define $U_{\Phi, \phi} \in \MT_M$ by $U_{\Phi, \phi} \defeq U_{0, \phi} \cap U_{0, \Phi}$. Set $N \defeq \dim J^r \pi$. We define the \tbf{$r$-th jet bundle local trivialization induced by $(U_{\phi}, \phi)$ and $(U_{0, \Phi}, \Phi)$}, denoted $\Phi^r_{\Phi, \phi}:\pi_r^{-1}(U_{\Phi, \phi}) \rightarrow U_{\Phi, \phi} \times (F \times \R^{N-(n+k)})$, by 
+	$$\Phi^r_{\Phi, \phi}(p, J^r_p s) \defeq (\Phi \circ s(p), (\p_{\al}[\tl{y}^{\sig} \circ s](p))_{\sig, \al}).$$
+\end{defn}
+
 \begin{ex}
-	\tcr{charts and projections form fiber bundle}.
+	Let $(E, M, \pi, F) \in \Obj(\Buninf)$, $(U_{\phi}, \phi) \in \MA_E^{\pi}$ and $(U_{0, \Phi}, \Phi)$ a smooth fiber bundle local trivialization with respect to $\pi$ of $E$ over $U_{0, \Phi}$ with fiber $F$. Set $n \defeq \dim M$ and $k \defeq \dim E - n$. Then there exists $(U_{0, \phi}, \phi_0) \in \MA_M$ such that $U_{0, \phi} = \pi(U_{\phi})$ and $\prj^{n+k}_{n} \circ \phi = \phi_0 \circ \pi$. Write $\phi = (\tl{x}^1, \ldots, \tl{x}^n, \tl{y}^1, \ldots, \tl{y}^k)$. Define $U_{\Phi, \phi} \in \MT_M$ by $U_{\Phi, \phi} \defeq U_{0, \phi} \cap U_{0, \Phi}$. Then 
+	\begin{enumerate}
+		\item $\Phi^r_{\Phi, \phi}$ is well-defined,
+		\item $\Phi^r_{\Phi, \phi}$ is bijective,
+		\item $\prj_{U_{\Phi, \phi}} \circ \Phi^r_{\Phi, \phi} = \pi_r|_{\pi_r^{-1}(U_{\Phi, \phi})}$,
+		\item $(U_{\Phi, \phi}, \Phi^r_{\Phi, \phi})$ is a local trivialization with respect to $\pi_r$ of $J^r \pi$ over $U_{\Phi, \phi}$ with fiber $F \times \R^{N-k-n}$.
+	\end{enumerate}
 \end{ex}
 
+\begin{proof}
+	Write $\phi_0 = (\hat{x}^1, \ldots, \hat{x}^n)$. 
+	\begin{enumerate}
+		\item Let $b_1, b_2 \in \pi_r^{-1}(U_{\Phi, \phi})$. Suppose that $b_1 = b_2$. Since $b_1, b_2 \in \pi_r^{-1}(U_{\Phi, \phi})$, there exists $p_1, p_2 \in U_{\Phi, \phi}$, $s_1 \in \Gam_{p_1}$ and $s_2 \in \Gam_{p_2}$ such that $b_1 = (p_1, J^r_{p_1} s_1)$ and $b_2 = (p_2, J^r_{p_2} s_2)$. Therefore 
+		\begin{align*}
+			p_1
+			& = \pi_r(p_1, J_{p_1} s_1) \\ 
+			& = \pi_r(b_1) \\
+			& = \pi_r(b_2) \\
+			& = \pi_r(p_2, J_{p_2} s_2) \\
+			& = p_2. 
+		\end{align*}
+		Thus for each $j \in [n]$, $\hat{x}^j(p_1) = \hat{x}^j(p_2)$. Since $s_1 {\sim_{r, p}} s_2$, we have that for each $\sig \in [k]$ and $\al \in \N^n$ with $|\al| \leq r$, 
+		$\tl{y}^{\sig} \circ s_1(p_1) = \tl{y}^{\sig} \circ s_2(p_2)$ and $\p_{\al} [\tl{y}^{\sig} \circ s_1](p_1) = \p_{\al} [\tl{y}^{\sig} \circ s_2](p_2)$. Therefore 
+		\begin{align*}
+			s_1(p_1)
+			& = \phi^{-1} \circ \phi \circ s_1(p_1) \\
+			& = \phi^{-1}(\tl{x}^1 \circ s_1(p_1), \ldots, \tl{x}^n \circ s_1(p_1), \tl{y}^1 \circ s_1(p_1), \ldots, \tl{y}^k \circ s_1(p_1)) \\
+			& = \phi^{-1}(\hat{x}^1(p_1), \ldots, \hat{x}^n(p_1), \tl{y}^1 \circ s_1(p_1), \ldots, \tl{y}^k \circ s_1(p_1)) \\
+			& = \phi^{-1}(\hat{x}^1(p_2), \ldots, \hat{x}^n(p_2), \tl{y}^1 \circ s_2(p_2), \ldots, \tl{y}^k \circ s_2(p_2)) \\
+			& = \phi^{-1}(\tl{x}^1 \circ s_2 (p_2), \ldots, \tl{x}^n \circ s_2(p_2), \tl{y}^1 \circ s_2(p_2), \ldots, \tl{y}^k \circ s_2(p_2)) \\
+			& = \phi^{-1} \circ \phi \circ s_2(p_2) \\
+			& = s_2(p_2).
+		\end{align*}
+		Hence $\Phi \circ s_1(p_1) = \Phi \circ s_2(p_2)$. Therefore
+		\begin{align*}
+			\Phi^r_{\Phi, \phi}(b_1)
+			& = \Phi^r_{\Phi, \phi}(p_1, J^r_{p_1}s_1) \\
+			& = (\Phi \circ s_1(p_1), (\p_{\al}[\tl{y}^{\sig} \circ s_1](p_1))_{\sig, \al}) \\
+			& = (\Phi \circ s_2(p_2), (\p_{\al}[\tl{y}^{\sig} \circ s_2](p_2))_{\sig, \al}) \\
+			& = \Phi^r_{\Phi, \phi}(p_2, J^r_{p_2}s_2) \\
+			& = \Phi^r_{\Phi, \phi}(b_2).
+		\end{align*}
+		Since $b_1, b_2 \in \pi_r^{-1}(U_{\Phi, \phi})$ are arbitrary, we have that for each $b_1, b_2 \in \pi_r^{-1}(U_{\Phi, \phi})$, $b_1 = b_2$ implies that $\Phi^r_{\Phi, \phi}(b_1) = \Phi^r_{\Phi, \phi}(b_2)$. Hence $\Phi^r_{\Phi, \phi}$ is well-defined.
+		\item 
+		\begin{itemize}
+			\item \tbf{(injectivity):} \\
+			Let $b_1, b_2 \in \pi_r^{-1}(U_{\Phi, \phi})$. Suppose that $\Phi^r_{\Phi, \phi}(b_1) = \Phi^r_{\Phi, \phi}(b_2)$. Since $b_1, b_2 \in \pi_r^{-1}(U_{\Phi, \phi})$, there exists $p_1, p_2 \in U_{\Phi, \phi}$, $s_1 \in \Gam_{p_1}$ and $s_2 \in \Gam_{p_2}$ such that $b_1 = (p_1, J^r_{p_1} s_1)$ and $b_2 = (p_2, J^r_{p_2} s_2)$. Then 
+			\begin{align*}
+				(\Phi \circ s_1(p_1), (\p_{\al}[\tl{y}^{\sig} \circ s_1](p_1))_{\sig, \al})
+				& = \Phi^r_{\Phi, \phi}(p_1, J^r_{p_1}s_1) \\
+				& = \Phi^r_{\Phi, \phi}(b_1) \\
+				& = \Phi^r_{\Phi, \phi}(b_2) \\
+				& = \Phi^r_{\Phi, \phi}(p_2, J^r_{p_2}s_2) \\
+				& = (\Phi \circ s_2(p_2), (\p_{\al}[\tl{y}^{\sig} \circ s_2](p_2))_{\sig, \al}).
+			\end{align*}
+			Thus $\Phi \circ s_1(p_1) = \Phi \circ s_2(p_2)$ and for each $\sig \in [k]$ and $\al \in \N^n$ with $|\al| \leq r$, $\p_{\al} [\tl{y}^{\sig} \circ s_1](p_1) = \p_{\al} [\tl{y}^{\sig} \circ s_2](p_2)$. Since $\Phi$ is a bijection, we have that
+			\begin{align*}
+				s_1(p_1)
+				& = \Phi^{-1} \circ \Phi \circ s_1(p_1) \\
+				& = \Phi^{-1} \circ \Phi \circ s_2(p_2) \\
+				& = s_2(p_2).
+			\end{align*} 
+			Since $s_1, s_2 \in \Gam_p(\pi)$, we then have that
+			\begin{align*}
+				p_1
+				& = \pi(s_1(p_1))\\
+				& = \pi(s_2(p_2)) \\
+				& = p_2.
+			\end{align*}
+			Since $s_1(p_1) = s_2(p_2)$, we have that for each $\sig \in [k]$, 
+			\begin{align*}
+				\tl{y}^{\sig} \circ s_1(p_1)
+				& = \prj^k_{\sig} \circ \phi(s_1(p_1)) \\
+				& = \prj^k_{\sig} \circ \phi(s_2(p_2)) \\
+				& = \tl{y}^{\sig} \circ s_2(p_2).
+			\end{align*}
+			Therefore $s_1 \sim_{r, p} s_2$ and $J^r_{p_1} s_1 = J^r_{p_2} s_2$. Hence 
+			\begin{align*}
+				b_1
+				& = (p_1, J^r_{p_1} s_1) \\
+				& = (p_2, J^r_{p_2} s_2) \\
+				& = b_2.
+			\end{align*}
+			Since $b_1, b_2 \in \pi_r^{-1}(U_{\Phi, \phi})$ are arbitrary, we have that for each $b_1, b_2 \in \pi_r^{-1}(U_{\Phi, \phi})$, $\Phi^r_{\Phi, \phi}(b_1) = \Phi^r_{\Phi, \phi}(b_2)$ implies that $b_1 = b_2$. Thus $\Phi^r_{\Phi, \phi}$ is injective. 
+			\item \tbf{(surjectivity):} \\
+			Let $(p, f, g) \in U_{\Phi, \phi} \times F \times \R^{N - k - n}$. Define $a \in \pi^{-1}(U_{\Phi, \phi})$ by $a \defeq \Phi^{-1}(p, f)$. We note that 
+			\begin{align*}
+				\pi(a)
+				& = \prj_{U_{\Phi, \phi}} \circ \Phi (a) \\
+				& = \prj_{U_{\Phi, \phi}} \circ \Phi (\Phi^{-1}(p, f)) \\
+				& = \prj_{U_{\Phi, \phi}}(p, f) \\
+				& = p.
+			\end{align*}
+			 \rex{ex:fiber_manifolds:0005} implies that there exists $s \in \Gam_p(\pi)$ such that $s(p) = a$ and $\p_{\al}[\tl{y}^{\sig} \circ s](p) = g^{\sig}_{\al}$. Then $(p, J_p s) \in \pi_r^{-1}(U_{\Phi, \phi})$ and
+			 \begin{align*}
+			 	\Phi_{\Phi, \phi}(p, J_p s)
+			 	& = (\Phi \circ s(p), (\p_{\al}[\tl{y}^{\sig} \circ s](p))_{\sig, \al}) \\
+			 	& = (\Phi(a), g) \\
+			 	& = (p,f,g)
+			 \end{align*}
+		 	Since $(p, f, g) \in U_{\Phi, \phi} \times F \times \R^{N - k - n}$ is arbitrary, we have that for each $(p, f, g) \in U_{\Phi, \phi} \times F \times \R^{N - k - n}$, there exists $(p, J_p s) \in \pi_r^{-1}(U_{\Phi, \phi})$ such that $\Phi_{\Phi, \phi}(p, J_p s) = (p, f, g)$. Hence $\Phi_{\Phi, \phi}$ is surjective.
+		\end{itemize}
+		Since $\Phi_{\Phi, \phi}$ is injective and surjective, $\Phi_{\Phi, \phi}$ is a bijection.
+		\item Let $(p, J_p^r s) \in \pi_r^{-1}(U_{\Phi, \phi})$. Since $\prj_{U_{\Phi, \phi}}^{U_{\Phi, \phi} \times F} \circ \Phi = \pi|_{U_{\Phi, \phi}}$, we have that 
+		\begin{align*}
+			\prj_{U_{\Phi, \phi}}^{U_{\Phi, \phi} \times F} \Phi(s(p))
+			& = \pi \circ s(p) \\
+			& = p.
+		\end{align*}
+		Therefore there exists $f \in F$ such that $\Phi(s(p)) = (p, f)$. Hence
+		\begin{align*}
+			\prj_{U_{\Phi, \phi}}^{U_{\Phi, \phi} \times F \times \R^{N-k-n}} \circ \Phi^r_{\Phi, \phi}(p, J_p^r s) 
+			& = \prj_{U_{\Phi, \phi}}^{U_{\Phi, \phi} \times F \times \R^{N-k-n}}( (\Phi \circ s(p), (\p_{\al}[\tl{y}^{\sig} \circ s](p))_{\sig, \al})) \\
+			& = \prj_{U_{\Phi, \phi}}^{U_{\Phi, \phi} \times F} \circ \Phi \circ s(p) \\
+			& = \prj_{U_{\Phi, \phi}}^{U_{\Phi, \phi} \times F}(p, f).
+			& = p \\
+			& = \pi_r(p, J_p^r s).
+		\end{align*}
+		Since $(p, J_p^r s) \in \pi_r^{-1}(U_{\Phi, \phi})$ is arbitrary, we have that for each $(p, J_p^r s) \in \pi_r^{-1}(U_{\Phi, \phi})$, $\prj^{U_{\Phi, \phi} \times F \times \R^{N-k-n}}_{U_{\Phi, \phi}} \circ \Phi^r_{\Phi, \phi} (p, J_p^r s) = \pi_r(p, J_p^r s)$. Thus $$\prj_{U_{\Phi, \phi}}^{U_{\Phi, \phi} \times F \times \R^{N-k-n}} \circ \Phi^r_{\Phi, \phi} = \pi_r|_{\pi_r^{-1}(U_{\Phi, \phi})}.$$
+		\item Since $\Phi_{\Phi, \phi}$ is a bijection and $\prj_{U_{\Phi, \phi}}^{U_{\Phi, \phi} \times F \times \R^{N-k-n}} \circ \Phi_{\Phi, \phi} = \pi_r|_{\pi_r^{-1}(U_{\Phi, \phi})}$, we have that $(U_{\Phi, \phi}, \Phi_{\Phi, \phi})$ is a local trivialization with respect to $\pi_r$ of $J^r \pi$ over $U_{\Phi, \phi}$ with fiber $F$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $(E, M, \pi, F) \in \Obj(\Buninf)$. Then there exists a unique topology $\MT_{J^r \pi}$ on $J^r \pi$ and smooth structure $\MA_{J^r \pi} \subset X^{n+k}(J^r \pi, \MT_{J^r \pi})$ on $J^r \pi$ such that
+	\begin{enumerate}
+		\item $(J^r \pi, \MT_{J^r \pi})$ is an $n+k$-dimensional topologocal manifold and $(J^r \pi, \MT_{J^r \pi}, \MA_{J^r \pi})$ is a smooth manifold,
+		\item for each $(U_{\phi}, \phi) \in \MA_E^{\pi}$ and smooth fiber bundle local trivialization $(U_{\Phi}, \Phi)$ of $E$ over $U_{\Phi}$ with fiber $F$ with respect to $\pi$ fiber $F$ \tcr{create notation for local trivializations and bundle atlases to avoid writing this over and over.} $ \pi_r^{-1}(U_{\al}) \in \MT_{J^r \pi}$ and $\Phi_{\Phi, \phi}: \pi_r^{-1}(U_{\Phi, \phi}) \rightarrow U_{\Phi, \phi} \times F \times \R^{N-k-n}$ is a diffeomorphism
+		\item $\pi_r: J^r \pi \rightarrow M$ is smooth
+		\item $(J^r \pi, M, \pi_r, F \times \R^{N-k-n}) \in \Obj(\Buninf)$ 
+	\end{enumerate}
+	\tcr{IDEA: make exercise about $(Jr \pi, E, \pi_{0, r})$ being a fiber bundle, make another exercise in the section on fiber bundles that if $(E, M, \pi^E_M, F)$ is a fiber bundle and $(G, E, \pi^G_E, F)$ is a fiber bundle, then $(G, M, \pi_{M, G} , F)$ where $\pi_{M, E} \circ \pi_{E, G}) \defeq \pi_{M, G}$ is a fiber bundle, then apply that exercise here?, might be cleaner/more general}
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item for each $\al \in \Gam$, $U_{\al} \in \MT_M$
+		\item $M \subset \bigcup\limits_{\al \in \Gam} U_{\al}$ 
+		\item for each $\al \in \Gam$, $(U_{\al}, \Phi_{\al})$ is a local trivialization with respect to $\pi$ of $E$ over $U_{\al}$ with fiber $F$ 
+		\item for each $\al,\be \in \Gam$, $\Phi_{\be}|_{\pi^{-1}(U_{\al} \cap U_{\be})} \circ (\Phi_{\al}|_{\pi^{-1}(U_{\al} \cap U_{\be})})^{-1}: (U_{\al} \cap U_{\be}) \times F \rightarrow  (U_{\al} \cap U_{\be}) \times F$ is smooth.
+	\end{itemize}
+	Let $p \in M$. Since $\pi$ is surjective, there exists $a \in E$ such that $\pi(a) = p$. \rex{ex:fiber_manifolds:0003} implies that there exists $(U, \phi) \in \MA_E^{\pi}$ such that $a \in U$. Then there exists $(U_0, \phi_0) \in \MA_M$ such that $U_0 = \pi(U)$ and $\phi_0 \circ \pi = \prj^{n+k}_n \circ \phi$. Since $(E, M, \pi, F) \in \Obj(\Buninf)$, there exists $U_0' \in \MT_M$ and $\Phi: \pi{-1}(U_0') \rightarrow U_0' \times F$ such that $p \in U_0'$ and $(U_0', \Phi)$ is a smooth local trivialization of $E$ over $U$ with fiber $F$. We define $V \in \MT_M$ by $V \defeq U_0 \cap U_0'$
+	\begin{itemize}
+		\item By construction
+		\item 
+		\item 
+		\item 
+	\end{itemize}
+	\rex{ex:fiber_bundles:0008} 
+	\tcr{FINISH!!!}
+\end{proof}
 
 
 
@@ -12165,7 +12538,7 @@ Let $(E_1, M, \pi_1), (E_2, M, \pi_2) \in \Obj(\VecBuninf)$. Set
 \begin{proof}
 	Set $p \defeq \pi(a)$.
 	\begin{itemize}
-		\item $(\implies:) \\$
+		\item $(\implies): \\$
 		Suppose that for each $j \in [n]$ and $l \in [k]$, 
 		$$\frac{\p}{\p \tl{x}^j} \bigg|_{p} ( \up^l \circ s_1 ) = \frac{\p}{\p \tl{x}^j} \bigg|_{p} ( \up^l \circ s_2 ).$$
 		Let $j' \in [j]$ and $l' \in [k]$. Then 
