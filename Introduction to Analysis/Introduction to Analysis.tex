@@ -21971,6 +21971,42 @@ Hence $\mu(E) = \mu(\sig(E))$. Applying the whole argument above thus far to $\s
 	
 	
 	
+	\tcr{maybe introduce the unitary matrices, the stiefel manifold, the grassman manifold here, maybe introduce in geometry notes}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -22283,6 +22319,147 @@ Then
 	\begin{note}
 	The preceeding distance is not quite the Cut distance, as the Cut norm only considers a subset of measurable sets for a function of two variables, but with some work, maybe I can show it is a distance.
 	\end{note}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\section{Optimization over Compact Groups}
+	
+	\begin{defn}
+		We define $W \cdot U \defeq W U$ and $W \trl \Sig \defeq W^* \Sig W$. Define $S(n) \defeq \{\Sig \in \C^{n \times n}: \Sig^* = \Sig\}$. Define $U(n,k) \defeq \{U \in \C^{n \times k}: U^*U = I\}$. 
+	\end{defn}
+	
+	\begin{ex}
+		Let $n, k \in \N$. Suppose that $k \leq n$. Define $f: U(n, k) \times S(n) \rightarrow \R$ and $F: S(H) \rightarrow \R$ by $f(U, \Sig) \defeq \tr (UU^* \Sig)$ and $F(\Sig) \defeq \sup\limits_{U \in U(n, k)} f(U, \Sig)$. Let $\Sig \in S(n)$. Let $\Sig \in S(n)$. Suppose that there exists $V \in U(n)$ and $\Lam \in S(n)$ such that $\Lam$ is diagonal and $\Sig = V \Lam V^*$. Then
+		\begin{enumerate}
+			\item for each $W \in U(n)$ and $U \in U(n, k)$, $f(W \cdot U, \Sig) = f(U, W \trl \Sig)$,
+			\item $F(\Sig) = F(\Lam)$, 
+			\item Suppose that $\Lam = \diag(\lam_1, \cdots, \lam_n)$ and $\lam_ \geq \cdots \geq \lam_n \geq 0$. Then $\argmin\limits_{U \in U(n,k)} f(U, \Sig) = VI_{n, k}$. 
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $W \in U(n)$ and $U \in U(n, k)$. Then 
+			\begin{align*}
+				f(W \cdot U, \Sig)
+				& = \tr (WUU^* W^* \Sig) \\
+				& = \tr (U^* W^* \Sig W U ) \\
+				& = \tr (U^* (W \trl \Sig) U) \\
+				& = \tr (U^* U(W \trl \Sig)) \\
+				& = f(U, W \trl \Sig).
+			\end{align*}
+			\item The previous part implies that for each $W \in U(n)$ and $U \in U(n,k)$, 
+			\begin{align*}
+				f(U, \Sig)
+				& = f(U, V^* \trl \Lam) \\
+				& = f(V^* \cdot U, \Lam).
+			\end{align*}
+			Therefore
+			\begin{align*}
+				F(\Sig) 
+				& = \sup\limits_{U \in U(n, k)} f(U, \Sig) \\
+				& = \sup\limits_{U \in U(n, k)} f(V^* \cdot U, \Lam) \\
+				& = \sup\limits_{U \in U(n, k)} f(U, \Lam) \\
+				& = F(\Lam).
+			\end{align*}
+			\item 
+			Let $U \in U(n,k)$. For each $j \in [k]$, we define $u_j \defeq Ue_j$. We know that
+			\begin{align*}
+				\tr(UU^* \Lam)
+				& = \tr(U^* \Lam U) \\
+				& = \sum_{j=1}^k \l u_j , \Lam u_j \r \\
+				& = \sum_{j=1}^k \lam_j \l u_j , u_j \r \\
+				& = \sum_{j=1}^k \lam_j \| u_j \|^2 \\
+				& = \sum_{j=1}^k \lam_j.
+			\end{align*}
+			Therefore
+			\begin{align*}
+				F(\Sig)
+				& = F(\Lam) \\
+				& = \sup\limits_{U \in U(n,k)} \tr(U^*U \Lam) \\
+				& = \sup\limits_{U \in U(n,k)} \sum_{j=1}^k \lam_j \\
+				& = \sum_{j=1}^k \lam_j.
+			\end{align*}
+			Since 
+			\begin{align*}
+				f(VI_{n,k}, \Sig)
+				& = \tr(VI_{n,k}(VI_{n,k})^* \Sig) \\
+				& = \tr((VI_{n,k})^* \Sig VI_{n,k}) \\
+				& = \tr(I_{k,n} V^* \Sig V I_{n,k}) \\
+				& = \tr(I_{k,n} V^* V  \Lam V^* V I_{n,k}) \\
+				& = \tr(I_{k,n} \Lam I_{n,k}) \\
+				& = \sum_{j=1}^k \lam_j,
+			\end{align*}
+			we have that $\argmin\limits_{U \in U(n,k)} f(U, \Sig) = VI_{n,k}$. 
+		\end{enumerate}
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	

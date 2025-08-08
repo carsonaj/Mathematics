@@ -2991,6 +2991,10 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 \subsection{Embedded Submanifolds}
 
+\begin{defn} \lex{ex:top_submanifolds:embedded:0.01}
+	Let $M, N \in \Obj(\Man0)$ and $F \in \Hom_{\Top}(N, M)$. Then $F$ is said to be a $\Top$-embedding if $F|^{F(M)} \in \Iso_{\Top}(M,F(M))$.  \tcr{here $F|^{F(M)}: M \rightarrow F(M)$ is the restriction on the codomain, make sure to use standardized notation if it changes}.
+\end{defn}
+
 \begin{ex} \lex{ex:top_submanifolds:embedded:0001}
 	Let $M, N \in \Obj(\Man0)$ and $F \in \Hom_{\Top}(N, M)$. Define 
 	$$F_*X^n(N, \MT_N) \defeq \{(F(V), \psi \circ F|_V^{-1}): (V, \psi) \in X^n(N, \MT_N)\}.$$ 
@@ -4869,8 +4873,13 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		$$D\phi(p) \bigg( \frac{\p}{\p x^j} \bigg|_p \bigg) = \frac{\p}{\p u^j} \bigg|_{\phi(p)}. $$
 	\end{proof}
 
+	\begin{defn}
+		Let $(M, \MA)$ be a smooth $m$-dimensional manifold, $(N, \MB)$ a $n$-dimensional smooth manifold, $F: M \rightarrow N$ smooth, $(U, \phi) \in \MA$, $(V, \psi) \in \MB$ and $p \in U \cap F^{-1}(V)$. Write $\phi = (x^1, \dots, x^m)$ and $\psi = (y^1, \dots, y^n)$. Define the ordered bases $B_\phi \defeq \bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^m} \bigg|_p \bigg \}$ of $T_pM$ and $B_{\psi} \defeq \bigg \{\frac{\p}{\p y^1} \bigg|_{F(p)}, \cdots, \frac{\p}{\p y^n} \bigg|_{F(p)} \bigg \}$ of $T_{F(p)}N$. We define the \tbf{matrix representation of $DF(p)$ with respect to $\phi$ and $\psi$}, denoted $[DF(p)]_{\phi, \psi} \in \R^{n \times m}$, by 
+		$$[DF(p)]_{\phi, \psi} \defeq [DF(p)]_{B_{\phi}, B_{\psi}}$$
+	\end{defn}
+
 	\begin{ex}
-		Let $(M, \MA)$ be a smooth $m$-dimensional manifold, $(N, \MB)$ a $n$-dimensional smooth manifold, $F: M \rightarrow N$ smooth, $(U, \phi) \in \MA$ with $\phi = (x^1, \dots, x^m)$ and $(V, \psi) \in \MB$ with $\psi = (y^1, \dots, y^n)$. Suppose that $p \in U$ and $F(p) \in V$. Define the ordered bases $B_\phi = \bigg \{\frac{\p}{\p x^1} \bigg|_p, \cdots, \frac{\p}{\p x^m} \bigg|_p \bigg \}$ and $B_{\psi} = \bigg \{\frac{\p}{\p y^1} \bigg|_{F(p)}, \cdots, \frac{\p}{\p y^n} \bigg|_{F(p)} \bigg \}$ .
+		Let $(M, \MA)$ be a smooth $m$-dimensional manifold, $(N, \MB)$ a $n$-dimensional smooth manifold, $F: M \rightarrow N$ smooth, $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$. Write $\phi = (x^1, \dots, x^m)$ and $\psi = (y^1, \dots, y^n)$. Suppose that $p \in U \cap F^{-1}(V)$.
 		Then the matrix representation of $DF_p$ with respect to the bases
 		$B_{\phi}$ and $B_{\psi}$ is $$ ([DF(p)]_{\phi, \psi})_{j, k} =  \frac{\p (y^j \circ F)}{\p x^k}(p)$$
 	\end{ex}
@@ -4912,7 +4921,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\subsection{Tangent Space and Product Manifolds}
 	
 	\begin{ex} \lex{ex:tangent_spaces:products:0001}
-		Let $M,N \in \Obj(\ManBndinf)$. Set $m \defeq \dim M$ and $n \defeq \dim N$. Let $(U_M, \phi_M) \in \MA_M$ and $(U_N\phi_N) \in \MA_N$. Write $\phi_M = (x^1, \ldots, x^m)$ and $\phi_N = (y^1, \ldots, y^n)$. Define $(U, \phi) \in \MA_M \otimes \MA_N$ by $U \defeq U_M \times U_N$ and $\phi \defeq \phi_M \times \phi_N$. Write $\phi = (\tl{x}^1, \ldots, \tl{x}^m, \tl{y}^1, \ldots, \tl{y}^n)$. Then 
+		Let $M,N \in \Obj(\ManBndinf)$. Set $m \defeq \dim M$ and $n \defeq \dim N$. Let $(U_M, \phi_M) \in \MA_M$ and $(U_N, \phi_N) \in \MA_N$. Write $\phi_M = (x^1, \ldots, x^m)$ and $\phi_N = (y^1, \ldots, y^n)$. Define $(U, \phi) \in \MA_M \otimes \MA_N$ by $U \defeq U_M \times U_N$ and $\phi \defeq \phi_M \times \phi_N$. Write $\phi = (\tl{x}^1, \ldots, \tl{x}^m, \tl{y}^1, \ldots, \tl{y}^n)$. Then 
 		\begin{enumerate}
 			\item for each $j \in [m]$, $k \in [n]$ and $(p,q) \in M \times N$,
 			\begin{align*}
@@ -4983,7 +4992,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:tangent_spaces:products:0002}
 			Let $M,N \in \Obj(\ManBndinf)$, $p \in M$ and $q \in N$. Set $m \defeq \dim M$ and $n \defeq \dim N$. Define $\al \in \Hom_{\VectR}(T_{(p, q)} (M \times N), T_p M \times T_q N)$ by $\al \defeq (D \pi_{M}(p, q), D \pi_N(p,q))$. Then
 			\begin{enumerate}
 				\item  Let $(U_M, \phi_M) \in \MA_M$ and $(U_N\phi_N) \in \MA_N$. Write $\phi_M = (x^1, \ldots, x^m)$ and $\phi_N = (y^1, \ldots, y^n)$. Define $(U, \phi) \in \MA_M \otimes \MA_N$ by $U \defeq U_M \times U_N$ and $\phi \defeq \phi_M \times \phi_N$. Write $\phi = (\tl{x}^1, \ldots, \tl{x}^m, \tl{y}^1, \ldots, \tl{y}^n)$. Then for each $j \in [m]$ and $k \in [n]$, 
@@ -5005,7 +5014,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:tangent_spaces:products:0003}
 		Let $M_1, M_2, N_1, N_2 \in \Obj(\Maninf)$, $F_1 \in \Hom_{\Maninf}(M_1, N_1)$, $F_2 \in \Hom_{\Maninf}(M_2, N_2)$, $(U_1, \phi_1) \in \MA_{M_1}$, $(U_2, \phi_2) \in \MA_{M_2}$, $(V_1, \psi_1) \in \MA_{N_1}$, $(V_2, \psi_2) \in \MA_{N_2}$ and $(p_1, p_2) \in M_1 \times M_2$. Set $m_1 \defeq \dim M_1, m_2 \defeq \dim M_2$, $n_1 \defeq \dim N_1$ and $n_2 \defeq \dim N_2$.Write $\phi_1 = (x_1^1, \ldots, x_1^{m_1})$ and $\phi_2 = (x_2^1, \ldots, x_2^{m_2})$, $\psi_1 = (y_1^1, \ldots, y_1^{n_1})$ and $\psi_2 = (y_2^1, \ldots, y_2^{n_2})$. Define $(U, \phi) \in \MA_{M_1} \otimes \MA_{M_2}$ and $(V, \psi) \in \MA_{N_1} \otimes \MA_{N_2}$ by $U \defeq U_1 \times U_2$, $\phi \defeq \phi_1 \times \phi_2$, $V \defeq V_1 \times V_2$ and $\psi \defeq \psi_1 \times \psi_2$. Write $\phi = (\tl{x}_1^1, \ldots, \tl{x}_1^{m_1}, \tl{x}_2^1, \ldots, \tl{x}_2^{m_2})$ and $\psi = (\tl{y}_1^1, \ldots, \tl{y}_1^{n_1}, \tl{y}_2^1, \ldots, \tl{y}_2^{n_2})$. Then for each $i \in [m_1]$, $j \in [m_2]$, $k \in [n_1]$ and $l \in [n_2]$,
 		\begin{align*}
 			& \frac{\p [\tl{y}_1^k \circ (F_1 \times F_2)]}{\p \tl{x}_1^i}(p_1, p_2) = \frac{\p [y^k_1 \circ F_1]}{\p x_1^i} (p_1), 
@@ -5036,8 +5045,8 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 
-	\begin{ex}
-		Let $M_1, M_2, N_1, N_2 \in \Obj(\Maninf)$, $F_1 \in \Hom_{\Maninf}(M_1, N_1)$, $F_2 \in \Hom_{\Maninf}(M_2, N_2)$ and $(p_1, p_2) \in M_1 \times M_2$. Define $\al_M \in \Iso_{\VectR}(T_{(p_1, p_2)}(M_1 \times M_2), T_{p_1}M_1 \times T_{p_2}M_2)$ and $\al_N \in \Iso_{\VectR}(T_{(F_1(p_1), F(p_2))}(N_1 \times N_2), T_{F(p_1)}N_1 \times T_{F(p_2)}N_2)$ \tcr{as in the previous exercise}. Then 
+	\begin{ex} \lex{ex:tangent_spaces:products:0004}
+		Let $M_1, M_2, N_1, N_2 \in \Obj(\Maninf)$, $F_1 \in \Hom_{\Maninf}(M_1, N_1)$, $F_2 \in \Hom_{\Maninf}(M_2, N_2)$ and $(p_1, p_2) \in M_1 \times M_2$. Define $\al_M \in \Iso_{\VectR}(T_{(p_1, p_2)}(M_1 \times M_2), T_{p_1}M_1 \times T_{p_2}M_2)$ and $\al_N \in \Iso_{\VectR}(T_{(F_1(p_1), F(p_2))}(N_1 \times N_2), T_{F(p_1)}N_1 \times T_{F(p_2)}N_2)$ as in \rex{ex:tangent_spaces:products:0002}. Then 
 		$$\al_N \circ D(F_1 \times F_2)(p_1, p_2) = DF_1(p_1) \times DF_2(p_2) \circ \al_M,$$ i.e. following diagram commutes: 
 		\[ 
 		\begin{tikzcd}
@@ -5086,6 +5095,64 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 
+	\begin{ex} \lex{ex:tangent_spaces:products:0005}
+		Let $M,N_1, N_2 \in \Obj(\ManBndinf)$, $F_1 \in \Hom_{\ManBndinf}(M, N_1)$ and $F_2 \in \Hom_{\ManBndinf}(M, N_2)$. Set $m \defeq \dim M$, $n_1 \defeq \dim N_1$ and $n_2 \defeq \dim N_2$. Define $G \in \Hom_{\ManBndinf}(M, N_1 \times N_2)$ by $G \defeq (F_1, F_2)$. Let $(U, \phi) \in \MA_M$, $(V_1, \psi_1) \in \MA_{N_1}$ and $(V_2, \psi_2) \in \MA_{N_2}$. Write $\phi = (x^1, \ldots, x^m)$, $\psi_1 = (y^1, \ldots, y^{n_1})$ and $\psi_2 = (z^1, \ldots, z^{n_2})$. Define $(V, \psi) \in \MA_{N_1} \otimes \MA_{N_2}$ by $V \defeq V_1 \times V_2$ and $\psi \defeq \psi_1 \times \psi_2$. Write $\psi = (\tl{y}^1, \ldots, \tl{y}^{n_1}, \tl{z}^1, \ldots, \tl{z}^{n_2})$. Then for each $p \in U \cap G^{-1}(V)$, 
+		$$[DG(p)]_{\phi, \psi} = 
+		\begin{pmatrix}
+			[DF_1(p)]_{\phi, \psi_1} \\
+			[DF_2(p)]_{\phi, \psi_2}
+		\end{pmatrix}.$$
+	\end{ex}
+
+	\begin{proof}
+		Let $p \in G^{-1}(V)$. Then for each $j \in [n_1]$ and $k \in [m]$, 
+		\begin{align*}
+			\frac{\p}{\p x^k} \bigg|_p [\tl{y}^j \circ G] 
+			= \frac{\p}{\p x^k} \bigg|_p [y^j \circ F_1].
+		\end{align*}
+		Similarly, for each $j \in [n_2]$ and $k \in [m]$.  
+		$$\frac{\p}{\p x^k} \bigg|_p [\tl{z}^j \circ G]  = \frac{\p}{\p x^k} \bigg|_p [z^j \circ F_2].$$
+		Hence 
+		\begin{align*}
+			[DG(p)]_{\phi, \psi}
+			& = 
+			\begin{pmatrix}
+				\bigg( \frac{\p [\tl{y}^j \circ G]}{\p x^k}(p) \bigg)_{j,k} \\
+				\bigg( \frac{\p [\tl{z}^j \circ G]}{\p x^k}(p) \bigg)_{j,k}
+			\end{pmatrix} \\
+			& = \begin{pmatrix}
+				[DF_1(p)]_{\phi, \psi_1} \\
+				[DF_2(p)]_{\phi, \psi_2}
+			\end{pmatrix} 
+		\end{align*}
+	\end{proof}
+
+	\begin{ex} \lex{ex:tangent_spaces:products:0006}
+		Let $M,N_1, N_2 \in \Obj(\ManBndinf)$, $F_1 \in \Hom_{\ManBndinf}(M, N_1)$, $F_2 \in \Hom_{\ManBndinf}(M, N_2)$ and $p \in M$. Define $G \in \Hom_{\ManBndinf}(M, N_1 \times N_2)$ by $G \defeq (F_1, F_2)$ and define $\al_N \in \Iso_{\VectR}(T_{(F_1(p), F_2(p))} N_1 \times N_2, T_{F_1(p)} N_1 \times T_{F_2(p)} N_2)$ as in \rex{ex:tangent_spaces:products:0002}. Then 
+		$$\al_N \circ DG(p) = (DF_1(p), DF_2(p)).$$ 
+	\end{ex}
+
+	\begin{proof}
+		Set $m \defeq \dim M$, $n_1 \defeq \dim N_1$ and $n_2 \defeq \dim N_2$. Then there exists $(U, \phi) \in \MA_M$, $(V_1, \psi_1) \in \MA_{N_1}$ and $(V_2, \psi_2) \in \MA_{N_2}$ such that $p \in U$, $F_1(p) \in V_1$ and $F_2(p) \in V_2$. Write $\phi = (x^1, \ldots, x^m)$, $\psi_1 = (y^1, \ldots, y^{n_1})$ and $\psi_2 = (z^1, \ldots, z^{n_2})$. Define $(V, \psi) \in \MA_{N_1} \otimes \MA_{N_2}$ by $V \defeq V_1 \times V_2$ and $\psi \defeq \psi_1 \times \psi_2$. Write $\psi = (\tl{y}^1, \ldots, \tl{y}^{n_1}, \tl{z}^1, \ldots, \tl{z}^{n_2})$. Define $q \in N_1 \times N_2$ by $q \defeq G(p)$. Let $k \in [m]$. Then \rex{ex:tangent_spaces:products:0005} implies that
+		\begin{align*}
+			DG(p) \bigg( \frac{\p}{\p x^k} \bigg)
+			& = [DG(p)]_{\phi, \psi} e^{\phi}_k \\
+			& = \sum_{j=1}^{n_1 + n_2} ([DG(p)]_{\phi, \psi})_{j, k}  e^{\psi}_j \\
+			& = \sum_{j=1}^{n_1} ([DG(p)]_{\phi, \psi})_{j, k}  e^{\psi}_j + \sum_{j=1}^{n_2} ([DG(p)]_{\phi, \psi})_{n_2 + j, k}  e^{\psi}_{n_2 + j} \\
+			& = \sum_{j=1}^{n_1} \frac{\p (y^j \circ F_1)}{\p x^k}(p) \frac{\p}{\p \tl{y}^j} \bigg|_q + \sum_{j=1}^{n_2} \frac{\p (z^j \circ F_2)}{\p x^k}(p) \frac{\p}{\p \tl{z}^j} \bigg|_q.
+		\end{align*}
+		\rex{ex:tangent_spaces:products:0002} then implies that 
+		\begin{align*}
+			\al_N \circ DG(p) \bigg( \frac{\p}{\p x^k} \bigg)
+			& = \al_N \bigg( \sum_{j=1}^{n_1} \frac{\p (y^j \circ F_1)}{\p x^k}(p) \frac{\p}{\p \tl{y}^j} \bigg|_q + \sum_{j=1}^{n_2} \frac{\p (z^j \circ F_2)}{\p x^k}(p) \frac{\p}{\p \tl{z}^j} \bigg|_q \bigg) \\
+			& = \sum_{j=1}^{n_1} \frac{\p (y^j \circ F_1)}{\p x^k}(p) \al_N \bigg( \frac{\p}{\p \tl{y}^j} \bigg|_q \bigg) + \sum_{j=1}^{n_2} \frac{\p (z^j \circ F_2)}{\p x^k}(p) \al_N \bigg( \frac{\p}{\p \tl{z}^j} \bigg|_q \bigg) \\
+			& = \sum_{j=1}^{n_1} \frac{\p (y^j \circ F_1)}{\p x^k}(p) \bigg( \frac{\p}{\p y^j} \bigg|_{F_1(p)}, 0 \bigg) + \sum_{j=1}^{n_2} \frac{\p (z^j \circ F_2)}{\p x^k}(p) \bigg( 0, \frac{\p}{\p z^j} \bigg|_{F_2(p)} \bigg) \\
+			& = \bigg( \sum_{j=1}^{n_1} \frac{\p (y^j \circ F_1)}{\p x^k}(p) \frac{\p}{\p y^j} \bigg|_{F_1(p)},  \sum_{j=1}^{n_2} \frac{\p (z^j \circ F_2)}{\p x^k}(p) \frac{\p}{\p z^j} \bigg|_{F_2(p)} \bigg) \\
+			& = \bigg( DF_1(p) \bigg( \frac{\p}{\p x^k} \bigg|_p \bigg), DF_2(p) \bigg( \frac{\p}{\p x^k} \bigg|_p \bigg) \bigg) \\
+			& = (DF_1(p), DF_2(p)) \bigg( \frac{\p}{\p x^k} \bigg|_p \bigg). 
+		\end{align*}
+		Since $k \in [m]$ is arbitrary, we have that $\al_N \circ DG(p) = (DF_1(p), DF_2(p))$. 
+	\end{proof}
 
 
 
@@ -5668,11 +5735,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Let $M, N \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(M,N)$. Define $U \subset M$ by $U \defeq \{p \in M: \rnk DF(p) = \dim M\}$. Then 
 		\begin{enumerate}
 			\item $U \in \MT_M$,
-			\item $F|_U$ is a submersion.
+			\item $F|_U$ is an immersion.
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
 			\item Let $p \in U$. Then $\rnk DF(p) = M$. Hence \rex{ex:immersions:0002} implies that there exists $V \in \MT_M$ such that $p \in V$ and $F|_V$ is an immersion. Since $F|_V$ is a immersion, for each $x \in V$, $\rnk DF(x) = \dim M$. Hence $V \subset U$. Since $p \in U$ is arbitrary, we have that for each $p \in U$, there exists $V \in \MT_M$ such that $p \in V$ and $V \subset U$. Hence $U \in \MT_M$.
 			\item Let $p \in U$. By construction  
@@ -5749,25 +5816,80 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{proof}\
 		\begin{enumerate}
 			\item \rex{ex:smooth_maps_and_product_manifolds:0008} implies that $\iota_q^M$ is smooth. Let $p \in M$. Then 
+			\item Similar to $(1)$.
 		\end{enumerate}
 	\end{proof}
 
-\begin{ex}
-	Let $M_1, M_2, N_1, N_2 \in \Obj(\Maninf)$, $F_1 \in \Hom_{\Maninf}(M_1, N_1)$ and $F_2 \in \Hom_{\Maninf}(M_2, N_2)$. If $F_1$ and $F_2$ are immersions, then $F_1 \times F_2$ is an immersion. 
+\begin{ex} \lex{ex:immersions:0006}
+	Let $M_1, M_2, N_1, N_2 \in \Obj(\Maninf)$, $F_1 \in \Hom_{\Maninf}(M_1, N_1)$ and $F_2 \in \Hom_{\Maninf}(M_2, N_2)$. 
+	\begin{enumerate}
+		\item If $F_1$ and $F_2$ are immersions, then $F_1 \times F_2$ is an immersion. 
+		\item If $F_1$ and $F_2$ are embeddings, then $F_1 \times F_2$ is an embedding. 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Suppose that $F_1$ and $F_2$ are immersions. Set $n_1 \defeq \dim N_1$ and $n_2 \defeq \dim N_2$. Since $F_1, F_2$ are immersions, $\dim \Im DF_1(p_1) = n_1$ and $\dim \Im DF_2(p_2) = n_2$. Let $(p_1, p_2) \in M_1 \times M_2$. Then \tcr{cite exercise in section on products of tangent spaces}
+		\begin{align*}
+			\dim \Im D(F_1 \times F_2)(p_1, p_2)
+			& = \dim \Im DF_1(p_1) \oplus DF_2(p_2) \\
+			& = n_1 + n_2 \\
+			& = \dim T_{F_1 \times F_2(p_1, p_2)} N_1 \times N_2.
+		\end{align*} 
+		Hence $\Im D(F_1 \times F_2)(p_1, p_2) = T_{F_1 \times F_2(p_1, p_2)} N_1 \times N_2$. Since $(p_1, p_2) \in M_1 \times M_2$ is arbitrary, we have that for each $(p_1, p_2) \in M_1 \times M_2$, $D(F_1 \times F_2)(p_1, p_2)$ is injective. Thus $F_1 \times F_2$ is an immersion.
+		\item Suppose that $F_1$ and $F_2$ are embeddings. The previous part implies that $F_1 \times F_2$ is an immersion. Since $F_1$ and $F_2$ are embeddings, $F_1|^{F_1(M_1)} \in \Iso_{\Top}(M_1, F_1(M_1))$ and $F_2|^{F_2(M_2)} \in \Iso_{\Top}(M_2, F_2(M_2))$. \rex{} \tcr{(cite exercise here)} implies that 
+		\begin{align*}
+			(F_1 \times F_2)|^{F_1 \times F_2(M_1 \times M_2)} 
+			& = F_1|^{F_1(M_1)} \times F_1|^{F_1(M_1)} \\
+			& \in \Iso_{\Top}( M_1 \times M_2, F_1(M_1) \times F_2(M_2)).
+		\end{align*}
+		Hence $F_1 \times F_2$ is a $\Top$-embedding. Thus $F_1 \times F_2$ is an embedding.
+	\end{enumerate}
+	\tcr{FIX!!!}
+\end{proof}
+
+\begin{ex} \lex{ex:immersions:0006.01}
+	Let $M, N_1, N_2 \in \Obj(\Maninf)$, $F_1 \in \Hom_{\Maninf}(M, N_1)$ and $F_2 \in \Hom_{\Maninf}(M, N_2)$. 
+	\begin{enumerate}
+		\item If $F_1$ is an immersion or $F_2$ is an immersion, then $(F_1, F_2)$ is an immersion. 
+		\item If $F_1$ is an embedding or $F_2$ is an embedding, then $(F_1, F_2)$ is an immersion. 
+	\end{enumerate}
 \end{ex}
 
 \begin{proof}
-	Suppose that $F_1$ and $F_2$ are immersions. Set $n_1 \defeq \dim N_1$ and $n_2 \defeq \dim N_2$. Since $F_1, F_2$ are immersions, $\dim \Im DF_1(p_1) = n_1$ and $\dim \Im DF_2(p_2) = n_2$. Let $(p_1, p_2) \in M_1 \times M_2$. Then \tcr{cite exercise in section on products of tangent spaces}
-	\begin{align*}
-		\dim \Im D(F_1 \times F_2)(p_1, p_2)
-		& = \dim \Im DF_1(p_1) \oplus DF_2(p_2) \\
-		& = n_1 + n_2 \\
-		& = \dim T_{F_1 \times F_2(p_1, p_2)} N_1 \times N_2.
-	\end{align*} 
-	Hence $\Im D(F_1 \times F_2)(p_1, p_2) = T_{F_1 \times F_2(p_1, p_2)} N_1 \times N_2$. Since $(p_1, p_2) \in M_1 \times M_2$ is arbitrary, we have that for each $(p_1, p_2) \in M_1 \times M_2$, $D(F_1 \times F_2)(p_1, p_2)$ is injective. Thus $F_1 \times F_2$ is an immersion.
+	Define $G \in \Hom_{\ManBndinf}(M, N_1 \times N_2)$ by $G \defeq (F_1, F_2)$.
+	\begin{enumerate}
+		\item Suppose that $F_1$ and $F_2$ are immersions. Set $m \defeq \dim M$, $n_1 \defeq \dim N_1$ and $n_2 \defeq \dim N_2$. Let $p \in M$. Then there exists $(U, \phi) \in \MA_M$, $(V_1, \psi_1) \in \MA_{N_1}$ and $(V_2, \psi_2) \in \MA_{N_2}$ such that $p \in U \cap F_1^{-1}(V_1) \cap F_2^{-1}(V_2)$. Define $(V, \psi) \in \MA_{N_1} \otimes \MA_{N_2}$ by $V \defeq V_1 \times V_2$ and $\psi \defeq \psi_1 \times \psi_2$. Write $\phi = (x^1, \ldots, x^m)$, $\psi_1 = (y^1, \ldots, y^{n_1})$, $\psi_2 = (z^1, \ldots, z^{n_2})$ and $\psi = (\tl{y}^1, \ldots, \tl{y}^{n_1}, \tl{z}^1, \ldots, \tl{z}^{n_2})$. \rex{ex:tangent_spaces:products:0005} then implies that 
+		$[DG(p)]_{\phi, \psi} = 
+		\begin{pmatrix}
+			[DF_1(p)]_{\phi, \psi_1} \\
+			[DF_2(p)]_{\phi, \psi_2}
+		\end{pmatrix}.$
+		Hence $\ker DG(p) = \ker DF_1(p) \cap DF_2(p)$. 
+		\begin{itemize}
+			\item If $F_1$ is an immersion, then $\ker DF_1(p) = \{0\}$ and therefore
+			\begin{align*}
+				\ker DG(p) 
+				& = \ker DF_1(p) \cap DF_2(p) \\
+				& = \{0\}.
+			\end{align*}
+			Hence $DG(p)$ is injective. 
+			\item Similarly, if $F_2$ is an immersion, then $DG(p)$ is injective.
+		\end{itemize}
+		Hence $DG(p)$ is injective. Since $p \in M$ is arbitrary, we have that for each $p \in M$, $DG(p)$ is injective. Hence $G$ is an immersion. 
+		\item Suppose that $F_1$ and $F_2$ are embeddings. The previous part implies that $G$ is an immersion. Since $F_1$ and $F_2$ are embeddings, $F_1|^{F_1(M)} \in \Iso_{\Top}(M, F_1(M))$ and $F_2|^{F_2(M)} \in \Iso_{\Top}(M, F_2(M))$. \rex{} \tcr{cite exercise here} implies that 
+		\begin{align*}
+			G|^{G(M)} 
+			& = (F_1|^{F_1(M_1)}, F_1|^{F_1(M_1)}) \\
+			& \in \Iso_{\Top}( M, G(M)).
+		\end{align*}
+		Hence $G$ is a $\Top$-embedding. Thus $G$ is an embedding.
+		\tcr{FIX!!!}
+	\end{enumerate}
 \end{proof}
 
-\begin{ex} \lex{ex:immersions:0005} \tbf{Local Representation of Immersions:} \\
+\begin{ex} \lex{ex:immersions:0007} \tbf{Local Representation of Immersions:} \\
 	Let $M,N \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(M, N)$. Then $F$ is am immersion iff for each $p \in M$, there exist $(U, \phi) \in \MA_M$ and $(V, \psi) \in \MA_N$ such that $p \in U$, $\phi(U) = V$, and $\psi \circ F \circ \phi^{-1} = (\id_{\phi(U)}, 0)$.
 \end{ex}
 
@@ -5840,7 +5962,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
 			\item Let $p \in U$. Then $\rnk DF(p) = N$. Hence \rex{ex:submersions:0001.01} implies that there exists $V \in \MT_M$ such that $p \in V$ and $F|_V$ is a submersion. Since $F|_V$ is a submersion, for each $x \in V$, $\rnk DF(x) = \dim N$. Hence $V \subset U$. Since $p \in U$ is arbitrary, we have that for each $p \in U$, there exists $V \in \MT_M$ such that $p \in V$ and $V \subset U$. Hence $U \in \MT_M$.
 			\item Let $p \in U$. By construction  
@@ -6150,6 +6272,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \newpage
 
 \chapter{Submanifolds}
+
 \tcr{need to figure out a more systematic way to handle restriction of codomains. Maybe for $F:A \rightarrow B$ with $F(A) \subset B' \subset B$, introduce notation $F|^{B'}:A \rightarrow C$ by $F|^{B'}(x) = F(x)$. Try to phrase this in terms of composition, for example $F|_A' = F \circ \iota_{A'}$, does it make sense to have $F|^{B'} = q \circ F$ with $q: B \rightarrow B'$ in a way that if $x \in B'$, then $q(x) = x$? According to https://en.wikipedia.org/wiki/Corestriction , $F|^{B'}$ is the unique map such that $\iota_{B'} \circ F|^{B'} = F$, which we can show exists., maybe dont call this corestriction, but constriction, can also dilate $F: A \rightarrow B'$ to $F:A \rightarrow B$}
 
 \section{Introduction}
@@ -6204,35 +6327,36 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{itemize}
 	\end{proof}
 
-	\begin{ex}  \tbf{Uniqueness of Topology for Embedded Submanifolds}
+	\begin{ex} \lex{ex:submanifolds:introduction:0002.2}  \tbf{Uniqueness of Topology for Embedded Submanifolds}
 		Let $(M, \MT_M, \MA_M), (S, \MT_S, \MA_S) \in \Obj(\Maninf)$. Suppose that $S \subset M$ and $(S, \MT_S, \MA_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$. Then $\MT_S = \MT_M \cap S$. 
 	\end{ex}
 	
 	\begin{proof}
 		Since $(S, \MT_S, \MA_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$, $\iota_S \in \Iso_{\Top}[(S, \MT_S), (S, \MT_M \cap S)]$. \tcb{An exercise in the analysis notes section on subspaces} implies that $\MT_S = \MT_M \cap S$.
-		\tcr{get rid of the following:}
-		\begin{itemize}
-			\item Let $U \in \MT_S$. Since $\iota_S(U) = U$ and $\iota_S$ is $(\MT_S, \MT_M \cap S)$-open, we have that 
-			\begin{align*}
-				U 
-				& = \iota_S(U) \\
-				& \in \MT_M \cap S.
-			\end{align*}
-			Since $U \in \MT_S$ is arbitrary, we have that $\MT_S \subset \MT_M \cap S$.  
-			\item Let $U \in \MT_M \cap S$. Since $\iota_S$ is $(\MT_S, \MT_M \cap S)$-continuous and $U \subset S$, we have that we have that 
-			\begin{align*}
-				U
-				& = \iota_S^{-1}(U) \\
-				& = \in \MT_S.
-			\end{align*}
-			Since $U \in \MT_M \cap S$ is arbitrary, we have that  $\MT_M \cap S \subset \MT_S$. 
-		\end{itemize}
-		Hence $\MT_S = \MT_M \cap S$. 
-		\tcr{Make this an exercise in the analysis notes section on topology and subspaces, then just cite that exercise here in the context of smooth manifolds.}
+%		\tcr{get rid of the following:}
+%		\begin{itemize}
+%			\item Let $U \in \MT_S$. Since $\iota_S(U) = U$ and $\iota_S$ is $(\MT_S, \MT_M \cap S)$-open, we have that 
+%			\begin{align*}
+%				U 
+%				& = \iota_S(U) \\
+%				& \in \MT_M \cap S.
+%			\end{align*}
+%			Since $U \in \MT_S$ is arbitrary, we have that $\MT_S \subset \MT_M \cap S$.  
+%			\item Let $U \in \MT_M \cap S$. Since $\iota_S$ is $(\MT_S, \MT_M \cap S)$-continuous and $U \subset S$, we have that we have that 
+%			\begin{align*}
+%				U
+%				& = \iota_S^{-1}(U) \\
+%				& = \in \MT_S.
+%			\end{align*}
+%			Since $U \in \MT_M \cap S$ is arbitrary, we have that  $\MT_M \cap S \subset \MT_S$. 
+%		\end{itemize}
+%		Hence $\MT_S = \MT_M \cap S$. 
+%		\tcr{Make this an exercise in the analysis notes section on topology and subspaces, then just cite that exercise here in the context of smooth manifolds.}
 	\end{proof}
 
 	\begin{ex} \lex{ex:submanifolds:introduction:0003}
 		Let $M, N \in \Obj(\Maninf)$, $p \in M$ and $q \in N$. Then $M \times \{q\}$ and $N \times \{p\}$ are embedded submanifold of $M \times N$. 
+		\tcr{move to later in products section as corollary}
 	\end{ex}
 
 	\begin{proof}
@@ -6252,11 +6376,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{itemize}
 	\end{proof}
 
-	\begin{defn}
+	\begin{defn} \ld{def:submanifolds:introduction:0005}
 		Let $(M, \MA), (S, \MB) \in \Obj(\Maninf)$. Suppose that $S \subset M$ and $(S, \MB)$ is an embedded submanifold of $(M, \MA)$. Then $(S, \MB)$ is said to be \tbf{properly embedded} if $\iota_S:S \rightarrow M$ is proper.
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0006}
 		Let $(M, \MA), (S, \MB) \in \Obj(\Maninf)$. Suppose that $S \subset M$ and $(S, \MB)$ is an embedded submanifold of $(M, \MA)$. Then $(S, \MB)$ is properly embedded iff $S$ is closed in $M$. 
 	\end{ex}
 
@@ -6269,15 +6393,15 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{itemize}
 	\end{proof}
 
-	\begin{defn}
+	\begin{defn}  \ld{def:submanifolds:introduction:0007}
 		Let $n \in \N$ and $k \in [n]$. We define the \tbf{$k$-slice of $\R^n$}, denoted $\S^{n,k}$, by $\S^{n,k} \defeq \{a \in \R^n : a^{k+1}, \ldots, a^n = 0\}$.
 	\end{defn}
 	
-	\begin{defn}
+	\begin{defn}  \ld{def:submanifolds:introduction:0008}
 	Let $U \subset \R^n$ and $S \subset U$. Then $S$ is said to be a \tbf{$k$-slice} of $U$ if $S = U \cap \S^{n,k}$.
 	\end{defn}		
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0009}
 		\tcr{show $\S^{n,k}$ is a $k$-slice of $\R^n$.}
 	\end{ex}
 
@@ -6285,12 +6409,12 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Clear.
 	\end{proof}
 	
-	\begin{defn}
+	\begin{defn} \ld{def:submanifolds:introduction:0010}
 	Let $M$ be a smooth manifold, $S \subset M$ and $(U, \phi) \in \MA_M$. Then $(U, \phi)$ is said to be a \tbf{$k$-slice chart on $S$} if $\phi(U \cap S)$ is a $k$-slice of $\phi(U)$. We define
 	$$\S^k(M; S) \defeq \{(U, \phi) \in \MA_M: \text{$(U, \phi)$ is a $k$-slice chart on $S$}\}$$
 	\end{defn}	
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0011}
 	Let $M$ be a smooth manifold, $S \subset M$ and $(U, \phi) \in \MA_M$ with $\phi = (x^1, \dots, x^n)$. If $(U, \phi)$ is a $k$-slice chart on $S$, then $\phi|_S = (x^1|_S, \dots, x^k|_S, 0, \dots, 0)$.
 	\end{ex}
 	
@@ -6298,11 +6422,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	Clear. 
 	\end{proof}
 	
-	\begin{defn}
+	\begin{defn} \ld{def:submanifolds:introduction:0012}
 	Let $M$ be a smooth manifold and $S \subset M$. Then $S$ is said to \tbf{satisfy the local $k$-slice condition with respect to $M$} if for each $p \in S$, there exists $(U, \phi) \in \S^k(M; S)$ such that $p \in U$. 
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0013}
 		Let $M, N$ be smooth manifolds and $S \subset M$. Suppose that $\dim M = m$, $\dim N = n$ and $M \subset N$. Then  
 		\begin{enumerate}
 			\item $S^{k}(M;S) \subset S^k(N;S)$
@@ -6314,7 +6438,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\tcr{FINISH!!!}
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0014}
 		Let $U \subset \R^n$ and $S \subset U$. Suppose that $S$ is a $k$-slice of $U$. Define $\prj^n_{[k]}: \R^n \rightarrow \R^k$ by $$\prj(u^1, \dots, u^k, \dots, u^n) = (u^1, \dots, u^k)$$ Then $\pi^n_{[k]}|_{S} \rightarrow \prj^n_{k}(S)$ is a diffeomorphism.
 	\end{ex}	
 	
@@ -6322,7 +6446,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Clear. \tcr{FINISH!!!}
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0015}
 		Let $M,S \in \Obj(\Maninf)$. Suppose that $S \subset M$. If $S$ is a $k$-dimensional embedded submanifold of $M$, then $S$ satisfies the local $k$-slice condition with respect to $M$. \\
 		\tbf{Hint:} Draw a picture
 	\end{ex}
@@ -6389,7 +6513,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Hence $\psi(V \cap S)$ is a $k$-slice of $\psi(V)$ and therefore $(V, \psi) \in \S^k(M; S)$. Since $p \in S$ is arbitrary, we have that for each $p \in S$, there exists $(V, \psi) \in \S^k(M; S)$ such that $p \in V$. Therefore $S$ satisfies the local $k$-slice condition with respect to $M$. 
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0016}
 		Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $\dim M = n$ and $S$ satisfies the local $k$-slice condition with respect to $M$. Then 
 		\begin{enumerate}
 			\item for each $(U, \phi) \in \S^k(M; S)$, if $U \cap S \neq \varnothing$, then $(U \cap S, \pi_{n, k} \circ \phi|_{U \cap S}) \in X^k(S)$, 
@@ -6435,12 +6559,12 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 	\end{proof}
 
-	\begin{defn}
+	\begin{defn} \ld{def:submanifolds:introduction:0017}
 		Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $\dim M = n$ and $S$ satisfies the local $k$-slice condition with respect to $M$. We define 
 		$$\MA|_S^0 \defeq \{(U \cap S, \pi^n_{[k]} \circ \phi_{U \cap S}): (U, \phi) \in \S^k(M; S)\}.$$
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0018}
 		Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $S$ satisfies the local $k$-slice condition with respect to $M$. Then 
 		\begin{enumerate}
 			\item $\MA|_S^0$ is an atlas on $S$,
@@ -6464,12 +6588,12 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 	\end{proof}
 
-	\begin{defn}
+	\begin{defn} \ld{def:submanifolds:introduction:0019}
 			Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $S$ satisfies the local $k$-slice condition with respect to $M$. We define the \tbf{embedded smooth structure on $S$ induced by $\MA$}, denoted $\MA|_S$, by 
 			$$\MA|_S \defeq \al(\MA|_S^0).$$
 	\end{defn}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0020}
 		Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $S$ satisfies the local $k$-slice condition with respect to $M$. Then $(S, \MT_M \cap S, \MA|_S)$ is an embedded submanifold of $(M, \MT_M, \MA)$,
 	\end{ex}
 
@@ -6503,7 +6627,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Let $(M, \MA) \in \Obj(\Maninf)$ and $S \subset M$. Suppose that $S$ satisfies the local $k$-slice condition with respect to $M$. Unless otherwise specified, we equip $S$ with $\MA|_S$.
 	\end{note}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0021}
 		Let $M, N, S \in \Obj(\Maninf)$, $F \in \Hom_{\Maninf}(N, M)$. Suppose that $S \subset M$ and $S$ is an immersed submanifold of $M$, $F(N) \subset S$ and $F \in \Hom_{\Top}(N, S)$. Then $F \in \Hom_{\Maninf}(N, S)$. \\
 		\tbf{Hint:} Define $F_0:N \rightarrow S$ by $F_0(p) = F(p)$. Then $F = \iota_S \circ F_0$.
 	\end{ex}
@@ -6522,7 +6646,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Since $\wh{F}$ is smooth, we have that $\wh{F}_0$ is smooth. Since $p \in N$ is arbitrary, we have that for each $p \in N$, there exists $(W, \eta) \in \MA_N$ and $(V, \psi) \in \MA_S$ such that $p \in W$, $F_0(p) \in V$, $W \cap F_0^{-1}(V) \in \MT_N$ and $\psi \circ F_0 \circ \eta^{-1}|_{W \cap F_0^{-1}(V)}$ is smooth. \rex{ex:smooth_maps_between_manifolds:0003} implies that $F_0$ is smooth. 
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0022}
 		Let $M, N \in \Obj(\Maninf)$, $F \in \Hom_{\Maninf}(N, M)$ and $S \subset M$. Suppose that $S$ is an embedded submanifold of $M$ and $F(N) \subset S$. Then $F \in \Hom_{\Maninf}(N, S)$.
 	\end{ex}
 
@@ -6542,10 +6666,10 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			& = F^{-1}(U) \\
 			& \in \MT_N.
 		\end{align*}
-		Since $V \in \MT_S$ is arbitrary, we have that for each $V \in \MT_S$, $F^{-1}(V) \in \MT_N$. Hence $F$ is $(\MT_N, \MT_S)$-continuous. Since $S$ is an embedded submanifold of $M$, $S$ is an immersed submanifold of $M$. \rex{arg1} \tcr{(reference previous exercise here)} implies that $F \in \Hom_{\Maninf}(N, S)$.
+		Since $V \in \MT_S$ is arbitrary, we have that for each $V \in \MT_S$, $F^{-1}(V) \in \MT_N$. Hence $F \in \Hom_{\Top}(N, S)$. Since $S$ is an embedded submanifold of $M$, $S$ is an immersed submanifold of $M$. \rex{ex:submanifolds:introduction:0021} then implies that $F \in \Hom_{\Maninf}(N, S)$.
 	\end{proof}
 
-	\begin{ex} \tbf{Uniqueness of Topological and Smooth Structure for Embedded Submanifolds} \\
+	\begin{ex} \lex{ex:submanifolds:introduction:0023} \tbf{Uniqueness of Topological and Smooth Structure for Embedded Submanifolds} \\
 		Let $(M, \MT_M, \MA_M), (S, \MT_S, \MA_S) \in \Obj(\Maninf)$. Suppose that $S \subset M$. If $(S, \MT_S, \MA_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$, then 
 		\begin{enumerate}
 			\item $\MT_S = \MT_M \cap S$,
@@ -6557,21 +6681,21 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Suppose that $(S, \MT_S, \MA_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$. 
 		\begin{enumerate}
 			\item Since $(S, \MT_S, \MA_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$, $\iota_S \in \Iso_{\Top}[(S, \MT_S), (S, \MT_M \cap S)]$. \tcb{An exercise in the analysis notes section on subspaces} implies that $\MT_S = \MT_M \cap S$. 
-			\item Define $\iota:S \rightarrow S$ by $\iota(p) \defeq p$. Clearly, $\iota$ is a bijection. Since $(S, \MT_S, \MA_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$, \rex{} \tcr{(reference a previous exercise here)} implies that $S$ satisfies the local $k$-slice condition with respect to $M$. \tcr{arg1} \rex{arg1} \tcr{(reference a previous exercise here)} then implies that $((S, \MT_M \cap S, \MA_M|_S))$ is an embedded submanifold of $(M, \MT_M, \MA_M)$.
+			\item Define $\iota:S \rightarrow S$ by $\iota(p) \defeq p$. Clearly, $\iota$ is a bijection. Since $(S, \MT_S, \MA_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$, \rex{ex:submanifolds:introduction:0015} implies that $S$ satisfies the local $k$-slice condition with respect to $M$. \rex{ex:submanifolds:introduction:0020} then implies that $(S, \MT_M \cap S, \MA_M|_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$.
 			\begin{itemize}
-				\item Since $(S, \MT_S, \MA_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$, $\iota \in \Hom_{\Maninf}[(S, \MT_S, \MA_S), (M, \MT_M, \MA_M)]$. Since $\iota(S) = S$, \rex{} \tcr{the previous exercise} implies that $\iota \in \Hom_{\Maninf}[(S, \MT_S, \MA_S), (S, \MT_M \cap S, \MA_M|_S)]$. 
-				\item Since $(S, \MT_M \cap S, \MA_M|_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$, $\iota^{-1} \in \Hom_{\Maninf}[(S, \MT_M \cap S, \MA_M|_S), (M, \MT_M, \MA_M)]$. Since $\iota^{-1}(S) = S$, \rex{} \tcr{the previous exercise} implies that $\iota^{-1} \in \Hom_{\Maninf}[(S, \MT_M \cap S, \MA_M|_S), (S, \MT_S, \MA_S)]$. 
+				\item Since $(S, \MT_S, \MA_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$, $\iota \in \Hom_{\Maninf}[(S, \MT_S, \MA_S), (M, \MT_M, \MA_M)]$. Since $\iota(S) = S$, \rex{ex:submanifolds:introduction:0022} implies that $\iota \in \Hom_{\Maninf}[(S, \MT_S, \MA_S), (S, \MT_M \cap S, \MA_M|_S)]$. 
+				\item Since $(S, \MT_M \cap S, \MA_M|_S)$ is an embedded submanifold of $(M, \MT_M, \MA_M)$, $\iota^{-1} \in \Hom_{\Maninf}[(S, \MT_M \cap S, \MA_M|_S), (M, \MT_M, \MA_M)]$. Since $\iota^{-1}(S) = S$, \rex{ex:submanifolds:introduction:0022} again implies that $\iota^{-1} \in \Hom_{\Maninf}[(S, \MT_M \cap S, \MA_M|_S), (S, \MT_S, \MA_S)]$. 
 			\end{itemize}
 			\rex{ex:smooth_maps_open_boundary_submanifolds:0004.1} then implies that $\iota$ is a diffeomorphism and $\MA_S = \MA_M|_S$. 
 		\end{enumerate}
 	\end{proof}
 
-	\begin{ex} \tbf{Uniqueness of Smooth Structure for Immersed Submanifolds}
-		Let $(M, \MT_M, \MA_M) \in \Obj(\Maninf)$, $(S, \MT_S) \in \Obj(\Man0)$ and $\MA_1 \MA_2$ smooth structures on $(S, \MT_S)$. Suppose that $S \subset M$. If $(S, \MT_S, \MA_1)$ and $(S, \MT_S, \MA_2)$ are immersed submanifolds of $(M, \MT_M, \MA_M)$, then $\MA_1 = \MA_2$. 
+	\begin{ex} \lex{ex:submanifolds:introduction:0024} \tbf{Uniqueness of Smooth Structure for Immersed Submanifolds}
+		Let $(M, \MT_M, \MA_M) \in \Obj(\Maninf)$, $(S, \MT_S) \in \Obj(\Man0)$ and $\MA_1, \MA_2$ smooth structures on $(S, \MT_S)$. Suppose that $S \subset M$. If $(S, \MT_S, \MA_1)$ and $(S, \MT_S, \MA_2)$ are immersed submanifolds of $(M, \MT_M, \MA_M)$, then $\MA_1 = \MA_2$. 
 	\end{ex}
 	
 	\begin{proof}
-		Let $p \in S$. Since $(S, \MT_S, \MA_1)$, $(S, \MT_S, \MA_2)$ are immersed submanifolds of $(M, \MT_M, \MA_M)$, there exists $W_1, W_2 \in \MT_S$ such that $p \in W_1 \cap W_2$ and $(W_1, \MT_S \cap W_1, \MA_1|_{W_1})$, $(W_2, \MT_S \cap W_2, \MA_2|_{W_2})$ are embedded submanifolds of $(M, \MT_M, \MA_M)$. Define $W \in \MT_S$ by $W \defeq W_1 \cap W_2$. \rex{arg1} \tcr{(reference previous exercise about open submanifolds here)} implies that $(W, \MT_S \cap W, \MA_1|_W)$, $(W, \MT_S \cap W, \MA_2|_W)$ are embedded submanifolds of $(M, \MT_M, \MA_M)$. \rex{} \tcr{(reference previous exercise here)} implies that $\MT_S \cap W = \MT_M \cap W$ and 
+		Let $p \in S$. Since $(S, \MT_S, \MA_1)$, $(S, \MT_S, \MA_2)$ are immersed submanifolds of $(M, \MT_M, \MA_M)$, there exists $W_1, W_2 \in \MT_S$ such that $p \in W_1 \cap W_2$ and $(W_1, \MT_S \cap W_1, \MA_1|_{W_1})$, $(W_2, \MT_S \cap W_2, \MA_2|_{W_2})$ are embedded submanifolds of $(M, \MT_M, \MA_M)$. Define $W \in \MT_S$ by $W \defeq W_1 \cap W_2$. \rex{arg1} \tcr{(reference previous exercise about open submanifolds here)} implies that $(W, \MT_S \cap W, \MA_1|_W)$, $(W, \MT_S \cap W, \MA_2|_W)$ are embedded submanifolds of $(M, \MT_M, \MA_M)$. \rex{ex:submanifolds:introduction:0023} then implies that $\MT_S \cap W = \MT_M \cap W$ and 
 		\begin{align*}
 			\MA_1|_W
 			& = \MA_M|_W \\
@@ -6591,7 +6715,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{align*}
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0025}
 		Let $M, S \in \Obj(\Maninf)$. Suppose that $S \subset M$ and $S$ is an immersed submanifold of $M$. If for each $p \in S$, there exists $U \in \MT_M$ such that $p \in U$ and $S \cap U$ is an embedded submanifold of $U$, then $S$ is an embedded submanifold of $M$. 
 	\end{ex}
 	
@@ -6606,7 +6730,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:introduction:0026}
 		\tcr{talk about the boundary as an embedded submanifold. In particular if $\dim M = n$, then $\p M$ satisfies the local $n-1$-slice condition} Let $M \in \Obj(\ManBndinf)$. Then $\p M$ is an embedded submanifold of $M$.  
 	\end{ex}	
 	
@@ -6668,6 +6792,10 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	\subsection{Images of Embeddings as Embedded Submanifolds}
 	
+	\begin{note}
+		Let $M, N \in \Obj(\ManBndinf)$ and  $F \in \Hom_{\ManBndinf}(N, M)$. Suppose that $F$ is a  $\ManBndinf$-embedding. We recall that \rex{ex:top_submanifolds:embedded:0001} implies that $(F(N), \MT_M \cap F(N)) \in \Obj(\Man0)$.
+	\end{note}
+	
 	\begin{ex} \lex{ex:submanifolds:embedded:embedded_images:0002}
 		Let $M, N \in \Obj(\ManBndinf)$ and  $F \in \Hom_{\ManBndinf}(N, M)$. Suppose that $F$ is a  $\ManBndinf$-embedding. 
 		$$\MA_0 \defeq \{(F(V), \psi \circ F|_V^{-1}): (V, \psi) \in \MA_N\}$$
@@ -6710,7 +6838,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		$$F_*\MA_N \defeq \al (\{(F(V), \psi \circ F|_V^{-1}): (V, \psi) \in \MA_N\})$$
 	\end{defn}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:embedded:embedded_images:0004}
 		Let $M, N \in \Obj(\Maninf)$ and  $F \in \Hom_{\Maninf}(N, M)$. Suppose that $F$ is a  $\Maninf$-embedding. Then
 		\begin{enumerate}
 			\item $F|^{F(N)} \in \Iso_{\ManBndinf}((N, \MA_N), (F(N), F_*\MA_N))$
@@ -6735,7 +6863,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\end{itemize}
 			Hence $G \in \Iso_{\ManBndinf}((N, \MA_N), (F(N), F_*\MA_N))$.
 			\item We note that $\iota_{F(N)} = F \circ G^{-1}$. Since $G$ is a diffeomorphism, $G$ is a $\ManBndinf$-embedding. Since $F$ is a $\ManBndinf$-embedding, \rex{} \tcr{make exercise about compositions of embeddings being embeddings} implies that $\iota_{F(N)}$ is a $\ManBndinf$-embedding. Hence $(F(N), F_*\MA_N)$ is an embedded submanifold of $M$. 
-			\item \rex{} \tcr{uniqueness of smooth structure for embedded submanifolds} implies that $F_*\MA_N = \MA_M|_{F(N)}$.
+			\item \rex{ex:submanifolds:introduction:0023} implies that $F_*\MA_N = \MA_M|_{F(N)}$.
 		\end{enumerate}
 	\end{proof}
 	
@@ -6747,24 +6875,14 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		content... \tcr{FINISH!!! by two previous exercises.}
 	\end{proof}
 	
-	\begin{ex}
-		Let $M \in \Obj(\Maninf)$. Then 
-		\begin{enumerate}
-			\item $\Del_M \in \Obj(\Maninf)$ and $\Del_M$ is an embedded submanifold of $M \times M$
-			\item for each $p \in M$, $T_{(p,p)} \Del_M = \Del_{T_pM}$
-		\end{enumerate}
+	\begin{ex} \lex{ex:submanifolds:embedded:embedded_images:0006}
+		Let $M \in \Obj(\Maninf)$. Then $\Del_M \in \Obj(\Maninf)$ and $\Del_M$ is an embedded submanifold of $M \times M$.
 	\end{ex}
 
-	\begin{proof}\
-		\begin{enumerate}
-			\item Define $F: M \rightarrow M \times M$ by $F = (\id_M, \id_M)$. \rex{ex:smooth_maps_and_product_manifolds:0006.2} implies that $F \in \Hom_{\Maninf}(M, M \times M)$. \tcr{make exercise in immersions section that if $F: M \rightarrow A$ and $G: M \rightarrow B$ are immersion/embedding, then $(F,G)$ is immersion/embedding}
-			\item 
-		\end{enumerate}
-		
-		\tcr{FINISH!!!}
+	\begin{proof}
+		Define $F \in \Hom_{\Maninf}(M, M \times M)$ by $F \defeq (\id_M, \id_M)$. \rex{ex:immersions:0006.01} implies that $F$ is an embedding. Since $F(M) = \Del_M$, \rex{ex:submanifolds:embedded:embedded_images:0004} implies that $\Del_M$ is an embedded submanifold of $M \times M$.
 	\end{proof}
 	
-
 
 
 
@@ -6899,11 +7017,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{proof}
 	
 	\begin{defn} \ld{def:submanifolds:embedded:level_sets:0011}
-		Let $M, N, S \in \Obj(\Maninf)$, $F \in \Hom_{\Maninf}(M,N)$. Suppose that $S \subset M$. Then $S$ is said to be a \tbf{regular level set of $F$} if there exists $q \in N$ such that $q$ is a regular value of $F$ and $S = F^{-1}(\{q\})$.
+		Let $M, N \in \Obj(\Maninf)$ $S \subset M$ and $F \in \Hom_{\Maninf}(M,N)$. Then $S$ is said to be a \tbf{regular level set of $F$} if there exists $q \in N$ such that $q$ is a regular value of $F$ and $S = F^{-1}(\{q\})$.
 	\end{defn}
 	
 	\begin{ex} \lex{ex:submanifolds:embedded:level_sets:0012} \tbf{Regular Level Set Theorem}: \\
-		Let $M, N, S \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(M,N)$. Set $m \defeq \dim M$ and $n \defeq \dim N$. Suppose that $S \subset M$ and $S$ is a regular level set of $F$. Then
+		Let $M, N \in \Obj(\Maninf)$, $S \subset M$ and $F \in \Hom_{\Maninf}(M,N)$. Set $m \defeq \dim M$ and $n \defeq \dim N$. Suppose that $S$ is a regular level set of $F$. Then
 		\begin{enumerate}
 			\item $S$ satisfies the local $(m-n)$-slice condition with respect to $M$,
 			\item $(S, \MT_M \cap S, \MA_M|_S)$ is a properly embedded submanifold of $M$.
@@ -6913,29 +7031,34 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{ex}
 
 	\begin{proof}
-		Define $U \subset M$ by $U \defeq \{p \in M: \rnk DF(p) = \dim N\}$. \rex{ex:submersions:0001.02} implies that $U \in \MT_M$ and $F|_U$ is a submersion. Let $S \subset M$. Suppose that $S$ is a regular level set of $F$. Then there exists $q \in N$ such that $q$ is a regular value of $F$ and $S = F^{-1}(\{q\})$. Since $q$ is a regular value of $F$, for each $x \in S$, $x$ is a regular point of $F$. Thus for each $x \in S$, $DF(x)$ is surjective. Thus $S \subset U$. Since $F|_U$ is a submersion and 
+		Define $U \subset M$ by $U \defeq \{p \in M: \rnk DF(p) = \dim N\}$. \rex{ex:submersions:0001.02} implies that $U \in \MT_M$ and $F|_U$ is a submersion. Since $S$ is a regular level set of $F$, there exists $q \in N$ such that $q$ is a regular value of $F$ and $S = F^{-1}(\{q\})$. Since $q$ is a regular value of $F$, for each $x \in S$, $x$ is a regular point of $F$. Thus for each $x \in S$, $DF(x)$ is surjective. Hence $S \subset U$. Since $F|_U$ is a submersion and 
 		\begin{align*}
 			S
-			& = F^{-1}(\{q\}) \\
+			& = S \cap U \\
+			& = F^{-1}(\{q\}) \cap U \\
 			& = F|_U^{-1}(\{q\}),
 		\end{align*}
-		\rex{} \tcr{(the previous exercise)} implies that $S$ is a properly embedded submanifold of $U$. Since $U \in \MT_M$, $U$ is a properly embedded submanifold of $M$. Hence $F^{-1}(\{q\})$ is a properly embedded submanifold of $M$. \tcr{(flesh out some of the last details here, like composition of proper maps is proper, composition of $\Maninf$-embeddings is a $\Maninf$-embedding, etc)}
-		\begin{enumerate}
-			\item 
-			\item 
-		\end{enumerate}
-	\tcr{FINISH!!!}
+		\rex{ex:submanifolds:embedded:level_sets:0008} implies that $S$ satisfies the local $(m-n)$-slice condition with respect to $U$ and $S$ is a properly embedded submanifold of $U$. Since $U \in \MT_M$, $U$ is a properly embedded submanifold of $M$. Hence $F^{-1}(\{q\})$ is a properly embedded submanifold of $M$. \tcr{(flesh out some of the last details here, like composition of proper maps is proper, composition of $\Maninf$-embeddings is a $\Maninf$-embedding, etc)}
+		\tcr{FINISH!!!}
 	\end{proof}
 
+	\begin{defn} \ld{def:submanifolds:embedded:level_sets:0012.1}
+		Let $M, N \in \Obj(\Maninf)$, $S \subset M$, $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, N)$. Suppose that $S \subset M$. Then $F$ is said to be a 
+		\begin{itemize}
+			\item \tbf{local defining map for $S$} if $S \cap U$ is a regular level set of $F$, 
+			\item \tbf{defining map for $S$} if $F$ is a local defining map for $S$ and $U = M$.
+		\end{itemize}
+	\end{defn}
+
 	\begin{ex} \lex{ex:submanifolds:embedded:level_sets:0013}
-		Let $M, S \in \Obj(\Maninf)$. Set $m \defeq \dim M$ and $k \defeq \dim S$. Suppose that $S \subset M$. Then $S$ is an embedded submanifold of $M$ iff for each $p \in S$, there exists $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, \R^{m-k})$ such that $p \in U$, $F$ is a smooth submersion and $S \cap U$ is a regular level set of $F$.
+		Let $M \in \Obj(\Maninf)$ and $S \subset M$. Set $m \defeq \dim M$. Then $S$ satisfies the local $k$-slice condition with respect to $M$ iff for each $p \in S$, there exists $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, \R^{m-k})$ such that $p \in U$ and $F$ is a local defining map for $S$.
 	\end{ex}
 
 	\begin{proof}\
 		\begin{itemize}
 			\item $(\implies):$ \\
 			\begin{itemize}
-				\item Suppose that $S$ is an embedded submanifold of $M$. Let $p \in S$. Since $S$ is an embedded submanifold of $M$, there exists $(U_0, \phi_0) \in \MA_M|_S^0$ such that $p \in U$. Thus there exists $(U, \phi) \in \S^k(M; S)$ such that $U_0 = U \cap S$ and $\phi_0 = \pi^m_{[k]} \circ \phi$. Set $r \defeq m - k$ and define $F \in \Hom_{\Maninf}(U, \R^r)$ by $F \def \pi^m_{[-r]} \circ \phi$. Then $F \in \Hom_{\Maninf}(U, \R^r)$ and $p \in U$. By definition of $\S^k(M; S)$, $\phi(S \cap U) = \phi(U) \cap \S^{m,k}$. Hence 
+				\item Suppose that $S$ satisfies the local $k$-slice condition with respect to $M$. Let $p \in S$. Then there exists $(U, \phi) \in \S^k(M; S)$ such that $p \in U$. Define $(U_0, \phi_0) \in \MA_M|_S^0$ by $U_0 \defeq U \cap S$ and $\phi_0 \defeq \prj^m_{k} \circ \phi|_{U_0}$. Set $r \defeq m - k$ and define $F \in \Hom_{\Maninf}(U, \R^r)$ by $F \defeq \prj^m_{[-r]} \circ \phi$. Then $F \in \Hom_{\Maninf}(U, \R^r)$ and $p \in U$. By definition of $\S^k(M; S)$, $\phi(S \cap U) = \phi(U) \cap \S^{m,k}$. Hence 
 				\begin{align*}
 					F(S \cap U)
 					& = \pi^m_{[-r]} \circ \phi(S \cap U) \\
@@ -6958,32 +7081,16 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 				\end{align*}
 				Since $\phi$ is a bijection, $q \in S \cap U$. Since $q \in F^{-1}(\{0\})$ is arbitrary, we have that for each $q \in F^{-1}(\{0\})$, $q \in S \cap U$. Thus $F^{-1}(\{0\}) \subset S \cap U$.  
 			\end{itemize}
-			Hence $F^{-1}(\{0\}) = S \cap U$. Let $q \in U$. Since $[D \phi (q)]_{\phi, \id_{\R^m}} = 
+			Hence $F^{-1}(\{0\}) = S \cap U$. Let $q \in S \cap U$. \rex{ex:tangent_spaces:products:0005} implies that $[D \phi (q)]_{\phi, \id_{\R^m}} = 
 			\begin{pmatrix}
 				[D \pi^m_{[k]} \circ \phi (q) ]_{\phi, \id_{\R^k}} \\
-				[DF(q)]_{\phi, \id_{\R^r}} 
+				[DF(q)]_{\phi, \id_{\R^r}}. 
 			\end{pmatrix}
 			$ 
-			and $[D \phi (q)]_{\phi, \id_{\R^m}}$ is a bijection, we have that $\rnk [DF(q)]_{\phi, \id_{\R^r}} = r$. Thus $DF(q)$ is surjective. Since $q \in U$ is arbitrary, we have that for each $q \in U$, $DF(q)$ is surjective. Thus $F$ is a submersion. Since $F$ is a submersion, \rex{} \tcr{a previous exercise} implies that $0$ is a regular value of $F$. Since $F^{-1}(0) = S \cap U$, $S \cap U$ is a regular level set of $F$. 
+			Since $[D \phi (q)]_{\phi, \id_{\R^m}}$ is a bijection, we have that $\rnk [DF(q)]_{\phi, \id_{\R^r}} = r$. Thus $DF(q)$ is surjective. Since $q \in S \cap U$ is arbitrary, we have that for each $q \in U$, $DF(q)$ is surjective. Thus $0 \in \R^r$ is a regular value of $F$ and $S \cap U$ is a regular level set of $F$. Hence $F$ is a local defining map for $S \cap U$.
 			\item $(\impliedby):$ \\
-			Suppose that for each $p \in S$, there exists $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, \R^{m-k})$ such that $p \in U$, $F$ is a smooth submersion and $S \cap U$ is a regular level set of $F$. Let $p \in S$. By assumption, there exists $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, \R^{m-k})$ such that $p \in U$, $F$ is a smooth submersion and $S \cap U$ is a regular level set of $F$. \rex{} \tcr{a previous exercise} implies that $S \cap U$ is an embedded submanifold of $U$. Since $p \in S$ is arbitrary, we have that for each $p \in S$, there exists $U \in \MT_M$ such that $p \in U$ and $S \cap U$ is an embedded submanifold of $U$. \rex{} \tcr{(an exercise in the previous section)} implies that $S$ is an embedded submanifold of $M$.
+			Suppose that for each $p \in S$, there exists $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, \R^{m-k})$ such that $p \in U$ and $F$ is a local defining map for $S$. Let $p \in S$. By assumption, there exists $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, \R^{m-k})$ such that $p \in U$ and  $F$ is a local defining map for $S$. Thus $S \cap U$ is a regular level set of $F$. \rex{ex:submanifolds:embedded:level_sets:0012} then implies that $S \cap U$ satisfies the local $k$-slice condition with respect to $M$. Since $p \in S$ is arbitrary, we have that for each $p \in S$, there exists $U \in \MT_M$ such that $p \in U$ and $S \cap U$ satisfies the local $k$-slice condition with respect to $M$. \tcr{(need exercise showing that if the local $k$-slice condition is satisfied locally, around each point in $S$, it is satisfied globally.)} \rex{} implies that $S$ satisfies the local $k$-slice condition with respect to $M$.
 		\end{itemize}
-	\end{proof}
- 
-	\begin{defn} \ld{def:submanifolds:embedded:level_sets:0014}
-		Let $M, N, S \in \Obj(\Maninf)$, $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, N)$. Suppose that $S \subset M$. Then $F$ is said to be a 
-		\begin{itemize}
-			\item \tbf{local defining map for $S$} if $S \cap U$ is a regular level set of $F$, 
-			\item \tbf{defining map for $S$} if $F$ is a local defining map for $S$ and $U = M$.
-		\end{itemize}
-	\end{defn}
-
-	\begin{ex} \lex{ex:submanifolds:embedded:level_sets:0015}
-		Let $M, S \in \Obj(\Maninf)$. Set $m \defeq \dim M$ and $k \defeq \dim S$. Suppose that $S \subset M$. Then $S$ is an embedded submanifold of $M$ iff for each $p \in S$, there exists $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, \R^{m-k})$ such that $p \in U$ and $F$ is a local defining map for $S$.
-	\end{ex}
-
-	\begin{proof}
-		\tcr{FINISH!!!, basically previous exercise}
 	\end{proof}
 	
 	
@@ -7020,7 +7127,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	\subsection{Submanifolds of Embedded Submanifolds}
 	
-	\begin{ex} \lex{ex:submanifolds:intro:0035} \tcr{rework with below exercise to make iff}
+	\begin{ex} \lex{ex:submanifolds:sub_embedded:001} \tcr{rework with below exercise to make iff}
 		Let $M, N, S \in \Obj(\Maninf)$. Suppose that $N \subset S$, $S \subset M$ and $N, S$ are embedded submanifolds of $M$. Then $N$ is an embedded submanifold of $M$.
 	\end{ex}
 	
@@ -7054,7 +7161,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Thus $F$ is a $\Maninf$-embedding and $N$ is an embedded submanifold of $S$.
 	\end{proof}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:sub_embedded:002}
 		Let $M, N, E$ be smooth manifolds with $\dim M = m$, $\dim N = n$ and $\dim E = e$. Suppose that $N$ is an embedded submanifold of $E$. Then $M$ is an embedded submanifold of $N$ iff $M$ is an embedded submanifold of $E$.
 	\end{ex}
 	
@@ -7091,14 +7198,12 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	\subsection{Products of Embedded Submanifolds}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:submanifolds:product_embedded:001}
 		Let $M, N, E, F \in \Obj(\Maninf)$. Suppose that $E \subset M$, $F \subset N$, $E$ is an embedded submanifold of $M$ and $F$ is an embedded submanifold of $N$. Then $E \times F$ is an embedded submanifold of $M \times N$.
 	\end{ex}
 
 	\begin{proof}
-		Since $\iota_E$ and $\iota_F$ are immersions, \tcr{an exercise in the section on immersions} implies that $\iota_E \times \iota_F$ is an immersion. Since $\iota_E \in \Iso_{\Top}((E, \MT_E), (E, \MT_M|_E))$ and $\iota_F \in \Iso_{\Top}((F, \MT_F), (F, \MT_N|_F))$, we have that $\iota_E \times \iota_F \in \Iso_{\Top}((E \times F, \MT_E \otimes \MT_F), (E \times F, \MT_M|_E \otimes \MT_N|_F))$. This $\iota_E \times \iota_F$ is a $\Maninf$-embedding. Hence $E \times F$ is an embedded submanifold of $M \times N$.  
-		
-		\tcr{need to make exercise for products of immersed manifolds, then use most of this proof there, then cite that proof here, sprink the $\Iso_{\Top}$ on top to go from immersion to embedding}
+		Since $\iota_E$ and $\iota_F$ are $\Maninf$-embeddings, \rex{ex:immersions:0006} implies that $\iota_E \times \iota_F$ is a $\Maninf$-embedding. Since $\iota_E \times \iota_F = \iota_{E \times F}$, $E \times F$ is an embedded submanifold of $M \times N$.  
 	\end{proof}
 	
 	
@@ -7218,7 +7323,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\section{The Tangent Space of Submanifolds}
 	
 	\begin{ex} \lex{ex:submanifolds:tangent_space:0001}
-		Let $M, S \in \Obj(\Maninf)$. Suppose that $S \subset M$ and $S$ is an embedded submanifold of $M$. Set $n \defeq \dim M$ and $k \defeq \dim S$. Let $(U_0, \phi_0) \in \S^k(M;S)$ with $\phi_0 = (x^1, \ldots, x^n)$. Set $U \defeq U_0 \cap S$ and $\phi \defeq \pi^n_k \circ \phi_0|_U$ so that $(U, \phi) \in \MA_M|_S^0$. Write $\phi = (\tl{x}^1, \ldots, \tl{x}^k)$. Let $p \in U$. Then for each $j \in [k]$, 
+		Let $M, S \in \Obj(\Maninf)$. Suppose that $S \subset M$ and $S$ is an embedded submanifold of $M$. Set $n \defeq \dim M$ and $k \defeq \dim S$. Let $(U_0, \phi_0) \in \S^k(M;S)$ with $\phi_0 = (x^1, \ldots, x^n)$. Set $U \defeq U_0 \cap S$ and $\phi \defeq \prj^n_k \circ \phi_0|_U$ so that $(U, \phi) \in \MA_M|_S^0$. Write $\phi = (\tl{x}^1, \ldots, \tl{x}^k)$. Let $p \in U$. Then for each $j \in [k]$, 
 		$$D(\iota_S)(p)\bigg(\frac{\p }{\p \tl{x}^j}\bigg|_p \bigg) = \frac{\p }{\p x^j} \bigg|_p$$
 	\end{ex}
 
@@ -7236,17 +7341,52 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		Since $f \in C^{\infty}_p(M)$ is arbitrary, we have that 
 		$$D(\iota_S)(p)\bigg(\frac{\p }{\p \tl{x}^j}\bigg|_p \bigg) = \frac{\p }{\p x ^j} \bigg|_p.$$
 	\end{proof}
+
+	\begin{defn}
+		Let $M, S \in \Obj(\Maninf)$ and $p \in S$. Suppose that $S \subset M$ and $S$ is an embedded submanifold of $M$. We define the \tbf{embedded tangent space of $S$ with respect to $M$ at $p$}, denoted $\wt{T}_p S$, by 
+		$$\wt{T}_p S \defeq \Im D \iota_S(p).$$
+	\end{defn}
+
+	\begin{note}
+		Since $\iota_S$ is an immersion, $D\iota_S(p)|^{\wt{T}_pS} \in \Iso_{\VectR}(T_pS, \wt{T}_pS)$ and $\dim \wt{T}_p S = \dim T_pS$.
+	\end{note}
+
+	\begin{ex} \lex{ex:submanifolds:tangent_space:0002}
+		Let $M, N \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(N, M)$. Suppose that $F$ is a $\Maninf$-embedding. Set $S \defeq \Im F$. Then for each $p \in N$,
+		\begin{enumerate}
+			\item $DF|^S(p) \in \Iso_{\VectR}(T_pN, T_{F(p)}S)$
+			\item $\wt{T}_{F(p)}S = \Im DF(p)$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}
+		Set $G \defeq F|^S$. Let $p \in N$.
+		\begin{enumerate}
+			\item \rex{ex:submanifolds:embedded:embedded_images:0004} implies that $G \in \Iso_{\Maninf}(N, S)$. Thus $DG(p) \in \Iso_{\VectR}(T_pN, T_{F(p)}S)$.
+			\item Since 
+			\begin{align*}
+				DF(p)
+				& = D[\iota_S \circ G](p) \\
+				& = D \iota_S(G(p)) \circ DG(p) \\
+				& = D \iota_S(F(p)) \circ DG(p),
+			\end{align*}
+			we have that 
+			\begin{align*}
+				\Im DF(p)
+				& = D \iota_S(F(p)) \circ DG(p)(T_pN) \\
+				& = D \iota_S(F(p))(T_{F(p)}S) \\
+				& = \Im D \iota_S(F(p)) \\
+				& = \wt{T}_{F(p)}S.
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
 	
 	\tcr{discuss how to identify $T_pM$ and $T_pU$ where $U \in \MT_M$. Can use germs since derivations at a point are determined locally around that point. So in some sense even though $T_pM$ and $T_pU$ are ismorphic, they are isomorphic in a strong sense where we can define derivations on the germ at a point and discarding any nonlocal information about the functions at the point.}
 	
 	\tcr{Need to define $T_pM$ in terms of germs, then explain how }
 	
-	\begin{defn} \ld{def:submanifolds:tangent_space:0002}
-		Let $M, S \in \Obj(\Maninf)$ and $p \in S$. Suppose that $S \subset M$ and $S$ is an immersed submanifold of $M$. We identify $T_pS$ with $\Im D\iota_S(p)$. 
-	\end{defn}
-	
 	\begin{ex} \lex{ex:submanifolds:tangent_space:0003}
-		Let $M, N, S \in \Obj(\Maninf)$, $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, N)$. Suppose that $S \subset M$, $S$ is an embedded submanifold of $M$ and $F$ is a local defining map for $S$. Then for each $p \in S \cap U$, $T_pS = \ker D F(p)$. 
+		Let $M, N, S \in \Obj(\Maninf)$, $U \in \MT_M$ and $F \in \Hom_{\Maninf}(U, N)$. Suppose that $S \subset M$, $S$ is an embedded submanifold of $M$ and $F$ is a local defining map for $S$. Then for each $p \in S \cap U$, $\wt{T}_p S = \ker D F(p)$.
 	\end{ex}
 	
 	\begin{proof}
@@ -7259,24 +7399,27 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 				& = D(F \circ \iota_{S \cap U})(p) \\
 				& = DF(p) \circ D \iota_{S \cap U}(p).
 			\end{align*} 
-			Since $S$ is an embedded submanifold of $M$, $\MT_S = \MT_M \cap S$ and $S \cap U \in \MT_S$. Then
+			and therefore $\Im D \iota_{S \cap U}(p) \subset \ker DF(p)$. Since $S$ is an embedded submanifold of $M$, $\MT_S = \MT_M \cap S$ and $S \cap U \in \MT_S$. Then
 			\begin{align*}
-				T_p S
-				& = T_p S \cap U \\
+				\wt{T}_pS 
+				& = \Im D\iota_S(p) \\
+				& = D\iota_S(p)(T_p S) \\
+				& = D\iota_{S \cap U}(p)(T_p (S \cap U)) \tcr{\text{(need to rework definition of $T_pM$ using germs so that this step works out)}} \\
 				& = \Im D\iota_{S \cap U} (p) \\
 				& \subset \ker DF(p).
 			\end{align*}
-			\item Set $m \defeq \dim M$, $n \defeq \dim N$ and $k \defeq \dim S$. Since $q$ is a regular value of $F$, $DF(p)$ is surjective. \rex{} \tcr{(an exercise in the previous section on regular level sets dimension)} implies that
+			\item Set $m \defeq \dim M$, $n \defeq \dim N$ and $k \defeq \dim S$. Since $q$ is a regular value of $F$, $DF(p)$ is surjective. \rex{ex:submanifolds:embedded:level_sets:0012} implies that $k = m-n$ and therefore
 			\begin{align*}
 				\dim \ker DF(p)
 				& = \dim T_pM - \dim \Im DF(p) \\
 				& = \dim T_pM - \dim T_{F(p)}N \\
 				& = m - n \\
-				& = \dim T_p S \cap U \\
-				& = \dim T_p S.
+				& = \dim T_p S \\
+				& = \dim \Im D \iota_S(p) \\
+				& = \dim \wt{T}_p S.
 			\end{align*}
 		\end{itemize}
-		Since $T_p S \subset \ker DF(p)$ and $\dim T_p S = \dim \ker DF(p)$, we have that $T_pS = \ker D F(p)$. 
+		Since $\wt{T}_p S \subset \ker DF(p)$ and $\dim \wt{T}_p S = \dim \ker DF(p)$, we have that $\Im \wt{T}_p S = \ker D F(p)$. 
 	\end{proof}
 
 
@@ -7325,7 +7468,28 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{itemize}
 	\end{proof}
 
+\begin{ex} \lex{ex:submanifolds:tangent_space:0006}
+	Let $M \in \Obj(\Maninf)$. Define $\al_N \in \Iso_{\VectR}(T_{(p,p)}(M \times M), T_pM \times T_pM)$ as in \rex{ex:tangent_spaces:products:0002}. Then for each $p \in M$, $\Im \al_N \circ D\iota_{\Del_M}(p,p) = \Del_{T_p M}$.
+\end{ex}
 
+\begin{proof}
+	Let $p \in M$. Set $n \defeq \dim M$. Define $F \in \Hom_{\Maninf}(M, M \times M)$ by $F \defeq (\id_M, \id_M)$. \rex{ex:immersions:0006.01} implies that $F$ is an embedding. \rex{ex:submanifolds:embedded:embedded_images:0004} implies that $F|^{\Del_M} \in \Iso_{\Maninf}(M, \Del_M)$. Set $G \defeq F|^{\Del_M}$. Let $(U, \phi) \in \MA_M$. Write $\phi = (x^1, \ldots, x^n)$. Define $(V, \psi) \in \MA_M \otimes \MA_M$ by $V \defeq U \times U$ and $\psi \defeq \phi \times \phi$. Write $\psi = (\tl{y}^1, \ldots, \tl{y}^n, \tl{z}^1, \ldots, \tl{z}^n)$.
+	\rex{ex:tangent_spaces:products:0006} implies that 
+	\begin{align*}
+		\al_N \circ DF(p) \bigg( \frac{\p}{\p x^k} \bigg|_{p} \bigg)
+		 & = (D \id_M(p), D \id_M(p)) \bigg( \frac{\p}{\p x^k} \bigg|_p \bigg) \\
+		 & = \bigg( \id_{T_pM} \bigg[ \frac{\p}{\p x^k} \bigg|_p \bigg], \id_{T_pM} \bigg[ \frac{\p}{\p x^k} \bigg|_{p} \bigg] \bigg) \\
+		 & = \bigg( \frac{\p}{\p x^k} \bigg|_p, \frac{\p}{\p x^k} \bigg|_p \bigg). 
+	\end{align*}
+	Hence $\al_N \circ DF(p)(T_p M) = \Del_{T_p M}$. \rex{ex:submanifolds:tangent_space:0002} then implies that 
+	\begin{align*}
+		\Im \al_N \circ D \iota_{\Del_M}(p,p)
+		& = \al_N [D \iota_{\Del_M}(p,p)(T_{(p,p)} \Del_M)] \\
+		& = \al_N [DF(p)(T_{p}M)] \\
+		& = \al_N \circ DF(p)(T_p M) \\
+		& = \Del_{T_p M}.
+	\end{align*}
+\end{proof}
 
 
 
@@ -7370,15 +7534,19 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\section{Transverse Submanifolds}
 
 	\begin{defn} \ld{def:submanifolds:transverality:0001}
-		Let $M, S_1, S_2 \in \Obj(\Maninf)$. Suppose that $S_1, S_2 \subset M$, $S_1, S_2$ are immersed submanifolds of $M$. Then $S_1$ and $S_2$ are said to be \tbf{transverse} if for each $p \in S_1 \cap S_2$, $T_pM = T_p S_1 + T_p S_2$. 
+		Let $M, S_1, S_2 \in \Obj(\Maninf)$. Suppose that $S_1, S_2 \subset M$, $S_1, S_2$ are immersed submanifolds of $M$. Then $S_1$ and $S_2$ are said to be 
+		\begin{itemize}
+			\item \tbf{transverse} if for each $p \in S_1 \cap S_2$, $T_pM = \wt{T}_p S_1 + \wt{T}_p S_2$
+			\item \tbf{strictly transverse} if for each $p \in S_1 \cap S_2$, $T_pM = \wt{T}_p S_1 \oplus \wt{T}_p S_2$ \tcr{(maybe change vocab here from strict to strong or something)}
+		\end{itemize} 
 	\end{defn}
 
 	\begin{ex} \lex{ex:submanifolds:transverality:0002}
-		Define $S_1, S_2 \subset \R^n$ by $S_1 \defeq \{(a,0) \in \R^n: a \in \R^k\}$ and $S_2 \defeq \{(0,b) \in \R^n: b \in \R^{n-k}\}$. Then $S_1$ and $S_2$ are transverse.
+		Define $S_1, S_2 \subset \R^n$ by $S_1 \defeq \{(a,0) \in \R^n: a \in \R^k\}$ and $S_2 \defeq \{(0,b) \in \R^n: b \in \R^{n-k}\}$. Then $S_1$ and $S_2$ are strictly transverse.
 	\end{ex}
 	
 	\begin{proof}
-		Define $\phi_0, \psi_0: \R^n \rightarrow \R^n$ by $\phi_0(a^1, \ldots, a^n) \defeq (a^1, \ldots, a^n)$ and $\phi_0(a^1, \ldots, a^k, a^{k+1}, \ldots, a^n) \defeq (a^{k+1}, \ldots, a^n, a^1, \ldots, a^k)$. Write $\phi_0 = (x^1, \ldots, x^n)$ and $\psi_0 = (y^1, \ldots, y^n)$. Then $(\R^n, \phi_0) \in \S^k(\R^n, S_1)$ and $(\R^n, \psi_0) \in \S^k(\R^n, S_2)$. Set $\phi \defeq \pi^n_{[k]} \circ \phi_0|_{S_1}$ and $\psi \defeq \pi^n_{[n-k]} \circ \psi_0|_{S_2}$. Write $\phi = (\tl{x}^1, \ldots, \tl{x}^k)$ and $\psi = (\tl{y}^1, \ldots, \tl{y}^{n-k})$. \tcr{An exercise in the section on tangent space of submanifolds} implies that for each $j \in [k]$,
+		Define $\phi_0, \psi_0: \R^n \rightarrow \R^n$ by $\phi_0(a^1, \ldots, a^n) \defeq (a^1, \ldots, a^n)$ and $\psi_0(a^1, \ldots, a^k, a^{k+1}, \ldots, a^n) \defeq (a^{k+1}, \ldots, a^n, a^1, \ldots, a^k)$. Write $\phi_0 = (x^1, \ldots, x^n)$ and $\psi_0 = (y^1, \ldots, y^n)$. Then $(\R^n, \phi_0) \in \S^k(\R^n, S_1)$ and $(\R^n, \psi_0) \in \S^k(\R^n, S_2)$. Set $\phi \defeq \pi^n_{[k]} \circ \phi_0|_{S_1}$ and $\psi \defeq \pi^n_{[n-k]} \circ \psi_0|_{S_2}$. Write $\phi = (\tl{x}^1, \ldots, \tl{x}^k)$ and $\psi = (\tl{y}^1, \ldots, \tl{y}^{n-k})$. \rex{ex:submanifolds:tangent_space:0001} implies that for each $j \in [k]$,
 		\begin{align*}
 			D \iota_{S_1}(0) \bigg( \frac{\p}{\p \tl{x}^j} \bigg|_0 \bigg) 
 			& =  \frac{\p}{\p x^j} \bigg|_0 \\
@@ -7395,15 +7563,15 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			T_0(\R^n)
 			& = \spn \bigg \{  \frac{\p}{\p u^j} \bigg|_0  : j \in [k] \bigg \} \oplus \spn \bigg \{  \frac{\p}{\p u^{k+j}} \bigg|_0  : j \in [n-k] \bigg \} \\
 			& = \Im D\iota_{S_1}(0) \oplus \Im D\iota_{S_2}(0) \\
-			& = T_0S_1 \oplus T_0S_2.
+			& = \wt{T}_0S_1 \oplus \wt{T}_0S_2.
 		\end{align*}
-		Since $S_1 \cap S_2 = \{0\}$, we have that for each $p \in S_1 \cap S_2$, $T_p(\R^n) = T_pS_1 \oplus T_pS_2$. Hence $S_1$ and $S_2$ are transverse. 
+		Since $S_1 \cap S_2 = \{0\}$, we have that for each $p \in S_1 \cap S_2$, $T_p(\R^n) = \wt{T}_0S_1 \oplus \wt{T}_0S_2$. Hence $S_1$ and $S_2$ are strictly transverse. 
 	\end{proof}
 
 
 
 	\begin{ex} \lex{ex:submanifolds:transverality:0003}
-		Let $M, S \in \Obj(\Maninf)$ and $p \in S$. Suppose that $S \subset M$, $S$ is an embedded submanifold of $M$ and $\dim S < \dim M$. Then there exists $S' \in \Obj(\Maninf)$ such that $S' \subset M$, $S'$ is an immersed submanifold of $M$, $p \in S'$ and $S$, $S'$ are transverse. 
+		Let $M, S \in \Obj(\Maninf)$ and $p \in S$. Suppose that $S \subset M$, $S$ is an embedded submanifold of $M$ and $\dim S < \dim M$. Then there exists $S' \in \Obj(\Maninf)$ such that $S' \subset M$, $S'$ is an immersed submanifold of $M$, $p \in S'$ and $S$, $S'$ are strictly transverse. 
 	\end{ex}
 
 	\begin{proof}
@@ -7440,7 +7608,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			& = \phi_0^{-1}(\{0\}) \\
 			& = p.
 		\end{align*}
-		\tcr{An exercise in the section on tangent spaces of submanifolds} implies that for each $j \in [k]$
+		\rex{ex:submanifolds:tangent_space:0001} implies that for each $j \in [k]$
 		\begin{align*}
 			D\iota_U(p) \bigg( \frac{\p}{\p \tl{x}^j} \bigg|_p \bigg) 
 			& = \frac{\p}{\p x^j} \bigg|_p 
@@ -7455,15 +7623,15 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\begin{align*}
 			T_pM
 			& = \spn \bigg \{  \frac{\p}{\p x^j} \bigg|_p  : j \in [k] \bigg \} \oplus \spn \bigg \{  \frac{\p}{\p x^{k+j}} \bigg|_p  : j \in [n-k] \bigg \} \\
-			& = \Im D \iota_U(p) \oplus \Im D \iota_{U'}(p) \\
-			& = T_p U \oplus T_p U'.
+			& = \Im D \iota_U(p) \oplus \Im D \iota_{U'}(p).
 		\end{align*}
 		Set $S' \defeq U'$. Since $U \in \MT_V$ and $V \in \MT_S$, we have that $U \in \MT_S$. Thus
 		\begin{align*}
 			T_pM
-			& = T_p U \oplus T_p U' \\
-			& = T_p S \oplus T_p S'.
-		\end{align*} 
+			& = \Im D \iota_U(p) \oplus \Im D \iota_{U'}(p) \\
+			& = \Im D \iota_S(p) \oplus \Im D \iota_{S'}(p) \\
+			& = \wt{T}_p S \oplus \wt{T}_p S'.
+		\end{align*}
 		Let $q \in S \cap S'$. Then 
 		\begin{align*}
 			q 
@@ -7484,7 +7652,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			& = \{p\}.
 		\end{align*}
 		Since $q \in S \cap S'$ is arbitrary, we have that $S \cap S' \subset \{p\}$. Since $\{p\} \subset S \cap S'$, we have that $S \cap S' = \{p\}$.
-		Thus for each $q \in S \cap S'$, $T_pM = T_p S \oplus T_p S'$ and $S, S'$ are transverse. 
+		Thus for each $q \in S \cap S'$, $T_qM = \wt{T}_q S \oplus \wt{T}_q S'$ and $S, S'$ are strictly transverse. 
 	\end{proof}
 
 	\begin{note}
@@ -7492,47 +7660,84 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{note}
 
 	\begin{ex} \lex{ex:submanifolds:transverality:0004}
-		Let $M, N, S_1, S_2, E_1, E_2 \in \Obj(\Maninf)$. Suppose that $S_1, S_2 \subset M$, $S_1, S_2$ are immersed submanifolds of $M$, $E_1, E_2 \subset N$ and $E_1, E_2$ are immersed submanifolds of $N$. If $S_1, S_2$ are transverse and $E_1, E_2$ are transverse, then $S_1 \times E_1$ and $S_2 \times E_2$ are transverse.
+		Let $M, N, S_1, S_2, E_1, E_2 \in \Obj(\Maninf)$. Suppose that $S_1, S_2 \subset M$, $S_1, S_2$ are immersed submanifolds of $M$, $E_1, E_2 \subset N$ and $E_1, E_2$ are immersed submanifolds of $N$. If $S_1, S_2$ are strictly transverse and $E_1, E_2$ are strictly transverse, then $S_1 \times E_1$ and $S_2 \times E_2$ are strictly transverse. \tcr{(need exercise saying product of immersed submanifolds is immersed submanifold of product)}
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $S_1, S_2$ are transverse and $E_1, E_2$ are transverse. Let 
+		Suppose that $S_1, S_2$ are strictly transverse and $E_1, E_2$ are strictly transverse. Set $m \defeq \dim M$, $n \defeq \dim N$, and for each $j \in [2]$, $m_j \defeq \dim S_j$ and $n_j \defeq \dim E_j$. Let 
 		\begin{align*}
-			(p, q) 
+			(p_S, p_E) 
 			& \in (S_1 \times E_1) \cap (S_2 \times E_2) \\
 			& = (S_1 \cap S_2) \times (E_1 \cap E_2).
 		\end{align*}
-		Since $S_1$ and $S_2$ are transverse, $T_pS_1 + T_p S_2 = T_p M$. Since $E_1$ and $E_2$ are transverse, $T_qE_1 + T_q E_2 = T_p N$. \tcr{An exercise in the section on tanget spaces of products} implies that 
+		Since $S_1$ and $S_2$ are strictly transverse, $T_{p_S} M = \wt{T}_{p_E}S_1 \oplus \wt{T}_{p_S} S_2$. Hence $m = m_1 + m_2$. Since $E_1$ and $E_2$ are strictly transverse, $T_{p_E} N = \wt{T}_{p_E} E_1 \oplus \wt{T}_{p_E} E_2$. Hence $n = n_1 + n_2$. Since $\wt{T}_{p_S} S_1 \times \wt{T}_{p_E} E_1, \wt{T}_{p_S} S_2 \times \wt{T}_{p_E} E_2 \subset T_{p_S} M \times T_{p_E} N $, we have that $\dim [(\wt{T}_{p_S} S_1 \times \wt{T}_{p_E} E_1) + (\wt{T}_{p_S} S_2 \times \wt{T}_{p_E} E_2)] \leq m + n$. Since 
 		\begin{align*}
-			\dim [T_{(p,q)}(S_1 \times E_1) + T_{(p,q)}(S_2 \times E_2)]
-			& = \dim [(T_pS_1 \times T_q E_1) + (T_pS_2 \times T_q E_2)] \\
-			& = \dim [(T_pS_1 + T_pS_2) \times (T_q E_1 + T_q E_2)] \\
-			& = \dim T_p M \times T_q N \\
-			& = \dim T_{(p,q)} (M \times N)
+			(\wt{T}_{p_S} S_1 \times \wt{T}_{p_E} E_1) \cap (\wt{T}_{p_S} S_2 \times \wt{T}_{p_E} E_2 ) 
+			& = (\wt{T}_{p_S} S_1 \cap \wt{T}_{p_S} S_2) \times (\wt{T}_{p_E} E_1 \cap \wt{T}_{p_E} E_2) \\
+			& = \{0\} \times \{0\} \\
+			& = \{(0,0)\},
 		\end{align*}
+		we have that 
+		\begin{align*}
+			\dim [(\wt{T}_{p_S} S_1 \times \wt{T}_{p_E} E_1) + (\wt{T}_{p_S} S_2 \times \wt{T}_{p_E} E_2 ) ] 
+			& = \dim (\wt{T}_{p_S} S_1 \times \wt{T}_{p_E} E_1) + \dim (\wt{T}_{p_S} S_2 \times \wt{T}_{p_E} E_2 ) \\
+			& = m_1 + n_1 + m_2 + n_2 \\
+			& = m + n.
+		\end{align*}
+		Hence 
+		$$T_{p_S}M \times T_{p_E}N = (\wt{T}_{p_S} S_1 \times \wt{T}_{p_E} E_1) \oplus (\wt{T}_{p_S} S_2 \times \wt{T}_{p_E} E_2 ).$$
+		Define $\al_1 \in \Iso_{\VectR}(T_{(p,q)}(S_1 \times E_1), T_pS_1 \times T_q E_1)$, $\al_2 \in \Iso_{\VectR}(T_{(p,q)}(S_2 \times E_2), T_pS_2 \times T_q E_2)$ and $\al \in \Iso_{\VectR}(T_{(p_S, p_E)} (M \times N), T_{p_S} M \times T_{p_E} N)$ as in \rex{ex:tangent_spaces:products:0002}. \rex{ex:tangent_spaces:products:0004} then implies that
+		i.e. following diagram commutes: 
+		\[ 
+		\begin{tikzcd}
+			\text{$T_{(p_S, p_E)}(S_1 \times E_1)$} \arrow[ddd, "\al_1"'] \arrow[rrr, "\text{$D(\iota_{S_1 \times E_1})(p_S, p_E)$}"] &&&  \text{$T_{(p_S, p_E)}(M \times N)$} \arrow[ddd, "\al"] \\
+			& \\
+			& \\
+			\text{$T_{p_S}S_1 \times T_{p_E}E_1$} \arrow[rrr, "\text{$D\iota_{S_1}(p_S) \times D\iota_{E_1}(p_E)$}"'] &&&  \text{$T_{p_S}M \times T_{p_E}N$}
+		\end{tikzcd}
+		\]
+		Hence 
+		\begin{align*}
+			\wt{T}_{p_S}S_1 \times \wt{T}_{p_E}E_1 
+			 & = D\iota_{S_1}(p_S)(T_{p_S}S_1) \times D\iota_{E_1}(p_E)(T_{p_E}E_1) \\
+			 & = [D\iota_{S_1}(p_S) \times D\iota_{E_1}(p_E)](T_{p_S}S_1 \times T_{p_E}E_1) \\
+			 & = [D\iota_{S_1}(p_S) \times D\iota_{E_1}(p_E)] \circ \al_1 (T_{(p_S, p_E)} (S_1 \times E_1)) \\
+			 & = \al \circ D \iota_{S_1 \times E_1}(p_S , p_E) (T_{(p_S, p_E)} (S_1 \times E_1)) \\
+			 & = \al (\wt{T}_{(p_S, p_E)} (S_1 \times E_1)).
+		\end{align*}
+		Similarly, $\wt{T}_{p_S}S_2 \times \wt{T}_{p_E}E_2 = \al (\wt{T}_{(p_S, p_E)} (S_2 \times E_2))$. Therefore
+		\begin{align*}
+			T_{(p_S, p_E)}(M \times N)
+			& = \al^{-1}(T_{p_S}M \times T_{p_E}N) \\
+			& = \al^{-1}[(\wt{T}_{p_S} S_1 \times \wt{T}_{p_E} E_1) \oplus (\wt{T}_{p_S} S_2 \times \wt{T}_{p_E} E_2 )] \\
+			& = \al^{-1}[\al (\wt{T}_{(p_S, p_E)} (S_1 \times E_1)) \oplus \al (\wt{T}_{(p_S, p_E)} (S_2 \times E_2))] \\
+			& = \al^{-1} \circ \al [\wt{T}_{(p_S, p_E)} (S_1 \times E_1) \oplus  \wt{T}_{(p_S, p_E)} (S_2 \times E_2)] \\
+			& = \wt{T}_{(p_S, p_E)} (S_1 \times E_1) \oplus  \wt{T}_{(p_S, p_E)} (S_2 \times E_2).
+		\end{align*}
+		Since $(p_S, p_E) \in (S_1 \times E_1) \cap (S_2 \times E_2) $ is arbitrary, we have that for each $(p_S, p_E) \in (S_1 \times E_1) \cap (S_2 \times E_2)$, $T_{(p_S, p_E)}(M \times N) = \wt{T}_{(p_S, p_E)} (S_1 \times E_1) \oplus  \wt{T}_{(p_S, p_E)} (S_2 \times E_2)$. Thus $S_1 \times E_1$ and $S_2 \times E_2$ are strictly transverse.
 	\end{proof}
 
 	\begin{defn} \ld{def:submanifolds:transverality:0005}
-		Let $M, N, S \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(N, M)$. Suppose that $S \subset M$, $S$ is an embedded submanifold of $M$. Then $F$ is said to be \tbf{transverse to $S$} if for each $p \in F^{-1}(S)$, 
-		$$DF(p)(T_pN) + T_{F(p)}S = T_{F(p)}M$$
+		Let $M, N, S \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(N, M)$. Suppose that $S \subset M$, $S$ is an immersed submanifold of $M$. Then $F$ is said to be \tbf{transverse to $S$} if for each $p \in F^{-1}(S)$, 
+		$$DF(p)(T_pN) + \wt{T}_{F(p)}S = T_{F(p)}M$$
 	\end{defn}
 
 	\begin{ex} \lex{ex:submanifolds:transverality:0006}
-		Let $M, N, S \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(N, M)$. Suppose that $S \subset M$, $S$ is an embedded submanifold of $M$. If $F$ is a submersion, then $F$ is transverse to $S$.  
+		Let $M, N, S \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(N, M)$. Suppose that $S \subset M$, $S$ is an immersed submanifold of $M$. If $F$ is a submersion, then $F$ is transverse to $S$.  
 	\end{ex}
 
 	\begin{proof}
 		Suppose that $F$ is a submersion. Let $p \in F^{-1}(S)$. Since $F$ is a submersion, 
 		\begin{align*}
-			DF(p)(T_pN) + T_{F(p)}S
-			& = T_{F(p)}M + T_{F(p)}S \\
+			DF(p)(T_pN) + \wt{T}_{F(p)}S
+			& = T_{F(p)}M + \wt{T}_{F(p)}S \\
 			& = T_{F(p)}M. 
 		\end{align*} 
-		Since $p \in F^{-1}(S)$ is arbitrary, we have that for each $p \in F^{-1}(S)$, $DF(p)(T_pN) + T_{F(p)}S = T_{F(p)}M$. Hence $F$ is transverse to $S$.
+		Since $p \in F^{-1}(S)$ is arbitrary, we have that for each $p \in F^{-1}(S)$, $DF(p)(T_pN) + \wt{T}_{F(p)}S = T_{F(p)}M$. Hence $F$ is transverse to $S$.
 	\end{proof}
 
 	\begin{ex} \lex{ex:submanifolds:transverality:0007}
-		Let $M, N, S \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(N, M)$. Suppose that $S \subset M$, $S$ is an embedded submanifold of $M$. If $F$ is transverse to $S$, then $F^{-1}(S)$ is an embedded submanifold of $N$ and $\codim F^{-1}(S) = \codim S$. \\
+		Let $M, N, S \in \Obj(\Maninf)$ and $F \in \Hom_{\Maninf}(N, M)$. Suppose that $S \subset M$, $S$ is an embedded submanifold of $M$. If $F$ is transverse to $S$, then $F^{-1}(S)$ is an embedded submanifold of $N$ and $\codim F^{-1}(S) = \codim S$. \tcr{(I think I can relax this to immersed submanifolds since locally it is embedded and this is a local result)}\\
 		\tbf{Hint: \rex{ex:submanifolds:tangent_space:0005}}
 	\end{ex}
 
@@ -7542,7 +7747,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			1   & \ldots k & k+1 &  \ldots &  n \\
 			k+1 & \ldots n & 1   &  \ldots &  k
 		\end{pmatrix}$ 
-		and $G_0 \defeq  \prj_{n-k} \circ (\sig \cdot \phi_0)$. Since $\phi_0 \in \S^k(M;S)$, $\phi_0(S \cap U_0) = \phi_0(U_0) \cap \S^{m,k}$. Therefore $G_0(S \cap U_0) = \{0\}$ and $G_0^{-1}(\{0\}) = S \cap U_0$. \rex{ex:submanifolds:tangent_space:0005} implies that $G_0$ is a submersion and for each $q \in U_0 \cap S$, $\ker DG_0(q) = T_qS$. Define $V \in \MT_N$ and $G \in \Hom_{\Maninf}(V, \R^{m-k})$ by $V \defeq F^{-1}(U_0)$ and $G \defeq G_0 \circ F|_{V}$. Then 
+		and $G_0 \defeq  \prj_{n-k} \circ (\sig \cdot \phi_0)$. Since $\phi_0 \in \S^k(M;S)$, $\phi_0(S \cap U_0) = \phi_0(U_0) \cap \S^{m,k}$. Therefore $G_0(S \cap U_0) = \{0\}$ and $G_0^{-1}(\{0\}) = S \cap U_0$. \rex{ex:submanifolds:tangent_space:0005} implies that $G_0$ is a submersion and for each $q \in U_0 \cap S$, $\ker DG_0(q) = \wt{T}_qS$. Define $V \in \MT_N$ and $G \in \Hom_{\Maninf}(V, \R^{m-k})$ by $V \defeq F^{-1}(U_0)$ and $G \defeq G_0 \circ F|_{V}$. Then 
 		\begin{align*}
 			G^{-1}(\{0\})
 			& = (G_0 \circ F|_{V})^{-1}(\{0\}) \\
@@ -7552,17 +7757,18 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			& = V \cap F^{-1}(S) \cap F^{-1}(U_0) \\
 			& = V \cap F^{-1}(S). 
 		\end{align*}
-		Let $p' \in V$. Since $F$ is transverse to $S$, we have $DF(p')(T_pN) + T_{F(p')}S = T_{F(p')}M$. Since $G_0$ is a submersion and $\ker DG_0(F(p')) = T_{F(p')}S$, we have that we have that 
+		Let $p' \in V \cap F^{-1}(S)$. Since $F$ is transverse to $S$, we have $DF(p')(T_{p'}N) + \wt{T}_{F(p')}S = T_{F(p')}M$. Since $G_0$ is a submersion and $\ker DG_0(F(p')) = \wt{T}_{F(p')}S$, we have that 
 		\begin{align*}
-			DG(p')(T_p'N)
-			& = DG_0(F(p')) [ DF(p') (T_p' N)] \\
-			& = DG_0(F(p')) [ DF(p')(T_p'N) + \ker DG_0(F(p')) ] \\
-			& = DG_0(F(p')) [ DF(p')(T_p'N) + T_{F(p')}S ] \\
+			DG(p')(T_{p'}N)
+			& = DG_0(F(p')) [ DF(p') (T_{p'} N)] \\
+			& = DG_0(F(p')) [ DF(p')(T_{p'}N) + \ker DG_0(F(p')) ] \\
+			& = DG_0(F(p')) [ DF(p')(T_{p'}N) + \wt{T}_{F(p')}S ] \\
 			& = DG_0(F(p')) [ T_{F(p')} M ] \\
 			& = \Im DG_0(F(p')) \\
-			& = T_{G_0(F(p'))} \R^{m-k} 
+			& = \wt{T}_{G_0(F(p'))} \R^{m-k} \\
+			& = \wt{T}_{G(p')} \R^{m-k} 
 		\end{align*}  
-		Hence $DG(p')$ is surjective. Since $p' \in V$ is arbitrary, we have that for each $p' \in V$, $DG(p')$ is surjective. Hence $G$ is a submersion. \rex{} \tcr{An exercise in the section on submanifolds as levelsets} implies that $0$ is a regular value of $G$. Thus $V \cap F^{-1}(S)$ is a regular level set of $G$. Hence $G$ is a local defining map for $F^{-1}(V)$. Since $p \in F^{-1}(S)$ is arbitrary, we have that for each $p \in F^{-1}(S)$, there exists $V \in \MT_N$ and $G \in \Hom_{\Maninf}(V, \R^{m-k})$ such that $p \in V$ and $G$ is a local defining map for $F^{-1}(S)$. \rex{arg1} \tcr{An exercise in the previous section on submanifolds as level sets} implies that $F^{-1}(S)$ is an embedded submanifold of $N$. \rex{} \tcr{An exercise in the previous section on level sets as embedded submanifolds} implies that 
+		Hence $DG(p')$ is surjective. Since $p' \in V \cap F^{-1}(S)$ is arbitrary, we have that for each $p' \in  V \cap F^{-1}(S)$, $DG(p')$ is surjective. Hence $0$ is a regular value of $G$ and $V \cap F^{-1}(S)$ is a regular level set of $G$. Hence $G$ is a local defining map for $F^{-1}(V)$. Since $p \in F^{-1}(S)$ is arbitrary, we have that for each $p \in F^{-1}(S)$, there exists $V \in \MT_N$ and $G \in \Hom_{\Maninf}(V, \R^{m-k})$ such that $p \in V$ and $G$ is a local defining map for $F^{-1}(S)$. \rex{ex:submanifolds:embedded:level_sets:0013} then implies that $F^{-1}(S)$ is an embedded submanifold of $N$ and
 		\begin{align*}
 			\dim F^{-1}(S) 
 			& = \dim G^{-1}(\{0\}) \\
@@ -7593,11 +7799,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{proof}
 		Suppose that $S_1$ and $S_2$ are transverse. We note that $S_1 \cap S_2 = \iota_{S_1}^{-1}(S_2)$. Let $p \in \iota_{S_1}^{-1}(S_2)$. Since $S_1$ and $S_2$ are transverse, we have that
 		\begin{align*}
-			D\iota_{S_1}(p)(T_p S_1) + T_pS_2
-			& = T_p S_1 + T_p S_2 \\
+			D\iota_{S_1}(p)(T_p S_1) + \wt{T}_pS_2
+			& = \wt{T}_p S_1 + \wt{T}_p S_2 \\
 			& = T_pM.
 		\end{align*} 
-		Since $p \in \iota_{S_1}^{-1}(S_2)$ is arbitrary, we have that for each $p \in \iota_{S_1}^{-1}(S_2)$, $D\iota_{S_1}(p)(T_p S_1) + T_pS_2 = T_pM$ and $\iota_{S_1}$ is transverse to $S_2$. Since $S_1 \cap S_2 = \iota_{S_1}^{-1}(S_2)$, \rex{ex:submanifolds:transverality:0007} implies that $S_1 \cap S_2$ is an embedded submanifold of $S_1$ and 
+		Since $p \in \iota_{S_1}^{-1}(S_2)$ is arbitrary, we have that for each $p \in \iota_{S_1}^{-1}(S_2)$, $D\iota_{S_1}(p)(T_p S_1) + \wt{T}_pS_2 = T_pM$ and $\iota_{S_1}$ is transverse to $S_2$. Since $S_1 \cap S_2 = \iota_{S_1}^{-1}(S_2)$, \rex{ex:submanifolds:transverality:0007} implies that $S_1 \cap S_2$ is an embedded submanifold of $S_1$ and 
 		$$\dim S_1 - \dim S_1 \cap S_2 = \dim M - \dim S_2.$$ 
 		Since $S_1$ is an embedded submanifold of $M$, \rex{arg1} \tcr{An exercise in the subsection of submanifolds of embedded submanifolds} then implies that $S_1 \cap S_2$ is an embedded submanifold of $M$ and 
 		$$\dim S_1 \cap S_2 = \dim S_1 + \dim S_2 - \dim M.$$
@@ -7655,7 +7861,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	
 	\tcr{the submersion assumption for $\prj_1|_R$ may not be necessary, but NEED TO PROVE IT. Though thinking on it, for general embedded submanifold $R \subset M \times M$, it may be the case that $T_{(p,p)}R$ has enough dimension to map surjectively onto $T_pM$, however if $R$ is an equivalence relation on $M$, then maybe this is not an issue.}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:quotients:intro:0001}
 		Let $M, R \in \Obj(\Maninf)$. Suppose that $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$, and $\prj_2|_R$ is a submersion. Then 
 		\begin{enumerate}
 			\item for each $U \in \MT_M$, $\pi^{-1}(\pi(U)) = \prj_1((M \times U) \cap R)$,
@@ -7688,16 +7894,16 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\end{enumerate}
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:quotients:intro:0002}
 		Let $M, R \in \Obj(\Maninf)$. Suppose that $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$, and $\prj_1|_R$ is a submersion. Then for each $p \in M$, $\pi(p)$ is a properly embedded submanifold of $M$ and $\dim \pi(p) = \dim R - \dim M$. \\
 		\tbf{Hint:} For each $p \in M$, $\pi(p) = \prj_1|_R(\prj_2|_R^{-1}(\{p\}))$ and $\prj_1|_{M \times \{p\}} \in \Iso_{\Maninf}(M \times \{p\}, M)$.
 	\end{ex}
 
 	\begin{proof}
-		Let $p \in M$. \rex{arg1} implies that $\prj_1: M \times M \rightarrow M$ is a submersion. \rex{} implies that $M \times \{p\}$ is an embedded submanifold of $M \times M$. \rex{arg1} implies that $\prj_2|_R$ is a submersion. Since $\prj_2|_R$ is a surjective submersion, \rex{arg1} implies that $\prj_2|_R^{-1}(\{p\})$ is a properly embedded submanifold of $R$ and $\dim \prj_2|_R^{-1}(\{p\}) = \dim R - \dim M$. Since $R$ is an embedded submanifold of $M \times M$, \rex{arg1} \tcr{(need to make) exercise in section on embedded submanifolds subsection on subspaces} implies that $\prj_2|_R^{-1}(\{p\})$ is an embedded submanifold of $M \times M$. Since $\prj_2|_R^{-1}(\{p\}) \subset M \times \{p\}$ \rex{ex:submanifolds:intro:0035} implies that $\prj_2|_R^{-1}(\{p\})$ is an embedded submanifold of $M \times \{p\}$. Since $\prj_1|_{M \times \{p\}} \in \Iso_{\Maninf}(M \times \{p\}, M)$ is a diffeomorphism and $\pi(p) = \prj_1|_{M \times \{p\}}(\prj_2|_R^{-1}(\{p\}))$, \rex{arg1} \tcr{make exercise in the section on embedded submanifolds} implies that $\pi(p)$ is an embedded submanifold of $M$ and $\dim \pi(p) = \dim R - \dim M$.
+		Let $p \in M$. \rex{arg1} implies that $\prj_1: M \times M \rightarrow M$ is a submersion. \rex{} implies that $M \times \{p\}$ is an embedded submanifold of $M \times M$. \rex{arg1} implies that $\prj_2|_R$ is a submersion. Since $\prj_2|_R$ is a surjective submersion, \rex{arg1} implies that $\prj_2|_R^{-1}(\{p\})$ is a properly embedded submanifold of $R$ and $\dim \prj_2|_R^{-1}(\{p\}) = \dim R - \dim M$. Since $R$ is an embedded submanifold of $M \times M$, \rex{arg1} \tcr{(need to make) exercise in section on embedded submanifolds subsection on subspaces} implies that $\prj_2|_R^{-1}(\{p\})$ is an embedded submanifold of $M \times M$. Since $\prj_2|_R^{-1}(\{p\}) \subset M \times \{p\}$ \rex{ex:submanifolds:sub_embedded:001} implies that $\prj_2|_R^{-1}(\{p\})$ is an embedded submanifold of $M \times \{p\}$. Since $\prj_1|_{M \times \{p\}} \in \Iso_{\Maninf}(M \times \{p\}, M)$ is a diffeomorphism and $\pi(p) = \prj_1|_{M \times \{p\}}(\prj_2|_R^{-1}(\{p\}))$, \rex{arg1} \tcr{make exercise in the section on embedded submanifolds} implies that $\pi(p)$ is an embedded submanifold of $M$ and $\dim \pi(p) = \dim R - \dim M$.
 	\end{proof}
 
-	\begin{ex}
+	\begin{ex} \lex{ex:quotients:intro:0003}
 		Let $M, R, S' \in \Obj(\Maninf)$ and $p \in S'$. Suppose that $R \subset M \times M$, $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$, $\prj_1|_R$ is a submersion, $S' \subset M$, $S'$ is an embedded submanifold of $M$, $\dim S' = \dim M - \dim \pi_R(p)$ and $S'$ is transverse to $\pi_R(p)$. Define $Z \subset R$ by $Z \defeq \prj_2|_R^{-1}(S')$. Then 
 		\begin{enumerate}
 			\item $(p,p) \in Z$
@@ -7722,7 +7928,18 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 				& = \dim M \\
 				& = \dim M.
 			\end{align*}
-			\item $D\prj_1|_Z(p,p) \in \Iso_{\VectR}(T_{(p,p)}Z, T_pM)$ \tcr{FINISH!!!} 
+			\item $D\prj_1|_Z(p,p) \in \Iso_{\VectR}(T_{(p,p)}Z, T_pM)$
+			
+			Define $N \in \Obj(\Maninf)$ by $N \defeq \pi(p) \times \{p\}$. Define $\al_N$ as in \rex{arg1}. \rex{arg1} then implies that $N$ is an embedded submanifold of $Z$ and $\rex{ex:tangent_spaces:products:0002}$ implies that $\al_N \circ D \iota_N(p,p) = $. 
+			
+			We note that \rex{arg1} implies that $\Del_{S'}$ is an embedded submanifold of $S' \times S'$. Since $S'$ is an embedded submanifold of $M$ and $\Del_{S'}$
+			
+			\rex{ex:submanifolds:tangent_space:0006} implies that $\al_N \circ D \iota_{\Del_{S'}}(p,p) = \Del_{T_pM}$.
+			
+			
+			and  \rex{ex:submanifolds:product_embedded:001} implies that $M \times \{p\}$ and 
+			 \tcr{FINISH!!!} 
+			
 		\end{enumerate}
 	\end{proof}
 
@@ -7777,11 +7994,11 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\section{Godement's Theorem}
 
 
-\begin{defn}
+\begin{defn} \ld{def:quotients:godement:0001}
 	Let $M, R, S \in \Obj(\Maninf)$, $U \in \MT_M$ and $q \in \Hom_{\Maninf}(U, S)$. Suppose that $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$, $S \subset U$ and $S$ is a properly embedded submanifold of $U$. Then $(S, q)$ is said to be a \tbf{$R$-slice of $U$} if for each $p \in U$, $\pi(p) \cap S = \{q(p)\}$
 \end{defn}
 
-\begin{ex}
+\begin{ex} \lex{ex:quotients:godement:0002}
 	$O(n)$ acting on $\R^n$, $U = \R^n$, $S = \{te_1:t \geq 0\}$ and $q(x) = \|x\|e_1$.
 	\tcr{FINISH!!! clean up}
 \end{ex}
@@ -7792,7 +8009,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 
-\begin{ex} \tbf{Slice Theorem:}
+\begin{ex} \lex{ex:quotients:godement:0003} \tbf{Slice Theorem:}
 	Let $M, R, S \in \Obj(\Maninf)$, $U \in \MT_M$ and $q \in \Hom_{\Maninf}(U, S)$. Suppose that $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$, $S \subset U$ and $S$ is a properly embedded submanifold of $U$. 
 \end{ex}
 
