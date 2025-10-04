@@ -919,12 +919,20 @@
 			\item $L(X, \MA) = \{f:X \rightarrow \C : f \text{ is measurable}\}$ 
 		\end{itemize}
 	\end{defn}
+
+	\begin{defn} \ld{def:measurable_functions:00002.1} 
+		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces and $\phi: X \rightarrow Y$. Then $\phi$ is said to be \tbf{$(\MA, \MB)$-bimeasurable} if 
+		\begin{enumerate}
+			\item $\phi$ is $(\MA, \MB)$-measurable
+			\item for each $A \in \MA$, $f(A) \in \MB$
+		\end{enumerate}
+	\end{defn}
 	
 	\begin{defn} \ld{def:measurable_functions:00003}
 		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces and $\phi: X \rightarrow Y$. Then $\phi$ is said to be a \textbf{isomorphism} if 
 		\begin{enumerate}
 			\item $\phi$ is a bijection
-			\item $\phi$ is $(\MA, \MB)$-measurable and $\phi^{-1}$ is $(\MB, \MA)$-measurable
+			\item $\phi$ is $(\MA, \MB)$-bimeasurable
 		\end{enumerate}
 	\end{defn}
 
@@ -1244,13 +1252,13 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:measurable_functions:00020} \textbf{Doob-Dynkin Lemma:} \\
-		Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is surjective and $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists a unique $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $\MA_2$-$\MA_3$ measurable and $g = \phi \circ f$. \\
+		Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is surjective and $(\MA_1, \MA_2)$-measurable and $g$ is $(\MA_1 , \MA_3)$-measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $(f^*\MA_2, \MA_3)$ measurable iff there exists a unique $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $(\MA_2, \MA_3)$-measurable and $g = \phi \circ f$. \\
 		\textbf{Hint:} For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. Set $\phi(y) = t$ for $y \in B_t \cap f(X_1)$ and $t \in g(X_1)$.
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that there exists a unique $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $\MA_2$ - $\MA_3$ measurable and $g = \phi \circ f$. Since $f$ is $f^* \MA_2$ - $\MA_2$ measurable, we have that $g = \phi \circ f$ is $f^*\MA_2$-$\MA_3$ measurable.  \\
-		Conversely, suppose that $g$ is $f^*\MA_2$-$\MA_3$ measurable. \\
+		Suppose that there exists a unique $\phi: X_2 \rightarrow X_3$ such that $\phi$ is $(\MA_2, \MA_3)$-measurable and $g = \phi \circ f$. Since $f$ is $f^* \MA_2$ - $\MA_2$ measurable, we have that $g = \phi \circ f$ is $(f^*\MA_2, \MA_3)$-measurable.  \\
+		Conversely, suppose that $g$ is $(f^*\MA_2, \MA_3)$-measurable. \\
 		\begin{itemize}
 			\item \textbf{(Existence)} \\
 			For each $t \in X_3$, set $A_t = g^{-1}(\{t\}) \in f^* \MA_2$ and choose $B_t \in \MA_2$ such that $A_t = f^{-1}(B_t)$. \\
@@ -1312,9 +1320,9 @@
 				&\in C
 			\end{align*}	 
 			and $y \in \phi^{-1}(C)$. So $B \subset \phi^{-1}(C)$. 
-			Hence $\phi^{-1}(C) = B \in \MA_2$ and $\phi$ is $\MA_2$ - $\MA_3$ measurable.\\
+			Hence $\phi^{-1}(C) = B \in \MA_2$ and $\phi$ is $(\MA_2, \MA_3)$-measurable.\\
 			\item \textbf{(Uniqueness)} \\
-			Let $\psi: X_2 \rightarrow X_3$. Suppose that $\psi$ is $\MA_2$-$\MA_3$ measurable and $g = \psi \circ f$. Let $y \in X_2$. Then there exists $x \in X_1$ such that $y = f(x)$. Then 
+			Let $\psi: X_2 \rightarrow X_3$. Suppose that $\psi$ is $(\MA_2, \MA_3)$-measurable and $g = \psi \circ f$. Let $y \in X_2$. Then there exists $x \in X_1$ such that $y = f(x)$. Then 
 			\begin{align*}
 				\psi(y) 
 				&= \psi \circ f(x) \\
@@ -1324,15 +1332,18 @@
 			\end{align*}
 			So $\psi = \phi$.
 		\end{itemize}
-		
 	\end{proof}
-	
+
+	\begin{note}
+		\tcr{discuss the information interpretation where we think of maps $f$ as processing and possibly deleting information in $(X_1, \MA_1)$ and $f^*\MA_2$ represents the information in $\MA_1$ preserved by $f$ and $f$ preserves at least as much information as $g$ iff $g = \phi \circ f$ so that $g$ is basically $f$, but with possibly more data processing and loss. This creates a partial order on the set of measurable maps to $(X_3, \MA_3)$. Relate this to category theory with the corresponding poset and the coslice category of maps. Is there a dual notion? dual theorem?}
+	\end{note}
+
 	\begin{ex} \lex{ex:measurable_functions:00021}
-		Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is $\MA_1$-$\MA_2$ measurable and $g$ is $\MA_1$-$\MA_3$ measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $f^*\MA_2$-$\MA_3$ measurable iff there exists a unique $\phi: f(X_1) \rightarrow X_3$ such that $\phi$ is $\MA_2 \cap f(X_1)$ - $\MA_3$ measurable and $g = \phi \circ f$. \\
+		Let $(X_1, \MA_1)$, $(X_2, \MA_2)$ and $(X_3, \MA_3)$ be measurable spaces and $f: X_1 \rightarrow X_2$ and $g:X_1 \rightarrow X_3$. Suppose that $f$ is $(\MA_1, \MA_2)$-measurable and $g$ is $(\MA_1 ,\MA_3)$-measurable and for each $t \in X_3$, $\{t\} \in \MA_3$. Then $g$ is $(f^*\MA_2, \MA_3)$-measurable iff there exists a unique $\phi: f(X_1) \rightarrow X_3$ such that $\phi$ is $(\MA_2 \cap f(X_1), \MA_3)$-measurable and $g = \phi \circ f$. \\
 	\end{ex}
 	
 	\begin{proof}
-		A previous exercise implies that $f: X_1 \rightarrow f(X_1)$ is $\MA_1$ - $\MA_2 \cap f(X_1)$ measurable. Now apply the previous exercise. 
+		\tcr{A previous exercise} implies that $f: X_1 \rightarrow f(X_1)$ is $(\MA_1,  \MA_2 \cap f(X_1))$-measurable. \tcr{Now apply the previous exercise.} \tcr{FINISH!!!} 
 	\end{proof}
 
 
@@ -1497,36 +1508,215 @@
 	\end{proof}
 
 
-	\begin{ex} \lex{ex:measurable_spaces:subspaces:0008}
-		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is $(\MA, \MB)$-measurable iff $f$ is $(\MA, \MB \cap f(X))$-measurable.
+	\begin{ex} \lex{ex:measurable_spaces:subspaces:0007.1}
+		Let $(X, \MA)$ and $E \in \MA$. Then $\iota_E$ is $(\MA \cap E, \MA)$-bimeasurable.
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{itemize}
+			\item By \rd{def:measurable_spaces:subspaces:0001}, $\iota_E$ is $(\MA \cap E, \MA)$-measurable.
+			\item Let $A \in \MA \cap E$. Since $E \in \MA$, $\MA \cap E \subset \MA$. Therefore
+			\begin{align*}
+				\iota_E(A)
+				& = A \\
+				& \in \MA \cap E \\
+				& \subset \MA.
+			\end{align*}
+			Since $A \in \MA \cap E$ is arbitrary, we have that for each $A \in \MA \cap E$, $\iota_E(A) \in \MA$. Hence $\iota_E$ is $(\MA \cap E, \MA)$-bimeasurable.
+		\end{itemize}
+	\end{proof}
+
+	\begin{ex} \lex{ex:measurable_spaces:subspaces:0008}
+		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces and $f:X \rightarrow Y$. Then $f$ is $(\MA, \MB)$-measurable iff $f|^{f(X)}$ is $(\MA, \MB \cap f(X))$-measurable.
+	\end{ex}
+	
+	\begin{proof}
+		Set $g \defeq f|^{f(X)}$.
+		\begin{itemize}
 			\item $(\implies):$ \\
 			Suppose that $f$ is $(\MA, \MB)$-measurable. Let $B \in \MB \cap f(X)$. Then there exists $V \in \MB$ such that $B = V \cap f(X)$. Then 
 			\begin{align*}
-				f^{-1}(B)
+				g^{-1}(B)
+				& = f^{-1}(B) \\
 				& = f^{-1}(V \cap f(X)) \\
 				& = f^{-1}(V) \cap f^{-1}(f(X)) \\
 				& = f^{-1}(V) \cap X \\
 				& = f^{-1}(V) \\
 				& \in \MA
 			\end{align*}
-			Since $B \in \MB \cap f(X)$ is arbitrary, $f$ is  $(\MA, \MB \cap f(X))$-measurable. 
+			Since $B \in \MB \cap f(X)$ is arbitrary, $g$ is  $(\MA, \MB \cap f(X))$-measurable. 
 			\item $(\impliedby):$ \\
-			Conversely, suppose that $f$ is  $(\MA, \MB \cap f(X))$-measurable. Let $V \in \MB$. Then $V \cap f(X) \in \MB \cap f(X)$ and 
+			Conversely, suppose that $g$ is  $(\MA, \MB \cap f(X))$-measurable. Let $V \in \MB$. Then $V \cap f(X) \in \MB \cap f(X)$ and 
 			\begin{align*}
 				f^{-1}(V)
 				& = f^{-1}(V \cap f(X)) \\
+				& = g^{-1}(V \cap f(X)) \\
 				& \in \MA  
 			\end{align*} 
 			Since $V \in \MB$ is arbitrary, $f$ is  $(\MA, \MB)$-measurable. 
 		\end{itemize}
 	\end{proof}
 
+	\begin{ex} \lex{ex:measurable_spaces:subspaces:0009}
+		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces, $E \subset X$ and $f:X \rightarrow Y$. If $f$ is $(\MA, \MB)$-measurable, then $f|_E$ is $(\MA \cap E, \MB)$-measurable. 
+	\end{ex}
 
+	\begin{proof}
+		Suppose that $f$ is $(\MA, \MB)$-measurable. We note that $f|_E = f \circ \iota_E$. Since $\iota_E$ is $(\MA \cap E, \MA)$-measurable and $f$ is $(\MA, \MB)$-measurable, we have that $f|_E$ is $(\MA \cap E, \MB)$-measurable. 
+	\end{proof}
 
+	\begin{ex} \lex{ex:measurable_spaces:subspaces:0010}
+		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces, $(A_j)_{j \in \N} \subset \MA$ and $f:X \rightarrow Y$. Suppose that $X = \bigcup\limits_{j \in \N} A_j$. Then $f$ is $(\MA, \MB)$-measurable iff for each $j \in \N$, $f|_{A_j}$ is $(\MA \cap A_j, \MB)$-measurable.
+	\end{ex}
+
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies):$ \\
+			Suppose that $f$ is $(\MA, \MB)$-measurable. \rex{ex:measurable_spaces:subspaces:0009} implies that for each $j \in \N$, $f|_{A_j}$ is $(\MA \cap A_j, \MB)$-measurable.
+			\item $(\impliedby):$ \\
+			Suppose that for each $j \in \N$, $f|_{A_j}$ is $(\MA \cap A_j, \MB)$-measurable. Let $B \in \MB$. Since $(A_j)_{j \in \N} \subset \MA$, we have that for each $j \in \N$, 
+			\begin{align*}
+				f^{-1}(B) \cap A_j
+				& = f|_{A_j}^{-1}(B) \\
+				& \in \MA \cap A_j \\
+				& \subset \MA.
+			\end{align*}
+			Therefore
+			\begin{align*}
+				f^{-1}(B)
+				& = f^{-1}(B) \cap X \\
+				& = f^{-1}(B) \cap \bigg[ \bigcup\limits_{j \in \N} A_j \bigg] \\
+				& = \bigcup\limits_{j \in \N} (f^{-1}(B) \cap A_j) \\
+				& \in \MA. 
+			\end{align*}
+			Since $B \in \MB$ is arbitrary, we have that for each $B \in \MB$, $f^{-1}(B) \in \MA$. Hence $f$ is $(\MA, \MB)$-measurable.
+		\end{itemize}
+	\end{proof}
+
+	\begin{ex} \lex{ex:measurable_spaces:subspaces:0011} \tbf{Schroder-Bernstein Theorem:} \\
+		Let $(X, \MA)$ and $(Y, \MB)$ be measurable spaces. If there exists $f:X \rightarrow Y$ and $g: Y \rightarrow X$ such that $f,g$ are injective, $f$ is $(\MA, \MB)$-bimeasurable and $g$ is $(\MB, \MA)$-bimeasurable, then there exists $h: X \rightarrow Y$ such that $h$ is a $(\MA, \MB)$-measurable isomorphism. \\
+		\tbf{Hint:} 
+		\begin{enumerate}
+			\item Define $(A_n)_{n \in \N} \subset \MP(X)$ by $A_1 \defeq \varnothing$ and for $n \geq 2$, $A_n \defeq g(f(A_{n-1})^c)^c$. Define $A \subset \MP(X)$ by $A \defeq \bigcup\limits_{n \in \N} A_n$.
+			Then 
+			\begin{itemize}
+				\item $(A_n)_{n \in \N} \subset \MA$,
+				\item $A \in \MA$,
+				\item $A = g(f(A)^c)^c$ and $A^c \subset g(Y)$, 
+			\end{itemize}
+			\item Define $h:X \rightarrow Y$ by 
+			\[
+			h(x) \defeq 
+			\begin{cases}
+				f(x), & x \in A \\
+				(g|^{g(Y)})^{-1}(x),  & x \in A^c.
+			\end{cases}
+			\]
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that there exists $f:X \rightarrow Y$ and $g: Y \rightarrow X$ such that $f,g$ are injective and $f,g$ are bimeasurable. 
+		\begin{enumerate}
+			\item Define $(A_n)_{n \in \N} \subset \MP(X)$ by $A_1 \defeq \varnothing$ and for $n \geq 2$, $A_n \defeq g(f(A_{n-1})^c)^c$. Define $A \subset \MP(X)$ by $A \defeq \bigcup\limits_{n \in \N} A_n$. 
+			\begin{itemize}
+				\item 
+				\begin{itemize}
+					\item \tbf{Base Case:} \\
+					Clearly $A_1 \in \MA$. 
+					\item \tbf{Induction Step:} \\
+					Let $n \in \N$. Suppose that $A_n \in \MA$. Since $f$ is bimeasurable, $f(A_n) \in \MB$ and thus $f(A_n)^c \in \MB$. Since $g$ is bimeasurable, $g(f(A_n)^c) \in \MA$ and thus 
+					\begin{align*}
+						A_{n+1}
+						& = g(f(A_n)^c)^c \\
+						& \in \MA.
+					\end{align*} 
+				\end{itemize}
+				Since $A_1 \in \MA$ and for each $n \in \N$, $A_n \in \MA$ implies that $A_{n+1} \in \MA$, by induction we have that $(A_n)_{n \in \N} \subset \MA$. 
+				\item Since $(A_n)_{n \in \N} \subset \MA$, we have that 
+				\begin{align*}
+					A
+					& = \bigcup_{n \in \N} A_n \\
+					& \in \MA. 
+				\end{align*}
+				\item Since $g$ is injective, \tcb{an exercise in the analysis notes section on set theory subsection on bijections} implies that 
+				\begin{align*}
+					g(f(A)^c)^c
+					& = g \bigg( f \bigg( \bigcup\limits_{n \in \N} A_n \bigg)^c \bigg)^c \\
+					& = g \bigg( \bigg[ \bigcup\limits_{n \in \N} f(A_n) \bigg]^c \bigg)^c \\
+					& = g\bigg( \bigcap\limits_{n \in \N} f(A_n)^c  \bigg)^c \\
+					& = \bigg[ \bigcap\limits_{n \in \N} g(f(A_n)^c)  \bigg) \bigg]^c \\
+					& = \bigcup\limits_{n \in \N} g(f(A_n)^c)^c \\
+					& = \bigcup\limits_{n \in \N} A_{n+1} \\
+					& = \bigg[ \bigcup\limits_{n \in \N} A_{n+1} \bigg] \cup \varnothing \\
+					& = \bigg[ \bigcup\limits_{n \in \N} A_{n+1} \bigg] \cup A_1 \\
+					& = \bigcup\limits_{n \in \N} A_n \\
+					& = A.
+				\end{align*}
+				Since $A^c = g(f(A)^c)$, we have that 
+				\begin{align*}
+					A^c 
+					& = g(f(A)^c) \\
+					& \subset g(Y).
+				\end{align*}
+			\end{itemize}
+			\item 
+			Define $B \in \MP(Y)$ by $B \defeq f(A)^c$. Since $f$ is bimeasurable and $A \in \MA$, we have that  
+			\begin{align*}
+				B
+				& = f(A)^c \\
+				& \in \MB. 
+			\end{align*}
+			Since $B^c = f(A)$, we have that
+			\begin{align*}
+				B^c 
+				& = f(A) \\
+				& \subset f(X).
+			\end{align*}
+			Define $f_0: f(X) \rightarrow X$ and $g_0:g(Y) \rightarrow Y$ by $f_0 \defeq (f|^{f(X)})^{-1}$ and $g_0 \defeq (g|^{g(Y)})^{-1}$. Since $B^c = f(A)$, $A = g(f(A)^c)^c$ and $f, g$ are injective, \tcb{an exercise in the analysis notes section on set theory:bijections} implies that 
+			\begin{align*}
+				f_0(B^c) 
+				& = (f|^{f(X)})^{-1}(f(A)) \\
+				& = f^{-1}(f(A)) \\
+				& = A,
+			\end{align*}
+			and
+			\begin{align*}
+				g_0(A^c)
+				& = (g|^{g(Y)})^{-1}(A^c) \\
+				& = g^{-1}(A^c) \\
+				& = g^{-1}(g(f(A)^c)) \\
+				& = f(A)^c \\
+				& = B.
+			\end{align*}
+			Define $h:X \rightarrow Y$ and $\be: Y \rightarrow X$ by 
+			\[
+			h(x) \defeq 
+			\begin{cases}
+				f(x), & x \in A \\
+				g_0(x),  & x \in A^c.
+			\end{cases}
+			\]
+			and  
+			\[
+			\be(x) \defeq 
+			\begin{cases}
+				f_0(x), & y \in B^c \\
+				g(x),  & y \in B.
+			\end{cases}
+			\]
+			Then $h \circ \be = \id_Y$ and $\be \circ h = \id_X$. Hence $h$ is a bijection and $\be = h^{-1}$. \rex{ex:measurable_spaces:subspaces:0009} implies that $f|_A$ is $(\MA \cap A, \MB)$-measurable. Let $F \in \MB$. Since $g$ is bimeasurable, $g(F) \in \MA$. Therefore 
+			\begin{align*}
+				(g_0|_{A^c})^{-1}(F)  
+				& = g_0^{-1}(F) \cap A^c \\
+				& = [(g|^{g(Y)})^{-1}]^{-1}(F) \cap A^c \\
+				& = g|^{g(Y)}(F) \cap A^c \\
+				& = g(F) \cap A^c \\
+				& \in \MA \cap A^c. 
+			\end{align*}
+			Since $F \in \MB$ is arbitrary, we have that for each $F \in \MB$, $(g_0|_{A^c})^{-1}(F) \in \MA \cap A^c$. Hence $g_0|_{A^c}$ is $(\MA \cap A^c, \MB)$-measurable. Since $h|_A = f|_A$ and $h|_{A^c} = g_0|_{A^c}$, \rex{ex:measurable_spaces:subspaces:0010} implies that $h$ is $(\MA, \MB)$-measurable. Similarly, $\be$ is $(\MB, \MA)$-measurable. Thus $h$ is a measurable isomorphism.
+		\end{enumerate}
+	\end{proof}
 
 
 
@@ -1732,7 +1922,7 @@
 	\end{ex}
 	
 	\begin{proof}
-		Immediate by a previous exercise about the initial $\sig$-algebra.
+		Immediate by \tcr{a previous exercise about the initial $\sig$-algebra}.
 	\end{proof}
 
 	\begin{ex} \lex{25006.2}
@@ -1750,14 +1940,15 @@
 	
 	\begin{defn} \ld{25007}
 		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ and $(Y_{\al}, \MB_{\al})_{\al \in A}$ be collections of measurable spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. Set $X = \prod\limits_{\al \in A} X_{\al}$ and $Y = \prod\limits_{\al \in A}Y_{\al}$. We define the \tbf{product of $(f_{\al})_{\al \in A}$}, denoted $\prod_{\al \in A} f_{\al}: X \rightarrow Y$, by $\prod_{\al \in A} f_{\al} ((x_{\al})_{\al \in A}) = (f_{\al}(x_{\al}))_{\al \in A}$.
+		\tcr{eventually delete, reference set theory section instead}
 	\end{defn}
 	
 	\begin{ex} \lex{25008}
-		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ and $(Y_{\al}, \MB_{\al})_{\al \in A}$ be collections of measurable spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. Set $X = \prod\limits_{\al \in A} X_{\al}$ and $Y = \prod\limits_{\al \in A}Y_{\al}$. If for each $\al \in A$, $f_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable, then $\prod_{\al \in A} f_{\al}$ is $(\bigotimes\limits_{\al \in A} \MA_{\al}, \bigotimes\limits_{\al \in A} \MB_{\al})$-measurable.
+		Let $(X_{\al}, \MA_{\al})_{\al \in A}$ and $(Y_{\al}, \MB_{\al})_{\al \in A}$ be collections of measurable spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. Set $X \defeq \prod\limits_{\al \in A} X_{\al}$, $Y \defeq \prod\limits_{\al \in A}Y_{\al}$ and $f \defeq \prod_{\al \in A} f_{\al}$. If for each $\al \in A$, $f_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable, then $f$ is $(\bigotimes\limits_{\al \in A} \MA_{\al}, \bigotimes\limits_{\al \in A} \MB_{\al})$-measurable.
 	\end{ex}
 	
-	\begin{proof} Suppose that for each $\al \in A$, $f_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable. Set $f = \prod_{\al \in A} f_{\al}$. Denote the $\al$-th projection maps on $X$ and $Y$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Let $\al \in A$.  \tcb{An exercise in the intro-math/analysis notes chapter on set theory} implies that $\pi^Y_{\al} \circ f = f_{\al} \circ \pi^X_{\al}$. Since $f_{\al} \circ \pi^X_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable, we have that $\pi^Y_{\al} \circ f$ is $(\MA_{\al}, \MB_{\al})$-measurable. Since $\al \in A$ is arbitrary, a previous exercise implies that $f$ is $(\bigotimes\limits_{\al \in A} \MA_{\al}, \bigotimes\limits_{\al \in A} \MB_{\al})$-measurable.
-		
+	\begin{proof} 
+		Suppose that for each $\al \in A$, $f_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable. Let $\al \in A$. Denote the $\al$-th projection maps on $X$ and $Y$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively.  \tcb{An exercise in the intro-math/analysis notes chapter on set theory} implies that $\pi^Y_{\al} \circ f = f_{\al} \circ \pi^X_{\al}$. Since $f_{\al} \circ \pi^X_{\al}$ is $(\MA_{\al}, \MB_{\al})$-measurable, we have that $\pi^Y_{\al} \circ f$ is $(\MA_{\al}, \MB_{\al})$-measurable. Since $\al \in A$ is arbitrary, a previous exercise implies that $f$ is $(\bigotimes\limits_{\al \in A} \MA_{\al}, \bigotimes\limits_{\al \in A} \MB_{\al})$-measurable.
 	\end{proof}
 
 	\begin{defn} \ld{25010}
@@ -2585,8 +2776,9 @@
 	\chapter{Standard Borel Spaces}
 	
 	\section{Introduction}
+
 	
-	\begin{defn}
+	\begin{defn} \ld{def:standard_borel_spaces:intro:0002}
 		We define the 
 		\begin{itemize}
 			\item \tbf{Cantor space}, denoted $\MC$, by $\MC \defeq \{0,1\}^{\N}$,
@@ -2597,10 +2789,8 @@
 	\end{defn}
 	
 	\begin{note}
-		We note that since $\{0,1\}$, $\N$ and $[0,1]$ are second-countable and $\MC$, $\MN$ and $\H$ are countable products of second-countable spaces, we have that $\MC$, $\MN$ and $\H$ are second-countable.
+		We note that \tcb{exercises from analysis notes} $\MC, \MN \H$ are Polish spaces and $\MC, \MN$ are zero-dimensional spaces.
 	\end{note}
-
-
 
 
 
@@ -2636,109 +2826,36 @@
 
 	\newpage
 	\section{The Cantor Space}
-	\tcr{(maybe rename)}
 	
-	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0003} 
-		For each $x \in [0, 1]$, there exists $(x_n)_{n \in \N} \in \MC$ such that $x = \sum\limits_{j \in \N} x_j2^{-j}$. \\
-		\textbf{Hint:} Set $x_1 = 
-		\begin{cases}
-			0, & x < 1/2 \\
-			1, & x \geq 1/2 
-		\end{cases}$
-		and proceed inductively. 
-	\end{ex}
 	
-	\begin{proof}
-		Let $x \in [0,1]$. Set 
-		$$x_1 = 
-		\begin{cases}
-			0, & x < 1/2 \\
-			1, & x \geq 1/2 
-		\end{cases}$$
-		and for $j \geq 2$, set 
-		$$x_j = \begin{cases}
-			0, & x - \sum\limits_{k = 1}^{j-1}x_k2^{-k} < 2^{-j} \\
-			1, & x - \sum\limits_{k = 1}^{j-1}x_k2^{-k} \geq 2^{-j} 
-		\end{cases}$$
-		Note that for each $j \in \N$, $x - \sum\limits_{k = 1}^{j}x_k2^{-k} \in [0, 2^{-j}]$. Hence $x = \sum\limits_{j \in \N} x_j2^{-j}$
-	\end{proof}
-	
-	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0004} 
-		Let $(x_n)_{n \in \N}, (y_n)_{n \in \N} \subset \MC$. Suppose that $(x_n)_{n \in \N} \neq (y_n)_{n \in \N}$. Set $N = \min\{j \in \N: x_j \neq y_j\}$. Suppose that $x_N = 0$ and $y_N = 1$. Then
-		$$\sum\limits_{j \in \N} x_j 2^{-j} = \sum\limits_{j \in \N} y_j 2^{-j}$$ 
-		iff for each $j \in \N$, $j > N$ implies that $x_j = 1$ and $y_j = 0$. 
-	\end{ex}
-	
-	\begin{proof}
-		Suppose that 
-		$$\sum\limits_{j \in \N} x_j 2^{-j} = \sum\limits_{j \in \N} y_j 2^{-j}$$
-		By definition of $N$, for each $j \in \N$, $j < N$ implies that $x_j = y_j$. Hence 
-		$$\sum\limits_{j = N} x_j 2^{-j} = \sum\limits_{j = N} y_j 2^{-j}$$ 
-		Since $x_N = 0$ and $y_N = 1$, we have that 
-		$$\sum\limits_{j = N +1} x_j 2^{-j} = 2^{-N} + \sum\limits_{j = N+1} y_j 2^{-j}$$ 
-		Thus $2^{-N} = \sum\limits_{j = N+1} (x_j - y_j) 2^{-j}$. For the sake of contradiction, suppose that there exists $m > N$ and $x_m \neq 1$ or $y_m \neq 0$. Then
-		\begin{align*}
-			2^{-N} 
-			&= \sum\limits_{j = N+1} (x_j - y_j) 2^{-j} \\
-			& < \sum\limits_{j = N+1} (1 - 0) 2^{-j} \\
-			& = 2^{-N}
-		\end{align*}
-		which is a contradiction. Hence for each $m \in \N$, $m > N$ implies that $x_m = 1$ and $y_m = 0$. \vspace{.2cm}\\
-		Conversely, suppose that for each $j \in \N$, $j > N$ implies that $x_j = 1$ and $y_j = 0$. Then 
-		\begin{align*}
-			\sum\limits_{j \in \N} x_j 2^{-j}
-			& = \sum_{j=1}^{N-1} x_j + \sum_{j \geq N+1} 2^{-j} \\
-			& = \sum_{j=1}^{N-1} x_j + 2^{-N} \sum_{j \in \N} 2^{-j} \\
-			& = \sum_{j=1}^{N-1} y_j + 2^{-N} \\
-			& = \sum_{j=1}^N y_j2^{-j} \\
-			& = \sum\limits_{j \in \N} y_j 2^{-j}
-		\end{align*}
-	\end{proof}
-	
-	\begin{defn} \ld{def:measurable_spaces:standard_borel_spaces:0005} \
+	\begin{defn} \ld{def:measurable_spaces:standard_borel_spaces:0001} 
+		We recall from \tcb{the analysis notes section on cantor space} the following definitions of $\MC, Z, \phi:Z \rightarrow [0,1]$ and for $n \in \N$, $l \in \{0,1\}$, $Z_n^l$: 
 		\begin{itemize}
+			\item We define $\MC \defeq \{0,1\}^{\N}$
 			\item We define $Z \subset \MC$ by 
-			$$Z = \bigg \{(x_n)_{n \in \N} \in \MC: \# \{n \in \N: x_n = 0\} = \infty  \bigg \} \cup \{(1, 1, 1, \ldots)\}$$ 
+			$$Z \defeq \bigg \{(x_n)_{n \in \N} \in \MC: \# \{n \in \N: x_n = 0\} = \infty  \bigg \} \cup \{(1, 1, 1, \ldots)\}$$ 
 			\item We define $\phi: Z \rightarrow [0,1]$ by 
 			$$\phi(x) = \sum\limits_{n \in \N} x_n2^{-n}$$
-			\item For $n \in \N$ and $l \in \{0,1\}$ we define $Z_n^l = \{\pi_n^{-1}(\{l\})\} \cap Z$ where $\pi_n: \{0,1 \}^{\N} \rightarrow \{0,1\}$ is the projection onto the $n$-th coordinate.
+			\item For $n \in \N$ and $l \in \{0,1\}$ we define $Z_n^l \subset Z$ by $Z_n^l \defeq \{\pi_n^{-1}(\{l\})\} \cap Z$ where $\pi_n: \{0,1 \}^{\N} \rightarrow \{0,1\}$ is the projection onto the $n$-th coordinate.
 		\end{itemize}
 	\end{defn}
-	
-	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0006}
-		We have that $\phi:Z \rightarrow [0,1]$ is a continuous bijection. \\
-		\tbf{Hint:} Weierstrass M-test
+
+	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0002} 
+		We have that $\MC$ and $Z$ are zero-dimensional Polish spaces and $\phi$ is a continuous bijection. \\
+		\tbf{Hint:} cite \tcb{Analysis notes section on zero-dimensional metric spaces subsection on Cantor space}.
 	\end{ex}
-	
-	\begin{proof}\
-		\begin{itemize}
-			\item Let $x \in [0,1]$. Then \rex{ex:measurable_spaces:standard_borel_spaces:0003} implies that there exists $(x_n)_{n \in \N} \in \MC$ such that $x = \sum\limits_{n \in \N} x_n2^{-n}$. If for each $n \in \N$, $x_n = 1$, then $(x_n)_{n \in \N} \in Z$. Suppose that there exists $n \in \N$ such that $x_n = 0$. If $\# \{n \in \N: x_n = 0\} = \infty$, then $(x_n)_{n \in \N} \in Z$. Suppose that $ \# \{n \in \N: x_n = 0\} < \infty$. Set $N = \max \{ n \in \N: x_n = 0\}$. Define $(y_n)_{n \in \N} \in Z$ by 
-			\[
-			y_n = 
-			\begin{cases}
-				x_n, & n \in \{1, \ldots, N-1\} \\
-				1, & n = N \\
-				0, & n > N
-			\end{cases}
-			\]
-			Then \rex{ex:measurable_spaces:standard_borel_spaces:0004} implies that $\phi((y_n)_{n \in \N}) = x$. Since $x \in [0,1]$ is arbitrary, $\phi$ is surjective. \vspace{.2cm}\\  Let $(x_n)_{n \in \N}, (y_n)_{n \in \N} \in Z$. Suppose that $(x_n)_{n \in \N} \neq (y_n)_{n \in \N}$. If  $\phi((x_n)_{n \in \N}) = \phi((y_n)_{n \in \N})$, then \rex{ex:measurable_spaces:standard_borel_spaces:0004} implies that $(x_n)_{n \in \N} \not \in Z$ or $(y_n)_{n \in \N} \not \in Z$, which is a contradiction. Hence $\phi((x_n)_{n \in \N}) \neq \phi((y_n)_{n \in \N})$. Since $(x_n)_{n \in \N}, (y_n)_{n \in \N} \in Z$ are arbitrary, $\phi$ is injective. So $\phi$ is a bijection. \\
-			\item For $n \in \N$, define $\phi_n: Z \rightarrow [0, 1]$ by $\phi_n \defeq 2^{-n}\pi_n|_{Z}$. Then $\phi = \sum\limits_{n \in \N} \phi_n$ and $\|\phi_n\|_{\infty} = 2^{-n}$. The Weierstrass M-test implies that $\phi$ is continuous.
-		\end{itemize}
+
+	\begin{proof}
+		\tcb{Analysis notes section on zero-dimensional metric spaces subsection on Cantor space}
 	\end{proof}
 	
 	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0006} 
 		We have that $Z \in \MB(\MC)$. \\
-		\textbf{Hint:} Note that $Z^c$ is countable. 
+		\textbf{Hint:} \tcb{Analysis notes section on Cantor space}. 
 	\end{ex}
 	
 	\begin{proof}
-		Since the product of $T_1$ spaces is $T_1$, $\MC$ is $T_1$. Since $\MC$ is $T_1$, for each $x \in Z^c$, $\{x \}$ is closed. Since $Z^c$ is countable, we have that 
-		\begin{align*}
-			Z^c
-			& = \bigcup_{x \in  Z^c} \{x\} \\
-			& \in  \MB(\MC)
-		\end{align*} 
-		Therefore $Z \in  \MB(\MC)$.
+		\tcb{An exercise in the analysis notes section on zero-dimensional polish spaces subsection cantor space} implies that $Z$ is a $G_{\del}$-set. Thus $Z \in \MB(\MC)$. 
 	\end{proof}
 	
 	\begin{defn} \lex{ex:measurable_spaces:standard_borel_spaces:0007} 
@@ -2882,7 +2999,7 @@
 			\item $\phi$ is $(\MB(Z), \MB([0,1]))$-measurable
 			\item $\phi^{-1}$ is $(\MB([0,1]), \MB(Z))$-measurable \\
 			\textbf{Hint:} Recall that $\MB(Z) = Z \cap \MB(\MC)$ and $\MB(\{0,1\})^{\otimes \N} = \sig_{\MC} (\pi_j: j \in \N)$
-			\item $(Z, \MB(Z))$ is a Borel space
+			\item $\phi$ is a $(\MB(Z), \MB([0,1]))$-measurable isomorphism.
 		\end{enumerate}
 	\end{ex}
 	
@@ -2909,118 +3026,15 @@
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{defn} \ld{def:measurable_spaces:standard_borel_spaces:0012}
-		We define $a: \N^2 \rightarrow \N$ by $a(k,n) = 2^{k-1}(2n-1)$. 
-	\end{defn}
 	
-	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0013}
-		We have that $a: \N^2 \rightarrow \N$ is a bijection.
-	\end{ex}
 	
-	\begin{proof}\
-		\begin{itemize}
-			\item \textbf{Injectivity} \\ 
-			Let $(k,n), (k', n') \in \N^2$. Suppose that $a(k,n) = a(k',n')$. Then $2^{k-1}(2n-1) = 2^{k'-1}(2n'-1)$. Set $l = 2n-1$ and $l' = 2n'-1$. Then $l = 2^{k'-k}l'$. Since $l,l' \in \N$ and $l' \equiv 1 \pmod{2}$, we have that $k'-k \geq 0$. Since $l \equiv 1 \pmod{2}$, we have that $k'-k = 0$. Therefore $l = l'$ which implies that $n = n'$. Therefore $(k,n) = (k', n')$. Since  $(k,n), (k', n') \in \N^2$ are arbitrary, $a$ is injective.
-			\item \textbf{Surjectivity:} \\
-			Let $j \in \N$. Define $k_0,l_0 \in \N$ by $k_0 = \max \{k \in \N: \gcd(j, 2^{k-1}) = 2^{k-1}\}$ and $l_0 = j/2^{k_0-1}$. Since $l_0 \equiv 1 \pmod{2}$ there exists $n_0 \in \N$ such that $l_0 = 2n_0-1$. Thus, $a(k_0, n_0) = j$. Since $j \in \N$ is arbitrary, $a$ is surjective.
-		\end{itemize}
-	\end{proof}
 	
-	\begin{defn} \ld{def:measurable_spaces:standard_borel_spaces:0014} \
-		\begin{itemize}
-			\item We equip $\MC^{\N}$ with the product topology.
-			\item We define $\eta_0, \eta_1: \MC \rightarrow \MC$ and $H: \MC \rightarrow \MC^{\N}$ by
-			\begin{itemize}
-				\item  $\eta_0(x) = (x_{2n})_{n \in \N}$
-				\item $\eta_1(x) = (x_{2n-1})_{n \in \N}$ 
-				\item for $k \in \N$, $[H(x)]_k = \eta_1 \circ (\eta_0)^{k-1}(x)$. 
-			\end{itemize}
-		\end{itemize}
-	\end{defn}
 	
-	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0015} \
-		\begin{enumerate}
-			\item For each $x \in \MC$, $[H(x)]_k = (x_{2^{k-1}(2n-1)})_{n \in \N}$
-			\item $H: \MC \rightarrow \MC^{\N}$ is a bijection
-			\item $H: \MC \rightarrow \MC^{\N}$ is a homeomorphism
-		\end{enumerate}
-	\end{ex}
 	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $x \in \MC$ and $k \in \N$. Define $y \in \MC$ by $ y = (\eta_0)^{k-1}(x)$. Clearly $y = (x_{2^{k-1}n})_{n \in \N}$. Then 
-			\begin{align*}
-				[H(x)]_k
-				& = \eta_1 \circ (\eta_0)^{k-1}(x) \\
-				& = \eta_1(y) \\
-				& = (y_{2n-1})_{n \in \N} \\
-				& =  (x_{2^{k-1}(2n-1)})_{n \in \N}
-			\end{align*}
-			\item  
-			\begin{itemize}
-				\item \textbf{Injectivity:} \\
-				Let $x, y \in \MC$. Suppose that $H(x) = H(y)$. Let $j \in \N$. Define $(k,n) \in \N^2$ by $(k,n) = a^{-1}(j)$. Then $j = 2^{k-1}(2n-1)$ and
-				\begin{align*}
-					x_j
-					& = x_{2^{k-1}(2n-1)} \\
-					& = ([H(x)]_k)_n \\
-					& = ([H(y)]_k)_n \\
-					& = y_{2^{k-1}(2n-1)} \\
-					& = y_j
-				\end{align*}
-				Since $j \in \N$ is arbitrary, $x = y$. Since $x,y \in \MC$ are arbitrary, $H$ is injective.
-				\item \textbf{Surjectivity:} \\
-				Let $X \in \MC^{\N}$. Define $(k_j,n_j)_{j \in \N} \in (\N^2)^{\N}$ and $x \in \MC$ by $(k_j,n_j) = a^{-1}(j)$ and $x_j = (X_{k_j})_{n_j}$. Let $(k,n) \in \N$. Define $j \in \N$ by $j = a(k,n)$. Then
-				\begin{align*}
-					([H(x)]_{k})_{n} 
-					& = x_{2^{k-1}(2n-1)} \\
-					& = x_{a(k, n)} \\
-					& = x_j \\
-					& = (X_{k})_{n}
-				\end{align*}
-				Hence $X = H(x)$. Since $X \in \MC^{\N}$ is arbitrary, $H$ is surjective.
-			\end{itemize}
-			Therefore $H$ is a bijection.
-			\item Let $(x_{\al})_{\al \in A} \subset \MC$ be a net and $x \in \MC$. Suppose that $x_{\al} \rightarrow x$. Then for each $n \in \N$, 
-			\begin{align*}
-				(x_{\al})_n
-				& = \pi_n(x_{\al}) \\
-				& \rightarrow \pi_n(x) \\
-				& = x_n 
-			\end{align*}
-			Let $k \in \N$. Then for each $n \in \N$,
-			\begin{align*}
-				\pi_{n}(\pi_k(H(x_{\al})))
-				& = (x_{\al})_{ 2^{k-1}(2n -1)} \\
-				& \rightarrow x_{2^{k-1}(2n -1)} \\
-				& = \pi_n(\pi_k(H(x)))
-			\end{align*}
-			Thus 
-			$$\pi_k(H(x_{\al})) \rightarrow \pi_k(H(x))$$
-			Since $k \in \N$ is arbitrary, we have that 
-			$$H(x_{\al}) \rightarrow H(x)$$
-			Hence $H$ is continuous. \\
-			Conversely, let $(X_{\al})_{\al \in A} \subset \MC^{\N}$ be a net and $X \in \MC^{\N}$. Suppose that $X_{\al} \rightarrow X$. Then for each $k, n \in \N$, 
-			\begin{align*}
-				([X_{\al}]_k)_n  
-				& = \pi_n(\pi_k(X_{\al})) \\
-				& \rightarrow \pi_n(\pi_k(X)) \\ 
-				& = (X_k)_n
-			\end{align*}
-			Let $j \in \N$. Define $(k,n) \in \N^2$ by $(k,n) = a^{-1}(j)$. Then 
-			\begin{align*}
-				\pi_j(H^{-1}(X_{\al}))
-				& = [H^{-1}(X_{\al})]_j \\
-				& = ([X_{\al}]_k)_n \\
-				& \rightarrow (X_k)_n \\
-				& = [H^{-1}(X)]_j \\
-				& = \pi_j(H^{-1}(X))
-			\end{align*}
-			Since $j \in \N$ is arbitrary, 
-			$$H^{-1}(X_{\al}) \rightarrow H^{-1}(X)$$
-			Hence $H^{-1}$ is continuous. Thus $H$ is a homeomorphism.
-		\end{enumerate}
-	\end{proof}
+	
+	
+	
+	
 
 
 
@@ -3059,6 +3073,9 @@
 
 
 
+
+
+	\newpage
 	\section{Analytic Sets}
 	
 	\begin{defn} \ld{def:measurable_spaces:standard_borel_spaces:0016}
@@ -3198,19 +3215,15 @@
 		\begin{enumerate}
 			\item Suppose that for each $n \in \N$, $f_n$ is continuous.
 			\begin{enumerate}
-				\item Set $\Del_{X^{\N}} \defeq \{x \in X: \text{ for each $m,n \in \N$, $\pi_m(x) = \pi_n(x)$}\}$. Then $\Del_{X^{\N}}$ is a Polish space.  
-				\item Set $Z_0 \defeq \prod\limits_{n \in \N} Z_n$ and define $f_0: Z_0 \rightarrow X^{\N}$ by $f_0 \defeq \prod\limits_{n \in \N} f_n$. Then $Z_0$ is a Polish space and $f_0$ is continuous
-				\item Set $Z \defeq f_0^{-1}(\Del_{X^{\N}})$. Then 
-				\begin{enumerate}
-					\item $Z$ is a Polish space
-					\item for each $m,n \in \N$, $f_m \circ \pi_m|_Z = f_n \circ \pi_n|_Z$,
-				\end{enumerate}
+				\item Define $Z_0$ and $f_0: Z_0 \rightarrow X^{\N}$ by $Z_0 \defeq \prod\limits_{n \in \N} Z_n$ and $f_0 \defeq \prod\limits_{n \in \N} f_n$. Then $f_0$ is continuous.
+				\item Define $\Del_{X^{\N}} \subset X^{\N}$ and $Z \subset Z_0$ by $\Del_{X^{\N}} \defeq \{x \in X^{\N}: \text{ for each $m,n \in \N$, $\pi_m(x) = \pi_n(x)$}\}$ and $Z \defeq f_0^{-1}(\Del_{X^{\N}})$. Then for each $m,n \in \N$, $f_m \circ \pi_m|_Z = f_n \circ \pi_n|_Z$.
 				\item For each $n \in \N$, $f_n \circ \pi_n(Z) = \bigcap\limits_{n \in \N} B_n$.
 				\item Set $B \defeq \bigcap\limits_{n \in \N} B_n$ and define $f:Z \rightarrow B$ by $f \defeq f_1 \circ \pi_1|_Z$. Then $f$ is continous
 			\end{enumerate}
 			\item If for each $n \in \N$, $f_n$ is surjective, then $f$ is surjective.
 			\item If for each $n \in \N$, $f_n$ is injective, then $f$ is injective.
 			\item If for each $n \in \N$, $f_n$ is a measurable isomorphism, then $f$ is a measurable isomorphism.
+			\item We have that $\Del_{X^{\N}}$, $Z_0$ and $Z$ are Polish spaces. 
 			\item If for each $n \in \N$, $Z_n$ is a zero-dimensional, then $Z$ is zero-dimensional
 		\end{enumerate}
 	\end{ex}
@@ -3219,17 +3232,8 @@
 		\begin{enumerate}
 			\item 
 			\begin{enumerate}
-				\item Since $X$ is a Polish space, $X^{\N}$ is a Polish space. Since $X$ is a Polish space, $X$ is Hausdorff. \tcb{An exercise in the analysis notes section on Polish spaces} implies that $\Del_{X^{\N}}$ is a Polish space. 
-				\item 
-				\begin{itemize}
-					\item Since for each $n \in \N$, $Z_n$ is a Polish space, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $Z_0$ is a Polish space.
-					\item Since for each $n \in \N$, $f_n:Z_n \rightarrow B_n$ is continuous, \tcb{an exercise in the analysis notes section on the product topology} implies that $f_0$ is continuous.
-				\end{itemize}
-				\item 
-				\begin{enumerate}
-					\item Since $f_0$ is continous and $\Del_{X^{\N}}$ is closed in $X^{\N}$, we have that $Z$ is closed in $Z_0$. Since $Z_0$ is a Polish space and $Z$ is closed in $Z_0$, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $Z$ is a Polish space. 
-					\item \tcb{An exercise in the analysis notes section on set theory} implies that for each $m,n \in \N$, $f_m \circ \pi_m|_Z = f_n \circ \pi_n|_Z$
-				\end{enumerate}
+				\item Since for each $n \in \N$, $f_n:Z_n \rightarrow B_n$ is continuous, \tcb{an exercise in the analysis notes section on the product topology} implies that $f_0$ is continuous.
+				\item \tcb{An exercise in the analysis notes section on set theory} implies that for each $m,n \in \N$, $f_m \circ \pi_m|_Z = f_n \circ \pi_n|_Z$.
 				\item \tcb{An exercise in the analysis notes section on set theory} implies that for each $n \in \N$, $f_n \circ \pi_n(Z) = \bigcap\limits_{n \in \N} B_n$.
 				\item Since $\pi_m$ is continuous, $\pi_m|_Z$ is continuous. Since $f_1$ is continuous, $f_1 \circ \pi_1|_Z$ is continous. Thus $f$ is continuous. 
 			\end{enumerate}
@@ -3251,7 +3255,7 @@
 				& = f_n(\pi_n(y)).
 			\end{align*}
 			Since $f_n$ is injective, we have that $\pi_n(x) = \pi_n(x)$. Since $n \in \N$ is arbitrary, we have that for each $n \in \N$, $\pi_n(x) = \pi_n(y)$. Hence $x = y$. Since $x, y \in Z$ are arbitrary, we have that for each $x,y \in Z$, $f(x) = f(y)$ implies that $x =y$. Hence $f$ is injective.
-			\item Suppose that for each $n \in \N$, $f_n$ is a measurable isomorphism. The previous part implies that $f$ is a bijection. Define $g: B \rightarrow Z$ by $g \defeq ( f_n^{-1}|_B)_{n \in \N}$. Then for each $x \in B$, $g(x)_m \defeq f_m^{-1}(x)$. Therefore for each $x \in B$,
+			\item Suppose that for each $n \in \N$, $f_n$ is a measurable isomorphism. The previous parts implies that $f$ is a bijection. Define $g: B \rightarrow Z$ by $g \defeq ( f_n^{-1}|_B)_{n \in \N}$. Then for each $x \in B$, $g(x)_m \defeq f_m^{-1}(x)$. Therefore for each $x \in B$,
 			\begin{align*}
 				f \circ g (x)
 				& = f_1 \circ \pi_1(g(x)) \\
@@ -3259,7 +3263,7 @@
 				& = f_m (f_m^{-1}(x)) \\
 				& = x,
 			\end{align*} 
-			so that $f \circ g = \id_B$. For each $z \in Z$ and $m \in \N$,
+			so that $f \circ g = \id_B$. We note that for each $z \in Z$ and $m \in \N$,
 			\begin{align*}
 				\pi_m \circ g \circ f(z) \\
 				& = \pi_m \circ g \circ (f_1 \circ \pi_1)(z) \\
@@ -3268,22 +3272,25 @@
 				& = f_m^{-1}(f_m ( \pi_m(z))) \\
 				& = \pi_m(z),
 			\end{align*} 
-			so that $g \circ f = \id_Z$. Hence $f$ is a bijection and $f^{-1} = g$.
+			so that $g \circ f = \id_Z$. Hence $f^{-1} = g$.
 			\begin{itemize}
 				\item Since $f$ is continuous, $f$ is measurable. 
 				\item Since for each $n \in \N$, $f_n^{-1}$ is measurable, we have that for each $n \in \N$, $f_n^{-1}|_B$ is measurable. \rex{25006.2} then implies that $f^{-1}$ is measurable. Hence $f$ is a measurable isomorphism.  
 			\end{itemize} 
-			\item Suppose that for each $n \in \N$, $Z_n$ is zero-dimensional. \tcr{An exercise in the previous section (about products)} implies that $Z_0$ is zero-dimensional. Since $Z \subset Z_0$, \rex{} \tcr{An exercise in the previous section (about subsapces)} implies that $Z$ is zero-dimensional.
+			\item Since $X$ is a Polish space, $X^{\N}$ is a Polish space. Since $X$ is a Polish space, $X$ is Hausdorff. \tcb{An exercise in the analysis notes section on separation and topology} and \tcb{an exercise in the analysis notes section on Polish spaces} imply that $\Del_{X^{\N}}$ is closed in $X^{\N}$ and $\Del_{X^{\N}}$ is a Polish space. Since for each $n \in \N$, $Z_n$ is a Polish space, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $Z_0$ is a Polish space. Since $f_0$ is continuous and $\Del_{X^{\N}}$ is closed in $X^{\N}$, we have that $Z$ is closed in $Z_0$. Since $Z_0$ is a Polish space and $Z$ is closed in $Z_0$, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $Z$ is a Polish space. 
+			\item Suppose that for each $n \in \N$, $Z_n$ is zero-dimensional. \tcb{An exercise in the analysis notes topology section on products of zero dimensional spaces} implies that $Z_0$ is zero-dimensional. Since $Z \subset Z_0$, \tcb{An exercise in the analysis notes topology section on subsapces of zero dimensional spaces} implies that $Z$ is zero-dimensional.
 		\end{enumerate}
 	\end{proof}
 
 	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0022}
-		Let $X$ be a Polish space, $(Z_n)_{n \in \N}$ a collection of Polish spaces, $(B_n)_{n \in \N} \subset \MP(X)$ and $(f_n)_{n \in \N} \in \prod\limits_{n \in \N} B_n^{Z_n}$. Suppose that $(B_n)_{n \in \N}$ is disjoint and for each $n \in \N$, $f_n$ is continuous and $f_n$ is surjective. 
+		Let $X$ be a Polish space, $(Z_n)_{n \in \N}$ a collection of Polish spaces, $(B_n)_{n \in \N} \subset \MP(X)$ and $(f_n)_{n \in \N} \in \prod\limits_{n \in \N} B_n^{Z_n}$. Suppose that $(B_n)_{n \in \N}$ is disjoint. 
 		\begin{enumerate}
 			\item If for each $n \in \N$, $f_n$ is continuous, then there exists $f: \coprod\limits_{n \in \N} Z_n \rightarrow \bigcup\limits_{n \in \N} B_n$ such that $f$ is continuous. 
 			\item If for each $n \in \N$, $f_n$ is surjective, then $f$ is surjective.
 			\item If for each $n \in \N$, $f_n$ is injective, then $f$ is injective.
-			\item If for each $n \in \N$, $f_n$ is a measurable isomorphism, then $f$ is a measurable isomorphism. \tcr{FINISH!!!}
+			\item If for each $n \in \N$, $f_n$ is a measurable isomorphism, then $f$ is a measurable isomorphism.
+			\item We have that $\coprod\limits_{n \in \N} Z_n$ is a Polish space.
+			\item If for each $n \in \N$, $Z_n$ is zero-dimensional, then $\coprod\limits_{n \in \N} Z_n$ is zero-dimensional.
 		\end{enumerate}
 	\end{ex}
 
@@ -3321,32 +3328,69 @@
 				& = y.
 			\end{align*}
 			Since $x, y \in \coprod\limits_{n \in \N} Z_n$ are arbitrary, we have that for each $x, y \in  \coprod\limits_{n \in \N} Z_n$, $f(x) = f(y)$ implies that $x = y$. Thus $f$ is injective.
-			\item Suppose that for each $n \in \N$, $f_n$ is a measurable isomorphism. Then \tcr{make or reference exercise in section 3.6.06} \rex{ex:measurable_spaces:coproducts:0006} implies that $f_0$ is a measurable isomorphism. Since $\phi$ is a homeomorphism, $\phi$ is a measurable isomorphism. Since $\phi$ and $f_0$ are measurable isomorphisms, $f$ is a measurable isomorphism.
+			\item Suppose that for each $n \in \N$, $f_n$ is a measurable isomorphism. Since $f_0^{-1} = \coprod_{n \in \N} f_n^{-1}$, \rex{ex:measurable_spaces:coproducts:0006} implies that $f_0$ is a measurable isomorphism. Since $\phi$ is a homeomorphism, $\phi$ is a measurable isomorphism. Since $\phi$ and $f_0$ are measurable isomorphisms, $f$ is a measurable isomorphism.
+			\item \tcb{an exercise in the analysis notes topology section on Polish spaces} implies that $\coprod\limits_{n \in \N} Z_n$ is a Polish space.
+			\item Since for each $n \in \N$, $Z_n$ is zero-dimensional, \tcb{an exercise in the analysis notes topology section on zero dimensional spaces} implies that $\coprod\limits_{n \in \N} Z_n$ is zero-dimensional. 
 		\end{enumerate}
 	\end{proof}
 
-	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0023}
-		Let $X$ be a Polish space. Then for each $B \in \MB(X)$, there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $f$ is continuous and $f$ is a measurable isomorphism. \\
-		\tbf{Hint:} consider \rex{ex:measurable_spaces:standard_borel_spaces:0020} and \rex{ex:measurable_spaces:standard_borel_spaces:0020}   
-	\end{ex}
 
-	\begin{proof} 
-		Denote the topology on $X$ by $\MT_X$. \\
-		Define $\MD \defeq \{B \in \MB(X, \MT_X): \text{ there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $f$ is continuous} \\ \text{ and $f$ is a measurable isomorphism}\}$.
-		\begin{itemize}
-			\item Let $U \in \MT_X$. \tcb{An exercise in the analysis notes on polish spaces} implies that $U$ is a Polish space. Also $\id_U:U \rightarrow U$ is continuous a measurable isomorphism. Since $U \in \MT_X$ is arbitrary, we have that $\MT_X \subset \MD$.
-			\item Let $(B_n)_{n \in \N} \subset \MD$. Then $(B_n)_{n \in \N} \subset \MB(X)$ and for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n:Z_n \rightarrow B_n$ such that $f_n$ is continuous and $f_n$ is a measurable isomorphism. Define $Z \subset \prod\limits_{n \in \N} Z_n$ by $Z \defeq (\prod\limits_{n \in \N} f_n)^{-1}(\Del_{X^{\N}})$. Then \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that $Z$ is a Polish space and there exists $f: Z \rightarrow \bigcap\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. Thus $\bigcap\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, $\bigcap\limits_{n \in \N} B_n \in \MD$. 
-			\item Let $(B_n)_{n \in \N} \subset \MD$. Suppose that $(B_n)_{n \in \N}$ is disjoint. Set $Z \defeq \coprod\limits_{n \in \N} Z_n$. \tcb{An exercise in the analysis notes section on Polish spaces} implies that $Z$ is a Polish space. \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists $f: Z \rightarrow \bigcup\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. Thus $\bigcup\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ such that $(B_n)_{n \in \N}$ is disjoint is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, if $(B_n)_{n \in \N}$ is disjoint, then $\bigcup\limits_{n \in \N} B_n \in \MD$. 
-		\end{itemize}
-		Thus $\MD$ is a $\del$-system on $X$. Since $X$ is a Polish space, $X$ metrizable. Since $\MT_X \subset \MD$,  \rex{ex:measurable_spaces:standard_borel_spaces:0020} implies that
-		\begin{align*}
-			\MD & \subset \MB(X, \MT_X) \\
-			& = \del(\MT_X) \\
-			& \subset \del(\MD) \\
-			& = \MD 
-		\end{align*}
-		Hence $\MD = \MB(X, \MT_X)$. 
+	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0023}
+		Let $X$ be a Polish space. Then
+		\begin{enumerate}
+			\item there exists a Polish space $Z$ and $f:Z \rightarrow X$ such that $Z$ is zero-dimensional, $f$ is a continuous and $f$ is a measurable isomorphism. \\
+			\tbf{Hint:} \rex{ex:measurable_spaces:standard_borel_spaces:0002}
+			\item for each $B \in \MB(X)$, there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $Z$ is zero-dimensional, $f$ is continuous and $f$ is a measurable isomorphism. \\
+			\tbf{Hint:} Define 
+			$\MD \defeq \{B \in \MB(X, \MT_X): \text{there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $Z$ is zero-dimensional, } \\ \text{$f$ is continuous and $f$ is a measurable isomorphism}\}$ and consider \rex{ex:measurable_spaces:standard_borel_spaces:0021}, \rex{ex:measurable_spaces:standard_borel_spaces:0022} and \rex{ex:measurable_spaces:standard_borel_spaces:0020}
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item \rex{ex:measurable_spaces:standard_borel_spaces:0002} implies that there exists $E \in \MB(\MC)$ and $\phi: E \rightarrow [0,1]$ such that $E$ is a zero-dimensional Polish space and $\phi$ is a continuous bijection. \rex{ex:measurable_spaces:standard_borel_spaces:0011} implies that $\phi$ is a measurable isomorphism. Since $\phi$ is continuous, \tcb{an exercise in analysis notes section on product topology} implies that $\phi^{\N}$ is continuous and $\phi$ is a measurable isomorphism, \rex{25008} implies that $\phi^{\N}$ is a measurable isomorphism. Define $Z \subset E^{\N}$ by $Z \defeq (\phi^{\N})^{-1}(B)$. Since $\phi^{\N}$ is continuous, \tcb{an exercise in the analysis notes section on subspace topology} implies that $\phi^{\N}|^B_Z$ is continuous. Since $\phi^{\N}$ is a measurable isomorphism, \rex{ex:measurable_spaces:subspaces:0008} and \rex{ex:measurable_spaces:subspaces:0009} imply that $\phi^{\N}|^B_Z$ is a measurable isomorphism. \tcb{An exercise in the analysis notes section on Polish spaces} implies that there exists $B \subset [0,1]^{\N}$ and $h: X \rightarrow B$ such that $B$ is a $G_{\del}$-set and $h$ is a homeomorphism. Thus $h^{-1}$ is continuous and $h^{-1}$ is a measurable isomorphism. Define $f:Z \rightarrow X$ by $f \defeq h^{-1} \circ \phi^{\N}|^B_Z$. Then $f$ is continuous and $f$ is a measurable isomorphism. Since $B$ is a $G_{\del}$-set and $\phi^{\N}$ is continuous, we have that $Z$ is a $G_{\del}$-set. Since $E$ is a Polish space, $E^{\N}$ is a Polish space. Since $Z \subset E^{\N}$ and $Z$ is a $G_{\del}$-set, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $Z$ is Polish space. Since $E$ is zero-dimensional, $E^{\N}$ is zero-dimensional. Since $Z \subset E^{\N}$, we have that $Z$ is zero-dimensional. 
+			\item Denote the topology on $X$ by $\MT_X$. \\
+			Define $\MD \defeq \{B \in \MB(X, \MT_X): \text{there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $Z$ is zero-dimensional, } \\ \text{$f$ is continuous and $f$ is a measurable isomorphism}\}$.
+			\begin{itemize}
+				\item Let $U \in \MT_X$. \tcb{An exercise in the analysis notes on polish spaces} implies that $U$ is a Polish space. The previous part implies that there exists a Polish space $Z$ and $f:Z \rightarrow U$ such that $Z$ is zero-dimensional, $f$ is continuous and $f$ is a measurable isomorphism. Since $U \in \MT_X$ is arbitrary, we have that $\MT_X \subset \MD$.
+				\item Let $(B_n)_{n \in \N} \subset \MD$. Then $(B_n)_{n \in \N} \subset \MB(X)$ and for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n:Z_n \rightarrow B_n$ such that $Z_n$ is zero-dimensional, $f_n$ is continuous and $f_n$ is a measurable isomorphism. Define $Z \subset \prod\limits_{n \in \N} Z_n$ by $Z \defeq (\prod\limits_{n \in \N} f_n)^{-1}(\Del_{X^{\N}})$. Then \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that $Z$ is a Polish space, $Z$ is zero-dimensional and there exists $f: Z \rightarrow \bigcap\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. Thus $\bigcap\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, $\bigcap\limits_{n \in \N} B_n \in \MD$. 
+				\item Let $(B_n)_{n \in \N} \subset \MD$. Suppose that $(B_n)_{n \in \N}$ is disjoint. Set $Z \defeq \coprod\limits_{n \in \N} Z_n$. \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that $Z$ is a Polish space, $Z$ is zero-dimensional and there exists $f: Z \rightarrow \bigcup\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. Thus $\bigcup\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ such that $(B_n)_{n \in \N}$ is disjoint is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, if $(B_n)_{n \in \N}$ is disjoint, then $\bigcup\limits_{n \in \N} B_n \in \MD$. 
+			\end{itemize}
+			Thus $\MD$ is a $\del$-system on $X$. Since $X$ is a Polish space, $X$ metrizable. Since $\MT_X \subset \MD$,  \rex{ex:measurable_spaces:standard_borel_spaces:0020} implies that
+			\begin{align*}
+				\MD & \subset \MB(X, \MT_X) \\
+				& = \del(\MT_X) \\
+				& \subset \del(\MD) \\
+				& = \MD 
+			\end{align*}
+			Hence $\MD = \MB(X, \MT_X)$. 
+		\end{enumerate}
 	\end{proof}
+	
+
+
+%	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0023} \tcr{DELETE}
+%		Let $X$ be a Polish space. Then for each $B \in \MB(X)$, there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $f$ is continuous and $f$ is a measurable isomorphism. \\
+%		\tbf{Hint:} consider \rex{ex:measurable_spaces:standard_borel_spaces:0020} and \rex{ex:measurable_spaces:standard_borel_spaces:0020}   
+%	\end{ex}
+%
+%	\begin{proof} 
+%		Denote the topology on $X$ by $\MT_X$. \\
+%		Define $\MD \defeq \{B \in \MB(X, \MT_X): \text{ there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $f$ is continuous} \\ \text{ and $f$ is a measurable isomorphism}\}$.
+%		\begin{itemize}
+%			\item Let $U \in \MT_X$. \tcb{An exercise in the analysis notes on polish spaces} implies that $U$ is a Polish space. Also $\id_U:U \rightarrow U$ is continuous a measurable isomorphism. Since $U \in \MT_X$ is arbitrary, we have that $\MT_X \subset \MD$.
+%			\item Let $(B_n)_{n \in \N} \subset \MD$. Then $(B_n)_{n \in \N} \subset \MB(X)$ and for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n:Z_n \rightarrow B_n$ such that $f_n$ is continuous and $f_n$ is a measurable isomorphism. Define $Z \subset \prod\limits_{n \in \N} Z_n$ by $Z \defeq (\prod\limits_{n \in \N} f_n)^{-1}(\Del_{X^{\N}})$. Then \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that $Z$ is a Polish space and there exists $f: Z \rightarrow \bigcap\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. Thus $\bigcap\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, $\bigcap\limits_{n \in \N} B_n \in \MD$. 
+%			\item Let $(B_n)_{n \in \N} \subset \MD$. Suppose that $(B_n)_{n \in \N}$ is disjoint. Set $Z \defeq \coprod\limits_{n \in \N} Z_n$. \tcb{An exercise in the analysis notes section on Polish spaces} implies that $Z$ is a Polish space. \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists $f: Z \rightarrow \bigcup\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. Thus $\bigcup\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ such that $(B_n)_{n \in \N}$ is disjoint is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, if $(B_n)_{n \in \N}$ is disjoint, then $\bigcup\limits_{n \in \N} B_n \in \MD$. 
+%		\end{itemize}
+%		Thus $\MD$ is a $\del$-system on $X$. Since $X$ is a Polish space, $X$ metrizable. Since $\MT_X \subset \MD$,  \rex{ex:measurable_spaces:standard_borel_spaces:0020} implies that
+%		\begin{align*}
+%			\MD & \subset \MB(X, \MT_X) \\
+%			& = \del(\MT_X) \\
+%			& \subset \del(\MD) \\
+%			& = \MD 
+%		\end{align*}
+%		Hence $\MD = \MB(X, \MT_X)$. 
+%	\end{proof}
 	
 	\begin{defn} \ld{def:measurable_spaces:standard_borel_spaces:0024}
 		Let $X$ be a Polish space and $A \subset X$. Then $A$ is said to be \tbf{analytic} if there exists a Polish space $Z$ and $f: Z \rightarrow A$ such that $f$ is continuous and surjective. 
@@ -3364,14 +3408,14 @@
 	\begin{proof}
 		Suppose that for each $n \in \N$, $A_n$ is analytic. Then for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n: Z_n \rightarrow A_n$ such that $f_n$ is continuous and surjective. 
 		\begin{enumerate}
-			\item \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that there exists a Polish space $Z$ and $f:Z \rightarrow \bigcap\limits_{n \in \N} A_n$ such that $f$ is continuous and surjective. Thus $\bigcap\limits_{n \in \N} A_n$ is analytic. \tcr{FIX!!! these results are for borel sets, but $A_n$ are not Borel sets}
-			\item \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists a Polish space $Z$ and $f:Z \rightarrow \coprod\limits_{n \in \N} A_n$ such that $f$ is continuous and surjective. Define $\phi: \coprod\limits_{n \in \N} A_n \rightarrow \bigcup\limits_{n \in \N} A_n$ by $\phi(n,  x) \defeq x$. \tcb{An excercise in the analysis notes section on coproduct topology} implies that $\phi$ is continuous. Clearly $\phi$ is surjective. Define $g: Z \rightarrow \bigcup\limits_{n \in \N} A_n$ by $g \defeq \phi \circ f$. Since $\phi$ and $f$ are continuous, $g$ is continuous. Since $\phi$ and $f$ are surjective, $g$ is surjective. Thus $\bigcup\limits_{n \in \N} A_n$ is analytic.
+			\item \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that there exists a Polish space $Z$ and $f:Z \rightarrow \bigcap\limits_{n \in \N} A_n$ such that $f$ is continuous and surjective. Thus $\bigcap\limits_{n \in \N} A_n$ is analytic. 
+			\item \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists a Polish space $Z$ and $f:Z \rightarrow \coprod\limits_{n \in \N} A_n$ such that $f$ is continuous and surjective. Define $\phi: \coprod\limits_{n \in \N} A_n \rightarrow \bigcup\limits_{n \in \N} A_n$ by $\phi(n,  x) \defeq x$. \tcb{An excercise in the analysis notes section on coproduct topology} implies that $\phi$ is a homeomorphism. Define $g: Z \rightarrow \bigcup\limits_{n \in \N} A_n$ by $g \defeq \phi \circ f$. Since $\phi$ and $f$ are continuous, $g$ is continuous. Since $\phi$ and $f$ are surjective, $g$ is surjective. Thus $\bigcup\limits_{n \in \N} A_n$ is analytic.
 			\item Define $f: \prod\limits_{n \in \N} Z_n \rightarrow \prod\limits_{n \in \N} A_n$ by $f \defeq \prod\limits_{n \in \N}f_n$. Since for each $n \in \N$, $Z_n$ is a Polish space, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $\prod\limits_{n \in \N} Z_n$ is a Polish space. Since for each $n \in \N$, $f_n$ is continuous, \tcb{an exercise in the analysis notes section on product topology} implies that $f$ is continuous. Since for each $n \in \N$, $f_n$ is surjective, $\prod\limits_{n \in \N}f_n : \prod\limits_{n \in \N} Z_n \rightarrow \prod\limits_{n \in \N} A_n$ is surjective \tcr{(maybe reference exercise)} %\extrex{analysis-ex:metric_spaces:polish_spaces:0003}.
 		\end{enumerate}
 	\end{proof}
 
 	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0025}
-		Let $X$ be a Polish space. Then for each $A \in \MB(X)$, $A$ is analytic.
+		Let $X$ be a Polish space. Then for each $B \in \MB(X)$, $B$ is analytic.
 	\end{ex}
 
 	\begin{proof}
@@ -3380,16 +3424,16 @@
 
 	\begin{defn}\
 		\begin{itemize}
-			\item for $n \in \N$ and $\gam \in \N^{[n]}$, we define the \tbf{length} of $\gam$, denoted $|\gam|$, by $|\gam| \defeq n$,
-			\item for $n \in \N$, we define the \tbf{projection of $\N^{[n+1]}$ onto $\N^{[n]}$}, denoted $\pi^{[n+1]}_{[n]}: \N^{[n+1]} \rightarrow \N^{[n]}$, by $\pi^{[n+1]}_{[n]}(\gam_1, \ldots, \gam_{n+1}) \defeq (\gam_1, \ldots, \gam_{n})$, 
-			\item for $n \in \N$, we define the \tbf{projection of $\MN$ onto $\N^{[n]}$}, denoted $\pi_{[n]}: \MN \rightarrow \N^{[n]}$, by $\pi_{[n]}(\gam) \defeq (\gam_1, \ldots, \gam_{n})$.\\
+			\item for $n \in \N$ and $\gam \in \N^n$, we define the \tbf{length} of $\gam$, denoted $|\gam|$, by $|\gam| \defeq n$,
+			\item for $n \in \N$, we define the \tbf{projection of $\N^{n+1}$ onto $\N^n$}, denoted $\pi^{[n+1]}_{[n]}: \N^{n+1} \rightarrow \N^n$, by $\pi^{[n+1]}_{[n]}(\gam_1, \ldots, \gam_{n+1}) \defeq (\gam_1, \ldots, \gam_{n})$, 
+			\item for $n \in \N$, we define the \tbf{projection of $\MN$ onto $\N^n$}, denoted $\pi_{[n]}: \MN \rightarrow \N^n$, by $\pi_{[n]}(\gam) \defeq (\gam_1, \ldots, \gam_{n})$.\\
 			\tcr{maybe put this definition inside the following exercise, wait to see if it is needed elsewhere first}
 		\end{itemize}
 	\end{defn}
 
 	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0026}
 		Let $X$ be a Polish space. Suppose that $X \neq \varnothing$. Then there exists $f: \MN \rightarrow X$ such that $f$ is continuous and surjective. \\
-		\tbf{Hint:} Define $\Gam \defeq \{\N^{[n]}: n \in \N\}$. \tcb{An exercise in the analysis notes section on countability of metric spaces} implies that there exists $(C_{\gam})_{\gam \in \Gam} \subset \MP(X)$ such that 
+		\tbf{Hint:} Define $\Gam \defeq \{\N^n: n \in \N\}$. \tcb{An exercise in the analysis notes section on countability of metric spaces} implies that there exists $(C_{\gam})_{\gam \in \Gam} \subset \MP(X)$ such that 
 		\begin{enumerate}
 			\item for each $\gam \in \Gam$,
 			\begin{enumerate}
@@ -3404,7 +3448,7 @@
 	
 	\begin{proof}\
 		\begin{itemize}
-			\item Since $X$ is a Polish space, there exists a metric $d$ on $X$ such that $(X,d)$ is a complete separable metric space. \tcb{An exercise in the analysis notes section on countability of metric spaces} implies that there exists $(C_{\gam})_{\gam \in \Gam} \subset \MP(X)$ such that 
+			\item Since $X$ is a Polish space, there exists a metric $d$ on $X$ such that $(X,d)$ is a complete separable metric space. Define $\Gam \defeq \{\N^n: n \in \N\}$. \tcb{An exercise in the analysis notes section on countability of metric spaces} implies that there exists $(C_{\gam})_{\gam \in \Gam} \subset \MP(X)$ such that 
 			\begin{enumerate}
 				\item for each $\gam \in \Gam$,
 				\begin{enumerate}
@@ -3415,7 +3459,7 @@
 				\item $X = \bigcup\limits_{|\gam| = 1} C_{\gam}$.
 			\end{enumerate} 
 			We note that Cantor's nested set theorem \tcb{in the analysis notes section on completeness} implies that for each $\om \in \MN$, that there exists $x \in X$ such that $\bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om)} = \{x\}$. The axiom of choice implies that there exists $f:\MN \rightarrow X$ such that for each $\om \in \MN$, $\bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om)} = \{f(\om)\}$. 
-			\item Let $(\om_k)_{k \in \N} \subset \MN$ be a net and $\om \in \MN$. Suppose that $\om_k \rightarrow \om$. Then for each $n \in \N$, $\pi_{[n]}(\om_k) \rightarrow \pi_{[n]}(\om)$. Let $\ep > 0$. Choose $N \in \N$ such that $N^{-1} < \ep$. We note that 
+			\item Let $(\om_k)_{k \in \N} \subset \MN$ and $\om \in \MN$. Suppose that $\om_k \rightarrow \om$. Then for each $n \in \N$, $\pi_{[n]}(\om_k) \rightarrow \pi_{[n]}(\om)$. Let $\ep > 0$. Choose $N \in \N$ such that $N^{-1} < \ep$. We note that 
 			\begin{align*}
 				f(\om) 
 				& \in \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om)} \\
@@ -3435,48 +3479,52 @@
 				& \leq N^{-1} \\
 				& < \ep.
 			\end{align*}
-			Since $k \in \N$ with $k \geq K$ is arbitrary, we have that for each $k \in \N$, $k \geq K$ implies that $d(f(\om_k), f(\om)) < \ep$. Since $\ep > 0$ is arbitrary, we have that for each $\ep >0$, there exists $K \in \N$ such that for each $k \in \N$, $k \geq K$ implies that $d(f(\om_k), f(\om)) < \ep$. Hence $d(f(\om_k), f(\om)) \rightarrow 0$ and $f(\om_k) \rightarrow f(\om)$. Since $(\om_k)_{k \in \N} \subset \MN$ a net and $\om \in \MN$ are arbitrary, we have that for each $(\om_k)_{k \in \N} \subset \MN$ a net and $\om \in \MN$, $\om_k \rightarrow \om$ implies that $f(\om_k) \rightarrow f(\om)$. Since $\MN$ is first-countable, \tcb{an exercise in the analsyis notes section on first-countability} implies that $f$ is continuous. 
-			\item Let $x \in X$. By construction, there exists $\gam \in \Gam$ such that $|\gam| = 1$ and $x \in C_{\gam}$. Continuing inductively, for each $n \in \geq 2$, there exists $\gam' \in (\pi^{[n+1]}_{[n]})^{-1}(\{\gam\})$ such that $x \in C_{\gam'}$. The axiom of choice implies that there exists $(\gam_n)_{n \in \N} \subset \Gam$ such that for each $n \in \N$, $|\gam_n| = n$, $\pi^{[n+1]}_{[n]}(\gam_{n+1}) = \gam_n$ and $x \in C_{\gam_n}$. We define $\om \in \MN$ by $\om_n \defeq \pi_n(\gam_n)$. By construction, for each $n \in \N$, $\pi_{[n]}(\om) = \gam_n$ and $x \in C_{\pi_{[n]}(\om)}$. Since $\{f(\om)\} = \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om)}$ and $x \in \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om)}$, we have that $f(\om) = x$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, there exists $\om \in \MN$ such that $f(\om) = x$. Hence $f$ is surjective.
+			Since $k \in \N$ with $k \geq K$ is arbitrary, we have that for each $k \in \N$, $k \geq K$ implies that $d(f(\om_k), f(\om)) < \ep$. Since $\ep > 0$ is arbitrary, we have that for each $\ep >0$, there exists $K \in \N$ such that for each $k \in \N$, $k \geq K$ implies that $d(f(\om_k), f(\om)) < \ep$. Hence $d(f(\om_k), f(\om)) \rightarrow 0$ and $f(\om_k) \rightarrow f(\om)$. Since $(\om_k)_{k \in \N} \subset \MN$ and $\om \in \MN$ are arbitrary, we have that for each $(\om_k)_{k \in \N} \subset \MN$ and $\om \in \MN$, $\om_k \rightarrow \om$ implies that $f(\om_k) \rightarrow f(\om)$. Thus $f$ is continuous. 
+			\item Let $x \in X$. By construction, there exists $\gam \in \Gam$ such that $|\gam| = 1$ and $x \in C_{\gam}$. Continuing inductively, for each $n \geq 2$, there exists $\gam' \in (\pi^{[n+1]}_{[n]})^{-1}(\{\gam\})$ such that $x \in C_{\gam'}$. The axiom of choice implies that there exists $(\gam_n)_{n \in \N} \subset \Gam$ such that for each $n \in \N$, $|\gam_n| = n$, $\pi^{[n+1]}_{[n]}(\gam_{n+1}) = \gam_n$ and $x \in C_{\gam_n}$. We define $\om \in \MN$ by $\om_n \defeq \pi_n(\gam_n)$. By construction, for each $n \in \N$, $\pi_{[n]}(\om) = \gam_n$ and $x \in C_{\pi_{[n]}(\om)}$. Since $\{f(\om)\} = \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om)}$ and $x \in \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om)}$, we have that $f(\om) = x$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, there exists $\om \in \MN$ such that $f(\om) = x$. Hence $f$ is surjective.
 		\end{itemize}
 	\end{proof}
 	
-	\begin{ex}
-		Let $X$ be a Polish space. Suppose that $X \neq \varnothing$. Then
-		\begin{enumerate}
-			\item there exists a Polish space $Z$ and $f:Z \rightarrow X$ such that $Z$ is zero-dimensional and $f$ a continuous bijection.
-			\item for each $B \in \MB(X)$, there exists a Polish space $A$ and $f:Z \rightarrow B$ such that $Z$ is zero-dimensional and $f$ a continuous bijection. \\
-			\tbf{Hint:} consider \rex{ex:measurable_spaces:standard_borel_spaces:0020}
-		\end{enumerate}
-	\end{ex}
+%	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0027} \tcr{DELETE}
+%		Let $X$ be a Polish space. Then
+%		\begin{enumerate}
+%			\item there exists a Polish space $Z$ and $f:Z \rightarrow X$ such that $Z$ is zero-dimensional, $f$ is a continuous and $f$ is a measurable isomorphism. \\
+%			\tbf{Hint:} \rex{ex:measurable_spaces:standard_borel_spaces:0002}
+%			\item for each $B \in \MB(X)$, there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $Z$ is zero-dimensional, $f$ is a continuous and $f$ is a measurable isomorphism. \\
+%			\tbf{Hint:} Define 
+%			$\MD \defeq \{B \in \MB(X, \MT_X): \text{there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $Z$ is zero-dimensional } \\ \text{and $f$ is a continuous bijection}\}$ and consider \rex{ex:measurable_spaces:standard_borel_spaces:0021}, \rex{ex:measurable_spaces:standard_borel_spaces:0022} and \rex{ex:measurable_spaces:standard_borel_spaces:0020}
+%			\tcr{rework so that $f$ is continuous and measurable isomprohism}
+%		\end{enumerate}
+%	\end{ex}
+%
+%	\begin{proof}\
+%		\begin{enumerate}
+%			\item \rex{ex:measurable_spaces:standard_borel_spaces:0002} implies that there exists $E \in \MB(\MC)$ and $\phi: E \rightarrow [0,1]$ such that $E$ is a zero-dimensional Polish space and $\phi$ is a continuous bijection. \rex{ex:measurable_spaces:standard_borel_spaces:0011} implies that $\phi$ is a measurable isomorphism. Since $\phi$ is continuous, \tcb{an exercise in analysis notes section on product topology} implies that $\phi^{\N}$ is continuous and $\phi$ is a measurable isomorphism, \rex{25008} implies that $\phi^{\N}$ is a measurable isomorphism. Define $Z \subset E^{\N}$ by $Z \defeq (\phi^{\N})^{-1}(B)$. Since $\phi^{\N}$ is continuous, \tcb{an exercise in the analysis notes section on subspace topology} implies that $\phi^{\N}|^B_Z$ is continuous. Since $\phi^{\N}$ is a measurable isomorphism, \rex{ex:measurable_spaces:subspaces:0008} and \rex{ex:measurable_spaces:subspaces:0009} imply that $\phi^{\N}|^B_Z$ is a measurable isomorphism. \tcb{An exercise in the analysis notes section on Polish spaces} implies that there exists $B \subset [0,1]^{\N}$ and $h: X \rightarrow B$ such that $B$ is a $G_{\del}$-set and $h$ is a homeomorphism. Thus $h^{-1}$ is continuous and $h^{-1}$ is a measurable isomorphism. Define $f:Z \rightarrow X$ by $f \defeq h^{-1} \circ \phi^{\N}|^B_Z$. Then $f$ is continuous and $f$ is a measurable isomorphism. Since $B$ is a $G_{\del}$-set and $\phi^{\N}$ is continuous, we have that $Z$ is a $G_{\del}$-set. Since $E$ is a Polish space, $E^{\N}$ is a Polish space. Since $Z \subset E^{\N}$ and $Z$ is a $G_{\del}$-set, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $Z$ is Polish space. Since $E$ is zero-dimensional, $E^{\N}$ is zero-dimensional. Since $Z \subset E^{\N}$, we have that $Z$ is zero-dimensional. 
+%			\item Denote the topology on $X$ by $\MT_X$. \\
+%			Define $\MD \defeq \{B \in \MB(X, \MT_X): \text{there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $Z$ is zero-dimensional, } \\ \text{$f$ is continuous and $f$ is a measurable isomorphism}\}$.
+%			\begin{itemize}
+%				\item Let $U \in \MT_X$. \tcb{An exercise in the analysis notes on polish spaces} implies that $U$ is a Polish space. The previous part implies that there exists a Polish space $Z$ and $f:Z \rightarrow U$ such that $Z$ is zero-dimensional, $f$ is continuous and $f$ is a measurable isomorphism. Since $U \in \MT_X$ is arbitrary, we have that $\MT_X \subset \MD$.
+%				\item Let $(B_n)_{n \in \N} \subset \MD$. Then $(B_n)_{n \in \N} \subset \MB(X)$ and for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n:Z_n \rightarrow B_n$ such that $Z_n$ is zero-dimensional, $f_n$ is continuous and $f_n$ is a measurable isomorphism. Define $Z \subset \prod\limits_{n \in \N} Z_n$ by $Z \defeq (\prod\limits_{n \in \N} f_n)^{-1}(\Del_{X^{\N}})$. Then \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that $Z$ is a Polish space, $Z$ is zero-dimensional and there exists $f: Z \rightarrow \bigcap\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. Thus $\bigcap\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, $\bigcap\limits_{n \in \N} B_n \in \MD$. 
+%				\item Let $(B_n)_{n \in \N} \subset \MD$. Suppose that $(B_n)_{n \in \N}$ is disjoint. Set $Z \defeq \coprod\limits_{n \in \N} Z_n$. \tcb{An exercise in the analysis notes section on Polish spaces} implies that $Z$ is a Polish space. \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists $f: Z \rightarrow \bigcup\limits_{n \in \N} B_n$ such that $f$ is continuous and $f$ is a measurable isomorphism. \tcr{there, Z is zero-dim} Thus $\bigcup\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ such that $(B_n)_{n \in \N}$ is disjoint is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, if $(B_n)_{n \in \N}$ is disjoint, then $\bigcup\limits_{n \in \N} B_n \in \MD$. 
+%			\end{itemize}
+%			Thus $\MD$ is a $\del$-system on $X$. Since $X$ is a Polish space, $X$ metrizable. Since $\MT_X \subset \MD$,  \rex{ex:measurable_spaces:standard_borel_spaces:0020} implies that
+%			\begin{align*}
+%				\MD & \subset \MB(X, \MT_X) \\
+%				& = \del(\MT_X) \\
+%				& \subset \del(\MD) \\
+%				& = \MD 
+%			\end{align*}
+%			Hence $\MD = \MB(X, \MT_X)$. 
+%		\end{enumerate}
+%	\end{proof}
 
-	\begin{proof}\
-		\begin{enumerate}
-			\item \rex{ex:measurable_spaces:standard_borel_spaces:0006} implies that there exists $Z \subset \MC$ and $\phi: Z \rightarrow [0,1]$ such that $\phi$ is a continuous bijection. Then $\phi^{\N}: Z^{\N} \rightarrow [0,1]^{\N}$ is a continuous bijection. \tcr{An exercise in the analysis notes section on Polish spaces} implies that there exists $B \subset [0,1]^{\N}$ and $h: X \rightarrow B$ such that $B$ is a $G_{\del}$-set and $h$ is a homeomorphism. Define $Z \subset Z^{\N}$ and $f:Z \rightarrow X$ by $Z \defeq (\phi^{\N})^{-1}(B)$ and $f \defeq h^{-1} \circ \phi^{\N}|_Z$. Since $B$ is a $G_{\del}$-set and $\phi^{\N}$ is continuous, we have that $Z$ is a $G_{\del}$-set. \tcr{An exercise in the analysis notes section on Polish spaces} implies that $Z$ is Polish space. Since $Z \subset \MC$ and $\MC$ is zero-dimensional, $Z$ is zero-dimensional. Thus $Z^{\N}$ is zero-dimensional. Since $Z \subset Z^{\N}$, we have that $Z$ is zero-dimensional. Since $\phi^{\N}:Z^{\N} \rightarrow [0,1]^{\N}$ is a continuous bijection, $\phi^{\N}|_Z:Z \rightarrow B$ is a continuous bijection. Thus $f$ is a continuous bijection. 
-			\item Denote the topology on $X$ by $\MT_X$. \\
-			Define $\MD \defeq \{B \in \MB(X, \MT_X): \text{there exists a Polish space $Z$ and $f:Z \rightarrow B$ such that $Z$ is zero-dimensional } \\ \text{and $f$ is a continuous bijection}\}$.
-			\begin{itemize}
-				\item Let $U \in \MT_X$. \tcb{An exercise in the analysis notes on polish spaces} implies that $U$ is a Polish space. The previous part implies that there exists a Polish space $Z$ and $f:Z \rightarrow U$ such that $Z$ is zero-dimensional and $f$ a continuous bijection. Since $U \in \MT_X$ is arbitrary, we have that $\MT_X \subset \MD$.
-				\item Let $(B_n)_{n \in \N} \subset \MD$. Then $(B_n)_{n \in \N} \subset \MB(X)$ and for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n:Z_n \rightarrow B_n$ such that $Z_n$ is zero-dimensional and $f_n$ is a continuous bijection. Define $Z \subset \prod\limits_{n \in \N} Z_n$ by $Z \defeq (\prod\limits_{n \in \N} f_n)^{-1}(\Del_{X^{\N}})$. Then \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that $Z$ is a Polish space and there exists $f: Z \rightarrow \bigcap\limits_{n \in \N} B_n$ such that $f$ is a continuous bijection. \tcr{An exercise in the previous section} \rex{} implies that $\prod\limits_{n \in \N} Z_n$ is zero-dimensional. Since $Z \subset \prod\limits_{n \in \N} Z_n$, \tcr{an exercise in the previous section} implies that $Z$ is zero-dimensional. Thus $\bigcap\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, $\bigcap\limits_{n \in \N} B_n \in \MD$. 
-				\item Let $(B_n)_{n \in \N} \subset \MD$. Suppose that $(B_n)_{n \in \N}$ is disjoint. Set $Z \defeq \coprod\limits_{n \in \N} Z_n$. \tcb{An exercise in the analysis notes section on Polish spaces} implies that $Z$ is a Polish space. \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists $f: Z \rightarrow \bigcup\limits_{n \in \N} B_n$ such that $f$ is a continuous bijection. \tcr{An exercise in a previous section} \rex{} implies that $Z$ is zero-dimensional. Thus $\bigcup\limits_{n \in \N} B_n \in \MD$. Since $(B_n)_{n \in \N} \subset \MD$ such that $(B_n)_{n \in \N}$ is disjoint is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MD$, if $(B_n)_{n \in \N}$ is disjoint, then $\bigcup\limits_{n \in \N} B_n \in \MD$. 
-			\end{itemize}
-			Thus $\MD$ is a $\del$-system on $X$. Since $X$ is a Polish space, $X$ metrizable. Since $\MT_X \subset \MD$,  \rex{ex:measurable_spaces:standard_borel_spaces:0020} implies that
-			\begin{align*}
-				\MD & \subset \MB(X, \MT_X) \\
-				& = \del(\MT_X) \\
-				& \subset \del(\MD) \\
-				& = \MD 
-			\end{align*}
-			Hence $\MD = \MB(X, \MT_X)$. 
-		\end{enumerate}
-	\end{proof}
 
-
-	\begin{defn}
-		Let $X$ be a polish space and $A \subset X$. Then $A$ is said to be \tbf{z-analytic} if there exists a Polish space $Z$ and $f:Z \rightarrow A$ such that $Z$ is zero-dimensional and $f$ is a continuous bijection. 
+	\begin{defn} \ld{def:measurable_spaces:standard_borel_spaces:0028}
+		Let $X$ be a polish space and $A \subset X$. Then $A$ is said to be \tbf{z-analytic} if there exists a Polish space $Z$ and $f:Z \rightarrow A$ such that $Z$ is zero-dimensional and $f$ is continuous and $f$ is a measurable isomorphism. 
+		\tcr{(this definition is not standard and should probably be changed)}
 	\end{defn}
 	
-	\begin{ex}
-		Let $X$ be a Polish space and $(A_n)_{n \in \N} \subset \MP(X)$. If for each $n \in \N$, $A_n$ is $z$-analytic, then 
+	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0029}
+		Let $X$ be a Polish space and $(A_n)_{n \in \N} \subset \MP(X)$. If for each $n \in \N$, $A_n$ is z-analytic, then 
 		\begin{enumerate}
 			\item $\bigcap\limits_{n \in \N} A_n$ is z-analytic,
 			\item $(A_n)_{n \in \N}$ is disjoint implies that $\bigcup\limits_{n \in \N} A_n$ is z-analytic,
@@ -3488,11 +3536,18 @@
 		Suppose that for each $n \in \N$, $A_n$ is z-analytic. Then for each $n \in \N$, there exists a Polish space $Z_n$ and $f_n: Z_n \rightarrow A_n$ such that $Z_n$ is zero-dimensional and $f_n$ is a continuous bijection. 
 		\begin{enumerate}
 			\item  \rex{ex:measurable_spaces:standard_borel_spaces:0021} implies that there exists a Polish space $Z$ and $f:Z \rightarrow \bigcap\limits_{n \in \N} A_n$ such that $Z$ is zero-dimensional and $f$ is a continuous bijection.  Hence $\bigcap\limits_{n \in \N} A_n$ is z-analytic.
-			\item Suppose that $(A_n)_{n \in \N}$ is disjoint. \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists $f: \coprod\limits_{n \in \N} Z_n \rightarrow \bigcup\limits_{n \in \N} A_n$ such that $f$ is a continuous bijection. \rex{} \tcr{Need exercise showing disjoint union of zero-dimensional spaces is zero-dimensional} implies that $\coprod\limits_{n \in \N}$ is zero-dimensional. Hence $\bigcup\limits_{n \in \N} A_n$ is z-analytic.
+			\item Suppose that $(A_n)_{n \in \N}$ is disjoint. \rex{ex:measurable_spaces:standard_borel_spaces:0022} implies that there exists $f: \coprod\limits_{n \in \N} Z_n \rightarrow \bigcup\limits_{n \in \N} A_n$ such that $f$ is a continuous bijection. \tcb{An exercise in the analysis notes section on zero-dimensional topological spaces} implies that $\coprod\limits_{n \in \N} Z_n$ is zero-dimensional. Hence $\bigcup\limits_{n \in \N} A_n$ is z-analytic.
 			\item \tcr{FINISH!!!}
 		\end{enumerate}
 	\end{proof}
 	
+	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0030}
+		Let $X$ be a Polish space. Then for each $B \in \MB(X)$, $B$ is z-analytic.
+	\end{ex}
+	
+	\begin{proof}
+		Clear by \rex{ex:measurable_spaces:standard_borel_spaces:0027}.
+	\end{proof}
 	
 	
 	
@@ -3501,7 +3556,113 @@
 	
 	
 	
+	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0026}
+		Let $Z$ be a Polish space. Suppose that $Z$ is zero-dimensional and $Z$ is uncountable. Then there exists $f: \MN \rightarrow Z$ such that 
+		\begin{enumerate}
+			\item $f$ is continuous 
+			\item $f$ is injective
+			\item $f(\MN)^c$ is countable.
+		\end{enumerate} 
+		\tbf{Hint:} Define $\Gam \defeq \bigcup\limits_{n \in \N} N^n$ and $Z_0 \defeq \{z \in Z: \text{$z$ is a condensation point of $Z$}\}$. \tcb{An exercise in the analysis notes section on countability of metric spaces} implies that there exists $(C_{\gam})_{\gam \in \Gam} \subset \MT_d$ and $(z_{\gam})_{\gam \in \Gam} \in \prod\limits_{\gam \in \Gam} C_{\gam}$ such that 
+		\begin{enumerate}
+			\item \begin{itemize}
+				\item there exists $z_0 \in Z_0$ such that $Z_0 \setminus \{z_0\} = \bigcup\limits_{|\gam| = 1} C_{\gam}$,
+				\item $(C_{\gam})_{{\gam} \in \N}$ is disjoint
+			\end{itemize}
+			\item for each $\gam \in \Gam$,
+			\begin{enumerate}
+				\item $C_{\gam}$ is closed and $C_{\gam} \neq \varnothing$,
+				\item $\diam C_{\gam} \leq |\gam|^{-1}$,
+				\item for each $n \in \N$, $|\gam| = n$ implies that 
+				\begin{itemize}
+					\item $C_{\gam} \setminus \{z_{\gam}\} = \bigcup\limits_{\gam' \in (\pi^{[n+1]}_{[n]})^{-1}(\{\gam\})} C_{\gam'}$
+					\item $(C_{\gam'})_{\gam' \in (\pi^{[n+1]}_{[n]})^{-1}(\{\gam\})}$ is disjoint
+				\end{itemize}
+			\end{enumerate} 
+		\end{enumerate} 
+		\tcr{(possibly reformat exercise from analysis notes to say the same more efficiently, maybe index by $\Gam$ including length 0 indices?)}and use Cantor’s nested set theorem.
+	\end{ex}
 	
+	\begin{proof}
+		Define $Z_0 \subset Z$ by $Z_0 \defeq \{z \in Z: \text{$z$ is a condensation point of $Z$}\}$. Since $Z$ is Polish and zero-dimensional, \tcb{An exercise in the analysis notes metric space chapter in section on zero dimensional polish spaces} implies that $Z_0$ is Polish, $Z_0$ is zero dimensional and for each $z \in Z_0$, $z$ is a condensation point of $Z_0$. Since $Z$ is Polish, $Z$ is second-countable and \tcb{An exercise in the analysis notes topology section on second countability} implies that $Z_0^c$ is countable. Since $Z$ is uncountable, we have that $Z_0$ is uncountable. In particular, $Z_0 \neq \varnothing$. Since $Z_0$ is a Polish space, $Z_0$ is separable and there exists a metric $d$ on $Z_0$ such that $(Z_0, d)$ is a complete metric space. Define $\Gam \defeq \{\N^n: n \in \N\}$. Since $Z_0$ is separable, $Z_0$ is zero-dimensional, $Z_0 \neq \varnothing$, and for each $z \in Z_0$, $z_0$ is a condensation point of $Z_0$, \tcb{an exercise in the analysis notes section on countability of metric spaces} implies that there exists $(C_{\gam})_{\gam \in \Gam} \subset \MT_d$ and $(z_{\gam})_{\gam \in \Gam} \in \prod\limits_{\gam \in \Gam} C_{\gam}$ such that 
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item there exists $z_0 \in Z_0$ such that $Z_0 \setminus \{z_0\} = \bigcup\limits_{|\gam| = 1} C_{\gam}$,
+				\item $(C_{\gam})_{\gam \in \N}$ is disjoint
+			\end{itemize}
+			\item for each $\gam \in \Gam$,
+			\begin{enumerate}
+				\item $C_{\gam}$ is closed and $C_{\gam} \neq \varnothing$,
+				\item $\diam C_{\gam} \leq |\gam|^{-1}$,
+				\item for each $n \in \N$, $|\gam| = n$ implies that 
+				\begin{itemize}
+					\item $C_{\gam} \setminus \{z_{\gam}\} = \bigcup\limits_{\gam' \in (\pi^{[n+1]}_{[n]})^{-1}(\{\gam\})} C_{\gam'}$
+					\item $(C_{\gam'})_{\gam' \in (\pi^{[n+1]}_{[n]})^{-1}(\{\gam\})}$ is disjoint
+				\end{itemize}
+			\end{enumerate} 
+		\end{enumerate} 
+		We note that Cantor's nested set theorem \tcb{in the analysis notes section on completeness} implies that for each $\om \in \MN$, that there exists $z \in Z_0$ such that $\bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om)} = \{z_0\}$. The axiom of choice implies that there exists $f_0:\MN \rightarrow Z_0$ such that for each $\om \in \MN$, $\bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om)} = \{f_0(\om)\}$. Define $f:\MN \rightarrow Z$ by $f \defeq \iota_{Z_0} \circ f_0$. 
+		\begin{enumerate} 
+			\item Let $(\om_k)_{k \in \N} \subset \MN$ and $\om \in \MN$. Suppose that $\om_k \rightarrow \om$. Then for each $n \in \N$, $\pi_{[n]}(\om_k) \rightarrow \pi_{[n]}(\om)$. Let $\ep > 0$. Choose $N \in \N$ such that $N^{-1} < \ep$. We note that 
+			\begin{align*}
+				f_0(\om) 
+				& \in \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om)} \\
+				& \subset C_{\pi_{[N]}(\om)}.
+			\end{align*}
+			Since $\pi_{[N]}(\om_k) \rightarrow \pi_{[N]}(\om)$ and $\N^N$ is discrete, there exists $K \in \N$ such that for each $k \in \N$, $k \geq K$ implies that $\pi_{[N]}(\om_k) = \pi_{[N]}(\om)$. Let $k \in \N$. Suppose that $k \geq K$. Then
+			\begin{align*}
+				f_0(\om_k) 
+				& \in \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om_k)} \\
+				& \subset C_{\pi_{[N]}(\om_k)} \\
+				& = C_{\pi_{[N]}(\om)}.
+			\end{align*}
+			and therefore
+			\begin{align*}
+				d(f_0(\om_k), f_0(\om))
+				& \leq \diam C_{\pi_{[N]}(\om)} \\
+				& \leq N^{-1} \\
+				& < \ep.
+			\end{align*}
+			Since $k \in \N$ with $k \geq K$ is arbitrary, we have that for each $k \in \N$, $k \geq K$ implies that $d(f_0(\om_k), f_0(\om)) < \ep$. Since $\ep > 0$ is arbitrary, we have that for each $\ep >0$, there exists $K \in \N$ such that for each $k \in \N$, $k \geq K$ implies that $d(f_0(\om_k), f_0(\om)) < \ep$. Hence $d(f_0(\om_k), f_0(\om)) \rightarrow 0$ and $f_0(\om_k) \rightarrow f_0(\om)$. Since $(\om_k)_{k \in \N} \subset \MN$ and $\om \in \MN$ are arbitrary, we have that for each $(\om_k)_{k \in \N} \subset \MN$ and $\om \in \MN$, $\om_k \rightarrow \om$ implies that $f_0(\om_k) \rightarrow f_0(\om)$. Thus $f_0$ is continuous. Since $\iota_{Z_0}$ is continuous, $f$ is continuous.
+			\item Let $\om_1, \om_2 \in \MN$. Suppose that $f(\om_1) = f(\om_2)$. Therefore  
+			\begin{align*}
+				\iota_{Z_0} (f_0(\om_1)) 
+				& = f(\om_1) \\
+				& = f(\om_2) \\
+				& = \iota_{Z_0} (f_0(\om_2)).
+			\end{align*}
+			Since $\iota_{Z_0}$ is injective, we have that $f_0(\om_1) = f_0(\om_2)$. Therefore, 
+			\begin{align*}
+				\bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om_1)} 
+				& = \{f_0(\om_1)\} \\
+				& = \{f_0(\om_2)\} \\
+				& = \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om_2)}.
+			\end{align*}  
+			Define $A \subset \N$ by $A \defeq \{n \in \N: \pi_n(\om_1) \neq \pi_n(\om_2)\}$. For the sake of contradiction, suppose that $A \neq \varnothing$. Define $n_0 \in \N$ by $n_0 \defeq \min A$. 
+			\begin{itemize}
+				\item Suppose that $n_0 = 1$. By definition, $\pi_1(\om_1) \neq \pi_1(\om_2)$. Then 
+				\begin{align*}
+					\{f_0(\om_1)\} 
+					& = \bigg[ \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om_1)} \bigg]  \cap \bigg[ \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om_1)} \bigg] \\
+					& \subset C_{\pi_1(\om_1)} \cap C_{\pi_1(\om_2)} \\
+					& = \varnothing
+				\end{align*}
+				which is a contradiction. Hence $n_0 \neq 1$. 
+				\item Suppose that $n_0 \geq 2$. By definition of $n_0$, $\pi_{[n_0-1]}(\om_1) = \pi_{[n_0-1]}(\om_2)$ Define $\tl{\gam} \in \N^{n_0-1}$ and $\gam_1, \gam_2 \in \N^{n_0}$ by $\tl{\gam} \defeq \pi_{[n_0-1]}(\om_1)$ and $\gam_1 \defeq (\tl{\gam}, \pi_{n_0}(\om_1))$ and $\gam_2 \defeq (\tl{\gam}, \pi_{n_0}(\om_2))$.By construction, $\gam_1, \gam_2 \in (\pi^{[n_0]}_{[n_0-1]})^{-1}(\{\tl{\gam}\})$ and $\gam_1 \ne \gam_2$. Thus $C_{\gam_1} \cap C_{\gam_2} = \varnothing$. Therefore  
+				\begin{align*}
+					\{f_0(\om_1)\} 
+					& = \bigg[ \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om_1)} \bigg]  \cap \bigg[ \bigcap\limits_{n \in \N} C_{\pi_{[n]}(\om_1)} \bigg] \\
+					& \subset C_{\pi_{[n_0]}(\om_1)} \cap C_{\pi_{[n_0]}(\om_2)} \\
+					& = C_{\gam_1} \cap C_{\gam_2} \\
+					& = \varnothing
+				\end{align*}
+				which is a contradiction.
+			\end{itemize}
+			Thus $A = \varnothing$ and for each $n \in \N$, $\pi_n(\om_1) \neq \pi_n(\om_2)$. Thus $\om_1 = \om_2$. Since $\om_1, \om_2 \in \MN$ are arbitrary, we have that for each $\om_1, \om_2 \in \MN$, $f(\om_1) = f(\om_2)$ implies that $\om_1 = \om_2$. Thus $f$ is injective. 
+			\item $f(\MN)^c = Z_0^c \cup \{z_0\} \cup \{z_{\gam}\}_{\gam \in \Gam}$. Since $Z_0^c$ is countable, and $\Gam$ is countable, we have that $f(\MN)^c$ is countable.
+		\end{enumerate}
+	\end{proof}
 	
 	
 	
@@ -3509,21 +3670,67 @@
 
 	
 	
-	\begin{ex} \lex{}
-		Let $Z$ be a Polish space. Suppose that $Z$ is zero-dimensional. \tcr{An exercise in analysis notes about zero-dimensional Polish spaces} implies that $Z_0$ is Polish and zero dimensional and for each $z \in Z_0$, $z$ is a condensation point of $Z_0$.
-		\begin{enumerate}
-			\item There exists 
-			\item there exists $h:\MN \rightarrow Z$ such that $h$ is continuous and injective and $Z \setminus h(\MN)$ is countable.
-			\item 
-		\end{enumerate}
+	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0027}
+		Let $X$ be a Polish space and $B \in \MB(X)$. Suppose that $B$ is uncountable. Then there exists $f: \MN \rightarrow B$ such that $f$ is a continuous injection and $f(\MN)^c$ is countable.
+		\tcr{replace $f(\MN)^c$ with $B \setminus f(\MN)$ because $f(\MN)^c$ may be interpreted as $X \setminus f(\MN)$.}
 	\end{ex}
 
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $\MT$ be a the topology on $Z_0$. Since $Z_0 \neq \varnothing$, there exists $z \in Z_0$. Define $U \in \MT \cap Z_0$ $U \defeq Z_0 \setminus \{z\}$. \tcr{make exercise} and exercise in the analysis notes section on separation implies that $U$ is not compact. \tcr{An exercise in the analysis notes section on Second-Countability and Zero-Dimensional Metric Spaces} implies that there 
-		\end{enumerate}
-		\tcr{FINSH!!!}
+	\begin{proof}
+		\rex{ex:measurable_spaces:standard_borel_spaces:0023} implies that there exists a Polish space $Z$ and $g:Z \rightarrow B$ such that $Z$ is zero-dimensional, $g$ is continuous and $g$ is a measurable isomorphism. Since $B$ is uncountable and $g$ is a bijection, $Z$ is uncountable. \rex{ex:measurable_spaces:standard_borel_spaces:0026} then implies that implies that there exists $h:\MN \rightarrow Z$ such that $h$ is continuous, $h$ is injective and $h(\MN)^c$ is countable. Define $f: \MN \rightarrow B$ by $f \defeq g \circ h$. Then $f$ is continuous and $f$ is a injective. Since $g$ is a bijection,
+		\begin{align*}
+			f(\MN)^c
+			& = g (h(\N))^c \\
+			& = g(h(\MN)^c).
+		\end{align*} 
+		Since $h(\MN)^c$ is countable and $g$ is a bijection, $f(\MN)^c$ is countable.
 	\end{proof}
+	
+	
+	\begin{ex} \lex{ex:measurable_spaces:standard_borel_spaces:0028}
+		Let $X$ be a Polish space and $B \in \MB(X)$. Suppose that $B$ is uncountable. Then there exists $A \subset B$ and $f: \MC \rightarrow A$ such that $f$ is a homeomorphism. 
+		\tcr{replace $A^c$ with $B \setminus A$ because $A^c$ may be interpreted as $X \setminus A$.}
+	\end{ex}
+	
+	\begin{proof}
+		Denote the topology on $X$ by $\MT_X$. \rex{ex:measurable_spaces:standard_borel_spaces:0027} implies that there exists $f_0: \MN \rightarrow B$ such that $f_0$ is a continuous injection and $B \setminus f_0(\MN)$ is countable. Define $A \subset B$ and $f:\MC \rightarrow A$ by $A \defeq f_0(\MN)$ and $f(x) \defeq f_0(x)$. Since $B \setminus A$ is countable, and $(B, \MT_X \cap B)$ is $T_1$, $B \setminus A$ is an $F_{\sig}$-set in $(B, \MT_X \cap B)$. Thus $A$ is a $G_{\del}$-set in $(B, \MT_X \cap B)$ and   
+		\begin{align*}
+			A 
+			& \in \MB(B) \\
+			& = \MB(X) \cap B \\
+			& \subset \MB(X).
+		\end{align*}
+		Since $f_0$ is a continuous injection, $f$ is a continuous bijection. Since $\MC$ is compact and $A$ is Hausdorff, the closed map lemma \tcb{(an exercise in the analysis notes subsection on compactness and continuity)} implies that $f$ is a homeomorphism.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -3554,6 +3761,93 @@
 	
 	\newpage
 	\section{The Borel Isomorphism Theorem}
+	
+
+	\begin{defn} \ld{def:standard_borel_spaces:borel_iso:0001}
+		Let $(X, \MA)$ be a measurable space. Then $(X, \MA)$ is said to be a \tbf{standard Borel space} if there exists a Polish space $Z$, $B \in \MB(Z)$ and $f:B \rightarrow Z$ such that $f$ is a $(\MB(B), \MA)$-measurable isomorphism.
+	\end{defn}
+	
+	\begin{ex} \lex{ex:standard_borel_spaces:borel_iso:0002}
+		Let $X$ be a Polish space and $B \in \MB(X)$. Then $(B, \MB(B))$ is a standard Borel space.
+	\end{ex}
+	
+	\begin{proof}
+		Since $\id_B$ is a $(\MB(B), \MB(B))$-measurable isomorphism, $(B, \MB(B))$ is a standard Borel space.
+	\end{proof}
+	
+	\begin{ex} \lex{ex:standard_borel_spaces:borel_iso:0002.1}
+		Define $Z$ and $\phi: Z \rightarrow [0,1]$ as in \rd{def:measurable_spaces:standard_borel_spaces:0001}. Then $(Z, \MB(Z))$ is a standard Borel space.
+	\end{ex}
+	
+	\begin{proof}
+		Since $[0,1]$ is a Polish space, \rex{ex:measurable_spaces:standard_borel_spaces:0011} implies that $(Z, \MB(Z))$ is a standard Borel space.
+	\end{proof}
+	
+	\begin{ex} \lex{ex:standard_borel_spaces:borel_iso:0002.2}
+		Let $X$ be a Polish space and $B \in \MB(X)$. 
+		\begin{enumerate}
+			\item \tcr{FINISH!!! (finite)} 
+			\item \tcr{FINISH!!! (countably infinite)}
+			\item If $B$ is uncountable, then there exists $f:B \rightarrow \MC$ such that $f$ is a $(\MB(X) \cap B, \MB(\MC))$-measurable isomorphism.  \\
+			\tbf{Hint:} 
+			Consider \rex{ex:measurable_spaces:standard_borel_spaces:0028},
+			\rex{} \tcb{(an exercise in the analysis notes section on Polish spaces, or metrizable spaces to get $f:X \rightarrow G \subset \H$ a homeomorphism)} and
+			\rex{ex:measurable_spaces:subspaces:0011}.
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item \tcr{FINISH!!!}
+			\item \tcr{FINISH!!!}
+			\item Suppose that $B$ is uncountable. 
+			\begin{itemize}
+				\item \rex{ex:measurable_spaces:standard_borel_spaces:0028} implies that there exists $A \in \MB(B)$ and $f_0: \MC \rightarrow A$ such that $f_0$ is a homeomorphism. Then $f$ is $(\MB(\MC), \MB(B) \cap A)$-bimeasurable. Define $\iota: A \rightarrow B$ by $\iota(x) \defeq x$. Since $\MB(A) = \MB(B) \cap A$ and $A \in \MB(B)$, \rex{ex:measurable_spaces:subspaces:0007.1} implies that $\iota$ is $(\MB(B) \cap A, \MB(B))$-bimeasurable. Define $f: \MC \rightarrow A$ by $f \defeq \iota \circ f_0$. Therefore $f$ is $(\MB(\MC), \MB(B))$-bimeasurable. Since $f_0$ is a bijective and $\iota$ is injective, $f$ is injective. 
+				\item \tcb{An exercise in the analysis notes chapter on metric spaces section on polish spaces} implies that there exists $E \subset \H$ and $g_0: X \rightarrow E$ such that $E$ is a $G_{\del}$-set and $g_0$ is a homeomorphism. Since $g_0$ is a homeomorphism and $B \in \MB(X)$, we have that $g_0$ is a $(\MB(X), \MB(E))$-measurable isomorphism and $g_0(B) \in \MB(E)$. Since $E$ is a $G_{\del}$-set, $E \in \MB(\H)$. Therefore 
+				\begin{align*}
+					g_0(B)
+					& \in \MB(E) \\
+					& = \MB(\H) \cap E \\
+					& \subset \MB(\H). 
+				\end{align*}
+				Define $g':B \rightarrow g_0(B)$ by $g'(x) \defeq g_0(x)$. Since $g_0$ is a $(\MB(X), \MB(E))$-measurable isomorphism, $g'$ is a $(\MB(B), \MB(\H) \cap g_0(B))$-measurable isomorphism. Define $Z \subset \MC$ and $\phi:Z \rightarrow [0,1]$ as in \rd{def:measurable_spaces:standard_borel_spaces:0001}. \rex{ex:measurable_spaces:standard_borel_spaces:0011} implies that $\phi$ is a $(\MB(Z), \MB([0,1]))$-measurable isomorphism. \rex{} \tcr{(cite exercise)} then implies that $\phi^{\N}$ is a $(\MB(Z^{\N}), \MB(\H))$-measurable isomorphism. Since \rex{} \tcr{(cite exercise)} implies that $\MB(Z^{\N}) = \MB(\MC^{\N}) \cap Z^{\N}$, we have that $(\phi^{\N})^{-1}$ is a $(\MB(\H), \MB(\MC^{\N}) \cap Z^{\N})$-measurable isomorphism. \tcb{An exercise in the analysis notes chapter on metric spaces, section on zero-dimensional metric spaces, subsection on cantor space} implies that there exists $H: \MC^{\N} \rightarrow \MC $ such that $H$ is a homeomorphism. Therefore $H$ is a $(\MB(\MC^{\N}), \MB(\MC))$-measurable isomorphism. \rex{ex:measurable_spaces:standard_borel_spaces:0006} implies that $Z \in \MB(\MC)$. Therefore
+				\begin{align*}
+					Z^{\N}
+					& = \bigcap\limits_{n \in \N} \pi_n^{-1}(Z) \\
+					& \in \MB(\C^{\N}).
+				\end{align*} 
+				Since $g_0(B) \in \MB(\H)$ and $Z^{\N} \in \MB(\MC^{\N})$, \rex{ex:measurable_spaces:subspaces:0007.1} implies that $\iota_{g_0(B)}$ is $(\MB(\H) \cap g_0(B), \MB(\H))$-bimeasurable and $\iota_{Z^{\N}}$ is $(\MB(\MC^{\N}) \cap Z^{\N}, \MB(\MC^{\N}))$-bimeasurable. Define $g:B \rightarrow \MC$ by $g \defeq H \circ \iota_{Z^{\N}} \circ (\phi^{\N})^{-1} \circ \iota_{g_0(B)} \circ g'$. Since $H$, $\iota_{Z^{\N}}$, $(\phi^{\N})^{-1}$, $\iota_{g_0(B)}$ and $g'$ are injective and bimeasurable, we have that $g$ is injective and $(\MB(B), \MB(\MC))$-bimeasurable. 
+			\end{itemize}
+			Thus there exist $f: \MC \rightarrow B$ and $g: B \rightarrow \MC$ such that $f,g$ are injective, $f$ is $(\MB(\MC), \MB(B))$-bimeasurable and $g$ is $(\MB(B), \MB(\MC))$-bimeasurable. \rex{ex:measurable_spaces:subspaces:0011} then implies that there exists $h: B \rightarrow \MC$ such that $h$ is a $(\MB(B), \MB(\MC))$-isomorphism.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:standard_borel_spaces:borel_iso:0003} \tbf{Borel Isomorphism Theorem:} \\
+		Let $(X, \MA)$ and $(Y, \MB)$ be a standard Borel spaces. Then $(X, \MA)$ and $(Y, \MB)$ are measurable isomorphic iff $|X| = |Y|$. 
+	\end{ex}
+	
+	\begin{proof}
+		\rex{ex:standard_borel_spaces:borel_iso:0002.2}
+		\tcr{FINISH!!!}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -5993,6 +6287,10 @@
 		Let $f:X \rightarrow \C$ be measurable. Then $f$ is said to be \textbf{integrable} if $$\int |f| \dmu < \infty$$
 	\end{defn}
 	
+	\tcr{need to define 
+		$$\ML^1(X, \MA, \mu) \defeq \bigg \{f:X \rightarrow \C : f \text{ is measurable and } \int |f| < \infty \bigg \}$$ and $\sim_{\mu}$ on $\ML^1(X, \MA, \mu)$ by $f \sim_{\mu} g$ iff $f = g$ $\mu$-a.e. Then define $L^1(X, \MA, \mu) \defeq \ML(X, \MA, \mu)/ \sim_{\mu}$}
+		
+	
 	\begin{defn} \ld{def:integration_complex_functions:00002} 
 		Let $(X, \MA, \mu)$ be a measure space. Define $$L^1(X, \MA, \mu) = \bigg \{f:X \rightarrow \C : f \text{ is measurable and } \int |f| < \infty \bigg \}$$
 	\end{defn}
@@ -8066,32 +8364,35 @@
 		$$\int_B f \dmu|_{\MB} = \int_B f \dmu$$
 	\end{ex}
 	
-	\begin{proof}
-		Set $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$ and $B \in \MB$. Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
-		\begin{align*}
-			\infty 
-			&> \mu_{\MB}(B_i) \\
-			&= \mu(B_i)
-		\end{align*}
-		So $f \in L^1(X, \MA, \mu)$ and 
-		\begin{align*}
-			\int_B f \dmu_{\MB} 
-			&= \int_B \sum_{i=1}^n b_i \chi_{B_i} \dmu_{\MB} \\
-			&= \sum_{i=1}^n b_i \mu_{\MB}(B_i \cap B)\\
-			&= \sum_{i=1}^n b_i \mu(B_i \cap B)\\
-			&= \int_B \sum_{i=1}^n b_i\chi_{B_i} \dmu \\
-			&= \int_B f \dmu
-		\end{align*}
-		If $f \geq 0$, then there exist $(\phi_n)_{n \in \N} \subset S^+(X, \MB)$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \convt{p.w.} f$. The monotone convergence theorem implies that for each $B \in \MB$,
-		\begin{align*}
-			\int_B f \dmu
-			&= \limn \int_B \phi_n \dmu \\
-			&= \limn \int_B \phi_n \dmu_{\MB} \\
-			& = \int_B f \dmu_{\MB} \\
-			& < \infty
-		\end{align*}
-		So $f \in L^1(X, \MA, \mu)$.
-		Similarly, the statement also holds for general $f \in L^1(X, \MB, \mu_B)$ by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
+	\begin{proof}\
+		\begin{itemize}
+			\item \tcr{(need to show if $f \sim_{\mu|_{\MB}} g$, then $f \sim_{\mu} g$, i.e. $L^1$ is set of equivalence classes, need to show this is respected for the inclusion)}
+			\item Set $\mu_{\MB} = \mu|_{\MB}$. Let $f \in L^1(X, \MB, \mu_{\MB})$ and $B \in \MB$. Clearly $f$ is $\MA$-measurable. If $f$ is simple, then there exist $(b_i)_{i=1}^n \subset \Rg$ and $(B_i)_{i=1}^n \subset \MB$ such that $$f = \sum_{i=1}^n b_i \chi_{B_i}$$ such that for each $i \in \{1, \cdots, n\}$, 
+			\begin{align*}
+				\infty 
+				&> \mu_{\MB}(B_i) \\
+				&= \mu(B_i)
+			\end{align*}
+			So $f \in L^1(X, \MA, \mu)$ and 
+			\begin{align*}
+				\int_B f \dmu_{\MB} 
+				&= \int_B \sum_{i=1}^n b_i \chi_{B_i} \dmu_{\MB} \\
+				&= \sum_{i=1}^n b_i \mu_{\MB}(B_i \cap B)\\
+				&= \sum_{i=1}^n b_i \mu(B_i \cap B)\\
+				&= \int_B \sum_{i=1}^n b_i\chi_{B_i} \dmu \\
+				&= \int_B f \dmu
+			\end{align*}
+			If $f \geq 0$, then there exist $(\phi_n)_{n \in \N} \subset S^+(X, \MB)$ such that for each $n \in \N$, $\phi_n \leq \phi_{n+1} \leq f$ and $\phi_n \convt{p.w.} f$. The monotone convergence theorem implies that for each $B \in \MB$,
+			\begin{align*}
+				\int_B f \dmu
+				&= \limn \int_B \phi_n \dmu \\
+				&= \limn \int_B \phi_n \dmu_{\MB} \\
+				& = \int_B f \dmu_{\MB} \\
+				& < \infty
+			\end{align*}
+			So $f \in L^1(X, \MA, \mu)$.
+			Similarly, the statement also holds for general $f \in L^1(X, \MB, \mu_B)$ by writing $f = g+ih$ and applying the above to $g^+$, $g^-$, $h^+$ and $h^-$.
+		\end{itemize}
 	\end{proof}
 	
 	\begin{note}
@@ -8918,7 +9219,7 @@
 	
 	
 	\newpage
-	\section{Disintegration of Measure}
+	\section{Partial Information Projection}
 	
 	\subsection{TO DO}
 	\begin{itemize}
@@ -9086,6 +9387,17 @@
 	\tcb{cite exercise or fill in why}
 	\end{proof}
 
+
+
+
+
+
+
+
+
+
+
+	\tcr{delete rest of section}
 	\begin{ex}
 		Let $(X, \MA, \mu)$ be a finite measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f: X \rightarrow \R$ $(\MA, \MB(\R))$-measurable. For each $z \in \R$, define $h_z \in L^1(X, \MA, \mu)$ by $h_z = \chi_{f^{-1}((-\infty, z])}$ and choose $f_z \in L_0(X, \MA)$ such that $f_z = P^{\mu}_{\MB}h_z$ $\mu$-a.e. Then there exists $M \in \MB$ such that $\mu_{\MB}(M^c) = 0$ and for each $x \in M$, $(f_q(x))_{q \in \Q}$ is increasing.
 	\end{ex}
@@ -9325,7 +9637,7 @@
 	\end{proof}
 
 	\begin{ex}
-			Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a Borel space, $\MC$ a sub $\sig$-algebra of $\MA$ and $f: X \rightarrow Y$ $(\MA, \MB)$-measurable. Then there exists $\kap: X \times \MB \rightarrow [0,1]$ such that 
+			Let $(X, \MA, \mu)$ be a finite measure space, $(Y, \MB)$ a standard Borel space, $\MC$ a sub $\sig$-algebra of $\MA$ and $f: X \rightarrow Y$ $(\MA, \MB)$-measurable. Then there exists $\kap: X \times \MB \rightarrow [0,1]$ such that 
 		\begin{enumerate}
 			\item $\kap$ is a Markov kernel from $(X, \MC)$ to $(Y, \MB)$.
 			\item For each $B \in \MB$, $\kap(\cdot, B) = P^{\mu}_{\MC}\chi_{f^{-1}(B)}$ $\mu_{\MC}$-a.e.
@@ -9333,7 +9645,7 @@
 	\end{ex}
 
 	\begin{proof} \textbf{3 cases, $\MB$ is finite, countably infinite and uncountable, in the latter case, can take $E = \R$}
-		Since $(Y, \MB)$ is a Borel space, there exists $E \in \MB(\R)$ and $\phi: (Y, \MB) \rightarrow (E, \MB(E) )$ is an isomorphism. Let $\iota: (E, \MB(E)) \rightarrow (\R, \MB(\R))$ be the inclusion map. Then $\iota \circ \phi \circ f : (X, \MA) \rightarrow (\R, \MB(\R))$. The previous exercise implies that there exists $\kap': X \times \MB(\R) \rightarrow [0,1]$ such that  	
+		Since $(Y, \MB)$ is a standard Borel space, there exists $E \in \MB(\R)$ and $\phi: (Y, \MB) \rightarrow (E, \MB(E) )$ is an isomorphism. Let $\iota: (E, \MB(E)) \rightarrow (\R, \MB(\R))$ be the inclusion map. Then $\iota \circ \phi \circ f : (X, \MA) \rightarrow (\R, \MB(\R))$. The previous exercise implies that there exists $\kap': X \times \MB(\R) \rightarrow [0,1]$ such that  	
 		\begin{enumerate}
 			\item $\kap'$ is a Markov kernel from $(X, \MC)$ to $(\R, \MB(\R))$.
 			\item For each $A \in \MB(\R)$,  
@@ -10975,20 +11287,20 @@
 	\end{note}
 	
 	\begin{defn} \ld{def:diff_radon_measures:0001}
-		Let $(X,d)$ be a metric space. We define the set of closed balls in $X$, denoted $\bar{\MB}_X$, by
-		$$\bar{\MB}_X =  \{\bar{B}(x, r): x \in X \text{ and } r > 0\}$$
+		Let $(X,d)$ be a metric space. We define the set of closed balls in $X$, denoted $\bar{\MB}_d$, by
+		$$\bar{\MB}_d =  \{\bar{B}_d(x, r): x \in X \text{ and } r > 0\}$$
 		Let $A \subset X$. 
 		\begin{itemize}
-			\item Let $\MV \subset \bar{\MB}_X$. Then $\MV$ is said to be a \tbf{centered covering} of $A$ if for each $x \in A$, there exists $r > 0$ such that $\bar{B}(x, r) \in \MV$. We define 
-			$$\MC(A) = \{ \MV \subset \bar{\MB}_X: \MV \text{ is a centered covering of } A\}$$
-			\item Let $\MV \in \MC(A)$ and $x \in A$. Then $\MV$ is said to be \tbf{fine} at $x$ if 
-			$$\inf \{r > 0 : \bar{B}(x,r) \in \MV\} = 0$$
-			\item Let $\MV \in \MC(A)$. Then $\MV$ is said to be fine on $A$ if for each $x \in A$, $\MV$ is fine at $x$.
+			\item Let $\MV \subset \bar{\MB}_d$. Then $\MV$ is said to be a \tbf{$d$-centered covering} of $A$ if for each $x \in A$, there exists $r > 0$ such that $\bar{B}_d(x, r) \in \MV$. We define 
+			$$\MC_d(A) = \{ \MV \subset \bar{\MB}_d: \MV \text{ is a $d$-centered covering of } A\}$$
+			\item Let $\MV \in \MC_d(A)$ and $x \in A$. Then $\MV$ is said to be \tbf{$d$-fine} at $x$ if 
+			$$\inf \{r > 0 : \bar{B}_d(x,r) \in \MV\} = 0$$
+			\item Let $\MV \in \MC_d(A)$. Then $\MV$ is said to be $d$-fine on $A$ if for each $x \in A$, $\MV$ is $d$-fine at $x$.
 		\end{itemize}
 	\end{defn}
 	
 	\begin{defn} \ld{def:diff_radon_measures:0002}
-		Let $(X, d)$ be a metric space and $\mu \in M_+(X)$. Then $\mu$ is said to be \tbf{$d$-Vitali} if for each $A \subset X$ and $\MV \in \MC(A)$, $\MV$ is fine on $A$ implies that there exists $\MF \subset \MV$ such that 
+		Let $(X, d)$ be a metric space and $\mu \in M_+(X)$. Then $\mu$ is said to be \tbf{$d$-Vitali} if for each $A \subset X$ and $\MV \in \MC_d(A)$, $\MV$ is $d$-fine on $A$ implies that there exists $\MF \subset \MV$ such that 
 		\begin{enumerate}
 			\item $\MF$ is countable
 			\item $\MF$ is disjoint
@@ -10996,76 +11308,108 @@
 		\end{enumerate}
 	\end{defn}
 	
+	\begin{ex}
+		Let $X$ be a set and $d_1,d_2:X \times X \rightarrow \Rg$ metrics on $X$ and $\mu \in M_+(X)$. If $d_1 \sim_{\Top} d_2$, then $\mu$ is $d_1$-Vitali iff $\mu$ is $d_2$-Vitali.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\mu$ is $d_1$-Vitali. Let $A \subset X$ and $\MV \subset \MC_{d_2}(A)$. Suppose that $\MV$ is $d_2$-fine on $A$. Since $\mu$ is $d_1$-Vitali, there exists $\MF \subset $ 
+		\tcr{FINISH!!!}
+	\end{proof}
+	
 	\begin{note}
 		\tcb{We recall the characterization of ultrametrics in terms of ultrametric-equivalent $\MP: \Rgp \rightarrow \Part(X)$ outlined in the analysis notes.}
 	\end{note}
 	
 	\begin{ex} \lex{ex:diff_radon_measures:0003}
-		Let $(X, d)$ be a seprable ultrametric space and $\mu \in M_+(X)$. Suppose that there exists $\MP: \N \rightarrow \Part(X)$ such that $\MP^d = \bar{\MP}$. Then $\mu$ is $d$-Vitali. \\ \tcb{FIX!!!}
-		\tbf{Hint}: For each $x \in A$, there exists a maximal $\pi^{\MP^d}_n(x) \in \MV$.
+		Let $(X, d)$ be a separable ultrametric space and $\mu \in M_+(X)$. If $(X, \MT_d)$ is compact, then $\mu$ is $d$-Vitali. \\
+		\tbf{Hint}: 
+		\begin{itemize}
+			\item Since $(X, \MT_d)$ is compact, \tcb{an exercise in the analysis notes section on ultrametric spaces} implies that $d(X \times X) \setminus \{0\}$ is discrete. 
+			\item For each $x \in A$, there exists a maximal $\bar{\pi}^{d}_{a_n}(x) \in \MV$.
+		\end{itemize}
 	\end{ex}
 	
 	\begin{proof}
-		Let $A \subset X$ and $\MV \in \MC(A)$. Suppose that $\MV$ is fine on $A$. 
-		\tcb{(Add some details about how $\MP^d = \bar{\MP}$ and that we can do everything with $\MP$)}.
-		Let $a \in A$. Since $\MV \in \MC(A)$, there exists $r > 0$ such that $\bar{B}(a, r) \in \MV$. By assumption \tcb{(add details)}, there exists $n \in \N$ such that $\pi^{\MP}_n(a) = \bar{B}(a, r)$. Since $a \in A$ is arbitrary, we have that for each $a \in A$, $\{n \in \N: \pi^{\MP}_n(a) \in \MV \} \neq \varnothing$. Since $X$ is separable, $A$ is separable \tcb{(needs an exercise, not trivial)}. Thus there exists $(a_n)_{n \in \N} \subset A$ such that $(a_n)_{n \in \N}$ is dense in $A$. For each $k \in \N$, set $n_k = \min \{n \in \N: \pi^{\MP}_n(a_k) \in \MV \}$. Define $\MF \subset \MV$ by $\MF = \{\pi^{\MP}_{n_k}(a_k): k \in \N\}$. 
-		\begin{enumerate}
-			\item By construction $\MF$ is countable.
-			\item Let $k_1, k_2 \in \N$. Suppose that $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) \neq \varnothing$. Then there exists $x \in X$ such that $x \in \pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2})$. 
+		Suppose that $X$ is compact. Define $R \subset \Rg$ by $R \defeq d(X \times X) \setminus \{0\}$. \tcb{An exercise in the analysis notes section on ultrametric spaces} implies that $R$ is discrete. 
+		\begin{itemize}
+			\item Suppose that $R$ is finte. Write $R \cup \{0\} = (r_j)_{j=1}^n$ with $r_1 > \cdots > r_n = 0$.  \tcr{FINISH!!!}
+			\item Suppose that $R$ is infinte. Write $R = (r_n)_{n \in \N}$ with $(r_n)_{n \in \N}$ strictly decreasing. \tcb{An exercise in the analysis notes section on ultrametric spaces} implies that $r_n \rightarrow 0$. Define $\MP: \N \rightarrow \Part(X)$ such that $\MP_n \defeq X / {\simeq_{r_n}}$. \tcr{An exercise in the analysis notes section on ultrametric spaces} implies that $\MP$ separates points, collects points and is decreasing. Let $A \subset X$ and $\MV \in \MC(A)$. Suppose that $\MV$ is $d$-fine on $A$. Let $a \in A$. Since $\MV \in \MC(A)$, there exists $r > 0$ such that $\bar{B}(a, r) \in \MV$. 
 			\begin{itemize}
-				\item For the sake of contradiction, suppose that $n_{k_1} < n_{k_2}$. Since $\MP$ is decreasing, \tcb{an exercise in the section on ultrametric spaces in the analysis notes } implies that $\pi^{\MP}_{n_{k_2}}(a_{k_2}) \subset \pi^{\MP}_{n_{k_1}}(a_{k_2})$. Then
+				\item Suppose that $r < r_1$. Since $(r_n)_{n \in \N}$ is strictly decreasing and $r_n \rightarrow 0$, there exists $n_0 \in \N$ such that $r_{n_0 + 1} \leq r < r_{n_0}$. Then  
 				\begin{align*}
-					x
-					& \in \pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) \\
-					& \subset \pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_1}}(a_{k_2}) 
+					\pi^{\MP}_{n_0+1}(a)
+					& = \bar{B}(a, r_{n_0+1}) \\
+					& = \bar{B}(a, r) \\
+					& \in \MV 
 				\end{align*}
-				Since $\MP_{n_{k_1}} \in \Part(X)$ and $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_1}}(a_{k_2}) \neq \varnothing$, we have that 
+				\item Suppose that $r \geq r_1$. Then 
 				\begin{align*}
-					\pi^{\MP}_{n_{k_1}}(a_{k_2})
-					& = \pi^{\MP}_{n_{k_1}}(a_{k_1}) \\
-					& \in \MV
+					\pi^{\MP}_1(a)
+					& = \bar{B}(a, r_1) \\
+					& = \bar{B}(a, r) \\
+					& \in \MV 
 				\end{align*}
-				Therefore
-				\begin{align*}
-					\min \{n \in \N: \pi^{\MP}_n(a_{k_2}) \in \MV\}
-					& \leq n_{k_1} \\
-					& < n_{k_2} \\
-					& = \min \{n \in \N: \pi^{\MP}_n(a_{k_2}) \in \MV\}
-				\end{align*}
-				which is a contradiction. Hence $n_{k_1} \geq n_{k_2}$. 
-				\item Similarly, $n_{k_1} \leq n_{k_2}$.
 			\end{itemize}
-			Thus $n_{k_1} = n_{k_2}$. Since $k_1, k_2 \in \N$ are arbitrary, we have that for each $k_1, k_2 \in \N$, $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) \neq \varnothing$ implies that $\pi^{\MP}_{n_{k_1}}(a_{k_1}) = \pi^{\MP}_{n_{k_2}}(a_{k_2})$. Equivalently, for each $k_1, k_2 \in \N$, $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \neq \pi^{\MP}_{n_{k_2}}(a_{k_2})$ implies that $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) = \varnothing$. Hence $\MF$ is disjoint.
-			\item Let $a \in A$. Since $\MV \in \MC(A)$, there exists $r > 0$ such that $\bar{B}(a, r) \in \MV$. Therefore there exists $n \in \N$ such that $\bar{B}(a, r) = \pi^{\MP}_n(a)$ \tcb{(give more details)}. \tcb{An exercise in the section on ultrametric spaces in the analysis notes} implies that $\bar{B}(a, r)$ is open in $X$. Then $\bar{B}(a, r) \cap A$ is open in $A$. Since $(a_n)_{n \in \N}$ is dense in $A$, there exists $k \in \N$ such that 
-			\begin{align*}
-				a_k 
-				& \in \bar{B}(a, r) \cap A \\
-				& \subset \bar{B}(a, r) \\
-				& = \pi^{\MP}_n(a)
-			\end{align*}
-			Since $\MP_n \in \Part(X)$, 
-			\begin{align*}
-				a
-				& \in \pi^{\MP}_n(a) \\
-				& = \pi^{\MP}_n(a_k) \\
-			\end{align*}
-			Since $\MP$ is decreasing, we have that 
-			\begin{align*}
-				a
-				& \in \pi^{\MP}_n(a_k) \\
-				& \subset \pi^{\MP}_{n_k}(a_k) \\
-				& \in \MF 
-			\end{align*}
-			Since $a \in A$ is arbitrary, we have that $A \subset \bigcup\limits_{S \in \MF}S$. Therefore 
-			\begin{align*}
-				\mu \bigg[ A \setminus \bigg(\bigcup_{S \in \MF}S \bigg) \bigg] 
-				& = \mu \bigg[ A \cap \bigg(\bigcup_{S \in \MF}S \bigg)^c \bigg] \\ 
-				& = \mu(\varnothing) \\
-				& = 0
-			\end{align*}
-			Hence $\MF$ $\mu^*$-covers $A$. 
-		\end{enumerate}
-		Thus $\mu$ is $d$-Vitali
+			Since $a \in A$ is arbitrary, we have that for each $a \in A$, $\{n \in \N: \pi^{\MP}_n(a) \in \MV \} \neq \varnothing$. Since $X$ is separable, $A$ is separable \tcb{(needs an exercise, not trivial)}. Thus there exists $(a_n)_{n \in \N} \subset A$ such that $(a_n)_{n \in \N}$ is dense in $A$. For each $k \in \N$, set $n_k \defeq \min \{n \in \N: \pi^{\MP}_n(a_k) \in \MV \}$. Define $\MF \subset \MV$ by $\MF = \{\pi^{\MP}_{n_k}(a_k): k \in \N\}$. 
+			\begin{enumerate}
+				\item By construction $\MF$ is countable.
+				\item Let $k_1, k_2 \in \N$. Suppose that $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) \neq \varnothing$. Then there exists $x \in X$ such that $x \in \pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2})$. 
+				\begin{itemize}
+					\item For the sake of contradiction, suppose that $n_{k_1} < n_{k_2}$. Since $\MP$ is decreasing, \tcb{an exercise in the section on ultrametric spaces in the analysis notes } implies that $\pi^{\MP}_{n_{k_2}}(a_{k_2}) \subset \pi^{\MP}_{n_{k_1}}(a_{k_2})$. Then
+					\begin{align*}
+						x
+						& \in \pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) \\
+						& \subset \pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_1}}(a_{k_2}) 
+					\end{align*}
+					Since $\MP_{n_{k_1}} \in \Part(X)$ and $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_1}}(a_{k_2}) \neq \varnothing$, we have that 
+					\begin{align*}
+						\pi^{\MP}_{n_{k_1}}(a_{k_2})
+						& = \pi^{\MP}_{n_{k_1}}(a_{k_1}) \\
+						& \in \MV
+					\end{align*}
+					Therefore
+					\begin{align*}
+						\min \{n \in \N: \pi^{\MP}_n(a_{k_2}) \in \MV\}
+						& \leq n_{k_1} \\
+						& < n_{k_2} \\
+						& = \min \{n \in \N: \pi^{\MP}_n(a_{k_2}) \in \MV\}
+					\end{align*}
+					which is a contradiction. Hence $n_{k_1} \geq n_{k_2}$. 
+					\item Similarly, $n_{k_1} \leq n_{k_2}$.
+				\end{itemize}
+				Thus $n_{k_1} = n_{k_2}$. Since $k_1, k_2 \in \N$ are arbitrary, we have that for each $k_1, k_2 \in \N$, $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) \neq \varnothing$ implies that $\pi^{\MP}_{n_{k_1}}(a_{k_1}) = \pi^{\MP}_{n_{k_2}}(a_{k_2})$. Equivalently, for each $k_1, k_2 \in \N$, $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \neq \pi^{\MP}_{n_{k_2}}(a_{k_2})$ implies that $\pi^{\MP}_{n_{k_1}}(a_{k_1}) \cap \pi^{\MP}_{n_{k_2}}(a_{k_2}) = \varnothing$. Hence $\MF$ is disjoint.
+				\item Let $a \in A$. Since $\MV \in \MC(A)$, there exists $r > 0$ such that $\bar{B}(a, r) \in \MV$. Therefore there exists $n \in \N$ such that $\bar{B}(a, r) = \pi^{\MP}_n(a)$. \tcb{An exercise in the section on ultrametric spaces in the analysis notes} implies that $\bar{B}(a, r)$ is open in $X$. Then $\bar{B}(a, r) \cap A$ is open in $A$. Since $(a_n)_{n \in \N}$ is dense in $A$, there exists $k \in \N$ such that 
+				\begin{align*}
+					a_k 
+					& \in \bar{B}(a, r) \cap A \\
+					& \subset \bar{B}(a, r) \\
+					& = \pi^{\MP}_n(a)
+				\end{align*}
+				Since $\MP_n \in \Part(X)$, 
+				\begin{align*}
+					a
+					& \in \pi^{\MP}_n(a) \\
+					& = \pi^{\MP}_n(a_k) \\
+				\end{align*}
+				Since $\MP$ is decreasing, we have that 
+				\begin{align*}
+					a
+					& \in \pi^{\MP}_n(a_k) \\
+					& \subset \pi^{\MP}_{n_k}(a_k) \\
+					& \in \MF 
+				\end{align*}
+				Since $a \in A$ is arbitrary, we have that $A \subset \bigcup\limits_{S \in \MF}S$. Therefore 
+				\begin{align*}
+					\mu \bigg[ A \setminus \bigg(\bigcup_{S \in \MF}S \bigg) \bigg] 
+					& = \mu \bigg[ A \cap \bigg(\bigcup_{S \in \MF}S \bigg)^c \bigg] \\ 
+					& = \mu(\varnothing) \\
+					& = 0
+				\end{align*}
+				Hence $\MF$ $\mu^*$-covers $A$. 
+			\end{enumerate}
+			Thus $\mu$ is $d$-Vitali
+		\end{itemize}
 	\end{proof}
 
 	
@@ -11411,11 +11755,11 @@
 	\end{proof}
 
 	\begin{defn} \ld{def:diff_radon_measures:0010}
-		Let $(X, d)$ be a metric space, $\mu, \nu \in \MM_+^{\loc}(X, d)$ and $h \in L(X, \MB(X))$. Suppose that $h = \ub{D}_{\mu}\nu$ $\mu$-a.e. and $h = \ol{D}_{\mu}\nu$ $\mu$-a.e. Then $h$ is said to be a \tbf{derivate of $\nu$ by $\mu$}.
+		Let $(X, d)$ be a metric space, $\mu, \nu \in \MM_+^{\loc}(X, d)$ and $h \in \ML^0(X, \MB(X))$. Then $h$ is said to be a \tbf{derivate of $\nu$ by $\mu$} if $h = \ub{D}_{\mu}\nu$ $\mu$-a.e. and $h = \ol{D}_{\mu}\nu$ $\mu$-a.e.
 	\end{defn}
 
 	\begin{ex} \ld{def:diff_radon_measures:0011}
-	Let $(X, d)$ be a metric space, $\mu, \nu \in \MM_+^{\loc}(X, d)$ and $h \in L(X, \MB(X))$. If $h$ is a derivate of $\nu$ by $\mu$, then $h$ is unique $\mu$-a.e.
+	Let $(X, d)$ be a metric space, $\mu, \nu \in \MM_+^{\loc}(X, d)$ and $h \in \ML^0(X, \MB(X))$. If $h$ is a derivate of $\nu$ by $\mu$, then $h$ is unique $\mu$-a.e.
 	\end{ex}
 	
 	\begin{proof}
@@ -11429,7 +11773,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:diff_radon_measures:0011}
-		Let $(X, d)$ be a metric space and $\mu, \nu \in \MM_+(X, d)$. If $\mu$ is $d$-Vitali, then there exists $h \in L(X, \MB(X))$ such that $h$ is a derivate of $\nu$ by $\mu$.
+		Let $(X, d)$ be a metric space and $\mu, \nu \in \MM_+(X, d)$. If $\mu$ is $d$-Vitali, then there exists $h \in \ML^0(X, \MB(X))$ such that $h$ is a derivate of $\nu$ by $\mu$.
 	\end{ex}
 
 	\begin{proof}
@@ -11441,7 +11785,7 @@
 			& = 0.
 		\end{align*}
 		Define $h:X \rightarrow \Rg$ by $h = \ol{D}_{\mu} \nu \chi_{N^c}$. \rd{def:diff_radon_measures:0004.1} implies that for each $x \in X$ and $n \in \N$, $\mu(\bar{B}(x, 1/n)), \nu(\bar{B}(x, 1/n)) < \infty$.   
-		For each $n \in \N$, define $f_n, g_n: X \rightarrow [0, \infty)$ by $f_n(x) \defeq \nu(\bar{B}(x, 1/n))$ and $g_n(x) \defeq \mu(\bar{B}(x, 1/n))$. \rex{ex:diff_radon_measures:009} implies that for each $n \in \N$, $f_n$ and $g_n$ are upper semicontinuous. \rex{ex:measurable_functions:00014.1} then implies that $(f_n)_{n \in \N}, (g_n)_{n \in \N} \subset L(X, \MB(X))$. \rex{ex:introduction_radon_measures:0005} implies that for each $x \in \supp \mu$ and $n \in \N$, $\mu(\bar{B}(x, 1/n)) > 0$ and therefore $g_n|_{N^c} > 0$.
+		For each $n \in \N$, define $f_n, g_n: X \rightarrow [0, \infty)$ by $f_n(x) \defeq \nu(\bar{B}(x, 1/n))$ and $g_n(x) \defeq \mu(\bar{B}(x, 1/n))$. \rex{ex:diff_radon_measures:009} implies that for each $n \in \N$, $f_n$ and $g_n$ are upper semicontinuous. \rex{ex:measurable_functions:00014.1} then implies that $(f_n)_{n \in \N}, (g_n)_{n \in \N} \subset \ML^0(X, \MB(X))$. \rex{ex:introduction_radon_measures:0005} implies that for each $x \in \supp \mu$ and $n \in \N$, $\mu(\bar{B}(x, 1/n)) > 0$ and therefore $g_n|_{N^c} > 0$.
 		For each $n \in \N$, define $h_n :X \rightarrow \Rg$ by  
 		\[
 		h_n(x) = 
@@ -11450,81 +11794,90 @@
 			0, & x \in N
 		\end{cases}
 		\]
-		Since $(f_n)_{n \in \N}$, $(g_n)_{n \in \N} \subset L(X, \MB(X))$ and $N \in \MB(X)$, we have that $(h_n)_{n \in \N} \subset L(X, \MB(X))$ \tcr{(make this an exercise in the earlier chapters)}. Then $h_n \convt{p.w.} h$. \rex{ex:measurable_functions:00015} implies that $h \in L(X, \MB(X))$. Since $\{x \in X: h(x) \neq \ol{D}_{\mu}\nu(x)\} \cup \{x \in X: h(x) \neq \ub{D}_{\mu}\nu(x)\} \subset N$, we have that $h = \ub{D}_{\mu}\nu$ $\mu$-a.e. and $h = \ol{D}_{\mu}\nu$ $\mu$-a.e. Thus $h$ is a derivate of $\nu$ by $\mu$.
+		Since $(f_n)_{n \in \N}$, $(g_n)_{n \in \N} \subset \ML^0(X, \MB(X))$ and $N \in \MB(X)$, we have that $(h_n)_{n \in \N} \subset \ML^0(X, \MB(X))$ \tcr{(make this an exercise in the earlier chapters)}. Then $h_n \convt{p.w.} h$. \rex{ex:measurable_functions:00015} implies that $h \in \ML^0(X, \MB(X))$. Since $\{x \in X: h(x) \neq \ol{D}_{\mu}\nu(x)\} \cup \{x \in X: h(x) \neq \ub{D}_{\mu}\nu(x)\} \subset N$, we have that $h = \ub{D}_{\mu}\nu$ $\mu$-a.e. and $h = \ol{D}_{\mu}\nu$ $\mu$-a.e. Thus $h$ is a derivate of $\nu$ by $\mu$.
 	\end{proof}
 
 	\begin{defn} \ld{def:diff_radon_measures:0012}
-		Let $(X, d)$ be a metric space, $\mu, \nu \in \MM_+^{\loc}(X, d)$ and $h \in L(X, \MB(X))$. Suppose that $h$ is a derivate of $\nu$ by $\mu$. We define $D_{\mu} \nu \in L^0(X, \MB(X), \mu)$ by $$D_{\mu} \nu \defeq \pi_{L^0}(h).$$ 
+		Let $(X, d)$ be a metric space, $\mu, \nu \in \MM_+^{\loc}(X, d)$ and $h \in \ML^0(X, \MB(X))$. Suppose that $h$ is a derivate of $\nu$ by $\mu$. We define $D_{\mu} \nu \in L^0(X, \MB(X), \mu)$ by $$D_{\mu} \nu \defeq \pi_{L^0}(h).$$ 
+		\tcr{define $\pi_{L^0}: \ML^0(X, \MA) \rightarrow L^0(X, \MA)$ somewhere in measurable function section}
 	\end{defn}
 
 	\begin{ex} \lex{ex:diff_radon_measures:0013}
-		Let $(X, d)$ be a metric space and $\mu, \nu \in \MM_+(X, d)$. If $\mu$ is $d$-Vitali, then 
-		$$D_{\mu} \nu = \frac{d\nu_{\mu}}{d\mu}.$$
+		Let $(X, d)$ be a metric space and $\mu, \nu \in \MM_+(X, d)$. Suppose that $\mu$ is $d$-Vitali.
+		\begin{enumerate}
+			\item We have that 
+			$$D_{\mu} \nu = \frac{d\nu_{\mu}}{d\mu}$$
+			\item for $\mu$-a.e. $x \in X$, 
+			$$\frac{d\nu_{\mu}}{d\mu}(x) = \lim_{r \rightarrow 0^+} \frac{ \nu(\bar{B}(x, r))}{\mu(\bar{B}(x, r))}$$
+		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
-		Define $Z \in \MB(X)$ by $Z = \{x \in X: D_{\mu}\nu(x) = 0\}$. Let $\ep > 0$. Set $c \defeq \ep/(\mu(Z) + 1)$. Then $c > 0$ and $Z \subset \{x \in X: D_{\mu}\nu(x) \leq c \}$. \rex{ex:diff_radon_measures:0007.1} implies that
-		\begin{align*}
-			\nu_{\mu}(Z) 
-			& \leq c \mu_{\mu}(Z) \\
-			& = c \mu(Z) \\
-			& = \ep \frac{\mu(Z)}{\mu(Z) + 1} \\
-			& < \ep 
-		\end{align*} 
-		Since $\ep > 0$ is arbitrary, we have that $\nu_{\mu}(Z) = 0$. By construction, 
-		\begin{align*}
-			\nu_{\mu}(Z) 
-			& = 0 \\
-			& = \int_{Z} D_{\mu}\nu \dmu 
-		\end{align*} 
-		Let $E \in \MB(X)$ and $t > 1$. For each $m \in \Z$, define $E_m \in \MB(X)$ by $E_m \defeq E \cap \{x \in X: t^m \leq D_{\mu}\nu(x) < t^{m+1}\}$. We note that $E \cap Z^c = \bigcup\limits_{m \in \Z} E_m$ and $(E_m)_{m \in \Z}$ is disjoint. \rex{ex:diff_radon_measures:0007.1} implies that 
-		\begin{align*}
-			t^m \mu(E_m)
-			& = t^m\mu_{\mu}(E_m) \\
-			& \leq \nu_{\mu}(E_m) \\
-			& \leq t^{m+1}\mu_{\mu}(E_m) \\
-			& = t^{m+1} \mu(E_m)
-		\end{align*}
-		Therefore
-		\begin{align*}
-			\nu_{\mu}(E)
-			& = \nu_{\mu}(E \cap Z^c) + \nu_{\mu}(E \cap Z) \\
-			& = \nu_{\mu}(E \cap Z^c) \\
-			& = \nu_{\mu} \bigg( \bigcup_{m \in \Z} E_m \bigg) \\
-			& = \sum_{m \in \Z} \nu_{\mu}(E_m) \\
-			& \leq \sum_{m \in \Z} t^{m+1} \mu(E_m) \\
-			& = t\sum_{m \in \Z} t^m \mu(E_m) \\
-			& = t\sum_{m \in \Z} \int_{E_m} t^m \dmu \\
-			& \leq t \sum_{m \in \Z} \int_{E_m} D_{\mu} \nu \dmu \\
-			& = t \int_{E\cap Z^c}  D_{\mu} \nu \dmu \\ 
-			& \leq t \int_{E}  D_{\mu} \nu \dmu 
-		\end{align*}
-		Similarly, since 
-		\begin{align*}
-			\int_{E}  D_{\mu} \nu \dmu 
-			& = \int_{E \cap Z^c} D_{\mu} \nu \dmu + \int_{E\cap Z} D_{\mu} \nu \dmu  \\
-			& = \int_{E \cap Z^c} D_{\mu} \nu \dmu,
-		\end{align*}
-		we have that
-		\begin{align*}
-			\nu_{\mu}(E)
-			& = \sum_{m \in \Z} \nu_{\mu}(E_m) \\
-			& \geq \sum_{m \in \Z} t^m \mu(E_m) \\
-			& = t^{-1} \sum_{m \in \Z}  t^{m+1} \mu(E_m) \\
-			& = t^{-1} \sum_{m \in \Z} \int_{E_m} t^{m+1} \dmu \\
-			& \geq t^{-1} \sum_{m \in \Z} \int_{E_m} D_{\mu} \nu \dmu \\
-			& = t^{-1} \int_{E\cap Z^c}  D_{\mu} \nu \dmu \\ 
-			& = t^{-1} \int_{E}  D_{\mu} \nu \dmu 
-		\end{align*}
-		Thus 
-		\begin{align*}
-			t^{-1} \int_{E}  D_{\mu} \nu \dmu 
-			& \leq \nu_{\mu}(E) \\
-			& \leq t \int_{E}  D_{\mu} \nu \dmu 
-		\end{align*}
-		Since $t > 1$ is arbitrary, we have that
-		$$\nu_{\mu}(E) = \int_{E}  D_{\mu} \nu \dmu.$$
-		Since $E \in \MB(X)$ is arbitrary, we have that $D_{\mu} \nu = d \nu_{\mu}/d \mu$.
+	\begin{proof}\
+		\begin{enumerate}
+			\item Define $Z \in \MB(X)$ by $Z = \{x \in X: D_{\mu}\nu(x) = 0\}$. Let $\ep > 0$. Set $c \defeq \ep/(\mu(Z) + 1)$. Then $c > 0$ and $Z \subset \{x \in X: D_{\mu}\nu(x) \leq c \}$. \rex{ex:diff_radon_measures:0007.1} implies that
+			\begin{align*}
+				\nu_{\mu}(Z) 
+				& \leq c \mu_{\mu}(Z) \\
+				& = c \mu(Z) \\
+				& = \ep \frac{\mu(Z)}{\mu(Z) + 1} \\
+				& < \ep 
+			\end{align*} 
+			Since $\ep > 0$ is arbitrary, we have that $\nu_{\mu}(Z) = 0$. By construction, 
+			\begin{align*}
+				\nu_{\mu}(Z) 
+				& = 0 \\
+				& = \int_{Z} D_{\mu}\nu \dmu 
+			\end{align*} 
+			Let $E \in \MB(X)$ and $t > 1$. For each $m \in \Z$, define $E_m \in \MB(X)$ by $E_m \defeq E \cap \{x \in X: t^m \leq D_{\mu}\nu(x) < t^{m+1}\}$. We note that $E \cap Z^c = \bigcup\limits_{m \in \Z} E_m$ and $(E_m)_{m \in \Z}$ is disjoint. \rex{ex:diff_radon_measures:0007.1} implies that 
+			\begin{align*}
+				t^m \mu(E_m)
+				& = t^m\mu_{\mu}(E_m) \\
+				& \leq \nu_{\mu}(E_m) \\
+				& \leq t^{m+1}\mu_{\mu}(E_m) \\
+				& = t^{m+1} \mu(E_m)
+			\end{align*}
+			Therefore
+			\begin{align*}
+				\nu_{\mu}(E)
+				& = \nu_{\mu}(E \cap Z^c) + \nu_{\mu}(E \cap Z) \\
+				& = \nu_{\mu}(E \cap Z^c) \\
+				& = \nu_{\mu} \bigg( \bigcup_{m \in \Z} E_m \bigg) \\
+				& = \sum_{m \in \Z} \nu_{\mu}(E_m) \\
+				& \leq \sum_{m \in \Z} t^{m+1} \mu(E_m) \\
+				& = t\sum_{m \in \Z} t^m \mu(E_m) \\
+				& = t\sum_{m \in \Z} \int_{E_m} t^m \dmu \\
+				& \leq t \sum_{m \in \Z} \int_{E_m} D_{\mu} \nu \dmu \\
+				& = t \int_{E\cap Z^c}  D_{\mu} \nu \dmu \\ 
+				& \leq t \int_{E}  D_{\mu} \nu \dmu 
+			\end{align*}
+			Similarly, since 
+			\begin{align*}
+				\int_{E}  D_{\mu} \nu \dmu 
+				& = \int_{E \cap Z^c} D_{\mu} \nu \dmu + \int_{E\cap Z} D_{\mu} \nu \dmu  \\
+				& = \int_{E \cap Z^c} D_{\mu} \nu \dmu,
+			\end{align*}
+			we have that
+			\begin{align*}
+				\nu_{\mu}(E)
+				& = \sum_{m \in \Z} \nu_{\mu}(E_m) \\
+				& \geq \sum_{m \in \Z} t^m \mu(E_m) \\
+				& = t^{-1} \sum_{m \in \Z}  t^{m+1} \mu(E_m) \\
+				& = t^{-1} \sum_{m \in \Z} \int_{E_m} t^{m+1} \dmu \\
+				& \geq t^{-1} \sum_{m \in \Z} \int_{E_m} D_{\mu} \nu \dmu \\
+				& = t^{-1} \int_{E\cap Z^c}  D_{\mu} \nu \dmu \\ 
+				& = t^{-1} \int_{E}  D_{\mu} \nu \dmu 
+			\end{align*}
+			Thus 
+			\begin{align*}
+				t^{-1} \int_{E}  D_{\mu} \nu \dmu 
+				& \leq \nu_{\mu}(E) \\
+				& \leq t \int_{E}  D_{\mu} \nu \dmu 
+			\end{align*}
+			Since $t > 1$ is arbitrary, we have that
+			$$\nu_{\mu}(E) = \int_{E}  D_{\mu} \nu \dmu.$$
+			Since $E \in \MB(X)$ is arbitrary, we have that $D_{\mu} \nu = d \nu_{\mu}/d \mu$.
+			\item By \rd{def:diff_radon_measures:0005}, 
+		\end{enumerate}
 	\end{proof}
 	
 	
@@ -11555,11 +11908,12 @@
 	\end{defn}
 
 	\begin{ex} \lex{ex:differentiation_complex_measures:0002}
-		Let $(X, d)$ be a metric space, $\mu \in \MM_+(X, d)$ and $\nu \in \MM(X)$. Suppose that $\mu$ is $d$-Vitali. Then 
+		Let $(X, d)$ be a metric space, $\mu \in \MM_+(X, d)$ and $\nu \in \MM(X)$. Suppose that $\mu$ is $d$-Vitali.  
 		\begin{enumerate}
-			\item $$D_{\mu} \nu = \frac{d\nu_{\mu}}{d \mu}.$$
+			\item We have that 
+			$$D_{\mu} \nu = \frac{d\nu_{\mu}}{d\mu}$$
 			\item for $\mu$-a.e. $x \in X$, 
-			$$D_{\mu} \nu(x) = \lim_{r \rightarrow 0^+} \frac{ \nu(\bar{B}(x, r))}{\mu(\bar{B}(x, r))}$$
+			$$\frac{d\nu_{\mu}}{d\mu}(x) = \lim_{r \rightarrow 0^+} \frac{ \nu(\bar{B}(x, r))}{\mu(\bar{B}(x, r))}$$
 		\end{enumerate}
 	\end{ex}
 
