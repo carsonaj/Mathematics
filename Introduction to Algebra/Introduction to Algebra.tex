@@ -99,7 +99,3969 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\part{Sets and Order}
+	
 	\input{"../Appendices/Set Theory.tex"}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Ordered Sets}
+	
+	\section{To Do}
+	\tcr{at this point, there should be a simple structure capturing prosets and $\doar S$, measurable spaces and $\sig(\MA)$, topological spaces and $\tau(\ME)$, groups/rings/$\cdots$/algebras and $\l S\r$/$(E)$/$\cdots$/$(F)$}. It seems like we need a category $\MC$ with some structure, another category $\MC_F$ which is like $\MC$, but less structured and some forgetful-like functor $F: \MC\rightarrow \MC_F$. eg, $F:\tbf{Pro} \rightarrow \Set$ or $F:\Top \rightarrow \Set$ and we need an associated poset $\MP$ containing the structure forgotten by $F$, e.g. the lower sets of $X$ or the set of topologies on $X$ and we need a ``generating" or ``contained" object $\ME$ in $\MC_F$ in the sense that there is at least one object $A$ in $\MC$ and monomirphism $\iota_A: \ME \rightarrow F(A)$ in $\MC_F$. We then need a minimal element in the structure poset $\MP$ in some universal sense relating to these monomorphisms. \tcr{Ask people who know category theory}
+	
+	\section{Prosets}
+	
+	\subsection{Introduction}
+	
+	\begin{defn} \ld{def:orderings:prosets:0001} \tbf{Preordered Set:} \\
+		Let $X$ be a set and $\leq \, \subset X \times X$ a binary relation on $X$. Then 
+		\begin{itemize}
+			\item $\leq$ is said to be a \tbf{preorder on $X$} if
+			\begin{enumerate}
+				\item for each $a \in X$, $a \leq a$
+				\item for each $a, b, c \in X$, $a \leq b$ and $b \leq c$ implies that $a \leq c$
+			\end{enumerate}
+			\item $(X, \leq)$ is said to be a \tbf{preordered set} or \tbf{proset} if $\leq$ is a preorder on $X$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{defn} \ld{def:orderings:prosets:0002}
+		Let $(X, \leq)$ be a proset. We define the \tbf{dual order of $\leq$ on $X$}, denoted $\lop$, by $a \lop b$ iff $b \leq a$.
+	\end{defn}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0003}
+		Let $(X, \leq)$ be a proset. Then $\lop$ is a preorder on $X$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $a \in X$. Since $a \leq a$, we have that $a \lop a$. 
+			\item Let $a,b,c \in X$. Suppose that $a \lop b$ and $b \lop c$. Then $b \leq a$ and $c \leq b$. Hence $c \leq a$. Thus $a \lop c$. 
+		\end{enumerate}
+		Therefore $\lop$ is a preorder on $X$. 
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Products}
+	
+	\begin{defn} \ld{def:orderings:prosets:0004}
+		Let $(A, \leq_A)$ and $(B, \leq_B)$ be prosets. We define the 
+		\begin{itemize}
+			\item \tbf{product preorder of $\leq_A$ and $\leq_B$ on $A \times B$}, denoted $\leq_A \otimes \leq_B$ by $(a_1,b_1) \leq_A \otimes \leq_B (a_2, b_2)$ iff $a_1 \leq_A a_2$ and $b_1 \leq_B b_2$.
+			\item \tbf{product proset of $(A, \leq_A)$ and $(B, \leq_B)$}, denoted $(A, \leq_A) \otimes (B, \leq_B)$ by $(A, \leq_A) \otimes (B, \leq_B) \defeq (A \times B, \leq_A \otimes \leq_B)$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0005}
+		\tcr{probably need to change notation since $\otimes$ might be reserved for something else.}
+		Let $(A, \leq_A)$ and $(B, \leq_B)$ be prosets. Then 
+		\begin{enumerate}
+			\item $\leq_A \otimes \leq_B$ is a preorder on $A \times B$,
+			\item $(A, \leq_A) \otimes (B, \leq_B)$ is a proset.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item Let $(a, b) \in A \times B$. Then $a \leq_A a$ and $b \leq_B b$. Therefore $(a, b) \leq_A \otimes \leq_B (a ,b)$.
+				\item Let $(a_1, b_1), (a_2, b_2), (a_3, b_3) \in A \times B$. Suppose that $(a_1, b_1) \leq_A \otimes \leq_B (a_2, b_2)$ and $(a_2, b_2) \leq_A \otimes \leq_B (a_3, b_3)$. Then $a_1 \leq_A a_2$, $a_2 \leq_A a_3$, $b_1 \leq_B b_2$ and $b_2 \leq_B b_3$. Therefore $a_1 \leq_A a_3$ and $b_1 \leq_B b_3$. Hence $(a_1, b_1) \leq_A \otimes \leq_B (a_3, b_3)$.
+			\end{enumerate}
+			Hence $\leq_A \otimes \leq_B$ is a preorder on $A \times B$.
+			\item Since $\leq_A \otimes \leq_B$ is a preorder on $A \times B$, $(X, \leq)$ is a proset.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{def:orderings:prosets:0006}
+		Let $(X, \leq)$ be a proset. We define $\sim_{\leq} \subset X \times X$ by $a \sim_{\leq} b$ iff $a \leq b$ and $b \leq a$.
+	\end{defn}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0007}
+		Let $(X, \leq)$ be a proset. Then $\sim_{\leq}$ is an equivalence relation on $X$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $x,y, z \in X$. 
+		\begin{enumerate}
+			\item Since $x \leq x$, $x \sim_{\leq} x$.
+			\item Suppose that $x \sim_{\leq} y$. Then $x \leq y$ and $y \leq x$. Thus $y \sim_{\leq} x$. 
+			\item Suppose that $x \sim_{\leq} y$ and $y \sim_{\leq} z$. Then $x \leq y$, $y \leq x$, $y \leq z$ and $z \leq y$. Therefore $x \leq z$ and $z \leq x$. Hence $x \sim_{\leq} z$.  
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Upper and Lower Sets}
+	
+	\begin{defn} \ld{def:orderings:prosets:0008}
+		Let $(X, \leq)$ be a proset and $A \subset X$. Then 
+		\begin{itemize}
+			\item $A$ is said to be a \tbf{$\leq$-upper set} if for each $a \in A$ and $x \in X$, $a \leq x$ implies that $x \in A$.
+			\item $A$ is said to be an \tbf{$\leq$-lower set} if for each $a \in A$ and $x \in X$, $x \leq a$ implies that $x \in A$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we say $A$ is a
+		\begin{itemize}
+			\item ``upper set" instead of ``$\leq$-upper set"
+			\item ``lower set" instead of ``$\leq$-lower set"
+		\end{itemize}
+	\end{note}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0009}
+		Let $(X, \leq)$ be a proset. Then 
+		\begin{enumerate}
+			\item $X$ is a $\leq$-upper set 
+			\item $X$ is a $\leq$-lower set
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $a, x \in X$. Suppose that $a \leq x$. By assumption, $x \in X$. Since $a,x \in X$ with $a \leq x$ are arbitrary, we have that for each $a,x \in X$, $a \leq x$ implies that $x \in A$. Hence $X$ is a $\leq$-upper set.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0010}
+		Let $(X, \leq)$ be a proset and $A \subset X$. Then 
+		\begin{enumerate}
+			\item $A$ is a $\leq$-upper set iff $A$ is a $\lop$-lower set
+			\item $A$ is a $\leq$-lower set iff $A$ is a $\lop$-upper set
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $A$ is a $\leq$-upper set. Let $a \in A$ and $x \in X$. Suppose that $x \lop a$. Then $a \leq x$. Since $A$ is a $\leq$-upper set, $x \in A$. Since $a \in A$ and $x \in X$ with $x \lop a$ is arbitrary, we have that for each $a \in A$ and $x \in X$, $x \lop a$ implies that $x \in A$. Hence $A$ is a $\lop$-lower set. 
+				\item $(\impliedby)$: \\
+				Suppose that $A$ is a $\lop$-lower set. Let $a \in A$ and $x \in X$. Suppose that $a \leq x$. Then $x \lop a$. Since $A$ is a $\lop$-lower set, $x \in A$. Since $a \in A$ and $x \in X$ with $a \leq x$ is arbitrary, we have that for each $a \in A$ and $x \in X$, $a \leq x$ implies that $x \in A$. Hence $A$ is a $\leq$-upper set. 
+			\end{itemize} 
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0011}
+		Let $(X, \leq)$ be a proset and $A \subset X$. Then 
+		\begin{enumerate}
+			\item $A$ is an upper set iff $A^c$ is a lower set
+			\item $A$ is a lower set iff $A^c$ is an upper set
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $A$ is an upper set. Let $b \in A^c$ and $x \in X$. Suppose that $x \leq b$. For the sake of contradiction, suppose that $x \in A$. Since $x \leq b$ and $A$ is an upper set, $b \in A$. This is a contradiction since $b \in A^c$. Hence $x \in A^c$. Since $b \in A^c$ and $x \in X$ with $x \leq b$ are arbitrary, we have that for each $b \in A^c$ and $x \in X$, $x \leq b$ implies that $x \in A^c$. Thus $A^c$ is a lower set.
+				\item $(\impliedby)$: \\
+				Suppose that $A^c$ is a $\leq$-lower set. \rex{ex:orderings:prosets:0010} implies that $A^c$ is a $\lop$-upper set. The previous part implies that $A$ is a $\lop$-lower set. Another application of \rex{ex:orderings:prosets:0010} implies that $A$ is a $\leq$-upper set. 
+			\end{itemize}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0012}
+		Let $(X, \leq)$ be a proset, $(E_{\al})_{\al \in A} \subset \MP(X)$. 
+		\begin{enumerate}
+			\item If for each $\al \in A$, $E_{\al}$ is an upper set, then 
+			\begin{enumerate}
+				\item $\bigcup\limits_{\al \in A} E_{\al}$ is an upper set
+				\item $\bigcap\limits_{\al \in A} E_{\al}$ is an upper set
+			\end{enumerate}
+			\item If for each $\al \in A$, $E_{\al}$ is a lower set, then 
+			\begin{enumerate}
+				\item $\bigcup\limits_{\al \in A} E_{\al}$ is a lower set
+				\item $\bigcap\limits_{\al \in A} E_{\al}$ is an lower set
+			\end{enumerate}
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that for each $\al \in A$, $E_{\al}$ is an upper set. Set $E \defeq \bigcup\limits_{\al \in A} E_{\al}$. 
+			\begin{enumerate}
+				\item Let $e \in E$ and $x \in X$. Suppose that $e \leq x$. Since $e \in E$, there exists $\al \in A$ such that $e \in E_{\al}$. Since $E_{\al}$ is an upper set and $e \leq x$, we have that 
+				\begin{align*}
+					x
+					& \in E_{\al} \\
+					& \subset \bigcup\limits_{\al \in A} E_{\al} \\
+					& = E.
+				\end{align*}  
+				Since $e \in E$ and $x \in X$ with $e \leq x$ are arbitrary, we have that for each $e \in E$ and $x \in X$, $e \leq x$ implies that $x \in E$. Hence $E$ is an upper set. 
+				\item Let $\al \in A$. Since $E_{\al}$ is a $\leq$-upper set, \rex{ex:orderings:prosets:0011} implies that $E_{\al}^c$ is a $\leq$-lower set. \rex{ex:orderings:prosets:0010} then implies that $E_{\al}^c$ is a $\lop$-upper set. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $E_{\al}^c$ is a $\lop$-upper set. The previous part implies that $\bigcup\limits_{\al \in A} E_{\al}^c$ is a $\lop$-upper set. Since $\bigcap\limits_{\al \in A} E_{\al} = \bigg( \bigcup\limits_{\al \in A} E_{\al}^c \bigg)^c$, \rex{ex:orderings:prosets:0011} implies that $\bigcap\limits_{\al \in A} E_{\al}$ is a $\lop$-lower set. \rex{ex:orderings:prosets:0010} then implies that $\bigcap\limits_{\al \in A} E_{\al}$ is a $\leq$-upper set. 
+			\end{enumerate}
+			\item Similar to $(1)$. 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{def:orderings:prosets:0013}
+		Let $(X, \leq)$ be a proset and $S \subset X$. We define the
+		\begin{itemize}
+			\item \tbf{$\leq$-upper sets containing $S$}, denoted $\MU(S, \leq) \subset \MP(X)$, by $\MU(S, \leq) \defeq \{U \subset X: \text{$U$ is a $\leq$-upper set and $S \subset U$}\}$ 
+			\item \tbf{$\leq$-lower sets containing $S$}, denoted $\ML(S, \leq) \subset \MP(X)$, by $\ML(S, \leq) \defeq \{L \subset X: \text{$L$ is a $\leq$-lower set and $S \subset L$}\}$.
+			\item \tbf{$\leq$-upper set generated by $S$}, denoted $\upar (S, \leq)$, by $\upar (S, \leq) \defeq \bigcap\limits_{U \in \MU(S, \leq)} U$
+			\item \tbf{$\leq$-lower set generated by $S$}, denoted $\doar (S, \leq)$, by $\doar (S, \leq) \defeq \bigcap\limits_{L \in \ML(S, \leq)} L$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}\
+		\begin{itemize}
+			\item When the context is clear, we write $\MU(S), \ML(S)$, $\upar S$ and $\doar S$ in place of $\MU(S, \leq), \ML(S, \leq)$, $\upar (S, \leq)$ and $\doar (S, \leq)$ respectively. 
+			\item If $S = \{s\}$, we write $\upar s$ and $\doar s$ in place of $\upar S$ and $\doar S$ respectively.
+			\item \rex{ex:orderings:prosets:0009} implies that $X \in \MU(S)$ and $X \in \ML(S)$.
+			\item \rex{ex:orderings:prosets:0012} implies that $\upar S \in \MU(S)$ and $\doar S \in \ML(S)$.
+		\end{itemize}
+	\end{note}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0014}
+		Let $(X, \leq)$ be a proset and $S \subset X$. Then 
+		\begin{enumerate}
+			\item $\MU(S, \lop) = \ML(S, \leq)$,
+			\item $\ML(S, \lop) = \MU(S, \leq)$,
+			\item $\upar (S, \lop) = \doar(S, \leq)$,
+			\item $\doar (S, \lop) = \upar(S, \leq)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item Let $L \in \MU(S, \lop)$. Then $S \subset L$ and $L$ is a $\lop$-upper set. \rex{ex:orderings:prosets:0010} then implies that $L$ is a $\leq$-lower set. Hence $L \in \ML(S, \leq)$. Since $L \in \MU(S, \lop)$ is arbitrary, we have that for each $L \in \MU(S, \lop)$, $L \in \ML(S, \leq)$. Thus $\MU(S, \lop) \subset \ML(S, \leq)$.
+				\item Let $L \in \ML(S, \leq)$. Then $S \subset L$ and $L$ is a $\leq$-lower set. Another application of \rex{ex:orderings:prosets:0010} implies that $L$ is a $\lop$-upper set. Hence $L \in \MU(S, \lop)$. Since $L \in \ML(S, \leq)$ is arbitrary, we have that for each $L \in \ML(S, \leq)$, $L \in \MU(S, \lop)$. Thus $\ML(S, \leq) \subset \MU(S, \lop)$.
+			\end{itemize}
+			Since $\MU(S, \lop) \subset \ML(S, \leq)$ and $\ML(S, \leq) \subset \MU(S, \lop)$, we have that $\MU(S, \lop) = \ML(S, \leq)$.
+			\item By $(1)$, we have that 
+			\begin{align*}
+				\ML(S, \lop)
+				& = \MU(S, {(\lop)}^{\text{op}}) \\ 
+				& = \MU(S, \leq).
+			\end{align*}
+			\item Part $(1)$ implies that
+			\begin{align*}
+				\upar (S, \lop)
+				& = \bigcap\limits_{U \in \MU(S, \lop)} U \\
+				& = \bigcap\limits_{U \in \ML(S, \leq)} U \\
+				& = \doar (S, \lop).
+			\end{align*}
+			\item Similar to $(3)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0014.1}
+		Let $(X, \leq)$ be a proset and $S \subset X$. Then
+		\begin{enumerate}
+			\item $S \in \MU(S, \leq)$ iff $\upar S = S$ 
+			\item $S \in \ML(S, \leq)$ iff $\doar S = S$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $S \in \MU(S, \leq)$. Then 
+				\begin{align*}
+					\upar S
+					& = \bigcap\limits_{U \in \MU(S, \leq)} U \\
+					& \subset S \\
+					& \subset \upar S.
+				\end{align*}
+				Hence $\upar S = S$.
+				\item $(\impliedby)$: \\
+				Suppose that $\upar S = S$. Then 
+				\begin{align*}
+					S
+					& = \upar S \\
+					& \in \MU(S, \leq).
+				\end{align*}
+			\end{itemize}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0015}
+		Let $(X, \leq)$ be a proset and $a \in X$. Then 
+		\begin{enumerate}
+			\item $\upar a = \{x \in X: a \leq x\}$
+			\item $\doar a = \{x \in X: x \leq a\}$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Define $U \subset X$ by $U \defeq \{x \in X: a \leq x\}$. 
+			\begin{itemize}
+				\item Let $u \in U$ and $x \in X$. Suppose that $u \leq x$. Then  
+				\begin{align*}
+					a
+					& \leq u \\
+					& \leq x.
+				\end{align*}
+				Hence $x \in U$. Since $u \in U$ and $x \in X$ with $u \leq x$ are arbitrary, we have that for each $u \in U$ and $x \in X$, $u \leq x$ implies that $x \in U$. Hence $U$ is an upper set. Since $a \leq a$, $a \in U$. By definition, $U \in \MU(a)$. Therefore 
+				\begin{align*}
+					\upar a
+					& = \bigcap\limits_{U' \in \MU(a)} U' \\
+					& \subset U. 
+				\end{align*}
+				\item Let $x \in U$ and $U' \in \MU(a)$. Since $x \in U$, $a \leq x$. Since $U' \in \MU(a)$, $U'$ is an upper set and $a \in U'$. Thus $x \in U'$. Since $U' \in \MU(a)$ is arbitrary, we have that for each $U' \in \MU(a)$, $x \in U'$. Thus 
+				\begin{align*}
+					x 
+					& \in \bigcap\limits_{U' \in \MU(a)} U' \\
+					& = \upar a.
+				\end{align*} 
+				Since $x \in U$ is arbitrary, we have that for each $x \in U$, $x \in \upar a$. Hence $U \subset \upar a$.
+			\end{itemize}
+			Since $\upar a \subset U$ and $U \subset \upar a$, we have that $\upar a = U$.
+			\item \rex{ex:orderings:prosets:0010} and $(1)$ imply that 
+			\begin{align*}
+				\doar (a, \leq)
+				& = \upar(a, \lop) \\
+				& =  \{x \in X: a \lop x\} \\
+				& = \{x \in X: x \leq a\}.
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0016}
+		Let $(X, \leq)$ be a proset and $S_1, S_2 \subset X$. If $S_1 \subset S_2$, then
+		\begin{enumerate}
+			\item $\upar S_1 \subset \upar S_2$ 
+			\item $\doar S_1 \subset \doar S_2$ 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} 
+		Suppose that $S_1 \subset S_2$.
+		\begin{enumerate}
+			\item
+			Since $\upar S_2 \in \MU(S_2)$, $S_2 \subset \upar S_2$ and $\upar S_2$ is an upper set. Since
+			\begin{align*}
+				S_1 
+				& \subset S_2 \\
+				& \subset \upar S_2,
+			\end{align*} 
+			we have that $\upar S_2 \in \MU(S_1)$. Therefore
+			\begin{align*}
+				\upar S_1
+				& = \bigcap\limits_{U \in \MU(S_1)} U \\
+				& \subset \upar S_2.
+			\end{align*}
+			\item Part $(1)$ and \rex{ex:orderings:prosets:0014} implies that 
+			\begin{align*}
+				\doar (S_1, \leq)
+				& = \upar (S_1, \lop) \\
+				& \subset \upar (S_2, \lop) \\
+				& = \doar (S_2, \leq).
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0017}
+		Let $(X, \leq)$ be a proset and $a,b \in X$. Then the following are equivalent:
+		\begin{enumerate}
+			\item $a \leq b$,
+			\item $\upar b \subset \upar a$,
+			\item $\doar a \subset \doar b$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item $(1) \implies (2)$: \\
+			Suppose that $a \leq b$. Since $\upar a \in \MU(a)$, we have that $a \in \upar a$ and $\upar a$ is an upper set. Since $a \leq b$, we have that $b \in \upar a$. Hence $\upar a \in \MU(b)$. Therefore
+			\begin{align*}
+				\upar b
+				& = \bigcap\limits_{U \in \MU(b)} U \\
+				& \subset \upar a.
+			\end{align*}
+			\item $(2) \implies (3)$: \\
+			Suppose that $\upar (b, \leq) \subset \upar (a, \leq)$. \rex{ex:orderings:prosets:0015} then implies that
+			\begin{align*}
+				b
+				& \in \upar (b, \leq) \\
+				& \subset \upar (a, \leq) \\
+				& = \{x \in X: a \leq x\}.
+			\end{align*}
+			Hence $a \leq b$. Thus $b \lop a$. \rex{ex:orderings:prosets:0014} and part $(1) \implies (2)$ then imply that 
+			\begin{align*}
+				\doar(a, \leq)
+				& = \upar(a, \lop) \\
+				& \subset \upar(b, \lop) \\
+				& = \doar(b, \leq).
+			\end{align*} 
+			\item $(3) \implies (1)$: \\
+			Suppose that $\doar a \subset \doar b$. \rex{ex:orderings:prosets:0015} then implies that 
+			\begin{align*}
+				a
+				& \in \doar a \\
+				& \subset \doar b \\
+				& = \{x \in X: x \leq b\}. 
+			\end{align*} 
+			Hence $a \leq b$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0018}
+		Let $(X, \leq)$ be a proset and $S \subset X$. Then 
+		\begin{enumerate}
+			\item $\upar S = \bigcup\limits_{s \in S} \upar s$
+			\item $\doar S = \bigcup\limits_{s \in S} \doar s$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Define $U \subset X$ by $U \defeq \bigcup\limits_{s \in S} \upar s$.
+			\begin{itemize}
+				\item Since for each $s \in S$, $\upar s$ is an upper set, \rex{ex:orderings:prosets:0012} implies that $U$ is an upper set. Let $s \in S$. Then 
+				\begin{align*}
+					s 
+					& \in \upar s \\
+					& \subset \bigcup\limits_{s \in S} \upar s \\
+					& = U.
+				\end{align*}
+				Since $s \in S$ is arbitrary, we have that for each $s \in S$, $s \in U$. Hence $S \subset U$. Therefore $U \in \MU(S)$ and 
+				\begin{align*}
+					\upar S
+					& = \bigcap\limits_{U' \in \MU(S)} U' \\
+					& \subset U.
+				\end{align*}
+				\item Let $x \in U$ and $U' \in \MU(S)$. Since $x \in U$, there exists $s \in S$ such that $x \in \upar s$. \rex{ex:orderings:prosets:0015} then implies that $s \leq x$. Since $U' \in \MU(S)$, $U'$ is an upper set and $S \subset U'$. Then
+				\begin{align*}
+					s
+					& \in S \\
+					& \subset U'.
+				\end{align*}
+				Since $U'$ is an upper set and $s \leq x$, $x \in U'$. Since $U' \in \MU(S)$ is arbitrary, we have that for each $U' \in \MU(S)$, $x \in U'$. Thus 
+				\begin{align*}
+					x
+					& \in \bigcap\limits_{U' \in \MU(S)} U' \\
+					& = \upar S.
+				\end{align*}
+				Since $x \in U$ is arbitrary, we have that for each $x \in U$, $x \in \upar S$. Hence $U \subset \upar S$.
+			\end{itemize}
+			Since $\upar S \subset U$ and $U \subset \upar S$, we have that $\upar S = U$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0019}
+		Let $(X, \leq)$ be a proset and $(E_{\al})_{\al \in A} \subset \MP(X)$. Then 
+		\begin{enumerate}
+			\item $\upar \bigcup\limits_{\al \in A} E_{\al} = \bigcup\limits_{\al \in A} \upar E_{\al}$
+			\item $\doar \bigcup\limits_{\al \in A} E_{\al} = \bigcup\limits_{\al \in A} \doar E_{\al}$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item Let $x \in \upar \bigcup\limits_{\al \in A} E_{\al}$. \rex{ex:orderings:prosets:0018} implies that there exists $y \in \bigcup\limits_{\al \in A} E_{\al}$ such that $x \in \upar y$. Then there exists $\al_0 \in A$ such that $y \in E_{\al_0}$. Since $\{y\} \subset E_{\al_0}$, \rex{ex:orderings:prosets:0016} implies that $\upar y \subset \upar E_{\al_0}$. Therefore
+				\begin{align*}
+					x
+					& \in \upar y \\
+					& \subset \upar E_{\al_0} \\
+					& \subset \bigcup\limits_{\al \in A} \upar E_{\al}.
+				\end{align*}
+				Since $x \in \upar \bigcup\limits_{\al \in A} E_{\al}$ is arbitrary, we have that for each $x \in \upar \bigcup\limits_{\al \in A} E_{\al}$, $x \in \bigcup\limits_{\al \in A} \upar E_{\al}$. Hence $\upar \bigcup\limits_{\al \in A} E_{\al} \subset \bigcup\limits_{\al \in A} \upar E_{\al}$.
+				\item Let $x \in \bigcup\limits_{\al \in A} \upar E_{\al}$. Then there exists $\al_0 \in A$ such that $x \in \upar E_{\al_0}$. \rex{ex:orderings:prosets:0018} implies that there exists $y \in E_{\al_0}$ such that $x \in \upar y$. Since 
+				\begin{align*}
+					\{y\} 
+					& \subset E_{\al_0} \\
+					& \subset \bigcup\limits_{\al \in A} E_{\al},
+				\end{align*}
+				\rex{ex:orderings:prosets:0016} implies that
+				\begin{align*}
+					x
+					& \in \upar y \\
+					& \subset \upar \bigcup\limits_{\al \in A} E_{\al}. 
+				\end{align*}
+				Since $x \in \bigcup\limits_{\al \in A} \upar E_{\al}$ is arbitrary, we have that for each $x \in \bigcup\limits_{\al \in A} \upar E_{\al}$, $x \in \upar \bigcup\limits_{\al \in A} E_{\al}$. Hence $\bigcup\limits_{\al \in A} \upar E_{\al} \subset \upar \bigcup\limits_{\al \in A} E_{\al}$. 
+			\end{itemize}
+			Since $\upar \bigcup\limits_{\al \in A} E_{\al} \subset \bigcup\limits_{\al \in A} \upar E_{\al}$ and $\bigcup\limits_{\al \in A} \upar E_{\al} \subset \upar \bigcup\limits_{\al \in A} E_{\al}$, we have that $\upar \bigcup\limits_{\al \in A} E_{\al} = \bigcup\limits_{\al \in A} \upar E_{\al}$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{def:orderings:prosets:0020}
+		Let $(X, \leq)$ be a proset and $a \in X$. Then $a$ is said to be
+		\begin{itemize}
+			\item \tbf{$\leq$-maximal} if for each $x \in X$, $a \leq x$ implies that $x \sim_{\leq} a$.  
+			\item \tbf{$\leq$-minimal} if for each $x \in X$, $x \leq a$ implies that $x \sim_{\leq} a$. 
+		\end{itemize} 
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we write ``maximal" and ``minimal" instead of ``$\leq$-maximal" and ``$\leq$-minimal" respectively. 
+	\end{note}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0021}
+		Let $(X, \leq)$ be a proset and $a \in X$. Then 
+		\begin{enumerate}
+			\item $a$ is maximal iff $\upar a = \pi_{X/\sim_{\leq}}(a)$
+			\item $a$ is minimal iff $\doar a = \pi_{X/\sim_{\leq}}(a)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $a$ is maximal. 
+				\begin{itemize}
+					\item Let $x \in \upar a$. \rex{ex:orderings:prosets:0015} implies $a \leq x$. Since $a$ is maximal, $x \sim_{\leq} a$. Thus $x \in \pi_{X/\sim_{\leq}}(a)$. Since $x \in \upar a$ is arbitrary, we have that for each $x \in \upar a$, $x \in \pi_{X/\sim_{\leq}}(a)$. Hence $\upar a \subset \pi_{X/\sim_{\leq}}(a)$.
+					\item Let $x \in \pi_{X/\sim_{\leq}}(a)$. Then $a \sim_{\leq} x$. Hence $a \leq x$ and $x \leq a$. Since $a \leq x$, we have that $x \in \upar a$. Since $x \in \pi_{X/\sim_{\leq}}(a)$ is arbitrary, we have that for each $x \in \pi_{X/\sim_{\leq}}(a)$, $x \in \upar a$. Hence $\pi_{X/\sim_{\leq}}(a) \subset \upar a$.
+				\end{itemize}
+				Since $\upar a \subset \pi_{X/\sim_{\leq}}(a)$ and $\pi_{X/\sim_{\leq}}(a) \subset \upar a$, we have that $\upar a = \pi_{X/\sim_{\leq}}(a)$.
+				\item $(\impliedby)$: \\
+				Suppose that $\upar a = \pi_{X/\sim_{\leq}}(a)$. Let $x \in X$. Suppose that $a \leq x$. Then 
+				\begin{align*}
+					x 
+					& \in \upar a \\
+					& = \pi_{X/\sim_{\leq}}(a).
+				\end{align*}
+				Thus $x \sim_{\leq} a$. Since $x \in X$ with $a \leq x$ is arbitrary, we have that for each $x \in X$, $a \leq x$ implies that $x \sim_{\leq} a$. Hence $a$ is maximal.
+			\end{itemize}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{def:orderings:prosets:0022}
+		Let $(X, \leq)$ be a proset and $A \subset X$. 
+		\begin{itemize}
+			\item Let $x \in X$. Then $x$ is said to be a
+			\begin{itemize}
+				\item \tbf{$\leq$-upper bound of $A$} if for each $a \in A$, $a \leq x$
+				\item \tbf{$\leq$-lower bound of $A$} if for each $a \in A$, $x \leq a$
+			\end{itemize} 
+			\item We define 
+			\begin{itemize}
+				\item $\ubd (A, \leq) \defeq \{x \in X: \text{$x$ is a $\leq$-upper bound of $A$}\}$ 
+				\item $\lbd(A, \leq) \defeq \{x \in X: \text{$x$ is a $\leq$-lower bound of $A$}\}$ 
+			\end{itemize} 
+			\item Then $A$ is said to be 
+			\begin{itemize}
+				\item \tbf{$\leq$-bounded above} if $\ubd(A, \leq) \neq \varnothing$
+				\item \tbf{$\leq$-bounded below} if $\lbd(A, \leq) \neq \varnothing$
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we write 
+		\begin{itemize}
+			\item ``upper bound" and ``lower bound" instead of ``$\leq$-upper bound" and ``$\leq$-lower bound" respectively
+			\item $\ubd A$ and $\lbd A$ in place of $\ubd (A, \leq)$ and $\lbd (A, \leq)$  respectively
+			\item ``bounded above" and ``bounded below" instead of ``$\leq$-bounded above" and ``$\leq$-bounded below" respectively
+		\end{itemize}
+	\end{note}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0023}
+		Let $(X, \leq)$ be a proset and $A \subset X$. Then 
+		\begin{enumerate}
+			\item $\ubd A = \bigcap\limits_{x \in A} \upar x$
+			\item $\lbd A = \bigcap\limits_{x \in A} \doar x$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item Let $a \in \ubd A$ and $x \in A$. Then $x \leq a$. Hence $a \in \upar x$. Since $x \in A$ is arbitrary, we have that for each $x \in A$, $a \in \upar x$. Thus $a \in \bigcap\limits_{x \in A} \upar x$. Since $a \in \ubd A$ is arbitrary, we have that for each $a \in \ubd A$, $a \in \bigcap\limits_{x \in A} \upar x$. Hence $\ubd A \subset \bigcap\limits_{x \in A} \upar x$.  
+				\item Let $a \in \bigcap\limits_{x \in A} \upar x$ and $x_0 \in A$. Then $a \in \upar x_0$. Hence $x_0 \leq a$. Since $x_0 \in A$ is arbitrary, we have that for each $x_0 \in A$, $x_0 \leq a$. Hence $a \in \ubd A$. Since $a \in \bigcap\limits_{x \in A} \upar x$ is arbitrary, we have that for each $a \in \bigcap\limits_{x \in A} \upar x$, $a \in \ubd A$. Thus $\bigcap\limits_{x \in A} \upar x \subset \ubd A$.
+			\end{itemize}
+			Since $\ubd A \subset \bigcap\limits_{x \in A} \upar x$ and $\bigcap\limits_{x \in A} \upar x \subset \ubd A$, we have that $\ubd A = \bigcap\limits_{x \in A} \upar x$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{def:orderings:prosets:0024}
+		Let $(X, \leq)$ be a proset and $A \subset X$.
+		\begin{itemize}
+			\item Let $x \in X$. Then $x$ is said to be a 
+			\begin{itemize}
+				\item \tbf{supremum of $A$} or \tbf{least upper bound of $A$}, if 
+				\begin{enumerate}
+					\item $x \in \ubd A$
+					\item for each $y \in \ubd A$, $x \leq y$ 
+				\end{enumerate}
+				\item \tbf{infimum of $A$} or \tbf{greatest lower bound of $A$}, denoted $x \in \inf A$, if 
+				\begin{enumerate}
+					\item $x \in \lbd A$
+					\item for each $y \in \lbd A$, $y \leq x$. 
+				\end{enumerate}
+			\end{itemize}
+			\item 
+			\begin{itemize}
+				\item We define $\sup A \subset X$ by $\sup A \defeq \{x \in X: \text{$x$ is a supremum of $A$}\}$
+				\item We define $\inf A \subset X$ by $\inf A \defeq \{x \in X: \text{$x$ is a infimum of $A$}\}$
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0025}
+		Let $(X, \leq)$ be a poset and $A \subset X$. Then
+		\begin{enumerate}
+			\item for each $x, y \in \sup A$, $x \sim_{\leq} y$.
+			\item for each $x,y \in \inf A$, $x \sim_{\leq} y$.
+		\end{enumerate}   
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x, y \in \sup A$. Then $x,y \in \ubd A$. Since $x \in \sup A$ and $y \in \ubd A$, $x \leq y$. Since $y \in \sup A$ and $x \in \ubd A$, $y \leq x$. Hence $x \sim_{\leq} y$. 
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Order Preserving Maps}
+	
+	\begin{defn} \ld{def:orderings:prosets:0026}
+		Let $(X, \leq_X)$ $(Y, \leq_Y)$ be prosets and $f:X \rightarrow Y$. Then $f$ is said to be \tbf{$(\leq_X, \leq_Y)$-order preserving} or \tbf{$(\leq_X, \leq_Y)$-monotone} if for each $a,b \in X$, $a \leq_X b$ implies that $f(a) \leq_Y f(b)$. 
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear we say that $f$ is ``monotone" instead of ``$(\leq_X, \leq_Y)$-monotone".
+	\end{note}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0027}
+		Let $(X, \leq_X)$ $(Y, \leq_Y)$ be prosets and $f:X \rightarrow Y$. Then $f$ is $(\leq_X, \leq_Y)$-monotone iff $f$ is $(\lop_X, \lop_Y)$-monotone.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $f$ is $(\leq_X, \leq_Y)$-monotone. Let $a,b \in X$. Suppose that $a \lop_X b$. Then $b \leq_X a$. Hence $f(b) \leq_Y f(a)$. Thus $f(a) \lop_Y f(b)$. Since $a,b \in X$ with $a \lop_X b$ are arbitrary, we have that for each $a,b \in X$, $a \lop_X b$ implies that $f(a) \lop_Y f(b)$. Therefore $f$ is $(\lop_X, \lop_Y)$-monotone.
+			\item $(\impliedby)$: \\
+			Suppose that $f$ is $(\lop_X, \lop_Y)$-monotone. Since ${(\lop_X)}^{\text{op}} = {\leq_X}$, the previous part implies that $f$ is $(\leq_X, \leq_Y)$-monotone.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0028}
+		Let $(X, \leq_X)$ $(Y, \leq_Y)$ be prosets and $f:X \rightarrow Y$. Then for each $U \subset Y$, $U$ is a $\leq_Y$-upper set implies that $f^{-1}(U)$ is a $\leq_X$-upper set iff for each $L \subset Y$, $L$ is a $\leq_Y$-lower set implies that $f^{-1}(L)$ is a $\leq_X$-lower set.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that for each $U \subset Y$, $U$ is a $\leq_Y$-upper set implies that $f^{-1}(U)$ is a $\leq_X$-upper set. Let $L \subset Y$. Suppose that $L$ is a $\leq_Y$-lower set. \rex{ex:orderings:prosets:0011} then implies that $L^c$ is a $\leq_Y$-upper set. By assumption, $f^{-1}(L^c)$ is a $\leq_X$-upper set. Another application of \rex{ex:orderings:prosets:0011} implies that $f^{-1}(L^c)^c$ is a $\leq_X$-lower set. Since
+			\begin{align*}
+				f^{-1}(L)
+				& = [f^{-1}(L)^c]^c \\
+				& = f^{-1}(L^c)^c,
+			\end{align*}
+			we have that $f^{-1}(L)$ is a $\leq_X$-lower set. Since $L \subset Y$ such that $L$ is a $\leq_Y$-lower set is arbitrary, we have that for each $L \subset Y$, $L$ is a $\leq_Y$-lower set implies that $f^{-1}(L)$ is a $\leq_X$-lower set. 
+			\item $(\impliedby)$: \\
+			Similar to $(\implies)$.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0029}
+		Let $(X, \leq_X)$ $(Y, \leq_Y)$ be prosets and $f:X \rightarrow Y$. If $f$ is $(\leq_X, \leq_Y)$-monotone, then for each $U \subset Y$, $U$ is a $\leq_Y$-upper set implies that $f^{-1}(U)$ is a $\leq_X$-upper set.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ is $(\leq_X, \leq_Y)$-monotone. Let $U \subset Y$. Suppose that $U$ is a $\leq_Y$-upper set. Let $a \in f^{-1}(U)$ and $x \in X$. Suppose that $a \leq x$. Since $a \in f^{-1}(U)$, $f(a) \in U$. Since $f$ is monotone, $f(a) \leq f(x)$. Since $U$ is a $\leq_Y$-upper set and $f(a) \in U$, we have that $f(x) \in U$. Hence $x \in f^{-1}(U)$. Since $a \in f^{-1}(U)$ and $x \in X$ with $a \leq x$ are arbitrary, we have that for each $a \in f^{-1}(U)$ and $x \in X$, $a \leq x$ implies that $x \in f^{-1}(U)$. Thus $f^{-1}(U)$ is a $\leq_X$-upper set. Since $U \subset Y$ such that $U$ is a $\leq_Y$-upper set is arbitrary, we have that for each $U \subset Y$, $U$ is a $\leq_Y$-upper set implies that $f^{-1}(U)$ is a $\leq_X$-upper set.
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0030}
+		Let $(X, \leq_X)$ $(Y, \leq_Y)$ be prosets, $f:X \rightarrow Y$ and $A \subset X$. If $f$ is $(\leq_X, \leq_Y)$-monotone, then $f(\ubd (A, \leq_X)) \subset \ubd(f(A), \leq_Y)$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ is $(\leq_X, \leq_Y)$-monotone. Let $x \in \ubd (A, \leq_X)$ and $y_0 \in f(A)$. Then there exists $x_0 \in A$ such that $f(x_0) = y$. Since $x \in \ubd (A, \leq_X)$, $x_0 \leq x$. Since $f$ is $(\leq_X, \leq_Y)$-monotone,  
+		\begin{align*}
+			y_0
+			& = f(x_0) \\
+			& \leq f(x).
+		\end{align*}
+		Since $y_0 \in f(A)$ is arbitrary, we have that for each $y_0 \in f(A)$, $y_0 \leq f(x)$. Therefore $f(x) \in \ubd(F(A), \leq_Y)$. Since $x \in \ubd (A, \leq_X)$ is arbitrary, ew have that for each $x \in \ubd (A, \leq_X)$, $f(x) \in \ubd(F(A), \leq_Y)$. Hence $f(\ubd (A, \leq_X)) \subset \ubd(f(A), \leq_Y)$.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Posets}
+	
+	\subsection{Introduction}
+	
+	\begin{defn} \ld{def:orderings:posets:0001} \tbf{Poset:} \\
+		Let $X$ be a set and ${\leq}  \subset X \times X$ a binary relation on $X$. Then 
+		\begin{itemize}
+			\item $\leq$ is said to be a \tbf{partial order on $X$} if 
+			\begin{enumerate}
+				\item $\leq$ is a preorder on $X$
+				\item for each $a,b \in X$, $a \leq b$ and $b \leq a$ implies that $a = b$,
+			\end{enumerate}
+			\item $(X, \leq)$ is $(X, \leq)$ is said to be a \tbf{partially ordered set} or \tbf{poset} if
+			$\leq$ is a partial ordering on $X$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:orderings:posets:0002}
+		Let $(X, \leq)$ be a poset and $a,b \in X$2 Then $a \sim_{\leq} b$ iff $a = b$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $a \sim_{\leq} b$. Then $a \leq b$ and $b \leq a$. Since $\leq$ is a partial order, $a = b$. 
+			\item $(\impliedby)$: \\
+			Since $\sim_{\leq}$ is reflexive, $a = b$ implies that $a \sim_{\leq} b$. 
+		\end{itemize}
+	\end{proof}
+	
+	\begin{defn} \ld{def:orderings:posets:0003}
+		Let $(X, \leq_X)$ be a proset. Set $Y \defeq X /\sim_{\leq_X}$. We define $\leq_Y \subset Y \times Y$ by $y_1 \leq_Y y_2$ iff there exists $x_1 \in y_1$ and $x_2 \in y_2$ such that $x_1 \leq_X x_2$.
+	\end{defn}
+	
+	\begin{ex} \lex{ex:orderings:posets:0004}
+		Let $(X, \leq_X)$ be a proset. Set $Y \defeq X /\sim_{\leq_X}$. Then $(Y, \leq_Y)$ is a poset. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item Let $y \in Y$. Then there exists $x \in y$. Since $x \leq_X x$, we have that $y \leq_Y y$.
+				\item Let $y_1, y_2, y_3 \in Y$. Suppose that $y_1 \leq_Y y_2$ and $y_2 \leq_Y y_3$. Then there exist $x_1 \in y_1$, $x_2 \in y_2$ and $x_3 \in y_3$ such that $x_1 \leq_X x_2$ and $x_2 \leq_X x_3$. Therefore $x_1 \leq x_3$. Hence $y_1 \leq_Y y_3$.
+			\end{enumerate}
+			Thus $\leq_Y$ is a preorder on $Y$.
+			\item Let $y_1, y_2 \in Y$. Suppose that $y_1 \leq_Y y_2$ and $y_2 \leq_Y y_1$. Then there exist $a_1, b_1 \in y_1$, $a_2, b_2 \in y_2$ such that $a_1 \leq_X a_2$ and $b_2 \leq_X b_1$. Since $a_1, b_1 \in y_1$ and $a_2, b_2 \in y_2$, $a_1 \sim_{\leq_X} b_1$ and $a_2 \sim_{\leq_X} b_2$. Thus 
+			\begin{align*}
+				a_1
+				& \leq_X a_2 \\
+				& \leq_X b_2.
+			\end{align*}
+			and 
+			\begin{align*}
+				b_2
+				& \leq_X b_1 \\
+				& \leq_X a_1.
+			\end{align*}
+			Hence $a_1 \sim_{\leq_X} b_2$ and 
+			\begin{align*}
+				y_1
+				& = \pi(a_1) \\
+				& = \pi(b_2) \\
+				& = y_2.
+			\end{align*} 
+		\end{enumerate}
+		Therefore $\leq_Y$ is a partial order on $Y$. 
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:posets:0005}
+		Let $(X, \leq)$ be a poset and $A \subset X$. Then
+		\begin{enumerate}
+			\item for each $x, y \in \sup A$, $x = y$.
+			\item for each $x,y \in \inf A$, $x = y$.
+		\end{enumerate}   
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x, y \in \sup A$. \rex{ex:orderings:prosets:0025} implies that $x \sim_{\leq} y$. \rex{ex:orderings:posets:0002} then implies that $x = y$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{def:orderings:posets:0006}
+		Let $(X, \leq)$ be a poset and $A \subset X$. 
+		\begin{itemize}
+			\item We say that \tbf{$\sup A$ (resp. $\inf A$) exists} if $\sup A \neq \varnothing$ (resp. $\inf A \neq \varnothing$).
+			\item Let $x \in X$. We write $x = \sup A$ (resp. $x = \inf A$) if $x \in \sup A$ (resp. $x \in \inf A$)
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:orderings:posets:0007} \tbf{Associativity of Supremum:} \\
+		Let $(X, \leq)$ be a poset and $(E_{\al})_{\al \in A} \subset \MP(X)$. 
+		\begin{enumerate}
+			\item Suppose that 
+			\begin{itemize}
+				\item for each $\al \in A$, $\sup E_{\al}$ exists
+				\item $\sup\limits_{\al \in A} \bigg[ \sup E_{\al} \bigg]$ exists.
+			\end{itemize}
+			Then 
+			$$\sup \bigcup\limits_{\al \in A} E_{\al} = \sup\limits_{\al \in A} \bigg[ \sup E_{\al} \bigg]$$
+			\item Suppose that 
+			\begin{itemize}
+				\item for each $\al \in A$, $\inf E_{\al}$ exists
+				\item $\inf\limits_{\al \in A} \bigg[ \inf E_{\al} \bigg]$ exists.
+			\end{itemize}
+			Then 
+			$$\inf \bigcup\limits_{\al \in A} E_{\al} = \inf\limits_{\al \in A} \bigg[ \inf E_{\al} \bigg]$$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Define $s_1, s_2 \in X$ by $s_1 \defeq \bigcup\limits_{\al \in A} E_{\al}$ and $s_2 \defeq \sup\limits_{\al \in A} \bigg[ \sup E_{\al} \bigg]$. We note by definition, $s_2$ is an upper bound for $\{\sup E_{\al}: \al \in A\}$. Then for each $\al \in A$, $s_2 \geq \sup E_{\al}$. 
+			\begin{itemize}
+				\item Let $x \in \bigcup\limits_{\al \in A} E_{\al}$. Then there exists $\al_0 \in A$ such that $x \in E_{\al_0}$. Since $\sup E_{\al_0}$ is an upper bound of $E_{\al_0}$, we have that 
+				\begin{align*}
+					s_2
+					& \geq \sup E_{\al_0} \\
+					& \geq x.
+				\end{align*}
+				Since $x \in \bigcup\limits_{\al \in A} E_{\al}$ is arbitrary, we have that $s_2$ is an upper bound for $\bigcup\limits_{\al \in A} E_{\al}$. Therefore
+				\begin{align*}
+					s_1
+					& = \sup \bigcup\limits_{\al \in A} E_{\al} \\
+					& \leq s_2.
+				\end{align*}   
+				\item Let $\al_0 \in A$ and $x \in E_{\al_0}$. Then 
+				\begin{align*}
+					x
+					& \in E_{\al_0} \\
+					& \subset \bigcup\limits_{\al \in A} E_{\al}.
+				\end{align*}
+				Since $s_1$ is an upper bound of $\bigcup\limits_{\al \in A} E_{\al}$, we have that $s_1 \geq x$. Since $x \in E_{\al_0}$ is arbitrary, we have that for each $x \in E_{\al_0}$, $s_1 \geq x$. Hence $s_1$ is an upper bound of $E_{\al_0}$. Therefore $\sup E_{\al_0} \leq s_1$. Since $\al_0 \in A$ is arbitrary, we have that for each $\al \in A$, $s_1 \geq \sup E_{\al}$. Therfore $s_1$ is an upper bound of $\{\sup E_{\al}: \al \in A\}$. Hence 
+				\begin{align*}
+					s_2
+					& = \sup\limits_{\al \in A} \bigg[ \sup E_{\al} \bigg] \\
+					& \leq s_1. 
+				\end{align*}
+			\end{itemize}
+			Since $s_1 \leq s_2$ and $s_2 \leq s_1$, we have that $s_1 = s_2$. 
+			\item Similar to $(1)$. \tcr{Maybe fill out}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:posets:0008}
+		Let $(X, \leq)$ be a poset and $a,b \in X$. Then $a \leq b$ iff $b = \sup \{a,b\}$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $a \leq b$. Since $b \leq b$, we have that for each $c \in \{a,b\}$, $c \leq b$. Hence $b \in \lbd \{a,b\}$. Let $c \in \ubd \{a,b\}$. Then $b \leq c$. Since $c \in \ubd \{a,b\}$ is arbitrary, we have that for each $c \in \ubd \{a, b\}$, $b \leq c$. Hence $b = \sup \{a,b\}$.
+			\item $(\impliedby)$: \\
+			Suppose that $b = \sup \{a,b\}$. Then $b \in \ubd \{a,b\}$. Therefore $a \leq b$. 
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:posets:0009}
+		Let $(X, \leq)$ be a poset. Then 
+		\begin{enumerate}
+			\item for each $a,b \in \ubd X$, $a = b$, 
+			\item for each $a,b \in \lbd X$, $a = b$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $a,b \in \ubd X$. Since $a \in X$ and $b \in \ubd X$, $a \leq b$. Similarly, $b \leq a$. Hence $a = b$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Directed Sets}
+	
+	\begin{defn} \ld{def:orderings:directed_sets:0001} \ld{def:orderings:directed_sets:0001} \tbf{Directed Set:} \\
+		Let $A$ be a set and $\leq \, \subset A \times A$ a binary relation on $A$. Then 
+		\begin{itemize}
+			\item $\leq$ is said to be a \tbf{direction on $A$} if
+			\begin{enumerate}
+				\item $\leq$ is a preorder on $A$
+				\item for each $\al, \be \in A$, $\{\al, \be\}$ is bounded above. 
+			\end{enumerate}
+			\item $(A, \leq)$ is said to be a \tbf{directed set} if
+			\begin{enumerate}
+				\item $A \neq \varnothing$
+				\item $\leq$ is a direction on $A$
+			\end{enumerate}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:orderings:directed_sets:0003}
+		Let $(A, \leq_A)$ and $(B, \leq_B)$ be directed sets. Then 
+		\begin{enumerate}
+			\item $\leq_A \otimes \leq_B$ is a direction on $A \times B$,
+			\item $(A, \leq_A) \otimes (B, \leq_B)$ is a directed set.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item \rex{ex:orderings:prosets:0002} implies that $\leq_A \otimes \leq_B$ is a preorder of $A \times B$.
+				\item Let $(a_1, b_1), (a_2, b_2) \in A \times B$. Then there exist $a \in A$ and $b \in B$ such that $a_1, a_2 \leq_A a$ and $b_1, b_2 \leq_B b$. Hence $(a_1, b_1), (a_2, b_2) \leq_A \otimes \leq_B (a, b)$.
+			\end{enumerate}
+			Hence $\leq_A \otimes \leq_B$ is a direction on $A \times B$.
+			\item 
+			\begin{enumerate}
+				\item Since $A \neq \varnothing$ and $B \neq \varnothing$, we have that $A \times B \neq \varnothing$.
+				\item From above, $\leq_A \otimes \leq_B$ is a direction on $A \times B$. 
+			\end{enumerate}
+			Hence $(A \times B, \leq_A \otimes \leq_B)$ is a directed set.
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	
+	\part{Algebraic Structures}
+	
+	\chapter{Lattices}
+	
+	\section{Introduction}
+	
+	\subsection{Skew Semilattices}
+
+	\tcr{cite Leech, skew lattices in rings}
+	
+	\begin{defn} \ld{def:lattices:skew_lattices:0001}
+		Let $X$ be a set and $\dmd:X \times X \rightarrow X$ a binary operator on $X$. Then 
+		\begin{itemize}
+			\item $\dmd$ is said to be a \tbf{skew semilattice operator on $X$} if $\dmd$ is associative and idempotent.
+			\item $(X, \dmd)$ is said to be a \tbf{skew semilattice} if $\dmd$ is a skew semilattice operator on $X$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{defn} \ld{def:lattices:skew_lattices:0002}
+		Let $(X, \dmd)$ be an skew semilattice. We define the 
+		\begin{itemize}
+			\item \tbf{join preorder on $X$ induced by $\dmd$}, denoted ${\leq^{\vee}_{\dmd}} \subset X \times X$, by $a \leq^{\vee}_{\dmd} b$ iff $(b \dmd a) \dmd b = b$
+			\item \tbf{meet preorder on $X$ induced by $\dmd$}, denoted ${\leq^{\wedge}_{\dmd}} \subset X \times X$, by $a \leq^{\wedge}_{\dmd} b$ iff $(a \dmd b) \dmd a = a$. 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:lattices:skew_lattices:0003}
+		Let $(X, \dmd)$ be an skew semilattice. Then 
+		\begin{enumerate}
+			\item $\leq^{\vee}_{\dmd}$ is a preorder on $X$. \\
+			\tbf{Hint:} If $cbc = c$ and $bab = b$, then 
+			\begin{enumerate}
+				\item $c = (cb)(abc)(abc)$ and $c = cabc$
+				\item $cac = (ca)(ca)(bc)$
+			\end{enumerate}
+			\item $\leq^{\wedge}_{\dmd}$ is a preorder on $X$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $a,b,c \in X$.
+			\begin{enumerate}
+				\item Since $\dmd$ is idempotent, we have that 
+				\begin{align*}
+					(a \dmd a) \dmd a
+					& = a \dmd a \\
+					& = a
+				\end{align*}
+				and therefore $a \leq^{\vee}_{\dmd} a$. 
+				\item Suppose that $a \leq^{\vee}_{\dmd} b$ and $b \leq^{\vee}_{\dmd} c$. Then $(b \dmd a) \dmd b = b$ and $(c \dmd b) \dmd c = c$. Since $\dmd$ is associative and idempotent,
+				\begin{align*}
+					c 
+					& = cbc \\
+					& = cbabc \\
+					& = (cb)(abc) \\
+					& = (cb)(abc)(abc) \\
+					& = c(bab)cabc \\
+					& = cbcabc \\
+					& = (cbc)abc \\
+					& = cabc.
+				\end{align*}
+				Therefore 
+				\begin{align*}
+					cac
+					& = (ca)(c) \\
+					& = (ca)(cabc) \\
+					& = (ca)(ca)(bc) \\
+					& = (ca)(bc) \\
+					& = cabc \\
+					& = c. 
+				\end{align*}
+				Hence $a \leq^{\vee}_{\dmd} c$.
+			\end{enumerate}
+			So $\leq^{\vee}_{\dmd}$ is a preorder on $X$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:skew_lattices:0004}
+		Let $(X, \dmd)$ be an skew semilattice. Then 
+		\begin{enumerate}
+			\item $(\leq^{\vee}_{\dmd})^{\text{op}} = \leq^{\wedge}_{\dmd}$
+			\item $(\leq^{\wedge}_{\dmd})^{\text{op}} = \leq^{\vee}_{\dmd}$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $a,b \in X$. Then 
+			\begin{align*}
+				a (\leq^{\vee}_{\dmd})^{\text{op}} b 
+				& \iff b \leq^{\vee}_{\dmd} a \\
+				& \iff a \dmd b \dmd a = a \\
+				& \iff a \leq^{\wedge}_{\dmd} b.
+			\end{align*}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:skew_lattices:0005}
+		Let $(X, \dmd)$ be an skew semilattice. Then for each $a,b \in X$, 
+		\begin{enumerate}
+			\item $a \dmd b \in \ubd( \{a,b\}, \leq_{\dmd}^{\vee})$
+			\item $a \dmd b \in \lbd( \{a,b\}, \leq_{\dmd}^{\wedge})$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} 
+		Let $a,b \in X$.
+		\begin{enumerate}
+			\item 
+			We note that 
+			\begin{align*}
+				(a \dmd b) \dmd [a \dmd (a \dmd b) ]
+				& = (a \dmd b) \dmd [(a \dmd a) \dmd b] \\
+				& = (a \dmd b) \dmd (a \dmd b) \\
+				& = a \dmd b. 
+			\end{align*}
+			Similarly, $[(a \dmd b) \dmd b] \dmd (a \dmd b) = a \dmd b$. Therefore $a \leq_{\dmd}^{\vee} a \dmd b$ and $b \leq_{\dmd}^{\vee} a \dmd b$. Hence $a \dmd b \in \ubd( \{a,b\}, \leq_{\dmd}^{\vee})$.
+			\item \tcr{FINISH!!!}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{def:lattices:skew_lattices:0006}
+		Let $X$ be a set and $\vee, \wedge$ skew semilattice operators on $X$. Then $\vee$ and $\wedge$ are said to  \tbf{satisfy the skew lattice absorption identities} if for each $a,b \in X$,
+		\begin{enumerate}
+			\item $a \wedge (a \vee b) = a$
+			\item $a \vee (a \wedge b) = a$
+			\item $(b \vee a) \wedge a = a$
+			\item $(b \wedge a) \vee a = a$
+		\end{enumerate} 
+	\end{defn}
+	
+	\begin{ex} \lex{ex:lattices:skew_lattices:0007}
+		Let $X$ be a set and $\vee, \wedge$ skew semilattice operators on $X$. Then $\vee$ and $\wedge$ satisfy the skew lattice absorption identities iff for each $a,b \in X$,
+		\begin{enumerate}
+			\item $a \vee b = b$ iff $a \wedge b = a$
+			\item $a \vee b = a$ iff $a \wedge b = b$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $\vee$ and $\wedge$ satisfy the skew lattice absorption identities. Let $a, b \in X$. 
+			\begin{enumerate}
+				\item 
+				\begin{itemize}
+					\item $(\implies)$: \\
+					If $a \vee b = b$, then 
+					\begin{align*}
+						a \wedge b
+						& = a \wedge (a \vee b) \\
+						& = a.
+					\end{align*}
+					\item $(\impliedby)$: \\
+					If $a \wedge b = a$, then 
+					\begin{align*}
+						a \vee b
+						& = (a \wedge b) \vee b \\
+						& = b.
+					\end{align*}
+				\end{itemize}
+				Thus $a \vee b = b$ iff $a \wedge b = a$.
+				\item Similar to $(1)$
+			\end{enumerate}
+			\item $(\impliedby)$: \\
+			Suppose that for each $a,b \in X$,
+			\begin{enumerate}
+				\item $a \vee b = b$ iff $a \wedge b = a$,
+				\item $a \vee b = a$ iff $a \wedge b = b$.
+			\end{enumerate}
+			Let $a, b \in X$.
+			\begin{enumerate}
+				\item Set $c \defeq a \vee b$. By assumption, 
+				\begin{align*}
+					a \wedge (a \vee b) = a
+					& \iff a \wedge c = a \\
+					& \iff a \vee c = c \\
+					& \iff a \vee (a \vee b) = c \\
+					& \iff (a \vee a) \vee b = c \\
+					& \iff a \vee b = c \\
+					& \iff c = c.
+				\end{align*}
+				Since $c =c$, we have that $a \wedge (a \vee b) = a$.
+				\item Similar to $(1)$
+				\item Similar to $(1)$
+				\item Similar to $(1)$
+			\end{enumerate}
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:skew_lattices:0008}
+		Let $X$ be a set and $\vee, \wedge$ skew semilattice operators on $X$. If $\vee$ and $\wedge$ satisfy the skew lattice absorption identities, then for each $a,b \in X$, $b \vee a \vee b = b$ iff $a \wedge b \wedge a = a$. \\
+		\tbf{Hint:} \rex{ex:lattices:skew_lattices:0007} implies that $b \vee (a \vee b) = b$ iff $b \wedge (a \vee b) = a \vee b$. Use, skew lattice absorption identities and associativity.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\vee$ and $\wedge$ satisfy the skew lattice absorption identities. Let $a, b \in X$.  
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $b \vee a \vee b = b$. Then \rex{ex:lattices:skew_lattices:0007} implies that $b \wedge (a \vee b) = (a \vee b)$.
+			Therefore
+			\begin{align*}
+				a \wedge b
+				& = (a \wedge b) \vee [(a \wedge b) \wedge (a \vee b)] \quad \text{(absorption)} \\
+				& = (a \wedge b) \vee [a \wedge (b \wedge [a \vee b])] \quad \text{(associativity)} \\
+				& = (a \wedge b) \vee [a \wedge (a \vee b)] \quad \text{(from earlier)} \\
+				& = (a \wedge b) \vee a \quad \text{(absorption)}.
+			\end{align*}
+			Another application of \rex{ex:lattices:skew_lattices:0007} implies that $(a \wedge b) \wedge a = a$.
+			\item $(\impliedby)$: \\
+			Similar to $(\implies)$.
+		\end{itemize}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Skew lattices}
+	
+	\begin{defn} \ld{def:lattices:skew_lattices:0009}
+		Let $X$ be a set and $\vee, \wedge$ skew semilattice operators on $X$. Then $(X, \vee, \wedge)$ is said to be a \tbf{skew lattice} if $\vee$ and $\wedge$ satisfy the skew lattice absorption identities.
+	\end{defn}
+	
+	\begin{ex} \lex{ex:lattices:skew_lattices:0010}
+		Let $(X, \vee, \wedge)$ be an skew lattice. Then 
+		\begin{enumerate}
+			\item $\leq_{\vee}^{\vee} = \leq_{\wedge}^{\wedge}$.
+			\item $\leq_{\vee}^{\wedge} = \leq_{\wedge}^{\vee} = (\leq_{\vee}^{\vee})^{\text{op}}$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $a,b \in X$. Since $(X, \vee, \wedge)$ is an skew lattice, $\vee$ and $\wedge$ satisfy the skew lattice absorption identities. \rex{ex:lattices:skew_lattices:0008} then implies that 
+			\begin{align*}
+				a \leq_{\vee}^{\vee} b 
+				& \iff b \vee a \vee b = b \\
+				& \iff a \wedge b \wedge a = a \\
+				& \iff a \leq_{\wedge}^{\wedge} b.
+			\end{align*}
+			Since $a, b \in X$ are arbitrary, we have that for each $a,b \in X$, $a \leq_{\vee}^{\vee} b$ iff $a \leq_{\wedge}^{\wedge} b$. Hence $\leq_{\vee}^{\vee} = \leq_{\wedge}^{\wedge}$. 
+			\item \rex{ex:lattices:skew_lattices:0004} and part $(1)$ imply that 
+			\begin{align*}
+				\leq_{\vee}^{\wedge} 
+				& = (\leq_{\vee}^{\vee})^{\text{op}} \\
+				& = (\leq_{\wedge}^{\wedge})^{\text{op}} \\
+				& = \leq_{\wedge}^{\vee}.
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{note}
+		Let $(X, \vee, \wedge)$ be an skew lattice. When the context is clear, we write $\leq$ in place of $\leq_{\vee}^{\vee}$. 
+	\end{note}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	
+	\subsection{Semilattices}
+	
+	\begin{defn} \ld{def:lattices:lattices:0001}
+		Let $X$ be a set and $\dmd:X \times X \rightarrow X$. 
+		Then 
+		\begin{itemize}
+			\item $\dmd$ is said to be a \tbf{semilattice operator on $X$} if $\dmd$ associative, idempotent and commutative.
+			\item $(X, \dmd)$ is said to be an \tbf{semilattice} if $\dmd$ is a semilattice operator on $X$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0002}
+		Let $X$ be a set and $\dmd:X \times X \rightarrow X$. 
+		Then $\dmd$ is a semilattice operator on $X$ iff 
+		\begin{enumerate}
+			\item $\dmd$ is a skew semilattice operator on $X$, \item $\dmd$ is commutative.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Clear by definition. 
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0003}
+		Let $(X, \dmd)$ be a semilattice. Then 
+		\begin{enumerate}
+			\item for each $a, b \in X$,
+			\begin{enumerate}
+				\item $a \leq^{\vee}_{\dmd} b$ iff $a \dmd b = b$
+				\item $a \leq^{\wedge}_{\dmd} b$ iff $a \dmd b = a$
+			\end{enumerate}
+			\item 
+			\begin{enumerate}
+				\item $\leq^{\vee}_{\dmd}$ is a partial order on $X$
+				\item $\leq^{\wedge}_{\dmd}$ is a partial order on $X$
+			\end{enumerate}
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $a, b \in X$.
+			\begin{enumerate}
+				\item Since $\dmd$ is commutative, associative and idempotent,
+				\begin{align*}
+					a \leq^{\vee}_{\dmd} b
+					& \iff (b \dmd a) \dmd b = b \\
+					& \iff (a \dmd b) \dmd b = b \\
+					& \iff a \dmd (b \dmd b) = b \\
+					& \iff a \dmd b = b.
+				\end{align*}
+				\item Similar to $1(a)$.
+			\end{enumerate}
+			\item 
+			\begin{enumerate}
+				\item \rex{ex:lattices:skew_lattices:0003} implies that $\leq^{\vee}_{\dmd}$ is a preorder on $X$. Let $a,b \in X$. Suppose that $a \leq^{\vee}_{\dmd} b$ and $b \leq^{\vee}_{\dmd} a$. Part $(1)$ then implies that $a \dmd b = b$ and $b \dmd a = a$. Since $\dmd$ is commutative,
+				\begin{align*}
+					a
+					& = b \dmd a \\
+					& = a \dmd b \\
+					& = b.
+				\end{align*}
+				Since $a, b \in X$ are arbitrary, we have that for each $a,b \in X$, if $a \leq^{\vee}_{\dmd} b$ and $b \leq^{\vee}_{\dmd} a$, then $a = b$. Thus $\leq^{\vee}_{\dmd}$ is a a partial order on $X$.
+				\item Similar to $2(a)$.
+			\end{enumerate}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0004}
+		Let $(X, \dmd)$ be a semilattice. Then for each $a,b \in X$, 
+		\begin{enumerate}
+			\item $a \dmd b = \sup (\{a, b\}, \leq_{\dmd}^{\vee})$
+			\item $a \dmd b = \inf (\{a, b\}, \leq_{\dmd}^{\wedge})$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} 
+		Let $a,b \in X$.
+		\begin{enumerate}
+			\item 
+			\rex{ex:lattices:skew_lattices:0005} implies that $a \dmd b \in \ubd( \{a,b\}, \leq_{\dmd}^{\vee})$. Let $c \in \ubd( \{a,b\}, \leq_{\dmd}^{\vee})$. Since $a \leq_{\dmd}^{\vee} c$ and $b \leq_{\dmd}^{\vee} c$, \rex{ex:lattices:lattices:0003} implies that $a \dmd c = c$ and $b \dmd c = c$. Therefore 
+			\begin{align*}
+				(a \dmd b) \dmd c 
+				& = a \dmd (b \dmd c) \\
+				& = a \dmd c \\
+				& = c.
+			\end{align*}
+			Another application of \rex{ex:lattices:lattices:0003} implies that $a \dmd b \leq_{\dmd}^{\vee} c$. Since $c \in \ubd( \{a,b\}, \leq_{\dmd}^{\vee})$ is arbitrary, we have that for each $c \in \ubd( \{a,b\}, \leq_{\dmd}^{\vee})$, $a \dmd b \leq_{\dmd}^{\vee} c$. Therefore $a \dmd b = \sup( \{a,b\}, \leq_{\dmd}^{\vee})$.
+			\item \tcr{FINISH!!!}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{def:lattices:lattices:0005}
+		Let $(X, \leq)$ be a poset. Then $(X, \leq)$ is said to be a
+		\begin{itemize}
+			\item \tbf{join-semilattice} if for each $a,b \in X$, $\sup \{a,b\}$ exists. 
+			\item \tbf{meet-semilattice} if for each $a,b \in X$, $\inf \{a,b\}$ exists. 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0006}
+		Let $(X, \dmd)$ be a semilattice. Then 
+		\begin{enumerate}
+			\item $(X, \leq_{\dmd}^{\vee})$ is a join-semilattice 
+			\item $(X, \leq_{\dmd}^{\wedge})$ is a meet-semilattice
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		\rex{ex:lattices:lattices:0004} implies that
+		\begin{enumerate}
+			\item For each $a,b \in X$, $\sup (\{a,b\}, \leq_{\dmd}^{\vee}) = a \dmd b$. Thus $(X, \leq_{\dmd}^{\vee})$ is a join-semilattice.
+			\item for each $a,b \in X$, $\inf (\{a,b\}, \leq_{\dmd}^{\wedge}) = a \dmd b$. Thus $(X, \leq_{\dmd}^{\wedge})$ is a meet-semilattice.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{def:lattices:lattices:0007}
+		Let $(X, \leq)$ be a poset.
+		\begin{itemize}
+			\item If $(X, \leq)$ is a join-semilattice, we define the \tbf{join operator on $X$ induced by $\leq$}, denoted $\vee_{\leq}: X \times X \rightarrow X$, by $a \vee_{\leq} b \defeq \sup \{a,b\}$. 
+			\item If $(X, \leq)$ is a meet-semilattice, we define the \tbf{meet operator on $X$ induced by $\leq$}, denoted $\wedge_{\leq}: X \times X \rightarrow X$, by $a \wedge_{\leq} b \defeq \inf \{a,b\}$. 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0008}
+		Let $(X, \leq)$ be a poset.
+		\begin{enumerate}
+			\item If $(X, \leq)$ an join-semilattice, then $\vee_{\leq}$ is a semilattice operator on $X$.
+			\item If $(X, \leq)$ an meet-semilattice, then $\wedge_{\leq}$ is a semilattice operator on $X$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $(X, \leq)$ an join-semilattice. 
+			\begin{enumerate}
+				\item \begin{itemize}
+					\item Let $a,b,c \in X$. \rex{ex:orderings:posets:0007} implies that
+					\begin{align*}
+						(a\vee_{\leq}b) \vee_{\leq} c
+						& = \sup \{\sup \{a, b\}, c\} \\
+						& = \sup \{\sup \{a, b\}, \sup \{c\} \} \\
+						& = \sup \{a, b, c\} \\
+						& = \sup \{\sup \{a \}, \sup \{b, c\} \} \\
+						& = \sup \{a, \sup \{b, c\} \} \\
+						& = a \vee_{\leq} (b \vee_{\leq} c).
+					\end{align*}
+					Hence $\vee_{\leq}$ is associative.
+					\item Let $a \in X$. Then 
+					\begin{align*}
+						a \vee_{\leq} a
+						& = \sup \{a, a\} \\
+						& = \sup \{a\} \\
+						& = a.
+					\end{align*}
+					Hence $\vee_{\leq}$ is idempotent.
+					\item Let $a,b \in X$. Then 
+					\begin{align*}
+						a \vee_{\leq} b
+						& = \sup \{a, b\} \\
+						& = \sup \{b, a\} \\
+						& = b \vee_{\leq} a.
+					\end{align*}
+					Hence $\vee_{\leq}$ is commutative.
+				\end{itemize}
+				Since $\vee_{\leq}$ is associative, idempotent and commutative, $\vee_{\leq}$ is a semilattice operator on $X$.
+			\end{enumerate}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0009}
+		Let $(X, \leq)$ be a poset. 
+		\begin{enumerate}
+			\item If $(X, \leq)$ is a join-semilattice, then
+			\begin{enumerate}
+				\item $\leq_{\vee_{\leq}}^{\vee} = \leq$,
+				\item $\leq_{\vee_{\leq}}^{\wedge} = \lop$.
+			\end{enumerate} 
+			\item If $(X, \leq)$ is a meet-semilattice, then
+			\begin{enumerate}
+				\item $\leq_{\wedge_{\leq}}^{\wedge} = \leq$,
+				\item $\leq_{\wedge_{\leq}}^{\vee} = \lop$.
+			\end{enumerate}  
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $(X, \leq)$ is a join-semilattice. 
+			\begin{enumerate}
+				\item Let $a,b \in X$. Then
+				\begin{align*}
+					a \leq_{\vee_{\leq}}^{\vee} b 
+					& \iff a \vee_{\leq} b = b \quad \text{(\rex{ex:lattices:lattices:0003})} \\
+					& \iff \sup (\{a, b\}, \leq) = b \quad \text{(\rd{def:lattices:lattices:0007})} \\
+					& \iff a \leq b \quad \text{(\rex{ex:orderings:posets:0008})}.
+				\end{align*}
+				Since $a,b \in X$ are arbitrary, we have that $\leq_{\vee_{\leq}}^{\vee} = \leq$.
+				\item \rex{ex:lattices:skew_lattices:0004} implies that 
+				\begin{align*}
+					\leq_{\vee_{\leq}}^{\wedge}
+					& = (\leq_{\vee_{\leq}}^{\vee})^{\text{op}} \\
+					& = \lop.
+				\end{align*}
+			\end{enumerate}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0010}
+		Let $(X, \dmd)$ be a semilattice. Then 
+		\begin{enumerate}
+			\item $\leq_{\dmd}^{\vee}$ is the unique partial order ${\leq}$ on $X$ such that $(X, \leq)$ is a join-semilattice and for each $a,b \in X$, $a \dmd b = \sup (\{a,b\}, \leq)$.
+			\item $\leq_{\dmd}^{\wedge}$ is the unique partial order ${\leq}$ on $X$ such that $(X, \leq)$ is an meet-semilattice and for each $a,b \in X$, $a \dmd b = \inf (\{a,b\}, \leq)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $\leq$ be partial order on $X$. Suppose that $(X, \leq)$ is a join-semilattice and for each $a,b \in X$, $a \dmd b = \sup (\{a,b\}, \leq)$. Let $a,b \in X$. Then 
+			\begin{align*}
+				a \leq b
+				& \iff b = \sup(\{a,b\}, \leq) \quad \text{(\rex{ex:orderings:posets:0008})} \\
+				& \iff a \dmd b = b  \quad \text{(by assumption)} \\
+				& \iff a \leq_{\dmd}^{\vee} b \quad \text{(\rex{ex:lattices:lattices:0003})}.
+			\end{align*}
+			Since $a,b \in X$ are arbitrary, we have that for each $a,b \in X$, $a \leq b$ iff $a \leq_{\dmd}^{\vee} b$. Hence $\leq = \leq_{\dmd}^{\vee}$. 
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0011}
+		Let $(X, \leq)$ be a poset. 
+		\begin{enumerate}
+			\item If $(X, \leq)$ is a join-semilattice, then $\vee_{\leq}$ is the unique semilattice operator $\dmd$ on $X$ such that for each $a,b \in X$, $a \dmd b = \sup (\{a,b\}, \leq)$.
+			\item If $(X, \leq)$ is a meet-semilattice, then $\wedge_{\leq}$ is the unique semilattice operator $\dmd$ on $X$ such that for each $a,b \in X$, $a \dmd b = \inf (\{a,b\}, \leq)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			Let $\dmd: X \times X \rightarrow X$ be a semilattice operator on $X$. Suppose that $a,b \in X$, $a \dmd b = \sup (\{a,b\}, \leq)$. Then for each $a,b \in X$,
+			\begin{align*}
+				a \dmd b
+				& = \sup (\{a,b\}, \leq) \quad \text{(by assumption)} \\
+				& = a \vee_{\leq} b \quad \text{(\rd{def:lattices:lattices:0007})}.
+			\end{align*}
+			Hence $\dmd = \vee_{\leq}$. 
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Lattices}
+	
+	\begin{defn} \ld{def:lattices:lattices:0012}
+		Let $X$ be a set and $\vee, \wedge$ semilattice operators on $X$. Then $\vee$ and $\wedge$ are said to \tbf{satisfy the lattice absorption identities} if for each $a,b \in X$,
+		\begin{enumerate}
+			\item $a \wedge (a \vee b) = a$
+			\item $a \vee (a \wedge b) = a$
+		\end{enumerate} 
+	\end{defn}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0013}
+		Let $X$ be a set and $\vee, \wedge$ semilattice operators on $X$. Then $\vee$ and $\wedge$ satisfy the lattice absorption identities iff $\vee$ and $\wedge$ satisfy the skew lattice absorption identities.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Clear by commutativity.
+			\item $(\impliedby)$: \\
+			Immediate.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{defn} \ld{def:lattices:lattices:0014}
+		Let $X$ be a set and $\vee, \wedge$ semilattice operators on $X$. Then $(X, \vee, \wedge)$ is said to be an \tbf{lattice} if $\vee$ and $\wedge$ satisfy the skew lattice absorption identities.
+	\end{defn}
+	
+	\begin{defn} \ld{def:lattices:lattices:0015}
+		Let $(X, \leq)$ be a poset. Then $(X, \leq)$ is said to be an \tbf{ordered lattice} if $(X, \leq)$ is a join-semilattice and $(X, \leq)$ is a meet-semilattice.
+	\end{defn}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0016}
+		Let $(X, \vee, \wedge)$ be an lattice. Then $(X, \leq_{\vee}^{\vee})$ is an ordered lattice.
+	\end{ex}
+	
+	\begin{proof}
+		\rex{ex:lattices:lattices:0006} implies that $(X, \leq_{\vee}^{\vee})$ is a join-semilattice and $(X, \leq_{\wedge}^{\wedge})$ is a meet-semilattice. \rex{ex:lattices:skew_lattices:0010} implies that $\leq_{\vee}^{\vee} = \leq_{\wedge}^{\wedge}$. Therefore $(X, \leq_{\vee}^{\vee})$ is a join-semilattice and $(X, \leq_{\vee}^{\vee})$ is a meet-semilattice. Hence $(X, \leq_{\vee}^{\vee})$ is an ordered lattice.
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0017}
+		Let $(X, \leq)$ be an ordered lattice. Then $(X, \vee_{\leq}, \wedge_{\leq})$ is an lattice. 
+	\end{ex}
+	
+	\begin{proof} Let $a,b \in X$. 
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item Since $\sup \{a,b\} \in \ubd \{a,b\}$ is an upper bound of $\{a,b\}$, we have that $a \leq \sup \{a,b\}$. Since $a \leq a$, we have that $a \in \lbd \{a, \sup\{a, b \} \}$. Hence $a \leq \inf \{a, \sup\{a, b \} \}$. 
+				\item Since $\inf \{a, \sup\{a,b\}\} \in \lbd \{a, \sup \{a,b\}\}$, we have that $\inf \{a, \sup\{a,b\}\} \leq a$.
+			\end{itemize}
+			Since $a \leq \inf \{a, \sup\{a, b \} \}$ and $\inf \{a, \sup\{a,b\}\} \leq a$, we have that 
+			\begin{align*}
+				a \wedge_{\leq} (a \vee_{\leq} b)
+				& = \inf \{a, \sup\{a, b \} \} \\
+				& = a.
+			\end{align*}
+			\item Similarly, $a \vee_{\leq} (a \wedge_{\leq} b) = a$.
+		\end{enumerate}
+		Since $a, b \in X$ are arbitrary, we have that for each $a,b \in X$, 
+		\begin{enumerate}
+			\item $a \wedge_{\leq} (a \vee_{\leq} b) = a$
+			\item $a \vee_{\leq} (a \wedge_{\leq} b) = a$
+		\end{enumerate} 
+		Hence $\vee_{\leq}$ and $\wedge_{\leq}$ satisfy the lattice absorption identities. Therefore $(X, \vee_{\leq}, \wedge_{\leq})$ is an lattice.
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0018}
+		Let $(X, \leq)$ be an ordered lattice. Then
+		\begin{enumerate}
+			\item $\leq_{\vee_{\leq}}^{\vee} = \leq_{\wedge_{\leq}}^{\wedge} = \leq$
+			\item $\leq_{\vee_{\leq}}^{\wedge} = \leq_{\wedge_{\leq}}^{\vee} = \lop$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Since $(X, \leq)$ is an ordered lattice, $(X, \leq)$ is a join-semilattice $(X, \leq)$ is a meet-semilattice. \rex{ex:lattices:lattices:0009} then implies that 
+		\begin{enumerate}
+			\item 
+			\begin{align*}
+				\leq_{\vee_{\leq}}^{\vee} 
+				& = \leq \\
+				& = \leq_{\wedge_{\leq}}^{\wedge} 
+			\end{align*}
+			\item 
+			\begin{align*}
+				\leq_{\vee_{\leq}}^{\wedge}
+				& = \lop \\
+				& = \leq_{\wedge_{\leq}}^{\vee}
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0019}
+		Let $(X, \vee, \wedge)$ be an lattice. Then
+		$\leq_{\vee}^{\vee}$ is the unique partial order ${\leq}$ on $X$ such that $(X, \leq)$ is an ordered lattice and for each $a,b \in X$, $a \vee b = \sup (\{a,b\}, \leq)$.
+	\end{ex}
+	
+	\begin{proof}\
+		Let $\leq$ be a partial order on $X$. Suppose that $(X, \leq)$ is an ordered lattice and for each $a,b \in X$, $a \vee b = \sup (\{a,b\}, \leq)$. Since $(X, \vee)$ is a semilattice, $(X, \leq_{\vee}^{\vee})$ and $(X, \leq)$ are join-semilattices and for each $a,b \in X$, $a \vee b = \sup(\{a,b\}, \leq_{\vee}^{\vee})$ and $a \vee b = \sup (\{a,b\}, \leq)$, \rex{ex:lattices:lattices:0010} implies that ${\leq} = {\leq_{\vee}^{\vee}}$.
+	\end{proof}
+	
+	\begin{ex} \lex{ex:lattices:lattices:0020} 
+		Let $(X, \leq)$ be an ordered lattice. Then $\vee_{\leq}, \wedge_{\leq}$ are the unique semilattice operators $\vee, \wedge$ on $X$ such that $(X, \vee, \wedge)$ is an lattice and for each $a,b \in X$, $a \vee b = \sup(\{a,b\}, \leq)$
+	\end{ex}
+	
+	\begin{proof}\
+		Let $\vee, \wedge$ be semilattice operators on $X$. Suppose that $(X, \vee, \wedge)$ is a lattice and for each $a,b \in X$, $a \vee b = \sup(\{a,b\}, \leq)$.
+		Then for each $a,b \in X$,
+		\begin{align*}
+			a \vee_{\leq} b
+			& = \sup(\{a,b\}, \leq) \quad \text{(\rd{def:lattices:lattices:0007})} \\
+			& = a \vee b \quad \text{(by assumption)}.
+		\end{align*}
+		Thus $\vee = \vee_{\leq}$. Since $(X, \vee, \wedge)$ is a lattice and for each $a,b \in X$, $a \vee b = \sup(\{a,b\}, \leq)$, \rex{ex:lattices:lattices:0019} implies that $\leq_{\vee}^{\vee} = \leq$.  \rex{ex:lattices:skew_lattices:0010} then implies that 
+		\begin{align*}
+			\leq_{\wedge}^{\wedge} 
+			& = \leq_{\vee}^{\vee} \\
+			& = \leq.
+		\end{align*}
+		Therefore for each $a,b \in X$, 
+		\begin{align*}
+			a \wedge b
+			& = \inf(\{a,b\}, \leq_{\wedge}^{\wedge}) \quad \text{(\rex{ex:lattices:lattices:0004})} \\
+			& = \inf(\{a,b\}, \leq) \\
+			& = a \wedge_{\leq} b \quad \text{(\rd{def:lattices:lattices:0007})}.
+		\end{align*}
+		Hence $\wedge = \wedge_{\leq}$.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Basic Structures}
+	
+	\subsection{Bounded Lattices}
+	
+	\begin{defn}
+		Let $L$ be a lattice. 
+		\begin{itemize}
+			\item Let $a \in L$. Then 
+			\begin{itemize}
+				\item $a$ is said to be a \tbf{one} of $L$ if for each $x \in L$, $x \wedge a = x$
+				\item $a$ is said to be a \tbf{zero} of $L$ if for each $x \in L$, $x \vee a = x$.
+			\end{itemize}
+			\item Then 
+			\begin{itemize}
+				\item $L$ is said to \tbf{have a zero} if there exists $0 \in L$ such that $0$ is a zero of $L$
+				\item $L$ is said to \tbf{have a one} if there exists $1 \in L$ such that $1$ is a one of $L$
+				\item $L$ is said to be \tbf{bounded} if $L$ has a zero and $L$ has a one.
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice and $a,b \in L$. 
+		\begin{enumerate}
+			\item If $a,b$ are zeros of $L$, then $a = b$.
+			\item If $a,b$ are ones of $L$, then $a = b$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $a,b$ are zeros of $L$. Then 
+			\begin{align*}
+				a
+				& = a \wedge b \\
+				& = b \wedge a \\
+				& = b. 
+			\end{align*}
+			\item Similar to $(1)$. 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{note}\
+		\begin{itemize}
+			\item If $L$ has a one, we denote the unique one of $L$ by $1$.
+			\item If $L$ has a zero, we denote the unique zero of $L$ by $0$.
+		\end{itemize}
+	\end{note}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then 
+		\begin{enumerate}
+			\item there exists $a \in L$ such that $a$ is a one of $L$ iff $\ubd L = \{a\}$.
+			\item there exists $a \in L$ such that $a$ is a zero of $L$ iff $\lbd L = \{a\}$.
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that there exists $a \in L$ such that $x$ is a one of $L$. Let $x \in L$. Since $x \wedge a = x$, we have that $x \leq a$. Since $x \in L$ is arbitrary, we have that for each $x \in L$, $x \leq a$. Hence $a \in \ubd L$. \rex{ex:orderings:posets:0009} then implies that $\ubd L = \{a\}$.
+				\item $(\impliedby)$: \\
+				Suppose that $\ubd L = \{a\}$. Let $x \in L$. Then Since $a \in \ubd L$, $x \leq a$. Therefore
+				\begin{align*}
+					x \wedge a
+					& = \inf \{x, a\} \\
+					& = x.
+				\end{align*}
+				Since $x \in L$ is arbitrary, we have that for each $x \in L$, $x \wedge a = x$. Hence $a$ is a one of $L$.
+			\end{itemize}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Complete Lattices}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Irreducibility and Primality}
+	
+	\begin{defn}
+		Let $(L, \leq)$ be a poset.
+		\begin{itemize}
+			\item Suppose that $(L, \leq)$ is a join-semilattice.
+			\begin{itemize}
+				\item Let $x \in L$. Then $x$ is said to be
+				\begin{itemize}
+					\item \tbf{join-irreducible} if 
+					\begin{enumerate}
+						\item $x$ is not a zero of $L$,
+						\item for each $a,b \in L$, $x = a \vee b$ implies that $x = a$ or $x = b$ 
+					\end{enumerate}
+					\item \tbf{join-prime}
+					\begin{enumerate}
+						\item $x$ is not a zero of $L$,
+						\item if for each $a,b \in L$, $x \leq a \vee b$ implies that $x \leq a$ or $x \leq b$
+					\end{enumerate}
+				\end{itemize}
+				\item We define 
+				\begin{itemize}
+					\item $JI(L) \defeq \{x \in L: \text{$x$ is join-irreducible.}\}$
+					\item $JP(L) \defeq \{x \in L: \text{$x$ is join-prime.}\}$
+				\end{itemize}
+			\end{itemize}
+			\item Suppose that $(L, \leq)$ is a meet-semilattice. 
+			\begin{itemize}
+				\item Let $x \in L$. Then $x$ is said to be 
+				\begin{itemize}
+					\item \tbf{meet-irreducible} 
+					\begin{enumerate}
+						\item $x$ is not a one of $L$,
+						\item if for each $a,b \in L$, $x = a \wedge b$ implies that $x = a$ or $x = b$ 
+					\end{enumerate}
+					\item \tbf{meet-prime} if
+					\begin{enumerate}
+						\item $x$ is not a one of $L$,
+						\item for each $a,b \in L$, $a \wedge b \leq x$ implies that $a \leq x$ or $b \leq x$
+					\end{enumerate}
+				\end{itemize}
+				\item We define 
+				\begin{itemize}
+					\item $MI(L) \defeq \{x \in L: \text{$x$ is meet-irreducible.}\}$
+					\item $MP(L) \defeq \{x \in L: \text{$x$ is meet-prime.}\}$
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $(L, \leq)$ be a poset. 
+		\begin{enumerate}
+			\item Suppose that $(L, \leq)$ is a join-semilattice. Then for each $x \in L$, if $x$ is join-prime, then $x$ is join-irreducible. 
+			\item Suppose that $(L, \leq)$ is a meet-semilattice. Then for each $x \in L$, if $x$ is meet-prime, then $x$ is meet-irreducible. 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x \in L$. Suppose that $x$ is join-prime. 
+			\begin{enumerate}
+				\item Since $x$ is join-prime, $x$ is not at zero of $L$.
+				\item Let $a,b \in L$. Suppose that $x = a \vee b$. Then $x \leq a \vee b$. Since $x$ is join-prime, $x \leq a$ or $x \leq b$. 
+				\begin{itemize}
+					\item Suppose that $x \leq a$. Then 
+					\begin{align*}
+						a \vee b
+						& = x \\
+						& \leq a \\
+						& \leq a \vee b
+					\end{align*}
+					and therefore $x = a$. Thus $x \leq a$ implies that $x = a$.
+					\item Similarly, $x \leq b$ implies that $x = b$. 
+				\end{itemize}
+				Since $x \leq a$ or $x \leq b$, we have that $x = a$ or $x = b$. Since $a,b \in L$ with $x = a \vee b$ are arbitrary, we have that for each $a,b \in L$, $x = a \vee b$ implies that $x = a$ or $x = b$.
+			\end{enumerate} 
+			Thus $x$ is join-irreducible. Since $x \in L$ such that $x$ is join-prime is arbitrary, we have that for each $x \in L$, if $x$ is join-prime, then $x$ is join-irreducible.
+			\item Similar to $(1)$. 
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Lattice Homomorphisms}
+	
+	\begin{defn}
+		Let $(X, \leq_X), (Y, \leq_Y)$ be posets and $f:X \rightarrow Y$. 
+		\begin{enumerate}
+			\item Suppose that $(X, \leq_X), (Y, \leq_Y)$ are join-semilattices. Then $f$ is said to be \tbf{finite $(\leq_X, \leq_Y)$-join preserving} if for each $a,b \in X$, $f(a \vee_{\leq_X} b) = f(a) \vee_{\leq_Y} f(b)$
+			\item Suppose that $(X, \leq_X), (Y, \leq_Y)$ are meet-semilattices. Then $f$ is said to be \tbf{finite $(\leq_X, \leq_Y)$-meet preserving} if for each $a,b \in X$, $f(a \wedge_{\leq_X} b) = f(a) \wedge_{\leq_Y} f(b)$
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{ex}
+		Let $(X, \leq_X), (Y, \leq_Y)$ be posets. 
+		\begin{enumerate}
+			\item Suppose that $(X, \leq_X)$ and $(Y, \leq_Y)$ are join semilattices. Then $f$ is $(\leq_X, \leq_Y)$-monotone iff for each $a,b \in X$, $f(a) \vee_{\leq_Y} f(b) \leq_Y f(a \vee_{\leq_X} b)$.
+			\item Suppose that $(X, \leq_X)$ and $(Y, \leq_Y)$ are meet semilattices. Then $f$ is $(\leq_X, \leq_Y)$-monotone iff for each $a,b \in X$, $f(a) \vee_{\leq_Y} f(b) \leq_Y f(a \vee_{\leq_X} b)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $f$ is $(\leq_X, \leq_Y)$-monotone. Let $a,b \in X$. \rex{ex:orderings:prosets:0030} implies that $f(a \vee_{\leq_X} b) \in \ubd(\{f(a), f(b)\}, \leq_Y)$. Therefore
+				\begin{align*}
+					f(a) \vee_{\leq_Y} f(b)
+					& = \sup (\{f(a), f(b)\}, \leq_Y) \\
+					& \leq f(a \vee_{\leq_X} b).
+				\end{align*}
+				Since $a,b \in X$ are arbitrary, we have that for each $a,b \in X$, $f(a) \vee_{\leq_Y} f(b) \leq_Y f(a \vee_{\leq_X} b)$.
+				\item $(\impliedby)$: \\
+				Suppose that for each $a,b \in X$, $f(a) \vee_{\leq_Y} f(b) \leq_Y f(a \vee_{\leq_X} b)$. Let $a,b \in X$. Suppose that $a \leq_X b$. \rex{ex:orderings:posets:0008} then implies that $a \vee_{\leq_X} b = b$. By assumption, 
+				\begin{align*}
+					f(a) \vee_{\leq_Y} f(b) 
+					& \leq_Y f(a \vee_{\leq_X} b) \\
+					& = f(b) \\
+					& \leq f(a) \vee_{\leq_Y} f(b).
+				\end{align*}
+				Therefore $f(a) \vee_{\leq_Y} f(b) = f(b)$. Another application of \rex{ex:orderings:posets:0008} implies that $f(a) \leq_Y f(b)$. Since $a,b \in X$ with $a \leq b$ are arbitrary, we have that for each $a,b \in X$, $a \leq_X b$ implies that $f(a) \leq_Y f(b)$. Hence $f$ is $(\leq_X, \leq_Y)$-monotone.
+			\end{itemize}
+			\item \tcr{use duality}
+			\tcr{FINISH!!!}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X, \leq_X), (Y, \leq_Y)$ be posets. 
+		\begin{enumerate}
+			\item Suppose that $(X, \leq_X)$ and $(Y, \leq_Y)$ are join semilattices. If $f$ preserves finite joins, then $f$ is $(\leq_X, \leq_Y)$-monotone.
+			\item Suppose that $(X, \leq_X)$ and $(Y, \leq_Y)$ are meet semilattices. If $f$ preserves finite meets, then $f$ is $(\leq_X, \leq_Y)$-monotone.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\begin{defn}
+		\tcr{move}
+		Let $(X, \leq_X), (Y, \leq_Y)$ be complete lattices and $f:X \rightarrow Y$. Then $f$ is said to 
+		\begin{enumerate}
+			\item \tbf{preserve arbitrary joins} if for each $A \subset X$, $f(\sup (A, \leq_X) ) = \sup(f(A), \leq_Y)$
+			\item \tbf{preserve arbitrary meets} if for each $A \subset X$, $f(\inf (A, \leq_X) ) = \inf(f(A), \leq_Y)$
+		\end{enumerate}
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Lattice Ideals and Filters}
+
+	\subsection{Introduction}
+	
+	\begin{defn}
+		Let $L$ be a lattice.  
+		\begin{itemize}
+			\item Let $J \subset L$. Then
+			\begin{itemize}
+				\item $J$ is said to be an \tbf{ideal of $L$} if 
+				\begin{enumerate}
+					\item $J \neq \varnothing$,
+					\item for each $a,b \in J$, $a \vee b \in J$,
+					\item for each $x \in L$ and $x \in J$, $x \wedge a \in J$,
+				\end{enumerate}
+				\item $J$ is said to be an \tbf{filter of $L$} if 
+				\begin{enumerate}
+					\item $J \neq \varnothing$,
+					\item for each $a,b \in J$, $a \wedge b \in J$,
+					\item for each $x \in L$ and $a \in J$, $x \vee a \in J$.
+				\end{enumerate}
+			\end{itemize}
+			\item We define 
+			\begin{itemize}
+				\item $\MI(L) \defeq \{J \subset L: \text{$J$ is an ideal of $L$}\}$
+				\item $\MF(L) \defeq \{J \subset L: \text{$J$ is a filter of $L$}\}$
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice. If $L \neq \varnothing$, then 
+		\begin{enumerate}
+			\item $L \in \MI(L)$,
+			\item $L \in \MF(L)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Clear. \tcr{(maybe fill out later)}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice and $J \subset L$. Set $\leq_J \defeq \leq|_{J^2}$. Then
+		\begin{enumerate}
+			\item $J \in \MI(L)$ iff $J$ is a $\leq$-lower set and $(J, \leq_J)$ is upward directed. \tcr{rework after making some exercises about subprosets, subdirected sets and subposets and showing facts about $\sup \/ \inf$ of subprosets and upper/lower sets in sub-prosets}  
+			\item $J \in \MF(L)$ iff $J$ is an $\leq$-upper set and $(J, \leq_J)$ is downward directed.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $J \in \MI(L)$.
+				\begin{itemize}
+					\item Let $x \in L$ and $a \in J$. Suppose that $x \leq a$. Then $x = \inf(\{a,b\}, \leq)$ and therefore
+					\begin{align*}
+						x
+						& = \inf(\{x, a\}, \leq) \\
+						& = x \wedge_{\leq} a \\
+						& \in J. 
+					\end{align*}  
+					Since $a \in J$ and $x \in L$ with $x \leq a$ are arbitrary, we have that $J$ is a down set. 
+					\item Since $J \in \MI(L)$, we have that $J \neq \varnothing$. Let $a, b \in J$. Since $J \in \MI(L)$, 
+					\begin{align*}
+						\sup (\{a,b\}, \leq) \\
+						& = a \vee_{\leq} b \\
+						& \in J.
+					\end{align*}
+					Hence \tcr{(ref ex here)}  
+					\begin{align*}
+						\sup (\{a,b\}, \leq)
+						& = \sup (\{a,b\}, \leq_J) \\
+						& \in \ubd(\{a,b\}, \leq_J)
+					\end{align*}
+					and $\ubd(\{a,b\}, \leq_J) \neq \varnothing$.
+					Since $a,b \in J$ are arbitrary, we have that for each $a,b \in J$, $\ubd (\{a,b\}, \leq_J) \neq \varnothing$. Since $J \neq \varnothing$ and for each $a,b \in J$, $\ubd(J, \leq_J) \neq \varnothing$, we have that $(J, \leq_J)$ is upward directed.
+				\end{itemize}
+				\item $(\impliedby)$: \\
+				Suppose that $J$ is a $\leq$-lower set and $(J, \leq_J)$ is upward directed. 
+				\begin{enumerate}
+					\item Since $(J, \leq_J)$ is upward directed, $J \neq \varnothing$.
+					\item Let $a,b \in J$. Since $(J, \leq_J)$ is upward directed, $\ubd(\{a,b\}, \leq_J) \neq \varnothing$. Thus there exists \tcr{(ref ex here)} 
+					\begin{align}
+						c 
+						& \in \ubd(\{a,b\}, \leq_J) \\
+						& \subset \ubd(\{a,b\}, \leq).
+					\end{align}
+					Therefore $\sup(\{a,b\}, \leq) \leq c$. Since $J$ is a $\leq$-lower set, $c \in J$ and $\sup(\{a,b\}, \leq) \leq c$, we have that 
+					\begin{align*}
+						a \vee b
+						& = \sup(\{a,b\}, \leq) \\
+						& \in J.
+					\end{align*}
+					Since $a,b \in J$ are arbitrary, we have that for each $a,b \in J$, $a \vee b \in J$.
+					\tcr{rework after making some exercises about subprosets, subdirected sets and subposets and showing facts about $\sup \/ \inf$ of subprosets and upper/lower sets in sub-prosets}
+					\item Let $x \in L$ and $a \in J$. Then $x \wedge a \leq a$. Since $J$ is a $\leq$-lower set, $x \wedge a \in J$. Since $x \in L$ and $a \in J$ are arbitrary, we have that for each $x \in L$ and $a \in J$, $x \wedge a \in J$.
+				\end{enumerate}
+				Therefore $J \in \MI(L)$.
+			\end{itemize}
+			\item 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice and $J \subset L$.
+		\begin{enumerate}
+			\item If $L$ has a zero and $J \in \MI(L)$, then $0 \in J$.
+			\item If $L$ has a one and $J \in \MF(L)$, then $1 \in J$.
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $L$ has a zero and $J \in \MI(L)$. Since $J$ is an ideal of $L$, $J \neq \varnothing$ and \tcr{a previous ex} implies $J$ is a lower set. Hence there exists $a \in J$. \tcr{a prev ex} implies that $0 \in \lbd L$. Thus $0 \leq a$. Since $J$ is a lower set, $0 \in J$.
+			\item Similar to $(1)$.
+		\end{enumerate} 
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. 
+		\begin{enumerate}
+			\item Let $(J_{\al})_{\al \in A} \subset \MI(L)$. 
+			\begin{enumerate}
+				\item If $\bigcap\limits_{\al \in A} J_{\al} \neq \varnothing$, then $\bigcap\limits_{\al \in A} J_{\al} \in \MI(L)$. 
+				\item If $A = \{1,2\}$, then $\bigcap\limits_{\al \in A} J_{\al} \in \MI(L)$.
+				\item If $L$ has a zero, then $\bigcap\limits_{\al \in A} J_{\al} \in \MI(L)$.
+			\end{enumerate}
+			\item Let $(J_{\al})_{\al \in A} \subset \MF(L)$. 
+			\begin{enumerate}
+				\item If $\bigcap\limits_{\al \in A} J_{\al} \neq \varnothing$, then $\bigcap\limits_{\al \in A} J_{\al} \in \MF(L)$. 
+				\item If $A = \{1,2\}$, then $\bigcap\limits_{\al \in A} J_{\al} \in \MF(L)$.
+				\item If $L$ has a one, then $\bigcap\limits_{\al \in A} J_{\al} \in \MF(L)$. 
+			\end{enumerate}
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} Set $J \defeq \bigcap\limits_{\al \in A} J_{\al}$.
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item Suppose that $J \neq \varnothing$.
+				\begin{enumerate}
+					\item By assumption $J \neq \varnothing$.
+					\item Let $a, b \in J$ and $\al \in A$. Then $a,b \in J_{\al}$. Since $J_{\al} \in \MI(L)$, $a \vee b \in J_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $a \vee b \in J_{\al}$. Hence $a \vee b \in J$.
+					\item Let $x \in L$, $a \in J$ and $\al \in A$. Then $a \in J_{\al}$. Since $J_{\al} \in \MI(L)$, $x \in L$ and $a \in J_{\al}$, we have that $x \wedge a \in J_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $x \wedge a \in J_{\al}$. Hence $x \wedge a \in J$. Since $x \in L$ and $a \in J$ are arbitrary, we have that for each $x \in L$ and $a \in J$, $x \wedge a \in J$. 
+				\end{enumerate}
+				Thus $J \in \MI(L)$.
+				\item Suppose that $A = \{1,2\}$. 
+				\begin{enumerate}
+					\item Since $J_1, J_2 \in \MI(L)$, $J_1 \neq \varnothing$ and $J_2 \neq \varnothing$. Thus there exist $x_1 \in J_1$ and $x_2 \in J_2$. Since $J_1 \in \MI(L)$, $x_2 \in L$ and $x_1 \in J_1$, we have that $x_1 \wedge x_2 \in J_1$. Similarly, $x_1 \wedge x_2 \in J_2$. Hence $x_1 \wedge x_2 \in J_1 \cap J_2$ and $J_1 \cap J_2 \neq \varnothing$. Part $1(a)$ implies that $J_1 \cap J_2 \in \MI(L)$.
+				\end{enumerate}
+				\item Suppose that $L$ has a zero. Let $\al \in A$. Since $J_{\al} \in \MI(L)$, \tcr{a previous exercise} implies that $0 \in J_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $0 \in J_{\al}$. Hence $0 \in J$. Thus $J \neq \varnothing$. The 
+			\end{enumerate}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then 
+		\begin{enumerate}
+			\item for each $J_1, J_2 \in \MI(L)$, $\{x \in L: \text{there exist $a \in J_1$ and $b \in J_2$ such that $x \leq a \vee b$} \} \in \MI(L)$.
+			\item for each $J_1, J_2 \in \MF(L)$, $\{x \in L: \text{there exist $a \in J_1$ and $b \in J_2$ such that $a \vee b \leq x$} \} \in \MF(L)$ \tcr{(maybe FIX!!!)}.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $J_1, J_2 \in \MI(L)$. Set $J \defeq \{x \in L: \text{there exist $a \in J_1$ and $b \in J_2$ such that $x \leq a \vee b$} \}$. 
+			\begin{enumerate}
+				\item Since $J_1, J_2 \in \MI(L)$, we have that $J_1 \neq \varnothing$ and $J_2 \neq \varnothing$. Hence there exist $x_1 \in J_1$ and $x_2 \in J_2$. Since $x_1 \leq x_1 \vee x_2$, we have that $x_1 \in J$. Thus $J \neq \varnothing$. 
+				\item Let $a,b \in J$. Then there exist $x_a, x_b \in J_1$ and $y_a, y_b \in J_2$ such that $a \leq x_a \vee y_a$ and $b \leq x_b \vee y_b$. Define $z_1, z_2 \in L$ by $z_1 \defeq x_a \vee x_b$ and $z_2 \defeq y_a \vee y_b$. Since $J_1, J_2 \in \MI(L)$, we have that $z_1 \in J_1$ and $z_2 \in J_2$. We note that
+				\begin{align*}
+					a 
+					& \leq x_a \vee y_a \\
+					& \leq (x_a \vee y_a) \vee (x_b \vee y_b) \\
+					& = (x_a \vee x_b) \vee (y_a \vee y_b) \\
+					& = z_1 \vee z_2.
+				\end{align*}
+				and similarly $b \leq z_1 \vee z_2$. Therefore $z_1 \vee z_2 \in \ubd(\{a, b\}, \leq)$. Hence
+				\begin{align*}
+					a \vee b
+					& = \sup(\{a, b\}, \leq) \\
+					& \leq z_1 \vee z_2.
+				\end{align*}
+				Thus $a \vee b \in J$. Since $a,b \in J$ are arbitrary, we have that for each $a,b \in J$, $a \vee b \in J$. 
+				\item Let $x \in L$ and $y \in J$. Then there exists $a \in J_1$ and $b \in J_2$ such that $y \leq a \vee b$. Then 
+				\begin{align*}
+					x \wedge y
+					& \leq y \\
+					& \leq a \vee b. 
+				\end{align*}
+				Therefore $x \wedge y \in J$. Since $x \in L$ and $y \in J$ are arbitrary, we have that for each $x \in L$ and $y \in J$, $x \wedge y \in J$. 
+			\end{enumerate}
+			Therefore $J \in \MI(L)$.
+			\item Similar to $(1)$. \tcr{FINISH!!!}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $L$ be a lattice. Define ${\leq_{\MI(L)}} \defeq {\subset|_{\MI(L)}}$ \tcr{(maybe standardize notation)}.
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice. 
+		\begin{enumerate}
+			\item Let $J_1, J_2 \in \MI(L)$.
+			\begin{enumerate}
+				\item $\sup(\{J_1, J_2 \}, \leq_{\MI(L)}) = \{x \in L: \text{there exist $a \in J_1$ and $b \in J_2$ such that $x \leq a \vee b$} \}$.
+				\item $\inf(\{J_1, J_2 \}, \leq_{\MI(L)}) = J_1 \cap J_2$
+			\end{enumerate}
+			\item Set ${\leq_{\MF(L)}} \defeq {\subset|_{\MF(L)}}$ \tcr{(maybe standardize notation)}. Let $J_1, J_2 \in \MF(L)$. \tcr{FIX!!!}
+			\begin{enumerate}
+				\item $\sup(\{J_1, J_2 \}, \leq_{\MI(L)}) = \{x \in L: \text{there exist $a \in J_1$ and $b \in J_2$ such that $x \leq a \vee b$} \}$.
+				\item $\inf(\{J_1, J_2 \}, \leq_{\MI(L)}) = J_1 \cap J_2$
+			\end{enumerate}
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item Set $J \defeq \{x \in L: \text{there exist $a \in J_1$ and $b \in J_2$ such that $x \leq a \vee b$} \}$. \tcr{(ref previous ex)} implies that $J \in \MI(L)$.
+				\begin{enumerate}
+					\item 
+					\begin{itemize}
+						\item Let $a \in J_1$. Since $J_2 \in \MI(L)$, $J_2 \neq \varnothing$. Hence there exists $b \in J_2$. Then $a \leq a \vee b$. Since $a \in J_1$, $b \in J_2$ and $a \leq a \vee b$, we have that $a \in J$. Since $a \in J_1$ is arbitrary, we have that for each $a \in J_1$, $a \in J$. Thus $J_1 \subset J$. 
+						\item Similarly, $J_2 \subset J$.
+					\end{itemize}
+					Since $J_1,J_2 \subset J$, we have that $J \in \ubd(\{J_1, J_2\}, \leq_{\MI(L)})$. 
+					\item Let $K \in \ubd(\{J_1, J_2\}, \leq_{\MI(L)})$ and $x \in J$. Then $J_1, J_2 \subset K$ and there exist $a \in J_1$ and $b \in J_2$ such that $x \leq a \vee b$. Since $a \in J_1$, $b \in J_2$ and $J_1, J_2 \subset K$, we have that $a,b \in K$. Since $K \in \MI(L)$, $a \vee b \in K$. Since $K \in \MI(L)$ \tcr{(ref a prev ex)} implies that $K$ is a lower set. Since $K$ is a lower set, $a \vee b \in K$ and $x \leq a \vee b$, we have that $x \in K$. Since $x \in J$ is arbitrary, we have that for each $x \in J$, $x \in K$. Hence $J \subset K$. Since $K \in \ubd(\{J_1, J_2\}, \leq_{\MI(L)})$ is arbitrary, we have that for each $K \in \ubd(\{J_1, J_2\}, \leq_{\MI(L)})$, $J \leq_{\MI(L)} K$.
+				\end{enumerate}
+				Since 
+				\begin{enumerate}
+					\item $J \in \ubd(\{J_1, J_2\}, \leq_{\MI(L)})$, 
+					\item for each $K \in \ubd(\{J_1, J_2\}, \leq_{\MI(L)})$, $J \leq_{\MI(L)} K$,
+				\end{enumerate}
+				we have that $J = \sup(\{J_1, J_2\}, \leq_{\MI(L)})$.
+				\item \tcr{(ref previous ex)} implies that $J_1 \cap J_2 \in \MI(L)$. Since $J_1 \cap J_2 \subset J_1$ and $J_1 \cap J_2 \subset J_2$, we have that $J_1 \cap J_2 \in \lbd(\{J_1, J_2\}, \leq_{\MI(L)})$. Since $(\MI(L), \leq_{\MI(L)})$ is a subposet of $(\MP(L), \subset)$, \tcr{(define subproset/subposet and make exercise for the following fact)} implies that
+				\begin{align*}
+					\inf (\{J_1, J_2\}, \leq_{\MI(L)})
+					& \leq \inf (\{J_1, J_2\}, \subset) \\
+					& = J_1 \cap J_2 \\
+					& \leq \inf (\{J_1, J_2\}, \leq_{\MI(L)}).
+				\end{align*} 
+				Hence $J_1 \cap J_2 = \inf (\{J_1, J_2\}, \leq_{\MI(L)})$. 
+			\end{enumerate}
+			\item Similar to $(1)$. \tcr{FINISH!!!} 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $L$ be a lattice. Define $\vee_{\MI(L)}, \wedge_{\MI(L)}: \MI(L) \times \MI(L) \rightarrow \MI(L)$ and $\vee_{\MF(L)}, \wedge_{\MF(L)}: \MF(L) \times \MF(L) \rightarrow \MF(L)$ by 
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $J_1 \vee_{\MI(L)} J_2 \defeq \{x \in L: \text{there exist $a \in J_1$ and $b \in J_2$ such that $x \leq a \vee b$} \}$
+				\item $J_1 \wedge_{\MI(L)} J_2 \defeq J_1 \cap J_2$. 
+			\end{itemize}
+			\item \tcr{FIX!!!}
+			\begin{itemize}
+				\item $J_1 \vee_{\MF(L)} J_2 \defeq \{x \in L: \text{there exist $a \in J_1$ and $b \in J_2$ such that $x \leq a \vee b$} \}$
+				\item $J_1 \wedge_{\MF(L)} J_2 \defeq J_1 \cap J_2$. 
+			\end{itemize}
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then 
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item $(\MI(L), \vee_{\MI(L)}, \wedge_{\MI(L)})$ is a lattice 
+				\item $L$ has a zero implies that $(\MI(L), \vee_{\MI(L)}, \wedge_{\MI(L)})$ is a complete lattice.
+			\end{enumerate}
+			\item 
+			\begin{enumerate}
+				\item $(\MF(L), \vee_{\MF(L)}, \wedge_{\MF(L)})$ is a lattice 
+				\item $L$ has a zero implies that $(\MF(L), \vee_{\MF(L)}, \wedge_{\MF(L)})$ is a complete lattice.
+			\end{enumerate}
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item \tcr{the previous exercise} implies that $(\MI(L), \leq_{\MI(L)})$ is an ordered lattice. \rex{ex:lattices:lattices:0017} then implies that $(\MI(L), \vee_{\MI(L)}, \wedge_{\MI(L)})$ is a lattice. 
+				\item 
+			\end{enumerate}
+			\item 
+			\begin{enumerate}
+				\item \tcr{FINISH!!!}
+				\item 
+			\end{enumerate}
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Properties of Ideals and Filters}
+	
+	
+	\begin{defn}
+		Let $L$ be a lattice.
+		\begin{itemize}
+			\item Let $J \in \MI(L)$. Then $J$ is said to be 
+			\begin{itemize}
+				\item \tbf{proper} if $J \neq L$. 
+				\item \tbf{maximal} if $J$ is maximal in $(\MI(L) \setminus \{L\}, \subset)$. 
+				\item \tbf{prime} if 
+				\begin{enumerate}
+					\item $J$ is proper 
+					\item for each $a,b \in L$, $a \wedge b \in J$ implies that $a \in J$ or $b \in J$. 
+				\end{enumerate}
+				\item \tbf{principal} if there exists $a \in L$ such that $J = \doar a$.
+			\end{itemize}
+			\item Let $J \in \MF(L)$. Then $J$ is said to be 
+			\begin{itemize}
+				\item \tbf{proper} if $J \neq L$. 
+				\item \tbf{maximal} if $J$ is maximal in $(\MF(L) \setminus \{L\}, \subset)$. 
+				\item \tbf{prime} if 
+				\begin{enumerate}
+					\item $J$ is proper 
+					\item for each $a,b \in L$, $a \vee b \in J$ implies that $a \in J$ or $b \in J$.
+				\end{enumerate}
+				\item \tbf{principal} if there exists $a \in L$ such that $J = \upar a$. 
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice and $J \subset L$.
+		\begin{enumerate}
+			\item Suppose $J \in \MI(L)$. 
+			\begin{enumerate}
+				\item If $J$ is proper, then for each $x \in J$, $x$ is not a one of $L$.
+				\item If $J$ is prinicpal, then $J$ is proper iff for each $x \in J$, $x$ is not a one of $L$.
+			\end{enumerate}
+			\item Suppose $J \in \MF(L)$. 
+			\begin{enumerate}
+				\item If $J$ is proper, then for each $x \in J$, $x$ is not a zero of $L$.
+				\item If $J$ is prinicpal, then $J$ is proper iff for each $x \in J$, $x$ is not a zero of $L$.
+			\end{enumerate}
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item Suppose that $J$ is proper. Let $x \in J$. For the sake of contradiction, suppose that $x$ is a one of $L$. \tcr{(previous ex)} then implies that $\ub(L, \leq) = \{x\}$. Let $y \in L$. Then $y \leq x$. Since $J$ is a lower set, $x \in J$ and $y \leq x$, we have that $y \in J$. Since $y \in L$ is arbitrary, we have that for each $y \in L$, $y \in J$. Thus 
+				\begin{align*}
+					L 
+					& \subset J \\
+					& \subset L.
+				\end{align*}
+				Thus $J = L$ and $J$ is not proper. Therefore $x$ is not a one of $L$. Since $x \in J$ is arbitrary, we have that for each $x \in J$, $x$ is not a one of $L$. 
+				\item Suppose that $J$ is principal. 
+				\begin{itemize}
+					\item $(\implies)$: \\
+					If $J$ is proper, then $1(a)$ implies that for each $x \in J$, $x$ is not a one of $L$.
+					\item $(\impliedby)$: \\
+					Suppose that $J$ is not proper. Then $J = L$. Since $J$ is principal, there exists $a \in J$ such that $J = \doar a$. Let $x \in L$. Since
+					\begin{align*}
+						x
+						& \in L \\
+						& = J \\
+						& = \doar a,
+					\end{align*} 
+					we have that $x \leq a$. Hence 
+					\begin{align*}
+						x \wedge a
+						& = \inf \{x, a\} \\
+						& = x.
+					\end{align*}
+					Since $x \in L$ is arbitrary, we have that for each $x \in L$, $x \wedge a = x$. Hence $a$ is a one of $L$. Therefore $J$ is not proper implies that there exists $a \in J$ such that $a$ is a one of $L$. By contrapositive, we have that if for each $x \in J$, $x$ is not a one of $L$, then $J$ is proper. 
+				\end{itemize}
+			\end{enumerate}
+			\item \tcr{FINISH!!}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice and $J \subset L$.
+		\begin{enumerate}
+			\item Suppose that $J \in \MI(L)$ and $J$ is principal. Then $J$ is prime iff there exists $x \in J$ such that $x$ is meet-prime and $J = \doar x$.
+			\item Suppose that $J \in \MF(L)$ and $J$ is principal. Then $J$ is prime iff there exists $x \in J$ such that $x$ is join-prime and $J = \upar x$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $J$ is prime. Since $J$ is principal, there exists $x \in L$ such that $J = \doar x$. Since $J$ is prime, $J$ is proper and for each $a,b \in L$, $a \wedge b \in J$ implies that $a \in J$ or $b \in J$. 
+				\begin{itemize}
+					\item Since $J$ is proper, \tcr{previous exercise} implies that $x$ is not a one of $L$. 
+					\item Let $a,b \in L$. Suppose that $a \wedge b \leq x$. Since $J$ is a lower set, $x \in J$ and $a \wedge b \leq x$, we have that $a \wedge b \in J$. Therefore $a \in J$ or $b \in J$. Since $J = \doar x$, we have that $a \leq x$ or $b \leq x$. Since $a,b \in L$ with $a \wedge b \leq x$ are arbitrary, we have that for each $a, b \in L$, $a \wedge b \leq x$ implies that $a \leq x$ or $b \leq x$. 
+				\end{itemize}
+				Thus $x$ is meet-prime. 
+				\item $(\impliedby)$: \\
+				Suppose that there exists $x \in J$ such that $x$ is meet-prime and $J = \doar x$. Then $J$ is principal.
+				\begin{itemize}
+					\item For the sake of contradiction, suppose that $J$ is not proper. Then 
+					\begin{align*}
+						\doar x
+						& = J \\
+						& = L.
+					\end{align*}
+					Thus $\ubd L = \{x\}$. \tcr{A previous ex} implies that $x$ is a one of $L$. This is a contracition since $x$ is meet-prime. Thus $J$ is proper. 
+					\item Let $a,b \in L$. Suppose that $a \wedge b \in J$. Since $J = \doar x$, we have that $a \wedge b \leq x$. Since $x$ is meet-prime, $a \leq x$ or $b \leq x$. Hence $a \in J$ or $b \in J$. Since $a,b \in L$ with $a \wedge b \in J$ are arbitrary, we have that for each $a,b \in L$, $a \wedge b \in J$ implies that $a \in J$ or $b \in J$.
+				\end{itemize}
+				Therefore $J$ is prime.
+			\end{itemize}
+			\item Similar to $(1)$ \tcr{FIX/CHECK/FINISH!!!}
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Completely Prime Ideals and Filters}
+	
+	\begin{defn}
+		Let $L$ be a complete lattice. 
+		\begin{itemize}
+			\item Let $J \in \MI(L)$. Then $J$ is said to be
+			\begin{itemize}
+				\item \tbf{completely prime} if
+				\begin{enumerate}
+					\item $J$ is proper
+					\item for each $(a_{\al})_{\al \in A} \subset L$, $\bigwedge\limits_{\al \in A} a_{\al} \in J$ implies that there exists $\al \in A$ such that $a_{\al} \in J$.
+				\end{enumerate}
+			\end{itemize} 
+			\item Let $J \in \MF(L)$. Then $J$ is said to be 
+			\begin{itemize}
+				\item \tbf{completely prime} if 
+				\begin{enumerate}
+					\item $J$ is proper
+					\item for each $(a_{\al})_{\al \in A} \subset L$, $\bigvee\limits_{\al \in A} a_{\al} \in J$ implies that there exists $\al \in A$ such that $a_{\al} \in J$.
+				\end{enumerate}
+			\end{itemize} 
+		\end{itemize}
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Complete Lattices}
+	
+	\begin{defn} 
+		Let $(X, \leq)$ be a poset. Then $(X, \leq)$ is said to satisfy the 
+		\begin{itemize}
+			\item \tbf{least upper bound (LUB) property} if for each $A \subset X$, if $A \neq \varnothing$ and $A$ is bounded above, then there exists $x \in X$ such that $x = \sup A$
+			\item \tbf{greatest lower bound (GLB) property} if for each $A \subset X$, if $A \neq \varnothing$ and $A$ is bounded below, then there exists $x \in X$ such that $x = \inf A$. 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		LUB iff GLB
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{FINISH!!!!}
+	\end{proof}
+	
+	\begin{defn} \tbf{Suplattice:} \\
+		Let $(L, \leq)$ be a poset. Then $(L, \leq)$ is said to be a \tbf{suplattice} if for each $A \subset L$, there exists $x \in L$ such that $x = \sup A$. 
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\section{Modular and Distributive Lattices}
+	
+	\subsection{Introduction}
+
+	\begin{defn}
+		Let $L$ be a lattice. Then $L$ is said to be a \tbf{distributive lattice} if for each $a,b,c \in L$, $a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then for each $a,b,c \in L$,
+		\begin{enumerate}
+			\item $(a \wedge b) \vee (a \wedge c) \leq a \wedge (b \vee c)$.
+			\item $a \wedge (b \vee c) \leq (a \vee b) \wedge (a \vee c)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} Let $a,b,c \in L$.
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item Since $a \wedge b \leq a$ and $a \wedge c \leq a$, we have that $a \in \ubd \{a \wedge b, a \wedge c \}$. Therefore 
+				\begin{align*}
+					(a \wedge b) \vee (a \wedge c) 
+					& = \sup \{a \wedge b, a \wedge c \} \\
+					& \leq a.
+				\end{align*}
+				\item Since  
+				\begin{align*}
+					a \wedge b 
+					& \leq b \\
+					& \leq b \vee c
+				\end{align*}
+				and 
+				\begin{align*}
+					a \wedge c 
+					& \leq c \\
+					& \leq b \vee c,
+				\end{align*}
+				we have that $b \vee c \in \ubd \{a \wedge b, a \wedge c\}$. Therefore 
+				\begin{align*}
+					(a \wedge b) \vee (a \wedge c) 
+					& = \sup \{a \wedge b, a \wedge c \} \\
+					& \leq b \vee c. 
+				\end{align*}
+			\end{itemize}
+			Then $(a \wedge b) \vee (a \wedge c) \in \lbd\{a, b \vee c\}$. Hence 
+			\begin{align*}
+				(a \wedge b) \vee (a \wedge c) 
+				& \leq \inf \{a, b \vee c\} \\
+				& = a \wedge (b \vee c).
+			\end{align*}
+			\item \tcr{FINISH!!! (use duality)}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then for each $a,b,c \in L$,
+		\begin{enumerate}
+			\item $c \leq a$ implies that $(a \wedge b) \vee c \leq a \wedge (b \vee c)$
+			\item $a \leq c$ implies that $a \vee (b \wedge c) \leq (a \vee b) \wedge c$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Let $a,b,c \in L$. 
+		\begin{enumerate}
+			\item Suppose that $c \leq a$. Then $a \wedge c = c$. \tcr{The previous exercise then implies that}
+			\begin{align*}
+				(a \wedge b) \vee c
+				& = (a \wedge b) \vee (a \wedge c) \\
+				& \leq a \wedge (b \vee c).
+			\end{align*}
+			\item \tcr{FINISH!!! use duality}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then for each $a,b,c \in L$, 
+		$$(a \wedge b) \vee (b \wedge c) \vee (c \wedge a) \leq (a \vee b) \wedge (b \vee c) \wedge (c \vee a).$$
+	\end{ex}
+	
+	\begin{proof}
+		Let $a,b,c \in L$.
+		\begin{itemize}
+			\item We first note that
+			\begin{align*}
+				a \wedge b \leq a \leq a \vee b, \\
+				b \wedge c \leq b \leq a \vee b, \\
+				c \wedge a \leq a \leq a \vee b.
+			\end{align*}
+			Therefore $a \vee b \in \ubd \{a \wedge b, b \wedge c, c \wedge a\}$ and
+			\begin{align*}
+				(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
+				& = \sup \{a \wedge b, b \wedge c, c \wedge a\} \\
+				& \leq a \vee b.
+			\end{align*}
+			\item Similarly, 
+			\begin{align*}
+				a \wedge b \leq b \leq b \vee c, \\
+				b \wedge c \leq c \leq b \vee c, \\
+				c \wedge a \leq c \leq b \vee c.
+			\end{align*}
+			Therefore $b \vee c \in \ubd \{a \wedge b, b \wedge c, c \wedge a\}$ and
+			\begin{align*}
+				(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
+				& = \sup \{a \wedge b, b \wedge c, c \wedge a\} \\
+				& \leq b \vee c.
+			\end{align*}
+			\item Finally, we have that
+			\begin{align*}
+				a \wedge b \leq a \leq c \vee a, \\
+				b \wedge c \leq c \leq c \vee a, \\
+				c \wedge a \leq c \leq c \vee a.
+			\end{align*}
+			Therefore $c \vee a \in \ubd \{a \wedge b, b \wedge c, c \wedge a\}$ and
+			\begin{align*}
+				(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
+				& = \sup \{a \wedge b, b \wedge c, c \wedge a\} \\
+				& \leq c \vee a.
+			\end{align*}
+		\end{itemize}
+		Hence $(a \wedge b) \vee (b \wedge c) \vee (c \wedge a) \in \lbd \{a \vee b, b \vee c, c \vee a\}$ and 
+		\begin{align*}
+			(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
+			& \leq \inf \{a \vee b, b \vee c, c \vee a\} \\
+			& = (a \vee b) \wedge (b \vee c) \wedge (c \vee a).
+		\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then the following are equivalent:
+		\begin{enumerate}
+			\item For each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$.
+			\item For each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
+			\item For each $p,q,r \in L$, $p \wedge (q \vee (p \wedge r)) = (p \wedge q) \vee (p \wedge r)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item $(1) \implies (2)$: \\
+			Suppose that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$. Let $a,b,c \in L$. Suppose that $c \leq a$. Then $a \wedge c = c$. By assumption 
+			\begin{align*}
+				a \wedge (b \vee c) 
+				& = (a \wedge b) \vee c \\
+				& = (a \wedge b) \vee (a \wedge c)
+			\end{align*}
+			Since $a,b,c \in L$ with $c \leq a$ are arbitrary, we have that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
+			\item $(2) \implies (3)$: \\
+			Suppose that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$. Let $p,q,r \in L$. Define $a,b,c \in L$ by $a \defeq p$, $b \defeq q$ and $c \defeq p \wedge r$. Then 
+			\begin{align*}
+				a \wedge c
+				& = p \wedge (p \wedge r) \\
+				& = (p \wedge p) \wedge r \\
+				& = p \wedge r.
+			\end{align*}
+			By assumption,
+			\begin{align*}
+				p \wedge (q \vee (p \wedge r))
+				& = a \wedge (b \vee c) \\
+				& = (a \wedge b) \vee (a \wedge c) \\
+				& = (p \wedge q) \vee (p \wedge r).
+			\end{align*}
+			Since $p,q,r \in L$ are arbitrary, we have that for each $p,q,r \in L$, $p \wedge (q \vee (p \wedge r)) = (p \wedge q) \vee (p \wedge r)$.
+			\item $(3) \implies (1)$: \\
+			Suppose that for each $p,q,r \in L$, $p \wedge (q \vee (p \wedge r)) = (p \wedge q) \vee (p \wedge r)$. Let $a,b,c \in L$. Suppose that $c \leq a$. Define $p,q,r \in L$ by $p \defeq a$, $q \defeq b$ and $r \defeq c$. Since $c \leq a$, we have that 
+			\begin{align*}
+				p \wedge r
+				& = a \wedge c \\
+				& = c.
+			\end{align*}
+			By assumption, 
+			\begin{align*}
+				a \wedge (b \vee c)
+				& = p \wedge (q \vee (p \wedge r)) \\
+				& = (p \wedge q) \vee (p \wedge r) \\
+				& = (a \wedge b) \vee c.
+			\end{align*}
+			Since $a,b,c \in L$ with $c \leq a$ are arbitrary, we have that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $L$ be a lattice. Then $L$ is said to be \tbf{modular} if for each $a,b,c \in L$, 
+		$$\text{$c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$.}$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then the following are equivalent:
+		\begin{enumerate}
+			\item For each $a,b,c \in L$, $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
+			\item For each $p,q,r \in L$, $p \vee (q \wedge r) = (p \vee q) \wedge (p \vee r)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item $(1) \implies (2)$: \\
+			Suppose that for each $a,b,c \in L$, $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$. Let $p,q,r \in L$. Define $a,b,c \in L$ by $a \defeq p \vee q$, $b \defeq p$ and $c \defeq r$. By absorption, 
+			\begin{align*}
+				a \wedge b
+				& = (p \vee q) \wedge p \\
+				& = p \wedge (p \vee q) \\
+				& = p.
+			\end{align*}
+			By assumption,
+			\begin{align*}
+				a \wedge c
+				& = (p \vee q) \wedge r \\
+				& = r \wedge (p \vee q) \\
+				& = (r \wedge p) \vee (r \wedge q).
+			\end{align*}
+			Then by assumption and absorption,
+			\begin{align*}
+				(p \vee q) \wedge (p \vee r)
+				& = a \wedge (b \vee c) \\
+				& = (a \wedge b) \vee (a \wedge c) \\
+				& = p \vee [(r \wedge p) \vee (r \wedge q)] \\
+				& = [p \vee (r \wedge p)] \vee (r \wedge q) \\
+				& = [p \vee (p \wedge r)] \vee (q \wedge r) \\
+				& = p \vee (q \wedge r).
+			\end{align*}
+			Since $p,q,r \in L$ are arbitrary, we have that for each $p,q,r \in L$, $p \vee (q \wedge r) = (p \vee q) \wedge (p \vee r)$.
+			\item $(2) \implies (1)$: \\
+			Suppose that for each $p,q,r \in L$, $p \vee (q \wedge r) = (p \vee q) \wedge (p \vee r)$. Let $a,b,c \in L$. Define $p,q,r \in L$ by $p \defeq a \wedge b$, $q \defeq a$ and $r \defeq c$. 
+			By absorption, 
+			\begin{align*}
+				p \vee q
+				& = (a \wedge b) \vee a \\
+				& = a \vee (a \wedge b) \\
+				& = a.
+			\end{align*}
+			By assumption,
+			\begin{align*}
+				p \vee r
+				& = (a \wedge b) \vee c \\
+				& = c \vee (a \wedge b) \\
+				& = (c \vee a) \wedge (c \vee b).
+			\end{align*}
+			Then by assumption and absorption,
+			\begin{align*}
+				(a \wedge b) \vee (a \wedge c)
+				& = p \vee (q \wedge r) \\
+				& = (p \vee q) \wedge (p \vee r) \\
+				& = a \wedge [(c \vee a) \wedge (c \vee b)] \\
+				& = [a \wedge (c \vee a)] \wedge (c \vee b) \\
+				& = [a \wedge (a \vee c)] \wedge (b \vee c) \\
+				& = a \wedge (b \vee c).
+			\end{align*}
+			Since $a,b,c \in L$ are arbitrary, we have that for each $a,b,c \in L$, $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $L$ be a lattice. Then $L$ is said to be \tbf{distributive} if for each $a,b,c \in L$, 
+		$$a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c).$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice. If $L$ is distributive, then $L$ is modular. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $L$ is distributive. \tcr{FINISH!!!}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then for each $a,b,c \in L$, $a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$ iff $a \wedge (b \vee c) = (a \wedge b) \vee (a \vee c)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $a,b,c \in L$.
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$. 
+			\item $(\impliedby)$: \\
+			
+		\end{itemize}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Galois Connections}
+	
+	\begin{defn}
+		Let 
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\chapter{Frames and Locales}
+	
+	\section{Introduction}
+	
+	
+	\subsection{Frames}
+	
+	\begin{defn}
+		Let $L$ be a complete lattice. Then $L$ is said to be a \tbf{frame} if for each $a \in L$ and $(b_{\al})_{\al \in A} \subset L$, $a \wedge \bigg(\bigvee\limits_{\al \in A} b_{\al} \bigg) = \bigvee\limits_{\al \in A} a \wedge b_{\al}$.
+	\end{defn}
+	
+	\begin{defn}
+		Let $L, M$ be frames and $f:L \rightarrow M$. Then $f$ is said to be a \tbf{frame homomorphism} if 
+		\begin{enumerate}
+			\item for each $(x_{\al})_{\al \in A} \subset L$, $f\bigg( \bigvee\limits_{\al \in A} x_{\al} \bigg) = \sup\limits_{\al \in A} f(x_{\al})$.
+			\item for each $a,b \in L$, $f(a \wedge b) = f(a) \wedge f(b)$
+		\end{enumerate}
+		\tcr{maybe reword this with some vocab to make shorter, like "preserves arbitrary joins" and "preserves meets"}
+	\end{defn}
+	
+	\begin{defn}\tcr{(check notation consistent with category theory notes)}
+		We define the \tbf{category of frames}, denoted $\Frm$, by 
+		\begin{itemize}
+			\item $\Obj(\Frm) \defeq \{L: \text{$L$ is a frame}\}$
+			\item $\Hom_{\Frm}(L, M) \defeq \{f:L \rightarrow M: \text{$f$ is a frame homomorphism}\}$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		We have that $\Frm$ is a category
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Locales}
+	
+	\begin{defn}
+		We define the \tbf{category of locales}, denoted $\Loc$ by $\Loc \defeq \op{\Frm}$.
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{More Lattice Stuff to Come}
+	\begin{itemize}
+		\item talk about join and meet irriducibility
+		\item talk about join and meet primality
+		\item talk about maximality.
+		\item \tcr{the goal is to get all the background for sober topological/measure spaces, locale theory for constructive topology and universal algebra}
+	\end{itemize}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -153,21 +4115,7 @@
 	
 	
 	\newpage
-	\chapter{Lattices}
-	
-	\begin{defn}
-		Let $L$ be a set and $\wedge, \vee: L^2 \rightarrow L$. Then $(L, \wedge, \vee)$ is said to be a \tbf{lattice} if for each $x,y,z \in L$,
-		\begin{enumerate}
-			\item $(x \vee y) \vee z = x \vee (y \vee z)$ and $(x \wedge y) \wedge z = x \wedge (y \wedge z)$,
-			\item $x \vee y = y \vee x$ and $x \wedge y = y \wedge x$,
-			\item $x \vee x = x$ and $x \wedge x = x$,
-			\item $x \vee (x \wedge y) = x$ and $x \wedge (x \vee y) = x$
-		\end{enumerate}
-	\end{defn}
-	
-	
-	
-	
+	\chapter{Some Chapter}
 	
 	\section{Closure Operators}
 	
@@ -304,22 +4252,98 @@
 	\section{Introduction}
 	
 	\begin{defn}
-		Let $A \in \Obj(\Set)$ be a set and $J$ an index set. Suppose that $A \neq \varnothing$. Let $f \in \MF^*(A)^J$. Then $(A, f)$ is said to be an \tbf{algebra with universe $A$ and basic operations $f$}.
+		Let $A,J \in \Obj(\Set)$ be a set and $f \in \MF^*(A)^J$. Then $(A, f)$ is said to be an \tbf{algebra} if $A \neq \varnothing$ and $J \neq \varnothing$. 
+	\end{defn}
+	
+	\begin{defn}
+		Let $(A, f)$ be an algebra. Set $J \defeq \dom f$. 
+		\begin{itemize}
+			\item We define the \tbf{universe of $(A, f)$}, denoted $\uni(A, f)$, by $\uni(A, f) \defeq A$.
+			\item We define the \tbf{operations of $(A, f)$}, denoted $\oper(A, f)$, by $\oper(A, f) \defeq f$.
+			\item We define the \tbf{type of $(A, f)$}, denoted $\typ(A, f): J \rightarrow \N_0$, by $\typ(A, f)(j) \defeq \ar f_j$.
+		\end{itemize}
 	\end{defn}
 
 	\begin{defn}
-		Let $(A, f)$ be an algebra. Set $J \defeq \dom f$. We define the \tbf{similarity type of $f$}, denoted $\rho^f: J \rightarrow \N_0$, by $\rho^f(j) \defeq \ar f_j$.
+		Let $\MA$, $\MB$ be algebras. Then $\MA$ and $\MB$ are said to be \tbf{type-similar}, denoted $\MA \sim_{\typ} \MB$, if $\typ \MA = \typ \MB$.
 	\end{defn}
-
+	
 	\begin{defn}
-		Let $(A, f)$, $(B, g)$ be algebras. Then $(A, f)$ and $(B, g)$ are said to be \tbf{type similar} if $\rho^f = \rho^g$.
+		Let $(A, f), (B, g)$ be algebras and $\al:A \rightarrow B$. Suppose that $(A, f) \sim_{\typ} (B, g)$. Set $J \defeq \dom f$ and $\rho \defeq \typ(A, f)$. Write $f = (f_j)_{j \in J}$ and $g = (g_j)_{j \in J}$. Then $\al$ is said to be an \tbf{$((A,f), (B,g))$-homomorphism} if for each $j \in J$ and $a \in A^{\rho(j)}$, 
+		$$g_j(\al^{\rho(j)}(a)) = \al(f_j(a)).$$
 	\end{defn}
+	
+	\begin{ex}
+		Let $(A, f), (B, g), (C, h)$ be algebras and $\al:A \rightarrow B$, $\be:B \rightarrow C$. Suppose that $(A, f) \sim_{\typ} (B, g), (C, h)$. Set $J \defeq \dom f$ and $\rho \defeq \typ(A, f)$. Write $f = (f_j)_{j \in J}$, $g = (g_j)_{j \in J}$ and $h = (h_j)_{j \in J}$. If $\al$ is a $((A,f), (B,g))$-homomorphism and $\be$ is a $((B,g), (C,h))$-homomorphism, then $\be \circ \al$ is a $((A,f), (C,h))$-homomorphism.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\al$ is a $((A,f), (B,g))$-homomorphism and $\be$ is a $((B,g), (C,h))$-homomorphism. Let $j \in J$ and $a \in A^{\rho(j)}$. Since $\al$ is a $((A,f), (B,g))$-homomorphism, $g_j(\al^{\rho(j)}(a)) = \al(f_j(a))$. Define $b \in B^{\rho(j)}$ \tcr{(special case $\rho(j) = 0$?)} by $b \defeq \al^{\rho(j)}(a)$. Since $\be$ is a $((B,g), (C,h))$-homomorphism, $h_j(\be^{\rho(j)}(b)) = \be(g_j(b))$. Therefore
+		\begin{align*}
+			h_j([\be \circ \al]^{\rho(j)}(a))  
+			 & = h_j(\be^{\rho(j)} \circ \al^{\rho(j)}(a)) \\
+			 & = h_j(\be^{\rho(j)}(\al^{\rho(j)}(a))) \\
+			 & = h_j(\be^{\rho(j)}(b)) \\
+			 & = \be(g_j(b)) \\
+			 & = \be(g_j(\al^{\rho(j)}(a))) \\
+			 & = \be(\al(f_j(a))) \\
+			 & = \be \circ \al (f_j(a)).
+		\end{align*} 
+		Since $j \in J$ and $a \in A^{\rho(j)}$ are arbitrary, we have that for each $j \in J$ and $a \in A^{\rho(j)}$, $h_j([\be \circ \al]^{\rho(j)}(a)) = \be \circ \al (f_j(a))$. Hence $\be \circ \al$ is a $((A,f), (C,h))$-homomorphism.
+	\end{proof}
+	
+	
+	\begin{defn}
+		Define category of algebras $\Alg(\rho)$ of a given type $\rho$.
+		
+		\tcr{FINISH!!!!}
+	\end{defn}
+	
 
-	\begin{note}
-		Set $J_f \defeq \dom f$ and $J_g \defeq \dom g$. Then $(A, f)$ and $(B, g)$ are type similar iff $J_f = J_g$ and for each $j \in J_f$, $\ar f_j = \ar g_j$.
-	\end{note}
 
-	\tcr{maybe define similarity type $\rho$ first and then stipulate algebras belonging to the set of algebras of that type, this way we dont need $\rho^f$, only $\rho$}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -335,18 +4359,58 @@
 	\section{Subalgebras}
 	
 	\begin{defn}
-		Let $(A, f)$ be an algebra and $B \subset A$. Then $B$ is said to be an $f$-subuniverse of $A$ if $B$ is $f$-closed.
+		Let $(A, f), (B, g) \in \Obj(\Alg)$. Suppose that $(A, f)$ and $(B, g)$ are type-similar. Set $J \defeq \dom f$ and $\rho \defeq \typ (A, f)$. Write $f = (f_j)_{j \in J}$ and $g = (g_j)_{j \in J}$. 
+		\begin{itemize}
+			\item Then $(B, g)$ is said to be a \tbf{subalgebra of $(A, f)$} if 
+			\begin{enumerate}
+				\item $B \subset A$ 
+				\item for each $j \in J$, $f_j|_{B^{\rho(j)}} = g_j$.
+			\end{enumerate}
+			\item We define $\suba(\MA) \defeq \{\MB \in \Obj(\Alg): \text{$\MA \sim_{\typ} \MB$ and $\MB$ is a subalgebra of $\MA$}\}$.
+		\end{itemize}
 	\end{defn}
+	
+	\begin{defn}
+		Let $(A, f) \in \Obj(\Alg)$ and $B \in \Obj(\Set)$. 
+		\begin{itemize}
+			\item Then $B$ is said to be a \tbf{subuniverse of $(A, f)$} if 
+			\begin{enumerate}
+				\item $B \subset A$,
+				\item $B$ is $\Im f$-closed.
+			\end{enumerate}
+			\item We define $\subu(\MA) \defeq \{B \in \Obj(\Set): \text{$B$ is a subuniverse of $\MA$}\}$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $(A, f)$, $(B, g)$ be algebras. Suppose that $(A, f)$ and $(B, g)$ are type-similar. If $(B, g)$ is a subalgebra of $(A, f)$, then $B$ is a subuniverse of $A$. 
+	\end{ex}
+	
+	\begin{proof}
+		Set $J \defeq \dom f$ and $\rho \defeq \typ(A, f)$. Suppose that $(B, g)$ is a subalgebra of $(A, f)$. 
+		\begin{enumerate}
+			\item Since $(B, g)$ is a subalgebra of $(A, f)$, we have that $B \subset A$.
+			\item Let $j \in J$. Then for each $a \in B^\rho(j)$, 
+			\begin{align*}
+				f_j(a_1, \ldots, a_{\rho(j)})
+				& = f_j|_{B^{\rho(j)}}(a_1, \ldots, a_{\rho(j)}) \\
+				& = g_j(a_1, \ldots, a_{\rho(j)}) \\
+				& \in B.
+			\end{align*}
+			Since $j \in J$ is arbitrary, we have that $B$ is $\Im f$-closed. Thus $B$ is a subuniverse of $A$.
+		\end{enumerate}
+	\end{proof}
 
 	\begin{defn}
-		Let $(A, f)$ be an algebra and $B \subset A$. Set $\MS \defeq \{S \subset A: \text{$S$ is an $f$-subuniverse of $A$ and $B \subset S$}\}$. We define the \tbf{$f$-subuniverse of $A$ generated by $B$}, denoted $\Sg(B, f)$, by
-		$$\Sg(B, f) \defeq \bigcap\limits_{S \in \MS} S $$
+		Let $\MA$ be an algebra and $B$ a subuniverse of $\MA$. Set $\MS(B, \MA) \defeq \{S \subset A: \text{$S$ is a subuniverse of $\MA$ and $B \subset S$}\}$. We define the \tbf{subuniverse of $\MA$ generated by $B$}, denoted $\Sg(B, \MA)$, by
+		$$\Sg(B, \MA) \defeq \bigcap\limits_{S \in \MS(B, \MA)} S $$
 	\end{defn}
+	\tcr{show $\MS \neq \varnothing$ and intersection of subiniverses is subuniverse}
 
 	\begin{ex}
 		Let $(A, f)$ be an algebra and $B \subset A$. Then 
 		\begin{enumerate}
-			\item $\Sg(B, f)$ is an $f$-subuniverse of $A$
+			\item $\Sg(B, f)$ is a subuniverse of $A$
 			\item $B \subset \Sg(B, f)$.
 		\end{enumerate}.
 	\end{ex}
@@ -371,28 +4435,9 @@
 		
 	\end{proof}
 
-	\begin{defn}
-		Let $(A, f)$, $(B, g)$ be algebras. Suppose that $(A, f)$ and $(B, g)$ are type similar. Set $J \defeq \dom f$ and $\rho \defeq \rho^f$. Then $(B, g)$ is said to be a \tbf{subalgebra} of $(A, f)$ if 
-		\begin{enumerate}
-			\item $A \subset B$
-			\item for each $j \in J$, $f_j|_{B^{\rho(j)}} = g_j$.
-		\end{enumerate}
-	\end{defn}
+	
 
-	\begin{ex}
-		Let $(A, f)$, $(B, g)$ be algebras. Suppose that $(A, f)$ and $(B, g)$ are type similar. If $(B, g)$ is a sub algebra of $(A, f)$, then $B$ is a subuniverse of $A$. 
-	\end{ex}
-
-	\begin{proof}
-		Set $J \defeq \dom f$. Suppose that $(B, g)$ is a sub algebra of $(A, f)$. Let $j \in J$. Then for each $a_1, \ldots, a_{\rho^f(j)} \in B$, 
-		\begin{align*}
-			f_j(a_1, \ldots, a_{\rho^f(j)})
-			& = f_j|_{B^{\rho^f(j)}}(a_1, \ldots, a_{\rho^f(j)}) \\
-			& = g_j((a_1, \ldots, a_{\rho^f(j)})) \\
-			& \in B.
-		\end{align*}
-		Since $j \in J$ is arbitrary, we have that $B$ is $f$-closed. Thus $B$ is a subuniverse of $A$.
-	\end{proof}
+	
 
 	
 
@@ -433,16 +4478,6 @@
 	
 	
 	
-	
-	
-	\newpage
-	
-	\section{Homomorphisms}
-	
-	\begin{defn}
-		Let $(A, f)$, $(B, g)$ be algebras and $h:A \rightarrow B$. Suppose that $(A, f)$ and $(B, g)$ are type similar and set $J \defeq \dom f$, $\rho \defeq \rho^f$. Then $h$ is said to be a \tbf{homomorphism} if for each $j \in J$, and $a_1, \ldots, a_{\rho(j)}$, 
-		$$h(f_j(a_1, \ldots, a_{\rho(j)})) = g_j(h(a_1), \ldots, h(a_{\rho(j)})).$$
-	\end{defn}
 	
 	
 	
@@ -1326,9 +5361,9 @@
  
  \begin{proof}\
  	\begin{itemize}
- 		\item $(\implies):$ \\
+ 		\item $(\implies)$: \\
  		Suppose that $x = 0$. Linearity implies that for each $\phi \in X^*$ $\phi(x) = 0$. 
- 		\item $(\impliedby):$ \\
+ 		\item $(\impliedby)$: \\
  		Conversely, suppose that $x \neq 0$. Define $\ep_x: \spn(x) \rightarrow \K$ by $\ep_x(\lam x) \defeq \lam$. Let $u,v \in \spn(x)$. Then there exists $\lam_u, \lam_v \in \K$ such that $u = \lam_u x$ and $v = \lam_v x$. Suppose that $u = v$. Then 
  		\begin{align*}
  			(\lam_u - \lam_v)x

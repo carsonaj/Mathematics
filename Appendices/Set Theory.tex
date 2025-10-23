@@ -9,7 +9,7 @@
 		$$S^k \defeq \{u: [k] \rightarrow S\}$$
 		\item Let $S$ be a set. We define the \tbf{set of all tuples with entries in $S$}, denoted $S^*$, by 
 		$$S^* \defeq \bigcup_{k \in \N_0} S^k$$
-		\item Let $S$ be a set and $k \in \N_0$. We define the \tbf{set of $k$-ary operation on $S$}, denoted $\MF^k(S)$, by $\MF^k(S) \defeq S^{(S^k)}$. We define the \tbf{set of finitary operations on $S$}, denoted $\MF^*(S)$, by
+		\item Let $S$ be a set and $k \in \N_0$. We define the \tbf{set of $k$-ary operations on $S$}, denoted $\MF^k(S)$, by $\MF^k(S) \defeq S^{(S^k)}$. We define the \tbf{set of finitary operations on $S$}, denoted $\MF^*(S)$, by
 		$$\MF^*(S) \defeq \bigcup_{k \in \N_0} \MF^k(S)$$
 		\item Let $S$ be a set. We define the \tbf{operation arity map}, denoted $\ar: \MF^*(S) \rightarrow \N_0$, by 
 		$$\ar f \defeq k, \quad f \in \MF^k(S)$$
@@ -25,11 +25,28 @@
 \end{defn}
 
 \begin{defn}
-	Let $S$ be a set, $\MF \subset \MF^*(S)$ and $C \subset S$. Then $C$ is said to be  \tbf{$\MF$-closed} if for each $k \in \N_0$, $f \in \MF_k$ and $a_1, \ldots, a_k \in C$, $f(a_1, \ldots, a_k) \in C$.
+	Let $S$ be a set, $k \geq 2$ and $f \in \MF^k(S)$. Then $f$ is said to be
+	\begin{itemize}
+		\item \tbf{associative} if for each $x_1, \ldots, x_k, x_{k+1}, \ldots, x_{k + (k-1)} \in S$, 
+		\begin{align*}
+			f(f(x_1, \ldots, x_k) x_{k+1}, \ldots, x_{k + (k-1)}) 
+			& = f(x_1, f(x_2, \ldots, x_{k+1}), x_{k+2}, \ldots, x_{k + (k-1)}) \\
+			& \vdots \\
+			& = f(x_1, \ldots, x_{k-1}, f(x_k, \ldots, x_{k + (k-1)}) )
+		\end{align*}
+		\item \tbf{symmetric} if for each $x_1, \ldots, x_k \in S$, $\sig \in S_k$, $f(x_1, \ldots, x_k) = f(x_{\sig(1)}, \ldots, x_{\sig(k)})$.
+		\item \tbf{idempotent} if for each $x \in S$,
+		$f(x, \ldots, x) = x$
+	\end{itemize}
+\end{defn}
+
+\begin{defn}
+	Let $S$ be a set, $\MF \subset \MF^*(S)$ and $C \subset S$. Then $C$ is said to be  \tbf{$\MF$-closed} if for each $k \in \N_0$, $f \in \MF_k$ and $a \in C^k$, $f(a) \in C$.
 \end{defn}
 
 \begin{ex}
 	Let $S$ be a set, $\MF \subset \MF^*(S)$ and $\MC \subset \MP(S)$. If for each $C \in \MC$, $C$ is  $\MF$-closed, then $\bigcap\limits_{C \in \MC} C$ is $\MF$-closed
+	\tcr{need special case where $k=0$? maybe trivially true?}
 \end{ex}
 
 \begin{proof}
