@@ -912,6 +912,28 @@
 		\end{enumerate}
 	\end{proof}
 	
+	\begin{ex} \lex{ex:orderings:prosets:0026}
+		Let $(X, \leq)$ be a poset and $A \subset X$. Then 
+		\begin{enumerate}
+			\item $\sup A = \ubd A \cap \lbd (\ubd A)$
+			\item $\inf A = \lbd A \cap \ubd(\lbd A)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item We note that for each $x \in X$,
+			\begin{align*}
+				x \in \sup A
+				& \iff \text{$x \in \ubd A$ and for each $y \in \ubd A$, $x \leq y$} \\
+				& \iff \text{$x \in \ubd A$ and $x \in \lbd(\ubd A)$} \\
+				& \iff x \in \ubd A \cap \lbd (\ubd A). 
+			\end{align*}
+			Therefore $\sup A = \ubd A \cap \lbd (\ubd A)$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
 	
 	
 	
@@ -962,12 +984,93 @@
 	\subsection{Order Preserving Maps}
 	
 	\begin{defn} \ld{def:orderings:prosets:0026}
-		Let $(X, \leq_X)$ $(Y, \leq_Y)$ be prosets and $f:X \rightarrow Y$. Then $f$ is said to be \tbf{$(\leq_X, \leq_Y)$-order preserving} or \tbf{$(\leq_X, \leq_Y)$-monotone} if for each $a,b \in X$, $a \leq_X b$ implies that $f(a) \leq_Y f(b)$. 
+		Let $(X, \leq_X)$ $(Y, \leq_Y)$ be prosets and $f:X \rightarrow Y$. Then $f$ is said to be
+		\begin{itemize}
+			\item \tbf{$(\leq_X, \leq_Y)$-order preserving} or \tbf{$(\leq_X, \leq_Y)$-monotone} if for each $a,b \in X$, $a \leq_X b$ implies that $f(a) \leq_Y f(b)$. 
+			\item \tbf{$(\leq_X, \leq_Y)$-order reversing} or \tbf{$(\leq_X, \leq_Y)$-antitone} if for each $a,b \in X$, $a \leq_X b$ implies that $f(b) \leq_Y f(a)$. 
+		\end{itemize}
 	\end{defn}
 	
 	\begin{note}
-		When the context is clear we say that $f$ is ``monotone" instead of ``$(\leq_X, \leq_Y)$-monotone".
+		When the context is clear we say that $f$ is ``monotone" and ``antitone" instead of ``$(\leq_X, \leq_Y)$-monotone" and ``$(\leq_X, \leq_Y)$-antitone" respectively.
 	\end{note}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0026.1}
+		Let $(X, \leq_X)$ $(Y, \leq_Y)$ be prosets and $f:X \rightarrow Y$. Then 
+		\begin{enumerate}
+			\item 
+			the folloing are equivalent: 
+			\begin{enumerate}
+				\item $f$ is $(\leq_X, \leq_Y)$-antitone 
+				\item $f$ is $(\leq_X, \lop_Y)$-monotone
+				\item $f$ is $(\lop_X, \leq_Y)$-monotone
+				\item $f$ is $(\lop_X, \lop_Y)$-antitone
+			\end{enumerate}
+			\item the folloing are equivalent: 
+			\begin{enumerate}
+				\item $f$ is $(\leq_X, \leq_Y)$-monotone 
+				\item $f$ is $(\leq_X, \lop_Y)$-antitone
+				\item $f$ is $(\lop_X, \leq_Y)$-antitone
+				\item $f$ is $(\lop_X, \lop_Y)$-monotone 
+			\end{enumerate}
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(a) \implies (b)$: \\
+				Suppose that $f$ is $(\leq_X, \leq_Y)$-antitone. Let $a,b \in X$. Then 
+				\begin{align*}
+					a \leq_X b 
+					& \implies f(b) \leq_Y f(a) \\
+					& \iff f(a) \lop_Y f(b).
+				\end{align*}
+				Since $a,b \in X$ are arbitrary, we have that for each $a,b \in X$, $a \leq_X b$ implies that $f(a) \lop_Y f(b)$. Hence $f$ is $(\leq_X, \lop_Y)$-monotone. 
+				\item $(b) \implies (c)$: \\
+				Suppose that $f$ is $(\leq_X, \lop_Y)$-monotone. Let $a,b \in X$. Then 
+				\begin{align*}
+					a \lop_X b
+					& \iff b \lop_X a \\ 
+					& \implies f(b) \lop_Y f(a) \\
+					& \iff f(a) \leq_Y f(b).
+				\end{align*}
+				Since $a,b \in X$ are arbitrary, we have that for each $a,b \in X$, $a \lop_X b$ implies that $f(a) \leq_Y f(b)$. Hence $f$ is $(\lop_X, \leq_Y)$-monotone. 
+				\item $(c) \implies (d)$: \\
+				Suppose that $f$ is $(\lop_X, \leq_Y)$-monotone. Let $a,b \in X$. Then 
+				\begin{align*}
+					a \lop_X b
+					& \implies f(a) \leq_Y f(b) \\
+					& \iff f(b) \lop_Y f(a).
+				\end{align*}
+				Since $a,b \in X$ are arbitrary, we have that for each $a,b \in X$, $a \lop_X b$ implies that $f(b) \lop_Y f(a)$. Hence $f$ is $(\lop_X, \lop_Y)$-antitone. 
+				\item $(d) \implies (a)$: \\
+				Suppose that $f$ is $(\lop_X, \lop_Y)$-antitone. Let $a,b \in X$. Then 
+				\begin{align*}
+					a \leq_X b
+					& \iff b \lop_X a \\
+					& \implies f(a) \lop_Y f(b) \\
+					& \iff f(b) \leq_Y f(a).
+				\end{align*}
+				Since $a,b \in X$ are arbitrary, we have that for each $a,b \in X$, $a \leq_X b$ implies that $f(b) \leq_Y f(a)$. Hence $f$ is $(\leq_X, \leq_Y)$-antitone. 
+			\end{itemize}
+			\item Set $\leq_Y' \defeq \lop_Y$. Part $(1)$ implies that 
+			\begin{align*}
+				\text{$f$ is $(\leq_X, (\leq_Y')^{\text{op}})$-monotone}
+				& \iff \text{$f$ is $(\leq_X, \leq_Y')$-antitone} \quad \text{(by $1(b) \iff 1(a)$)} \\
+				& \iff \text{$f$ is $(\lop_X, (\leq_Y')^{\text{op}})$-antitone} \quad \text{(by $1(a) \iff 1(d)$)} \\
+				& \iff \text{$f$ is $(\lop_X, \leq_Y')$-monotone} \quad \text{(by $1(d) \iff 1(c)$)}.
+			\end{align*}
+			Since $(\leq_Y')^{\text{op}}) = \leq_Y$, we have that
+			\begin{align*}
+				\text{$f$ is $(\leq_X, \leq_Y)$-monotone}
+				& \iff \text{$f$ is $(\leq_X, \lop_Y)$-antitone} \\
+				& \iff \text{$f$ is $(\lop_X, \leq_Y)$-antitone} \\
+				& \iff \text{$f$ is $(\lop_X, \lop_Y)$-monotone}.
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
 	
 	\begin{ex} \lex{ex:orderings:prosets:0027}
 		Let $(X, \leq_X)$ $(Y, \leq_Y)$ be prosets and $f:X \rightarrow Y$. Then $f$ is $(\leq_X, \leq_Y)$-monotone iff $f$ is $(\lop_X, \lop_Y)$-monotone.
@@ -1073,6 +1176,181 @@
 	
 	
 	
+	
+	
+	\subsection{Galois Connections}
+	
+	\begin{defn}
+		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be prosets, $f: X \rightarrow Y$ and $g:Y \rightarrow X$. 
+		\begin{itemize}
+			\item Then $(f, g)$ is said to be a \tbf{$(\leq_X, \leq_Y)$-monotone Galois connection} if for each $x \in X$ and $y \in Y$, 
+			$$\text{$f(x) \leq_Y y$ iff $x \leq_X g(y)$.}$$
+			\item Then $(f, g)$ is said to be a \tbf{$(\leq_X, \leq_Y)$-antitone Galois connection} if for each $x \in X$ and $y \in Y$, 
+			$$\text{$f(x) \leq_Y y$ iff $g(y) \leq_X x$.}$$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we say ``monotone (resp. antitone) Galois connection" instead of ``$(\leq_X, \leq_Y)$-monotone (resp. $(\leq_X, \leq_Y)$-antitone) Galois connection".
+	\end{note}
+	
+	\begin{defn}
+		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be prosets, $f: X \rightarrow Y$ and $g:Y \rightarrow X$. If $(f,g)$ is a monotone (resp. antitone) Galois connection, then 
+		\begin{itemize}
+			\item $f$ is said to be a \tbf{left adjoint} of $g$, 
+			\item $g$ is said to be a \tbf{right adjoint} of $f$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be prosets, $f: X \rightarrow Y$ and $g:Y \rightarrow X$. Then 
+		\begin{enumerate}
+			\item $(f,g)$ is a $(\leq_X, \leq_Y)$-monotone Galois connection iff $(g, f)$ is a $(\lop_Y, \lop_X)$-monotone Galois connection
+			\item $(f,g)$ is a $(\leq_X, \leq_Y)$-antitone Galois connection iff $(f, g)$ is a $(\lop_X, \leq_Y)$-monotone Galois connection
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $(f,g)$ is a $(\leq_X, \leq_Y)$-monotone Galois connection. Let $y \in Y$ and $x \in X$. By assumption, 
+				\begin{align*}
+					g(y) \lop_X x
+					& \iff x \leq_X g(y) \\
+					& \iff f(x) \leq_Y y \\
+					& \iff y \lop_Y f(x).
+				\end{align*}
+				Since $y \in Y$ and $x \in X$ are arbitrary, we have that for each $y \in Y$ and $x \in X$, $g(y) \lop_X x$ iff $y \lop_Y f(x)$. Therefore $(g,f)$ is a $(\lop_Y, \lop_X)$-monotone Galois connection.
+				\item $(\impliedby)$: \\
+				
+			\end{itemize}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				\tcr{FINISH!!!}
+				\item $(\impliedby)$: \\
+				
+			\end{itemize}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be prosets, $f: X \rightarrow Y$ and $g:Y \rightarrow X$. Then $(f,g)$ us a $(\leq_X, \leq_Y)$-monotone Galois connection iff
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item for each $x \in X$, $x \leq_X g \circ f (x)$
+				\item for each $y \in Y$, $f \circ g (y) \leq_Y y$
+			\end{enumerate}
+			\item $f$ is $(\leq_X, \leq_Y)$-monotone and $g$ is $(\leq_Y, \leq_X)$-monotone
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			\begin{enumerate}
+				\item 
+				\begin{enumerate}
+					\item Let $x \in X$. Define $y \in Y$ by $y \defeq f(x)$. Since $f(x) \leq_Y f(x)$, we have that $f(x) \leq_Y y$. Therefore 
+					\begin{align*}
+						x 
+						& \leq_X g(y) \\
+						& = g \circ f(x).
+					\end{align*}
+					Since $x \in X$ is arbitrary, we have that for each $x \in X$, $x \leq_X g \circ f(x)$.
+					\item Let $y \in Y$. \tcr{the previous ex} implies that $(g,f)$ is a $(\lop_Y, \lop_X)$-monotone Galois connection. Part $1(a)$ then implies that for each $y \in Y$, $y \lop_Y f \circ g(y)$. Therefore for each $y \in Y$, $f \circ g(y) \leq_Y y$
+				\end{enumerate}
+				\item 
+				\begin{itemize}
+					\item Let $a, b \in X$. Define $x \in X$ and $y \in Y$ by $x \defeq a$ and $y \defeq f(b)$. Suppose that $a \leq_X b$. Part $1(a)$ implies that 
+					\begin{align*}
+						x
+						& = a \\
+						& \leq_X b \\
+						& \leq_X g(f(x)) \\
+						& = g(y).
+					\end{align*}
+					Since $(f,g)$ is a $(\leq_X, \leq_Y)$-monotone Galois connection, we have that 
+					\begin{align*}
+						f(a)
+						& = f(x) \\
+						& \leq y \\
+						& = f(b).
+					\end{align*}
+					Since $a,b \in X$ with $a \leq_X b$ are arbitrary, we have that for each $a,b \in X$, $a \leq_X b$ implies that $f(a) \leq_Y f(b)$. Thus $f$ is $(\leq_X, \leq_Y)$-monotone.
+					\item Since $(f,g)$ is a $(\leq_X, \leq_Y)$-monotone Galois connection, \tcr{a previous ex} implies that $(g, f)$ is a $(\lop_Y, \lop_X)$-monotone Galois connection. The previous part implies that $g$ is $(\lop_Y, \lop_X)$-monotone. \rex{ex:orderings:prosets:0026.1} then implies that $g$ is $(\leq_Y, \leq_X)$-monotone.
+				\end{itemize}
+			\end{enumerate}
+			\item $(\impliedby)$: \\
+			\tcr{FINISH!!!}
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be prosets and $(f,g)$ a $(\leq_X, \leq_Y)$-monotone Galois connection. Then $f = f \circ g \circ f$ and $g = g \circ f \circ g$.
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{FINSIH!!}
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X, \leq)$ be a proset. Define $F,G: \MP(X) \rightarrow \MP(X)$ by $F(A) \defeq \ubd A$ and $G(A) \defeq \lbd A$. Then $(F,G)$ is a $(\subset, \subset)$-monotone Galois connection. 
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
 	\section{Posets}
 	
@@ -1092,7 +1370,7 @@
 	\end{defn}
 	
 	\begin{ex} \lex{ex:orderings:posets:0002}
-		Let $(X, \leq)$ be a poset and $a,b \in X$2 Then $a \sim_{\leq} b$ iff $a = b$. 
+		Let $(X, \leq)$ be a poset and $a,b \in X$. Then $a \sim_{\leq} b$ iff $a = b$. 
 	\end{ex}
 	
 	\begin{proof}\
@@ -1165,6 +1443,26 @@
 			\item Let $x \in X$. We write $x = \sup A$ (resp. $x = \inf A$) if $x \in \sup A$ (resp. $x \in \inf A$)
 		\end{itemize}
 	\end{defn}
+	
+	\begin{ex} \lex{ex:orderings:posets:0006.1}
+		Let $(X, \leq)$ be a poset and $A \subset X$. Then 
+		\begin{enumerate}
+			\item $\sup A = \inf (\ubd A)$ \tcr{in proset subsection, make exercise saying $\sup A = \ubd A \cap \lbd (\ubd A)$, then rework this exercise with this fact to shorten it up, show $A \mapsto \ubd A$ and $A \mapsto \lbd A$ make a galois connection, then $\ubd (\lbd (\ubd A)) = \ubd A$ and this implies that $\sup A = \inf (\ub A)$ and dually, in prosets (i.e. make exercises in proset sections)}
+			\item $\inf A = \sup (\lbd A)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item \rex{ex:orderings:prosets:0026} implies that $\sup A \in \ubd A \cap \lbd (\ubd A)$.
+			\begin{itemize}
+				\item By definition, for each $x \in \ubd A$, $\sup A \leq x$. Therefore $\sup A \in \lbd(\ubd A)$. Hence $\sup A \leq \inf (\ubd A)$.
+				\item By definition, $\sup A \in \ubd A$ and $\inf (\ubd A) \in \lbd (\ubd A)$. Therefore $\inf (\ubd A) \leq \sup A$.
+			\end{itemize}
+			Since $\sup A \leq \inf (\ubd A)$ and $\inf (\ubd A) \leq \sup A$, we have that $\sup A = \inf (\ubd A)$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
 	
 	\begin{ex} \lex{ex:orderings:posets:0007} \tbf{Associativity of Supremum:} \\
 		Let $(X, \leq)$ be a poset and $(E_{\al})_{\al \in A} \subset \MP(X)$. 
@@ -2439,6 +2737,21 @@
 	
 	\subsection{Complete Lattices}
 	
+	\begin{ex}
+		Let $(X, \leq)$ be a poset. Then for each $A \subset X$, $\sup A$ exists iff for each $A \subset X$, $\inf A$ exists. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that for each $A \subset X$, $\sup A$ exists. Let $A \subset X$. Define 
+			\item $(\impliedby)$: \\
+		\end{itemize}
+	\end{proof}
+	
+	\begin{defn}
+		Let $(X, \leq)$ be a poset. Then $(X, \leq)$ is said to be a \tbf{complete lattice} if for each $A \subset X$, $\sup A$ exists. 
+	\end{defn}
 	
 	
 	
@@ -2540,14 +2853,14 @@
 	\begin{ex}
 		Let $(L, \leq)$ be a poset. 
 		\begin{enumerate}
-			\item Suppose that $(L, \leq)$ is a join-semilattice. Then for each $x \in L$, if $x$ is join-prime, then $x$ is join-irreducible. 
-			\item Suppose that $(L, \leq)$ is a meet-semilattice. Then for each $x \in L$, if $x$ is meet-prime, then $x$ is meet-irreducible. 
+			\item Suppose that $(L, \leq)$ is a join-semilattice. Then $JP(L) \subset LI(L)$. 
+			\item Suppose that $(L, \leq)$ is a meet-semilattice. Then $MP(L) \subset MI(L)$. 
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $x \in L$. Suppose that $x$ is join-prime. 
+			\item Let $x \in JP(L)$.
 			\begin{enumerate}
 				\item Since $x$ is join-prime, $x$ is not at zero of $L$.
 				\item Let $a,b \in L$. Suppose that $x = a \vee b$. Then $x \leq a \vee b$. Since $x$ is join-prime, $x \leq a$ or $x \leq b$. 
@@ -2564,8 +2877,8 @@
 				\end{itemize}
 				Since $x \leq a$ or $x \leq b$, we have that $x = a$ or $x = b$. Since $a,b \in L$ with $x = a \vee b$ are arbitrary, we have that for each $a,b \in L$, $x = a \vee b$ implies that $x = a$ or $x = b$.
 			\end{enumerate} 
-			Thus $x$ is join-irreducible. Since $x \in L$ such that $x$ is join-prime is arbitrary, we have that for each $x \in L$, if $x$ is join-prime, then $x$ is join-irreducible.
-			\item Similar to $(1)$. 
+			Thus $x \in JI(L)$. Since $x \in JP(L)$ is arbitrary, we have that for each $x \in JP(L)$, $x \in JI(L)$. Hence $JP(L) \subset JI(L)$.
+			\item Similar to $(1)$ \tcr{use duality}. 
 		\end{enumerate}
 	\end{proof}
 	
@@ -2712,27 +3025,19 @@
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
-		
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $f$ preserves finite joins. Then \tcr{the previous exercise} implies that
+			\begin{align*}
+				\text{for each $a,b \in X$, $f(a) \vee_{\leq_Y} f(b) =  f(a \vee_{\leq_X} b)$}
+				& \implies \text{for each $a,b \in X$, $f(a) \vee_{\leq_Y} f(b) \leq  f(a \vee_{\leq_X} b)$} \\
+				& \implies \text{$f$ is $(\leq_X, \leq_Y)$-monotone}
+			\end{align*}
+			\item Suppose that $(X, \leq_X)$ and $(Y, \leq_Y)$ are meet semilattices. If $f$ preserves finite meets, then $f$ is $(\leq_X, \leq_Y)$-monotone.
+		\end{enumerate}
 	\end{proof}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	\begin{defn}
-		\tcr{move}
 		Let $(X, \leq_X), (Y, \leq_Y)$ be complete lattices and $f:X \rightarrow Y$. Then $f$ is said to 
 		\begin{enumerate}
 			\item \tbf{preserve arbitrary joins} if for each $A \subset X$, $f(\sup (A, \leq_X) ) = \sup(f(A), \leq_Y)$
@@ -3408,6 +3713,8 @@
 	\newpage
 	\section{Complete Lattices}
 	
+	\subsection{Introduction}
+	
 	\begin{defn} 
 		Let $(X, \leq)$ be a poset. Then $(X, \leq)$ is said to satisfy the 
 		\begin{itemize}
@@ -3429,6 +3736,39 @@
 	\end{defn}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Complete Lattice Homomorphisms}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Galois Connections}
 	
 	
 	
