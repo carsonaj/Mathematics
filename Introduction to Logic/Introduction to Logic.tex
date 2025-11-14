@@ -103,6 +103,146 @@
 
 
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   \chapter{Operations and Relations}
+   
+   \subsection{Introduction}  
+   
+%   \begin{defn}
+%   	\begin{itemize}
+%   		\item For each $k \in \N_0$, we define 
+%   		\[
+%   		[k] \defeq
+%   		\begin{cases}
+%   			\varnothing, & k = 0 \\
+%   			\{1, \ldots, k\}, & k \geq 1. 	
+%   		\end{cases} 
+%   		\]
+%   		\item Let $X$ be a set and $k \in \N_0$. We define the \tbf{set of $k$-tupels with entries in $X$}, denoted $X^k$, by 
+%   		$$X^k \defeq \{u: [k] \rightarrow X\}$$
+%   		\item Let $X$ be a set. We define the \tbf{set of all tuples with entries in $X$}, denoted $X^*$, by 
+%   		$$X^* \defeq \bigcup_{k \in \N_0} X^k$$
+%   	\end{itemize}
+%   \end{defn}
+   
+   
+   \begin{defn}
+   	Let $X$ be a set.
+   	\begin{itemize}
+   		\item Let $k \in \N_0$.
+   		\begin{itemize}
+   			\item Let $R \in \MP(X^k)$ and $f \in X^{X^k}$. Then 
+   			\begin{itemize}
+   				\item $R$ is said to be a \tbf{$k$-ary relation on $X$}
+   				\item $f$ is said to be a \tbf{$k$-ary operation on $X$}
+   			\end{itemize} 
+   			\item We define 
+   			\begin{itemize}
+   				\item the \tbf{set of $k$-ary relations on $X$}, denoted $\MR^k(X)$, by $\MR^k(X) \defeq \MP(X^k)$
+   				\item the \tbf{set of $k$-ary operations on $X$}, denoted $\MF^k(X)$, by $\MF^k(X) \defeq X^{X^k}$.
+   			\end{itemize}
+   		\end{itemize}
+   		\item We define the 
+   		\begin{itemize}
+   			\item \tbf{set of finitary relations on $X$}, denoted $\MR^*(X)$, by
+   			$$\MR^*(X) \defeq \bigcup_{k \in \N_0} \MR^k(X)$$
+   			\item \tbf{set of finitary operations on $X$}, denoted $\MF^*(X)$, by
+   			$$\MF^*(X) \defeq \bigcup_{k \in \N_0} \MF^k(X)$$
+   		\end{itemize}
+   		
+   		\tbf{set of finitary relations on $X$}, denoted $\MR^*(X)$, by
+   		$$\MR^*(X) \defeq \bigcup_{k \in \N_0} \MR^k(X)$$
+   		\item  \tbf{arity map}, denoted $\ar: \MR^*(X) \rightarrow \N_0$, by 
+   		$$\ar R \defeq k, \quad f \in \MR^k(X)$$
+   		\item Let $X$ be a set, $\MR \subset \MR^*(X)$ and $k \in \N_0$. We define the \tbf{$k$-ary members of $\MR$}, denoted $\MR_k$, by 
+   		$$\MR_k \defeq \MR \cap \MR^k(X)$$
+   		\item Let $X$ be a set and $k \in \N_0$. We define the \tbf{set of $k$-ary operations on $X$}, denoted $\MF^k(X)$, by $\MF^k(X) \defeq X^{(X^k)}$. We define the \tbf{set of finitary operations on $X$}, denoted $\MF^*(X)$, by
+   		$$\MF^*(X) \defeq \bigcup_{k \in \N_0} \MF^k(X)$$
+   		\item Let $X$ be a set. We define the \tbf{operation arity map}, denoted $\ar: \MF^*(X) \rightarrow \N_0$, by 
+   		$$\ar f \defeq k, \quad f \in \MF^k(X)$$
+   		\item Let $X$ be a set, $\MF \subset \MF^*(X)$ and $k \in \N_0$. We define the \tbf{$k$-ary members of $\MF$}, denoted $\MF_k$, by 
+   		$$\MF_k \defeq \MF \cap \MF^k(X)$$
+   	\end{itemize}
+   \end{defn}
+   
+   \begin{ex}
+   	Let $X$ be a set. Then $\MR^0(X) = \{\varnothing, \{\varnothing\}\}$.
+   \end{ex}
+   
+   \begin{proof}
+   	Since $X^0 = \{\varnothing\}$, we have that 
+   	\begin{align*}
+   		\MR^0(X)
+   		& = \MP(X^0) \\
+   		& = \{\varnothing, \{\varnothing\}\}.
+   	\end{align*}
+   \end{proof}
+   
+   \begin{defn}
+   	Let $X$ be a set, $\MF \subset \MF^*(X)$ and $C \subset X$. Then $C$ is said to be  \tbf{$\MF$-closed} if for each $k \in \N_0$, $f \in \MF_k$ and $a \in C^k$, $f(a) \in C$.
+   \end{defn}
+   
+   \begin{ex}
+   	Let $X$ be a set, $\MF \subset \MF^*(X)$ and $\MC \subset \MP(X)$. If for each $C \in \MC$, $C$ is  $\MF$-closed, then $\bigcap\limits_{C \in \MC} C$ is $\MF$-closed
+   	\tcr{need special case where $k=0$? maybe trivially true?}
+   \end{ex}
+   
+   \begin{proof}
+   	Suppose that for each $C \in \MC$, $C$ is  $\MF$-closed. Let $k \in \N_0$, $f \in \MF_k$, $a_1, \ldots, a_k \in \bigcap\limits_{C \in \MC} C$ and $C_0 \in \MC$. Since $C_0 \in \MC$, we have that 
+   	\begin{align*}
+   		a_1, \ldots, a_k 
+   		& \in \bigcap_{C \in \MC} C \\
+   		& \subset C_0
+   	\end{align*}
+   	Since $C_0$ is $\MF$-closed, we have that $f(a_1, \ldots, a_k) \in C_0$. Since $C_0 \in \MC$ is arbitrary, we have that for each $C \in \MC$, $f(a_1, \ldots, a_k) \in C$. Hence $f(a_1, \ldots, a_k) \in \bigcap\limits_{C \in \MC} C$. Since $k \in \N_0$ and $a_1, \ldots, a_k \in \bigcap\limits_{C \in \MC} C$ are arbitrary, we have that $\bigcap\limits_{C \in \MC} C$ is $\MF$-closed.
+   \end{proof}
 
 
 
@@ -178,9 +318,119 @@
 	
 	
 	
-	\newpage
 	
-	\section{Language}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\part{Model Theory}
+	
+	\section{ToDo}
+	
+	\begin{itemize}
+		\item 
+		\tcr{
+		ask chase about relation of first order logic with countable quanitification and probability with $$\{\text{statements}\} \rightleftarrows \text{$\sig$-algebra}$$ 
+		with 
+		$p \mapsto A_p$
+		and 
+		$$\{\text{truth valuations}\} \rightleftarrows \{\text{probabilities}\}$$ 
+		with 
+		$v \mapsto P_v$ where the following structure is preserved:
+		\begin{itemize}
+			\item $P_v(A_p) = v(p)$,
+			\item $P_v\bigg(\bigcup\limits_{n \in \N} A_{p(n)} \bigg) = v(\exists n p(n)) = \bigvee\limits_{n \in \N} v(p(n))$,
+			\item $P_v(A_p^c) = v(\neg p) = v(p)^*$.
+		\end{itemize}
+		what do the borel cantelli lemma and kolmogorov 0-1 law tell us about the sentences in the language? Can we translate the notion of indpendence in probability to a notion of independence in logic using the kolmogorov 0-1 law?
+		what about disintegration of measure? 
+		Can we frame statistics in terms of model theory? Like for a given structure $\ML$ we have probability $P_{\ML}$ and instead of foumlas $p$, we have the interpreation of measurable sets $p^{\ML} = A_p \in \MA$, (what about functions and constants?) except our structure is an extension of the usual model theory in where instead of the usual satisfiablity/unsatisfiablility of a formula we have $\ML \models, \not \models p$, corresponds to $P_{\ML}(p^{\ML}) = 1$, $P_{\ML}(p^{\ML}) = 0$. Also can we explain maximum likelihood estimation as picking an optimal structure for our interpretation? can we backwards translate things like minimizing information loss (finding mle) as choosing a best structure for a given interpretation? 
+		}
+		\item try to cast project about group actions and probabilities in model theoretic language using the metric structures. The notes over metric structures talk about probability spaces as metric structure models. Can we do the same for when we care about a group action $G \times X \rightarrow X$ with the extra data of a probability $\mu$ on $(X, \MB(X))$? We would need a metric. For general prob spaces $(X, \MA, \mu)$, we can induce the associated probability space $(X, \hat{\MA}, \hat{\mu})$ where $\hat{\MA} = \MA/\sim$ with $A \sim B$ iff $\mu(A \tri B) = 0$ and $\hat{\pi_{\sim}(A)} \defeq \mu(A)$. Then we define a metric on $\hat{\MA}$ by $d(\pi_{\sim}(A), \pi_{\sim}(B)) = d(A, B) = \mu(A \tri B)$. If we add a group, we might want to make a metric analogous to the case in which a group acts isometrically on a metric space, i.e. $d_{X/G}(x,y) = \inf\limits_{g \in G} d(g \cdot x, y)$. \\
+		
+		We note that for any group action, since $(gA)^c = g(A^c)$, $gA \cap gB = g(A \cap B)$ and $gA \cup gB = g(A \cup B)$. Therefore 
+		\begin{align*}
+			(gA) \tri (g \cdot B)
+			& = [(gA) \cap (gB)^c] \cup  [(gB) \cap (gA)^c] \\
+			& = [(gA) \cap (gB^c)] \cup  [(gB) \cap (gA^c)] \\
+			& = [g(A \cap B^c) \cup g(B \cap A^c)] \\
+			& = g[(A \cap B^c) \cup (B \cap A^c)] \\
+			& = g (A\tri B). 
+		\end{align*}
+		\\
+		
+		If we assume that $G$ preserves sets of measure zero (very mild assumption), so that for each $A \in \MA$, $\mu(A) = 0$ implies that $\mu(gA) = 0$, then we have that $\mu(gA) = 0$ implies that $\mu(A) = \mu(g^{-1} g A) = 0$. Hence $G$ preserves sets of measure zero implies that $\mu(gA) = 0$ iff $\mu(A) = 0$. Then
+		\begin{align*}
+			A \sim B
+			& \iff \mu(A \tri B) = 0  \\
+			& \iff \mu[g(A \tri B)] = 0 \\
+			& \iff \mu[(gA) \tri (gB)] = 0 \\
+			& \iff gA \sim gB. 
+		\end{align*}
+		Hence for each $g \in G$, $A \mapsto gA$ is $\sim$-invariant. Thus we can define $G \times \hat{\MA} \rightarrow \hat{\MA}$ by $g \pi_{\sim}(A) \defeq \pi_{\sim}(gA)$ (uniqueness of $\bar{f}$ from quotient space section in analysis notes). \\
+		
+		If we assume additionally that $G$ preserves measures (like if $G \times X \rightarrow X$ acts isometrically, or is a hamiltonian flow (mor generally some ergodic system?)), then we have that
+		\begin{align*}
+			\hat{d}(g \hat{A}, g\hat{B})
+			& = \hat{d}(g \pi_{\sim}(A), g\pi_{\sim}(B)) \\
+			& = \hat{d}(\pi_{\sim}(gA), \pi_{\sim}(gB)) \\
+			& = d(gA, gB) \\
+			& = \mu[(gA) \tri (gB) ]\\
+			& = \mu[g(A \tri B)] \\
+			& = \mu(A \tri B) \\
+			& = d(A, B) \\
+			& = \hat{d}(\hat{A}, \hat{B})
+		\end{align*}
+		\tcr{can shorten this by separating out part showing if measure preserved, then $d(gA, gB) = d(A, B)$.}\\
+		
+		Then $G \times \hat{\MA} \rightarrow \hat{\MA}$ acts isometrically, and if $G$ is compact, maybe other requirements, then we can get a metric $\hat{d}_{\hat{A}/G} : \hat{A}/G \times \hat{A}/G \rightarrow [0, \infty)$ by $\hat{d}_{\hat{\MA}/G}(\pi_{\hat{\MA}/G}(\hat{A}, \pi_{\hat{\MA}/G}(\hat{B}))) = \inf\limits_{g \in G} \hat{d}(g \hat{A}, \hat{B}) = \inf\limits_{g \in G} d(gA, B)$.
+		
+		
+		\tcr{would be quicker to work with pseudometric space $(\MA, d_0)$ instead of $(\hat{\MA}, d)$ and show in alaysis notes that that if $d$ is a pseudometric and $G$ acts isometrically and is compact etc, then $d_{X/G}$ is pseudometric. }
+	\end{itemize}
+	
+	
+	\section{Languages}
+	
+	\begin{defn}
+		Let $X$ be a set. We define the \tbf{words over $X$}, denoted $X^*$, by 
+		$$X^* \defeq \bigcup_{k \in \N_0} X^k$$
+	\end{defn}
+	
+	\begin{defn}
+		Let $X$ be a set. 
+	\end{defn}
 	
 	\begin{defn}
 		Let $\MF$, $\MR$, $\MC$ be sets and $(n_f)_{f \in \MF}, (n_R)_{R \in \MR} \subset \N$. Set $\ML \defeq (\MF, \MR, \MC, (n_f)_{f \in \MF}, (n_R)_{R \in \MR})$. Then $\ML$ is said to be a \tbf{language}. 
@@ -192,8 +442,10 @@
 		\end{itemize}
 		For each $f \in \MF$ and $R \in \MR$, we define the \tbf{arity} of $f$ and $R$, denoted $\ar(f)$ and $\ar(R)$ respectively, by $\ar(f) \defeq n_f$ and $\ar(R) \defeq n_R$ respectively.
 	\end{defn}
-
-	\tcr{do we really need constants or can we just use nullary function symbols?}
+	
+	\begin{note}
+		\tcr{make comment about why we distinguish between relations, functions and constants when we usually think of functions as a type of relation and constants as $0$-ary functions}. Seems to be a matter of convenience
+	\end{note}
 
 	\begin{defn}
 		Let $\ML$ be a language, $M$ a set, $\phi_{\MF}: \Fun(\ML) \rightarrow \MF^*(M)$, $\phi_{\MR}: \Rel(\ML) \rightarrow \MR^*(M)$ and $\phi_{\MC}: \Cons(\ML) \rightarrow M$. Set $\MM \defeq (M, \phi_{\MF}, \phi_{\MR}, \phi_{\MC})$. Then $\MM$ is said to be an \tbf{$\ML$-structure on $M$} if 
@@ -221,6 +473,52 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Idea To do}
+	\tcr{idea}
+	
+	give brief discussion on how to make logic from a finite set theory (arbitrarily many symbols can be made from one symbol $x$ and another symbol $|$ by $x$, $x|$, $x||$ and so on, so we just need a large enough finite set for any formula with a finite number of symbols). In particular, you can define products, relations, functions, etc using finite sets and can then define logic in terms of these finite sets with a finite (but as large as you need) alphabet as a set, connectives as a set, etc.  
+	
+	Then talk about how once you have this finite set based logic, you can construct the usual set theory from this logic and do regular math with infinte sets using the usual axioms of set theory \tcr{}. 
+	
+	One thing that bugs me though is the idea of having finitely many "things". Assuming the set theory is true, we should be able to build a physics model of $\R/L\Z$ whose "length" $L$ is in competetion with the number of particles $N$ (assuming each particle is its own antiparticle like photons) where the total energy of the system is tied up in some combination of $L$ and $N$. In a quantum scenario, he total system is described by the wave function of the space's/particle's field on some ambient space which is described by a lagrangian of fields so that the $N$ and $L$ can take on finitely many values described probabilistically and which are related via some uncertainty. 
+	
+	The idea being that the system oscillates between a large $L$ and low $N$ and small $L$ and large $N$ as the energy transeferes between space and particle number. t
+	
+	So in this model, we can perhaps in some specific system states, momentarily define finite set theory and therefore logic in terms these ephemeral, momentarily well defined positions of particles, but the system will then evolve into a state where the finite set theory deosn't make sense. For instance in a computer, 0 or 1 only make sense when you can distinguish voltage levels, but if the threshold for identifiability is no longer achieved, then your computer will not be able to work (because the power is off or some other issue). So in this physical model, the ability to even define a finite set theory based on "things" is not possible, at least "all the time". Does mean anything for the set theory as we use it? We base basically all our eggs in a basket of assuming that we can talk about distinct finite things, but is that really true? Is there some way to salvage this in the physical model where maybe identifying things based on particle number and measurably sufficiently distinct location could be be in competition with another set of "things" such that when $L$ is small, $N$ is high and the above definition suffices, but when $L$ is high and $N$ is low, there exist another set of things we could use. But then is it possible for a state to not have enough distinguishability in either case simultaneously (at least for a given measurement precision), this seems to be the case even with regular computers. If you have very limited voltage, then even classically you can only have very small sets of things. So in some sense it seems like to have a sufficiently rich theory, you need sufficient measuremnt precision and distinguishability.   
+	
+	It seems like even if you couldnt recreate a finite set theory, you might be able to recreate another math structure like a group. but idk, because to do so, you ould need to be able to work with finite strings right? so basically finite sets?
+	
+	Another question is if you can cook up a physical math model using eg quantum mechanical of a universe (i.e. system) such that no matter what allowable operations (unitary transformations and observables) which would allow you to recreate a given math structure like a group. For instance in our universe, we could (at least temporarily) apply the function "forget everything but my watch and wait one hour in my frame of reference" when the minute hand is "aligned" with a numeral so that the output of the operation would be the watch with the minute hand on the subsequent numeral. We could apply this over and over (at least for a little while) to recreate a theory of the cyclic group of order 12. We could cook up a much simpler model using harmonic oscillators to recreate a group as well. 
+	
+	The question is, can you give a model where no operation could recreate a theory of Z/12Z, any group, any of the popular mathematical structures, any structures at all (i.e. one specified by finitely many things)? Is this equivalent to not having a way to make a finite set theory? maybe. 
+	
+	note: should replace "finite set theory" with "a theory of strings sufficient for logic"
+	
+	
+	
+	
+	tcr{idea}
+	
+	Try to learn some logic and see if you can describe logic and proofs as a "dynamical system" but with more than one transformation map, maybe using operads or something. 
+	
+	The idea is maybe we can assign a probability  dist to each transformation and the consider consider a set of starting axioms $A$ and various independent experiments $A_0^1, \ldots, A_0^n$ and for each experiment, select a random map $f^1_1, \ldots, f^n_1$ and form $A^1_1 \defeq A_1^0 \cup f^1_1(A^1_0)$, ..., $A^n_1 \defeq A_n^0 \cup f^n_1(A^n_0)$ in parallel. Then aggregate to get $A_1 = \bigcup_j A^j_1$. 
+	
+	(make adjustments for correct arity of the maps).
+	
+	Then repeat, i.e. set up parallel experiments, for each experiment select random function, map and, combine with previous iters, agregate, repeat. 
+	
+	The idea is that the aggreation will shrink the set overall list of things as much as possible, and we can match with known results to possibly find "nearby" results in the tree of computation so that we can quantify how related these randomly generated propositions are. Perhaps we can tune the prob dist so that or start the experiment in blocks so that if a given area, say geometry uses common results and definitions, we can prioritize maps and inputs that are more likely of that form of contain those as substrings, etc. Then if we can make an automated definition giver, we can collapse any long proposition by replacing substrings of known defs with those words and substrings which are not known defs into temproarily named defs and hierarchicaly structure/cluster them based on the known defs they use. The props with the most known defs and the most repeated unknown defs can be investigated first.
+	
+	If we loop back to a previous result, we can remove that mapping or do something to trim and stop repeated loops.    
 	
 	
 	

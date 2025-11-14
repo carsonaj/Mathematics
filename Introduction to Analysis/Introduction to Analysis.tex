@@ -113,9 +113,153 @@
 	
 	\tcr{figure out how to structure discussion on orderings, the issue is that projective systems of sets rely on directed sets, directed sets need products of sets, order theory and the specialization topology need topology and separation axioms, maybe each section should list prereqs and put sections with more prereqs towards end of chapter, then we could have a chapter on orderings that cover directed sets that comes after the set theory chapter and in the section on projective systems, include an intro with the prereq material from the section on directed sets, or maybe just make orderings a separate set of notes about order theory and reference these notes. Honestly chapters should be indexed by a poset instead of a totally ordered set.}
 	
-	\section{Relations}
-	
 	\section{Sets}
+	
+	\subsection{Union and Intersection}
+	
+	\begin{defn}
+		Let $X$, $A$ be sets and $(E_{\al})_{\al \in A} \subset \MP(X)$. We define the 
+		\begin{itemize}
+			\item \tbf{union of $(E_{\al})_{\al \in A}$}, denoted $\bigcup\limits_{\al \in A} E_{\al} \in \MP(X)$, by 
+			$$\bigcup\limits_{\al \in A} E_{\al} \defeq \{x \in X: \text{there exists $\al \in A$ such that $x \in E_{\al}$}\}$$
+			\item \tbf{intersection of $(E_{\al})_{\al \in A}$}, denoted $\bigcap\limits_{\al \in A} E_{\al} \in \MP(X)$, by 
+			$$\bigcup\limits_{\al \in A} E_{\al} \defeq \{x \in X: \text{for each $\al \in A$, $x \in E_{\al}$}\}$$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$, $A$ be sets and $(E_{\al})_{\al \in A} \subset \MP(X)$. If $A = \varnothing$, then 
+		\begin{enumerate}
+			\item $\bigcup\limits_{\al \in A} E_{\al} = \varnothing$
+			\item $\bigcap\limits_{\al \in A} E_{\al} = X$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $A = \varnothing$.
+		\begin{enumerate}
+			\item 
+			Let $x \in X$. For the sake of contradiction, suppose that $x \in \bigcup\limits_{\al \in A} E_{\al}$. Then there exists $\al \in A$ such that $x \in E_{\al}$. This is a contradiction since $A = \varnothing$. Hence $x \in  \bigg( \bigcup\limits_{\al \in A} E_{\al} \bigg)^c$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, $x \in  \bigg( \bigcup\limits_{\al \in A} E_{\al} \bigg)^c$. Therefore $X \subset \bigg( \bigcup\limits_{\al \in A} E_{\al} \bigg)^c$. Thus 
+			\begin{align*}
+				\bigcup\limits_{\al \in A} E_{\al}
+				& \subset X^c \\
+				& = \varnothing.
+			\end{align*}
+			Since trivially, $\varnothing \subset \bigcup\limits_{\al \in A} E_{\al}$, we have that $\bigcup\limits_{\al \in A} E_{\al} = \varnothing$. 
+			\item Let $x \in X$. Since $A = \varnothing$, it is vacuously true that for each $\al \in A$, $x \in E_{\al}$. Thus $x \in \bigcap\limits_{\al \in A} E_{\al}$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, $x \in \bigcap\limits_{\al \in A} E_{\al}$. Hence $X \subset \bigcap\limits_{\al \in A} E_{\al}$. Since trivially $\bigcap\limits_{\al \in A} E_{\al} \subset X$, we have that $\bigcap\limits_{\al \in A} E_{\al} = X$. 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$, $A$ be sets and $(E_{\al})_{\al \in A} \subset \MP(X)$. Then 
+		\begin{enumerate}
+			\item $\bigg( \bigcup\limits_{\al \in A} E_{\al} \bigg)^c = \bigcap\limits_{\al \in A} E_{\al}^c$
+			\item $\bigg( \bigcap\limits_{\al \in A} E_{\al} \bigg)^c = \bigcup\limits_{\al \in A} E_{\al}^c$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item We note that for each $x \in X$,
+			\begin{align*}
+				x \in \bigg( \bigcup\limits_{\al \in A} E_{\al} \bigg)^c
+				& \iff x \not \in \bigcup\limits_{\al \in A} E_{\al} \\
+				& \iff \text{it is not the case that $x \in \bigcup\limits_{\al \in A} E_{\al}$} \\
+				& \iff \text{it is not the case that there exists $\al \in A$ such that $x \in E_{\al}$} \\ 
+				& \iff \text{for each $\al \in A$, $x \not \in E_{\al}$} \\
+				& \iff  \text{for each $\al \in A$, $x \in E_{\al}^c$} \\
+				& \iff x \in \bigcap\limits_{\al \in A} E_{\al}^c.
+			\end{align*}
+			Thus $\bigg( \bigcup\limits_{\al \in A} E_{\al} \bigg)^c = \bigcap\limits_{\al \in A} E_{\al}^c$.
+			\item \tcr{The previous part} implies that
+			\begin{align*}
+				\bigg( \bigcup\limits_{\al \in A} E_{\al}^c \bigg)^c 
+				& = \bigcap\limits_{\al \in A} (E_{\al}^c)^c \\
+				& = \bigcap\limits_{\al \in A} E_{\al}.
+			\end{align*} 
+			Therefore 
+			\begin{align*}
+				\bigg( \bigcap\limits_{\al \in A} E_{\al} \bigg)^c 
+				& = \bigg[ \bigg( \bigcup\limits_{\al \in A} E_{\al}^c \bigg)^c \bigg]^c \\
+				& = \bigcup\limits_{\al \in A} E_{\al}^c.
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$, $A$ be sets, $E \in \MP(X)$ and $(F_{\al})_{\al \in A} \subset \MP(X)$. Then
+		\begin{enumerate}
+			\item $E \cap \bigg( \bigcup\limits_{\al \in A} F_{\al} \bigg) = \bigcup\limits_{\al \in A} (E \cap F_{\al})$
+			\item $E \cup \bigg( \bigcap\limits_{\al \in A} F_{\al} \bigg) = \bigcap\limits_{\al \in A} (E \cup F_{\al})$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item We note that for each $x \in X$,
+			\begin{align*}
+				x \in E \cap \bigg( \bigcup\limits_{\al \in A} F_{\al} \bigg)
+				& \iff \text{$x \in E$ and $x \in \bigcup\limits_{\al \in A} F_{\al} $} \\
+				& \iff \text{$x \in E$ and there exists $\al \in A$ such that $x \in F_{\al} $} \\
+				& \iff \text{there exists $\al \in A$ such that $x \in E$ and $x \in F_{\al}$} \\
+				& \iff \text{there exists $\al \in A$ such that $x \in E \cap F_{\al}$} \\
+				& \iff x \in \bigcup\limits_{\al \in A} (E \cap F_{\al}).
+			\end{align*}
+			Therefore $E \cap \bigg( \bigcup\limits_{\al \in A} F_{\al} \bigg) = \bigcup\limits_{\al \in A} (E \cap F_{\al})$.
+			\item We note that for each $x \in X$,
+			\begin{align*}
+				x \in E \cup \bigg( \bigcap\limits_{\al \in A} F_{\al} \bigg)
+				& \iff \text{$x \in E$ or $x \in \bigcap\limits_{\al \in A} F_{\al} $} \\
+				& \iff \text{$x \in E$ or for each $\al \in A$, $x \in F_{\al} $} \\
+				& \iff \text{for each $\al \in A$, $x \in E$ or $x \in F_{\al}$} \\
+				& \iff \text{for each $\al \in A$, $x \in E \cup F_{\al}$} \\
+				& \iff x \in \bigcap\limits_{\al \in A} (E \cup F_{\al}).
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Covers}
 	
 	
 	\begin{defn} \ld{def:set_theory:sets:0001}
@@ -506,7 +650,7 @@
 	\section{Products of Sets}
 	
 	\begin{defn} \ld{def:set_theory:products:0001}
-	Let $(X_{\al})_{\al \in A}$ be a collection of sets. We define 
+	Let $A$ be a set and $(X_{\al})_{\al \in A}$ a collection of sets. We define 
 	\begin{itemize}
 		\item the \tbf{Cartesian product} of $(X_{\al})_{\al \in A}$, denoted $\prod\limits_{\al \in A} X_{\al}$, by 
 		$$\prod_{\al \in A}X_{\al} \defeq \{f:A \rightarrow \bigcup_{\al \in A} X_{\al}: \text{ for each $\al \in A$, $f(\al) \in X_{\al}$}\}$$
@@ -514,9 +658,39 @@
 		$$\pi_{\al}(f) \defeq f(\al)$$
 	\end{itemize}
 	\end{defn}
+	
+	\begin{ex}
+		Let $A$ be a set and $(X_{\al})_{\al \in A}$ a collection of sets. 
+		\begin{enumerate}
+			\item If $A = \varnothing$, then $\prod\limits_{\al \in A} X_{\al} = \{\varnothing\}$.
+			\item 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $A = \varnothing$. Then \tcr{ref ex here} implies that $\bigcup\limits_{\al \in A} X_{\al} = \varnothing$. Since \tcr{ref ex here} implies that $\varnothing^{\varnothing} = \{\varnothing\}$, we have that 
+			\begin{align*}
+				\prod\limits_{\al \in A} X_{\al}
+				& \subset \bigg( \bigcup\limits_{\al \in A} X_{\al} \bigg)^A \\
+				& = \varnothing^{\varnothing} \\
+				& = \{\varnothing\}.
+			\end{align*}
+			Define $f_0 \in \bigg( \bigcup\limits_{\al \in A} X_{\al} \bigg)^A$ by $f_0 \defeq \varnothing$. 
+			Since it is vacuously true that for each $\al \in \varnothing$, $f_0(\al) \in X_{\al}$, we have that $f_0 \in \prod\limits_{\al \in A} X_{\al}$. Hence 
+			\begin{align*}
+				\{\varnothing\}
+				& = \{f_0\} \\
+				& \in \bigg\{f \in \bigg( \bigcup\limits_{\al \in A} X_{\al} \bigg)^A : \text{for each $\al \in A$, $f(\al) \in X_{\al}$} \bigg\} \\
+				& = \prod\limits_{\al \in A} X_{\al}.
+			\end{align*}
+			Since $\prod\limits_{\al \in A} X_{\al} \subset \{\varnothing\}$ and $\{\varnothing\} \subset \prod\limits_{\al \in A} X_{\al}$, we have that $\prod\limits_{\al \in A} X_{\al} = \{\varnothing\}$.
+			\item 
+		\end{enumerate}
+	\end{proof}
 
 	\begin{ex} \lex{ex:set_theory:products:0003}
-		Let $(A_{\lam})_{\lam \in \Lam}$ be a collection of sets and $B$ a set. Then 
+		Let $\Lam$, $B$ be sets and $(A_{\lam})_{\lam \in \Lam}$ a collection of sets. Then 
 		$$\bigg( \bigcup\limits_{\lam \in \Lam} A_{\lam} \bigg) \times B = \bigcup\limits_{\lam \in \Lam} (A_{\lam} \times B)$$
 	\end{ex}
 
@@ -588,7 +762,7 @@
 	\end{proof}
 
 	\begin{defn} \ld{def:set_theory:products:00010}
-		Let $X$ be a a topological space. We define 
+		Let $X$ be a set. We define 
 		\begin{itemize}
 			\item the \tbf{diagonal of $X \times X$}, denoted $\Del_X \subset X \times X$, by $\Del_X \defeq \{(x,x):x \in X\}$,
 			\item the \tbf{diagonal of $X^{\N}$}, denoted $\Del_{X^{\N}} \subset X^{\N}$, by $\Del_{X^{\N}} \defeq \{x \in X^{\N}: \text{ for each $m,n \in \N$, $\pi_m(x) = \pi_n(x)$}\}$.
@@ -656,7 +830,7 @@
 	
 
 	\begin{defn} \ld{def:set_theory:products:0005.3}
-		Let $X$ be a set, $(Y_{\al})_{\al \in A}$ a collection of sets and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^X$, i.e. for each $\al \in A$, $f_{\al}:X \rightarrow Y_{\al}$. Set $Y = \prod\limits_{\al \in A}Y_{\al}$. We define the \tbf{tuple of $(f_{\al})_{\al \in A}$}, denoted $(f_{\al})_{\al \in A}: X \rightarrow Y$, by $(f_{\al})_{\al \in A}(x) \defeq (f_{\al}(x))_{\al \in A}$.
+		Let $A$, $X$ be sets, $(Y_{\al})_{\al \in A}$ a collection of sets and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^X$, i.e. for each $\al \in A$, $f_{\al}:X \rightarrow Y_{\al}$. Set $Y = \prod\limits_{\al \in A}Y_{\al}$. We define the \tbf{tuple of $(f_{\al})_{\al \in A}$}, denoted $(f_{\al})_{\al \in A}: X \rightarrow Y$, by $(f_{\al})_{\al \in A}(x) \defeq (f_{\al}(x))_{\al \in A}$.
 	\end{defn}
 
 	\begin{ex} \lex{ex:set_theory:products:0005.4}
@@ -1530,6 +1704,8 @@
 	\newpage
 	\chapter{Topology}
 	
+	\tcr{at this point, there is enough topology to make its own set of notes, covering topology, metric spaces, Frames and locales and pointless topology}
+	
 	\section{Introduction}
 	
 	\begin{defn} \ld{31001}
@@ -1705,7 +1881,7 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	\end{proof}
 	
 	\begin{defn} \ld{31011}
-	Let $X$ be a set and $\MT$ a topology on $X$. Then $(X, \MT)$ is said to be a \tbf{topological space}. Let $U \subset X$. Then $U$ is said to be \tbf{open in $(X, \MT)$} if $U \in \MT$ and $U$ is said to be \tbf{closed in $(X, \MT)$} if $U^c$ is open in $(X, \MT)$.
+	Let $X$ be a set and $\MT$ a topology on $X$. Then $(X, \MT)$ is said to be a \tbf{topological space}. Let $U \subset X$. Then $U$ is said to be \tbf{$\MT$-open} if $U \in \MT$ and $U$ is said to be \tbf{$\MT$-closed} if $U^c$ is $\MT$-open.
 	\end{defn}
 
 	\begin{note}
@@ -1713,33 +1889,47 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	\end{note}
 	
 	\begin{note}
-		When the context is clear, we say ``open" or ``closed" instead of ``open in $(X, \MT)$" or ``closed in $(X, \MT)$" respectively.
+		When the context is clear, we say ``open" or ``closed" instead of ``$\MT$-open" or ``$\MT$-closed" respectively.
 	\end{note}
 	
 	\begin{defn} \ld{31012}
-	Let $(X, \MT)$ be a topological space and $S,N \subset X$. Then $N$ is said to be a \tbf{$\MT$-neighborhood} of $S$ if there exists $U \in \MT$ such that $S \subset U$ and $U \subset N$. For $S \in X$, we denote the set of $\MT$-neighborhoods of $S$ by $\MN_{\MT}(S)$.
+	Let $(X, \MT)$ be a topological space and $S,N \subset X$. Then $N$ is said to be a \tbf{$\MT$-neighborhood} of $S$ if there exists $U \in \MT$ such that $S \subset U$ and $U \subset N$. For $S \in X$, we define $\MN (S, \MT) \defeq \{N \subset X: \text{$N$ is a $\MT$-neighborhood of $S$}\}$
 	\end{defn}
 
 	\begin{note}
-		When the context is clear, we write $\MN(S)$ in place of $\MN_{\MT}(S)$ and say ``neighborhood" instead of ``$\MT$-neighborhood".
+		When the context is clear, we write $\MN(S)$ in place of $\MN(S, \MT)$ and say ``neighborhood" instead of ``$\MT$-neighborhood".
 	\end{note}
 	
 	\begin{defn} \ld{31013}
-	Let $(X, \MT)$ be a topological space and $A \subset X$. We define
-	\begin{itemize}
-		\item the \tbf{collection of open subsets of $A$}, denoted $\MU_A(X, \MT)$, by 
-		$$\MU_{A}(X, \MT) \defeq \{U \subset X:U \subset A \text{ and $U$ is open in $(X, \MT)$}\},$$ 
-		\item the \tbf{collection of closed supersets of $A$}, denoted $\MC_A(X, \MT)$, by 
-		$$\MC_{A}(X, \MT) \defeq \{C \subset X: A \subset C \text{ and $C$ is closed in $(X, \MT)$}\},$$ 
-		the \tbf{interior of $A$ in $(X, \MT)$}, denoted $\Int_{\MT} A$, by 
-		$$\Int A = \bigcup_{U \in \MU_{A}(X, \MT)} U$$ 
-		the \tbf{closure of $A$ in $(X, \MT)$}, denoted $\cl_{\MT} A$, by 
-		$$\cl A = \bigcap_{C \in \MC_{A}(X, \MT)} C$$ 
-	\end{itemize}
+		Let $(X, \MT)$ be a topological space and $A \subset X$. We define 
+		\begin{itemize}
+			\item $\Intset(A, \MT) \defeq \{U \subset X:\text{$U \subset A$ and $U$ is $\MT$-open}\}$,
+			\item $\clset(A, \MT) \defeq \{C \subset X: \text{$A \subset C$ and $C$ is $\MT$-closed}\}$,
+		\end{itemize}
+		\end{defn}
+	
+	\begin{note}
+		When the context is clear, we write $\Intset A$ and $\clset A$ in place of $\Intset (A, \MT)$ and $\clset (A, \MT)$ respectively. 
+		\begin{itemize}
+			\item 
+		\end{itemize}
+	\end{note}
+	
+	\begin{defn} \ld{31013.1}
+		Let $(X, \MT)$ be a topological space and $A \subset X$. We define 
+		\begin{itemize}
+			\item the \tbf{$\MT$-interior of $A$}, denoted $\Int (A, \MT)$, by 
+			$$\Int (A, \MT) = \bigcup_{U \in \Intset(A, \MT)} U,$$ 
+			\item the \tbf{$\MT$-closure of $A$}, denoted $\cl (A, \MT)$, by 
+			$$\cl (A, \MT) = \bigcap_{C \in \clset(A, \MT)} C$$ 
+		\end{itemize}
 	\end{defn}
 
 	\begin{note}
-		When the context is clear, we write $\MU_A$, $\MC_A$, $\Int A$ and $\cl A$ in place of $\MU_A(X, \MT)$, $\MC_A(X, \MT)$, $\Int_{\MT} A$ and $\cl_{\MT} A$ respectively. For intuition, $\Int A$ is the largest open subset of $A$ and $\cl A$ is the smallest closed superset of $A$. 
+		\begin{itemize}
+			\item When the context is clear, we write $\Int A$ and $\cl A$ in place of $\Int (A, \MT)$ and $\cl (A, \MT)$ respectively. 
+			\item For intuition, $\Int A$ is the largest open subset of $A$ and $\cl A$ is the smallest closed superset of $A$. 
+		\end{itemize}
 	\end{note}
 	
 	\begin{ex} \lex{31014}
@@ -1761,11 +1951,11 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	\begin{proof}\
 		\begin{itemize}
 			\item $(\implies):$ \\
-			Suppose that $N \in \MN(S)$. Then there exists $U \in \MT_X$ such that $S \subset U$ and $U \subset N$. Hence $U \in \MU_N$ and therefore
+			Suppose that $N \in \MN(S)$. Then there exists $U \in \MT_X$ such that $S \subset U$ and $U \subset N$. Hence $U \in \Intset N$ and therefore
 			\begin{align*}
 				S
 				& \subset U \\
-				& \subset \bigcup_{V \in \MU_N} V \\
+				& \subset \bigcup_{V \in \Intset N} V \\
 				& = \Int N.
 			\end{align*}
 			\item $(\impliedby):$ \\
@@ -1774,61 +1964,60 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	\end{proof}
 
 	\begin{ex} \lex{31014.2}
-		Let $(X, \MT)$ be a topological space, $x \in X$ and $U, V \in \MN_{\MT}(x)$. Then $U \cap V \in \MN_{\MT}(x)$.
+		Let $(X, \MT)$ be a topological space, $x \in X$ and $U, V \in \MN(x, \MT)$. Then $U \cap V \in \MN(x, \MT)$.
 	\end{ex}
 
 	\begin{proof}
-		Since $U, V \in \MN_{\MT}(x)$, \rex{31014.1} implies that $x \in \Int U$ and $x \in \Int V$. Then 
+		Since $U, V \in \MN(x, \MT)$, \rex{31014.1} implies that $x \in \Int U$ and $x \in \Int V$. Then 
 		\begin{align*}
 			x 
 			& \in \Int U \cap \Int V \\
 			& \subset U \cap V.
 		\end{align*} 
-		\rex{31014} implies that $\Int U, \Int V \in \MT$. Therefore $\Int U \cap \Int V \in \MT$. Thus there exists $W \in \MT$ such that $x \in W$ and $W \subset U \cap V$. By definition, $U \cap V \in \MN_{\MT}(x)$.
+		\rex{31014} implies that $\Int U, \Int V \in \MT$. Therefore $\Int U \cap \Int V \in \MT$. Thus there exists $W \in \MT$ such that $x \in W$ and $W \subset U \cap V$. By definition, $U \cap V \in \MN(x, \MT)$.
 	\end{proof}
 	
 	\begin{ex} \lex{31015}
 	Let $X$ be a topological space and $A \subset X$. Then $( \Int A )^c = \cl A^c $.
 	\end{ex}	
 	
-	\begin{proof}
-	Define  $\MU_A = \{U \subset X:U \subset A \text{ and $U$ is open}\}$ and $\MC_{A^c} = \{C \subset X: A^c \subset C \text{ and $C$ is closed}\}$ as in \rd{31013}. 
+	\begin{proof} 
 	We note that 
 	\begin{enumerate}
 		\item for each $U \subset X$,
 		\begin{align*}
-			U \in \MU_A
+			U \in \Intset A
 			& \iff U \subset A \text{ and } U \text{ is open} \\
 			& \iff A^c \subset U^c \text{ and } U^c \text{ is closed} \\
-			& \iff  U^c \in \MC_{A^c}
+			& \iff  U^c \in \clset A^c
 		\end{align*}
 		\item
 		\begin{align*}
-			C \in \MC_{A^c}
+			C \in \clset A^c
 			& \iff A^c \subset C \text{ and } C \text{ is closed} \\
 			& \iff C^c \subset A \text{ and } C^c \text{ is open} \\
-			& \iff  C^c \in \MU_A
+			& \iff  C^c \in \Intset A
 		\end{align*} 
 	\end{enumerate}
-	Let $C \in \{U^c: U \in \MU_A\}$. Then there exists $U \in \MU_A$ such that $C = U^c$. By $(1)$,  
+	Let $C \in \{U^c: U \in \Intset A\}$. Then there exists $U \in \Intset A$ such that $C = U^c$. By $(1)$,  
 	\begin{align*}
 		C 
 		& = U^c \\
-		& \in \MC_{A^c}
+		& \in \clset A^c
 	\end{align*}
-	Since $C \in \{U^c: U \in \MU_A\}$ is arbitrary, $\{U^c: U \in \MU_A\} \subset \MC_{A^c}$. \\
-	Conversely, let $C \in \MC_{A^c}$. Then $(2)$ implies that $C^c \in \MU_A$ and therefore 
+	Since $C \in \{U^c: U \in \Intset A\}$ is arbitrary, $\{U^c: U \in \Intset A\} \subset \clset A^c$. \\
+	Conversely, let $C \in \clset A^c$. Then $(2)$ implies that $C^c \in \Intset A$ and therefore 
 	\begin{align*}
 		C
 		& = (C^c)^c \\
-		& \in \{U^c: U \in \MU_A\}
+		& \in \{U^c: U \in \Intset A\}
 	\end{align*} 
-	Since $C \in \MC_{A^c}$ is arbitrary, $\MC_{A^c} \subset \{U^c: U \in \MU_A\}$. Hence $\MC_{A^c} = \{U^c: U \in \MU_A\}$ and therefore
+	Since $C \in \clset A^c$ is arbitrary, $\clset A^c \subset \{U^c: U \in \Intset A\}$. Hence $\clset A^c = \{U^c: U \in \Intset A\}$ and therefore
 	\begin{align*}
 		(\Int A)^c 
-		& = \bigg( \bigcup_{U \in \MU_{A}} U \bigg)^c \\
-		& = \bigcap_{U \in \MU_A} U^c \\
-		& = \bigcap_{C \in \MC_{A^c}} C \\
+		& = \bigg( \bigcup_{U \in \Intset {A}} U \bigg)^c \\
+		& = \bigcap_{U \in \Intset A} U^c \\
+		& = \bigcap_{C \in \clset A^c} C \\
 		& = \cl A^c
 	\end{align*}
 	\end{proof}
@@ -1878,7 +2067,7 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	\end{proof}
 	
 	\begin{defn} \ld{31018}
-	Let $(X, \MT)$ be a topological space, $A \subset X$ and $x \in X$. Then $x$ is said to be a \tbf{$\MT$-limit point of $A$} if for each $U \in \MN_{\MT}(x)$, $$A \cap (U \setminus \{x\}) \neq \varnothing$$  
+	Let $(X, \MT)$ be a topological space, $A \subset X$ and $x \in X$. Then $x$ is said to be a \tbf{$\MT$-limit point of $A$} if for each $U \in \MN(x, \MT)$, $$A \cap (U \setminus \{x\}) \neq \varnothing$$  
 	We define $\lmt_{\MT} A = \{x \in A: \text{$x$ is a limit point of $A$}\}$. 
 	\end{defn}
 
@@ -1996,7 +2185,7 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	\end{proof}
 	
 	\begin{defn} \lex{31026} 
-		Let $(X, \MT)$ be a topological space, $A \subset X$ and $x \in X$. Then $x$ is said to be a \tbf{$\MT$-condensation point of $A$} if for each $U \in \MN_{\MT}(x)$, $U \cap A$ is uncountable. 
+		Let $(X, \MT)$ be a topological space, $A \subset X$ and $x \in X$. Then $x$ is said to be a \tbf{$\MT$-condensation point of $A$} if for each $U \in \MN(x, \MT)$, $U \cap A$ is uncountable. 
 	\end{defn}
 
 	\begin{note}
@@ -2008,13 +2197,13 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $x$ is a $\MT$-condensation point of $A$. Let $U \in \MN_{\MT}(x)$. Since $x$ is a $\MT$-condensation point of $A$, $U \cap A$ is uncountable. Hence 
+		Suppose that $x$ is a $\MT$-condensation point of $A$. Let $U \in \MN(x, \MT)$. Since $x$ is a $\MT$-condensation point of $A$, $U \cap A$ is uncountable. Hence 
 		\begin{align*}
 			A \cap (U \setminus \{x\})
 			& = A \cap (U \cap \{x\}^c) \\
 			& = (A \cap U) \cap \{x\}^x
 		\end{align*}
-		is uncountable. In particular, $A \cap (U \setminus \{x\}) \neq \varnothing$. Since $U \in \MN_{\MT}((x))$ is arbitrary, we have that for each $U \in \MN_{\MT}((x))$, $A \cap (U \setminus \{x\}) \neq \varnothing$. Hence $x \in \lim_{\MT}A$. 
+		is uncountable. In particular, $A \cap (U \setminus \{x\}) \neq \varnothing$. Since $U \in \MN(x, \MT)$ is arbitrary, we have that for each $U \in \MN(x, \MT)$, $A \cap (U \setminus \{x\}) \neq \varnothing$. Hence $x \in \lim_{\MT}A$. 
 	\end{proof}
 	
 	\begin{ex} \lex{31027} 
@@ -2051,19 +2240,19 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 		Let $(X, \MT)$ be a topological space $x \in X$. The following are equivalent: 
 		\begin{enumerate}
 			\item $x$ is a $\MT$-condensation point of $X$,
-			\item for each $U \in \MN_{\MT}(x)$, $U$ is uncountable,
-			\item for each $U \in \MN_T(x)$, $x$ is a $\MT$-condensation point of $U$,
+			\item for each $U \in \MN(x, \MT)$, $U$ is uncountable,
+			\item for each $U \in \MN(x, \MT)$, $x$ is a $\MT$-condensation point of $U$,
 		\end{enumerate}
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
 			\item $(1) \implies (2)$: \\
-			Suppose that $x$ is a $\MT$-condensation point of $X$. Let $U \in \MN_{\MT}(x)$. Since $x$ is a $\MT$-condensation point of $X$, $U \cap X$ is uncountable. Since $U = U \cap X$, $U$ is uncountable. Since $U \in \MN_{\MT}(x)$ is arbitrary, we have that for each $U \in \MN_{\MT}(x)$, $U$ is uncountable.
+			Suppose that $x$ is a $\MT$-condensation point of $X$. Let $U \in \MN(x, \MT)$. Since $x$ is a $\MT$-condensation point of $X$, $U \cap X$ is uncountable. Since $U = U \cap X$, $U$ is uncountable. Since $U \in \MN(x, \MT)$ is arbitrary, we have that for each $U \in \MN(x, \MT)$, $U$ is uncountable.
 			\item $(2) \implies (3)$: \\
-			Suppose that for each $U \in \MN_{\MT}(x)$, $U$ is uncountable. Let $U, V \in \MN_{\MT}(x)$. \rex{31014.2} implies that $U \cap V \in \MN_{\MT}(x)$. Then by assumption, $U \cap V$ is uncountable. Since $V \in \MN_{\MT}(x)$ is arbitrary, we have that for each $V \in \MN_{\MT}(x)$, $U \cap V$ is uncountable. Hence $x$ is a $\MT$-condensation point of $U$. Since $U \in \MN_{\MT}(x)$ is arbitrary, we have that for each $U \in \MN_{\MT}(x)$, $x$ is a $\MT$-condensation point of $U$.
+			Suppose that for each $U \in \MN(x, \MT)$, $U$ is uncountable. Let $U, V \in \MN(x, \MT)$. \rex{31014.2} implies that $U \cap V \in \MN(x, \MT)$. Then by assumption, $U \cap V$ is uncountable. Since $V \in \MN(x, \MT)$ is arbitrary, we have that for each $V \in \MN(x, \MT)$, $U \cap V$ is uncountable. Hence $x$ is a $\MT$-condensation point of $U$. Since $U \in \MN(x, \MT)$ is arbitrary, we have that for each $U \in \MN(x, \MT)$, $x$ is a $\MT$-condensation point of $U$.
 			\item $(3) \implies (1)$: \\
-			Suppose that for each $U \in \MN_T(x)$, $x$ is a $\MT$-condensation point of $U$. Let $U \in \MN_T(x)$. Since $X \in \MN_T(x)$, and $x$ is a $\MT$-condensation point of $U$, we have that $U \cap X$ is uncountable. Since $U \in \MN_T(x)$ is arbitrary, we have that for each $U \in \MN_T(x)$, $U \cap X$ is uncountable. Hence $x$ is a $\MT$-condensation point of $X$.
+			Suppose that for each $U \in \MN(x, \MT)$, $x$ is a $\MT$-condensation point of $U$. Let $U \in \MN(x, \MT)$. Since $X \in \MN(x, \MT)$, and $x$ is a $\MT$-condensation point of $U$, we have that $U \cap X$ is uncountable. Since $U \in \MN(x, \MT)$ is arbitrary, we have that for each $U \in \MN(x, \MT)$, $U \cap X$ is uncountable. Hence $x$ is a $\MT$-condensation point of $X$.
 		\end{enumerate}
 	\end{proof}
 	
@@ -2729,6 +2918,30 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	Suppose that $x \in \cl S$. Since $\cl S = S \cup S'$, $x \in S$ or $x \in S'$. If $x \in S$, define $(x_n)_{n \in \N} \subset S$ by $x_n = x$. Then $x_n \rightarrow x$. If $x \in S'$, the previous exercise implies that there exists a net $(x_{\al})_{\al \in A} \subset S \setminus \{x\} \subset S$ such that $x_{\al} \rightarrow x$. 
 	\end{proof}
 	
+	\begin{ex} \lex{ex:nets:0014.1}
+		Let $(X,\MT)$ be a topological space, $U \in \MT$ and $x \in X$. Then $x \in U$ iff $U \not \subset (\cl\{x\})^c$. 
+	\end{ex}
+	
+	\begin{proof}
+		\begin{align*}
+			U \not \subset (\cl\{x\})^c
+			& \iff \text{there exists $y \in U$ such that $y \not \in (\cl \{x\})^c$} \\
+			& \iff \text{there exists $y \in U$ such that $y \in \cl \{x\}$} \\
+			& \iff U \cap \cl\{x\} \neq \varnothing.
+		\end{align*}
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $x \in U$. Then $x \in U \cap \cl\{x\}$. Hence $U \cap \cl\{x\} \neq \varnothing$. Thus $U \not \subset (\cl\{x\})^c$.
+			\item $(\impliedby)$: \\
+			Suppose that $U \not \subset (\cl\{x\})^c$. Then $U \cap \cl\{x\} \neq \varnothing$. Thus there exists $y \in X$ such that $U \cap \cl\{x\}$. Since $y \in \cl\{x\}$ \tcr{a prev ex in nets section} implies that there exists a net $(x_{\al})_{\al \in A} \subset \{x\}$ such that $x_{\al} \rightarrow y$. Since $(x_{\al})_{\al \in A} \subset \{x\}$, we have that for each $\al \in A$, $x_{\al} = x$. Since $U \in \MT$, $y \in U$ and $x_{\al} \rightarrow y$, we have that $(x_{\al})_{\al \in A}$ is eventually in $U$. Thus there exists $\al_0 \in A$ such that for each $\al \in A$, $\al \geq \al_0$ implies that $x_{\al} \in U$. In particular, 
+			\begin{align*}
+				x
+				& = x_{\al_0} \\
+				& \in U.
+			\end{align*}
+		\end{itemize}
+	\end{proof}
+	
 	\begin{ex} \lex{ex:nets:0016}
 		Let $X$ be a topological space and $E \subset X$. Then 
 		\begin{enumerate}
@@ -3169,12 +3382,12 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 \end{note}
 
 \begin{ex} \lex{ex:topology:subspaces:0004.1}
-	Let $(X, \MT)$ be a topological space, $A \subset X$ and $S \subset A$. Then $\MN_{\MT \cap A}(x) = \MN_{\MT}(x) \cap A$. 
+	Let $(X, \MT)$ be a topological space, $A \subset X$ and $S \subset A$. Then $\MN(x, \MT \cap A) = \MN(x, \MT) \cap A$. 
 \end{ex}
 
 \begin{proof}\
 	\begin{itemize}
-		\item Let $U \in \MN_{\MT \cap A}(S)$. \rex{31014.1} implies that $S \subset \Int_{\MT \cap A} U$. Since $\Int_{\MT \cap A} U \in \MT \cap A$, there exists $V \in \MT$ such that $\Int_{\MT \cap A} U = V \cap A$. Define $E \subset A$ by $E \defeq U \setminus \Int_{\MT \cap A} U$. Then 
+		\item Let $U \in \MN(S, \MT \cap A)$. \rex{31014.1} implies that $S \subset \Int_{\MT \cap A} U$. Since $\Int_{\MT \cap A} U \in \MT \cap A$, there exists $V \in \MT$ such that $\Int_{\MT \cap A} U = V \cap A$. Define $E \subset A$ by $E \defeq U \setminus \Int_{\MT \cap A} U$. Then 
 		\begin{align*}
 			U
 			& = (\Int_{\MT \cap A} U)  \cup E \\
@@ -3186,22 +3399,22 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 			& = (V \cup E) \cap [(A \cup E) \cap A]\\
 			& = (V \cup E) \cap A.
 		\end{align*}
-		Since $V \in \MT$, $S \subset V$ and $V \subset V \cup E$, we have that $V \cup E \in \MN_{\MT}(S)$. Thus 
+		Since $V \in \MT$, $S \subset V$ and $V \subset V \cup E$, we have that $V \cup E \in \MN(S, \MT)$. Thus 
 		\begin{align*}
 			U
 			& = (V \cup E) \cap A \\
-			& \in \MN_{\MT}(S) \cap A.
+			& \in \MN(S, \MT) \cap A.
 		\end{align*}
-		Since $U \in \MN_{\MT \cap A}(S)$ is arbirary, we have that for each $U \in \MN_{\MT \cap A}(S)$, $U \in \MN_{\MT}(S) \cap A$. Hence $\MN_{\MT \cap A}(S) \subset \MN_{\MT}(S) \cap A$. 
-		\item Let $U \in \MN_{\MT}(S) \cap A$. Then there exists $V \in \MN_{\MT}(S)$ such that $U = V \cap A$. We note that $S \subset (\Int_{\MT} V) \cap A$ and $(\Int_{\MT} V) \cap A \in \MT \cap A$. Define $E \subset X$ by $E \defeq V \setminus \Int_{\MT} V$. Then $[(\Int_{\MT} V) \cap A] \cup (E \cap A) \in \MN_{\MT \cap A}(S)$ and therefore
+		Since $U \in \MN(S, \MT \cap A)$ is arbirary, we have that for each $U \in \MN(S, \MT \cap A)$, $U \in \MN(S, \MT) \cap A$. Hence $\MN(S, \MT \cap A) \subset \MN(S, \MT) \cap A$. 
+		\item Let $U \in \MN(S, \MT) \cap A$. Then there exists $V \in \MN(S, \MT)$ such that $U = V \cap A$. We note that $S \subset (\Int_{\MT} V) \cap A$ and $(\Int_{\MT} V) \cap A \in \MT \cap A$. Define $E \subset X$ by $E \defeq V \setminus \Int_{\MT} V$. Then $[(\Int_{\MT} V) \cap A] \cup (E \cap A) \in \MN(S, \MT \cap A)$ and therefore
 		\begin{align*}
 			U
 			& = V \cap A \\
 			& = [(\Int_{\MT} V) \cup E] \cap A \\
 			& = [(\Int_{\MT} V) \cap A] \cup (E \cap A) \\
-			& \in \MN_{\MT \cap A}(S).
+			& \in \MN(S, \MT \cap A).
 		\end{align*}
-		Since $U \in \MN_{\MT}(S) \cap A$ is arbirary, we have that for each $U \in \MN_{\MT}(S) \cap A$, $U \in \MN_{\MT \cap A}(S)$. Hence $\MN_{\MT \cap A}(S) \subset \MN_{\MT \cap A}(S)$. 
+		Since $U \in \MN(S, \MT) \cap A$ is arbirary, we have that for each $U \in \MN(S, \MT) \cap A$, $U \in \MN(S, \MT \cap A)$. Hence $\MN(S, \MT \cap A) \subset \MN(S, \MT \cap A)$. 
 	\end{itemize}
 \end{proof}
 
@@ -3212,22 +3425,22 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 \begin{proof}\
 	\begin{itemize}
 		\item $(\implies):$ \\
-		Suppose that $x$ is a $\MT \cap E$-condensation point of $A$. Let $U \in \MN_{\MT}(x)$. \rex{ex:topology:subspaces:0004.1} implies that $U \cap E \in \MN_{\MT \cap E}(x)$. Since $x$ is a $\MT \cap E$-condensation point of $A$, we have that $(U \cap E) \cap A$ is uncountable. Since $A \subset E$, we have that
+		Suppose that $x$ is a $\MT \cap E$-condensation point of $A$. Let $U \in \MN(x, \MT)$. \rex{ex:topology:subspaces:0004.1} implies that $U \cap E \in \MN(x, \MT \cap E)$. Since $x$ is a $\MT \cap E$-condensation point of $A$, we have that $(U \cap E) \cap A$ is uncountable. Since $A \subset E$, we have that
 		\begin{align*}
 			U \cap A
 			& = U \cap (A \cap E) \\
 			& = (U \cap E) \cap A 
 		\end{align*}
-		and therefore $U \cap A$ is uncountable. Since $U \in \MN_{\MT}(x)$ is arbitrary, we have that for each $U \in \MN_{\MT}(x)$, $U \cap A$ is uncountable. Hence $x$ is a $\MT$-condensation point of $A$. 
+		and therefore $U \cap A$ is uncountable. Since $U \in \MN(x, \MT)$ is arbitrary, we have that for each $U \in \MN(x, \MT)$, $U \cap A$ is uncountable. Hence $x$ is a $\MT$-condensation point of $A$. 
 		\item $(\impliedby):$ \\
-		Suppose that $x$ is a $\MT$-condensation point of $A$. Let $U \in \MN_{\MT \cap E}(x)$. \rex{ex:topology:subspaces:0004.1} implies that $U \in \MN_{\MT}(x) \cap E$. Thus there exists $V \in \MN_{\MT}(x)$ such that $U = V \cap E$. Since $x$ is a $\MT$-condensation point of $A$, we have that $V \cap A$ is uncountable. Since 
+		Suppose that $x$ is a $\MT$-condensation point of $A$. Let $U \in \MN(x, \MT \cap E)$. \rex{ex:topology:subspaces:0004.1} implies that $U \in \MN(x, \MT) \cap E$. Thus there exists $V \in \MN(x, \MT)$ such that $U = V \cap E$. Since $x$ is a $\MT$-condensation point of $A$, we have that $V \cap A$ is uncountable. Since 
 		\begin{align*}
 			U \cap A
 			& = (V \cap E) \cap A \\
 			& = V \cap (A \cap E) \\ 
 			& = V \cap A,
 		\end{align*}
-		we have that $U \cap A$ is uncountable. Since $U \in \MN_{\MT \cap E}(x)$ is arbitrary, we have that for each $U \in \MN_{\MT \cap E}(x)$, $U \cap A$ is uncountable. Hence $x$ is a $\MT \cap E$-condensation point of $A$. 
+		we have that $U \cap A$ is uncountable. Since $U \in \MN(x, \MT \cap E)$ is arbitrary, we have that for each $U \in \MN(x, \MT \cap E)$, $U \cap A$ is uncountable. Hence $x$ is a $\MT \cap E$-condensation point of $A$. 
 	\end{itemize}
 \end{proof}
 
@@ -3285,11 +3498,11 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 \end{proof}
 
 \begin{ex} \lex{ex:topology:subspaces:0007}
-	Let $(X, \MT)$ be a topological space, $A \subset X$ and $F \subset A$. Then $F$ is closed in $A$ iff there exists $C \subset X$ such that $C$ is closed in $X$ and $F = C \cap A$. 
+	Let $(X, \MT)$ be a topological space, $A \subset X$ and $F \subset A$. Then $F$ is $\MT \cap A$-closed iff there exists $C \subset X$ such that $C$ is $\MT$-closed and $F = C \cap A$. 
 \end{ex}
 
 \begin{proof}
-	Suppose that $F$ is closed in $A$. Then $A \setminus F$ is open in $A$. Hence there exists $U \in \MT$ such that $A \setminus F = U \cap A$. Set $C = U^c$. Then $C$ is closed in $X$ and  
+	Suppose that $F$ is $\MT \cap A$-closed. Then $A \setminus F$ is $\MT \cap A$-open. Hence there exists $U \in \MT$ such that $A \setminus F = U \cap A$. Set $C = U^c$. Then $C$ is closed in $X$ and  
 	\begin{align*}
 		F
 		& = A \setminus (A \setminus F) \\
@@ -3310,7 +3523,7 @@ Conversely, suppose that there exists $C \subset X$ such that $C$ is closed in $
 	& = A \cap C^c \\
 	& \in \MT \cap A
 \end{align*}
-Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
+Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$-closed.
 \end{proof}
 
 \begin{ex} \lex{ex:topology:subspaces:0008}
@@ -4948,7 +5161,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that for each $j \in J$, $(X_j, \MT_j)$ is Hausdorff. Set $X \defeq \varprojlim\limits_{j \in J} X_j$ and $\MT \defeq \varprojlim\limits_{j \in J} \MT_j$. \rex{ex:set_theory:proj_limits:0004} implies that $X = \bigcap\limits_{(j,k) \in {\leq}} \Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$. Let $(j,k) \in {\leq}$. Since $\pi_{j,k}$ is $(\MT_k, \MT_j)$-continuous and $\pi_k$ is $(\MT, \MT_k)$-continuous, we have that $\pi_{j,k} \circ \pi_k$ is $(\MT, \MT_j)$-continuous. Since $\pi_{j,k} \circ \pi_k$ and $\pi_j$ are $(\MT, \MT_j)$-continuous and $(X_j, \MT_j)$ is Hausdorff, \rex{ex:topology:equalizers:0001} implies that $\Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$ is closed in $(X, \MT)$. Since $(j,k) \in {\leq}$ is arbitrary, we have that for each $(j,k) \in {\leq}$, $\Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$ is closed in $(X, \MT)$. Since $X = \bigcap\limits_{(j,k) \in {\leq}} \Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$, we have that $X$ is closed in $(\prod\limits_{j \in J} X_j, \bigotimes\limits_{j \in J} \MT_j)$.
+		Suppose that for each $j \in J$, $(X_j, \MT_j)$ is Hausdorff. Set $X \defeq \varprojlim\limits_{j \in J} X_j$ and $\MT \defeq \varprojlim\limits_{j \in J} \MT_j$. \rex{ex:set_theory:proj_limits:0004} implies that $X = \bigcap\limits_{(j,k) \in {\leq}} \Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$. Let $(j,k) \in {\leq}$. Since $\pi_{j,k}$ is $(\MT_k, \MT_j)$-continuous and $\pi_k$ is $(\MT, \MT_k)$-continuous, we have that $\pi_{j,k} \circ \pi_k$ is $(\MT, \MT_j)$-continuous. Since $\pi_{j,k} \circ \pi_k$ and $\pi_j$ are $(\MT, \MT_j)$-continuous and $(X_j, \MT_j)$ is Hausdorff, \rex{ex:topology:equalizers:0001} implies that $\Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$ is $\MT$-closed. Since $(j,k) \in {\leq}$ is arbitrary, we have that for each $(j,k) \in {\leq}$, $\Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$ is $\MT$-closed. Since $X = \bigcap\limits_{(j,k) \in {\leq}} \Eq( \pi_{j,k} \circ \prj_k,  \prj_j)$, we have that $X$ is closed in $(\prod\limits_{j \in J} X_j, \bigotimes\limits_{j \in J} \MT_j)$.
 	\end{proof}
 	
 	
@@ -5509,20 +5722,20 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 			\item Let $x,y \in X$. 
 			\begin{itemize}
 				\item $(\implies):$ \\
-				Suppose that $x \sim_0 y$. Define $\MC_x \defeq \{C \subset X: \text{$C$ is closed and $x \in C$}\}$ and $\MC_y \defeq \{C \subset X: \text{$C$ is closed and $y \in C$}\}$. Let $C \in \MC_x$. For the sake of contradiction, suppose that $y \not \in C$. Then $y \in C^c$. Since $x \sim_0 y$, $C^c \in \MT$ and $y \in C^c$, we have that $x \in C^c$. This is a contradiction since $x \in C$. Thus $y \in C$ and therefore $C \in \MC_y$. Since $C \in \MC_x$ is arbitrary, we have that $\MC_x \subset \MC_y$. Similarly, $\MC_y \subset \MC_x$. Thus $\MC_y = \MC_x$. Therefore 
+				Suppose that $x \sim_0 y$. Define $\clset x \defeq \{C \subset X: \text{$C$ is closed and $x \in C$}\}$ and $\clset y \defeq \{C \subset X: \text{$C$ is closed and $y \in C$}\}$. Let $C \in \clset x$. For the sake of contradiction, suppose that $y \not \in C$. Then $y \in C^c$. Since $x \sim_0 y$, $C^c \in \MT$ and $y \in C^c$, we have that $x \in C^c$. This is a contradiction since $x \in C$. Thus $y \in C$ and therefore $C \in \clset y$. Since $C \in \clset x$ is arbitrary, we have that $\clset x \subset \clset y$. Similarly, $\clset y \subset \clset x$. Thus $\clset y = \clset x$. Therefore 
 				\begin{align*}
 					\cl \{x\} 
-					& = \bigcap_{C \in \MC_x} C \\
-					& = \bigcap_{C \in \MC_y} C \\
+					& = \bigcap_{C \in \clset x} C \\
+					& = \bigcap_{C \in \clset y} C \\
 					& = \cl \{y\}
 				\end{align*}
 				\item $(\impliedby):$ \\
 				Suppose that $x \not \sim_0 y$. Then part $(2)$ implies that there exists $U \in \MT$ such that $(x,y) \in U \times U^c$ or $(x,y) \in U^c \times U$. 
 				\begin{itemize}
-					\item Suppose that $(x,y) \in U \times U^c$. Then $U^c \in \MC_y$ and therefore 
+					\item Suppose that $(x,y) \in U \times U^c$. Then $U^c \in \clset y$ and therefore 
 					\begin{align*}
 						\cl \{y\}
-						& = \bigcap_{C \in \MC_y} C \\
+						& = \bigcap_{C \in \clset y} C \\
 						& \subset U^c 
 					\end{align*}
 					Since $x \in U$, $\{x\} \cap \cl \{y\} = \varnothing$. Since $x \in \cl\{x\}$, we have that $\cl \{x\} \not \subset \cl \{y\}$. Hence $\cl \{x\} \neq \cl \{y\}$.
@@ -6297,11 +6510,11 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 	
 	\begin{ex} \lex{ex:topology:compactness:subspaces:00006.1}
-		Let $(X, \MT)$ be a topological space and $E \subset X$. If $(X, \MT)$ is compact and $E$ is closed in $(X, \MT)$, then $E$ is compact in $(X, \MT)$.
+		Let $(X, \MT)$ be a topological space and $E \subset X$. If $(X, \MT)$ is compact and $E$ is $\MT$-closed, then $E$ is compact in $(X, \MT)$.
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $(X, \MT)$ is compact and $E$ is closed in $(X, \MT)$. Let $\MU \subset \MP(X)$. Suppose that $\MU$ is an open cover of $E$ in $(X, \MT)$. Since $E$ is closed in $(X, \MT)$, $E^c \in \MT$. Set $\MU' = \MU \cup \{E^c\}$. Then $\MU' \subset \MT$ and $\MU'$ is an open cover of $X$ in $(X, \MT)$.  Since $(X, \MT)$ is compact, there exists $\MU'_0 \subset \MU'$ such that $\MU'_0$ is an open cover of $X$ in $(X, \MT)$ and $\MU'_0$ is finite. Set $\MU_0 = \MU'_0 \setminus \{E^c\}$. Then $\MU_0$ is an open cover for $E$ in $(X, \MT)$. Since $\MU$ such that $\MU$ is an open cover of $E$ in $(X, \MT)$ is arbitrary, \rex{ex:topology:compactness:subspaces:00005} implies that $E$ is compact in $(X, \MT)$.
+		Suppose that $(X, \MT)$ is compact and $E$ is $\MT$-closed. Let $\MU \subset \MP(X)$. Suppose that $\MU$ is an open cover of $E$ in $(X, \MT)$. Since $E$ is $\MT$-closed, $E^c \in \MT$. Set $\MU' = \MU \cup \{E^c\}$. Then $\MU' \subset \MT$ and $\MU'$ is an open cover of $X$ in $(X, \MT)$.  Since $(X, \MT)$ is compact, there exists $\MU'_0 \subset \MU'$ such that $\MU'_0$ is an open cover of $X$ in $(X, \MT)$ and $\MU'_0$ is finite. Set $\MU_0 = \MU'_0 \setminus \{E^c\}$. Then $\MU_0$ is an open cover for $E$ in $(X, \MT)$. Since $\MU$ such that $\MU$ is an open cover of $E$ in $(X, \MT)$ is arbitrary, \rex{ex:topology:compactness:subspaces:00005} implies that $E$ is compact in $(X, \MT)$.
 		\tcb{GIVE MORE DETAILS}\\
 		\tcb{FINISH!!!}
 	\end{proof}
@@ -6511,18 +6724,18 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{proof}
 	
 	\begin{note}
-		Recall the definition of $\MC_A(X, \MT)$ in \rd{31013}.
+		Recall the definition of $\clset(A, \MT)$ in \rd{31013}.
 	\end{note}
 	
 	\begin{ex} \lex{ex:topology:compactness:subspaces:00016}
-		Let $(X, \MT)$ be a topological space. Then $(X, \MT)$ is compact iff for each $\MC \subset \MC_\varnothing(X, \MT)$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. \\
+		Let $(X, \MT)$ be a topological space. Then $(X, \MT)$ is compact iff for each $\MC \subset \clset \varnothing(X, \MT)$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. \\
 		\tbf{Hint:} consider $\{C^c: C \in \MC\}$ and whether it is an open cover
 	\end{ex}
 
 	\begin{proof}\
 		\begin{itemize}
 			\item $(\implies)$: \\
-			Suppose that $(X, \MT)$ is compact. Let $\MC \subset \MC_{\varnothing}$. Suppose that $\MC \in \FIP(X, \MT)$. For the sake of contradiction, suppose that $\bigcap\limits_{C \in \MC} C = \varnothing$. Define $\MU \subset \MT$ by $\MU \defeq \{C^c: C \in \MC\}$. Then 
+			Suppose that $(X, \MT)$ is compact. Let $\MC \subset \clset \varnothing$. Suppose that $\MC \in \FIP(X, \MT)$. For the sake of contradiction, suppose that $\bigcap\limits_{C \in \MC} C = \varnothing$. Define $\MU \subset \MT$ by $\MU \defeq \{C^c: C \in \MC\}$. Then 
 			\begin{align*}
 				\bigcup_{U \in \MU} U
 				& = \bigcup_{C \in \MC} C^c \\
@@ -6538,9 +6751,9 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 				& = X^c \\
 				& = \varnothing
 			\end{align*}  
-			However, since $\MC \in \FIP(X, \MT)$, $\MC' \subset \MC$ and $\MC'$ is finite, we have that $\bigcap\limits_{C \in \MC'} C \neq \varnothing$. This is a contradiction. Hence $\bigcap\limits_{C \in \MC} C \neq \varnothing$. Since $\MC \subset \MC_{\varnothing}$ such that $\MC \in \FIP(X, \MT)$ is arbitrary, we have have that for each $\MC \subset \MC_\varnothing$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. 
+			However, since $\MC \in \FIP(X, \MT)$, $\MC' \subset \MC$ and $\MC'$ is finite, we have that $\bigcap\limits_{C \in \MC'} C \neq \varnothing$. This is a contradiction. Hence $\bigcap\limits_{C \in \MC} C \neq \varnothing$. Since $\MC \subset \clset \varnothing$ such that $\MC \in \FIP(X, \MT)$ is arbitrary, we have have that for each $\MC \subset \MC_\varnothing$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. 
 			\item $(\impliedby)$: \\
-			Suppose that for each $\MC \subset \MC_\varnothing$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. Let $\MU \subset \MP(X)$. Suppose that $\MU$ is an open cover of $X$ in $(X, \MT)$. Then $\MU \subset \MT$ and $X = \bigcup\limits_{U \in \MU} U$. Define $\MC \subset \MC_{\varnothing}$ by $\MC = \{U^c: U \in \MU\}$. Then 
+			Suppose that for each $\MC \subset \MC_\varnothing$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap\limits_{C \in \MC} C \neq \varnothing$. Let $\MU \subset \MP(X)$. Suppose that $\MU$ is an open cover of $X$ in $(X, \MT)$. Then $\MU \subset \MT$ and $X = \bigcup\limits_{U \in \MU} U$. Define $\MC \subset \clset \varnothing$ by $\MC = \{U^c: U \in \MU\}$. Then 
 			\begin{align*}
 				\bigcap_{C \in \MC} C
 				& = \bigcap_{U \in \MU} U^c \\
@@ -6765,7 +6978,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
  \end{ex}
  
  \begin{proof}
- 	Set $X \defeq \prod\limits_{\al \in A} X_{\al}$ and $\MT \defeq \bigotimes\limits_{\al \in A} \MT_{\al}$. Let $\MC \subset \MC_{\varnothing}$. Suppose that $\MC \in \FIP(X, \MT)$. \tcb{A previous exercise} implies that there exists $\MD \in \FIP(X, \MT)$ such that $\MD$ is maximal in $[\MC, \infty)$. Let $\al \in A$. Set $\MD_{\al} \defeq \{\pi_{\al}(D):D \in \MD\}$. 
+ 	Set $X \defeq \prod\limits_{\al \in A} X_{\al}$ and $\MT \defeq \bigotimes\limits_{\al \in A} \MT_{\al}$. Let $\MC \subset \clset \varnothing$. Suppose that $\MC \in \FIP(X, \MT)$. \tcb{A previous exercise} implies that there exists $\MD \in \FIP(X, \MT)$ such that $\MD$ is maximal in $[\MC, \infty)$. Let $\al \in A$. Set $\MD_{\al} \defeq \{\pi_{\al}(D):D \in \MD\}$. 
  	
  	Let $\MD_{\al, 0} \subset \MD_{\al}$. Suppose that $\MD_{\al,_0}$ is finite. Then there exist $\MD_0 \subset \MD$ such that $\MD_0$ is finite and $\MD_{\al, 0} = \{\pi_{\al}(D): D \in \MD_0\}$. Since $\MD \in \FIP(X, \MT)$, $\bigcap\limits_{D \in \MD_0} D \neq \varnothing$. Therefore 
  	\begin{align*}
@@ -6784,14 +6997,14 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
  	$$\MB_x \defeq \bigg \{\bigcap_{j=1}^n V_j:(V_j)_{j=1}^n \subset \ME_x \bigg \}$$ 
  	Then \tcb{an exercise in the section on the product topology} implies that $\MB_x \subset \MT_X $ and $\MB_x$ is a local basis for $\MT$ at $x$. Since $\MD \in \FIP(X, \MT)$, \tcb{a previous exercise} implies that $\MB_x \subset \MD$. 
  	
- 	Let $D \in \MD$ and $E \in B_x$. Since $\MD \in \FIP(X, \MT)$ and $D, E \in \MD$, we have that $D \cap E \neq \varnothing$. Since $E \in \MB_x$ is arbitary we have that for each $E \in \MB_x$, $D \cap E \neq \varnothing$. \tcb{An exercise in the introduction to topology section} implies that $x \in \cl D$. Since $D \in \MD$ is arbitrary, we have that for each $D \in \MD$, $x \in \cl D$. Thus $x \in \bigcap\limits_{D \in \MD} \cl D $ and therefore $\bigcap\limits_{D \in \MD} \cl D \neq \varnothing$. Since $\MC \subset \MC_{\varnothing}$, for each $C \in \MC$, $C = \cl C$. By construction, $\MC \subset \MD$, which implies that 
+ 	Let $D \in \MD$ and $E \in B_x$. Since $\MD \in \FIP(X, \MT)$ and $D, E \in \MD$, we have that $D \cap E \neq \varnothing$. Since $E \in \MB_x$ is arbitary we have that for each $E \in \MB_x$, $D \cap E \neq \varnothing$. \tcb{An exercise in the introduction to topology section} implies that $x \in \cl D$. Since $D \in \MD$ is arbitrary, we have that for each $D \in \MD$, $x \in \cl D$. Thus $x \in \bigcap\limits_{D \in \MD} \cl D $ and therefore $\bigcap\limits_{D \in \MD} \cl D \neq \varnothing$. Since $\MC \subset \clset \varnothing$, for each $C \in \MC$, $C = \cl C$. By construction, $\MC \subset \MD$, which implies that 
  	\begin{align*}
  		\varnothing
  		& \neq \bigcap_{D \in \MD} \cl D \\
  		& \subset \bigcap_{C \in \MC} \cl C \\
  		& = \bigcap_{C \in \MC} C 
  	\end{align*}
- 	Since $\MC \subset \MC_{\varnothing}$ with $\MC \in \FIP(X, \MT)$ is arbitrary, we have that for each $\MC \subset \MC_{\varnothing}$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap_{C \in \MC} C \neq \varnothing$. \tcb{The previous exercise} implies that $(X, \MT)$ is compact.
+ 	Since $\MC \subset \clset \varnothing$ with $\MC \in \FIP(X, \MT)$ is arbitrary, we have that for each $\MC \subset \clset \varnothing$, $\MC \in \FIP(X, \MT)$ implies that $\bigcap_{C \in \MC} C \neq \varnothing$. \tcb{The previous exercise} implies that $(X, \MT)$ is compact.
  \end{proof}
  
  \begin{ex} \lex{ex:topology:compactness_prod_spaces:00019}
@@ -7758,7 +7971,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that $(X, \MT)$ is zero-dimensional. Then there exists $\MB_0 \subset \MT$ such that $\MB_0$ is a basis for $\MT$ and for each $B_0 \in \MB_0$, $B_0$ is open and closed. \rex{ex:topology:subspaces:0009} implies that $\MB_0 \cap A$ is a basis for $\MT \cap A$. Let $B \in \MB \cap A$. By definition, there exists $B_0 \in \MB$ such that $B = B_0 \cap A$. Since $B_0$ is open and closed in $(X, \MT)$, \rex{ex:topology:subspaces:0007} implies that $B$ is closed in $(A, \MT \cap A)$. Since $B \in \MB$ is arbitrary, we have that for each $B \in \MB$, $B$ is closed. Thus there exists $\MB \subset \MT \cap A$ such that $\MB$ is a basis for $\MT \cap A$ and for each $B \in \MB$, $B$ is closed. Hence $(A, \MT \cap A)$ is zero-dimensional.
+		Suppose that $(X, \MT)$ is zero-dimensional. Then there exists $\MB_0 \subset \MT$ such that $\MB_0$ is a basis for $\MT$ and for each $B_0 \in \MB_0$, $B_0$ is open and closed. \rex{ex:topology:subspaces:0009} implies that $\MB_0 \cap A$ is a basis for $\MT \cap A$. Let $B \in \MB \cap A$. By definition, there exists $B_0 \in \MB$ such that $B = B_0 \cap A$. Since $B_0$ is open and $\MT$-closed, \rex{ex:topology:subspaces:0007} implies that $B$ is closed in $(A, \MT \cap A)$. Since $B \in \MB$ is arbitrary, we have that for each $B \in \MB$, $B$ is closed. Thus there exists $\MB \subset \MT \cap A$ such that $\MB$ is a basis for $\MT \cap A$ and for each $B \in \MB$, $B$ is closed. Hence $(A, \MT \cap A)$ is zero-dimensional.
 	\end{proof}
 	
 	
@@ -8093,7 +8306,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	
 	
 	\newpage
-	\chapter{Locales}
+	\chapter{Locale Theory}
 	
 	\begin{note}
 		This chapter assumes familiarity with lattice theory. See \tcb{algebra notes}
@@ -8104,30 +8317,227 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 	\begin{ex}
 		Let $(X, \MT)$ be a topological space. Then 
 		\begin{enumerate}
-			\item $(\MT, \subset)$ is an ordered lattice
-			\item $\vee_{\subset} = \cup$ and $\wedge_{\subset} = \cap$ 
-			\item $(\MT, \vee_{\subset}, \wedge_{\subset})$ is a distributive lattice
+			\item for each $\MU \subset \MT$,
+			\begin{enumerate}
+				\item $\sup (\MU, \subset) = \bigcup\limits_{U \in \MU} U$
+				\item $\inf (\MU, \subset) = \Int \bigcap\limits_{U \in \MU} U$
+			\end{enumerate}
+			\item $(\MT, \subset)$ is a complete lattice
+			\item $(\MT, \subset, \varnothing, X)$ is a bounded distributive lattice.
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
-		Clear. \tcr{Fill out!!!}
+	\begin{proof}\
+		\tcr{make and ref exercise as fundamental example in algebra lattice notes}
 	\end{proof}
 	
 	\begin{ex}
-		Let $(X, \MT)$ be a topological space. Then for each $x \in X$, $\{x\}^c$ is meet-irreducible.
+		Let $(X, \MT)$ be a topological space. Then for each $x \in X$, $(\cl \{x\})^c \in \prmm(\MT, \subset)$.
 	\end{ex}
 	
 	\begin{proof}
-		Let $x \in X$. Let $U,V \in \MT$. Suppose that $\{x\}^c = U \cap V$.  
+		Let $x \in X$. Let $U,V \in \MT$. We note that
+		\begin{align*}
+			U \cap V \subset (\cl \{x\})^c 
+			& \iff \cl \{x\} \subset (U \cap V)^c \\
+			& \iff \cl \{x\} \subset U^c \cup V^c \\
+			& \implies x \in U^c \cup V^c \\ 
+			& \iff \text{$x \in U^c$ or $x \in V^c$} \\
+			& \iff \text{$\{x\} \subset U^c$ or $\{x\} \subset V^c$} \\
+			& \iff \text{$\cl \{x\} \subset U^c$ or $\cl \{x\} \subset V^c$} \\
+			& \iff \text{$U \subset (\cl \{x\})^c$ or $V \subset (\cl \{x\})^c$}.
+		\end{align*}
+		Since $U,V \in \MT$ are arbitrary, we have that for each $U,V \in \MT$, $U \cap V \subset (\cl \{x\})^c$ implies that $U \subset (\cl \{x\})^c$ or $V \subset (\cl \{x\})^c$. Thus $(\cl \{x\})^c \in \prmm(\MT, \subset)$.
 	\end{proof}
 	
-	\begin{defn}
-		We define the \tbf{}
+	\begin{defn} 
+		\tcr{move def of $\opn(X, \MT)$ to intro to topology section (actually name it the `open neighborhood filter') because I think $\MU(x)$ or $\MU_x$ is used in later chapters, then change it there.}
+		Let $(X, \MT)$ be a topological space. 
+		\begin{itemize}
+			\item We define $\Punct(X, \MT) \subset \MT$ by $\Punct(X, \MT) \defeq \{\cl(\{x\}, \MT)^c: x \in X\}$.
+			\item Let $S \subset X$. We define $\opn(S, \MT) \subset \MT$ by $\opn(S, \MT) \defeq \MN(S, \MT) \cap \MT$
+		\end{itemize}
 	\end{defn}
 	
+	\begin{note}
+		When the context is clear, we write$\Punct(X)$ and $\opn(S)$ in place of $\Punct(X, \MT)$ and $\opn(S)$ respectively.
+	\end{note}
+	
+	\begin{defn}
+		Let $(X, \MT)$ be a topological space. Then $(X, \MT)$ is said to be \tbf{sober} if $\prmm(\MT, \subset) = \Punct(X)$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $(X, \MT)$ be a topological space. Then $\{\opn(x): x \in X\} \subset \MF_{cp}(\MT)$ 
+	\end{ex}
+	
+	\begin{proof}\
+		Let $x \in X$.
+		\begin{itemize}
+			\item 
+			\begin{enumerate}
+				\item Since $X \in \opn(x)$, $\opn(x) \neq \varnothing$. 
+				\item Let $U,V \in \opn(x)$. Then $U,V \in \MT$ and $x \in U, V$. Thus 
+				\begin{align*}
+					U \wedge V
+					& = U \cap V \\
+					& \in \MT 
+				\end{align*} 
+				and 
+				\begin{align*}
+					x 
+					& \in U \cap V \\
+					& = U \wedge V.
+				\end{align*}
+				Hence $U \wedge V \in \opn(x)$. Since $U,V \in \opn(x)$ are arbitrary, we have that for each $U,V \in \opn(x)$, $U \wedge V \in \opn(x)$.
+				\item Let $V \in \MT$ and $U \in \opn(x)$. Then 
+				\begin{align*}
+					x 
+					& \in U \\
+					& \subset V \cup U \\
+					& = V \vee U.
+				\end{align*}
+				Since $V, U \in \MT$, we have that
+				\begin{align*}
+					V \vee U 
+					& = V \cup U \\
+					& \in \MT. 
+				\end{align*}
+				Hence $V \vee U \in \opn(x)$. Since $V \in \MT$ and $U \in \opn(x)$ are arbitrary, we have that for each $V \in \MT$ and $U \in \opn(x)$, $V \vee U \in \opn(x)$.
+			\end{enumerate}
+			Thus $\opn(x) \in \MF(\MT)$.
+			\item Let $\MV \subset \MT$. Suppose that $\bigvee \MV \in \opn(x)$. Since $\bigvee \MV = \bigcup \MV$ and $\opn(x) = \{U \in \MT: x \in U\}$, we have that $x \in \bigcup \MV$. Then there exists $V \in \MV$ such that $x \in V$. Hence $V \in \opn(x)$. Since $\MV \subset \MT$ such that $\bigvee \MV \in \opn(x)$ is arbitrary, we have that for each $\MV \subset \MT$,  $\bigvee \MV \in \opn(x)$ implies that there exists $V \in \MV$ such that $V \in \opn(x)$. Therefore $\opn(x) \in \MF_{cp}(\MT)$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, $\opn(x) \in \MF_{cp}(\MT)$. Thus $\{\opn(x): x \in X\} \subset \MF_{cp}(\MT)$ 
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X, \MT)$ be a topological space. Then $(X, \MT)$ is sober iff $\MF_{cp}(\MT) = \{\opn(x): x \in X\}$. \\
+		\tbf{Hint:} Let $\MU \in \MF_{cp}(\MT)$. Then there exists $x \in X$ such that $\bigwedge \MU^c = (\cl\{x\})^c$ and for each $U \in \MT$, $U \in \MU$ iff $x \in U$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $(X, \MT)$ is sober. Let $\MU \in \MF_{cp}(\MT)$. \tcr{An ex in algebra notes on complete lattices} implies that $\bigvee \MU^c \in \prmm(\MT, \subset)$ and $\bigvee \MU^c \in \MU^c$. Since $(X, \MT)$ is sober, there exists $x \in X$ such that $\bigvee \MU^c = (\cl \{x\})^c$. Since $\MU \in \MF(\MT)$, $\MU$ is an upper set. Hence $\MU^c$ is a lower set. Let $U \in \MT$. 
+			\begin{itemize}
+				\item If $U \in \MU^c$, then $U \subset \bigwedge \MU^c$. 
+				\item Suppose that $U \subset \bigwedge \MU^c$. Since $\bigvee \MU^c \in \MU^c$ and $\MU^c$ is a lower set, we have that $U \in \MU^c$. 
+			\end{itemize}
+			Hence $U \in \MU^c$ iff $U \subset \bigwedge \MU^c$. \tcr{A previous ex in the intro section on topology implies that (make/ref ex)} $U \subset (\cl \{x\})^c$ iff $x \in U^c$. Then 
+			\begin{align*}
+				U \not \in \MU
+				& \iff U \in \MU^c \\
+				& \iff U \subset \bigwedge \MU^c \\
+				& \iff U \subset (\cl \{x\})^c \\
+				& \iff x \in U^c \\
+				& \iff x \not \in U.
+			\end{align*}
+			Hence 
+			\begin{align*}
+				U \in \MU
+				& \iff x \in U \\
+				& \iff U \in \opn(x).
+			\end{align*}
+			Since $U \in \MT$ is arbitrary, we have that for each $U \in \MT$, $U \in \MU$ iff $U \in \opn(x)$. Hence $\MU = \opn(x)$. Thus   
+			\item $(\impliedby)$: \\
+			Suppose that $(X, \MT)$ is not sober. Then there exists $U_0 \in \prmm(\MT)$ such that for each $x \in X$, $U_0 \neq (\cl\{x\})^c$. Since $U_0 \in \prmm(\MT)$, \tcr{an ex in algebra notes on completely prime lattices} implies that $(\doar U_0)^c \in \MF_{cp}(\MT)$. Since $U_0 \in \prmm(\MT)$, \tcr{an ex in algebra notes on completely prime lattices} implies that $\bigvee (\doar U_0)^c \in \MF_{cp}(\MT)$. For the sake of contradiction, suppose that there exists $x \in X$ such that $(\doar U_0)^c = \opn(x)$. \tcr{an ex in the section on intro to nets} implies that for each $U \in \MT$,
+			\begin{align*}
+				U \not \subset U_0
+				& \iff U \in (\doar U_0)^c \\
+				& \iff U \in \opn(x) \\
+				& \iff x \in U \\
+				& \iff U \not \subset (\cl \{x\})^c \quad \text{(\rex{ex:nets:0014.1})}.
+			\end{align*}
+			Thus for each $U \in \MT$, $U \not \subset U_0$ iff $U \not \subset (\cl \{x\})^c$. Hence $U_0 = (\cl \{x\})^c$, which is a contradiction. Thus for each $x \in X$, $(\doar U_0)^c \neq \opn(x)$. Since $(\doar U_0)^c \in \MF_{cp}(\MT)$, we have that there exists $F \in \MF_{cp}(\MT)$ such that $F \not \in \{\opn(x): x \in X\}$. Therefore $\MF_{cp}(\MT) \not \subset \{\opn(x): x \in X\}$. Hence $\MF_{cp}(\MT) \neq \{\opn(x): x \in X\}$.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a complete lattice. 
+	\end{ex}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Frames and Locales}
+	
+	\begin{defn}
+		Let $L$ be a complete lattice. Then $L$ is said to be a 
+		\begin{itemize}
+			\item \tbf{frame} if for each $A \subset L$ and $b \in L$, 
+			$$\bigg( \bigvee\limits_{a \in A} a \bigg) \wedge b = \bigvee\limits_{a \in A} (a \wedge b).$$
+			
+			\tcr{maybe define and use the following notation:}
+			$$\bigg( \bigvee A \bigg) \wedge b = \bigvee(A \wedge b).$$
+			\item \tbf{coframe} if $L^*$ is a frame. 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{defn}
+		Let $(L, \leq_L)$, $(M, \leq_M)$ be frames and $f:L \rightarrow M$. Then $f$ is said to be a $(\leq_L, \leq_M)$-frame homomorphism if 
+		\begin{enumerate}
+			\item $f$ is $(\leq_L, \leq_M)$-arbitrary join preserving
+			\item $f$ is $(\leq_L, \leq_M)$-finite meet preserving
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{defn}
+		We define the \tbf{category of frames}, denoted $\Frm$, by
+		\begin{itemize}
+			\item $\Obj(\Frm) \defeq \{(L, \leq): \text{$(L, \leq)$ is a frame}\}$
+			\item for $(L, \leq_L), (M, \leq_M) \in \Obj(\Frm)$, 
+			$$\Hom_{\Frm}((L, \leq_L), (M, \leq_M)) \defeq \{f \in \Hom_{\Set}(L, M): \text{$f$ is a $(\leq_L, \leq_M)$-frame homomorphism}\}$$
+			\item for $(L, \leq_L), (M, \leq_M), (K, \leq_K) \in \Obj(\Frm)$ and $f \in \Hom_{\Frm}((L, \leq_L), (M, \leq_M))$, $g \in \Hom_{\Frm}((M, \leq_M), (K, \leq_K))$, 
+			$$g \circ_{\Frm} f \defeq g \circ_{\Set} f$$ 
+		\end{itemize} 
+	\end{defn}
+	
+	\tcr{$\Frm$ is a category}
+	
+	\begin{defn}
+		We define the \tbf{category of locales}, denoted $\Loc$, by $\Loc \defeq \op{\Frm}$.
+	\end{defn}
 
-
+	
 
 
 
@@ -8195,6 +8605,17 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 \chapter{Metric Spaces}
 
 \section{Introduction}
+
+\tcr{
+	In order so that we can talk about premetric structures in model theory, do the following:
+\begin{itemize}
+	\item talk about pseudometric spaces, 
+	\item define uniform continuity for pseudometric spaces, 
+	\item show that the equivalence relation defined by $x \sim y$ iff $d(x,y) = 0$ induces a metric on quotient space
+	\item show that if $f: (X,d_X) \rightarrow (Y,d_Y)$ is uniformly continuous, then $f$ is $(\sim_X, \sim_Y)$invariant and thus has a factor $\Fac_{\sim_X, \sim_Y}(f) = \bar{f}:X/\sim_X \rightarrow Y/\sim_Y$.
+	\item so any predicate/function/constant in a metric prestructure based on a pseudometric space induces one in the structure based on the induced metric space
+\end{itemize}
+}
 
 \subsection{Metrics}
 
@@ -8484,15 +8905,15 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 \begin{proof}\
 	\begin{itemize}
 		\item $(\implies):$ \\
-		Suppose that $x_{\gam} \rightarrow x$ in $(X, \MT_d)$. Let $U \in \MN_{\R}(0)$. Then there exists $\ep > 0$ such that $(-\ep, \ep) \subset U$. Since $B(x, \ep) \in \MN(x)$ and $x_{\gam} \rightarrow x$ in $(X, \MT_d)$, we have that $(x_{\gam})_{\gam \in \Gam}$ is eventually in $B(x, \ep)$. Thus there exists $\gam_0 \in \Gam$ such that for each $\gam \in \Gam$, $\gam \geq \gam_0$ implies that $x_{\gam} \in B(x, \ep)$. Let $\gam \in \Gam$. Suppose that $\gam \geq \gam_0$. Then 
+		Suppose that $x_{\gam} \rightarrow x$ in $(X, \MT_d)$. Let $U \in \MN(0, \MT_{\R})$. Then there exists $\ep > 0$ such that $(-\ep, \ep) \subset U$. Since $B(x, \ep) \in \MN(x)$ and $x_{\gam} \rightarrow x$ in $(X, \MT_d)$, we have that $(x_{\gam})_{\gam \in \Gam}$ is eventually in $B(x, \ep)$. Thus there exists $\gam_0 \in \Gam$ such that for each $\gam \in \Gam$, $\gam \geq \gam_0$ implies that $x_{\gam} \in B(x, \ep)$. Let $\gam \in \Gam$. Suppose that $\gam \geq \gam_0$. Then 
 		\begin{align*}
 			d(x_{\gam}, x) 
 			& \in (-\ep, \ep) \\
 			& \subset U.
 		\end{align*}
-		Thus $(d(x_{\gam}, x))_{\gam \in \Gam}$ is eventually in $U$. Since $U \in \MN_{\R}(0)$ is arbitrary, we have that for each $U \in \MN_{\R}(0)$, $(d(x_{\gam}, x))_{\gam \in \Gam}$ is eventually in $U$. Hence $d(x_{\gam}, x) \rightarrow 0$.
+		Thus $(d(x_{\gam}, x))_{\gam \in \Gam}$ is eventually in $U$. Since $U \in \MN(0, \MT_{\R})$ is arbitrary, we have that for each $U \in \MN(0, \MT_{\R})$, $(d(x_{\gam}, x))_{\gam \in \Gam}$ is eventually in $U$. Hence $d(x_{\gam}, x) \rightarrow 0$.
 		\item $(\impliedby):$ \\
-		Conversely, suppose that $d(x_{\gam}, x) \rightarrow 0$ in $(\R, \MT_{\R})$. Let $U \in \MN_X(x)$. Then there exists $\ep > 0$ such that $B(x, \ep) \subset U$. Since $(-\ep, \ep) \in \MN_{\R}(0)$ and $d(x_{\gam}, x) \rightarrow 0$ in $(\R, \MT_{\R})$, we have that $(d(x_{\gam}, x))_{\gam \in \Gam}$ is eventually in $(-\ep, \ep)$. Thus there exists $\gam_0 \in \Gam$ such that for each $\gam \in \Gam$, $\gam \geq \gam_0$ implies that $d(x_{\gam}, x) \in (-\ep, \ep)$. Let $\gam \in \Gam$. Suppose that $\gam \geq \gam_0$. Then $d(x_{\gam}, x) < \ep$ and 
+		Conversely, suppose that $d(x_{\gam}, x) \rightarrow 0$ in $(\R, \MT_{\R})$. Let $U \in \MN(x)$. Then there exists $\ep > 0$ such that $B(x, \ep) \subset U$. Since $(-\ep, \ep) \in \MN(0, \MT_{\R})$ and $d(x_{\gam}, x) \rightarrow 0$ in $(\R, \MT_{\R})$, we have that $(d(x_{\gam}, x))_{\gam \in \Gam}$ is eventually in $(-\ep, \ep)$. Thus there exists $\gam_0 \in \Gam$ such that for each $\gam \in \Gam$, $\gam \geq \gam_0$ implies that $d(x_{\gam}, x) \in (-\ep, \ep)$. Let $\gam \in \Gam$. Suppose that $\gam \geq \gam_0$. Then $d(x_{\gam}, x) < \ep$ and 
 		\begin{align*}
 			x_{\gam} 
 			& \in B(x, \ep) \\
@@ -11122,11 +11543,11 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 \subsection{Metrizability of Subspaces}
 
 \begin{ex} \lex{ex:metric_spaces:metrizable_spaces:0004}
-	Let $(X, \MT)$ be a topological space and $C \subset X$. Suppose that $(X, \MT)$ is completely metrizable. If $C$ is closed in $(X, \MT)$, then $(C, \MT \cap C)$ is completely metrizable. 
+	Let $(X, \MT)$ be a topological space and $C \subset X$. Suppose that $(X, \MT)$ is completely metrizable. If $C$ is $\MT$-closed, then $(C, \MT \cap C)$ is completely metrizable. 
 \end{ex}
 
 \begin{proof}
-	Suppose that $C$ is closed in $(X, \MT)$. Since $(X, \MT)$ is completely metrizable, there exists a metric $d: X \times X \rightarrow	\Rg$ such that $\MT = \MT_d$ and $(X, d)$ is complete. \rex{ex:metric_spaces:completeness:0004} implies that $(C, d|_{C \times C})$ is complete. \rex{ex:metric_spaces:subspaces:0001} implies that $\MT_{d|_{C \times C}} = \MT_d \cap C$. Hence $(C, \MT_d \cap C)$ is completely metrizable. 
+	Suppose that $C$ is $\MT$-closed. Since $(X, \MT)$ is completely metrizable, there exists a metric $d: X \times X \rightarrow	\Rg$ such that $\MT = \MT_d$ and $(X, d)$ is complete. \rex{ex:metric_spaces:completeness:0004} implies that $(C, d|_{C \times C})$ is complete. \rex{ex:metric_spaces:subspaces:0001} implies that $\MT_{d|_{C \times C}} = \MT_d \cap C$. Hence $(C, \MT_d \cap C)$ is completely metrizable. 
 \end{proof}
 
 
@@ -11289,7 +11710,7 @@ Thus $A \setminus F$ is open in $A$ which implies that $F$ is closed in $A$.
 \end{defn}
 
 \begin{ex} \lex{ex:metric_spaces:polish_spaces:0002}
-	Let $(X, \MT)$ be a Polish space and $C \subset X$. If $C$ is closed in $(X, \MT)$, then $(C, \MT \cap C)$ is a Polish space.
+	Let $(X, \MT)$ be a Polish space and $C \subset X$. If $C$ is $\MT$-closed, then $(C, \MT \cap C)$ is a Polish space.
 \end{ex}
 
 \begin{proof}
@@ -12359,7 +12780,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 			\item $(V_n)_{n \in \N}$ is disjoint,
 			\item $X_0 = \bigcup\limits_{n \in \N} V_n$
 		\end{itemize} 
-		We define $C_{\gam} \defeq V_{\gam_1}$. Let $x \in C_{\gam}$. Since $C_{\gam} \in \MT_d$, we have that $C_{\gam} \in \MN_{\MT_d}(x)$. By assumption, $x$ is a $\MT_d$-condensation point of $X$. \rex{31028} then implies that $x$ is a $\MT_d$-condensation point of $C_{\gam}$ and \rex{ex:topology:subspaces:0004.2} implies that $x$ is a $\MT_d \cap C_{\gam}$-condensation point of $C_{\gam}$. Since $x \in C_{\gam}$ is arbitrary, we have that for each $x \in C_{\gam}$, $x$ is a $\MT_d \cap C_{\gam}$-condensation point of $C_{\gam}$.
+		We define $C_{\gam} \defeq V_{\gam_1}$. Let $x \in C_{\gam}$. Since $C_{\gam} \in \MT_d$, we have that $C_{\gam} \in \MN(x, \MT_d)$. By assumption, $x$ is a $\MT_d$-condensation point of $X$. \rex{31028} then implies that $x$ is a $\MT_d$-condensation point of $C_{\gam}$ and \rex{ex:topology:subspaces:0004.2} implies that $x$ is a $\MT_d \cap C_{\gam}$-condensation point of $C_{\gam}$. Since $x \in C_{\gam}$ is arbitrary, we have that for each $x \in C_{\gam}$, $x$ is a $\MT_d \cap C_{\gam}$-condensation point of $C_{\gam}$.
 		\item \tbf{Induction Step:} \\
 		Let $n \geq 2$ and $\gam \in \N^{n}$. Define $\tl{\gam} \in \N^{n-1}$ by $\tl{\gam} \defeq \pi^{[n]}_{[n-1]}(\gam)$. Suppose that 
 		\begin{itemize}
@@ -12372,7 +12793,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 			\item $(V^{\tl{\gam}}_n)_{n \in \N}$ is disjoint,
 			\item $C_{\tl{\gam}, 0} = \bigcup\limits_{n \in \N} V^{\tl{\gam}}_n$.
 		\end{itemize} 
-		We define $C_{\gam} \defeq V^{\tl{\gam}}_{\gam_n}$. Since $C_{\gam} \in \MT_d \cap C_{\tl{\gam}}$ and $C_{\tl{\gam}} \in \MT_d$, we have that $C_{\gam} \in \MT_d$. Since $C_{\gam}$ is $\MT_d \cap C_{\tl{\gam}}$-closed and $C_{\tl{\gam}}$ is $\MT_d$-closed, \rex{} \tcr{cite ex} implies that $C_{\gam}$ is $\MT_d$-closed. Let $x \in C_{\gam}$. Since $C_{\gam} \in \MT_d$, we have that $C_{\gam} \in \MN_{\MT_d}(x)$. By assumption, $x$ is a $\MT_d$-condensation point of $X$. \rex{31028} then implies that $x$ is a $\MT_d$-condensation point of $C_{\gam}$ and \rex{ex:topology:subspaces:0004.2} implies that $x$ is a $\MT_d \cap C_{\gam}$-condensation point of $C_{\gam}$. Since $x \in C_{\gam}$ is arbitrary, we have that for each $x \in C_{\gam}$, $x$ is a $\MT_d \cap C_{\gam}$-condensation point of $C_{\gam}$. 
+		We define $C_{\gam} \defeq V^{\tl{\gam}}_{\gam_n}$. Since $C_{\gam} \in \MT_d \cap C_{\tl{\gam}}$ and $C_{\tl{\gam}} \in \MT_d$, we have that $C_{\gam} \in \MT_d$. Since $C_{\gam}$ is $\MT_d \cap C_{\tl{\gam}}$-closed and $C_{\tl{\gam}}$ is $\MT_d$-closed, \rex{} \tcr{cite ex} implies that $C_{\gam}$ is $\MT_d$-closed. Let $x \in C_{\gam}$. Since $C_{\gam} \in \MT_d$, we have that $C_{\gam} \in \MN(x, \MT_d)$. By assumption, $x$ is a $\MT_d$-condensation point of $X$. \rex{31028} then implies that $x$ is a $\MT_d$-condensation point of $C_{\gam}$ and \rex{ex:topology:subspaces:0004.2} implies that $x$ is a $\MT_d \cap C_{\gam}$-condensation point of $C_{\gam}$. Since $x \in C_{\gam}$ is arbitrary, we have that for each $x \in C_{\gam}$, $x$ is a $\MT_d \cap C_{\gam}$-condensation point of $C_{\gam}$. 
 		\end{itemize}
 		Thus there exist $(C_{\gam})_{\gam \in \Gam} \subset \MT_d$ and $(x_{\gam})_{\gam \in \Gam} \in \prod\limits_{\gam \in \Gam} C_{\gam}$ such that
 		\begin{enumerate}

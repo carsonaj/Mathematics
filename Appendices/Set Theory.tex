@@ -1,61 +1,993 @@
+\chapter{Logic}
+
+
+
 \chapter{Set Theory}
 
-\section{Operations and Relations}
+\section{Basic Structures}
+\tcr{move to notes on intro to math and make these set theory notes assuming familiarity with producsts of two sets, similar to the set theory in the analysis notes.}
 
-\begin{defn}\
+
+
+
+
+
+
+
+In this section, we provide an exposure to a basic framework, called set theory. This framework provides a unifying language which allows us to discuss many objects of interest in mathematics by providing the ability to 
+\begin{enumerate}
+	\item more precisely define objects of interest, 
+	\item more precisely formulate and prove statements about those objects
+	\item perform (1) and (2) in a way which is aligned with our intuition.
+\end{enumerate}
+At an intuitive level, the main idea of a \tbf{set} is that of a collection of distinct objects, which we refer to as \tbf{elements} or \tbf{members}. When denoting a set, it is customary to list the elements of the set, separated by a comma and inside of a pair of curly brackets. Some examples of sets include the following:
+\begin{itemize}
+	\item the set of letters of the English alphabet: $\{a, b, \ldots, z\}$, a set with 26 elements
+	\item the set of inhabitants of a specific household: $\{\text{``Marielle"}, \text{``Fred"}, \text{``Dexter"}\}$, a set with 3 elements
+	\item the set of nonnegative even integers: $\{0, 2, \ldots \}$, a set with infintely many elements
+\end{itemize}
+\begin{note}
+	Since the elements of a set must be distinct, we would consider, for instance, the sets $\{a, b, c\}$ and $\{a, a, b, c\}$ to represent the same set. 
+\end{note}
+When expressing that a given object is a member of set, it is customary to use the \tbf{membership symbol}, denoted $\in$. Some examples include the following:
+\begin{itemize}
+	\item $2 \in \{1, 2, 3, 4\}$
+	\item $\text{``Earth"} \in \{\text{``Mercury"}, \text{``Venus"}, \text{``Earth"}, \text{``Mars"}\}$.
+\end{itemize}
+\begin{note}
+	We note that this introduction to set theory is not formal, but intuitve. As such, we make no attempt to precisely define the notion of a set or the notion of membership to a set. 
+\end{note}
+At this point in our discussion, it might seem that any advantage conferred by the language of sets in studying mathematics remains to be seen. Indeed, more time and experience may be required to fully appreciate the power of this framework, but for now we summarize why set theory is relevant in mathematics with the following mantra: 
+$$\text{In mathematics, everything is a set.}$$
+There is a similar perspective adopted in the context of Linux operating systems where every object is a file or in the context of object oriented programming where every object is a class. 
+
+If one already has familiarity with various objects in mathematics such as various numbers, functions, and shapes, they might wonder how these objects could be considered as a set, i.e. a list of elements. For example, which elements $a_1, a_2, \ldots$, which are themselves sets (because everything is a set), would allow one to express the integer $2$ as the set $\{a_1, a_2, \ldots\}$? At first glance, we might attempt to represent $2$ with an arbitrary set containing two elements, say $\{\text{``cow"}, \text{``chicken"}\}$. The intuition here might be that the number of elements reflects our notion of the ``quantity" or ``magnitude" we associate to the number $2$. However, upon further reflection, such a set might not satisfy other notions we associate to the number $2$. 
+
+For example we typically think of the number $2$ as having a unique ``ranking" or ``place" in the number line. That is, the number $2$ is the integer that preceeds the number $3$. So we would need to not only define a set representing the number $3$, but also a set representing the notion of subsequence that would align with our intuition that $3$ is subsequent to $2$. 
+
+In a different vein, one might also wish for our representation of the number $2$ to agree with the idea that the sum of $2$ and $4$ is $6$. The issue here is how to describe the notion of integer addition. After some thought, one might realize that the idea of adding two integers is basically that of a function, i.e. an object which eats two integer inputs and spits out an integer output. 
+
+It might seem tricky to be able to represent all the nonnegative integers, the notion of integer subsequence and the notion of integer addition by sets in a way that aligns with our intution of those objects, relations and operations. With our limited toolset, this would indeed be quite challenging, but after a few more ideas, this will become a relatively simple goal. For now, we focus on providing the necessary calculus of sets to be able to do so. 
+
+The first two relations between sets that we define pertain to when one set is a subset of another and when one set is equal to another. To motivate this, we observe that each element of $\{a,b\}$ is also an element of $\{a, b, c\}$. Our intuition dictates that the former is in some sense ``less than or equal to" the latter. However, the same could not be said of the converse. Therefore, the two sets should not be considered equal.
+\begin{defn}
+	Let $A$ and $B$ be sets. Then 
 	\begin{itemize}
-		\item We define $[0] \defeq \varnothing$ and for $k \in \N$, we define $[k] \defeq \{1, \ldots, k\}$. 
-		\item Let $S$ be a set and $k \in \N_0$. We define the \tbf{set of $k$-tupels with entries in $S$}, denoted $S^k$, by 
-		$$S^k \defeq \{u: [k] \rightarrow S\}$$
-		\item Let $S$ be a set. We define the \tbf{set of all tuples with entries in $S$}, denoted $S^*$, by 
-		$$S^* \defeq \bigcup_{k \in \N_0} S^k$$
-		\item Let $S$ be a set and $k \in \N_0$. We define the \tbf{set of $k$-ary operations on $S$}, denoted $\MF^k(S)$, by $\MF^k(S) \defeq S^{(S^k)}$. We define the \tbf{set of finitary operations on $S$}, denoted $\MF^*(S)$, by
-		$$\MF^*(S) \defeq \bigcup_{k \in \N_0} \MF^k(S)$$
-		\item Let $S$ be a set. We define the \tbf{operation arity map}, denoted $\ar: \MF^*(S) \rightarrow \N_0$, by 
-		$$\ar f \defeq k, \quad f \in \MF^k(S)$$
-		\item Let $S$ be a set, $\MF \subset \MF^*(S)$ and $k \in \N_0$. We define the \tbf{$k$-ary members of $\MF$}, denoted $\MF_k$, by 
-		$$\MF_k \defeq \MF \cap \MF^k(S)$$
-		\item Let $S$ be a set and $k \in \N_0$. We define the \tbf{set of $k$-ary relations on $S$}, denoted $\MR^k(S)$, by $\MR^k(S) \defeq \MP(S^k)$. We define the \tbf{set of finitary relations on $S$}, denoted $\MR^*(S)$, by
-		$$\MR^*(S) \defeq \bigcup_{k \in \N_0} \MR^k(S)$$
-		\item Let $S$ be a set. We define the \tbf{arity map}, denoted $\ar: \MR^*(S) \rightarrow \N_0$, by 
-		$$\ar R \defeq k, \quad f \in \MR^k(S)$$
-		\item Let $S$ be a set, $\MR \subset \MR^*(S)$ and $k \in \N_0$. We define the \tbf{$k$-ary members of $\MR$}, denoted $\MR_k$, by 
-		$$\MR_k \defeq \MR \cap \MR^k(S)$$
+		\item $A$ is said to be a \tbf{subset of $B$} if for each set $x$, $x \in A$ implies that $x \in B$. \\
+		($\text{$A$ is a subset of $B$} \iff \forall x (x \in A \implies x \in B)$)
+		\item $A$ is said to be \tbf{equal to $B$} if $A \subset B$ and $B \subset A$. 
+		\item $A$ is said to be \tbf{empty} if for each set $x$, $x \not \in A$. \\
+		($\text{$A$ is empty} \iff \forall x ( \neg(x \in A))$)
 	\end{itemize}
 \end{defn}
 
-\begin{defn}
-	Let $S$ be a set, $k \geq 2$ and $f \in \MF^k(S)$. Then $f$ is said to be
+\begin{note}\
 	\begin{itemize}
-		\item \tbf{associative} if for each $x_1, \ldots, x_k, x_{k+1}, \ldots, x_{k + (k-1)} \in S$, 
-		\begin{align*}
-			f(f(x_1, \ldots, x_k) x_{k+1}, \ldots, x_{k + (k-1)}) 
-			& = f(x_1, f(x_2, \ldots, x_{k+1}), x_{k+2}, \ldots, x_{k + (k-1)}) \\
-			& \vdots \\
-			& = f(x_1, \ldots, x_{k-1}, f(x_k, \ldots, x_{k + (k-1)}) )
-		\end{align*}
-		\item \tbf{symmetric} if for each $x_1, \ldots, x_k \in S$, $\sig \in S_k$, $f(x_1, \ldots, x_k) = f(x_{\sig(1)}, \ldots, x_{\sig(k)})$.
-		\item \tbf{idempotent} if for each $x \in S$,
-		$f(x, \ldots, x) = x$
+		\item When defining a term, it is conventional to use an ``if", but really the relationship is an ``iff".
+		\item For convenience, we will typically write $x \not \in A$ in place of $\neg(x \in A)$.
 	\end{itemize}
-\end{defn}
+\end{note}
 
-\begin{defn}
-	Let $S$ be a set, $\MF \subset \MF^*(S)$ and $C \subset S$. Then $C$ is said to be  \tbf{$\MF$-closed} if for each $k \in \N_0$, $f \in \MF_k$ and $a \in C^k$, $f(a) \in C$.
-\end{defn}
-
+The following exercise shows us that there is at most one set that is empty.
 \begin{ex}
-	Let $S$ be a set, $\MF \subset \MF^*(S)$ and $\MC \subset \MP(S)$. If for each $C \in \MC$, $C$ is  $\MF$-closed, then $\bigcap\limits_{C \in \MC} C$ is $\MF$-closed
-	\tcr{need special case where $k=0$? maybe trivially true?}
+	Let $A, B$ be sets. If $A$ is empty and $B$ is empty, then $A= B$. 
 \end{ex}
 
 \begin{proof}
-	Suppose that for each $C \in \MC$, $C$ is  $\MF$-closed. Let $k \in \N_0$, $f \in \MF_k$, $a_1, \ldots, a_k \in \bigcap\limits_{C \in \MC} C$ and $C_0 \in \MC$. Since $C_0 \in \MC$, we have that 
-	\begin{align*}
-		a_1, \ldots, a_k 
-		& \in \bigcap_{C \in \MC} C \\
-		& \subset C_0
-	\end{align*}
-	Since $C_0$ is $\MF$-closed, we have that $f(a_1, \ldots, a_k) \in C_0$. Since $C_0 \in \MC$ is arbitrary, we have that for each $C \in \MC$, $f(a_1, \ldots, a_k) \in C$. Hence $f(a_1, \ldots, a_k) \in \bigcap\limits_{C \in \MC} C$. Since $k \in \N_0$ and $a_1, \ldots, a_k \in \bigcap\limits_{C \in \MC} C$ are arbitrary, we have that $\bigcap\limits_{C \in \MC} C$ is $\MF$-closed.
+	Suppose that $A$ is empty and $B$ is empty. Let $x$ be a set. 
+	\begin{itemize}
+		\item Since $A$ is empty, $x \not \in A$. Therefore $x \in A$ implies that $x \in B$. Since $x$ is an arbitrary set, we have that for each set $x$, $x \in A$ implies that $x \in B$. Hence $A \subset B$.
+		\item Similarly $B \subset A$
+	\end{itemize}
+	Since $A \subset B$ and $B \subset A$, we have that $A = B$.
 \end{proof}
+
+Even though there can be at most one set that is empty, we are not guaranteed the existence of such a set. Since its existence is quite useful and intuitively quite reasonable, we will assume such a set does in fact exist. 
+\begin{ax}
+	There exists a set $\varnothing$, referred to as the \tbf{empty set}, such that for each set $x$, $x \not \in \varnothing$.
+\end{ax}
+
+
+\begin{ex}
+	Let $A$ be a set. Then $\varnothing \subset A$. 
+\end{ex}
+
+\begin{proof}
+	Let $x$ be a set. Then $x \not \in \varnothing$. Hence $x \in \varnothing$ implies that $x \in A$. Since $x$ is an arbitrary set, we have that for each set $x$, $x \in \varnothing$ implies that $x \in A$. Thus $\varnothing \subset A$.
+\end{proof}
+
+\tcr{give intuition for union, intersection, complement, show we can define union in terms of intersection and complement, call back to demorgans laws for logic}
+\begin{defn}
+	Let $A, B$ be sets. We define 
+	intersection, union, empty set
+\end{defn}
+
+
+
+\tcr{discuss and introduce/make pictures of venn diagrams}
+
+
+\tcr{discuss how definitions by convention use an if, but it should be treated as an iff. The if makes sense because if we say that a dog is ``blarge" if it is black and weighs more than 15 kg, if we had put an iff in this definition, then the we would be saying that if a dog is blarge, then it is black and weighs more than 15 kgs, which wouldn really make sense in a definition because we have not defined previously and do not know what it is blarge, so it is a language thing. but really we are defining a set. $x \in \{\text{blarge dogs}\} \iff x \in \{\text{black dogs}\} \text{and} \{\text{dogs above 15 kg}\}$} i.e. $\{\text{blarge dogs}\} = \{\text{black dogs}\} \cap \{\text{dogs above 15 kg}\}$.
+
+
+
+
+discuss how we can define natural numbers
+
+discuss how we define $(a,b) = \{\{a\}, \{a,b\}\}$ or similar
+
+\begin{defn}
+	\tcr{products $A \times B$}
+\end{defn}
+
+\begin{ex}
+	content...
+\end{ex}
+
+\begin{ex}
+	
+\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Relations}
+\tcr{keep this part here, after section on sets similar to analysis notes, so we can assume arbitrary unions, products, etc, not just unions/products/etc of two sets}
+
+
+\subsection{Introduction}
+
+\begin{defn}
+	Let $A, B$ be sets.
+	\begin{itemize}
+		\item Let $R \subset A \times B$. Then $R$ is said to be a \tbf{relation between $A$ and $B$}. 
+		\item We define $\MR(A,B) \defeq \MP(A, B)$ 
+	\end{itemize}
+\end{defn}
+
+\begin{defn}
+	Let $A,B,C$ be sets, $R \in \MR(A,B)$, $S \in \MR(B,C)$. We define the \tbf{composition relation of $S$ with $R$}, denoted $S \circ_{\Rel} R \in \MR(A, C)$, by 
+	$$S \circ_{\Rel} R \defeq \{(a,c) \in A \times C: \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$}\}.$$
+\end{defn}
+
+\begin{note}
+	When the context is clear, we write $S \circ R$ in place of $S \circ_{\Rel} R$.
+\end{note}
+
+\begin{ex}
+	Let $A,B, C, D$ be sets, $R$ a relation between $A$ and $B$, $S$ relation between $B$ and $C$ and $T$ relation between $C$ and $D$. Then $(T \circ S) \circ R = T \circ (S \circ R)$.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item Let $(a,d) \in (T \circ S) \circ R$. Then there exists $b \in B$ such that $(a,b) \in R$ and $(b,d) \in T \circ S$. Since $(b,d) \in T \circ S$, there exists $c \in C$ such that $(b,c) \in S$ and $(c,d) \in T$. Since $(a,b) \in R$ and $(b,c) \in S$, $(a,c) \in S \circ R$. Since $(a,c) \in S \circ R$ and $(c,d) \in T$, we have that $(a,d) \in T \circ (S \circ R)$. Since $(a,d) \in (T \circ S) \circ R$ is arbitrary, we have that for each $(a,d) \in (T \circ S) \circ R$, $(a,d) \in T \circ (S \circ R)$. Hence $(T \circ S) \circ R \subset T \circ (S \circ R)$.
+		\item Similarly, $T \circ (S \circ R) \subset (T \circ S) \circ R$. 
+	\end{itemize}
+	Since $(T \circ S) \circ R \subset T \circ (S \circ R)$ and $T \circ (S \circ R) \subset (T \circ S) \circ R$, we have that $(T \circ S) \circ R = T \circ (S \circ R)$.
+\end{proof}
+
+
+
+\begin{defn}
+	Let $A$ be a set. We define the \tbf{diagonal relation on $A$}, denoted $\Del_A \in \MR(A, A)$, by 
+	$$\Del_A \defeq \{(a,a): a \in A\}.$$
+\end{defn}
+
+\begin{ex}
+	Let $A, B$ be sets and $R \in \MR(A,B)$. Then 
+	\begin{enumerate}
+		\item $R \circ \Del_A = R$
+		\item $\Del_B \circ R = R$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{itemize}
+			\item Let $(a,b) \in R \circ \Del_A$. Then there exists $a' \in A$ such that $(a, a') \in \Del_A$ and $(a',b) \in R$. By definition of $\Del_A$, $a = a'$. Therefore $(a,b) \in R$. Since $(a,b) \in R \circ \Del_A$ is arbitrary, we have that for each $(a,b) \in R \circ \Del_A$, $(a,b) \in R$. Hence $ R \circ \Del_A \subset R$. 
+			\item Let $(a,b) \in R$. Then $a \in A$. Therefore $(a,a) \in \Del_A$. Since $(a,a) \in \Del_A$ and $(a,b) \in R$, we have that $(a, b) \in R \circ \Del_A$. Since $(a,b) \in R$ is arbitrary, we have that for each $(a,b) \in R$, $(a,b) \in R \circ \Del_A$. Hence $R \circ \Del_A \subset R$.  
+		\end{itemize}
+		Since $R \circ \Del_A \subset R$ and $R \circ \Del_A \subset R$, we have that $R \circ \Del_A = R$.
+		\item Similar to $(1)$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $A, B, C$ be sets. 
+	\begin{enumerate}
+		\item Let $R \in \MR(A, B)$ and $(S_{\gam})_{\gam \in \Gam} \subset \MR(B, C)$. Then
+		\begin{enumerate}
+			\item $\bigg( \bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R = \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R)$,
+			\item $\bigg( \bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R \subset \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R)$
+		\end{enumerate} 
+		\item Let $(R_{\gam})_{\gam \in \Gam} \subset \MR(A, B)$ and $S \in \MR(B, C)$. Then
+		\begin{enumerate}
+			\item $S \circ \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg) = \bigcup\limits_{\gam \in \Gam} (S \circ R_{\gam} )$.
+			\item $S \circ \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg) \subset \bigcap\limits_{\gam \in \Gam} (S \circ R_{\gam} )$.
+		\end{enumerate} 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item We note that
+			\begin{align*}
+				(a,c) \in \bigg( \bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R 
+				& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in \bigcup\limits_{\gam \in \Gam} S_{\gam} $} \\
+				& \iff \text{there exists $b \in B$ and $\gam_0 \in \Gam$ such that $(a,b) \in R$ and $(b,c) \in S_{\gam_0}$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a, c) \in S_{\gam_0} \circ R$} \\
+				& \iff (a, c) \in \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R).
+			\end{align*}
+			Hence $\bigg( \bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R  = \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
+			\item 
+			We note that
+			\begin{align*}
+				(a,c) \in \bigg( \bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R 
+				& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in \bigcap\limits_{\gam \in \Gam} S_{\gam} $} \\
+				& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and for each $\gam \in \Gam$ and $(b,c) \in S_{\gam}$} \\
+				& \implies \text{for each $\gam \in \Gam$, there exists $b \in B$ such that $(a, b) \in R$ and $(b,c) \in S_{\gam}$} \\
+				& \iff \text{for each $\gam \in \Gam$, $(a,c) \in S_{\gam} \circ R$} \\
+				& \iff (a, c) \in \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R).
+			\end{align*}
+			Hence $\bigg( \bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R  = \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
+			\end{enumerate}
+		\item 
+		\begin{enumerate}
+			\item We note that  
+			\begin{align*}
+				(a,c) \in S \circ \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)
+				& \iff \text{there exists $b \in B$ such that $(a,b) \in \bigcup\limits_{\gam \in \Gam} R_{\gam}$ and $(b,c) \in S$} \\
+				& \iff \text{there exists $b \in B$ and $\gam_0 \in \Gam$ such that $(a,b) \in R_{\gam_0}$ and $(b,c) \in S$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a, c) \in S \circ R_{\gam_0}$} \\
+				& \iff (a, c) \in \bigcup\limits_{\gam \in \Gam} (S \circ R_{\gam}).
+			\end{align*}
+			Hence $S \circ \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)  = \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
+			\item We note that  
+			\begin{align*}
+				(a,c) \in S \circ \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)
+				& \iff \text{there exists $b \in B$ such that $(a,b) \in \bigcap\limits_{\gam \in \Gam} R_{\gam}$ and $(b,c) \in S$} \\
+				& \iff \text{there exists $b \in B$ such that for each $\gam \in \Gam$, $(a,b) \in R_{\gam}$ and $(b,c) \in S$} \\
+				& \implies \text{for each $\gam \in \Gam$, there exists $b \in B$ such that $(a, b) \in  R_{\gam}$ and $(b,c) \in S$} \\
+				& \iff \text{for each $\gam \in \Gam$, $(a, c) \in S \circ R_{\gam}$} \\
+				& \iff (a, c) \in \bigcap\limits_{\gam \in \Gam} (S \circ R_{\gam}).
+			\end{align*}
+			Hence $S \circ \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg) \subset \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $A, B, C$ be sets. 
+	\begin{enumerate}
+		\item Let $R_1, R_2 \in \MR(A, B)$ and $S \in \MR(B,C)$. If $R_1 \subset R_2$, then $S \circ R_1 \subset S \circ R_2$. 
+		\item Let $R \in \MR(A, B)$ and $S_1, S_2 \in \MR(B,C)$. If $S_1 \subset S_2$, then $S_1 \circ R \subset S_2 \circ R$. 
+		\item Let $R_1, R_2 \in \MR(A, B)$ and $S_1, S_2 \in \MR(B,C)$. If $R_1 \subset R_2$ and $S_1 \subset S_2$, then $S_1 \circ R_1 \subset S_2 \circ R_2$.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Suppose that $R_1 \subset R_2$. Then 
+		\begin{align*}
+			(a, c) \in S \circ R_1
+			& \iff \text{there exists $b \in B$ such that $(a,b) \in R_1$ and $(b,c) \in S$} \\
+			& \implies \text{there exists $b \in B$ such that $(a,b) \in R_2$ and $(b,c) \in S$} \\
+			& \iff (a, c) \in S \circ R_2.
+		\end{align*}
+		Hence $S \circ R_1 \subset S \circ R_2$.
+		\item Suppose that $S_1 \subset S_2$. Then
+		\begin{align*}
+			(a, c) \in S_1 \circ R
+			& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S_1$} \\
+			& \implies \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S_2$} \\
+			& \iff (a, c) \in S_2 \circ R.
+		\end{align*}
+		Hence $S_2 \circ R \subset S_1 \circ R$.
+		\item Suppose that $R_1 \subset R_2$ and $S_1 \subset S_2$. Then \tcr{the previous parts} imply that
+		\begin{align*}
+			S_1 \circ R_1
+			& \subset S_2 \circ R_1 \\
+			& \subset S_2 \circ R_2.
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Let $A, B$ be sets and $R \in \MR(A,B)$. We define the \tbf{converse of $R$}, denoted $R^* \in \MR(B,A)$, by 
+	$$R^* \defeq \{(b,a) \in B \times A: (a,b) \in R\}.$$
+\end{defn}
+
+\begin{ex}
+	Let $A, B$ be sets and $R$ a relation between $A$ and $B$. Then $(R^*)^* = R$.
+\end{ex}
+
+\begin{proof}
+	\begin{align*}
+		(a,b) \in (R^*)^*
+		& \iff (b,a) \in R^* \\
+		& \iff (a,b) \in R.
+	\end{align*}
+	Hence $(R^*)^* = R$.
+\end{proof}
+
+\begin{ex}
+	Let $A, B, C$ be sets, $R \in \MR(A,B)$ and $S \in \MR(B,C)$. Then $(S \circ R)^* = R^* \circ S^*$.  
+\end{ex}
+
+\begin{proof}
+	We note that 
+	\begin{align*}
+		(c,a) \in (S \circ R)^*
+		& \iff (a,c) \in S \circ R \\
+		& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$} \\
+		& \iff \text{there exists $b \in B$ such that $(c,b) \in S^*$ and $(b, a) \in R^*$} \\
+		& \iff (c, a) \in R^* \circ S^*.
+	\end{align*}
+	Hence $(S \circ R)^* = R^* \circ S^*$.
+\end{proof}
+
+\begin{ex}
+	Let $A$ and $B$ be sets and $(R_{\gam})_{\gam \in \Gam} \subset \MR(A, B)$. Then 
+	\begin{enumerate}
+		\item $\bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcup\limits_{\gam \in \Gam} R_{\gam}^*$
+		\item $\bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcap\limits_{\gam \in \Gam} R_{\gam}^*$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item We note that
+		\begin{align*}
+			(b,a) \in \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)^*
+			& \iff (a,b) \in \bigcup\limits_{\gam \in \Gam} R_{\gam} \\
+			& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a,b) \in R_{\gam_0}$} \\
+			& \iff \text{there exists $\gam_0 \in \Gam$ such that $(b,a) \in R_{\gam_0}^*$} \\
+			& \iff (b,a) \in \bigcup\limits_{\gam \in \Gam} R_{\gam}^*.
+		\end{align*}
+		Hence $\bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcup\limits_{\gam \in \Gam} R_{\gam}^*$.
+		\item We note that
+		\begin{align*}
+			(b,a) \in \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)^*
+			& \iff (a,b) \in \bigcap\limits_{\gam \in \Gam} R_{\gam} \\
+			& \iff \text{for each $\gam \in \Gam$, $(a,b) \in R_{\gam}$} \\
+			& \iff \text{for each $\gam \in \Gam$, $(b,a) \in R_{\gam}^*$} \\
+			& \iff (b,a) \in \bigcap\limits_{\gam \in \Gam} R_{\gam}^*.
+		\end{align*}
+		Hence $\bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcap\limits_{\gam \in \Gam} R_{\gam}^*$.
+	\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Subrelations}
+
+\begin{defn}
+	Let $A,B$ be sets, $R \in \MR(A,B)$, $E \subset A$ and $F \subset B$. We define the \tbf{subrelation of $R$ between $E$ and $F$}, denoted $R|_{E \times F} \in \MR(E, F)$, by $R|_{E \times F}$
+\end{defn}
+
+\tcr{maybe dont do this subsection, since relations are like morphisms, so unless you can find a categorical way to present restrictions on domain or codomain $f|_E$ or $f|^F$, just get rid of this subsection}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Products of Relations}
+
+\begin{defn}
+	Let $A,B,C,D$ be sets and $R \in \MR(A,B), S \in \MR(C,D)$. We define the \tbf{product relation of $R$ and $S$}, denoted $R \times_{\Rel} S \in \MR(A \times C, B \times D)$, by 
+	$$R \times_{\Rel} S \defeq \{((a,c), (b,d)) \in (A \times C) \times (B \times D): (a,b) \in R \text{ and } (c,d) \in S\}.$$
+\end{defn}
+
+\begin{note}
+	When the context is clear, we write $R \times S$ in place of $R \times_{\Rel} S$.
+\end{note}
+
+\begin{ex}
+	Let $A,B,C,D$ be sets.
+	\begin{enumerate}
+		\item Let $R \in \MR(A,B)$ and $(S_{\gam})_{\gam \in \Gam} \subset \MR(C,D)$. Then 
+		\begin{enumerate}
+			\item $R \times \bigg(\bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcup\limits_{\gam \in \Gam} (R \times S_{\gam})$
+			\item $R \times \bigg(\bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcap\limits_{\gam \in \Gam} (R \times S_{\gam})$
+		\end{enumerate}
+		\item Let $(R_{\gam})_{\gam \in \Gam} \subset \in \MR(A,B)$ and $S \in \MR(C,D)$. Then 
+		\begin{enumerate}
+			\item $\bigg(\bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg) \times S = \bigcup\limits_{\gam \in \Gam} (R_{\gam} \times S)$
+			\item $\bigg(\bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg) \times S = \bigcap\limits_{\gam \in \Gam} (R_{\gam} \times S)$
+		\end{enumerate}
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item We note that
+			\begin{align*}
+				((a,c),(b,d)) \in R \times  \bigg(\bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) 
+				& \iff \text{$(a,b) \in R$ and $(c,d) \in \bigcup\limits_{\gam \in \Gam} S_{\gam}$} \\
+				& \iff \text{$(a,b) \in R$ and there exists $\gam_0 \in \Gam$ such that $(c,d) \in S_{\gam_0}$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a,b) \in R$ and $(c,d) \in S_{\gam_0}$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $((a,c), (b,d)) \in R \times  S_{\gam_0}$} \\
+				& \iff ((a,c), (b,d)) \in \bigcup\limits_{\gam \in \Gam} (R \times  S_{\gam}). 
+			\end{align*}
+			Hence $R \times  \bigg(\bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcup\limits_{\gam \in \Gam} (R \times  S_{\gam})$.
+			\item We note that
+			\begin{align*}
+				((a,c),(b,d)) \in R \times  \bigg(\bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) 
+				& \iff \text{$(a,b) \in R$ and $(c,d) \in \bigcap\limits_{\gam \in \Gam} S_{\gam}$} \\
+				& \iff \text{$(a,b) \in R$ for each $\gam \in \Gam$, $(c,d) \in S_{\gam}$} \\
+				& \iff \text{for each $\gam \in \Gam$, $(a,b) \in R$ and $(c,d) \in S_{\gam}$} \\
+				& \iff \text{for each $\gam \in \Gam$, $((a,c), (b,d)) \in R \times  S_{\gam}$} \\
+				& \iff ((a,c), (b,d)) \in \bigcap\limits_{\gam \in \Gam} (R \times  S_{\gam}). 
+			\end{align*}
+			Hence $R \times  \bigg(\bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcap\limits_{\gam \in \Gam} (R \times  S_{\gam})$.
+		\end{enumerate}
+		\item 
+		\begin{enumerate}
+			\item We note that
+			\begin{align*}
+				((a,c), (b,d)) \in \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S
+				& \iff \text{$(a,b) \in \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam}\bigg)$ and $(c,d) \in S$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a,b) \in R_{\gam_0}$ and $(c,d) \in S$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $((a,c), (b,d)) \in R_{\gam_0} \times S$} \\
+				& \iff ((a,c), (b,d)) \in \bigcup\limits_{\gam \in \Gam}( R_{\gam} \times S)
+			\end{align*}
+			Hence $\bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S = \bigcup\limits_{\gam \in \Gam}( R_{\gam} \times S).$
+			\item We note that
+			\begin{align*}
+				((a,c), (b,d)) \in \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S
+				& \iff \text{$(a,b) \in \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam}\bigg)$ and $(c,d) \in S$} \\
+				& \iff \text{for each $\gam \in \Gam$, $(a,b) \in R_{\gam}$ and $(c,d) \in S$} \\
+				& \iff \text{for each $\gam \in \Gam$, $((a,c), (b,d)) \in R_{\gam} \times S$} \\
+				& \iff ((a,c), (b,d)) \in \bigcap\limits_{\gam \in \Gam}(R_{\gam} \times S)
+			\end{align*}
+			Hence $\bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S = \bigcap\limits_{\gam \in \Gam}( R_{\gam} \times S).$
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Equivalence Relations}
+
+\begin{note}
+	Let $X$ be a set and $\nu \in \MR^2(X)$. When the context is clear, we may write $a \nu b$ in place of $(a,b) \in \nu$.
+\end{note}
+
+\begin{defn}
+	Let $X$ be a set. Suppose that $X \neq \varnothing$.
+	\begin{itemize}
+		\item Let $\th \in \MR^2(X)$. Then $\th$ is said to be 
+		\begin{itemize}
+			\item \tbf{reflexive} if for each $a \in X$, $(a,a) \in \th$
+			\item \tbf{symmetric} if for each $a,b \in X$, $(a,b) \in \th$ implies that $(b,a) \in \th $
+			\item \tbf{transitive} if for each $a,b,c \in X$, $(a,b) \in \th$ and $(b,c) \in \th$ implies that $(a,c) \in \th $
+			\item an \tbf{equivalence relation on $X$} if $\th$ is reflexive, symmetric and transitive
+		\end{itemize}
+		\item We define $\Equi(X) \defeq \{\th \in \MR^2(X): \text{$\th$ is an equivalence relation on $X$}\}$
+	\end{itemize}
+\end{defn}
+
+\begin{ex}
+	Let $X$ be a set and $\th \in \MR^2(X)$. Then
+	\begin{enumerate}
+		\item $\th$ is reflexive iff $\Del_X \subset \th$
+		\item $\th$ is symmetric iff $\th^* \subset \th$
+		\item $\th$ is transitive iff $\th \circ \th \subset \th$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $\th$ is reflexive. Let $(a,a) \in \Del_X$. Then $a \in X$. Since $\th$ is reflexive, $(a,a) \in \th$. Since $(a,a) \in \Del_X$ is arbitrary, we have that for each $(a,a) \in \Del_X$, $(a,a) \in \th$. Hence $\Del_X \subset \th$. 
+			\item $(\impliedby)$: \\
+			Suppose that $\Del_X \subset \th$. Let $a \in X$. By definition and assumption, 
+			\begin{align*}
+				(a,a)
+				& \in \Del_X \\
+				& \subset \th.
+			\end{align*}
+			Since $a \in X$ is arbitrary, we have that for each $a \in X$, $(a,a) \in \th$. Hence $\th$ is reflexive.
+		\end{itemize}
+		\item 
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $\th$ is symmetric. Let $(b,a) \in \th^*$. By definition, $(a,b) \in \th$. Since $\th$ is symmetric, $(b,a) \in \th$. Since $(b,a) \in \th^*$ is arbitrary, we have that for each $(b,a) \in \th^*$, $(b,a) \in \th$. Hence $\th^* \subset \th$. 
+			\item $(\impliedby)$: \\
+			Suppose that $\th^* \subset \th$. Let $a,b \in X$. Suppose that $(a,b) \in \th$. By definition and assumption, 
+			\begin{align*}
+				(b,a) 
+				& \in \th^* \\
+				& \subset \th. 
+			\end{align*}
+			Since $a,b \in X$ with $(a,b) \in \th$ are arbitrary, we have that for each $a,b \in X$, $(a,b) \in \th$ implies that $(b,a) \in \th$. Hence $\th$ is symmetric.
+		\end{itemize}
+		\item 
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $\th$ is transitive. Let $(a,c) \in \th \circ \th$. By definition, there exists $b \in X$ such that $(a,b) \in \th$ and $(b,c) \in \th$. Since $\th$ is transitive, $(a,c) \in \th$. Since $(a,c) \in \th \circ \th$ is arbitrary, we have that for each $(a,c) \in \th \circ \th$, $(a,c) \in \th$. Hence $\th \circ \th \subset \th$. 
+			\item $(\impliedby)$: \\
+			Suppose that $\th \circ \th \subset \th$. Let $a,b,c \in X$. Suppose that $(a,b) \in \th$ and $(b,c) \in \th$. By definition and assumption, 
+			\begin{align*}
+				(a,c) 
+				& \in \th \circ \th \\
+				& \subset \th. 
+			\end{align*}
+			Since $a,b,c \in X$ with $(a,b) \in \th$ and $(b,c) \in \th$ are arbitrary, we have that for each $a,b \in X$, $(a,b) \in \th$ and $(b,c) \in \th$ implies that $(a,c) \in \th$. Hence $\th$ is transitive. 
+		\end{itemize}
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Let $X$ be a set. Suppose that $X \neq \varnothing$. We define the \tbf{universal relation on $X$}, denoted $\nab_X \in \MR^2(X)$, by $\nab_X \defeq X^2$. 
+\end{defn}
+
+\begin{ex}
+	Let $X$ be a set. Suppose that $X \neq \varnothing$. Then $\nab_X \in \Equi(X)$.
+\end{ex}
+
+\begin{proof}\
+	Let $a,b, c \in X$. 
+	\begin{enumerate}
+		\item Since $a \in X$, $(a,a) \in \nab_X$.
+		\item Suppose that $(a,b) \in \nab_X$. Since $a,b \in X$, $(b,a) \in X^2$. 
+		Therefore $(a,b) \in \nab_X$ implies that $(b,a) \in \nab_X$.
+		\item Suppose that $(a,b), (b, c) \in \nab_X$. Since $a,c \in X$, $(a,c) \in X^2$. Therefore $(a,b), (b,c) \in X^2$ implies that $(a,c) \in \nab_X$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $X$ be a set. Suppose that $X \neq \varnothing$. Then $\Del_X \in \Equi(X)$. 
+\end{ex}
+
+\begin{proof}
+	Let $a,b, c \in X$. 
+	\begin{enumerate}
+		\item Since $a \in X$, $(a,a) \in \Del_X$.
+		\item Suppose that $(a,b) \in \Del_X$. Then $a = b$ and
+		\begin{align*}
+			(b,a)
+			& = (a, a) \\
+			& \in \Del_X. 
+		\end{align*} 
+		Therefore $(a,b) \in \Del_X$ implies that $(b,a) \in \Del_X$.
+		\item Suppose that $(a,b), (b, c) \in \Del_X$. Then $a = b$ and $b = c$. Hence $a = c$ and 
+		\begin{align*}
+			(a,c)
+			& = (a, a) \\
+			& \in \Del_X. 
+		\end{align*} 
+		Therefore $(a,b), (b,c) \in \Del_X$ implies that $(a,c) \in \Del_X$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $X$ be a set. Suppose that $X \neq \varnothing$. Then for each $(\th_{\al})_{\al \in A} \subset \Equi(X)$, $\bigcap\limits_{\al \in A} \th_{\al} \in \Equi(X)$. 
+\end{ex}
+
+\begin{proof}
+	Let $(\th_{\al})_{\al \in A} \subset \Equi(X)$. Set $\th \defeq \bigcap\limits_{\al \in A} \th_{\al}$. Let $a,b,c \in X$. 
+	\begin{enumerate}
+		\item Let $\al \in A$. Since $\th_{\al} \in \Equi(X)$, $(a, a) \in \th_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $(a,a) \in \th_{\al}$. Hence $(a, a) \in \th$. 
+		\item Suppose that $(a,b) \in \th$. Let $\al \in A$. Then $(a,b) \in \th_{\al}$. Since $\th_{\al} \in \Equi(X)$, we have that $(b,a) \in \th_{a\l}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $(b,a) \in \th_{\al}$. Hence $(b, a) \in \th$. Therefore $(a,b) \in \th$ implies that $(b,a) \in \th$.  
+		\item Suppose that $(a,b) \in \th$ and $(b,c) \in \th$. Let $\al \in A$. Then $(a,b), (b,c) \in \th_{\al}$. Since $\th_{\al} \in \Equi(X)$, $(a,c) \in \th_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $(a,c) \in \th_{\al}$. Hence $(a,c) \in \th$. Therefore $(a,b) \in \th$ and $(b,c) \in \th$ implies that $(a,c) \in \th$.  
+	\end{enumerate}
+	Hence $\th \in \Equi(X)$. 
+\end{proof}
+
+\begin{defn}
+	Let $X$ be a set. Suppose that $X \neq \varnothing$. Let $\nu \in \MR^2(X)$. 
+	\begin{itemize}
+		\item We define the \tbf{equivalence relations containing $\nu$}, denoted $\ME(\nu)$, by $\ME(\nu) \defeq \{\th \in \Equi(X): \nu \subset \th \}$. 
+		\item We define the \tbf{equivalence relation on $X$ generated by $\nu$}, denoted $\ep(\nu) \in \MR^2(X)$ by $\ep(\nu) \defeq \bigcap\limits_{\th \in \ME(\nu)} \th$. 
+	\end{itemize}
+\end{defn}
+
+\begin{note}\
+	\begin{itemize}
+		\item \tcr{A previous ex} implies that $\nab_X \in \ME(\nu)$.
+		\item \tcr{A previous ex (about intersections of equiv relats)} implies that $\ep(\nu) \in \ME(\nu)$.
+	\end{itemize}
+\end{note}
+
+\begin{ex}
+	Let $X$ be a set. Suppose that $X \neq \varnothing$. Let $\nu \in \MR^2(X)$. Define $(\nu_n)_{n \in \N_0} \subset \MR^2(X)$ by 
+	\[
+	\nu_n \defeq 
+	\begin{cases}
+		\Del_X \cup \nu \cup \nu^*, & n = 0 \\
+		\nu_{n-1} \circ \nu_{n-1}, & n \geq 1.
+	\end{cases}
+	\] 
+	Then 
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item for each $n \in \N$, $\nu_n$ is reflexive
+			\item for each $n \in \N$, $\nu_n$ is symmetric
+			\item for each $n \in \N_0$, $\nu_n \subset \nu_{n+1}$
+		\end{enumerate}
+		\item $\ep(\nu) = \bigcup\limits_{n \in \N_0} \nu_n$.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item \tbf{Base Case:} \\
+				Since
+				\begin{align*}
+					\Del_X 
+					& \subset \Del_X \cup \nu \cup \nu^* \\
+					& = \nu_0,
+				\end{align*}
+				\tcr{a previous ex} implies that $\nu_0$ is reflexive. 
+				\item \tbf{Induction Step:} \\
+				Let $n \in \N_0$. Suppose that $\nu_n$ is reflexive. Then \tcr{that same prev ex}  implies that $\Del_X \subset \nu_n$. \tcr{two prev ex in section on relations about composition with identity and subsets} then imply that
+				\begin{align*}
+					\Del_X
+					& = \Del_X \circ \Del_X \\
+					& \subset \nu_n \circ  \nu_n \\
+					& = \nu_{n+1}.
+				\end{align*}
+				Another application of \tcr{that prev ex} implies that $\nu_{n+1}$ is reflexive. 
+			\end{itemize}
+			By induction, for each $n \in \N_0$, $\nu_n$ is reflexive.
+			\item 
+			\begin{itemize}
+				\item \tbf{Base Case:} \\
+				\tcr{a previous ex about converse relations and unions, double converse and since $\Del_X \in \Equi(X)$ and an ex about symmetric relations} implies that
+				\begin{align*}
+					\nu_0^*
+					& = (\Del_X \cup \nu \cup \nu^*)^* \\
+					& = \Del_X^* \cup \nu^* \cup (\nu^*)^* \\
+					& = \Del_X^* \cup \nu^* \cup \nu \\
+					& \subset \Del_X \cup \nu^* \cup \nu \\ 
+					& = \Del_X \cup \nu \cup \nu^* \\
+					& = \nu_0. 
+				\end{align*}
+				\tcr{that same previous ex about symmetric relations} implies that $\nu_0$ is symmetric. 
+				\item \tbf{Induction Step:} \\
+				Let $n \in \N_0$. Suppose that $\nu_n$ is symmetric. Then \tcr{that same prev ex about symmetric and converse relations} implies that $\nu_n^* \subset \nu_n$. Therefore \tcr{prev exs imply}
+				\begin{align*}
+					\nu_{n+1}^*
+					& = (\nu_n \circ \nu_n)^* \\
+					& = \nu_n^* \circ \nu_n^* \\
+					& \subset \nu_n \circ \nu_n.
+					& = \nu_{n+1}.
+				\end{align*}
+				Another application of \tcr{that prev ex} implies that $\nu_{n+1}$ is symmetric. 
+			\end{itemize}
+			By induction, for each $n \in \N_0$, $\nu_n$ is symmetric.
+			\item Let $n \in \N_0$. Since $\nu_n$ is reflexive, \tcr{prev ex} implies that $\Del_X \subset \nu_n$. Therefore \tcr{prev ex} implies 
+			\begin{align*}
+				\nu_n
+				& = \Del_X \circ \nu_n \\
+				& \subset \nu_n \circ \nu_n \\
+				& = \nu_{n+1}.
+			\end{align*}
+			Since $n \in \N_0$ is arbitrary, we have that for each $n \in \N_0$, $\nu_n \subset \nu_{n+1}$.
+		\end{enumerate}
+		\item Set $\th_0 \defeq \bigcup\limits_{n \in \N_0} \nu_n$.
+		\begin{itemize}
+			\item 
+			\begin{itemize}
+				\item \tbf{Base Case:} \\
+				Since $\ep(\nu) \in \ME(\nu)$, we have that $\ep(\nu) \in \Equi(X)$ and $\nu \subset \ep(\nu)$. Since $\ep(\nu) \in \Equi(X)$, we have that $\ep(\nu)$ is reflexive and symmetric. \tcr{A ref ex} then implies that  $\Del_X \subset \ep(\nu)$ and $\ep(\nu)^* \subset \ep(\nu)$. Therefore \tcr{a prev ex about converse relations and subsets} 
+				\begin{align*}
+					\nu_0
+					& = \Del_X \cup \nu \cup \nu^* \\
+					& \subset \ep(\nu) \cup \ep(\nu) \cup \ep(\nu)^* \\
+					& \subset \ep(\nu) \cup \ep(\nu) \cup \ep(\nu) \\
+					& = \ep(\nu). 
+				\end{align*}
+				\item \tbf{Induction Step:} \\
+				Let $n \in \N_0$. Suppose that $\nu_n \subset \ep(\nu)$. Then \tcr{ref prev ex}
+				\begin{align*}
+					\nu_{n+1}
+					& = \nu_n \circ \nu_n \\
+					& \subset \ep(\nu) \circ \ep(\nu) \\
+					& = \ep(\nu).
+				\end{align*}
+			\end{itemize}
+			By induction, for each $n \in \N_0$, $\nu_n \subset \ep(\nu)$. Therefore 
+			\begin{align*}
+				\th_0 
+				& = \bigcup\limits_{n \in \N_0} \nu_n \\
+				& \subset \ep(\nu).
+			\end{align*}
+			\item 
+			\begin{itemize}
+				\item Since $\nu_0$ is reflexive, we have that 
+				\begin{align*}
+					\Del_X 
+					& \subset \nu_0 \\
+					& \subset \bigcup\limits_{n \in \N_0} \nu_n \\
+					& = \th_0.  
+				\end{align*}
+				Hence $\th_0$ is reflexive.
+				\item Since for each $n \in \N_0$, $\nu_n$ is symmetric, we have that that \tcr{ref exs} for each $n \in \N_0$, $\nu_n^* \subset \nu_n$. Therefore 
+				\begin{align*}
+					\th_0^*
+					& = (\bigcup\limits_{n \in \N_0} \nu_n)^* \\
+					& = \bigcup\limits_{n \in \N_0} \nu_n^* \\
+					& \subset \bigcup\limits_{n \in \N_0} \nu_n \\
+					& = \th_0.
+				\end{align*}
+				Hence $\th_0$ is symmetric. 
+				\item Let $a,b,c \in X$. Suppose that $(a,b) \in \th_0$ and $(b,c) \in \th_0$. Then there exist $n_1, n_2 \in \N_0$ such that $(a,b) \in \nu_{n_1}$ and $(b,c) \in \nu_{n_2}$. Set $n_0 \defeq \max\{n_1, n_2\}$. Since for each $n \in \N$, $\nu_n \subset \nu_{n+1}$, we have that 
+				\begin{align*}
+					(a,b)
+					& \in \nu_{n_1} \\
+					& \subset \nu_{n_0}.
+				\end{align*}
+				and 
+				\begin{align*}
+					(b,c)
+					& \in \nu_{n_2} \\
+					& \subset \nu_{n_0}.
+				\end{align*}
+				Since $(a,b), (b,c) \in \nu_{n_0}$, we have that 
+				\begin{align*}
+					(a,c)
+					& \in \nu_{n_0} \circ \nu_{n_0} \\
+					& = \nu_{n_0+1} \\
+					& \subset \bigcup\limits_{n \in \N_0} \nu_n \\
+					& = \th_0.
+				\end{align*}
+				Since $a,b,c \in X$ with $(a,b) \in \th_0$ and $(b,c) \in \th_0$ are arbitrary, we have that for each $a,b,c \in X$, $(a,b) \in \th_0$ and $(b,c) \in \th_0$ implies that $(a,c) \in \th_0$. Hence $\th_0$ is transitive.  
+			\end{itemize}
+			Since $\th_0$ is reflexive, symmetric and transitive, $\th_0 \in \Equi(X)$. Since
+			\begin{align*}
+				\nu
+				& \subset \Del_X \cup \nu \cup \nu^* \\
+				& = \nu_0 \\
+				& \subset \bigcup\limits_{n \in \N_0} \nu_n \\ 
+				& = \th_0,
+			\end{align*}
+			we have that $\th_0 \in \ME(\nu)$. Therefore 
+			\begin{align*}
+				\ep(\nu)
+				& = \bigcap\limits_{\th \in \ME(\nu)} \th \\
+				& \subset \th_0 .
+			\end{align*}
+			\end{itemize}
+			Since $\th_0 \subset \ep(\nu)$ and $\ep(\nu) \subset \th_0$, we have that $\th_0 = \ep(\nu).$
+	\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Products}
+
+
+
+
+
 
