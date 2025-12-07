@@ -660,6 +660,14 @@
 	\end{defn}
 	
 	\begin{ex}
+		Let $A$ be a set and $(X_{\al})_{\al \in A}$, $(Y_{\al})_{\al \in A}$ collections of sets. If for each $\al \in A$, $X_{\al} \subset Y_{\al}$, then $\prod\limits_{\al \in A} X_{\al} \subset \prod\limits_{\al \in A} Y_{\al}$. \tcr{make this iff?}
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{FINISH and cite in fillowing exercises}
+	\end{proof}
+	
+	\begin{ex}
 		Let $A$ be a set and $(X_{\al})_{\al \in A}$ a collection of sets. 
 		\begin{enumerate}
 			\item If $A = \varnothing$, then $\prod\limits_{\al \in A} X_{\al} = \{\varnothing\}$.
@@ -686,6 +694,86 @@
 			\end{align*}
 			Since $\prod\limits_{\al \in A} X_{\al} \subset \{\varnothing\}$ and $\{\varnothing\} \subset \prod\limits_{\al \in A} X_{\al}$, we have that $\prod\limits_{\al \in A} X_{\al} = \{\varnothing\}$.
 			\item 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $A$ be a set and $(X_{\al})_{\al \in A}$ a collection of sets. If $A \neq \varnothing$, then 
+		\begin{enumerate}
+			\item $\prod\limits_{\al \in A} X_{\al} = \varnothing$ iff there exists $\al \in A$ such that $X_{\al} = \varnothing$,
+			\item $ \# \prod\limits_{\al \in A} X_{\al} = 1$ iff for each $\al \in A$, $\# X_{\al} = 1$. 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $A \neq \varnothing$. Set $X \defeq \prod\limits_{\al \in A} X_{\al}$.
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that for each $\al \in A$, $X_{\al} \neq \varnothing$. Since $A \neq \varnothing$, the axiom of choice implies that $X \neq \varnothing$. 
+				\item $(\impliedby)$: \\
+				Suppose that there exists $\al_0 \in A$ such that $X_{\al_0} = \varnothing$. For the sake of contradiction, suppose that $X \neq \varnothing$. Then there exists $f \in X$. Therefore
+				\begin{align*}
+					f(\al_0) 
+					& \in X_{\al_0} \\
+					& = \varnothing
+				\end{align*}
+				which is a contradiction. Hence $X = \varnothing$. 
+			\end{itemize}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				For the sake of contradiction, suppose that $\# X = 1$ and there exists $\al_0 \in A$ such that $\# X_{\al_0} \neq 1$. Since $\# X = 1$, we have that $X \neq \varnothing$. Since $A \neq \varnothing$, \tcr{the prev part} implies that for each $\al \in A$, $X_{\al} \neq \varnothing$. In particular, $\# X_{\al_0} \neq 0$. Since $\# X_{\al_0} \not \in \{0, 1\}$, we have that $\# X_{\al_0} \geq 2$. Therefore, there exists $y, z \in X_{\al_0}$ such that $y \neq z$. Define $(Y_{\al})_{\al \in A}$ and $(Z_{\al})_{\al \in A}$ by 
+				\[
+				Y_{\al} \defeq 
+				\begin{cases}
+					\{y\}, & \al = \al_0 \\
+					X_{\al}, & \al \neq \al_0 
+				\end{cases}
+				\]
+				and 
+				\[
+				Z_{\al} \defeq 
+				\begin{cases}
+					\{z\}, & \al = \al_0 \\
+					X_{\al}, & \al \neq \al_0 
+				\end{cases}
+				\]
+				Then for each $\al \in A$, $Y_{\al}, Z_{\al} \subset X_{\al}$ and $Y_{\al}, Z_{\al} \neq \varnothing$. \tcr{make prev ex} implies that $Y, Z \subset X$. Since $A \neq \varnothing$, the axiom of choice implies that $Y, Z \neq \varnothing$. Thus there exists $f_Y \in Y$ and $f_Z \in Z$. Since $Y,Z \subset X$, $\{f_Y, f_Z\} \subset X$. Since 
+				\begin{align*}
+					f_Y(\al_0)
+					& \in Y_{\al_0} \\
+					& = \{y\}, 
+				\end{align*}
+				we have that $f_Y(\al_0) = y$. Similarly, $f_Z(\al_0) = z$. Therefore
+				\begin{align*}
+					f_Y(\al_0)
+					& = y \\
+					& \neq z \\
+					& = f_Z(\al_0).
+				\end{align*}
+				Thus $f_Y \neq f_Z$. Hence $\# X \geq 2$. This is a contradiction since $\# X = 1$. Hence $\# X = 1$ implies that for each $\al \in A$, $\# X_{\al} = 1$. 
+				\item $(\impliedby)$: \\
+				Suppose that for each $\al \in A$, $\# X_{\al} = 1$. \tcr{The prev part} implies that $X \neq \varnothing$. Thus there exists $f \in X$.
+				\begin{itemize}
+					\item   $f \in X$, we have that $\{f\} \subset X$. 
+					\item Let $f' \in X$ and $\al \in A$. Since $\# X_{\al} = 1$, there exists $x \in X_{\al}$ such that $X_{\al} = \{x\}$. Then
+					\begin{align*}
+						\{f(\al), f'(\al)\}
+						& \subset X_{\al} \\
+						& = \{x\}.
+					\end{align*} 
+					Thus 
+					\begin{align*}
+						f'(\al)
+						& = x \\
+						& = f(\al).
+					\end{align*}
+					Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $f'(\al) = f(\al)$. Hence $f' = f$. Since $f' \in X$ is arbitrary, we have that for each $f' \in X$, $f' \in \{f\}$. Thus $X \subset \{f\}$.
+					\end{itemize}
+					Since $X \subset \{f\}$ and $\{f\} \subset X$, we have that $X = \{f\}$. Therefore $\# X = 1$. 
+				\end{itemize}
 		\end{enumerate}
 	\end{proof}
 
@@ -1706,7 +1794,17 @@
 	
 	\tcr{at this point, there is enough topology to make its own set of notes, covering topology, metric spaces, Frames and locales and pointless topology}
 	
+	One of the first fundamental ideas in algebra to which students are exposed is, roughly speaking, to think of an algebraic object, such as a group, ring, etc., in terms of its operations and relations. That is, we identify the structure of an object by what you can do with it. For instance in the context of groups, we often conceptualize a given group $(G, \cdot)$ in terms of its product $\cdot$. 
+	
+	Another fundamental idea to which students are exposed is, again roughly speaking, to learn about an algebraic object by viewing it from another perspective in the sense of viewing the object through different ``lenses" which capture different aspects of its structure. For instance in the context of groups, we may study a given group $(G, \cdot)$ by studying its image under various homomorphisms (i.e. we process $(G, \cdot)$ in a way that preserves some aspect of its structure and study the processed output). By processing $(G, \cdot)$ and preserving only the information and structure in which we are interested, we can discard unrelated information, isolate the important information and simplify our study of $(G, \cdot)$. 
+	
+	In algebra, where the structure is given in terms of operations on the object, the appropriate notion of ``structure preserving" map typically takes the form of a commutation relation between the map that processes the object and the operation. For example in the context of groups, a structure preserving map between two given groups $(G, \cdot)$ and $(H, *)$ is a map $f:G \rightarrow H$ which satisfies the relation that for each $g_1, g_2 \in G$, $f(g_1 \cdot g_2) = f(g_1) * f(g_2)$ so that the product structure of $(G, \cdot)$ is is preserved through the processing map $f$ in its image $f(G)$. 
+	
+	In this chapter, we examine topological spaces and, in analogy to algebraic objects, we discuss two ways to characterize the structure of a topological space, specifically open sets and nets, as well as two ways to characterize the notion of a map which preserves that structure. 
+	
 	\section{Introduction}
+	
+	We will first being by discussing a notion of a structure that allows us to describe objects which align with our usual, physical idea of what a ``space" should be. Specifically, we define the concept of a topology in terms of open sets of a space. The notion of a topology in terms of open sets is perhaps unintuitive at first, but is affords one an almost geometric framework in which space can be thought. 
 	
 	\begin{defn} \ld{31001}
 	Let $X$ be a set and $\MT \subset \MP(X)$. Then $\MT$ is said to be a \tbf{topology on $X$} if 
@@ -2313,6 +2411,8 @@ We define the \tbf{topology generated by $\ME$} on $X$, denoted $\tau(\ME)$, by 
 	\newpage
 	\section{Continuous Maps}	
 	
+	In
+	
 	\begin{defn} \ld{def:continuous_maps:0001}
 	Let $(X,\MT_X)$ and $(Y,\MT_Y)$ be topological spaces and $f:X \rightarrow Y$. Then $f$ is said to be \tbf{$(\MT_X, \MT_Y)$-continuous} if for each $B \in \MT_Y$, $f^{-1}(B) \in \MT_X$.
 	\end{defn}
@@ -2745,6 +2845,10 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 \newpage
 \section{Nets}	
 
+In this section, we detail a second notion of structure which aligns with our physical notion of a space. Specifically, we discuss the nets and their convergence. 
+
+\tcr{give axiomatization of topology via nets, see 'General Topology' by Kelly} 
+
 \subsection{Common Directed Sets}
 
 	\begin{note}
@@ -2988,9 +3092,24 @@ Conversely, suppose that for each $x \in X$, $f$ is continuous at $x$. Let $B \i
 	\end{ex}
 	
 	\begin{proof}
-	Suppose that $f$ is continuous at $x$. Let $(x_{\al})_{\al \in A} \subset X$ be a net. Suppose that $x_{\al} \rightarrow x$. Let $V \in \MN(f(x))$. Continuity implies that $f^{-1}(V) \in \MN(x)$. Since  $x_{\al} \rightarrow x$, $(x_{\al})_{\al \in A}$ is eventually in $f^{-1}(V)$. So there exists $\be \in A$ such that for each $\al \in A$, $\al \geq \be$ implies that $x_{\al} \in f^{-1}(V)$. Let $\al \in A$. Suppose that $\al \geq \be$. Then $f(x_{\al}) \in V$. So $(f(x_{\al}))_{\al \in A}$ is eventually in $V$. Since $V \in \MN(f(x))$ is arbitrary, $f(x_{\al}) \rightarrow f(x)$.\\
-	Conversely, suppose that $f$ is not continuous at $x$. Then there exists $V \in \MN(f(x))$ such that $f^{-1}(V) \not \in \MN(x)$. Then $x \not \in \Int (f^{-1}(V))$. So $x \in (\Int (f^{-1}(V)))^c = \cl f^{-1}(V^c)$. This implies that there exists a net $(x_{\al})_{\al \in A} \subset f^{-1}(V^c)$ such that $x_{\al} \rightarrow x$. Since for each $\al \in A$, $f(x_{\al}) \in V^c$, $f(x_{\al})$ is not eventually in $V$. So $f(x_{\al}) \not \rightarrow f(x)$. 
-\end{proof}		
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $f$ is continuous at $x$. Let $(x_{\al})_{\al \in A} \subset X$ be a net. Suppose that $x_{\al} \rightarrow x$. Let $V \in \MN(f(x))$. Continuity implies that $f^{-1}(V) \in \MN(x)$. Since  $x_{\al} \rightarrow x$, $(x_{\al})_{\al \in A}$ is eventually in $f^{-1}(V)$. So there exists $\be \in A$ such that for each $\al \in A$, $\al \geq \be$ implies that $x_{\al} \in f^{-1}(V)$. Let $\al \in A$. Suppose that $\al \geq \be$. Then $f(x_{\al}) \in V$. So $(f(x_{\al}))_{\al \in A}$ is eventually in $V$. Since $V \in \MN(f(x))$ is arbitrary, $f(x_{\al}) \rightarrow f(x)$.\\
+			\item $(\impliedby)$: \\
+			Conversely, suppose that $f$ is not continuous at $x$. Then there exists $V \in \MN(f(x))$ such that $f^{-1}(V) \not \in \MN(x)$. Then $x \not \in \Int (f^{-1}(V))$. So $x \in (\Int (f^{-1}(V)))^c = \cl f^{-1}(V^c)$. This implies that there exists a net $(x_{\al})_{\al \in A} \subset f^{-1}(V^c)$ such that $x_{\al} \rightarrow x$. Since for each $\al \in A$, $f(x_{\al}) \in V^c$, $f(x_{\al})$ is not eventually in $V$. So $f(x_{\al}) \not \rightarrow f(x)$. 
+		\end{itemize}
+	\end{proof}		
+	
+	\tcr{HERERERERER}
+	
+	
+	\begin{ex} \lex{ex:nets:0019.1}
+		Let $(X,\MA)$ and $(Y,\MB)$ be topological spaces and $f:X \rightarrow Y$. Then $f$ is continuous iff for each net $(x_{\al})_{\al \in A} \subset X$ and $x \in X$, $x_{\al} \rightarrow x$ implies that $f(x_{\al}) \rightarrow f(x_{\al})$.
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{Clear by prev ex (fill out)}.
+	\end{proof}
 	
 	\begin{ex} \lex{ex:nets:0020}
 	Let $(Y_{\al}, \MB_{\al})_{\al \in A}$ be a collection of topological spaces, $X$ a set and $\MF \in \prod \limits_{\al \in A}Y_{\al}^X$ with $\MF = (f_{\al})_{\al \in A}$. Equip $X$ with $\tau_X(\MF)$. Let $(x_{\gam})_{\gam \in \Gam} \subset X$ be a net and $x \in X$. Then $x_{\gam} \rightarrow x$ iff for each $\al \in A$, $f_{\al}(x_{\gam}) \rightarrow f_{\al}(x)$.  \tcr{(maybe reword without $\MF$ and similar instances elsewhere)}
@@ -8500,6 +8619,8 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 	
 	\section{Frames and Locales}
 	
+	\subsection{Introdction}
+	
 	\begin{defn}
 		Let $L$ be a complete lattice. Then $L$ is said to be a 
 		\begin{itemize}
@@ -8531,19 +8652,101 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 		\end{itemize} 
 	\end{defn}
 	
-	\tcr{$\Frm$ is a category}
+	\begin{ex}
+		\tcr{$\Frm$ is a category}
+	\end{ex}
 	
 	\begin{defn}
 		We define the \tbf{category of locales}, denoted $\Loc$, by $\Loc \defeq \op{\Frm}$.
 	\end{defn}
-
 	
+	\begin{note}
+		We recall \tcr{ref ex about maps $f$ that preserve arb joins/meets having right/left adjoints $f_*$/$f^*$ from algebra notes}
+	\end{note}
+
+	\begin{ex}
+		Define $\MC$ by 
+		\begin{itemize}
+			\item $\Obj(\MC) \defeq \Obj(\Frm)$
+			\item For each $L, M \in \Obj(\MC)$, 
+			$$\Hom_{\MC}(L, M) \defeq \{f_*:f \in \Hom_{\Frm}(M, L)\}$$
+			\item For each $L,M,K \in \Obj(\MC)$ and $f \in \Hom_{\MC}(L, M)$, $g \in \Hom_{\MC}(M, K)$, 
+			$$g \circ_{\MC} f \defeq g \circ_{\Set} f$$
+			\item 
+		\end{itemize}
+	\end{ex}
+	
+	\begin{ex}
+		We have that
+		\begin{enumerate}
+			\item $\MC \in \Obj(\Cat)$
+			\item $\MC \cong_{\Cat} \Loc$.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\item 
+		\end{enumerate}
+	\end{proof}
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\subsection{Sublocales}
+	
+	\tcr{go over regular/extremal monomorphisms, maybe show both are equivalent for $\Frm$. }
+
+	\begin{defn}
+		
+	\end{defn}
 
 
 

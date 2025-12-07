@@ -1,11 +1,3 @@
-\chapter{Logic}
-
-
-
-\chapter{Set Theory}
-
-\section{Basic Structures}
-\tcr{move to notes on intro to math and make these set theory notes assuming familiarity with producsts of two sets, similar to the set theory in the analysis notes.}
 
 
 
@@ -14,119 +6,33 @@
 
 
 
-In this section, we provide an exposure to a basic framework, called set theory. This framework provides a unifying language which allows us to discuss many objects of interest in mathematics by providing the ability to 
-\begin{enumerate}
-	\item more precisely define objects of interest, 
-	\item more precisely formulate and prove statements about those objects
-	\item perform (1) and (2) in a way which is aligned with our intuition.
-\end{enumerate}
-At an intuitive level, the main idea of a \tbf{set} is that of a collection of distinct objects, which we refer to as \tbf{elements} or \tbf{members}. When denoting a set, it is customary to list the elements of the set, separated by a comma and inside of a pair of curly brackets. Some examples of sets include the following:
-\begin{itemize}
-	\item the set of letters of the English alphabet: $\{a, b, \ldots, z\}$, a set with 26 elements
-	\item the set of inhabitants of a specific household: $\{\text{``Marielle"}, \text{``Fred"}, \text{``Dexter"}\}$, a set with 3 elements
-	\item the set of nonnegative even integers: $\{0, 2, \ldots \}$, a set with infintely many elements
-\end{itemize}
-\begin{note}
-	Since the elements of a set must be distinct, we would consider, for instance, the sets $\{a, b, c\}$ and $\{a, a, b, c\}$ to represent the same set. 
-\end{note}
-When expressing that a given object is a member of set, it is customary to use the \tbf{membership symbol}, denoted $\in$. Some examples include the following:
-\begin{itemize}
-	\item $2 \in \{1, 2, 3, 4\}$
-	\item $\text{``Earth"} \in \{\text{``Mercury"}, \text{``Venus"}, \text{``Earth"}, \text{``Mars"}\}$.
-\end{itemize}
-\begin{note}
-	We note that this introduction to set theory is not formal, but intuitve. As such, we make no attempt to precisely define the notion of a set or the notion of membership to a set. 
-\end{note}
-At this point in our discussion, it might seem that any advantage conferred by the language of sets in studying mathematics remains to be seen. Indeed, more time and experience may be required to fully appreciate the power of this framework, but for now we summarize why set theory is relevant in mathematics with the following mantra: 
-$$\text{In mathematics, everything is a set.}$$
-There is a similar perspective adopted in the context of Linux operating systems where every object is a file or in the context of object oriented programming where every object is a class. 
-
-If one already has familiarity with various objects in mathematics such as various numbers, functions, and shapes, they might wonder how these objects could be considered as a set, i.e. a list of elements. For example, which elements $a_1, a_2, \ldots$, which are themselves sets (because everything is a set), would allow one to express the integer $2$ as the set $\{a_1, a_2, \ldots\}$? At first glance, we might attempt to represent $2$ with an arbitrary set containing two elements, say $\{\text{``cow"}, \text{``chicken"}\}$. The intuition here might be that the number of elements reflects our notion of the ``quantity" or ``magnitude" we associate to the number $2$. However, upon further reflection, such a set might not satisfy other notions we associate to the number $2$. 
-
-For example we typically think of the number $2$ as having a unique ``ranking" or ``place" in the number line. That is, the number $2$ is the integer that preceeds the number $3$. So we would need to not only define a set representing the number $3$, but also a set representing the notion of subsequence that would align with our intuition that $3$ is subsequent to $2$. 
-
-In a different vein, one might also wish for our representation of the number $2$ to agree with the idea that the sum of $2$ and $4$ is $6$. The issue here is how to describe the notion of integer addition. After some thought, one might realize that the idea of adding two integers is basically that of a function, i.e. an object which eats two integer inputs and spits out an integer output. 
-
-It might seem tricky to be able to represent all the nonnegative integers, the notion of integer subsequence and the notion of integer addition by sets in a way that aligns with our intution of those objects, relations and operations. With our limited toolset, this would indeed be quite challenging, but after a few more ideas, this will become a relatively simple goal. For now, we focus on providing the necessary calculus of sets to be able to do so. 
-
-The first two relations between sets that we define pertain to when one set is a subset of another and when one set is equal to another. To motivate this, we observe that each element of $\{a,b\}$ is also an element of $\{a, b, c\}$. Our intuition dictates that the former is in some sense ``less than or equal to" the latter. However, the same could not be said of the converse. Therefore, the two sets should not be considered equal.
-\begin{defn}
-	Let $A$ and $B$ be sets. Then 
-	\begin{itemize}
-		\item $A$ is said to be a \tbf{subset of $B$} if for each set $x$, $x \in A$ implies that $x \in B$. \\
-		($\text{$A$ is a subset of $B$} \iff \forall x (x \in A \implies x \in B)$)
-		\item $A$ is said to be \tbf{equal to $B$} if $A \subset B$ and $B \subset A$. 
-		\item $A$ is said to be \tbf{empty} if for each set $x$, $x \not \in A$. \\
-		($\text{$A$ is empty} \iff \forall x ( \neg(x \in A))$)
-	\end{itemize}
-\end{defn}
-
-\begin{note}\
-	\begin{itemize}
-		\item When defining a term, it is conventional to use an ``if", but really the relationship is an ``iff".
-		\item For convenience, we will typically write $x \not \in A$ in place of $\neg(x \in A)$.
-	\end{itemize}
-\end{note}
-
-The following exercise shows us that there is at most one set that is empty.
-\begin{ex}
-	Let $A, B$ be sets. If $A$ is empty and $B$ is empty, then $A= B$. 
-\end{ex}
-
-\begin{proof}
-	Suppose that $A$ is empty and $B$ is empty. Let $x$ be a set. 
-	\begin{itemize}
-		\item Since $A$ is empty, $x \not \in A$. Therefore $x \in A$ implies that $x \in B$. Since $x$ is an arbitrary set, we have that for each set $x$, $x \in A$ implies that $x \in B$. Hence $A \subset B$.
-		\item Similarly $B \subset A$
-	\end{itemize}
-	Since $A \subset B$ and $B \subset A$, we have that $A = B$.
-\end{proof}
-
-Even though there can be at most one set that is empty, we are not guaranteed the existence of such a set. Since its existence is quite useful and intuitively quite reasonable, we will assume such a set does in fact exist. 
-\begin{ax}
-	There exists a set $\varnothing$, referred to as the \tbf{empty set}, such that for each set $x$, $x \not \in \varnothing$.
-\end{ax}
-
-
-\begin{ex}
-	Let $A$ be a set. Then $\varnothing \subset A$. 
-\end{ex}
-
-\begin{proof}
-	Let $x$ be a set. Then $x \not \in \varnothing$. Hence $x \in \varnothing$ implies that $x \in A$. Since $x$ is an arbitrary set, we have that for each set $x$, $x \in \varnothing$ implies that $x \in A$. Thus $\varnothing \subset A$.
-\end{proof}
-
-\tcr{give intuition for union, intersection, complement, show we can define union in terms of intersection and complement, call back to demorgans laws for logic}
-\begin{defn}
-	Let $A, B$ be sets. We define 
-	intersection, union, empty set
-\end{defn}
-
-
-
-\tcr{discuss and introduce/make pictures of venn diagrams}
-
-
-\tcr{discuss how definitions by convention use an if, but it should be treated as an iff. The if makes sense because if we say that a dog is ``blarge" if it is black and weighs more than 15 kg, if we had put an iff in this definition, then the we would be saying that if a dog is blarge, then it is black and weighs more than 15 kgs, which wouldn really make sense in a definition because we have not defined previously and do not know what it is blarge, so it is a language thing. but really we are defining a set. $x \in \{\text{blarge dogs}\} \iff x \in \{\text{black dogs}\} \text{and} \{\text{dogs above 15 kg}\}$} i.e. $\{\text{blarge dogs}\} = \{\text{black dogs}\} \cap \{\text{dogs above 15 kg}\}$.
 
 
 
 
-discuss how we can define natural numbers
 
-discuss how we define $(a,b) = \{\{a\}, \{a,b\}\}$ or similar
 
-\begin{defn}
-	\tcr{products $A \times B$}
-\end{defn}
 
-\begin{ex}
-	content...
-\end{ex}
 
-\begin{ex}
-	
-\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

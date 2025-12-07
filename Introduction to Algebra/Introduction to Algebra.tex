@@ -631,7 +631,7 @@
 		\end{enumerate} 
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
 			\item Suppose that $\upar a = \upar b$. Then 
 			\begin{align*}
@@ -1233,14 +1233,8 @@
 			$$\text{$f(x) \leq_Y y$ iff $g(y) \leq_X x$,}$$
 			\item $f$ is said to be a \tbf{$(\leq_X, \leq_Y)$-left adjoint of $g$} if $(f,g)$ is a $(\leq_X, \leq_Y)$-monotone Galois connection,
 			\item $g$ is said to be a \tbf{$(\leq_X, \leq_Y)$-right adjoint of $f$} if $(f,g)$ is a $(\leq_X, \leq_Y)$-monotone Galois connection.
-		\end{itemize}
-	\end{defn}
-	
-	\begin{defn}
-		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be posets, $f: X \rightarrow Y$ and $g:Y \rightarrow X$. Then 
-		\begin{itemize}
-			\item $f$ is said to be a \tbf{left adjoint of $g$} if $(f,g)$ is a monotone Galois connection,
-			\item $g$ is said to be a \tbf{right adjoint of $f$} if $(f,g)$ is a monotone Galois connection,
+			\item $f$ is said to \tbf{have a $(\leq_X, \leq_Y)$-right adjoint} if there exists $f_*:Y \rightarrow X$ such that $f_*$ is a $(\leq_X, \leq_Y)$-right adjoint of $f$.
+			\item $g$ is said to \tbf{have a $(\leq_X, \leq_Y)$-left adjoint} if there exists $g^*:X \rightarrow Y$ such that $g^*$ is a $(\leq_X, \leq_Y)$-left adjoint of $g$.
 		\end{itemize}
 	\end{defn}
 	
@@ -1539,7 +1533,54 @@
 		\end{enumerate}
 	\end{proof}
 	
+	\begin{ex}
+		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be posets and $f: X \rightarrow Y$. Then $f$ has a right adjoint iff for each $y \in Y$, there exists $x \in X$ such that $f^{-1}(\doar y) = \doar x$.
+	\end{ex}
 	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $f$ has a right adjoint. Then there exists $g:Y \rightarrow X$ such that $(f, g)$ is a monotone Galois connection. \tcr{a prev ex in galois connections on prosets section} \rex{} then implies that $f$ and $g$ are monotone, $\id_X \leq_X g \circ f$ and $f \circ g \leq_Y \id_Y$. Let $y \in Y$. Define $x \in X$ by $x \defeq g(y)$. 
+			\begin{itemize}
+				\item We note that for each $a \in X$,
+				\begin{align*}
+					a \in f^{-1}(\doar y)
+					& \iff f(a) \in \doar y \\
+					& \iff f(a) \leq_Y y.
+				\end{align*}
+				Let $a \in f^{-1}(\doar y)$. Then 
+				\begin{align*}
+					a
+					& \leq_X g \circ f(a) \\
+					& = g(f(a)) \\
+					& \leq_X g(y) \\
+					& = x.
+				\end{align*}
+				Therefore $a \in \doar x$. Since $a \in f^{-1}(\doar y)$ is arbitrary, we have that for each $a \in f^{-1}(\doar y)$, $a \in \doar x$. Hence $a \in f^{-1}(\doar y) \subset \doar x$. 
+				Then $f(a) \in \doar$. 
+				\item Let $a \in \doar x$. Then $a \leq_X x$. Hence 
+				\begin{align*}
+					f(a)
+					& \leq_Y f(x) \\
+					& = f(g(y)) \\
+					& = f \circ g(y) \\
+					& \leq_Y y.
+				\end{align*}
+				Thus $f(a) \in \doar y$ and $a \in f^{-1}(\doar y)$. Since $a \in \doar x$ is arbitrary, we have that for each $a \in \doar x$, $a \in f^{-1}(\doar y)$. Hence $\doar x \subset f^{-1}(\doar y)$.
+			\end{itemize}
+			Since $f^{-1}(\doar y) \subset \doar x$ and $\doar x \subset f^{-1}(\doar y)$, we have that $f^{-1}(\doar y) = \doar x$. Since $y \in Y$ is arbitrary, we have that for each $y \in Y$, there exists $x \in X$ such that $f^{-1}(\doar y) = \doar x$. 
+			\item $(\impliedby)$: \\
+			Suppose that for each $y \in Y$, there exists $x \in X$ such that $f^{-1}(\doar y) = \doar x$. The axiom of choice implies that there exists $g:Y \rightarrow X$ such that for each $y \in Y$, $f^{-1}(\doar y) = \doar g(y)$. Then for each $x \in X$ and $y \in Y$, 
+			\begin{align*}
+				f(x) \leq_X y
+				& \iff f(x) \in \doar y \\
+				& \iff x \in f^{-1}(\doar y) \\
+				& \iff x \in \doar g(y) \\
+				& \iff x \leq_Y g(y).
+			\end{align*}
+			Thus $(f, g)$ is a monotone Galois connection. Hence $f$ has a right adjoint.
+		\end{itemize}
+	\end{proof}
 	
 	
 	
@@ -1587,7 +1628,7 @@
 	\subsection{Suprema and Infima}
 	\tcr{relabel ex/def references}
 	
-	\begin{defn} \ld{def:orderings:prosets:0024}
+	\begin{defn} \ld{def:orderings:prosets:0040}
 		Let $(X, \leq)$ be a proset and $A \subset X$.
 		\begin{itemize}
 			\item Let $x \in X$. Then $x$ is said to be a 
@@ -1619,7 +1660,7 @@
 		\end{itemize}
 	\end{note}
 	
-	\begin{ex} \lex{ex:orderings:prosets:0025}
+	\begin{ex} \lex{ex:orderings:prosets:0041}
 		Let $(X, \leq)$ be a poset and $A \subset X$. Then
 		\begin{enumerate}
 			\item for each $x, y \in \sup A$, $x \sim_{\leq} y$.
@@ -1634,7 +1675,7 @@
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{ex:orderings:prosets:0026}
+	\begin{ex} \lex{ex:orderings:prosets:0042}
 		Let $(X, \leq)$ be a poset and $A \subset X$. Then 
 		\begin{enumerate}
 			\item $\supSet A = \ubd A \cap \lbd (\ubd A)$
@@ -1656,7 +1697,48 @@
 		\end{enumerate}
 	\end{proof}
 	
+	\begin{ex} \lex{ex:orderings:prosets:0042.1}
+		Let $(X, \leq)$ be a poset and $A, B \subset X$. Suppose that $\sup A$ and $\sup B$ exist. If $A \subset B$, then for each $s_A \in \supSet A$ and $s_B \in \supSet B$, $s_A \leq s_B$. 
+	\end{ex}
 	
+	\begin{proof}
+		Suppose that $A \subset B$. Let $s_A \in \supSet A$ and $s_B \in \supSet B$. Then \rex{ex:orderings:prosets:0023.1} implies that 
+		\begin{align*}
+			s_B
+			& \supSet B \\
+			& \subset \ubd B \\
+			& \subset \ubd A. 
+		\end{align*}
+		Since $s_A \in \lbd(\ubd A)$, we have that $s_A \leq s_B$. 
+	\end{proof}
+	
+	\begin{ex} \lex{ex:orderings:prosets:0043}
+		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be prosets, $f: X \rightarrow Y$, $g:Y \rightarrow X$ and $A \subset X$. If $(f,g)$ is a $(\leq_X, \leq_Y)$-monotone Galois connection, then $f(\supSet (A, \leq_X)) \subset \supSet(f(A), \leq_Y)$. 
+		\tcr{can we say something about $\infSet(f(A), \leq_Y)$ ir $\infSet(g(B), \leq_X)$?}
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $(f,g)$ is a $(\leq_X, \leq_Y)$-monotone Galois connection. \tcr{A prev ex in Galois connection subsection} implies that $f$ is $(\leq_X, \leq_Y)$-monotone, $g$ is $(\leq_Y, \leq_X)$-monotone, $g \circ f \leq_X \id_X$ and $\id_Y \leq_Y f \circ g$. Let $s \in \supSet (A, \leq_X)$. Since $\supSet (A, \leq_X) \subset \ubd(A, \leq_X)$, we have that $s \in \ubd(A, \leq_X)$. \rex{ex:orderings:prosets:0030} then implies that 
+		\begin{align*}
+			f(s)
+			& \in f(\ubd(A, \leq_X)) \\
+			& \subset \ubd(f(A), \leq_Y).
+		\end{align*}
+		Let $y \in \ubd(f(A), \leq_Y)$. \tcr{A prev ex in galois connection subsection} imply that 
+		\begin{align*}
+			y 
+			& \in \ubd(f(A), \leq_Y) \\
+			& = g^{-1}(\ubd(A, \leq_X)).
+		\end{align*}
+		Then $g(y) \in \ubd(A, \leq_X)$. Since $s \in \supSet (A, \leq_X)$, we have that $s \leq_X g(y)$. Hence 
+		\begin{align*}
+			f(s)
+			& \leq_Y f(g(y)) \\
+			& = f \circ g(y) \\
+			& \leq_Y y.
+		\end{align*}
+		Since $y \in \ubd(f(A), \leq_Y)$ is arbitrary, we have that for each $y \in \ubd(f(A), \leq_Y)$, $f(s) \leq_Y y$. Thus $f(s) \in \supSet(f(A), \leq_Y)$. Since $s \in \supSet (A, \leq_X)$ is arbitrary, we have that for each $s \in \supSet (A, \leq_X)$, $f(s) \in \supSet (f(A), \leq_Y)$. Hence $f(\supSet (A, \leq_X)) \subset \supSet(f(A), \leq_Y)$.
+	\end{proof}
 	
 	
 	
@@ -1786,7 +1868,7 @@
 		\end{enumerate} 
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
 			\item Suppose that $\upar a = \upar b$. \rex{ex:orderings:prosets:0015.1} then implies that $a \sim_{\leq} b$. Since $(X, \leq)$ is a poset, we have that $a = b$. 
 			\item Similar to $(1)$.
@@ -1894,69 +1976,7 @@
 		\tcr{TIDY UP!!!!}
 	\end{proof}
 	
-	\begin{ex}
-		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be posets, $f: X \rightarrow Y$ and $g:Y \rightarrow X$. Suppose that $(f,g)$ is a monotone Galois connection. Then 
-		\begin{enumerate}
-			\item for each $A \subset X$, if $\sup (A, \leq_X)$ exists, then $f(\sup (A, \leq_X)) = \sup(f(A), \leq_Y)$.
-			\item for each $B \subset Y$, if $\sup (B, \leq_Y)$ exists, then $g(\sup (B, \leq_Y)) = \sup(g(B), \leq_X)$.
-		\end{enumerate} 
-	\end{ex}
 	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $A \subset X$. Suppose that $\sup (A, \leq_X)$ exists. 
-			\item 
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex}
-		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be posets and $f: X \rightarrow Y$. Then there exists $g:Y \rightarrow X$ such that $(f, g)$ is a monotone Galois connection iff for each $y \in Y$, there exists $x \in X$ such that $f^{-1}(\doar y) = \doar x$.
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{itemize}
-			\item $(\implies)$: \\
-			Suppose that there exists $g:Y \rightarrow X$ such that $(f, g)$ is a monotone Galois connection. \tcr{a prev ex in galois connections on prosets section} \rex{} then implies that $f$ and $g$ are monotone, $\id_X \leq_X g \circ f$ and $f \circ g \leq_Y \id_Y$. Let $y \in Y$. Define $x \in X$ by $x \defeq g(y)$. 
-			\begin{itemize}
-				\item We note that for each $a \in X$,
-				\begin{align*}
-					a \in f^{-1}(\doar y)
-					& \iff f(a) \in \doar y \\
-					& \iff f(a) \leq_Y y.
-				\end{align*}
-				Let $a \in f^{-1}(\doar y)$. Then 
-				\begin{align*}
-					a
-					& \leq_X g \circ f(a) \\
-					& = g(f(a)) \\
-					& \leq_X g(y) \\
-					& = x.
-				\end{align*}
-				Therefore $a \in \doar x$. Since $a \in f^{-1}(\doar y)$ is arbitrary, we have that for each $a \in f^{-1}(\doar y)$, $a \in \doar x$. Hence $a \in f^{-1}(\doar y) \subset \doar x$. 
-				Then $f(a) \in \doar$. 
-				\item Let $a \in \doar x$. Then $a \leq_X x$. Hence 
-				\begin{align*}
-					f(a)
-					& \leq_Y f(x) \\
-					& = f(g(y)) \\
-					& = f \circ g(y) \\
-					& \leq_Y y.
-				\end{align*}
-				Thus $f(a) \in \doar y$ and $a \in f^{-1}(\doar y)$. Since $a \in \doar x$ is arbitrary, we have that for each $a \in \doar x$, $a \in f^{-1}(\doar y)$. Hence $\doar x \subset f^{-1}(\doar y)$.
-			\end{itemize}
-			Since $f^{-1}(\doar y) \subset \doar x$ and $\doar x \subset f^{-1}(\doar y)$, we have that $f^{-1}(\doar y) = \doar x$. Since $y \in Y$ is arbitrary, we have that for each $y \in Y$, there exists $x \in X$ such that $f^{-1}(\doar y) = \doar x$. 
-			\item $(\impliedby)$: \\
-			Suppose that for each $y \in Y$, there exists $x \in X$ such that $f^{-1}(\doar y) = \doar x$. The axiom of choice implies that there exists $g:Y \rightarrow X$ such that for each $y \in Y$, $f^{-1}(\doar y) = \doar g(y)$. Then for each $x \in X$ and $y \in Y$, 
-			\begin{align*}
-				f(x) \leq_X y
-				& \iff f(x) \in \doar y \\
-				& \iff x \in f^{-1}(\doar y) \\
-				& \iff x \in \doar g(y) \\
-				& \iff x \leq_Y g(y).
-			\end{align*}
-			Thus $(f, g)$ is a monotone Galois connection. 
-		\end{itemize}
-	\end{proof}
 	
 	
 	
@@ -2037,7 +2057,7 @@
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $x, y \in \supSet A$. \rex{ex:orderings:prosets:0025} implies that $x \sim_{\leq} y$. \rex{ex:orderings:posets:0002} then implies that $x = y$.
+			\item Let $x, y \in \supSet A$. \rex{ex:orderings:prosets:0041} implies that $x \sim_{\leq} y$. \rex{ex:orderings:posets:0002} then implies that $x = y$.
 			\item Similar to $(1)$.
 		\end{enumerate}
 	\end{proof}
@@ -2106,6 +2126,14 @@
 		\end{enumerate}
 	\end{proof}
 	
+	\begin{ex} \lex{ex:orderings:posets:0006.2}
+		Let $(X, \leq)$ be a poset and $A, B \subset X$. Suppose that $\sup A$ and $\sup B$ exist. If $A \subset B$, then $\sup A \leq \sup B$.
+	\end{ex}
+	
+	\begin{proof}
+		Since $\sup A \in \supSet A$ and $\sup B \in \supSet B$, \rex{ex:orderings:prosets:0042.1} implies that $\sup A \leq \sup B$. 
+	\end{proof}
+	
 	\begin{ex} \lex{ex:orderings:posets:0007} \tbf{Associativity of Supremum:} \\
 		Let $(X, \leq)$ be a poset and $(E_{\al})_{\al \in A} \subset \MP(X)$. 
 		\begin{enumerate}
@@ -2153,7 +2181,9 @@
 		Let $(X, \leq)$ be a poset and $a,b \in X$. Then 
 		\begin{enumerate}
 			\item $\sup \{a\}$ exists and $\sup \{a\} = a$
-			\item $a \leq b$ iff $\sup \{a,b\}$ exists and $b = \sup \{a,b\}$. 
+			\item $a \leq b$ iff $\sup \{a,b\}$ exists and $b = \sup \{a,b\}$,
+			\item $\sup \doar a = a$,
+			\item $\inf \upar a = a$.
 		\end{enumerate}
 	\end{ex}
 	
@@ -2167,6 +2197,8 @@
 				\item $(\impliedby)$: \\
 				Suppose that $\sup \{a,b\}$ exists and $b = \sup \{a,b\}$. Then $b \in \ubd \{a,b\}$. Therefore $a \leq b$. 
 			\end{itemize}
+			\item Since for each $x \in \doar a$, $x \leq a$, we have that $a \in \ubd \doar a$. Since $a \in \doar a$, we have that for each $x \in \ubd \doar a$, $a \leq x$. Hence $a = \sup \doar a$. 
+			\item Similar to $(3)$.
 		\end{enumerate}
 	\end{proof}
 	
@@ -2229,6 +2261,61 @@
 		\end{enumerate}
 	\end{proof}
 	
+	\begin{ex} \lex{ex:orderings:posets:0010}
+		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be posets, $f: X \rightarrow Y$ and $g:Y \rightarrow X$. Suppose that $(f,g)$ is a monotone Galois connection. Then 
+		\begin{enumerate}
+			\item for each $A \subset X$, if $\sup (A, \leq_X)$ exists, then $\sup(f(A), \leq_Y)$ exists and $f(\sup (A, \leq_X)) = \sup(f(A), \leq_Y)$.
+			\item for each $B \subset Y$, if $\inf (B, \leq_Y)$ exists, then $g(\inf (B, \leq_Y)) = \inf(g(B), \leq_X)$.\tcr{FIX!!!}
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $\sup (A, \leq_X)$ exists. Then $\supSet (A, \leq_X) \neq \varnothing$. \rex{ex:orderings:prosets:0043} then implies that
+			\begin{align*}
+				\varnothing
+				& \neq f(\supSet (A, \leq_X)) \\
+				& \subset \supSet(f(A), \leq_Y).
+			\end{align*}
+			Hence $\sup(f(A), \leq_Y)$ exists and $f(\sup (A, \leq_X)) = \sup(f(A), \leq_Y)$. 
+			\item \tcr{???}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be posets, $f: X \rightarrow Y$ and $g:Y \rightarrow X$. Suppose that $(f,g)$ is a monotone Galois connection. Then
+		\begin{enumerate}
+			\item for each $x \subset X$, $f(x) = \inf (g^{-1}(\upar(x, \leq_X)), \leq_Y )$
+			\item for each $y \in Y$, $g(y) = \sup (f^{-1}(\doar(y, \leq_Y)), \leq_X)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x \in X$. We note that for each $y \in Y$, 
+			\begin{align*}
+				y \in g^{-1}(\upar(x, \leq_X))
+				& \iff g(y) \in \upar(x, \leq_X) \\
+				& \iff x \leq_X g(y) \\
+				& \iff f(x) \leq_Y y  \quad \text{(since $(f,g)$ is a Galois connection)} \\
+				& \iff y \in \upar(f(x), \leq_Y).
+			\end{align*}
+			Thus $g^{-1}(\upar(x, \leq_X)) = \upar(f(x), \leq_Y)$. \rex{ex:orderings:posets:0008} then implies that
+			\begin{align*}
+				\inf (g^{-1}(\upar(x, \leq_X)), \leq_Y )
+				& = \inf ( \upar(f(x), \leq_Y), \leq_Y) \\
+				& = f(x).
+			\end{align*}
+			Since $x \in X$ is arbitrary, we have that for each $x \in X$, $f(x) = \inf (g^{-1}(\upar(x, \leq_X)), \leq_Y )$.
+			\item Let $y \in Y$. Since $(f, g)$ is a $(\leq_X, \leq_Y)$-monotone Galois connection, \rex{} \tcr{ref prev ex in proset galois connection section} implies that $(g, f)$ is a $(\lop_Y, \lop_X)$-monotone Galois connection. The previous part \tcr{and exercises in previous section on proset upper bounds} implies that
+			\begin{align*}
+				g(y) 
+				& = \inf (f^{-1}(\upar(y, \lop_Y)), \lop_X ) \\
+				& = \sup (f^{-1}(\doar(y, \leq_Y)), \leq_X ).
+			\end{align*}
+			Since $y \in Y$ is arbitrary, we have that for each $y \in Y$, $g(y) = \sup (f^{-1}(\doar(y, \leq_Y)), \leq_X)$.
+		\end{enumerate}
+	\end{proof}
 	
 	
 	
@@ -2266,12 +2353,6 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	\subsection{Monotone Maps}
 	
 	
 	
@@ -2557,6 +2638,1157 @@
 	
 	\part{Algebraic Structures}
 	
+	\chapter{Semigroups, Monoids and Groups}
+	
+	\tcr{maybe move groups/rings etc after complete lattices? two choices: 
+		\vspace{.5cm}
+		a) cover complete lattices after order and before other structures (including lattices?) so that we can define the 'subgroup/ring/lattice generated by a subset' or a 'subquiver genereated by a sub set of vertices/edges' using the ideas of galois connection between two posets, one of which has extra structure
+		\vspace{1cm}
+		b) cover complete lattices after algebraic structures with lattices and note that we can capture all the subobjects with the notion of galois connection between complete lattices and give groups, rings etc as fundamental examples of complete lattices. \\ 
+		\vspace{1cm} 
+		idk which is best option}
+	
+	\section{Semigroups}
+	
+	
+	
+	\newpage
+	\section{Monoids}
+	
+	\begin{defn}
+		Let $G$ be a set and $*: G \times G \rightarrow G$ (we write $ab$ in place of $*(a,b)$). Then 
+		\begin{enumerate}
+			\item $*$ is called a \textbf{binary operation} on $G$	
+			\item $*$ is said to be \textbf{associative}	if for each $x,y,z \in G$, $(xy)z = x(yz)$
+			\item $*$ is said to be \textbf{commutative} if for each $x,y \in G$, $xy = yx$ 
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{defn}
+		Let $G$ be a set, $*: G \times G \rightarrow G$, $e,x,y \in G$. Then $e$ is said to be an \textbf{identity element} if for each $x \in G$, $ex = xe = x$.
+	\end{defn}
+	
+	\begin{defn}
+		Let $G$ be a set and $*: G \times G \rightarrow G$. Then $G$ is said to be a \textbf{monoid} if 
+		\begin{enumerate}
+			\item $*$ is associative
+			\item there exits $e \in G$ such that $e$ is an identity element.
+		\end{enumerate}
+	\end{defn}	
+	
+	\begin{ex}
+		Let $G$ be a monoid. Then the identity element is unique.
+	\end{ex}
+	
+	\begin{proof}
+		Let $e, f \in G$. Suppose that $e$ and $f$ are identity elements. Then $e = ef = f$.
+	\end{proof}
+	
+	\begin{note}
+		Unless otherwise specified, we will denote the identity element of a monoid by $e$.
+	\end{note}
+	
+	\begin{defn}
+		Let $G$ be a monoid, $X$ a set and $*: G \times X \rightarrow X$ (we write $gx$ in place of $*(g,x)$). Then $*$ is said to be a \textbf{monoid action} of $G$ on $X$ if for each $g,h \in G$ and $x \in X$,
+		\begin{enumerate}
+			\item $(gh)x = g(hx)$
+			\item $ex = x$
+		\end{enumerate}
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Groups}
+	\subsection{Direct Products}
+	
+	\begin{defn}
+		Let $G,H$ be groups. Define a product $*:(G \times H) \times (G \times H) \rightarrow G \times H$ by 
+		$$(x_1,y_1) * (x_2, y_2) = (x_1x_2, y_1y_2)$$
+		Then $(G \times H, *)$ is called the \textbf{direct product of $G$ and $H$}.
+	\end{defn}	
+	
+	\begin{ex}
+		\lex{1} Let $G,H$ be groups. Then the direct product $G \times H$ is a group.
+	\end{ex}
+	\begin{proof}
+		Clear.
+	\end{proof}
+	
+	\begin{defn} 
+		Let $G,H$ be groups. Define $\pi_G :G \times H \rightarrow G$ and $\pi_H :G \times H \rightarrow H$ by $\pi_G(x,y) = x$ and $\pi_H(x,y) = y$.  Then $\pi_G$ and $\pi_H$ are respectively called the \textbf{projection maps onto $G$ and $H$}.
+	\end{defn}	
+	
+	\begin{ex}
+		\lex{2} Let $G,H$ be groups. Then 
+		\begin{enumerate}
+			\item $\pi_G: G \times H \rightarrow G$ and $\pi_H : G \times H \rightarrow H$ are homomorphisms
+			\item $\ker \pi_G \cong H$ and $\ker \pi_H \cong G$
+		\end{enumerate}	 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Clear
+			\item Define $\iota_G:G \rightarrow \ker \pi_H$ by $$\iota_G(x) = (x, e_H)$$ Then $\iota_G$ is an isomorphism. Similarly, we can define $\iota_H:H \rightarrow \ker \pi_G$ and show that it is an isomorphism.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $G,H, K$ be groups, $\phi \in \Hom(G,K)$ and $\psi \in \Hom(H, K)$. We define $\phi \times \psi: G \times H \rightarrow K$ by $\phi \times \psi(x,y) = \phi(x) \psi(y)$ 
+	\end{defn}	
+	
+	\begin{ex}
+		\lex{3} Let $G,H, K$ be groups, $\phi \in \Hom(G,K)$ and $\psi \in \Hom(H, K)$. If $K$ is abelian, then $\phi \times \psi \in Hom(G \times H,K)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $x_1, x_2 \in G$ and $y_1, y_2 \in H$. Then 
+		\begin{align*}
+			\phi \times \psi[(x_1, y_1)(x_2, y_2)] 
+			&= \phi \times \psi (x_1x_2, y_1y_2) \\
+			&= \phi(x_1x_2) \psi(y_1y_2) \\
+			&= \phi(x_1)\phi(x_2)\psi(y_1)\psi(y_2) \\
+			&= \phi(x_1)\psi(y_1)\phi(x_2)\psi(y_2) \\
+			&= [\phi \times \psi(x_1, y_1)] [\phi \times \psi(x_2, y_2) ]
+		\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+		\lex{4} Let $G,H, K$ be groups and $\phi \in \Hom(G \times H, K)$. Then there exist $\phi_G \in \Hom(G,K)$, $\phi_H \in \Hom(H, K)$ such that $\phi_G \times \phi_H = \phi$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $K$ is abelian. Define $\iota_G \in \Hom(G, \ker \pi_H)$ and $\iota_H \in \Hom(H, \ker \pi_G)$ as in part $(2)$ of \rex{2} Define $\phi_G \in \Hom(G, K)$ and $\phi_H \in \Hom(H,K)$ by  $\phi_G = \phi \circ \iota_G$ and $\phi_H = \phi \circ \iota_H $. Let $(x,y) \in G \times H$. Then 
+		\begin{align*}
+			\phi_G \times \phi_H(x,y) 
+			&= \phi_G(x) \phi_H(y) \\
+			&= \phi \circ \iota_G(x) \phi \circ \iota_H(y) \\
+			&= \phi(x, e_H)\phi(e_G, y) \\
+			&= \phi(x,y) \\
+		\end{align*}
+		So $\phi = \phi_G \times \phi_H$
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Rings}
+	
+	\section{Introduction}
+	
+	\begin{defn}
+		Let $R$ be a set and $+, *: R \times R 				
+		\rightarrow R$ (we write $a+b$ and 
+		$ab$ in place of $+(a,b)$ and $*(a,b)$ respectively).
+		Then $R$ is said to be a \textbf{ring} if for each 
+		$a,b,c \in R$,
+		\begin{enumerate}
+			\item $R$ is an abelian group with respect to $+$.
+			The identity element with respect to $+$ is denoted
+			by $0$.
+			\item $R$ is a monoid with respect to $*$. The  
+			identity element of $R$ with respect to $*$ is denoted $1$. 
+			\item $R$ is commutative with respect to $*$.
+			\item $*$ distributes over $+$.
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{defn}
+		Let $R$ be a ring and $I \subset R$. Then $I$ is said 
+		to be an \textbf{ideal} of $R$ if for each $a \in R$ and $x,y \in I$,
+		\begin{enumerate}
+			\item  $x + y \in I$
+			\item  $ax \in I$
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{defn}
+		Let $R$ be a ring and $A,B \subset R$. We define the \textbf{product} of $A$ and $B$, denoted $AB$, to be $$AB = \bigg \{\sum_{i=1}^n a_ib_i: a_i \in A, b_i \in B, n \in \N \bigg \}$$
+	\end{defn}	
+	
+	\begin{ex}
+		Let $R$ be a ring and $I \subset R$. Then $I$ is an ideal of $R$ iff $RI \subset I$. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $RI \subset I$. Let $a \in R$ and $x,y \in I$. Then by assumption $x + y = 1x + 1y \in I$ and $ax \in I$. So $I$ is an ideal of $R$\\
+		Conversely, suppose that $I$ is an ideal of $R$. Let $a_1, \cdots, a_n \in R$ and $x_1, \cdots, x_n \in I$. Then by assumption, for each $i = 1, \cdots, n$, $a_ix_i \in I$ and therefore $\sum\limits_{i=1}^n a_ib_i \in I$. Hence $RI \subset I$.
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage	
+	\chapter{Modules}
+	
+	\section{Introduction}
+	
+	\begin{defn}
+		Let $R$ be a ring, $M$ a set, $+: M\times M \rightarrow M$ and $*: R 
+		\times M \rightarrow M$ (we write $rx$ in place of 
+		$*(r,x)$). Then $M$ is said to be an 
+		\textbf{$R$-module}
+		if 
+		\begin{enumerate}
+			\item $M$ is an abelian group with respect to $+$. The identity element of $M$ with respect to $+$ is denoted by 0.
+			\item for each $r \in R$, $*(r, \cdot)$ is a group endomorphism of $M$
+			\item for each $x \in M$, $*(\cdot, x)$ is a group homomorphism from $R$ to $M$
+			\item $*$ is a monoid action of $R$ on $M$
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{note}
+		For the remainder of this section, we assume that $R$ is a commutative ring. 
+	\end{note}
+	
+	\begin{ex}
+		Let $M$ be an $R$-module. Then for each $r \in R$ and $x \in M$, 
+		\begin{enumerate}
+			\item $r0 = 0$
+			\item $0x = 0$
+			\item $(-1)x = -x$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} Let $r \in R$ and $x \in M$. Then 
+		\begin{enumerate}
+			\item 
+			\begin{align*}
+				r0 
+				&= r(0+0) \\
+				&= r0 + r0
+			\end{align*} 
+			which implies that $r0 = 0$.
+			\item 
+			\begin{align*}
+				0x 
+				&= (0+0)x \\
+				&= 0x + 0x
+			\end{align*} 
+			which implies that $0x = 0$.
+			\item 
+			\begin{align*}
+				(-1)x + x 
+				&= (-1)x + 1x \\ 
+				&= (-1 + 1)x \\
+				&= 0x \\
+				&= 0
+			\end{align*}
+			which implies that $(-1)x = -x$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $M$ an $R$-module and $N \subset M$. Then $N$ is said to be a \textbf{submodule} of $M$ if for each $r \in R$ and $x,y \in N$, we have that $rx \in N$ and $x+y \in N$.
+	\end{defn}
+	
+	\begin{defn}
+		Let $M$ be an $R$-module. We define $\MS(M) = \{N \subset M: N \text{ is a submodule of }M\}$.
+	\end{defn}	
+	
+	\begin{ex}
+		Let $M$ be an $R$-module and $N \in \MS(M)$. Then $N$ is a subgroup of $M$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $x,y \in M$. Then $x-y = 1x + (-1)y \in N$. So $N$ is a subgroup of $M$.
+	\end{proof}
+	
+	\begin{defn}
+		Let $M$ be an $R$-module and $N \in \MS(M)$. We define  
+		\begin{enumerate}
+			\item $M/N = \{x + N: x \in M\}$ 
+			\item $+: M/N \times M/N \rightarrow M/N$ by $$(x+N) + (y+N) = (x+y) + N$$
+			\item $*: R \times M/N \rightarrow M/N$ by $$r(x+N) = (rx) + N$$
+		\end{enumerate}
+		Under these operations (see next exercise), $M/N$ is an $R$-module known as the \textbf{quotient module} of $M$ by $N$.
+	\end{defn}	
+	
+	\begin{ex} 
+		Let $M$ be an $R$-module and $N \in \MS(M)$. Then
+		\begin{enumerate}
+			\item the monoid action defined above is well defined
+			\item the quotient $M/N$ is an $R$-module
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $r \in R$ and $x +N, y +N \in M/N $. Recall from group theory that $x + N = y + N$ iff $x-y \in N$. Suppose that $x + N = y + N$. Then $x - y \in N$ and there exists $n \in N$ such that $x-y = n$. Therefore
+			\begin{align*}
+				rx - ry 
+				&= r(x-y) \\
+				&= rn \\
+				&\in N
+			\end{align*}
+			So $rx + N = ry + N$.
+			\item Properties $(1)$ - $(4)$ in the definition of a module are easily shown to be satisfied for $M/N$ since they are true for $M$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $M$ and $N$ be $R$-modules and $\phi:M \rightarrow N$. Then $\phi$ is said to be a \textbf{module homomorphism} if for each $r \in R$ and $x,y \in M$
+		\begin{enumerate}
+			\item $\phi(rx) = r\phi(x)$
+			\item $\phi(x+y) = \phi(x) + \phi(y)$
+		\end{enumerate}
+	\end{defn}	
+	
+	\begin{ex}
+		Let $M$ and $N$ be $R$-modules and $\phi:M \rightarrow N$. Then $\phi$ is a  iff for each $r \in R$ and $x,y \in M$, $\phi(x+ry) = \phi(x) + r \phi(y)$.
+	\end{ex}
+	
+	\begin{proof}
+		Clear.
+	\end{proof}
+	
+	\begin{ex}
+		Let $M$ and $N$ be $R$-modules and $\phi:M \rightarrow N$ a homomorphism. Then 
+		\begin{enumerate}
+			\item $\ker \phi$ is a submodule of $M$
+			\item $ \Im \phi$ is a submodule of $N$ 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Let $r \in R$, $x,y \in \ker \phi$ and $w,z \in \Im \phi$. Then 
+		\begin{enumerate}
+			\item 
+			\begin{align*}
+				\phi(rx) 
+				&= r\phi(x) \\
+				&=r 0 \\
+				&= 0
+			\end{align*}	
+			So $rx \in \ker \phi$. Group theory tells us that $\ker \phi$ is a subgroup of $M$, so $x+y \in \ker \phi$. Hence $\ker \phi$ is a submodule of $M$. 
+			\item Similar.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $M$ be an $R$-module and $A \subset M$. We define the \textbf{submodule of $M$ generated by $A$}, denoted $\spn(A)$, to be $$\spn(A) = \bigcap_{N \in \MS(M)} N$$ 
+	\end{defn}
+	
+	\begin{ex}
+		Let $M$ be an $R$-module and $A \subset M$. Then 
+		$\spn(A) \in \MS(M)$
+	\end{ex}
+	
+	\begin{proof}
+		Let $r \in R$ and $x,y \in \spn(A)$. Basic group theory tells us that $\spn(A)$ is a subgroup of $M$. So $x+y \in \spn(A)$. For $N \in \MS(M)$, by definition we have $x \in N$ and therefore $rx \in N$. So $rx \in \spn(A)$. Hence $\spn(A)$ is a submodule of $M$.
+	\end{proof}
+	
+	\begin{ex}
+		Let $M$ be an $R$-module and $A \subset M$. If $A \neq \varnothing$, then $$\spn(A) = \bigg \{\sum\limits_{i=1}^n r_ia_i: r_i \in R, a_i \in A, n \in \N \bigg \}$$
+	\end{ex}
+	
+	\begin{proof}
+		Clearly 
+	\end{proof}
+	
+	\begin{defn}
+		Let $M$
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Vector Spaces}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Fields}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\chapter{Quivers}
+	\tcr{maybe move after lattice chapter, to be able to talk about subquivers generated by a subset of vertices and arrows}
+	\\
+	
+	\tcr{talk about quivers (i.e. categories without compostion)} Defien subquivers, subquivers generated by a subset of vertices and arrows in complete lattice terms (i.e. using galois connections). Define prod and coprod quivers, quotient quivers etc, 
+	
+	\section{Introduction}
+	
+	
+	\begin{defn}
+		Let $V, E, s, t$ be sets. Then $(V, E, s, t)$ is said to be a \tbf{quiver} if $s,t:E \rightarrow V$. 
+	\end{defn}
+	
+	\begin{defn}
+		Let $\MQ$ be a quiver. Write $\MQ = (V, E, s, t)$. We define the 
+		\begin{itemize}
+			\item \tbf{vertices of $\MQ$}, denoted $V_{\MQ}$, by $V_{\MQ} \defeq V$.
+			\item \tbf{edges of $\MQ$}, denoted $E_{\MQ}$, by $E_{\MQ} \defeq E$.
+			\item \tbf{source function of $\MQ$}, denoted $s_{\MQ}$, by $s_{\MQ} \defeq s$.
+			\item \tbf{target function of $\MQ$}, denoted $t_{\MQ}$, by $t_{\MQ} \defeq t$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		Let $\MQ$ be a quiver. When the context is clear, we write $V$, $E$, $s$, $t$ in place of $V_{\MQ}$ , $E_{\MQ}$, $s_{\MQ}$, $t_{\MQ}$ resepctively.
+	\end{note}
+	
+	\begin{defn}
+		We define the \tbf{empty quiver}, denoted $\MQ_0$ by $\MQ_0 \defeq (\varnothing, \varnothing, \varnothing, \varnothing)$.
+	\end{defn}
+	
+	\begin{ex}
+		Define $\MQ$ by $\MQ \defeq (\varnothing, \varnothing, \varnothing, \varnothing)$. Then $\MQ$ is a quiver.
+	\end{ex}
+	
+	\begin{proof}
+		Since $\varnothing: \varnothing \rightarrow \varnothing$, $\MQ$ is a quiver.
+	\end{proof}
+	
+	\begin{defn}
+		Let $\MQ$ and $\ML$ be quivers, $\phi_v: V_{\MQ} \rightarrow V_{\ML}$ and $\phi_e: E_{\MQ} \rightarrow E_{\ML}$. Then $(\phi_e, \phi_v)$ is said to be a \tbf{$(\MQ, \ML)$-quiver morphism} if $s_{\ML} \circ \phi_e = \phi_v \circ s_{\MQ}$ and $t_{\ML} \circ \phi_e = \phi_v \circ t_{\MQ}$, i.e. the following diagrams commute:
+		\[ 
+		\begin{tikzcd}
+			E_{\MQ} \arrow[r, "\phi_e"] \arrow[d, "s_{\MQ}"'] & E_{\ML}  \arrow[d, "s_{\ML}"] \\
+			V_{\MQ} \arrow[r, "\phi_v"']                 & V_{\ML}
+		\end{tikzcd}
+		\quad 
+		\begin{tikzcd}
+			E_{\MQ} \arrow[r, "\phi_e"] \arrow[d, "t_{\MQ}"'] & E_{\ML}  \arrow[d, "t_{\ML}"] \\
+			V_{\MQ} \arrow[r, "\phi_v"']                 & V_{\ML}
+		\end{tikzcd}
+		\]
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Subquivers}
+	
+	\begin{defn}
+		Let $\MQ$ be a quiver. 
+		\begin{itemize}
+			\item Let $V, E, s, t$ be sets. Then $(V, E, s, t)$ is said to be a \tbf{subquiver of $\MQ$} if 
+			\begin{enumerate}
+				\item $(V, E, s, t)$ is a quiver,
+				\item $V \subset V_{\MQ}$ and $E \subset E_{\MQ}$,
+				\item $(\iota_V, \iota_E)$ is a $((V, E, s, t), \MQ)$-quiver morphism. 
+			\end{enumerate}
+			\item We define $\Subquiv(\MQ) \defeq \{\ML: \text{$\ML$ is a subquiver of $\MQ$}\}$.
+			\item We define the \tbf{subquiver relation on $\Subquiv(\MQ)$}, denoted ${\leqquiv} \subset \Subquiv(\MQ) \times \Subquiv(\MQ)$, by $\ML_1 \leqquiv \ML_2$ iff $\ML_1$ is a subquiver of $\ML_2$.  
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we may write $\leq$ in place of $\leqquiv$.
+	\end{note}
+	
+	\begin{ex}
+		$\MQ$ be a quiver. Then $(\Subquiv(\MQ), \leqquiv)$ is a poset. 
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
+	
+	\begin{ex}
+		Let $\MQ$ and $\ML$ be quivers. Then $\ML \in \Subquiv(\MQ)$ iff 
+		\begin{enumerate}
+			\item $V_{\ML} \subset V_{\MQ}$ and $E_{\ML} \subset E_{\MQ}$
+			\item $s_{\MQ}|_{E_{\ML}} = s_{\ML}$ and $t_{\MQ}|_{E_{\ML}} = t_{\ML}$
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $\ML \in \Subquiv(\MQ)$. Then $V_{\ML} \subset V_{\MQ}$, $E_{\ML} \subset E_{\MQ}$ and $(\iota_{V_{\ML}}, \iota_{E_{\ML}})$ is a $(\ML, \MQ)$-quiver morphism. Then $s_{\MQ} \circ \iota_{E_{\ML}} = \iota_{V_{\ML}} \circ s_{\ML}$ and $t_{\MQ} \circ \iota_{E_{\ML}} = \iota_{V_{\ML}} \circ t_{\ML}$, i.e. the following diagrams commute:
+			\[ 
+			\begin{tikzcd}
+				E_{\ML} \arrow[r, "\iota_{E_{\ML}}"] \arrow[d, "s_{\ML}"'] & E_{\MQ}  \arrow[d, "s_{\MQ}"] \\
+				V_{\ML} \arrow[r, "\iota_{V_{\ML}}"']                 & V_{\MQ}
+			\end{tikzcd}
+			\quad 
+			\begin{tikzcd}
+				E_{\ML} \arrow[r, "\iota_{E_{\ML}}"] \arrow[d, "t_{\ML}"'] & E_{\MQ}  \arrow[d, "t_{\MQ}"] \\
+				V_{\ML} \arrow[r, "\iota_{V_{\ML}}"']                 & V_{\MQ}
+			\end{tikzcd}
+			\]
+			Therefore
+			\begin{align*}
+				s_{\MQ}|_{E_{\ML}}
+				& = s_{\MQ} \circ \iota_{E_{\ML}} \\
+				& = \iota_{V_{\ML}} \circ s_{\ML} \\
+				& = s_{\ML}
+			\end{align*}
+			and 
+			\begin{align*}
+				t_{\MQ}|_{E_{\ML}}
+				& = t_{\MQ} \circ \iota_{E_{\ML}} \\
+				& = \iota_{V_{\ML}} \circ t_{\ML} \\
+				& = t_{\ML}.
+			\end{align*}
+			\item $(\impliedby)$: \\
+			Suppose that 
+			\begin{enumerate}
+				\item $V_{\ML} \subset V_{\MQ}$ and $E_{\ML} \subset E_{\MQ}$,
+				\item $s_{\MQ}|_{E_{\ML}} = s_{\ML}$ and $t_{\MQ}|_{E_{\ML}} = t_{\ML}$.
+			\end{enumerate} 
+			Then 
+			\begin{align*}
+				s_{\MQ} \circ \iota_{E_{\ML}} 
+				& = s_{\MQ}|_{E_{\ML}} \\
+				& = s_{\ML} \\
+				& = \iota_{V_{\ML}} \circ s_{\ML}
+			\end{align*}
+			and 
+			\begin{align*}
+				t_{\MQ} \circ \iota_{E_{\ML}} 
+				& = t_{\MQ}|_{E_{\ML}} \\
+				& = t_{\ML} \\
+				& = \iota_{V_{\ML}} \circ t_{\ML}.
+			\end{align*}
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+		Let $\MQ$ be a quiver, $V \subset V_{\MQ}$ and $E \subset E_{\MQ}$. Then $(V, E, s_{\MQ}|_E, t_{\MQ}|_{E}) \in \Subquiv(\MQ)$ iff $s_{\MQ}(E) \subset V$ and $t_{\MQ}(E) \subset V$.
+	\end{ex}
+	
+	\begin{proof}
+		Set $\ML \defeq (V, E, s_{\MQ}|_E, t_{\MQ}|_{E})$.
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $\ML \in \Subquiv(\MQ)$. Then $\ML$ is a quiver and in particular, $s_{\MQ}|_E:E \rightarrow V$ and $t_{\MQ}|_E:E \rightarrow V$. Therefore $s_{\MQ}(E) \subset V$ and $t_{\MQ}(E) \subset V$.
+			\item $(\impliedby)$ \\
+			Suppose that $s_{\MQ}(E) \subset E$ and $t_{\MQ}(E) \subset E$. 
+			\begin{enumerate}
+				\item Since $s_{\MQ}(E) \subset V$ and $t_{\MQ}(E) \subset V$, we have that $s_{\MQ}|_E: E \rightarrow V$ and $t_{\MQ}|_E: E \rightarrow V$. Therefore 
+				$\ML$ is a quiver.
+				\item 
+				\begin{enumerate}
+					\item By assumption, $V_{\ML} \subset V_{\MQ}$ and $E_{\ML} \subset E_{\MQ}$.
+					\item By definition,  
+					\begin{align*}
+						s_{\MQ}|_{E_{\ML}} 
+						& = s_{\MQ}|_E \\
+						& = s_{\ML}
+					\end{align*}
+					and 
+					\begin{align*}
+						t_{\MQ}|_{E_{\ML}} 
+						& = t_{\MQ}|_E \\
+						& = t_{\ML}
+					\end{align*}
+				\end{enumerate} 
+				\tcr{The prev ex} then implies that $\ML \in \Subquiv(\MQ)$.
+			\end{enumerate} 
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+		Let $\MQ$ be a quiver and $(\ML_{\al})_{\al \in A} \subset \Subquiv(\MQ)$. Define $V$, $E$ by $V \defeq \bigcap\limits_{\al \in A} V_{\ML_{\al}}$ and $E \defeq \bigcap\limits_{\al \in A} E_{\ML_{\al}}$. Then 
+		\begin{enumerate}
+			\item $(V, E, s_{\MQ}|_E, t_{\MQ}|_E) \in \Subquiv(\MQ)$
+			\item $\inf ((\ML_{\al})_{\al \in A} , \leqquiv) = (V, E, s_{\MQ}|_E, t_{\MQ}|_E)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Set $\ML \defeq (V, E, s_{\MQ}|_E, t_{\MQ}|_E)$. Since for each $\al \in A$, $\ML_{\al_0} \in \Subquiv(\MQ)$, \tcr{a prev ex} implies that for each $\al \in A$, $V_{\ML_{\al}} \subset V_{\MQ}$, $E_{\ML_{\al}} \subset E_{\MQ}$, $s_{\MQ}|_{E_{\ML_{\al}}} = s_{\ML_{\al}}$ and $t_{\MQ}|_{E_{\ML_{\al}}} = t_{\ML_{\al}}$. Therefore 
+		\begin{align*}
+			V
+			& = \bigcap\limits_{\al \in A} V_{\ML_{\al}} \\
+			& \subset V_{\MQ} 
+		\end{align*}
+		and 
+		\begin{align*}
+			E
+			& = \bigcap\limits_{\al \in A} E_{\ML_{\al}} \\
+			& \subset E_{\MQ}.
+		\end{align*}
+		\begin{enumerate}
+			\item  
+			Let $\al_0 \in A$. We note that 
+			\begin{align*}
+				V
+				& = \bigcap\limits_{\al \in A} V_{\ML_{\al}} \\
+				& \subset V_{\ML_{\al_0}} 
+			\end{align*} 
+			and 
+			\begin{align*}
+				E
+				& = \bigcap\limits_{\al \in A} E_{\ML_{\al}} \\
+				& \subset E_{\ML_{\al_0}}.
+			\end{align*} 
+			Since $V_{\ML_{\al_0}} \subset V_{\MQ}$, $E_{\ML_{\al_0}} \subset E_{\MQ}$, $s_{\MQ}|_{E_{\ML_{\al_0}}} = s_{\ML_{\al_0}}$ and $t_{\MQ}|_{E_{\ML_{\al_0}}} = t_{\ML_{\al_0}}$, we have that
+			\begin{align*}
+				(V_{\ML_{\al_0}}, E_{\ML_{\al_0}}, s_{\MQ}|_{E_{\ML_{\al_0}}}, t_{\MQ}|_{E_{\ML_{\al_0}}})
+				& = (V_{\ML_{\al_0}}, E_{\ML_{\al_0}}, s_{\ML_{\al_0}}, t_{\ML_{\al_0}}) \\
+				& = \ML_{\al_0} \\
+				& \in \Subquiv(\MQ).
+			\end{align*}
+			\tcr{The prev ex} then implies that $s_{\MQ}(E_{\ML_{\al_0}}) \subset V_{\ML_{\al_0}}$ and $t_{\MQ}(E_{\ML_{\al_0}}) \subset V_{\ML_{\al_0}}$. Therefore
+			\begin{align*}
+				s_{\MQ}(E) 
+				& = s_{\MQ} \bigg( \bigcap\limits_{\al \in A} E_{\ML_{\al}} \bigg) \\
+				& \subset s_{\MQ}(E_{\ML_{\al_0}}) \\
+				& \subset V_{\ML_{\al_0}}
+			\end{align*}
+			and 
+			\begin{align*}
+				t_{\MQ}(E) 
+				& = t_{\MQ} \bigg( \bigcap\limits_{\al \in A} E_{\ML_{\al}} \bigg) \\
+				& \subset t_{\MQ}(E_{\ML_{\al_0}}) \\
+				& \subset V_{\ML_{\al_0}}.
+			\end{align*}
+			Since $\al_0 \in A$ is arbitrary, we have that for each $\al \in A$, $s_{\MQ}(E) \subset V_{\ML_{\al}}$ and $t_{\MQ}(E) \subset V_{\ML_{\al}}$. Hence 
+			\begin{align*}
+				s_{\MQ}(E) 
+				& \subset \bigcap\limits_{\al \in A} V_{\ML_{\al}} \\
+				& = V
+			\end{align*}
+			and 
+			\begin{align*}
+				t_{\MQ}(E) 
+				& \subset \bigcap\limits_{\al \in A} V_{\ML_{\al}} \\
+				& = V.
+			\end{align*}
+			\tcr{The prev ex} then implies that $\ML \in \Subquiv(\MQ)$. 
+			\item 
+			\begin{itemize}
+				\item Let $\al \in A$. Since  
+				\begin{align*}
+					V_{\ML} 
+					& = V \\
+					& \subset V_{\ML_{\al}}
+				\end{align*}
+				and 
+				\begin{align*}
+					E_{\ML}
+					& = E \\
+					& \subset E_{\ML_{\al}},
+				\end{align*}
+				we have that 
+				\begin{align*}
+					s_{\ML}
+					& = s_{\MQ}|_{E_{\ML}} \\
+					& = s_{\MQ} \circ \iota_{E_{\ML}}^{E_{\MQ}} \\
+					& = s_{\MQ} \circ (\iota_{E_{\ML_{\al}}}^{E_{\MQ}} \circ \iota_{E_{\ML}}^{E_{\ML_{\al}}}) \\
+					& = (s_{\MQ} \circ \iota_{E_{\ML_{\al}}}^{E_{\MQ}}) \circ \iota_{E_{\ML}}^{E_{\ML_{\al}}} \\
+					& = s_{\MQ}|_{E_{\ML_{\al}}} \circ \iota_{E_{\ML}}^{E_{\ML_{\al}}} \\
+					& = s_{\ML_{\al}} \circ \iota_{E_{\ML}}^{E_{\ML_{\al}}} \\
+					& = s_{\ML_{\al}}|_{E_{\ML}}.
+				\end{align*}
+				Similarly, $t_{\ML} = t_{\ML_{\al}}|_{E_{\ML}}$. Therefore
+				\begin{enumerate}
+					\item $V_{\ML} \subset V_{\ML_{\al}}$ and $E_{\ML} \subset E_{\ML_{\al}}$,
+					\item $s_{\ML_{\al}}|_{E_{\ML}} = s_{\ML}$ and $t_{\ML_{\al}}|_{E_{\ML}} = t_{\ML}$.
+				\end{enumerate}
+				\tcr{A prev ex} implies that $\ML \in \Subquiv(\ML_{\al})$. Hence $\ML \leqquiv \ML_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $\ML \leqquiv \ML_{\al}$. Thus $\ML \in \lbd((\ML_{\al})_{\al \in A}, \leqquiv)$. 
+				\item Let $\ML' \in \lbd((\ML_{\al})_{\al \in A}, \leqquiv)$ and $\al \in A$. Since $\ML' \in \lbd((\ML_{\al})_{\al \in A}, \leqquiv)$, we have that $\ML' \leqquiv \ML_{\al}$. \tcr{A prev ex} then implies that $V_{\ML'} \subset V_{\ML_{\al}}$, $E_{\ML'} \subset E_{\ML_{\al}}$, $s_{\ML_{\al}}|_{E_{\ML'}} = s_{\ML'}$ and $t_{\ML_{\al}}|_{E_{\ML'}} = t_{\ML'}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $V_{\ML'} \subset V_{\ML_{\al}}$, $E_{\ML'} \subset E_{\ML_{\al}}$, $s_{\ML_{\al}}|_{E_{\ML'}} = s_{\ML'}$ and $t_{\ML_{\al}}|_{E_{\ML'}} = t_{\ML'}$. Therefore $V_{\ML'} \in \lbd((V_{\ML_{\al}})_{\al \in A}, \subset)$, $E_{\ML'} \in \lbd((E_{\ML_{\al}})_{\al \in A}, \subset)$. Thus 
+				\begin{align*}
+					V_{\ML'}
+					& \subset \inf((V_{\ML_{\al}})_{\al \in A}, \subset) \\
+					& = \bigcap\limits_{\al \in A} V_{\ML_{\al}} \\
+					& = V. 
+				\end{align*}
+				and 
+				\begin{align*}
+					E_{\ML'}
+					& \subset \inf((E_{\ML_{\al}})_{\al \in A}, \subset) \\
+					& = \bigcap\limits_{\al \in A} E_{\ML_{\al}} \\
+					& = E. 
+				\end{align*}
+				Hence 
+				\begin{align*}
+					s_{\ML'}
+					& = s_{\MQ}|_{E_{\ML'}} \\
+					& = s_{\MQ} \circ \iota_{E_{\ML'}}^{E_{\MQ}} \\
+					& = s_{\MQ} \circ (\iota_{E_{\ML}}^{E_{\MQ}} \circ \iota_{E_{\ML'}}^{E_{\ML}}) \\
+					& = (s_{\MQ} \circ \iota_{E_{\ML}}^{E_{\MQ}}) \circ \iota_{E_{\ML'}}^{E_{\ML}} \\
+					& = s_{\MQ}|_{E_{\ML}} \circ \iota_{E_{\ML'}}^{E_{\ML}} \\
+					& = s_{\ML} \circ \iota_{E_{\ML'}}^{E_{\ML}}.
+				\end{align*}
+				Similarly, $t_{\ML'} = t_{\ML} \circ \iota_{E_{\ML'}}^{E_{\ML}}$. \tcr{a previous ex} implies that $\ML' \leqquiv \ML$. Since $\ML' \in \lbd((\ML_{\al})_{\al \in A}, \leqquiv)$ is arbitrary, we have that for each $\ML' \in \lbd((\ML_{\al})_{\al \in A}, \leqquiv)$, $\ML' \leqquiv \ML$.
+			\end{itemize}
+			Thus $\inf ((\ML_{\al})_{\al \in A} , \leqquiv) = \ML$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $\MQ$ be a quiver, $V \subset V_{\MQ}$ and $E \subset E_{\MQ}$. We define  
+		\begin{itemize}
+			\item $\Subquiv(V, E, \MQ) \defeq \{\ML \in \Subquiv(\MQ): \text{$V \subset V_{\ML}$ and $E \subset E_{\ML}$}\}$.
+			\item the \tbf{subquiver of $\MQ$ generated by $V$ and $E$}, denoted $\SubquivGen(V, E, \MQ)$ by 
+			$$\SubquivGen(V, E, \MQ) \defeq \inf(\Subquiv(V, E, \MQ), \leqquiv).$$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{defn}
+		When the context is clear, we write $\SubquivGen(V, E)$ in place of $\SubquivGen(V, E, \MQ)$.
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
 	\chapter{Lattices}
 	
 	\subsection{To Do}
@@ -3324,15 +4556,15 @@
 		Let $(X, \dmd_X)$ and $(Y, \dmd_Y)$ be semilattices and $f:X \rightarrow Y$. Then the following are equivalent:
 		\begin{enumerate}
 			\item $f$ is a $(\dmd_X, \dmd_Y)$-homomorphism
-			\item $f$ is finite $(\leq_{\dmd_X}^{\vee}, \leq_{\dmd_Y}^{\vee})$-join preserving
-			\item $f$ is finite $(\leq_{\dmd_X}^{\wedge}, \leq_{\dmd_Y}^{\wedge})$-meet preserving
+			\item $f$ is $(\leq_{\dmd_X}^{\vee}, \leq_{\dmd_Y}^{\vee})$-finite join preserving
+			\item $f$ is $(\leq_{\dmd_X}^{\wedge}, \leq_{\dmd_Y}^{\wedge})$-finite meet preserving
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{itemize}
 			\item $(1) \implies (2)$: \\
-			Suppose that $f$ is a $(\dmd_X, \dmd_Y)$-homomorphism. \tcr{make/ref previous ex here} implies that $\vee_{\leq_{\dmd_X}^{\vee}} = \dmd_X$ and $\vee_{\leq_{\dmd_Y}^{\vee}} = \dmd_Y$. Therefore $f$ is a $(\vee_{\leq_{\dmd_X}^{\vee}}, \vee_{\leq_{\dmd_Y}^{\vee}})$-homomorphism. \tcr{the previous ex} implues that $f$ is finite $(\leq_{\dmd_X}^{\vee}, \leq_{\dmd_Y}^{\vee})$-join preserving.
+			Suppose that $f$ is a $(\dmd_X, \dmd_Y)$-homomorphism. \tcr{make/ref previous ex here} implies that $\vee_{\leq_{\dmd_X}^{\vee}} = \dmd_X$ and $\vee_{\leq_{\dmd_Y}^{\vee}} = \dmd_Y$. Therefore $f$ is a $(\vee_{\leq_{\dmd_X}^{\vee}}, \vee_{\leq_{\dmd_Y}^{\vee}})$-homomorphism. \tcr{the previous ex} implues that $f$ is $(\leq_{\dmd_X}^{\vee}, \leq_{\dmd_Y}^{\vee})$-finite join preserving.
 			\item $(2) \implies (3)$: \\
 			Suppose that \tcr{FINISH!!!}
 			\item $(3) \implies (1)$: \\
@@ -3384,14 +4616,14 @@
 	\begin{ex}
 		Let $(X, \leq_X), (Y, \leq_Y)$ be posets and $f:X \rightarrow Y$. 
 		\begin{enumerate}
-			\item Suppose that $(X, \leq_X)$ and $(Y, \leq_Y)$ are join semilattices. If $f$ preserves finite joins, then $f$ is $(\leq_X, \leq_Y)$-monotone.
-			\item Suppose that $(X, \leq_X)$ and $(Y, \leq_Y)$ are meet semilattices. If $f$ preserves finite meets, then $f$ is $(\leq_X, \leq_Y)$-monotone.
+			\item Suppose that $(X, \leq_X)$ and $(Y, \leq_Y)$ are join semilattices. If $f$ binary join preserving, then $f$ is $(\leq_X, \leq_Y)$-monotone.
+			\item Suppose that $(X, \leq_X)$ and $(Y, \leq_Y)$ are meet semilattices. If $f$ binary meet preserving, then $f$ is $(\leq_X, \leq_Y)$-monotone.
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Suppose that $f$ preserves finite joins. Then \tcr{the previous exercise} implies that
+			\item Suppose that $f$ is binary join preserving. Then \tcr{the previous exercise} implies that
 			\begin{align*}
 				\text{for each $a,b \in X$, $f(a) \vee_{\leq_Y} f(b) =  f(a \vee_{\leq_X} b)$}
 				& \implies \text{for each $a,b \in X$, $f(a) \vee_{\leq_Y} f(b) \leq  f(a \vee_{\leq_X} b)$} \\
@@ -3401,8 +4633,6 @@
 		\end{enumerate}
 	\end{proof}
 	
-	
-	\tcr{maybe make exercise about galois connections and right adjoints preserving joins, left preserving meets}
 	
 	
 	
@@ -3684,7 +4914,7 @@
 	
 	
 	\newpage
-	\section{Basic Properties}
+	\section{Fundamental Examples}
 	
 	\subsection{Bounded Lattices}
 	
@@ -3707,7 +4937,7 @@
 	\end{defn}
 	
 	\begin{note}
-		We the context is clear, we say ``zero" and ``one" inplace of ``$(\vee, \wedge)$-zer" and ``$(\vee, \wedge)$-one" respectively.
+		We the context is clear, we say ``zero" and ``one" inplace of ``$(\vee, \wedge)$-zero" and ``$(\vee, \wedge)$-one" respectively.
 	\end{note}
 	
 	\begin{ex}
@@ -3731,11 +4961,16 @@
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{note}\
+	\begin{defn}
+		Let $L$ be a lattice.
 		\begin{itemize}
-			\item If $L$ has a zero, we denote the unique zero of $L$ by $0$.
-			\item If $L$ has a one, we denote the unique one of $L$ by $1$.
+			\item If $L$ has a zero, we define $0_L \in L$ to be the unique $a \in L$ such that $a$ is a zero of $L$. 
+			\item If $L$ has a one, we define $1_L \in L$ to be the unique $a \in L$ such that $a$ is a one of $L$. 
 		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we may write $0$ and $1$ in place of $0_L$ and $1_L$ respectively.
 	\end{note}
 	
 	\begin{defn}
@@ -3930,6 +5165,351 @@
 	
 	
 	
+	\subsection{Modular and Distributive Lattices}
+	
+	\subsection{Introduction}
+	
+	\begin{defn}
+		Let $L$ be a lattice. Then $L$ is said to be a \tbf{distributive lattice} if for each $a,b,c \in L$, $a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then for each $a,b,c \in L$,
+		\begin{enumerate}
+			\item $(a \wedge b) \vee (a \wedge c) \leq a \wedge (b \vee c)$.
+			\item $a \wedge (b \vee c) \leq (a \vee b) \wedge (a \vee c)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} Let $a,b,c \in L$.
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item Since $a \wedge b \leq a$ and $a \wedge c \leq a$, we have that $a \in \ubd \{a \wedge b, a \wedge c \}$. Therefore 
+				\begin{align*}
+					(a \wedge b) \vee (a \wedge c) 
+					& = \sup \{a \wedge b, a \wedge c \} \\
+					& \leq a.
+				\end{align*}
+				\item Since  
+				\begin{align*}
+					a \wedge b 
+					& \leq b \\
+					& \leq b \vee c
+				\end{align*}
+				and 
+				\begin{align*}
+					a \wedge c 
+					& \leq c \\
+					& \leq b \vee c,
+				\end{align*}
+				we have that $b \vee c \in \ubd \{a \wedge b, a \wedge c\}$. Therefore 
+				\begin{align*}
+					(a \wedge b) \vee (a \wedge c) 
+					& = \sup \{a \wedge b, a \wedge c \} \\
+					& \leq b \vee c. 
+				\end{align*}
+			\end{itemize}
+			Then $(a \wedge b) \vee (a \wedge c) \in \lbd\{a, b \vee c\}$. Hence 
+			\begin{align*}
+				(a \wedge b) \vee (a \wedge c) 
+				& \leq \inf \{a, b \vee c\} \\
+				& = a \wedge (b \vee c).
+			\end{align*}
+			\item \tcr{FINISH!!! (use duality)}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then for each $a,b,c \in L$,
+		\begin{enumerate}
+			\item $c \leq a$ implies that $(a \wedge b) \vee c \leq a \wedge (b \vee c)$
+			\item $a \leq c$ implies that $a \vee (b \wedge c) \leq (a \vee b) \wedge c$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Let $a,b,c \in L$. 
+		\begin{enumerate}
+			\item Suppose that $c \leq a$. Then $a \wedge c = c$. \tcr{The previous exercise then implies that}
+			\begin{align*}
+				(a \wedge b) \vee c
+				& = (a \wedge b) \vee (a \wedge c) \\
+				& \leq a \wedge (b \vee c).
+			\end{align*}
+			\item \tcr{FINISH!!! use duality}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then for each $a,b,c \in L$, 
+		$$(a \wedge b) \vee (b \wedge c) \vee (c \wedge a) \leq (a \vee b) \wedge (b \vee c) \wedge (c \vee a).$$
+	\end{ex}
+	
+	\begin{proof}
+		Let $a,b,c \in L$.
+		\begin{itemize}
+			\item We first note that
+			\begin{align*}
+				a \wedge b \leq a \leq a \vee b, \\
+				b \wedge c \leq b \leq a \vee b, \\
+				c \wedge a \leq a \leq a \vee b.
+			\end{align*}
+			Therefore $a \vee b \in \ubd \{a \wedge b, b \wedge c, c \wedge a\}$ and
+			\begin{align*}
+				(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
+				& = \sup \{a \wedge b, b \wedge c, c \wedge a\} \\
+				& \leq a \vee b.
+			\end{align*}
+			\item Similarly, 
+			\begin{align*}
+				a \wedge b \leq b \leq b \vee c, \\
+				b \wedge c \leq c \leq b \vee c, \\
+				c \wedge a \leq c \leq b \vee c.
+			\end{align*}
+			Therefore $b \vee c \in \ubd \{a \wedge b, b \wedge c, c \wedge a\}$ and
+			\begin{align*}
+				(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
+				& = \sup \{a \wedge b, b \wedge c, c \wedge a\} \\
+				& \leq b \vee c.
+			\end{align*}
+			\item Finally, we have that
+			\begin{align*}
+				a \wedge b \leq a \leq c \vee a, \\
+				b \wedge c \leq c \leq c \vee a, \\
+				c \wedge a \leq c \leq c \vee a.
+			\end{align*}
+			Therefore $c \vee a \in \ubd \{a \wedge b, b \wedge c, c \wedge a\}$ and
+			\begin{align*}
+				(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
+				& = \sup \{a \wedge b, b \wedge c, c \wedge a\} \\
+				& \leq c \vee a.
+			\end{align*}
+		\end{itemize}
+		Hence $(a \wedge b) \vee (b \wedge c) \vee (c \wedge a) \in \lbd \{a \vee b, b \vee c, c \vee a\}$ and 
+		\begin{align*}
+			(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
+			& \leq \inf \{a \vee b, b \vee c, c \vee a\} \\
+			& = (a \vee b) \wedge (b \vee c) \wedge (c \vee a).
+		\end{align*}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then the following are equivalent:
+		\begin{enumerate}
+			\item For each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$.
+			\item For each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
+			\item For each $p,q,r \in L$, $p \wedge (q \vee (p \wedge r)) = (p \wedge q) \vee (p \wedge r)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item $(1) \implies (2)$: \\
+			Suppose that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$. Let $a,b,c \in L$. Suppose that $c \leq a$. Then $a \wedge c = c$. By assumption 
+			\begin{align*}
+				a \wedge (b \vee c) 
+				& = (a \wedge b) \vee c \\
+				& = (a \wedge b) \vee (a \wedge c)
+			\end{align*}
+			Since $a,b,c \in L$ with $c \leq a$ are arbitrary, we have that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
+			\item $(2) \implies (3)$: \\
+			Suppose that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$. Let $p,q,r \in L$. Define $a,b,c \in L$ by $a \defeq p$, $b \defeq q$ and $c \defeq p \wedge r$. Then 
+			\begin{align*}
+				a \wedge c
+				& = p \wedge (p \wedge r) \\
+				& = (p \wedge p) \wedge r \\
+				& = p \wedge r.
+			\end{align*}
+			By assumption,
+			\begin{align*}
+				p \wedge (q \vee (p \wedge r))
+				& = a \wedge (b \vee c) \\
+				& = (a \wedge b) \vee (a \wedge c) \\
+				& = (p \wedge q) \vee (p \wedge r).
+			\end{align*}
+			Since $p,q,r \in L$ are arbitrary, we have that for each $p,q,r \in L$, $p \wedge (q \vee (p \wedge r)) = (p \wedge q) \vee (p \wedge r)$.
+			\item $(3) \implies (1)$: \\
+			Suppose that for each $p,q,r \in L$, $p \wedge (q \vee (p \wedge r)) = (p \wedge q) \vee (p \wedge r)$. Let $a,b,c \in L$. Suppose that $c \leq a$. Define $p,q,r \in L$ by $p \defeq a$, $q \defeq b$ and $r \defeq c$. Since $c \leq a$, we have that 
+			\begin{align*}
+				p \wedge r
+				& = a \wedge c \\
+				& = c.
+			\end{align*}
+			By assumption, 
+			\begin{align*}
+				a \wedge (b \vee c)
+				& = p \wedge (q \vee (p \wedge r)) \\
+				& = (p \wedge q) \vee (p \wedge r) \\
+				& = (a \wedge b) \vee c.
+			\end{align*}
+			Since $a,b,c \in L$ with $c \leq a$ are arbitrary, we have that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $L$ be a lattice. Then $L$ is said to be \tbf{modular} if for each $a,b,c \in L$, 
+		$$\text{$c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$.}$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then the following are equivalent:
+		\begin{enumerate}
+			\item For each $a,b,c \in L$, $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
+			\item For each $p,q,r \in L$, $p \vee (q \wedge r) = (p \vee q) \wedge (p \vee r)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item $(1) \implies (2)$: \\
+			Suppose that for each $a,b,c \in L$, $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$. Let $p,q,r \in L$. Define $a,b,c \in L$ by $a \defeq p \vee q$, $b \defeq p$ and $c \defeq r$. By absorption, 
+			\begin{align*}
+				a \wedge b
+				& = (p \vee q) \wedge p \\
+				& = p \wedge (p \vee q) \\
+				& = p.
+			\end{align*}
+			By assumption,
+			\begin{align*}
+				a \wedge c
+				& = (p \vee q) \wedge r \\
+				& = r \wedge (p \vee q) \\
+				& = (r \wedge p) \vee (r \wedge q).
+			\end{align*}
+			Then by assumption and absorption,
+			\begin{align*}
+				(p \vee q) \wedge (p \vee r)
+				& = a \wedge (b \vee c) \\
+				& = (a \wedge b) \vee (a \wedge c) \\
+				& = p \vee [(r \wedge p) \vee (r \wedge q)] \\
+				& = [p \vee (r \wedge p)] \vee (r \wedge q) \\
+				& = [p \vee (p \wedge r)] \vee (q \wedge r) \\
+				& = p \vee (q \wedge r).
+			\end{align*}
+			Since $p,q,r \in L$ are arbitrary, we have that for each $p,q,r \in L$, $p \vee (q \wedge r) = (p \vee q) \wedge (p \vee r)$.
+			\item $(2) \implies (1)$: \\
+			Suppose that for each $p,q,r \in L$, $p \vee (q \wedge r) = (p \vee q) \wedge (p \vee r)$. Let $a,b,c \in L$. Define $p,q,r \in L$ by $p \defeq a \wedge b$, $q \defeq a$ and $r \defeq c$. 
+			By absorption, 
+			\begin{align*}
+				p \vee q
+				& = (a \wedge b) \vee a \\
+				& = a \vee (a \wedge b) \\
+				& = a.
+			\end{align*}
+			By assumption,
+			\begin{align*}
+				p \vee r
+				& = (a \wedge b) \vee c \\
+				& = c \vee (a \wedge b) \\
+				& = (c \vee a) \wedge (c \vee b).
+			\end{align*}
+			Then by assumption and absorption,
+			\begin{align*}
+				(a \wedge b) \vee (a \wedge c)
+				& = p \vee (q \wedge r) \\
+				& = (p \vee q) \wedge (p \vee r) \\
+				& = a \wedge [(c \vee a) \wedge (c \vee b)] \\
+				& = [a \wedge (c \vee a)] \wedge (c \vee b) \\
+				& = [a \wedge (a \vee c)] \wedge (b \vee c) \\
+				& = a \wedge (b \vee c).
+			\end{align*}
+			Since $a,b,c \in L$ are arbitrary, we have that for each $a,b,c \in L$, $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $L$ be a lattice. Then $L$ is said to be \tbf{distributive} if for each $a,b,c \in L$, 
+		$$a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c).$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $L$ be a lattice. If $L$ is distributive, then $L$ is modular. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $L$ is distributive. \tcr{FINISH!!!}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then for each $a,b,c \in L$, $a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$ iff $a \wedge (b \vee c) = (a \wedge b) \vee (a \vee c)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $a,b,c \in L$.
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$. 
+			\item $(\impliedby)$: \\
+			
+		\end{itemize}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Heyting Algebras}
+	
+	\begin{defn}
+		Let $(L, \vee, \wedge)$ be a lattice and $\rightarrow: L \times L \rightarrow L$. Then 
+		\begin{itemize}
+			\item $\rightarrow$ is said to be a \tbf{$(L, \vee, \wedge)$-Heyting implication operator} if for each $a, x, y \in L$, $(x \wedge a) \leq y$ iff $x \leq (a \rightarrow y)$.
+			\item $(L, \vee, \wedge, \rightarrow)$ is said to be a \tbf{Heyting algebra} if $\rightarrow: L \times L \rightarrow L$ is a $(L, \vee, \wedge)$-Heyting implication operator.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $(L, \vee, \wedge, \rightarrow)$ be a Heyting algebra. Then $(L, \vee, \wedge)$ is a lattice with $0$ and $1$.  
+		\tbf{$a \rightarrow a$ is a zero of $L$}
+	\end{ex}
+	
+	\begin{proof}
+		
+	\end{proof}
 	
 	
 	
@@ -3986,6 +5566,100 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Boolean Algebras}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	
+	\section{Lattice Structures}
 	
 	\subsection{Irreducibility and Primality}
 	
@@ -4143,10 +5817,7 @@
 	
 	
 	
-	\newpage
-	\section{Lattice Ideals and Filters}
-
-	\subsection{Introduction}
+	\subsection{Lattice Ideals and Filters}
 	
 	\begin{defn}
 		Let $L$ be a lattice.  
@@ -4785,7 +6456,7 @@
 		\end{enumerate}  
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{itemize}
 			\item $(\implies)$: \\
 			Suppose that $(M, \vee_M, \wedge_M)$ is a sublattice of $L$. 
@@ -4826,14 +6497,8 @@
 		\tcr{FINISH!!!!}
 	\end{proof}
 	
-	\begin{defn}
-		Let $(L, \vee_L, \wedge_L)$ and $(M, \vee_M, \wedge_M)$ be lattices. Then $(M, \vee_M, \wedge_M)$ is a sublattice of $(L, \vee_L, \wedge_L)$ if 
-		\begin{enumerate}
-			\item $M \subset L$
-			\item $\vee_L|_{M^2} = \vee_M$ and $\wedge_L|_{M^2} = \wedge_M$. 
-		\end{enumerate}  
-	\end{defn}
-	
+	\tcr{need to make preliminary ex showing that if $M \subset L$, $M \neq \varnothing$ and $\vee(M^2), \wedge(M ^2) \subset M$, then $(M, \vee|_{M^2}, \wedge|_{M^2})$} is a lattice
+
 	\begin{ex}
 		Let $(L, \vee, \wedge)$ be a lattice and $M \subset L$. Then $(M, \vee|_{M^2}, \wedge|_{M^2})$ is a sublattice of $(L, \vee, \wedge)$ iff
 		\begin{enumerate}
@@ -4914,347 +6579,18 @@
 	
 	
 	
-	\section{Modular and Distributive Lattices}
-	
-	\subsection{Introduction}
-	
-	\begin{defn}
-		Let $L$ be a lattice. Then $L$ is said to be a \tbf{distributive lattice} if for each $a,b,c \in L$, $a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$.
-	\end{defn}
-	
-	\begin{ex}
-		Let $L$ be a lattice. Then for each $a,b,c \in L$,
-		\begin{enumerate}
-			\item $(a \wedge b) \vee (a \wedge c) \leq a \wedge (b \vee c)$.
-			\item $a \wedge (b \vee c) \leq (a \vee b) \wedge (a \vee c)$
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof} Let $a,b,c \in L$.
-		\begin{enumerate}
-			\item 
-			\begin{itemize}
-				\item Since $a \wedge b \leq a$ and $a \wedge c \leq a$, we have that $a \in \ubd \{a \wedge b, a \wedge c \}$. Therefore 
-				\begin{align*}
-					(a \wedge b) \vee (a \wedge c) 
-					& = \sup \{a \wedge b, a \wedge c \} \\
-					& \leq a.
-				\end{align*}
-				\item Since  
-				\begin{align*}
-					a \wedge b 
-					& \leq b \\
-					& \leq b \vee c
-				\end{align*}
-				and 
-				\begin{align*}
-					a \wedge c 
-					& \leq c \\
-					& \leq b \vee c,
-				\end{align*}
-				we have that $b \vee c \in \ubd \{a \wedge b, a \wedge c\}$. Therefore 
-				\begin{align*}
-					(a \wedge b) \vee (a \wedge c) 
-					& = \sup \{a \wedge b, a \wedge c \} \\
-					& \leq b \vee c. 
-				\end{align*}
-			\end{itemize}
-			Then $(a \wedge b) \vee (a \wedge c) \in \lbd\{a, b \vee c\}$. Hence 
-			\begin{align*}
-				(a \wedge b) \vee (a \wedge c) 
-				& \leq \inf \{a, b \vee c\} \\
-				& = a \wedge (b \vee c).
-			\end{align*}
-			\item \tcr{FINISH!!! (use duality)}
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex}
-		Let $L$ be a lattice. Then for each $a,b,c \in L$,
-		\begin{enumerate}
-			\item $c \leq a$ implies that $(a \wedge b) \vee c \leq a \wedge (b \vee c)$
-			\item $a \leq c$ implies that $a \vee (b \wedge c) \leq (a \vee b) \wedge c$
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}
-		Let $a,b,c \in L$. 
-		\begin{enumerate}
-			\item Suppose that $c \leq a$. Then $a \wedge c = c$. \tcr{The previous exercise then implies that}
-			\begin{align*}
-				(a \wedge b) \vee c
-				& = (a \wedge b) \vee (a \wedge c) \\
-				& \leq a \wedge (b \vee c).
-			\end{align*}
-			\item \tcr{FINISH!!! use duality}
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex}
-		Let $L$ be a lattice. Then for each $a,b,c \in L$, 
-		$$(a \wedge b) \vee (b \wedge c) \vee (c \wedge a) \leq (a \vee b) \wedge (b \vee c) \wedge (c \vee a).$$
-	\end{ex}
-	
-	\begin{proof}
-		Let $a,b,c \in L$.
-		\begin{itemize}
-			\item We first note that
-			\begin{align*}
-				a \wedge b \leq a \leq a \vee b, \\
-				b \wedge c \leq b \leq a \vee b, \\
-				c \wedge a \leq a \leq a \vee b.
-			\end{align*}
-			Therefore $a \vee b \in \ubd \{a \wedge b, b \wedge c, c \wedge a\}$ and
-			\begin{align*}
-				(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
-				& = \sup \{a \wedge b, b \wedge c, c \wedge a\} \\
-				& \leq a \vee b.
-			\end{align*}
-			\item Similarly, 
-			\begin{align*}
-				a \wedge b \leq b \leq b \vee c, \\
-				b \wedge c \leq c \leq b \vee c, \\
-				c \wedge a \leq c \leq b \vee c.
-			\end{align*}
-			Therefore $b \vee c \in \ubd \{a \wedge b, b \wedge c, c \wedge a\}$ and
-			\begin{align*}
-				(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
-				& = \sup \{a \wedge b, b \wedge c, c \wedge a\} \\
-				& \leq b \vee c.
-			\end{align*}
-			\item Finally, we have that
-			\begin{align*}
-				a \wedge b \leq a \leq c \vee a, \\
-				b \wedge c \leq c \leq c \vee a, \\
-				c \wedge a \leq c \leq c \vee a.
-			\end{align*}
-			Therefore $c \vee a \in \ubd \{a \wedge b, b \wedge c, c \wedge a\}$ and
-			\begin{align*}
-				(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
-				& = \sup \{a \wedge b, b \wedge c, c \wedge a\} \\
-				& \leq c \vee a.
-			\end{align*}
-		\end{itemize}
-		Hence $(a \wedge b) \vee (b \wedge c) \vee (c \wedge a) \in \lbd \{a \vee b, b \vee c, c \vee a\}$ and 
-		\begin{align*}
-			(a \wedge b) \vee (b \wedge c) \vee (c \wedge a)
-			& \leq \inf \{a \vee b, b \vee c, c \vee a\} \\
-			& = (a \vee b) \wedge (b \vee c) \wedge (c \vee a).
-		\end{align*}
-	\end{proof}
-	
-	\begin{ex}
-		Let $L$ be a lattice. Then the following are equivalent:
-		\begin{enumerate}
-			\item For each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$.
-			\item For each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
-			\item For each $p,q,r \in L$, $p \wedge (q \vee (p \wedge r)) = (p \wedge q) \vee (p \wedge r)$.
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item $(1) \implies (2)$: \\
-			Suppose that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$. Let $a,b,c \in L$. Suppose that $c \leq a$. Then $a \wedge c = c$. By assumption 
-			\begin{align*}
-				a \wedge (b \vee c) 
-				& = (a \wedge b) \vee c \\
-				& = (a \wedge b) \vee (a \wedge c)
-			\end{align*}
-			Since $a,b,c \in L$ with $c \leq a$ are arbitrary, we have that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
-			\item $(2) \implies (3)$: \\
-			Suppose that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$. Let $p,q,r \in L$. Define $a,b,c \in L$ by $a \defeq p$, $b \defeq q$ and $c \defeq p \wedge r$. Then 
-			\begin{align*}
-				a \wedge c
-				& = p \wedge (p \wedge r) \\
-				& = (p \wedge p) \wedge r \\
-				& = p \wedge r.
-			\end{align*}
-			By assumption,
-			\begin{align*}
-				p \wedge (q \vee (p \wedge r))
-				& = a \wedge (b \vee c) \\
-				& = (a \wedge b) \vee (a \wedge c) \\
-				& = (p \wedge q) \vee (p \wedge r).
-			\end{align*}
-			Since $p,q,r \in L$ are arbitrary, we have that for each $p,q,r \in L$, $p \wedge (q \vee (p \wedge r)) = (p \wedge q) \vee (p \wedge r)$.
-			\item $(3) \implies (1)$: \\
-			Suppose that for each $p,q,r \in L$, $p \wedge (q \vee (p \wedge r)) = (p \wedge q) \vee (p \wedge r)$. Let $a,b,c \in L$. Suppose that $c \leq a$. Define $p,q,r \in L$ by $p \defeq a$, $q \defeq b$ and $r \defeq c$. Since $c \leq a$, we have that 
-			\begin{align*}
-				p \wedge r
-				& = a \wedge c \\
-				& = c.
-			\end{align*}
-			By assumption, 
-			\begin{align*}
-				a \wedge (b \vee c)
-				& = p \wedge (q \vee (p \wedge r)) \\
-				& = (p \wedge q) \vee (p \wedge r) \\
-				& = (a \wedge b) \vee c.
-			\end{align*}
-			Since $a,b,c \in L$ with $c \leq a$ are arbitrary, we have that for each $a,b,c \in L$, $c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{defn}
-		Let $L$ be a lattice. Then $L$ is said to be \tbf{modular} if for each $a,b,c \in L$, 
-		$$\text{$c \leq a$ implies that $a \wedge (b \vee c) = (a \wedge b) \vee c$.}$$
-	\end{defn}
-	
-	\begin{ex}
-		Let $L$ be a lattice. Then the following are equivalent:
-		\begin{enumerate}
-			\item For each $a,b,c \in L$, $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
-			\item For each $p,q,r \in L$, $p \vee (q \wedge r) = (p \vee q) \wedge (p \vee r)$.
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item $(1) \implies (2)$: \\
-			Suppose that for each $a,b,c \in L$, $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$. Let $p,q,r \in L$. Define $a,b,c \in L$ by $a \defeq p \vee q$, $b \defeq p$ and $c \defeq r$. By absorption, 
-			\begin{align*}
-				a \wedge b
-				& = (p \vee q) \wedge p \\
-				& = p \wedge (p \vee q) \\
-				& = p.
-			\end{align*}
-			By assumption,
-			\begin{align*}
-				a \wedge c
-				& = (p \vee q) \wedge r \\
-				& = r \wedge (p \vee q) \\
-				& = (r \wedge p) \vee (r \wedge q).
-			\end{align*}
-			Then by assumption and absorption,
-			\begin{align*}
-				(p \vee q) \wedge (p \vee r)
-				& = a \wedge (b \vee c) \\
-				& = (a \wedge b) \vee (a \wedge c) \\
-				& = p \vee [(r \wedge p) \vee (r \wedge q)] \\
-				& = [p \vee (r \wedge p)] \vee (r \wedge q) \\
-				& = [p \vee (p \wedge r)] \vee (q \wedge r) \\
-				& = p \vee (q \wedge r).
-			\end{align*}
-			Since $p,q,r \in L$ are arbitrary, we have that for each $p,q,r \in L$, $p \vee (q \wedge r) = (p \vee q) \wedge (p \vee r)$.
-			\item $(2) \implies (1)$: \\
-			Suppose that for each $p,q,r \in L$, $p \vee (q \wedge r) = (p \vee q) \wedge (p \vee r)$. Let $a,b,c \in L$. Define $p,q,r \in L$ by $p \defeq a \wedge b$, $q \defeq a$ and $r \defeq c$. 
-			By absorption, 
-			\begin{align*}
-				p \vee q
-				& = (a \wedge b) \vee a \\
-				& = a \vee (a \wedge b) \\
-				& = a.
-			\end{align*}
-			By assumption,
-			\begin{align*}
-				p \vee r
-				& = (a \wedge b) \vee c \\
-				& = c \vee (a \wedge b) \\
-				& = (c \vee a) \wedge (c \vee b).
-			\end{align*}
-			Then by assumption and absorption,
-			\begin{align*}
-				(a \wedge b) \vee (a \wedge c)
-				& = p \vee (q \wedge r) \\
-				& = (p \vee q) \wedge (p \vee r) \\
-				& = a \wedge [(c \vee a) \wedge (c \vee b)] \\
-				& = [a \wedge (c \vee a)] \wedge (c \vee b) \\
-				& = [a \wedge (a \vee c)] \wedge (b \vee c) \\
-				& = a \wedge (b \vee c).
-			\end{align*}
-			Since $a,b,c \in L$ are arbitrary, we have that for each $a,b,c \in L$, $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{defn}
-		Let $L$ be a lattice. Then $L$ is said to be \tbf{distributive} if for each $a,b,c \in L$, 
-		$$a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c).$$
-	\end{defn}
-	
-	\begin{ex}
-		Let $L$ be a lattice. If $L$ is distributive, then $L$ is modular. 
-	\end{ex}
-	
-	\begin{proof}
-		Suppose that $L$ is distributive. \tcr{FINISH!!!}
-	\end{proof}
-	
-	\begin{ex}
-		Let $L$ be a lattice. Then for each $a,b,c \in L$, $a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$ iff $a \wedge (b \vee c) = (a \wedge b) \vee (a \vee c)$.
-	\end{ex}
-	
-	\begin{proof}
-		Let $a,b,c \in L$.
-		\begin{itemize}
-			\item $(\implies)$: \\
-			Suppose that $a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$. 
-			\item $(\impliedby)$: \\
-			
-		\end{itemize}
-	\end{proof}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	\newpage
 	\chapter{Complete Lattices}
+	
+	\tcr{maybe move complete lattices to order chapter? two choices: 
+		\vspace{.5cm}
+		a) cover complete lattices after order and before other structures (including lattices?) so that we can define the 'subgroup/ring/lattice generated by a subset' or a 'subquiver genereated by a sub set of vertices/edges' using the ideas of galois connection between two posets, one of which has extra structure
+		\vspace{1cm}
+		b) cover complete lattices after algebraic structures with lattices and note that we can capture all the subobjects with the notion of galois connection between complete lattices and give groups, rings etc as fundamental examples of complete lattices. \\ 
+		\vspace{1cm} 
+		idk which is best option, it might make more sense to keep complete lattices after lattices, since we can talk about completely prime ideals and other lattice-type objects, and we can give fundamental examples of complete lattices that were discussed prior like groups/rings/lattice ideals/etc}
 	
 	\section{Introduction}
 	
@@ -5368,34 +6704,144 @@
 		\end{enumerate}
 	\end{defn}
 	
-	
 	\begin{ex}
-		Let $(X, \leq_X), (Y, \leq_Y)$ be complete lattices, $f:X \rightarrow Y$ and $g: Y \rightarrow X$. 
+		Let $(X, \leq_X), (Y, \leq_Y)$ be complete lattices and $f:X \rightarrow Y$. Then 
 		\begin{enumerate}
-			\item If $f$ is arbitrary join preserving, then there exists $f_*: Y \rightarrow X$ such that $g$ is a right adjoint of $f$. 
-			\item If $g$ is arbitrary meet preserving, then there exists $g^*: X \rightarrow Y$ such that $g$ is a left adjoint of $g$. 
+			\item $f$ is $(\leq_X, \leq_Y)$-arbitrary join preserving iff $f$ is $(\lop_X, \lop_Y)$-arbitrary meet preserving.
+			\item $f$ is $(\leq_X, \leq_Y)$-arbitrary meet preserving iff $f$ is $(\lop_X, \lop_Y)$-arbitrary join preserving.
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
-			\item Suppose that 
 			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $f$ is $(\leq_X, \leq_Y)$-arbitrary join preserving. Then \tcr{a prev ex in poset section on suprema} implies that for each $A \subset X$, 
+				\begin{align}
+					f(\inf(A, \lop_X))
+					& = f(\sup (A, \leq_X)) \\
+					& = \sup(f(A), \leq_Y) \\
+					& = \inf(f(A), \lop_Y).
+				\end{align}
+				Hence $f$ is $(\lop_X, \lop_Y)$-arbitrary meet preserving.
+				\item $(\impliedby)$: \\
+				Similar to $(\implies)$. \tcr{ref}.
+			\end{itemize}
+			\item Similar to $(1)$. \tcr{ref}.
 		\end{enumerate}
 	\end{proof}
 	
 	
-	
-	
-	
 	\begin{ex}
-		\tcr{move to section on complete lattices}
-		Let $(X, \leq_X)$ and $(Y, \leq_Y)$ be posets, $f: X \rightarrow Y$. Then there exists $g:Y \rightarrow X$ such that $(f,g)$ is a monotone galois connection iff $f$ preserves arbitrary joins. 
+		Let $(X, \leq_X), (Y, \leq_Y)$ be complete lattices.
+		\begin{enumerate}
+			\item For each $f:X \rightarrow Y$, $f$ is arbitrary join preserving iff $f$ has a right adjoint. 
+			\item For each $g:Y \rightarrow X$, $g$ is arbitrary meet preserving iff $g$ has a left adjoint. 
+		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
-		
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Let $f:X \rightarrow Y$. Suppose that $f$ is arbitrary join preserving. \tcr{an ex in subsection on semilattice homomorphisms} \rex{} implies that $f$ is monotone. Let $b \in Y$. \rex{ex:orderings:posets:0008} implies that $\sup \doar b = b$. Define $a \in X$ by $a \defeq \sup f^{-1}(\doar b)$. 
+				\begin{itemize}
+					\item Let $x \in f^{-1}(\doar b)$. Then 
+					\begin{align*}
+						x 
+						& \leq \sup f^{-1}(\doar b) \\
+						& = a.
+					\end{align*}
+					Thus $x \in \doar a$. Since $x \in f^{-1}(\doar b)$ is arbitrary, we have that for each $x \in f^{-1}(\doar b)$, $x \in \doar a$. Hence $f^{-1}(\doar b) \subset \doar a$. 
+					\item We note that for each $x \in X$,
+					\begin{align*}
+						x \in \doar a
+						& \iff x \leq_X a \\
+						& \implies f(x) \leq_Y f(a).
+					\end{align*}
+					Let $x \in \doar a$. \tcr{An exercise in basic set theory ex} implies that $f(f^{-1}(\doar b)) \subset \doar b$. \rex{ex:orderings:posets:0006.2} then implies that 
+					\begin{align*}
+						f(x) 
+						& \leq_Y f(a) \\
+						& = f(\sup f^{-1}(\doar b) ) \\
+						& = \sup f (f^{-1}(\doar b)) \\
+						& \leq \sup \doar b \\
+						& = b.
+					\end{align*}
+					Then $f(x) \in \doar b$. Hence $x \in f^{-1}(\doar b)$. Since $x \in \doar a$ is arbitrary, we have that for each $x \in \doar a$, $x \in f^{-1}(\doar b)$. Hence $\doar a \subset f^{-1}(\doar b)$. 
+				\end{itemize}  
+				Since $f^{-1}(\doar b) \subset \doar a$ and $\doar a \subset f^{-1}(\doar b)$, we have that $f^{-1}(\doar b) = \doar a$. Since $b \in Y$ is arbitrary, we have that for each $b \in Y$, there exists $a \in X$ such that $f^{-1}(\doar b) = \doar a$. \tcr{A prev ex in proset section on galois connections} \rex{} then implies that $f$ has a right adjoint.
+				\item $(\impliedby)$: \\
+				Suppose that $f$ has a right adjoint. Then there exists $f_*: Y \rightarrow X$ such that $(f, f_*)$ is a monotone Galois connection. \rex{ex:orderings:posets:0010} implies that for each $A \subset X$, $f(\sup A) = \sup f(A)$. Hence $f$ is arbitrary join preserving.
+			\end{itemize}
+			\item Let $g:Y \rightarrow X$. \tcr{the prev part, the prev ex and an ex in galois connection poset subsection} imply that
+			\begin{align*}
+				\text{$g$ is $(\leq_Y, \leq_X)$-arbitrary meet preserving}
+				& \iff \text{$g$ is $(\lop_Y, \lop_X)$-arbitrary join preserving} \\
+				& \iff \text{$g$ has a $(\lop_Y, \lop_X)$-right adjoint} \\
+				& \iff \text{there exists $g^*: X \rightarrow Y$ such that} \\
+				& \quad \quad \text{$(g, g^*)$ is a $(\lop_Y, \lop_X)$-monotone Galois connection} \\
+				& \iff \text{there exists $g^*: X \rightarrow Y$ such that} \\
+				& \quad \quad \text{$(g^*, g)$ is a $(\leq_X, \leq_Y)$-monotone Galois connection} \\
+				& \iff \text{$g$ has a $(\leq_X, \leq_Y)$-left adjoint}.
+			\end{align*}
+			Since $g:Y \rightarrow X$ is arbitrary, we have that for each $g:Y \rightarrow X$, $g$ is $(\leq_Y, \leq_X)$-arbitrary meet preserving iff there exists $g^*: Y \rightarrow X$ such that $g^*$ is a $(\leq_X, \leq_Y)$-left adjoint of $g$.
+		\end{enumerate}
 	\end{proof}
+	
+	\begin{ex}
+		Let $(X, \leq_X), (Y, \leq_Y)$ be complete lattices, $f:X \rightarrow Y$ and $g: Y \rightarrow X$. Suppose that $(f,g)$ is a monotone Galois connection. 
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item 
+				\item 
+			\end{enumerate}
+			\item 
+			\begin{enumerate}
+				\item $g(1_Y) = 1_X$ iff
+				\item 
+			\end{enumerate}
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{ex}
+		show that if $g$ is a right adjoint, then $g(\inf \upar x) = \inf g(\upar x) = \inf \upar(g(x)) = g(x)$
+	\end{ex}
+	
+	\begin{ex}
+		
+	\end{ex}
+	
+	\tcr{try to capture idea of a forgetful functor in terms of posets. If we go from groups to sets, we 'lose information' a group with a relations (i.e. a quotient group) is somehow 'more informative' than the free group. So if I send a set to a group in the least informative way (i.e. in a way which preserves as much entropy as possible) then we should get the free group, anything else would be more informative, with a loss of entropy. So quotient objects of a free object can maybe be characterized by some loss of entropy}.\\
+	
+	For example in $\Set$, $A \subset B$ (i.e $A$ is a subobject of $B$) is equivalent to saying that $A$ is a quotient of $B$ in the opposite category, which is equivalent to the complete atomic boolean algebras, or the power set, so that if $\iota:A \rightarrow B$ is a monomorphism in $\Set$, then $\iota^{-1}: \MP(B) \rightarrow \MP(A)$ is an epimorphism in complete atomic boolean lattices and we think of $\MP(A)$ as a quotient of $\MP(B)$. So in this sense $\MP(A)$ has less information or is less informative that $\MP(B)$  (i.e. $A$ is less informative than $B$ in $\op{\Set}$.)
+	
+	If $(X, x)$ is a set $X$ with some structure $x$, and $(A, a)$ is in the same category $\MC$ (which we order by information level) and we can think of $(A, a)$ as a quotient of $(X, x)$, so it is less informative as a structured object $(A, a) \leq_{\leq_{\text{info} \MC}} (X, x)$, then if we change the context (apply a covariant functor) to land in $\op{Set}$ and think of $A$ quotient of $X$, (i.e. $A$ is subset of $X$ in $\Set$), so that $A \leq_{\text{info} \op{\Set}} B$. Then we would like an adjoint of $F$ in the sense of a poset so that we obtain the other half a monotone galois connection $G: \op{\Set} \rightarrow \MC$. The idea here is that the order $\leq_{\text{info} \op{\Set}}$ on $\op{Set}$ is a part of $\leq_{\text{info} \MC}$, that is $\leq_{\text{info} \MC}$ is $\leq_{\text{info} \op{\Set}}$ plus some extra order information \\
+	
+	i.e. a restriction in some sense so $(A,a) \leq_{\MC} (B,b)$ (i.e. there is a quotient from B to A, like free group to abelianization) implies $A \leq_{\op{Set}} B$. So then that $\leq_{\MC} \subset \leq_{\op{Set}}$ (in some sense), so that $\ubd((A, a), \leq_{\MC}) \subset \ubd(A, \leq_{\op{Set}})$ in some sense as sets, so that $\inf( \ubd(A, \leq_{\op{Set}}) \leq_{\op{Set}} \inf( \ubd((A, a), \leq_{\MC}))) = A$. Then if we have a right adjoint $G: (\op{\Set}, \leq_{\op{\Set}}) \rightarrow (\MC, \leq_{\MC})$, which preserves meets and is monotone, we would have that (considering $\leq_{\MC}$ as a subset of $\leq_{\op{Set}}$)
+	\begin{align*}
+		G(A)
+		& = G(\inf \ubd(A, \leq_{\MC}), \leq_{\MC}) \\
+		& = \inf (G(\ubd(A, \leq_{\MC}), \leq_{\MC})) \\
+		& \geq \inf (G (\ubd(A, \leq_{\MC})), \leq_{\MC})
+	\end{align*}
+	idk, I think we can show this aligns with the (least informative object $(B,b)$ in $\MC$ which is "above" $A$, i.e. the structured object $(B,b)$ generated by $A$), i.e. the structured object "above" $A$ with the least entropy gained from the minimum or zero structured element in the poset.
+	
+	Try to show that a disintegration of measure, i.e. a conditional probability is the kind of the opposite or dual of this, i.e. it is the highest structured object (markov kernel + data) sitting below an unstructured object (markov kernel of a measure), so that going from (kernel + data) to disintegration results in the least entropy lost, maybe this is related to kl divergence as a measure of entropy loss, see baez/leinster/fritz paper.  \\
+	
+	In the case of statistics and say maximum likeliood estimation, and kl divergence as loss of estimate $\hat{\th}(x_j:j \in \N):(X, P_{\th}) \rightarrow (X, P_{\hat{\th}})$, there shold be a categorical way of rephrasing so that the observed data $(x_j)_{j \in \N} \subset X$ could perhaps be viewed as maps $x_j:(\Lam, \mu) \rightarrow (X, P_{\th})$, so that $\hat{\th}: \bigg[ \prod\limits_{j \in \N} \Hom((\Lam, \mu), (X, P_{\th})) \bigg] \times (X, P_{\th}) \rightarrow (X, P_{\hat{\th}})$
+	
+	We should be able to do the same in a different context, say the true group $(G, \cdot)$ is unknown, but we observe the elements of $G$ and the fact that for each $a,b \in G$, $a \cdot b = b \cdot a$ (i.e. we are given the proposition that $G$ is commutative), then what would be the best estimate for $G$ under this information in the sense of minimizing info loss (i.e. maybe occams razor?)? Well it would probably be the free abelian group. Any further processed abelian group, (i.e. a quotient of the free abelian group) would lose more info, so even though the trivial group also satisfies the observation, it is suboptimal because we lose basically all info about $G$. Need a way to quantify info loss in this way. What would the analogouse 'data' be? here it seems we need a way to view relations about elements as a morphism into $G$ from some other object, like in the case of statistics.
+		
+	Vague idea: in two different contexts, say two different posets, we want to relate two objects in the ordering induced by $a \leq b$ iff $b$ is a quotient of $a$, i.e. $b$ is more informative, i.e. there is an arrow from $a$ to $b$ which exhibits entropy loss. 
+	\\
+	
+	\tcr{talk about the idea of the element in a complete lattice with more structure generated another element in a complete lattice with less structure. i.e. subgroup generated subset where subgroups orderd by inclusion, power set ordered by inclusion. Or topology generated by collection of subsets (i.e. subset of powerset) where topologies ordered by inclusion and double power set ordered by inclusion. In these cases, both posets are complete lattices since arbitrary meets exist. If we consider the map g from the more structured space P2+ to the less structured space P1-, by sending an object to itself minus the structure, so a group to its underlying set, or a topology to itself considered as a subset of the power set, then meets are preserved. Thus g is a right adjoint to some left adjoint f from the less structured space P1- to the more structured space P2, so f preserves arbitrary joins. For an object1 in the less structured poset, we define the object in the more structured poset generated by obj1 to be the left adjoint of obj1, i.e. f(obj1). we can find this in many cases by noting that in P1-, obj1 is the sup of its upper bounds. Since sups are preserved by $f$, the generated structured object in P2+ is f(obj1) which (from a prev ex) is the sup of f(of the lower bounds of obj1) i.e. the sup of $f(\doar o1)$, which should be the sup of all upper bounds of f(obj1), which is the inf}
+	
+	ok in $P_1$ is less structured, $P_2$ is more structured, $f: P_1 \rightarrow P_2$ preserves joins, adjoint $g$ preserves meets, then the object in $P_2$ generated by $a \in P_1$ is $f(a) = f(\sup \doar a) = \sup f(\doar a)$, or something like this
 	
 	
 	
@@ -5918,179 +7364,6 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	\chapter{Frames and Locales}
-	\tcr{move to after universal algebra, because we doing the same things}
-	
-	\section{Introduction}
-	
-	\subsection{Frames}
-	
-	\begin{defn}
-		Let $L$ be a complete lattice. Then $L$ is said to be a \tbf{frame} if for each $a \in L$ and $(b_{\al})_{\al \in A} \subset L$, $a \wedge \bigg(\bigvee\limits_{\al \in A} b_{\al} \bigg) = \bigvee\limits_{\al \in A} a \wedge b_{\al}$.
-	\end{defn}
-	
-	\begin{defn}
-		Let $L, M$ be frames and $f:L \rightarrow M$. Then $f$ is said to be a \tbf{frame homomorphism} if 
-		\begin{enumerate}
-			\item for each $(x_{\al})_{\al \in A} \subset L$, $f\bigg( \bigvee\limits_{\al \in A} x_{\al} \bigg) = \sup\limits_{\al \in A} f(x_{\al})$.
-			\item for each $a,b \in L$, $f(a \wedge b) = f(a) \wedge f(b)$
-		\end{enumerate}
-		\tcr{maybe reword this with some vocab to make shorter, like "preserves arbitrary joins" and "preserves meets"}
-	\end{defn}
-	
-	\begin{defn}\tcr{(check notation consistent with category theory notes)}
-		We define the \tbf{category of frames}, denoted $\Frm$, by 
-		\begin{itemize}
-			\item $\Obj(\Frm) \defeq \{L: \text{$L$ is a frame}\}$
-			\item $\Hom_{\Frm}(L, M) \defeq \{f:L \rightarrow M: \text{$f$ is a frame homomorphism}\}$
-		\end{itemize}
-	\end{defn}
-	
-	\begin{ex}
-		We have that $\Frm$ is a category
-	\end{ex}
-	
-	\begin{proof}
-		\tcr{FINISH!!!}
-	\end{proof}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\subsection{Locales}
-	
-	\begin{defn}
-		We define the \tbf{category of locales}, denoted $\Loc$ by $\Loc \defeq \op{\Frm}$.
-	\end{defn}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\section{More Lattice Stuff to Come}
-	\begin{itemize}
-		\item talk about join and meet irriducibility
-		\item talk about join and meet primality
-		\item talk about maximality.
-		\item \tcr{the goal is to get all the background for sober topological/measure spaces, locale theory for constructive topology and universal algebra}
-	\end{itemize}
 	
 	
 	
@@ -6797,431 +8070,6 @@
 	
 	
 	
-	
-	
-	
-	\newpage
-
-	
-	
-	\chapter{Groups}
-	
-	\subsection{Direct Products}
-	
-	\begin{defn}
-	Let $G,H$ be groups. Define a product $*:(G \times H) \times (G \times H) \rightarrow G \times H$ by 
-	$$(x_1,y_1) * (x_2, y_2) = (x_1x_2, y_1y_2)$$
-	Then $(G \times H, *)$ is called the \textbf{direct product of $G$ and $H$}.
-	\end{defn}	
-	
-	\begin{ex}
-	\lex{1} Let $G,H$ be groups. Then the direct product $G \times H$ is a group.
-	\end{ex}
-	\begin{proof}
-	Clear.
-	\end{proof}
-	
-	\begin{defn} 
-	Let $G,H$ be groups. Define $\pi_G :G \times H \rightarrow G$ and $\pi_H :G \times H \rightarrow H$ by $\pi_G(x,y) = x$ and $\pi_H(x,y) = y$.  Then $\pi_G$ and $\pi_H$ are respectively called the \textbf{projection maps onto $G$ and $H$}.
-	\end{defn}	
-	
-	\begin{ex}
-	\lex{2} Let $G,H$ be groups. Then 
-	\begin{enumerate}
-	\item $\pi_G: G \times H \rightarrow G$ and $\pi_H : G \times H \rightarrow H$ are homomorphisms
-	\item $\ker \pi_G \cong H$ and $\ker \pi_H \cong G$
-\end{enumerate}	 
-	\end{ex}
-	
-	\begin{proof}\
-	\begin{enumerate}
-	\item Clear
-	\item Define $\iota_G:G \rightarrow \ker \pi_H$ by $$\iota_G(x) = (x, e_H)$$ Then $\iota_G$ is an isomorphism. Similarly, we can define $\iota_H:H \rightarrow \ker \pi_G$ and show that it is an isomorphism.
-	\end{enumerate}
-	\end{proof}
-	
-	\begin{defn}
-	Let $G,H, K$ be groups, $\phi \in \Hom(G,K)$ and $\psi \in \Hom(H, K)$. We define $\phi \times \psi: G \times H \rightarrow K$ by $\phi \times \psi(x,y) = \phi(x) \psi(y)$ 
-	\end{defn}	
-	
-	\begin{ex}
-	\lex{3} Let $G,H, K$ be groups, $\phi \in \Hom(G,K)$ and $\psi \in \Hom(H, K)$. If $K$ is abelian, then $\phi \times \psi \in Hom(G \times H,K)$.
-	\end{ex}
-	
-	\begin{proof}
-	Let $x_1, x_2 \in G$ and $y_1, y_2 \in H$. Then 
-	\begin{align*}
-	\phi \times \psi[(x_1, y_1)(x_2, y_2)] 
-	&= \phi \times \psi (x_1x_2, y_1y_2) \\
-	&= \phi(x_1x_2) \psi(y_1y_2) \\
-	&= \phi(x_1)\phi(x_2)\psi(y_1)\psi(y_2) \\
-	&= \phi(x_1)\psi(y_1)\phi(x_2)\psi(y_2) \\
-	&= [\phi \times \psi(x_1, y_1)] [\phi \times \psi(x_2, y_2) ]
-	\end{align*}
-	\end{proof}
-	
-	\begin{ex}
-	\lex{4} Let $G,H, K$ be groups and $\phi \in \Hom(G \times H, K)$. Then there exist $\phi_G \in \Hom(G,K)$, $\phi_H \in \Hom(H, K)$ such that $\phi_G \times \phi_H = \phi$.
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $K$ is abelian. Define $\iota_G \in \Hom(G, \ker \pi_H)$ and $\iota_H \in \Hom(H, \ker \pi_G)$ as in part $(2)$ of \rex{2} Define $\phi_G \in \Hom(G, K)$ and $\phi_H \in \Hom(H,K)$ by  $\phi_G = \phi \circ \iota_G$ and $\phi_H = \phi \circ \iota_H $. Let $(x,y) \in G \times H$. Then 
-	\begin{align*}
-	\phi_G \times \phi_H(x,y) 
-	&= \phi_G(x) \phi_H(y) \\
-	&= \phi \circ \iota_G(x) \phi \circ \iota_H(y) \\
-	&= \phi(x, e_H)\phi(e_G, y) \\
-	&= \phi(x,y) \\
-	\end{align*}
-	So $\phi = \phi_G \times \phi_H$
-	\end{proof}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\section{Rings}
-	
-	\begin{defn}
-	Let $R$ be a set and $+, *: R \times R 				
-	\rightarrow R$ (we write $a+b$ and 
-	$ab$ in place of $+(a,b)$ and $*(a,b)$ respectively).
-	Then $R$ is said to be a \textbf{ring} if for each 
-	$a,b,c \in R$,
-	\begin{enumerate}
-	\item $R$ is an abelian group with respect to $+$.
-	 The identity element with respect to $+$ is denoted
-	 by $0$.
-	\item $R$ is a monoid with respect to $*$. The  
-	identity element of $R$ with respect to $*$ is denoted $1$. 
-	\item $R$ is commutative with respect to $*$.
-	\item $*$ distributes over $+$.
-	\end{enumerate}
-	\end{defn}
-	
-	\begin{defn}
-	Let $R$ be a ring and $I \subset R$. Then $I$ is said 
-	to be an \textbf{ideal} of $R$ if for each $a \in R$ and $x,y \in I$,
-	\begin{enumerate}
-	\item  $x + y \in I$
-	\item  $ax \in I$
-	\end{enumerate}
-	\end{defn}
-	
-	\begin{defn}
-	Let $R$ be a ring and $A,B \subset R$. We define the \textbf{product} of $A$ and $B$, denoted $AB$, to be $$AB = \bigg \{\sum_{i=1}^n a_ib_i: a_i \in A, b_i \in B, n \in \N \bigg \}$$
-	\end{defn}	
-	
-	\begin{ex}
-	Let $R$ be a ring and $I \subset R$. Then $I$ is an ideal of $R$ iff $RI \subset I$. 
-	\end{ex}
-	
-	\begin{proof}
-	Suppose that $RI \subset I$. Let $a \in R$ and $x,y \in I$. Then by assumption $x + y = 1x + 1y \in I$ and $ax \in I$. So $I$ is an ideal of $R$\\
-	Conversely, suppose that $I$ is an ideal of $R$. Let $a_1, \cdots, a_n \in R$ and $x_1, \cdots, x_n \in I$. Then by assumption, for each $i = 1, \cdots, n$, $a_ix_i \in I$ and therefore $\sum\limits_{i=1}^n a_ib_i \in I$. Hence $RI \subset I$.
-	\end{proof}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage	
-	\section{Modules}
-	
-	\subsection{Introduction}
-	
-	\begin{defn}
-	Let $R$ be a ring, $M$ a set, $+: M\times M \rightarrow M$ and $*: R 
-	\times M \rightarrow M$ (we write $rx$ in place of 
-	$*(r,x)$). Then $M$ is said to be an 
-	\textbf{$R$-module}
-	if 
-	\begin{enumerate}
-	\item $M$ is an abelian group with respect to $+$. The identity element of $M$ with respect to $+$ is denoted by 0.
-	\item for each $r \in R$, $*(r, \cdot)$ is a group endomorphism of $M$
-	\item for each $x \in M$, $*(\cdot, x)$ is a group homomorphism from $R$ to $M$
-	\item $*$ is a monoid action of $R$ on $M$
-	\end{enumerate}
-	\end{defn}
-	
-	\begin{note}
-	For the remainder of this section, we assume that $R$ is a commutative ring. 
-	\end{note}
-	
-	\begin{ex}
-	Let $M$ be an $R$-module. Then for each $r \in R$ and $x \in M$, 
-	\begin{enumerate}
-	\item $r0 = 0$
-	\item $0x = 0$
-	\item $(-1)x = -x$
-	\end{enumerate}
-	\end{ex}
-	
-	\begin{proof} Let $r \in R$ and $x \in M$. Then 
-	\begin{enumerate}
-	\item 
-	\begin{align*}
-	r0 
-	&= r(0+0) \\
-	&= r0 + r0
-	\end{align*} 
-	which implies that $r0 = 0$.
-	\item 
-	\begin{align*}
-	0x 
-	&= (0+0)x \\
-	&= 0x + 0x
-	\end{align*} 
-	which implies that $0x = 0$.
-	\item 
-	\begin{align*}
-	(-1)x + x 
-	&= (-1)x + 1x \\ 
-	&= (-1 + 1)x \\
-	&= 0x \\
-	&= 0
-	\end{align*}
-	which implies that $(-1)x = -x$.
-	\end{enumerate}
-	\end{proof}
-	
-	\begin{defn}
-	Let $M$ an $R$-module and $N \subset M$. Then $N$ is said to be a \textbf{submodule} of $M$ if for each $r \in R$ and $x,y \in N$, we have that $rx \in N$ and $x+y \in N$.
-	\end{defn}
-	
-	\begin{defn}
-	Let $M$ be an $R$-module. We define $\MS(M) = \{N \subset M: N \text{ is a submodule of }M\}$.
-	\end{defn}	
-	
-	\begin{ex}
-	Let $M$ be an $R$-module and $N \in \MS(M)$. Then $N$ is a subgroup of $M$.
-	\end{ex}
-	
-	\begin{proof}
-	Let $x,y \in M$. Then $x-y = 1x + (-1)y \in N$. So $N$ is a subgroup of $M$.
-	\end{proof}
-	
-	\begin{defn}
-	Let $M$ be an $R$-module and $N \in \MS(M)$. We define  
-	\begin{enumerate}
-	\item $M/N = \{x + N: x \in M\}$ 
-	\item $+: M/N \times M/N \rightarrow M/N$ by $$(x+N) + (y+N) = (x+y) + N$$
-	\item $*: R \times M/N \rightarrow M/N$ by $$r(x+N) = (rx) + N$$
-	\end{enumerate}
-	Under these operations (see next exercise), $M/N$ is an $R$-module known as the \textbf{quotient module} of $M$ by $N$.
-	\end{defn}	
-	
-	\begin{ex} 
-	Let $M$ be an $R$-module and $N \in \MS(M)$. Then
-	\begin{enumerate}
-	\item the monoid action defined above is well defined
-	\item the quotient $M/N$ is an $R$-module
-	\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-	\begin{enumerate}
-	\item Let $r \in R$ and $x +N, y +N \in M/N $. Recall from group theory that $x + N = y + N$ iff $x-y \in N$. Suppose that $x + N = y + N$. Then $x - y \in N$ and there exists $n \in N$ such that $x-y = n$. Therefore
-	\begin{align*}
-	rx - ry 
-	&= r(x-y) \\
-	&= rn \\
-	&\in N
-	\end{align*}
-	So $rx + N = ry + N$.
-	\item Properties $(1)$ - $(4)$ in the definition of a module are easily shown to be satisfied for $M/N$ since they are true for $M$.
-	\end{enumerate}
-	\end{proof}
-	
-	\begin{defn}
-	Let $M$ and $N$ be $R$-modules and $\phi:M \rightarrow N$. Then $\phi$ is said to be a \textbf{module homomorphism} if for each $r \in R$ and $x,y \in M$
-	\begin{enumerate}
-	\item $\phi(rx) = r\phi(x)$
-	\item $\phi(x+y) = \phi(x) + \phi(y)$
-	\end{enumerate}
-	\end{defn}	
-	
-	\begin{ex}
-	Let $M$ and $N$ be $R$-modules and $\phi:M \rightarrow N$. Then $\phi$ is a  iff for each $r \in R$ and $x,y \in M$, $\phi(x+ry) = \phi(x) + r \phi(y)$.
-	\end{ex}
-	
-	\begin{proof}
-	Clear.
-	\end{proof}
-	
-	\begin{ex}
-	Let $M$ and $N$ be $R$-modules and $\phi:M \rightarrow N$ a homomorphism. Then 
-	\begin{enumerate}
-	\item $\ker \phi$ is a submodule of $M$
-	\item $ \Im \phi$ is a submodule of $N$ 
-	\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}
-	Let $r \in R$, $x,y \in \ker \phi$ and $w,z \in \Im \phi$. Then 
-	\begin{enumerate}
-	\item 
-	\begin{align*}
-	\phi(rx) 
-	&= r\phi(x) \\
-	&=r 0 \\
-	&= 0
-\end{align*}	
-	So $rx \in \ker \phi$. Group theory tells us that $\ker \phi$ is a subgroup of $M$, so $x+y \in \ker \phi$. Hence $\ker \phi$ is a submodule of $M$. 
-	\item Similar.
-	\end{enumerate}
-	\end{proof}
-	
-	\begin{defn}
-	Let $M$ be an $R$-module and $A \subset M$. We define the \textbf{submodule of $M$ generated by $A$}, denoted $\spn(A)$, to be $$\spn(A) = \bigcap_{N \in \MS(M)} N$$ 
-	\end{defn}
-	
-	\begin{ex}
-	Let $M$ be an $R$-module and $A \subset M$. Then 
-	$\spn(A) \in \MS(M)$
-	\end{ex}
-	
-	\begin{proof}
-	Let $r \in R$ and $x,y \in \spn(A)$. Basic group theory tells us that $\spn(A)$ is a subgroup of $M$. So $x+y \in \spn(A)$. For $N \in \MS(M)$, by definition we have $x \in N$ and therefore $rx \in N$. So $rx \in \spn(A)$. Hence $\spn(A)$ is a submodule of $M$.
-	\end{proof}
-	
-	\begin{ex}
-	Let $M$ be an $R$-module and $A \subset M$. If $A \neq \varnothing$, then $$\spn(A) = \bigg \{\sum\limits_{i=1}^n r_ia_i: r_i \in R, a_i \in A, n \in \N \bigg \}$$
-	\end{ex}
-	
-	\begin{proof}
-	Clearly 
-	\end{proof}
-	
-	\begin{defn}
-	Let $M$
-	\end{defn}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\section{Fields}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\section{Vector Spaces}
-	
-	\section{Appendix}
-	\subsection{Monoids}
-	
-	\begin{defn}
-	Let $G$ be a set and $*: G \times G \rightarrow G$ (we write $ab$ in place of $*(a,b)$). Then 
-	\begin{enumerate}
-	\item $*$ is called a \textbf{binary operation} on $G$	
-	\item $*$ is said to be \textbf{associative}	if for each $x,y,z \in G$, $(xy)z = x(yz)$
-	\item $*$ is said to be \textbf{commutative} if for each $x,y \in G$, $xy = yx$ 
-	\end{enumerate}
-	\end{defn}
-	
-	\begin{defn}
-	Let $G$ be a set, $*: G \times G \rightarrow G$, $e,x,y \in G$. Then $e$ is said to be an \textbf{identity element} if for each $x \in G$, $ex = xe = x$.
-	\end{defn}
-	
-	\begin{defn}
-	Let $G$ be a set and $*: G \times G \rightarrow G$. Then $G$ is said to be a \textbf{monoid} if 
-	\begin{enumerate}
-	\item $*$ is associative
-	\item there exits $e \in G$ such that $e$ is an identity element.
-	\end{enumerate}
-	\end{defn}	
-	
-	\begin{ex}
-	Let $G$ be a monoid. Then the identity element is unique.
-	\end{ex}
-	
-	\begin{proof}
-	Let $e, f \in G$. Suppose that $e$ and $f$ are identity elements. Then $e = ef = f$.
-	\end{proof}
-	
-	\begin{note}
-	Unless otherwise specified, we will denote the identity element of a monoid by $e$.
-	\end{note}
-	
-	\begin{defn}
-	Let $G$ be a monoid, $X$ a set and $*: G \times X \rightarrow X$ (we write $gx$ in place of $*(g,x)$). Then $*$ is said to be a \textbf{monoid action} of $G$ on $X$ if for each $g,h \in G$ and $x \in X$,
-	\begin{enumerate}
-	\item $(gh)x = g(hx)$
-	\item $ex = x$
-	\end{enumerate}
-	\end{defn}
 
 
 

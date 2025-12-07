@@ -2,7 +2,7 @@
 %\includeonly{}
 
 %    Include referenced packages here.
-\usepackage[left =.5in, right = .5in, top = 1in, bottom = 1in]{geometry} 
+\usepackage[left =.25in, right = .25in, top = 1in, bottom = 1in]{geometry} 
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amscd}
@@ -12,11 +12,14 @@
 \usepackage{tikz}  
 \usepackage{tikz-cd}
 \usepackage{tkz-fct}
+
 \usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
 \usepackage{environ}
 \usepackage{tikz-cd} 
 \usepackage{enumitem}
-\usepackage{color}   %May be necessary if you want to color links
+\usepackage{xcolor}   %May be necessary if you want to color links
 %\usepackage{xr}
 
 \usepackage{hyperref}
@@ -143,6 +146,8 @@
 
 \newcommand{\iid}{\stackrel{iid}{\sim}}
 
+\newcommand{\Cn}{\text{Cn}} % cone base shift functor
+
 
 
 
@@ -177,65 +182,88 @@
 
 
 % math operators
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\spn}{span}
-\DeclareMathOperator{\Iso}{Iso}
-\DeclareMathOperator{\Eq}{Eq}
-\DeclareMathOperator{\id}{id}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Endo}{End}
+\DeclareMathOperator{\supp}{supp} % support
+\DeclareMathOperator{\sgn}{sgn} % signum
+\DeclareMathOperator{\spn}{span} % span
+
+\DeclareMathOperator{\Obj}{Obj} % objects
+\DeclareMathOperator{\dom}{dom} % domain
+\DeclareMathOperator{\cod}{cod} % codomain
+
+\DeclareMathOperator{\Hom}{Hom} % hom set
+\DeclareMathOperator{\Endo}{End} % endomorphisms
+\DeclareMathOperator{\Iso}{Iso} % ismorphisms
+\DeclareMathOperator{\Aut}{Aut} % automorphisms
+\DeclareMathOperator{\Mono}{Mono} % monomorphisms
+\DeclareMathOperator{\Epi}{Epi} % epimorphisms
+
+\DeclareMathOperator{\bMono}{\tbf{Mono}} % subcategory restricted to monomorphisms
+\DeclareMathOperator{\bEpi}{\tbf{Epi}} % subcategory restricted to monomorphisms
+
+\DeclareMathOperator{\id}{id} % identity
+\DeclareMathOperator{\Sub}{Sub} % subobject proset
+
+\DeclareMathOperator{\colim}{colim} % colimit of diagram
+\DeclareMathOperator{\limSet}{limSet} % limit set of diagram
+\DeclareMathOperator{\colimSet}{colimSet} % colimit set of diagram
+\DeclareMathOperator{\limChoice}{limChoice} % limit choice function 
+\DeclareMathOperator{\colimChoice}{colimChoice} % colimit choice function 
+
+
+
+
 \DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Eq}{Eq}
+
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\Alt}{Alt}
-\DeclareMathOperator{\cl}{cl}
-\DeclareMathOperator{\Int}{Int}
-\DeclareMathOperator{\clset}{clSets}
-\DeclareMathOperator{\Intset}{IntSets}
+\DeclareMathOperator{\cl}{cl} % closure
+\DeclareMathOperator{\Int}{Int} % interior
+\DeclareMathOperator{\clset}{clSets} % closed supersets
+\DeclareMathOperator{\Intset}{IntSets} % open subsets
 \DeclareMathOperator*{\Punct}{\text{Punct}} 
-\DeclareMathOperator*{\opn}{\MN^{opn}} 
-\DeclareMathOperator*{\supSet}{supSet} 
-\DeclareMathOperator*{\infSet}{infSet} 
+\DeclareMathOperator*{\opn}{\MN^{opn}} % open neighborhoods
+\DeclareMathOperator*{\supSet}{supSet} % supremum set
+\DeclareMathOperator*{\infSet}{infSet} % infimum set
 
 \DeclareMathOperator{\bal}{bal}
 \DeclareMathOperator{\cyc}{cyc}
-\DeclareMathOperator{\cnv}{conv}
+\DeclareMathOperator{\cnv}{conv} 
 \DeclareMathOperator{\epi}{epi}
-\DeclareMathOperator{\dom}{dom}
-\DeclareMathOperator{\cod}{cod}
-\DeclareMathOperator{\codim}{codim}
-\DeclareMathOperator{\Obj}{Obj}
+
+\DeclareMathOperator{\codim}{codim} % codimension
+
 \DeclareMathOperator{\Derivinf}{Deriv^{\infty}}
-\DeclareMathOperator{\Hom}{Hom}
-\DeclareMathOperator*{\argmax}{arg\,max}
+
+\DeclareMathOperator*{\argmax}{arg\,max}  
 \DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator{\diam}{\text{diam}}
-\DeclareMathOperator{\rnk}{\text{rank}}
-\DeclareMathOperator{\tr}{\text{tr}}
-\DeclareMathOperator{\prj}{\text{proj}}
-\DeclareMathOperator{\nab}{\nabla}
-\DeclareMathOperator{\diag}{\text{diag}}
-\DeclareMathOperator*{\ind}{\text{ind}}
-\DeclareMathOperator*{\ar}{\text{arity}}
-\DeclareMathOperator*{\cur}{\text{cur}}
-\DeclareMathOperator*{\Part}{\text{Part}}
+\DeclareMathOperator{\diam}{\text{diam}} % diameter
+\DeclareMathOperator{\rnk}{\text{rank}} % rank
+\DeclareMathOperator{\tr}{\text{tr}} % trace
+\DeclareMathOperator{\prj}{\text{proj}} % projection
+\DeclareMathOperator{\nab}{\nabla} % nabla
+\DeclareMathOperator{\diag}{\text{diag}} % diagonal
+\DeclareMathOperator*{\ind}{\text{ind}} % 
+\DeclareMathOperator*{\cur}{\text{cur}} %
+\DeclareMathOperator*{\Part}{\text{Part}} 
 \DeclareMathOperator{\Var}{\text{Var}}
-\DeclareMathOperator*{\FIP}{\text{FIP}} 
+\DeclareMathOperator*{\FIP}{\text{FIP}} % finite intersection property
 \DeclareMathOperator*{\Fun}{\text{Fun}} 
 
-\DeclareMathOperator*{\prmj}{\text{prime}_{\vee}} 
-\DeclareMathOperator*{\prmm}{\text{prime}_{\wedge}} 
-\DeclareMathOperator*{\irrj}{\text{irred}_{\vee}} 
-\DeclareMathOperator*{\irrm}{\text{irred}_{\wedge}} 
+\DeclareMathOperator*{\prmj}{\text{prime}_{\vee}} % join prime
+\DeclareMathOperator*{\prmm}{\text{prime}_{\wedge}} % meet prime
+\DeclareMathOperator*{\irrj}{\text{irred}_{\vee}} % join irreducible
+\DeclareMathOperator*{\irrm}{\text{irred}_{\wedge}} % meet irreducible
 
 % find where used and change, want to reserve \Rel for category of relations 
 %\DeclareMathOperator*{\Rel}{\text{Rel}} 
 
-\DeclareMathOperator*{\Cons}{\text{Cons}} 
+\DeclareMathOperator*{\Cons}{\text{Cons}}  % constants?
 
-\DeclareMathOperator*{\ot}{\otimes}
+\DeclareMathOperator*{\ot}{\otimes} % otimes
 
 % Universal Algebra
+\DeclareMathOperator*{\ar}{\text{arity}} % arity
 \DeclareMathOperator*{\Sg}{\text{Sg}} 
 \DeclareMathOperator{\uni}{Uni}
 \DeclareMathOperator{\oper}{Oper}
@@ -245,6 +273,14 @@
 \DeclareMathOperator{\typfun}{TypeFun}
 \DeclareMathOperator{\subu}{SubUni}
 \DeclareMathOperator{\suba}{SubAlg}
+
+\DeclareMathOperator{\Subcat}{Subcat} % SubCat
+\DeclareMathOperator{\SubcatGen}{SubcatGen} % subcategory generated by morphisms
+\newcommand{\leqcat}{\leq_\text{Cat}} % Subcat partial order
+
+\DeclareMathOperator{\Subquiv}{Subquiv} % Subquiv
+\DeclareMathOperator{\SubquivGen}{\text{SubquivGen}} % subquiver generated by vertices/edges
+\newcommand{\leqquiv}{\leq_\text{Quiv}} % Subquiver partial order
 
 
 \DeclareMathOperator{\lmt}{lim}
@@ -261,6 +297,9 @@
 \DeclareMathOperator*{\Equi}{\text{Equiv}}
 \DeclareMathOperator*{\Cong}{\text{Cong}}
 
+
+\DeclareMathOperator{\leqalg}{\text{Alg}} % cat of algebras
+
 % Order Theory
 \DeclareMathOperator{\upar}{\uparrow}
 \DeclareMathOperator{\doar}{\downarrow}
@@ -268,6 +307,8 @@
 % category theory
 \DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
 \DeclareMathOperator*{\Rel}{\text{\tbf{Rel}}}
+\DeclareMathOperator*{\bQuiv}{\text{\tbf{Quiv}}}
+
 \DeclareMathOperator*{\BanAlg}{\text{\tbf{BanAlg}}}
 \DeclareMathOperator*{\Meas}{\text{\tbf{Meas}}}
 \DeclareMathOperator*{\TopMeas}{\text{\tbf{TopMeas}}}
@@ -332,10 +373,14 @@
 \renewcommand{\Im}{\text{Im} \,}
 \newcommand{\Img}{\text{Img} \,}
 \newcommand{\grad}{\text{grad}}
+
+
 \newcommand{\tbf}[1]{\textbf{#1}}
 \newcommand{\tcb}[1]{\textcolor{blue}{#1}}
 \newcommand{\tcr}[1]{\textcolor{red}{#1}}
 \newcommand{\mbf}[1]{\mathbf{#1}}
+
+
 \newcommand{\ol}[1]{\overline{#1}}
 \newcommand{\ub}[1]{\underbar{#1}}
 \newcommand{\tl}[1]{\tilde{#1}}
@@ -370,6 +415,11 @@
 \newcommand{\veq}{\rotatebox{90}{$\,=$}}
 \newcommand{\dtbeq}{\rotatebox{-45}{$\,=$}}
 \newcommand{\dbteq}{\rotatebox{45}{$\,=$}}
+
+
+
+
+
 
 
 
