@@ -114,6 +114,28 @@
 
 
 
+	\part{Decision Theory}
+	
+	\chapter{Utility Theory}
+	
+	\section{Von Neumann-Morgenstern Expected Utility Theorem}
+	
+	\begin{itemize} 
+		\item \tcr{add discussion on results the VNM utility theorem using modern framework for more general measures (radon measures)} 
+		\begin{itemize}
+			\item 
+			\href{https://www.jstor.org/stable/1905540}{https://www.jstor.org/stable/1905540}
+			\item \href{https://cot.mathres.org/issues/COT202526.pdf}{https://cot.mathres.org/issues/COT202526.pdf} 
+		\end{itemize}
+		
+		\item Try to generalize or find modern version of Savage's representation theorem (i.e. something related to continuity, possibly using a modern version of the VNM theorem above). The main thing here is that maybe such a version would look the same until you get a $u:X \rightarrow \R$ and $(\Om, \MF, P)$ representing $\leq_{\MM_1(X) \cap \{\text{finite support measures}\}}$ (and recall that $\{\text{finite support measures}\} = \text{Simple measurable maps $\Om \rightarrow X$}_*P$) so that $\int u d\mu \leq \int ud \nu $ iff $\mu \leq \nu$, can you then extend to $\MM_1(X)$ and $u$ continuous such that $\mu \rightarrow \int u \dmu$ is $w^*$-continuous?
+		\item Characterize when Bayesian updates are the correct ones 
+		\begin{itemize}
+			\item \href{https://www.annualreviews.org/content/journals/10.1146/annurev-economics-100223-050352}{https://www.annualreviews.org/content/journals/10.1146/annurev-economics-100223-050352}
+			\item \href{https://www.jstor.org/stable/25055514}{https://www.jstor.org/stable/25055514} 
+		\end{itemize}
+	\end{itemize}
+	
 
 
 
@@ -477,9 +499,9 @@
 
 
 	\newpage
-	\section{Frechet Mean}
+	\chapter{Frechet Mean}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 	
 	\begin{defn}
 		Let $(\MM, d)$ be a metric space and $\mu \in M_+(\MM)$. Suppose that $d \in L^2(\mu)$. 
@@ -503,9 +525,112 @@
 	\begin{note}
 		We recall the projection map $\pi: U(n,k) \rightarrow U(n,k) / U(k)$ that \tcr{make and cite exercise in section about steifel and grassmann manifolds} implies that $f: U(n,k) \rightarrow G(n,k)$ defined by and $f(U) \defeq UU^*$ is a quotient map and $\Im f \cong U(n,k) / U(k)$.  
 	\end{note}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Sample Mean in Hilbert Space}
+	
+	\begin{ex}
+		Let $(H, \l \cdot, \cdot \r)$ be a Hilbert space and $(x_j)_{j \in \N} \subset H$ and $n \in \N$. Define $\bar{x}_n \in H$ and $\mu_n \in M_1(H)$ by $\bar{x}_n \defeq  \frac{1}{n} \sum\limits_{j=1}^n$ and $\mu_{n} \defeq \frac{1}{n} \sum\limits_{j=1}^n \del_{x_j}$. Then $\MF(\mu_n) = \bar{x}_n$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $n \in \N$. We note that
+		\begin{align*}
+			F_{\mu_n}(x)
+			& = \int_H \|x - y\|^2 \dmu_n(y) \\
+			& = \frac{1}{n} \sum\limits_{j=1}^n \|x - x_j\|^2 \\
+			& = \frac{1}{n} \sum\limits_{j=1}^n \|(x - \bar{x}_n) - (\bar{x}_n- x_j)\|^2 \\
+			& = \frac{1}{n} \sum\limits_{j=1}^n \bigg[ \|x - \bar{x}_n\|^2 + \|\bar{x}_n- x_j\|^2 - 2 \Re(\l x - \bar{x}_n, \bar{x}_n - x_j \r) \bigg] \\
+			& = \frac{1}{n} \sum\limits_{j=1}^n  \|x - \bar{x}_n\|^2 +  \frac{1}{n} \sum\limits_{j=1}^n \|\bar{x}_n- x_j\|^2   - \frac{1}{n} \sum\limits_{j=1}^n \bigg[ 2 \Re(\l x - \bar{x}_n, \bar{x}_n - x_j \r) \bigg] \\
+			& = \|x - \bar{x}_n\|^2 +  \frac{1}{n} \sum\limits_{j=1}^n \|\bar{x}_n- x_j\|^2  -  2 \Re\bigg( \bigg \l x - \bar{x}_n, \frac{1}{n} \sum\limits_{j=1}^n (\bar{x}_n- x_j) \bigg \r \bigg)  \\
+			& = \|x - \bar{x}_n\|^2 +  \frac{1}{n} \sum\limits_{j=1}^n \|\bar{x}_n- x_j\|^2  -  2 \Re\bigg( \bigg\l x - \bar{x}_n, \bar{x}_n - \frac{1}{n} \sum\limits_{j=1}^n x_j \bigg \r \bigg) \\
+			& = \|x - \bar{x}_n\|^2 +  \frac{1}{n} \sum\limits_{j=1}^n \|\bar{x}_n- x_j\|^2  -  2 \Re( \l x - \bar{x}_n, \bar{x}_n - \bar{x}_n  \r ) \\
+			& = \|x - \bar{x}_n\|^2 +  \frac{1}{n} \sum\limits_{j=1}^n \|\bar{x}_n- x_j\|^2  +  2 \Re( \l x - \bar{x}_n, 0 \r ) \\
+			& = \|x - \bar{x}_n\|^2 +  \frac{1}{n} \sum\limits_{j=1}^n \|\bar{x}_n- x_j\|^2. \\
+		\end{align*}
+		Therefore
+		\begin{align*}
+			\argmin_{x \in H} F_{\mu_n}(x)
+			& = \argmin\limits_{x \in H}  \bigg[ \|x - \bar{x}_n\|^2 +  \frac{1}{n} \sum\limits_{j=1}^n \|\bar{x}_n- x_j\|^2 \bigg] \\
+			& = \argmin\limits_{x \in H} \|x - \bar{x}_n\|^2 \\
+			& = \bar{x}_n.
+		\end{align*}
+	\end{proof} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Grassman Manifold}
 
 	\begin{ex}
-		Let $(\Sig_j)_{j \in \N} \subset G(n,k)$. Let $N \in \N$. Define $\mu^{(N)} \in M_1(G(n,k))$ by $\mu^{(N)} \defeq \frac{1}{N} \sum\limits_{j =1}^N \del_{\Sig_j}$. Define $\bar{\Sig}^{(N)} \in G(n,k)$ by $\bar{\Sig}^{(N)} \defeq \frac{1}{N} \sum\limits_{j=1}^N \Sig_j$. There exists $\bar{V}^{(N)} \in U(n)$ and $\bar{\Lam}^{(N)} \in S(n)$ such that $\bar{\Lam}^{(N)}$ is diagonal and $\bar{\Sig}^{(N)} = \bar{V}^{(N)} \bar{\Lam}^{(N)} (\bar{V}^{(N)})^*$. Suppose that $\bar{\Lam}^{(N)} = \diag(\bar{\lam}^{(N)}_1, \ldots, \bar{\lam}^{(N)}_n)$ and $\bar{\lam}^{(N)}_1 \geq \cdots \geq \bar{\lam}^{(N)}_1 \geq 0$. Define $U^{(N)} \in U(n,k)$ and $\Sig^{(N)} \in G(n,k)$ by $U^{(N)} \defeq \bar{V}^{(N)} I_{n,k}$ and $\Sig^{(N)} \defeq U^{(N)}(U^{(N)})^*$. Then $\Sig^{(N)} \in \MF(\mu^{(N)}, d_{G(n, k)})$. 
+		Let $(\Sig_j)_{j \in \N} \subset G(n,k)$. Let $N \in \N$. Define $\mu^{(N)} \in M_1(G(n,k))$ by $\mu^{(N)} \defeq \frac{1}{N} \sum\limits_{j =1}^N \del_{\Sig_j}$. Define $\bar{\Sig}^{(N)} \in M_n(\C)$ by $\bar{\Sig}^{(N)} \defeq \frac{1}{N} \sum\limits_{j=1}^N \Sig_j$. There exists $\bar{V}^{(N)} \in U(n)$ and $\bar{\Lam}^{(N)} \in S(n)$ such that $\bar{\Lam}^{(N)}$ is diagonal and $\bar{\Sig}^{(N)} = \bar{V}^{(N)} \bar{\Lam}^{(N)} (\bar{V}^{(N)})^*$. Suppose that $\bar{\Lam}^{(N)} = \diag(\bar{\lam}^{(N)}_1, \ldots, \bar{\lam}^{(N)}_n)$ and $\bar{\lam}^{(N)}_1 \geq \cdots \geq \bar{\lam}^{(N)}_1 \geq 0$. Define $U^{(N)} \in U(n,k)$ and $\Sig^{(N)} \in G(n,k)$ by $U^{(N)} \defeq \bar{V}^{(N)} I_{n,k}$ and $\Sig^{(N)} \defeq U^{(N)}(U^{(N)})^*$. Then $\Sig^{(N)} \in \MF(\mu^{(N)}, d_{G(n, k)})$. 
 	\end{ex}
 
 	\begin{proof}

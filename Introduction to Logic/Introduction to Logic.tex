@@ -279,6 +279,7 @@
 	
 	
 	\chapter{Propositional Logic}
+	
 	\begin{defn} 
 		Let $\MA$ be a set, $\MV \subset \MA$, $\MF \subset \MA^*$, $\MC \subset \bigcup\limits_{k \in \N_0} \MF^{(\MF^k)}$. Then $(\MA, \MV, \MA)$ is said to be a \tbf{propositional calculus} 
 		if 
@@ -302,6 +303,38 @@
 	\end{ex}
 	
 	
+	\chapter{Intuitionistic Logic}
+	
+	\tcr{Give intuitve justification for intuitionistic logic, maybe something about a program producing an output?}
+	
+	
+	
+	
+	
+	
+	
+	
+	\chapter{Type Theory}
+	
+	based on emily riehls talk at 1:48:01, \href{https://youtu.be/mTwvecBthpQ?t=6481}{hott instead of sets for math undergrads} 
+	
+	She explains that 'a type' and 'a term of that type' have various interpretations. For example in set theory or logic, a type $A: \text{Type}$ corresponds to a set or proposition $A$ and a term of that type $a: A$ corresponds to an element if set $A$ or a proof of proposition $A$. 
+	
+	The at the time stamp, there is an implicit interpretation is not formally given: $A: \text{Type}$ corresponds to both making an assertion and asking a question simultaneously. The assertion is '$A$ is a gramatically correct question'. The the question is 'is $A$ true?'
+	
+	
+	Meanwhile $a: A$ corresponds to answering the question is 'is $A$ true' in the affirmative.
+	
+	The example given is $x:A, y:A \vdash x =_A y:\text{Type}$ means both 'if $x$ and $y$ are of type $A$, then asking 'does $x$ equal $y$' is a gramatically correct question and 'if $x$ and $y$ are of type $A$, is the question 'are $x$ and $y$ equal' true?'
+	
+	How could you interpret the game '20 questions' in hott? If there is some unkown type $A$ (maybe the universe knows it). We want to ask questions (i.e. make type assertions) and then receive a term of each asserted type if our question is true. 
+	
+	For example, we could ask 'if $B$ is some part of $A$, is $B$ the same color as $A$?' i.e.  $B =_{\MU} f_{\text{part}}(A) \text{Type} \vdash \text{color}(A) =_{\text{color}(\MU)} \text{color}(B)$, i.e. a function or dependent type family. Then the universe might answer yes. 
+	
+	Then ostensibly, by asking questions about parts of the unknown type and getting affirmative responses, we could finally ask is 
+	$$A =_{\MU} \text{some type in terms we are familiar with}$$, and hopefully get the response 'yes'. 
+	
+	Is there some correspondance between characterizing subsytems of system to characterize the whole system and playing this hott 20 questions game? When is it not the case? Isnt the whole point of physics to assume that there is some characterization? Do some systems not have one? 
 	
 	
 	
@@ -313,6 +346,21 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\chapter{First Order Logic}
 	
 	
 	
@@ -421,6 +469,9 @@
 	\end{itemize}
 	
 	
+	
+	\chapter{Introduction}
+	
 	\section{Languages}
 	
 	\begin{defn}
@@ -429,13 +480,20 @@
 	\end{defn}
 	
 	\begin{defn}
-		Let $X$ be a set. 
+		Let $\Symb$ be a set.  
 	\end{defn}
 	
 	\begin{defn}
-		Let $\MF$, $\MR$, $\MC$ be sets and $(n_f)_{f \in \MF}, (n_R)_{R \in \MR} \subset \N$. Set $\ML \defeq (\MF, \MR, \MC, (n_f)_{f \in \MF}, (n_R)_{R \in \MR})$. Then $\ML$ is said to be a \tbf{language}. 
+		Let $\MD$ be a set, $\MV, \MK, \MQ, \MA, \MF, \MR, \MC \subset \MS$ and $(n_f)_{f \in \MF}, (n_R)_{R \in \MR} \subset \N$. Set 
+		$$\ML \defeq (\Symb, \Var, \Conn, \Aux, \MF, \MR, \MC, (n_f)_{f \in \MF}, (n_R)_{R \in \MR}).$$ 
+		Then $\ML$ is said to be a \tbf{formal language}. 
 		We define the 
 		\begin{itemize}
+			\item \tbf{symbols of $\ML$}, denoted $\Symb(\ML)$, by $\Symb(\ML) \defeq \MS$,
+			\tbf{variable symbols of $\ML$}, denoted $\Var(\ML)$, by $\Var(\ML) \defeq \MV$,
+			\tbf{connective symbols of $\ML$}, denoted $\Conn(\ML)$, by $\Conn(\ML) \defeq \MK$,
+			\tbf{quantification symbols of $\ML$}, denoted $\Quan(\ML)$, by $\Quan(\ML) \defeq \MQ$,
+			\tbf{auxiliary symbols of $\ML$}, denoted $\Aux(\ML)$, by $\Aux(\ML) \defeq \MA$,
 			\item \tbf{function symbols of $\ML$}, denoted $\Fun(\ML)$, by $\Fun(\ML) \defeq \MF$,
 			\item \tbf{relation symbols of $\ML$}, denoted $\Rel(\ML)$, by $\Rel(\ML) \defeq \MR$,
 			\item \tbf{constant symbols of $\ML$}, denoted $\Cons(\ML)$, by $\Cons(\ML) \defeq \MC$.
@@ -444,9 +502,136 @@
 	\end{defn}
 	
 	\begin{note}
+		When the context is clear, we write $(\MF, \MR, \MC, (n_f)_{f \in \MF}, (n_R)_{R \in \MR})$ in place of $(\Symb, \Var, \Conn, \Aux, \MF, \MR, \MC, (n_f)_{f \in \MF}, (n_R)_{R \in \MR})$.
+	\end{note}
+	
+	\begin{note}
 		\tcr{make comment about why we distinguish between relations, functions and constants when we usually think of functions as a type of relation and constants as $0$-ary functions}. Seems to be a matter of convenience
 	\end{note}
+	
+	\begin{defn}
+		Let $\ML$ be a language. 
+		\begin{itemize}
+			\item For each $f \in \Fun(\ML)$, we define $f^{\mu} \in \MF^{n_f}(\Sym(\ML)^*)$ by $f^{\mu}(t_1, \ldots, t_{n_f}) \defeq f(t_1, \cdots, t_{n_f})$.
+			\item We define $\Fun(\ML)^{\mu} \subset \MF^*(\Symb(\ML)^*)$ by $\Fun(\ML)^{\mu} \defeq \{f^{\mu}:f \in \Fun(\ML)\}$.
+			\item We define the \tbf{elementary terms of $\ML$}, denoted $\ETerm(\ML) \subset \Symb(\ML)^*$, by 
+			$$ \ETerm(\ML) \defeq \Cons(\ML) \cup \Var(\ML)$$
+			\item We define the \tbf{terms of $\ML$}, denoted $\Term(\ML) \subset \Symb(\ML)^*$ by $\Term(\ML) \defeq \cl(\ETerm, \Fun(\ML)^{\mu})$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		So the function $f^*$ sends the tuple of words $(t_1, \ldots, t_{n_f})$ to the word $f(t_1, \cdots, t_{n_f})$.
+	\end{note}
+	
+	\begin{defn}
+		Let $\ML$ be a language. 
+		\begin{itemize}
+			\item We define the \tbf{atomic formulas of $\ML$}, denoted $ \AForm(\ML) \subset \Symb(\ML)^*$, by 
+			$$ \AForm(\ML) \defeq \{=, \top, \perp\} \cup \{R(t_1, \ldots, t_{n_R}): \text{$R \in \Rel(\ML)$, $\ar(R) = n_R$ and $(t_j)_{j \in [n_R]} \subset \Term(\ML)$}\}.$$
+			\item 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{defn}
+		conte
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{First-Order Languages}
+	
+	Let $\ML$ be a language. Then $\Symb(\ML)$ is said to be \tbf{first-order} if 
+	\begin{enumerate}
+		\item ${=, \top, \perp} \in \Symb(\ML)$
+		\item $\Var(\ML)$ is countable
+		\item $\Conn(\ML) = \{\vee, \wedge, \neg\}$
+		\item $\Quan(\ML) = \{\exists, \forall\}$
+		\item $\Aux(\ML) = \{\text{`})\text{'}, \text{`}(\text{'}, \text{`},\text{'} \}$
+		\item $\Fun(\ML)$ is countable
+		\item $\Rel(\ML)$ is countable
+		\item $\Cons(\ML)$ is countable
+	\end{enumerate}
 
+	\begin{note}
+		Here $=$ is just a symbol and carries no interpretation of equality.
+	\end{note}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+	\section{Structures}
+	
 	\begin{defn}
 		Let $\ML$ be a language, $M$ a set, $\phi_{\MF}: \Fun(\ML) \rightarrow \MF^*(M)$, $\phi_{\MR}: \Rel(\ML) \rightarrow \MR^*(M)$ and $\phi_{\MC}: \Cons(\ML) \rightarrow M$. Set $\MM \defeq (M, \phi_{\MF}, \phi_{\MR}, \phi_{\MC})$. Then $\MM$ is said to be an \tbf{$\ML$-structure on $M$} if 
 		\begin{enumerate}

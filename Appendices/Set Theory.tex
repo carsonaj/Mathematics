@@ -71,7 +71,13 @@
 
 
 \newpage
-\section{Relations}
+
+
+
+\chapter{Relations}
+
+
+\section{Binary Heterogeneous Relations}
 \tcr{keep this part here, after section on sets similar to analysis notes, so we can assume arbitrary unions, products, etc, not just unions/products/etc of two sets}
 
 
@@ -80,7 +86,7 @@
 \begin{defn}
 	Let $A, B$ be sets.
 	\begin{itemize}
-		\item Let $R \subset A \times B$. Then $R$ is said to be a \tbf{relation between $A$ and $B$}. 
+		\item Let $R \subset A \times B$. Then $R$ is said to be a \tbf{relation over $A$ and $B$}. 
 		\item We define $\MR(A,B) \defeq \MP(A, B)$ 
 	\end{itemize}
 \end{defn}
@@ -174,6 +180,507 @@
 			\end{align*}
 			Hence $\bigg( \bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R  = \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
 			\end{enumerate}
+		\item 
+		\begin{enumerate}
+			\item We note that  
+			\begin{align*}
+				(a,c) \in S \circ \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)
+				& \iff \text{there exists $b \in B$ such that $(a,b) \in \bigcup\limits_{\gam \in \Gam} R_{\gam}$ and $(b,c) \in S$} \\
+				& \iff \text{there exists $b \in B$ and $\gam_0 \in \Gam$ such that $(a,b) \in R_{\gam_0}$ and $(b,c) \in S$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a, c) \in S \circ R_{\gam_0}$} \\
+				& \iff (a, c) \in \bigcup\limits_{\gam \in \Gam} (S \circ R_{\gam}).
+			\end{align*}
+			Hence $S \circ \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)  = \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
+			\item We note that  
+			\begin{align*}
+				(a,c) \in S \circ \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)
+				& \iff \text{there exists $b \in B$ such that $(a,b) \in \bigcap\limits_{\gam \in \Gam} R_{\gam}$ and $(b,c) \in S$} \\
+				& \iff \text{there exists $b \in B$ such that for each $\gam \in \Gam$, $(a,b) \in R_{\gam}$ and $(b,c) \in S$} \\
+				& \implies \text{for each $\gam \in \Gam$, there exists $b \in B$ such that $(a, b) \in  R_{\gam}$ and $(b,c) \in S$} \\
+				& \iff \text{for each $\gam \in \Gam$, $(a, c) \in S \circ R_{\gam}$} \\
+				& \iff (a, c) \in \bigcap\limits_{\gam \in \Gam} (S \circ R_{\gam}).
+			\end{align*}
+			Hence $S \circ \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg) \subset \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $A, B, C$ be sets. 
+	\begin{enumerate}
+		\item Let $R_1, R_2 \in \MR(A, B)$ and $S \in \MR(B,C)$. If $R_1 \subset R_2$, then $S \circ R_1 \subset S \circ R_2$. 
+		\item Let $R \in \MR(A, B)$ and $S_1, S_2 \in \MR(B,C)$. If $S_1 \subset S_2$, then $S_1 \circ R \subset S_2 \circ R$. 
+		\item Let $R_1, R_2 \in \MR(A, B)$ and $S_1, S_2 \in \MR(B,C)$. If $R_1 \subset R_2$ and $S_1 \subset S_2$, then $S_1 \circ R_1 \subset S_2 \circ R_2$.
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Suppose that $R_1 \subset R_2$. Then 
+		\begin{align*}
+			(a, c) \in S \circ R_1
+			& \iff \text{there exists $b \in B$ such that $(a,b) \in R_1$ and $(b,c) \in S$} \\
+			& \implies \text{there exists $b \in B$ such that $(a,b) \in R_2$ and $(b,c) \in S$} \\
+			& \iff (a, c) \in S \circ R_2.
+		\end{align*}
+		Hence $S \circ R_1 \subset S \circ R_2$.
+		\item Suppose that $S_1 \subset S_2$. Then
+		\begin{align*}
+			(a, c) \in S_1 \circ R
+			& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S_1$} \\
+			& \implies \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S_2$} \\
+			& \iff (a, c) \in S_2 \circ R.
+		\end{align*}
+		Hence $S_2 \circ R \subset S_1 \circ R$.
+		\item Suppose that $R_1 \subset R_2$ and $S_1 \subset S_2$. Then \tcr{the previous parts} imply that
+		\begin{align*}
+			S_1 \circ R_1
+			& \subset S_2 \circ R_1 \\
+			& \subset S_2 \circ R_2.
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Let $A, B$ be sets and $R \in \MR(A,B)$. We define the \tbf{converse of $R$}, denoted $R^* \in \MR(B,A)$, by 
+	$$R^* \defeq \{(b,a) \in B \times A: (a,b) \in R\}.$$
+\end{defn}
+
+\begin{ex}
+	Let $A, B$ be sets and $R$ a relation between $A$ and $B$. Then $(R^*)^* = R$.
+\end{ex}
+
+\begin{proof}
+	\begin{align*}
+		(a,b) \in (R^*)^*
+		& \iff (b,a) \in R^* \\
+		& \iff (a,b) \in R.
+	\end{align*}
+	Hence $(R^*)^* = R$.
+\end{proof}
+
+\begin{ex}
+	Let $A, B, C$ be sets, $R \in \MR(A,B)$ and $S \in \MR(B,C)$. Then $(S \circ R)^* = R^* \circ S^*$.  
+\end{ex}
+
+\begin{proof}
+	We note that 
+	\begin{align*}
+		(c,a) \in (S \circ R)^*
+		& \iff (a,c) \in S \circ R \\
+		& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$} \\
+		& \iff \text{there exists $b \in B$ such that $(c,b) \in S^*$ and $(b, a) \in R^*$} \\
+		& \iff (c, a) \in R^* \circ S^*.
+	\end{align*}
+	Hence $(S \circ R)^* = R^* \circ S^*$.
+\end{proof}
+
+\begin{ex}
+	Let $A$ and $B$ be sets and $(R_{\gam})_{\gam \in \Gam} \subset \MR(A, B)$. Then 
+	\begin{enumerate}
+		\item $\bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcup\limits_{\gam \in \Gam} R_{\gam}^*$
+		\item $\bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcap\limits_{\gam \in \Gam} R_{\gam}^*$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item We note that
+		\begin{align*}
+			(b,a) \in \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)^*
+			& \iff (a,b) \in \bigcup\limits_{\gam \in \Gam} R_{\gam} \\
+			& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a,b) \in R_{\gam_0}$} \\
+			& \iff \text{there exists $\gam_0 \in \Gam$ such that $(b,a) \in R_{\gam_0}^*$} \\
+			& \iff (b,a) \in \bigcup\limits_{\gam \in \Gam} R_{\gam}^*.
+		\end{align*}
+		Hence $\bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcup\limits_{\gam \in \Gam} R_{\gam}^*$.
+		\item We note that
+		\begin{align*}
+			(b,a) \in \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)^*
+			& \iff (a,b) \in \bigcap\limits_{\gam \in \Gam} R_{\gam} \\
+			& \iff \text{for each $\gam \in \Gam$, $(a,b) \in R_{\gam}$} \\
+			& \iff \text{for each $\gam \in \Gam$, $(b,a) \in R_{\gam}^*$} \\
+			& \iff (b,a) \in \bigcap\limits_{\gam \in \Gam} R_{\gam}^*.
+		\end{align*}
+		Hence $\bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcap\limits_{\gam \in \Gam} R_{\gam}^*$.
+	\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Subrelations}
+
+\begin{defn}
+	Let $n \in \N$, $A, B, E, F$ sets, $R \in \MR(A, B)$ and $S \in \MR(E, F)$. Then 
+	\begin{itemize}
+		\item $S$ is said to be a \tbf{restriction of $R$} if $E \subset A$ and $F \subset B$,    
+		\item $R$ is said to be an \tbf{extension of $S$} if $S$ is a restriction of $R$.
+	\end{itemize}
+\end{defn}
+
+\begin{defn}
+	Let $A,B$ be sets, $E \subset A$, $F \subset B$ and $R \in \MR(A,B)$. We define the \tbf{restriction of $R$ over $E$ and $F$}, denoted $R|_{E \times F} \in \MR(E, F)$, by $R|_{E \times F} \defeq R \cap (E \times F)$.
+\end{defn}
+
+\begin{ex}
+	Let $A, B$ be sets, $E \subset A$, $F \subset B$ and $R \in \MR(A, B)$. Then $R|_B$ is a restriction of $R$.
+\end{ex}
+
+\begin{proof}
+	Clear. \tcr{fill out later}
+\end{proof}
+
+\tcr{maybe dont do this subsection, since relations are like morphisms, so unless you can find a categorical way to present restrictions on domain or codomain $f|_E$ or $f|^F$, just get rid of this subsection}
+
+
+\begin{ex}
+	Let $A, B$ be sets, $E \subset A$, $F \subset B$ and $R \in \MR(A,B)$. Suppose that $E \subset A$ and $F \subset B$. Then $(R^*)|_{F \times E} = (R|_{E \times F})^*$.
+\end{ex}
+
+\begin{proof}
+	We note that for each $b,a \in B \times A$,
+	\begin{align*}
+		(b,a) \in (R^*)|_{F \times E}
+		& \iff (b, a) \in R^* \cap (F \times E) \\
+		& \iff (a, b) \in R \cap (E \times F) \\
+		& \iff (a, b) \in R|_{E \times F}.
+	\end{align*}
+	Hence $(R^*)|_{F \times E} = R|_{E \times F}$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Products of Relations}
+
+\begin{defn}
+	Let $A,B,C,D$ be sets and $R \in \MR(A,B), S \in \MR(C,D)$. We define the \tbf{product relation of $R$ and $S$}, denoted $R \times_{\Rel} S \in \MR(A \times C, B \times D)$, by 
+	$$R \times_{\Rel} S \defeq \{((a,c), (b,d)) \in (A \times C) \times (B \times D): (a,b) \in R \text{ and } (c,d) \in S\}.$$
+\end{defn}
+
+\begin{note}
+	When the context is clear, we write $R \times S$ in place of $R \times_{\Rel} S$.
+\end{note}
+
+\begin{ex}
+	Let $A,B,C,D$ be sets.
+	\begin{enumerate}
+		\item Let $R \in \MR(A,B)$ and $(S_{\gam})_{\gam \in \Gam} \subset \MR(C,D)$. Then 
+		\begin{enumerate}
+			\item $R \times \bigg(\bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcup\limits_{\gam \in \Gam} (R \times S_{\gam})$
+			\item $R \times \bigg(\bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcap\limits_{\gam \in \Gam} (R \times S_{\gam})$
+		\end{enumerate}
+		\item Let $(R_{\gam})_{\gam \in \Gam} \subset \in \MR(A,B)$ and $S \in \MR(C,D)$. Then 
+		\begin{enumerate}
+			\item $\bigg(\bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg) \times S = \bigcup\limits_{\gam \in \Gam} (R_{\gam} \times S)$
+			\item $\bigg(\bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg) \times S = \bigcap\limits_{\gam \in \Gam} (R_{\gam} \times S)$
+		\end{enumerate}
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item We note that
+			\begin{align*}
+				((a,c),(b,d)) \in R \times  \bigg(\bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) 
+				& \iff \text{$(a,b) \in R$ and $(c,d) \in \bigcup\limits_{\gam \in \Gam} S_{\gam}$} \\
+				& \iff \text{$(a,b) \in R$ and there exists $\gam_0 \in \Gam$ such that $(c,d) \in S_{\gam_0}$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a,b) \in R$ and $(c,d) \in S_{\gam_0}$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $((a,c), (b,d)) \in R \times  S_{\gam_0}$} \\
+				& \iff ((a,c), (b,d)) \in \bigcup\limits_{\gam \in \Gam} (R \times  S_{\gam}). 
+			\end{align*}
+			Hence $R \times  \bigg(\bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcup\limits_{\gam \in \Gam} (R \times  S_{\gam})$.
+			\item We note that
+			\begin{align*}
+				((a,c),(b,d)) \in R \times  \bigg(\bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) 
+				& \iff \text{$(a,b) \in R$ and $(c,d) \in \bigcap\limits_{\gam \in \Gam} S_{\gam}$} \\
+				& \iff \text{$(a,b) \in R$ for each $\gam \in \Gam$, $(c,d) \in S_{\gam}$} \\
+				& \iff \text{for each $\gam \in \Gam$, $(a,b) \in R$ and $(c,d) \in S_{\gam}$} \\
+				& \iff \text{for each $\gam \in \Gam$, $((a,c), (b,d)) \in R \times  S_{\gam}$} \\
+				& \iff ((a,c), (b,d)) \in \bigcap\limits_{\gam \in \Gam} (R \times  S_{\gam}). 
+			\end{align*}
+			Hence $R \times  \bigg(\bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcap\limits_{\gam \in \Gam} (R \times  S_{\gam})$.
+		\end{enumerate}
+		\item 
+		\begin{enumerate}
+			\item We note that
+			\begin{align*}
+				((a,c), (b,d)) \in \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S
+				& \iff \text{$(a,b) \in \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam}\bigg)$ and $(c,d) \in S$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a,b) \in R_{\gam_0}$ and $(c,d) \in S$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $((a,c), (b,d)) \in R_{\gam_0} \times S$} \\
+				& \iff ((a,c), (b,d)) \in \bigcup\limits_{\gam \in \Gam}( R_{\gam} \times S)
+			\end{align*}
+			Hence $\bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S = \bigcup\limits_{\gam \in \Gam}( R_{\gam} \times S).$
+			\item We note that
+			\begin{align*}
+				((a,c), (b,d)) \in \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S
+				& \iff \text{$(a,b) \in \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam}\bigg)$ and $(c,d) \in S$} \\
+				& \iff \text{for each $\gam \in \Gam$, $(a,b) \in R_{\gam}$ and $(c,d) \in S$} \\
+				& \iff \text{for each $\gam \in \Gam$, $((a,c), (b,d)) \in R_{\gam} \times S$} \\
+				& \iff ((a,c), (b,d)) \in \bigcap\limits_{\gam \in \Gam}(R_{\gam} \times S)
+			\end{align*}
+			Hence $\bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S = \bigcap\limits_{\gam \in \Gam}( R_{\gam} \times S).$
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\section{$n$-ary Heterogeneous Relations}
+
+
+\subsection{Introduction}
+
+\tcr{can we define composition in an operadic way?}
+
+\begin{defn}
+	Let $n \in \N$ and $(A_j)_{j \in [n]}$ a collection of sets.
+	\begin{itemize}
+		\item Let $R \subset \prod\limits_{j \in [n]} A_j$. Then $R$ is said to be a \tbf{$n$-ary relation over $(A_j)_{j \in [n]}$}. 
+		\item We define $\MR(A_j:j \in [n]) \defeq \MP(\prod\limits_{j \in [n]} A_j)$ 
+	\end{itemize}
+\end{defn}
+
+\begin{defn}
+	\tcr{FIX rest of section!!!!} (right now it is same as binary relations section)
+	Let $A,B,C$ be sets, $R \in \MR(A,B)$, $S \in \MR(B,C)$. We define the \tbf{composition relation of $S$ with $R$}, denoted $S \circ_{\Rel} R \in \MR(A, C)$, by 
+	$$S \circ_{\Rel} R \defeq \{(a,c) \in A \times C: \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$}\}.$$
+\end{defn}
+
+\begin{note}
+	When the context is clear, we write $S \circ R$ in place of $S \circ_{\Rel} R$.
+\end{note}
+
+\begin{ex}
+	Let $A,B, C, D$ be sets, $R$ a relation between $A$ and $B$, $S$ relation between $B$ and $C$ and $T$ relation between $C$ and $D$. Then $(T \circ S) \circ R = T \circ (S \circ R)$.
+\end{ex}
+
+\begin{proof}\
+	\begin{itemize}
+		\item Let $(a,d) \in (T \circ S) \circ R$. Then there exists $b \in B$ such that $(a,b) \in R$ and $(b,d) \in T \circ S$. Since $(b,d) \in T \circ S$, there exists $c \in C$ such that $(b,c) \in S$ and $(c,d) \in T$. Since $(a,b) \in R$ and $(b,c) \in S$, $(a,c) \in S \circ R$. Since $(a,c) \in S \circ R$ and $(c,d) \in T$, we have that $(a,d) \in T \circ (S \circ R)$. Since $(a,d) \in (T \circ S) \circ R$ is arbitrary, we have that for each $(a,d) \in (T \circ S) \circ R$, $(a,d) \in T \circ (S \circ R)$. Hence $(T \circ S) \circ R \subset T \circ (S \circ R)$.
+		\item Similarly, $T \circ (S \circ R) \subset (T \circ S) \circ R$. 
+	\end{itemize}
+	Since $(T \circ S) \circ R \subset T \circ (S \circ R)$ and $T \circ (S \circ R) \subset (T \circ S) \circ R$, we have that $(T \circ S) \circ R = T \circ (S \circ R)$.
+\end{proof}
+
+
+
+\begin{defn}
+	Let $A$ be a set. We define the \tbf{diagonal relation on $A$}, denoted $\Del_A \in \MR(A, A)$, by 
+	$$\Del_A \defeq \{(a,a): a \in A\}.$$
+\end{defn}
+
+\begin{ex}
+	Let $A, B$ be sets and $R \in \MR(A,B)$. Then 
+	\begin{enumerate}
+		\item $R \circ \Del_A = R$
+		\item $\Del_B \circ R = R$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{itemize}
+			\item Let $(a,b) \in R \circ \Del_A$. Then there exists $a' \in A$ such that $(a, a') \in \Del_A$ and $(a',b) \in R$. By definition of $\Del_A$, $a = a'$. Therefore $(a,b) \in R$. Since $(a,b) \in R \circ \Del_A$ is arbitrary, we have that for each $(a,b) \in R \circ \Del_A$, $(a,b) \in R$. Hence $ R \circ \Del_A \subset R$. 
+			\item Let $(a,b) \in R$. Then $a \in A$. Therefore $(a,a) \in \Del_A$. Since $(a,a) \in \Del_A$ and $(a,b) \in R$, we have that $(a, b) \in R \circ \Del_A$. Since $(a,b) \in R$ is arbitrary, we have that for each $(a,b) \in R$, $(a,b) \in R \circ \Del_A$. Hence $R \circ \Del_A \subset R$.  
+		\end{itemize}
+		Since $R \circ \Del_A \subset R$ and $R \circ \Del_A \subset R$, we have that $R \circ \Del_A = R$.
+		\item Similar to $(1)$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $A, B, C$ be sets. 
+	\begin{enumerate}
+		\item Let $R \in \MR(A, B)$ and $(S_{\gam})_{\gam \in \Gam} \subset \MR(B, C)$. Then
+		\begin{enumerate}
+			\item $\bigg( \bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R = \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R)$,
+			\item $\bigg( \bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R \subset \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R)$
+		\end{enumerate} 
+		\item Let $(R_{\gam})_{\gam \in \Gam} \subset \MR(A, B)$ and $S \in \MR(B, C)$. Then
+		\begin{enumerate}
+			\item $S \circ \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg) = \bigcup\limits_{\gam \in \Gam} (S \circ R_{\gam} )$.
+			\item $S \circ \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg) \subset \bigcap\limits_{\gam \in \Gam} (S \circ R_{\gam} )$.
+		\end{enumerate} 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item We note that
+			\begin{align*}
+				(a,c) \in \bigg( \bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R 
+				& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in \bigcup\limits_{\gam \in \Gam} S_{\gam} $} \\
+				& \iff \text{there exists $b \in B$ and $\gam_0 \in \Gam$ such that $(a,b) \in R$ and $(b,c) \in S_{\gam_0}$} \\
+				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a, c) \in S_{\gam_0} \circ R$} \\
+				& \iff (a, c) \in \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R).
+			\end{align*}
+			Hence $\bigg( \bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R  = \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
+			\item 
+			We note that
+			\begin{align*}
+				(a,c) \in \bigg( \bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R 
+				& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in \bigcap\limits_{\gam \in \Gam} S_{\gam} $} \\
+				& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and for each $\gam \in \Gam$ and $(b,c) \in S_{\gam}$} \\
+				& \implies \text{for each $\gam \in \Gam$, there exists $b \in B$ such that $(a, b) \in R$ and $(b,c) \in S_{\gam}$} \\
+				& \iff \text{for each $\gam \in \Gam$, $(a,c) \in S_{\gam} \circ R$} \\
+				& \iff (a, c) \in \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R).
+			\end{align*}
+			Hence $\bigg( \bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R  = \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
+		\end{enumerate}
 		\item 
 		\begin{enumerate}
 			\item We note that  
@@ -450,6 +957,19 @@
 
 
 
+\newpage
+\section{$n$-ary Homogeneous Relations}
+
+
+\subsection{Introduction}
+
+\begin{defn}
+	Let $n \in \N$ and $A$ a set. 
+	\begin{itemize}
+		\item Let $R \subset A^n$. Then $R$ is said to be a \tbf{homogeneous $n$-ary relation on $A$}
+		\item We define $\MR^n(A) \defeq \MP(A^n)$.
+	\end{itemize} 
+\end{defn}
 
 
 
@@ -467,6 +987,217 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Subrelations}
+
+\begin{defn}
+	Let $n \in \N$, $A, B$ sets, $R \in \MR^n(A)$ and $S \in \MR^n(B)$. Then 
+	\begin{itemize}
+		\item $S$ is said to be a \tbf{restriction of $R$} if $B \subset A$,    
+		\item $R$ is said to be an \tbf{extension of $S$} if $S$ is a restriction of $R$.
+	\end{itemize}
+\end{defn}
+
+
+\begin{defn}
+	Let $n \in \N$, $A$ a set, $B \subset A$ and $R \in \MR^n(A)$. We define the \tbf{restriction of $R$ to $B$}, denoted $R|_B$, by $R|_B \defeq R \cap B^n$.
+\end{defn}
+
+\begin{ex}
+	Let $n \in \N$, $A$ a set, $B \subset A$ and $R \in \MR^n(A)$. Then $R|_B$ is a restriction of $R$.
+\end{ex}
+
+\begin{proof}
+	Clear. \tcr{fill out later}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Product Relations}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Binary Homogeneous Relations}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Subrelations}
+
+\begin{ex}
+	Let $A$ be a set, $B \subset A$ and $R \in \MR^2(A)$. Then 
+	$(R^*)|_B = (R|_B)^*$
+\end{ex}
+
+\begin{proof}
+	Clear by \tcr{prev ex in section on binary hetero relations}. 
+\end{proof}
 
 
 
@@ -891,6 +1622,67 @@
 
 \newpage
 \section{Products}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

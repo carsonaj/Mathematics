@@ -129,8 +129,29 @@
 	
 	
 	\newpage
-	\chapter{Logic}
+	\part{Logic and Set Theory}
+	\section{To Do}
+	\begin{itemize}
+		\item need to merge the set theory notes with this intro to math. It might as well cover all the stuff related to set theory, just with more prose. 
+	\end{itemize}
 	
+	\chapter{Introduction to Logic}
+	
+	\subsection{Quantification}
+	
+	\begin{itemize}
+		\item discuss propositional logic and how it can represent statements and how to model it with computer say. Talk about conjunction (and), disjunction (or), implication (if,then), exlusive disjunction (either or) \tcr{(should discuss the controversy about `either or'. Just note that human language is often imprecise and establish a convention that `or' is to be taken in the sense of a choice of soup or salad at a buffet while `either or' is to be taken in the sense of a choice of soup or salad at a restaurant)}.    
+		\item Motivate quantification and type theory as a way to address the need for a conjucntion/disjunction for infintely many statements while propositional logic only accomodates conjunction of finitely many statements. For example we would like to be able to represent/reason with statements like ``there is a positive integer that is larger than $2$" or ``each integer is positive". We can intuit these types of statements in a few ways: 
+		\begin{itemize}
+			\item One way is with infinitely many dconjunctions/isjuctions: We can interpret the statement ``there is a positive integer that is larger than $2$" as the infinte disjunction ``$1 > 2$ or $2 > 2$ or $3 > 2$ or $\ldots$". Since this disjunction does not exist in propositional logic, we can just define an extension of propositional logic in which the infinte disjunction exists and is a well-defined operation. This is analogous to how the positive real numbers $\Rg$ does not have a natural infinte summation operation. We resolve both of these issues by extending the objects under consideration, statements $\phi$, (elements of $\Rg$ in the analogy), to a larger collection of objects, indexed statements $(\phi(x))_{x \in \MI}$, such as ``$(x > 2)_{x \in \N}$", where we indentify statements from the original collection such as ``$5$ is odd" with the indexed family $(\phi(x))_{x \in \N}$ where $\phi(x) \defeq \text{``$5$ is odd"}$ if $x = 5$ and $\phi(x) \defeq \perp$ if $x \neq 5$ ($(a_n)_{n \in \N} \in \RG^{\N}$, i.e. sequences of nonegative real numbers in the analogy where we identify $a \in \Rg$ with $(a_n)_{n \in \N}$ defined by $a_1 \defeq a$ and $a_n \defeq 0$). Then we define $\text{Value}[\exists\limits_{x \in \MI} \phi(x)] \defeq \sup\limits_{x \in \MI} \text{Value}(\phi(x))$. 
+			\item Another is as an implication: We can interpret the statement ``each integer is positive" as ``$a \in \Z \implies a >0$. In other words, if the type of $a$ (whatever $a$ that means) is $\Z$, then $a > 0$. To prove this statement, we would need to start with an object $a$ of type $\Z$, then provide a proof that $a > 0$. 
+		\end{itemize}
+		These both suffer from ambiguities, as we don't know what $\Z$ (or sets/sequences/etc in general) nor ``type" are. To get around this we create a formal system in which we assume ways to manipulate strings of characters according to specified rules which are aligned with propositional calculus (i.e. something we can run on a computer). try to capture the essence of quantification or type with these rules. 
+		\item For quantification and set theory, .  
+		\item Discuss quantification from a set theory perspective where everything is a set and we quantify over sets. For example, we would represent `` `is even', we would write `$\forall x, x$" 
+		\item \tcr{discuss phrasing $\forall$ and $\exists$ in terms of a hypothetical sequence of transactions between two people, so that $f: \R \rightarrow \R$ is continuous at $x \in \R$ if $\forall \ep >0, \exists \del >0, \forall y \in \R, |x-y|< \del \implies |f(x) - f(y)| < \ep$ can be rephrased as ``If you give me an $\ep>0$ (doesn't matter which one you give me), I can then give you a $\del >0$ (which may depend of $\ep$) such that (i.e. that satisfies/has the property that) if you give me a $y \in \R$ (doesn't matter which one), we have that (I can show you that) if $|x-y|<\del$, then $|f(x) - f(y)| < \ep$."}
+		\item \tcr{discuss the connection between restricted quantification and unrestricted quantification with implication. For example, ``$\forall x \in \R$, $x^2 > 0$" can be rephrased as ``$\forall x, x \in \R \implies x^2 > 0$". Point out that some sources claim that restricted quantification is equivalent to implication. For example ``$\forall x \in \R$, $x$" are equivalent and why we use quantification in the first place. For example } The reason we 
+	\end{itemize}
 	
 	
 	
@@ -181,7 +202,8 @@
 	
 	
 	\newpage
-	\chapter{Set Theory}
+	
+	\chapter{Introduction to Set Theory}
 	
 	\section{Sets}	
 	
@@ -413,6 +435,8 @@
 	\newpage
 	\section{Functions}
 	
+	\subsection{Introduction}
+	
 	\begin{defn}
 		\tcr{define function}, 
 		Let $X,Y$ be sets. 
@@ -424,6 +448,7 @@
 			\end{enumerate}
 			\item We define $Y^X \defeq \{f: f:X \rightarrow Y\}$.
 		\end{itemize}
+		\tcr{later in section on products, show that $Y^X = \prod\limits_{x \in X} A$}
 	\end{defn}
 	
 	\begin{ex}
@@ -431,9 +456,808 @@
 	\end{ex}
 	
 	\begin{proof}
-		For the sake of contradiction, suppose that $\varnothing^{X} \neq \varnothing$. Then there exists $f:X \rightarrow \varnothing$. Since $X \neq \varnothing$, there exists $x \in X$. Since $f$ is a function, there exists $y \in \varnothing$ such that $f(x) = y$. This is a contradiction. Hence $\varnothing^{X} = \varnothing$.
+		For the sake of contradiction, suppose that $X \neq \varnothing$ and $\varnothing^{X} \neq \varnothing$. Then there exists $f:X \rightarrow \varnothing$. Since $X \neq \varnothing$, there exists $x \in X$. Since $f$ is a function, there exists $y \in \varnothing$ such that $f(x) = y$. This is a contradiction. Hence $\varnothing^{X} = \varnothing$.
 	\end{proof}
 	
+	\begin{defn}
+		Let $X,Y$ be sets and $f:X \rightarrow Y$. Then $f$ is said to be 
+		\begin{itemize}
+			\item \tbf{injective} or an \tbf{injection} if for each $x_1, x_2 \in X$, $f(x_1) = f(x_2)$ implies that $x_1 = x_2$.
+			\item \tbf{surjective} or a \tbf{surjection} if for each $y \in Y$, there exists $x \in X$ such that $f(x) = y$
+			\item \tbf{bijective} a \tbf{bijection} if $f$ is injective and $f$ is surjective.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $X,Y$ be sets and $f:X \rightarrow Y$. Then 
+		\begin{enumerate}
+			\item $f$ is injective iff for each $y \in f(X)$, there exists $x \in X$ such that $f^{-1}(\{y\}) = \{x\}$,
+			\item $f$ is surjective iff $f(X) = Y$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Supose that $f$ is injective. Let $y \in f(X)$. Then there exists $x \in X$ such that $f(x) = y$. 
+				\begin{itemize}
+					\item Since 
+					\begin{align*}
+						f(x)
+						& = y \\
+						& \in \{y\},
+					\end{align*}
+					we have that $x \in f^{-1}(\{y\})$. Therefore $\{x\} \subset f^{-1}(\{y\})$. 
+					\item Let $x' \in f^{-1}(\{y\})$. By definition \tcr{(ref def)}, $f(x') \in \{y\}$. \rex{} \tcr{(ref ex)} implies that $f(x') = y$. Therefore
+					\begin{align*}
+						f(x')
+						& = y \\
+						& = f(x).
+					\end{align*}
+					Since $f$ is injective, $x' = x$. Hence $x' \in \{x\}$. Since $x' \in f^{-1}(\{y\})$ is arbitrary, we have that for each $x' \in f^{-1}(\{y\})$, $x' \in \{x\}$. Therefore $f^{-1}(\{y\}) \subset \{x\}$. 
+				\end{itemize}
+				Since $\{x\} \subset f^{-1}(\{y\})$ and $f^{-1}(\{y\}) \subset \{x\}$, we have that $f^{-1}(\{y\}) = \{x\}$. Since $y \in f(X)$ is arbitrary, we have that for each $y \in f(X)$, there exists $x \in X$ such that $f^{-1}(\{y\}) = \{x\}$. 
+				\item $(\impliedby)$: \\
+				Suppose that for each $y \in f(X)$, there exists $x \in X$ such that $f^{-1}(\{y\}) = \{x\}$. Let $x_1, x_2 \in X$. Suppose that $f(x_1) = f(x_2)$. Define $y \in f(X)$ by $y \defeq f(x_1)$. By assumption, there exists $x \in X$ such that $f^{-1}(\{y\}) = \{x\}$. Since 
+				\begin{align*}
+					f(x_1)
+					& = y \\
+					& \in \{y\},
+				\end{align*}
+				we have that $x_1 \in f^{-1}(\{y\})$. Therefore 
+				\begin{align*}
+					x_1 
+					& \in f^{-1}(\{y\}) \\
+					& = \{x\}.
+				\end{align*}
+				Similarly, $x_2 \in \{x\}$. \rex{} \tcr{(ref ex)} then implies that 
+				\begin{align*}
+					x_1
+					& = x \\
+					& = x_1.
+				\end{align*}
+				Since $x_1, x_2 \in X$ with $f(x_1) = f(x_2)$ are arbitrary, we have that for each $x_1, x_2 \in X$, $f(x_1) = f(x_2)$ implies that $x_1 = x_2$. Thus $f$ is injective. 
+			\end{itemize}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Supose that $f$ is surjective. 
+				\begin{itemize}
+					\item \rd{} \tcr{(ref def)} implies that $f(X) \subset Y$. 
+					\item Let $y \in Y$. Since $f$ is surjective, there exists $x \in X$ such that $f(x) = y$. Then 
+					\begin{align*}
+						y
+						& = f(x) \\
+						& \in f(X).
+					\end{align*}
+					Since $y \in Y$ is arbitrary, we have that for each $y \in Y$, $y \in f(X)$. Hence $Y \subset f(X)$. 
+				\end{itemize}
+				Since $f(X) \subset Y$ and $Y \subset f(X)$, we have that $f(X) = Y$.
+				\item $(\impliedby)$: \\
+				Suppose that $f(X) = Y$. Let $y \in Y$. Since $f(X) = Y$, we have that $y \in f(X)$. \rd{} \tcr{(ref def)} implies that there exists $x \in X$ such that $f(x) = y$. Since $y \in Y$ is arbitrary, we have that for each $y \in Y$, there exists $x \in X$ such that $f(x) = y$. Hence $f$ is surjective.
+			\end{itemize}
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Axiom of Choice}
+	
+	\begin{defn}
+		Let $A, B$ be sets, $F:A \rightarrow \MP(B)$ and $f: A \rightarrow B$. Then $f$ is said to be a \tbf{selection of $F$} if for each $a \in A$, $f(a) \in F(a)$.
+	\end{defn}
+	
+	\begin{ax} \tbf{Axiom of Choice}: \\
+		Let $A, B$ be sets, $F:A \rightarrow \MP(B)$. If for each $a \in A$, $F(a) \neq \varnothing$, then there exists $f:A \rightarrow B$ such that $f$ is a selection of $F$.  
+	\end{ax}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Composition}
+	
+	\begin{defn}
+		Let $X,Y,Z$ be sets, $f:X \rightarrow Y$ and $g:Y \rightarrow Z$. We define the \tbf{composition of $g$ with $f$}, denoted $g \circ f: X \rightarrow Y$, by 
+		$$g \circ f(x) \defeq g(f(x)) \quad (x \in X)$$
+	\end{defn}
+	
+	\begin{ex}
+		Let $X,Y,Z$ be sets, $f:X \rightarrow Y$ and $g:Y \rightarrow Z$. Then $g \circ f: X \rightarrow Y$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x \in X$. Since $f:X \rightarrow Y$ and $x \in X$, $f(x) \in Y$. Define $y \in Y$ by $y \defeq f(x)$. Since $g:Y \rightarrow Z$ and $y \in Y$, $g(y) \in Z$. Therefore 
+			\begin{align*}
+				g \circ f(x)
+				& = g(f(x)) \\
+				& = g(y) \\
+				& \in Z.
+			\end{align*}
+			Since $x \in X$ is arbitrary, we have that for each $x \in X$, $g \circ f(x) \in Z$. 
+			\item Let $x_1, x_2 \in X$. Suppose that $x_1 = x_2$. Define $y_1, y_2 \in Y$ by $y_1 \defeq f(x_1)$ and $y_2 \defeq f(x_2)$. Since $f:X \rightarrow Y$ and $x_1 = x_2$, we have that 
+			\begin{align*}
+				y_1
+				& = f(x_1) \\
+				& = f(x_2) \\
+				& = y_2.
+			\end{align*} 
+			Since $g:Y \rightarrow Z$ and $y_1 = y_2$, we have that 
+			\begin{align*}
+				g \circ f(x_1)
+				& = g(f(x_1)) \\
+				& = g(y_1) \\
+				& = g(y_2) \\
+				& = g(f(x_2)) \\
+				& = g \circ f(x_2).
+			\end{align*}
+			Since $x_1, x_2 \in X$ with $x_1 = x_2$ are arbitrary, we have that for each $x_1, x_2 \in X$, $x_1 = x_2$ implies that $g \circ f(x_1) = g \circ f(x_2)$.
+		\end{enumerate}
+		Thus $g \circ f:X \rightarrow Y$. 
+	\end{proof}
+	
+	\begin{ex}
+		Let $X,Y,Z, W$ be sets, $f:X \rightarrow Y$, $g:Y \rightarrow Z$ and $h:Z \rightarrow W$. Then $(h \circ g) \circ f = h \circ (g \circ f)$.
+	\end{ex}
+	
+	\begin{proof}
+		For each $x \in X$,
+		\begin{align*}
+			(h \circ g) \circ f(x)
+			& = (h \circ g) (f(x)) \\
+			& = h(g(f(x))) \\
+			& = h(g \circ f(x)) \\
+			& = h \circ (g \circ f)(x).
+		\end{align*}
+		Thus $(h \circ g) \circ f = h \circ (g \circ f)$.
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a set. We define the \tbf{identity function on $X$}, denoted $\id_X:X \rightarrow X$ by $\id_X(x) \defeq x \quad (x \in X)$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a set. Then $\id_X:X \rightarrow X$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item By definition, for each $x \in X$, 
+			\begin{align*}
+				\id_X(x)
+				& = x \\
+				& \in X.
+			\end{align*}
+			\item By definition, for each $x_1, x_2 \in X$, if $x_2 = x_2$, then 
+			\begin{align*}
+				\id_X(x_1)
+				& = x_1 \\
+				& = x_2 \\
+				& = \id_X(x_2).
+			\end{align*}
+		\end{enumerate}
+		Thus $\id_X:X \rightarrow X$. 
+	\end{proof}
+	
+	\begin{ex}
+		Let $X,Y$ be sets and $f:X \rightarrow Y$. Then 
+		\begin{enumerate}
+			\item $f \circ \id_X = f$, 
+			\item $\id_Y \circ f = f$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item For each $x \in X$,
+			\begin{align*}
+				f \circ \id_X(x)
+				& = f(\id_X(x)) \\
+				& = f(x).
+			\end{align*}
+			Thus $f \circ \id_X = f$.
+			\item For each $y \in Y$,
+			\begin{align*}
+				\id_Y \circ f(x)
+				& = \id_Y(f(x)) \\
+				& = f(x).
+			\end{align*}
+			Thus $\id_Y \circ f = f$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $X,Y$ be sets and $f:X \rightarrow Y$. 
+		\begin{itemize}
+			\item Let $g:Y \rightarrow X$. Then $g$ is said to be a(n)
+			\begin{itemize}
+				\item \tbf{left inverse of $f$} if $g \circ f = \id_X$,
+				\item \tbf{right inverse of $f$} if $f \circ g = \id_Y$,
+				\item \tbf{inverse of $f$} if $g$ is a left inverse of $f$ and $g$ is a right inverse of $f$.
+			\end{itemize}
+			\item Then $f$ is said to 
+			\begin{itemize}
+				\item have a(n)
+				\begin{itemize}
+					\item \tbf{left inverse} if there exists $g:Y \rightarrow X$ such that $g$ is a left inverse of $f$,
+					\item \tbf{right inverse} if there exists $g:Y \rightarrow X$ such that $g$ is a right inverse of $f$.
+					\item \tbf{inverse} if there exists $g:Y \rightarrow X$ such that $g$ is an inverse of $f$,
+				\end{itemize}
+				\item be 
+				\begin{itemize}
+					\item \tbf{left invertible} if $f$ has a left inverse,
+					\item \tbf{right invertible} if $f$ has a right inverse,
+					\item \tbf{invertible} if $f$ has an inverse.
+				\end{itemize}
+			\end{itemize}
+		\end{itemize} 
+	\end{defn}
+	
+	\begin{ex}
+		\tcr{make ex about nonunique left and right inverses}
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{finish!!!}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X,Y$ be sets, $f:X \rightarrow Y$, $g,g':Y \rightarrow X$. If $g$ is an inverse of $f$ and $g'$ is an inverse of $f$, then $g = g'$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $g$ is an inverse of $f$ and $g'$ is an inverse of $f$. Then 
+		\begin{align*}
+			g'
+			& = g' \circ \id_Y \\
+			& = g' \circ (f \circ g) \\
+			& = (g' \circ f) \circ g \\
+			& = \id_X \circ g \\
+			& = g.
+		\end{align*}
+	\end{proof}
+	
+	\begin{defn}
+		Let $X,Y$ be sets and $f:X \rightarrow Y$. Suppose that $f$ is invertible. We define the \tbf{inverse of $f$}, denoted $f^{-1}:Y \rightarrow X$, to be the unique $g:Y \rightarrow X$ such that $g$ is an inverse of $f$. 
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsubsection{Composition and X-jectivity}
+	
+	\begin{ex}
+		Let $X$ be a set. Then
+		\begin{enumerate}
+			\item $\id_X$ is injective,
+			\item $\id_X$ is surjective,
+			\item $\id_X$ is bijective.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item For each $x_1, x_2 \in X$, $\id_X(x_1) = \id_X(x_2)$ implies that 
+			\begin{align*}
+				x_1
+				& = \id_X(x_1) \\
+				& = \id_X(x_2) \\
+				& = x_2. 
+			\end{align*}
+			Thus $\id_X$ is injective.
+			\item Let $y \in X$. Define $x \in X$ by $x \defeq y$. Then 
+			\begin{align*}
+				\id_X(x)
+				& = x \\
+				& = y.
+			\end{align*}
+			Since $y \in X$ is arbitrary, we have that for each $y \in X$, there exists $x \in X$ such that $\id_X(x) = y$. Hence $\id_X$ is surjective.
+			\item Since $\id_X$ is injective and $\id_X$ is surjective, we have that $\id_X$ is bijective.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X,Y,Z$ be sets, $f:X \rightarrow Y$ and $g:Y \rightarrow Z$. 
+		\begin{enumerate}
+			\item If $g$ is injective and $f$ is injective, then $g \circ f$ is injective.
+			\item If $g$ is surjective and $f$ is surjective, then $g \circ f$ is surjective.
+			\item If $g$ is bijective and $f$ is bijective, then $g \circ f$ is bijective.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $g$ is injective and $f$ is injective. Let $x_1, x_2 \in X$. Suppose that $g \circ f(x_1) = g \circ f(x_2)$. Define $y_1,y_2 \in Y$ by $y_1 \defeq f(x_1)$ and $y_2 \defeq f(x_2)$. Then 
+			\begin{align*}
+				g(y_1)
+				& = g(f(x_1)) \\
+				& = g \circ f(x_1) \\
+				& = g \circ f(x_2) \\
+				& = g(f(x_2)) \\
+				& = g(y_2).
+			\end{align*}
+			Since $g$ is injective, we have that $y_1 = y_2$. Therefore
+			\begin{align*}
+				f(x_1)
+				& = y_1 \\
+				& = y_2 \\
+				& = f(x_2).
+			\end{align*}
+			Since $f$ is injective, we have that $x_1 = x_2$. Since $x_1, x_2 \in X$ with $g \circ f(x_1) = g \circ f(x_2)$ are arbitrary, we have that for each $x_1, x_2 \in X$, $g \circ f(x_1) = g \circ f(x_2)$ implies that $x_1 = x_2$. Thus $g \circ f$ is injective.  
+			\item Suppose that $g$ is surjective and $f$ is surjective. Let $z \in Z$. Since $g$ is surjective, there exists $y \in Y$ such that $g(y) = z$. Since $f$ is surjective, there exists $x \in X$ such that $f(x) = y$. Then 
+			\begin{align*}
+				g \circ f(x)
+				& = g(f(x)) \\
+				& = g(y) \\
+				& = z.
+			\end{align*}
+			Since $z \in Z$ is arbitrary, we have that for each $z \in Z$, there exists $x \in X$ such that $g \circ f(x) = z$. Hence $g \circ f$ is surjective.
+			\item 
+			Suppose that $g$ is bijective and $f$ is bijective. Then $g$ is injective, $g$ is surjective, $f$ is injective and $f$ is surjective. \tcr{the prev parts (ref parts)} implies that $g \circ f$ is injective and $g \circ f$ is surjective. Thus $g \circ f$ is bijective.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X,Y,Z$ be sets, $f:X \rightarrow Y$ and $g:Y \rightarrow Z$. Then
+		\begin{enumerate}
+			\item $g$ is injective implies that $g \circ f$ is injective iff $f$ is injective.
+			\item $f$ is surjective implies that $g \circ f$ is surjective iff $g$ is surjective.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $g$ is injective. 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $g \circ f$ is injective. Let $x_1, x_2 \in X$. Suppose that $f(x_1) = f(x_2)$. Define $y_1, y_2 \in Y$ by $y_1 \defeq f(x_1)$ and $y_2 \defeq f(x_2)$. By assumption,  
+				\begin{align*}
+					y_1
+					& = f(x_1) \\
+					& = f(x_2) \\
+					& = y_2.
+				\end{align*}
+				Since $g:Y \rightarrow Z$, we have that $g(y_1) = g(y_2)$. Therefore
+				\begin{align*}
+					g \circ f(x_1) 
+					& = g(f(x_1)) \\
+					& = g(y_1) \\
+					& = g(y_2) \\
+					& = g(f(x_2)) \\
+					& = g \circ f(x_2).
+				\end{align*}
+				Since $g \circ f$ is injective, we have that $x_1 = x_2$. Since $x_1, x_2 \in X$ with $f(x_1) = f(x_2)$ are arbitrary, we have that for each $x_1, x_2 \in X$, $f(x_1) = f(x_2)$ implies that $x_1 = x_2$. Thus $f$ is injective.
+				\item $(\impliedby)$: \\
+				Since $f$ is injective, \rex{} \tcr{(ref prev ex)} implies that if $f$ is injective, then $g \circ f$ is injective. 
+			\end{itemize}
+			\item Suppose that $f$ is surjective. 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $g \circ f$ is surjective. Let $z \in Z$. Since $g \circ f$ is surjective, there exists $x \in X$ such that $g \circ f(x) = z$. Define $y \in Y$ by $y \defeq f(x)$. Then 
+				\begin{align*}
+					g(y)
+					& = g(f(x)) \\
+					& = g \circ f(x) \\
+					& = z. 
+				\end{align*}
+				Since $z \in Z$ is arbitrary, we have that for each $z \in Z$, there exists $y \in Y$ such that $g(y) = z$. Thus $g$ is surjective. 
+				\item $(\impliedby)$: \\
+				Since $f$ is surjective, \rex{} \tcr{(ref prev ex)} implies that if $g$ is surjective, then $g \circ f$ is surjective. 
+			\end{itemize}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X,Y$ be sets and $f:X \rightarrow Y$. Then 
+		\begin{enumerate}
+			\item $f$ is left invertible iff $f$ is injective.
+			\item $f$ is right invertible iff $f$ is surective.
+			\item $f$ is invertible iff $f$ is a bijection.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Supose that $f$ is left invertible. Then $f$ has a left inverse. Thus there exists $g:Y \rightarrow X$ such that $g \circ f = \id_X$. Therefore for each $x_1, x_2 \in X$, $f(x_1) = f(x_2)$ implies that 
+				\begin{align*}
+					x_1
+					& = \id_X(x_1) \\
+					& = g \circ f(x_1) \\
+					& = g(f(x_1)) \\
+					& = g(f(x_2)) \\
+					& = g \circ f(x_2) \\
+					& = \id_X(x_2) \\
+					x_2.
+				\end{align*}
+				Hence $f$ is injective.
+				\item $(\impliedby)$: \\
+				\begin{itemize}
+					\item Suppose that $f$ is injective. \rex{} \tcr{(ref ex)} implies that for each $y \in f(X)$, there exists $x_y \in X$ such that $f^{-1}(\{y\}) = \{x_y\}$. Define $F:Y \rightarrow \MP(X)$ by $F(y) \defeq f^{-1}(\{y\})$. Since for each $y \in Y$, $F(y) \neq \varnothing$, the axiom of choice \tcr{(ref axiom)} implies that there exists $g:Y \rightarrow X$ such that for each $y \in Y$, $g(y) \in F(y)$. \rex{} \tcr{(ref ex)} implies that for each $y \in Y$, $g(y) = x_y$. 
+					\item Let $x \in X$. Define $y \in Y$ by $y \defeq f(x)$. By definition of $g$, 
+					\begin{align*}
+						x_y
+						& = g(y) \\
+						& \in f^{-1}(\{y\}). 
+					\end{align*}
+					Thus 
+					\begin{align*}
+						f(x_y) 
+						& = y \\
+						& = f(x). 
+					\end{align*}
+					Since $f$ is injective, we have that 
+					\begin{align*}
+						x_{f(x)}
+						& = x_y \\
+						& = x.
+					\end{align*}
+					Since $x \in X$ is arbitrary, we have that for each $x \in X$, $x_{f(x)} = x$.
+					\item Then for each $x \in X$, 
+					\begin{align*}
+						g \circ f(x)
+						& = g(f(x)) \\
+						& = x_{f(x)} \\
+						& = x \\
+						& = \id_X(x). 
+					\end{align*} 
+					Hence $g \circ f = \id_X$. Thus $f$ has a left inverse and therefore $f$ is left invertible. 
+				\end{itemize}
+			\end{itemize}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Supose that $f$ is right invertible. Then $f$ has a right inverse. Thus there exists $g:Y \rightarrow X$ such that $f \circ g = \id_Y$. 
+				
+				Hence $f$ is surjective.
+				\item $(\impliedby)$: \\
+				\begin{itemize}
+					\item Suppose that $f$ is surjective. 
+				\end{itemize}
+			\end{itemize}
+			\item 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X,Y$ be sets and $f:X \rightarrow Y$. Then $f$ is invertible iff $f$ is a bijection.
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{maybe make an exercise characterizing injectivity and surjectivity in terms of left and right inverses (basically the proof below) and then just reference that exercise here, need axiom of choice and previous exercise about product of singletons being singleton}
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $f$ is invertible. 
+			\begin{itemize}
+				\item For each $x_1, x_2 \in X$, $f(x_1) = f(x_2)$ implies that 
+				\begin{align*}
+					x_1
+					& = \id_X(x_1) \\
+					& = f^{-1} \circ f(x_1) \\
+					& = f^{-1}(f(x_1)) \\
+					& = f^{-1}(f(x_2)) \\
+					& = f^{-1} \circ f(x_2) \\
+					& = \id_X(x_2) \\
+					x_2.
+				\end{align*}
+				Thus $f$ is injective.
+				\item Let $y \in Y$. Define $x \in X$ by $x \defeq f^{-1}(y)$. Then 
+				\begin{align*}
+					f(x)
+					& = f(f^{-1}(y)) \\
+					& = f \circ f^{-1}(y) \\
+					& = \id_Y(y) \\
+					& = y.
+				\end{align*}
+				Since $y \in Y$ is arbitrary, we have that for each $y \in Y$, there exists $x \in X$ such that $f(x) = y$. Hence $f$ is surjective.
+			\end{itemize}
+			\item $(\impliedby)$: \\
+			Suppose that $f$ is a bijection. Then $f$ is injective and surjective. Since $f$ is surjective, $f(X) = Y$. Therefore for each $y \in Y$, $f^{-1}(\{y\}) \neq \varnothing$ \tcr{(define $f^{-1}(A)$ and $f(A)$, show $f(X) = Y$ iff $f$ is surjective and ref exercises)}. Since $f$ is injective and $f(X) = Y$, for each $y \in f(X)$, there exists $x_y \in X$ such that $f^{-1}(\{y\}) = \{x_y\}$. The axiom of choice \tcr{(actually an exercise I proved somewhere about products of singleton sets being a singelton set)} implies that there exists a unique $g:Y \rightarrow X$ such that for each $y \in Y$, $g(y) = x_y$. Then for each $y \in Y$, 
+			\begin{align*}
+				f \circ g(y) 
+				& = f(g(y)) \\
+				& = f(x_y) \\
+				& = y \\
+				& = \id_Y(y).
+			\end{align*}
+			Thus $f \circ g = \id_Y$. Let $x \in X$. Since $f$ is injective,
+			\begin{align*}
+				\{x\}
+				& = f^{-1}(\{f(x)\}) \\
+				& = \{g(f(x))\} \quad \text{(by definition of $g$)}.
+			\end{align*}
+			Therefore
+			\begin{align*}
+				g \circ f(x)
+				& = g(f(x)) \\
+				& = x \\
+				& = \id_X(x).
+			\end{align*}
+			Since  $x \in X$ is arbitrary, we have that for each $x \in X$, $g \circ f(x) = \id_X(x)$. Hence $g \circ f = \id_X$.
+		\end{itemize}
+		Thus there exists $g:Y \rightarrow X$ such that $g \circ f = \id_X$ and $f \circ g = \id_Y$. Hence $f$ is invertible.  
+	\end{proof}
+	
+	\tcr{Motivate Schroder-Bernstein theorem with Hilbert's hotel and reference blargoner's youtube video \href{https://www.youtube.com/watch?v=IkoKttTDuxE}{https://www.youtube.com/watch?v=IkoKttTDuxE}}
+	
+	\tcr{Write some stuff about hilbert's hotel}
+	
+	\begin{questn}
+		Suppose we have a hotel with infintely many rooms, each of which is current occupied by a unique guest. Suppose infintely many more prospective guests arrive in search of a room. 
+		
+		Now assume that 
+		\begin{itemize}
+			\item there is a room-assignment procedure which will assign a room to each of the guests (prospective or current) but will not assign more than one guest to the same room,
+			\item there is a occupant-identification procedure which for each room, allows us to identify the current occupant.
+		\end{itemize}
+		
+		We note that the room assingment procedure may not necessarily fill all the rooms and the occupant identification procedure may not necessarily provide the names of all guests (e.g. the prospective guests before they are assigned a room).
+		
+		Is it possible to assign a room to each guest (current or prospective) using the room-assignment and occupant-identification procedures in such a way so that each of the rooms in the hotel are occupied 
+	\end{questn}
+	
+	\tcr{draw picture}
+	
+	\begin{soln}
+		We will denote the set of guests (current or prospective) by $Y$ and the set of rooms by $X$. We denote the room-assignment procedure by $g:Y \rightarrow X$ and we denote the occupant-identification procedure by $f:X \rightarrow Y$. 
+		
+		We may begin by 
+		\begin{enumerate}
+			\item assigning each of the prospective guests to a room using the room-assingment procedure, that is we will send each $y \in f(X)^c$ to $g(y) \in g[f(X)^c]$.
+			\item Since the rooms in $g[f(X)^c]$ are already currently occupied, for each room in $g[f(X)^c]$, we may identify its occupant using the occupant-identification procedure and temporarily remove them from their room, that is send each $x \in g[f(X)^c]$ to $f(x) \in (f \circ g)[f(X)^c]$.
+		\end{enumerate}
+		We may then inductively repeat the previous steps so that after the $k$-th iteration of the previous steps, we have just assigned each guest $y \in (f \circ g)^{k-1}[f(X)^c]$ to room $g(y) \in g \circ (f \circ g)^{k-1}[f(X)^c]$ and temporarily removed each guest $f(x) \in (f \circ g)^k[f(X)^c]$. 
+	\end{soln}
+	
+	\tcr{rework intuition, move intuition about size to exercises about injectivity and surjectivity, draw pictures, add picture and intuition about same size-ness for bijections, draw strings, etc}
+	
+	Let $X$ and $Y$ be sets. Suppose that there exists $f:X \rightarrow Y$ such that $f$ is injective.  Intuitively, we are able to consider $Y$ as being ``at least as large as" $X$ because for each $x \in X$, we may tie a string from $x$ to a unique $f(x) \in Y$, so that there are ``at least as many" elements of $Y$ as there are elements in $X$. In this analogy, it is not generally the case that each $y \in Y$ will have a string attached to it unless $f$ is a bijection. However, what if we find ourselves in the situation in which there also exists $g:Y \rightarrow X$ such that $g$ is an injection. Then intuitively, $X$ ``at least as large as" $Y$ and we would then want it to be the case that $X$ and $Y$ are ``the same size". Taking our analogy further, we would like it to be the case that there is a bijection $h:X \rightarrow Y$. The previous question about hotels provides the mechanism for showing this to be the case.
+	
+	\begin{ex} \tbf{Schroder-Bernstein Theorem:} \\
+		Let $X,Y$ be sets. If there exist $f:X \rightarrow Y$, $g:Y \rightarrow X$ such that $f$ and $g$ are injections, then there exists $\phi:X \rightarrow Y$ such that $\phi$ is a bijection.
+	\end{ex}
+	
+	\begin{proof}
+		Define $A_0 \defeq f(X)^c$ and $A \defeq \bigcup\limits_{k=0} (f \circ g)^{\circ k} (A_0)$. \tcr{Show} $A^c \subset f(X)$ and $f(A^c) = g(A)^c$ and \tcr{show} $g|^{g(A)}_A$ and $(f|^{A^c}_{g(A)^c})^{-1}$ are invertible. Define $h:Y \rightarrow X$ by 
+		\[
+		h(y) \defeq 
+		\begin{cases}
+		g(y), & y \in A \\
+		(f|^{f(X)})^{-1}(y), & y \in A^c	
+		\end{cases}
+		\]
+		i.e. $h = g|^{g(A)}_A \oplus (f|^{A^c}_{g(A)^c})^{-1}$\\
+		\tcr{there may be an exercise showing that inverse of coprod is coprod of inverses}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\chapter{Arithmetic}
+	
+	\subsection{Construction of Natural Numbers}
+	
+	
+	
+	\begin{defn} 
+		We define the successor function, denoted $S: \bSet \rightarrow \bSet$, by $S(x) \defeq x \cup \{x\}$. 
+	\end{defn}
+	
+	\begin{ax} \tbf{Axiom of Infinity}
+		There exists $X$ such that $\varnothing \in X$ and for each $x \in X$, $S(x) \in X$. 
+	\end{ax}
+	
+	\begin{defn} \tbf{Natural Numbers}
+		We define $\N_0$ inductively by $0 \defeq \varnothing$ and $\N_0 \defeq \cl(\{0\}, S)$ \tcr{(define closure under maps in closure operator section of algebra notes)}. 
+	\end{defn}
+	
+	\begin{note}
+		Here we assign the symbols $1$ to $S(0)$, $2$ to $S(1)$, etc. 
+	\end{note}
+	
+	\begin{defn}
+		We define $+: \N_0 \rightarrow \N_0$ by $m+n \defeq S(m+n)$
+	\end{defn}
 	
 	
 	

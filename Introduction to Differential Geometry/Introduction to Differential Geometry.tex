@@ -343,13 +343,18 @@
 	
 	\subsection{Differentiation}
 	
+	\tcr{maybe assume differentiation of Banach spaces so we can skip this stuff?}
+	
 	\begin{defn} \ld{def:differentiation:0001}
 		Let $n \geq 1$. For $i = 1, \cdots, n$, define $x^i: \R^n \rightarrow \R$ by $x^i(a^1, \cdots, a^n) = a^i$. The functions $(x^i)_{i=1}^n$ are called the \tbf{standard coordinate functions on $\R^n$}. 
 	\end{defn}
 	
 	\begin{defn} \ld{def:differentiation:0002}
-		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then $f$ is said to be \tbf{differentiable with respect to $x^i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he^i) - f(a)}{h}$$ exists. If $f$ is differentiable with respect to $x^i$ at $a$, we define the \tbf{partial derivative of $f$ with respect to $x^i$ at $a$}, denoted $$\frac{\p f}{\p x^i} (a) \text{ or } \frac{\p}{\p x^i} f $$ to be the limit above.
-		
+		Let $U \subset \R^n$ be open, $f: U \rightarrow \R$ and $a \in U$. Then $f$ is said to be 
+		\begin{itemize}
+			\item \tbf{differentiable with respect to $x^i$ at $a$} if $$\lim\limits_{h \rightarrow 0} \frac{f(a + he^i) - f(a)}{h}$$ exists. If $f$ is differentiable with respect to $x^i$ at $a$, we define the \tbf{partial derivative of $f$ with respect to $x^i$ at $a$}, denoted $$\frac{\p f}{\p x^i} (a) \text{ or } \frac{\p}{\p x^i} f $$ to be the limit above.
+			\item \tbf{differentiable at $a$} if there exists $L \in L(\R^m; \R^n)$ such that $F(a + h) = F(a) + L(h) + o(h)$ as $h \rightarrow 0$.
+		\end{itemize}
 	\end{defn}
 		
 	\begin{defn} \ld{def:differentiation:0003}
@@ -473,25 +478,46 @@
 	\newpage
 	\subsection{Differentiation on Subspaces}
 	
+	\begin{ex} 
+		\tcr{make this an ex in analysis notes}
+		Let $U_F, U_G \in \MT_X$, $F: U_F \rightarrow Y$, $G: U_G \rightarrow Y$ and $a \in U_1 \cap U_2$. If there exists $U \in \MT_X$ such that $a \in U$, $U \subset U_1 \cap U_2$ and $F|_U = G|_U$, then $DF(a) = DG(a)$. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that there exists $U \in \MT_X$ such that $a \in U$, $U \subset U_1 \cap U_2$ and $F|_U = G|_U$. Then \tcr{(make a prev ex that for each $x \in X$, $D\iota_U(x) = \id_X$)}
+		\begin{align*}
+			DF(a)
+			& = DF(a) \circ \id_X
+			& = DF(a) \circ D\iota_U(a) \\
+			& = D(F \circ \iota_U)(a) \\
+			& = DF|_U(a) \\
+			& = DG|_U(a) \\
+			& = D(G \circ \iota_U)(a) \\
+			& = DG(a) \circ D\iota_U(a) \\
+			& = DF(a) \circ \id_X \\
+			& = DG(a).
+		\end{align*}
+	\end{proof}
+	
 	\begin{defn} \ld{def:differentiation_on_subspaces:0001}
-		Let $A \subset \R^m$ and $f: A \rightarrow \R^n$. Then $f$ is said to be \tbf{smooth} if for each $a \in A$, there exists $B \subset \R^m$ and $g:B \rightarrow \R^n$ such that $a \in B$, $B$ is open in $\R^m$, $g$ is smooth and $g|_{A \cap B} = f|_{A \cap B}$. 
+		Let $A \subset \R^m$ and $F: A \rightarrow \R^n$. Then $F$ is said to be \tbf{smooth} if for each $a \in A$, there exists $B \in \MT_{\R^m}$ and $g:B \rightarrow \R^n$ such that $a \in B$, $g$ is smooth and $g|_{A \cap B} = F|_{A \cap B}$. 
 	\end{defn}
 
 	\begin{ex} \lex{ex:differentiation_on_subspaces:0002}
-		Let $A \subset \R^m$ and $f: A \rightarrow \R^n$. If $f$ is smooth, then $f$ is continuous.
+		Let $A \subset \R^m$ and $F: A \rightarrow \R^n$. If $F$ is smooth, then $F$ is continuous.
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $f$ is smooth. Let $a \in A$. Since $f$ is smooth, there exists $B \subset \R^m$ such that $a \in B$, $B$ is open in $\R^m$, $g$ is smooth and $g|_{A \cap B} = f|_{A \cap B}$.
-		Since $g$ is smooth, $g$ is continuous. Let $V \subset \R^n$. Suppose that $V$ is open in $\R^n$ and $f(a) \in V$. Since $f(a) = g(a)$ and $g$ is continuous, there exists $U_g \subset B$ such that $U_g$ is open in $B$, $a \in U_g$ and $g(U_g) \subset V$. Since $B$ is open in $\R^m$ and $U_g$ is open in $B$, we have that $U_g$ is open in $\R^m$. Set $U_f = U_g \cap A$. Then $a \in U_f$, $U_f$ is open in $A$ and 
+		Suppose that $F$ is smooth. Let $a \in A$. Since $F$ is smooth, there exists $B \subset \R^m$ such that $a \in B$, $B$ is open in $\R^m$, $G$ is smooth and $G|_{A \cap B} = F|_{A \cap B}$.
+		Since $G$ is smooth, $G$ is continuous. Let $V \subset \R^n$. Suppose that $V$ is open in $\R^n$ and $F(a) \in V$. Since $F(a) = G(a)$ and $G$ is continuous, there exists $U_G \subset B$ such that $U_G$ is open in $B$, $a \in U_G$ and $G(U_G) \subset V$. Since $B$ is open in $\R^m$ and $U_G$ is open in $B$, we have that $U_G$ is open in $\R^m$. Set $U_F = U_G \cap A$. Then $a \in U_F$, $U_F$ is open in $A$ and 
 		\begin{align*}
-			f(U_f)
-			& = f(U_g \cap A) \\
-			& = g(U_g \cap A) \\
-			& \subset g(U_g) \\
+			F(U_F)
+			& = F(U_G \cap A) \\
+			& = G(U_G \cap A) \\
+			& \subset G(U_G) \\
 			& \subset V 
 		\end{align*}
-		Since $V \subset \R^n$ such that $V$ is open in $\R^n$ and $f(a) \in V$ is arbitrary, we have that for each $V \subset \R^n$, if $V$ is open in $\R^n$ and $f(a) \in V$, then there exists $U_f \subset A$ such that $U_f$ is open in $A$, $a \in U_f$ and $f(U_f) \subset V$. Thus $f$ is continuous at $a$. Since $a \in A$ is arbitrary, $f$ is continuous. 
+		Since $V \subset \R^n$ such that $V$ is open in $\R^n$ and $F(a) \in V$ is arbitrary, we have that for each $V \subset \R^n$, if $V$ is open in $\R^n$ and $F(a) \in V$, then there exists $U_F \subset A$ such that $U_F$ is open in $A$, $a \in U_F$ and $F(U_F) \subset V$. Thus $F$ is continuous at $a$. Since $a \in A$ is arbitrary, $F$ is continuous. 
 	\end{proof}
 
 	\begin{ex} \lex{ex:differentiation_on_subspaces:0003}
@@ -509,7 +535,7 @@
 	\end{proof}
 
 	\begin{ex} \lex{ex:differentiation_on_subspaces:0004}
-		Let $A \subset \R^m$ and $f:A \rightarrow \R^n$. Then $f$ is smooth iff for each $a \in A$, there exists $U \subset A$ such that $a \in U$, $U$ is open in $A$ and $f|_U$ is smooth.  
+		Let $A \subset \R^m$ and $f:A \rightarrow \R^n$. Then $f$ is smooth iff for each $a \in A$, there exists $U \in \MT_{\R^m} \cap A$ such that $a \in U$ and $f|_U$ is smooth.  
 	\end{ex}
 
 	\begin{proof} \
@@ -553,7 +579,13 @@
 		Thus $g \circ f$ is smooth.
 	\end{proof}
 	
+	\begin{ex}
+		Let $A \subset \R^m$ and $F:A \rightarrow \R^n$. If $F$ is smooth, then $[DF]:A \rightarrow \R^{n \times m}$ is smooth. 
+	\end{ex}
 	
+	\begin{proof}
+		Suppose that 
+	\end{proof}
 	
 	
 	
@@ -3750,7 +3782,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \begin{defn} \ld{def:smooth_maps_between_manifolds:0001}
 	Let $(M, \MA)$ and $(N, \MB)$ be smooth manifolds and $F: M \rightarrow N$. Then $F$ is said to be 
 	\begin{itemize}
-		\item \tbf{$(\MA, \MB)$-smooth} if for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$, $F(U) \subset V$ and $\psi \circ F \circ \phi^{-1}$ is smooth. 
+		\item \tbf{$(\MA, \MB)$-smooth} if for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(U) \subset V$ and $\psi \circ F \circ \phi^{-1}$ is smooth. 
 		\item a \tbf{$(\MA, \MB)$-diffeomorphism} if $F$ is a bijection and $F,F^{-1}$ are smooth. 
 	\end{itemize}
 \end{defn}
@@ -3764,7 +3796,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \end{ex}
 
 \begin{proof}
-	Suppose that $F$ is smooth. Let $p \in M$. By defintion, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$, $F(U) \subset V$ and $\psi \circ F \circ \phi^{-1}$ is smooth. Define $F_0: \phi(U) \rightarrow \psi(V) $ by $$ F_0 = \psi \circ F \circ \phi^{-1}$$  
+	Suppose that $F$ is smooth. Let $p \in M$. By defintion, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(U) \subset V$ and $\psi \circ F \circ \phi^{-1}$ is smooth. Define $F_0: \phi(U) \rightarrow \psi(V) $ by $$ F_0 = \psi \circ F \circ \phi^{-1}$$  
 	By definition, $F_0$ is smooth. \rex{ex:differentiation_on_subspaces:0002} implies that $F_0$ is continuous. Since $\phi$ and $\psi$ are homeomorphisms and $F|_{U} = \psi^{-1} \circ F_0 \circ \phi$, we have that $F|_{U}$ is continuous. In particular, $F$ is continuous at $p$. Since $p \in M$ is arbitrary, $F$ is continuous.
 \end{proof}
 
@@ -3781,24 +3813,24 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 \begin{proof} Set $m \defeq \dim M$ and $n \defeq \dim N$.
 	\begin{enumerate}
 		\item $(1) \implies (2)$: \\
-		Suppose that $F$ is smooth. Let $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$. Suppose that $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$. Let $(U_0, \phi_0) \in \MA_0$ and $(V_0, \psi_0) \in \MB_0$. Since $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, we have that $(U_0, \phi_0) \in \MA$ and $(V_0, \psi_0) \in \MB$. Since $F$ is smooth, \rex{ex:smooth_maps_between_manifolds:0002} implies that $F$ is continuous and therefore $U_0 \cap F^{-1}(V_0)$ is open in $M$. Define $F_0:\phi_0(U_0 \cap F^{-1}(V_0)) \rightarrow \psi_0(V_0)$ by $F_0 \defeq \psi_0 \circ F \circ \phi_0|_{U_0 \cap F^{-1}(V_0)}^{-1}$. Let $a \in \phi_0(U_0 \cap F^{-1}(V_0))$. Define $p \in M$ by $p \defeq \phi_0^{-1}(a)$. Since $F$ is smooth, by definition 
-		%\tcb{$(2)$ in the previous exercise on smooth equivalence} implies that 
-		there exists $(U_1, \phi_1) \in \MA$ and $(V_1, \psi_1) \in \MB$ such that $p \in U_1$, $F(p) \in V_1$, $F(U_1) \subset V_1$ and $\psi_1 \circ F \circ \phi_1^{-1}$ is smooth. Define $U \subset M$, $\al: \phi_1(U_0 \cap U_1) \rightarrow \phi_0(U_0 \cap U_1)$, $\be: \psi_1(V_0 \cap V_1) \rightarrow \psi_0(V_0 \cap V_1)$ and $F_1: \phi_1(U_1) \rightarrow \psi_1(V_1)$ by $U \defeq U_0 \cap U_1 \cap F^{-1}(V_0 \cap V_1)$, $\al \defeq \phi_0|_{U_0 \cap U_1} \circ \phi_1|_{U_0 \cap U_1}^{-1}$, $\be \defeq \psi_0|_{V_0 \cap V_1} \circ \psi_1|_{V_0 \cap V_1}^{-1}$ and $F_1 \defeq \psi_1 \circ F \circ \phi_1^{-1}$.
+		Suppose that $F$ is smooth. Let $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$. Suppose that $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$. Let $(U_0, \phi_0) \in \MA_0$ and $(V_0, \psi_0) \in \MB_0$. Since $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, we have that $(U_0, \phi_0) \in \MA$ and $(V_0, \psi_0) \in \MB$. Since $F$ is smooth, \rex{ex:smooth_maps_between_manifolds:0002} implies that $F$ is continuous and therefore $U_0 \cap F^{-1}(V_0) \in \MT_M$. Define $F_0:\phi_0(U_0 \cap F^{-1}(V_0)) \rightarrow \psi_0(V_0)$ by $F_0 \defeq \psi_0 \circ F \circ \phi_0|_{U_0 \cap F^{-1}(V_0)}^{-1}$. Let $a \in \phi_0(U_0 \cap F^{-1}(V_0))$. Define $p \in M$ by $p \defeq \phi_0^{-1}(a)$. Since $F$ is smooth, there exists $(U_1, \phi_1) \in \MA$ and $(V_1, \psi_1) \in \MB$ such that $p \in U_1$, $F(U_1) \subset V_1$ and $\psi_1 \circ F \circ \phi_1^{-1}$ is smooth. Define $U \subset M$, $\al: \phi_1(U_0 \cap U_1) \rightarrow \phi_0(U_0 \cap U_1)$, $\be: \psi_1(V_0 \cap V_1) \rightarrow \psi_0(V_0 \cap V_1)$ and $F_1: \phi_1(U_1) \rightarrow \psi_1(V_1)$ by $U \defeq U_0 \cap U_1 \cap F^{-1}(V_0 \cap V_1)$, $\al \defeq \phi_0|_{U_0 \cap U_1} \circ \phi_1|_{U_0 \cap U_1}^{-1}$, $\be \defeq \psi_0|_{V_0 \cap V_1} \circ \psi_1|_{V_0 \cap V_1}^{-1}$ and $F_1 \defeq \psi_1 \circ F \circ \phi_1^{-1}$.
 		 We note the following:
 		\begin{itemize}
-			\item since $p \in U$ and $a = \phi_0(p)$, we have that $a \in \phi_0(U)$
-			\item $\phi_0(U)$ is open in $\phi_0(U_0 \cap F^{-1}(V_0))$
-			\item since $(U_0, \phi_0), (U_1, \phi_1) \in \MA$, $(U_0, \phi_0)$ and $(U_1, \phi_1)$ are smoothly compatible and $\al$ is a diffeomorphism
-			\item since $(V_0, \psi_0), (V_1, \psi_1) \in \MB$, $(V_0, \psi_0)$ and $(V_1, \psi_1)$ are smoothly compatible and $\be$ is a diffeomorphism
-			\item since $F_1 = \psi_1 \circ F \circ \phi_1^{-1}$, $F_1$ is smooth
-			\item since $\al^{-1}$ is smooth, \rex{ex:differentiation_on_subspaces:0003} implies that $ \al|_{\phi_1(U)}^{-1}$ is smooth
-			\item since $F_0|_{\phi_0(U)} = \be \circ F_1 \circ \al|_{\phi_1(U)}^{-1}$, \rex{ex:differentiation_on_subspaces:0005} implies that that $F_0|_{\phi_0(U)}$ is smooth
+			\item since $F$ is continuous, $V_0, V_1 \in \MT_N$ and $U_0, U_1 \in \MT_M$, we have that $U \in \MT_M$,
+			\item since $p \in U$ and $a = \phi_0(p)$, we have that $a \in \phi_0(U)$,
+			\item since $\phi_0(U) \subset \phi_0(U_0 \cap F^{-1}(V_0))$, $\phi_0(U) \in \MT_{\H^m}$ and $\phi_0(U_0 \cap F^{-1}(V_0)) \in \MT_{\H^m}$, we have that $\phi_0(U) \in \MT_{\H^m} \cap \phi_0(U_0 \cap F^{-1}(V_0))$,
+			\item since $(U_0, \phi_0), (U_1, \phi_1) \in \MA$, $(U_0, \phi_0)$ and $(U_1, \phi_1)$ are smoothly compatible and $\al$ is a diffeomorphism,
+			\item since $(V_0, \psi_0), (V_1, \psi_1) \in \MB$, $(V_0, \psi_0)$ and $(V_1, \psi_1)$ are smoothly compatible and $\be$ is a diffeomorphism,
+			\item since $F_1 = \psi_1 \circ F \circ \phi_1^{-1}$, $F_1$ is smooth,
+			\item since $\al^{-1}$ is smooth, \rex{ex:differentiation_on_subspaces:0003} implies that $ \al|_{\phi_1(U)}^{-1}$ is smooth,
+			\item since $F_0|_{\phi_0(U)} = \be \circ F_1 \circ \al|_{\phi_1(U)}^{-1}$, \rex{ex:differentiation_on_subspaces:0005} implies that that $F_0|_{\phi_0(U)}$ is smooth.
 		\end{itemize}
-		Since $a \in \phi_0(U_0 \cap F^{-1}(V_0))$ is arbitrary, we have that for each $a \in \phi_0(U_0 \cap F^{-1}(V_0))$, there exists $A \subset \phi_0(U_0 \cap F^{-1}(V_0))$ such that $a \in A$, $A$ is open in $\phi_0(U_0 \cap F^{-1}(V_0))$ and $F_0|_A$ is smooth. \rex{ex:differentiation_on_subspaces:0004} implies that $F_0$ is smooth. 
-		
-		Since $(U_0, \phi_0) \in \MA_0$ and $(V_0, \psi_0) \in \MB_0$ are arbitrary, we have that for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. 
-		
-		Since $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$ such that $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$ are arbitrary, we have that for each $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, if $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$, then for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth.
+		Therfore we have the following:
+		\begin{itemize}
+			\item Since $a \in \phi_0(U_0 \cap F^{-1}(V_0))$ is arbitrary, we have that for each $a \in \phi_0(U_0 \cap F^{-1}(V_0))$, there exists $A \in \MT_{\H^m} \cap \phi_0(U_0 \cap F^{-1}(V_0))$ such that $a \in A$, and $F_0|_A$ is smooth. \rex{ex:differentiation_on_subspaces:0004} implies that $F_0$ is smooth. 
+			\item Since $(U_0, \phi_0) \in \MA_0$ and $(V_0, \psi_0) \in \MB_0$ are arbitrary, we have that for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. 
+			\item Since $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$ such that $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$ are arbitrary, we have that for each $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, if $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$, then for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth.
+		\end{itemize}
 		\item $(2) \implies (3)$: \\
 		Suppose that for each $\MA_0 \subset \MA$ and $\MB_0 \subset \MB$, if $\MA_0$ is an atlas on $M$ and $\MB_0$ is an atlas on $N$, then for each $(U, \phi) \in \MA_0$ and $(V, \psi) \in \MB_0$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. Let $p \in M$. Since $\MA$ is an atlas on $M$ and $\MB$ is an atlas on $N$, there exists $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$ and $F(p) \in V$. By assumption, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. Since $p \in M$ is arbitrary, we have that for each $p \in M$, there exist $(U, \phi) \in \MA$ and $(V, \psi) \in \MB$ such that $p \in U$, $F(p) \in V$, $U \cap F^{-1}(V)$ is open in $M$ and $\psi \circ F \circ \phi|_{U \cap F^{-1}(V)}^{-1}$ is smooth. 
 		\item $(3) \implies (4)$: \\
@@ -5720,15 +5752,22 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\section{Immersions}
 	
 	\begin{defn} \ld{def:immersions:0001}
-		Let $M, N \in \Obj(\ManBndinf)$ and $F \in \Hom_{\ManBndinf}(M, N)$. Then $F$ is said to be a \tbf{$\ManBndinf$-immersion} if for each $p \in M$, $DF(p):T_pM\rightarrow T_{F(p)}N$ is injective.
+		Let $M, N \in \Obj(\ManBndinf)$ and $F \in \Hom_{\ManBndinf}(M, N)$. Then $F$ is said to be a \tbf{$\ManBndinf(U,N)$-immersion} if for each $p \in M$, $DF(p):T_pM\rightarrow T_{F(p)}N$ is injective.
 	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we say ``immersion" instead of ``$\ManBndinf(U,N)$-immersion".
+	\end{note}
 
-	\begin{ex} \lex{ex:immersions:0002}
-		Let $M, N \in \Obj(\ManBndinf)$, $F \in \Hom_{\ManBndinf}(M, N)$ and $p \in M$. If $DF(p)$ is injective, then there exists $U \in \MT_M$ such that $p \in U$ and $F|_U$ is a smooth immersion.
+	\begin{ex} \lex{ex:immersions:0002} \tbf{Local Immersion Theorem:} \\
+		Let $M, N \in \Obj(\ManBndinf)$, $F \in \Hom_{\ManBndinf}(M, N)$ and $p \in M$. If $DF(p)$ is injective, then there exists $U \in \MT_M$ such that $p \in U$ and $F|_U$ is an immersion. 
 	\end{ex}
 
 	\begin{proof}
-		content...
+		Suppose that $DF(p)$ is injective. Set $m \defeq \dim M$ and $n \defeq \dim N$. Since $DF(p)$ is injective, $m \leq n$. Since $F \in \Hom_{\ManBndinf}(M, N)$, there exists $(U_0, \phi_0) \in \MA_M$ and $(V, \psi) \in \MA_N$ such that $p \in U_0$, $F(U_0) \subset V$ and $\psi \circ F \circ \phi_0^{-1}$ is smooth. Define $F_0:\phi_0(U_0) \rightarrow \psi(V)$ by $F_0 \defeq \psi \circ F \circ \phi_0^{-1}$. \tcr{An ex in anlaysis notes} implies that $DF_0 \in \Hom_{\Maninf}(U_0, L(\R^m, \R^n))$. Define $A: L(\R^m, \R^n) \rightarrow M(m, n)$ \tcr{(notation?)} by $A(e_i \otimes e_j^*) \defeq E^{(ij)}$ (where $E^{(ij)}$ is $n \times m$ matrix of real numbers with $(i,j)$-th entry is $1$ and the rest are $0$) \tcr{(Define $A$ in prelim material)} \tcr{A prev ex (make ex after smooth manifold section ex about $L(V, M)$ being a smooth manifold)} implies that $A \in \Hom_{\Maninf}(L(\R^m, \R^n), M(m, n))$. Define $G: \phi_0(U_0) \rightarrow M(m, n)$ by $G \defeq A \circ DF_0$. We note that $G = [DF(\cdot)]_{\phi_0, \psi}$ \tcr{(show this)}. Define $a_0 \in \phi_0(U_0)$ by $a_0 \defeq \phi_0(p)$. Since $\rnk G(a_0) = m$, there exists $P \in \Perm(n), Q \in \Perm(m)$ such that $\prj_{m, m} P^* G(a_0) Q \in GL(m)$, \tcr{where $\prj_{m,m}$ means projecting $M \in M(m,n)$ onto $B \in M(m,m)$ given by $B(j,k) \defeq M_{j,k}$ for $j, k \in [m]$. (define this in prelim material)} Define $H:\phi_0(U_0) \rightarrow M(m, m)$ by $H(a) \defeq \prj_{m, m} P^* G(a) Q \in GL(m)$. Then $H \in \Hom_{\Maninf}(\phi(U_0), M(m,m))$. Since $GL(m) \in \MT_{M(m,m)}$ \tcr{(ref ex)}, $H(a_0) \in GL(m)$, and $H$ is continuous, we have that $H^{-1}(GL(m)) \in \MT_{\phi_0(U_0)}$ and $a_0 \in H^{-1}(GL(m))$. Set $U \defeq \phi_0^{-1}(H^{-1}(GL(m)))$ and $\phi \defeq \phi_0|_U$. Then $U \in \MT_M$, $p \in U$ and $F|_U$ is an immersion \tcr{work out explicitly}.   
+		\tcr{FINISH!!!!}\\
+		\tcr{FINISH!!!!}\\
+		\tcr{FINISH!!!!}
 	\end{proof}
 
 	\begin{ex} \lex{ex:immersions:0002.1}
@@ -6240,6 +6279,52 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 		\rex{ex:submersions:0005} then implies that $\tl{F}$ is smooth.
 	\end{proof}
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7785,6 +7870,14 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\begin{note}
 		If $S$ is not embedded, we would only know that there is $\tl{S} \subset S$ such that $p \in \tl{S}$ and $\tl{S}$ is an embedded submanifold of $M$. However, in this case, following the same proof as above with $(U, \phi) \in \MA_M|^0_{\tl{S}}$ and $q \in S \cap S'$, we may not be able to show that $U_0 \cap S = U$ since we only know that $U_0 \cap \tl{S} = U$. Therefore we cannot show that $S \cap S' = \{p\}$ and that for each $q \in S \cap S'$, $T_q S + T_q S' = T_p M$. 
 	\end{note}
+	
+	\begin{ex} \lex{ex:submanifolds:transverality:0003.1}
+		Let $M, S \in \Obj(\Maninf)$ and $p \in S$. Suppose that $S \subset M$, $S$ is an embedded submanifold of $M$ and $\dim S < \dim M$. Then there exists $S' \in \Obj(\Maninf)$ such that $S' \subset M$, $S'$ is an embedded submanifold of $M$, $p \in S'$ and $S$, $S'$ are strictly transverse. 
+	\end{ex}
+	
+	\begin{proof}
+		Similar proof to previous ex, but use the fact that immersed submanifolds are locally embedded. \tcr{FINISH!!!!!}
+	\end{proof}
 
 	\begin{ex} \lex{ex:submanifolds:transverality:0004}
 		Let $M, N, S_1, S_2, E_1, E_2 \in \Obj(\Maninf)$. Suppose that $S_1, S_2 \subset M$, $S_1, S_2$ are immersed submanifolds of $M$, $E_1, E_2 \subset N$ and $E_1, E_2$ are immersed submanifolds of $N$. If $S_1, S_2$ are strictly transverse and $E_1, E_2$ are strictly transverse, then $S_1 \times E_1$ and $S_2 \times E_2$ are strictly transverse. \tcr{(need exercise saying product of immersed submanifolds is immersed submanifold of product)}
@@ -8209,8 +8302,12 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 
 \begin{ex} \lex{ex:quotients:godement:0003} \tbf{Slice Theorem:}
-	Let $M, R, S \in \Obj(\Maninf)$, $U \in \MT_M$ and $q \in \Hom_{\Maninf}(U, S)$. Suppose that $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$, $S \subset U$ and $S$ is a properly embedded submanifold of $U$. 
+	Let $M, R \in \Obj(\Maninf)$. Suppose that $R$ is a properly embedded submanifold of $M \times M$, $R$ is an equivlance relation on $M$. Then for each $p \in M$, there exists $U \in \MT_M$, $S \in \Obj(\Maninf)$ and $q \in \Hom_{\Maninf}(U, S)$ such that $p \in U$, $S \subset U$ and $S$ is a properly embedded submanifold of $U$ and $(S,q)$ is a $R$-slice of $U$. 
 \end{ex}
+
+\begin{proof}
+	Let $p \in M$. Define $S' \in \EmbSubmaninf(M)$ by $S' \defeq \pi(p)$. Then $\dim S' = \tcr{????}$. \rex{ex:submanifolds:transverality:0003.1} implies that there exists  $S \in \EmbSubmaninf(M)$, such that $p \in S$ and $S, S'$ are strictly transverse. Define $Z \in \EmbSubmaninf(R)$ by $Z \defeq \prj_2|_R^{-1}(S)$. \rex{ex:quotients:intro:0003} implies that \tcr{(verify assumption in this ex)} $D\prj_1|_Z(p,p) \in \Iso_{\VectR}(T_{(p,p)}Z, T_pM)$. \tcr{ref ex on local diffeomorphisms} implies that there exists \tcr{FINISH!!!}
+\end{proof}
 
 
 
@@ -9501,7 +9598,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 			\item $\phi_{23} \in \Hom_{\LieGrp}(G_2, G_3)$
 		\end{itemize}
 		we define $ \phi_{23} \circ_{\LieGrp} \phi_{12} \in \Hom_{\LieGrp}(G_1, G_3)$ by 
-		$$ \phi_{23} \circ_{\LieGrp} \phi_{12} = \phi_{23} \circ_{\Set} \phi_{12}$$
+		$$ \phi_{23} \circ_{\LieGrp} \phi_{12} = \phi_{23} \circ_{\bSet} \phi_{12}$$
 	\end{itemize}
 \end{defn}
 
@@ -9962,7 +10059,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{note}
 
 	\begin{defn} \ld{def:fiber_bundles:0001}
-		Let $E, M, F \in \Obj(\Set)$, $\pi \in \Hom_{\Set}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$}  if 
+		Let $E, M, F \in \Obj(\bSet)$, $\pi \in \Hom_{\bSet}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$. Then $(U, \Phi)$ is said to be a \tbf{local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$}  if 
 		\begin{enumerate}
 			\item $\Phi$ is a bijection
 			\item $\prj_1 \circ \Phi = \pi|_{\pi^{-1}(U)}$, i.e. the following diagram commutes:
@@ -9976,7 +10073,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 	
 	\begin{ex} \lex{ex:fiber_bundles:0002}
-		Let $E, M, F \in \Obj(\Set)$ and $\pi \in \Hom_{\Set}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ a local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$. Then for each $A \subset U$, $$\Phi( \pi^{-1}(A)) = A \times F$$
+		Let $E, M, F \in \Obj(\bSet)$ and $\pi \in \Hom_{\bSet}(E, M)$ a surjection, $U \subset M$ and $\Phi: \pi^{-1}(U) \rightarrow U \times F$ a local trivialization with respect to $\pi$ of $E$ over $U$ with fiber $F$. Then for each $A \subset U$, $$\Phi( \pi^{-1}(A)) = A \times F$$
 		\tbf{Hint:} consider $\Phi^{-1}(A \times F)$ 
 	\end{ex}
 	
@@ -10029,7 +10126,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 
 	\begin{ex} \lex{ex:fiber_bundles:0005} \tbf{$\Man0$ Fiber Bundle Chart Lemma:} \\
-		Let $E \in \Obj(\Set)$, $M, F \in \Obj(\Man0)$, $\pi: E \rightarrow M$ a surjection, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$. Set $n = \dim M$ and $k = \dim F$. Suppose that 
+		Let $E \in \Obj(\bSet)$, $M, F \in \Obj(\Man0)$, $\pi: E \rightarrow M$ a surjection, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$. Set $n = \dim M$ and $k = \dim F$. Suppose that 
 		\begin{itemize}
 			\item for each $\al \in \Gam$, $U_{\al} \in \MT_M$
 			\item $M \subset \bigcup\limits_{\al \in \Gam} U_{\al}$ 
@@ -10203,7 +10300,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 	\end{defn}
 
 	\begin{ex} \lex{ex:fiber_bundles:0008} \tbf{$\Maninf$ Fiber Bundle Chart Lemma:} \\
-		Let $E \in \Obj(\Set)$, $M, F \in \Obj(\Maninf)$, $\pi: E \rightarrow M$ a surjection, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$. Set $n \defeq \dim M$ and $k \defeq \dim F$. Suppose that 
+		Let $E \in \Obj(\bSet)$, $M, F \in \Obj(\Maninf)$, $\pi: E \rightarrow M$ a surjection, $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times F$. Set $n \defeq \dim M$ and $k \defeq \dim F$. Suppose that 
 		\begin{itemize}
 			\item for each $\al \in \Gam$, $U_{\al} \in \MT_M$
 			\item $M \subset \bigcup\limits_{\al \in \Gam} U_{\al}$ 
@@ -10816,7 +10913,7 @@ Let $m,n \in \N$. If $m \neq n$, then $\R^m \not \cong \R^n$
 
 \tcr{the fiber bundle construction theorems dont actually construct a fiber bundle, they just show that a given set is one and characterize the topology and smooth structure under some assumptions, maybe go back and rename them to "characterization theorem" and then actually have a construction theorem. then here, introduce a characterization theorem and then have a separate short construction theorem.}
 \begin{ex} \lex{ex:vector_bundles:0001.02} \tbf{Smooth Vector Bundle Chart Lemma:} \\
-	Let $M \in \Obj(\Maninf)$ and $(E_p)_{p \in M} \subset \Obj(\VectR)$. Set $n \defeq \dim M$. Suppose that for each $p \in M$, $\dim E_p = k$. We define $E \in \Obj(\Set)$ and $\pi \in \Hom_{\Set}(E, M)$ by
+	Let $M \in \Obj(\Maninf)$ and $(E_p)_{p \in M} \subset \Obj(\VectR)$. Set $n \defeq \dim M$. Suppose that for each $p \in M$, $\dim E_p = k$. We define $E \in \Obj(\bSet)$ and $\pi \in \Hom_{\bSet}(E, M)$ by
 	$$E = \coprod_{p \in M} E_p$$  
 	and 
 	$\pi(p, v) = p$. Let $\Gam$ an index set and for each $\al \in \Gam$, $U_{\al} \subset M$ and $\Phi_{\al}: \pi^{-1}(U_{\al}) \rightarrow U_{\al} \times \R^k$. Set $n \defeq \dim M$ and $k \defeq \dim F$. Suppose that
@@ -13918,6 +14015,10 @@ $J^r \pi \defeq \coprod\limits_{p \in M} J^r_p(M, E) \cap \Gam_p(\pi)$. We would
 
 	
 
+\backmatter 
+
+
+
 \appendix
 
 \chapter{Summation}
@@ -13934,19 +14035,35 @@ $J^r \pi \defeq \coprod\limits_{p \in M} J^r_p(M, E) \cap \Gam_p(\pi)$. We would
 
 
 
-\backmatter
-\begin{thebibliography}{4}
-	\bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
-	
-	\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
-	
-	\bibitem{foranal}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Fourier\%20Analysis/Introduction\%20to\%20Fourier\%20Analysis.pdf}{Introduction to Fourier Analysis}
-	
-	\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
-	
-	
-	
-\end{thebibliography}
+
+
+
+
+
+
+
+
+
+%Bibliography
+\input{../Appendices/bibliography}
+
+
+
+
+
+
+%\begin{thebibliography}{4}
+%	\bibitem{algebra} \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Algebra/Introduction\%20to\%20Algebra.pdf}{Introduction to Algebra}
+%	
+%	\bibitem{analysis}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Analysis/Introduction\%20to\%20Analysis.pdf}{Introduction to Analysis}	
+%	
+%	\bibitem{foranal}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Fourier\%20Analysis/Introduction\%20to\%20Fourier\%20Analysis.pdf}{Introduction to Fourier Analysis}
+%	
+%	\bibitem{measure}  \href{https://github.com/carsonaj/Mathematics/blob/master/Introduction\%20to\%20Measure\%20and\%20Integration/Introduction\%20to\%20Measure\%20and\%20Integration.pdf}{Introduction to Measure and Integration}
+%	
+%	
+%	
+%\end{thebibliography}
 
 
 

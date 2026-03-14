@@ -12,6 +12,7 @@
 \usepackage{tikz}  
 \usepackage{tikz-cd}
 \usepackage{tkz-fct}
+\usepackage{amsrefs}
 
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
@@ -53,6 +54,7 @@
 \newtheorem{ex}[definition]{Exercise}
 \newtheorem{exmp}[definition]{Example}
 \newtheorem{soln}[definition]{Solution}
+\newtheorem{questn}[definition]{Question}
 
 \setcounter{tocdepth}{3}
 
@@ -120,7 +122,7 @@
 \newcommand{\MO}{\mathcal{O}}
 \newcommand{\MP}{\mathcal{P}}
 \newcommand{\MQ}{\mathcal{Q}}
-\newcommand{\MR}{\mathcal{R}}
+\renewcommand{\MR}{\mathcal{R}}
 \newcommand{\MS}{\mathcal{S}}
 \newcommand{\MT}{\mathcal{T}}
 \newcommand{\MU}{\mathcal{U}}
@@ -147,6 +149,8 @@
 \newcommand{\iid}{\stackrel{iid}{\sim}}
 
 \newcommand{\Cn}{\text{Cn}} % cone base shift functor
+
+\newcommand{\cur}{\text{cur}} % curry operator
 
 
 
@@ -181,6 +185,13 @@
 
 
 
+
+
+
+
+
+
+
 % math operators
 \DeclareMathOperator{\supp}{supp} % support
 \DeclareMathOperator{\sgn}{sgn} % signum
@@ -190,12 +201,80 @@
 \DeclareMathOperator{\dom}{dom} % domain
 \DeclareMathOperator{\cod}{cod} % codomain
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newcommand{\Oper}{\text{Op}}
+\newcommand{\Ext}{\text{Ext}} % extensions
+\newcommand{\Rstr}{\text{Rstr}} % restrictions
+\newcommand{\OperExt}{\text{OpExt}}
+\newcommand{\unb}{\text{unb}}
+
+
+
+
+
+
+% analysis 
+\newcommand{\Bnd}{\text{Bnd}}
+
+
+
+
+
+
+
+
+
+
+% category theory (change to newcommand)
 \DeclareMathOperator{\Hom}{Hom} % hom set
 \DeclareMathOperator{\Endo}{End} % endomorphisms
 \DeclareMathOperator{\Iso}{Iso} % ismorphisms
 \DeclareMathOperator{\Aut}{Aut} % automorphisms
 \DeclareMathOperator{\Mono}{Mono} % monomorphisms
+\DeclareMathOperator{\ExtMono}{ExtMono} % extremal monomorphisms
+\DeclareMathOperator{\RegMono}{RegMono} % regular monomorphisms
 \DeclareMathOperator{\Epi}{Epi} % epimorphisms
+\DeclareMathOperator{\ExtEpi}{ExtEpi} % extremal monomorphisms
+\DeclareMathOperator{\RegEpi}{RegEpi} % regular monomorphisms
+
+\DeclareMathOperator{\Prod}{Prod} % product objects in a category
+\DeclareMathOperator{\Coprod}{Coprod} % coproduct object in a category
+
+\DeclareMathOperator{\Exp}{Exp} % exponential objects in a category
+\DeclareMathOperator{\Coexp}{Coexp} % coexponential objects in a category
+
+\DeclareMathOperator{\Tmnl}{Term} % terminal objects in a category
+\DeclareMathOperator{\Init}{Init} % initial objects in a category
+
+\DeclareMathOperator{\Eqzr}{Equi} % equilizer objects in a category
+\DeclareMathOperator{\Coeqzr}{Coequi} % coequilizer objects in a category
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \DeclareMathOperator{\bMono}{\tbf{Mono}} % subcategory restricted to monomorphisms
 \DeclareMathOperator{\bEpi}{\tbf{Epi}} % subcategory restricted to monomorphisms
@@ -209,6 +288,8 @@
 \DeclareMathOperator{\limChoice}{limChoice} % limit choice function 
 \DeclareMathOperator{\colimChoice}{colimChoice} % colimit choice function 
 
+\DeclareMathOperator{\Arr}{Arr} % arrow category
+
 
 
 
@@ -217,12 +298,22 @@
 
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\Alt}{Alt}
+
+% Sets
+\newcommand{\Cover}{\text{Cover}} % cover
+
+
+% Topology 
 \DeclareMathOperator{\cl}{cl} % closure
 \DeclareMathOperator{\Int}{Int} % interior
 \DeclareMathOperator{\clset}{clSets} % closed supersets
 \DeclareMathOperator{\Intset}{IntSets} % open subsets
 \DeclareMathOperator*{\Punct}{\text{Punct}} 
-\DeclareMathOperator*{\opn}{\MN^{opn}} % open neighborhoods
+\newcommand{\opn}[1]{{#1}^{\text{opn}}} % open adjective
+
+
+
+
 \DeclareMathOperator*{\supSet}{supSet} % supremum set
 \DeclareMathOperator*{\infSet}{infSet} % infimum set
 
@@ -244,23 +335,75 @@
 \DeclareMathOperator{\nab}{\nabla} % nabla
 \DeclareMathOperator{\diag}{\text{diag}} % diagonal
 \DeclareMathOperator*{\ind}{\text{ind}} % 
-\DeclareMathOperator*{\cur}{\text{cur}} %
+
 \DeclareMathOperator*{\Part}{\text{Part}} 
 \DeclareMathOperator{\Var}{\text{Var}}
 \DeclareMathOperator*{\FIP}{\text{FIP}} % finite intersection property
-\DeclareMathOperator*{\Fun}{\text{Fun}} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Logic 
+\newcommand{\Symb}{\text{Symb}} % set of symbols
+\newcommand{\Rel}{\text{Rel}} % set of relation symbols
+\newcommand{\Fun}{\text{Fun}} % set of function sympbols
+\newcommand{\Cons}{\text{Cons}}  % set of constant symbols
+\newcommand{\Conn}{\text{Conn}}  % set of connective symbols
+\newcommand{\Quan}{\text{Quan}}  % set of connective symbols
+\newcommand{\Aux}{\text{Aux}}  % set of auxiliary symbols
+\newcommand{\Term}{\text{Term}}  % set of terms
+\newcommand{\ETerm}{\text{ETerm}}  % elementary terms
+\newcommand{\AForm}{\text{AForm}} % atomic formulae
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Order Theory
 
 \DeclareMathOperator*{\prmj}{\text{prime}_{\vee}} % join prime
 \DeclareMathOperator*{\prmm}{\text{prime}_{\wedge}} % meet prime
 \DeclareMathOperator*{\irrj}{\text{irred}_{\vee}} % join irreducible
 \DeclareMathOperator*{\irrm}{\text{irred}_{\wedge}} % meet irreducible
 
-% find where used and change, want to reserve \Rel for category of relations 
-%\DeclareMathOperator*{\Rel}{\text{Rel}} 
 
-\DeclareMathOperator*{\Cons}{\text{Cons}}  % constants?
+
+
 
 \DeclareMathOperator*{\ot}{\otimes} % otimes
+
+
 
 % Universal Algebra
 \DeclareMathOperator*{\ar}{\text{arity}} % arity
@@ -283,15 +426,22 @@
 \newcommand{\leqquiv}{\leq_\text{Quiv}} % Subquiver partial order
 
 
+\DeclareMathOperator{\EmbSubmaninf}{\text{EmbSubman}^{\infty}} % Subquiv
+\DeclareMathOperator{\EmbSubmaninfGen}{\text{EmbSubman}^{\infty}\text{Gen}} % subquiver generated by vertices/edges
+\newcommand{\leqembmaninf}{\leq_{\text{Man}^{\infty}}} % Subquiver partial order
+
 \DeclareMathOperator{\lmt}{lim}
 
 \DeclareMathOperator{\lbd}{lb}
 \DeclareMathOperator{\ubd}{ub}
 
 % Algebra
-\DeclareMathOperator{\inv}{\text{inv}}
-\DeclareMathOperator{\mult}{\text{mult}}
-\DeclareMathOperator{\smult}{\text{smult}}
+\newcommand{\inv}{\text{inv}}
+\newcommand{\mult}{\text{mult}}
+\newcommand{\add}{\text{add}}
+\newcommand{\scalmult}{\text{scalar\textunderscore mult}}
+%\DeclareMathOperator{\smult}{\text{smult}}
+
 \DeclareMathOperator{\End}{\text{End}} 
 \DeclareMathOperator{\rep}{\text{Rep}} 
 \DeclareMathOperator*{\Equi}{\text{Equiv}}
@@ -303,11 +453,22 @@
 % Order Theory
 \DeclareMathOperator{\upar}{\uparrow}
 \DeclareMathOperator{\doar}{\downarrow}
+\DeclareMathOperator{\PosRefl}{PosRefl}
+\DeclareMathOperator{\RAdj}{RAdj}
+\DeclareMathOperator{\LAdj}{LAdj}
+\DeclareMathOperator{\RConn}{RConn}
+\DeclareMathOperator{\LConn}{LConn}
+
+\DeclareMathOperator{\Ideals}{Ideals}
+\DeclareMathOperator{\Filters}{Filters}
+\DeclareMathOperator{\IdealGen}{IdealGen}
+\DeclareMathOperator{\FilterGen}{FilterGen}
 
 % category theory
-\DeclareMathOperator*{\Set}{\text{\tbf{Set}}}
-\DeclareMathOperator*{\Rel}{\text{\tbf{Rel}}}
-\DeclareMathOperator*{\bQuiv}{\text{\tbf{Quiv}}}
+
+\newcommand{\bSet}{\text{\tbf{Set}}}
+\newcommand{\bRel}{\text{\tbf{Rel}}} % category of relations
+\newcommand{\bQuiv}{\text{\tbf{Quiv}}}
 
 \DeclareMathOperator*{\BanAlg}{\text{\tbf{BanAlg}}}
 \DeclareMathOperator*{\Meas}{\text{\tbf{Meas}}}
@@ -331,6 +492,7 @@
 \DeclareMathOperator*{\LieGrp}{\text{\tbf{LieGrp}}} 
 \DeclareMathOperator*{\Alg}{\text{\tbf{Alg}}} 
 \DeclareMathOperator*{\Vect}{\text{\tbf{Vect}}} 
+\DeclareMathOperator*{\bNorm}{\text{\tbf{Norm}}} 
 \DeclareMathOperator*{\Mod}{\text{\tbf{Mod}}}
 \DeclareMathOperator*{\Rep}{\text{\tbf{Rep}}} 
 \DeclareMathOperator*{\URep}{\text{\tbf{URep}}}
@@ -355,10 +517,12 @@
 \DeclareMathOperator*{\0}{\mbf{0}}
 \DeclareMathOperator*{\1}{\mbf{1}}
 
-
 \DeclareMathOperator*{\Cone}{\text{\tbf{Cone}}}
-
 \DeclareMathOperator*{\Cocone}{\text{\tbf{Cocone}}}
+
+
+
+
 
 \DeclareMathOperator*{\Fac}{\text{Factor}}
 
@@ -373,6 +537,17 @@
 \renewcommand{\Im}{\text{Im} \,}
 \newcommand{\Img}{\text{Img} \,}
 \newcommand{\grad}{\text{grad}}
+
+
+
+
+
+% cat theory notation
+\newcommand{\pred}{\text{pred}}
+\newcommand{\comp}{\text{comp}}
+
+
+\newcommand{\Bool}{\text{Bool}}
 
 
 \newcommand{\tbf}[1]{\textbf{#1}}
@@ -418,7 +593,9 @@
 
 
 
+\newcommand{\opp}{\text{op}} % opposite functor
 
+\newcommand{\eval}{\text{eval}}
 
 
 
@@ -427,6 +604,9 @@
 \newcommand{\limfn}{\liminf \limits_{n \rightarrow \infty}}
 \newcommand{\limpn}{\limsup \limits_{n \rightarrow \infty}}
 \newcommand{\limn}{\lim \limits_{n \rightarrow \infty}}
+\newcommand{\limneq}[2]{\lim\limits_{\substack{#1 \rightarrow #2 \\ #1 \neq #2}}}
+\newcommand{\limneqx}[1]{\lim\limits_{\substack{x \rightarrow #1 \\ x \neq #1}}}
+
 \newcommand{\convt}[1]{\xrightarrow{\text{#1}}}
 \newcommand{\conv}[1]{\xrightarrow{#1}} 
 \newcommand{\seq}[2]{(#1_{#2})_{#2 \in \N}}
