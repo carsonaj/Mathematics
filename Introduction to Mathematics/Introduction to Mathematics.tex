@@ -143,7 +143,7 @@
 		\item discuss propositional logic and how it can represent statements and how to model it with computer say. Talk about conjunction (and), disjunction (or), implication (if,then), exlusive disjunction (either or) \tcr{(should discuss the controversy about `either or'. Just note that human language is often imprecise and establish a convention that `or' is to be taken in the sense of a choice of soup or salad at a buffet while `either or' is to be taken in the sense of a choice of soup or salad at a restaurant)}.    
 		\item Motivate quantification and type theory as a way to address the need for a conjucntion/disjunction for infintely many statements while propositional logic only accomodates conjunction of finitely many statements. For example we would like to be able to represent/reason with statements like ``there is a positive integer that is larger than $2$" or ``each integer is positive". We can intuit these types of statements in a few ways: 
 		\begin{itemize}
-			\item One way is with infinitely many dconjunctions/isjuctions: We can interpret the statement ``there is a positive integer that is larger than $2$" as the infinte disjunction ``$1 > 2$ or $2 > 2$ or $3 > 2$ or $\ldots$". Since this disjunction does not exist in propositional logic, we can just define an extension of propositional logic in which the infinte disjunction exists and is a well-defined operation. This is analogous to how the positive real numbers $\Rg$ does not have a natural infinte summation operation. We resolve both of these issues by extending the objects under consideration, statements $\phi$, (elements of $\Rg$ in the analogy), to a larger collection of objects, indexed statements $(\phi(x))_{x \in \MI}$, such as ``$(x > 2)_{x \in \N}$", where we indentify statements from the original collection such as ``$5$ is odd" with the indexed family $(\phi(x))_{x \in \N}$ where $\phi(x) \defeq \text{``$5$ is odd"}$ if $x = 5$ and $\phi(x) \defeq \perp$ if $x \neq 5$ ($(a_n)_{n \in \N} \in \RG^{\N}$, i.e. sequences of nonegative real numbers in the analogy where we identify $a \in \Rg$ with $(a_n)_{n \in \N}$ defined by $a_1 \defeq a$ and $a_n \defeq 0$). Then we define $\text{Value}[\exists\limits_{x \in \MI} \phi(x)] \defeq \sup\limits_{x \in \MI} \text{Value}(\phi(x))$. 
+			\item One way is with infinitely many dconjunctions/isjuctions: We can interpret the statement ``there is a positive integer that is larger than $2$" as the infinte disjunction ``$1 > 2$ or $2 > 2$ or $3 > 2$ or $\ldots$". Since this disjunction does not exist in propositional logic, we can just define an extension of propositional logic in which the infinte disjunction exists and is a well-defined operation. This is analogous to how the positive real numbers $\Rg$ does not have a natural infinte summation operation. We resolve both of these issues by extending the objects under consideration, statements $\phi$, (elements of $\Rg$ in the analogy), to a larger collection of objects, indexed statements $(\phi(x))_{x \in \MI}$, such as ``$(x > 2)_{x \in \N}$", where we indentify statements from the original collection such as ``$5$ is odd" with the indexed family $(\phi(x))_{x \in \N}$ where $\phi(x) \defeq \text{``$5$ is odd"}$ if $x = 5$ and $\phi(x) \defeq \perp$ if $x \neq 5$ ($(a_n)_{n \in \N} \in \RG^{\N}$, i.e. sequences of nonegative real numbers in the analogy where we identify $a \in \Rg$ with $(a_n)_{n \in \N}$ defined by $a_1 \defeq a$ and $a_n \defeq 0$). Then we define $\text{Value}[\existsop\limits_{x \in \MI} \phi(x)] \defeq \sup\limits_{x \in \MI} \text{Value}(\phi(x))$. 
 			\item Another is as an implication: We can interpret the statement ``each integer is positive" as ``$a \in \Z \implies a >0$. In other words, if the type of $a$ (whatever $a$ that means) is $\Z$, then $a > 0$. To prove this statement, we would need to start with an object $a$ of type $\Z$, then provide a proof that $a > 0$. 
 		\end{itemize}
 		These both suffer from ambiguities, as we don't know what $\Z$ (or sets/sequences/etc in general) nor ``type" are. To get around this we create a formal system in which we assume ways to manipulate strings of characters according to specified rules which are aligned with propositional calculus (i.e. something we can run on a computer). try to capture the essence of quantification or type with these rules. 
@@ -379,7 +379,7 @@
 	\newpage
 	\section{Relations}
 	
-	
+	\tcr{FINISH!!!}
 	
 	
 	
@@ -1127,6 +1127,71 @@
 		Thus there exists $g:Y \rightarrow X$ such that $g \circ f = \id_X$ and $f \circ g = \id_Y$. Hence $f$ is invertible.  
 	\end{proof}
 	
+	\begin{defn}
+		Let $X, \ol{X}, Y$ be sets, $\iota:X \rightarrow \ol{X}$, $f:X \rightarrow Y$ and $\bar{f}: \ol{X} \rightarrow Y$. Then $\bar{f}$ is said to be an \tbf{extension of $f$ along $\iota$} if $\bar{f} \circ \iota = f$, i.e. the following diagram commutes:  
+		\[ 
+		\begin{tikzcd}
+			X  \arrow[d, "\iota"'] \arrow[r, "f"] & Y \\
+			\ol{X} \arrow[ur, "\bar{f}"'] 
+		\end{tikzcd}
+		\] 
+	\end{defn}
+	
+	\begin{defn}
+		Let $X, \ol{Y}, Y$ be sets, $\pi:\ol{Y} \rightarrow Y$, $f:X \rightarrow Y$ and $\bar{f}: X \rightarrow \ol{Y}$. Then $\bar{f}$ is said to be an \tbf{lift of $f$ through $\pi$} if $\pi \circ \bar{f} = f$, i.e. the following diagram commutes:  
+		\[ 
+		\begin{tikzcd}
+			                                       & \ol{Y}  \arrow[d, "\pi"] \\
+			X \arrow[r, "f"'] \arrow[ur, "\bar{f}"] & Y \\
+		\end{tikzcd}
+		\] 
+	\end{defn}
+	
+	\tcr{Say some more about these and connect them back to previous material, eg retraction/sections being lifts/extensions ivolving the identity}
+	
+	\begin{defn}
+		Let $X, \ol{X}, Y$ be sets, $\iota:X \rightarrow \ol{X}$, $f:X \rightarrow Y$ and $\bar{f}: \ol{X} \rightarrow Y$. We define the 
+		\begin{itemize}
+			\item \tbf{left factors of $f$ by $\iota$}, denoted $\LFactors(f, \iota) \subset Y^{\ol{X}}$, by $\LFactors(f, \iota) \defeq \{\bar{f} \in Y^{\ol{X}}: \text{$\bar{f}$ is an extension of $f$ along $\iota$}\}$.
+			\item If there exists $\bar{f} \in Y^{\ol{X}}$ such that $\LFactors(f, \iota) = \{\bar{f}\}$, we define the \tbf{left factor of $f$ by $\iota$}, denoted $\LFactor(f, \iota) \in Y^{\ol{X}}$, by $\LFactor(f, \iota) \defeq \bar{f}$. 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{defn}
+		Let $X, \ol{X}, Y$ be sets, $\pi:\ol{Y} \rightarrow Y$, $f:X \rightarrow Y$ and $\bar{f}: X \rightarrow \ol{Y}$. 
+		\begin{itemize}
+			\item We define the \tbf{right factors of $f$ by $\pi$}, denoted $\LFactors(f, \pi) \subset Y^{\ol{X}}$, by $\Factors(f, \pi) \defeq \{\bar{f} \in {\ol{Y}}^X: \text{$\bar{f}$ is a lift of $f$ through $\pi$}\}$.
+			\item If there exists $\bar{f} \in {\ol{Y}}^X$ such that $\RFactors(f, \pi) = \{\bar{f}\}$, we define the \tbf{right factor of $f$ by $\pi$}, denoted $\RFactor(f, \pi) \in {\ol{Y}}^X$, by $\RFactor(f, \pi) \defeq \bar{f}$. 
+		\end{itemize}
+	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Schroder-Bernstein Theorem:}
+	
 	\tcr{Motivate Schroder-Bernstein theorem with Hilbert's hotel and reference blargoner's youtube video \href{https://www.youtube.com/watch?v=IkoKttTDuxE}{https://www.youtube.com/watch?v=IkoKttTDuxE}}
 	
 	\tcr{Write some stuff about hilbert's hotel}
@@ -1233,6 +1298,286 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Equivalence Relations}
+	
+	\begin{note}
+		Let $X$ be a set and $\nu \in \MR^2(X)$. When the context is clear, we may write $a \nu b$ in place of $(a,b) \in \nu$.
+	\end{note}
+	
+	\begin{defn}
+		Let $X$ be a set. Suppose that $X \neq \varnothing$.
+		\begin{itemize}
+			\item Let $\th \in \MR^2(X)$. Then $\th$ is said to be 
+			\begin{itemize}
+				\item \tbf{reflexive} if for each $a \in X$, $(a,a) \in \th$
+				\item \tbf{symmetric} if for each $a,b \in X$, $(a,b) \in \th$ implies that $(b,a) \in \th $
+				\item \tbf{transitive} if for each $a,b,c \in X$, $(a,b) \in \th$ and $(b,c) \in \th$ implies that $(a,c) \in \th $
+				\item an \tbf{equivalence relation on $X$} if $\th$ is reflexive, symmetric and transitive
+			\end{itemize}
+			\item We define $\Equi(X) \defeq \{\th \in \MR^2(X): \text{$\th$ is an equivalence relation on $X$}\}$
+		\end{itemize}
+	\end{defn}
+	
+	\tcr{Make some exercise about equiv relations}
+	
+	\begin{defn}
+		Let $X$ be a set and $\th \in \Equi(X)$.
+		\begin{itemize}
+			\item Let $x \in X$. We define the \tbf{equivalence class of $x$ under $\th$}, denoted $[x]_{\th} \subset X$, by $[x]_{\th} \defeq \{y \in X: (x,y) \in \th\}$.  
+			\item We define the \tbf{quotient set of $X$ by $\th$}, denoted $X/\th \subset \MP(X)$, by $X/\th \defeq \{[x]_{\th}: x \in X\}$. 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we may write $[x]$ or $\bar{x}$ in place of $[x]_{\th}$.
+	\end{note}
+	
+	\begin{ex}
+		Let $X$ be a set and $\th \in \Equi(X)$. 
+		\begin{enumerate}
+			\item For each $x \in X$, $[x]_{\th} \neq \varnothing$.
+			\item For each $x,y \in X$, $(x,y) \in \th$ iff $[x]_{\th} = [y]_{\th}$.
+			\item For each $x,y \in X$, $(x,y) \not \in \th$ iff $[x]_{\th} \cap [y]_{\th} = \varnothing$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x \in X$. Since $\th$ is reflexive, $(x,x) \in \th$. Thus $x \in [x]_{\th}$. Hence $[x]_{\th} \neq \varnothing$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, $[x]_{\th} \neq \varnothing$.
+			\item Let $x,y \in X$.
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $(x,y) \in \th$. Then for each $z \in X$, 
+				\begin{align*}
+					z \in [x]_{\th}
+					& \iff (x,z) \in \th \\
+					& \iff (y,z) \in \th \quad \text{(since $(x,y) \in \th$ and $\th$ is transitive)} \\
+					& \iff z \in [x]_{\th}.
+				\end{align*}
+				Hence $[x]_{\th}  = [y]_{\th}$. 
+				\item $(\impliedby)$: \\
+				We have that 
+				\begin{align*}
+					[x]_{\th} = [y]_{\th}
+					& \implies y \in [x]_{\th} \quad \text{(since $y \in [y]_{\th}$)} \\
+					& \implies (x,y) \in \th. 
+				\end{align*} 
+			\end{itemize} 
+			\item Let $x,y \in X$.
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $(x,y) \not \in \th$. For the sake of contradiction, suppose that $[x]_{\th} \cap [y]_{\th} \neq \varnothing$. Then there exists $z \in X$, such that $z \in [x]_{\th} \cap [y]_{\th}$. We note that
+				\begin{align*}
+					z \in [x]_{\th} \cap [y]_{\th}
+					& \iff \text{$z \in [x]_{\th}$ and $z \in [y]_{\th}$} \\
+					& \iff \text{$(x,z) \in \th$ and $(y,z) \in \th$} \\
+					& \iff \text{$(x,z) \in \th$ and $(z,y) \in \th$} \quad \text{(since $\th$ is symmetric)} \\
+					& \implies (x,y) \in \th \quad \text{(since $\th$ is transitive)}.
+				\end{align*}
+				Hence $(x,y) \in \th$, which is a contradiction. Thus $[x]_{\th} \cap [y]_{\th} = \varnothing$.
+				\item $(\impliedby)$: \\
+				Suppose that $[x]_{\th} \cap [y]_{\th} = \varnothing$. Since $y \in [y]_{\th}$, we have that $y \not \in [x]_{\th}$. Thus $(x,y) \not \in \th$. 
+			\end{itemize} 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a set.
+		\begin{itemize}
+			\item Let $\MP \subset \MP(X)$. Then $\MP$ is called a \tbf{partition of $X$} if 
+			\begin{enumerate}
+				\item for each $E \in \MP$, $E \neq \varnothing$, 
+				\item for each $E_1, E_2 \in \MP$, $E_1 \neq E_2$ implies that $E_1 \cap E_2 = \varnothing$,
+				\item $\bigcup\limits_{E \in \MP} E = X$.
+			\end{enumerate}
+			\item We define $\Part(X) \defeq \{\MP \subset \MP(X): \text{$\MP$ is a partition of $X$}\}$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a set and $\th \in \Equi(X)$. Then $X/\th \in \Part(X)$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $E \in X/\th$. Then there exists $x \in X$ such that $E = [x]_{\th}$. Then 
+			\begin{align*}
+				x
+				& \in [x]_{\th} \\
+				& = E
+			\end{align*}
+			and $E \neq \varnothing$. Since $E \in X/\th$ is arbitrary, we have that for each $E \in X/\th$, $E \neq \varnothing$.
+			\item Let $E_1, E_2 \in X/\th$. Suppose that $E_1 \neq E_2$. Since $E_1, E_2 \in X/\th$, there exist $x_1, x_2 \in X$ such that $E_1 = [x_1]_{\th}$ and $E_2 = [x_2]_{\th}$. Since 
+			\begin{align*}
+				E_1 \neq E_2
+				& \iff [x_1]_{\th} \neq [x_2]_{\th} \\
+				& \iff (x_1, x_2) \not \in \th \quad \text{(by \tcr{prev ex})} \\
+				& \iff [x_1]_{\th} \cap [x_2]_{\th} = \varnothing \quad \text{(by \tcr{prev ex})} \\
+				& \iff E_1 \cap E_2 = \varnothing, 
+			\end{align*} 
+			we have that $E_1 \cap E_2 = \varnothing$. 
+			\item Let $x \in X$. Define $E \in X/\th$ by $E \defeq [x]_{\th}$. Since $\th$ is reflexive, $x \in [x]_{\th}$. Thus there exists $E \in X/\th$ such that $x \in E$. Thus $x \in \bigcup\limits_{E' \in X/\th} E'$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, $x \in \bigcup\limits_{E' \in X/\th} E'$. Hence $X \subset \bigcup\limits_{E' \in X/\th} E'$. Since $\bigcup\limits_{E' \in X/\th} E' \subset X$, we have that $X =  \bigcup\limits_{E' \in X/\th} E'$. 
+		\end{enumerate}
+		Thus $X/\th \in \Part(X)$.  
+	\end{proof}
+	
+	\begin{defn}
+		Let $X$ be a set and $\MP \in \Part(X)$. Define $\th_{\MP} \in \MR^2(X)$ by $\th_{\MP} \defeq \{(x,y) \in X^2: \text{there exists $E \in \MP$ such that $x,y \in E$}\}$.
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a set and $\MP \in \Part(X)$. Then 
+		\begin{enumerate}
+			\item $\th_{\MP} \in \Equi(X)$
+			\item for each $x \in X$ and $F \in \MP$, $[x]_{\th_{\MP}} = F$ iff $x \in F$. 
+			\item $X/\th_{\MP} = \MP$.
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item Let $x \in X$. Since $\MP \in \Part(X)$, $X = \bigcup\limits_{E \in \MP} E$. Thus there exists $E \in \MP$ such that $x \in E$. Thus $(x,x) \in \th_{\MP}$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, $(x,x) \in \th_{\MP}$. Thus $\th_{\MP}$ is reflexive. 
+				\item We note that for each $x,y \in X$, 
+				\begin{align*}
+					(x,y) \in \th_{\MP}
+					& \iff \text{there exists $E \in \MP$ such that $x,y \in E$} \\
+					& \iff \text{there exists $E \in \MP$ such that $y,x \in E$} \\
+					& \iff (y, x) \in \th_{\MP}. 
+				\end{align*}
+				Thus $\th_{\MP}$ is symmetric.
+				\item Let $x,y,z \in X$. Suppose that $(x,y) \in \th_{\MP}$ and $(y,z) \in \th_{\MP}$. Then there exists $E, F \in \MP$ such that $x,y \in E$ and $y,z \in F$. Then $y \in E \cap F$. Since $E \cap F \neq \varnothing$, \tcr{by def} implies that $E = F$. Thus $x,z \in E$. Hence $(x,z) \in \th_{\MP}$. Since $x,y,z \in X$ with $(x,y) \in \th_{\MP}$ and $(y,z) \in \th_{\MP}$ are arbitrary, we have that for each $x,y,z \in X$, $(x,y) \in \th_{\MP}$ and $(y,z) \in \th_{\MP}$ implies that $(x,z) \in \th_{\MP}$. Hence $\th_{\MP}$ is transitive. 
+			\end{enumerate}
+			Thus $\th_{\MP} \in \Equi(X)$. 
+			\item Let $x \in X$ and $F \in \MP$. 
+			\begin{itemize}
+				\item $[x]_{\th_{\MP}} = F$ iff $x \in F$. 
+				\item 
+			\end{itemize}
+			\item Let $E \in X/\th_{\MP}$. Since $X/\th_{\MP} \in \Part(X)$, $E \neq \varnothing$. Thus there exists $x \in X$ such that $x \in E$. By \tcr{def of $X/\th_{\MP}$}, $E = [x]_{\th_{\MP}}$. Since $\MP \in \Part(X)$, $X = \bigcup\limits_{F \in \MP} F$. Thus there exists $F_x \in \MP$ such that $x \in F_x$. Since $\MP \in \Part(X)$, for each $F_1, F_2 \in \MP$, $x \in F_1 \cap F_2$ implies that $F_1 = F_2$. Thus $\{F \in \MP: x \in F\} = \{F_x\}$. By \tcr{def of $\th_{\MP}$},  
+			\begin{align*}
+				E
+				& = [x]_{\th_{\MP}} \\
+				& = \{y \in X: (x,y) \in \th_{\MP}\} \\
+				& = \{y \in X: \text{there exists $F \in \MP$ such that $x,y \in F$}\} \\
+				& = \{y \in X: y \in F_x\} \\
+				& = F_x \\
+				& \in \MP.
+			\end{align*}
+			Since 
+			\tcr{FINISH!!!!}
+			Let $y \in [x]_{\th_{\MP}}$.  $F \in \MP$. If $x,y \in F$, then $d$ $X = \bigcup\limits_{F}$
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a set. Then there is a $F: \Equi(X) \rightarrow \Part(X)$ such that $F$ is a bijection. \tcr{In Cat theory notes, show this is a natural iso between $\Equi$ and $\Part$ which are contravariant and for $f:X \rightarrow Y$, $\Part(f): \Part(Y) \rightarrow \Part(X)$ is given by $\Part(f)(P) \defeq f^*\MP$}
+	\end{ex}
+	
+	\begin{proof}
+		Define $F: \Equi(X) \rightarrow \Part(X)$ by $F(\th) \defeq X/\th$. 
+		\begin{itemize}
+			\item \tbf{Injectivity:} \\
+			Let $\th_1, \th_2 \in \Equi(X)$. Suppose that $F(\th_1) = F(\th_2)$. Let $x,y \in X$. Then 
+			\begin{align*}
+				[x]_{\th_1},[y]_{\th_1} 
+				& \in X/\th_1 \\
+				& = F(\th_1) \\
+				& = F(\th_2) \\
+				& = X/\th_2. 
+			\end{align*}
+			Since $x \in [x]_{\th_1} \cap [x]_{\th_2}$, we have that $[x]_{\th_1} \cap [x]_{\th_2} \neq \varnothing$. \tcr{prev ex} implies that $X/\th_2 \in \Part(X)$. \tcr{By prev def}, $[x]_{\th_1} = [x]_{\th_2}$. Similarly, $[y]_{\th_1} = [y]_{\th_2}$. Since $x,y \in X$ are arbitrary, we have that for each $x,y \in X$ $[x]_{\th_1} = [x]_{\th_2}$ and $[y]_{\th_1} = [y]_{\th_2}$. Then for each $x,y \in X$,
+			\begin{align*}
+				(x,y) \in \th_1
+				& \iff [x]_{\th_1} = [y]_{\th_1} \quad \text{(by prev ex)}\\
+				& \iff [x]_{\th_2} = [y]_{\th_2} \quad \text{(from \tcr{above})} \\
+				& \iff (x,y) \in \th_2.
+			\end{align*}
+			Thus $\th_1 = \th_2$. Since $\th_1, \th_2 \in \Equi(X)$ with $F(\th_1) = F(\th_2)$ are arbitrary, we have that for each $\th_1, \th_2 \in \Equi(X)$, $F(\th_1) = F(\th_2)$ implies that $\th_1 = \th_2$. Hence $F$ is injective.
+			\item \tbf{Surjectivity:} \\
+			Let $\MP \in \Part(X)$. \tcr{A prev ex} implies that $\th_{\MP} \in \Equi(X)$. Let $E \in X/\th_{\MP}$. Then  
+		\end{itemize}      
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\chapter{Arithmetic}
 	
 	\subsection{Construction of Natural Numbers}
@@ -1263,6 +1608,1493 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\part{Algebra}
+	
+	\chapter{Groups}
+	
+	\chapter{Rings}
+	
+	\chapter{Vector Spaces}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\part{Analysis}
+	
+	\chapter{Real Numbers}
+	
+	\section{Construction and Properties of $\R$}
+	
+	\begin{defn}
+		\tcr{least upper bound property}
+	\end{defn}
+	
+	\begin{defn}
+		Dedekind cuts
+	\end{defn}
+	
+	\begin{ex} \tbf{The $\ep$-principle:} \\
+		Let $x, y \in \R$. Then $x \leq y$ iff for each $\ep > 0$, $x \leq y = \ep$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $x \leq y$. Then for each $\ep >0$,
+			\begin{align*}
+				x
+				& \leq y \\
+				& = y + 0 \\
+				& < y + \ep.
+			\end{align*}
+			\item $(\impliedby)$: \\
+			Suppose that $x > y$. Define $\ep \in \R$ by $\ep \defeq (x - y)/2$. Then $\ep > 0$ and
+			\begin{align*}
+				y + \ep 
+				& = y + \frac{x - y}{2} \\
+				& = \frac{x + y}{2}.
+			\end{align*} 
+			Since $x > y$, \tcr{a prev ex about arithmetic mean} implies that
+			\begin{align*}
+				y + \ep 
+				& = \frac{x + y}{2} \\
+				& < x.
+			\end{align*}
+			Thus 
+			$$(\text{$x > y$}) \implies (\text{$\exists \ep > 0$ such that $x > y + \ep$}).$$
+			By contrapositive, we have that
+			$$(\text{$\forall \ep > 0$, $x \leq y + \ep$}) \implies (\text{$x \leq y$}).$$
+		\end{itemize}
+	\end{proof}
+	
+	
+	
+	\section{Continuity}
+	
+	A notion of `closeness' constitutes a significant portion of the the foundation of analysis. As with other constructions in mathematics, the maps that respect or 'preserve' the notion we care about (e.g. closeness) are of great importance and utility when building our understanding of the objects and spaces under consideration (e.g. real numbers, minimum values of real-valued functions, etc). 
+	
+	In this section, we discuss maps $f: A \rightarrow B$ where $A,B \subset \R$, that preserve a notion of closeness on $\R$ in the sense that if points $(x_n)_{n \in \N} \subset A$ 'approach' a point $x_0 \in A$ as the index $n \in \N$ increases, then the images $(f(x_n))_{n \in \N} \subset B$ of $(x_n)_{n \in \N}$ will approach the image $f(x_0) \in B$ of $x_0$.  
+	
+	\section{Sequences}
+	
+	\section{Series}
+	
+	\begin{defn}
+		Define $\sum\limits_{\al \in A} x_{\al}$ for $(x_{\al})_{\al \in A} \subset \R_+$ and $l^1(A)$.
+	\end{defn}
+	
+	\begin{ex}
+		\tcr{basic exercises about convergence of series}
+	\end{ex}
+	
+	\section{Functions}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Limits of Functions}
+	
+	\begin{defn}
+		Let $a,b \in \R$. Suppose that $a < b$. 
+		\begin{itemize}
+			\item We define $\Del_{(a,b)} \defeq \{(s,t) \in (a,b)^2: s < t\}$.
+			\item Let $f \in \Bnd((a,b), \R)$. 
+			\begin{itemize}
+				\item For each $(s,t) \in \Del_{(a,b)}$, we define $M^f_{s,t}, m^f_{s,t} \in \R$ by $M^f_{s,t} \defeq \sup\limits_{x \in [s,t]} f(x)$ and $m^f_{s,t} \defeq \inf\limits_{x \in [s,t]} f(x)$
+				\item We define $M^f, m^f: \Del_{(a,b)} \rightarrow \R$ by $M^f(s,t) \defeq M^f_{s,t}$ and $m^f(s,t) \defeq m^f_{s,t}$.
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:analysis:real_nums:limits_funct:0010}
+		Let $f \in \Bnd((a,b), \R)$ and $x_0 \in (a,b)$. If $f$ is continuous at $x_0$, then 
+		\begin{enumerate}
+			\item $\limt{x_0^+} M^f_{x_0, t} = f(x_0)$ 
+			\item $\limt{x_0^+} m^f_{x_0, t} = f(x_0)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} 
+		Suppose that $f$ is continuous at $x_0$. 
+		\begin{enumerate}
+			\item Let $\ep > 0$. Then there exists $\del > 0$ such that for each $x \in (a,b)$, $|x-x_0| < \del$ implies that $|f(x) - f(x_0)| < \ep/2$. Let $t \in (a, b)$. Suppose that $0 < t - x_0 < \del$. Since 
+			\begin{align*}
+				M^f_{x_0, t} - \frac{\ep}{2}
+				& < M^f_{x_0, t} \\
+				& = \sup\limits_{x \in [x_0, t]} f(x), 
+			\end{align*}
+			there exists $x' \in [x_0, t]$ such that $M^f_{x_0, t} - \ep/2 < f(x')$. Since 
+			\begin{align*}
+				|x' - x_0| 
+				& = x' - x_0 \\
+				& < t - x_0 \\
+				& < \del,
+			\end{align*}
+			we have that $|f(x') - f(x_0)| < \ep/2$. Hence
+			\begin{align*}
+				|M^f_{x_0, t} - f(x_0)|
+				& \leq |M^f_{x_0, t} - f(x')| + |f(x') - f(x_0)| \\
+				& = (M^f_{x_0, t} - f(x')) + |f(x') - f(x_0)| \\
+				& < \frac{\ep}{2} + \frac{\ep}{2} \\
+				& = \ep.
+			\end{align*}
+			Since $t \in (a,b)$ with $0 < t - x_0 < \del$ is arbitrary, we have that for each $t \in (a,b)$, $0 < t - x_0 < \del$ implies that $|M^f_{x_0, t} - f(x_0)| < \ep$. Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, there exists $\del > 0$ such that for each $t \in (a,b)$, $0 < t - x_0 < \del$ implies that $|M^f_{x_0, t} - f(x_0)| < \ep$. Thus $\limt{x_0^+} M^f_{x_0, t} = f(x_0)$.
+			\item Similar to \tcr{prev part}.
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	\chapter{Differentiation}
+	
+	\section{L'H\^opital's Rule}
+
+	In \tcr{ref prev section on limits of sequences and functions and make/ref ex}, we considered sequences and functions like $(a_n)_{n \in \N} \subset \R$ and $f:(0,2) \rightarrow \R$ defined by 
+	$$a_n \defeq  \frac{6n^2 + n +2}{2n^2 - \cos n}, \quad \quad f(x) \defeq \frac{x^2-4}{x-2}.$$ 
+	Even though we were not able to immediately apply results like \tcr{ref ex about products/quotients/sums of limits} to $(a_n)_{n \in \N}$ and $f$, we were still able to deduce that $\limn a_n = 3$ and $\limneqx{2} f(x) = 4$ by reasoning about limiting behavior or exploiting simple algebraic structure and subsequently employing those results or using the definition of a limit. 
+	
+	There are many cases however, in which such an approach will not be practical. There are some situations where it may well be difficult to even intuit what the limiting behavior could be. For example, in \tcr{ref section on trig functions}, more effort was required in order to show that $\limneqx{0} x^{-1} \sin x = 1$. In this section, we will develop a tool that will enable us to handle a larger family of such cases. 
+	
+	To motivate the result, suppose that we are given $a,b \in \R$, $x_0 \in (a,b)$, $L \in \R$ and two functions $f,g:(a,b) \rightarrow \R$ which are differentiable and satisfy $|g'| > 0$ and $f'(x)/g'(x) \rightarrow L$ as $x \rightarrow x_0$. If $f(x) \rightarrow 0$ as $x \rightarrow x_0$ and $g(x) \rightarrow 0$ as $x \rightarrow x_0$, then intuitively, we have that for $x \approx x_0$ and $h \approx 0$, 
+	\begin{align*}
+		\frac{f(x + h)}{g(x + h)}
+		& \approx \frac{f(x) + f'(x)h}{g(x) + g'(x)h} \\
+		& \approx \frac{f'(x)h}{g'(x)h} \\
+		& = \frac{f'(x)}{g'(x)} \\
+		& \approx L.
+	\end{align*}
+	
+	We formalize this intuition with the result below. 
+	
+	\begin{ex} \tbf{L'H\^opital's Rule}
+		Let $a,b \in \RE$ and $f,g: (a,b) \rightarrow \R$. Suppose that $a < b$, $f,g$ are differenitable and for each $x \in (a,b)$, $g'(x) \neq 0$. Let $c \in [a,b]$. Suppose that $\limneqx{c} f'(x)/g'(x)$ exists in $\RE$. 
+		\begin{enumerate}
+			\item If $\limneqx{c} f(x) = 0$ and $\limneqx{c} g(x) = 0$, then 
+			$$\limneqx{c} \frac{f(x)}{g(x)} = \limneqx{c} \frac{f'(x)}{g'(x)}$$
+			\item If $\limneqx{c} |f(x)| = \infty$ and $\limneqx{c} |g(x)| = \infty$, then 
+			$$\limneqx{c} \frac{f(x)}{g(x)} = \limneqx{c} \frac{f'(x)}{g'(x)}$$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $\limneqx{c} f(x) = 0$ and $\limneqx{c} g(x) = 0$. 
+			\item 
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{note}
+		\begin{itemize}
+			\item Discuss why approximating $\frac{f(x + h)}{g(x + h)}$ with $\frac{f'(x)}{g'(x)}$ and getting a common denominator for the difference is somehow 'less good' approximation than what is doen in the proof, or even in the simple case of $x_0 \in (a,b)$ with $f(x_0) = g(x_0) = 0$, using a similar approximation of 
+			\begin{align*}
+				\frac{f(x_0 + h)}{g(x_0 + h)}
+				& = \frac{f(x_0) + f'(x_0)h + o(|h|)}{g(x_0) + g'(x_0)h + o(|h|)} \\
+				& = \frac{f'(x_0)h + o(|h|)}{g'(x_0)h + o(|h|)} \\
+				& = \frac{|h|}{|h|}\frac{f'(x_0) + o(1)}{g'(x_0) + o(1)} \\
+				& = \frac{f'(x_0) + o(1)}{g'(x_0) + o(1)} \\
+				& \text{$\rightarrow \frac{f'(x_0) }{g'(x_0)}$ as $h \rightarrow 0$} 
+			\end{align*}
+			readily gives the result. The bad approximation ends with a $g(x+h)g'(x)$ in the denominator, among other problematic terms. Is there a way to quantify how or why the proof method
+			\item \tcr{Maybe describe the controversy about how Lhopital didnt actally discover this, he was just wealthy and paid talented people and thanks to the continued PR, is now somewhat immortalized among math students}
+		\end{itemize}
+	\end{note}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\chapter{Integration}
+	
+	\section{The Darboux Integral}
+	
+	\begin{defn} \ld{00000} 
+		Let $a,b \in \R$. Suppose that $a<b$. Define $$\Bnd([a,b], \R) \defeq \{f:[a,b] \rightarrow \R: f\text{ is bounded}\}$$
+	\end{defn}
+	
+	\begin{defn} \ld{00000} 
+		Let $a,b \in \R$. 
+		\begin{itemize}
+			\item Let $n \in \N$ and $(x_j)_{j \in [n]_0} \in \R^{n+1}$. Then $(x_j)_{j \in [n]_0}$ is said to be a \tbf{Darboux partition of $[a,b]$} if $(x_j)_{j \in [n]_0}$ is strictly increasing, $x_0 = a$ and $x_n = b$. 
+			\item We define $\Part_D([a,b]) \defeq \bigg\{\MP \in \bigcup\limits_{n \in \N} \R^{n+1} : \text{$\MP$ is a Darboux partition of $[a,b]$}\bigg\}$ \tcr{rewrite rest of section using this notation}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}\
+		\begin{itemize}
+			\item We emphasize that the definition of a ``partition" of $[a,b]$ here is different than the set-theoretic definition which refers to a collection of disjoint subsets of $[a,b]$ which cover all of $[a,b]$. 
+			\item We recall the definition of $M^f_{s,t}, m^f_{s,t}$ from \rex{} \tcr{ref prev def here}  
+		\end{itemize}
+	\end{note}
+	
+	\begin{defn} \ld{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $\MP \in \Part_D([a,b])$. Write $\MP = (x_j)_{j \in [n]_0}$. 
+		We define the 
+		\begin{itemize}
+			\item \textbf{upper Darboux sum} of $f$ with respect to $\MP$, denoted $U_\MP f$, by 
+			$$U_\MP f \defeq \sum\limits_{i=1}^n M^f_{x_{j-1}, x_j} (x_j - x_{j-1})$$ 
+			\item \textbf{lower Darboux sum} of $f$ with respect to $\MP$, denoted $L_\MP f$, by
+			$$L_\MP f \defeq \sum\limits_{i=1}^n m^f_{x_{j-1}, x_j} (x_j - x_{j-1})$$ 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $\MP$ a partition of $[a,b]$. Then 
+		$$\bigg[\inf_{x \in [a,b]} f(x) \bigg] (b-a) \leq L_\MP f \leq U_\MP f \leq \bigg[ \sup_{x \in [a,b]} f(x)  \bigg] (b-a)$$
+	\end{ex}
+	
+	\begin{proof}
+		Clear.
+	\end{proof}
+	
+	\begin{defn}
+		Let $\MP \in \Part_D([a,b])$. Write $\MP = (x_j)_{j \in [m]_0}$.
+		\begin{itemize}
+			\item Let $\MP' \in \Part_D([a,b])$. Write $\MP' = (x'_k)_{k \in [n]_0}$. Then $\MP'$ is said to be a \tbf{refinement of $\MP$}, denoted $\MP < \MP'$, if $\{x_j\}_{j \in [m]_0} \subset \{x'_k\}_{k \in [n]_0}$.
+			\item We define the \tbf{mesh of $\MP$}, denoted $\mesh(\MP) \in R_+$, by 
+			$$\mesh(\MP) \defeq \max\limits_{j \in m_0}$$
+		\end{itemize}
+		
+	\end{defn}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $\MP$, $\MP'$ partitions of $[a,b]$. If $\MP \leq \MP'$, then 
+		\begin{enumerate}
+			\item $U_{\MP'} f \leq U_{\MP} f$
+			\item $L_{\MP} f \leq L_{\MP'} f$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} \
+		\begin{enumerate}
+			\item Assume that $\MP = \{x_0, \cdots, x_n\}$ and $\MP' = \MP \cup \{x'\}$. Then there exists $j \in \{1, \cdots, n\}$ such that $x_{j-1} < x' < x_j$. Define $$M'_1 = \sup_{x \in [x_{j-1}, x']} f(x), \hspace{.4cm} M'_2 = \sup_{x \in [x', x_{j}]} f(x)$$
+			Since $[x_{j-1}, x'], [x', x_j] \subset [x_{j-1}, x_j]$, we have that $M'_1, M'_2 \leq  M^f_j$. Then 
+			\begin{align*}
+				U_{P'}f 
+				&= \sum\limits_{i =1}^{j-1} M^f_i(x_i - x_{i-1}) + M'_1(x' - x_{j-1}) + M'_2(x_j - x') + \sum\limits_{i =j+1}^n M^f_i(x_i - x_{i-1})  \\
+				&\leq   \sum\limits_{i =1}^{n} M^f_i(x_i - x_{i-1}) \\
+				&= U_P f 
+			\end{align*}
+			By induction, this is true for general partitions $P \leq \MP'$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f, g \in \Bnd([a,b], \R)$ and $\MP = \{x_0, \cdots, x_n\}$ a partition of $[a,b]$. Then 
+		\begin{enumerate}
+			\item $U_\MP(f+g) \leq U_\MP f + U_\MP g$
+			\item $L_\MP(f+g) \geq L_\MP f + L_\MP g$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} \
+		\begin{enumerate}
+			\item For each $i \in \{1, \cdots, n\}$, $M^{f+g}_i \leq M^f_i + M^g_i$. So 
+			\begin{align*}
+				U_\MP (f+g) 
+				&= \sum\limits_{i=1}^n M^{f+g}_i (x_i - x_{i-1}) \\
+				& \leq \sum\limits_{i=1}^n (M^f_i + M^g_i)(x_i - x_{i-1}) \\
+				&= \sum\limits_{i=1}^n M^f_i(x_i - x_{i-1}) + \sum\limits_{i=1}^n M^g_i(x_i - x_{i-1}) \\
+				&= U_\MP f + U_\MP g
+			\end{align*}
+			\item Similar to $(1)$
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $\MP = \{x_0, \cdots, x_n\}$ a partition of $[a,b]$. Then 
+		\begin{enumerate}
+			\item $U_\MP (-f) = -L_P f$
+			\item $L_\MP (-f) = - U_\MP f$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since for $i \in \{1, \cdots, n\}$, $M^{-f}_i = -m^f_i$ we see that 
+			\begin{align*}
+				U_\MP(-f) 
+				&= \sum\limits_{i=1}^n M^{-f}_i(x_i - x_{i-1}) \\
+				&= - \sum\limits_{i=1}^n m^f_i(x_i - x_{i-1}) \\
+				&= - L_\MP f
+			\end{align*}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$, $c >0$ and $\MP = \{x_0, \cdots, x_n\}$ a partition of $[a,b]$. Then 
+		\begin{enumerate}
+			\item $U_\MP (cf) = c U_\MP f$ 
+			\item $L_\MP (cf) = c L_\MP f $
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since for $i \in \{1, \cdots, n\}$, $M^{cf}_i = cM^f_i$, we see that  
+			\begin{align*}
+				U_\MP (cf) 
+				&= \sum\limits_{i=1}^n M^{cf}_i (x_i - x_{i-1}) \\
+				&= c \sum\limits_{i=1}^n M^f_i (x_i - x_{i-1}) \\
+				&= c U_\MP f
+			\end{align*}
+			\item Similar to $(1)$
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{00000} 
+		Let $f \in \Bnd([a,b], \R)$. We define the \textbf{upper Darboux integral} of $f$, denoted $U f$, by
+		$$Uf \defeq \inf \{U_\MP f: \MP \in \Part_D([a,b]) \}$$
+		and we define the \textbf{lower Darboux integral} of $f$, denoted $L f$, by 
+		$$Lf \defeq \sup \{L_\MP f: \MP \in \Part_D([a,b]) \}$$ 
+	\end{defn}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$. Then $$ \bigg[\inf_{x \in [a,b]} f(x) \bigg] (b-a) \leq Lf \leq Uf \leq \bigg[\sup_{x \in [a,b]} f(x) \bigg] (b-a)$$
+	\end{ex}
+	
+	\begin{proof}
+		Clearly 
+		$$\bigg[\inf_{x \in [a,b]} f(x) \bigg] (b-a) \leq Lf \hspace{.2cm } \text{ and } \quad  Uf \leq \bigg[\sup_{x \in [a,b]} f(x) \bigg] (b-a)$$ 
+		Let $\ep >0$. Then there exist partitions $\MP_1$ and $\MP_2$ of $[a,b]$ such that $U_{\MP_1} f < U f + \ep/2$ and $L_{\MP_2} f > Lf - \ep/2 $. Define $\MP = \MP_1 \cup \MP_2$. Then 
+		\begin{align*}
+			Uf 
+			& \geq U_{\MP_1}  - \ep/2 \\
+			&> U_\MP f - \ep/2 \\
+			&\geq L_\MP f -\ep/2 \\
+			&\geq L_{\MP_2} f -\ep/2 \\
+			&> L f - \ep
+		\end{align*} 
+		Since $\ep >0$ is arbitrary, we have that $Uf \geq Lf$.
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f, g \in \Bnd([a,b], \R)$. Then 
+		\begin{enumerate}
+			\item $U(f+g) \leq U f + U g$
+			\item $L(f+g) \geq L f + L g$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $\ep >0$. Then there exists a partitions $\MP_1$ of $[a,b]$ such that $U_{\MP_1} f < U f + \ep/2$ and $U_{\MP_2} g < U f + \ep/2$. Define $\MP = \MP_1 \cup \MP_2$. Then 
+			\begin{align*}
+				U_\MP(f +g) 
+				&\leq U_\MP f + U_\MP g \\
+				&\leq U_{\MP_1} f + U_{\MP_2} g \\
+				&< U f + \ep/2 +  U g + \ep/2 \\
+				&= Uf + Ug + \ep
+			\end{align*}
+			Since $\ep >0$ is arbitrary, $U_\MP(f +g)  \leq Uf + Ug$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$. Then 
+		\begin{enumerate}
+			\item $U(-f) = -Lf$
+			\item $L(-f) = -Uf$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} \
+		\begin{enumerate}
+			\item Using a previous exercise, we have that
+			\begin{align*}
+				U(-f)
+				&= \inf \{U_\MP(-f): \MP \text{ is a partition of } [a,b]\} \\
+				&= \inf \{ -L_\MP f: \MP \text{ is a partition of } [a,b]\} \\
+				&= - \sup \{L_\MP f: \MP \text{ is a partition of } [a,b]\} \\
+				&= - Lf
+			\end{align*}
+			\item Similar to $(1)$
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $c \geq 0$. Then 
+		\begin{enumerate}
+			\item $U (cf) = c U f$ 
+			\item $L (cf) = c L f $
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Using a previous exercise, we have that
+			\begin{align*}
+				U(cf) 
+				&= \inf \{U_\MP (cf): \MP \text{ is a partition of } [a,b]\} \\
+				&= \inf \{c U_\MP f: \MP \text{ is a partition of } [a,b]\} \\
+				&= c \inf \{U_\MP f: \MP \text{ is a partition of } [a,b]\} \\
+				&= c Uf
+			\end{align*}
+			\item Similar to $(1)$
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{00000} \tbf{Darboux Integral:} \\ 
+		\begin{itemize}
+			\item Let $f \in \Bnd([a,b], \R)$.Then $f$ is said to be \textbf{Darboux integrable} if $Uf = Lf$. 
+			\item We define $\Darb([a,b], \R) \subset \Bnd([a,b], \R)$ by 
+			$$\Darb([a,b], \R) \defeq \{f \in \Bnd([a,b], \R): \text{$f$ is Darboux integrable}\}.$$
+			\item Let $f \in \Darb([a,b])$. We define the \textbf{Darboux integral} of $f$, denoted
+			$$I^D(f), \quad \int f, \quad  \int_a^b f, \quad \text{or} \quad \int_a^b f(x) dx,$$  
+			by
+			$$I^D_{[a,b]} (f) \defeq Uf.$$ 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we may write $I(f)$ in place of $I^D(f)$.
+	\end{note}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$. Then $f \in \Darb([a,b], \R)$ iff for each $\ep >0$, there exists a partition $\MP$ of $[a,b]$ such that $U_\MP f - L_\MP f < \ep$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f \in \Darb([a,b], \R)$. Let $\ep >0$. Then there exist partions $\MP_1$, $\MP_2$ of $[a,b]$ such that $U_{\MP_1} f < Uf + \ep/2$ and $L_{\MP_2} f > Lf - \ep/2$. Define $\MP = \MP_1 \cup \MP_2$. Then $U_\MP f \leq U_{\MP_1} f$ and $L_P f \geq L_{\MP_2}f$. So  
+		\begin{align*}
+			U_\MP f - L_\MP f 
+			&< Uf - L f + \ep \\
+			&= \ep
+		\end{align*}  
+		Conversely, suppose that for each $\ep >0$, there exists a partition $\MP$ of $[a,b]$ such that $U_\MP f - L_\MP f < \ep$. For the sake of contradiction, suppose that $Uf - Lf > 0$. Choose $\ep = Uf - Lf$. Then there exists a partition $\MP$ of $[a,b]$ such that $U_\MP f - L_\MP f < \ep$. Since $Uf \leq U_\MP f$ and $Lf \geq L_\MP f$, we have that 
+		\begin{align*}
+			\ep 
+			&> U_\MP f - L_\MP f \\
+			&\geq Uf - Lf \\
+			&= \ep
+		\end{align*} 
+		which is a contradiction. Hence $Uf = Lf$ and $f \in \Darb([a,b], \R)$.
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f, g \in \Darb([a,b], \R)$. Then $f+g \in \Darb([a,b], \R)$ and $$\int (f+g) = \int f + \int g$$
+	\end{ex}
+	
+	\begin{proof}
+		Clearly $f+g \in \Bnd([a,b], \R)$. Using some previous results, we have that 
+		\begin{align*}
+			\int f + \int g 
+			&= Lf + Lg \\
+			&\leq L(f+g) \\
+			&\leq U(f+g) \\
+			&\leq Uf + Ug \\
+			&= \int f + \int g
+		\end{align*}
+		So $U(f+g) = L(f+g) = \int f + \int g$. Therefore $f+g \in \Darb([a,b], \R)$ and $$\int (f+g) = \int f + \int g$$.
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Darb([a,b], \R)$ and $c \in \R$. Then $cf \in \Darb([a,b], \R)$ and $$\int (cf) = c \int f $$
+	\end{ex}
+	
+	\begin{proof}
+		Clearly $cf \in \Bnd([a,b], \R)$. If $c \geq 0$, then 
+		\begin{align*}
+			L (cf) 
+			&= c Lf \\
+			&= c \int f \\
+			&= c Uf \\
+			&= U(cf)
+		\end{align*} 
+		So $$L(cf) = U(cf) = c \int f$$ If $c <0$, then 
+		\begin{align*}
+			L (cf) 
+			&= L(-|c| f) \\
+			&= -U(|c|f) \\
+			&= - |c|Uf \\
+			&= c \int f \\
+			&= -|c| L f \\
+			&= - L(|c|f) \\
+			&= U(-|c|f) \\
+			&= U (c f) \\
+		\end{align*} 
+		So $$L(cf) = U(cf) = c \int f$$ Therefore $cf \in \Darb([a,b], \R)$ and $$\int (cf) = c \int f$$
+	\end{proof}
+	
+	\begin{cor}
+		We have that $\Darb([a,b], \R)$ is a vector space and the map $I: \Darb([a,b], \R) \rightarrow \R$ given by $If = \int f$ is linear.
+	\end{cor}
+	
+	\begin{proof}
+		Clear.
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f:[a,b] \rightarrow \R$. If $f$ is continuous, then $f \in \Darb([a,b], \R)$. 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ is continuous. Then $f$ is uniformly continuous. Let $\ep >0$. Uniform continuity implies that there exists $\del > 0$ such that for each $x, y \in [a,b]$, $|x-y| < \del$ implies that $|f(x) - f(Y)| < \ep/(b-a)$. Choose $n \in \N$ such that $(b-a)/n < \del$. For $i \in \{0, \cdots, n\}$, define $x_i \defeq a + i(b-a)/n$. Put $\MP = \{x_0, \cdots, x_n\}$. Continuity implies that for each $i \in \{1, \cdots, n\}$, there exists $x_i^M, x_i^m \in [x_{i-1}, x_i]$ such that $f(x_i^M) = M_i^f$ and $f(x_i^m) = m_i^f$. Then 
+		\begin{align*}
+			U_\MP f - L_\MP f 
+			&= \sum\limits_{i=1}^n M^f_i(x_i - x_{i-1}) - \sum\limits_{i=1}^n m^f_i(x_i - x_{i-1}) \\
+			&= \sum\limits_{i=1}^n (M^f_i - m^f_i)(x_i - x_{i-1}) \\
+			&= \sum\limits_{i=1}^n [f(x_i^M) - f(x_i^m)](x_i - x_{i-1}) \\
+			& < \sum\limits_{i=1}^n \frac{\ep}{b-a}(x_i - x_{i-1}) \\
+			&= \ep 
+		\end{align*}
+		So for each $\ep >0$, there exists a partition $\MP$ of $[a,b]$ such that $U_\MP f - L_\MP f < \ep$. Hence $f \in \Darb([a,b], \R)$.
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f:[a,b] \rightarrow \R$. If $f$ is monotonic, then $f \in \Darb([a,b], \R)$.
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $f$ is increasing. Let $\ep >0$. Choose $n \in \N$ such that $(b-a)[f(b) - f(a)] /n < \ep $. For $i \in \{0, \cdots, n\}$, define $x_i \defeq a + i(b-a)/n$. Put $\MP = \{x_0, \cdots, x_n\}$. Then 
+		\begin{align*}
+			U_\MP f - L_\MP f 
+			&= \sum\limits_{i=1}^n M^f_i(x_i - x_{i-1}) - \sum\limits_{i=1}^n m^f_i(x_i - x_{i-1}) \\
+			&= \sum\limits_{i=1}^n (M^f_i - m^f_i)(x_i - x_{i-1}) \\
+			&= \frac{b-a}{n} \sum\limits_{i=1}^n [f(x_i) - f(x_{i-1})]  \\
+			&= \frac{b-a}{n} [f(b) - f(a)] \\
+			& < \ep
+		\end{align*}
+		So for each $\ep >0$, there exists a partition $\MP$ of $[a,b]$ such that $U_\MP f - L_\MP f < \ep$. Hence $f \in \Darb([a,b], \R)$. The case is similar if $f$ is decreasing. 
+	\end{proof}
+	
+	\begin{ex}
+		Let $f \in \Darb([a,b], \R)$. Then for each $c \in [a,b]$, $f|_{[a,c]} \in \Darb([a,c], \R)$.
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{make sure indices are correct}
+		Let $c \in [a,b]$. Define $g:[a,c] \rightarrow \R$ by $g \defeq f|_{[a,c]}$. Let $\ep > 0$. Since $f \in \Darb([a,b], \R)$, \tcr{ref prev ex} implies that there exists a partition $\MP$ of $[a,b]$ such that $U_{\MP}f - L_{\MP}f < \ep$. Define $\MP_c$ by $\MP_c \defeq \MP \cup \{c\} \setminus (c,b]$. Then $\MP_c$ is a partition of $[a,c]$. Write $\MP = (x_j)_{j \in [n]_0}$ and $\MP = (y_j)_{j \in [l]_0}$. Then $l-1 = \max_{j \in [n]_0: x_j < c}$ and for each $j \in [l-1]_0$, $x_j = y_j$, 
+		\begin{align*}
+			M^g_j
+			& = \sup_{x \in [y_{j-1}, y_j]} g(x) \\
+			& = \sup_{x \in [x_{j-1}, x_j]} f|_{[a,c]}(x) \\
+			& = \sup_{x \in [x_{j-1}, x_j]} f(x) \\
+			& = M^f_j,
+		\end{align*}
+		and 
+		\begin{align*}
+			m^g_j
+			& = \inf_{x \in [y_{j-1}, y_j]} g(x) \\
+			& = \inf_{x \in [x_{j-1}, x_j]} f|_{[a,c]}(x) \\
+			& = \inf_{x \in [x_{j-1}, x_j]} f(x) \\
+			& = m^f_j.
+		\end{align*}
+		Since $y_l = c \in (x_{l-1}, x_l]$, we have that $y_l - y_{l-1} < x_l - x_{l-1}$,
+		\begin{align*}
+			M^g_l
+			& = \sup_{x \in [y_{l-1}, y_l]} g(x) \\
+			& = \sup_{x \in [x_{l-1}, c]} f|_{[a,c]}(x) \\
+			& = \sup_{x \in [x_{l-1}, c]} f(x) \\
+			& \leq \sup_{x \in [x_{l-1}, x_l]} f(x) \\
+			& = M^f_l,
+		\end{align*}
+		and
+		\begin{align*}
+			m^g_l
+			& = \inf_{x \in [y_{l-1}, y_l]} g(x) \\
+			& = \inf_{x \in [x_{l-1}, c]} f|_{[a,c]}(x) \\
+			& = \inf_{x \in [x_{l-1}, c]} f(x) \\
+			& \geq \inf_{x \in [x_{l-1}, x_l]} f(x) \\
+			& = m^f_l.
+		\end{align*}
+		Therefore
+		\begin{align*}
+			U_{\MP_c}g - L_{\MP_c} g
+			& = \sum\limits_{j \in [l]}^l M^g_j (y_j - y_{j-1})  + \sum\limits_{j \in [l]} m^g_j (y_j - y_{j-1}) \\
+			& = \sum\limits_{j \in [l]}  (M^g_j - m^g_j) (y_j - y_{j-1}) \\
+			& = \sum\limits_{j \in [l-1]}  (M^g_j - m^g_j) (y_j - y_{j-1}) + (M^g_l - m^g_l) (y_l - y_{l-1}) \\
+			& \leq \sum\limits_{j \in [l-1]}  (M^f_j - m^f_j) (x_j - x_{j-1}) + (M^g_l - m^g_l) (x_l - x_{l-1}) \\
+			& = \sum\limits_{j \in [l]}  (M^f_j - m^f_j) (x_j - x_{j-1}) \\
+			& \leq \sum\limits_{j \in [n]}  (M^f_j - m^f_j) (x_j - x_{j-1}) \\
+			& = \sum\limits_{j \in [n]}  (M^f_j) (x_j - x_{j-1})  - \sum\limits_{j \in [n]}  (m^f_j) (x_j - x_{j-1}) \\
+			& = U_{\MP} f - L_{\MP} f \\
+			& < \ep. 
+		\end{align*}  
+		Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, there exists a partition $\MP_c$ of $[a,c]$ such that such that $U_{\MP_c} g - L_{\MP_c} g < \ep$. \tcr{A prev ex} implies that 
+		\begin{align*}
+			f|_{[a,c]}
+			& = g \\
+			& \in \Darb([a,b], \R).
+		\end{align*} 
+		Since $c \in [a,b]$ is arbitrary, we have that for each $c \in [a,b]$, $f|_{[a,c]} \in \Darb([a,b], \R)$.
+ 	\end{proof}
+ 	
+	\begin{ex} \lex{00000} 
+		Define $\chi_{\Q}:[0,1] \rightarrow \R$ by $$\chi_{\Q}(x) = \begin{cases}
+			1 & x \in \Q \\
+			0 & x \not \in \Q
+		\end{cases}$$
+		Then $\chi_\Q \not \in \Darb([a,b], \R)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $\MP = \{x_0, \cdots, x_n\}$ be a partition of $[0,1]$. Then for each $i \in \{1, \cdots, n\}$, $M^{\chi_{\Q}}_i = 1$ and $m^{\chi_{\Q}}_i = 0$. So $U_\MP \chi_\Q = 1$ and $L_\MP \chi_\Q = 0$. Since $\MP$ is arbitrary, we have that $U \chi_\Q = 1$ and $L \chi_\Q = 0$
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{The Riemann Integral}
+	
+	\begin{defn} \ld{00000} 
+		Let $a,b \in \R$. 
+		\begin{itemize}
+			\item Let $\MP \in \Part_D([a,b])$. Write $\MP = (x_j)_{j \in [n]_0}$.
+			\begin{itemize}
+				\item Let $\MT \in \R^n$. Write $\MT = (t_k)_{k \in [n]}$. Then
+				\begin{itemize}
+					\item $\MT$ is said to be a \tbf{tag of $\MP$} if for each $k \in [n]$, $t_k \in [x_k, x_{k-1}]$,
+					\item $(\MP, \MT)$ is said to be a \tbf{tagged partition of $[a,b]$}.
+				\end{itemize}
+				\item We define $\Tag_{\MP} \defeq \{\MT \in \R^n: \text{$\MT$ is a tag of $\MP$}\}$.
+			\end{itemize}
+			\item We define $\Part_R([a,b]) \defeq \coprod\limits_{\MP \in \Part_D([a,b])} \Tag_{\MP}$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{defn} \ld{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $(\MP, \MT) \in \Part_R([a,b])$. Write $\MP = (x_j)_{j \in [n]_0}$ and $\MT = (t_k)_{k \in [n]})$. We define the \textbf{Riemann sum} of $f$ with respect to $(\MP, \MT)$, denoted $S^f(\MP, \MT) f$, by 
+		$$S^f(\MP, \MT) \defeq \sum\limits_{j=1}^n f(t_j) (x_j - x_{j-1}).$$ 
+	\end{defn}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $(\MP, \MT) \in \Part([a,b])$. Write $\MP = ((x_j)_{j \in [n]_0}$ and $(t_k)_{k \in [n]})$. Define $\MP_D \in \Part_D([a,b])$ by $\MP_d \defeq (x_j)_{j \in [n]_0}$. Then 
+		$$L^f(\MP) \leq S^f(\MP, \MT) \leq U^f(\MP)$$ 
+	\end{ex}
+	
+	\begin{proof}
+		Clear.
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f, g \in \Bnd([a,b], \R)$ and $(\MP, \MT) \in \Part([a,b])$. Then $S^{f+g}(\MP, \MT) = S^f(\MP, \MT) + S^g(\MP, \MT)$.
+	\end{ex}
+	
+	\begin{proof} 
+		Write $\MP = (x_j)_{j \in [n]_0}$ and $\MT = (t_k)_{k \in [n]})$. Then 
+		\begin{align*}
+			S^{f+g}(\MP, \MT)
+			& = \sum\limits_{j=1}^n [f+g](t_j) (x_j - x_{j-1}) \\
+			& = \sum\limits_{j=1}^n [f(t_j) + g(x_j)] (x_j - x_{j-1}) \\
+			& = \sum\limits_{j=1}^n [f(t_j) (x_j - x_{j-1}) + g(x_j) (x_j - x_{j-1})] \\
+			& = \sum\limits_{j=1}^n f(t_j) (x_j - x_{j-1}) +  \sum\limits_{j=1}^n g(x_j) (x_j - x_{j-1}) \\
+			& = S^f(\MP, \MT) + S^g(\MP, \MT).
+		\end{align*}
+	\end{proof}
+	
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$, $\lam \in \R$ and $(\MP, \MT) \in \Part([a,b])$. Then $S^{\lam f}(\MP, \MT) = \lam S^f(\MP, \MT)$.
+	\end{ex}
+	
+	\begin{proof}
+		Write $\MP = ((x_j)_{j \in [n]_0}$ and $(t_k)_{k \in [n]})$. Then 
+		\begin{align*}
+			S^{\lam f}(\MP, \MT) 
+			& = \sum\limits_{j=1}^n [\lam f](t_j) (x_j - x_{j-1}) \\
+			& = \sum\limits_{j=1}^n \lam f(t_j) (x_j - x_{j-1}) \\
+			& = \lam \sum\limits_{j=1}^n f(t_j) (x_j - x_{j-1}) \\
+			& = \lam S^f(\MP, \MT).
+		\end{align*}
+	\end{proof}
+	
+	\begin{defn} \ld{00000} 
+		Let $a,b \in \R$ and $(\MP, \MT), (\MP', \MT') \in \Part_R([a,b])$. Write $\MT=\{s_j\}_{j \in [m]}$ and $\MT' = \{t_k\}_{k \in [n]}$. Then $(\MP', \MT')$ is said to be a \tbf{refinement of $(\MP, \MT)$}, denoted $(\MP, \MT) \leq (\MP', \MT')$, if  
+		\begin{enumerate}
+			\item $\MP \leq \MP'$,
+			\item $\{s_j\}_{j \in [m]} \subset \{t_k\}_{k \in [n]}$.
+		\end{enumerate} 
+	\end{defn}
+	
+	\begin{defn}
+		\begin{itemize}
+			Let $f:[a,b] \rightarrow \R$. 
+			\begin{itemize}
+				\item Let $I \in \R$. Then $I$ is said to be \tbf{a Riemann integral of $f$} if for each $\ep > 0$, there exists $\del > 0$ such that for each $(\MP,\MT) \in \Part_R([a,b])$, $\mesh(\MP) < \del$ implies that $| S^f(\MP, \MT) - I| < \ep$.  
+				\item We define $\IntSet(f) \subset \R$ by $\IntSet(f) \defeq \{I \in \R: \text{$I$ is a Riemann integral of $f$}\}$.
+				\item Then $f$ is said to be \tbf{Riemann integrable} if $\IntSet(f) \neq \varnothing$.
+			\end{itemize}
+			\item We define $\Riem([a,b]) \defeq \{f \in \R^{[a,b]}: \text{$f$ is Riemann integrable}\}$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		We have that $\Riem([a,b]) \subset \Bnd([a,b], \R)$.
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{FINISH!!!!}
+	\end{proof}
+	
+	\begin{ex}
+		Let $f: [a,b] \rightarrow \R$. Then $f \in \Riem([a,b])$ iff there exists $I \in \R$ such that $\IntSet(f) = \{I\}$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			\begin{itemize}
+				\item If $a=b$, \tcr{FINISH!!!}
+				\item Suppose that $a \neq b$. Suppose that $f \in \Riem([a,b])$. Then $\IntSet(f) \neq \varnothing$ and there exists $I \in \R$ such that $I \in \IntSet(f)$. Let $I' \in \IntSet(f)$. Let $\ep > 0$. Then $\ep/2 > 0$. Since $I \in \IntSet(f)$, there exists $\del_1 > 0$ such that for each $(\MP,\MT) \in \Part_R([a,b])$, $\mesh(\MP) < \del_1$ implies that $| S^f(\MP, \MT) - I| < \ep/2$. Since $I' \in \IntSet(f)$, there exists $\del_2 > 0$ such that for each $(\MP,\MT) \in \Part_R([a,b])$, $\mesh(\MP) < \del_2$ implies that $| S^f(\MP, \MT) - I'| < \ep/2$. Define $\del \defeq \min \{\del_1, \del_2\}$. There exists $n \in \N$ such that $(b-a)/n < \del$. For each $j \in [n]_0$, define $x_j \in [a,b]$ by $x_j \defeq a + j(b-a)/n$. Define $(\MP, \MT) \in \Part_R([a,b])$ by $\MP \defeq (x_j)_{j \in [n]_0}$ and $\MT \defeq (x_j)_{j \in [n]}$. Since for each $j \in [n]$, 
+				\begin{align*}
+					x_j - x_{j-1} 
+					& = \bigg[a + \frac{j(b-a)}{n} \bigg] - \bigg[a + \frac{(j-1)(b-a)}{n} \bigg] \\
+					& = \frac{j(b-a)}{n} - \frac{(j-1)(b-a)}{n} \\
+					& = [j - (j-1)]\frac{(b-a)}{n} \\
+					& = \frac{(b-a)}{n} \\
+					& < \del,
+				\end{align*}
+				we have that
+				\begin{align*}
+					\mesh(\MP)
+					& = \max\limits_{j \in [n]} x_j - x_{j-1} \\
+					& < \del. 
+				\end{align*}
+				Since $\del \leq \del_1$ and $\del \leq \del_2$, we have that for each $(\MP,\MT) \in \Part_R([a,b])$, $\mesh(\MP) < \del$ implies that 
+				\begin{align*}
+					|I - I'| 
+					& \leq |I - S^f(\MP, \MT)| + | S^f(\MP, \MT) - I'| \\
+					& < \frac{\ep}{2} + \frac{\ep}{2} \\
+					& = \ep. 
+				\end{align*} 
+				Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, $|I - I'| < \ep$. Thus $|I - I'| = 0$ and $I = I'$. Since $I' \in \IntSet(f)$ is arbitrary, we have that for each $I' \in \IntSet(f)$, $I' = I$. Hence
+				\begin{align*}
+					\{I\}
+					& \subset \IntSet(f) \\
+					& \subset \{I\}.
+				\end{align*}
+				Therefore $\IntSet(f) = \{I\}$. 
+			\end{itemize}
+			\item $(\impliedby)$: \\
+			Suppose that there exists $I \in \R$ such that $\IntSet(f) = \{I\}$. Then $\IntSet(f) \neq \varnothing$ and $f \in \Riem([a,b])$. 
+		\end{itemize}
+	\end{proof}
+	
+	\begin{defn}
+		Let $f \in \Riem([a,b])$. We define the \textbf{Riemann integral} of $f$, denoted
+		$$I^R(f), \quad \int f, \quad  \int_a^b f, \quad \text{or} \quad \int_a^b f(x) dx,$$  
+		to be the unique $I \in \R$ such that $\Riem(f) = \{I\}$.
+	\end{defn}
+	
+	\begin{ex}
+		
+	\end{ex}
+	
+	\begin{ex}
+		Let $a,b \in \R$. Suppose that $a \leq b$. Then 
+		\begin{enumerate}
+			\item $\Riem([a,b]) = \Darb([a,b])$
+			\item for each $f \in \Riem([a,b])$, $I^R(f) = I^D(f)$. 
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item $a =b$
+				\item $a < b$  \tcr{FINISH!!!}
+				\item Let $f \in \Riem([a,b])$ and $\ep > 0$. Then there exists $\del > 0$ such that for each $(\MP, \MT) \in \Part_R([a,b])$, $\mesh(\MP) < \del$ implies that $|I^R(f) - S^f(\MP, \MT)| < \ep/2$. 
+				
+				Define $\MP \in \Part_D([a,b])$ by $\MP \defeq (x_j)_{j \in [m]_0}$. Then 
+				\begin{align*}
+					\mesh(\MP)
+					& = \max\limits_{j \in [m]} x_j - x_{j-1} \\
+					& < \del. 
+				\end{align*}
+				Therefore
+				\begin{align*}
+					\sum\limits_{j \in [m]} \bigg( f(t_j) -  f(s_j)\bigg)  (x_j - x_{j-1})
+					& = \sum\limits_{j \in [m]} \bigg[ f(t_j) (x_j - x_{j-1}) - f(s_j) (x_j - x_{j-1}) \bigg] \\
+					& = \sum\limits_{j \in [m]} f(t_j) (x_j - x_{j-1})  - \sum\limits_{j \in [m]} f(s_j) (x_j - x_{j-1}) \\
+					& = |I^R(f) - S^f(\MP, \MT)| \\
+					& < \frac{\ep}{2}.
+				\end{align*}
+				
+				For each $j \in [m]$, there exists $t_j,s_j \in [x_{j-1}, x_j]$ such that $M^f_{x_{j-1}, x_j} -\ep < f(t_j)$ and $f(s_j) < m^f_{x_{j-1}, x_j} + \ep$. Then there exist $n \in \N$ and $(y_k)_{k \in [n]_0}$ such that $\{x_j\}_{j \in [m]_0} \cup \{t_j\}_{j \in [m]} \cup \{s_j\}_{j \in [m]} = \{y_k\}_{k \in [n]_0}$. Define $\MP' \in \Part_D([a,b])$ by $\MP' \defeq \{y_k\}_{k \in [n]_0}$. Then $\MP \leq \MP'$. Define $\phi:[n] \rightarrow [m]$ by $\phi(k) \defeq \min \{j \in [m]: y_k \leq x_j\}$. \tcr{(maybe give some more details abou how $y_{\phi(k)} - y_{\phi(k) - 1} \leq x_j - x_{j-1}$)}. Thus for each $k \in [n]$, we have that $[y_{k-1}, y_k] \subset [x_{\phi(k) -1}, x_{\phi(k)}]$,
+				\begin{align*}
+					M^f_{y_{k-1}, y_k}
+					& = \sup\limits_{x \in [y_{k-1}, y_k]} f(x) \\
+					& \leq \sup\limits_{x \in [x_{\phi(k) -1}, x_{\phi(k)}]} f(x) \\
+					& = M^f_{x_{\phi(k) -1}, x_{\phi(k)}},
+				\end{align*}
+				and 
+				\begin{align*}
+					m^f_{y_{k-1}, y_k}
+					& = \inf\limits_{x \in [y_{k-1}, y_k]} f(x) \\
+					& \geq \inf\limits_{x \in [x_{\phi(k) -1}, x_{\phi(k)}]} f(x) \\
+					& = m^f_{x_{\phi(k) -1}, x_{\phi(k)}}.
+				\end{align*}
+				Furthermore, for each $j \in [m]$, $[x_{j-1}, x_j] = \bigcup\limits_{k \in \phi^{-1}j} [y_{k - 1}, y_k]$ and therefore $x_j - x_{j-1} = \sum\limits_{k \in \phi^{-1}(j)} (y_k - y_{k-1})$. 
+				\begin{align*}
+					U^f(\MP') - L^f(\MP')
+					& = \bigg[ \sum\limits_{k \in [n]} M^f_{y_{k-1}, y_k} (y_k - y_{k-1}) \bigg] - \bigg[ \sum\limits_{k \in [n]} m^f_{y_{k-1}, y_k} (y_k - y_{k-1}) \bigg] \\
+					& = \sum\limits_{k \in [n]} (M^f_{y_{k-1}, y_k} - m^f_{y_{k-1}, y_k}) (y_k - y_{k-1}) \\
+					& = \sum\limits_{j \in [m]} \bigg[ \sum\limits_{k \in \phi^{-1}(j)} (M^f_{y_{k-1}, y_k} - m^f_{y_{k-1}, y_k}) (y_k - y_{k-1}) \bigg] \\
+					& \leq \sum\limits_{j \in [m]} \bigg[ \sum\limits_{k \in \phi^{-1}(j)} (M^f_{x_{\phi(k) -1}, x_{\phi(k)}} - m^f_{x_{\phi(k) -1}, x_{\phi(k)}}) (y_k - y_{k-1}) \bigg] \\
+					& = \sum\limits_{j \in [m]} \bigg[ \sum\limits_{k \in \phi^{-1}(j)} (M^f_{x_{j -1}, x_{j}} - m^f_{x_{j -1}, x_{j}}) (y_k - y_{k-1}) \bigg] \\
+					& = \sum\limits_{j \in [m]} (M^f_{x_{j -1}, x_{j}} - m^f_{x_{j -1}, x_{j}})  \sum\limits_{k \in \phi^{-1}(j)} (y_k - y_{k-1})  \\
+					& = \sum\limits_{j \in [m]} (M^f_{x_{j -1}, x_{j}} - m^f_{x_{j -1}, x_{j}})  (x_j - x_{j-1})  \\
+					& < \sum\limits_{j \in [m]} \bigg( \bigg[f(t_j) + \frac{\ep}{4(b-a)} \bigg] - \bigg[f(s_j) - \frac{\ep}{4(b-a)} \bigg] \bigg)  (x_j - x_{j-1})  \\
+					& = \sum\limits_{j \in [m]} \bigg( f(t_j) -  f(s_j) + \frac{\ep}{2(b-a)} \bigg)  (x_j - x_{j-1})  \\
+					& = \sum\limits_{j \in [m]} \bigg[ \bigg( f(t_j) -  f(s_j)\bigg)  (x_j - x_{j-1}) +  \frac{\ep}{2(b-a)} (x_j - x_{j-1}) \bigg] \\
+					& = \sum\limits_{j \in [m]} \bigg( f(t_j) -  f(s_j)\bigg)  (x_j - x_{j-1}) + \sum\limits_{j \in [m]}  \frac{\ep}{2(b-a)} (x_j - x_{j-1}) \\
+					& = \sum\limits_{j \in [m]} \bigg( f(t_j) -  f(s_j)\bigg)  (x_j - x_{j-1}) + \frac{\ep}{2(b-a)} \sum\limits_{j \in [m]} (x_j - x_{j-1}) \\
+					& = \sum\limits_{j \in [m]} \bigg( f(t_j) -  f(s_j)\bigg)  (x_j - x_{j-1}) + \frac{\ep (b-a)}{2(b-a)}  \\
+					& = \sum\limits_{j \in [m]} \bigg( f(t_j) -  f(s_j)\bigg)  (x_j - x_{j-1}) + \frac{\ep}{2}  \\
+					& < \frac{\ep}{2} + \frac{\ep}{2} \\
+					& = \ep. 
+				\end{align*}
+				Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, there exists $\MP' \in \Part_D([a,b])$ such that $U_{\MP'} - L_{\MP'} < \ep$. Thus $f \in \Darb([a,b])$. 
+				\item Let $f \in \Darb([a,b])$. \tcr{FINISH!!!}
+			\end{itemize}
+			\item 
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{The Darboux-Stieltjes Integral}
+	
+	
+	\begin{defn}
+		Let $f \in \Bnd([a,b], \R)$, $G:[a,b] \rightarrow \R$ and $\MP \in \Part_D([a,b])$. Write $\MP = (x_j)_{j \in [n]_0}$. We define the 
+		\begin{itemize}
+			\item \textbf{upper Darboux-Stieltjes sum} of $f$ with respect to $\MP$, denoted $U_\MP (f,G)$, by 
+			$$U_\MP f \defeq \sum\limits_{j \in [n]} M^f_j (G(x_j) - G(x_{j-1}))$$ 
+			\item define the \textbf{lower Darboux-Stieltjes sum} of $f$ with respect to $\MP$, denoted $L_\MP (f,G)$, by
+			$$L_\MP f \defeq \sum\limits_{j \in [n]} m^f_j (G(x_j) - G(x_{j-1}))$$ 
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $f \in \Bnd([a,b], \R)$, $G:[a,b] \rightarrow \R$. If $G$ is differentiable, then 
+	\end{ex}
+	
+	
+	
+	\tcr{Oriented Darboux integral}
+	
+	\tcr{motivate path orientation with particle trajectory and reversing time}
+	
+	\begin{ex}
+		Define $S:[a,b] \rightarrow [b,a]$ by $s(t) \defeq ta + (1-t) b$. Then 
+		\begin{enumerate}
+			\item $U_{\MP}(f,S) = - U_{\MP}$
+			\item $L_{\MP}(f,S) = - L_{\MP}$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Fundamental Theorem of Calculus}
+	
+	\tcr{try to motivate oriented traversal}
+	Suppose we are given $x_0 \in [a,b]$. Then in many instances, it is natural to consider the cumulative area function of $f$ after $x_0$, which is denoted $F:[x_0 b] \rightarrow \R$, and defined by $$F(x) \defeq \int_{x_0}^x f.$$  
+	For example this function can describe  
+	\begin{itemize}
+		\item various characteristics of physical systems like the total length of the trajectory a particle traverses between times $x_0$ and $x$, 
+		\item various probabilistic outcomes like the chance of observing or measuring a value of an absolutely conitnuous random variable between $x_0$ and $x$.
+	\end{itemize}
+	Taking inspiriation from the particle example, 
+	
+	suppose that we start a timer at time $t =0$ and stop the timer at time $t=1$ and between these two times, the trajectory taken by a particle is described by the function $x:[0,1] \rightarrow \R$ (or perhaps it is easier to imagine in higher dimensions with $x:[0,1] \rightarrow \R^k$ for $k=2,3$). In other words, the position of the particle at time $t \in [0,1]$ as recorded by our timer is precisely $x(t)$. Now suppose the flow of time suddenly reverses once the particle reaches its terminal position $x(1)$ and we restart our timer. That is, at \tcr{FINISH!!!}
+	
+	\begin{align*}
+		\int_a^b f \circ r 
+	\end{align*}
+	
+	
+	
+	Then we wold observe the particle moving along the same unoriented trajectory as before, but in reverse. 
+	We recall that \tcr{a prev ex} implies that for each $x \in [x_0, b]$,
+	\begin{align*}
+		\int_a^b f = \int_a^{x_0} f + \int_{x_0}^b f
+	\end{align*}
+	
+	\begin{defn}
+		Let $f \in \Darb([a,b], \R)$ and $x_0 \in [a,b]$. We define the \tbf{indefinite integral of $f$ from $x_0$}, denoted $I^f_{x_0}: [a,b] \rightarrow \R$, by 
+		\[
+		I^f_{x_0}(x) \defeq
+		\begin{cases}
+			I_{[x_0, x]} f, & x_0 \leq x \\
+			-I_{[x, x_0]} f, & x_0 > x.
+		\end{cases}
+		\] 
+	\end{defn}
+	
+	\begin{ex} \tbf{Fundamental Theorem of Calculus:} \\
+		\begin{enumerate}
+			\item Let $f \in \Darb([a,b], \R)$. Define $F: [a,b] \rightarrow \R$ by 
+			$$F(x) \defeq \int_a^x f.$$ 
+			Then for each $x_0 \in [a,b]$, $f$ is continuous at $x_0$ implies that $F$ is differentiable at $x_0$ and $F'(x_0) = f(x_0)$,  
+			\item Let $F: [a,b] \rightarrow \R$. Suppose that $F$ is differentiable. Define $f: [a,b] \rightarrow \R$ by $f \defeq F'$. If $f \in \Darb([a,b], \R)$, then
+			$$\int_a^b f = F(b) - F(a).$$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $x_0 \in (a,b)$. Since
+			\begin{align*}
+				\frac{F(x_0 + h) - F(x_0)}{h} 
+				& = \frac{1}{h} \bigg[ \int_a^{x_0 + h} f  - \int_a^{x_0} f \bigg] \\
+				& = \frac{1}{h} \int_{x_0}^{x_0 + h} f \quad \text{(by \tcr{make/ref ex})}
+			\end{align*}
+			and 
+			\begin{align*}
+				m^f_{x_0, x_0 + h} h
+				& \leq  \int_{x_0}^{x_0 + h} f \\
+				& \leq M^f_{x_0, x_0 + h} h,
+			\end{align*}
+			we have that 
+			\begin{align*}
+				m^f_{x_0, x_0 + h} 
+				& = \frac{h}{h} m^f_{x_0, x_0 + h}  \\ 
+				& \leq  \frac{F(x_0 + h) - F(x_0)}{h}  \\
+				& \leq \frac{h}{h} M^f_{x_0, x_0 + h}  \\ 
+				& = M^f_{x_0, x_0 + h}.
+			\end{align*}
+			Since $f$ is continuous at $x_0$, \rex{ex:analysis:real_nums:limits_funct:0010} implies that $\limh{0^+} M^f_{x_0, x_0 + h} = f(x_0)$ and $\limh{0^+} m^f_{x_0, x_0 + h} = f(x_0)$. \rex{} \tcr{make and ref monotonicity of limits (i.e. sandwhich) ex} implies that $\limh{0^+} h^{-1}[F(x_0 + h) - F(x_0)] = f(x_0)$. Since
+			\begin{align*}
+				F(x_0 - h) - F(x_0)
+				& = - [F(x_0) - F(x_0 - h)] \\
+				& = \bigg[ \int_a^{x_0 + h} f  - \int_a^{x_0} f \bigg] \\
+				& = \int_{x_0}^{x_0 + h} f
+			\end{align*}
+			Similarly, \tcr{(add details)} $\limh{0^-} h^{-1}[F(x_0 + h) - F(x_0)] = f(x_0)$. Thus $\limh{0} h^{-1}[F(x_0 + h) - F(x_0)] = f(x_0)$, $F$ is differentiable at $x_0$ and $F'(x_0) = f(x_0)$.
+			\item Suppose that $f \in \Darb([a,b], \R)$. Let $\ep > 0$. 
+			\begin{itemize}
+				\item Since  
+				\begin{align*}
+					\int_a^b f + \ep 
+					& > \int_a^b f \\
+					& = U f \\
+					& = \inf \{U_{\MP} f: \text{$\MP$ is a partition of $[a,b]$}\},
+				\end{align*}
+				there exists a partion $\MP$ of $[a,b]$ such that $U_{\MP}f < 	\int_a^b f + \ep$. Write $\MP = (x_j)_{j \in [n]_0}$. Since $F$ is differentiable, the mean value theorem (\rex{}, \tcr{ref here}) implies that for each $j \in [n]$, there exists $c_j \in [x_{j-1}, x_j]$ such that 
+				\begin{align*}
+					f(c_j)
+					& = F'(c_j) \\
+					& = \frac{F(x_j) - F(x_{j-1})}{x_j - x_{j-1}}.
+				\end{align*} 
+				Therefore 
+				\begin{align*}
+					F(b) - F(a)
+					& = F(x_n) - F(x_0) \\
+					& = \sum\limits_{j \in [n]} F(x_j) - F(x_{j-1}) \\
+					& = \sum\limits_{j \in [n]} f(c_j) (x_j - x_{j-1}) \\
+					& \leq \sum\limits_{j \in [n]} M^f_{x_{j-1}, x_j} (x_j - x_{j-1}) \\
+					& = U_{\MP} f \\
+					& < \int_a^b f + \ep.
+				\end{align*}
+				\item Since  
+				\begin{align*}
+					\int_a^b f - \ep 
+					& < \int_a^b f \\
+					& = L f \\
+					& = \sup \{L_{\MP} f: \text{$\MP$ is a partition of $[a,b]$}\},
+				\end{align*}
+				there exists a partion $\MP$ of $[a,b]$ such that $\int_a^b f - \ep < L_{\MP}f $. Write $\MP = (y_j)_{j \in [n]_0}$. Since $F$ is differentiable, the mean value theorem (\rex{}, \tcr{ref here}) implies that for each $j \in [n]$, there exists $d_j \in [y_{j-1}, y_j]$ such that 
+				\begin{align*}
+					f(d_j)
+					& = F'(d_j) \\
+					& = \frac{F(y_j) - F(y_{j-1})}{y_j - y_{j-1}}.
+				\end{align*} 
+				Therefore 
+				\begin{align*}
+					F(b) - F(a)
+					& = F(y_n) - F(y_0) \\
+					& = \sum\limits_{j \in [n]} F(y_j) - F(y_{j-1}) \\
+					& = \sum\limits_{j \in [n]} f(d_j) (y_j - y_{j-1}) \\
+					& \geq \sum\limits_{j \in [n]} m^f_{y_{j-1}, y_j} (y_j - y_{j-1}) \\
+					& = L_{\MP} f \\
+					& > \int_a^b f - \ep.
+				\end{align*}
+			\end{itemize}
+			Since $\ep > 0$ is arbitrary, we have that 
+			\begin{align*}
+				\int_a^b f 
+				& \leq F(b) - F(a) \\
+				& \leq \int_a^b f.
+			\end{align*} 
+			Hence
+			$$\int_a^b f = F(b) - F(a).$$ 
+		\end{enumerate}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Logarithmic and Exponential Functions}
+	
+	\subsection{Logarithmic Function}
+	
+	\begin{defn}
+		We define the \tbf{logarithmic function}, denoted $\log:  \rightarrow \R$, by 
+		$$\log(x) \defeq \int_1^t \frac{1}{t} \dt. $$
+	\end{defn}
+	
+	\begin{ex}
+		
+	\end{ex}
+	
+	\subsection{Exponential Function}
+	
+	\begin{note}
+		\tcr{need to talk about summation, $l^1$, and ref here}
+	\end{note}
+	
+	\begin{ex}
+		For each $x \in \R$, $(x^n/n!)_{n \in \N_0} \in l^1(\N_0)$
+	\end{ex}
+	
+	\begin{defn}
+		We define the \tbf{exponential function}, denoted $\exp: \R \rightarrow \R$, by 
+		$\exp(x) \defeq \sum\limits_{n \in \N_0}$
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear, we may write $e^x$ in place of $\exp(x)$. 
+	\end{note}
+	
+	\begin{ex}
+		For each $x \in \R$, 
+		$$e^x = \limn \bigg(1 + \frac{x}{n} \bigg)^n.$$
+	\end{ex}
+	
+	\begin{proof} \tcr{need to define $\log$}.
+		Let $x \in \R$. Then for each $n \in \N$, $n \geq |x|$ implies that
+		\begin{align*}
+			\log \bigg[ \bigg(1 + \frac{x}{n} \bigg)^n \bigg] 
+			& = n \log \bigg(1 + \frac{x}{n} \bigg) \\
+			& = \frac{\log (1 + xn^{-1} )}{n^{-1}}
+		\end{align*}
+		
+		\tcr{FINISH!!!, Give more details}
+		Define $f,g: (|x|, \infty) \rightarrow \R$ by $f(t) \defeq \log (1 + xt^{-1} )$ and $g(t) \defeq t^{-1}$. Then 
+		\begin{align*}
+			\frac{f'(t) }{g'(t)}
+			& = \limt{\infty} \frac{-xt^{-2}(1 + xt^{-1})^{-1}}{-t^{-2}} \\
+			& = \limt{\infty} x(1 + xt^{-1})^{-1} \\
+			& = x, 
+		\end{align*}
+		$\limt f'(t) = 0$ and $\limt g'(t) = 0$. L'H\^opital's rule \tcr{(ref ex)} implies that
+		\begin{align*}
+			\limt{\infty} \frac{f(t)}{g(t)}
+			& = \limt{\infty} \frac{f'(t)}{g'(t)} \\
+			& = x.
+		\end{align*}
+		\rex{} \tcr{(ref ex)} then implies that 
+		\begin{align*}
+			\limn \log \bigg[ \bigg(1 + \frac{x}{n} \bigg)^n \bigg] 
+			& = \limn \frac{\log (1 + x/n )}{1/n} \\
+			& = \limn \frac{f(n)}{g(n)} \\
+			& = \limn \frac{f'(n)}{g'(n)} \\
+			& = x.
+		\end{align*} 
+		Continuity of $\exp$ then implies that 
+		\begin{align*}
+			\limn \bigg[ \bigg(1 + \frac{x}{n} \bigg)^n \bigg] 
+			& = \limn \exp \circ \log \bigg[ \bigg(1 + \frac{x}{n} \bigg)^n \bigg] \\
+			& = \limn \exp \bigg( \log \bigg[ \bigg(1 + \frac{x}{n} \bigg)^n \bigg] \bigg) \\
+			& = \exp \bigg( \limn \log \bigg[ \bigg(1 + \frac{x}{n} \bigg)^n \bigg] \bigg) \\
+			& = \exp(x).
+		\end{align*}
+		Since $x \in \R$ is arbitrary, we have that for each $x \in \R$, 
+		$$e^x = \limn \bigg(1 + \frac{x}{n} \bigg)^n.$$
+	\end{proof}
+	
+	
+	\part{To Do and Ideas}
+	
+	\chapter{Angle}
+	
+	Need to talk about the idea of an angle. There are a couple notions here. 
+	\begin{itemize}
+		\item \tbf{Angle as the surface area measure on the unit circle:} \\
+		Here the idea is that angle does not depend on the size of a cirle, is proportional to the surface area of the arc to which it corresponds. Thus we may, by convention define an angle between two (oriented) vectors to be the region of the unit sphere $S^2$ which is bounded by $1$-dimensional geodesic ball on $S^2$ created by the oriented vectors. This idea requires a Banach space and possibly nonsmooth geometry for different geodesic distances like $l_1$ distance. With this, we can define the trig functions by relating the surface area measure to the coordinates and we can prove any number of results about them.
+		\item  \tbf{Angle as the measure of orthogonality:} \\
+		Here the idea is that in an inner product space, an inner product between unit vectors behaves like the $\cos$ function defined above. In paticular, in the special case of $\R^n$ equipped with the standard inner product, we exactly reproduce the usual notion of angle when the angle is at most $\pi/2$. In addition, the inner product connects the ideas of angle-between and length-of vectors. 
+	\end{itemize}
 	
 	
 	

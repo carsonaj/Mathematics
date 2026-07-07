@@ -76,12 +76,274 @@
 
 \chapter{Relations}
 
+\section{Introduction}
 
-\section{Binary Heterogeneous Relations}
-\tcr{keep this part here, after section on sets similar to analysis notes, so we can assume arbitrary unions, products, etc, not just unions/products/etc of two sets}
+\begin{defn}
+	Let $n \in \N$ and $(A_j)_{j \in [n]}$ a collection of sets.
+	\begin{itemize}
+		\item Let $R \subset \prod\limits_{j \in [n]} A_j$. Then $R$ is said to be a \tbf{$n$-ary relation over $(A_j)_{j \in [n]}$}. 
+		\item We define $\MR(A_j:j \in [n]) \defeq \MP(\prod\limits_{j \in [n]} A_j)$
+	\end{itemize}
+\end{defn}
 
 
-\subsection{Introduction}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Homogeneous Relations}
+
+\begin{defn}
+	Let $n \in \N$ and $A$ a set. 
+	\begin{itemize}
+		\item Let $R \subset A^n$. Then $R$ is said to be a \tbf{homogeneous $n$-ary relation on $A$}
+		\item We define $\MR^n(A) \defeq \MP(A^n)$.
+	\end{itemize} 
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Subrelations}
+
+\begin{defn}
+	Let $n \in \N$, $A, B$ sets, $R \in \MR^n(A)$ and $S \in \MR^n(B)$. Then 
+	\begin{itemize}
+		\item $S$ is said to be a \tbf{restriction of $R$} if $B \subset A$,    
+		\item $R$ is said to be an \tbf{extension of $S$} if $S$ is a restriction of $R$.
+	\end{itemize}
+\end{defn}
+
+
+\begin{defn}
+	Let $n \in \N$, $A$ a set, $B \subset A$ and $R \in \MR^n(A)$. We define the \tbf{restriction of $R$ to $B$}, denoted $R|_B$, by $R|_B \defeq R \cap B^n$.
+\end{defn}
+
+\begin{ex}
+	Let $n \in \N$, $A$ a set, $B \subset A$ and $R \in \MR^n(A)$. Then $R|_B$ is a restriction of $R$.
+\end{ex}
+
+\begin{proof}
+	Clear. \tcr{fill out later}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Product Relations}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Binary Relations}
 
 \begin{defn}
 	Let $A, B$ be sets.
@@ -409,12 +671,16 @@
 \subsection{Products of Relations}
 
 \begin{defn}
-	Let $A,B,C,D$ be sets and $R \in \MR(A,B), S \in \MR(C,D)$. We define the \tbf{product relation of $R$ and $S$}, denoted $R \times_{\Rel} S \in \MR(A \times C, B \times D)$, by 
-	$$R \times_{\Rel} S \defeq \{((a,c), (b,d)) \in (A \times C) \times (B \times D): (a,b) \in R \text{ and } (c,d) \in S\}.$$
+	Let $(A_j)_{j \in [n]}, (B_j)_{j \in [n]}$ be sets and $(R_j)_{j \in [n]} \in \prod\limits_{j \in [n]} \MR(A_j,B_j)$. We define the \tbf{product relation of $(R_j)_{j \in [n]}$}, denoted $\prodrel\limits_{j \in [n]} R_j \in \MR \bigg( \prod\limits_{j \in [n]} A_j, \prod\limits_{j \in [n]} B_j \bigg)$, by 
+	$$ \prodrel\limits_{j \in [n]} R_j \defeq \bigg \{ ((a_j)_{j \in [n]}, (b_j)_{j \in [n]}) \in \bigg( \prod\limits_{j \in [n]} A_j \bigg) \times \bigg( \prod\limits_{j \in [n]} B_j \bigg): \text{for each $j \in [n]$, $(a_j,b_j) \in R_j$} \bigg \}.$$
 \end{defn}
 
-\begin{note}
-	When the context is clear, we write $R \times S$ in place of $R \times_{\Rel} S$.
+\begin{note}\
+	\begin{itemize}
+		\item When $n = 2$, we may write $R_1 \timesrel R_2$ in place of $\prodrel\limits_{j \in [2]} R_j$,
+		\item If for each $j \in [n]$, $R_j = R$, we may write $R^{\timesrel n}$ in place of $\prodrel\limits_{j \in [n]} R$,
+		\item When the context is clear we may write $\prod\limits_{j \in [n]} R_j$ and $R_1 \times R_2$ in place of $\prodrel\limits_{j \in [n]} R_j$ and $R_1 \timesrel R_2$.
+	\end{itemize}
 \end{note}
 
 \begin{ex}
@@ -573,605 +839,6 @@
 
 
 
-
-\newpage
-
-\section{$n$-ary Heterogeneous Relations}
-
-
-\subsection{Introduction}
-
-\tcr{can we define composition in an operadic way?}
-
-\begin{defn}
-	Let $n \in \N$ and $(A_j)_{j \in [n]}$ a collection of sets.
-	\begin{itemize}
-		\item Let $R \subset \prod\limits_{j \in [n]} A_j$. Then $R$ is said to be a \tbf{$n$-ary relation over $(A_j)_{j \in [n]}$}. 
-		\item We define $\MR(A_j:j \in [n]) \defeq \MP(\prod\limits_{j \in [n]} A_j)$ 
-	\end{itemize}
-\end{defn}
-
-\begin{defn}
-	\tcr{FIX rest of section!!!!} (right now it is same as binary relations section)
-	Let $A,B,C$ be sets, $R \in \MR(A,B)$, $S \in \MR(B,C)$. We define the \tbf{composition relation of $S$ with $R$}, denoted $S \circ_{\Rel} R \in \MR(A, C)$, by 
-	$$S \circ_{\Rel} R \defeq \{(a,c) \in A \times C: \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$}\}.$$
-\end{defn}
-
-\begin{note}
-	When the context is clear, we write $S \circ R$ in place of $S \circ_{\Rel} R$.
-\end{note}
-
-\begin{ex}
-	Let $A,B, C, D$ be sets, $R$ a relation between $A$ and $B$, $S$ relation between $B$ and $C$ and $T$ relation between $C$ and $D$. Then $(T \circ S) \circ R = T \circ (S \circ R)$.
-\end{ex}
-
-\begin{proof}\
-	\begin{itemize}
-		\item Let $(a,d) \in (T \circ S) \circ R$. Then there exists $b \in B$ such that $(a,b) \in R$ and $(b,d) \in T \circ S$. Since $(b,d) \in T \circ S$, there exists $c \in C$ such that $(b,c) \in S$ and $(c,d) \in T$. Since $(a,b) \in R$ and $(b,c) \in S$, $(a,c) \in S \circ R$. Since $(a,c) \in S \circ R$ and $(c,d) \in T$, we have that $(a,d) \in T \circ (S \circ R)$. Since $(a,d) \in (T \circ S) \circ R$ is arbitrary, we have that for each $(a,d) \in (T \circ S) \circ R$, $(a,d) \in T \circ (S \circ R)$. Hence $(T \circ S) \circ R \subset T \circ (S \circ R)$.
-		\item Similarly, $T \circ (S \circ R) \subset (T \circ S) \circ R$. 
-	\end{itemize}
-	Since $(T \circ S) \circ R \subset T \circ (S \circ R)$ and $T \circ (S \circ R) \subset (T \circ S) \circ R$, we have that $(T \circ S) \circ R = T \circ (S \circ R)$.
-\end{proof}
-
-
-
-\begin{defn}
-	Let $A$ be a set. We define the \tbf{diagonal relation on $A$}, denoted $\Del_A \in \MR(A, A)$, by 
-	$$\Del_A \defeq \{(a,a): a \in A\}.$$
-\end{defn}
-
-\begin{ex}
-	Let $A, B$ be sets and $R \in \MR(A,B)$. Then 
-	\begin{enumerate}
-		\item $R \circ \Del_A = R$
-		\item $\Del_B \circ R = R$
-	\end{enumerate}
-\end{ex}
-
-\begin{proof}\
-	\begin{enumerate}
-		\item 
-		\begin{itemize}
-			\item Let $(a,b) \in R \circ \Del_A$. Then there exists $a' \in A$ such that $(a, a') \in \Del_A$ and $(a',b) \in R$. By definition of $\Del_A$, $a = a'$. Therefore $(a,b) \in R$. Since $(a,b) \in R \circ \Del_A$ is arbitrary, we have that for each $(a,b) \in R \circ \Del_A$, $(a,b) \in R$. Hence $ R \circ \Del_A \subset R$. 
-			\item Let $(a,b) \in R$. Then $a \in A$. Therefore $(a,a) \in \Del_A$. Since $(a,a) \in \Del_A$ and $(a,b) \in R$, we have that $(a, b) \in R \circ \Del_A$. Since $(a,b) \in R$ is arbitrary, we have that for each $(a,b) \in R$, $(a,b) \in R \circ \Del_A$. Hence $R \circ \Del_A \subset R$.  
-		\end{itemize}
-		Since $R \circ \Del_A \subset R$ and $R \circ \Del_A \subset R$, we have that $R \circ \Del_A = R$.
-		\item Similar to $(1)$.
-	\end{enumerate}
-\end{proof}
-
-\begin{ex}
-	Let $A, B, C$ be sets. 
-	\begin{enumerate}
-		\item Let $R \in \MR(A, B)$ and $(S_{\gam})_{\gam \in \Gam} \subset \MR(B, C)$. Then
-		\begin{enumerate}
-			\item $\bigg( \bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R = \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R)$,
-			\item $\bigg( \bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R \subset \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R)$
-		\end{enumerate} 
-		\item Let $(R_{\gam})_{\gam \in \Gam} \subset \MR(A, B)$ and $S \in \MR(B, C)$. Then
-		\begin{enumerate}
-			\item $S \circ \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg) = \bigcup\limits_{\gam \in \Gam} (S \circ R_{\gam} )$.
-			\item $S \circ \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg) \subset \bigcap\limits_{\gam \in \Gam} (S \circ R_{\gam} )$.
-		\end{enumerate} 
-	\end{enumerate}
-\end{ex}
-
-\begin{proof}\
-	\begin{enumerate}
-		\item 
-		\begin{enumerate}
-			\item We note that
-			\begin{align*}
-				(a,c) \in \bigg( \bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R 
-				& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in \bigcup\limits_{\gam \in \Gam} S_{\gam} $} \\
-				& \iff \text{there exists $b \in B$ and $\gam_0 \in \Gam$ such that $(a,b) \in R$ and $(b,c) \in S_{\gam_0}$} \\
-				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a, c) \in S_{\gam_0} \circ R$} \\
-				& \iff (a, c) \in \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R).
-			\end{align*}
-			Hence $\bigg( \bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R  = \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
-			\item 
-			We note that
-			\begin{align*}
-				(a,c) \in \bigg( \bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R 
-				& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in \bigcap\limits_{\gam \in \Gam} S_{\gam} $} \\
-				& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and for each $\gam \in \Gam$ and $(b,c) \in S_{\gam}$} \\
-				& \implies \text{for each $\gam \in \Gam$, there exists $b \in B$ such that $(a, b) \in R$ and $(b,c) \in S_{\gam}$} \\
-				& \iff \text{for each $\gam \in \Gam$, $(a,c) \in S_{\gam} \circ R$} \\
-				& \iff (a, c) \in \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R).
-			\end{align*}
-			Hence $\bigg( \bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) \circ R  = \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
-		\end{enumerate}
-		\item 
-		\begin{enumerate}
-			\item We note that  
-			\begin{align*}
-				(a,c) \in S \circ \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)
-				& \iff \text{there exists $b \in B$ such that $(a,b) \in \bigcup\limits_{\gam \in \Gam} R_{\gam}$ and $(b,c) \in S$} \\
-				& \iff \text{there exists $b \in B$ and $\gam_0 \in \Gam$ such that $(a,b) \in R_{\gam_0}$ and $(b,c) \in S$} \\
-				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a, c) \in S \circ R_{\gam_0}$} \\
-				& \iff (a, c) \in \bigcup\limits_{\gam \in \Gam} (S \circ R_{\gam}).
-			\end{align*}
-			Hence $S \circ \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)  = \bigcup\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
-			\item We note that  
-			\begin{align*}
-				(a,c) \in S \circ \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)
-				& \iff \text{there exists $b \in B$ such that $(a,b) \in \bigcap\limits_{\gam \in \Gam} R_{\gam}$ and $(b,c) \in S$} \\
-				& \iff \text{there exists $b \in B$ such that for each $\gam \in \Gam$, $(a,b) \in R_{\gam}$ and $(b,c) \in S$} \\
-				& \implies \text{for each $\gam \in \Gam$, there exists $b \in B$ such that $(a, b) \in  R_{\gam}$ and $(b,c) \in S$} \\
-				& \iff \text{for each $\gam \in \Gam$, $(a, c) \in S \circ R_{\gam}$} \\
-				& \iff (a, c) \in \bigcap\limits_{\gam \in \Gam} (S \circ R_{\gam}).
-			\end{align*}
-			Hence $S \circ \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg) \subset \bigcap\limits_{\gam \in \Gam} (S_{\gam} \circ R)$.
-		\end{enumerate}
-	\end{enumerate}
-\end{proof}
-
-\begin{ex}
-	Let $A, B, C$ be sets. 
-	\begin{enumerate}
-		\item Let $R_1, R_2 \in \MR(A, B)$ and $S \in \MR(B,C)$. If $R_1 \subset R_2$, then $S \circ R_1 \subset S \circ R_2$. 
-		\item Let $R \in \MR(A, B)$ and $S_1, S_2 \in \MR(B,C)$. If $S_1 \subset S_2$, then $S_1 \circ R \subset S_2 \circ R$. 
-		\item Let $R_1, R_2 \in \MR(A, B)$ and $S_1, S_2 \in \MR(B,C)$. If $R_1 \subset R_2$ and $S_1 \subset S_2$, then $S_1 \circ R_1 \subset S_2 \circ R_2$.
-	\end{enumerate}
-\end{ex}
-
-\begin{proof}\
-	\begin{enumerate}
-		\item Suppose that $R_1 \subset R_2$. Then 
-		\begin{align*}
-			(a, c) \in S \circ R_1
-			& \iff \text{there exists $b \in B$ such that $(a,b) \in R_1$ and $(b,c) \in S$} \\
-			& \implies \text{there exists $b \in B$ such that $(a,b) \in R_2$ and $(b,c) \in S$} \\
-			& \iff (a, c) \in S \circ R_2.
-		\end{align*}
-		Hence $S \circ R_1 \subset S \circ R_2$.
-		\item Suppose that $S_1 \subset S_2$. Then
-		\begin{align*}
-			(a, c) \in S_1 \circ R
-			& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S_1$} \\
-			& \implies \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S_2$} \\
-			& \iff (a, c) \in S_2 \circ R.
-		\end{align*}
-		Hence $S_2 \circ R \subset S_1 \circ R$.
-		\item Suppose that $R_1 \subset R_2$ and $S_1 \subset S_2$. Then \tcr{the previous parts} imply that
-		\begin{align*}
-			S_1 \circ R_1
-			& \subset S_2 \circ R_1 \\
-			& \subset S_2 \circ R_2.
-		\end{align*}
-	\end{enumerate}
-\end{proof}
-
-\begin{defn}
-	Let $A, B$ be sets and $R \in \MR(A,B)$. We define the \tbf{converse of $R$}, denoted $R^* \in \MR(B,A)$, by 
-	$$R^* \defeq \{(b,a) \in B \times A: (a,b) \in R\}.$$
-\end{defn}
-
-\begin{ex}
-	Let $A, B$ be sets and $R$ a relation between $A$ and $B$. Then $(R^*)^* = R$.
-\end{ex}
-
-\begin{proof}
-	\begin{align*}
-		(a,b) \in (R^*)^*
-		& \iff (b,a) \in R^* \\
-		& \iff (a,b) \in R.
-	\end{align*}
-	Hence $(R^*)^* = R$.
-\end{proof}
-
-\begin{ex}
-	Let $A, B, C$ be sets, $R \in \MR(A,B)$ and $S \in \MR(B,C)$. Then $(S \circ R)^* = R^* \circ S^*$.  
-\end{ex}
-
-\begin{proof}
-	We note that 
-	\begin{align*}
-		(c,a) \in (S \circ R)^*
-		& \iff (a,c) \in S \circ R \\
-		& \iff \text{there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$} \\
-		& \iff \text{there exists $b \in B$ such that $(c,b) \in S^*$ and $(b, a) \in R^*$} \\
-		& \iff (c, a) \in R^* \circ S^*.
-	\end{align*}
-	Hence $(S \circ R)^* = R^* \circ S^*$.
-\end{proof}
-
-\begin{ex}
-	Let $A$ and $B$ be sets and $(R_{\gam})_{\gam \in \Gam} \subset \MR(A, B)$. Then 
-	\begin{enumerate}
-		\item $\bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcup\limits_{\gam \in \Gam} R_{\gam}^*$
-		\item $\bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcap\limits_{\gam \in \Gam} R_{\gam}^*$
-	\end{enumerate}
-\end{ex}
-
-\begin{proof}\
-	\begin{enumerate}
-		\item We note that
-		\begin{align*}
-			(b,a) \in \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)^*
-			& \iff (a,b) \in \bigcup\limits_{\gam \in \Gam} R_{\gam} \\
-			& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a,b) \in R_{\gam_0}$} \\
-			& \iff \text{there exists $\gam_0 \in \Gam$ such that $(b,a) \in R_{\gam_0}^*$} \\
-			& \iff (b,a) \in \bigcup\limits_{\gam \in \Gam} R_{\gam}^*.
-		\end{align*}
-		Hence $\bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcup\limits_{\gam \in \Gam} R_{\gam}^*$.
-		\item We note that
-		\begin{align*}
-			(b,a) \in \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)^*
-			& \iff (a,b) \in \bigcap\limits_{\gam \in \Gam} R_{\gam} \\
-			& \iff \text{for each $\gam \in \Gam$, $(a,b) \in R_{\gam}$} \\
-			& \iff \text{for each $\gam \in \Gam$, $(b,a) \in R_{\gam}^*$} \\
-			& \iff (b,a) \in \bigcap\limits_{\gam \in \Gam} R_{\gam}^*.
-		\end{align*}
-		Hence $\bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg)^* = \bigcap\limits_{\gam \in \Gam} R_{\gam}^*$.
-	\end{enumerate}
-\end{proof}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Subrelations}
-
-\begin{defn}
-	Let $A,B$ be sets, $R \in \MR(A,B)$, $E \subset A$ and $F \subset B$. We define the \tbf{subrelation of $R$ between $E$ and $F$}, denoted $R|_{E \times F} \in \MR(E, F)$, by $R|_{E \times F}$
-\end{defn}
-
-\tcr{maybe dont do this subsection, since relations are like morphisms, so unless you can find a categorical way to present restrictions on domain or codomain $f|_E$ or $f|^F$, just get rid of this subsection}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Products of Relations}
-
-\begin{defn}
-	Let $A,B,C,D$ be sets and $R \in \MR(A,B), S \in \MR(C,D)$. We define the \tbf{product relation of $R$ and $S$}, denoted $R \times_{\Rel} S \in \MR(A \times C, B \times D)$, by 
-	$$R \times_{\Rel} S \defeq \{((a,c), (b,d)) \in (A \times C) \times (B \times D): (a,b) \in R \text{ and } (c,d) \in S\}.$$
-\end{defn}
-
-\begin{note}
-	When the context is clear, we write $R \times S$ in place of $R \times_{\Rel} S$.
-\end{note}
-
-\begin{ex}
-	Let $A,B,C,D$ be sets.
-	\begin{enumerate}
-		\item Let $R \in \MR(A,B)$ and $(S_{\gam})_{\gam \in \Gam} \subset \MR(C,D)$. Then 
-		\begin{enumerate}
-			\item $R \times \bigg(\bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcup\limits_{\gam \in \Gam} (R \times S_{\gam})$
-			\item $R \times \bigg(\bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcap\limits_{\gam \in \Gam} (R \times S_{\gam})$
-		\end{enumerate}
-		\item Let $(R_{\gam})_{\gam \in \Gam} \subset \in \MR(A,B)$ and $S \in \MR(C,D)$. Then 
-		\begin{enumerate}
-			\item $\bigg(\bigcup\limits_{\gam \in \Gam} R_{\gam} \bigg) \times S = \bigcup\limits_{\gam \in \Gam} (R_{\gam} \times S)$
-			\item $\bigg(\bigcap\limits_{\gam \in \Gam} R_{\gam} \bigg) \times S = \bigcap\limits_{\gam \in \Gam} (R_{\gam} \times S)$
-		\end{enumerate}
-	\end{enumerate}
-\end{ex}
-
-\begin{proof}\
-	\begin{enumerate}
-		\item 
-		\begin{enumerate}
-			\item We note that
-			\begin{align*}
-				((a,c),(b,d)) \in R \times  \bigg(\bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) 
-				& \iff \text{$(a,b) \in R$ and $(c,d) \in \bigcup\limits_{\gam \in \Gam} S_{\gam}$} \\
-				& \iff \text{$(a,b) \in R$ and there exists $\gam_0 \in \Gam$ such that $(c,d) \in S_{\gam_0}$} \\
-				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a,b) \in R$ and $(c,d) \in S_{\gam_0}$} \\
-				& \iff \text{there exists $\gam_0 \in \Gam$ such that $((a,c), (b,d)) \in R \times  S_{\gam_0}$} \\
-				& \iff ((a,c), (b,d)) \in \bigcup\limits_{\gam \in \Gam} (R \times  S_{\gam}). 
-			\end{align*}
-			Hence $R \times  \bigg(\bigcup\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcup\limits_{\gam \in \Gam} (R \times  S_{\gam})$.
-			\item We note that
-			\begin{align*}
-				((a,c),(b,d)) \in R \times  \bigg(\bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) 
-				& \iff \text{$(a,b) \in R$ and $(c,d) \in \bigcap\limits_{\gam \in \Gam} S_{\gam}$} \\
-				& \iff \text{$(a,b) \in R$ for each $\gam \in \Gam$, $(c,d) \in S_{\gam}$} \\
-				& \iff \text{for each $\gam \in \Gam$, $(a,b) \in R$ and $(c,d) \in S_{\gam}$} \\
-				& \iff \text{for each $\gam \in \Gam$, $((a,c), (b,d)) \in R \times  S_{\gam}$} \\
-				& \iff ((a,c), (b,d)) \in \bigcap\limits_{\gam \in \Gam} (R \times  S_{\gam}). 
-			\end{align*}
-			Hence $R \times  \bigg(\bigcap\limits_{\gam \in \Gam} S_{\gam} \bigg) = \bigcap\limits_{\gam \in \Gam} (R \times  S_{\gam})$.
-		\end{enumerate}
-		\item 
-		\begin{enumerate}
-			\item We note that
-			\begin{align*}
-				((a,c), (b,d)) \in \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S
-				& \iff \text{$(a,b) \in \bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam}\bigg)$ and $(c,d) \in S$} \\
-				& \iff \text{there exists $\gam_0 \in \Gam$ such that $(a,b) \in R_{\gam_0}$ and $(c,d) \in S$} \\
-				& \iff \text{there exists $\gam_0 \in \Gam$ such that $((a,c), (b,d)) \in R_{\gam_0} \times S$} \\
-				& \iff ((a,c), (b,d)) \in \bigcup\limits_{\gam \in \Gam}( R_{\gam} \times S)
-			\end{align*}
-			Hence $\bigg( \bigcup\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S = \bigcup\limits_{\gam \in \Gam}( R_{\gam} \times S).$
-			\item We note that
-			\begin{align*}
-				((a,c), (b,d)) \in \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S
-				& \iff \text{$(a,b) \in \bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam}\bigg)$ and $(c,d) \in S$} \\
-				& \iff \text{for each $\gam \in \Gam$, $(a,b) \in R_{\gam}$ and $(c,d) \in S$} \\
-				& \iff \text{for each $\gam \in \Gam$, $((a,c), (b,d)) \in R_{\gam} \times S$} \\
-				& \iff ((a,c), (b,d)) \in \bigcap\limits_{\gam \in \Gam}(R_{\gam} \times S)
-			\end{align*}
-			Hence $\bigg( \bigcap\limits_{\gam \in \Gam} R_{\gam}\bigg) \times S = \bigcap\limits_{\gam \in \Gam}( R_{\gam} \times S).$
-		\end{enumerate}
-	\end{enumerate}
-\end{proof}
-
-
-
-
-\newpage
-\section{$n$-ary Homogeneous Relations}
-
-
-\subsection{Introduction}
-
-\begin{defn}
-	Let $n \in \N$ and $A$ a set. 
-	\begin{itemize}
-		\item Let $R \subset A^n$. Then $R$ is said to be a \tbf{homogeneous $n$-ary relation on $A$}
-		\item We define $\MR^n(A) \defeq \MP(A^n)$.
-	\end{itemize} 
-\end{defn}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Subrelations}
-
-\begin{defn}
-	Let $n \in \N$, $A, B$ sets, $R \in \MR^n(A)$ and $S \in \MR^n(B)$. Then 
-	\begin{itemize}
-		\item $S$ is said to be a \tbf{restriction of $R$} if $B \subset A$,    
-		\item $R$ is said to be an \tbf{extension of $S$} if $S$ is a restriction of $R$.
-	\end{itemize}
-\end{defn}
-
-
-\begin{defn}
-	Let $n \in \N$, $A$ a set, $B \subset A$ and $R \in \MR^n(A)$. We define the \tbf{restriction of $R$ to $B$}, denoted $R|_B$, by $R|_B \defeq R \cap B^n$.
-\end{defn}
-
-\begin{ex}
-	Let $n \in \N$, $A$ a set, $B \subset A$ and $R \in \MR^n(A)$. Then $R|_B$ is a restriction of $R$.
-\end{ex}
-
-\begin{proof}
-	Clear. \tcr{fill out later}
-\end{proof}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Product Relations}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-\section{Binary Homogeneous Relations}
 
 
 
@@ -1270,11 +937,87 @@
 
 
 
+\newpage
+\chapter{Operations}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 \newpage
-\section{Equivalence Relations}
+\chapter{Equivalence Relations}
+
+\section{Introduction}
 
 \begin{note}
 	Let $X$ be a set and $\nu \in \MR^2(X)$. When the context is clear, we may write $a \nu b$ in place of $(a,b) \in \nu$.
@@ -1288,7 +1031,12 @@
 			\item \tbf{reflexive} if for each $a \in X$, $(a,a) \in \th$
 			\item \tbf{symmetric} if for each $a,b \in X$, $(a,b) \in \th$ implies that $(b,a) \in \th $
 			\item \tbf{transitive} if for each $a,b,c \in X$, $(a,b) \in \th$ and $(b,c) \in \th$ implies that $(a,c) \in \th $
-			\item an \tbf{equivalence relation on $X$} if $\th$ is reflexive, symmetric and transitive
+			\item an \tbf{equivalence relation on $X$} if 
+			\begin{enumerate}
+				\item $\th$ is reflexive, 
+				\item $\th$ is symmetric, 
+				\item $\th$ is transitive.
+			\end{enumerate}
 		\end{itemize}
 		\item We define $\Equi(X) \defeq \{\th \in \MR^2(X): \text{$\th$ is an equivalence relation on $X$}\}$
 	\end{itemize}
@@ -1620,8 +1368,410 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
 \section{Products}
+
+\begin{ex}
+	Let $(X_j)_{j \in [n]}$ be sets. Then for each $(\th_j)_{j \in [n]} \in \prod\limits_{j \in [n]} \Equi(X_j)$, $\prodrel_{j \in [n]} \th_j \in \Equi(\prod\limits_{j \in [n]} X_j)$.
+\end{ex}
+
+\begin{proof}
+	Set $X \defeq \prod\limits_{j \in [n]} X_j$ and define $\th \in \MR^2(X)$ by $\th \defeq \prodrel\limits_{j \in [n]} \th_j$.
+	\begin{enumerate}
+		\item For each $(a_j)_{j \in [n]} \in X$, 
+		\begin{align*}
+			\text{for each $j \in [n]$, $a_j \in X_j$}
+			& \implies \text{for each $j \in [n]$, $(a_j, a_j) \in \th_j$} \\
+			& \implies ((a_j)_{j \in [n]}, (a_j)_{j \in [n]}) \in \th. 
+		\end{align*}
+		Thus $\th$ is reflexive.
+		\item For each $(a_j)_{j \in [n]}, (b_j)_{j \in [n]} \in  X $, 
+		\begin{align*}
+			((a_j)_{j \in [n]}, (b_j)_{j \in [n]}) \in \th 
+			& \iff \text{for each $j \in [n]$, $(a_j, b_j) \in \th_j$} \\
+			& \implies \text{for each $j \in [n]$, $(b_j, a_j) \in \th_j$} \\
+			& \iff ((b_j)_{j \in [n]}, (a_j)_{j \in [n]}) \in \th.
+		\end{align*}
+		Thus $\th$ is symmetric.
+		\item For each $(a_j)_{j \in [n]}, (b_j)_{j \in [n]}, (c_j)_{j \in [n]} \in X$, 
+		\begin{align*}
+			\text{$((a_j)_{j \in [n]}, (b_j)_{j \in [n]}) \in \th$ and $((b_j)_{j \in [n]}, (c_j)_{j \in [n]}) \in \th$} 
+			& \iff \text{for each $j \in [n]$, $(a_j, b_j) \in \th_j$ and  $(b_j, c_j) \in \th_j$} \\
+			& \implies \text{for each $j \in [n]$, $(a_j, c_j) \in \th_j$} \\ 
+			& \iff \text{$((a_j)_{j \in [n]}, (c_j)_{j \in [n]}) \in \th$}.
+		\end{align*} 
+		Thus $\th$ is transitive. 
+	\end{enumerate}
+	Hence $\th \in \Equi(X)$. 
+\end{proof}
+
+\begin{ex}
+	
+\end{ex}
+
+\begin{proof}
+	
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quotients}
+
+\begin{ex}
+	Let $X, Y \in \Set$, $\th_X \in \Equi(X)$, $\th_Y \in \Equi(Y)$ and $f:X \rightarrow Y$. If $f$ is $(\th_X, \th_Y)$-invariant, then there exists a unique $\bar{f}:X/\th_X \rightarrow Y/\th_Y$ such that $\pi_{\th_Y} \circ f = \bar{f} \circ \pi_{\th_X}$, i.e. the following diagram commutes:
+	\[ 
+	\begin{tikzcd}
+		X  \arrow[r, "f"]  \arrow[d, "\pi_{\th_X}"']  & Y   \arrow[d, "\pi_{\th_Y}"]\\
+		X/ \th_X \arrow[r, "\bar{f}"'] &  Y/ \th_Y \\
+	\end{tikzcd}
+	\]
+\end{ex}
+
+\begin{proof}
+	Suppose that $f$ is $(\th_X, \th_Y)$-invariant. 
+	\begin{itemize}
+		\item \tbf{Existence:} \\
+		Define $\bar{f} \subset (X/\th_X) \times (Y/\th_Y)$ by $\bar{f} \defeq \{(\pi_{\th_X}(a), \pi_{\th_Y}(f(a))): a \in X\}$. 
+		\begin{itemize}
+			\item Let $c \in X/\th_X$. Then there exists $a \in X$ such that $c \defeq \pi_{\th_X}(a)$. Define $d \in Y/\th_Y$ by $d \defeq \pi_{\th_Y}(f(a))$. Then 
+			\begin{align*}
+				(c,d)
+				& = (\pi_{\th_X}(a), \pi_{\th_Y}(f(a))) \\
+				& \in \bar{f}.
+			\end{align*}
+			Since $c \in X/\th_X$ is arbitrary, we have that for each $c \in X/\th_X$, there exists $d \in Y/\th_Y$ such that $(c,d) \in \bar{f}$. 
+			\item Let $(c_1, d_1), (c_2, d_2) \in \bar{f}$. Then there exists $a_1,a_2 \in X$ such that $(c_1, d_1) = (\pi_{\th_X}(a_1), \pi_{\th_Y}(f(a_1)))$, $(c_2, d_2) = (\pi_{\th_X}(a_2), \pi_{\th_Y}(f(a_2)))$. Suppose that $c_1 = c_2$. Then 
+			\begin{align*}
+				\pi_{\th_X}(a_1)
+				& = c_1 \\
+				& = c_2 \\
+				& = \pi_{\th_X}(a_2).
+			\end{align*}
+			Hence $a_1 \th_X a_2$. Since $f$ is $(\th_X, \th_Y)$-invariant, $f(a_1) \th_Y f(a_2)$. Thus 
+			\begin{align*}
+				d_1
+				& = \pi_{\th_Y}(f(a_1)) \\
+				& = \pi_{\th_Y}(f(a_2)) \\
+				& = d_2. 
+			\end{align*}
+			Since $(c_1, d_1), (c_2, d_2) \in \bar{f}$ with $c_1 = c_2$ are arbitrary, we have that for each $(c_1, d_1), (c_2, d_2) \in \bar{f}$, $c_1 = c_2$ implies that $d_1 = d_2$.
+		\end{itemize}
+		Thus $\bar{f}:X/\th_X \rightarrow Y/\th_Y$. By construction, for each $a \in X$, 
+		\begin{align*}
+			\pi_{\th_Y} \circ f(a) 
+			& = \pi_{\th_Y}(f(a)) \\
+			& = \bar{f}(\pi_{\th_X}(a)) \\
+			& = \bar{f} \circ \pi_{\th_X}(a).
+		\end{align*}
+		Thus $\pi_{\th_Y} \circ f = \bar{f} \circ \pi_{\th_X}$. 
+		\item \tbf{Uniqueness:} \\
+		Let $g:X/\th_X \rightarrow Y/\th_Y$. Suppose that $\pi_{\th_Y} \circ f = g \circ \pi_{\th_X}$. Let $c \in X/\th_X$. Then there exists $a \in X$ such that $c = \pi_{\th_X}(a)$. Then 
+		\begin{align*}
+			g(c)
+			& = g(\pi_{\th_X}(a)) \\
+			& = g \circ \pi_{\th_X}(a) \\
+			& = \pi_{\th_Y} \circ f(a) \\
+			& = \bar{f} \circ \pi_{\th_X}(a) \\
+			& = \bar{f}(\pi_{\th_X}(a)) \\
+			& = \bar{f}(c).
+		\end{align*}
+		Since $c \in X/\th_X$ is arbitrary, we have that for each $c \in X/\th_X$, $g(c) = \bar{f}(c)$. Hence $g = \bar{f}$. 
+	\end{itemize}
+\end{proof}
+
+\begin{defn}
+	Let $X, Y \in \Set$, $\th_X \in \Equi(X)$, $\th_Y \in \Equi(Y)$ and $f:X \rightarrow Y$. Suppose that $f$ is $(\th_X, \th_Y)$-invariant. We define the \tbf{quotient of $f$ by $(\th_X, \th_Y)$}, denoted $f/(\th_X, \th_Y):X/\th_X \rightarrow Y/\th_Y$, to be the unique $\bar{f}:X/\th_X \rightarrow Y/\th_Y$ such that $\pi_{\th_Y} \circ f = \bar{f} \circ \pi_{\th_X}$.
+\end{defn}
+
+\begin{ex}
+	Let $X, Y \in \Set$, $\th \in \Equi(X)$ and $f:X \rightarrow Y$. If $f$ is $\th$-invariant, then there exists a unique $\bar{f}:X/\th \rightarrow Y$ such that $f = \bar{f} \circ \pi_{\th}$, i.e. the following diagram commutes: 
+	\[ 
+	\begin{tikzcd}
+		X  \arrow[dr, "f"]  \arrow[d, "\pi_{\th}"']  & \\
+		X/ \th \arrow[r, "\bar{f}"'] &  Y  \\
+	\end{tikzcd}
+	\]
+\end{ex}
+
+\begin{proof}
+	Suppose that $f$ is $\th$-invariant. 
+	\begin{itemize}
+		\item \tbf{Existence:} \\
+		Since $f$ is $\th$-invariant, we have that $f$ is $(\th, \Del_Y)$-invariant. \tcr{make ref ex} implies that $\pi_{\Del_Y} \in \Iso_{\bSet}(Y, Y/\Del_Y)$. Define $\bar{f}: X/\th \rightarrow Y$ by $\bar{f} \defeq \pi_{\Del_Y}^{-1} \circ f/(\th, \Del_y)$. Then 
+		\begin{align*}
+			\bar{f} \circ \pi_{\th} 
+			& = (\pi_{\Del_Y}^{-1} \circ f/(\th, \Del_y)) \circ \pi_{\th} \\
+			& = \pi_{\Del_Y}^{-1} \circ (f/(\th, \Del_y) \circ \pi_{\th}) \\
+			& = \pi_{\Del_Y}^{-1} \circ (\pi_{\Del_Y} \circ f) \\
+			& = (\pi_{\Del_Y}^{-1} \circ \pi_{\Del_Y}) \circ f \\
+			& = \id_Y \circ f \\
+			& = f. 
+		\end{align*} 
+		\item \tbf{Uniqueness:} \\
+		Let $g:X/\th \rightarrow Y$. Suppose that $g \circ \pi_{\th} = f$. Let $c \in X/\th$. Then there exists $a \in X$ such that $c = \pi_{\th}(a)$. Then 
+		\begin{align*}
+			g(c)
+			& = g(\pi_{\th}(a)) \\
+			& = g \circ \pi_{\th}(a) \\
+			& = f(a) \\
+			& = \bar{f} \circ \pi_{\th}(a) \\
+			& = \bar{f}(\pi_{\th}(a)) \\
+			& = \bar{f}(c).
+		\end{align*}
+		Since $c \in X/\th_X$ is arbitrary, we have that for each $c \in X/\th_X$, $g(c) = \bar{f}(c)$. Hence $g = \bar{f}$. 
+	\end{itemize}
+\end{proof}
+
+\begin{defn}
+	Let $X, Y \in \Set$, $\th \in \Equi(X)$ and $f:X \rightarrow Y$. Suppose that $f$ is $(\th)$-invariant. We define the \tbf{quotient of $f$ by $(\th$}, denoted $f/\th:X/\th \rightarrow Y$, to be the unique $\bar{f}:X/\th \rightarrow Y$ such that $f = \bar{f} \circ \pi_{\th}$.
+\end{defn}
+
+\begin{ex}
+	Let $n \in \N$, $(X_j)_{j \in [n]} \subset \Set$ and $(\th_j)_{j \in [n]} \in \prod\limits_{j \in [n]} \Equi(X_j)$. Define $X, X' \in \Set$, $\th \in \Equi(X)$ and $\pi':X \rightarrow X'$ by $X \defeq \prod\limits_{j \in [n]} X_j$, $X' \defeq \prod\limits_{j \in [n]} (X_j/\th_j)$, $\th \defeq \prodrel\limits_{j \in [n]} \th_j$ and $\pi' \defeq \prod\limits_{j \in [n]} \pi_{\th_j}$. Then $\pi'$ is $\th$-invariant. 
+\end{ex}
+
+\begin{proof}
+	For each $(a_j)_{j \in [n]}, (b_j)_{j \in [n]} \in X$, 
+	\begin{align*}
+		(a_j)_{j \in [n]} \sim_{\th} (b_j)_{j \in [n]} 
+		& \iff \text{for each $j \in [n]$, $a_j \sim_{\th_j} b_j$} \\
+		& \iff \text{for each $j \in [n]$, $\pi_{\th_j}(a_j) = \pi_{\th_j}(b_j)$} \\
+		& \iff (\pi_{\th_j}(a_j))_{j \in [n]} = (\pi_{\th_j}(b_j))_{j \in [n]} \\
+		& \iff \pi'((a_j)_{j \in [n]}) = \pi'((b_j)_{j \in [n]}).
+	\end{align*}
+	Hence $\pi'$ is $\th^{\times n}$-invariant.
+\end{proof}
+
+\begin{ex}
+	Let $n \in \N$, $(X_j)_{j \in [n]} \subset \Set$ and $(\th_j)_{j \in [n]} \in \prod\limits_{j \in [n]} \Equi(X_j)$. Define $X, X' \in \Set$, $\th \in \Equi(X)$ and $\pi':X \rightarrow X'$ by $X \defeq \prod\limits_{j \in [n]} X_j$, $X' \defeq \prod\limits_{j \in [n]} (X_j/\th_j)$, $\th \defeq \prodrel\limits_{j \in [n]} \th_j$, $\pi \defeq \pi_{\th}$ and $\pi' \defeq \prod\limits_{j \in [n]} \pi_{\th_j}$. Then $(\pi')/\th \in \Iso_{\bSet}(X/\th, X')$.
+\end{ex}
+
+\begin{proof}
+	Set $\al \defeq (\pi')/\th$. \tcr{A prev ex} implies that $\pi' = \al \circ \pi_{\th}$
+	\begin{itemize}
+		\item \tbf{Injectivity:} \\ 
+		Let $c, d \in X/ th$. Then there exist $(a_j)_{j \in [n]}, (b_j)_{j \in [n]} \in X$ such that $c = \pi_{\th}((a_j)_{j \in [n]})$ and $d = \pi_{\th}((b_j)_{j \in [n]})$. Suppose that $\al(c) = \al(d)$. Then 
+		\begin{align*}
+			\pi'((a_j)_{j \in [n]})) 
+			& = \al(\pi_{\th}((a_j)_{j \in [n]})) \\
+			& = \al(c) \\
+			& = \al(d) \\
+			& = \al(\pi_{\th}((b_j)_{j \in [n]})) \\
+			& = \pi'((b_j)_{j \in [n]})).
+		\end{align*}
+		Thus for each $j \in [n]$, $\pi_{\th_j}(a_j) = \pi_{\th_j}(b_j)$. Hence for each $j \in [n]$, $a_j \sim_{\th_j} b_j$. Therefore $(a_j)_{j \in [n]}) \sim_{\th} (b_j)_{j \in [n]})$. Thus 
+		\begin{align*}
+			c
+			& = \pi_{\th}((a_j)_{j \in [n]})) \\
+			& = \pi_{\th}((b_j)_{j \in [n]})) \\
+			& = d.
+		\end{align*}
+		Since $c, d \in X/ \th$ with $\al(c) = \al(d)$ are arbitrary, we have that for each $c, d \in X/ \th$, $\al(c) = \al(d)$ implies that $c = d$. Hence $\al$ is injective. 
+		\item \tbf{Surjectivity:} \\
+		Since for each $j \in [n]$, $\pi_{\th_j}$ is surjective, \tcr{ref ex} implies that $\pi'$ is surjective. Since $\pi' = \al \circ \pi_{\th}$, \tcr{ref ex} implies that $\al$ is surjective.
+	\end{itemize}
+	\tcr{FINISH!!! (ref exercises)}
+\end{proof}
+
+\begin{ex}
+	Let $n \in \N$, $(X_j)_{j \in [n]} \subset \Set$, $Y \in \Set$, $(\th_{X_j})_{j \in [n]} \in \prod\limits_{j \in [n]} \Equi(X_j)$, $\th_Y \in \Equi(Y)$ and $f: \prod\limits_{j \in [n]} X_j \rightarrow Y$. Define $X, X' \in \Set$, $\th \in \Equi(X)$ and $\pi':X \rightarrow X'$ by $X \defeq \prod\limits_{j \in [n]} X_j$, $X' \defeq \prod\limits_{j \in [n]} (X_j/\th_{X_j})$, $\th \defeq \prodrel\limits_{j \in [n]} \th_{X_j}$ and $\pi' \defeq \prod\limits_{j \in [n]} \pi_{\th_{X_j}}$. If $f$ is $(\th, \th_Y)$-invariant, then there exists a unique $\bar{f}:X' \rightarrow Y/\th_Y$ such that $\pi_{\th_Y} \circ f = \bar{f} \circ \pi'$, i.e. the following diagram commutes:
+	\[ 
+	\begin{tikzcd}
+		X  \arrow[r, "f"]  \arrow[d, "\pi'"']  & Y   \arrow[d, "\pi_{\th_Y}"]\\
+		X' \arrow[r, "\bar{f}"'] &  Y / {\th_Y} \\
+	\end{tikzcd}
+	\]
+\end{ex}
+
+\begin{proof}
+	Suppose that $f$ is $(\th, \th_Y)$-invariant. 
+	\begin{itemize}
+		\item \tbf{Existence:} \\
+		\tcr{A prev ex} implies that $\pi'$ is $\th$-invariant. \tcr{The prev ex} implies that $(\pi')/\th \in \Iso_{\bSet}(X/\th, X')$. Define $\bar{f}: X' \rightarrow Y/\th_Y$ by  $\bar{f} \defeq f/(\th, \th_Y) \circ [(\pi')/\th]^{-1}$. Then
+		\begin{align*}
+			\bar{f} \circ \pi' \\
+			& = (f/(\th, \th_Y) \circ [(\pi')/\th]^{-1}) \circ ((\pi')/\th \circ \pi_{\th}) \\
+			& = f/(\th, \th_Y) \circ ([(\pi')/\th]^{-1} \circ (\pi')/\th) \circ \pi_{\th} \\
+			& = f/(\th, \th_Y) \circ \id_{X/\th} \circ  \pi_{\th} \\
+			& = f/(\th, \th_Y) \circ \pi_{\th} \\
+			& = \pi_{\th_Y} \circ f.  
+		\end{align*} 
+		\item \tbf{Uniqueness:} \\
+		Let $g: X' \rightarrow Y/\th_Y$. Suppose that $\pi_{\th_Y} \circ f = g \circ \pi'$. Let $c \in X'$. Then there exists $a \in X$ such that $c = \pi'(a)$. Then 
+		\begin{align*}
+			g(c)
+			& = g(\pi'(a)) \\
+			& = g \circ \pi'(a) \\
+			& = \pi_{\th_Y} \circ f(a) \\
+			& = \bar{f} \circ \pi'(a) \\
+			& = \bar{f}(\pi'(a)) \\
+			& = \bar{f}(c).
+		\end{align*}
+		Since $c \in X'$ is arbitrary, we have that for each $c \in X'$, $g(c) = \bar{f}(c)$. Hence $g = \bar{f}$. 
+	\end{itemize}
+\end{proof}
+
+\begin{defn}
+	Let $n \in \N$, $(X_j)_{j \in [n]} \subset \Set$, $Y \in \Set$, $(\th_{X_j})_{j \in [n]} \in \prod\limits_{j \in [n]} \Equi(X_j)$, $\th_Y \in \Equi(Y)$ and $f:\prod\limits_{j \in [n]} X_j \rightarrow Y$. Suppose that $f$ is $\bigg(\prodrel\limits_{j \in [n]} \th_{X_j}, \th_Y  \bigg)$-invariant. We define \tbf{multiquotient of $f$ by $((\th_{X_j})_{j \in [n]}, \th_Y)$}, denoted $f/((\th_{X_j})_{j \in [n]}, \th_Y): \prod\limits_{j \in [n]} X_j/\th_{X_j} \rightarrow Y/\th_Y$, to be the unique $\bar{f}: \prod\limits_{j \in [n]} X_j/\th_{X_j} \rightarrow Y/\th_Y$ such that 
+	$$\pi_{\th_Y} \circ f = \bar{f} \circ \prod\limits_{j \in [n]} \pi_{\th_{X_j}}.$$
+\end{defn}
+
+\begin{note}
+	If for each $j \in [n]$, $X_j = X$ and $\th_{X_j} = \th_X$, we may write $f/((n:\th_X), \th_Y)$ in place of $f/((\th_{X_j})_{j \in [n]}, \th_Y)$
+\end{note}
+
+\begin{ex}
+	Let $n \in \N$, $(X_j)_{j \in [n]} \subset \Set$, $Y \in \Set$, $(\th_j)_{j \in [n]} \in \prod\limits_{j \in [n]} \Equi(X_j)$ and $f: \prod\limits_{j \in [n]} X_j \rightarrow Y$. Define $X, X' \in \Set$, $\th \in \Equi(X)$ and $\pi':X \rightarrow X'$ by $X \defeq \prod\limits_{j \in [n]} X_j$, $X' \defeq \prod\limits_{j \in [n]} (X_j/\th_j)$, $\th \defeq \prodrel\limits_{j \in [n]} \th_j$ and $\pi' \defeq \prod\limits_{j \in [n]} \pi_{\th_j}$. If $f$ is $\th$-invariant, then there exists a unique $\bar{f}:X' \rightarrow Y$ such that $f = \bar{f} \circ \pi'$, i.e. the following diagram commutes:
+	\[ 
+	\begin{tikzcd}
+		X  \arrow[dr, "f"]  \arrow[d, "\pi'"']  & \\
+		X' \arrow[r, "\bar{f}"'] &  Y  \\
+	\end{tikzcd}
+	\]
+\end{ex}
+
+\begin{proof}
+	Suppose that $f$ is $\th$-invariant. 
+	\begin{itemize}
+		\item \tbf{Existence:} \\
+		Since $f$ is $\th$-invariant, we have that $f$ is $(\th, \Del_Y)$-invariant. Define $\bar{f}':X' \rightarrow Y/\Del_Y$ by $\bar{f}' \defeq f/((\th_j)_{j \in [n]}, \Del_Y)$. Then $\pi_{\Del_Y} \circ f = \bar{f}' \circ \pi'$. \tcr{make ref ex} implies that $\pi_{\Del_Y} \in \Iso_{\bSet}(Y, Y/\Del_Y)$. Define $\bar{f}: X' \rightarrow Y$ by $\bar{f} \defeq \pi_{\Del_Y}^{-1} \circ \bar{f}'$. Then 
+		\begin{align*}
+			\bar{f} \circ \pi' 
+			& = (\pi_{\Del_Y}^{-1} \circ \bar{f}') \circ \pi' \\
+			& = \pi_{\Del_Y}^{-1} \circ (\bar{f}' \circ \pi') \\
+			& = \pi_{\Del_Y}^{-1} \circ (\pi_{\Del_Y} \circ f) \\
+			& = (\pi_{\Del_Y}^{-1} \circ \pi_{\Del_Y}) \circ f \\
+			& = \id_Y \circ f \\
+			& = f. 
+		\end{align*} 
+		\item \tbf{Uniqueness:} \\
+		Let $g:X' \rightarrow Y$. Suppose that $g \circ \pi' = f$. Let $c \in X'$. Then there exists $a \in X$ such that $c = \pi'(a)$. Then 
+		\begin{align*}
+			g(c)
+			& = g(\pi'(a)) \\
+			& = g \circ \pi'(a) \\
+			& = f(a) \\
+			& = \bar{f} \circ \pi'(a) \\
+			& = \bar{f}(\pi'(a)) \\
+			& = \bar{f}(c).
+		\end{align*}
+		Since $c \in X'$ is arbitrary, we have that for each $c \in X'$, $g(c) = \bar{f}(c)$. Hence $g = \bar{f}$. 
+	\end{itemize}
+\end{proof}
+
+\begin{defn}
+	Let $n \in \N$, $(X_j)_{j \in [n]} \subset \Set$, $Y \in \Set$, $(\th_j)_{j \in [n]} \in \prod\limits_{j \in [n]} \Equi(X_j)$ and $f:\prod\limits_{j \in [n]} X_j \rightarrow Y$. Suppose that $f$ is $\prodrel\limits_{j \in [n]} \th_j$-invariant. We define \tbf{multiquotient of $f$ by $(\th_j)_{j \in [n]}$}, denoted $f/(\th_j)_{j \in [n]}: \prod\limits_{j \in [n]} X_j/\th_j \rightarrow Y$, to be the unique $\bar{f}: \prod\limits_{j \in [n]} X_j/\th_j \rightarrow Y$ such that 
+	$$f = \bar{f} \circ \prod\limits_{j \in [n]} \pi_{\th_j}.$$
+\end{defn}
+
+\begin{note}
+	If for each $j \in [n]$, $X_j = X$ and $\th_j = \th$, we may write $f/(n:\th)$ in place of $f/(\th_j)_{j \in [n]}$
+\end{note}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

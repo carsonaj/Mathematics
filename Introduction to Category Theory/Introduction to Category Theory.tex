@@ -499,14 +499,14 @@
 	
 	
 	
-	
+	\part{Fundamental Concepts}
 	
 	\newpage
 	\chapter{Basic Concepts}
 	
-	\section{Categories}
+	\chapter{Categories}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 	
 	\begin{defn} \ld{12001}
 		Let $\MC_0$, $\MC_1$ be classes and $\dom, \cod : \MC_1 \rightarrow \MC_0$. Define $\MC_1^{(2)}\subset \MC_1 \times \MC_1$ by $\MC_1^{(2)} \defeq \{(g,f) \in \MC_1 \times \MC_1 : \dom(g) = \cod(f) \}$. Let $\circ: \MC_1^{(2)} \rightarrow \MC_1$. Then $(\MC_0, \MC_1, \dom, \cod, \circ)$ is said to be a \textbf{category} if 
@@ -668,7 +668,7 @@
 	
 	
 	
-	\subsection{Fundamental Examples}
+	\section{Fundamental Examples}
 
 	\begin{defn} \ld{12001.1}
 		We define the \textbf{empty category}, denoted $\0$, by 
@@ -875,7 +875,7 @@
 
 	
 	
-	\subsection{Opposite Categories}
+	\section{Opposite Categories}
 
 	\begin{defn}  \ld{12004}
 		Let $\MC$ be a category, we define the \text{dual of $\MC$} or the \textbf{opposite of $\MC$}, denoted $\op{\MC}$, by 
@@ -1088,10 +1088,9 @@
 	
 	
 	\newpage
-	\section{Functors}
+	\chapter{Functors}
 	
-	
-	\subsection{Introduction}
+	\section{Introduction}
 	
 	\begin{defn} \ld{def:basics:functors:intro:0001}
 		Let $\MC$ and $\MD$ be categories and $F_0 : \Obj(\MC) \rightarrow \Obj(\MD)$, $F_1: \Hom_{\MC} \rightarrow \Hom_{\MD}$ class functions. Set $F = (F_0, F_1)$. Then $F$ is said to be a \text{$(\MC, \MD)$-functor}, denoted  $F:\MC \rightarrow \MD$, if 
@@ -1110,63 +1109,86 @@
 		For $A \in \Obj(C)$ and $f \in \Hom_{\MC}$, we typically write $F(A)$ and $F(f)$ instead of $F_0(A)$ and $F_1(f)$ respectively.
 		\tcr{maybe discuss how this is just a quiver homomorphism}
 	\end{note}
-
-	\begin{defn} \ld{def:basics:functors:intro:0002}
-		Let $\MC$ be a category. We define the \textbf{empty functor} from $\0$ to $\MC$, denoted $E_{\MC}: \0 \rightarrow \MC$ by $(E_{\MC})_0 \defeq \varnothing$ and = $(E_{\MC})_1 \defeq \varnothing$. 
-	\end{defn}
-
-	\begin{ex} \lex{ex:basics:functors:intro:0003}
-		Let $\MC$ be a category. Then $E_{\MC}: \0 \rightarrow \MC$ is a functor.
-	\end{ex}
-
-	\begin{proof}
-		Since $\Obj(\0) = \varnothing$ and $\Hom_{\0} = \varnothing$, this is vacuously true. 
-	\end{proof}
-
-	\begin{defn} \ld{def:basics:functors:intro:0004}
-		Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. We define the \textbf{constant functor} from $\MC$ onto $X$, denoted $\Del^{\MC}_X: \MC \rightarrow \MD$ by 
+	
+	\begin{defn} \ld{def:basics:functors:small_cat:0001}
+		Let $\MC$, $\MD$ and $\ME$ be categories and $F:\MC \rightarrow \MD$, $G: \MD \rightarrow \ME$ functors. We define the \textbf{composition of $G$ with $F$}, denoted $G \circ F: \MC \rightarrow \ME$, by 
 		\begin{itemize}
-			\item $\Del^{\MC}_X (A) = X$
-			\item $\Del^{\MC}_X (f) = \id_X$
-		\end{itemize}
+			\item $G \circ F (A) \defeq G(F(A))$
+			\item $G \circ F (f) \defeq G(F(f))$
+		\end{itemize} 
 	\end{defn}
 	
-	\begin{ex} \lex{ex:basics:functors:intro:0005}
-		Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. Then $\Del^{\MC}_X : \MC \rightarrow \MD$ is a functor.
+	\begin{note}
+		Writing $G \circ F = (H_0, H_1)$, we have that $H_0 = G_0 \circ F_0$ and $H_1 = G_1 \circ F_1$. 
+	\end{note}
+	
+	\begin{ex} \lex{ex:basics:functors:small_cat:0002}
+		Let $\MC$, $\MD$ and $\ME$ be categories and $F:\MC \rightarrow \MD$, $G: \MD \rightarrow \ME$ functors. Then  $G \circ F: \MC \rightarrow \ME$ is a functor.
 	\end{ex}
-
+	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then 
+			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Since $F(f) \in \Hom_{\MD}(F(A), F(B))$, we have that $G(F(f)) \in \Hom_{\ME}(G(F(A)), G(F(B)))$. Then 
 			\begin{align*}
-				\Del^{\MC}_X (f)
-				& = \id_X \\
-				& \in \Hom_{\MD}(X, X) \\
-				& = \Hom_{\MD}(\Del^{\MC}_X (A), \Del^{\MC}_X (B))
-			\end{align*}  
-			\item Let $A,B,C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, C)$. Then 
+				G \circ F (f) 
+				& = G(F(f)) \\
+				& \in \Hom_{\ME}(G(F(A)), G(F(B))) \\
+				& =  \Hom_{\ME}(G \circ F(A), G \circ F (B)) \\
+			\end{align*}
+			\item Let $A,B, C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$ and $g \in \Hom_{\MC}(B, C)$. Then 
 			\begin{align*}
-				\Del^{\MC}_X (g \circ f) 
-				& = \id_X \\
-				& = \id_X \circ \id_X \\
-				& = \Del^{\MC}_X (g) \circ \Del^{\MC}_X (f)
-			\end{align*} 
+				G \circ F(g \circ f) 
+				& = G (F (g \circ f)) \\
+				& = G(F(g) \circ F(f)) \\
+				& = G(F(g)) \circ G(F(f)) \\
+				& = G \circ F (g) \circ G \circ F (f) \\
+			\end{align*}
 			\item Let $A \in \Obj(\MC)$. Then 
 			\begin{align*}
-				\Del^{\MC}_X (\id_A)
-				& = \id_X \\
-				& = \id_{\Del^{\MC}_X (A)}
+				G \circ F(\id_{A})
+				& = G(F(\id_A) )\\
+				& = G(\id_{F(A)}) \\
+				& = \id_{G(F(A))} \\
+				& = \id_{G \circ F(A)} 
 			\end{align*}
 		\end{enumerate}
-		So $\Del^{\MC}_X : \MC \rightarrow \MD$ is a functor.
+		So $G \circ F: \MC \rightarrow \ME$ is a functor. 
 	\end{proof}
-
+	
+	\begin{ex} \lex{ex:basics:functors:small_cat:0003}
+		Let $\MC$, $\MD$, $\ME$, $\MF$ be categories and $F:\MC \rightarrow \MD$, $G : \MD \rightarrow \ME$, $H: \ME \rightarrow \MF$ functors. Then $(H \circ G) \circ F = H \circ (G \circ F)$.
+	\end{ex}
+	
+	\begin{proof}
+		Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Then 
+		\begin{itemize}
+			\item 
+			\begin{align*}
+				(H \circ G) \circ F(A) 
+				& = H \circ G (F(A)) \\
+				& = H (G(F(A))) \\
+				& = H( G \circ F (A)) \\
+				& = H \circ (G \circ F) (A)
+			\end{align*}
+			\item  
+			\begin{align*}
+				(H \circ G) \circ F(f) 
+				& = H \circ G (F(f)) \\
+				& = H (G(F(f))) \\
+				& = H( G \circ F (f)) \\
+				& = H \circ (G \circ F) (f)
+			\end{align*}
+		\end{itemize}
+		Hence $(H \circ G) \circ F = H \circ (G \circ F)$.
+	\end{proof}
 	
 	
 	
 	
 	
 	
+	
+	
 
 
 
@@ -1214,10 +1236,138 @@
 
 
 
-\subsection{Fundamental Examples}
+\section{Fundamental Examples}
 
 \tcr{discuss a quiver as a functor from the free quiver (a category) to $\bSet$ or other category}
 \href{https://en.wikipedia.org/wiki/Quiver_(mathematics)#Path_algebra}{quiver wikipedia} 
+
+
+\begin{defn} \ld{def:basics:functors:small_cat:0004}
+	Let $\MC$ be a category. We define the \textbf{identity functor from $\MC$ to $\MC$}, denoted $\id_{\MC}: \MC \rightarrow \MC$, by 
+	\begin{itemize}
+		\item $\id_{\MC}(A) \defeq A, \quad (A \in \Obj(\MC))$
+		\item $\id_{\MC}(f) \defeq f, \quad (f \in \Hom_{\MC})$
+	\end{itemize}
+\end{defn}
+
+\begin{ex} \lex{ex:basics:functors:small_cat:0005}
+	Let $\MC$ be a category. Then $\id_{\MC}: \MC \rightarrow \MC$ is a functor.
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Then 
+		\begin{align*}
+			\id_{\MC}(f) 
+			& = f \\
+			& \in \Hom_{\MC}(A, B) \\
+			& = \Hom_{\MC}(\id_{\MC}(A), \id_{\MC}(B)) \\
+		\end{align*}
+		\item Let $A,B, C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$ and $g \in \Hom_{\MC}(B, C)$. Then 
+		\begin{align*}
+			\id_{\MC}(g \circ f) 
+			& = g \circ f \\
+			& = \id_{\MC}(g) \circ \id_{\MC} (f)
+		\end{align*}
+		\item Let $A \in \Obj(\MC)$. Then 
+		\begin{align*}
+			\id_{\MC}(\id_{A})
+			& = \id_A \\
+			& = \id_{\id_{\MC}(A)}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex} \lex{ex:basics:functors:small_cat:0006}
+	Let $\MC$ and $\MD$ be categories and $F:\MC \rightarrow \MD$. Then 
+	\begin{enumerate}
+		\item $\id_{\MD} \circ F = F$
+		\item $F \circ \id_{\MC} = F$
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then 
+		\begin{align*}
+			\id_{\MD} \circ F(A) 
+			& = \id_{\MD}(F(A)) \\
+			& = F(A)
+		\end{align*}
+		and 
+		\begin{align*}
+			\id_{\MD} \circ F(f) 
+			& = \id_{\MD}(F(f)) \\
+			& = F(f)
+		\end{align*} 
+		Since $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$ are arbitrary, $\id_{\MD} \circ F = F$.
+		\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then
+		\begin{align*}
+			F \circ \id_{\MC}(A) 
+			& = F(\id_{\MC}(A)) \\
+			& = F(A) 
+		\end{align*}
+		and 
+		\begin{align*}
+			F \circ \id_{\MC}(f) 
+			& = F (\id_{\MC}(f)) \\
+			& = F(f)
+		\end{align*} 
+		Since $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$ are arbitrary, $ F \circ \id_{\MC} = F$.
+	\end{enumerate}
+\end{proof}
+
+\begin{defn} \ld{def:basics:functors:intro:0002}
+	Let $\MC$ be a category. We define the \textbf{empty functor} from $\0$ to $\MC$, denoted $E_{\MC}: \0 \rightarrow \MC$ by $(E_{\MC})_0 \defeq \varnothing$ and = $(E_{\MC})_1 \defeq \varnothing$. 
+\end{defn}
+
+\begin{ex} \lex{ex:basics:functors:intro:0003}
+	Let $\MC$ be a category. Then $E_{\MC}: \0 \rightarrow \MC$ is a functor.
+\end{ex}
+
+\begin{proof}
+	Since $\Obj(\0) = \varnothing$ and $\Hom_{\0} = \varnothing$, this is vacuously true. 
+\end{proof}
+
+\begin{defn} \ld{def:basics:functors:intro:0004}
+	Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. We define the \textbf{constant functor} from $\MC$ onto $X$, denoted $\Del^{\MC}_X: \MC \rightarrow \MD$ by 
+	\begin{itemize}
+		\item $\Del^{\MC}_X (A) = X$
+		\item $\Del^{\MC}_X (f) = \id_X$
+	\end{itemize}
+\end{defn}
+
+\begin{ex} \lex{ex:basics:functors:intro:0005}
+	Let $\MC, \MD$ be categories and $X \in \Obj(\MD)$. Then $\Del^{\MC}_X : \MC \rightarrow \MD$ is a functor.
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then 
+		\begin{align*}
+			\Del^{\MC}_X (f)
+			& = \id_X \\
+			& \in \Hom_{\MD}(X, X) \\
+			& = \Hom_{\MD}(\Del^{\MC}_X (A), \Del^{\MC}_X (B))
+		\end{align*}  
+		\item Let $A,B,C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, C)$. Then 
+		\begin{align*}
+			\Del^{\MC}_X (g \circ f) 
+			& = \id_X \\
+			& = \id_X \circ \id_X \\
+			& = \Del^{\MC}_X (g) \circ \Del^{\MC}_X (f)
+		\end{align*} 
+		\item Let $A \in \Obj(\MC)$. Then 
+		\begin{align*}
+			\Del^{\MC}_X (\id_A)
+			& = \id_X \\
+			& = \id_{\Del^{\MC}_X (A)}
+		\end{align*}
+	\end{enumerate}
+	So $\Del^{\MC}_X : \MC \rightarrow \MD$ is a functor.
+\end{proof}
+
+
 
 
 \begin{note}
@@ -1384,154 +1534,9 @@
 
 
 
-	\subsection{Category of Small Categories}
+	\section{Category of Small Categories}
 
-	\begin{defn} \ld{def:basics:functors:small_cat:0001}
-		Let $\MC$, $\MD$ and $\ME$ be categories and $F:\MC \rightarrow \MD$, $G: \MD \rightarrow \ME$ functors. We define the \textbf{composition of $G$ with $F$}, denoted $G \circ F: \MC \rightarrow \ME$, by 
-		\begin{itemize}
-			\item $G \circ F (A) \defeq G(F(A))$
-			\item $G \circ F (f) \defeq G(F(f))$
-		\end{itemize} 
-	\end{defn}
 	
-	\begin{note}
-		Writing $G \circ F = (H_0, H_1)$, we have that $H_0 = G_0 \circ F_0$ and $H_1 = G_1 \circ F_1$. 
-	\end{note}
-	
-	\begin{ex} \lex{ex:basics:functors:small_cat:0002}
-		Let $\MC$, $\MD$ and $\ME$ be categories and $F:\MC \rightarrow \MD$, $G: \MD \rightarrow \ME$ functors. Then  $G \circ F: \MC \rightarrow \ME$ is a functor.
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-				\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Since $F(f) \in \Hom_{\MD}(F(A), F(B))$, we have that $G(F(f)) \in \Hom_{\ME}(G(F(A)), G(F(B)))$. Then 
-			\begin{align*}
-				G \circ F (f) 
-				& = G(F(f)) \\
-				& \in \Hom_{\ME}(G(F(A)), G(F(B))) \\
-				& =  \Hom_{\ME}(G \circ F(A), G \circ F (B)) \\
-			\end{align*}
-			\item Let $A,B, C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$ and $g \in \Hom_{\MC}(B, C)$. Then 
-			\begin{align*}
-				G \circ F(g \circ f) 
-				& = G (F (g \circ f)) \\
-				& = G(F(g) \circ F(f)) \\
-				& = G(F(g)) \circ G(F(f)) \\
-				& = G \circ F (g) \circ G \circ F (f) \\
-			\end{align*}
-			\item Let $A \in \Obj(\MC)$. Then 
-			\begin{align*}
-				G \circ F(\id_{A})
-				& = G(F(\id_A) )\\
-				& = G(\id_{F(A)}) \\
-				& = \id_{G(F(A))} \\
-				& = \id_{G \circ F(A)} 
-			\end{align*}
-		\end{enumerate}
-		So $G \circ F: \MC \rightarrow \ME$ is a functor. 
-	\end{proof}
-
-	\begin{ex} \lex{ex:basics:functors:small_cat:0003}
-		Let $\MC$, $\MD$, $\ME$, $\MF$ be categories and $F:\MC \rightarrow \MD$, $G : \MD \rightarrow \ME$, $H: \ME \rightarrow \MF$ functors. Then $(H \circ G) \circ F = H \circ (G \circ F)$.
-	\end{ex}
-
-	\begin{proof}
-		Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Then 
-		\begin{itemize}
-				\item 
-				\begin{align*}
-					(H \circ G) \circ F(A) 
-					& = H \circ G (F(A)) \\
-					& = H (G(F(A))) \\
-					& = H( G \circ F (A)) \\
-					& = H \circ (G \circ F) (A)
-				\end{align*}
-				\item  
-				\begin{align*}
-					(H \circ G) \circ F(f) 
-					& = H \circ G (F(f)) \\
-					& = H (G(F(f))) \\
-					& = H( G \circ F (f)) \\
-					& = H \circ (G \circ F) (f)
-				\end{align*}
-		\end{itemize}
-		Hence $(H \circ G) \circ F = H \circ (G \circ F)$.
-	\end{proof}
-
-	\begin{defn} \ld{def:basics:functors:small_cat:0004}
-		Let $\MC$ be a category. We define the \textbf{identity functor from $\MC$ to $\MC$}, denoted $\id_{\MC}: \MC \rightarrow \MC$, by 
-		\begin{itemize}
-			\item $\id_{\MC}(A) \defeq A, \quad (A \in \Obj(\MC))$
-			\item $\id_{\MC}(f) \defeq f, \quad (f \in \Hom_{\MC})$
-		\end{itemize}
-	\end{defn}
-	
-	\begin{ex} \lex{ex:basics:functors:small_cat:0005}
-		Let $\MC$ be a category. Then $\id_{\MC}: \MC \rightarrow \MC$ is a functor.
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Then 
-			\begin{align*}
-				\id_{\MC}(f) 
-				& = f \\
-				& \in \Hom_{\MC}(A, B) \\
-				& = \Hom_{\MC}(\id_{\MC}(A), \id_{\MC}(B)) \\
-			\end{align*}
-			\item Let $A,B, C \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$ and $g \in \Hom_{\MC}(B, C)$. Then 
-			\begin{align*}
-				\id_{\MC}(g \circ f) 
-				& = g \circ f \\
-				& = \id_{\MC}(g) \circ \id_{\MC} (f)
-			\end{align*}
-			\item Let $A \in \Obj(\MC)$. Then 
-			\begin{align*}
-				\id_{\MC}(\id_{A})
-				& = \id_A \\
-				& = \id_{\id_{\MC}(A)}
-			\end{align*}
-		\end{enumerate}
-	\end{proof}
-
-	\begin{ex} \lex{ex:basics:functors:small_cat:0006}
-		Let $\MC$ and $\MD$ be categories and $F:\MC \rightarrow \MD$. Then 
-		\begin{enumerate}
-			\item $\id_{\MD} \circ F = F$
-			\item $F \circ \id_{\MC} = F$
-		\end{enumerate}
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then 
-			\begin{align*}
-				\id_{\MD} \circ F(A) 
-				& = \id_{\MD}(F(A)) \\
-				& = F(A)
-			\end{align*}
-			and 
-			\begin{align*}
-				\id_{\MD} \circ F(f) 
-				& = \id_{\MD}(F(f)) \\
-				& = F(f)
-			\end{align*} 
-			Since $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$ are arbitrary, $\id_{\MD} \circ F = F$.
-			\item Let $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$. Then
-			\begin{align*}
-				F \circ \id_{\MC}(A) 
-				& = F(\id_{\MC}(A)) \\
-				& = F(A) 
-			\end{align*}
-			and 
-			\begin{align*}
-				F \circ \id_{\MC}(f) 
-				& = F (\id_{\MC}(f)) \\
-				& = F(f)
-			\end{align*} 
-			Since $A, B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A, B)$ are arbitrary, $ F \circ \id_{\MC} = F$.
-		\end{enumerate}
-	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:functors:small_cat:0007}
 		Let $\MC$ and $\MD$ be categories and $F:\MC \rightarrow \MD$. If $\MC$ is small, then $F$ is a set.
@@ -1646,17 +1651,17 @@
 
 
 
-	\subsection{Comma Categories}
+	\section{Comma Categories}
 
 	
 	\begin{defn} \ld{def:basics:functors:comma_cat:0001}
 		Let $\MA$, $\MB$, $\MC$ be a categories and $S: \MA \rightarrow \MC$, $T: \MB \rightarrow \MC$ functors. We define the \textbf{comma category of $S$ to $T$}, denoted $(S \doar T)$, by 
 		\begin{itemize}
-			\item $\Obj(S \doar T) = \{(A, B, h): A \in \Obj(\MA), B \in \Obj(\MB) \text{, and } h \in \Hom_{\MC}(S(A), T(B))\}$
+			\item $\Obj(S \doar T) = \coprod\limits_{(A,B) \in \Obj(\MA) \times \Obj(\MB)}  \Hom_{\MC}(S(A), T(B))$
 			\item For $(A_1, B_1, h_1), (A_2, B_2, h_2) \in \Obj(S \doar T)$, 
 			\begin{align*}
 				& \Hom_{(S \doar T)}((A_1, B_1, h_1), (A_2, B_2, h_2)) = \\
-				& \quad \quad \{(\al, \be): \al \in \Hom_{\MA}(A_1, A_2) \text{, } \be \in \Hom_{\MB}(B_1, B_2) \text{ and } T(\be) \circ_{\MC} h_1 = h_2 \circ_{\MC} S(\al)\}
+				& \quad \quad \{(\al, \be) \in \Hom_{\MA}(A_1, A_2) \times \Hom_{\MB}(B_1, B_2): T(\be) \circ_{\MC} h_1 = h_2 \circ_{\MC} S(\al) \}
 			\end{align*}
 			i.e. for $(A_1, B_1, h_1), (A_2, B_2, h_2) \in \Obj(S \doar T)$, $\al \in \Hom_{\MA}(A_1, A_2)$ and $\be \in \Hom_{\MB}(B_1, B_2)$, $(\al, \be) \in \Hom_{(S \doar T)}((A_1, B_1, h_1), (A_2, B_2, h_2))$ iff the following diagram commutes:
 			\[ 
@@ -1778,22 +1783,47 @@
 			Since $(A_1, B_1, h_1), (A_2, B_2, h_2), \in \Obj(S \doar T)$ and\\ $(\al, \be) \in \Hom_{(S \doar T)}((A_1, B_1, h_1), (A_2, B_2, h_2))$ are arbitrary, we have that for each $(A, B, h) \in \Obj(S \doar T)$, $\id_{(A, B, h)} = (\id_A, \id_B)$.
 		\end{itemize}
 	\end{proof}
-	
-	\begin{defn}
-		\tcr{define the arrow category of $\MC$} \href{URL}{text}
+
+	\begin{defn} \ld{12006}
+		Let $\MC$ be a category. We define the \textbf{arrow category of $\MC$}, denoted $\bArr(\MC)$, by $\bArr(\MC) \defeq (\id_{\MC} \downarrow \id_{\MC})$.
 	\end{defn}
 
 	\begin{note}
 		\tcr{explain with diagram how in the case $\al = \Del^{\1}_X$ and how we can contract one edge of the rectangle diagram to get a triangle}
 	\end{note}
+	
+	\begin{defn} \ld{def:basics:functors:comma_cat:0004}
+		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $F$ to $X$}, denoted $(F \doar X)$, by $(F \doar X) \defeq (F \doar \Del^{\1}_X)$.\\
+		We may make the following identification:
+		\begin{itemize}
+			\item $\Obj(F \doar X) = \coprod\limits_{A \in \Obj(\MC)} \Hom_{\MD}(F(A), X)$ 
+			\item For $(A_1, f_1), (A_2, f_2) \in \Obj(F \doar X)$, 
+			$$\Hom_{(X \doar F)}((A_1, f_1), (A_2, f_2)) = \{\al \in \Hom_{\MC}(A_1, A_2): f_2 \circ F(\al) = f_1\},$$
+			i.e. for $(A_1, f_1), (A_2, f_2) \in \Obj(F \doar X)$ and $\al \in \Hom_{A_1, A_2}$, $\al \in \Hom_{(F \doar X)}((A_1, f_1), (A_2, f_2))$ iff the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				F(A_1) \arrow[dr, "f_1"'] \arrow[rr, "F(\al)"] &&  F(A_2) \arrow[dl, "f_2"]\\
+				& X  & 
+			\end{tikzcd}
+			\]
+			\item For 
+			\begin{itemize}
+				\item $(A_1, f_1), (A_2, f_2), (A_3, f_3) \in \Obj(F \doar X)$
+				\item $\al \in \Hom_{(F \doar X)}((A_1, f_1), (A_2, f_2))$
+				\item $\be \in \Hom_{(F \doar X)}((A_2, f_2), (A_3, f_3))$
+			\end{itemize}
+			we define 
+			$$\be \circ_{(F \doar X)} \al = \be \circ_{\MC} \al $$
+		\end{itemize}
+	\end{defn}
 
 	\begin{defn} \ld{def:basics:functors:comma_cat:0003}
 		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $X$ to $F$}, denoted $(X \doar F)$, by $(X \doar F) \defeq (\Del^{\1}_X \doar F)$. \\
 		We may make the following identification:
 		\begin{itemize}
-			\item $\Obj(X \doar F) = \{(A, f): A \in \Obj(\MC) \text{ and } f \in \Hom_{\MD}(X, F(A))\}$ 
+			\item $\Obj(X \doar F) =  \coprod\limits_{A \in \Obj(\MC)} \Hom_{\MD}(X, F(A))$ 
 			\item For $(A_1, f_1), (A_2, f_2) \in \Obj(X \doar F)$, 
-			$$\Hom_{(X \doar F)}((A_1, f_1), (A_2, f_2)) = \{\al \in \Hom_{\MC}(A_1, A_2) \text{ and } F(\al) \circ f_1 = f_2\}$$
+			$$\Hom_{(X \doar F)}((A_1, f_1), (A_2, f_2)) = \{\al \in \Hom_{\MC}(A_1, A_2): F(\al) \circ f_1 = f_2 \},$$
 			i.e. for $(A_1, f_1), (A_2, f_2) \in \Obj(X \doar F)$ and $\al \in \Hom_{A_1, A_2}$, $\al \in \Hom_{(X \doar F)}((A_1, f_1), (A_2, f_2))$ iff the following diagram commutes:
 			\[ 
 			\begin{tikzcd}
@@ -1812,88 +1842,12 @@
 		\end{itemize}
 	\end{defn}
 	
-	\begin{note}
-		\tcr{note that the coslice category under $X$ is a comma categroy from $X$ to $\id_{\MC}$}
-	\end{note}
-
-	\begin{defn} \ld{def:basics:functors:comma_cat:0004}
-		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$ and $F: \MC \rightarrow \MD$. We define the \textbf{comma category from $F$ to $X$}, denoted $(F \doar X)$, by $(F \doar X) \defeq (F \doar \Del^{\1}_X)$.\\
-		We may make the following identification:
-		\begin{itemize}
-			\item $\Obj(F \doar X) = \{(A, f): A \in \Obj(\MC) \text{ and } f \in \Hom_{\MD}(F(A), X)\}$ 
-			\item For $(A_1, f_1), (A_2, f_2) \in \Obj(F \doar X)$, 
-			$$\Hom_{(X \doar F)}((A_1, f_1), (A_2, f_2)) = \{\al \in \Hom_{\MC}(A_1, A_2) \text{ and } f_2 \circ F(\al)  = f_1\}$$
-			i.e. for $(A_1, f_1), (A_2, f_2) \in \Obj(F \doar X)$ and $\al \in \Hom_{A_1, A_2}$, $\al \in \Hom_{(F \doar X)}((A_1, f_1), (A_2, f_2))$ iff the following diagram commutes:
-			\[ 
-			\begin{tikzcd}
-				F(A_1) \arrow[dr, "f_1"'] \arrow[rr, "F(\al)"] &&  F(A_2) \arrow[dl, "f_2"]\\
-				& X  & 
-			\end{tikzcd}
-			\]
-			\item For 
-			\begin{itemize}
-				\item $(A_1, f_1), (A_2, f_2), (A_3, f_3) \in \Obj(F \doar X)$
-				\item $\al \in \Hom_{(F \doar X)}((A_1, f_1), (A_2, f_2))$
-				\item $\be \in \Hom_{(F \doar X)}((A_2, f_2), (A_3, f_3))$
-			\end{itemize}
-			we define 
-			$$\be \circ_{(F \doar X)} \al = \be \circ_{\MC} \al $$
-		\end{itemize}
-	\end{defn}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\begin{defn} \ld{12006}
-		Let $\MC$ be a category and $X \in \Obj(\MC)$. We define the \textbf{arrow category of $\MC$}, denoted $\Arr(\MC)$, by $\Arr(\MC) \defeq (\id_{\MC} \downarrow \id_{\MC})$.
-	\end{defn}
-	
 	\begin{defn} \ld{12007}
-		Let $\MC$ be a category and $X \in \Obj(\MC)$. We define the \textbf{slice category of $\MC$ over $X$} or the \textbf{over category of $\MC$ over $X$}, denoted $\MC \downarrow X$, by $\MC \downarrow X \defeq (\id_{\MC} \downarrow X)$.
-	\end{defn}
-	
-	
-	\begin{defn} \ld{12008}
-		Let $\MC$ be a category and $X \in \Obj(\MC)$. We define the \textbf{coslice category of $\MC$ over $X$} or the \textbf{under category of $\MC$ under $X$}, denoted $X \downarrow \MC$, by $X \downarrow \MC \defeq (X \downarrow \id_{\MC})$.
+		Let $\MC$ be a category and $X \in \Obj(\MC)$. We define the 
+		\begin{itemize}
+			\item \textbf{slice category of $\MC$ over $X$} or the \textbf{over category of $\MC$ over $X$}, denoted $\MC \downarrow X$, by $\MC \downarrow X \defeq (\id_{\MC} \downarrow X)$.
+			\item \textbf{coslice category of $\MC$ over $X$} or the \textbf{under category of $\MC$ under $X$}, denoted $X \downarrow \MC$, by $X \downarrow \MC \defeq (X \downarrow \id_{\MC})$.
+		\end{itemize}
 	\end{defn}
 
 	\tcr{give examples in posets, and other}
@@ -1939,9 +1893,9 @@
 	
 	
 	\newpage
-	\section{Natural Transformations}
+	\chapter{Natural Transformations}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 	
 	\begin{defn} \ld{def:basics:nat_trans:intro:0001}
 		Let $\MC$ and $\MD$ be categories, $F, G: \MC \rightarrow \MD$ and $ \al : \Obj(\MC) \rightarrow  \Hom_{\MD}$. Then $\al$ is said to be a \textbf{natural transformation from $F$ to $G$}, denoted $\al: F \Rightarrow G$, if
@@ -1956,6 +1910,82 @@
 			\]
 		\end{enumerate}
 	\end{defn}
+	
+	
+	\begin{defn} \ld{def:basics:nat_trans:cat_funct:0001} \tbf{Vertical Composition:} \\
+		Let $\MC$, $\MD$ be categories, $F, G, H:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ natural transformations. We define the \textbf{vertical composition of $\be$ with $\al$}, denoted $\be \circ \al: F \Rightarrow H$, by 
+		$$(\be \circ \al)_{A} = \be_A \circ \al_A$$ 
+	\end{defn}
+	
+	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0002}
+		Let $\MC$, $\MD$ be categories, $F, G, H:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ natural transformations. Then $ \be \circ \al: F \Rightarrow H$ is a natural transformation.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A \in \Obj(\MC)$. Since $\al_A \in \Hom_{\MD}(F(A), G(A))$ and $\be_A \in \Hom_{\MD}(G(A), H(A))$, we have that 
+			\begin{align*}
+				(\be \circ \al)_A 
+				& = \be_A \circ \al_A \\
+				& \in \Hom_{\MD}(F(A), H(A))
+			\end{align*}
+			\item Let $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Since $\al:F \Rightarrow G$ and $\be: G \Rightarrow H$, $G(f) \circ \al_A = \al_B \circ F(f)$ and $H(f) \circ \be_A = \be_B \circ G(f)$. Therefore 
+			\begin{align*}
+				H(f) \circ (\be \circ \al)_A
+				& = H(f) \circ (\be_A \circ \al_A) \\
+				& = (H(f) \circ \be_A) \circ \al_A \\
+				& = (\be_B \circ G(f)) \circ \al_A \\
+				& = \be_B \circ (G(f)\circ \al_A) \\
+				& = \be_B \circ (\al_B \circ F(f)) \\
+				& = (\be_B \circ \al_B) \circ F(f) \\
+				& = (\be \circ \al)_B \circ F(f)
+			\end{align*}
+		\end{enumerate}
+		So $\be \circ \al: F \Rightarrow H$ is a natural transformation. 
+	\end{proof}
+	
+	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0003}
+		Let $\MC$, $\MD$ be categories, $F, G, H, K:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ and $\gam: H \Rightarrow K$ natural transformations. Then $$(\gam \circ \be) \circ \al = \gam \circ (\be \circ \al)$$
+	\end{ex}
+	
+	\begin{proof}
+		Let $A \in \Obj(\MC)$. By definition,  
+		\begin{align*}
+			[(\gam \circ \be) \circ \al]_{A} 
+			& = (\gam \circ \be)_A \circ \al_{A} \\
+			& = (\gam_A \circ \be_A) \circ \al_A \\
+			& = \gam_A \circ (\be_A \circ \al_A) \\
+			& = \gam_A \circ (\be \circ \al)_A \\
+			& = [\gam \circ (\be \circ \al)]_A \\
+		\end{align*}
+		Since $A \in \Obj(\MC)$ is arbitrary, 
+		$$(\gam \circ \be) \circ \al = \gam \circ (\be \circ \al)$$
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	\begin{defn} \ld{def:basics:nat_trans:intro:0002} \tbf{Horizontal Composition:} \\
@@ -2073,20 +2103,228 @@
 		Thus $\al' * \al: F' \circ F \Rightarrow G' \circ G$.
 	\end{proof}
 	
+	\begin{ex}
+		Let  
+		\begin{itemize}
+			\item $\MC_1, \MC_2, \MC_3, \MC_4$ be categories, 
+			\item $F_{1,2}, G_{1,2}: \MC_1 \rightarrow \MC_2$, $F_{2,3}, G_{2,3}: \MC_2 \rightarrow \MC_3$, $F_{3,4}, G_{3,4}: \MC_3 \rightarrow \MC_4$ 
+			\item $\al^{1,2}:F_{1,2} \Rightarrow G_{1,2}$, $\al^{2,3}:F_{2,3} \Rightarrow G_{2,3}$, $\al^{3,4}:F_{3,4} \Rightarrow G_{3,4}$.
+		\end{itemize}
+		Then $\al^{3,4} * (\al^{2,3} * \al^{1,2}) = (\al^{3,4} * \al^{2,3}) * \al^{1,2}$.
+	\end{ex}
 	
+	\begin{proof}
+		Let $A \in \Obj(\MC_1)$. By definition and \tcr{ref prev ex}, 
+		\begin{itemize}
+			\item $\al^{2,3} * \al^{1,2}: F_{2,3} \circ F_{1,2} \Rightarrow G_{2,3} \circ G_{1,2}$ and $(\al^{2,3} * \al^{1,2})_A = \al^{2,3}_{G_{1,2}(A)} \circ F_{2,3}(\al^{1,2}_A)$
+			\item $\al^{3,4} * \al^{2,3}: F_{3,4} \circ F_{2,3} \Rightarrow G_{3,4} \circ G_{2,3}$ and $(\al^{3,4} * \al^{2,3})_{G_{1,2}(A)} = \al^{3,4}_{G_{2,3}(G_{1,2}(A))} \circ F_{3,4}(\al^{2,3}_{G_{1,2}(A)})$.
+		\end{itemize} 
+		Therefore 
+		\begin{align*}
+			[\al^{3,4} * (\al^{2,3} * \al^{1,2})]_A
+			& = \al^{3,4}_{G_{2,3} \circ G_{1,2}(A)} \circ F_{3,4}([\al^{2,3} * \al^{1,2}]_A) \\
+			& = \al^{3,4}_{G_{2,3}(G_{1,2}(A))} \circ F_{3,4}(\al^{2,3}_{G_{1,2}(A)} \circ F_{2,3}(\al^{1,2}_A)) \\
+			& = \al^{3,4}_{G_{2,3}(G_{1,2}(A))} \circ [F_{3,4}(\al^{2,3}_{G_{1,2}(A)}) \circ F_{3,4}( F_{2,3}(\al^{1,2}_A))] \\
+			& = \al^{3,4}_{G_{2,3}(G_{1,2}(A))} \circ (F_{3,4}(\al^{2,3}_{G_{1,2}(A)}) \circ [F_{3,4} \circ F_{2,3}(\al^{1,2}_A)]) \\
+			& = [\al^{3,4}_{G_{2,3}(G_{1,2}(A))} \circ F_{3,4}(\al^{2,3}_{G_{1,2}(A)})] \circ  [F_{3,4} \circ F_{2,3}(\al^{1,2}_A)] \\
+			& = [(\al^{3,4} * \al^{2,3})_{G_{1,2}(A)}] \circ [F_{3,4} \circ F_{2,3}(\al^{1,2}_A)] \\
+			& = [(\al^{3,4} * \al^{2,3}) * \al^{1,2}]_A 
+		\end{align*} 
+		Since $A \in \Obj(\MC_1)$ is arbitrary, we have that for each $A \in \Obj(\MC_1)$, $[\al^{3,4} * (\al^{2,3} * \al^{1,2})]_A = [(\al^{3,4} * \al^{2,3}) * \al^{1,2}]_A$. Thus $\al^{3,4} * (\al^{2,3} * \al^{1,2}) = (\al^{3,4} * \al^{2,3}) * \al^{1,2}$.
+	\end{proof}
 	
+	\begin{ex} \tbf{Interchange law:}
+		
+		
+		\href{https://en.wikipedia.org/wiki/Natural_transformation#Interchange_law}{wikipedia interchange law}
+		
+		\tcr{FINISH!!!}
+	\end{ex}
+	
+	\begin{ex}
+		$F: \MA \rightarrow \MB$ and $G: \MB \rightarrow C$. Then $\id_G * \id_F = \id_{G \circ F}$
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
 	
 	\begin{defn} \ld{def:basics:nat_trans:intro:0004} \tbf{Whiskering:}
+		Let $\MA, \MB, \MC, \MD$ be categories, $F,G: \MB \rightarrow \MC$, $H:\MA \rightarrow \MB$, $K: \MC \rightarrow \MD$ and $\al: F \Rightarrow G$. We define 
 		\begin{itemize}
-			\item 
-			\item 
+			\item $\al H: F \circ H \Rightarrow G \circ H$ by $\al H \defeq \al * \id_{H}$.
+			\item $K \al : K \circ F \Rightarrow K \circ G$ by $K \al \defeq \id_K * \al$
 		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:basics:nat_trans:intro:0004.1}
+		Let $\MA, \MB, \MC, \MD$ be categories, $F,G: \MB \rightarrow \MC$, $H:\MA \rightarrow \MB$, $K: \MC \rightarrow \MD$ and $\al: F \Rightarrow G$. Then 
+		\begin{enumerate}
+			\item for each $A \in \MA$, $(\al H)_A = \al_{H(A)}$
+			\item for each $B \in \MB$, $(K \al)_B = K(\al_B)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item For each $A \in \MA$, we have that 
+			\begin{align*}
+				(\al H)_A
+				& = (\al * \id_H)_A \\
+				& = \al_{H(A)} \circ F((\id_H)_A) \\
+				& = \al_{H(A)} \circ F(\id_{H(A)}) \\
+				& = \al_{H(A)} \circ \id_{F(H(A))} \\
+				& = \al_{H(A)} \circ \id_{F \circ H(A)} \\
+				& = \al_{H(A)}.
+			\end{align*}
+			\item 
+			For each $B \in \MB$, we have that 
+			\begin{align*}
+				(K \al)_B
+				& = (\id_K * \al)_B \\
+				& = ((\id_K)_{G(B)}) \circ K(\al_B) \\
+				& = \id_{K(G(B))} \circ K(\al_B) \\
+				& = \id_{K \circ G(B)} \circ K(\al_B) \\
+				& = K(\al_B).
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \ld{ex:basics:nat_trans:intro:0004.2}
+		Let $\MA_1, \MA_2, \MA_3$ be categories, $F_{1,2}: \MA_1 \rightarrow \MA_2$, $F_{2,3}: \MA_2 \rightarrow \MA_3$, $\al^{1,2}: F_{1,2} \rightarrow G_{1,2}$, $\al^{2,3}: F_{2,3} \Rightarrow G_{2,3}$. Then
+		\begin{enumerate}
+			\item $\al_2 * \al_1 = \al_2 * G_2 \circ F_2 \al_1$
+			\item $\al_2 * \al_1 = G_2 \al_2 \circ \al_1 F_1$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\item 
+		\end{enumerate}
+		\tcr{FINISH!!!}
+	\end{proof}
+	
+	\begin{defn}
+		We define $\text{Nat}(F, G) \times \text{Funct}(\MA, \MB)$ $(\al, H) \mapsto \al H$ and similar for the other whisker map.
 		\tcr{FINISH!!!}
 	\end{defn}
 	
 	
 	
+	
+	
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\section{Fundamental Examples}
+	
+	\begin{defn} \ld{def:basics:nat_trans:cat_funct:0004}
+		Let $\MC$, $\MD$ be categories and $F: \MC \rightarrow \MD$. We define the \textbf{identity natural transformation from $F$ to $F$}, denoted $\id_F: F \Rightarrow F$, by 
+		$$(\id_F)_A = \id_{F(A)}^{\MD}$$
+	\end{defn}
+	
+	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0005}
+		Let $\MC$, $\MD$ be categories and $F: \MC \rightarrow \MD$. Then $\id_F: F \Rightarrow F$ is a natural transformation.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A \in \Obj(\MC)$. Then 
+			\begin{align*}
+				(\id_F)_A 
+				& = \id_{F(A)}^{\MD} \\
+				& \in \Hom_{\MD}(F(A), F(A))
+			\end{align*}
+			\item Let $A,B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$. Then 
+			\begin{align*}
+				F(f) \circ_{\MD} (\id_F)_A
+				& = F(f) \circ_{\MD} \id_{F(A)}^{\MD} \\
+				& = F(f) \\
+				& = \id_{F(B)}^{\MD} \circ_{\MD} F(f) \\
+				& = (\id_F)_{B} \circ_{\MD} F(f),
+			\end{align*}
+			i.e. the following diagram commutes:
+			\[ 
+			\begin{tikzcd}
+				F(A)  \arrow[r, "(\id_F)_A"]  \arrow[d, "F(f)"']  & F(A)   \arrow[d, "F(f)"]\\
+				F(B) \arrow[r, "(\id_F)_B"] &  F(B). \\
+			\end{tikzcd}
+			\]
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0006}
+		Let $\MC$, $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Then 
+		\begin{enumerate}
+			\item $\id_{G} \circ \al = \al$
+			\item $\al \circ \id_F = \al$
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $A \in \Obj(\MC)$. Then 
+			\begin{align*}
+				(\id_{G} \circ \al)_{A}
+				& = (\id_G)_A \circ \al_A \\
+				& = \id_{G(A)} \circ \al_A \\
+				& = \al_A 
+			\end{align*}
+			Since $A \in \Obj(C)$ is arbitrary, $\id_{G} \circ \al = \al$
+			\item Let $A \in \Obj(\MC)$. Then
+			\begin{align*}
+				(\al \circ \id_F)_{A}
+				& = \al_A \circ (\id_F)_A \\
+				& = \al_A \circ \id_{F(A)} \\
+				& = \al_A 
+			\end{align*}
+			Since $A \in \Obj(C)$ is arbitrary, $\al \circ \id_F = \al$.
+		\end{enumerate}
+	\end{proof}
+	
 	\tcr{talk about following example}
 	\href{https://pseudonium.github.io/2026/01/20/Preimages_Preserve_Subset_operations.html}{preimages and set comprehension vs post composition and predicates}
 	\tcr{will need to talk about contravariant functors from $\text{preim}, \text{pred}$, denoted $F,G:\bSet \rightarrow \bSet$ respectively given by $F(X) \defeq \MP(X)$, $F(f) \defeq f^{-1}$ and $G(X) \defeq \{0,1\}^X$, $G(f) \defeq - \circ f$.}	
@@ -2162,121 +2400,7 @@
 	
 	
 	
-	\subsection{Category of Functors}
-	
-	\begin{defn} \ld{def:basics:nat_trans:cat_funct:0001} \tbf{Vertical Composition:} \\
-		Let $\MC$, $\MD$ be categories, $F, G, H:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ natural transformations. We define the \textbf{vertical composition of $\be$ with $\al$}, denoted $\be \circ \al: F \Rightarrow H$, by 
-		$$(\be \circ \al)_{A} = \be_A \circ \al_A$$ 
-	\end{defn}
-	
-	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0002}
-		Let $\MC$, $\MD$ be categories, $F, G, H:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ natural transformations. Then $ \be \circ \al: F \Rightarrow H$ is a natural transformation.
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $A \in \Obj(\MC)$. Since $\al_A \in \Hom_{\MD}(F(A), G(A))$ and $\be_A \in \Hom_{\MD}(G(A), H(A))$, we have that 
-			\begin{align*}
-				(\be \circ \al)_A 
-				& = \be_A \circ \al_A \\
-				& \in \Hom_{\MD}(F(A), H(A))
-			\end{align*}
-			\item Let $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$. Since $\al:F \Rightarrow G$ and $\be: G \Rightarrow H$, $G(f) \circ \al_A = \al_B \circ F(f)$ and $H(f) \circ \be_A = \be_B \circ G(f)$. Therefore 
-			\begin{align*}
-				H(f) \circ (\be \circ \al)_A
-				& = H(f) \circ (\be_A \circ \al_A) \\
-				& = (H(f) \circ \be_A) \circ \al_A \\
-				& = (\be_B \circ G(f)) \circ \al_A \\
-				& = \be_B \circ (G(f)\circ \al_A) \\
-				& = \be_B \circ (\al_B \circ F(f)) \\
-				& = (\be_B \circ \al_B) \circ F(f) \\
-				& = (\be \circ \al)_B \circ F(f)
-			\end{align*}
-		\end{enumerate}
-		So $\be \circ \al: F \Rightarrow H$ is a natural transformation. 
-	\end{proof}
-
-	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0003}
-		Let $\MC$, $\MD$ be categories, $F, G, H, K:\MC \rightarrow \MD$ functors and $\al: F \Rightarrow G$, $\be : G \Rightarrow H$ and $\gam: H \Rightarrow K$ natural transformations. Then $$(\gam \circ \be) \circ \al = \gam \circ (\be \circ \al)$$
-	\end{ex}
-
-	\begin{proof}
-		Let $A \in \Obj(\MC)$. By definition,  
-		\begin{align*}
-			[(\gam \circ \be) \circ \al]_{A} 
-			& = (\gam \circ \be)_A \circ \al_{A} \\
-			& = (\gam_A \circ \be_A) \circ \al_A \\
-			& = \gam_A \circ (\be_A \circ \al_A) \\
-			& = \gam_A \circ (\be \circ \al)_A \\
-			& = [\gam \circ (\be \circ \al)]_A \\
-		\end{align*}
-		Since $A \in \Obj(\MC)$ is arbitrary, 
-		$$(\gam \circ \be) \circ \al = \gam \circ (\be \circ \al)$$
-	\end{proof}
-
-	\begin{defn} \ld{def:basics:nat_trans:cat_funct:0004}
-		Let $\MC$, $\MD$ be categories and $F: \MC \rightarrow \MD$. We define the \textbf{identity natural transformation from $F$ to $F$}, denoted $\id_F: F \Rightarrow F$, by 
-		$$(\id_F)_A = \id_{F(A)}^{\MD}$$
-	\end{defn}
-	
-	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0005}
-		Let $\MC$, $\MD$ be categories and $F: \MC \rightarrow \MD$. Then $\id_F: F \Rightarrow F$ is a natural transformation.
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $A \in \Obj(\MC)$. Then 
-			\begin{align*}
-				(\id_F)_A 
-				& = \id_{F(A)}^{\MD} \\
-				& \in \Hom_{\MD}(F(A), F(A))
-			\end{align*}
-			\item Let $A,B \in \Obj(\MC)$, $f \in \Hom_{\MC}(A,B)$. Then 
-			\begin{align*}
-				F(f) \circ_{\MD} (\id_F)_A
-				& = F(f) \circ_{\MD} \id_{F(A)}^{\MD} \\
-				& = F(f) \\
-				& = \id_{F(B)}^{\MD} \circ_{\MD} F(f) \\
-				& = (\id_F)_{B} \circ_{\MD} F(f),
-			\end{align*}
-			i.e. the following diagram commutes:
-			\[ 
-			\begin{tikzcd}
-				F(A)  \arrow[r, "(\id_F)_A"]  \arrow[d, "F(f)"']  & F(A)   \arrow[d, "F(f)"]\\
-				F(B) \arrow[r, "(\id_F)_B"] &  F(B). \\
-			\end{tikzcd}
-			\]
-		\end{enumerate}
-	\end{proof}
-
-	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0006}
-		Let $\MC$, $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al : F \Rightarrow G$. Then 
-		\begin{enumerate}
-			\item $\id_{G} \circ \al = \al$
-			\item $\al \circ \id_F = \al$
-		\end{enumerate} 
-	\end{ex}
-
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $A \in \Obj(\MC)$. Then 
-			\begin{align*}
-				(\id_{G} \circ \al)_{A}
-				& = (\id_G)_A \circ \al_A \\
-				& = \id_{G(A)} \circ \al_A \\
-				& = \al_A 
-			\end{align*}
-			Since $A \in \Obj(C)$ is arbitrary, $\id_{G} \circ \al = \al$
-			\item Let $A \in \Obj(\MC)$. Then
-			\begin{align*}
-				(\al \circ \id_F)_{A}
-				& = \al_A \circ (\id_F)_A \\
-				& = \al_A \circ \id_{F(A)} \\
-				& = \al_A 
-			\end{align*}
-			Since $A \in \Obj(C)$ is arbitrary, $\al \circ \id_F = \al$.
-		\end{enumerate}
-	\end{proof}
+	\section{Category of Functors}
 
 	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0007}
 		Let $\MC$ and $\MD$ be categories, $F,G: \MC \rightarrow \MD$ and $\al: F \Rightarrow G$. If $\MC$ is small, then $\al$ is a set.
@@ -2375,7 +2499,7 @@
 	
 	
 	
-	\subsection{Diagonal Functor}
+	\section{Diagonal Functor}
 
 	\begin{defn} \ld{def:basics:nat_trans:diag_funct:0001}
 		Let $\MC$, $\MD$ be categories, $X, Y \in \Obj(\MD)$ and $f \in \Hom_{\MD}(X, Y)$. We define the \textbf{constant natural transformation on $\MC$ at $f$}, denoted $\del^{\MC}_f: \Del^{\MC}_X \Rightarrow \Del^{\MC}_Y$, by
@@ -2397,7 +2521,7 @@
 				& = f \circ \id_X \\
 				& = (\del^{\MC}_f)_B \circ \Del^{\MC}_X(g)  
 			\end{align*}
-			i.e. the following diagram commutes:
+			i.e. the following diagrams commute:
 			\[ 
 			\begin{tikzcd}[baseline= 7]
 				\Del^{\MC}_X(A)  \arrow[r, "(\del^{\MC}_f)_A"]  \arrow[d, "\Del^{\MC}_X(g)"']  & \Del^{\MC}_Y(A)   \arrow[d, "\Del^{\MC}_Y(g)"]\\
@@ -2464,6 +2588,180 @@
 		 So $\Del^{\MC} : \MD \rightarrow \MD^{\MC}$ is a functor.
 	\end{proof}
 	
+	\begin{ex} \lex{ex:basics:nat_trans:diag_funct:0007}
+		Let $\MC$, $\MD$ be categories. Suppose that $\MC \neq \0$ and $\MC$ is small. Then $\Del^{\MC}: \MD \rightarrow \MD^{\MC}$ is full and faithful \tcr{define full/faithful}. 
+	\end{ex}
+	
+	\begin{proof}
+		Since $\MC \neq \0$, $\Obj(\MC) \neq \varnothing$. Therefore there exists $C \in \Obj(\MC)$.
+		\begin{itemize}
+			\item \tbf{faithful:} \\
+			Let $X,Y \in \Obj(\MD)$ and $f,g \in \Hom_{\MD}(X,Y)$. Suppose that $\Del^{\MC}(f) = \Del^{\MC}(g)$. Then 
+			\begin{align*}
+				\del^{\MC}_f
+				& = \Del^{\MC}(f) \\
+				& = \Del^{\MC}(g) \\
+				& = \del^{\MC}_g. 
+			\end{align*}
+			In particular, 
+			\begin{align*}
+				f
+				& = (\del^{\MC}_f)_C \\
+				& = (\del^{\MC}_g)_C \\
+				& = g. 
+			\end{align*}
+			Since $f,g \in \Hom_{\MD}(X,Y)$ with $\Del^{\MC}(f) = \Del^{\MC}(g)$ are arbitrary, we have that for each $f,g \in \Hom_{\MD}(X,Y)$, $\Del^{\MC}(f) = \Del^{\MC}(g)$ implies that $f = g$. Thus $(\Del^{\MC})_{X,Y}:\Hom_{\MD}(X,Y) \rightarrow \Hom_{\MD^{\MC}}(\Del^{\MC}(X), \Del^{\MC}(Y))$ is injective. Since $X,Y \in \Obj(\MD)$ are arbitrary, we have that for each $X,Y \in \Obj(\MD)$, $(\Del^{\MC})_{X,Y}:\Hom_{\MD}(X,Y) \rightarrow \Hom_{\MD^{\MC}}(\Del^{\MC}(X), \Del^{\MC}(Y))$ is injective. Thus $\Del^{\MC}$ is faithful.
+			\item \tbf{full:} \\
+			Let $X,Y \in \Obj(\MD)$ and $\al \in \Hom_{\MD^{\MC}}(\Del^{\MC}(X), \Del^{\MC}(Y))$. Then $\al: \Del^{\MC}_X \Rightarrow \Del^{\MC}_Y$. Therefore
+			\begin{itemize}
+				\item for each $A \in \Obj(\MC)$, 
+				\begin{align*}
+					\al_A 
+					& \in \Hom_{\MD}(\Del^{\MC}_X(A), \Del^{\MC}_Y(A)) \\
+					& = \Hom_{\MD}(X, Y),
+				\end{align*}
+				\item for each $A, B \in \Obj(\MC)$, and $f \in \Hom_{\MC}(A,B)$, 
+				\begin{align*}
+					\al_A 
+					& = \id_Y \circ \al_A \\
+					& = \Del^{\MC}_Y(f) \circ \al_Y \\
+					& = \al_B \circ \Del^{\MC}_X(f) \\
+					& = \al_B \circ \id_X \\
+					& = \al_B,
+				\end{align*}
+				i.e. the following diagrams commute:
+				\[ 
+				\begin{tikzcd}[baseline= 7]
+					\Del^{\MC}_X(A)  \arrow[r, "\al_A"]  \arrow[d, "\Del^{\MC}_X(f)"']  & \Del^{\MC}_Y(A)   \arrow[d, "\Del^{\MC}_Y(f)"]\\
+					\Del^{\MC}_X(B) \arrow[r, "\al_B"] &  \Del^{\MC}_Y(B) \\
+				\end{tikzcd}
+				=
+				\begin{tikzcd}[baseline= 7]
+					X  \arrow[r, "\al_A"]  \arrow[d, "\id_X"']  & Y   \arrow[d, "\id_Y"]\\
+					X \arrow[r, "\al_B"] &  Y \\
+				\end{tikzcd} 
+				= 
+				\begin{tikzcd}[baseline= 7]
+					X  \arrow[r, bend left=60, swap, "\al_A"']  \arrow[r, bend right= 60, swap, "\al_B"]  & Y    \\
+				\end{tikzcd} 
+				\]
+			\end{itemize}
+			Thus $\al_C \in \Hom_{\MD}(X, Y)$ and for each $A \in \Obj(\MC)$, 
+			\begin{align*}
+				\al_A
+				& = \al_C \\
+				& = (\del^{\MC}_{\al_C})_A.
+			\end{align*}  
+			Hence
+			\begin{align*}
+				\al 
+				& = \del^{\MC}_{\al_C} \\
+				& = \Del^{\MC}(\al_C).
+			\end{align*}
+			Since $\al \in \Hom_{\MD^{\MC}}(\Del^{\MC}(X), \Del^{\MC}(Y))$ is arbitrary, we have that for each $\al \in \Hom_{\MD^{\MC}}(\Del^{\MC}(X), \Del^{\MC}(Y))$, there exists $f \in \Hom_{\MD}(X,Y)$ such that $\Del^{\MC}(f) = \al$. Therefore $(\Del^{\MC})_{X,Y}:\Hom_{\MD}(X,Y) \rightarrow \Hom_{\MD^{\MC}}(\Del^{\MC}(X), \Del^{\MC}(Y))$ is surjective. Since $X,Y \in \Obj(\MD)$ are arbitrary, we have that for each $X,Y \in \Obj(\MD)$, $(\Del^{\MC})_{X,Y}:\Hom_{\MD}(X,Y) \rightarrow \Hom_{\MD^{\MC}}(\Del^{\MC}(X), \Del^{\MC}(Y))$ is surjective. Thus $\Del^{\MC}$ is full.
+		\end{itemize}
+	\end{proof}
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -2506,9 +2804,9 @@
 	
 	
 	\newpage
-	\section{Isomorphisms}
+	\chapter{Isomorphisms}
 	
-	\subsection{Introduction}
+	\section{Introduction}
 	
 	\begin{defn} 
 		Let $\MC$ be a category.
@@ -2527,7 +2825,12 @@
 		\begin{itemize}
 			\item Let $A, B \in \Obj(\MC)$.
 			\begin{itemize}
-				\item Let $f \in \Hom_{\MC}(A,B)$. Then $f$ is said to be an \textbf{isomorphism} if there exists $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_A$ and $f \circ g = \id_B$.
+				\item Let $f \in \Hom_{\MC}(A,B)$. Then $f$ is said to be an \textbf{isomorphism} if there exists $g \in \Hom_{\MC}(B, A)$ such that $g \circ f = \id_A$ and $f \circ g = \id_B$, i.e. the following diagram commutes: 
+				\[ 
+				\begin{tikzcd}[baseline= 7]
+					\arrow[loop left, "\id_A"] A \arrow[r, bend right= 60, "f", swap] & B \arrow[l, bend left=-60, "g", swap] \arrow[loop right, "\id_B"] \\
+				\end{tikzcd}
+				\]  
 				\item We define $\Iso_{\MC}(A,B) \defeq \{f \in \Hom_{\MC}(A,B): \text{$f$ is an isomorphism}\}$
 			\end{itemize}
 			\item We define $\Iso_{\MC} \defeq \bigcup\limits_{(A,B) \in \Obj(\MC)^2} \Iso_{\MC}(A,B)$.
@@ -2641,65 +2944,90 @@
 		Thus ${\cong} \in \Equi(\Obj(C))$.
 	\end{proof}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\subsection{Isomorphisms between Categories}
-	
-	\begin{ex}
-		Let $\MC, \MD \in \Obj(\Cat)$ and $F \in \Hom_{\Cat}(\MC, \MD)$. Write $F = (F_0, F_1)$. Then $F \in \Iso_{\Cat}$ iff $F_0, F_1 \in \Iso_{\bSet}$
+	\begin{ex} \lex{15008.1}
+		Let $\MC$ be a category and $\ME \subset \Obj(\MC)$. Then for each $A,B \in \ME$, $\# \Hom_{\MC}(A, B) = 1$ iff for each $A, B \in \ME$, there exists $f \in \Iso_{\MC}(A, B)$ such that $\Hom_{\MC}(A, B) = \{f\}$.
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{itemize}
 			\item $(\implies)$: \\
-			Suppose that $F \in \Iso_{\Cat}$. Then there exists $G \in \Hom_{\Cat}(\MD, \MC)$ such that $G \circ_{\Cat} F = \id_{\MC}$ and $F \circ_{\Cat} G = \id_{\MD}$. Write $G = (G_0, G_1)$. By \rd{def:basics:functors:small_cat:0001}, we have that $G_0 \circ_{\bSet} F_0 = \id_{\Obj(\MC)}^{\bSet}$, $F_0 \circ_{\bSet} G_0 = \id_{\Obj(\MD)}^{\bSet}$, $G_1 \circ_{\bSet} F_1 = \id_{\Hom_{\MC}}^{\bSet}$ and $F_1 \circ_{\bSet} G_1 = \id_{\Hom_{\MD}}^{\bSet}$. Hence $F_0, G_0 \in \Iso_{\bSet}$.  
+			Suppose that for each $A,B \in \ME$, $\# \Hom_{\MC}(A, B) = 1$. Let $A,B \in \ME$. By assumption, $\Hom_{\MC}(A, A) = \{\id_A\}$, $\Hom_{\MC}(B, B) = \{\id_B\}$ and there exist $f \in \Hom_{\MC}(A, B)$ and $g \in \Hom_{\MC}(B, A)$ such that $\Hom_{\MC}(A, B) = \{f\}$ and $\Hom_{\MC}(B, A) = \{g\}$. Since 
+			\begin{align*}
+				g \circ f
+				& \in \Hom_{\MC}(A, A) \\
+				& = \{\id_A\},
+			\end{align*}
+			we have that $g \circ f = \id_A$. Similarly, $f \circ g = \id_B$, i.e. the following diagram commutes:
+			\[ 
+			\begin{tikzcd}[baseline= 7]
+				\arrow[loop left, "\id_A"] A \arrow[r, bend right= 60, "f", swap] & B \arrow[l, bend left=-60, "g", swap] \arrow[loop right, "\id_B"] \\
+			\end{tikzcd}
+			\]  
+			Hence $f \in \Iso_{\MC}(A,B)$. Since $A, B \in \ME$ are arbitrary, we have that for each $A,B \in \ME$, there exists $f \in \Iso_{\MC}(A, B)$ such that $\Hom_{\MC}(A, B) = \{f\}$.
+			\item $(\impliedby)$: \\
+			Clearly if for each $A, B \in \ME$, there exists $f \in \Iso_{\MC}(A, B)$ such that $\Hom_{\MC}(A, B) = \{f\}$, then for each $A,B \in \ME$, $\# \Hom_{\MC}(A, B) = 1$.
+		\end{itemize}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\section{Isomorphisms between Categories}
+	
+	\begin{ex}
+		Let $\MC, \MD \in \Obj(\bCat)$ and $F \in \Hom_{\bCat}(\MC, \MD)$. Write $F = (F_0, F_1)$. Then $F \in \Iso_{\bCat}$ iff $F_0, F_1 \in \Iso_{\bSet}$
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $F \in \Iso_{\bCat}$. Then there exists $G \in \Hom_{\bCat}(\MD, \MC)$ such that $G \circ_{\bCat} F = \id_{\MC}$ and $F \circ_{\bCat} G = \id_{\MD}$. Write $G = (G_0, G_1)$. By \rd{def:basics:functors:small_cat:0001}, we have that $G_0 \circ_{\bSet} F_0 = \id_{\Obj(\MC)}^{\bSet}$, $F_0 \circ_{\bSet} G_0 = \id_{\Obj(\MD)}^{\bSet}$, $G_1 \circ_{\bSet} F_1 = \id_{\Hom_{\MC}}^{\bSet}$ and $F_1 \circ_{\bSet} G_1 = \id_{\Hom_{\MD}}^{\bSet}$. Hence $F_0, G_0 \in \Iso_{\bSet}$.  
 			\item $(\impliedby)$: \\
 			Suppose that $F_0, F_1 \in \Iso_{\bSet}$. Define $G_0 \defeq F_0^{-1}$ and  $G_1 \defeq F_1^{-1}$.
 			\begin{enumerate}
-				\item Let $A', B' \in \Obj(\MD)$ and $f' \in \Hom_{\MD}(A', B')$. Define $f \in \Hom_{\MC}$ and $A,B \in \Obj(\MC)$ by $f \defeq G_1(f')$, $A \defeq \dom(f)$ and $B \defeq \cod(f)$. Since $F \in \Hom_{\Cat}(\MC, \MD)$, we have that 
+				\item Let $A', B' \in \Obj(\MD)$ and $f' \in \Hom_{\MD}(A', B')$. Define $f \in \Hom_{\MC}$ and $A,B \in \Obj(\MC)$ by $f \defeq G_1(f')$, $A \defeq \dom(f)$ and $B \defeq \cod(f)$. Since $F \in \Hom_{\bCat}(\MC, \MD)$, we have that 
 				\begin{align*}
 					f'
 					& = F_1(f) \\
@@ -2720,7 +3048,7 @@
 					& =  \Hom_{\MC}(A, B) \\
 					& = \Hom_{\MC}(G_0(A'), G_0(B')).
 				\end{align*}
-				\item Let $A',B', C' \in \Obj(\MD)$, $f' \in \Hom_{\MD}(A', B')$ and $g' \in \Hom_{\MD}(B', C')$. Define $f,g \in \Hom_{\MC}$ by $f \defeq G_1(f')$ and $g \defeq G_1(g')$. Then $F_1(f) = f'$ and $F_1(g) = g'$. Since $F \in \Hom_{\Cat}(\MC, \MD)$, we have that
+				\item Let $A',B', C' \in \Obj(\MD)$, $f' \in \Hom_{\MD}(A', B')$ and $g' \in \Hom_{\MD}(B', C')$. Define $f,g \in \Hom_{\MC}$ by $f \defeq G_1(f')$ and $g \defeq G_1(g')$. Then $F_1(f) = f'$ and $F_1(g) = g'$. Since $F \in \Hom_{\bCat}(\MC, \MD)$, we have that
 				\begin{align*}
 					G_1(g' \circ_{\MD} f')
 					& = G_1(F_1(g) \circ_{\MD} F_1(f)) \\
@@ -2728,7 +3056,7 @@
 					& = g \circ_{\MC} f \\
 					& = G_1(g') \circ_{\MC} G_1(f').
 				\end{align*}
-				\item Let $A' \in \Obj(\MD)$. Define $A \in \Obj(\MC)$ by $A \defeq G_0(A')$. Then $F_0(A) = A'$ and since $F \in \Hom_{\Cat}(\MC, \MD)$, we have that
+				\item Let $A' \in \Obj(\MD)$. Define $A \in \Obj(\MC)$ by $A \defeq G_0(A')$. Then $F_0(A) = A'$ and since $F \in \Hom_{\bCat}(\MC, \MD)$, we have that
 				\begin{align*}
 					G_1(\id_{A'}^{\MD})
 					& = G_1(\id_{F_0(A)}^{\MD}) \\
@@ -2737,7 +3065,7 @@
 					& = \id_{G_0(A')}^{\MC}. 
 				\end{align*}
 			\end{enumerate}
-			Hence $G \in \Hom_{\Cat}(\MD, \MC)$. By construction, $G \circ_{\Cat} F = \id_{\MC}$ and $F \circ_{\Cat} G = \id_{\MD}$. Thus $F \in \Iso_{\Cat}$.
+			Hence $G \in \Hom_{\bCat}(\MD, \MC)$. By construction, $G \circ_{\bCat} F = \id_{\MC}$ and $F \circ_{\bCat} G = \id_{\MD}$. Thus $F \in \Iso_{\bCat}$.
 		\end{itemize}
 	\end{proof}
 	
@@ -2791,7 +3119,7 @@
 	
 	
 	
-	\subsection{Natural Isomorphisms}
+	\section{Natural Isomorphisms}
 	
 	\begin{defn} \ld{15011.1}
 		Let $\MC$ and $\MD$ be categories, $F,G : \MC \rightarrow \MD$ and $\al: F \Rightarrow G$. Then $\al$ is said to be a \textbf{natural isomorphism} if for each $A \in \Obj(\MC)$, $\al_A \in \Iso_{\MD}(F(A), G(A))$. 
@@ -2940,28 +3268,37 @@
 	
 	
 	\newpage
-	\chapter{Fundamental Structures}
+	\part{Fundamental Structures}
 	
+	\chapter{Introduction}
 	
 	\section{Initial and Terminal Objects}
 	
 	\begin{defn} \ld{15012}
-		Let $\MC$ be a category and $0 \in \Obj(\MC)$ and $1 \in \Obj(\MC)$. Then 
+		Let $\MC$ be a category.
 		\begin{itemize}
-			\item $0$ is said to be \textbf{$\MC$-initial} if for each $A \in \Obj(\MC)$, there exists $f \in \Hom_{\MC}(0, A)$ such that $\Hom_{\MC}(0, A) = \{f\}$. 
-			\item $1$ is said to be \textbf{$\MC$-terminal} if for each $A \in \Obj(\MC)$, there exists $f \in \Hom_{\MC}(A, 1)$ such that $\Hom_{\MC}(A, 1) = \{f\}$. \tcr{redo, use duality}
+			\item Let $X \in \Obj(\MC)$. Then 
+			\begin{itemize}
+				\item $X$ is said to be \textbf{$\MC$-terminal} if for each $A \in \Obj(\MC)$, there exists $f \in \Hom_{\MC}(A, X)$ such that $\Hom_{\MC}(A, X) = \{f\}$.
+				\item $X$ is said to be \textbf{$\MC$-coterminal} or \tbf{$\MC$-initial} if for each $A \in \Obj(\MC)$, there exists $f \in \Hom_{\MC}(X, A)$ such that $\Hom_{\MC}(X, A) = \{f\}$. 
+			\end{itemize}
+			\item We define 
+			\begin{itemize}
+				\item $\Term_{\MC} \defeq \{X \in \Obj(\MC): \text{$X$ is $\MC$-terminal}\}$.
+				\item $\Coterm_{\MC} \defeq \{X \in \Obj(\MC): \text{$X$ is $\MC$-coterminal}\}$.
+			\end{itemize}
 		\end{itemize}
 	\end{defn}
 	
 	\begin{note}
-		When the context is clear, we say ``initial" and ``terminal" in place of ``$\MC$-initial" and ``$\MC$-terminal". 
+		When the context is clear, we say ``terminal" in place of ``$\MC$-terminal" and ``cotermianl" (or ``initial") in place of ``$\MC$-coterminal" (or ``$\MC$-initial") respectively. 
 	\end{note}
 	
 	\begin{ex} \lex{15012.1}
-		Let $\MC$ be a category and $0 \in \Obj(\MC)$ and $1 \in \Obj(\MC)$. Then 
+		Let $\MC$ be a category. Then 
 		\begin{enumerate}
-			\item $0$ is $\MC$-initial iff $0$ is $\op{\MC}$-terminal
-			\item $1$ is $\MC$-terminal iff $1$ is $\op{\MC}$-initial
+			\item $\Term_{\MC} = \Coterm_{\op{\MC}}$,
+			\item $\Coterm_{\MC} = \Term_{\op{\MC}}$.
 		\end{enumerate}
 	\end{ex}
 	
@@ -2969,88 +3306,51 @@
 		\begin{enumerate}
 			\item 
 			\begin{itemize}
-				\item $(\implies)$: \\
-				Suppose that $0$ is $\MC$-initial. Let $A \in \Obj(\op{\MC})$. Since $\Obj(\op{\MC}) = \Obj(\MC)$, we have that $A \in \Obj(\MC)$. Since $0$ is $\MC$-initial, there exists $f \in \Hom_{\MC}(0,A)$ such that $\Hom_{\MC}(0,A) = \{f\}$. Then 
+				\item Let $X \in \Term_{\MC}$ and $A \in \Obj(\op{\MC})$. Then $A \in \Obj(\MC)$. Since $X \in \Term_{\MC}$, there exists $f \in \Hom_{\MC}(A, X)$ such that $\Hom_{\MC}(A,X) = \{f\}$. Then 
 				\begin{align*}
-					\Hom_{\op{\MC}}(A, 0) 
-					& = \Hom_{\MC}(0, A) \\
+					\Hom_{\op{\MC}}(X, A) 
+					& = \Hom_{\MC}(A, X) \\
 					& = \{f\}.
 				\end{align*}
-				Since $A$ is arbitrary, we have that for each $A \in \Obj(\op{\MC})$, there exists $f \in \Hom_{\op{\MC}}(A, 0)$ such that $\Hom_{\op{\MC}}(A, 0) = \{f\}$. Thus $0$ is $\op{\MC}$-terminal.
+				Since $A \in \Obj(\op{\MC})$ is arbitrary, we have that for each $A \in \Obj(\op{\MC})$, there exists $f \in \Hom_{\op{\MC}}(X, A)$ such that $\Hom_{\op{\MC}}(X, A) = \{f\}$. Thus $X \in \Coterm_{\op{\MC}}$. Since $X \in \Term_{\MC}$ is arbitrary, we have that for each $X \in \Term_{\MC}$, $X \in \Coterm_{\op{\MC}}$. Thus $\Term_{\MC} \subset \Coterm_{\op{\MC}}$.
 				\item $(\impliedby)$: \\
-				Suppose that $0$ is $\op{\MC}$-terminal. Let $A \in \Obj(\MC)$. Since $\Obj(\MC) = \Obj(\op{\MC})$, we have that $A \in \Obj(\op{\MC})$. Since $0$ is $\op{\MC}$-terminal, there exists $f \in \Hom_{\op{\MC}}(A,0)$ such that $\Hom_{\op{\MC}}(0,A) = \{f\}$. Then 
+				Suppose that $X \in \Coterm_{\op{\MC}}$. Let $A \in \Obj(\MC)$. Then $A \in \Obj(\op{\MC})$. Since $X \in \Coterm_{\op{\MC}}$, there exists $f \in \Hom_{\op{\MC}}(X,A)$ such that $\Hom_{\op{\MC}}(X,A) = \{f\}$. Then 
 				\begin{align*}
-					\Hom_{\MC}(0, A) 
-					& = \Hom_{\op{\MC}}(A, 0) 
+					\Hom_{\MC}(A, X) 
+					& = \Hom_{\op{\MC}}(X, A) \\
 					& = \{f\}.
 				\end{align*}
-				Since $A$ is arbitrary, we have that for each $A \in \Obj(\MC)$, there exists $f \in \Hom_{\MC}(0, A) $ such that $\Hom_{\MC}(0, A)  = \{f\}$. Thus $0$ is $\MC$-initial.
+				Since $A \in \Obj(\MC)$ is arbitrary, we have that for each $A \in \Obj(\MC)$, there exists $f \in \Hom_{\MC}(A, X)$ such that $\Hom_{\MC}(A, X)  = \{f\}$. Thus $X \in \Term_{\MC}$. Since $X \in \Coterm_{\op{\MC}}$ is arbitrary, we have that for each $X \in \Coterm_{\op{\MC}}$, $X \in \Term_{\MC}$. Thus $\Coterm_{\op{\MC}} \subset \Term_{\MC}$.
 			\end{itemize}
-			\item Set $\MD \defeq \op{\MC}$. \rex{12005.1} implies that $\op{\MD} = \MC$. Then
-			\begin{align*}
-				\text{$1$ is $\MC$-terminal}
-				& \iff \text{$1$ is $\MC$-terminal} \\
-				& \iff \text{$1$ is $\op{\MD}$-terminal} \\
-				& \iff \text{$1$ is $\MD$-initial}, \quad \text{(by \tcr{(reference) prev part})} \\
-				& \iff \text{$1$ is $\op{\MC}$-initial}.
-			\end{align*}
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{15013}
-		Let $\MC$ be a category and $0 \in \Obj(\MC)$. 
-		\begin{enumerate}
-			\item If $0$ is initial, then $\Hom_{\MC}(0, 0) = \{\id_0\}$.
-			\item If $1$ is terminal, then $\Hom_{\MC}(1, 1) = \{\id_1\}$.
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Suppose that $0$ is initial. Then there exists a $f \in \Hom_{\MC}(0,0)$ such that $\Hom_{\MC}(0, 0) = \{f\}$. Since $\id_1 \in \Hom_{\MC}(0,0)$, $f = \id_1$ and therefore $\Hom_{\MC}(0, 0) = \{\id_1\}$.
-			\item \tcr{use duality}. 
+			Since $\Term_{\MC} \subset \Coterm_{\op{\MC}}$ and $\Coterm_{\op{\MC}} \subset \Term_{\MC}$, we have that $\Term_{\MC} = \Coterm_{\op{\MC}}$.
+			\item \tcr{similar to prev part}.
 		\end{enumerate}
 	\end{proof}
 	
 	\begin{ex} \lex{15014}
-		Let $\MC$ be a category and $0, 0', 1, 1' \in \Obj(\MC)$. 
+		Let $\MC$ be a category. Then 
 		\begin{enumerate}
-			\item If $0$ and $0'$ are initial, then 
-			\begin{enumerate}
-				\item $0 \cong_{\MC} 0'$,
-				\item $\Hom_{\MC}(0, 0') = \Iso_{\MC}(0,0')$.
-			\end{enumerate}
-			\item If $1$ and $1'$ are terminal, then 
-			\begin{enumerate}
-				\item $1 \cong_{\MC} 1'$,
-				\item $\Hom_{\MC}(1, 1') = \Iso_{\MC}(1,1')$.
-			\end{enumerate}
+			\item for each $X,Y \in \Term_{\MC}$, there exists $f \in \Iso_{\MC}(X, Y)$ such that $\Hom_{\MC}(X, Y) = \{f\}$.
+			\item for each $X,Y \in \Coterm_{\MC}$, there exists $f \in \Iso_{\MC}(X, Y)$ such that $\Hom_{\MC}(X, Y) = \{f\}$.
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Suppose that $0$ and $0'$ are initial. 
-			\begin{enumerate}
-				\item By definition, there exist $f \in \Hom_{\MC}(0, 0')$ and $f' \in \Hom_{\MC}(0', 0)$ such that $\Hom_{\MC}(0, 0') = \{f\}$ and $\Hom_{\MC}(0', 0) = \{f'\}$, i.e. we have the following commutative diagram:
-				\[ 
-				\begin{tikzcd}[baseline= 7]
-					\arrow[loop left, "f' \circ f"] 0 \arrow[r, bend right= 60, "f", swap] & 0' \arrow[l, bend left=-60, "f'", swap] \arrow[loop right, "f \circ f'"] \\
-				\end{tikzcd}
-				\]
-				\rex{15013} implies that $f' \circ f = \id_{0}$ and $f \circ f' = \id_{0'}$. Hence $f \in \Iso_{\MC}(0,0')$. Since $\Iso_{\MC}(0,0') \neq \varnothing$, we have that $0 \cong_{\MC} 0'$.
-				\item Since
-				\begin{align*}
-					\Iso_{\MC}(0,0')
-					& \subset \Hom_{\MC}(0, 0') \\
-					& = \{f\} \\
-					& \subset \Iso_{\MC}(0,0'),
-				\end{align*}
-				we have that $\Hom_{\MC}(0, 0') = \Iso_{\MC}(0,0')$.
-			\end{enumerate}
-			\item \tcr{use duality}
+			\item By \rd{15012}, for each $X,Y \in \Term_{\MC}$, $\# \Hom_{\MC}(X,Y) = 1$. \rex{15008.1} then implies that for each $X, Y \in \Term_{\MC}$, there exists $f \in \Iso_{\MC}(X, Y)$ such that $\Hom_{\MC}(X, Y) = \{f\}$. 
+			\item \tcr{Similar to prev part}
 		\end{enumerate}
 	\end{proof}
+	
+	\begin{note}
+		In particular, 
+		\begin{itemize}
+			\item for each $1,1' \in \Term_{\MC}$ are terminal, then $1 \cong_{\MC} 1'$,  $\Hom_{\MC}(1,1') = \Iso_{\MC}(1,1')$ and $\# \Hom_{\MC}(0,0') = 1$. 
+			\item for each $0,0' \in \Coterm_{\MC}$, then $0 \cong_{\MC} 0'$, $\Hom_{\MC}(0,0') = \Iso_{\MC}(0,0')$ and $\# \Hom_{\MC}(0,0') = 1$
+		\end{itemize}
+	\end{note}
+	
+	\tcr{FINISH!!! maybe rework ordering terminal first, then coterminal}
 	
 	\begin{ex} \lex{15015}
 		Let $X, Y \in \Obj(\bSet)$. Then
@@ -3154,15 +3454,15 @@
 	\begin{ex} \lex{15016}
 		We have that 
 		\begin{enumerate}
-			\item $\0$ is $\Cat$-initial.
-			\item $\1$ is $\Cat$-terminal. 
+			\item $\0$ is $\bCat$-initial.
+			\item $\1$ is $\bCat$-terminal. 
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{enumerate}
-			\item Let $\MC \in \Obj(\Cat)$. It is clear that $\Hom_{\Cat}(\0, \MC) = \{E_\MC\}$. Hence $\0$ is $\Cat$-initial. \tcr{Fill out like below ex}
-			\item Let $\MC \in \Obj(\Cat)$. Let $F:\MC \rightarrow \1$. Since $\Obj(\1) = \{*\}$ and $\Hom_{\1}(*, *) = \{\id_*^{\1}\}$, we have for each $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$, $F(A) = *$ and $F(f) = \id_*^{\1}$. Thus $F = \Del^{\MC}_*$. Since $F:\MC \rightarrow \1$ is arbitrary, we have that for each $F:\MC \rightarrow \1$, $F = \Del^{\MC}_*$. Thus $\Hom_{\Cat}(\MC, \1) = \{ \Del^{\MC}_* \}$. Since $\MC \in \Obj(\Cat)$ is arbitrary, we have that for each $\MC \in \Obj(\Cat)$, $\Hom_{\Cat}(\MC, \1) = \{ \Del^{\MC}_* \}$. Hence $\1$ is $\Cat$-terminal.
+			\item Let $\MC \in \Obj(\bCat)$. It is clear that $\Hom_{\bCat}(\0, \MC) = \{E_\MC\}$. Hence $\0$ is $\bCat$-initial. \tcr{Fill out like below ex}
+			\item Let $\MC \in \Obj(\bCat)$. Let $F:\MC \rightarrow \1$. Since $\Obj(\1) = \{*\}$ and $\Hom_{\1}(*, *) = \{\id_*^{\1}\}$, we have for each $A,B \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A,B)$, $F(A) = *$ and $F(f) = \id_*^{\1}$. Thus $F = \Del^{\MC}_*$. Since $F:\MC \rightarrow \1$ is arbitrary, we have that for each $F:\MC \rightarrow \1$, $F = \Del^{\MC}_*$. Thus $\Hom_{\bCat}(\MC, \1) = \{ \Del^{\MC}_* \}$. Since $\MC \in \Obj(\bCat)$ is arbitrary, we have that for each $\MC \in \Obj(\bCat)$, $\Hom_{\bCat}(\MC, \1) = \{ \Del^{\MC}_* \}$. Hence $\1$ is $\bCat$-terminal.
 		\end{enumerate}
 	\end{proof}
 	
@@ -3319,7 +3619,7 @@
 				\item Let $(\pi_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X, X_{\al})$. Then $(X, (\pi_{\al})_{\al \in A})$ is said to be a \tbf{$\MC$-product of $(X_{\al})_{\al \in A}$} if for each $Y \in \Obj(\MC)$ and $(p_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(Y, X_{\al})$, there exists a unique $\phi \in \Hom_{\MC}(Y, X)$ such that for each $\al \in A$, from $\pi_{\al} \circ_{\MC} \phi = p_{\al}$, i.e. the following diagram commutes: 
 				\[ 
 				\begin{tikzcd}[baseline= 7]
-					Y   \arrow[d, "\phi"', dashed]  \arrow[ddr, "p_{\al}"]    &  \\
+					Y   \arrow[d, "\phi"', dashed]  \arrow[ddr, "p_{\al}"', bend left=30, swap]    &  \\
 					X \arrow[dr, "\pi_{\al}"']                        & \\
 					& X_{\al}   
 				\end{tikzcd}
@@ -3332,7 +3632,7 @@
 				\item Let $(\iota_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X_{\al}, X)$. Then $(X, (\iota_{\al})_{\al \in A})$ is said to be a \tbf{$\MC$-coproduct of $(X_{\al})_{\al \in A}$} if for each $Y \in \Obj(\MC)$ and $(i_{\al})_{\al \in A} \in \prod\limits_{\al \in A}\Hom_{\MC}(X_{\al}, Y)$, there exists a unique $\phi \in \Hom_{\MC}(X, Y)$ such that for each $\al \in A$, from $\phi \circ_{\MC} \iota_{\al} = i_{\al}$, i.e. the following diagram commutes: 
 				\[ 
 				\begin{tikzcd}[baseline= 7]
-					& X_{\al} \arrow[dl, "\iota_{\al}"'] \arrow[ddl, "i_{\al}"] & \\
+					& X_{\al} \arrow[dl, "\iota_{\al}"'] \arrow[ddl, "i_{\al}"', bend left=30, swap] & \\
 					X \arrow[d, "\phi"', dashed] & \\
 					Y 
 				\end{tikzcd}
@@ -3402,17 +3702,17 @@
 				Thus the following diagrams commutes:				
 				\[ 
 				\begin{tikzcd}[baseline= 7]
-					Y   \arrow[d, "\phi_{X, Y} \circ_{\MC} \phi_{Y,X}"', dashed]  \arrow[ddr, "\pi_{\al}"]    &  \\
+					Y   \arrow[d, "\phi_{X, Y} \circ_{\MC} \phi_{Y,X}"', dashed]  \arrow[ddr, "\pi_{\al}"', bend left=30, swap]    &  \\
 					Y \arrow[dr, "\pi_{\al}"']                        & \\
 					& X_{\al}   
 				\end{tikzcd}
 				\begin{tikzcd}[baseline= 7]
-					Y   \arrow[d, "\phi"', dashed]  \arrow[ddr, "\pi_{\al}"]    &  \\
+					Y   \arrow[d, "\phi"', dashed]  \arrow[ddr, "\pi_{\al}"', bend left=30, swap]    &  \\
 					Y \arrow[dr, "\pi_{\al}"']                        & \\
 					& X_{\al}   
 				\end{tikzcd}
 				\begin{tikzcd}[baseline= 7]
-					Y   \arrow[d, "\id_Y^{\MC}"', dashed]  \arrow[ddr, "\pi_{\al}"]    &  \\
+					Y   \arrow[d, "\id_Y^{\MC}"', dashed]  \arrow[ddr, "\pi_{\al}"', bend left=30, swap]    &  \\
 					Y \arrow[dr, "\pi_{\al}"']                        & \\
 					& X_{\al}   
 				\end{tikzcd}
@@ -3440,9 +3740,13 @@
 			\item If $A = \{1,2\}$, we may write 
 			\begin{itemize}
 				\item $\Prod_{\MC}(X_1, X_2)$ and $\Coprod_{\MC}(X_1, X_2)$ in place of $\Prod_{\MC}((X_{\al})_{\al \in A})$ and $\Coprod_{\MC}((X_{\al})_{\al \in A})$ respectively. 
-				\item $X_1 \times X_2$ in place of $\prod\limits_{\al \in A} X_{\al}$ and $X_1 \coprod X_2$ in place of $\coprod\limits_{\al \in A} X_{\al}$
+				\item $X_1 \times X_2$ in place of $\prod\limits_{\al \in A} X_{\al}$ and $X_1 + X_2$ in place of $\coprod\limits_{\al \in A} X_{\al}$
 			\end{itemize}
 		\end{itemize}
+	\end{note}
+	
+	\begin{note}
+		Other common notations for coproduct include $\bigoplus\limits_{\al \in A} X_{\al}$ and $X_1 \oplus X_2$.
 	\end{note}
 	
 	\begin{ex}
@@ -3453,7 +3757,7 @@
 		Suppose that for each $\al \in A$, $\pi_{\al} \circ_{\MC} f = \pi_{\al} \circ_{\MC} g$. Since $(\pi_{\al} \circ_{\MC} g)_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X, X_{\al})$ and $(\prod\limits_{\al \in A} X_{\al}, (\pi_{\al})_{\al \in A}) \in \Prod_{\MC}((X_{\al})_{\al \in A})$, there exists a unique $\phi \in \Hom_{\MC}(X, \prod\limits_{\al \in A} X_{\al})$ such that for each $\al \in A$, $\pi_{\al} \circ_{\MC} \phi = \pi_{\al} \circ_{\MC} g$, i.e. the following diagram commutes: 
 		\[
 		\begin{tikzcd}[baseline= 7]
-			X   \arrow[d, "\phi"', dashed]  \arrow[ddr, "\pi_{\al} \circ_{\MC} g"]    &  \\
+			X   \arrow[d, "\phi"', dashed]  \arrow[ddr, "\pi_{\al} \circ_{\MC} g"', bend left=30, swap]    &  \\
 			\prod\limits_{\al \in A} X_{\al} \arrow[dr, "\pi_{\al}"']                        & \\
 			& X_{\al}   
 		\end{tikzcd}
@@ -3470,7 +3774,7 @@
 		Let $\MC$ be a category, $A$ a set \tcr{(class?)}, $(X_{\al})_{\al \in A}, (Y_{\al})_{\al \in A} \in \Obj(\MC)^A$, $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X_{\al}, Y_{\al})$, $(\prod\limits_{\al \in A} X_{\al}, (\pi^X_{\al})_{\al \in A}) \in \Prod_{\MC}((X_{\al})_{\al \in A})$ and $(\prod\limits_{\al \in A} Y_{\al}, (\pi^Y_{\al})_{\al \in A}) \in \Prod_{\MC}((Y_{\al})_{\al \in A})$. We define the \tbf{$\MC$-product of $(f_{\al})_{\al \in A}$}, denoted $\prod\limits_{\al \in A} f_{\al} \in \Hom_{\MC}(\prod\limits_{\al \in A} X_{\al}, \prod\limits_{\al \in A} Y_{\al})$, to be the unique $f \in \Hom_{\MC}(\prod\limits_{\al \in A} X_{\al}, \prod\limits_{\al \in A} Y_{\al})$ such that for each $\al \in A$, $\pi^Y_{\al} \circ_{\MC} f = f_{\al} \circ \pi^X_{\al}$, i.e the following diagram commutes:
 		\[
 		\begin{tikzcd}[baseline= 7]
-			\prod\limits_{\al \in A} X_{\al}   \arrow[d, "f"', dashed]  \arrow[ddr, "f_{\al} \circ_{\MC} \pi^X_{\al}"]    &  \\
+			\prod\limits_{\al \in A} X_{\al}   \arrow[d, "f"', dashed]  \arrow[ddr, "f_{\al} \circ_{\MC} \pi^X_{\al}"', bend left=30, swap]    &  \\
 			\prod\limits_{\al \in A} Y_{\al} \arrow[dr, "\pi^Y_{\al}"']                        & \\
 			& Y_{\al}   
 		\end{tikzcd}
@@ -3478,7 +3782,7 @@
 	\end{defn}
 	
 	\begin{ex}
-		Let $\MC$ be a category, $A$ a set \tcr{(class?)}, $(X_{\al})_{\al \in A}, (Y_{\al})_{\al \in A} \in \Obj(\MC)^A$, $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X_{\al}, Y_{\al})$, $(\prod\limits_{\al \in A} X_{\al}, (\pi^X_{\al})_{\al \in A}) \in \Prod_{\MC}((X_{\al})_{\al \in A})$ and $(\prod\limits_{\al \in A} Y_{\al}, (\pi^Y_{\al})_{\al \in A}) \in \Prod_{\MC}((Y_{\al})_{\al \in A})$. Then $(\pi^X_{\al}, \pi^Y_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\Arr(\MC)}(\prod\limits_{\al \in A} f_{\al}, f_{\al})$.
+		Let $\MC$ be a category, $A$ a set \tcr{(class?)}, $(X_{\al})_{\al \in A}, (Y_{\al})_{\al \in A} \in \Obj(\MC)^A$, $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X_{\al}, Y_{\al})$, $(\prod\limits_{\al \in A} X_{\al}, (\pi^X_{\al})_{\al \in A}) \in \Prod_{\MC}((X_{\al})_{\al \in A})$ and $(\prod\limits_{\al \in A} Y_{\al}, (\pi^Y_{\al})_{\al \in A}) \in \Prod_{\MC}((Y_{\al})_{\al \in A})$. Then $(\pi^X_{\al}, \pi^Y_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\bArr(\MC)}(\prod\limits_{\al \in A} f_{\al}, f_{\al})$.
 	\end{ex}
 	
 	\begin{proof}
@@ -3494,17 +3798,17 @@
 			\prod\limits_{\al \in A} Y_{\al} \arrow[r, "\pi^Y_{\al}"'] &  Y_{\al}
 		\end{tikzcd}
 		\]
-		Thus $(\pi^X_{\al}, \pi^Y_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\Arr(\MC)}(\prod\limits_{\al \in A} f_{\al}, f_{\al})$.
+		Thus $(\pi^X_{\al}, \pi^Y_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\bArr(\MC)}(\prod\limits_{\al \in A} f_{\al}, f_{\al})$.
 	\end{proof}
 	
 	\tcr{Next exercise shows that the product of morphisms is in fact a product object in the arrow category}
 	
 	\begin{ex}
-		Let $\MC$ be a category, $A$ a set \tcr{(class?)}, $(X_{\al})_{\al \in A}, (Y_{\al})_{\al \in A} \in \Obj(\MC)^A$, $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X_{\al}, Y_{\al})$, $(\prod\limits_{\al \in A} X_{\al}, (\pi^X_{\al})_{\al \in A}) \in \Prod_{\MC}((X_{\al})_{\al \in A})$ and $(\prod\limits_{\al \in A} Y_{\al}, (\pi^Y_{\al})_{\al \in A}) \in \Prod_{\MC}((Y_{\al})_{\al \in A})$. Define $(\pi_{\al})_{\al \in A} \in  \prod\limits_{\al \in A}\Hom_{\Arr(\MC)}(\prod\limits_{\al \in A} f_{\al}, f_{\al})$ by $\pi_{\al} \defeq (\pi^X_{\al}, \pi^Y_{\al})$. Then  $(\prod\limits_{\al \in A} f_{\al}, \pi_{\al}) \in \Prod_{\Arr(\MC)}((f_{\al})_{\al \in A})$.
+		Let $\MC$ be a category, $A$ a set \tcr{(class?)}, $(X_{\al})_{\al \in A}, (Y_{\al})_{\al \in A} \in \Obj(\MC)^A$, $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X_{\al}, Y_{\al})$, $(\prod\limits_{\al \in A} X_{\al}, (\pi^X_{\al})_{\al \in A}) \in \Prod_{\MC}((X_{\al})_{\al \in A})$ and $(\prod\limits_{\al \in A} Y_{\al}, (\pi^Y_{\al})_{\al \in A}) \in \Prod_{\MC}((Y_{\al})_{\al \in A})$. Define $(\pi_{\al})_{\al \in A} \in  \prod\limits_{\al \in A}\Hom_{\bArr(\MC)}(\prod\limits_{\al \in A} f_{\al}, f_{\al})$ by $\pi_{\al} \defeq (\pi^X_{\al}, \pi^Y_{\al})$. Then  $(\prod\limits_{\al \in A} f_{\al}, \pi_{\al}) \in \Prod_{\bArr(\MC)}((f_{\al})_{\al \in A})$.
 	\end{ex}
 	
 	\begin{proof}
-		Let $g \in \Obj(\Arr(\MC))$ and $(p_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\Arr(\MC)}(g, f_{\al})$. Define $A,B \in \Obj(\MC)$ by $A \defeq \dom_{\MC}(g)$ and $B \defeq \cod_{\MC}(g)$. Write $p_{\al} = (p^A_{\al}, p^A_{\al})$. We note that 
+		Let $g \in \Obj(\bArr(\MC))$ and $(p_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\bArr(\MC)}(g, f_{\al})$. Define $A,B \in \Obj(\MC)$ by $A \defeq \dom_{\MC}(g)$ and $B \defeq \cod_{\MC}(g)$. Write $p_{\al} = (p^A_{\al}, p^A_{\al})$. We note that 
 		\begin{itemize}
 			\item By definition, for each $\al \in A$, $f_{\al} \circ_{\MC} p^A_{\al} = p^B_{\al} \circ_{\MC} g$, i.e. the following diagram commutes:
 			\[ 
@@ -3524,15 +3828,17 @@
 		\begin{itemize}
 			\item \tbf{Existence:} \\
 			By definition, there exists a unique $\phi_X \in \Hom_{\MC}(A, \prod\limits_{\al \in A} X_{\al})$ such that for each $\al \in A$, $\pi^X_{\al} \circ_{\MC} \phi_X = p^A_{\al}$, i.e. the following diagram commutes: 
+			\[
 			\begin{tikzcd}[baseline= 7]
-				A   \arrow[d, "\phi_X"', dashed]  \arrow[ddr, "p^A_{\al} "]    &  \\
+				A   \arrow[d, "\phi_X"', dashed]  \arrow[ddr, "p^A_{\al}"', bend left=30, swap]    &  \\
 				\prod\limits_{\al \in A} X_{\al} \arrow[dr, "\pi^X_{\al}"']                        & \\
 				& X_{\al}   
 			\end{tikzcd}
+			\]
 			Similiarly, there exists a unique $\phi_Y \in \Hom_{\MC}(B, \prod\limits_{\al \in A} Y_{\al})$ such that for each $\al \in A$, $\pi^Y_{\al} \circ_{\MC} \phi_Y = p^B_{\al}$, i.e. the following diagram commutes:
 			\[
 			\begin{tikzcd}[baseline= 7]
-				B   \arrow[d, "\phi_Y"', dashed]  \arrow[ddr, "p^B_{\al} "]    &  \\
+				B   \arrow[d, "\phi_Y"', dashed]  \arrow[ddr, "p^B_{\al}"', bend left=30, swap]    &  \\
 				\prod\limits_{\al \in A} Y_{\al} \arrow[dr, "\pi^Y_{\al}"']                        & \\
 				& Y_{\al}   
 			\end{tikzcd}
@@ -3555,29 +3861,29 @@
 				B \arrow[r, "\phi_Y"'] &  \prod\limits_{\al \in A} Y_{\al}
 			\end{tikzcd}
 			\]
-			Thus $(\phi_X, \phi_Y) \in \Hom_{\Arr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$. Define $\phi \in \Hom_{\Arr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$ by $\phi \defeq (\phi_X, \phi_Y)$. Let $\al \in A$. Since 
+			Thus $(\phi_X, \phi_Y) \in \Hom_{\bArr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$. Define $\phi \in \Hom_{\bArr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$ by $\phi \defeq (\phi_X, \phi_Y)$. Let $\al \in A$. Since 
 			$\pi^X_{\al} \circ_{\MC} \phi_X = p^A_{\al}$ and $\pi^Y_{\al} \circ_{\MC} \phi_Y = p^B_{\al}$, we have that 
 			\begin{align*}
-				\pi_{\al} \circ_{\Arr(\MC)} \phi
-				& = (\pi^X_{\al}, \pi^Y_{\al}) \circ_{\Arr(\MC)}  (\phi_X, \phi_Y) \\
+				\pi_{\al} \circ_{\bArr(\MC)} \phi
+				& = (\pi^X_{\al}, \pi^Y_{\al}) \circ_{\bArr(\MC)}  (\phi_X, \phi_Y) \\
 				& = (\pi^X_{\al} \circ_{\MC} \phi_X, \pi^Y_{\al} \circ_{\MC} \phi_Y) \\
 				& = (p^A_{\al}, p^B_{\al}) \\
 				& = p_{\al}.
 			\end{align*}
-			Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $\pi_{\al} \circ_{\Arr(\MC)} \phi = p_{\al}$,
+			Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $\pi_{\al} \circ_{\bArr(\MC)} \phi = p_{\al}$,
 			i.e. the following diagram commutes:
 			\[
 			\begin{tikzcd}[baseline= 7]
-				g   \arrow[d, "\phi"', dashed]  \arrow[ddr, "p_{\al} "]    &  \\
+				g   \arrow[d, "\phi"', dashed]  \arrow[ddr, "p_{\al}"', bend left=30, swap]    &  \\
 				\prod\limits_{\al \in A} f_{\al} \arrow[dr, "\pi_{\al}"']                        & \\
 				& f_{\al}
 			\end{tikzcd}
 			\]
 			\item \tbf{Uniqueness:} \\
-			Let $\phi' \in \Hom_{\Arr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$. Write $\phi' = (\phi'_X, \phi'_Y)$. Suppose that for each $\al \in A$, $\pi_{\al} \circ_{\Arr(\MC)} \phi' = p_{\al}$, i.e. the following diagram commutes: 
+			Let $\phi' \in \Hom_{\bArr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$. Write $\phi' = (\phi'_X, \phi'_Y)$. Suppose that for each $\al \in A$, $\pi_{\al} \circ_{\bArr(\MC)} \phi' = p_{\al}$, i.e. the following diagram commutes: 
 			\[
 			\begin{tikzcd}[baseline= 7]
-				g   \arrow[d, "\phi'"', dashed]  \arrow[ddr, "p_{\al} "]    &  \\
+				g   \arrow[d, "\phi'"', dashed]  \arrow[ddr, "p_{\al}"', bend left=30, swap]    &  \\
 				\prod\limits_{\al \in A} f_{\al} \arrow[dr, "\pi_{\al}"']                        & \\
 				& f_{\al}
 			\end{tikzcd}
@@ -3585,20 +3891,21 @@
 			Let $\al \in A$. Then 
 			\begin{align*}
 				(\pi^X_{\al} \circ_{\MC} \phi'_X,  \pi^Y_{\al} \circ_{\MC} \phi'_Y) 
-				& = (\pi^X_{\al}, \pi^Y_{\al}) \circ_{\Arr(\MC)} (\phi'_X, \phi'_Y) \\
-				& = \pi_{\al} \circ_{\Arr(\MC)} \phi' \\
+				& = (\pi^X_{\al}, \pi^Y_{\al}) \circ_{\bArr(\MC)} (\phi'_X, \phi'_Y) \\
+				& = \pi_{\al} \circ_{\bArr(\MC)} \phi' \\
 				& = p_{\al} \\
 				& = (p^A_{\al}, p^B_{\al}). 
 			\end{align*}
 			Therefore $\pi^X_{\al} \circ_{\MC} \phi'_X = p^A_{\al}$ and $\pi^Y_{\al} \circ_{\MC} \phi'_Y = p^B_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $\pi^X_{\al} \circ_{\MC} \phi'_X = p^A_{\al}$ and $\pi^Y_{\al} \circ_{\MC} \phi'_Y = p^B_{\al}$, i.e. the following diagrams commute:
 			\[
 			\begin{tikzcd}[baseline= 7]
-				A   \arrow[d, "\phi'_X"', dashed]  \arrow[ddr, "p^A_{\al} "]    &  \\
+				A   \arrow[d, "\phi'_X"', dashed]  \arrow[ddr, "p^A_{\al}"', bend left=30, swap]    &  \\
 				\prod\limits_{\al \in A} X_{\al} \arrow[dr, "\pi^X_{\al}"']                        & \\
 				& X_{\al}   
 			\end{tikzcd}
+			\quad 
 			\begin{tikzcd}[baseline= 7]
-				B   \arrow[d, "\phi'_Y"', dashed]  \arrow[ddr, "p^B_{\al} "]    &  \\
+				B   \arrow[d, "\phi'_Y"', dashed]  \arrow[ddr, "p^B_{\al}"', bend left=30, swap]    &  \\
 				\prod\limits_{\al \in A} Y_{\al} \arrow[dr, "\pi^Y_{\al}"']                        & \\
 				& Y_{\al}   
 			\end{tikzcd}
@@ -3610,30 +3917,40 @@
 				& = (\phi_X, \phi_Y) \\
 				& = \phi.
 			\end{align*}
-			Since $\phi' \in \Hom_{\Arr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$ is arbitrary, we have that for each $\phi' \in \Hom_{\Arr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$, $\phi' = \phi$. 
+			Since $\phi' \in \Hom_{\bArr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$ is arbitrary, we have that for each $\phi' \in \Hom_{\bArr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$, $\phi' = \phi$. 
 		\end{itemize}
-		Thus there exists a unique $\phi \in \Hom_{\Arr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$ such that for each $\al \in A$, $\pi_{\al} \circ_{\Arr(\MC)} \phi = p_{\al}$. Since $g \in \Obj(\Arr(\MC))$ and $(p_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\Arr(\MC)}(g, f_{\al})$ are arbitrary, we have that for each $g \in \Obj(\Arr(\MC))$ and $(p_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\Arr(\MC)}(g, f_{\al})$, there exists a unique $\phi \in \Hom_{\Arr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$ such that for each $\al \in A$, $\pi_{\al} \circ_{\Arr(\MC)} \phi = p_{\al}$,
+		Thus there exists a unique $\phi \in \Hom_{\bArr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$ such that for each $\al \in A$, $\pi_{\al} \circ_{\bArr(\MC)} \phi = p_{\al}$. Since $g \in \Obj(\bArr(\MC))$ and $(p_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\bArr(\MC)}(g, f_{\al})$ are arbitrary, we have that for each $g \in \Obj(\bArr(\MC))$ and $(p_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\bArr(\MC)}(g, f_{\al})$, there exists a unique $\phi \in \Hom_{\bArr(\MC)}(g, \prod\limits_{\al \in A} f_{\al})$ such that for each $\al \in A$, $\pi_{\al} \circ_{\bArr(\MC)} \phi = p_{\al}$,
 		i.e. the following diagram commutes:
 		\[
 		\begin{tikzcd}[baseline= 7]
-			g   \arrow[d, "\phi"', dashed]  \arrow[ddr, "p_{\al} "]    &  \\
+			g   \arrow[d, "\phi"', dashed]  \arrow[ddr, "p_{\al}"', bend left=30, swap]    &  \\
 			\prod\limits_{\al \in A} f_{\al} \arrow[dr, "\pi_{\al}"']                        & \\
 			& f_{\al}
 		\end{tikzcd}
 		\]
-		Hence $(\prod\limits_{\al \in A} f_{\al}, (\pi_{\al})_{\al \in A}) \in \Prod_{\Arr(\MC)}((f_{\al})_{\al \in A})$.
+		Hence $(\prod\limits_{\al \in A} f_{\al}, (\pi_{\al})_{\al \in A}) \in \Prod_{\bArr(\MC)}((f_{\al})_{\al \in A})$.
 	\end{proof}
 	
 	\begin{defn}
-		Let $\MC$ be a category. Then $\MC$ is said to have all
-		\begin{itemize}
-			\item \tbf{products} if for each $A \in \Obj(\bSet)$ and $(X_{\al})_{\al \in A} \in \Obj(\MC)^A$, $\Prod_{\MC}((A_{\al})_{\al \in A}) \neq \varnothing$,
-			\item \tbf{coproducts} if for each $A \in \Obj(\bSet)$ and $(X_{\al})_{\al \in A} \in \Obj(\MC)^A$, $\Prod_{\MC}((A_{\al})_{\al \in A}) \neq \varnothing$,
-			\item \tbf{finite products} if for each $A, B \in \Obj(\MC)$, $\Prod_{\MC}(A,B) \neq \varnothing$,
-			\item \tbf{finite coproducts} if for each $A, B \in \Obj(\MC)$, $\Coprod_{\MC}(A,B) \neq \varnothing$,
-		\end{itemize}
+		Let $\MC$ be a category, $A$ a set \tcr{(class?)}, $X \in \Obj(\MC)$, $(Y_{\al})_{\al \in A} \in \Obj(\MC)^A$, $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X, Y_{\al})$ and $(\prod\limits_{\al \in A} Y_{\al}, (\pi^Y_{\al})_{\al \in A}) \in \Prod_{\MC}((Y_{\al})_{\al \in A})$. We define the \tbf{tupling of $(f_{\al})_{\al \in A}$}, denoted $(f_{\al})_{\al} \in \Hom_{\MC}(X, \prod\limits_{\al \in A} Y_{\al})$ to be the unique $\phi \in \Hom_{\MC}(X, \prod\limits_{\al \in A} Y_{\al})$ such that for each $\al \in A$, $\pi_{\al} \circ \phi = f_{\al}$, i.e. the following diagram commutes:
+		\[
+		\begin{tikzcd}[baseline= 7]
+			g   \arrow[d, "\phi"', dashed]  \arrow[ddr, "p_{\al}"', bend left=30, swap]    &  \\
+			\prod\limits_{\al \in A} f_{\al} \arrow[dr, "\pi_{\al}"']                        & \\
+			& f_{\al}
+		\end{tikzcd}
+		\]
 	\end{defn}
 	
+	\begin{defn}
+		Let $\MC$ be a category. Then $\MC$ is said to
+		\begin{itemize}
+			\item \tbf{have all products} if for each $A \in \Obj(\bSet)$ and $(X_{\al})_{\al \in A} \in \Obj(\MC)^A$, $\Prod_{\MC}((A_{\al})_{\al \in A}) \neq \varnothing$,
+			\item \tbf{have all coproducts} if for each $A \in \Obj(\bSet)$ and $(X_{\al})_{\al \in A} \in \Obj(\MC)^A$, $\Prod_{\MC}((A_{\al})_{\al \in A}) \neq \varnothing$,
+			\item \tbf{have all finite products} if for each $A, B \in \Obj(\MC)$, $\Prod_{\MC}(A,B) \neq \varnothing$,
+			\item \tbf{have all finite coproducts} if for each $A, B \in \Obj(\MC)$, $\Coprod_{\MC}(A,B) \neq \varnothing$,
+		\end{itemize}
+	\end{defn}
 	
 	
 	
@@ -3682,6 +3999,8 @@
 	
 	\newpage
 	\section{Equalizers and Coequalizers}
+	
+	\tcr{need to redo diagrams either with parallel arrows and describe some precise way to define them so that 'commuting' makes sense, or use commutative squares}
 	
 	\begin{defn}
 		Let $\MC$ be a category. Let $A,B \in \Obj(\MC)$ and $g,h \in \Hom_{\MC}(A,B)$. 
@@ -3913,21 +4232,32 @@
 	\section{Exponentials}
 	
 	\begin{defn}
-		Let $\MC$ be a category. Suppose that $\MC$ has finite products. Let $B,C \in \Obj(\MC)$. 
+		Let $\MC$ be a category and $B,C, D \in \Obj(\MC)$.
 		\begin{itemize}
-			\item 
+			\item Suppose that $\MC$ has finite products.  
 			\begin{itemize}
-				\item Let $D \in \Obj(\MC)$ and $\eval: D \times B \rightarrow C$. Then $(D, \eval)$ is said to be a \tbf{$\MC$-exponential object of $B$ and $C$} if for each $A \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A \times B, C)$, there exists a unique $\phi \in \Hom_{\MC}(A, D)$ such that $\eval \circ_{\MC} (\phi \times \id_B^{\MC}) = f$, i.e. the following diagram commutes: 
+				\item Let $\eval: D \times B \rightarrow C$. Then $(D, \eval)$ is said to be a \tbf{$\MC$-exponential object of $B$ and $C$} if for each $A \in \Obj(\MC)$ and $f \in \Hom_{\MC}(A \times B, C)$, there exists a unique $\phi \in \Hom_{\MC}(A, D)$ such that $\eval \circ_{\MC} (\phi \times \id_B^{\MC}) = f$, i.e. the following diagram commutes: 
 				\[ 
 				\begin{tikzcd}[baseline= 7]
-					A \arrow[d, "\phi"', dashed] & A \times B  \arrow[d, "\phi \times \id_B^{\MC}"', dashed]  \arrow[dr, "f", dashed] &  \\
+					A \arrow[d, "\phi"', dashed] & A \times B  \arrow[d, "\phi \times \id_B^{\MC}"', dashed]  \arrow[dr, "f"] &  \\
 					D                           & D \times B  \arrow[r, "\eval"'] & C 
 				\end{tikzcd}
 				\]
 				\item We define 
 				$$\Exp_{\MC}(B, C) \defeq \bigg \{(D, \eval) \in \coprod\limits_{D \in \Obj(\MC)}\Hom_{\MC}(D \times B, C): \text{$(D, \eval)$ is a $\MC$-exponential of $B$ and $C$} \bigg \}.$$
 			\end{itemize}
-			\item We define \tcr{define coexponential objects} \tbf{}
+			\item Suppose that $\MC$ has finite coproducts.
+			\begin{itemize}
+				\item Let $\coeval: C \rightarrow D + B$. Then $(D, \coeval)$ is said to be a \tbf{$\MC$-coexponential object of $B$ and $C$} if for each $A \in \Obj(\MC)$ and $f \in \Hom_{\MC}(C, A + B)$, there exists a unique $\phi \in \Hom_{\MC}(D, A)$ such that $ (\phi + \id_B^{\MC}) \circ_{\MC} \coeval = f$, i.e. the following diagram commutes: 
+				\[ 
+				\begin{tikzcd}[baseline= 7]
+					D \arrow[d, "\phi"', dashed] & D+B  \arrow[d, "\phi + \id_B^{\MC}"', dashed]  &  \\
+					A                           & A+B   & C \arrow[l, "f"]  \arrow[ul, "\coeval"']
+				\end{tikzcd}
+				\]
+				\item We define 
+				$$\Coexp_{\MC}(B, C) \defeq \bigg \{(D, \coeval) \in \coprod\limits_{D \in \Obj(\MC)}\Hom_{\MC}(C, D + B): \text{$(D, \coeval)$ is a $\MC$-coexponential of $B$ and $C$} \bigg \}.$$
+			\end{itemize}
 		\end{itemize}
 	\end{defn}
 	
@@ -3939,13 +4269,41 @@
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}
-		
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{itemize}
+				\item Let $(D, \eval) \in \Exp_{\op{\MC}}(B, C)$. We note that $(X_{\al})_{\al \in A} \in \Obj(\MC)^A$, $X \in \Obj(\MC)$ and $(\pi_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X_{\al}, X)$. Let $Y \in \Obj(\MC)$ and $(i_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X_{\al}, Y)$. 
+				\begin{itemize}
+					\item \tbf{Existence:} \\
+					Then $Y \in \Obj(\op{\MC})$ and $(i_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\op{\MC}}(Y, X_{\al})$. Since $(X, (\pi_{\al})_{\al \in A}) \in \Prod_{\op{\MC}}((X_{\al})_{\al \in A})$, there exists a unique $\phi \in \Hom_{\op{\MC}}(Y,X)$ such that for each $\al \in A$, $\pi_{\al} \circ_{\op{\MC}} \phi = i_{\al}$. Then $\phi \in \Hom_{\MC}(X, Y)$ and for each $\al \in A$, $\phi \circ_{\MC} \pi_{\al} = i_{\al}$. 
+					\item \tbf{Uniqueness:} \\
+					Let $\phi' \in \Hom_{\MC}(X, Y)$. Suppose that for each $\al \in A$,  $\phi' \circ_{\MC} \pi_{\al} = i_{\al}$. Then $\phi' \in \Hom_{\op{\MC}}(Y, X)$ and for each $\al \in A$, $\pi_{\al} \circ_{\op{\MC}} \phi' = i_{\al}$. Uniqueness of $\phi$ implies that $\phi' = \phi$.
+				\end{itemize}
+				Since $Y \in \Obj(\MC)$ and $(i_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X_{\al}, Y)$ are arbitrary, we have that for each $Y \in \Obj(\MC)$ and $(i_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \Hom_{\MC}(X_{\al}, Y)$, there exists a unique $\phi \in \Hom_{\MC}(X, Y)$ such that for each $\al \in A$, $\phi \circ_{\MC} \pi_{\al} = i_{\al}$. Thus $(X, (\pi_{\al})_{\al \in A}) \in \Coprod_{\MC}((X_{\al})_{\al \in A})$. Since $(X, (\pi_{\al})_{\al \in A}) \in \Prod_{\op{\MC}}((X_{\al})_{\al \in A})$ is arbitrary, we have that for each $(X, (\pi_{\al})_{\al \in A}) \in \Prod_{\op{\MC}}((X_{\al})_{\al \in A})$, $(X, (\pi_{\al})_{\al \in A}) \in \Coprod_{\MC}((X_{\al})_{\al \in A})$. Hence $\Prod_{\op{\MC}}((X_{\al})_{\al \in A}) \subset \Coprod_{\MC}((X_{\al})_{\al \in A})$.
+				\item \tcr{Similar, fill out!!!}
+			\end{itemize}
+			Since $\Prod_{\op{\MC}}((X_{\al})_{\al \in A}) \subset \Coprod_{\MC}((X_{\al})_{\al \in A})$ and $\Coprod_{\MC}((X_{\al})_{\al \in A}) \subset \Prod_{\op{\MC}}((X_{\al})_{\al \in A})$, we have that $\Prod_{\op{\MC}}((X_{\al})_{\al \in A}) = \Coprod_{\MC}((X_{\al})_{\al \in A})$. 
+			\item \tcr{The prev part (ref)} implies that 
+			\begin{align*}
+				\Coprod_{\op{\MC}}((X_{\al})_{\al \in A})
+				& = \Prod_{\op{(\op{\MC})}}((X_{\al})_{\al \in A}) \\
+				& = \Prod_{\MC}((X_{\al})_{\al \in A}).
+			\end{align*}
+		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex}
-		
-	\end{ex}
+\begin{ex}
+	Let $\MC$ be a category, $A$ a set \tcr{(class?)} and $(X_{\al})_{\al \in A} \in \Obj(\MC)^A$. Then 
+	\begin{enumerate}
+		\item for each $(X, (\pi^X_{\al})_{\al \in A}), (Y, (\pi^Y_{\al})_{\al \in A}) \in \Prod_{\MC}((X_{\al})_{\al \in A})$, $X \cong_{\MC} Y$. 
+		\item for each $(X, (\iota^X_{\al})_{\al \in A}), (Y, (\iota^Y_{\al})_{\al \in A}) \in \Coprod_{\MC}((X_{\al})_{\al \in A})$, $X \cong_{\MC} Y$. 
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+	content...
+\end{ex}
 	
 	
 	
@@ -5125,9 +5483,9 @@
 	
 	\section{Subcategories}
 	
-	\tcr{are subcategories subobjects in $\Cat$ where subobjects are defined as in `Elementary categories, elementary toposes` by mcLarty?, how to place this subsection?}\\
+	\tcr{are subcategories subobjects in $\bCat$ where subobjects are defined as in `Elementary categories, elementary toposes` by mcLarty?, how to place this subsection?}\\
 	
-	TODO: move this subsection until after functors and natural transformations, maybe even after adjunctions. We definitely want to to be able to characterize subcategories as subobjects of categories and in terms of the inclusion functor, so maybe should come after monomorphisms, subobjects and functors.  We also want to describe subcategories generated by a subgraph, so we need to talk about the graph of a category and the adjoint of the forgetful functor from $\Cat$ to Graph, so maybe put after adjoints, then this will come after limits. Would like to cover the order of subcat, prodcat, coprodcat? quocat? projlimcat?, so need to check of the product cat can come after limits and adjoints and all that. also subobjects should come after slice categories, since we turn slice categories of wide categories generated by graphs whose edges belong to a class of monomorphisms into a proset, but if subobjects come after generated categories, they need to come after adjoints, so maybe we should later give examples of subobjects in Cat as subcats. This sounds good, so we can characterize subcats in terms of the inclusion functor and then then return to subcats as an example in the context of subobjects.\\
+	TODO: move this subsection until after functors and natural transformations, maybe even after adjunctions. We definitely want to to be able to characterize subcategories as subobjects of categories and in terms of the inclusion functor, so maybe should come after monomorphisms, subobjects and functors.  We also want to describe subcategories generated by a subgraph, so we need to talk about the graph of a category and the adjoint of the forgetful functor from $\bCat$ to Graph, so maybe put after adjoints, then this will come after limits. Would like to cover the order of subcat, prodcat, coprodcat? quocat? projlimcat?, so need to check of the product cat can come after limits and adjoints and all that. also subobjects should come after slice categories, since we turn slice categories of wide categories generated by graphs whose edges belong to a class of monomorphisms into a proset, but if subobjects come after generated categories, they need to come after adjoints, so maybe we should later give examples of subobjects in Cat as subcats. This sounds good, so we can characterize subcats in terms of the inclusion functor and then then return to subcats as an example in the context of subobjects.\\
 	
 	The subcategories generated by a graph as an adjunction should also be applicable to describing the topology generated by a subset I think, not sure if there is a lattice formulation of this topic as well and if the adjunct description generalizes this lattice description. Maybe there is just a straight lattice based characteriszation of generated subcateogries when we order by inclusion functors.\\
 	
@@ -5301,7 +5659,7 @@
 				\item for each $A,B,C \in \Obj(\MD)$, $f \in \Hom_{\MD}(A, B)$ and $g \in \Hom_{\MD}(B, C)$, $g \circ_{\MD} f = g \circ_{\MC} f$
 				\item for each $A \in \Obj(\MD)$, $\id_A^{\MD} = \id_A^{\MC}$
 			\end{enumerate}
-			\item We define $\Subcat(\MC) \defeq \{\MD \in \Cat: \text{$\ML$ is a subcategory of $\MC$}\}$. \tcr{need to give more justification for why we restrict to $\Cat$, with universes, this should not be an issue, but need to formalize it}
+			\item We define $\Subcat(\MC) \defeq \{\MD \in \bCat: \text{$\ML$ is a subcategory of $\MC$}\}$. \tcr{need to give more justification for why we restrict to $\bCat$, with universes, this should not be an issue, but need to formalize it}
 			\item We define the \tbf{subcategory relation on $\Subcat(\MC)$}, denoted ${\leqcat} \subset \Subcat(\MC) \times \Subcat(\MC)$, by $\MD \leqcat \MC$ iff $\MD$ is a subcat of $\MC$.  
 		\end{itemize}
 	\end{defn}
@@ -5351,7 +5709,7 @@
 	\end{proof}
 	
 	\begin{defn}
-		We define the \tbf{forgetful functor from $\Cat$ to $\bQuiv$}, denoted $\text{Forget}^{\Cat}_{\bQuiv}: \Cat \rightarrow \bQuiv$
+		We define the \tbf{forgetful functor from $\bCat$ to $\bQuiv$}, denoted $\text{Forget}^{\bCat}_{\bQuiv}: \bCat \rightarrow \bQuiv$
 		\tcr{finish}  
 	\end{defn}
 	
@@ -5523,77 +5881,222 @@
 	
 	
 	\newpage
-	\section{Product Categories}
+	\section{Product and Coproduct Categories}
 	
 	\subsection{Introduction}
 	
+	\begin{note}
+		\tcr{there may be an issue with the definition of infinite products/coproducts of categories}. The idea is that if for some $\al_0 \in A$, $\Obj(C_{\al_0})$ is not a set, then $\bigcup\limits_{\al \in A} \Obj(\MC_{\al})$ is not a set. So it might be fine to define a single (or finitely many) object(s) of the product category: $(X_{\al})_{\al \in A}:A \rightarrow \bigcup \limits_{\al \in A} \Obj(\MC_{\al})$ such that for each $\al_0 \in A$, $(X_{\al})_{\al \in A}(\al_0) \in \Obj(\MC_{\al_0})$, but this single object may be in fact not a set. In which case, we can not make a 'class' of these objects since classes contained as members in other classes are sets. So we either iterate the von Neumann-Bernays-Godel set theory to higher level classes, or we use universes or something, but this needs to be made precise and needs to be applied to all constructions going forward.\tcr{FINISH!!!}
+	\end{note}
+	
 	\begin{defn} \ld{def:basics:contructs:products:0001}
-		Let $\MC$ and $\MD$ be categories. We define the \textbf{product category of $\MC$ and $\MD$}, denoted $\MC \times \MD$ by 
+		Let $(\MC)_{\al \in A}$ be a collection of categories. We define the \textbf{product category of $(\MC)_{\al \in A}$}, denoted $\prod\limits_{\al \in A} \MC_{\al}$, by 
 		\begin{itemize}
-			\item $\Obj(\MC \times \MD) \defeq \Obj(\MC) \times \Obj(\MD)$
-			\item for each $(A, A'), (B, B') \in \Obj(\MC \times \MD)$, 
-			$$\Hom_{\MC \times \MD}((A, A'), (B, B')) \defeq \Hom_{\MC}(A, B) \times \Hom_{\MC}(A', B').$$
-			\item for each  $(A, A'), (B, B'), (C, C') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$ and $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$, 
-			$$(g,g') \circ_{\MC \times \MD} (f, f') \defeq  (g \circ_{\MC} f, g' \circ_{\MD} f')$$
+			\item $\Obj \bigg(\prod\limits_{\al \in A} \MC_{\al} \bigg) \defeq \prod\limits_{\al \in A} \Obj(\MC_{\al})$
+			\item for each $(X_{\al})_{\al \in A}, (Y_\al)_{\al \in A} \in \Obj \bigg(\prod\limits_{\al \in A} \MC_{\al} \bigg)$, 
+			\[
+			\Hom_{\prod\limits_{\al \in A} \MC_{\al}}((X_{\al})_{\al \in A}, (Y_\al)_{\al \in A}) \defeq \prod\limits_{\al \in A} \Hom_{\MC_{\al}}(X_{\al}, Y_{\al})
+			\]
+			\item $(X_{\al})_{\al \in A}, (Y_\al)_{\al \in A}, (Z_\al)_{\al \in A} \in \Obj\bigg(\prod\limits_{\al \in A} \MC_{\al} \bigg) $, $(f_{\al})_{\al \in A} \in \Hom_{\prod\limits_{\al \in A} \MC_{\al}}((X_{\al})_{\al \in A}, (Y_\al)_{\al \in A})$ and $(g_{\al})_{\al \in A} \in \Hom_{\prod\limits_{\al \in A} \MC_{\al}}((Y_{\al})_{\al \in A}, (Z_\al)_{\al \in A})$,
+			$$(g_{\al})_{\al \in A} \circ_{\prod\limits_{\al \in A} \MC_{\al}} (f_{\al})_{\al \in A} \defeq  (g_{\al} \circ_{\MC_{\al}} f_{\al})_{\al \in A}$$
 		\end{itemize}
 	\end{defn}
 	
+	\begin{note}
+		When $A = \{1,2\}$, we may write $\MC_1 \times \MC_2$ in place of $\prod\limits_{\al \in A} \MC_{\al}$.
+	\end{note}
+
 	\begin{ex} \lex{ex:basics:contructs:products:0002}
-		Let $\MC$ and $\MD$ be categories. Then $\MC \times \MD$ is a category. 
+		Let $(\MC)_{\al \in A}$ be a collection of categories. Then $\prod\limits_{\al \in A} \MC_{\al}$ is a category. 
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{itemize}
 			\item \textbf{well-definedness of composition: } \\ 
-			Let $(A, A'), (B, B'), (C, C') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$ and $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$. Then $f \in \Hom_{\MC}(A, B)$, $g \in \Hom_{\MC}(B, C)$, $f'  \in \Hom_{\MD}(A', B')$, and  $g' \in \Hom_{\MD}(B', C')$. Hence $g \circ_{\MC} f \in \Hom_{\MC}(A, C)$ and $g' \circ_{\MD} f' \in \Hom_{\MD}(A', C')$. Thus 
+			Let $(X^1_{\al})_{\al \in A}, (X^2_{\al})_{\al \in A}, (X^3_{\al})_{\al \in A} \in \Obj \bigg( \prod\limits_{\al \in A} \MC_{\al} \bigg)$, $(f^{12}_{\al})_{\al \in A} \in \Hom_{\prod\limits_{\al \in A} \MC_{\al}}((X^1_{\al})_{\al \in A}, (X^2_{\al})_{\al \in A})$ and $(f^{23}_{\al})_{\al \in A} \in \Hom_{\prod\limits_{\al \in A} \MC_{\al}}((X^2_{\al})_{\al \in A}, (X^3_{\al})_{\al \in A})$. Then 
 			\begin{align*}
-				(g,g') \circ_{\MC \times \MD} (f, f') 
-				&= (g \circ_{\MC} f, g' \circ_{\MD} f') \\
-				& \in \Hom_{\MC \times \MD}((A, A'), (C, C'))
-			\end{align*}
+				(f^{23}_{\al})_{\al \in A} \circ_{\prod\limits_{\al \in A} \MC_{\al}} (f^{12}_{\al})_{\al \in A}
+				& = (f^{23}_{\al} \circ_{\MC_{\al}} f^{12}_{\al})_{\al \in A} \\
+				& \in \Hom_{\prod\limits_{\al \in A} \MC_{\al}}((X^1_{\al})_{\al \in A}, (X^3_{\al})_{\al \in A}).
+			\end{align*}  
 			Thus, composition is well defined. \\
 			\item \textbf{associativity of composition:} \\
-			Let $(A, A'), (B, B'), (C, C'), (D, D') \in \Obj(\MC \times \MD)$, $(f, f') \in \Hom_{\MC \times \MD}((A, A'), (B, B'))$, $(g, g') \in \Hom_{\MC \times \MD}((B, B'), (C, C'))$ and $(h, h') \in \Hom_{\MC \times \MD}((C, C'), (D, D'))$. Then 
+			Let $(X^1_{\al})_{\al \in A}, (X^2_{\al})_{\al \in A}, (X^3_{\al})_{\al \in A}, (X^4_{\al})_{\al \in A} \in \Obj \bigg(\prod\limits_{\al \in A} \MC_{\al} \bigg)$, $(f^{12}_{\al})_{\al \in A} \in \Hom_{\prod\limits_{\al \in A} \MC_{\al}}((X^1_{\al})_{\al \in A}, (X^2_{\al})_{\al \in A})$, $(f^{23}_{\al})_{\al \in A} \in \Hom_{\prod\limits_{\al \in A} \MC_{\al}}((X^2_{\al})_{\al \in A}, (X^3_{\al})_{\al \in A})$ and $(f^{34}_{\al})_{\al \in A} \in \Hom_{\prod\limits_{\al \in A} \MC_{\al}}((X^3_{\al})_{\al \in A}, (X^4_{\al})_{\al \in A})$. Then 
 			\begin{align*}
-				[(h, h') \circ_{\MC \times \MD} (g , g') ] \circ_{\MC \times \MD} (f, f')
-				& = (h \circ_{\MC} g, h' \circ_{\MD} g') \circ_{\MC \times \MD} (f, f') \\
-				& = ((h \circ_{\MC} g) \circ_{\MC} f, (h' \circ_{\MD} g') \circ_{\MD} f') \\
-				& = (h \circ_{\MC} ( g \circ_{\MC} f), h' \circ_{\MD} (g' \circ_{\MD} f')) \\
-				& = (h, h') \circ_{\MC \times \MD} (g \circ_{\MC} f, g' \circ_{\MD} f') \\
-				& = (h, h') \circ_{\MC \times \MD} [(g, g') \circ_{\MC \times \MD} (f, f')]
-			\end{align*} 
+				[(f^{34}_{\al})_{\al \in A} \circ_{\prod\limits_{\al \in A} \MC_{\al}} (f^{23}_{\al})_{\al \in A}] \circ_{\prod\limits_{\al \in A} \MC_{\al}} (f^{12}_{\al})_{\al \in A}
+				& = (f^{34}_{\al} \circ_{\MC_{\al}} f^{12}_{\al})_{\al \in A} \circ_{\prod\limits_{\al \in A} \MC_{\al}} (f^{12}_{\al})_{\al \in A} \\
+				& = ([f^{34}_{\al} \circ_{\MC_{\al}} f^{23}_{\al}] \circ_{\MC_{\al}} f^{12}_{\al})_{\al \in A} \\
+				& (f^{34}_{\al} \circ_{\MC_{\al}} [f^{23}_{\al} \circ_{\MC_{\al}} f^{12}_{\al}])_{\al \in A} \\
+				& = (f^{34}_{\al})_{\al \in A} \circ_{\prod\limits_{\al \in A} \MC_{\al}} (f^{23}_{\al} \circ_{\MC_{\al}} f^{12}_{\al})_{\al \in A} \\
+				& = (f^{34}_{\al})_{\al \in A} \circ_{\prod\limits_{\al \in A} \MC_{\al}} [(f^{23}_{\al})_{\al \in A} \circ_{\prod\limits_{\al \in A} \MC_{\al}} (f^{34}_{\al})_{\al \in A}].
+			\end{align*}  
 			Thus composition is associative. \\
 			\item \textbf{existence of identities: } \\
-			Let $(A, B) \in \Obj(\MC \times \MD)$, $(f, f'), (g,g') \in \Hom_{\MC \times \MD}$. Suppose that $\dom_{\MC \times \MD}(f, f') = (A, B)$ and $\cod_{\MC \times \MD}(g, g') = (A, B)$. Then $\dom_{\MC}(f) = A$, $\dom_{\MD}(f') = B$, $\cod_{\MC}(g) = A$ and  $\cod_{\MD}(g') = B$. Hence
+			Let $(X_{\al})_{\al \in A} \in \Obj \bigg(\prod\limits_{\al \in A} \MC_{\al} \bigg)$, $(f_{\al})_{\al \in A}, (g_{\al})_{\al \in A} \in \Hom_{\prod\limits_{\al \in A} \MC_{\al}}$. Suppose that $\dom_{\prod\limits_{\al \in A} \MC_{\al}}((f_{\al})_{\al \in A}) = (X_{\al})_{\al \in A}$ and $\cod_{\prod\limits_{\al \in A} \MC_{\al}}((g_{\al})_{\al \in A}) = (X_{\al})_{\al \in A}$. Then 
 			\begin{align*}
-				(f, f') \circ_{\MC \times \MD} (\id_A^{\MC}, \id_{B}^{\MD}) 
-				& = (f \circ_{\MC} \id_A^{\MC}, f' \circ_{\MD} \id_{B}^{\MD}) \\
-				& = (f, f)
+				(f_{\al})_{\al \in A} \circ_{\prod\limits_{\al \in A} \MC_{\al}} (\id_{X_{\al}}^{\MC_{\al}})_{\al \in A}
+				& = (f_{\al} \circ_{\MC_{\al}} \id_{X_{\al}}^{\MC_{\al}})_{\al \in A} \\
+				& = (f_{\al})_{\al \in A} 
 			\end{align*}
 			and
 			\begin{align*}
-				(\id_A^{\MC}, \id_{B}^{\MD})  \circ_{\MC \times \MD} (g, g')
-				& = (\id_A^{\MC} \circ_{\MC} g , \id_{B}^{\MD} \circ_{\MD} g') \\
-				& = (g, g')
+				(\id_{X_{\al}}^{\MC_{\al}})_{\al \in A} \circ_{\prod\limits_{\al \in A} \MC_{\al}} (g_{\al})_{\al \in A}
+				& = (\id_{X_{\al}}^{\MC_{\al}} \circ_{\MC_{\al}} g_{\al})_{\al \in A} \\
+				& = (g_{\al})_{\al \in A}.
 			\end{align*}
-			Therefore $\id_{(A, B)}^{\MC \times \MD} = (\id_A^{\MC}, \id_{B}^{\MD})$.
+			Therefore $\id_{(X_{\al})_{\al \in A}}^{\prod\limits_{\al \in A} \MC_{\al}} = (\id_{X_{\al}}^{\MC_{\al}})_{\al \in A}$.
 		\end{itemize}
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:contructs:products:0002.1}
-		Let $\MC$ and $\MD$ be categories. Then $\MC$ and $\MD$ are small iff $\MC \times \MD$ is small.
+		Let $(\MC_{\al})_{\al \in A}$ be a collection of categories. Then for each $\al \in A$, $\MC_{\al}$ is small iff $\prod\limits_{\al \in A} \MC_{\al}$ is small.
 	\end{ex}
 	
 	\begin{proof}
 		We have that 
 		\begin{align*}
-			\text{$\MC$ and $\MD$ are small}
-			& \iff \Obj(\MC), \Hom_{\MC}, \Obj(\MD), \Hom_{\MD} \in \Obj(\bSet) \\
-			& \text{$\iff \Obj(\MC) \times \Obj(\MD) \in \Obj(\bSet)$ and $\Hom_{\MC} \times \Hom_{\MD} \in \Obj(\bSet)$} \\
-			& \text{$\iff (\Obj(\MC \times \MD) \in \Obj(\bSet)$ and $\Hom_{\MC \times \MD} \in \Obj(\bSet)$} \\
-			& \text{$\iff \MC \times \MD$ is small}.
+			\text{for each $\al \in A$, $\MC_{\al}$ is small}
+			& \iff \text{for each $\al \in A$, $\Obj(\MC_{\al}) \in \Obj(\Set)$ and $\Hom_{\MC_{\al}} \in \Obj(\Set)$} \\
+			& \iff \text{$ \prod\limits_{\al \in A} \Obj(\MC_{\al}) \in \Obj(\bSet)$ and $\prod\limits_{\al \in A} \Hom_{\MC} \in \Obj(\bSet)$} \\
+			& \iff \text{$ \Obj \bigg(\prod\limits_{\al \in A} \MC_{\al} \bigg) \in \Obj(\bSet)$ and $\Hom_{\prod\limits_{\al \in A} \MC_{\al}} \in \Obj(\bSet)$} \\
+			& \iff \text{$ \prod\limits_{\al \in A} \MC_{\al}$ is small}.
 		\end{align*}
 	\end{proof}
+	
+	\begin{defn} \ld{def:basics:contructs:products:0002.2}
+		Let $(\MC)_{\al \in A}$ be a collection of categories. We define the \textbf{coproduct category of $(\MC)_{\al \in A}$}, denoted $\coprod\limits_{\al \in A} \MC_{\al}$, by 
+		\begin{itemize}
+			\item $\Obj \bigg(\coprod\limits_{\al \in A} \MC_{\al} \bigg) \defeq \coprod\limits_{\al \in A} \Obj(\MC_{\al})$
+			\item for each $(\al_X, X), (\al_Y, Y) \in \Obj \bigg(\coprod\limits_{\al \in A} \MC_{\al} \bigg)$, 
+			\[
+			\Hom_{\coprod\limits_{\al \in A} \MC_{\al}}((\al_X, X), (\al_Y, Y)) \defeq 
+			\begin{cases}
+				\{\al \} \times \Hom_{\MC_{\al}}(X, Y), & \al_X = \al_Y \\
+				\varnothing, & \al_X \neq \al_Y 
+			\end{cases}
+			\]
+			\item for each $\al \in A$, $X,Y,Z \in \Obj(\MC_{\al}) $, $f \in \Hom_{\MC_{\al}}(X, Y)$ and $g \in \Hom_{\MC_{\al}}(Y, Z)$, 
+			$$(\al, g) \circ_{\coprod\limits_{\al' \in A} \MC_{\al'}} (\al, f) \defeq  (\al, g \circ_{\MC_{\al}} f)$$
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}\
+		\begin{itemize}
+			\item For each $(\al_X, X), (\al_Y, Y) \in \Obj \bigg( \coprod\limits_{\al \in A} \MC_{\al} \bigg)$ and $(\al_f, f) \in \Hom_{ \coprod\limits_{\al \in A} \MC_{\al}}$, we have that
+			\begin{align*}
+				(\al_f, f) \in \Hom_{ \coprod\limits_{\al \in A} \MC_{\al}}((\al_X, X), (\al_Y, Y))
+				& \implies \Hom_{ \coprod\limits_{\al \in A} \MC_{\al} }((\al_X, X), (\al_Y, Y)) \neq \varnothing \\
+				& \implies \al_X = \al_Y = \al_f.
+			\end{align*}
+			\item By definition, $\Hom_{\coprod\limits_{\al \in A} \MC_{\al}}  = \coprod\limits_{\al \in A} \Hom_{\MC_{\al}}$.
+		\end{itemize}
+	\end{note}
+	
+	\begin{ex} \lex{ex:basics:contructs:products:0002.3}
+		Let $(\MC)_{\al \in A}$ be a collection of categories. Then $\coprod\limits_{\al \in A} \MC_{\al}$ is a category. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item \textbf{well-definedness of composition: } \\ 
+			Let $(\al_1, X_1), (\al_2, X_2), (\al_3, X_3) \in \Obj \bigg( \coprod\limits_{\al \in A} \MC_{\al} \bigg)$, $(\al_{12}, f_{12}) \in \Hom_{\coprod\limits_{\al \in A} \MC_{\al}}((\al_1, X_1), (\al_2, X_2))$ and $(\al_{23}, f_{23}) \in \Hom_{\coprod\limits_{\al \in A} \MC_{\al}}((\al_2, X_2), (\al_3, X_3))$. Then $\al_1 = \al_2 = \al_3 = \al_{12} = \al_{23}$. Set $\al_0 \defeq \al_1$. Since $f_{12} \in \Hom_{\MC_{\al_0}}(X_1, X_2)$ and $f_{23} \in \Hom_{\MC_{\al_0}}(X_2, X_3)$, we have that $f_{23} \circ_{\MC_{\al_0}} f_{12} \in \Hom_{\MC_{\al_0}}(X_1, X_3)$ and
+			\begin{align*}
+				(\al_{23}, f_{23}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_{12}, f_{12})
+				& = (\al_0, f_{23}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_0, f_{12}) \\
+				& = (\al_0, f_{23} \circ_{\MC_{\al_0}} f_{12}) \\
+				& \in \Hom_{\coprod\limits_{\al \in A} \MC_{\al}}((\al_0, X_1), (\al_0, X_3)) \\
+				& = \Hom_{\coprod\limits_{\al \in A} \MC_{\al}}((\al_1, X_1), (\al_3, X_3)).
+			\end{align*}  
+			Thus, composition is well defined. \\
+			\item \textbf{associativity of composition:} \\
+			Let $(\al_1, X_1), (\al_2, X_2), (\al_3, X_3), (\al_4, X_4) \in \Obj \bigg( \coprod\limits_{\al \in A} \MC_{\al} \bigg)$, $(\al_{12}, f_{12}) \in \Hom_{\coprod\limits_{\al \in A} \MC_{\al}}((\al_1, X_1), (\al_2, X_2))$, $(\al_{23}, f_{23}) \in \Hom_{\coprod\limits_{\al \in A} \MC_{\al}}((\al_2, X_2), (\al_3, X_3))$ and $(\al_{34}, f_{34}) \in \Hom_{\coprod\limits_{\al \in A} \MC_{\al}}((\al_3, X_3), (\al_4, X_4))$. Then $\al_1 = \al_2 = \al_3 = \al_4 = \al_{12} = \al_{23} = \al_{34}$. Set $\al_0 \defeq \al_1$. Since $f_{12} \in \Hom_{\MC_{\al_0}}(X_1, X_2)$, $f_{23} \in \Hom_{\MC_{\al_0}}(X_2, X_3)$ and $f_{34} \in \Hom_{\MC_{\al_0}}(X_3, X_4)$, we have that 
+			\begin{align*}
+				(\al_{34}, f_{34}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} [(\al_{23}, f_{23}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_{12}, f_{12})]
+				& = (\al_0, f_{34}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} [(\al_0, f_{23}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_0, f_{12})] \\
+				& = (\al_0, f_{34}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_0, f_{23} \circ_{\MC_{\al_0}} f_{12}) \\
+				& = (\al_0, f_{34} \circ_{\MC_{\al_0}} [f_{23} \circ_{\MC_{\al_0}} f_{12}]) \\
+				& = (\al_0, [f_{34} \circ_{\MC_{\al_0}} f_{23}] \circ_{\MC_{\al_0}} f_{12}) \\
+				& = (\al_0, f_{34} \circ_{\MC_{\al_0}} f_{23}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_0, f_{12}) \\
+				& = [(\al_0, f_{34}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_0, f_{23})] \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_0, f_{12}) \\
+				& = [(\al_{34}, f_{34}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_{23}, f_{23})] \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_{21}, f_{12}).
+			\end{align*}  
+			Thus composition is associative. \\
+			\item \textbf{existence of identities: } \\
+			Let $(\al_X, X) \in \Obj \bigg(\coprod\limits_{\al \in A} \MC_{\al} \bigg)$, $(\al_f, f), (\al_g, g) \in \Hom_{\coprod\limits_{\al \in A} \MC_{\al}}$. Suppose that $\dom_{\coprod\limits_{\al \in A} \MC_{\al}}(\al_f, f) = (\al_X, X)$ and $\cod_{\coprod\limits_{\al \in A} \MC_{\al}}(\al_g, g) = (\al_X, X)$. Then $\al_X = \al_f = \al_g$, $f,g \in \Hom_{\MC_{\al_X}}$, $\dom_{\MC_{\al_X}}(f) = X$ and $\cod_{\MC_{\al_X}} (g) = X$. Hence
+			\begin{align*}
+				(\al_f, f) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_X, \id_X^{\MC_{\al_X}}) 
+				& = (\al_X, f) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_X, \id_X^{\MC_{\al_X}}) \\
+				& = (\al_X, f \circ_{\MC_{\al_X}} \id_X^{\MC_{\al_X}}) \\
+				& = (\al_X, f) \\
+				& = (\al_f, f)
+			\end{align*}
+			and
+			\begin{align*}
+				(\al_X, \id_X^{\MC_{\al_X}}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_g, g)
+				& = (\al_X, \id_X^{\MC_{\al_X}}) \circ_{\coprod\limits_{\al \in A} \MC_{\al}} (\al_X, g) \\
+				& = (\al_X , \id_X^{\MC_{\al_X}} \circ_{\MC_{\al_X}} g) \\
+				& = (\al_X, g) \\
+				& = (\al_g, g).
+			\end{align*}
+			Therefore $\id_{(\al_X, X)}^{\coprod\limits_{\al \in A} \MC_{\al}} = (\al_X, \id_X^{\MC_{\al_X}})$.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \lex{ex:basics:contructs:products:0002.4}
+		Let $(\MC_{\al})_{\al \in A}$ be a collection of categories. Then for each $\al \in A$, $\MC_{\al}$ is small iff $\coprod\limits_{\al \in A} \MC_{\al}$ is small.
+	\end{ex}
+	
+	\begin{proof}
+		We have that 
+		\begin{align*}
+			\text{for each $\al \in A$, $\MC_{\al}$ is small}
+			& \iff \text{for each $\al \in A$, $\Obj(\MC_{\al}) \in \Obj(\Set)$ and $\Hom_{\MC_{\al}} \in \Obj(\Set)$} \\
+			& \iff \text{$ \coprod\limits_{\al \in A} \Obj(\MC_{\al}) \in \Obj(\bSet)$ and $\coprod\limits_{\al \in A} \Hom_{\MC} \in \Obj(\bSet)$} \\
+			& \iff \text{$ \Obj \bigg(\coprod\limits_{\al \in A} \MC_{\al} \bigg) \in \Obj(\bSet)$ and $\Hom_{\coprod\limits_{\al \in A} \MC_{\al}} \in \Obj(\bSet)$} \\
+			& \iff \text{$ \coprod\limits_{\al \in A} \MC_{\al}$ is small}.
+		\end{align*}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	\begin{defn} \ld{def:basics:contructs:products:0003}
 		Let $\MA, \MB, \MC, \MD$ be categories and $F: \MA \rightarrow \MC$, $G: \MB \rightarrow \MD$. We define the \tbf{product functor of $F$ and $G$}, denoted $F \times G: \MA \times \MB \rightarrow  \MC \times \MD$, by 
@@ -5645,102 +6148,102 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:contructs:products:0004.1}
-		 Let $\MC_1, \MC_2, \MC_3 \MD_1, \MD_2, \MD_3 \in \Obj(\Cat)$, $F_{1,2} \in \Hom_{\Cat}(\MC_1, \MC_2)$, $F_{2,3} \in \Hom_{\Cat}(\MC_2, \MC_3)$, $G_{1,2} \in \Hom_{\Cat}(\MD_1, \MD_2)$ and $G_{2,3} \in \Hom_{\Cat}(\MD_2, \MD_3)$. Then 
-		 $$(F_{2,3} \circ_{\Cat} F_{1,2}) \times (G_{2,3} \circ_{\Cat} G_{1,2}) = (F_{2,3} \times G_{2,3}) \circ_{\Cat} (F_{1,2} \times G_{1,2}).$$
+		 Let $\MC_1, \MC_2, \MC_3 \MD_1, \MD_2, \MD_3 \in \Obj(\bCat)$, $F_{1,2} \in \Hom_{\bCat}(\MC_1, \MC_2)$, $F_{2,3} \in \Hom_{\bCat}(\MC_2, \MC_3)$, $G_{1,2} \in \Hom_{\bCat}(\MD_1, \MD_2)$ and $G_{2,3} \in \Hom_{\bCat}(\MD_2, \MD_3)$. Then 
+		 $$(F_{2,3} \circ_{\bCat} F_{1,2}) \times (G_{2,3} \circ_{\bCat} G_{1,2}) = (F_{2,3} \times G_{2,3}) \circ_{\bCat} (F_{1,2} \times G_{1,2}).$$
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{itemize}
 			\item For each $A \in \Obj(\MC_1)$ and $B \in \Obj(\MD_1)$, we have that 
 			\begin{align*}
-				[(F_{2,3} \circ_{\Cat} F_{1,2}) \times (G_{2,3} \circ_{\Cat} G_{1,2})](A,B)
-				& = (F_{2,3} \circ_{\Cat} F_{1,2}(A), (G_{2,3} \circ_{\Cat} G_{1,2}(B)) \\
+				[(F_{2,3} \circ_{\bCat} F_{1,2}) \times (G_{2,3} \circ_{\bCat} G_{1,2})](A,B)
+				& = (F_{2,3} \circ_{\bCat} F_{1,2}(A), (G_{2,3} \circ_{\bCat} G_{1,2}(B)) \\
 				& = (F_{2,3} (F_{1,2}(A)), G_{2,3}(G_{1,2}(B))) \\
 				& = (F_{2,3} \times G_{2,3})(F_{1,2}(A), G_{1,2}(B)) \\
 				& = (F_{2,3} \times  G_{2,3})((F_{1,2} \times G_{1,2})(A, B)) \\
-				& = [(F_{2,3} \times G_{2,3}) \circ_{\Cat } (F_{1,2} \times G_{1,2})](A, B).
+				& = [(F_{2,3} \times G_{2,3}) \circ_{\bCat } (F_{1,2} \times G_{1,2})](A, B).
 			\end{align*}
 			\item For each $A_1, A_2 \in \Obj(\MC_1)$, $B_1, B_2 \in \Obj(\MD_1)$
 			Then 
 			\begin{align*}
-				(F_{2,3} \circ_{\Cat} F_{1,2}) \times (G_{2,3} \circ_{\Cat} G_{1,2})(f,g)
-				& = (F_{2,3} \circ_{\Cat} F_{1,2}(f), G_{2,3} \circ_{\Cat} G_{1,2}(g)) \\
+				(F_{2,3} \circ_{\bCat} F_{1,2}) \times (G_{2,3} \circ_{\bCat} G_{1,2})(f,g)
+				& = (F_{2,3} \circ_{\bCat} F_{1,2}(f), G_{2,3} \circ_{\bCat} G_{1,2}(g)) \\
 				& = (F_{2,3}(F_{1,2}(f)), G_{2,3}(G_{1,2}(g)) \\
 				& = (F_{2,3} \times G_{2,3})(F_{1,2}(f), G_{1,2}(g)) \\
 				& = (F_{2,3} \times G_{2,3})((F_{1,2} \times G_{1,2})(f,g)) \\
-				& = (F_{2,3} \times G_{2,3}) \circ_{\Cat}(f,g).
+				& = (F_{2,3} \times G_{2,3}) \circ_{\bCat}(f,g).
 			\end{align*}
 		\end{itemize}
-		Hence $(F_{2,3} \circ_{\Cat} F_{1,2}) \times (G_{2,3} \circ_{\Cat} G_{1,2}) = (F_{2,3} \times G_{2,3}) \circ_{\Cat} (F_{1,2} \times G_{1,2})$.
+		Hence $(F_{2,3} \circ_{\bCat} F_{1,2}) \times (G_{2,3} \circ_{\bCat} G_{1,2}) = (F_{2,3} \times G_{2,3}) \circ_{\bCat} (F_{1,2} \times G_{1,2})$.
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:contructs:products:0004.2}
-		Let $\MC, \MD \in \Obj(\Cat)$. Then $\id_{\MC}^{\Cat} \times \id_{\MD}^{\Cat} = \id_{\MC \times \MD}^{\Cat}$.
+		Let $\MC, \MD \in \Obj(\bCat)$. Then $\id_{\MC}^{\bCat} \times \id_{\MD}^{\bCat} = \id_{\MC \times \MD}^{\bCat}$.
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{itemize}
 			\item For each $(A,B) \in \Obj(\MC \times \MD)$,
 			\begin{align*}
-				\id_{\MC}^{\Cat} \times \id_{\MD}^{\Cat}(A,B)
-				& = (\id_{\MC}^{\Cat}(A), \id_{\MD}^{\Cat}(B)) \\
+				\id_{\MC}^{\bCat} \times \id_{\MD}^{\bCat}(A,B)
+				& = (\id_{\MC}^{\bCat}(A), \id_{\MD}^{\bCat}(B)) \\
 				& = (A, B) \\
-				& = \id_{\MC \times \MD}^{\Cat}(A,B).
+				& = \id_{\MC \times \MD}^{\bCat}(A,B).
 			\end{align*}
 			\item For each $(f,g) \in \Hom_{\MC \times \MD}$, 
 			\begin{align*}
-				\id_{\MC}^{\Cat} \times \id_{\MD}^{\Cat}(f,g) \\
-				& = (\id_{\MC}^{\Cat}(f), \id_{\MD}^{\Cat}(g)) \\
+				\id_{\MC}^{\bCat} \times \id_{\MD}^{\bCat}(f,g) \\
+				& = (\id_{\MC}^{\bCat}(f), \id_{\MD}^{\bCat}(g)) \\
 				& = (f, g) \\
-				& = \id_{\MC \times \MD}^{\Cat}(f,g).
+				& = \id_{\MC \times \MD}^{\bCat}(f,g).
 			\end{align*}
 		\end{itemize}
-		Hence $\id_{\MC}^{\Cat} \times \id_{\MD}^{\Cat} = \id_{\MC \times \MD}^{\Cat}$.
+		Hence $\id_{\MC}^{\bCat} \times \id_{\MD}^{\bCat} = \id_{\MC \times \MD}^{\bCat}$.
 	\end{proof}
 	
 	\begin{defn} \ld{def:basics:contructs:products:0004.3}
-		We define the \tbf{product functor on $\Cat$}, denoted $(- \times -): \Cat \times \Cat \rightarrow \Cat$, by 
+		We define the \tbf{product functor on $\bCat$}, denoted $(- \times -): \bCat \times \bCat \rightarrow \bCat$, by 
 		\begin{itemize}
-			\item $(- \times -) (\MA, \MB) \defeq \MA \times \MB , \quad (\MA, \MB) \in \Obj(\Cat \times \Cat)$,
-			\item $(- \times -) (F, G) \defeq F \times G$, $\quad$ $(\MC_1, \MD_1), (\MC_1, \MD_2) \in \Obj(\Cat \times \Cat)$ and $(F, G) \in \Hom_{\Cat \times \Cat}((\MC_1, \MD_1), (\MC_2, \MD_2))$.
+			\item $(- \times -) (\MA, \MB) \defeq \MA \times \MB , \quad (\MA, \MB) \in \Obj(\bCat \times \bCat)$,
+			\item $(- \times -) (F, G) \defeq F \times G$, $\quad$ $(\MC_1, \MD_1), (\MC_1, \MD_2) \in \Obj(\bCat \times \bCat)$ and $(F, G) \in \Hom_{\bCat \times \bCat}((\MC_1, \MD_1), (\MC_2, \MD_2))$.
 		\end{itemize}
 	\end{defn}
 	
 	\begin{ex} \lex{ex:basics:contructs:products:0004.4}
-		We have that $(- \times -): \Cat \times \Cat \rightarrow \Cat$ is a functor.
+		We have that $(- \times -): \bCat \times \bCat \rightarrow \bCat$ is a functor.
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $(\MC_1, \MD_1), (\MC_2, \MD_2) \in \Obj(\Cat \times \Cat)$ and $(F,G) \in \Hom_{\Cat \times \Cat}((\MC_1, \MD_1), (\MC_2, \MD_2))$. \rex{ex:basics:contructs:products:0004} implies that 
+			\item Let $(\MC_1, \MD_1), (\MC_2, \MD_2) \in \Obj(\bCat \times \bCat)$ and $(F,G) \in \Hom_{\bCat \times \bCat}((\MC_1, \MD_1), (\MC_2, \MD_2))$. \rex{ex:basics:contructs:products:0004} implies that 
 			\begin{align*}
 				(- \times -)(F,G)
 				& = F \times G \\
-				& \in \Hom_{\Cat}(\MC_1 \times \MD_1, \MC_2 \times \MD_2) \\
-				& = \Hom_{\Cat}((- \times -)(\MC_1, \MD_1), (- \times -)(\MC_2, \MD_2)).
+				& \in \Hom_{\bCat}(\MC_1 \times \MD_1, \MC_2 \times \MD_2) \\
+				& = \Hom_{\bCat}((- \times -)(\MC_1, \MD_1), (- \times -)(\MC_2, \MD_2)).
 			\end{align*}
-			\item Let $(\MC_1, \MD_1), (\MC_2, \MD_2), (\MC_3, \MD_3) \in \Obj(\Cat \times \Cat)$, $(F_{1,2},G_{1,2}) \in \Hom_{\Cat \times \Cat}((\MC_1, \MD_1), (\MC_2, \MD_2))$ and $(F_{2,3},G_{2,3}) \in \Hom_{\Cat \times \Cat}((\MC_2, \MD_2), (\MC_3, \MD_3))$. \rex{ex:basics:contructs:products:0004.1} implies that
+			\item Let $(\MC_1, \MD_1), (\MC_2, \MD_2), (\MC_3, \MD_3) \in \Obj(\bCat \times \bCat)$, $(F_{1,2},G_{1,2}) \in \Hom_{\bCat \times \bCat}((\MC_1, \MD_1), (\MC_2, \MD_2))$ and $(F_{2,3},G_{2,3}) \in \Hom_{\bCat \times \bCat}((\MC_2, \MD_2), (\MC_3, \MD_3))$. \rex{ex:basics:contructs:products:0004.1} implies that
 			\begin{align*}
-				(- \times -)((F_{2,3},G_{2,3}) \circ_{\Cat \times \Cat} (F_{1,2},G_{1,2}))
-				& = (- \times -)(F_{2,3} \circ_{\Cat} F_{1,2}, G_{2,3} \circ_{\Cat} G_{1,2}) \\
-				& = (F_{2,3} \circ_{\Cat} F_{1,2}) \times (G_{2,3} \circ_{\Cat} G_{1,2}) \\
-				& = (F_{2,3} \times G_{2,3}) \circ_{\Cat} (F_{1,2} \times G_{1,2}) \\
-				& = (- \times -)(F_{2,3}, G_{2,3}) \circ_{\Cat} (- \times -)(F_{1,2}, G_{1,2}).
+				(- \times -)((F_{2,3},G_{2,3}) \circ_{\bCat \times \bCat} (F_{1,2},G_{1,2}))
+				& = (- \times -)(F_{2,3} \circ_{\bCat} F_{1,2}, G_{2,3} \circ_{\bCat} G_{1,2}) \\
+				& = (F_{2,3} \circ_{\bCat} F_{1,2}) \times (G_{2,3} \circ_{\bCat} G_{1,2}) \\
+				& = (F_{2,3} \times G_{2,3}) \circ_{\bCat} (F_{1,2} \times G_{1,2}) \\
+				& = (- \times -)(F_{2,3}, G_{2,3}) \circ_{\bCat} (- \times -)(F_{1,2}, G_{1,2}).
 			\end{align*} 
-			\item \rex{ex:basics:contructs:products:0004.2} implies that for each $(\MC, \MD) \in \Obj(\Cat \times \Cat)$, 
+			\item \rex{ex:basics:contructs:products:0004.2} implies that for each $(\MC, \MD) \in \Obj(\bCat \times \bCat)$, 
 			\begin{align*}
-				(- \times -)(\id_{(\MC, \MD)}^{\Cat \times \Cat})
-				& = (- \times -)(\id_{\MC}^{\Cat}, \id_{\MD}^{\Cat}) \\
-				& = \id_{\MC}^{\Cat} \times \id_{\MD}^{\Cat} \\
-				& = \id_{\MC \times \MD}^{\Cat} \\
-				& = \id_{(- \times -)(\MC, \MD)}^{\Cat}.
+				(- \times -)(\id_{(\MC, \MD)}^{\bCat \times \bCat})
+				& = (- \times -)(\id_{\MC}^{\bCat}, \id_{\MD}^{\bCat}) \\
+				& = \id_{\MC}^{\bCat} \times \id_{\MD}^{\bCat} \\
+				& = \id_{\MC \times \MD}^{\bCat} \\
+				& = \id_{(- \times -)(\MC, \MD)}^{\bCat}.
 			\end{align*}
 		\end{enumerate}
-		Hence $(- \times -): \Cat \times \Cat \rightarrow \Cat$ is a functor.
+		Hence $(- \times -): \bCat \times \bCat \rightarrow \bCat$ is a functor.
 	\end{proof}
 	
 	\begin{ex}
-		\tcr{maybe switch order of 'basic construction and operations' and 'fundamental structures' and redo the previous exercises by showing that if $\MC$ has finite products, then $\times : \MC \times \MC \mapsto \MC$ given by $\times (A,B) \defeq A \times B$ and $\times(f, g) \defeq f \times g$ is a functor and then the previous exercise would be a corollary with $\MC = \Cat$ (if we show that $(\MC \times \MD, (\pi_{\MC}, \pi_{\MD})) \in \Prod_{\Cat}(\MC, \MD)$ and $F \times G$ is the product of morphisms in $\Cat$ as defined in the section on products in the basic ).}
+		\tcr{maybe switch order of 'basic construction and operations' and 'fundamental structures' and redo the previous exercises by showing that if $\MC$ has finite products, then $\times : \MC \times \MC \mapsto \MC$ given by $\times (A,B) \defeq A \times B$ and $\times(f, g) \defeq f \times g$ is a functor and then the previous exercise would be a corollary with $\MC = \bCat$ (if we show that $(\MC \times \MD, (\pi_{\MC}, \pi_{\MD})) \in \Prod_{\bCat}(\MC, \MD)$ and $F \times G$ is the product of morphisms in $\bCat$ as defined in the section on products in the basic ).}
 	\end{ex}
 	
 	
@@ -6052,7 +6555,7 @@
 	\section{Functor Categories}
 	
 	\begin{defn} \ld{def:basics:contructs:func_cats:0001}
-		Let $\MC, \MD \in \Obj(\Cat)$. We define the \tbf{evaluation functor from $\MC \times \MD^{\MC}$ to $\MD$}, denoted $\eval_{(\MC, \MD)}:\MC \times \MD^{\MC} \rightarrow \MD$, by 
+		Let $\MC, \MD \in \Obj(\bCat)$. We define the \tbf{evaluation functor from $\MC \times \MD^{\MC}$ to $\MD$}, denoted $\eval_{(\MC, \MD)}:\MC \times \MD^{\MC} \rightarrow \MD$, by 
 		\begin{itemize}
 			\item $\eval_{(\MC, \MD)}(A, F) \defeq F(A), \quad (A,F) \in \Obj(\MC \times \MD^{\MC})$
 			\item $\eval_{(\MC, \MD)}(f, \al) \defeq G(f) \circ_{\MD} \al_A, \quad (f, \al) \in \Hom_{\MC \times \MD^{\MC}}$
@@ -6060,7 +6563,7 @@
 	\end{defn}
 	
 	\begin{ex} \lex{ex:basics:contructs:func_cats:0002}
-		Let $\MC, \MD \in \Obj(\Cat)$. Then $\eval_{(\MC, \MD)}: \eval:\MC \times \MD^{\MC} \rightarrow \MD$ is a functor. 
+		Let $\MC, \MD \in \Obj(\bCat)$. Then $\eval_{(\MC, \MD)}: \eval:\MC \times \MD^{\MC} \rightarrow \MD$ is a functor. 
 	\end{ex}
 	
 	\begin{proof}\
@@ -6104,19 +6607,19 @@
 	\end{proof}
 	
 	\begin{ex}
-		\tcr{Find two functors $F,G: \Cat \times \Cat \rightarrow \Cat$ such that $\eval \mapsto \eval_{(\MC, \MD)}$ is a natural isomorphism $F \Rightarrow G$.}
+		\tcr{Find two functors $F,G: \bCat \times \bCat \rightarrow \bCat$ such that $\eval \mapsto \eval_{(\MC, \MD)}$ is a natural isomorphism $F \Rightarrow G$.}
 	\end{ex}
 	
 	\begin{defn} \ld{def:basics:contructs:func_cats:0003}
-		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\Cat} \times \Cat)$, $(F,G) \in \Hom_{\op{\Cat} \times \Cat}((\MA_1, \MB_1), (\MA_2, \MB_2))$, $H,J \in \Obj(\MB_1^{\MA_1})$ and $\al \in \Hom_{\MB_1^{\MA_1}}(H,J)$. 
+		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\bCat} \times \bCat)$, $(F,G) \in \Hom_{\op{\bCat} \times \bCat}((\MA_1, \MB_1), (\MA_2, \MB_2))$, $H,J \in \Obj(\MB_1^{\MA_1})$ and $\al \in \Hom_{\MB_1^{\MA_1}}(H,J)$. 
 		\begin{itemize}
-			\item For each $H \in \Obj(\MB_1^{\MA_1})$, we define the \tbf{internal Hom functor object induced by $F$ and $G$ at $H$}, denoted $G^F(H) \in \Obj(\MB_2^{\MA_2})$, by $G^F(H) \defeq G \circ_{\Cat} H \circ_{\Cat} F$
+			\item For each $H \in \Obj(\MB_1^{\MA_1})$, we define the \tbf{internal Hom functor object induced by $F$ and $G$ at $H$}, denoted $G^F(H) \in \Obj(\MB_2^{\MA_2})$, by $G^F(H) \defeq G \circ_{\bCat} H \circ_{\bCat} F$
 			\item \tbf{internal Hom functor natural transformation induced by $F$ and $G$ at $\al$}, denoted $G^F(\al): G^F(H) \Rightarrow G^F(J)$, by $G^F(\al)_A \defeq G(\al_{F(A)})$.
 		\end{itemize}
 	\end{defn}
 	
 	\begin{ex} \lex{ex:basics:contructs:func_cats:0004}
-		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\Cat} \times \Cat)$, $(F,G) \in \Hom_{\op{\Cat} \times \Cat}((\MA_1, \MB_1), (\MA_2, \MB_2))$, $H,J \in \Obj(\MB_1^{\MA_1})$ and $\al \in \Hom_{\MB_1^{\MA_1}}(H,J)$. Then $G^F(\al):G^F(H) \Rightarrow G^F(J)$ is a natural transformation.
+		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\bCat} \times \bCat)$, $(F,G) \in \Hom_{\op{\bCat} \times \bCat}((\MA_1, \MB_1), (\MA_2, \MB_2))$, $H,J \in \Obj(\MB_1^{\MA_1})$ and $\al \in \Hom_{\MB_1^{\MA_1}}(H,J)$. Then $G^F(\al):G^F(H) \Rightarrow G^F(J)$ is a natural transformation.
 	\end{ex}
 	
 	\begin{proof}\
@@ -6144,14 +6647,14 @@
 			Therefore,
 			\begin{align*}
 				G^F(J)(f) \circ_{\MB_2} G^F(\al)_{A_1}
-				& = [G \circ_{\Cat} J \circ_{\Cat} F](f) \circ_{\MB_2} G(\al_{F(A_1)}) \\
+				& = [G \circ_{\bCat} J \circ_{\bCat} F](f) \circ_{\MB_2} G(\al_{F(A_1)}) \\
 				& = G(J(F(f))) \circ_{\MB_2} G(\al_{F(A_1)}) \\
 				& = G(J(f')) \circ_{\MB_1} G(\al_{A'_2}) \\
 				& = G(J(f') \circ_{\MB_1} \al_{A'_1}) \\
 				& = G(\al_{A'_2} \circ_{\MB_1} H(f')) \\
 				& = G(\al_{A'_2}) \circ_{\MB_2} G(H(f')) \\
 				& = G(\al_{F(A_2)}) \circ_{\MB_2} G(H(F(f))) \\
-				& = G(\al_{F(A_2)}) \circ_{\MB_2} [G \circ_{\Cat} H \circ_{\Cat} F](f) \\
+				& = G(\al_{F(A_2)}) \circ_{\MB_2} [G \circ_{\bCat} H \circ_{\bCat} F](f) \\
 				& = G^F(\al)_{A_2} \circ_{\MB_2} G^F(H)(f),
 			\end{align*}
 			i.e. the following diagram commutes:
@@ -6167,7 +6670,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:contructs:func_cats:0005}
-		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\Cat} \times \Cat)$, $(F,G) \in \Hom_{\op{\Cat} \times \Cat}((\MA_1, \MB_1), (\MA_2, \MB_2))$, $H,J, K \in \Obj(\MB_1^{\MA_1})$, $\al \in \Hom_{\MB_1^{\MA_1}}(H,J)$ and $\be \in \Hom_{\MB_1^{\MA_1}}(J,K)$. Then $G^F(\be \circ_{\MB_1^{\MA_1}} \al) = G^F(\be) \circ_{\MB_2^{\MA_2}} G^F(\al)$.
+		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\bCat} \times \bCat)$, $(F,G) \in \Hom_{\op{\bCat} \times \bCat}((\MA_1, \MB_1), (\MA_2, \MB_2))$, $H,J, K \in \Obj(\MB_1^{\MA_1})$, $\al \in \Hom_{\MB_1^{\MA_1}}(H,J)$ and $\be \in \Hom_{\MB_1^{\MA_1}}(J,K)$. Then $G^F(\be \circ_{\MB_1^{\MA_1}} \al) = G^F(\be) \circ_{\MB_2^{\MA_2}} G^F(\al)$.
 	\end{ex}
 	
 	\begin{proof}
@@ -6184,7 +6687,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:contructs:func_cats:0006}
-		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\Cat} \times \Cat)$, $(F,G) \in \Hom_{\op{\Cat} \times \Cat}((\MA_1, \MB_1), (\MA_2, \MB_2))$, $H \in \Obj(\MB_1^{\MA_1})$, Then $G^F(\id_H^{\MB_1^{\MA_1}}) = \id_{G^F(H)}^{\MB_2^{\MA_2}}$.
+		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\bCat} \times \bCat)$, $(F,G) \in \Hom_{\op{\bCat} \times \bCat}((\MA_1, \MB_1), (\MA_2, \MB_2))$, $H \in \Obj(\MB_1^{\MA_1})$, Then $G^F(\id_H^{\MB_1^{\MA_1}}) = \id_{G^F(H)}^{\MB_2^{\MA_2}}$.
 	\end{ex}
 	
 	\begin{proof}
@@ -6194,7 +6697,7 @@
 			& = G((\id_H^{\MB_1^{\MA_1}})_{F(A)}) \\
 			& = G(\id_{H(F(A))}^{\MB_1}) \\
 			& = \id_{G(H(F(A)))}^{\MB_1} \\
-			& = \id_{G \circ_{\Cat} H \circ_{\Cat} F(A)}^{\MB_1} \\
+			& = \id_{G \circ_{\bCat} H \circ_{\bCat} F(A)}^{\MB_1} \\
 			& = \id_{G^F(H)(A)}^{\MB_1} \\
 			& = (\id_{G^F(H)}^{\MB_2^{\MA_2}})_A.
 		\end{align*}
@@ -6202,15 +6705,15 @@
 	\end{proof}
 	
 	\begin{defn} \ld{def:basics:contructs:func_cats:0007}
-		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\Cat} \times \Cat)$ and $(F,G) \in \Hom_{\op{\Cat} \times \Cat}((\MA_1, \MB_1), (\MA_2, \MB_2))$. We define the \tbf{internal Hom functor of $\Cat$ at $(F,G)$}, denoted $[F,G]_{\Cat}:\MB_1^{\MA_1} \rightarrow \MB_2^{\MA_2}$ or $G^F:\MB_1^{\MA_1} \rightarrow \MB_2^{\MA_2}$, by 
+		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\bCat} \times \bCat)$ and $(F,G) \in \Hom_{\op{\bCat} \times \bCat}((\MA_1, \MB_1), (\MA_2, \MB_2))$. We define the \tbf{internal Hom functor of $\bCat$ at $(F,G)$}, denoted $[F,G]_{\bCat}:\MB_1^{\MA_1} \rightarrow \MB_2^{\MA_2}$ or $G^F:\MB_1^{\MA_1} \rightarrow \MB_2^{\MA_2}$, by 
 		\begin{itemize}
-			\item $[F,G]_{\Cat}(H) \defeq G^F(H), \quad H \in \Obj(\MB_1^{\MA_1})$ 
-			\item $[F,G]_{\Cat}(\al) \defeq G^F(\al), \quad \al \in \Hom_{\MB_1^{\MA_1}}$
+			\item $[F,G]_{\bCat}(H) \defeq G^F(H), \quad H \in \Obj(\MB_1^{\MA_1})$ 
+			\item $[F,G]_{\bCat}(\al) \defeq G^F(\al), \quad \al \in \Hom_{\MB_1^{\MA_1}}$
 		\end{itemize}
 	\end{defn}
 	
 	\begin{ex} \lex{ex:basics:contructs:func_cats:0008}
-		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\Cat} \times \Cat)$ and $(F,G) \in \Hom_{\op{\Cat} \times \Cat}((\MA_1, \MB_1), (\MA_2, \MB_2))$. Then $G^F:\MB_1^{\MA_1} \rightarrow \MB_2^{\MA_2}$ is a functor. 
+		Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\bCat} \times \bCat)$ and $(F,G) \in \Hom_{\op{\bCat} \times \bCat}((\MA_1, \MB_1), (\MA_2, \MB_2))$. Then $G^F:\MB_1^{\MA_1} \rightarrow \MB_2^{\MA_2}$ is a functor. 
 	\end{ex}
 	
 	\begin{proof}\
@@ -6223,108 +6726,108 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:contructs:func_cats:0009}
-		Let $(\MA_1, \MB_1), (\MA_2, \MB_2), (\MA_3, \MB_3) \in \Obj(\op{\Cat} \times \Cat)$, $(F_{1,2}, G_{1,2}) \in \Hom_{\op{\Cat} \times \Cat}((\MA_1, \MB_1), (\MA_2, \MB_2))$ and  $(F_{2,3}, G_{2,3}) \in \Hom_{\op{\Cat} \times \Cat}((\MA_2, \MB_2), (\MA_3, \MB_3))$. Then 
-		$$(G_{2,3} \circ_{\Cat} G_{1,2})^{F_{2,3} \circ_{\op{\Cat}} F_{1,2}} = G_{2,3}^{F_{2,3}} \circ_{\Cat} G_{1,2}^{F_{1,2}}.$$
+		Let $(\MA_1, \MB_1), (\MA_2, \MB_2), (\MA_3, \MB_3) \in \Obj(\op{\bCat} \times \bCat)$, $(F_{1,2}, G_{1,2}) \in \Hom_{\op{\bCat} \times \bCat}((\MA_1, \MB_1), (\MA_2, \MB_2))$ and  $(F_{2,3}, G_{2,3}) \in \Hom_{\op{\bCat} \times \bCat}((\MA_2, \MB_2), (\MA_3, \MB_3))$. Then 
+		$$(G_{2,3} \circ_{\bCat} G_{1,2})^{F_{2,3} \circ_{\op{\bCat}} F_{1,2}} = G_{2,3}^{F_{2,3}} \circ_{\bCat} G_{1,2}^{F_{1,2}}.$$
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{itemize}
 			\item For each $H \in \Obj(\MB_1^{\MA_1})$, 
 			\begin{align*}
-				(G_{2,3} \circ_{\Cat} G_{1,2})^{F_{2,3} \circ_{\op{\Cat}} F_{1,2}}(H)
-				& = G_{2,3} \circ_{\Cat} G_{1,2} \circ_{\Cat} H \circ_{\Cat} (F_{2,3} \circ_{\op{\Cat}} F_{1,2}) \\
-				& = G_{2,3} \circ_{\Cat} G_{1,2} \circ_{\Cat} H \circ_{\Cat} (F_{1,2} \circ_{\Cat} F_{2,3}) \\
-				& = G_{2,3} \circ_{\Cat} (G_{1,2} \circ_{\Cat} H \circ_{\Cat} F_{1,2}) \circ_{\Cat} F_{2,3} \\
-				& = G_{2,3} \circ_{\Cat} (G_{1,2}^{F_{1,2}}(H)) \circ_{\Cat} F_{2,3} \\
+				(G_{2,3} \circ_{\bCat} G_{1,2})^{F_{2,3} \circ_{\op{\bCat}} F_{1,2}}(H)
+				& = G_{2,3} \circ_{\bCat} G_{1,2} \circ_{\bCat} H \circ_{\bCat} (F_{2,3} \circ_{\op{\bCat}} F_{1,2}) \\
+				& = G_{2,3} \circ_{\bCat} G_{1,2} \circ_{\bCat} H \circ_{\bCat} (F_{1,2} \circ_{\bCat} F_{2,3}) \\
+				& = G_{2,3} \circ_{\bCat} (G_{1,2} \circ_{\bCat} H \circ_{\bCat} F_{1,2}) \circ_{\bCat} F_{2,3} \\
+				& = G_{2,3} \circ_{\bCat} (G_{1,2}^{F_{1,2}}(H)) \circ_{\bCat} F_{2,3} \\
 				& = G_{2,3}^{F_{2,3}} (G_{1,2}^{F_{1,2}}(H)) \\
-				& = G_{2,3}^{F_{2,3}} \circ_{\Cat} G_{1,2}^{F_{1,2}}(H).
+				& = G_{2,3}^{F_{2,3}} \circ_{\bCat} G_{1,2}^{F_{1,2}}(H).
 			\end{align*}
 			\item Let $H,K \in \Obj(\MB_1^{\MA_1})$ and $\al \in \Hom_{\MB_1^{\MA_1}}(H, K)$. Then for each $A \in \Obj(\MA_3)$,
 			\begin{align*}
-				[(G_{2,3} \circ_{\Cat} G_{1,2})^{F_{2,3} \circ_{\op{\Cat}} F_{1,2}}(\al)]_A
-				& = [(G_{2,3} \circ_{\Cat} G_{1,2})^{F_{1,2} \circ_{\Cat} F_{2,3}}(\al)]_A \\
-				& = G_{2,3} \circ_{\Cat} G_{1,2}(\al_{F_{1,2} \circ_{\Cat} F_{2,3}(A)}) \\
+				[(G_{2,3} \circ_{\bCat} G_{1,2})^{F_{2,3} \circ_{\op{\bCat}} F_{1,2}}(\al)]_A
+				& = [(G_{2,3} \circ_{\bCat} G_{1,2})^{F_{1,2} \circ_{\bCat} F_{2,3}}(\al)]_A \\
+				& = G_{2,3} \circ_{\bCat} G_{1,2}(\al_{F_{1,2} \circ_{\bCat} F_{2,3}(A)}) \\
 				& = G_{2,3}(G_{1,2}(\al_{F_{1,2}(F_{2,3}(A))})) \\
 				& = G_{2,3}(G_{1,2}^{F_{1,2}}(\al)_{F_{2,3}(A)}) \\
 				& = [G_{2,3}^{F_{2,3}}(G_{1,2}^{F_{1,2}}(\al))]_A \\
-				& = [G_{2,3}^{F_{2,3}} \circ_{\Cat} G_{1,2}^{F_{1,2}} (\al)]_A
+				& = [G_{2,3}^{F_{2,3}} \circ_{\bCat} G_{1,2}^{F_{1,2}} (\al)]_A
 			\end{align*}
-			Thus $(G_{2,3} \circ_{\Cat} G_{1,2})^{F_{2,3} \circ_{\op{\Cat}} F_{1,2}}(\al) = G_{2,3}^{F_{2,3}} \circ_{\Cat} G_{1,2}^{F_{1,2}} (\al)$. Since $H,K \in \Obj(\MB_1^{\MA_1})$ and $\al \in \Hom_{\MB_1^{\MA_1}}(H, K)$ are arbitrary, we have that for each $H,K \in \Obj(\MB_1^{\MA_1})$ and $\al \in \Hom_{\MB_1^{\MA_1}}(H, K)$, $(G_{2,3} \circ_{\Cat} G_{1,2})^{F_{2,3} \circ_{\op{\Cat}} F_{1,2}}(\al) = G_{2,3}^{F_{2,3}} \circ_{\Cat} G_{1,2}^{F_{1,2}} (\al)$.
+			Thus $(G_{2,3} \circ_{\bCat} G_{1,2})^{F_{2,3} \circ_{\op{\bCat}} F_{1,2}}(\al) = G_{2,3}^{F_{2,3}} \circ_{\bCat} G_{1,2}^{F_{1,2}} (\al)$. Since $H,K \in \Obj(\MB_1^{\MA_1})$ and $\al \in \Hom_{\MB_1^{\MA_1}}(H, K)$ are arbitrary, we have that for each $H,K \in \Obj(\MB_1^{\MA_1})$ and $\al \in \Hom_{\MB_1^{\MA_1}}(H, K)$, $(G_{2,3} \circ_{\bCat} G_{1,2})^{F_{2,3} \circ_{\op{\bCat}} F_{1,2}}(\al) = G_{2,3}^{F_{2,3}} \circ_{\bCat} G_{1,2}^{F_{1,2}} (\al)$.
 		\end{itemize}
-		Therefore $(G_{2,3} \circ_{\Cat} G_{1,2})^{F_{2,3} \circ_{\op{\Cat}} F_{1,2}} = G_{2,3}^{F_{2,3}} \circ_{\Cat} G_{1,2}^{F_{1,2}}$.
+		Therefore $(G_{2,3} \circ_{\bCat} G_{1,2})^{F_{2,3} \circ_{\op{\bCat}} F_{1,2}} = G_{2,3}^{F_{2,3}} \circ_{\bCat} G_{1,2}^{F_{1,2}}$.
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:contructs:func_cats:0010}
-		Let $\MA, \MB \in \Obj(\Cat)$. Then
-		$$(\id_{\MB}^{\Cat})^{\id_{\MA}^{\Cat}} = \id_{\MB^{\MA}}^{\Cat}.$$
+		Let $\MA, \MB \in \Obj(\bCat)$. Then
+		$$(\id_{\MB}^{\bCat})^{\id_{\MA}^{\bCat}} = \id_{\MB^{\MA}}^{\bCat}.$$
 	\end{ex}
 	
 	\begin{proof}
-		Let $\MA, \MB \in \Obj(\Cat)$. 
+		Let $\MA, \MB \in \Obj(\bCat)$. 
 		\begin{itemize}
 			\item For each $H \in \Obj(\MB^{\MA})$, 
 			\begin{align*}
-				(\id_{\MB}^{\Cat})^{\id_{\MA}^{\Cat}}(H) 
-				& = \id_{\MB}^{\Cat} \circ_{\Cat} H \circ_{\Cat} \id_{\MA}^{\Cat} \\
+				(\id_{\MB}^{\bCat})^{\id_{\MA}^{\bCat}}(H) 
+				& = \id_{\MB}^{\bCat} \circ_{\bCat} H \circ_{\bCat} \id_{\MA}^{\bCat} \\
 				& = H \\
-				& = \id_{\MB^{\MA}}^{\Cat}(H).
+				& = \id_{\MB^{\MA}}^{\bCat}(H).
 			\end{align*}
 			\item Let $H,K \in \Obj(\MB^{\MA})$ and $\al \in \Hom_{\MB^{\MA}}(H, K)$. Then for each $A \in \Obj(\MA)$,
 			\begin{align*}
-				[(\id_{\MB}^{\Cat})^{\id_{\MA}^{\Cat}}(\al)]_A
-				& = \id_{\MB}^{\Cat}(\al_{\id_{\MA}^{\Cat}(A)}) \\
-				& = \id_{\MB}^{\Cat}(\al_A) \\
+				[(\id_{\MB}^{\bCat})^{\id_{\MA}^{\bCat}}(\al)]_A
+				& = \id_{\MB}^{\bCat}(\al_{\id_{\MA}^{\bCat}(A)}) \\
+				& = \id_{\MB}^{\bCat}(\al_A) \\
 				& = \al_A \\
-				& = [\id_{\MB^{\MA}}^{\Cat}(\al)]_A
+				& = [\id_{\MB^{\MA}}^{\bCat}(\al)]_A
 			\end{align*}
-			Hence $(\id_{\MB}^{\Cat})^{\id_{\MA}^{\Cat}}(\al) = \id_{\MB^{\MA}}^{\Cat}(\al)$.
+			Hence $(\id_{\MB}^{\bCat})^{\id_{\MA}^{\bCat}}(\al) = \id_{\MB^{\MA}}^{\bCat}(\al)$.
 		\end{itemize}
 	\end{proof}
 	
 	\begin{defn} \ld{def:basics:contructs:func_cats:0011}
-		We define the \tbf{internal Hom functor of $\Cat$}, denoted $[\cdot, \cdot]_{\Cat}: \op{\Cat} \times \Cat \rightarrow \Cat$, by 
+		We define the \tbf{internal Hom functor of $\bCat$}, denoted $[\cdot, \cdot]_{\bCat}: \op{\bCat} \times \bCat \rightarrow \bCat$, by 
 		\begin{itemize}
-			\item $[\MC, \MD]_{\Cat} \defeq \MD^{\MC}, \quad (\MC, \MD) \in \Obj(\op{\Cat} \times \Cat)$,
-			\item $[F, G]_{\Cat} \defeq G^F, \quad (F, G) \in \Hom_{\op{\Cat} \times \Cat}$.
+			\item $[\MC, \MD]_{\bCat} \defeq \MD^{\MC}, \quad (\MC, \MD) \in \Obj(\op{\bCat} \times \bCat)$,
+			\item $[F, G]_{\bCat} \defeq G^F, \quad (F, G) \in \Hom_{\op{\bCat} \times \bCat}$.
 		\end{itemize}
 	\end{defn}
 	
 	\begin{ex} \lex{ex:basics:contructs:func_cats:0012}
-		We have that $[\cdot, \cdot]_{\Cat}: \op{\Cat} \times \Cat \rightarrow \Cat$ is a functor.
+		We have that $[\cdot, \cdot]_{\bCat}: \op{\bCat} \times \bCat \rightarrow \bCat$ is a functor.
 	\end{ex}
 	
 	\begin{note}
-		When the context is clear, we may write $[\cdot, \cdot]$ in place of $[\cdot, \cdot]_{\Cat}$.
+		When the context is clear, we may write $[\cdot, \cdot]$ in place of $[\cdot, \cdot]_{\bCat}$.
 	\end{note}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\Cat} \times \Cat)$ $(F, G) \in \Hom_{\op{\Cat} \times \Cat}((\MA_1, \MB_1), (\MA_2, \MB_2))$. \rex{ex:basics:contructs:func_cats:0008} implies that 
+			\item Let $(\MA_1, \MB_1), (\MA_2, \MB_2) \in \Obj(\op{\bCat} \times \bCat)$ $(F, G) \in \Hom_{\op{\bCat} \times \bCat}((\MA_1, \MB_1), (\MA_2, \MB_2))$. \rex{ex:basics:contructs:func_cats:0008} implies that 
 			\begin{align*}
 				[\cdot, \cdot](F,G)
 				& = G^F \\
-				& \in \Hom_{\Cat}(\MB_1^{\MA_1}, \MB_2^{\MA_2}) \\
-				& = \Hom_{\Cat}([\MA_1, \MB_1], [\MA_2, \MB_2]) \\
-				& = \Hom_{\Cat}([\cdot, \cdot](\MA_1, \MB_1), [\cdot, \cdot](\MA_2, \MB_2)).
+				& \in \Hom_{\bCat}(\MB_1^{\MA_1}, \MB_2^{\MA_2}) \\
+				& = \Hom_{\bCat}([\MA_1, \MB_1], [\MA_2, \MB_2]) \\
+				& = \Hom_{\bCat}([\cdot, \cdot](\MA_1, \MB_1), [\cdot, \cdot](\MA_2, \MB_2)).
 			\end{align*}
-			\item $(\MA_1, \MB_1), (\MA_2, \MB_2), (\MA_2, \MB_3) \in \Obj(\op{\Cat} \times \Cat)$ $(F_{1,2}, G_{1,2}) \in \Hom_{\op{\Cat} \times \Cat}((\MA_1, \MB_1), (\MA_2, \MB_2))$ and  $(F_{2,3}, G_{2,3}) \in \Hom_{\op{\Cat} \times \Cat}((\MA_2, \MB_2), (\MA_3, \MB_3))$. \rex{ex:basics:contructs:func_cats:0009} then implies that
+			\item $(\MA_1, \MB_1), (\MA_2, \MB_2), (\MA_2, \MB_3) \in \Obj(\op{\bCat} \times \bCat)$ $(F_{1,2}, G_{1,2}) \in \Hom_{\op{\bCat} \times \bCat}((\MA_1, \MB_1), (\MA_2, \MB_2))$ and  $(F_{2,3}, G_{2,3}) \in \Hom_{\op{\bCat} \times \bCat}((\MA_2, \MB_2), (\MA_3, \MB_3))$. \rex{ex:basics:contructs:func_cats:0009} then implies that
 			\begin{align*}
-				[\cdot, \cdot]((F_{2,3}, G_{2,3}) \circ_{\op{\Cat} \times \Cat} (F_{1,2}, G_{1,2})) 
-				& = [\cdot, \cdot](F_{2,3} \circ_{\op{\Cat}} F_{1,2}, G_{2,3} \circ_{\Cat} G_{1,2}) \\
-				& = (G_{2,3} \circ_{\Cat} G_{1,2})^{F_{2,3} \circ_{\op{\Cat}} F_{1,2}} \\
-				& = G_{2,3}^{F_{2,3}} \circ_{\Cat} G_{1,2}^{F_{1,2}} \\
-				& = [\cdot, \cdot](F_{2,3}, G_{2,3}) \circ_{\Cat} [\cdot, \cdot](F_{1,2}, G_{1,2}).
+				[\cdot, \cdot]((F_{2,3}, G_{2,3}) \circ_{\op{\bCat} \times \bCat} (F_{1,2}, G_{1,2})) 
+				& = [\cdot, \cdot](F_{2,3} \circ_{\op{\bCat}} F_{1,2}, G_{2,3} \circ_{\bCat} G_{1,2}) \\
+				& = (G_{2,3} \circ_{\bCat} G_{1,2})^{F_{2,3} \circ_{\op{\bCat}} F_{1,2}} \\
+				& = G_{2,3}^{F_{2,3}} \circ_{\bCat} G_{1,2}^{F_{1,2}} \\
+				& = [\cdot, \cdot](F_{2,3}, G_{2,3}) \circ_{\bCat} [\cdot, \cdot](F_{1,2}, G_{1,2}).
 			\end{align*}
-			\item \rex{ex:basics:contructs:func_cats:0010} implies that for each $\MA, \MB \in \Obj(\Cat)$,
+			\item \rex{ex:basics:contructs:func_cats:0010} implies that for each $\MA, \MB \in \Obj(\bCat)$,
 			\begin{align*}
-				[\cdot, \cdot](\id_{(\MA, \MB)}^{\op{\Cat} \times \Cat})
-				& = [\cdot, \cdot](\id_{\MA}^{\Cat}, \id_{\MB}^{\Cat}) \\
-				& = (\id_{\MB}^{\Cat})^{\id_{\MA}^{\Cat}} \\
-				& = \id_{\MB^{\MA}}^{\Cat} \\
-				& = \id_{[\cdot, \cdot](\MA, \MB)}^{\Cat}.
+				[\cdot, \cdot](\id_{(\MA, \MB)}^{\op{\bCat} \times \bCat})
+				& = [\cdot, \cdot](\id_{\MA}^{\bCat}, \id_{\MB}^{\bCat}) \\
+				& = (\id_{\MB}^{\bCat})^{\id_{\MA}^{\bCat}} \\
+				& = \id_{\MB^{\MA}}^{\bCat} \\
+				& = \id_{[\cdot, \cdot](\MA, \MB)}^{\bCat}.
 			\end{align*}
 		\end{enumerate}
-		Hence $[\cdot, \cdot]: \op{\Cat} \times \Cat \rightarrow \Cat$ is a functor.
+		Hence $[\cdot, \cdot]: \op{\bCat} \times \bCat \rightarrow \bCat$ is a functor.
 	\end{proof}
 	
 	
@@ -6455,96 +6958,96 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:functors:small_cat:0011}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$, $F \in \Hom_{\Cat}(\MA, \MB)$ and $G \in \Hom_{\Cat}(\MB, \MC)$. Then $\op{G \circ_{\Cat} F} = \op{G} \circ_{\Cat} \op{F}$.
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$, $F \in \Hom_{\bCat}(\MA, \MB)$ and $G \in \Hom_{\bCat}(\MB, \MC)$. Then $\op{G \circ_{\bCat} F} = \op{G} \circ_{\bCat} \op{F}$.
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{itemize}
 			\item For each $A \in \Obj(\op{A})$, 
 			\begin{align*}
-				\op{G \circ_{\Cat} F}(A)
-				& = G \circ_{\Cat} F(A) \\
+				\op{G \circ_{\bCat} F}(A)
+				& = G \circ_{\bCat} F(A) \\
 				& = G(F(A)) \\
 				& = \op{G}(\op{F}(A)) \\
-				& = \op{G} \circ_{\Cat} \op{F}(A).
+				& = \op{G} \circ_{\bCat} \op{F}(A).
 			\end{align*}
 			\item For each $A,B,C \in \Obj(\op{\MA})$ and $f \in \Hom_{\op{\MA}}(A,B)$,
 			\begin{align*}
-				\op{G \circ_{\Cat} F}(f) 
-				& = G \circ_{\Cat} F(f) \\
+				\op{G \circ_{\bCat} F}(f) 
+				& = G \circ_{\bCat} F(f) \\
 				& = G(F(f)) \\
 				& = \op{G}(\op{F}(f)) \\
-				& = \op{G} \circ_{\Cat} \op{F}(f).
+				& = \op{G} \circ_{\bCat} \op{F}(f).
 			\end{align*}
 		\end{itemize}
-		Thus $\op{G \circ_{\Cat} F} = \op{G} \circ_{\Cat} \op{F}$.
+		Thus $\op{G \circ_{\bCat} F} = \op{G} \circ_{\bCat} \op{F}$.
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:functors:small_cat:0012}
-		Let $\MC \in \Obj(\Cat)$. Then $\op{\id_{\MC}^{\Cat}} = \id_{\op{\MC}}^{\Cat}$.
+		Let $\MC \in \Obj(\bCat)$. Then $\op{\id_{\MC}^{\bCat}} = \id_{\op{\MC}}^{\bCat}$.
 	\end{ex}
 	
 	\begin{proof}
 		\begin{itemize}
 			\item For each $A \in \Obj(\op{\MC})$,
 			\begin{align*}
-				\op{\id_{\MC}^{\Cat}}(A)
-				& = \id_{\MC}^{\Cat}(A) \\
+				\op{\id_{\MC}^{\bCat}}(A)
+				& = \id_{\MC}^{\bCat}(A) \\
 				& = A \\
-				& = \id_{\op{\MC}}^{\Cat}(A).
+				& = \id_{\op{\MC}}^{\bCat}(A).
 			\end{align*}
 			\item For each $A,B \in \Obj(\op{\MC})$ and $f \in \Hom_{\op{\MC}}(A,B)$,
 			\begin{align*}
-				\op{\id_{\MC}^{\Cat}}(f)
-				& = \id_{\MC}^{\Cat}(f) \\
+				\op{\id_{\MC}^{\bCat}}(f)
+				& = \id_{\MC}^{\bCat}(f) \\
 				& = f \\
-				& = \id_{\op{\MC}}^{\Cat}(f).
+				& = \id_{\op{\MC}}^{\bCat}(f).
 			\end{align*}
 		\end{itemize}
-		Thus $\op{\id_{\MC}^{\Cat}} = \id_{\op{\MC}}^{\Cat}$.
+		Thus $\op{\id_{\MC}^{\bCat}} = \id_{\op{\MC}}^{\bCat}$.
 	\end{proof}
 	
 	\begin{defn} \ld{def:basics:functors:small_cat:0013}
-		We define the \tbf{opposite functor on $\Cat$}, denoted $\opp^{\Cat}: \Cat \rightarrow \Cat$, by 
+		We define the \tbf{opposite functor on $\bCat$}, denoted $\opp^{\bCat}: \bCat \rightarrow \bCat$, by 
 		\begin{itemize}
-			\item $\opp^{\Cat}(\MC) \defeq \op{\MC}$
-			\item $\opp^{\Cat}(F) \defeq \op{F}$
+			\item $\opp^{\bCat}(\MC) \defeq \op{\MC}$
+			\item $\opp^{\bCat}(F) \defeq \op{F}$
 		\end{itemize}
 	\end{defn}
 	
 	\begin{note}
-		When the context is clear, we may write $\opp$ in place of $\opp^{\Cat}$.
+		When the context is clear, we may write $\opp$ in place of $\opp^{\bCat}$.
 	\end{note}
 	
 	\begin{ex} \lex{ex:basics:functors:small_cat:0014}
-		We have that $\opp^{\Cat}: \Cat \rightarrow \Cat$ is a functor.
+		We have that $\opp^{\bCat}: \bCat \rightarrow \bCat$ is a functor.
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item \rex{ex:basics:functors:intro:0007} implies that for each $\MC, \MD \in \Obj(\Cat)$ and $F \in \Hom_{\Cat}(\MC, \MD)$,
+			\item \rex{ex:basics:functors:intro:0007} implies that for each $\MC, \MD \in \Obj(\bCat)$ and $F \in \Hom_{\bCat}(\MC, \MD)$,
 			\begin{align*}
 				\opp(F)
 				& = \op{F} \\
-				& \in \Hom_{\Cat}(\op{\MC}, \op{\MD}) \\
-				& = \Hom_{\Cat}(\opp(\MC), \opp(\MD)).
+				& \in \Hom_{\bCat}(\op{\MC}, \op{\MD}) \\
+				& = \Hom_{\bCat}(\opp(\MC), \opp(\MD)).
 			\end{align*}
-			\item \rex{ex:basics:functors:small_cat:0011} implies that for each $\MA, \MB, \MC \in \Obj(\Cat)$, $F \in \Hom_{\Cat}(\MA, \MB)$ and $G \in \Hom_{\Cat}(\MB, \MC)$, 
+			\item \rex{ex:basics:functors:small_cat:0011} implies that for each $\MA, \MB, \MC \in \Obj(\bCat)$, $F \in \Hom_{\bCat}(\MA, \MB)$ and $G \in \Hom_{\bCat}(\MB, \MC)$, 
 			\begin{align*}
-				\opp(G \circ_{\Cat} F)
-				& = \op{G \circ_{\Cat} F} \\
-				& = \op{G} \circ_{\Cat} \op{F} \\
-				& = \opp((G) \circ_{\Cat} \opp(F).
+				\opp(G \circ_{\bCat} F)
+				& = \op{G \circ_{\bCat} F} \\
+				& = \op{G} \circ_{\bCat} \op{F} \\
+				& = \opp((G) \circ_{\bCat} \opp(F).
 			\end{align*}
-			\item \rex{ex:basics:functors:small_cat:0012} implies that for each $\MC \in \Obj(\Cat)$, 
+			\item \rex{ex:basics:functors:small_cat:0012} implies that for each $\MC \in \Obj(\bCat)$, 
 			\begin{align*}
-				\opp(\id_{\MC}^{\Cat})
-				& = \op{\id_{\MC}^{\Cat}} 
-				& = \id_{\op{\MC}}^{\Cat} \\
-				& = \id_{\opp(\MC)}^{\Cat}.
+				\opp(\id_{\MC}^{\bCat})
+				& = \op{\id_{\MC}^{\bCat}} 
+				& = \id_{\op{\MC}}^{\bCat} \\
+				& = \id_{\opp(\MC)}^{\bCat}.
 			\end{align*}
 		\end{enumerate}
-		Thus $\opp: \Cat \rightarrow \Cat$ is a functor.
+		Thus $\opp: \bCat \rightarrow \bCat$ is a functor.
 	\end{proof}
 	
 	\begin{defn} \ld{def:basics:nat_trans:cat_funct:0012}
@@ -6596,7 +7099,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0014}
-		Let $\MC, \MD \in \Obj(\Cat)$, $F,G,H \in \Obj(\MD^{\MC})$, $\al \in \Hom_{\MD^{\MC}}(F,G)$ and $\be \in \Hom_{\MD^{\MC}}(G,H)$. Then $\op{(\be \circ_{\MD^{\MC}} \al)} = \op{\al} \circ_{(\op{\MD})^{\op{\MC}}} \op{\be}$.
+		Let $\MC, \MD \in \Obj(\bCat)$, $F,G,H \in \Obj(\MD^{\MC})$, $\al \in \Hom_{\MD^{\MC}}(F,G)$ and $\be \in \Hom_{\MD^{\MC}}(G,H)$. Then $\op{(\be \circ_{\MD^{\MC}} \al)} = \op{\al} \circ_{(\op{\MD})^{\op{\MC}}} \op{\be}$.
 	\end{ex}
 	
 	\begin{proof}
@@ -6613,7 +7116,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:nat_trans:cat_funct:0015}
-		Let $\MC, \MD \in \Obj(\Cat)$ and $F \in \Obj(\MD^{\MC})$. Then $\op{(\id_F^{\MD^{\MC}})} = \id_{\op{F}}^{(\op{\MD})^{\op{\MC}}}$. 
+		Let $\MC, \MD \in \Obj(\bCat)$ and $F \in \Obj(\MD^{\MC})$. Then $\op{(\id_F^{\MD^{\MC}})} = \id_{\op{F}}^{(\op{\MD})^{\op{\MC}}}$. 
 	\end{ex}
 	
 	\begin{proof}
@@ -6630,7 +7133,7 @@
 	\end{proof}
 	
 	\begin{defn}
-		Let $\MC, \MD \in \Obj(\Cat)$. We define the \tbf{opposite functor on $\MD^{\MC}$}, denoted $\opp_{(\MC, \MD)}: \MD^{\MC} \rightarrow \op{[(\op{\MD})^{{\op{\MC}}}]}$, by 
+		Let $\MC, \MD \in \Obj(\bCat)$. We define the \tbf{opposite functor on $\MD^{\MC}$}, denoted $\opp_{(\MC, \MD)}: \MD^{\MC} \rightarrow \op{[(\op{\MD})^{{\op{\MC}}}]}$, by 
 		\begin{itemize}
 			\item $\opp_{(\MC, \MD)}(F) \defeq \op{F}$
 			\item $\opp_{(\MC, \MD)}(\al) \defeq \op{\al}$
@@ -6638,7 +7141,7 @@
 	\end{defn}
 	
 	\begin{ex}
-		Let $\MC, \MD \in \Obj(\Cat)$. Then $\opp_{(\MC, \MD)}: \MD^{\MC} \rightarrow \op{[(\op{\MD})^{{\op{\MC}}}]}$ is a functor.
+		Let $\MC, \MD \in \Obj(\bCat)$. Then $\opp_{(\MC, \MD)}: \MD^{\MC} \rightarrow \op{[(\op{\MD})^{{\op{\MC}}}]}$ is a functor.
 	\end{ex}
 	
 	\begin{proof}\
@@ -6677,7 +7180,7 @@
 	\end{proof}
 	
 	\begin{defn}
-		We define $\opp: [\cdot, \cdot]_{\Cat} \Rightarrow \opp^{\Cat} \circ_{\Cat} [\cdot, \cdot] \circ (\opp^{\Cat} , \opp^{\Cat})$ by 
+		We define $\opp: [\cdot, \cdot]_{\bCat} \Rightarrow \opp^{\bCat} \circ_{\bCat} [\cdot, \cdot] \circ (\opp^{\bCat} , \opp^{\bCat})$ by 
 		$\opp_{(\MC, \MD)} \defeq \opp_{(\MC, \MD)}$
 		\tcr{rename stuff and reorganize the opposite stuff}
 	\end{defn}
@@ -6867,7 +7370,7 @@
 	\end{proof}
 	
 	\begin{defn} \ld{def:basics:contructs:currying:0005}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$ and $F \in \Obj(\MC^{\MA \times \MB})$. We define the \tbf{Curry functor induced by $F$}, denoted $\cur(F): \MA \rightarrow \MC^{\MB}$ by 
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$ and $F \in \Obj(\MC^{\MA \times \MB})$. We define the \tbf{Curry functor induced by $F$}, denoted $\cur(F): \MA \rightarrow \MC^{\MB}$ by 
 		\begin{itemize}
 			\item $\cur(F)(A) \defeq F(A, \cdot), \quad (A \in \Obj(\MA))$,
 			\item $\cur(F)(f) \defeq \al(F)^f, \quad (f \in \Hom_{\MA})$,
@@ -6875,7 +7378,7 @@
 	\end{defn}
 	
 	\begin{ex} \lex{ex:basics:contructs:currying:0006}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$ and $F \in \Obj(\MC^{\MA \times \MB})$. Then $\cur(F): \MA \rightarrow \MC^{\MB}$ is a functor.
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$ and $F \in \Obj(\MC^{\MA \times \MB})$. Then $\cur(F): \MA \rightarrow \MC^{\MB}$ is a functor.
 	\end{ex}
 	
 	\begin{proof}\
@@ -6906,12 +7409,12 @@
 	\end{proof}
 	
 	\begin{defn} \ld{def:basics:contructs:currying:0007}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$ and $F,G \in \Obj(\MC^{\MA \times \MB})$ and $\al \in \Hom_{\MC^{\MA \times \MB}}(F,G)$. We define the \tbf{Curry transformation induced by $\al$}, denoted $\cur(\al): \cur(F) \Rightarrow \cur(G)$ by 
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$ and $F,G \in \Obj(\MC^{\MA \times \MB})$ and $\al \in \Hom_{\MC^{\MA \times \MB}}(F,G)$. We define the \tbf{Curry transformation induced by $\al$}, denoted $\cur(\al): \cur(F) \Rightarrow \cur(G)$ by 
 		$$\cur(\al)_A \defeq \al_{(A, \cdot)}, \quad A \in \Obj(\MA).$$
 	\end{defn}
 	
 	\begin{ex} \lex{ex:basics:contructs:currying:0008}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$, $F,G \in \Obj(\MC^{\MA \times \MB})$ and $\al \in \Hom_{\MC^{\MA \times \MB}}(F,G)$. Then $\cur(\al): \cur(F) \Rightarrow \cur(G)$ is a natural transformation. 
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$, $F,G \in \Obj(\MC^{\MA \times \MB})$ and $\al \in \Hom_{\MC^{\MA \times \MB}}(F,G)$. Then $\cur(\al): \cur(F) \Rightarrow \cur(G)$ is a natural transformation. 
 	\end{ex}
 	
 	\begin{proof}\
@@ -6957,7 +7460,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:contructs:currying:0009}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$, $F_1, F_2, F_3 \in \Obj(\MC^{\MA \times \MB})$, $\al_{1,2} \in \Hom_{\MC^{\MA \times \MB}}(F_1, F_2)$ and $\al_{2,3} \in \Hom_{\MC^{\MA \times \MB}}(F_2, F_3)$. Then $\cur(\al_{2,3} \circ_{\MC^{\MA \times \MB}} \al_{1,2}) = \cur(\al_{2,3}) \circ_{(\MC^{\MB})^{\MA}} \cur(\al_{1,2})$.
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$, $F_1, F_2, F_3 \in \Obj(\MC^{\MA \times \MB})$, $\al_{1,2} \in \Hom_{\MC^{\MA \times \MB}}(F_1, F_2)$ and $\al_{2,3} \in \Hom_{\MC^{\MA \times \MB}}(F_2, F_3)$. Then $\cur(\al_{2,3} \circ_{\MC^{\MA \times \MB}} \al_{1,2}) = \cur(\al_{2,3}) \circ_{(\MC^{\MB})^{\MA}} \cur(\al_{1,2})$.
 	\end{ex}
 	
 	\begin{proof}
@@ -6973,7 +7476,7 @@
 	\end{proof}
 	
 	\begin{ex} \lex{ex:basics:contructs:currying:0010}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$ and $F \in \Obj(\MC^{\MA \times \MB})$. Then $\cur(\id_F^{\MC^{\MA \times \MB}}) = \id_{\cur(F)^{(\MC^{\MB})^{\MA}}}$. 
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$ and $F \in \Obj(\MC^{\MA \times \MB})$. Then $\cur(\id_F^{\MC^{\MA \times \MB}}) = \id_{\cur(F)^{(\MC^{\MB})^{\MA}}}$. 
 	\end{ex}
 	
 	\begin{proof}
@@ -6989,50 +7492,50 @@
 	\end{proof}
 	
 	\begin{defn} \ld{def:basics:contructs:currying:0011}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$. We define the \tbf{Curry functor from $\MC^{\MA \times \MB}$ to $(\MC^{\MB})^{\MA}$}, denoted $\cur^{\Cat}_{(\MA, \MB, \MC)}: \MC^{\MA \times \MB} \rightarrow (\MC^{\MB})^{\MA}$ by 
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$. We define the \tbf{Curry functor from $\MC^{\MA \times \MB}$ to $(\MC^{\MB})^{\MA}$}, denoted $\cur^{\bCat}_{(\MA, \MB, \MC)}: \MC^{\MA \times \MB} \rightarrow (\MC^{\MB})^{\MA}$ by 
 		\begin{itemize}
-			\item $\cur^{\Cat}_{(\MA, \MB, \MC)}(F) \defeq \cur(F)$
-			\item $\cur^{\Cat}_{(\MA, \MB, \MC)}(\al) \defeq \cur(\al)$.
+			\item $\cur^{\bCat}_{(\MA, \MB, \MC)}(F) \defeq \cur(F)$
+			\item $\cur^{\bCat}_{(\MA, \MB, \MC)}(\al) \defeq \cur(\al)$.
 		\end{itemize}   
 	\end{defn}
 	
 	\begin{ex} \lex{ex:basics:contructs:currying:0012}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$. Then $\cur^{\Cat}_{(\MA, \MB, \MC)}: \MC^{\MA \times \MB} \rightarrow (\MC^{\MB})^{\MA}$ is a functor.
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$. Then $\cur^{\bCat}_{(\MA, \MB, \MC)}: \MC^{\MA \times \MB} \rightarrow (\MC^{\MB})^{\MA}$ is a functor.
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
 			\item Let $F,G \in \Obj(\MC^{\MA \times \MB})$ and $\al \in \Hom_{\MC^{\MA \times \MB}}(F, G)$. \rex{ex:basics:contructs:currying:0008} implies that
 			\begin{align*}
-				\cur^{\Cat}_{(\MA, \MB, \MC)}(\al)
+				\cur^{\bCat}_{(\MA, \MB, \MC)}(\al)
 				& = \cur(\al) \\
 				& \in \Hom_{\MC^{\MB}}(\cur(F), \cur(G)) \\
-				& = \Hom_{\MC^{\MB}}(\cur^{\Cat}_{(\MA, \MB, \MC)}(F), \cur^{\Cat}_{(\MA, \MB, \MC)}(G)).
+				& = \Hom_{\MC^{\MB}}(\cur^{\bCat}_{(\MA, \MB, \MC)}(F), \cur^{\bCat}_{(\MA, \MB, \MC)}(G)).
 			\end{align*}
 			\item Let $F_1, F_2, F_3 \in \Obj(\MC^{\MA \times \MB})$, $\al_{1,2} \in \Hom_{\MC^{\MA \times \MB}}(F_1, F_2)$ and $\al_{2,3} \in \Hom_{\MC^{\MA \times \MB}}(F_2, F_3)$. \rex{ex:basics:contructs:currying:0009} implies that
 			\begin{align*}
-				\cur^{\Cat}_{(\MA, \MB, \MC)}(\al_{2,3} \circ_{\MC^{\MA \times \MB}} \al_{1,2})
+				\cur^{\bCat}_{(\MA, \MB, \MC)}(\al_{2,3} \circ_{\MC^{\MA \times \MB}} \al_{1,2})
 				 & = \cur((\al_{2,3} \circ_{\MC^{\MA \times \MB}} \al_{1,2})) \\
 				 & = \cur(\al_{2,3}) \circ_{(\MC^{\MB})^{\MA}} \cur(\al_{1,2}) \\
-				 & = \cur^{\Cat}_{(\MA, \MB, \MC)}(\al_{2,3}) \circ_{(\MC^{\MB})^{\MA}} \cur^{\Cat}_{(\MA, \MB, \MC)}(\al_{1,2}).
+				 & = \cur^{\bCat}_{(\MA, \MB, \MC)}(\al_{2,3}) \circ_{(\MC^{\MB})^{\MA}} \cur^{\bCat}_{(\MA, \MB, \MC)}(\al_{1,2}).
 			\end{align*}
 			\item \rex{ex:basics:contructs:currying:0010} implies that 
 			\begin{align*}
-				\cur^{\Cat}_{(\MA, \MB, \MC)}(\id_F^{\MC^{\MA \times \MB}}) 
+				\cur^{\bCat}_{(\MA, \MB, \MC)}(\id_F^{\MC^{\MA \times \MB}}) 
 				& = \cur(\id_F^{\MC^{\MA \times \MB}}) \\
 				& = \id_{\cur(F)}^{(\MC^{\MB})^{\MA}} \\
-				& = \id_{\cur^{\Cat}_{(\MA, \MB, \MC)}(F)}^{(\MC^{\MB})^{\MA}}.
+				& = \id_{\cur^{\bCat}_{(\MA, \MB, \MC)}(F)}^{(\MC^{\MB})^{\MA}}.
 			\end{align*}
 		\end{enumerate}
-		Thus $\cur^{\Cat}_{(\MA, \MB, \MC)}: \MC^{\MA \times \MB} \rightarrow (\MC^{\MB})^{\MA}$ is a functor.
+		Thus $\cur^{\bCat}_{(\MA, \MB, \MC)}: \MC^{\MA \times \MB} \rightarrow (\MC^{\MB})^{\MA}$ is a functor.
 	\end{proof}
 	
 	\begin{defn} \ld{def:basics:contructs:currying:0013}
-		We define the \tbf{Currying natural transformation on $\Cat$}, denoted $\cur^{\Cat}: [(- \times -)_{\Cat}, -]_{\Cat} \Rightarrow [-, [-, -]_{\Cat}]_{\Cat}$, by  $(\cur^{\Cat})_{(\MA, \MB, \MC)} \defeq \cur^{\Cat}_{(\MA, \MB, \MC)}$
+		We define the \tbf{Currying natural transformation on $\bCat$}, denoted $\cur^{\bCat}: [(- \times -)_{\bCat}, -]_{\bCat} \Rightarrow [-, [-, -]_{\bCat}]_{\bCat}$, by  $(\cur^{\bCat})_{(\MA, \MB, \MC)} \defeq \cur^{\bCat}_{(\MA, \MB, \MC)}$
 	\end{defn}
 	
 	\begin{ex} \lex{ex:basics:contructs:currying:0014}
-		We have that $\cur^{\Cat}:[(- \times -)_{\Cat}, -]_{\Cat} \Rightarrow [-, [-, -]_{\Cat}]_{\Cat}$ is a natural transformation.
+		We have that $\cur^{\bCat}:[(- \times -)_{\bCat}, -]_{\bCat} \Rightarrow [-, [-, -]_{\bCat}]_{\bCat}$ is a natural transformation.
 	\end{ex}
 	
 	\begin{proof}
@@ -7055,9 +7558,9 @@
 	
 	\tcr{To Do:  
 	\begin{itemize}
-		\item make a note that $[-, [-, -]]: \op{\Cat} \times (\op{\Cat} \times \Cat) \rightarrow \Cat$ means $[-, -] \circ \id_{\Cat} \times [-, -]$
+		\item make a note that $[-, [-, -]]: \op{\bCat} \times (\op{\bCat} \times \bCat) \rightarrow \bCat$ means $[-, -] \circ \id_{\bCat} \times [-, -]$
 		\item define opposite functor $OP: \MC \rightarrow \op{\MC}$
-		\item show that $\cur^{\Cat}:F \Rightarrow G$ is a natural transformation (and natural isomorphism) 
+		\item show that $\cur^{\bCat}:F \Rightarrow G$ is a natural transformation (and natural isomorphism) 
 	\end{itemize}
 	}
 	
@@ -7120,26 +7623,26 @@
 	\end{proof}
 	
 	\begin{defn}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$. We define the \tbf{Currying functor from $(\MC)^{\MA \times \MB}$ to $(\MC^{\MB})^{\MA}$}, denoted $\cur^{\Cat}_{(\MA,\MB, \MC)}: (\MC)^{\MA \times \MB} \rightarrow (\MC^{\MB})^{\MA}$, by 
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$. We define the \tbf{Currying functor from $(\MC)^{\MA \times \MB}$ to $(\MC^{\MB})^{\MA}$}, denoted $\cur^{\bCat}_{(\MA,\MB, \MC)}: (\MC)^{\MA \times \MB} \rightarrow (\MC^{\MB})^{\MA}$, by 
 		\begin{itemize}
-			\item $\cur^{\Cat}_{(\MA,\MB, \MC)}(F) \defeq \cur(F), \quad (A \in \Obj(\MA))$
-			\item $\cur^{\Cat}_{(\MA,\MB, \MC)}(\al)(A) \defeq \al_{(A, \cdot)}$.
+			\item $\cur^{\bCat}_{(\MA,\MB, \MC)}(F) \defeq \cur(F), \quad (A \in \Obj(\MA))$
+			\item $\cur^{\bCat}_{(\MA,\MB, \MC)}(\al)(A) \defeq \al_{(A, \cdot)}$.
 		\end{itemize}
 		\tcr{(need exercise showing that if $\MA, \MB$ are small, then $\MA \times \MB$ is small)}
 	\end{defn}
 	
 	\begin{ex}
-		Let $\MA, \MB, \MC \in \Obj(\Cat)$. Then $\cur^{\Cat}_{(\MA, \MB, \MC)}: \MC^{\MA \times \MB} \rightarrow (\MC^{\MB})^{\MA}$ is a functor. 
+		Let $\MA, \MB, \MC \in \Obj(\bCat)$. Then $\cur^{\bCat}_{(\MA, \MB, \MC)}: \MC^{\MA \times \MB} \rightarrow (\MC^{\MB})^{\MA}$ is a functor. 
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
 			\item Let $F,G \in \Obj(\MC^{\MA \times \MB})$ and $\al \in \Hom_{\MC^{\MA \times \MB}}(F, G)$. Then for each $A \in \Obj(\MA)$,
 			\begin{align*}
-				\cur^{\Cat}_{\MA, \MB, \MC}(\al)(A)
+				\cur^{\bCat}_{\MA, \MB, \MC}(\al)(A)
 				& = \al_{(A, \cdot)} \\
 				& \in \Hom_{\MC^{\MB}}(F(A, \cdot), G(A, \cdot))  \quad \text{(by \tcr{ref prev ex})}\\
-				& = \Hom_{\MC^{\MB}}(\cur^{\Cat}_{(\MA,\MB, \MC)}(F)(A), \cur^{\Cat}_{(\MA,\MB, \MC)}(G)(A)) 
+				& = \Hom_{\MC^{\MB}}(\cur^{\bCat}_{(\MA,\MB, \MC)}(F)(A), \cur^{\bCat}_{(\MA,\MB, \MC)}(G)(A)) 
 			\end{align*}
 			\item 
 			\item 
@@ -7614,34 +8117,34 @@
 	\begin{defn} \ld{def:limits:cones_cocones:0003}
 		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$. 
 		\begin{itemize}
-			\item We define the \textbf{category of cones over $D$}, denoted $\Cone(D)$, by $\Cone(D) = (\Del^{\MJ} \doar D)$.
-			\item We define the \textbf{category of cocones under $D$}, denoted $\Cocone(D)$, by $\Cocone(D) = (D \doar \Del^{\MJ})$.
+			\item We define the \textbf{category of cones over $D$}, denoted $\bCone(D)$, by $\bCone(D) = (\Del^{\MJ} \doar D)$.
+			\item We define the \textbf{category of cocones under $D$}, denoted $\bCocone(D)$, by $\bCocone(D) = (D \doar \Del^{\MJ})$.
 		\end{itemize}
 	\end{defn}
 	
-	\begin{note}\
+	\begin{note} \lnt{note:limits:cones_cocones:0003.1} \
 		\begin{itemize}
-			\item By defintion,
+			\item By \rd{def:basics:functors:comma_cat:0004} and \rd{def:basics:nat_trans:diag_funct:0005},
 			\begin{align*}
-				\Obj(\Cone(D)) 
+				\Obj(\bCone(D)) 
 				& = \{(X, \phi): X \in \Obj(\MC) \text{ and } \phi \in \Hom_{\MC^{\MJ}}(\Del^{\MJ}(X), D) \} \\
 				& = \{(X, \phi): X \in \Obj(\MC) \text{ and } \phi: \Del^{\MJ}_X \Rightarrow D\}
 			\end{align*}
-			and for $(X, \phi), (Y, \psi) \in \Obj(\Cone(D))$,
+			and for $(X, \phi), (Y, \psi) \in \Obj(\bCone(D))$,
 			\begin{align*}
-				\Hom_{\Cone(D)}((X, \phi),(Y, \psi)) 
+				\Hom_{\bCone(D)}((X, \phi),(Y, \psi)) 
 				& = \{\al \in \Hom_{\MC}(X, Y): \psi \circ_{\MC^{\MJ}} \Del^{\MJ}(\al) = \phi \} \\
 				& = \{\al \in \Hom_{\MC}(X, Y): \psi \circ_{\MC^{\MJ}} \del^{\MJ}_{\al} = \phi \} \\
 				& = \{\al \in \Hom_{\MC}(X, Y): \text{for each $j \in \MJ$, $\psi_j \circ_{\MC} \al  = \phi_j$} \}.
 			\end{align*}
-			\tcr{make ex in subcategory section and rephrase this in terms of the commutative diagram on only the generating morphisms. This will enable us to more precisely cover limits like products and projective systems where the identity maorphisms are not typically included in the definition of a diagram, but rather only the set of generating morphisms}. Therefore, $(X, \phi) \in \Obj(\Cone(D))$ iff for each $i,j \in \Obj(\MJ)$ and $f_{i,j} \in \Hom_{\MJ}(i, j)$, the following diagram commutes:
+			\tcr{make ex in subcategory section and rephrase this in terms of the commutative diagram on only the generating morphisms. This will enable us to more precisely cover limits like products and projective systems where the identity maorphisms are not typically included in the definition of a diagram, but rather only the set of generating morphisms}. Therefore, $(X, \phi) \in \Obj(\bCone(D))$ iff for each $i,j \in \Obj(\MJ)$ and $f_{i,j} \in \Hom_{\MJ}(i, j)$, the following diagram commutes:
 			\[ 
 			\begin{tikzcd}
 				&  X \arrow[dl, "\phi_i"']  \arrow[dr, "\phi_j"] & \\
 				D_i  \arrow[rr, "D_{f_{i,j}}"'] &&  D_j \\ 
 			\end{tikzcd}
 			\]  
-			and $\al \in \Hom_{\Cone(D)}((X, \phi), (Y, \psi))$ iff  for each $i,j \in \Obj(\MJ)$ and $(i,j) \in \Hom_{\MJ}(i, j)$ the following diagram commutes: 
+			and $\al \in \Hom_{\bCone(D)}((X, \phi), (Y, \psi))$ iff  for each $i,j \in \Obj(\MJ)$ and $(i,j) \in \Hom_{\MJ}(i, j)$ the following diagram commutes: 
 			\[ 
 			\begin{tikzcd}
 				& X \arrow[d, "\al"'] \arrow[bend right=30, swap]{ddl}{\phi_i} \arrow[bend left=30]{ddr}{\phi_j} \\
@@ -7649,27 +8152,27 @@
 				D_i  \arrow[rr, "D_{i,j}"'] &&  D_j \\ 
 			\end{tikzcd}
 			\]
-			\item By defintion,
+			\item By \rd{def:basics:functors:comma_cat:0003} and \rd{def:basics:nat_trans:diag_funct:0005},
 			\begin{align*}
-				\Obj(\Cocone(D)) 
+				\Obj(\bCocone(D)) 
 				& = \{(X, \phi): X \in \Obj(\MC) \text{ and } \phi \in \Hom_{\MC^{\MJ}}( D, \Del^{\MJ}(X)) \} \\
 				& = \{(X, \phi): X \in \Obj(\MC) \text{ and } \phi: D \Rightarrow \Del^{\MJ}_X\}
 			\end{align*}
-			and for $(X, \phi), (Y, \psi) \in \Obj(\Cocone(D))$,
+			and for $(X, \phi), (Y, \psi) \in \Obj(\bCocone(D))$,
 			\begin{align*}
-				\Hom_{\Cocone(D)}((X, \phi),(Y, \psi)) 
+				\Hom_{\bCocone(D)}((X, \phi),(Y, \psi)) 
 				& = \{\al \in \Hom_{\MC}(X, Y): \Del^{\MJ}(\al) \circ_{\MC^{\MJ}} \phi = \psi \} \\
 				& = \{\al \in \Hom_{\MC}(X, Y): \del^{\MJ}_{\al} \circ_{\MC^{\MJ}} \phi = \psi \} \\
 				& = \{\al \in \Hom_{\MC}(X, Y): \text{for each $j \in \MJ$, $\al \circ_{\MC} \phi_j = \psi_j$} \}.
 			\end{align*}
-			\tcr{make ex in subcategory section and rephrase this in terms of the commutative diagram on only the generating morphisms. This will enable us to more precisely cover limits like products and projective systems where the identity maorphisms are not typically included in the definition of a diagram, but rather only the set of generating morphisms}. Therefore, $(X, \phi) \in \Obj(\Cone(D))$ iff for each $i,j \in \Obj(\MJ)$ and $f_{i,j} \in \Hom_{\MJ}(i, j)$, the following diagram commutes:
+			\tcr{make ex in subcategory section and rephrase this in terms of the commutative diagram on only the generating morphisms. This will enable us to more precisely cover limits like products and projective systems where the identity maorphisms are not typically included in the definition of a diagram, but rather only the set of generating morphisms}. Therefore, $(X, \phi) \in \Obj(\bCone(D))$ iff for each $i,j \in \Obj(\MJ)$ and $f_{i,j} \in \Hom_{\MJ}(i, j)$, the following diagram commutes:
 			\[ 
 			\begin{tikzcd}
 				D_i \arrow[dr, "\phi_i"'] \arrow[rr, "D_{f_{i,j}}"] &&  D_j \arrow[dl, "\phi_j"]  \\ 
 				&  X  & 
 			\end{tikzcd}
 			\]  
-			and $\al \in \Hom_{\Cone(D)}((X, \phi), (Y, \psi))$ iff  for each $i,j \in \Obj(\MJ)$ and $(i,j) \in \Hom_{\MJ}(i, j)$ the following diagram commutes: 
+			and $\al \in \Hom_{\bCone(D)}((X, \phi), (Y, \psi))$ iff  for each $i,j \in \Obj(\MJ)$ and $(i,j) \in \Hom_{\MJ}(i, j)$ the following diagram commutes: 
 			\[ 
 			\begin{tikzcd}
 				D_i \arrow[dr, "\phi_i"'] \arrow[rr, "D_{f_{i,j}}"] \arrow[bend right=30, swap]{ddr}{\psi_i}  & &  D_j \arrow[dl, "\phi_j"] \arrow[bend left=30]{ddl}{\psi_j} \\ 
@@ -7688,7 +8191,7 @@
 	\begin{exmp} \tcr{ref example}
 		Define $\MJ$ and $\MD$ \tcr{as in previous example}. 
 		\begin{itemize}
-			\item Let $(X, \phi) \in \Obj(\Cone(D))$. We can visualize $(X, \phi)$ as follows:
+			\item Let $(X, \phi) \in \Obj(\bCone(D))$. We can visualize $(X, \phi)$ as follows:
 			\[
 			\begin{tikzcd}
 				&  &  X \arrow[ddd, "\phi_1"'] \arrow[ddddll, "\phi_3"']  \arrow[dddrrr, "\phi_2"], \arrow[ddddr, "\phi_4"] &       &    \\
@@ -7698,7 +8201,7 @@
 				D_3 \arrow[rrr, "D_{3,4}"'] &       &     &  D_4  &    \\
 			\end{tikzcd}
 			\]
-			\item Let $(X, \phi) \in \Obj(\Cocone(D))$. We can visualize $(X, \phi)$ as follows:
+			\item Let $(X, \phi) \in \Obj(\bCocone(D))$. We can visualize $(X, \phi)$ as follows:
 			\[
 			\begin{tikzcd}
 				&  &  X \arrow[ddd, "\phi_1"'] \arrow[ddddll, "\phi_3"']  \arrow[dddrrr, "\phi_2"], \arrow[ddddr, "\phi_4"] &       &    \\
@@ -7713,7 +8216,7 @@
 	\end{exmp}
 	
 	\begin{ex} \lex{ex:limits:cones_cocones:0005}
-		\tcr{show $\Cocone(D) \cong \op{\Cone(D)}$ (ref ex about comma categories and opposite categories)}
+		\tcr{show $\bCocone(D) \cong \op{\bCone(D)}$ (ref ex about comma categories and opposite categories)}
 	\end{ex}
 	
 	\begin{proof}
@@ -7722,14 +8225,14 @@
 	
 	
 	\begin{ex} \lex{ex:limits:cones_cocones:0006}
-		Let $\MC$ be a category, $\MJ \in \Obj(\Cat)$ and $D_1, D_2 \in \Obj(\MC^{\MJ})$.
+		Let $\MC$ be a category, $\MJ \in \Obj(\bCat)$ and $D_1, D_2 \in \Obj(\MC^{\MJ})$.
 		\begin{enumerate}
 			\item Let $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$.
 			\begin{enumerate}
-				\item For each $(X, \phi) \in \Obj(\Cone(D_1))$, 
-				$$(X, \al \circ_{\MC^{\MJ}} \phi) \in \Obj(\Cone(D_2)).$$
-				\item For each $(X, \phi), (X', \phi') \in \Obj(\Cone(D_1))$ and $\eta \in \Hom_{\Cone(D_1)}((X, \phi), (X', \phi'))$, 
-				$$\eta \in \Hom_{\Cone(D_2)}((X, \al \circ_{\MC^{\MJ}} \phi), (X', \al \circ_{\MC^{\MJ}} \phi')).$$
+				\item For each $(X, \phi) \in \Obj(\bCone(D_1))$, 
+				$$(X, \al \circ_{\MC^{\MJ}} \phi) \in \Obj(\bCone(D_2)).$$
+				\item For each $(X, \phi), (X', \phi') \in \Obj(\bCone(D_1))$ and $\eta \in \Hom_{\bCone(D_1)}((X, \phi), (X', \phi'))$, 
+				$$\eta \in \Hom_{\bCone(D_2)}((X, \al \circ_{\MC^{\MJ}} \phi), (X', \al \circ_{\MC^{\MJ}} \phi')).$$
 			\end{enumerate} 
 			\item Let $\be \in \Hom_{\MC^{\MJ}}(D_2, D_1)$.
 			\begin{enumerate}
@@ -7743,29 +8246,29 @@
 		\begin{enumerate}
 			\item 
 			\begin{enumerate}
-				\item Let $(X, \phi) \in \Obj(\Cone(D_1))$. Then $X \in \Obj(\MC)$ and $\phi \in \Hom_{\MC^{\MJ}}(\Del^{\MJ}_X, D_1)$. Therefore $\al \circ_{\MC^{\MJ}} \phi \in \Hom_{\MC^{\MJ}}(\Del^{\MJ}_X, D_2)$. Hence $(X, \al \circ_{\MC^{\MJ}} \phi) \in \Obj(\Cone(D_2))$. 
-				\item Let $(X, \phi), (X', \phi') \in \Obj(\Cone(D_1))$ and $\eta \in \Hom_{\Cone(D_1)}((X, \phi), (X', \phi'))$. Then $\eta \in \Hom_{\MC}(X, X')$ and $\phi' \circ_{\MC^{\MJ}} \Del^{\MJ}(\eta) = \phi$. Therefore $\al \circ_{\MC^{\MJ}} \phi' \circ_{\MC^{\MJ}} \Del^{\MJ}(\eta) = \al \circ_{\MC^{\MJ}} \phi$. Hence $\eta \in \Hom_{\Cone(D_2)}((X, \al \circ_{\MC^{\MJ}} \phi), (X', \al \circ_{\MC^{\MJ}} \phi'))$.
+				\item Let $(X, \phi) \in \Obj(\bCone(D_1))$. Then $X \in \Obj(\MC)$ and $\phi \in \Hom_{\MC^{\MJ}}(\Del^{\MJ}_X, D_1)$. Therefore $\al \circ_{\MC^{\MJ}} \phi \in \Hom_{\MC^{\MJ}}(\Del^{\MJ}_X, D_2)$. Hence $(X, \al \circ_{\MC^{\MJ}} \phi) \in \Obj(\bCone(D_2))$. 
+				\item Let $(X, \phi), (X', \phi') \in \Obj(\bCone(D_1))$ and $\eta \in \Hom_{\bCone(D_1)}((X, \phi), (X', \phi'))$. Then $\eta \in \Hom_{\MC}(X, X')$ and $\phi' \circ_{\MC^{\MJ}} \Del^{\MJ}(\eta) = \phi$. Therefore $\al \circ_{\MC^{\MJ}} \phi' \circ_{\MC^{\MJ}} \Del^{\MJ}(\eta) = \al \circ_{\MC^{\MJ}} \phi$. Hence $\eta \in \Hom_{\bCone(D_2)}((X, \al \circ_{\MC^{\MJ}} \phi), (X', \al \circ_{\MC^{\MJ}} \phi'))$.
 			\end{enumerate}
 			\item \tcr{use duality}
 		\end{enumerate}
 	\end{proof}
 	
 	\begin{defn} \ld{def:limits:cones_cocones:0007}
-		Let $\MC$ be a category, $\MJ \in \Obj(\Cat)$ and $D_1, D_2 \in \Obj(\MC^{\MJ})$.
+		Let $\MC$ be a category, $\MJ \in \Obj(\bCat)$ and $D_1, D_2 \in \Obj(\MC^{\MJ})$.
 		\begin{enumerate}
-			\item Let $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$. We define the \tbf{cone functor induced by $\al$}, denoted $\Cn_{\al}: \Cone(D_1) \rightarrow \Cone(D_2)$, by 
+			\item Let $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$. We define the \tbf{cone functor induced by $\al$}, denoted $\Cn_{\al}: \bCone(D_1) \rightarrow \bCone(D_2)$, by 
 			\begin{itemize}
-				\item $\Cn_{\al}(X, \phi) \defeq (X, \al \circ_{\MC^{\MJ}} \phi), \quad (X, \phi) \in \Obj(\Cone(D_1))$,
-				\item $\Cn_{\al}(\eta) \defeq \eta, \quad \eta \in \Hom_{\Cone(D_1)}$.
+				\item $\Cn_{\al}(X, \phi) \defeq (X, \al \circ_{\MC^{\MJ}} \phi), \quad (X, \phi) \in \Obj(\bCone(D_1))$,
+				\item $\Cn_{\al}(\eta) \defeq \eta, \quad \eta \in \Hom_{\bCone(D_1)}$.
 			\end{itemize}
 			\item \tcr{similar for cocone functor}
 		\end{enumerate}
 	\end{defn}
 	
 	\begin{ex} \lex{ex:limits:cones_cocones:0008}
-		Let $\MC$ be a category, $\MJ \in \Obj(\Cat)$ and $D_1, D_2 \in \Obj(\MC^{\MJ})$.
+		Let $\MC$ be a category, $\MJ \in \Obj(\bCat)$ and $D_1, D_2 \in \Obj(\MC^{\MJ})$.
 		\begin{enumerate}
-			\item Let $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$. Then $\Cn_{\al}: \Cone(D_1) \rightarrow \Cone(D_2)$ is a functor.
+			\item Let $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$. Then $\Cn_{\al}: \bCone(D_1) \rightarrow \bCone(D_2)$ is a functor.
 			\item \tcr{similar for cocone functor}
 		\end{enumerate}
 	\end{ex}
@@ -7774,77 +8277,77 @@
 		\begin{enumerate}
 			\item We note that \tcr{ref prev ex} implies that $\Cn_{\al}$ is well-defined. 
 			\begin{enumerate}
-				\item \tcr{ref prev ex} implies that for each $(X, \phi), (X', \phi') \in \Obj(\Cone(D_1))$, and $\eta \in \Hom_{\Cone(D_1)}((X, \phi), (X', \phi'))$,
+				\item \tcr{ref prev ex} implies that for each $(X, \phi), (X', \phi') \in \Obj(\bCone(D_1))$, and $\eta \in \Hom_{\bCone(D_1)}((X, \phi), (X', \phi'))$,
 				\begin{align*}
 					\Cn_{\al}(\eta)
 					& = \eta \\
-					& \in \Hom_{\Cone(D_2)}((X, \al \circ{\MC^{\MJ}} \phi), (X', \al \circ{\MC^{\MJ}} \phi')) \\
-					& = \Hom_{\Cone(D_2)}(\Cn_{\al}(X, \phi), \Cn_{\al}(X', \phi')).
+					& \in \Hom_{\bCone(D_2)}((X, \al \circ{\MC^{\MJ}} \phi), (X', \al \circ{\MC^{\MJ}} \phi')) \\
+					& = \Hom_{\bCone(D_2)}(\Cn_{\al}(X, \phi), \Cn_{\al}(X', \phi')).
 				\end{align*}
-				\item Let $(X, \phi), (Y, \psi), (Z, \chi) \in \Obj(\Cone(D_1))$ and $\mu \in \Hom_{\Cone(D_1)}((X, \phi), (Y, \psi))$ and $\nu \in \Hom_{\Cone(D_1)}((Y, \psi), (Z, \chi))$. Since $\Cone(D_1) = (\Del^{\MJ} \doar D_1)$ and $\Cone(D_2) = (\Del^{\MJ} \doar D_2)$,  \rd{def:basics:functors:comma_cat:0004} implies that 
+				\item Let $(X, \phi), (Y, \psi), (Z, \chi) \in \Obj(\bCone(D_1))$ and $\mu \in \Hom_{\bCone(D_1)}((X, \phi), (Y, \psi))$ and $\nu \in \Hom_{\bCone(D_1)}((Y, \psi), (Z, \chi))$. Since $\bCone(D_1) = (\Del^{\MJ} \doar D_1)$ and $\bCone(D_2) = (\Del^{\MJ} \doar D_2)$,  \rd{def:basics:functors:comma_cat:0004} implies that 
 				\begin{align*}
-					\Cn_{\al}(\nu \circ_{\Cone(D_1)} \mu)
-					& = \nu \circ_{\Cone(D_1)} \mu \\
+					\Cn_{\al}(\nu \circ_{\bCone(D_1)} \mu)
+					& = \nu \circ_{\bCone(D_1)} \mu \\
 					& = \nu \circ_{(\Del^{\MJ} \doar D_1)} \mu \\
 					& = \nu \circ_{\MC} \mu \\
 					& = \nu \circ_{(\Del^{\MJ} \doar D_2)} \mu \\
-					& = \nu \circ_{\Cone(D_2)} \mu \\
-					& = \Cn_{\al}(\nu) \circ_{\Cone(D_2)} \Cn_{\al}(\mu).
+					& = \nu \circ_{\bCone(D_2)} \mu \\
+					& = \Cn_{\al}(\nu) \circ_{\bCone(D_2)} \Cn_{\al}(\mu).
 				\end{align*} 
 				\item 
 				By \rd{def:limits:cones_cocones:0003},  
 				\begin{align*}
-					\id_{(X, \phi)}^{\Cone(D_1)} 
+					\id_{(X, \phi)}^{\bCone(D_1)} 
 					& = \id_{(X, \phi)}^{(\Del^{\MJ} \doar D_1)} \\
 					& = \id_X^{\MC} \\
 					& = \id_{(X, \al \circ_{\MC^{\MJ}} \phi)}^{(\Del^{\MJ} \doar D_2)} \\
-					& = \id_{(X, \al \circ_{\MC^{\MJ}} \phi)}^{\Cone(D_2)}.
+					& = \id_{(X, \al \circ_{\MC^{\MJ}} \phi)}^{\bCone(D_2)}.
 				\end{align*}
-				Hence for each $(X, \phi) \in \Obj(\Cone(D_1))$,
+				Hence for each $(X, \phi) \in \Obj(\bCone(D_1))$,
 				\begin{align*}
-					\Cn_{\al}(\id_{(X, \phi)}^{\Cone(D_1)})
-					& = \id_{(X, \phi)}^{\Cone(D_1)} \\
-					& = \id_{(X, \al \circ_{\MC^{\MJ}} \phi)}^{\Cone(D_2)} \\
-					& = \id_{\Cn_{\al}(X, \phi)}^{\Cone(D_2)}.
+					\Cn_{\al}(\id_{(X, \phi)}^{\bCone(D_1)})
+					& = \id_{(X, \phi)}^{\bCone(D_1)} \\
+					& = \id_{(X, \al \circ_{\MC^{\MJ}} \phi)}^{\bCone(D_2)} \\
+					& = \id_{\Cn_{\al}(X, \phi)}^{\bCone(D_2)}.
 				\end{align*}
 			\end{enumerate}
-			Hence $\Cn_{\al}: \Cone(D_1) \rightarrow \Cone(D_2)$ is a functor.
+			Hence $\Cn_{\al}: \bCone(D_1) \rightarrow \bCone(D_2)$ is a functor.
 			\item \tcr{use duality}
 		\end{enumerate}
 	\end{proof}
 
 	\begin{defn}
-		Let $\MC$ be a category, $\MJ \in \Obj(\Cat)$. 
+		Let $\MC$ be a category, $\MJ \in \Obj(\bCat)$. 
 		\begin{enumerate}
-			\item We define the \tbf{Cone functor}, denoted $\Cone(\cdot):\MC^{\MJ} \rightarrow \Cat$, by
+			\item We define the \tbf{Cone functor}, denoted $\bCone(\cdot):\MC^{\MJ} \rightarrow \bCat$, by
 			\begin{itemize}
-				\item $\Cone(\cdot)(D) \defeq \Cone(D), \quad D \in \Obj(\MC^{\MJ})$ 
-				\item $\Cone(\cdot)(\al) \defeq \Cn_{\al}, \quad \al \in \Hom_{\MC^{\MJ}}$.
+				\item $\bCone(\cdot)(D) \defeq \bCone(D), \quad D \in \Obj(\MC^{\MJ})$ 
+				\item $\bCone(\cdot)(\al) \defeq \Cn_{\al}, \quad \al \in \Hom_{\MC^{\MJ}}$.
 			\end{itemize}
 			\item \tcr{define cocone functor}
 		\end{enumerate}
 	\end{defn}
 	
 	\begin{ex}
-		Let $\MC$ be a category, $\MJ \in \Obj(\Cat)$. 
+		Let $\MC$ be a category, $\MJ \in \Obj(\bCat)$. 
 		\begin{enumerate}
-			\item We have that $\Cone(\cdot):\MC^{\MJ} \rightarrow \Cat$ is a functor.
+			\item We have that $\bCone(\cdot):\MC^{\MJ} \rightarrow \bCat$ is a functor.
 			\item \tcr{show cocone functor is functor}
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item Set $C \defeq \Cone(\cdot)$.
+			\item Set $C \defeq \bCone(\cdot)$.
 			\begin{enumerate}
 				\item Let $D_1, D_2 \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$. Then 
 				\begin{align*}
 					C(\al)
 					& = \Cn_{\al} \\
-					& \in \Hom_{\Cat}(\Cone(D_1), \Cone(D_2)) \\
-					& = \Hom_{\Cat}(C(D_1), C(D_2)).
+					& \in \Hom_{\bCat}(\bCone(D_1), \bCone(D_2)) \\
+					& = \Hom_{\bCat}(C(D_1), C(D_2)).
 				\end{align*}
-				\item Let $D_1, D_2, D_3 \in \Obj(\MC^{\MJ})$, $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$ and $\be \in \Hom_{\MC^{\MJ}}(D_2, D_3)$. Then for each $(X, \phi) \in \Obj(\Cone(D))$,
+				\item Let $D_1, D_2, D_3 \in \Obj(\MC^{\MJ})$, $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$ and $\be \in \Hom_{\MC^{\MJ}}(D_2, D_3)$. Then for each $(X, \phi) \in \Obj(\bCone(D))$,
 				\begin{align*}
 					[C(\be \circ_{\MC^{\MJ}} \al)](X, \phi)
 					& = \Cn_{\be \circ_{\MC^{\MJ}} \al} (X, \phi) \\
@@ -7853,29 +8356,29 @@
 					& = \Cn_{\be}(X, \al \circ_{\MC^{\MJ}} \phi) \\
 					& = \Cn_{\be}(\Cn_{\al}(X, \phi)) \\
 					& = C(\be)[C(\al)(X, \phi)] \\
-					& = [C(\be) \circ_{\Cat} C(\al)](X, \phi)
+					& = [C(\be) \circ_{\bCat} C(\al)](X, \phi)
 				\end{align*} 
-				Therefore $C(\be \circ_{\MC^{\MJ}} \al) = C(\be) \circ_{\Cat} C(\al)$.
-				\item Let $D \in \Obj(\MC^{\MJ})$. Then for each $(X, \phi), (X', \phi') \in \Obj(\Cone(D))$ and $\eta \in \Hom_{\Cone(D)}((X, \phi), (X', \phi'))$,
+				Therefore $C(\be \circ_{\MC^{\MJ}} \al) = C(\be) \circ_{\bCat} C(\al)$.
+				\item Let $D \in \Obj(\MC^{\MJ})$. Then for each $(X, \phi), (X', \phi') \in \Obj(\bCone(D))$ and $\eta \in \Hom_{\bCone(D)}((X, \phi), (X', \phi'))$,
 				\begin{align*}
 					C(\id_D^{\MC^{\MJ}})(X, \phi)
 					& = \Cn_{\id_D^{\MC^{\MJ}}}(X, \phi) \\
 					& = (X, \id_D^{\MC^{\MJ}} \circ_{\MC^{\MJ}} \phi) \\
 					& = (X, \phi) \\
-					& = \id_{\Cone(D)}^{\Cat}(X, \phi) \\
-					& = \id_{C(D)}^{\Cat}(X, \phi)
+					& = \id_{\bCone(D)}^{\bCat}(X, \phi) \\
+					& = \id_{C(D)}^{\bCat}(X, \phi)
 				\end{align*}
 				and 
 				\begin{align*}
 					C(\id_D^{\MC^{\MJ}})(\eta)
 					& = \Cn_{\id_D^{\MC^{\MJ}}}(\eta) \\
 					& = \eta \\
-					& = \id_{\Cone(D)}^{\Cat}(\eta) \\
-					& = \id_{C(D)}^{\Cat}(\eta).
+					& = \id_{\bCone(D)}^{\bCat}(\eta) \\
+					& = \id_{C(D)}^{\bCat}(\eta).
 				\end{align*}
-				Thus $C(\id_D^{\MC^{\MJ}}) = \id_{C(D)}^{\Cat}$.
+				Thus $C(\id_D^{\MC^{\MJ}}) = \id_{C(D)}^{\bCat}$.
 			\end{enumerate}
-			Hence $\Cone(\cdot):\MC^{\MJ} \rightarrow \Cat$ is a functor.
+			Hence $\bCone(\cdot):\MC^{\MJ} \rightarrow \bCat$ is a functor.
 			\item \tcr{FINISH for cocones!!!!}
 		\end{enumerate}
 	\end{proof}
@@ -7923,45 +8426,54 @@
 	\begin{defn} \ld{def:limits:limits_colimits:0001}
 		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$ and $A \in \Obj(\MC)$.
 		\begin{itemize}
-			\item Let $f \in \Hom_{\MD}(X, F(A))$. Then $(A, f)$ is said to be a \textbf{universal morphism from $X$ to $F$} if for each $A' \in \Obj(\MC)$ and $f' \in \Hom_{\MD}(X, F(A'))$, there exists a unique $\al \in \Hom_{\MC}(A, A')$ such that $F(\al) \circ_{\MC} f = f'$, i.e. the following diagram commutes:
-			\[
+			\item Let $f \in \Hom_{\MD}(F(A), X)$. Then $(A, f)$ is said to be a \textbf{universal morphism from $F$ to $X$} if for each $A' \in \Obj(\MC)$ and $f' \in \Hom_{\MD}(F(A'), X)$, there exists a unique $\al \in \Hom_{\MC}(A', A)$ such that $f \circ_{\MD} F(\al) = f'$, i.e. the following diagram commutes:
+			\[ 
 			\begin{tikzcd}
-				X \arrow[r, "f"]  \arrow[dr, "f'"'] & F(A) \arrow[d, "F(\al)", dashed] \\
-				& F(A')  
+				A' \arrow[d, "\al"', dashed] \\
+				A  
 			\end{tikzcd}
-			\hspace{.3cm}
+			\quad
+			\begin{tikzcd}[baseline= 7]
+				F(A')  \arrow[d, "F(\al)"', dashed]  \arrow[dd, "f'"', bend left=60, swap]   \\
+				F(A) \arrow[d, "f"']                       \\
+				X
+			\end{tikzcd}
+			\] 
+			\item Let $f \in \Hom_{\MD}(X, F(A))$. Then $(A, f)$ is said to be a \textbf{universal morphism from $X$ to $F$} if for each $A' \in \Obj(\MC)$ and $f' \in \Hom_{\MD}(X, F(A'))$, there exists a unique $\al \in \Hom_{\MC}(A, A')$ such that $F(\al) \circ_{\MC} f = f'$, i.e. the following diagram commutes:
+			
+			\[ 
 			\begin{tikzcd}
-				A  \arrow[d, "\al", dashed] \\
+				A \arrow[d, "\al"', dashed] \\
 				A'  
 			\end{tikzcd}
-			\]
-			\item Let $f \in \Hom_{\MD}(F(A), X)$. Then $(A, f)$ is said to be a \textbf{universal morphism from $F$ to $X$} if for each $A' \in \Obj(\MC)$ and $f' \in \Hom_{\MD}(F(A'), X)$, there exists a unique $\al \in \Hom_{\MC}(A', A)$ such that $f \circ_{\MD} F(\al) = f'$, i.e. the following diagram commutes:
-			\[
-			\begin{tikzcd}
-				X   & F(A) \arrow[l, "f"'] \\
-				& F(A')  \arrow[ul, "f'"] \arrow[u, "F(\al)"', dashed]  
+			\quad
+			\begin{tikzcd}[baseline= 7]
+				X  \arrow[d, "f"']  \arrow[dd, "f'"', bend left=60, swap]   \\
+				F(A) \arrow[d, "F(\al)"', dashed]                       \\
+				F(A')
 			\end{tikzcd}
-			\hspace{.3cm}
-			\begin{tikzcd}
-				A \\
-				A'  \arrow[u, "\al"', dashed]   
-			\end{tikzcd}
-			\]
+			\] 
 		\end{itemize}
 	\end{defn}
 	
 	\begin{ex} \lex{ex:limits:limits_colimits:0002}
 		Let $\MC, \MD$ be a categories, $X \in \Obj(\MD)$, $F: \MC \rightarrow \MD$ and $A \in \Obj(\MC)$.
 		\begin{enumerate}
-			\item Let $f \in \Hom_{\MD}(X, F(A))$. Then $(A, f)$ is a universal morphism from $X$ to $F$ iff $(A, f)$ is $(X \doar F)$-initial. 
-			\item Let $f \in \Hom_{\MD}(F(A), X)$. Then $(A, f)$ is a universal morphism from $F$ to $X$ iff $(A, f)$ is $(F \doar X)$-terminal.
+			\item Let $f \in \Hom_{\MD}(F(A), X)$. Then $(A, f)$ is a universal morphism from $F$ to $X$ iff $(A, f) \in \Term_{(F \doar X)}$.
+			\item Let $f \in \Hom_{\MD}(X, F(A))$. Then $(A, f)$ is a universal morphism from $X$ to $F$ iff $(A, f) \in \Coterm_{(X \doar F)}$.
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item 
-			\item 
+			\item By \rd{def:basics:functors:comma_cat:0004}, $\Obj(F \doar X) = \coprod\limits_{A' \in \Obj(\MC)} \Hom_{\MD}(F(A'), X)$. In particular, $(A,f) \in \Obj(F \doar X)$. By \rd{def:basics:functors:comma_cat:0004}, $\Hom_{(F \doar X)}((A', f'), (A,f)) = \{\al \in \Hom_{\MC}(A', A): f \circ_{\MD} F(\al) = f'\}$. By \rd{def:limits:limits_colimits:0001},
+			\begin{align*}
+				\text{$(A, f)$ is a universal morphism from $F$ to $X$}
+				& \iff \text{for each $A' \in \Obj(\MC)$ and $f' \in \Hom_{\MD}(F(A'), X)$, there exists a unique $\al \in \Hom_{\MC}(A', A)$ such that $f \circ F(\al) = f'$} \\
+				& \iff \text{for each $(A', f') \in \Obj(F \doar X)$ there exists a unique $\al \in \Hom_{(F \doar X)}(A', A)$ such that $\Hom_{(F \doar X)}(A', A) = \{\al\}$} \\
+				& \iff (A,f) \in \Term_{(F \doar X)}.
+			\end{align*}
+			\item \tcr{Similar to prev part}
 		\end{enumerate}
 		\tcr{FINISH!!!}
 	\end{proof}
@@ -8023,15 +8535,15 @@
 		\begin{itemize}
 			\item 
 			\begin{itemize}
-				\item Let $(X, \phi) \in \Obj(\Cone(D))$. Then $(X, \phi)$ is said to be a \textbf{$D$-limit}, denoted $(X, \phi) = \lim D$, if $(X, \phi)$ is a universal morphism from $\Del^{\MJ}$ to $D$.  
+				\item Let $(X, \phi) \in \Obj(\bCone(D))$. Then $(X, \phi)$ is said to be a \textbf{$D$-limit}, denoted $(X, \phi) = \lim D$, if $(X, \phi)$ is a universal morphism from $\Del^{\MJ}$ to $D$.  
 				\item We define the \tbf{limit set of $D$}, denoted $\limSet(D)$, by 
-				$$\limSet D \defeq \{(X, \phi) \in \Obj(\Cone(D)): \text{$\Obj(\Cone(D))$ is a $D$-limit}\}.$$
+				$$\limSet D \defeq \{(X, \phi) \in \Obj(\bCone(D)): \text{$\Obj(\bCone(D))$ is a $D$-limit}\}.$$
 			\end{itemize}
 			\item 
 			\begin{itemize}
-				\item Let $(X, \phi) \in \Obj(\Cocone(D))$. Then $(X, \phi)$ is said to be a \textbf{$D$-colimit}, denoted $(X, \phi) = \colim D$, if $(X, \phi)$ is a universal morphism from $D$ to $\Del^{\MJ}$.  
+				\item Let $(X, \phi) \in \Obj(\bCocone(D))$. Then $(X, \phi)$ is said to be a \textbf{$D$-colimit}, denoted $(X, \phi) = \colim D$, if $(X, \phi)$ is a universal morphism from $D$ to $\Del^{\MJ}$.  
 				\item We define the \tbf{colimit set of $D$}, denoted $\colimSet(D)$, by 
-				$$\colimSet D \defeq \{(X, \phi) \in \Obj(\Cocone(D)): \text{$\Obj(\Cocone(D))$ is a $D$-colimit}\}.$$
+				$$\colimSet D \defeq \{(X, \phi) \in \Obj(\bCocone(D)): \text{$\Obj(\bCocone(D))$ is a $D$-colimit}\}.$$
 			\end{itemize}
 		\end{itemize}
 		\tcr{maybe define $\lim$ set, but maybe not, we want to be able to write $(X, \phi) = \lim D$, but we need some guarantee that anything we would possibly want to say is invariant under isomorphism, other wise different limits of $D$ may always be interchangeable, ask someone if we need to be careful here and define limit sets. For instance \href{https://ncatlab.org/nlab/show/commutativity+of+limits+and+colimits}{commutativity}}
@@ -8040,41 +8552,42 @@
 	\begin{note}
 		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$. 
 		\begin{itemize}
-			\item Let $(X, \phi) \in \Obj(\Cone(D))$. Then 
+			\item Let $(X, \phi) \in \Obj(\bCone(D))$. Then 
 			\begin{align*}
-				\text{$(X, \phi)$  is a limit of $D$} 
-				& \iff \text{$(X, \phi)$ is $\Cone(D)$-terminal} \\
-				& \iff \text{for each $(X', \phi') \in \Obj(\Cone(D))$, there exists a unique} \\
+				(X, \phi) \in \limSet D
+				& \iff \text{$(X, \phi)$ is $\bCone(D)$-terminal} \\
+				& \iff \text{for each $(X', \phi') \in \Obj(\bCone(D))$, there exists a unique} \\
 				& \hspace{1.3cm }\text{$\al \in \Hom_{\MC}(X', X)$ such that for each $j \in \MJ$, $\phi_j \circ_{\MC} \al = \phi'_j$}
 			\end{align*} 
-			\item Let $(X, \phi) \in \Obj(\Cocone(D))$. Then 
+			\item Let $(X, \phi) \in \Obj(\bCocone(D))$. Then 
 			\begin{align*}
-				\text{$(X, \phi)$  is a colimit of $D$} 
-				& \iff \text{$(X, \phi)$ is $\Cocone(D)$-initial} \\
-				& \iff \text{for each $(X', \phi') \in \Obj(\Cocone(D))$, there exists a unique} \\
+				(X, \phi) \in \colimSet D
+				& \iff \text{$(X, \phi)$ is $\bCocone(D)$-initial} \\
+				& \iff \text{for each $(X', \phi') \in \Obj(\bCocone(D))$, there exists a unique} \\
 				& \hspace{1.3cm }\text{$\al \in \Hom_{\MC}(X, X')$ such that for each $j \in \MJ$, $\al \circ_{\MC} \phi_j = \phi'_j $}
 			\end{align*} 
 		\end{itemize}
 	\end{note} 
 
-	\begin{ex} \lex{lex:limits:limits_colimits:0004}
-		\tcr{limits and colimits are unique up to isomorphism} 
+	\begin{ex} \lex{ex:limits:limits_colimits:0004}
+		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $D \in \Obj(\MC^{\MJ})$.
 		\begin{enumerate}
-			\item ?Let $(X, \phi) \in \limSet D$ and $Y \in \Obj(\MC)$, then $(Y, \psi) \in \limSet D$ iff there exists $\al \in \Iso_{\MC}(X,Y)$ such that $\psi \circ_{\MC^{\MJ}} \del^{\MJ}_{\al} = \phi$? 
+			\item For each $(X, \phi), (Y, \psi) \in \limSet D$, there exists $f \in \Iso_{\Cone(D)}((X, \phi), (Y, \psi))$ such that $\Hom_{\Cone(D)}((X, \phi), (Y, \psi)) = \{f\}$. \tcr{make/ref ex in comma category section about inverses implies that $f \in \Iso_{\MC}(X, Y)$}. 
 			\item \tcr{colimits}
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item 
-			\item 
+			\item Let $(X, \phi), (Y, \psi) \in \limSet D$. Then $(X, \phi), (Y, \psi) \in \Cone(D)$ and $(X, \phi), (Y, \psi)$ are $\Cone(D)$-terminal. \rex{15014} implies that there exists $f \in \Iso_{\Cone(D)}((X, \phi), (Y, \psi))$ such that $\Hom_{\Cone(D)}((X, \phi), (Y, \psi)) = \{f\}$. 
+			\item \tcr{colimits}
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{defn} \ld{def:limits:limits_colimits:0005}
-		Let $\MJ$, $\MC$ be categories. Suppose that $\MJ$ is small. Let $L \in \prod\limits_{\Obj(\MC^{\MJ})} \limSet(D)$. 
-	\end{defn}
+	
+	
+
+	
 	
 	
 	
@@ -8142,7 +8655,7 @@
 	\subsection{Products and Coproducts}
 	
 	\begin{defn}
-		Let $\MJ$ be a discrete category, $\MC$ a category, $D \in \MC^{\MJ}$ and $(X, \pi) \in \Cone(D)$. Then $(X, \pi)$ is said to be a \tbf{product of $D$}.
+		Let $\MJ$ be a discrete category, $\MC$ a category, $D \in \MC^{\MJ}$ and $(X, \pi) \in \bCone(D)$. Then $(X, \pi)$ is said to be a \tbf{product of $D$}.
 	\end{defn}
 	
 	\begin{note}
@@ -8210,7 +8723,7 @@
 	\end{ex}
 
 	\begin{defn}
-		Let $(\MJ, \MC, D)$ be a $\MC$-projective system and $(X, \phi) \in \Obj(\Cone(D))$. Then $(X, \phi)$ is said to be a $\MC$-projective limit of $(\MJ, \MC, D)$ if $(X, \phi)$ is a limit of $D$. 
+		Let $(\MJ, \MC, D)$ be a $\MC$-projective system and $(X, \phi) \in \Obj(\bCone(D))$. Then $(X, \phi)$ is said to be a $\MC$-projective limit of $(\MJ, \MC, D)$ if $(X, \phi)$ is a limit of $D$. 
 	\end{defn}
 
 	
@@ -8268,10 +8781,10 @@
 
 
 \newpage
-\section{Completeness}
+\section{Completeness and Cocompleteness}
 
 \begin{defn} \ld{def:limits:completeness:0001}
-	Let $\MC$ be a category and $\MJ \in \Obj(\Cat)$. Then $\MC$ is said to 
+	Let $\MC$ be a category and $\MJ \in \Obj(\bCat)$. Then $\MC$ is said to 
 	\begin{itemize}
 		\item \tbf{have all $\MJ$-limits} if for each $D \in \Obj(\MC^{\MJ})$, $\limSet D \neq \varnothing$. 
 		\item \tbf{have all $\MJ$-colimits} if for each $D \in \Obj(\MC^{\MJ})$, $\colimSet D \neq \varnothing$. 
@@ -8279,7 +8792,7 @@
 \end{defn}
 
 \begin{defn} \ld{def:limits:completeness:0002}
-	Let $\MC$ be a category and $\MJ \in \Obj(\Cat)$.  
+	Let $\MC$ be a category and $\MJ \in \Obj(\bCat)$.  
 	\begin{itemize}
 		\item 
 		\begin{itemize}
@@ -8294,28 +8807,24 @@
 	\end{itemize}
 \end{defn}
 
+\begin{note}
+	Let $L \in \limChoice(\MC^{\MJ})$, $D_1, D_2 \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$. Write $\Cn_{\al}(L_{D_1} = (X, \phi)$ and $L_{D_2} = (Y, \psi)$. Since $L_{D_2} \in \limSet D_2$, $L_{D_2}$ is $\Cone(D_2)$-terminal. Thus there exists $f \in \Hom_{\bCone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2})$ such that $\Hom_{\bCone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2}) = \{f\}$. By \rnt{note:limits:cones_cocones:0003.1}, $f \in \Hom_{\MC}(X, Y)$.
+\end{note}
 
-\begin{ex} \lex{ex:limits:completeness:0003}
-	Let $\MC$ be a category and $\MJ \in \Obj(\Cat)$.
+\begin{defn} \ld{def:limits:completeness:0003}
+	Let $\MC$ be a category and $\MJ \in \Obj(\bCat)$.
 	\begin{enumerate}
-		\item Suppose that $\MC$ has all $\MJ$-limits. Let $L \in \limChoice(\MC^{\MJ})$. Then for each $D_1, D_2 \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$, there exists $\eta^L_{\al} \in \Hom_{\Cone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2})$ such that $\Hom_{\Cone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2}) = \{\eta^L_{\al}\}$. 
-		\item \tcr{do somethign similar for colimtis}
+		\item Suppose that $\MC$ has all $\MJ$-limits. Let $L \in \limChoice(\MC^{\MJ})$, $D_1, D_2 \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$. Write $\Cn_{\al}(L_{D_1} = (X, \phi)$ and $L_{D_2} = (Y, \psi)$. We define the \tbf{cone morphism induced by $L$ and $\al$}, denoted $\eta_{\al}^L \in \Hom_{\MC}$ to be the unique $f \in \Hom_{\MC}(X, Y)$ such that $\Hom_{\bCone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2}) = \{f\}$.
+		\item \tcr{do somethign similar for colimits}
 	\end{enumerate}
-\end{ex}
-
-\begin{proof}\
-	\begin{enumerate}
-		\item Let $D_1, D_2 \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$. Since $L_{D_2}$ is a $D_2$-limit, $L_{D_2}$ is $\Cone(D_2)$-terminal. Thus there exists $\eta^L_{\al} \in \Hom_{\Cone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2})$ such that $\Hom_{\Cone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2}) = \{\eta^L_{\al}\}$. 
-		\item \tcr{FINISH!!!!}
-	\end{enumerate}
-\end{proof}
+\end{defn}
 
 \begin{defn} \ld{def:limits:completeness:0004}
-	Let $\MC$ be a category and $\MJ \in \Obj(\Cat)$. 
+	Let $\MC$ be a category and $\MJ \in \Obj(\bCat)$. 
 	\begin{itemize}
 		\item Suppose that $\MC$ has all $\MJ$-limits. Let $L \in \limChoice(\MC^{\MJ})$.
 		\begin{itemize}
-			\item For $D_1, D_2 \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$, we define $\eta^L_{\al} \in \Hom_{\Cone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2})$ as in \rex{ex:limits:completeness:0003}. 
+			\item For $D_1, D_2 \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$, we define $\eta^L_{\al} \in \Hom_{\bCone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2})$ as in \rex{ex:limits:completeness:0003}. 
 			\item We define the \tbf{$L$-limit functor}, denoted $\lim\limits_L: \MC^{\MJ} \rightarrow \MC$, by
 			\begin{itemize}
 				\item $\lim\limits_L(D) \defeq \prj_{\Obj(\MC)}(L_D), \quad D \in \Obj(\MC^{\MJ})$ 
@@ -8327,7 +8836,7 @@
 \end{defn}
 
 \begin{ex} \lex{ex:limits:completeness:0005}
-	Let $\MC$ be a category and $\MJ \in \Obj(\Cat)$. 
+	Let $\MC$ be a category and $\MJ \in \Obj(\bCat)$. 
 	\begin{enumerate}
 		\item Suppose that $\MC$ has all $\MJ$-limits. Let $L \in \limChoice(\MC^{\MJ})$. Then $\lim\limits_L: \MC^{\MJ} \rightarrow \MC$ is a functor.
 		\item \tcr{do something similar for colimits}
@@ -8340,28 +8849,27 @@
 		\begin{enumerate}
 			\item Let $D_1, D_2 \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$. Write $L_{D_1} = (X_1, \phi_1)$ and $L_{D_2} = (X_2, \phi_2)$. Then $\lim\limits_L(D_1) = X_1$ and $\lim\limits_L(D_2) = X_2$. By \rd{def:limits:cones_cocones:0003},  
 			\begin{align*}
-				\Hom_{\Cone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2}) 
-				& = \Hom_{\Cone(D_2)}((X_1, \al \circ_{\MC^{\MJ}} \phi_1), (X_2, \phi_2)) \\
+				\Hom_{\bCone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2}) 
+				& = \Hom_{\bCone(D_2)}((X_1, \al \circ_{\MC^{\MJ}} \phi_1), (X_2, \phi_2)) \\
 				& \subset \Hom_{\MC}(X_1, X_2).
 			\end{align*}
 			Therefore 
 			\begin{align*}
 				\lim\limits_L(\al)
 				& = \eta^L_{\al} \\
-				& \in \Hom_{\Cone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2}) \\
+				& \in \Hom_{\bCone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2}) \\
 				& \subset \Hom_{\MC}(X_1, X_2) \\
 				& = \Hom_{\MC}(\lim\limits_L(D_1), \lim\limits_L(D_2)).
 			\end{align*}
-			\item Let $D_1, D_2, D_3 \in \Obj(\MC^{\MJ})$, $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$ and $\be \in \Hom_{\MC^{\MJ}}(D_2, D_3)$. By \rex{ex:limits:completeness:0003},
+			\item Let $D_1, D_2, D_3 \in \Obj(\MC^{\MJ})$, $\al \in \Hom_{\MC^{\MJ}}(D_1, D_2)$ and $\be \in \Hom_{\MC^{\MJ}}(D_2, D_3)$. Write $L_{D_1} = (X_1, \phi_1)$, $L_{D_2} = (X_2, \phi_2)$ and $L_{D_3} = (X_3, \phi_3)$. Then $\lim\limits_L(D_1) = X_1$, $\lim\limits_L(D_2) = X_2$ and $\lim\limits_L(D_3) = X_3$. By \rd{def:limits:completeness:0003} and \rd{def:limits:cones_cocones:0003},
 			\begin{itemize}
-				\item $\Hom_{\Cone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2}) = \{\eta^L_{\al}\}$, \item $\Hom_{\Cone(D_3)}(\Cn_{\be}(L_{D_2}), L_{D_3}) = \{\eta^L_{\be}\}$,
-				\item $\Hom_{\Cone(D_3)}(\Cn_{\be \circ_{\MC^{\MJ}} \al}(L_{D_1}), L_{D_3}) = \{\eta^L_{\be \circ_{\MC^{\MJ}} \al}\}$. 
+				\item $\Hom_{\bCone(D_2)}(\Cn_{\al}(L_{D_1}), L_{D_2}) = \{\eta^L_{\al}\}$, \item $\Hom_{\bCone(D_3)}(\Cn_{\be}(L_{D_2}), L_{D_3}) = \{\eta^L_{\be}\}$,
+				\item $\Hom_{\bCone(D_3)}(\Cn_{\be \circ_{\MC^{\MJ}} \al}(L_{D_1}), L_{D_3}) = \{\eta^L_{\be \circ_{\MC^{\MJ}} \al}\}$
 			\end{itemize}
-			By definition \rd{def:limits:cones_cocones:0003},
+			and
 			\begin{itemize}
 				\item $\eta^L_{\al} \in \Hom_{\MC}(X_1, X_2)$ and $\phi_2 \circ_{\MC^{\MJ}} \Del^{\MJ}(\eta^L_{\al}) = \al \circ_{\MC^{\MJ}} \phi_1$
 				\item $\eta^L_{\be} \in \Hom_{\MC}(X_2, X_3)$ and $\phi_3 \circ_{\MC^{\MJ}} \Del^{\MJ}(\eta^L_{\be}) = \be \circ_{\MC^{\MJ}} \phi_2$.
-				\item 
 			\end{itemize}
 			Therefore $\eta^L_{\be} \circ_{\MC} \eta^L_{\al} \in \Hom_{\MC}(X_1, X_3)$ and
 			\begin{align*}
@@ -8376,8 +8884,8 @@
 			Hence 
 			\begin{align*}
 				\eta^L_{\be} \circ_{\MC} \eta^L_{\al} 
-				& \in \Hom_{\Cone(D_3)}(X_1, (\be \circ_{\MC^{\MJ}} \al) \circ_{\MC^{\MJ}} \phi_1, (X_3, \phi_3)) \\
-				& = \Hom_{\Cone(D_3)}(\Cn_{\be \circ_{\MC^{\MJ}} \al}(L_{D_1}), L_{D_3}) \\
+				& \in \Hom_{\bCone(D_3)}(X_1, (\be \circ_{\MC^{\MJ}} \al) \circ_{\MC^{\MJ}} \phi_1, (X_3, \phi_3)) \\
+				& = \Hom_{\bCone(D_3)}(\Cn_{\be \circ_{\MC^{\MJ}} \al}(L_{D_1}), L_{D_3}) \\
 				& = \{\eta^L_{\be \circ_{\MC^{\MJ}} \al}\}.
 			\end{align*} 
 			Thus 
@@ -8387,29 +8895,29 @@
 				& = \eta^L_{\be} \circ_{\MC} \eta^L_{\al} \\
 				& = \lim\limits_L(\be) \circ_{\MC} \lim\limits_L(\al).
 			\end{align*}
-			\item Let $D \in \Obj(\MC^{\MJ})$. Write $L_D = (X, \phi)$. \rex{} \tcr{ref prev ex} implies that $\Cone(\cdot): \MC^{\MJ} \rightarrow \Cat$ and 
+			\item Let $D \in \Obj(\MC^{\MJ})$. Write $L_D = (X, \phi)$. \rex{} \tcr{ref prev ex} implies that $\bCone(\cdot): \MC^{\MJ} \rightarrow \bCat$ and 
 			\begin{align*}
 				\Cn_{\id_D^{\MC^{\MJ}}} 
-				& = \Cone(\cdot)(\id_D^{\MC^{\MJ}}) \\
-				& = \id_{\Cone(D)}^{\Cat}.
+				& = \bCone(\cdot)(\id_D^{\MC^{\MJ}}) \\
+				& = \id_{\bCone(D)}^{\bCat}.
 			\end{align*} 
 			Then  
 			\begin{align*}
 				\Cn_{\id_D^{\MC^{\MJ}}}(L_D) 
-				& = \id_{\Cone(D)}^{\Cat}(L_D) \\
+				& = \id_{\bCone(D)}^{\bCat}(L_D) \\
 				& = L_D.
 			\end{align*}
-			Since $L_D$ is $\Cone(D)$-terminal,
+			Since $L_D$ is $\bCone(D)$-terminal,
 			\begin{align*}
 				\lim\limits_L(\id_D^{\MC^{\MJ}})
 				& = \eta^L_{\id_D^{\MC^{\MJ}}} \\
-				& \in \Hom_{\Cone(D)}(\Cn_{\id_D^{\MC^{\MJ}}}(L_D), L_D) \\
-				& = \Hom_{\Cone(D)}(L_D, L_D) \\
-				& = \{\id_{L_D}^{\Cone(D)}\}. 
+				& \in \Hom_{\bCone(D)}(\Cn_{\id_D^{\MC^{\MJ}}}(L_D), L_D) \\
+				& = \Hom_{\bCone(D)}(L_D, L_D) \\
+				& = \{\id_{L_D}^{\bCone(D)}\}. 
 			\end{align*}
 			By \rd{} \tcr{ref cone def}, 
 			\begin{align*}
-				\id_{L_D}^{\Cone(D)} 
+				\id_{L_D}^{\bCone(D)} 
 				& = \id_{L_D}^{(\Del^{\MJ} \doar D)} \\
 				& = \id_{(X, \phi)}^{(\Del^{\MJ} \doar D)} \\
 				& = \id_X^{\MC}.
@@ -8417,7 +8925,7 @@
 			Therefore
 			\begin{align*}
 				\lim\limits_L(\id_D^{\MC^{\MJ}})
-				& = \id_{L_D}^{\Cone(D)} \\
+				& = \id_{L_D}^{\bCone(D)} \\
 				& = \id_X^{\MC} \\
 				& = \id_{\lim\limits_L(D)}^{\MC}.
 			\end{align*}
@@ -8427,9 +8935,134 @@
 	\end{enumerate}
 \end{proof}
 
-\begin{ex}
-	For a choice of $L$, we get a functor $\lim\limits_L$. Rephrasing this, for each object (a set $L \in \limChoice(\MC^{\MJ})$)  we get a an object (a functor $\lim\limits_L: \MC^{\MJ} \rightarrow \MC$). Maybe we can consider $\limChoice(\MC^{\MJ})$ as a category and consider an arrow $f: L \rightarrow M$ as a function $f: \bigcup\limits_{D \in \Obj(\MC^{\MJ})} \Cone(D) \rightarrow \bigcup\limits_{D \in \Obj(\MC^{\MJ})} \Cone(D)$ such that $f \circ_{\bSet} L = M$, i.e. for each $D \in \Obj(\MC^{\MJ})$ $f(L_D) = M_D$, \tcr{idk, think about}
+\begin{ex} \lex{ex:limits:completeness:0006}
+	Let $\MC$ be a category and $\MJ \in \Obj(\bCat)$. 
+	\begin{enumerate}
+		\item Suppose that $\MC$ has all $\MJ$-limits. Let $L_1, L_2 \in \limChoice(\MC^{\MJ})$. We have that $\prod\limits_{D \in \Obj(\MC^{\MJ})} \Hom_{\Cone(D)}(L_1(D), L_2(D)) = \prod\limits_{D \in \Obj(\MC^{\MJ})} \Iso_{\Cone(D)}(L_1(D), L_2(D))$ and there exists $f: \Obj(\MC^{\MJ}) \rightarrow \Hom_{\MC}$ such that $\prod\limits_{D \in \Obj(\MC^{\MJ})} \Hom_{\Cone(D)}(L_1(D), L_2(D)) = \{f\}$.
+		\item \tcr{something similar for colimits.}
+	\end{enumerate}
 \end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{itemize}
+			\item We note that $D \in \Obj(\MC^{\MJ})$,
+			\begin{align*}
+				\{L_1(D), L_2(D) \}
+				& \subset \limSet D \\
+				& \subset \Term_{\Cone(D)},
+			\end{align*} 
+			\rex{15014} implies that for each $D \in \Obj(\MC^{\MJ})$, $\Iso_{\Cone(D)}(L_1(D), L_2(D)) = \Hom_{\Cone(D)}(L_1(D), L_2(D))$ and $\# \Hom_{\Cone(D)}(L_1(D), L_2(D)) = 1$. Then $\prod\limits_{D \in \Obj(\MC^{\MJ})} \Hom_{\Cone(D)}(L_1(D), L_2(D)) = \prod\limits_{D \in \Obj(\MC^{\MJ})} \Iso_{\Cone(D)}(L_1(D), L_2(D))$ and \tcr{The axiom of choice} implies that there exists a $f \in \prod\limits_{D \in \Obj(\MC^{\MJ})} \Hom_{\Cone(D)}(L_1(D), L_2(D))$ such that $\prod\limits_{D \in \Obj(\MC^{\MJ})} \Hom_{\Cone(D)}(L_1(D), L_2(D)) = \{f\}$. 
+		\end{itemize}
+		\item \tcr{similar for colimits}
+	\end{enumerate}
+\end{proof}
+
+\begin{defn} \ld{def:limits:completeness:0007}
+	Let $\MC$ be a category and $\MJ \in \Obj(\bCat)$. 
+	\begin{itemize}
+		\item Suppose that $\MC$ has all $\MJ$-limits. Let $L_1, L_2 \in \limChoice(\MC^{\MJ})$. We define the \tbf{natural transformation from $\lim\limits_{L_1}$ to $\lim\limits_{L_2}$}, denoted $f^{L_1, L_2}: \Obj(\MC^{\MJ}) \rightarrow \Hom_{\MC}$ to be the unique $f \in \prod\limits_{D \in \Obj(\MC^{\MJ})} \Hom_{\Cone(D)}(L_1(D), L_2(D))$. 
+		\item \tcr{similar for colimits}
+	\end{itemize}
+\end{defn}
+
+\begin{ex} \lex{ex:limits:completeness:0008}
+	Let $\MC$ be a category and $\MJ \in \Obj(\bCat)$. 
+	\begin{enumerate}
+		\item Suppose that $\MC$ has all $\MJ$-limits. Let $L_1, L_2 \in \limChoice(\MC^{\MJ})$. Then $f^{L_1, L_2} \in \Iso_{\MC^{\MC^{\MJ}}}(\lim\limits_{L_1}, \lim\limits_{L_2})$.
+		\item \tcr{something similar for colimits.}
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item 
+		\begin{itemize}
+			\item Let $D \in \Obj(\MC^{\MJ})$. Write $L_1(D) = (X, \phi)$ and $L_2(D) = (Y, \psi)$. 
+			By \rex{ex:limits:completeness:0008} and \rd{def:limits:completeness:0007}, 
+			\begin{align*}
+				f^{L_1, L_2}_D
+				& \in \Hom_{\Cone(D)}((L_1(D), L_2(D)) \\
+				& \subset \Hom_{\MC}(X, Y) \quad \text{(by \tcr{ref ex cone def})} \\
+				& = \Hom_{\MC}(\lim\limits_{L_1}(D), \lim\limits_{L_2}(D)).
+			\end{align*}
+			Since $D \in \Obj(\MC^{\MJ})$ is arbitrary, we have that for each $D \in \Obj(\MC^{\MJ})$, $f^{L_1, L_2}_D \in \Hom_{\MC}(\lim\limits_{L_1}(D), \lim\limits_{L_2}(D))$. 
+			\item Let $D,E \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D, E)$. Write $L_1(D) = (X^D, \phi^D)$, $L_1(E) = (X^E, \phi^E)$, $L_2(D) = (Y^D, \psi^D)$, $L_2(E) = (Y^E, \psi^E)$. \rex{ex:limits:cones_cocones:0008} implies that $\Cn_{\al}: \Cone(D) \rightarrow \Cone(E)$, $\Cn_{\al}(L_1(D)), \Cn_{\al}(L_2(D)) \in \Obj(\Cone(E))$ and  
+			\begin{align*}
+				f^{L_1, L_2}_D 
+				& = \Cn_{\al} (f^{L_1, L_2}_D) \\
+				& \in \Hom_{\Cone(E)}(\Cn_{\al}(L_1(D)), \Cn_{\al}(L_2(D))) \\
+				& = \Hom_{\Cone(E)}((X^D, \al \circ_{\MC^{\MJ}} \phi^D), (Y^D, \al \circ_{\MC^{\MJ}} \psi^D)) \\
+				& \subset \Hom_{\MC}(X^D, Y^D) \\
+				& = \Hom_{\MC}(\lim\limits_{L_1}(D), \lim\limits_{L_2}(D)).
+			\end{align*}
+			By \rd{def:limits:completeness:0004}, 
+			\begin{align*}
+				\eta_{\al}^{L_1}
+				& = \lim_{L_1}(\al) \\ 
+				& \in \Hom_{\Cone(E)}(\Cn_{\al}(L_1(D), L_1(E))) \\
+				& \subset \Hom_{\MC}(X^D, X^E). 
+			\end{align*}
+			and 
+			\begin{align*}
+				\eta_{\al}^{L_2}
+				& = \lim_{L_2}(\al) \\ 
+				& \in \Hom_{\Cone(E)}(\Cn_{\al}(L_2(D), L_2(E))) \\
+				& \subset \Hom_{\MC}(Y^D, Y^E). 
+			\end{align*}
+			Since $L_2(E) \in \Term_{\Cone(E)}$, there exists a unique $g \in \Hom_{\Cone(E)}(\Cn_{\al}(L_1(D)), L_2(E))$. Thus
+			\begin{align*}
+				\lim_{L_2}(\al) \circ_{\MC} f^{L_1, L_2}_D 
+				& = \eta_{\al}^{L_2} \circ_{\MC} f^{L_1, L_2}_D \\
+				& \in \Hom_{\Cone(E)}(\Cn_{\al}(L_1(D)), L_2(E)) \\
+				& = \{g\}
+			\end{align*}
+			and similarly
+			\begin{align*}
+				f^{L_1, L_2}_E \circ_{\MC} \lim_{L_1}(\al) \\
+				& = f^{L_1, L_2}_E \circ_{\MC} \eta_{\al}^{L_1} \\
+				& \in \Hom_{\Cone(E)}(\Cn_{\al}(L_1(D)), L_2(E)) \\
+				& \in \{g\}.
+			\end{align*}
+			Thus 
+			\begin{align*}
+				\lim_{L_2}(\al) \circ_{\MC} f^{L_1, L_2}_D 
+				& = g \\
+				& = f^{L_1, L_2}_E \circ_{\MC} \lim_{L_1}(\al),
+			\end{align*}
+			i.e. the following diagrams commute:
+			\[ 
+			\begin{tikzcd}
+				\lim_{L_1}(D)  \arrow[r, "f^{L_1, L_2}_D"]  \arrow[d, "\lim_{L_2}(\al)"']  & \lim_{L_2}(D)   \arrow[d, "\lim_{L_2}(\al)"]\\
+				\lim_{L_1}(E) \arrow[r, "f^{L_1, L_2}_E"'] &  \lim_{L_2}(E) 
+			\end{tikzcd}
+			\quad 
+			=
+			\quad 
+			\begin{tikzcd}
+				X^D  \arrow[r, "f^{L_1, L_2}_D"]  \arrow[d, "\eta_{\al}^{L_1}"']  & Y^D   \arrow[d, "\eta_{\al}^{L_2}"]\\
+				X^E \arrow[r, "f^{L_1, L_2}_E"'] &  Y^E
+			\end{tikzcd}
+			\] 
+			Since $D,E \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D, E)$ are arbitrary, we have that for each $D,E \in \Obj(\MC^{\MJ})$ and $\al \in \Hom_{\MC^{\MJ}}(D, E)$, $\lim_{L_2}(\al) \circ_{\MC} f^{L_1, L_2}_D  = f^{L_1, L_2}_E \circ_{\MC} \lim_{L_1}(\al)$. Thus $f^{L_1, L_2} \in \Hom_{\MC^{\MC^{\MJ}}}(\lim\limits_{L_1}, \lim\limits_{L_2})$. 
+			\item Since for each $D \in \Obj(\MC^{\MJ})$, 
+			\begin{align*}
+				f^{L_1, L_2}_D 
+				& \in \Hom_{\Cone(D)}((L_1(D), L_2(D)) \\
+				& = \Iso_{\Cone(D)}((L_1(D), L_2(D)) \\
+				& \subset \Iso_{\MC}(\lim\limits_{L_1}(D), \lim\limits_{L_2}(D)) \quad \text{(by \tcr{make/ref ex in comma cat section})}, 
+			\end{align*}
+			we have that $f^{L_1, L_2} \in \Iso_{\MC^{\MC^{\MJ}}}(\lim\limits_{L_1}, \lim\limits_{L_2})$. 
+		\end{itemize}
+		\item \tcr{colimits}
+	\end{enumerate}
+\end{proof}
+
+
+\begin{note}
+	\tcr{now can define $\times^L: \MC \times \MC \rightarrow \MC$ and other functors as a restriction of $\lim\limits_L$ to a subcategory of $\MC^{\MJ}$ which are embeddings of $\MJ$, (like when $\MJ$ is just two dots, i.e. the product diagram) and explain people usually drop the $L$.}
+\end{note}
 
 
 
@@ -8442,8 +9075,8 @@
 \begin{defn} \ld{def:limits:completeness:0007}
 	Let $\MC$ be a category. Then $\MC$ is said to be 
 	\begin{itemize}
-		\item \tbf{complete} if for each $J \in \Obj(\Cat)$, $\MC$ has all $\MJ$-limits.
-		\item \tbf{cocomplete} if for each $J \in \Obj(\Cat)$, $\MC$ has all $\MJ$-colimits.
+		\item \tbf{complete} if for each $J \in \Obj(\bCat)$, $\MC$ has all $\MJ$-limits.
+		\item \tbf{cocomplete} if for each $J \in \Obj(\bCat)$, $\MC$ has all $\MJ$-colimits.
 	\end{itemize}
 \end{defn}
 
@@ -8495,7 +9128,7 @@
 
 
 
-
+\part{Basic Results}
 
 \newpage
 \chapter{Yoneda Lemma}
@@ -8820,6 +9453,82 @@
 	\begin{defn}
 		Let $\MC$, $\MD$ be categories, $F: \MC \rightarrow \MD$ and $G: \MD \rightarrow \MC$. Then $(F,G)$ is said to be an \tbf{adjunction} if 
 	\end{defn}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\chapter{Monads}
+	
+	\section{Introduction}
+	
+	\begin{defn}
+		Let $\MC \in \Obj(\bCat)$, $T \in \End_{\bCat}(X)$, $\eta: \id_{\MC} \Rightarrow T$ and $\mu: T^2 \Rightarrow T$. Then $(T, \eta, \mu)$ is said to be a \tbf{monad on $\MC$} if 
+		\begin{enumerate}
+			\item $\mu \circ T \mu = \mu \circ \mu T$
+			\item $\mu \circ T \eta = \id_T$ and $\mu \circ \eta T = \id_T$,
+		\end{enumerate}
+		i.e. the following diagrams commute: 
+		\[ 
+		\begin{tikzcd}
+			T^3  \arrow[r, "T \mu"]  \arrow[d, "\mu T"']  & T^2   \arrow[d, "\mu"]\\
+			T^2 \arrow[r, "\mu"'] &  T 
+		\end{tikzcd}
+		\quad \quad 
+		\begin{tikzcd}
+			T  \arrow[r, "\eta T"]  \arrow[d, "T \eta"'] \arrow[dr, "\id_T"]  & T^2  \arrow[d, "\mu"]\\
+			T^2 \arrow[r, "\mu"'] &  T 
+		\end{tikzcd}
+		\]
+	\end{defn}
+	
 	
 	
 	

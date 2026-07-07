@@ -5436,7 +5436,7 @@ ka	\end{defn}
 		Let $X$ be a set, $E \in \MA$ and $\mu \in M_+(X, \MA)$. Then $E$ is said to be \tbf{$\sig$-finite with respect to $\mu$} if $\mu|_E$ is $\sig$-finite
 	\end{defn}
 
-	\begin{ex} \lex{ex:subspace_measures:00004.1}
+	\begin{ex} \lex{ex:subspace_measures:00004.2}
 		Let $(X, \MA)$ be a measurable space, $\mu \in M_+(X, \MA)$ and $E,F \in \MA$. Suppose that $E \subset F$. If $F$ is $\sig$-finite with respect to $\mu$, then $E$ is $\sig$-finite with respect to $\mu$.
 	\end{ex}
 
@@ -7724,9 +7724,13 @@ ka	\end{defn}
 		Let $\mu, \nu$ be signed measures on $(X, \MA)$. Then $\mu$ and $\nu$ are said to be \textbf{mutually singular} if there exist $E, F \in \MA$ such that $X = E \cup F$, $E \cap F = \varnothing$ and $E$ is $\mu$-null and $F$ is $\nu$-null. We will denote this by $\mu \perp \nu$.
 	\end{defn}
 	
-	\begin{thm}{Jordan Decomposition:}
+	\begin{ex}{Jordan Decomposition:}
 		Let $\nu$ be a signed measure on $(X, \MA)$. Then there exist unique positive measures $\nu^+$ and $\nu^-$ on $(X, \MA)$ such that $\nu = \nu^+ - \nu^-$ and $\nu^+ \perp \nu^-$. 
-	\end{thm}
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{FINISH!!!} \tcr{FIX!!!}
+	\end{proof}
 	
 	\begin{proof}
 		Choose a Hahn decomposition $P,N$ of $X$ with respect to $\nu$. Define $\nu^+, \nu^-$ by $\nu^+(E)= \nu(E \cap P)$ and $\nu^-(E) = \nu(E \cap N)$.
@@ -10192,14 +10196,14 @@ ka	\end{defn}
 	\end{itemize}
 	\end{defn}
 	
-	\begin{ex}
-		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Then $X$ is $T_1$ iff for each $x \in X$, $\del_x \in \MM_1(X)$.
+	\begin{ex} \lex{ex:introduction_radon_measures:0002.01} 
+		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Then $X$ is $T_1$ iff $\{\del_x:x \in X\} \subset \MM_1(X)$.
 	\end{ex}
 	
-	\begin{proof}
+	\begin{proof}\
 		\begin{itemize}
 			\item $(\implies)$: \\
-			Suppose that $X$ is $T_1$. Let $E \in \MB(X)$.
+			Suppose that $X$ is $T_1$. Let $E \in \MB(X)$. Let $x \in X$.
 			\begin{enumerate}
 				\item Since $\del_x(E) \in \{0,1\}$, $E$ is compact implies that $\del_x(E) < \infty$.
 				\item 
@@ -10241,7 +10245,7 @@ ka	\end{defn}
 				\end{itemize}
 				Therefore $\del_x$ is inner regular on $E$. 
 			\end{enumerate}
-			Thus $\del_x \in \MM_1(X)$.
+			Thus $\del_x \in \MM_1(X)$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, $\del_x \in \MM_1(X)$. Hence $\{\del_x:x \in X \} \subset \MM_1(X)$.
 			\item $(\impliedby)$: \\
 			Suppose that $X$ is not $T_1$. \tcr{ex in topology notes} implies that there exists $x \in X$ such that $\{x\}$ is not closed. Define $E \subset X$ by $E \defeq \{x\}^c$. Then $E$ is not open and $\{U \subset X: \text{$U$ is open and $E \subset U$}\} = \{X\}$. Then 
 			\begin{align*}
@@ -10251,7 +10255,7 @@ ka	\end{defn}
 				& \neq 0 \\
 				& = \del_x(E).
 			\end{align*}
-			Hence $\del_x$ is not outer regular and $\del_x \not \in \MM_1(X)$.
+			Hence $\del_x$ is not outer regular and $\del_x \not \in \MM_1(X)$. Thus $\{\del_x:x \in X\} \not \subset \MM_1(X)$.
 		\end{itemize}
 	\end{proof}
 
@@ -10588,7 +10592,7 @@ ka	\end{defn}
 
 	\subsection{Radon Measures on Subspaces}
 	
-	\tcr{note that for $K \in \MK(X)$, $K \cap E \in \MK(E)$, ref ex in topology notes}
+	\tcr{note that for $K \in \MK(X)$, $K \cap E \in \MK(E)$, ref ex in topology notes, need to show that so if $\MK(X) \subset \MB(X)$, then $\MK(E) \subset \MB(E) = \MB(X) \cap E$}
 	
 	\begin{ex} \lex{ex:subspace_radon_measures:0001}
 		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $\mu \in \MM_+(X)$ and $E \in \MB(X)$. Then $\mu_E \in \MM_+(E)$.
@@ -11291,16 +11295,35 @@ ka	\end{defn}
 		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$.
 		\begin{itemize}
 			\item Let $\mu \in M(X)$. Then $\mu$ is said to be \textbf{Radon} if $|\mu|$ is Radon.
-			\item We define $\MM(X) = \{\mu \in M(X): \mu \text{ is Radon}\}$
+			\item We define $\MM(X) = \{\mu \in M(X): \text{$\mu$ is Radon}\}$
 		\end{itemize}
 	\end{defn}
 	
 	\begin{ex} \lex{ex:complex_radon_measures:0002}
-		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $\nu \in M(X)$. Then $\nu$ is Radon iff $\Re \nu $ is Radon and $\Im \nu$ is Radon.  
+		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $\nu \in M(X)$. Then 
+		$$\text{$\mu \in \MM(X)$ iff $(\Re \nu)^+, (\Re \nu)^-, (\Im \nu)^+, (\Im \nu)^- \in \MM_+(X)$.}$$
 	\end{ex}
 
-	\begin{proof}
+	\begin{proof} 
 		\tcr{FINISH!!!}
+	\end{proof}
+	
+	\begin{defn} \ld{def:complex_radon_measures:0002.1}
+		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$.
+		\begin{itemize}
+			\item Let $\mu \in \MM(X)$. We define the \tbf{support of $\mu$}, denoted $\supp \mu \in \MB(X)$, by $\supp \mu \defeq \supp |\mu|$. 
+			\item We define $\MM^c(X) \defeq \{\mu \in \MM(X): \text{$\supp \mu$ is compact}\}$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex} \lex{ex:complex_radon_measures:0002.2}
+		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $\mu \in \MM(X)$. Then 
+		$$\supp \mu = \supp (\Re \mu)^+ \cup \supp (\Re \mu)^- \cup \supp (\Im \mu)^+ \cup \supp (\Im \mu)^-.$$
+	\end{ex}
+	
+	\begin{proof}
+		\tcr{FINISH!!!} \\
+		\tcr{FIX!!!}
 	\end{proof}
 
 	\begin{ex} \lex{ex:complex_radon_measures:0003}
@@ -11369,7 +11392,7 @@ ka	\end{defn}
 					& > |\nu|(E) - \ep
 				\end{align*} 
 				So there exists $K \subset E$ such that $K$ is compact, $K \subset E$ and $|\nu|(K) > |\nu|(E) - \ep$.
-				\item Suppose that $\mu(E) = \infty$. Define $A \in \MB(X)$ by $A \defeq \{x \in X: |f(x)| > 0\}$. \rex{ex:integration_nonnegative_functions:0005.1} implies that $A$ is $\sig$-finite with respect to $\mu$. Then \rex{ex:subspace_measures:00004.1} implies that $E \cap A$ is $\sig$-finite with respect to $\mu$. \rex{ex:introduction_radon_measures:0008} implies that $\mu$ is inner regular on $E \cap A$. Since $E \cap A \in \MB(A)$, there exists $K \subset E \cap A$ such that $K$ is compact and $\mu(K) > \mu(E \cap A) - \del$. Then $K \subset E$ and $\mu[(E \cap A) \setminus K] < \del$. Therefore $|\nu|[(E \cap A) \setminus K] < \ep$. Since $|\nu|(E \cap A) < \infty$ and $|\nu|(E \cap A) = |\nu|(K) + |\nu|[(E \cap A) \setminus K]$, we have that 
+				\item Suppose that $\mu(E) = \infty$. Define $A \in \MB(X)$ by $A \defeq \{x \in X: |f(x)| > 0\}$. \rex{ex:integration_nonnegative_functions:0005.1} implies that $A$ is $\sig$-finite with respect to $\mu$. Then \rex{ex:subspace_measures:00004.2} implies that $E \cap A$ is $\sig$-finite with respect to $\mu$. \rex{ex:introduction_radon_measures:0008} implies that $\mu$ is inner regular on $E \cap A$. Since $E \cap A \in \MB(A)$, there exists $K \subset E \cap A$ such that $K$ is compact and $\mu(K) > \mu(E \cap A) - \del$. Then $K \subset E$ and $\mu[(E \cap A) \setminus K] < \del$. Therefore $|\nu|[(E \cap A) \setminus K] < \ep$. Since $|\nu|(E \cap A) < \infty$ and $|\nu|(E \cap A) = |\nu|(K) + |\nu|[(E \cap A) \setminus K]$, we have that 
 				\begin{align*}
 					|\nu|(E \cap A) - |\nu|(K) 
 					& = |\nu|[(E \cap A) \setminus K] \\
@@ -12105,7 +12128,21 @@ ka	\end{defn}
 	
 	
 	
+	\begin{ex}
+		If $X$ is Polish, then $\MM_1(X)$ is separable. 
+	\end{ex}
 	
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
+	
+	\begin{ex}
+		If $X$ is Polish, then $\MM_1(X)$ is a closed subset of $M(X)$. and $\mu_n \conv{w^*} \mu$
+	\end{ex}
+	\begin{proof}
+		Urysohn's Lemma for Normal Spaces:
+		\tcr{FINISH!!!}
+	\end{proof}
 	
 	
 	
@@ -12985,6 +13022,432 @@ ka	\end{defn}
 	
 	
 	
+	\section{Choquet's Theorem}
+	
+	\begin{note}
+		In this section, we assume all vector spaces are real. 
+	\end{note}
+	
+	\begin{note}
+		Let $X$ be a Hausdorff topological vector space. The analsysis notes topological vector spaces chapter section on compactness implies that
+		\begin{itemize}
+			\item for each $A \in \Conv(X)$, $\cl A \in \Conv(X)$
+			\item for each $K \in \MK(X)$, $\cnv K \in \MK(X)$,
+			\item \rex{} \tcr{ex in analysis notes section on locally convex spaces} implies that if $X$ is locally convex, then for each $E \subset X$, $E$ is precompact implies that $\cnv E$ is precompact
+			\item \rex{ex:introduction_radon_measures:0002.01} implies that $\{\del_x: x \in X\} \subset \MM_1(X)$. 
+		\end{itemize}
+	\end{note}
+	
+	\begin{note}
+		Let $X$ be a locally convex space. 
+	\end{note}
+	
+	\begin{note}
+		\tcr{note the following results} \rex{ex:introduction_radon_measures:0002.01}, 
+		we pull from ~\cite{phelps2002lectures}.
+	\end{note}
+	
+	\begin{defn}
+		Let $X$ be a locally convex space, $x \in X$ and $\mu \in \MM_1^c(X)$. Then $\mu$ is said to \tbf{represent $x$} if for each $\phi \in X^*$, $\phi(x) = \mu(\phi)$.  
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space. Then for each $x \in X$, $\del_x$ represents $x$. 
+	\end{ex}
+	
+	\begin{proof}
+		Let $x \in X$. Then for each $\phi \in X^*$, 
+		\begin{align*}
+			\del_x(\phi)
+			& = \int_X \phi \del_x \\
+			& = \phi(x).
+		\end{align*}
+		Thus $\del_x$ represents $x$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, $\del_x$ represents $x$. 
+	\end{proof}
+	
+	\begin{defn} 
+		Let $X$ be a locally convex space $E \in \MK(X)$, $x \in X$ and $\mu \in \MM_1(E)$. Then $\mu$ is said to \tbf{represent $x$} if $(\iota_E)_*\mu$ represents $x$. 
+	\end{defn}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space $E \in \MK(X)$, $x \in X$ and $\mu \in \MM_1(E)$. Then $\mu$ represents $x$ iff for each $\phi \in X^*$, $\mu(\phi|_E) = \phi(x)$.
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $\mu$ represents $x$. Then for each $\phi \in X^*$,
+			\begin{align*}
+				\mu(\phi|_E)
+				& = \int \phi|_E \dmu \\
+				& = \int \phi \circ \iota_E \dmu \\
+				& = \int \phi \, d (\iota_E)_*\mu \\
+				& = (\iota_E)_*\mu(\phi) \\
+				& = \phi(x) \quad \text{(by \tcr{defn})}.
+			\end{align*}
+			\item $(\impliedby)$: \\
+			Suppose that for each $\phi \in X^*$, $\mu(\phi|_E) = \phi(x)$. Then for each $\phi \in X^*$, 
+			\begin{align*}
+				(\iota_E)_*\mu(\phi)
+				& = \int \phi \, d (\iota_E)_*\mu \\
+				& = \int \phi \circ \iota_E \dmu \\
+				& = \int \phi|_E \dmu \\
+				& = \mu(\phi|_E) \\
+				& = \phi(x). 
+			\end{align*}
+			Thus $\mu$ represents $x$. 
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space, $E \in \MK(X)$ and $\mu \in \MM_1(X)$. Define $F \in \MK(X) \cap \Conv(X)$ by $F \defeq \cl (\cnv E)$. Suppose that $\supp \mu \subset E$. 
+		\begin{enumerate}
+			\item For each $\phi \in X^*$, define $H_{\phi} \subset F$ by $H_{\phi} \defeq F \cap \phi^{-1}(\{\mu(\phi)\})$. Then for each $(\phi_j)_{j \in [n]} \subset X^*$, $\bigcap\limits_{j \in[n]} H_{\phi_j} \neq \varnothing$ implies that $\bigcap\limits_{\phi \in X^*} H_{\phi} \neq \varnothing$. \\
+			\tbf{Hint:} compactness
+			\item Let $(\phi_j)_{j \in [n]} \subset X^*$. Define $y \in \R^n$ by $y \defeq (\mu(\phi_j))_{j \in [n]}$. Then there exists $T \in L(X, \R^n)$ such that $\bigcap\limits_{j \in [n]} H_{\phi_j} = T^{-1}(\{y\}) \cap F$ and $\bigcap\limits_{j \in [n]} H_{\phi_j} \neq \varnothing$ iff $y \in T(F)$. 
+			\item If $y \not \in T(F)$, then there exists $a \in \R^n$ such that $\sup\limits_{x \in F} \l a, T(x) \r  < \l a, y \r$. \\
+			\tbf{Hint:} \tcr{analysis notes section on convex Hahn-Banach Separation Theorem 2}
+			\item There exists a unique $x \in F$ such that $\mu$ represents $x$. \\
+			\tbf{Hint:} consider $g \in X^*$ defined by $g \defeq \sum\limits_{j \in [n]} a_j \phi_j$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\tcr{cover relative complements in subset section of set theory notes} 
+		\begin{enumerate}
+			\item Suppose that $\bigcap\limits_{\phi \in X^*} H_{\phi} = \varnothing$. Define $H \subset F$ by $H \defeq \bigcap\limits_{\phi \in X^*} H_{\phi}$. 
+			\begin{itemize}
+				\item Let $\phi \in X^*$. Since $\{\mu(\phi)\}$ is closed in $\R$, we have that $\phi^{-1}(\{\mu(\phi)\})$ is closed in $X$. Since $H_{\phi} = F \cap \phi^{-1}(\{\mu(\phi)\})$ and $\phi^{-1}(\{\mu(\phi)\})$ is closed in $X$, we have that $H_{\phi}$ is closed in $F$. Hence $F \setminus H_{\phi}$ is open in $F$. Since $\phi \in X^*$ is arbitrary, we have that for each $\phi \in X^*$, $F \setminus H_{\phi}$ is open in $F$. 
+				\item Since $H = \varnothing$, we have that 
+				\begin{align*}
+					\bigcup\limits_{\phi \in X^*} (F \setminus H_{\phi})
+					& = F \setminus \bigg[ \bigcap\limits_{\phi \in X^*} H_{\phi} \bigg] \\
+					& = F \setminus H \\
+					& = F \setminus \varnothing \\
+					& = F.
+				\end{align*}
+				Thus $(F \setminus H_{\phi})_{\phi \in X^*}$ is an open cover of $F$. Since $F \in \MK(X)$, there exists $(\phi_j)_{j \in [n]}$ such that $(F \setminus H_{\phi_j})_{j \in [n]}$ is an open cover of $F$. Hence 
+				\begin{align*}
+					\varnothing
+					& = F \setminus F \\
+					& = F \setminus \bigg[ \bigcup\limits_{j \in [n]} (F \setminus H_{\phi_j}) \bigg] \\
+					& = \bigcap\limits_{j \in [n]} [F \setminus (F \setminus H_{\phi_j})] \\
+					& = \bigcap\limits_{j \in [n]} H_{\phi_j}.
+				\end{align*} 
+			\end{itemize}
+			Therefore 
+			$$(\text{$\bigcap\limits_{\phi \in X^*} H_{\phi} = \varnothing$}) \implies \bigg(\text{there exists $(\phi_j)_{j \in [n]}$ such that $\bigcap\limits_{j \in [n]} H_{\phi_j} = \varnothing$} \bigg)$$
+			By contrapositive, 
+			$$\bigg(\text{for each $(\phi_j)_{j \in [n]}$, $\bigcap\limits_{j \in [n]} H_{\phi_j} \neq \varnothing$} \bigg) \implies (\text{$\bigcap\limits_{\phi \in X^*} H_{\phi} \neq \varnothing$}).$$
+			\item Define $T \in L(X;\R^n)$ by $T \defeq (\phi_j)_{j=1}^n$. Then 
+			\begin{align*}
+				x \in T^{-1}(\{y\}) \cap F 
+				& \iff \text{$T(x) = y$ and $x \in F$} \\
+				& \iff \text{$(\phi_j(x))_{j \in [n]} = (\mu(\phi_j))_{j \in [n]}$ and $x \in F$} \\
+				& \iff \text{$x \in F$ and for each $j \in [n]$, $\phi_j(x) = \mu(\phi_j)$} \\
+				& \iff \text{$x \in F$ and for each $j \in [n]$, $x \in \phi_j^{-1}(\{\mu(\phi_j)\})$} \\
+				& \iff \text{for each $j \in [n]$, $x \in F$ and $x \in \phi_j^{-1}(\{\mu(\phi_j)\})$} \\
+				& \iff \text{for each $j \in [n]$, $x \in F \cap \phi_j^{-1}(\{\mu(\phi_j)\})$} \\
+				& \iff \text{for each $j \in [n]$, $x \in H_{\phi_j}$} \\
+				& \iff x \in \bigcap\limits_{j \in [n]} H_{\phi_j}.
+			\end{align*}
+			Hence $T^{-1}(\{y\}) \cap F = \bigcap\limits_{j \in [n]} H_{\phi_j}$. Therefore
+			\begin{align*}
+				\bigcap\limits_{j \in [n]} H_{\phi_j} \neq \varnothing
+				& \iff T^{-1}(\{y\}) \cap F \neq \varnothing \\
+				& \iff \text{there exists $x \in X$ such that $x \in T^{-1}(\{y\}) \cap F $} \\
+				& \iff \text{there exists $x \in F$ such that $x \in T^{-1}(\{y\})$} \\
+				& \iff \text{there exists $x \in F$ such that $T(x) = y$} \\
+				& \iff y \in T(F).
+			\end{align*}
+			\item Suppose that $y \not \in T(F)$. Since $F \in \MK(X) \cap \Conv(X)$ and $T \in L(X, \R^n)$, $T(F) \in \MK(\R^n) \cap \Conv(\R^n)$. Since $T(F) \in \MK(\R^n)$ and $\{y\}$ is closed, \tcr{Hahn-Banach Separation Theorem 2} implies that there exists $\lam \in (\R^n)^*$ such that $\sup\limits_{x \in F} \lam(T(x)) < \lam(y)$. \tcr{The Riesz representation theorem} implies that there exists $a \in \R^n$ such that $\lam = \l a, \cdot \r$. Then $\sup\limits_{x \in F} \l a, T(x) \r < \l a, y \r$.
+			\item 
+			\begin{itemize}
+				\item \tbf{Existence:} \\
+				For the sake of contradiction, suppose that $y \not \in T(F)$. Write $a = (a_{j})_{j \in [n]}$ and define $g \in X^*$ by $g \defeq \sum\limits_{j \in [n]} a_j \phi_j$. Then 
+				\begin{align*}
+					\sup_{x \in F} g(x)
+					& = \sup_{x \in F} \sum\limits_{j \in [n]} a_j \phi_j(x) \\
+					& = \sup_{x \in F} \sum\limits_{j \in [n]} \l a, T(x) \r \\
+					& < \l a, y \r \\
+					& = \sum\limits_{j \in [n]} a_j \mu(\phi_j) \\
+					& = \mu\bigg( \sum\limits_{j \in [n]} a_j \phi_j \bigg) \\
+					& = \mu (g) \\
+					& = \int_X g \dmu \\
+					& = \int_E g \dmu \quad \text{(since $\supp \mu \subset E$)} \\
+					& \leq \int_E \bigg[ \sup\limits_{x \in E} g(x) \bigg] \dmu \\
+					& = \bigg[ \sup\limits_{x \in E} g(x) \bigg] \mu(E) \\
+					& = \sup\limits_{x \in E} g(x) \quad \text{(since $\mu(E) = 1$)} \\
+					& \leq \sup\limits_{x \in F} g(x) \quad \text{(since $E \subset F$)},
+				\end{align*} 
+				which is a contradiction. Hence $y \in T(F)$. Since 
+				\begin{align*}
+					y \in T(F)
+					& \iff \bigcap\limits_{j \in [n]} H_{\phi_j} \neq \varnothing \\
+					& \implies \bigcap\limits_{\phi \in X^*} H_{\phi} \neq \varnothing \\
+					& \iff \text{there exists $x \in X$ such that $x \in  \bigcap\limits_{\phi \in X^*} H_{\phi}$} \\
+					& \iff \text{there exists $x \in X$ such that $x \in  \bigcap\limits_{\phi \in X^*} F \cap \phi^{-1}(\{\mu(\phi)\})$} \\
+					& \iff \text{there exists $x \in X$ such that $x \in F \cap \bigg[ \bigcap\limits_{\phi \in X^*} \phi^{-1}(\{\mu(\phi)\}) \bigg]$} \\
+					& \iff \text{there exists $x \in X$ such that $x \in F$ and for each $\phi \in X^*$, $x \in \phi^{-1}(\{\mu(\phi)\})$} \\
+					& \iff \text{there exists $x \in F$ such that for each $\phi \in X^*$, $x \in \phi(x) = \mu(\phi)$} \\
+					& \iff  \text{there exists $x \in F$ such that $\mu$ represents $x$},
+				\end{align*}
+				we have that there exists $x \in F$ such that $\mu$ represents $x$.
+				\item \tbf{Uniqueness:} \\
+				Suppose that there exists $x' \in F$ such that $\mu$ represents $x'$. Then for each $\phi \in X^*$
+				\begin{align*}
+					\phi(x - x')
+					& = \phi(x) - \phi(x') \\
+					& = \mu(\phi) - \mu(\phi) \\
+					& = 0.
+				\end{align*}
+				Since $X$ is locally convex, \tcr{ref ex in analysis notes section on locally convex spaces} implies that $X^*$ separates the points of $X$. Therefore $x-x' = 0$ and $x = x'$. Since $x' \in F$ with $\mu$ represents $x'$ is arbitrary, we have that for each $x' \in F$, $\mu$ represents $x'$ implies that $x' = x$. 
+			\end{itemize}
+		\end{enumerate}
+	\end{proof}
+	
+	
+	\begin{ex}
+		Let $X$ be a locally convex space and $E \in \MK(X)$. Define $F \in \MK(X) \cap \Conv(X)$ by $F \defeq \cl (\cnv E)$. Then there exists $f: \MM_1(E) \rightarrow F$ such that 
+		\begin{enumerate}
+			\item for each $\mu \in \MM_1(E)$, $\mu$ represents $f(\mu)$. 
+			\item $f$ is $(\MT_{w^*}, \MT_X)$-continuous.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item For each $\mu \in \MM_1(E)$, define $K_{\mu} \subset X$ by $K_{\mu} \defeq \{x \in F: \text{$\mu$ represents $x$}\}$. 
+			
+			\tcr{The prev ex} implies that for each $x \in F$, $\# K_{\mu} = 1$. \tcr{exercise in set theory notes on products implies that} there exists a unique $f: \MM_1(E) \rightarrow X$ such that for each $\mu \in \MM_1(X)$, $f(\mu) \in K_{\mu}$. 
+			\item \tcr{need exercise showing that $(\MM_1(E), \MT_{w^*})$ is first-countable (note make ex in analysis notes that locally convex spaces are first countable iff they are metrizable), i.e. need to show that $(\MM_1(E), \MT_{w^*})$ is metrizable, see weak* metrizability of unit ball of dual of banach space. In the Banach space setting, the idea is easy, if $X$ is separable, then $\MT_{w^*}$ on $X^*$, should be generated by the countable family of seminorms $|\hat{x_n}|:n \in \N$ and is therefore metrizable, now just take $X = \MC(E)$, $X^* = \MM(E)$ (Alaglu says $B_{X^*}(0,1)$ is weak-* compact and since $\MM_1(E)$ is a weak-* closed  subset (check), it is also weak-* compact) and just show that $C(E)$ is separable, which should be a theorem you can find in folland. Note space must be metrizable \href{https://proofwiki.org/wiki/Space_of_Complex-Valued_Continuous_Functions_on_Compact_Hausdorff_Space_is_Separable_iff_Space_is_Metrizable}{cont funct is sep iff space is metrizable}}. Let $(\mu_n)_{n \in \N} \subset \MM_1(X)$ and $\mu \in \MM_1(X)$. Suppose that $\mu_n \conv{w^*} \mu$. Define $(x_n)_{n \in \N} \subset X$ and $x \in X$ by $x_n \defeq f(\mu_n)$ and $x \defeq f(\mu)$. Then for each $\phi \in X^*$, 
+			\begin{align*}
+				\phi(x_n)
+				& = \mu_n(\phi|_E) \\
+				& \rightarrow \mu(\phi|_E) \\
+				& = \phi(x).
+			\end{align*}
+			Thus $x_n \conv{w} x$. Since $X$ is a locally convex space, $E \in \MK(X)$, $(x_n)_{n \in \N} \subset E$ and $x \in E$, \tcr{ref ex in analysis notes section on duality implies} $x_n \rightarrow x$. Since $(\mu_n)_{n \in \N} \subset \MM_1(X)$ and $\mu \in \MM_1(X)$ are arbitrary, we have that for each $(\mu_n)_{n \in \N} \subset \MM_1(X)$ and $\mu \in \MM_1(X)$, $\mu_n \conv{w^*} \mu$ implies that $f(\mu_n) \rightarrow f(\mu)$. Thus $f$ is $(\MT_{w^*}, \MT_X)$-continuous.
+		\end{enumerate}
+	\end{proof}
+	
+	
+	\begin{note}
+		\tcr{I think you can relax the prev exercise to get $f: \MM_{1,c}(X) \rightarrow X$ i.e. probability measures with compact support. If $\mu_n \conv{w^*} \mu$, then there should be a compact set $E \subset X$ such that $\supp \mu_n \subset E$, then do rest of the exercise}
+	\end{note}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space and $E \in \MK(X)$. Define $F \in \MK(X) \cap \Conv(X)$ by $F \defeq \cl (\cnv E)$. Then for each $x \in X$, $x \in F$ iff there exists $\mu \in \MM_1(E)$ such that $\mu$ represents $x$. \\
+		\tbf{Hint:} Hahn-Banach Separation Theorem 2
+	\end{ex}
+	
+	\begin{proof}
+		Let $x \in X$. 
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $x \in F$. Since $F = \cl (\cnv E)$, there exists a net $(x_{\al})_{\al \in A} \subset \cnv E$ such that $x_{\al} \rightarrow x$. Then for each $\al \in A$, there exists $n_{\al} \in \N$, $(\lam_{\al, j})_{j \in [n_{\al}]} \subset \Del^{n_{\al} - 1}$ and $(x_{\al, j})_{j \in [n_{\al}]} \subset E$ such that $x_{\al} = \sum\limits_{j \in [n_{\al}]} \lam_{\al, j} x_{\al, j}$. Define $(\mu_{\al})_{\al \in A} \subset \MM_1(E)$ by $\mu_{\al} \defeq \sum\limits_{j \in [n_{\al}]} \lam_{\al, j} \del_{x_{\al, j}}$. Since $E \in \MK(X)$, \tcr{Riesz Kakutani rep theorem} implies that $C(E)^* \cong_{\Ban} \MM(E)$. \tcr{ref/make ex in Radon Measure section using Banach Alaoglu theorem} implies that $\MM_1(E)$ is $w^*$-compact. \tcr{An ex in topology section on compactness on subspaces} implies that there exists a subnet $(\mu_{\al_{\be}})_{\be \in B} \subset (\mu_{\al})_{\al \in A}$ and $\mu \in \MM_1(E)$ such that $\mu_{\al_{\be}} \conv{w^*} \mu$. Let $\phi \in X^*$. Since $x_{\al} \rightarrow x$, \tcr{ref ex on subnets} then implies that  $x_{\al_{\be}} \rightarrow x$. Thus $\phi(x_{\al_{\be}}) \rightarrow \phi(x)$. Since $\mu_{\al_{\be}} \conv{w^*} \mu$, we have that 
+			\begin{align*}
+				\phi(x_{\al_{\be}}) 
+				& = \phi \bigg( \sum\limits_{j \in [n_{\al_{\be}}]} \lam_{\al_{\be}, j} x_{\al_{\be}, j} \bigg) \\
+				& = \sum\limits_{j \in [n_{\al_{\be}}]} \lam_{\al_{\be}, j} \phi(x_{\al_{\be}, j}) \\
+				& = \sum\limits_{j \in [n_{\al_{\be}}]} \lam_{\al_{\be}, j} \phi|_E(x_{\al_{\be}, j}) \\
+				& = \int \phi|_E \dmu_{\al_{\be}} \\
+				& \rightarrow \int \phi|_E \dmu \\
+				& = \mu(\phi|_E).
+			\end{align*}
+			Since $\phi(x_{\al_{\be}}) \rightarrow \phi(x)$ and $\phi(x_{\al_{\be}}) \rightarrow \mu (\phi|_E)$, we have that $\phi(x) = \mu (\phi|_E)$. Since $\phi \in X^*$ is arbitrary, we have that for each $\phi \in X^*$, $\phi(x) = \mu (\phi|_E)$. Hence $\mu$ represents $x$.  
+			\item $(\impliedby)$: \\
+			Suppose that there exists $\mu \in \MM_1(E)$ such that $\mu$ represents $x$. For the sake of contradiction, suppose that $x \not \in F$. Since $\mu(E) = 1$, $E \neq \varnothing$. Since $E \subset F$, $F \neq \varnothing$. We note that  \begin{itemize}
+				\item $\{x\} \neq \varnothing$ and $F \neq \varnothing$
+				\item $\{x\}, F \in \Conv(X) \cap \MK(X)$ and thus $F$ is closed.
+				\item $\{x\} \cap F = \varnothing$.
+			\end{itemize}
+			The \tcr{Hahn-Banach Separation Theorem 2} implies that there exists $\phi \in X^*$ such that $\sup \phi(F) < \phi(x)$. Therefore 
+			\begin{align*}
+				\phi(x)
+				& = \mu(\phi|_E) \\
+				& = \int \phi|_E \dmu \\
+				& \leq [\sup \phi(E)] \mu(E) \\
+				& = \sup \phi(E) \\
+				& \leq \sup \phi(F) \quad \text{(since $E \subset F$)} \\
+				& < \phi(x), 
+			\end{align*}
+			which is a contradiction. Hence $x \in F$. 
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space, $E \in \MK(X) \cap \Conv(X)$, $\mu \in MM_1(E)$ and $x \in X$. If $\mu$ represents $x$, then $x \in E$. 
+	\end{ex}
+	
+	\begin{proof}
+		Clear by \tcr{prev ex}.
+	\end{proof}
+	
+	\begin{ex}  \tcr{move to radon section}
+		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$ and $X$ is $T_1$. Let $x \in X$ and $\mu \in \MM_1(X)$. Then $\mu = \del_x$ iff $\supp \mu = \{x\}$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $\mu = \del_x$. We note that $\{x\}^c \subset \MN_{\mu}$ and for each $U \in \MN_{\mu}$, $U \subset \{x\}^c$. Thus 
+			\begin{align*}
+				N_{\mu}
+				& = \bigcup\limits_{U \in \MN_{\mu}} U \\
+				& = \{x\}^c.
+			\end{align*}
+			Hence 
+			\begin{align*}
+				\supp \mu
+				& = N_{\mu}^c \\
+				& = (\{x\}^c)^c \\
+				& = \{x\}.
+			\end{align*}
+			\item $(\impliedby)$: \\
+			Suppose that $\supp \mu = \{x\}$. Let $E \in \MB(X)$. \rex{ex:introduction_radon_measures:0004} implies that 
+			\begin{align*}
+				0
+				& \leq \mu(E \cap N_{\mu}) \\
+				& \leq \mu(N_{\mu}) \\
+				& = 0.
+			\end{align*}
+			Hence $\mu(E \cap N_{\mu}) = 0$. If $x \in E$, then 
+			\begin{align*}
+				\mu(E)
+				& = \mu(E \cap \{x\}) + \mu(E \cap \{x\}^c) \\
+				& = \mu(\{x\}) + \mu(E \cap [\supp \mu]^c) \\
+				& = \mu(\supp \mu) + \mu(E \cap N_{\mu}) \\
+				& = \mu(\supp \mu) \\
+				& = \mu(X) \\
+				& = 1.
+			\end{align*}
+			If $x \not \in E$, then 
+			\begin{align*}
+				\mu(E)
+				& = \mu(E \cap \{x\}) + \mu(E \cap \{x\}^c) \\
+				& = \mu(\varnothing) + \mu(E \cap [\supp \mu]^c) \\
+				& = \mu(\varnothing) + \mu(E \cap N_{\mu}) \\
+				& = 0.
+			\end{align*}
+			Since $E \in \MB(X)$ is arbitrary, we have that for each $E \in \MB(X)$, 
+			\begin{align*}
+				\mu(E)
+				& = 
+				\begin{cases}
+					1, & x \in E \\
+					0, & x \not \in E
+				\end{cases}
+				& = \del_x(E).
+			\end{align*}
+			Hence $\mu = \del_x$.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \tcr{move to radon section}
+		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $K \in \MK(X)$ and $\mu \in \MM_+(X)$. If $\mu(K) > 0$, then there exists $x \in K$ such that for each $U \in \opn{\MN}(x)$, $\mu(U) > 0$ 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\mu(K) > 0$. For the sake of contradiction, suppose that for each $x \in K$, there exists $U \in \opn{\MN}(x)$ such that $\mu(U) = 0$. \tcr{The axiom of choice} implies that there exists $(U_x)_{x \in K} \in \opn{\Cover}(K)$ such that for each $x \in K$, $\mu(U_x) = 0$. Since $K$ is compact, there exists $n \in \N$ and $(x_j)_{j \in [n]} \subset K$ such that $(U_{x_j})_{j \in [n]} \in \opn{\Cover}(K)$. Therefore
+		\begin{align*}
+			0 
+			& < \mu(K) \\
+			& \leq \mu \bigg( \bigcup\limits_{j \in [n]} U_{x_j} \bigg) \\
+			& \leq \sum\limits_{j \in [n]} \mu(U_{x_j}) \\
+			& = 0,
+		\end{align*}
+		which is a contradiction. Hence there exists $x \in K$ such that for each $U \in \opn{\MN(x)}$, $\mu()$
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space, $E \in \MK(X) \cap \Conv(X)$ and $x \in E$. Then $x \in \extrm E$ iff $\rep_E(x) = \{\del_x\}$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $x \in \extrm E$. Let $\mu \in \rep_E(x)$. Let $K_1 \in \MK(E)$. Suppose that $K_1 \subset E \setminus \{x\}$. For the sake of contradiction, suppose that $\mu(K_1) > 0$.  
+			\item $(\impliedby)$: \\
+		\end{itemize}
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -13053,7 +13516,7 @@ ka	\end{defn}
 		We make use of some results about maps $\MP: \N \rightarrow \Part(X)$ which are decreasing. See the \tcr{section on ultrametric spaces in the analysis notes for details}. 
 	\end{note}
 	
-	\begin{defn} \ld{def:diff_radon_measures:0001}
+	\begin{defn} \ld{def:diff_radon_measures:covering_lemmas:vitali_measures:0001}
 		Let $(X,d)$ be a metric space. We define the set of closed balls in $X$, denoted $\bar{\MB}_d$, by
 		$$\bar{\MB}_d =  \{\bar{B}_d(x, r): x \in X \text{ and } r > 0\}$$
 		Let $A \subset X$. 
@@ -13066,7 +13529,7 @@ ka	\end{defn}
 		\end{itemize}
 	\end{defn}
 	
-	\begin{defn} \ld{def:diff_radon_measures:0002}
+	\begin{defn} \ld{def:diff_radon_measures:covering_lemmas:vitali_measures:0002}
 		Let $(X, d)$ be a metric space and $\mu \in M_+(X)$. Then $\mu$ is said to be \tbf{$d$-Vitali} if for each $A \subset X$ and $\MV \in \MC_d(A)$, $\MV$ is $d$-fine on $A$ implies that there exists $\MF \subset \MV$ such that 
 		\begin{enumerate}
 			\item $\MF$ is countable,
@@ -13075,7 +13538,7 @@ ka	\end{defn}
 		\end{enumerate}
 	\end{defn}
 	
-	\begin{ex}
+	\begin{ex} \lex{ex:diff_radon_measures:covering_lemmas:vitali_measures:0003}
 		Let $(X, d)$ be a metric space, $\phi: \Rg \rightarrow \Rg$ and $\mu \in M_+(X)$. Suppose that $\phi$ is strictly increasing and $\Top$-metric preserving. Then $\mu$ is $d$-Vitali iff $\mu$ is $d^{\phi}$-Vitali.
 	\end{ex}
 	
@@ -13086,11 +13549,11 @@ ka	\end{defn}
 			\item $\phi$ is subadditive
 			\item $\phi$ is continuous
 		\end{itemize}
-		Since $\phi$ is strictly increasing \tcr{an ex in the anlysis notes section on metric eqivalent metrics} implies that for each $x \in X$ and $r >0$, $\bar{B}_d(x, r) =  \bar{B}_{d'}(x,\phi(r))$ and \ba$r{\MB}_d \subset \bar{\MB}_{d'}$.
+		Since $\phi$ is strictly increasing \tcr{an ex in the anlysis notes section on metric eqivalent metrics} implies that for each $x \in X$ and $r >0$, $\bar{B}_d(x, r) =  \bar{B}_{d'}(x,\phi(r))$ and $\bar{\MB}_d \subset \bar{\MB}_{d'}$.
 		\begin{itemize}
 			\item $(\implies)$: \\
 			Suppose that $\mu$ is $d$-Vitali. Let $A \subset X$ and $\MV' \subset \MC_{d'}(A)$. Suppose that $\MV'$ is $d'$-fine on $A$. Define $\MV \subset \bar{\MB}_d$ by 
-			$$\MV \defeq \{\bar{B}_d(x, r): \text{$x \in X$, $r >0$ and $B_{d'}(x, \phi(r)) \in \MV'$}\}.$$ 
+			$$\MV \defeq \{\bar{B}_d(x, r): \text{$x \in X$, $r >0$ and $\bar{B}_{d'}(x, \phi(r)) \in \MV'$}\}.$$ 
 			Then for each $x \in X$, $r > 0$, $\bar{B}_d(x, r) \in \MV$ iff $\bar{B}_{d'}(x, \phi(r)) \in \MV'$.
 			\begin{itemize}
 				\item Let $x \in A$. Since $\phi$ is continuous and $\phi^{-1}(\{0\}) = \{0\}$, there exists $\ep > 0$ such that $(0, \ep) \subset \phi((0, \infty))$ \tcr{need to ref ex here, make ex about connectedness and continuity}. Since $\MV'$ is $d'$-fine on $A$, $\inf \{r' > 0: \bar{B}_{d'}(x, r') \in \MV'\} = 0$. Thus there exists $r' > 0$ such that $\bar{B}_{d'}(x, r') \in \MV'$ and $r' < \ep$. Since $(0, \ep) \subset \phi((0, \infty))$, there exists $r > 0$ such that $\phi(r) = r'$. By definition, $\bar{B}_d(x, r) \in \MV$. Since $x \in A$ is arbitrary, we have that for each $x \in A$, there exists $r > 0$, such that $\bar{B}_d(x, r) \in \MV$. Thus $\MV \in \MC_d(A)$.
@@ -13101,15 +13564,28 @@ ka	\end{defn}
 					& \leq r' \\
 					& < \del. 
 				\end{align*}
-				Since $\del > 0$ is arbitrary, we have that $\inf \{r > 0: \bar{B}_d(x, r) \in \MV\} = 0$. Thus $\MV$ is $d$-fine on $A$.
-				\item Since $\mu$ is $d$-Vitali, there exists $\MF \subset \MV$ such that $\MF$ is countable, $\MF$ is disjoint and $\MF$ $\mu^*$-covers $A$. Define $\MF' \subset \bar{\MB}_{d'}$ by $\MF' \defeq \{\bar{B}_{d'}(x, \phi(r)): \text{$x \in X$, $r >0$ and $\bar{B}_d(x,r) \in \MF$}\}$. Then for each $x \in X$ and $r>0$, $\bar{B}_{d'}(x, \phi(r)) \in \MF'$ iff $\bar{B}_d(x,r) \in \MF$. Since for each $x \in X$ and $r > 0$, $\bar{B}_d(x,r) = \bar{B}_{d'}(x, \phi(r))$, we have that for each $S \in \bar{\MB}_{d'}$,
-				\begin{align*}
-					S \in \MF'
-					& \iff \text{there exists $x \in X$ and $r > 0$ such that $S = \bar{B}_{d'}(x,\phi(r))$ and $\bar{B}_d(x,r) \in \MF$} \\
-					& \iff \text{there exists $x \in X$ and $r > 0$ such that $S = \bar{B}_d(x,r)$ and $\bar{B}_d(x,r) \in \MF$} \\
-					& \iff S \in \MF.
-				\end{align*}
-				Since $\bar{\MB}_d \subset \bar{\MB}_{d'}$, we have that $\MF = \MF'$.
+				Since $\del > 0$ is arbitrary, we have that $\inf \{r > 0: \bar{B}_d(x, r) \in \MV\} = 0$. Thus $\MV$ is $d$-fine at $x$. Since $x \in A$ is arbitrary, we have that for each $x \in A$, $\MV$ is fine at $x$. Therefore $\MV$ is fine on $A$.
+				\item Since $\mu$ is $d$-Vitali, there exists $\MF \subset \MV$ such that $\MF$ is countable, $\MF$ is disjoint and $\MF$ $\mu^*$-covers $A$. Define $\MF' \subset \bar{\MB}_{d'}$ by 
+				$$\MF' \defeq \{\bar{B}_{d'}(x, \phi(r)): \text{$x \in X$, $r >0$ and $\bar{B}_d(x,r) \in \MF$}\}.$$ 
+				\begin{itemize}
+					\item Let $S \in \MF'$. Then there exists $x \in X$ and $r > 0$ such that $S = \bar{B}_{d'}(x,\phi(r))$ and $\bar{B}_d(x,r) \in \MF$. Since $\bar{B}_d(x,r) = \bar{B}_{d'}(x, \phi(r))$, we have that
+					\begin{align*}
+						S 
+						& = \bar{B}_{d'}(x,\phi(r)) \\
+						& \bar{B}_d(x,r) \\
+						& \in \MF. 
+					\end{align*}
+					Since $S \in \MF'$ is arbitrary, we have that for each $S \in \MF'$, $S \in \MF$. Hence $\MF' \subset \MF$. 
+					\item Let $S \in \MF$. Since $\MF \subset \MV$, there exists $x \in X$ and $r > 0$ such that $S = \bar{B}_d(x, r)$ and $\bar{B}_{d'}(x,\phi(r)) \in \MV'$. Since $\bar{B}_d(x,r) = \bar{B}_{d'}(x, \phi(r))$, we have that 
+					\begin{align*}
+						S
+						& = \bar{B}_d(x, r) \\
+						& = \bar{B}_{d'}(x, \phi(r)) \\
+						& \in \MF' \quad \text{(by definition of $\MF'$)}.
+					\end{align*}
+					Since $S \in \MF$ is arbitrary, we have that for each $S \in \MF$, $S \in \MF'$. Hence $\MF \subset \MF'$.
+				\end{itemize}
+				Since $\MF' \subset \MF$ and $\MF \subset \MF'$, we have that $\MF' = \MF$. 
 				\begin{itemize}
 					\item Since for each $x \in X$ and $r>0$, 
 					\begin{align*}
@@ -13120,46 +13596,80 @@ ka	\end{defn}
 					\end{align*}
 					we have that $\MF' \subset \MV'$.
 					\item Since $\MF$ is countable and $\MF = \MF'$, we have that $\MF'$ is countable. 
-					\item Let $B'_1, B'_2 \in \MF'$. Then there exist $x_1, x_2 \in X$ and $r_1, r_2 >0$, such that $B'_1 = \bar{B}_{d'}(x_1, \phi(r_1))$ and $\bar{B}_{d'}(x_2, \phi(r_2)) = B'_2$. Define $B_1, B_2 \in \bar{\MB}_d$ by $B_1 \defeq \bar{B}_d(x_1, r_1)$ and $B_2 \defeq \bar{B}_d(x_2, r_2)$. By definition, $B_1, B_2 \in \MF$. We note that $B_1 = B'_1$ and $B_2 = B'_2$. Since $\MF$ is disjoint, we have that 
-					\begin{align*}
-						B'_1 \cap B'_2 
-						& = B_1 \cap B_2 \\
-						& = \varnothing.
-					\end{align*}
-					Since $B'_1, B'_2 \in \MF'$ are arbitrary, we have that for each $B'_1, B'_2 \in \MF'$, $B'_1 \cap B'_2 = \varnothing$. Hence $\MF'$ is disjoint.
-					\item Since $\MF \subset \bar{\MB}_d$, for each $S \in \MF$, there exists $x_S \in X$ and $r_S > 0$ such that $S = \bar{B}_d(x_S, r_S)$. By definition of $\MF'$, $(\bar{B}_{d'}(x_S, \phi(r_S)))_{S \in \MF} \subset \MF'$. Therefore $\bigcup\limits_{S' \in \MF'}$ e note that 
-					\begin{align*}
-						A \setminus \bigg( \bigcup\limits_{S' \in \MF'} S' \bigg)
-						& = A \cap \bigg( \bigcup\limits_{S' \in \MF'} S' \bigg)^c \\
-						& = 
-					\end{align*}
-					Since $\MF$ $\mu^*$-covers $A$, we have that 
-					\begin{align*}
-						\mu^*\bigg[A \setminus \bigg( \bigcup\limits_{S' \in \MF'} S' \bigg) \bigg] 
-						& = \mu^*\bigg[A \setminus \bigg( \bigcup\limits_{S' \in \MF'} \bar{B}_{d'}(x, \phi(r)) \bigg) \bigg] 
-						& = \mu^* \bigg[A \setminus \bigg( \bigcup\limits_{S \in \MF} S \bigg) \bigg] \\
-						& = 0
-					\end{align*} 
+					\item Since $\MF$ is disjoint and $\MF = \MF'$, we have that $\MF'$ is disjoint.
+					\item Since $\MF$ $\mu^*$-covers $A$ and $\MF = \MF'$, we have that $\MF'$ $\mu^*$-covers $A$.
 				\end{itemize}
 			\end{itemize}
+			Since $A \subset X$ and $\MV' \subset \MC_{d'}(A)$ such that $\MV'$ is $d'$-fine on $A$ are arbitrary, we have that for each $A \subset X$ and $\MV' \subset \MC_{d'}(A)$, $\MV'$ is $d'$-fine on $A$ implies that there exists $\MF' \subset \MV'$ such that $\MF'$ is countable, $\MF'$ is disjoint and $\MF'$ $\mu^*$-covers $A$. Hence $\mu$ is $d'$-Vitali.
 			\item $(\impliedby)$: \\
+			Suppose that $\mu$ is $d'$-Vitali. Let $A \subset X$ and $\MV \subset \MC_d(A)$. Suppose that $\MV$ is $d$-fine on $A$. Define $\MV' \subset \bar{\MB}_{d'}$ by 
+			$$\MV' \defeq \{\bar{B}_{d'}(x, \phi(r)): \text{$x \in X$, $r >0$ and $\bar{B}_d(x, r) \in \MV$}\}.$$ 
+			Then for each $x \in X$, $r > 0$, $\bar{B}_{d'}(x, \phi(r)) \in \MV'$ iff $\bar{B}_d(x, r) \in \MV$.
+			\begin{itemize}
+				\item Let $x \in A$. Since $\MV \in \MC_d(A)$, there exists $r > 0$ such that $\bar{B}_d(x, r) \in \MV$. Define $r' > 0$ by $r' \defeq \phi(r)$. Then 
+				\begin{align*}
+					\bar{B}_{d'}(x, r')
+					& = \bar{B}_{d'}(x, \phi(r)) \\
+					& \in \MV'.
+				\end{align*}
+				Since $x \in A$ is arbitrary, we have that for each $x \in A$, there exists $r' > 0$ such that $\bar{B}_{d'}(x, r') \in \MV'$. Thus $\MV' \in \MC_{d'}(A)$.
+				\item Let $x \in A$ and $\ep >$. Since $\phi$ is continuous and $\phi^{-1}(\{0\}) = \{0\}$, there exists $\del > 0$ such that $\phi((0, \del)) \subset (0,\ep)$. Since $\MV$ is $d$-fine on $A$, there exists $r > 0$ such that $\bar{B}_d(x, r) \in \MV$ and $r < \del$. Define $r' > 0$ by $r' \defeq \phi(r)$. Then $r' < \ep$ and  
+				\begin{align*}
+					\bar{B}_{d'}(x, r')
+					& = \bar{B}_{d'}(x, \phi(r)) \\
+					& \in \MV'.
+				\end{align*}
+				Thus 
+				\begin{align*}
+					0 
+					& \leq \inf \{r' > 0: \bar{B}_{d'}(x, r') \in \MV'\} \\
+					& < \ep.
+				\end{align*}
+				Since $\ep > 0$ is arbitrary, we have that $\inf \{r' > 0: \bar{B}_{d'}(x, r') \in \MV'\} = 0$. Thus $\MV'$ is fine at $x$. Since $x \in A$ is arbitrary, we have that for each $x \in A$, $\MV'$ is fine at $x$. Therefore $\MV'$ is fine on $A$.
+				\item Since $\mu$ is $d'$-Vitali, there exists $\MF' \subset \MV'$ such that $\MF'$ is countable, $\MF'$ is disjoint and $\MF'$ $\mu^*$-covers $A$. Define $\MF \subset \bar{\MB}_d$ by 
+				$$\MF \defeq \{\bar{B}_d(x, r): \text{$x \in X$, $r > 0$ and $\bar{B}_{d'}(x, \phi(r)) \in \MF'$}\}.$$ 
+				\begin{itemize}
+					\item Let $S \in \MF$. Then there exists $x \in X$ and $r > 0$ such that $S = \bar{B}_d(x,r)$ and $\bar{B}_{d'}(x,\phi(r)) \in \MF'$. Since $\bar{B}_d(x,r) = \bar{B}_{d'}(x, \phi(r))$, we have that 
+					\begin{align*}
+						S
+						& = \bar{B}_d(x,r) \\
+						& = \bar{B}_{d'}(x, \phi(r)) \\
+						& \in \MF'.
+					\end{align*}
+					Since $S \in \MF$ is arbitrary, we have that for each $S \in \MF$, $S \in \MF'$. Hence $\MF \subset \MF'$.
+					\item Let $S \in \MF'$. Since $\MF' \subset \MV'$ we have that $S \in \MV'$. Therefore, there exists $x \in X$ and $r > 0$ such that $S = \bar{B}_{d'}(x,\phi(r))$ and $\bar{B}_d(x, r) \in \MV$. Since $\bar{B}_d(x,r) = \bar{B}_{d'}(x, \phi(r))$, we have that 
+					\begin{align*}
+						S 
+						& = \bar{B}_{d'}(x,\phi(r)) \\
+						& = \bar{B}_d(x, r) \\
+						& \in \MF \quad \text{(by definition of $\MF$)}.
+					\end{align*}
+					Since $S \in \MF'$ is arbitrary, we have that for each $S \in \MF'$, $S \in \MF$. Hence $\MF' \subset \MF$.
+				\end{itemize}
+				Since $\MF \subset \MF'$ and $\MF' \subset \MF$, we have that $\MF \subset \MF'$. 
+				\begin{itemize}
+					\item Since for each $x \in X$ and $r>0$, 
+					\begin{align*}
+						\bar{B}_d(x,r) \in \MF 
+						& \iff \bar{B}_{d'}(x, \phi(r)) \in \MF' \\
+						& \implies \bar{B}_{d'}(x, \phi(r)) \in \MV' \\
+						& \iff \bar{B}_d(x,r) \in \MV \quad \text{(by definition of $\MV$),}
+					\end{align*}
+					we have that $\MF \subset \MV$.
+					\item Since $\MF'$ is countable and $\MF = \MF'$, we have that $\MF$ is countable. 
+					\item Since $\MF'$ is disjoint and $\MF = \MF'$, we have that $\MF$ is disjoint.
+					\item Since $\MF'$ $\mu^*$-covers $A$ and $\MF = \MF'$, we have that $\MF$ $\mu^*$-covers $A$.
+				\end{itemize}
+			\end{itemize}
+			Since $A \subset X$ and $\MV \subset \MC_d(A)$ such that $\MV$ is $d$-fine on $A$ are arbitrary, we have that for each $A \subset X$ and $\MV \subset \MC_d(A)$, $\MV$ is $d$-fine on $A$ implies that there exists $\MF \subset \MV$ such that $\MF$ is countable, $\MF$ is disjoint and $\MF$ $\mu^*$-covers $A$. Hence $\mu$ is $d$-Vitali.
 		\end{itemize}
-	\end{proof}
-	
-	\begin{ex}
-		Let $X$ be a set and $d_1,d_2:X \times X \rightarrow \Rg$ metrics on $X$ and $\mu \in M_+(X)$. If $d_1 \sim_{\Top} d_2$, then $\mu$ is $d_1$-Vitali iff $\mu$ is $d_2$-Vitali.
-	\end{ex}
-	
-	\begin{proof}
-		Suppose that $\mu$ is $d_1$-Vitali. Let $A \subset X$ and $\MV \subset \MC_{d_2}(A)$. Suppose that $\MV$ is $d_2$-fine on $A$. Since $\mu$ is $d_1$-Vitali, there exists $\MF \subset $ 
-		\tcr{FINISH!!!}
 	\end{proof}
 	
 	\begin{note}
 		\tcb{We recall the characterization of ultrametrics in terms of ultrametric-equivalent $\MP: \Rgp \rightarrow \Part(X)$ outlined in the analysis notes.}
 	\end{note}
 	
-	\begin{ex} \lex{ex:diff_radon_measures:0003}
+	\begin{ex} \lex{ex:diff_radon_measures:covering_lemmas:vitali_measures:0004}
 		Let $(X, d)$ be a separable ultrametric space and $\mu \in M_+(X)$. If $(X, \MT_d)$ is compact, then $\mu$ is $d$-Vitali. \\
 		\tbf{Hint}: 
 		\begin{itemize}
@@ -13320,7 +13830,7 @@ ka	\end{defn}
 	
 	\subsection{Vitali Measures on Subspaces}
 	
-	\begin{defn} \ld{def:diff_radon_measures:0004.1}
+	\begin{defn} \ld{def:diff_radon_measures:0004.1} \tcr{(maybe change reference id?)} \\
 		Let $(X, d)$ be a metric space and $\mu \in M_+(X)$. Then
 		\begin{itemize}
 			\item $\mu$ is said to be \tbf{$d$-finite} if for each $x \in X$ and $r > 0$, $\mu(\bar{B}(x, r)) < \infty$. 
@@ -13349,7 +13859,9 @@ ka	\end{defn}
 	\begin{proof}
 		Suppose that $\mu$ is $d$-Vitali. 
 		\begin{enumerate}
-			\item Let $x_0 \in X$ and $r_0 > 0$. Define $X_0 \defeq \bar{B}(x_0, r_0)$, $d' \defeq d|_{X_0^2}$ and $\mu' \defeq \mu_{X_0}$. Let $A \subset X_0$ and $\MV' \in \MC_{d'}(A)$. Suppose that $\MV'$ is $d'$-fine on $A$. Define $\MV \subset \bar{\MB}_d$ by $\MV \defeq \{\bar{B}_d(x, r): \text{$x \in X_0$, $r > 0$ and $\bar{B}_d(x,r) \cap X_0 \in \MV'$}\}$. \tcr{(ref ex in metric subspace section of analysis notes)} implies that for each $x \in X_0$, and $r>0$, $\bar{B}_{d'}(x, r) = \bar{B}_d(x, r) \cap X_0$. Therefore for each $x \in X_0$ and $r > 0$,
+			\item Let $x_0 \in X$ and $r_0 > 0$. Define $X_0 \defeq \bar{B}(x_0, r_0)$, $d' \defeq d|_{X_0^2}$ and $\mu' \defeq \mu_{X_0}$. Let $A \subset X_0$ and $\MV' \in \MC_{d'}(A)$. Suppose that $\MV'$ is $d'$-fine on $A$. Define $\MV \subset \bar{\MB}_d$ by 
+			$$\MV \defeq \{\bar{B}_d(x, r): \text{$x \in X_0$, $r > 0$ and $\bar{B}_d(x,r) \cap X_0 \in \MV'$}\}.$$ 
+			\tcr{(ref ex in metric subspace section of analysis notes)} implies that for each $x \in X_0$, and $r>0$, $\bar{B}_{d'}(x, r) = \bar{B}_d(x, r) \cap X_0$. Therefore for each $x \in X_0$ and $r > 0$,
 			\begin{align*}
 				\bar{B}_{d'}(x, r) \in \MV'
 				& \iff \bar{B}_d(x, r) \cap X_0 \in \MV' \\
@@ -13420,7 +13932,9 @@ ka	\end{defn}
 	\end{proof}
 	
 	\begin{ex} \lex{ex:diff_radon_measures:covering_lemmas:subspaces:0003}
-		Let $(X, d)$ be a metric space, $A \subset X$, $\MV \in \MC_d(A)$ and $X' \subset X$. Define $d' \defeq d|_{(X')^2}$, $A' \defeq A \cap X'$ and $\MV' \defeq \{\bar{B}_d(x,r) \cap X': \text{$x \in X'$, $r > 0$ and $\bar{B}_d(x,r) \in \MV$}\}$. Then
+		Let $(X, d)$ be a metric space, $A \subset X$, $\MV \in \MC_d(A)$ and $X' \subset X$. Define $d': X' \times X' \rightarrow \Rg$, $A' \subset X'$ and $\MV' \subset \bar{\MB}_{d'}$ by $d' \defeq d|_{X'}$, $A' \defeq A \cap X'$ and 
+		$$\MV' \defeq \{\bar{B}_{d'}(x,r): \text{$x \in X'$, $r > 0$ and $\bar{B}_d(x,r) \in \MV$}\}.$$ 
+		Then
 		\begin{enumerate}
 			\item $\MV' \in \MC_{d'}(A')$,
 			\item $\MV$ is $d$-fine on $A$ implies that $\MV'$ is $d'$-fine on $A'$.
@@ -13467,27 +13981,27 @@ ka	\end{defn}
 	\end{proof}
 	
 	\begin{ex}\lex{ex:diff_radon_measures:covering_lemmas:subspaces:0004}
-		Let $(X, d)$ be a metric space and $\mu \in M_+(X)$. Suppose that $X \neq \varnothing$. If $(X, \MT_d)$ is separable and $\mu$ is locally $d$-Vitali, then for each $n \in \N$, there exists $\MB \subset \bar{\MB}_d$ such that $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_{B^2}$-Vitali. 
+		Let $(X, d)$ be a metric space and $\mu \in M_+(X)$. Suppose that $X \neq \varnothing$. If $(X, \MT_d)$ is separable and $\mu$ is locally $d$-Vitali, then for each $n \in \N$, there exists $\MB \subset \bar{\MB}_d$ such that $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_B$-Vitali. 
 	\end{ex}
 	
 	\begin{proof}
 		\tcr{(find out how to rigorously handle these types of proofs where objects are defined inductively and the process may or may not terminate, i.e. proofs that are essentially a while-loop)} \\
 		Suppose that $X$ is separable and $\mu$ is locally $d$-Vitali. Let $n \in \N$. Since $X$ is separable, there exists $S \subset X$ such that $S$ is countable and $S$ is dense in $X$. Since $X \neq \varnothing$, we have that $S \neq \varnothing$.
 		\begin{itemize}
-			\item Suppose that $\# S = 1$. Write $S = \{x\}$. Since $\mu$ is locally $d$-Vitali, there exists $r' > 0$ such that $\mu_{\bar{B}_d(x, r')}$ is $d|_{\bar{B}_d(x, r')^2}$-Vitali. Define $\MB \defeq \{\bar{B}_d(x, 1/2n)\}$. Then $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_{B^2}$-Vitali. 
-			\item Suppose that $\# S \in \N \setminus \{1\}$. Write $S = \{x_j\}_{j \in [J]}$ where $j_1 \neq j_2$ implies $x_{j_1} \neq x_{j_2}$. Since $\mu$ is locally $d$-Vitali, for each each $j \in [J]$, there exists $r'_j$ such that $\mu_{\bar{B}_d(x, r'_j)}$ is $d|_{\bar{B}_d(x, r'_j)^2}$-Vitali. Define $r > 0$, $(r_j)_{j \in [J]} \in (0, \infty)^{[J]}$ and $\MB \subset \bar{\MB}_d$ by $r \defeq \min\{d(x, y): \text{$x,y \in S$ and $x \neq y$}\}$, $r_j \defeq 2^{-1}\min\{r, n^{-1}, r'_j\}$ and $\MB \defeq \{\bar{B}_d(x_j, r_j)\}_{j \in [J]}$. Let $j \in [J]$. Since $r_j < r'_j$, $\bar{B}_d(x_j, r_j) \subset \bar{B}_d(x_j, r'_j)$. \rex{ex:diff_radon_measures:covering_lemmas:subspaces:0002} then implies that $\mu_{\bar{B}_d(x_j, r_j)}$ is $d|_{\bar{B}_d(x_j, r_j)^2}$-Vitali. Since $j \in [J]$ is arbitrary, we have that for each $j \in [J]$, $\mu_{\bar{B}_d(x_j, r_j)}$ is $d|_{\bar{B}_d(x_j, r_j)^2}$-Vitali. Then $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_{B^2}$-Vitali. 
+			\item Suppose that $\# S = 1$. Write $S = \{x\}$. Since $\mu$ is locally $d$-Vitali, there exists $r' > 0$ such that $\mu_{\bar{B}_d(x, r')}$ is $d|_{\bar{B}_d(x, r')}$-Vitali. Define $\MB \defeq \{\bar{B}_d(x, 1/2n)\}$. Then $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_B$-Vitali. 
+			\item Suppose that $\# S \in \N \setminus \{1\}$. Write $S = \{x_j\}_{j \in [J]}$ where $j_1 \neq j_2$ implies $x_{j_1} \neq x_{j_2}$. Since $\mu$ is locally $d$-Vitali, for each each $j \in [J]$, there exists $r'_j$ such that $\mu_{\bar{B}_d(x, r'_j)}$ is $d|_{\bar{B}_d(x, r'_j)}$-Vitali. Define $r > 0$, $(r_j)_{j \in [J]} \in (0, \infty)^{[J]}$ and $\MB \subset \bar{\MB}_d$ by $r \defeq \min\{d(x, y): \text{$x,y \in S$ and $x \neq y$}\}$, $r_j \defeq 2^{-1}\min\{r, n^{-1}, r'_j\}$ and $\MB \defeq \{\bar{B}_d(x_j, r_j)\}_{j \in [J]}$. Let $j \in [J]$. Since $r_j < r'_j$, $\bar{B}_d(x_j, r_j) \subset \bar{B}_d(x_j, r'_j)$. \rex{ex:diff_radon_measures:covering_lemmas:subspaces:0002} then implies that $\mu_{\bar{B}_d(x_j, r_j)}$ is $d|_{\bar{B}_d(x_j, r_j)}$-Vitali. Since $j \in [J]$ is arbitrary, we have that for each $j \in [J]$, $\mu_{\bar{B}_d(x_j, r_j)}$ is $d|_{\bar{B}_d(x_j, r_j)}$-Vitali. Then $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_{B}$-Vitali. 
 			\item Suppose that $\# S = \infty$. Write $S = \{x_j\}_{j \in \N}$ where $j_1 \neq j_2$ implies $x_{j_1} \neq x_{j_2}$. We define $\MB \subset \bar{B}_d$ inductively as follows:
 			\begin{itemize}
-				\item Since $\mu$ is locally $d$-Vitali, there exists $r'_1 > 0$ such that $\mu_{\bar{B}(x_1, r'_1)}$ is $d|_{\bar{B}(x_1, r'_1)^2}$-Vitali. We define $j_1 \defeq 1$, $r_1 \defeq \min((2n)^{-1}, r'_1)$ and $B_1 \defeq \bar{B}(x_{j_1}, r_1)$. Since $r_1 \leq r'_1$, $\bar{B}(x_1, r_1) \subset \bar{B}(x_1, r'_1)$. \rex{ex:diff_radon_measures:covering_lemmas:subspaces:0002} then implies that $\mu_{\bar{B}(x_1, r_1)}$ is $d|_{\bar{B}(x_1, r_1)^2}$-Vitali.
+				\item Since $\mu$ is locally $d$-Vitali, there exists $r'_1 > 0$ such that $\mu_{\bar{B}(x_1, r'_1)}$ is $d|_{\bar{B}(x_1, r'_1)}$-Vitali. We define $j_1 \defeq 1$, $r_1 \defeq \min((2n)^{-1}, r'_1)$ and $B_1 \defeq \bar{B}(x_{j_1}, r_1)$. Since $r_1 \leq r'_1$, $\bar{B}(x_1, r_1) \subset \bar{B}(x_1, r'_1)$. \rex{ex:diff_radon_measures:covering_lemmas:subspaces:0002} then implies that $\mu_{\bar{B}(x_1, r_1)}$ is $d|_{\bar{B}(x_1, r_1)}$-Vitali.
 				\item For $k \geq 2$, define $J_k \subset \N$ by $J_k \defeq \bigg \{j \in \N: x_j \not \in \bigcup\limits_{k' \in [k-1]} \bar{B}(x_{j_{k'}}, r_{k'}) \bigg \}$.
 				\begin{itemize}
-					\item If $J_k \neq \varnothing$, define $j_k \defeq \min J_k$. Since $\mu$ is locally $d$-Vitali, there exists $r'_k > 0$ such that $\mu_{\bar{B}(x_{j_k}, r'_k)}$ is $d|_{\bar{B}(x_{j_k}, r'_k)^2}$-Vitali. Since $\bigg [ \bigcup\limits_{k' \in [k-1]} \bar{B}(x_{j_{k'}}, r_{k'}) \bigg]^c$ is open and $x_{j_k} \in \bigg [ \bigcup\limits_{k' \in [k-1]} \bar{B}(x_{j_{k'}}, r_{k'}) \bigg]^c$, there exists $\rho_k > 0$ such that $\rho_k \leq (2n)^{-1}$ and $B(x_{j_k}, \rho_k) \subset \bigg [ \bigcup\limits_{k' \in [k-1]} \bar{B}(x_{j_{k'}}, \rho_{k'}) \bigg]^c$. Define $r_k \defeq \min \{\rho_k, r'_k\}$ and $B_k \defeq \bar{B}(x_{j_k}, r_k)$. Since $r_k < r'_k$, $\bar{B}_d(x_{j_k}, r_k) \subset \bar{B}_d(x_{j_k}, r'_k)$. \rex{ex:diff_radon_measures:covering_lemmas:subspaces:0002} then implies that $\mu_{\bar{B}_d(x_{j_k}, r_k)}$ is $d|_{\bar{B}_d(x_{j_k}, r_k)^2}$-Vitali. 
-					\item If $J_k = \varnothing$, set $\MB \defeq \{B_{k'}\}_{k' \in [k-1]}$. Then $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_{B^2}$-Vitali. 
+					\item If $J_k \neq \varnothing$, define $j_k \defeq \min J_k$. Since $\mu$ is locally $d$-Vitali, there exists $r'_k > 0$ such that $\mu_{\bar{B}(x_{j_k}, r'_k)}$ is $d|_{\bar{B}(x_{j_k}, r'_k)}$-Vitali. Since $\bigg [ \bigcup\limits_{k' \in [k-1]} \bar{B}(x_{j_{k'}}, r_{k'}) \bigg]^c$ is open and $x_{j_k} \in \bigg [ \bigcup\limits_{k' \in [k-1]} \bar{B}(x_{j_{k'}}, r_{k'}) \bigg]^c$, there exists $\rho_k > 0$ such that $\rho_k \leq (2n)^{-1}$ and $B(x_{j_k}, \rho_k) \subset \bigg [ \bigcup\limits_{k' \in [k-1]} \bar{B}(x_{j_{k'}}, \rho_{k'}) \bigg]^c$. Define $r_k \defeq \min \{\rho_k, r'_k\}$ and $B_k \defeq \bar{B}(x_{j_k}, r_k)$. Since $r_k < r'_k$, $\bar{B}_d(x_{j_k}, r_k) \subset \bar{B}_d(x_{j_k}, r'_k)$. \rex{ex:diff_radon_measures:covering_lemmas:subspaces:0002} then implies that $\mu_{\bar{B}_d(x_{j_k}, r_k)}$ is $d|_{\bar{B}_d(x_{j_k}, r_k)}$-Vitali. 
+					\item If $J_k = \varnothing$, set $\MB \defeq \{B_{k'}\}_{k' \in [k-1]}$. Then $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_B$-Vitali. 
 				\end{itemize}
 			\end{itemize}
-			Define $\MB \defeq \{B_k\}_{k \in \N}$. Then $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_{B^2}$-Vitali. 
+			Define $\MB \defeq \{B_k\}_{k \in \N}$. Then $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_B$-Vitali. 
 		\end{itemize}
-		Since $n \in \N$ is arbitrary, we have that for each $n \in \N$, there exists $\MB \subset \bar{B}_d$ such that $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_{B^2}$-Vitali.  
+		Since $n \in \N$ is arbitrary, we have that for each $n \in \N$, there exists $\MB \subset \bar{B}_d$ such that $\MB$ is countable, $\MB$ is disjoint, $X = \bigcup\limits_{B \in \MB} B$ and for each $B \in \MB$, $\diam(B) \leq 1/n$ and $\mu_B$ is $d|_B$-Vitali.  
 	\end{proof}
 	
 	
@@ -13554,16 +14068,23 @@ ka	\end{defn}
 	
 	\subsection{Vitali Measures on Coproduct Spaces}
 	
-	\begin{ex}
-		
+	\begin{ex} \lex{ex:diff_radon_measures:covering_lemmas:coproducts:0001}
+		Let $(X_n, d_n)$ be a collection of metric spaces and $(\mu_n)_{n \in \N} \in \prod\limits_{n \in \N} M_+(X_n)$. Set $X \defeq \coprod\limits_{n \in \N} X_n$, $d \defeq \bigoplus\limits_{n \in \N} d_n$ and $\mu \defeq \bigoplus_{n \in \N} \mu_n$.  Suppose that for each $n \in \N$, $X_n$ is separable. Then $\mu$ $d$-Vitali iff for each $n \in \N$, $\mu_n$ is $d_n$-Vitali.
 	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item Suppose that $\mu$ is $d$-Vitali.
+			\item Suppose that for each $n \in \N$, $\mu_n$ is $d_n$-Vitali. Let $A \subset X$ and $\MV \in \MC_d(A)$. Suppose that $\MV$ is $d$-fine on $A$. \tcr{} 
+		\end{itemize}
+	\end{proof}
 	
 	\begin{ex}
 		Let $(X_n, d_n)$ be a collection of metric spaces and $(\mu_n)_{n \in \N} \in \prod\limits_{n \in \N} M_+(X_n)$. Set $X \defeq \coprod\limits_{n \in \N} X_n$, $d \defeq \bigoplus\limits_{n \in \N} d_n$ and $\mu \defeq \bigoplus_{n \in \N} \mu_n$.  Suppose that for each $n \in \N$, $X_n$ is separable. If for each $n \in \N$, $\mu_n$ is $d_n$-Vitali, then $\mu$ $d$-Vitali iff $\mu$ is locally $d$-finite.
 	\end{ex}
 	
 	\begin{proof}
-		\rex{ex:diff_radon_measures:covering_lemmas:subspaces:0003} 
+		\rex{ex:diff_radon_measures:covering_lemmas:subspaces:0003}  \rex{ex:diff_radon_measures:covering_lemmas:vitali_measures:0003}
 	\end{proof}
 	
 	\begin{proof}\
@@ -14147,7 +14668,7 @@ ka	\end{defn}
 	\end{ex}
 	
 	\begin{proof}
-		\rex{ex:diff_radon_measures:0003} 
+		\rex{ex:diff_radon_measures:covering_lemmas:vitali_measures:0004} 
 	\end{proof}
 
 	\begin{ex} \lex{ex:differentiation_complex_measures:0002.1}
@@ -14403,7 +14924,7 @@ ka	\end{defn}
 
 
 
-\rex{ex:diff_radon_measures:0003}
+\rex{ex:diff_radon_measures:covering_lemmas:vitali_measures:0004}
 
 \rex{ex:differentiation_complex_measures:0002}
 
@@ -16277,6 +16798,7 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	
 	
 	
+	
 	\newpage
 	\section{Applications to Hilbert Spaces}	
 	
@@ -16314,7 +16836,72 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	
 	
 	
+	\chapter{Ergodic Theory}
 	
+	\begin{defn}
+		Let $(X, \MA)$ be a measurable space, $G$ a monoid and $\al:G \times X \rightarrow X$ a monoid action. 
+		\begin{itemize}
+			\item Let $E \in \MA$. Then $E$ is said to be \tbf{$\al$-invariant} if for each $g \in G$, $\al_g^{-1}(E) = E$.
+			\item We define the \tbf{$\al$-invariant sub $\sig$-algebra of $\MA$}, denoted $\MA^{\al} \subset \MA$, by $\MA^{\al} \defeq \{E \in \MA: \text{$E$ is $\al$-invariant}\}$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{ex}
+		Let $(X, \MA)$ be a measurable space, $G$ a monoid, $\al:G \times X \rightarrow X$ a monoid action. Then $\MA^{\al}$ is a $\sig$ algebra on $X$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Clearly, for each $g \in G$, $\al_g^{-1}(\varnothing) = \varnothing$. Hence $\varnothing \in \MA^{\al}$ and $\MA^{\al} \neq \varnothing$. 
+			\item Let $E \in \MA^{\al}$. Then for each $g \in G$, 
+			\begin{align*}
+				\al_g^{-1}(E^c)
+				& = [\al_g^{-1}(E)]^c \\
+				& = E^c.
+			\end{align*}
+			Hence $E^c \in \MA^{\al}$. Since $E \in \MA^{\al}$ is arbitrary, we have that for each $E \in \MA^{\al}$, $E^c \in \MA^{\al}$.
+			\item Let $(E_n)_{n \in \N} \subset \MA^{\al}$. Then for each $g \in G$,
+			\begin{align*}
+				\al_g^{-1} \bigg( \bigcup\limits_{n \in \N} E_n \bigg)
+				& = \bigcup\limits_{n \in \N} \al_g^{-1}(E_n) \\
+				& = \bigcup\limits_{n \in \N} E_n.
+			\end{align*}
+			Hence $\bigcup\limits_{n \in \N} E_n \in \MA^{\al}$. Since $(E_n)_{n \in \N} \subset \MA^{\al}$ is arbitrary, we have that for each $(E_n)_{n \in \N} \subset \MA^{\al}$, $\bigcup\limits_{n \in \N} E_n \in \MA^{\al}$. 
+		\end{enumerate}
+		Thus $\MA^{\al}$ is a $\sig$-algebra on $X$.
+	\end{proof}
+	
+	\begin{defn}
+		Let $(X, \MA, \mu)$ be a measure space, $G$ a monoid and $\al:G \times X \rightarrow X$ a monoid action. 
+		\begin{itemize}
+			\item Let $E \in \MA$. Then $E$ is said to be \tbf{$\mu$-a.e. $\al$-invariant} if for each $g \in G$, $\mu(\al_g^{-1}(E) \Del E) = 0$.
+			\item We define the \tbf{$\al$-invariant sub $\sig$-algebra of $\MA$}, denoted $\MA^{\al} \subset \MA$, by $\MA^{\al} \defeq \{E \in \MA: \text{$E$ is $\al$-invariant}\}$.
+		\end{itemize}
+	\end{defn}
+	
+	\begin{defn}
+		We define the \tbf{$\al$-invariant sub $\sig$-algebra of $\MA$}, denoted $\MA^{\al} \subset \MA$, by $\MA^{\al} \defeq \{E \in \MA: \text{$E$ is $\al$-invariant}\}$
+	\end{defn}
+	
+	
+	
+	\tcr{Outline of de Finetti's theorem for standard Borel spaces:}
+	\begin{enumerate}
+		\item  Consider $X$ a compact Polish space like the Cantor space $\MC$. Then $\MM_1(X)$ is $w^*$-compact by Banach-Alaoglu theorem.
+		\item Then $\MM_1^{\al}(X)$ is $w^*$-compact/closed and convex
+		\item Choquet theorem implies that for each $\nu \in \MM_1^{\al}(X)$, there exists $\mu \in \MM_1(\MM_1^{\al}(X))$ such that $\supp \mu \subset \text{extreme points of $\MM_1^{\al}(X)$}$ and $\nu = \int_{\MM_1^{\al}(X)} \rho \dmu(\rho)$ (in a Pettis sense?). Then extend to a Bochner sense. 
+		\item For general standard Borel space, $X$, map to Cantor space, apply theorem, then map back. 
+		\item For de Finetti theorem specifically, 
+		\begin{enumerate}
+			\item Repeat argument for $Y = X^{\N}$ ~\cite{hewitt1955symmetric}
+			\item Choquet theorem implies that for each $\nu \in \MM_1(X)$, since $\nu^{\otimes \N} \in \MM_1^{S^{\text{fin}}_{\N}}(X^{\N})$ there exists $\mu \in \MM_1(\MM_1^{S^{\text{fin}}_{\N}}(X^{\N}))$ such that $\supp \mu \subset \text{extreme points of $\MM_1^{S^{\text{fin}}_{\N}}(X^{\N})$}$ and $\nu = \int_{\MM_1^{S^{\text{fin}}_{\N}}(X^{\N})} \rho \dmu(\rho)$ (in a Pettis sense?). ~\cite{phelps2002lectures} ~\cite{stefansson1992pettis} Then extend to a Bochner sense. 
+			\item For general standard Borel space, $X$, map to Cantor space, apply theorem, then map back. 
+		\end{enumerate}
+		
+		
+		
+		\tcr{FINISH!!!}
+	\end{enumerate}
 
 	
 	
