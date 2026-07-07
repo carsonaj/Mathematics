@@ -681,53 +681,16 @@
 	\section{Introduction}
 	
 	\begin{defn} \ld{def:ordered_sets:dir_sets:intro:0001} \tbf{Directed Set:} \\
-		Let $(X, \leq)$ be a proset. Then 
+		Let $(A, \leq)$ be a proset. Then 
 		\begin{itemize}
-			\item $\leq$ is said to be
-			\begin{itemize}
-				\item an \tbf{upward direction on $X$} if for each $a,b \in X$, there exists $c \in X$ such that $a \leq c$ and $b \leq c$. 
-				\item a \tbf{downward direction on $X$} if for each $a,b \in X$, there exists $c \in X$ such that $c \leq a$ and $c \leq b$. 
-			\end{itemize}
-			\item $(X, \leq)$ is said to be 
-			\begin{itemize}
-				\item an \tbf{upward directed set} if $X \neq \varnothing$ and $\leq$ is an upward direction on $X$.
-				\item a \tbf{downward directed set} if $X \neq \varnothing$ and $\leq$ is a downward direction on $X$.
-			\end{itemize}
+			\item $\leq$ is said to be a \tbf{direction on $A$} if for each $\al, \be \in A$, $\ubd(\{\al, \be\}, \leq) \neq \varnothing$.
+			\item $(A, \leq)$ is said to be a \tbf{directed set} if
+			\begin{enumerate}
+				\item $A \neq \varnothing$
+				\item $\leq$ is a direction on $A$
+			\end{enumerate}
 		\end{itemize}
 	\end{defn}
-	
-	\begin{note}
-		When the context is clear, we may say ``direction" and ``directed" instead of ``upward direction" and ``upward directed". 
-	\end{note}
-	
-	\begin{ex} \lex{ex:ordered_sets:dir_sets:intro:0002}
-		Let $(X, \leq)$ be a proset. Then 
-		\begin{enumerate}
-			\item $\leq$ is an upward direction on $X$ iff $\lop$ is a downward direction on $X$,
-			\item $\lop$ is an upward direction on $X$ iff $\leq$ is a downward direction on $X$,
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item 
-			\begin{align*}
-				\text{$\leq$ is an upward direction on $X$} 
-				& \iff \text{for each $a,b \in X$, there exists $c \in X$ such that $a \leq c$ and $b \leq c$} \\
-				& \iff \text{for each $a,b \in X$, there exists $c \in X$ such that $c \lop a$ and $c \lop b$} \\
-				& \iff \text{$\lop$ is an downward direction on $X$} 
-			\end{align*}
-			\item We have that
-			\begin{align*}
-				\text{$\lop$ is an upward direction on $X$} 
-				& \iff \text{$(\lop)^*$ is a downward direction on $X$} \quad \text{(by \tcr{prev part})} \\
-				& \iff \text{$\leq$ is a downward direction on $X$} \quad \text{(by \tcr{ref ex in section on binary relations})}.
-			\end{align*}
-		\end{enumerate}
-	\end{proof}
-	
-	
-	
 	
 	
 	
@@ -786,8 +749,8 @@
 	\begin{defn} \ld{def:ordered_sets:dir_sets:sub_dir_sets:0001}
 		Let $(A, \leq)$ be a proset and $B \subset A$. Then $B$ is said to be 
 		\begin{itemize}
-			\item \tbf{$\leq$-upward directed} if $(B, \leq|_B)$ is an upward directed set,
-			\item \tbf{$\leq$-downard directed} if $(B, \lop|_B)$ is a downward directed set.
+			\item \tbf{$\leq$-upward directed} if $(B, \leq|_B)$ is a directed set,
+			\item \tbf{$\leq$-downard directed} if $(B, \lop|_B)$ is a directed set.
 		\end{itemize}
 	\end{defn}
 	
@@ -808,44 +771,19 @@
 			\item We note that 
 			\begin{align*}
 				\text{$B$ is $\leq$-downward directed}
-				& \iff \text{$(B, \lop|_B)$ is an upward directed set} \quad \text{(by \tcr{ref prev ex})} \\
-				& \iff \text{$(B, (\leq|_B)^*)$ is an upward directed set} \quad \text{(by \tcr{ref prev ex about restriction of binary/converse relations})} \\
-				& \iff \text{$B$ is $\lop$-upward directed} \quad \text{(by \rex{ex:ordered_sets:dir_sets:intro:0002})} \\.
+				& \iff \text{$(B, \lop|_B)$ is a directed set} \\
+				& \iff \text{$B$ is $\lop$-upward directed}.
 			\end{align*} 
 			\item 
 			We note that 
 			\begin{align*}
 				\text{$B$ is $\leq$-upward directed}
-				& \iff \text{$B$ is $(\lop)^*$-upward directed} \quad \text{\tcr{ref ex in set theory section on binary binary/converse relation}} \\
+				& \iff \text{$B$ is $(\lop)^*$-upward directed} \quad \text{\tcr{ref ex in set theory section on binary hetero relations about converse relation}} \\
 				& \iff \text{$B$ is $\lop$-downward directed} \quad \text{\tcr{ref previous part}.}
 			\end{align*}
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{ex:ordered_sets:dir_sets:sub_dir_sets:0003}
-		Let $(X, \leq)$ be a proset and $x \in X$. Then 
-		\begin{enumerate}
-			\item $\{x\}$ is upward directed
-			\item $\{x\}$ is downward directed
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item 
-			\begin{itemize}
-				\item Clearly $\{x\} \neq \varnothing$.
-				\item For each $a,b \in \{x\}$, we have that 
-				\begin{align*}
-					a,b 
-					& \leq x \\
-					& \in \{x\}.
-				\end{align*}
-				Thus for each $a,b \in \{x\}$, there exists $c \in \{x\}$ such that $a \leq c$ and $b \leq c$. Hence $\{x\}$ is upward directed. 
-			\end{itemize}
-			\item 
-		\end{enumerate}
-	\end{proof}
 	
 	
 	
@@ -905,11 +843,10 @@
 	\section{Products of Directed Sets}
 	
 	\begin{ex} \lex{ex:ordered_sets:dir_sets:products:0001}
-		Let $(A, \leq_A)$ and $(B, \leq_B)$ be posets.  
-		If $(A, \leq_A)$ and $(B, \leq_B)$ are upward directed sets
+		Let $(A, \leq_A)$ and $(B, \leq_B)$ be directed sets. Then 
 		\begin{enumerate}
-			\item $\leq_A \otimes \leq_B$ is an upward direction on $A \times B$,
-			\item $(A \times B, \leq_A \otimes \leq_B)$ is an upward directed set.
+			\item $\leq_A \otimes \leq_B$ is a direction on $A \times B$,
+			\item $(A, \leq_A) \otimes (B, \leq_B)$ is a directed set.
 		\end{enumerate}
 	\end{ex}
 	
@@ -920,11 +857,11 @@
 				\item \rex{ex:orderings:prosets:0002} implies that $\leq_A \otimes \leq_B$ is a preorder of $A \times B$.
 				\item Let $(a_1, b_1), (a_2, b_2) \in A \times B$. Then there exist $a \in A$ and $b \in B$ such that $a_1, a_2 \leq_A a$ and $b_1, b_2 \leq_B b$. Hence $(a_1, b_1), (a_2, b_2) \leq_A \otimes \leq_B (a, b)$.
 			\end{enumerate}
-			Hence $\leq_A \otimes \leq_B$ is an upward direction on $A \times B$.
+			Hence $\leq_A \otimes \leq_B$ is a direction on $A \times B$.
 			\item 
 			\begin{enumerate}
 				\item Since $A \neq \varnothing$ and $B \neq \varnothing$, we have that $A \times B \neq \varnothing$.
-				\item From above, $\leq_A \otimes \leq_B$ is an upward direction on $A \times B$. 
+				\item From above, $\leq_A \otimes \leq_B$ is a direction on $A \times B$. 
 			\end{enumerate}
 			Hence $(A \times B, \leq_A \otimes \leq_B)$ is a directed set.
 		\end{enumerate}
@@ -1897,7 +1834,7 @@
 		\end{itemize}
 	\end{defn}
 	
-	\begin{note} \lnt{note:ordered_sets:upper_lower_sets:intro:0006.1}
+	\begin{note}\
 		\begin{itemize}
 			\item When the context is clear, we write 
 			\begin{itemize}
@@ -2240,29 +2177,10 @@
 					& \geq x_a \\
 					& \geq a.
 				\end{align*}
-				Similarly, $x_0 \geq b$. Since $B \subset \doar B$, $x_0 \in \doar B$. Thus $\ubd(\{a,b\}, \leq|_{\doar B}) \neq \varnothing$. Since $a,b \in \doar B$ are arbitrary, we have that for each $a,b \in \doar B$, $\ubd(\{a,b\}, \leq|_{\doar B}) \neq \varnothing$. Then $\leq|_{\doar B}$ is an upward direction on $\doar B$.
+				Similarly, $x_0 \geq b$. Since $B \subset \doar B$, $x_0 \in \doar B$. Thus $\ubd(\{a,b\}, \leq|_{\doar B}) \neq \varnothing$. Since $a,b \in \doar B$ are arbitrary, we have that for each $a,b \in \doar B$, $\ubd(\{a,b\}, \leq|_{\doar B}) \neq \varnothing$. Then $\leq|_{\doar B}$ is a direction on $\doar B$.
 			\end{itemize}
 			Hence $B$ is upward directed. 
 			\item Suppose that $B$ is $\leq$-downward directed. \tcr{The prev ex} implies that $B$ is $\lop$-upward directed. \tcr{The prev part} implies that $\doar(B, \lop)$ is $\lop$-upward directed. \tcr{A prev ex} implies that $\doar(B, \lop) = \upar(B, \leq)$. Since $\upar(B, \leq)$ is $\lop$-upward directed, \tcr{the prev ex} implies that $\upar(B, \leq)$ is $\leq$-downward directed.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{ex:ordered_sets:upper_lower_sets:intro:0016.1}
-		Let $(X, \leq)$ be a proset and $x \in X$. Then 
-		\begin{enumerate}
-			\item $\upar x$ is downward directed, 
-			\item $\doar x$ is upward directed.
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item 
-			\begin{itemize}
-				\item Since $x \in \upar x$, $\upar x \neq \varnothing$.
-				\item \rex{ex:ordered_sets:dir_sets:sub_dir_sets:0003} implies that $\{x\}$ is downward directed. \rex{ex:ordered_sets:upper_lower_sets:intro:0016} then implies that $\upar x$ is downward directed. 
-			\end{itemize}
-			\item 
 		\end{enumerate}
 	\end{proof}
 	
@@ -2564,17 +2482,6 @@
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{ex:orderings:prosets:0022}
-		Let $(X, \leq)$ be a poset and $a \in X$. Then 
-		\begin{enumerate}
-			\item $a$ is maximal iff $\upar a = \{a\}$
-			\item $a$ is minimal iff $\doar a = \{a\}$
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}
-		Since $(X, \leq)$ is a poset, $\pi_{\sim_{\leq}}(a) = \{a\}$. \rex{ex:orderings:prosets:0021} then implies the result.
-	\end{proof}
 	
 	
 	
@@ -2619,19 +2526,27 @@
 	
 	
 	
+	\section{Filters and Ideals}
 	
+	\begin{defn}
+		Let $(X, \leq)$ be a poset and $F, I \subset X$. Then 
+		\begin{itemize}
+			\item $F$ is said to be a \tbf{$\leq$-filter} if 
+			\begin{enumerate}
+				\item $F \in \MU(\leq)$ 
+				\item $F$ is downward directed.
+			\end{enumerate}
+			\item $I$ is said to be a \tbf{$\leq$-ideal} if 
+			\begin{enumerate}
+				\item $I \in \ML(\leq)$ 
+				\item $I$ is upward directed.
+			\end{enumerate}
+		\end{itemize} 
+	\end{defn}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	\begin{defn}
+		
+	\end{defn}
 	
 	
 	
@@ -3626,8 +3541,8 @@
 	\begin{ex} \lex{ex:ordered_sets:suprema_infima:sup_inf:0012}
 		Let $X$ be a poset. Then 
 		\begin{enumerate}
-			\item $X$ has a one iff there exists $a \in X$ such that for each $x \in X$, $\inf \{x, a\} = x$. 
-			\item $X$ has a zero iff there exists $a \in X$ such that for each $x \in X$, $\sup \{x, a\} = x$. 
+			\item $X$ has a top iff there exists $a \in X$ such that for each $x \in X$, $\inf \{x, a\} = x$. 
+			\item $X$ has a bottom iff there exists $a \in X$ such that for each $x \in X$, $\sup \{x, a\} = x$. 
 		\end{enumerate}
 	\end{ex}
 	
@@ -3636,29 +3551,16 @@
 			\item 
 			\begin{itemize}
 				\item $(\implies)$: \\
-				If $X$ has a one, then there exists $1 \in X$ such that $1 = \sup X$. Since for each $x \in X$, $x \leq 1$, \rex{ex:ordered_sets:suprema_infima:sup_inf:0006} implies that for each $x \in X$, $\inf \{x, 1\} = x$.
+				If $X$ has a top, then there exists $1 \in X$ such that $1 = \sup X$. Since for each $x \in X$, $x \leq 1$, \rex{ex:ordered_sets:suprema_infima:sup_inf:0006} implies that for each $x \in X$, $\inf \{x, 1\} = x$.
 				\item $(\impliedby)$: \\
-				Suppose that there exists $a \in X$ such that for each $x \in X$, $\inf \{x, a\} = x$. \rex{ex:ordered_sets:suprema_infima:sup_inf:0006} implies that for each $x \in X$, $x \leq a$. Therefore $a \in \ubd(X)$. \rex{ex:ordered_sets:suprema_infima:sup_inf:0008} implies that $a = \sup X$. Hence $X$ has a one.
+				Suppose that there exists $a \in X$ such that for each $x \in X$, $\inf \{x, a\} = x$. \rex{ex:ordered_sets:suprema_infima:sup_inf:0006} implies that for each $x \in X$, $x \leq a$. Therefore $a \in \ubd(X)$. \rex{ex:ordered_sets:suprema_infima:sup_inf:0008} implies that $a = \sup X$. Hence $X$ has a top.
 			\end{itemize}
 			\item \tcr{Similar to prev part FINISH!!!}
 		\end{enumerate}
 	\end{proof}
 	
 	
-	\begin{ex} \lex{ex:ordered_sets:suprema_infima:sup_inf:0013}
-		Let $(X, \leq)$ be a poset.
-		\begin{enumerate}
-			\item If $(X, \leq)$ has a one, then for each $U \in \MU(X)$, $U \neq \varnothing$ implies that $1 \in U$.
-			\item If $(X, \leq)$ has a zero, then for each $L \in \ML(X)$, $L \neq \varnothing$ implies that $0 \in L$.
-		\end{enumerate}
-	\end{ex}
 	
-	\begin{proof}
-		\begin{enumerate}
-			\item Suppose that $(X, \leq)$ has a one. Let $U \in \MU(X)$. Suppose that $U \neq \varnothing$. Then there exists $x \in X$ such that $x \in U$. Since $x \leq 1$ and $U \in \MU(X)$, we have that $1 \in U$. Since $U \in \MU(X)$ with $U \neq \varnothing$ is arbitrary, we have that for each $U \in \MU(X)$, $U \neq \varnothing$ implies that $1 \in U$. 
-			\item \tcr{Use duality}
-		\end{enumerate}
-	\end{proof}
 	
 	
 	
@@ -3671,279 +3573,6 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	\newpage
-	\chapter{Structures on Ordered Sets}
-	
-	\section{Ideals and Filters}
-	
-	\begin{defn} \ld{def:upper_lower_sets:ideals_filters:0001}
-		Let $(X, \leq)$ be a poset. 
-		\begin{itemize}
-			\item Let $F, I \subset X$. Then 
-			\begin{itemize}
-				\item $I$ is said to be a \tbf{$\leq$-ideal} if 
-				\begin{enumerate}
-					\item $I \neq \varnothing$,
-					\item $I \in \ML(\leq)$,
-					\item $I$ is $\leq$-upward directed,
-				\end{enumerate}
-				item $F$ is said to be a \tbf{$\leq$-filter} if 
-				\begin{enumerate}
-					\item $F \neq \varnothing$,
-					\item $F \in \MU(\leq)$, 
-					\item $F$ is $\leq$-downward directed.
-				\end{enumerate}
-			\end{itemize} 
-			\item We define 
-			\begin{itemize}
-				\item $\MI(X, \leq) \defeq \{I \subset L: \text{$I$ is an $\leq$-ideal}\}$
-				\item $\MF(X, \leq) \defeq \{F \subset L: \text{$F$ is a $\leq$-filter}\}$
-			\end{itemize}
-		\end{itemize}
-	\end{defn}
-	
-	\begin{note}
-		When the context is clear,
-		\begin{itemize}
-			\item we may say ``ideal" and ``filter" instead of ``$\leq$-ideal" and ``$\leq$-filter" respectively,
-			\item we may write $\MI(X)$ and $\MF(X)$ in place of $\MI(X, \leq)$ and $\MF(\leq)$ respectively.
-		\end{itemize}
-	\end{note}
-	
-	\begin{ex} \lex{ex:upper_lower_sets:ideals_filters:0002}
-		Let $(X, \leq)$ be a poset. Suppose that $X \neq \varnothing$. 
-		\begin{enumerate}
-			\item If $X$ has a one, then $X \in \MI(X)$,
-			\item If $X$ has a zero, then $X \in \MF(X)$.
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item 
-			\begin{itemize}
-				\item By assumption, $X \neq \varnothing$.
-				\item \rex{ex:ordered_sets:upper_lower_sets:intro:0002} implies that $X \in \ML(X, \leq)$.
-				\item Since $X$ has a one, for each $x,y \in X$, $x \leq 1$ and $y \leq 1$. Hence $X$ is $\leq$-upward directed.
-			\end{itemize}
-			\item \tcr{FINISH!!! use dualtity?}.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{ex:upper_lower_sets:ideals_filters:0003}
-		Let $(X, \leq)$ be a poset. Then for each $x \in X$,
-		\begin{enumerate}
-			\item $\doar x \in \MI(X)$
-			\item $\upar x \in \MF(X)$
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}
-		Let $x \in X$.
-		\begin{enumerate}
-			\item 
-			\begin{enumerate}
-				\item Since $x \in \doar x$, $\doar x \neq \varnothing$.
-				\item By \rnt{note:ordered_sets:upper_lower_sets:intro:0006.1}, $\doar x \in \ML(X)$ \tcr{change earlier notation to agree}. 
-				\item \rex{ex:ordered_sets:upper_lower_sets:intro:0016.1} implies that $\doar x$ is upward directed.
-			\end{enumerate}
-			Thus $\doar x \in \MI(X)$
-			\item \tcr{use duality}
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{ex:upper_lower_sets:ideals_filters:0004}
-		Let $(X, \leq)$ be a poset and $I,F \subset X$. Then
-		\begin{enumerate}
-			\item $I \in \MI(X, \leq)$ iff $I \in \MF(X, \lop)$,
-			\item $F \in \MF(X, \leq)$ iff $F \in \MI(X, \lop)$.
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item 
-			\begin{itemize}
-				\item $(\implies)$: \\
-				Suppose that $I \in \MI(X, \leq)$.
-				\begin{itemize}
-					\item Since $I \in \MI(X, \leq)$, $I \neq \varnothing$.
-					\item Since $I \in \MI(X, \leq)$, $I \in \ML(X, \leq)$. \rex{ex:ordered_sets:upper_lower_sets:intro:0003} implies that $I \in \MU(X, \lop)$.
-					\item Since $I \in \MI(X, \leq)$, $I$ is $\leq$-upward directed. \rex{ex:ordered_sets:dir_sets:sub_dir_sets:0002} implies that $I$ is $\lop$-downward directed.
-					Thus $I \in \MF(X, \lop)$.
-				\end{itemize}
-				\item $(\impliedby)$
-				Suppose that $I \in \MF(X, \lop)$. \tcr{The prev part} implies that Thus 
-				\begin{align*}
-					I
-					& \in \MI(X, (\lop)^*) \\
-					& = \MI(X, \leq) \quad \text{(by \tcr{ref ex on binary converse relations})} 
-				\end{align*}
-			\end{itemize}
-			\item Similar to $(1)$ \tcr{use duality, prev part FINISH!!!}
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{ex:upper_lower_sets:ideals_filters:0005}
-		Let $(X, \leq)$ be a poset. 
-		\begin{enumerate}
-			\item If $(X, \leq)$ has a zero, then for each $I \in \MI(X, \leq)$, $0 \in I$.
-			\item If $(X, \leq)$ has a one, then for each $F \in \MF(X, \leq)$, $1 \in F$.
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Suppose that $(X, \leq)$ has a zero. Since for each $I \in \MI(X, \leq)$, $I \in \ML(X, \leq)$ and $I \neq \varnothing$, \rex{ex:ordered_sets:suprema_infima:sup_inf:0013} implies that for $I \in \ML(X, \leq)$, $0 \in I$. 
-			\item \tcr{use duality}
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \tcr{move or fix!!}
-		Let $(X, \leq)$ be a poset. 
-		\begin{enumerate}
-			\item For each $I_1, I_2 \in \MI(X, \leq)$. 
-			\begin{enumerate}
-				\item If $\bigcap\limits_{\al \in A} I_{\al} \neq \varnothing$, then $\bigcap\limits_{\al \in A} I_{\al} \in \MI(X, \leq)$. 
-				\item If $A = \{1,2\}$, then $\bigcap\limits_{\al \in A} I_{\al} \in \MI(X, \leq)$.
-				\item If $(X, \leq)$ has a zero, then $\bigcap\limits_{\al \in A} I_{\al} \in \MI(X, \leq)$.
-			\end{enumerate}
-			\item Let $(F_{\al})_{\al \in A} \subset \MF(X, \leq)$. 
-			\begin{enumerate}
-				\item If $\bigcap\limits_{\al \in A} F_{\al} \neq \varnothing$, then $\bigcap\limits_{\al \in A} F_{\al} \in \MF(X, \leq)$. 
-				\item If $A = \{1,2\}$, then $\bigcap\limits_{\al \in A} F_{\al} \in \MF(X, \leq)$.
-				\item If $(X, \leq)$ has a one, then $\bigcap\limits_{\al \in A} F_{\al} \in \MF(X, \leq)$. 
-			\end{enumerate}
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof} \
-		\begin{enumerate}
-			\item Set $I \defeq \bigcap\limits_{\al \in A} I_{\al}$.
-			\begin{enumerate}
-				\item Suppose that $I \neq \varnothing$.
-				\begin{enumerate}
-					\item By assumption $I \neq \varnothing$.
-					\item Let $a, b \in I$ and $\al_0 \in A$. Then $a,b \in I_{\al_0}$ and $I_{\al_0} \in \MI(X, \leq)$. Therefore $I_{\al_0}$ is upward directed. \rex{} implies that $a \vee b \in I_{\al}$
-					
-					is  $a \vee b \in I_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $a \vee b \in I_{\al}$. Hence $a \vee b \in I$.
-					\item Let $x \in L$, $a \in I$ and $\al \in A$. Then $a \in I_{\al}$. Since $I_{\al} \in \MI(L)$, $x \in L$ and $a \in I_{\al}$, we have that $x \wedge a \in I_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $x \wedge a \in I_{\al}$. Hence $x \wedge a \in I$. Since $x \in L$ and $a \in I$ are arbitrary, we have that for each $x \in L$ and $a \in I$, $x \wedge a \in I$. 
-				\end{enumerate}
-				Thus $I \in \MI(L)$.
-				\item Suppose that $A = \{1,2\}$. 
-				\begin{enumerate}
-					\item Since $I_1, I_2 \in \MI(L)$, $I_1 \neq \varnothing$ and $I_2 \neq \varnothing$. Thus there exist $x_1 \in I_1$ and $x_2 \in I_2$. Since $I_1 \in \MI(L)$, $x_2 \in L$ and $x_1 \in I_1$, we have that $x_1 \wedge x_2 \in I_1$. Similarly, $x_1 \wedge x_2 \in I_2$. Hence $x_1 \wedge x_2 \in I_1 \cap I_2$ and $I_1 \cap I_2 \neq \varnothing$. Part $1(a)$ implies that $I_1 \cap I_2 \in \MI(L)$.
-				\end{enumerate}
-				\item Suppose that $L$ has a zero. Let $\al \in A$. Since $I_{\al} \in \MI(L)$, \tcr{a previous exercise} implies that $0 \in I_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $0 \in I_{\al}$. Hence $0 \in I$. Thus $I \neq \varnothing$. The previous part implies that $I \in \MI(L)$.
-			\end{enumerate}
-			\item Similar to $(1)$.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{defn} \tcr{move or fix!!}
-		\tcr{(consider changing notation)}
-		Let $L$ be a lattice and $A \subset L$.
-		\begin{itemize}
-			\item We define 
-			\begin{itemize}
-				\item $\Ideals(A, L) \defeq \{I \in \MI(L): S \subset I\}$
-				\item $\Filters(A, L) \defeq \{F \in \MF(L): S \subset F\}$
-			\end{itemize}
-			\item We define 
-			\begin{itemize}
-				\item the $L$-ideal generated by $A$, denoted $\IdealGen(A, L)$, by $\IdealGen(A, L) \defeq \bigcap\limits_{I \in \Ideals(A, L)} I$
-				\item the $L$-filter generated by $A$, denoted $\IdealGen(A, L)$, by$\FilterGen(A, L) \defeq \bigcap\limits_{F \in \Filters(A, L)} F$
-			\end{itemize}
-		\end{itemize}
-	\end{defn}
-	
-	\begin{note} \tcr{move or fix!!}
-		\tcr{the prev ex} implies that $\IdealGen(A, L) \in \Ideals(A, L)$ and $\FilterGen(A, L) \in \Filters(A, L)$.
-	\end{note}
-	
-	
-	\begin{ex} \tcr{move or fix!!}
-		Let $L$ be a lattice and $B \subset L$.
-		\begin{enumerate}
-			\item If $B$ is upward directed, then 
-			\begin{enumerate}
-				\item $\doar B \in \MI(L)$
-				\item $\IdealGen(B) = \doar (B, \leq_L)$.
-			\end{enumerate}
-			\item If $B$ is downward directed, then 
-			\begin{enumerate}
-				\item $\upar B \in \MF(L)$
-				\item $\FilterGen(B) = \upar (B, \leq_L)$.
-			\end{enumerate}
-		\end{enumerate} 
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Suppose that $B$ is upward directed. 
-			\begin{enumerate}
-				\item \rex{}\tcr{(ref ex)} implies that $\doar B$ is upward directed and \rex{} \tcr{(ref ex)} implies that $\doar B$ is an lower set. \rex{} then implies that $\doar B \in \MI(L)$. 
-				\item \tcr{The prev part} implies that $\doar B \in \Ideals(B, L)$. Therefore
-				\begin{align*}
-					\IdealGen(B, L)
-					& = \bigcap\limits_{I \in \Ideals(B, L)} I \\
-					& \subset \upar B.
-				\end{align*}
-				We note that for each $I \in \MI(L)$, $I$ is a lower set. Thus $\Ideals(B, L) \subset \ML(B, \leq_L)$. Hence 
-				\begin{align*}
-					\doar B
-					& = \bigcap\limits_{ \in \Ideals(B, L)} I \\
-					& \subset \upar B.
-				\end{align*}
-			\end{enumerate}
-			\item Suppose that $B$ is $\leq$-downward directed. \rex{} implies that $B$ is $\lop$-upward directed. \tcr{the prev part} implies that $\upar(B, \lop) \in \MI(L)$. \rex{} then implies that $\upar(B, \lop) \in \MI(L)$
-			
-			\tcr{make new notation $\leq_L \defeq \text{the unique partial order on $L$ compatible with $\vee, \wedge$. Show $\leq_{L^*} = \lop_L$, make note that we write $\leq$ in place of $\leq_L$ when context is clear.}$}
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{defn} \tcr{move or fix!!}
-		\tcr{define prefilter or filter basis, preideal or ideal basis as a downward directed/upward directed set, maybe don't need to, but look into what we need for topology.}
-	\end{defn}
 	
 	
 	
@@ -4626,8 +4255,6 @@
 		\end{enumerate}
 	\end{proof}
 	
-	
-	
 	\begin{ex}
 		Let $(L, \leq)$ be a poset. 
 		\begin{enumerate}
@@ -4917,155 +4544,55 @@
 	
 	\subsection{Semilattice Structures}
 	
-	\begin{ex} \lex{ex:semilatt:structures:0001}
+	\begin{defn}
 		Let $(X, \leq)$ be a poset and $E \subset X$.
 		\begin{enumerate}
-			\item Suppose that $(X, \leq)$ is a join semilattice. Then 
-			\begin{enumerate}
-				\item $E \in \MU_X$ iff $\vee(X \times E) \subset E$,
-				\item $E \neq \varnothing$ and $\vee(E \times E) \subset E$ implies that $E$ is upward directed.
-			\end{enumerate}
-			\item Suppose that $(X, \leq)$ is a meet semilattice. Then
-			\begin{enumerate}
-				\item $E \in \ML_X$ iff $\wedge(X \times E) \subset E$.
-				\item $E \neq \varnothing$ and $\wedge(E \times E) \subset E$ implies that $E$ is downward directed.
-			\end{enumerate}
+			\item Suppose that $(X, \leq)$ is a join semilattice. Then $E \in \MU_X$ iff for each $x \in X$ and $a \in E$, $x \vee a \in E$.
+			\item Suppose that $(X, \leq)$ is a meet semilattice. Then $E \in \ML_X$ iff for each $x \in X$ and $a \in E$, $x \wedge a \in E$.
 		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item 
-			\begin{enumerate}
-				\item 
-				\begin{itemize}
-					\item $(\implies)$: \\
-					Suppose that $E \in \MU_X$. Then for each $x \in X$ and $a \in E$, $a \leq x$ implies that $x \in E$. Let $x \in X$ and $a \in E$. Since $a \leq x \vee a$, we have that $x \vee a \in E$. Since $x \in X$ and $a \in E$ are arbitrary, we have that for each $x \in X$ and $a \in E$, $x \vee a \in E$. 
-					\item $(\impliedby)$: \\
-					Suppose that for each $x \in X$ and $a \in E$, $x \vee a \in E$. Let $x \in X$ and $a \in E$. Suppose that $a \leq x$. Then 
-					\begin{align*}
-						x 
-						& = x \vee a \\
-						& \in E.
-					\end{align*}
-					Since $x \in X$ and $a \in E$ with $a \leq x$ are arbitrary, we have that for each $x \in X$ and $a \in E$, $a \leq x$ implies that $x \in E$. Hence $E \in \MU_X$. 
-				\end{itemize}
-				\item Suppose that $E \neq \varnothing$ and for each $\vee(E \times E) \subset E$. Let $x,y \in E$. Then 
-				\begin{align*}
-					x \vee y
-					& \in \ubd(\{x,y\}, \leq) \cap E \\
-					& = \ubd(\{x,y\}, \leq|_E).
-				\end{align*} 
-				Hence $\ubd(\{x,y\}, \leq|_E) \neq \varnothing$. Since $x,y \in E$ are arbitrary, we have that for each $x,y \in E$, $\ubd(\{x,y\}, \leq|_E) \neq \varnothing$. \tcr{ref prev ex in section on directed subsets} implies that $E$ is $\leq$-upward directed. 
-			\end{enumerate}
-			\item \tcr{FINISH!!! use duality}
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{ex:semilatt:structures:0002}
-		Let $(X, \leq)$ be a poset and $I,F \subset X$.
-		\begin{enumerate}
-			\item Suppose that $(X, \leq)$ is a join semilattice. Then $I \in \MI(X)$ iff 
-			\begin{itemize}
-				\item $I \neq \varnothing$
-				\item $I \in \ML_X$
-				\item $\vee(I \times I) \subset I$.
-			\end{itemize}
-			\item Suppose that $(X, \leq)$ is a meet semilattice. Then $F \in \MF(X)$ iff 
-			\begin{itemize}
-				\item $F \neq \varnothing$
-				\item $F \in \MU_X$
-				\item $\wedge(F \times F) \subset F$.
-			\end{itemize}
-		\end{enumerate}
-	\end{ex}
+	\end{defn}
 	
 	\begin{proof}\
 		\begin{enumerate}
 			\item 
 			\begin{itemize}
 				\item $(\implies)$: \\
-				Suppose that $I \in \MI(X)$. Then $I \neq \varnothing$, $I \in \ML_X$ and $I$ is upward directed. Let $x,y \in I$. Since $I$ is upward directed, there exists $z \in I$ such that $z \in \ubd \{x,y\}$. Then
-				\begin{align*}
-					x \vee y 
-					& = \sup \{x,y\} \\
-					& = \inf (\ubd \{x, y\}) \\
-					& \leq z. 
-				\end{align*}
-				Since $I \in \ML_X$, $z \in I$ and $x \vee y \leq z$, we have that $x \vee y \in I$. Since $x,y \in I$ are arbitrary, we have that for each $x,y \in I$, $x \vee y \in I$. Thus $\vee(I \times I) \subset I$. 
+				Suppose that $E \in \MU_X$. Then for each $x \in X$ and $a \in E$, $a \leq x$ implies that $x \in E$. Let $x \in X$ and $a \in E$. Since $a \leq x \vee a$, we have that $x \vee a \in E$. Since $x \in X$ and $a \in E$ are arbitrary, we have that for each $x \in X$ and $a \in E$, $x \vee a \in E$. 
 				\item $(\impliedby)$: \\
-				Suppose that $I \neq \varnothing$, $I \in \ML(X)$ and $\vee(I \times I) \subset I$. Then 
-				\item by assumption, $I \neq \varnothing$, 
-				\item by assumption, $I \in \ML(X)$,
-				\item \rex{ex:semilatt:structures:0001} then implies that $I$ is upward directed. 
+				Suppose that for each $x \in X$ and $a \in E$, $x \vee a \in E$. Let $x \in X$ and $a \in E$. Suppose that $a \leq x$. Then 
+				\begin{align*}
+					x 
+					& = x \vee a \\
+					& \in E.
+				\end{align*}
+				Since $x \in X$ and $a \in E$ with $a \leq x$ are arbitrary, we have that for each $x \in X$ and $a \in E$, $a \leq x$ implies that $x \in E$. Hence $E \in \MU_X$. 
 			\end{itemize}
-			Thus $I \in \MI(X)$.
-			\item \tcr{FINSISH!!! use duality}
+			\item 
+			\begin{itemize}
+				\item $(\implies)$: \\
+				Suppose that $E$ is upward directed. Then for each $x,y \in E$, there exists $z \in E$ such that $x,y \leq z$. Let $x,y \in E$. Since $a \leq x \vee a$, we have that $x \vee a \in E$. Since $x \in X$ and $a \in E$ are arbitrary, we have that for each $x \in X$ and $a \in E$, $x \vee a \in E$. 
+				\item $(\impliedby)$: \\
+				Suppose that for each $x \in X$ and $a \in E$, $x \vee a \in E$. Let $x \in X$ and $a \in E$. Suppose that $a \leq x$. Then 
+				\begin{align*}
+					x 
+					& = x \vee a \\
+					& \in E.
+				\end{align*}
+				Since $x \in X$ and $a \in E$ with $a \leq x$ are arbitrary, we have that for each $x \in X$ and $a \in E$, $a \leq x$ implies that $x \in E$. Hence $E \in \MU_X$. 
+			\end{itemize}
+			\item \tcr{FINISH!!! use duality}
 		\end{enumerate}
 	\end{proof}
 	
-	\begin{ex} \lex{ex:semilatt:structures:0003}
-		Let $(X, \leq)$ be a poset. Suppose that $X \neq \varnothing$. 
+	\begin{ex}
+		Let $(X, \leq)$ be a poset, $F \in \MU_X$ and $I \in \ML_X$.
 		\begin{enumerate}
-			\item If $(X, \leq)$ is a join semilattice, then $X \in \MI(X)$.
-			\item If $(X, \leq)$ is a meet semilattice, then $X \in \MF(X)$.
+			\item Suppose that $(X, \leq)$ is a join semilattice. Then $I \in \MI(X)$ iff $I \in \ML_X$ and for each $x,y \in I$, $x \wedge y \in I$.
+			\item Suppose that $(X, \leq)$ is a meet semilattice. Then $F \in \MF(X)$ iff $F \in \MU_X$ and for each $x,y \in F$, $x \wedge y \in F$.
 		\end{enumerate}
 	\end{ex}
+
 	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Suppose that $(X, \leq)$ is a join semilattice. By assumption, $X \neq \varnothing$. \rex{ex:ordered_sets:upper_lower_sets:intro:0002} implies that $X \in \ML(X, \leq)$. Since $\vee(X \times X) \subset X$, \rex{ex:semilatt:structures:0002} implies that $X \in \MI(X, \leq)$.
-			\item \tcr{FINISH!!! use dualtity?}.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{ex:semilatt:structures:0004}
-		Let $(X, \leq)$ be a poset and $(E_{\al})_{\al \in A} \subset \MP(X)$. Define $E \in \MP(X)$ by $E \defeq \bigcap\limits_{\al \in A} E_{\al}$. 
-		\begin{enumerate}
-			\item Suppose that $(X, \leq)$ is a join semilattice. If for each $\al \in A$, $\vee(E_{\al} \times E_{\al}) \subset E_{\al}$, then $\vee(E_ \times E) \subset E$. 
-			\item Suppose that $(X, \leq)$ is a meet semilattice. If for each $\al \in A$, $\wedge(E_{\al} \times E_{\al}) \subset E_{\al}$, then $\wedge(E_ \times E) \subset E$. 
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Suppose that for each $\al \in A$, $\vee(E_{\al} \times E_{\al}) \subset E_{\al}$. Let $x, y \in E$ and $\al \in A$. Then $x,y \in E_{\al}$. By assumption, $x \vee y \in E_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $x \vee y \in E_{\al}$. Thus $x \vee y \in E$. Since $x,y \in E$ are arbitrary, we have that for each $x,y \in E$, $x \vee y \in E$. Therefore $\vee(E \times E) \subset E$. 
-			\item \tcr{use duality}
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{ex:semilatt:structures:0005}
-		Let $(X, \leq)$ be a poset. 
-		\begin{enumerate}
-			\item Suppose that $(X, \leq)$ is a join semilattice. Let $(I_{\al})_{\al \in A} \subset \MI(X)$. 
-			\begin{enumerate}
-				\item If $\bigcap\limits_{\al \in A} I_{\al} \neq \varnothing$, then $\bigcap\limits_{\al \in A} I_{\al} \in \MI(X)$. 
-				\item If $(X, \leq)$ has a zero, then $\bigcap\limits_{\al \in A} I_{\al} \in \MI(X, \leq)$.
-			\end{enumerate}
-			\item Suppose that $(X, \leq)$ is a meet semilattice. Let $(F_{\al})_{\al \in A} \subset \MF(X)$. 
-			\begin{enumerate}
-				\item If $\bigcap\limits_{\al \in A} F_{\al} \neq \varnothing$, then $\bigcap\limits_{\al \in A} F_{\al} \in \MF(X, \leq)$. 
-				\item If $(X, \leq)$ has a one, then $\bigcap\limits_{\al \in A} F_{\al} \in \MF(X, \leq)$. 
-			\end{enumerate}
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Define $I \subset X$ by $I \defeq \bigcap\limits_{\al \in A} I_{\al}$. Since $(I_{\al})_{\al \in A} \subset \MI(X)$, we have that for each $\al \in A$, $I_{\al} \neq \varnothing$, $I_{\al} \in \ML(X)$ and $I_{\al}$ is upward directed.
-			\begin{enumerate}
-				\item Suppose that $I \neq \varnothing$. 
-				\begin{itemize}
-					\item By assumption $I \neq \varnothing$. 
-					\item \rex{ex:ordered_sets:upper_lower_sets:intro:0005} implies that $I \in \ML(X)$.
-					\item \rex{ex:semilatt:structures:0004} implies that $\vee(I \times I) \subset I$. 
-				\end{itemize}
-				\rex{ex:semilatt:structures:0002} then implies that $I \in \MI(X)$. 
-				\item Suppose that $(X, \leq)$ has a zero. \rex{ex:upper_lower_sets:ideals_filters:0005} implies that for each $\al \in A$, $0 \in I_{\al}$. Thus $0 \in I$. Hence $I \neq \varnothing$. \tcr{The prev part} then implies that $I \in \MI(X)$.
-			\end{enumerate}
-			\item \tcr{use duality}
-		\end{enumerate}
-	\end{proof}
 	
 	
 	
@@ -6420,21 +5947,99 @@
 	
 	\subsection{Ideals and Filters}
 	
+	\begin{defn}
+		Let $(L, \vee, \wedge)$ be a lattice.  
+		\begin{itemize}
+			\item Let $J \subset L$. Then
+			\begin{itemize}
+				\item $J$ is said to be an \tbf{$(L, \vee, \wedge)$-ideal} if 
+				\begin{enumerate}
+					\item $J \neq \varnothing$,
+					\item for each $a,b \in J$, $a \vee b \in J$,
+					\item for each $x \in L$ and $x \in J$, $x \wedge a \in J$,
+				\end{enumerate}
+				\item $J$ is said to be an \tbf{$(L, \vee, \wedge)$-filter} if 
+				\begin{enumerate}
+					\item $J \neq \varnothing$,
+					\item for each $a,b \in J$, $a \wedge b \in J$,
+					\item for each $x \in L$ and $a \in J$, $x \vee a \in J$.
+				\end{enumerate}
+			\end{itemize}
+			\item We define 
+			\begin{itemize}
+				\item $\MI(L, \vee, \wedge) \defeq \{I \subset L: \text{$I$ is an $(L, \vee, \wedge)$-ideal}\}$
+				\item $\MF(L, \vee, \wedge) \defeq \{F \subset L: \text{$F$ is a $(L, \vee, \wedge)$-filter}\}$
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		When the context is clear,
+		\begin{itemize}
+			\item we may say ``ideal" and ``filter" instead of ``$(L, \vee, \wedge)$-ideal" and ``$(L, \vee, \wedge)$-filter" respectively,
+			\item we may write $\MI(L)$ and $\MF(L)$ in place of $\MI(L, \vee, \wedge)$ and $\MF(L, \vee, \wedge)$ respectively.
+		\end{itemize}
+	\end{note}
+	
 	\begin{ex}
-		Let $L$ be a lattice and $I, F \subset L$. Then 
+		Let $L$ be a lattice. If $L \neq \varnothing$, then 
 		\begin{enumerate}
-			\item $I \in \MI(L)$ iff 
-			\begin{itemize}
-				\item $I \neq \varnothing$,
-				\item $\wedge(I \times L) \subset I$,
-				\item $\vee(I \times I) \subset I$.
-			\end{itemize} 
-			\item $F \in \MI(L)$ iff 
-			\begin{itemize}
-				\item $I \neq \varnothing$,
-				\item $\vee(F \times L) \subset F$,
-				\item $\wedge(F \times F) \subset F$.
-			\end{itemize} 
+			\item $L \in \MI(L)$,
+			\item $L \in \MF(L)$.
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item Since $L$ is a lattice, $L \neq \varnothing$.
+				\item Clearly for each $a,b \in L$, $a \vee b \in L$
+				\item Clearly for each $x \in L$ and $b \in L$, $a \wedge b \in L$
+			\end{enumerate}
+			\item Similar to $(1)$ \tcr{or use dualtity?}.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. Then for each $x \in L$,
+		\begin{enumerate}
+			\item $\doar x \in \MI(L)$
+			\item $\upar x \in \MF(L)$
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}
+		Let $x \in L$.
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item Since $x \in \doar x$, $\doar x \neq \varnothing$.
+				\item Let $a,b \in \doar x$. Then $a \leq x$ and $b \leq x$. Hence $x \in \ubd(\{a,b\})$. Therefore 
+				\begin{align*}
+					a \vee b
+					& = \sup \{a,b\} \\
+					& \leq x.
+				\end{align*}
+				Thus $a \wedge b \in \doar x$. Since $a,b \in \doar x$ are arbitrary, we have that for each $a,b \in \doar x$, $a \vee b \in \doar x$.
+				\item Let $y \in L$ and $a \in \doar x$. Then $a \leq x$. Therefore 
+				\begin{align*}
+					y \wedge a
+					& = \inf( \{y, a\}) \\
+					& \leq a \\
+					& \leq x.
+				\end{align*}
+				Hence $y \wedge a \in \doar x$. Since $y \in L$ and $a \in \doar x$ are arbitrary, we have that for each $y \in L$ and $a \in \doar x$, $y \wedge a \in \doar x$.
+			\end{enumerate}
+			\item \tcr{use duality}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $(L, \vee, \wedge)$ be a lattice and $J \subset L$. Then
+		\begin{enumerate}
+			\item $J \in \MI(L)$ iff $J \in \MF(L^*)$,
+			\item $J \in \MF(L)$ iff $J \in \MI(L^*)$.
 		\end{enumerate}
 	\end{ex}
 	
@@ -6443,27 +6048,251 @@
 			\item 
 			\begin{itemize}
 				\item $(\implies)$: \\
-				Suppose that $I \in \MI(L)$. \rex{ex:semilatt:structures:0002} implies that $I \neq \varnothing$, $I \in \ML(L)$ and $\vee(I \times I) \subset I$.
+				Suppose that $J \in \MI(L)$.
 				\begin{itemize}
-					\item As noted above, $I \neq \varnothing$. 
-					\item \rex{ex:semilatt:structures:0001} implies that $\wedge(I \times L) \subset I$.
-					\item As noted above, $\vee(I \times I) \subset I$.
+					\item Since $J \in \MI(L, \vee, \wedge)$, $J \neq \varnothing$.
+					\item Since $J \in \MI(L)$, for each $a,b \in J$,
+					\begin{align*}
+						a \wedge^* b
+						& = a \vee b \\
+						& \in J.
+					\end{align*}
+					\item Since $J \in \MI(L)$, for each $x \in L$ and $a \in J$, 
+					\begin{align*}
+						x \vee^* a \\
+						& = x \wedge a \\
+						& \in J.
+					\end{align*}
+					Thus $J \in \MF(L^*)$.
 				\end{itemize}
-				\item $(\impliedby)$: \\
-				Suppose that 
-				\begin{itemize}
-					\item $I \neq \varnothing$,
-					\item $\wedge(I \times L) \subset I$,
-					\item $\vee(I \times I) \subset I$.
-				\end{itemize} 
-				\rex{ex:semilatt:structures:0001} implies that $I \in \ML(L)$. \rex{ex:semilatt:structures:0002} then implies that $I \in \MI(L)$.
+				\item $(\impliedby)$
+				Suppose that $J \in \MF(L^*)$. Then 
 			\end{itemize}
-			\item 
+			\item Similar to $(1)$ \tcr{ref prev part}
 		\end{enumerate}
 	\end{proof}
 	
+	\begin{ex}
+		Let $L$ be a lattice and $J \subset L$. Then
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item $J \in \MI(L)$ iff $J$ is a $\leq$-lower set and $J$ is $\leq$-upward directed.  
+				\item $J \in \MI(L^*)$ iff $J$ is a $\lop$-lower set and $J$ is $\lop$-upward directed.  
+			\end{enumerate}
+			\item 
+			\begin{enumerate}
+				\item $J \in \MF(L)$ iff $J$ is an $\leq$-upper set and $J$ is $\leq$-downward directed.
+				\item $J \in \MF(L^*)$ iff $J$ is an $\lop$-upper set and $J$ is $\lop$-downward directed.
+			\end{enumerate}
+		\end{enumerate}
+		\tcr{FIX!!!} \\
+		\tcr{REWORK!!!!} \\
+		\tcr{THINK ABOUT WHAT STATEMENTS WE WANT AND SHORTEST WAY TO SHOW THEM}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item 
+			\begin{enumerate}
+				\item 
+				\begin{itemize}
+					\item $(\implies)$: \\
+					Suppose that $J \in \MI(L)$.
+					\begin{itemize}
+						\item Let $x \in L$ and $a \in J$. Suppose that $x \leq a$. Then $x = \inf(\{a,b\}, \leq)$ and therefore
+						\begin{align*}
+							x
+							& = \inf(\{x, a\}, \leq) \\
+							& = x \wedge_{\leq} a \\
+							& \in J. 
+						\end{align*}  
+						Since $a \in J$ and $x \in L$ with $x \leq a$ are arbitrary, we have that $J$ is a down set. 
+						\item 
+						\begin{itemize}
+							\item Since $J \in \MI(L)$, we have that $J \neq \varnothing$. 
+							\item Let $a, b \in J$. Since $J \in \MI(L)$, we have that $a \vee b \in J$. Since $a \vee b = \sup (\{a,b\}, \leq)$ and $\{a,b\} \subset J$, we have that 
+							\begin{align*}
+								a \vee b
+								& \in \ubd(\{a,b\}, \leq) \cap J\\
+								& = \ubd(\{a,b\}, \leq|_J) \quad \text{(by \rex{ex:ordered_sets:suprema_infima:upper_lower_bnds:0006})}. \\
+							\end{align*}
+							Therefore $\ubd(\{a,b\}, \leq|_J) \neq \varnothing$. Since $a,b \in J$ are arbitrary, we have that for each $a,b \in J$, $\ubd(\{a,b\}, \leq|_J) \neq \varnothing$. Hence $\leq|_J$ is a direction on $J$.
+						\end{itemize}
+						Thus $(J, \leq|_J)$ is a directed set. Therefore $J$ is $\leq$-upward directed. 
+					\end{itemize}
+					\item $(\impliedby)$: \\
+					Suppose that $J$ is a $\leq$-lower set and $J$ is $\leq$-upward directed. 
+					\begin{enumerate}
+						\item Since $J$ is $\leq$-upward directed, $(J, \leq|_J)$ is a directed set. Hence $J \neq \varnothing$.
+						\item Let $a,b \in J$. Since $(J, \leq|_J)$ is a directed set and $\{a,b\} \subset J$, we have that 
+						\begin{align*}
+							\ubd(\{a,b\}, \leq) \cap J
+							& = \ubd(\{a,b\}, \leq|_J) \quad \text{(by \rex{ex:ordered_sets:suprema_infima:upper_lower_bnds:0006})} \\
+							& \neq \varnothing.
+						\end{align*}
+						Thus there exists
+						\begin{align}
+							c 
+							& \in \ubd(\{a,b\}, \leq) \cap J \\
+							& \subset \ubd(\{a,b\}, \leq).
+						\end{align}
+						Therefore $\sup(\{a,b\}, \leq) \leq c$. Since $J$ is a $\leq$-lower set, $c \in J$ and $\sup(\{a,b\}, \leq) \leq c$, we have that 
+						\begin{align*}
+							a \vee b
+							& = \sup(\{a,b\}, \leq) \\
+							& \in J.
+						\end{align*}
+						Since $a,b \in J$ are arbitrary, we have that for each $a,b \in J$, $a \vee b \in J$.
+						\item Let $x \in L$ and $a \in J$. Then $x \wedge a \leq a$. Since $J$ is a $\leq$-lower set, $x \wedge a \in J$. Since $x \in L$ and $a \in J$ are arbitrary, we have that for each $x \in L$ and $a \in J$, $x \wedge a \in J$.
+					\end{enumerate}
+					Therefore $J \in \MI(L)$.
+				\end{itemize}
+				\item 
+				
+				
+				\rex{ex:lattices:lattices:0023} and \tcr{the previous part} imply that $J \in \MI(L^*)$ iff $J$ is an $\lop$-lower set and $J$ is $\lop$-upward directed.
+			\end{enumerate}
+			\item 
+			\begin{enumerate}
+				\item We have that 
+				\begin{align*}
+					J \in \MF(L)
+					& \iff J \in \MI(L^*) \quad \text{(by \tcr{prev part})} \\
+					& \iff \text{$J$ is an $\lop$-lower set and $J$ is $\lop$-upward directed} \quad \text{(by \tcr{prev part})} \\
+					& \iff \text{$J$ is an $\leq$-upper set and $J$ is $\leq$-downward directed} \quad \text{(by \tcr{prev ex in directed set section})} \\
+				\end{align*}
+				\item \rex{ex:lattices:lattices:0023} and \tcr{the previous part} imply that $J \in \MF(L^*)$ iff $J$ is an $\lop$-upper set and $J$ is $\lop$-downward directed.
+				
+				\begin{align*}
+					J \in \MF(L^*) 
+					& \iff \text{$J$ is an $\lop$-upper set and $J$ is $\leq$-downward directed} \quad \text{(by \tcr{prev part})} \\
+					& \iff \text{$J$ is a $\leq$-lower set and $J$ is $\leq$-upward directed} \\
+					& \iff \text{$J$ is a $\leq$-lower set and $J$ is $\leq$-upward directed}
+				\end{align*}
+			\end{enumerate}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. 
+		\begin{enumerate}
+			\item If $L$ has a zero, then for each $I \in \MI(L)$, then $0 \in I$.
+			\item If $L$ has a one, then for each $F \in \MF(L)$, then $1 \in F$.
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $L$ has a zero. Let $J \in \MI(L)$. Since $I \in \MI(L)$, $I \neq \varnothing$ and \tcr{a previous ex} implies $I$ is a lower set. Hence there exists $a \in I$. \tcr{a prev ex} implies that $0 \in \lbd L$. Thus $0 \leq a$. Since $I$ is a lower set, $0 \in I$.
+			\item Similar to $(1)$.
+		\end{enumerate} 
+	\end{proof}
+	
+	\begin{ex}
+		Let $L$ be a lattice. 
+		\begin{enumerate}
+			\item Let $(I_{\al})_{\al \in A} \subset \MI(L)$. 
+			\begin{enumerate}
+				\item If $\bigcap\limits_{\al \in A} I_{\al} \neq \varnothing$, then $\bigcap\limits_{\al \in A} I_{\al} \in \MI(L)$. 
+				\item If $A = \{1,2\}$, then $\bigcap\limits_{\al \in A} I_{\al} \in \MI(L)$.
+				\item If $L$ has a zero, then $\bigcap\limits_{\al \in A} I_{\al} \in \MI(L)$.
+			\end{enumerate}
+			\item Let $(F_{\al})_{\al \in A} \subset \MF(L)$. 
+			\begin{enumerate}
+				\item If $\bigcap\limits_{\al \in A} F_{\al} \neq \varnothing$, then $\bigcap\limits_{\al \in A} F_{\al} \in \MF(L)$. 
+				\item If $A = \{1,2\}$, then $\bigcap\limits_{\al \in A} F_{\al} \in \MF(L)$.
+				\item If $L$ has a one, then $\bigcap\limits_{\al \in A} F_{\al} \in \MF(L)$. 
+			\end{enumerate}
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof} \
+		\begin{enumerate}
+			\item Set $I \defeq \bigcap\limits_{\al \in A} I_{\al}$.
+			\begin{enumerate}
+				\item Suppose that $I \neq \varnothing$.
+				\begin{enumerate}
+					\item By assumption $I \neq \varnothing$.
+					\item Let $a, b \in I$ and $\al \in A$. Then $a,b \in I_{\al}$. Since $I_{\al} \in \MI(L)$, $a \vee b \in I_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $a \vee b \in I_{\al}$. Hence $a \vee b \in I$.
+					\item Let $x \in L$, $a \in I$ and $\al \in A$. Then $a \in I_{\al}$. Since $I_{\al} \in \MI(L)$, $x \in L$ and $a \in I_{\al}$, we have that $x \wedge a \in I_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $x \wedge a \in I_{\al}$. Hence $x \wedge a \in I$. Since $x \in L$ and $a \in I$ are arbitrary, we have that for each $x \in L$ and $a \in I$, $x \wedge a \in I$. 
+				\end{enumerate}
+				Thus $I \in \MI(L)$.
+				\item Suppose that $A = \{1,2\}$. 
+				\begin{enumerate}
+					\item Since $I_1, I_2 \in \MI(L)$, $I_1 \neq \varnothing$ and $I_2 \neq \varnothing$. Thus there exist $x_1 \in I_1$ and $x_2 \in I_2$. Since $I_1 \in \MI(L)$, $x_2 \in L$ and $x_1 \in I_1$, we have that $x_1 \wedge x_2 \in I_1$. Similarly, $x_1 \wedge x_2 \in I_2$. Hence $x_1 \wedge x_2 \in I_1 \cap I_2$ and $I_1 \cap I_2 \neq \varnothing$. Part $1(a)$ implies that $I_1 \cap I_2 \in \MI(L)$.
+				\end{enumerate}
+				\item Suppose that $L$ has a zero. Let $\al \in A$. Since $I_{\al} \in \MI(L)$, \tcr{a previous exercise} implies that $0 \in I_{\al}$. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $0 \in I_{\al}$. Hence $0 \in I$. Thus $I \neq \varnothing$. The previous part implies that $I \in \MI(L)$.
+			\end{enumerate}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		\tcr{(consider changing notation)}
+		Let $L$ be a lattice and $A \subset L$.
+		\begin{itemize}
+			\item We define 
+			\begin{itemize}
+				\item $\Ideals(A, L) \defeq \{I \in \MI(L): S \subset I\}$
+				\item $\Filters(A, L) \defeq \{F \in \MF(L): S \subset F\}$
+			\end{itemize}
+			\item We define 
+			\begin{itemize}
+				\item the $L$-ideal generated by $A$, denoted $\IdealGen(A, L)$, by $\IdealGen(A, L) \defeq \bigcap\limits_{I \in \Ideals(A, L)} I$
+				\item the $L$-filter generated by $A$, denoted $\IdealGen(A, L)$, by$\FilterGen(A, L) \defeq \bigcap\limits_{F \in \Filters(A, L)} F$
+			\end{itemize}
+		\end{itemize}
+	\end{defn}
+	
+	\begin{note}
+		\tcr{the prev ex} implies that $\IdealGen(A, L) \in \Ideals(A, L)$ and $\FilterGen(A, L) \in \Filters(A, L)$.
+	\end{note}
 	
 	
+	\begin{ex}
+		Let $L$ be a lattice and $B \subset L$.
+		\begin{enumerate}
+			\item If $B$ is upward directed, then 
+			\begin{enumerate}
+				\item $\doar B \in \MI(L)$
+				\item $\IdealGen(B) = \doar (B, \leq_L)$.
+			\end{enumerate}
+			\item If $B$ is downward directed, then 
+			\begin{enumerate}
+				\item $\upar B \in \MF(L)$
+				\item $\FilterGen(B) = \upar (B, \leq_L)$.
+			\end{enumerate}
+		\end{enumerate} 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Suppose that $B$ is upward directed. 
+			\begin{enumerate}
+				\item \rex{}\tcr{(ref ex)} implies that $\doar B$ is upward directed and \rex{} \tcr{(ref ex)} implies that $\doar B$ is an lower set. \rex{} then implies that $\doar B \in \MI(L)$. 
+				\item \tcr{The prev part} implies that $\doar B \in \Ideals(B, L)$. Therefore
+				\begin{align*}
+					\IdealGen(B, L)
+					& = \bigcap\limits_{I \in \Ideals(B, L)} I \\
+					& \subset \upar B.
+				\end{align*}
+				We note that for each $I \in \MI(L)$, $I$ is a lower set. Thus $\Ideals(B, L) \subset \ML(B, \leq_L)$. Hence 
+				\begin{align*}
+					\doar B
+					& = \bigcap\limits_{ \in \Ideals(B, L)} I \\
+					& \subset \upar B.
+				\end{align*}
+			\end{enumerate}
+			\item Suppose that $B$ is $\leq$-downward directed. \rex{} implies that $B$ is $\lop$-upward directed. \tcr{the prev part} implies that $\upar(B, \lop) \in \MI(L)$. \rex{} then implies that $\upar(B, \lop) \in \MI(L)$
+			
+			\tcr{make new notation $\leq_L \defeq \text{the unique partial order on $L$ compatible with $\vee, \wedge$. Show $\leq_{L^*} = \lop_L$, make note that we write $\leq$ in place of $\leq_L$ when context is clear.}$}
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn}
+		\tcr{define prefilter or filter basis, preideal or ideal basis as a downward directed/upward directed set, maybe don't need to, but look into what we need for topology.}
+	\end{defn}
 	
 	
 	\begin{ex}

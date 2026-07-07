@@ -181,7 +181,339 @@
 	\newpage
 	\chapter{Preliminaries}
 	
+	\section{The Darboux Integral}
 	
+	\begin{defn} \ld{00000} 
+		Let $a,b \in \R$. Suppose that $a<b$. Define $$\Bnd([a,b], \R) \defeq \{f:[a,b] \rightarrow \R: f\text{ is bounded}\}$$
+	\end{defn}
+	
+	\begin{defn} \ld{00000} 
+		Let $a,b \in \R$. Suppose that $a<b$. Let $x_0, \cdots, x_n \in [a,b]$. Suppose that $a= x_0 < x_1 < \cdots < x_n = b$. Put $\MP = \{x_0, \cdots, x_n\}$. Then $\MP$ is said to be a \textbf{partion} of $[a,b]$. 
+	\end{defn}
+	
+	\begin{defn} \ld{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $\MP = \{x_0, \cdots, x_n\}$ a partion of $[a,b]$. Suppose that $f$ is bounded. For $i = 1, \cdots, n$, put 
+		$$M^f_i = \sup_{x \in [x_{i-1}, x_i]} f(x)$$ and 
+		$$m^f_i = \inf_{x \in [x_{i-1}, x_i]} f(x)$$ 
+		We define the \textbf{upper Darboux sum} of $f$ with respect to $\MP$, denoted $U_\MP f$, by 
+		$$U_\MP f \defeq \sum_{i=1}^n M^f_i (x_i - x_{i-1})$$ 
+		and we define the \textbf{lower Darboux sum} of $f$ with respect to $\MP$, denoted $L_\MP f$, by
+		$$L_\MP f \defeq \sum_{i=1}^n m^f_i (x_i - x_{i-1})$$ 
+	\end{defn}
+
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $\MP$ a partition of $[a,b]$. Then $$\bigg[\inf_{x \in [a,b]} f(x) \bigg] (b-a) \leq L_\MP f \leq U_\MP f \leq \bigg[ \sup_{x \in [a,b]} f(x)  \bigg] (b-a)$$
+	\end{ex}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+			Let $f \in \Bnd([a,b], \R)$ and $\MP$, $\MP'$ partitions of $[a,b]$. If $\MP \subset \MP'$, then 
+			\begin{enumerate}
+				\item $U_{\MP'} f \leq U_{\MP} f$
+				\item $L_{\MP} f \leq L_{\MP'} f$
+			\end{enumerate}
+	\end{ex}
+
+	\begin{proof} \
+		\begin{enumerate}
+			\item Assume that $\MP = \{x_0, \cdots, x_n\}$ and $\MP' = \MP \cup \{x'\}$. Then there exists $j \in \{1, \cdots, n\}$ such that $x_{j-1} < x' < x_j$. Define $$M'_1 = \sup_{x \in [x_{j-1}, x']} f(x), \hspace{.4cm} M'_2 = \sup_{x \in [x', x_{j}]} f(x)$$
+			Since $[x_{j-1}, x'], [x', x_j] \subset [x_{j-1}, x_j]$, we have that $M'_1, M'_2 \leq  M^f_j$. Then 
+			\begin{align*}
+				U_{P'}f 
+				&= \sum_{i =1}^{j-1} M^f_i(x_i - x_{i-1}) + M'_1(x' - x_{j-1}) + M'_2(x_j - x') + \sum_{i =j+1}^n M^f_i(x_i - x_{i-1})  \\
+				&\leq   \sum_{i =1}^{n} M^f_i(x_i - x_{i-1}) \\
+				&= U_P f 
+			\end{align*}
+			By induction, this is true for general partitions $P \subset \MP'$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $f, g \in \Bnd([a,b], \R)$ and $\MP = \{x_0, \cdots, x_n\}$ a partition of $[a,b]$. Then 
+		\begin{enumerate}
+			\item $U_\MP(f+g) \leq U_\MP f + U_\MP g$
+			\item $L_\MP(f+g) \geq L_\MP f + L_\MP g$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof} \
+		\begin{enumerate}
+			\item For each $i \in \{1, \cdots, n\}$, $M^{f+g}_i \leq M^f_i + M^g_i$. So 
+			\begin{align*}
+				U_\MP (f+g) 
+				&= \sum_{i=1}^n M^{f+g}_i (x_i - x_{i-1}) \\
+				& \leq \sum_{i=1}^n (M^f_i + M^g_i)(x_i - x_{i-1}) \\
+				&= \sum_{i=1}^n M^f_i(x_i - x_{i-1}) + \sum_{i=1}^n M^g_i(x_i - x_{i-1}) \\
+				&= U_\MP f + U_\MP g
+			\end{align*}
+			\item Similar to $(1)$
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $\MP = \{x_0, \cdots, x_n\}$ a partition of $[a,b]$. Then 
+		\begin{enumerate}
+			\item $U_\MP (-f) = -L_P f$
+			\item $L_\MP (-f) = - U_\MP f$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since for $i \in \{1, \cdots, n\}$, $M^{-f}_i = -m^f_i$ we see that 
+			\begin{align*}
+				U_\MP(-f) 
+				&= \sum_{i=1}^n M^{-f}_i(x_i - x_{i-1}) \\
+				&= - \sum_{i=1}^n m^f_i(x_i - x_{i-1}) \\
+				&= - L_\MP f
+			\end{align*}
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$, $c >0$ and $\MP = \{x_0, \cdots, x_n\}$ a partition of $[a,b]$. Then 
+		\begin{enumerate}
+			\item $U_\MP (cf) = c U_\MP f$ 
+			\item $L_\MP (cf) = c L_\MP f $
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Since for $i \in \{1, \cdots, n\}$, $M^{cf}_i = cM^f_i$, we see that  
+			\begin{align*}
+				U_\MP (cf) 
+				&= \sum_{i=1}^n M^{cf}_i (x_i - x_{i-1}) \\
+				&= c \sum_{i=1}^n M^f_i (x_i - x_{i-1}) \\
+				&= c U_\MP f
+			\end{align*}
+			\item Similar to $(1)$
+		\end{enumerate}
+	\end{proof}
+	
+	\begin{defn} \ld{00000} 
+		Let $f \in \Bnd([a,b], \R)$. We define the \textbf{upper Darboux integral} of $f$, denoted $U f$, by
+		$$Uf =\defeq \inf \{U_\MP f: \MP \text{ is a partition of } [a,b]\}$$
+		and we define the \textbf{lower Darboux integral} of $f$, denoted $L f$, by 
+		$$Lf \defeq \sup \{L_\MP f: \MP \text{ is a partition of } [a,b]\}$$ 
+	\end{defn}
+
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$. Then $$ \bigg[\inf_{x \in [a,b]} f(x) \bigg] (b-a) \leq Lf \leq Uf \leq \bigg[\sup_{x \in [a,b]} f(x) \bigg] (b-a)$$
+	\end{ex}
+
+	\begin{proof}
+		Clearly $$\bigg[\inf_{x \in [a,b]} f(x) \bigg] (b-a) \leq Lf \hspace{.2cm } \text{ and } \hspace{.2cm } Uf \leq \bigg[\sup_{x \in [a,b]} f(x) \bigg] (b-a)$$ 
+		Let $\ep >0$. Then there exist partitions $\MP_1$ and $\MP_2$ of $[a,b]$ such that $U_{\MP_1} f < U f + \ep/2$ and $L_{\MP_2} f > Lf - \ep/2 $. Define $\MP = \MP_1 \cup \MP_2$. Then 
+		\begin{align*}
+			Uf 
+			& \geq U_{\MP_1}  - \ep/2 \\
+			&> U_\MP f - \ep/2 \\
+			&\geq L_\MP f -\ep/2 \\
+			&\geq L_{\MP_2} f -\ep/2 \\
+			&> L f - \ep
+		\end{align*} 
+		Since $\ep >0$ is arbitrary, we have that $Uf \geq Lf$.
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $f, g \in \Bnd([a,b], \R)$. Then 
+		\begin{enumerate}
+			\item $U(f+g) \leq U f + U g$
+			\item $L(f+g) \geq L f + L g$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof}\
+		\begin{enumerate}
+			\item Let $\ep >0$. Then there exists a partitions $\MP_1$ of $[a,b]$ such that $U_{\MP_1} f < U f + \ep/2$ and $U_{\MP_2} g < U f + \ep/2$. Define $\MP = \MP_1 \cup \MP_2$. Then 
+			\begin{align*}
+				U_\MP(f +g) 
+				&\leq U_\MP f + U_\MP g \\
+				&\leq U_{\MP_1} f + U_{\MP_2} g \\
+				&< U f + \ep/2 +  U g + \ep/2 \\
+				&= Uf + Ug + \ep
+			\end{align*}
+			Since $\ep >0$ is arbitrary, $U_\MP(f +g)  \leq Uf + Ug$.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$. Then 
+		\begin{enumerate}
+			\item $U(-f) = -Lf$
+			\item $L(-f) = -Uf$
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof} \
+		\begin{enumerate}
+			\item Using a previous exercise, we have that
+			\begin{align*}
+				U(-f)
+				&= \inf \{U_\MP(-f): \MP \text{ is a partition of } [a,b]\} \\
+				&= \inf \{ -L_\MP f: \MP \text{ is a partition of } [a,b]\} \\
+				&= - \sup \{L_\MP f: \MP \text{ is a partition of } [a,b]\} \\
+				&= - Lf
+			\end{align*}
+			\item Similar to $(1)$
+		\end{enumerate}
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$ and $c \geq 0$. Then 
+		\begin{enumerate}
+			\item $U (cf) = c U f$ 
+			\item $L (cf) = c L f $
+		\end{enumerate}
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{enumerate}
+			\item Using a previous exercise, we have that
+			\begin{align*}
+				U(cf) 
+				&= \inf \{U_\MP (cf): \MP \text{ is a partition of } [a,b]\} \\
+				&= \inf \{c U_\MP f: \MP \text{ is a partition of } [a,b]\} \\
+				&= c \inf \{U_\MP f: \MP \text{ is a partition of } [a,b]\} \\
+				&= c Uf
+			\end{align*}
+			\item Similar to $(1)$
+		\end{enumerate}
+	\end{proof}
+
+	\begin{defn} \ld{00000} 
+		Let $f \in \Bnd([a,b], \R)$. Then $f$ is said to be \textbf{Darboux integrable} if $Uf = Lf$. If $f$ is Darboux integrable, we define the \textbf{Darboux integral} of $f$, denoted
+		$$\int f \hspace{.2cm} \text{or} \hspace{.2cm} \int f(x) dx,$$  
+		by
+		$$\int f \defeq Uf$$ The set of bounded, Darboux integrable functions is denoted by $D([a,b])$.
+	\end{defn}
+
+	\begin{ex} \lex{00000} 
+		Let $f \in \Bnd([a,b], \R)$. Then $f \in D([a,b])$ iff for each $\ep >0$, there exists a partition $\MP$ of $[a,b]$ such that $U_\MP f - L_\MP f < \ep$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f \in D([a,b])$. Let $\ep >0$. Then there exist partions $\MP_1$, $\MP_2$ of $[a,b]$ such that $U_{\MP_1} f < Uf + \ep/2$ and $L_{\MP_2} f > Lf - \ep/2$. Define $\MP = \MP_1 \cup \MP_2$. Then $U_\MP f \leq U_{\MP_1} f$ and $L_P f \geq L_{\MP_2}f$. So  
+		\begin{align*}
+			U_\MP f - L_\MP f 
+			&< Uf - L f + \ep \\
+			&= \ep
+		\end{align*}  
+		Conversely, suppose that for each $\ep >0$, there exists a partition $\MP$ of $[a,b]$ such that $U_\MP f - L_\MP f < \ep$. For the sake of contradiction, suppose that $Uf - Lf > 0$. Choose $\ep = Uf - Lf$. Then there exists a partition $\MP$ of $[a,b]$ such that $U_\MP f - L_\MP f < \ep$. Since $Uf \leq U_\MP f$ and $Lf \geq L_\MP f$, we have that 
+		\begin{align*}
+			\ep 
+			&> U_\MP f - L_\MP f \\
+			&\geq Uf - Lf \\
+			&= \ep
+		\end{align*} 
+		which is a contradiction. Hence $Uf = Lf$ and $f \in D([a,b])$.
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $f, g \in D([a,b])$. Then $f+g \in D([a,b])$ and $$\int (f+g) = \int f + \int g$$
+	\end{ex}
+	
+	\begin{proof}
+		Clearly $f+g \in \Bnd([a,b], \R)$. Using some previous results, we have that 
+		\begin{align*}
+			\int f + \int g 
+			&= Lf + Lg \\
+			&\leq L(f+g) \\
+			&\leq U(f+g) \\
+			&\leq Uf + Ug \\
+			&= \int f + \int g
+		\end{align*}
+		So $U(f+g) = L(f+g) = \int f + \int g$. Therefore $f+g \in D([a,b])$ and $$\int (f+g) = \int f + \int g$$.
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $f \in D([a,b])$ and $c \in \R$. Then $cf \in D([a,b])$ and $$\int (cf) = c \int f $$
+	\end{ex}
+
+	\begin{proof}
+		Clearly $cf \in \Bnd([a,b], \R)$. If $c \geq 0$, then 
+		\begin{align*}
+			L (cf) 
+			&= c Lf \\
+			&= c \int f \\
+			&= c Uf \\
+			&= U(cf)
+		\end{align*} 
+		So $$L(cf) = U(cf) = c \int f$$ If $c <0$, then 
+		\begin{align*}
+			L (cf) 
+			&= L(-|c| f) \\
+			&= -U(|c|f) \\
+			&= - |c|Uf \\
+			&= c \int f \\
+			&= -|c| L f \\
+			&= - L(|c|f) \\
+			&= U(-|c|f) \\
+			&= U (c f) \\
+		\end{align*} 
+		So $$L(cf) = U(cf) = c \int f$$ Therefore $cf \in D([a,b])$ and $$\int (cf) = c \int f$$
+	\end{proof}
+
+	\begin{cor}
+		We have that $D([a,b])$ is a vector space and the map $I: D([a,b]) \rightarrow \R$ given by $If = \int f$ is linear.
+	\end{cor}
+
+	\begin{proof}
+		Clear.
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $f:[a,b] \rightarrow \R$. If $f$ is continuous, then $f \in D([a,b])$. 
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f$ is continuous. Then $f$ is uniformly continuous. Let $\ep >0$. Uniform continuity implies that there exists $\del > 0$ such that for each $x, y \in [a,b]$, $|x-y| < \del$ implies that $|f(x) - f(Y)| < \ep/(b-a)$. Choose $n \in \N$ such that $(b-a)/n < \del$. For $i \in \{0, \cdots, n\}$, define $x_i \defeq a + i(b-a)/n$. Put $\MP = \{x_0, \cdots, x_n\}$. Continuity implies that for each $i \in \{1, \cdots, n\}$, there exists $x_i^M, x_i^m \in [x_{i-1}, x_i]$ such that $f(x_i^M) = M_i^f$ and $f(x_i^m) = m_i^f$. Then 
+		\begin{align*}
+			U_\MP f - L_\MP f 
+			&= \sum_{i=1}^n M^f_i(x_i - x_{i-1}) - \sum_{i=1}^n m^f_i(x_i - x_{i-1}) \\
+			&= \sum_{i=1}^n (M^f_i - m^f_i)(x_i - x_{i-1}) \\
+			&= \sum_{i=1}^n [f(x_i^M) - f(x_i^m)](x_i - x_{i-1}) \\
+			& < \sum_{i=1}^n \frac{\ep}{b-a}(x_i - x_{i-1}) \\
+			&= \ep 
+		\end{align*}
+		So for each $\ep >0$, there exists a partition $\MP$ of $[a,b]$ such that $U_\MP f - L_\MP f < \ep$. Hence $f \in D([a,b])$.
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Let $f:[a,b] \rightarrow \R$. If $f$ is monotonic, then $f \in D([a,b])$.
+	\end{ex}
+
+	\begin{proof}
+		Suppose that $f$ is increasing. Let $\ep >0$. Choose $n \in \N$ such that $(b-a)[f(b) - f(a)] /n < \ep $. For $i \in \{0, \cdots, n\}$, define $x_i \defeq a + i(b-a)/n$. Put $\MP = \{x_0, \cdots, x_n\}$. Then 
+		\begin{align*}
+			U_\MP f - L_\MP f 
+			&= \sum_{i=1}^n M^f_i(x_i - x_{i-1}) - \sum_{i=1}^n m^f_i(x_i - x_{i-1}) \\
+			&= \sum_{i=1}^n (M^f_i - m^f_i)(x_i - x_{i-1}) \\
+			&= \frac{b-a}{n} \sum_{i=1}^n [f(x_i) - f(x_{i-1})]  \\
+			&= \frac{b-a}{n} [f(b) - f(a)] \\
+			& < \ep
+		\end{align*}
+	So for each $\ep >0$, there exists a partition $\MP$ of $[a,b]$ such that $U_\MP f - L_\MP f < \ep$. Hence $f \in D([a,b])$. The case is similar if $f$ is decreasing. 
+	\end{proof}
+
+	\begin{ex} \lex{00000} 
+		Define $\chi_{\Q}:[0,1] \rightarrow \R$ by $$\chi_{\Q}(x) = \begin{cases}
+			1 & x \in \Q \\
+			0 & x \not \in \Q
+		\end{cases}$$
+		Then $\chi_\Q \not \in D([a,b])$.
+	\end{ex}
+
+	\begin{proof}
+		Let $\MP = \{x_0, \cdots, x_n\}$ be a partition of $[0,1]$. Then for each $i \in \{1, \cdots, n\}$, $M^{\chi_{\Q}}_i = 1$ and $m^{\chi_{\Q}}_i = 0$. So $U_\MP \chi_\Q = 1$ and $L_\MP \chi_\Q = 0$. Since $\MP$ is arbitrary, we have that $U \chi_\Q = 1$ and $L \chi_\Q = 0$
+	\end{proof}
 
 	
 	
@@ -842,57 +1174,10 @@ ka	\end{defn}
 			\item Similar to $(1)$.
 		\end{enumerate}
 	\end{proof}
-	
+
 	\begin{ex} \lex{ex:measurable_functions:00015}
-		\tcr{pointwise convergece implies measurability} 
-		Let $(X, \MA)$ be a measurable space, $(Y, d)$ a metric space, $(f_n)_{n \in \N} \subset \Meas((X, \MA), (Y, \MB(Y)))$ and $f:X \rightarrow Y$. Suppose that $(Y, \MT_d)$ is separable. If $f_n \conv{p.w.} f$, then $f \in \Meas((X, \MA), (Y, \MB(Y)))$.
+		\tcr{pointwise convergece implies measurability}
 	\end{ex}
-	
-	\begin{proof}
-		Suppose that $f_n \conv{p.w.} f$. Since $(Y,d)$ is separable, there exists $(y_l)_{l \in \N} \subset Y$ such that $(y_l)_{l \in \N}$ is dense in $Y$. For each $n,l, j \in \N$, define $A_{n,l,j} \subset X$ by $A_{n,l,j} \defeq (d(\cdot , y_l) \circ f_n)^{-1}([0, 1/j))$.
-		
-		Let $n, l,j \in \N$, and $x \in X$. 
-		\begin{itemize}
-			\item Since $d(\cdot , y_l)$ is continuous and $f_n \in \Meas((X, \MA), (Y, \MB(Y)))$, we have that $\cdot , y_l) \circ f_n \in \Meas((X, \MA), (\R, \MB(R)))$ and 
-			\begin{align*}
-				A_{n,l,j}
-				& = d(\cdot , y_l) \circ f_n)^{-1}([0, 1/j) \\
-				& \in \MA.
-			\end{align*}
-			Since $n \in \N$ is arbitrary, we have that for each $n \in \N$, $A_{n, l,j} \in \MA$. 
-			\item Since $f_n(x) \rightarrow f(x)$ and $d(\cdot, x_l):Y \rightarrow \R_+$ is continous, $d(f_n(x), y_l) \rightarrow d(f(x), y_l)$. Then 
-			\begin{align*}
-				x \in f^{-1}(B_d(y_l, 1/j))
-				& \iff f(x) \in B_d(y_l, 1/j) \\
-				& \iff d(f(x), y_l) < 1/j \\
-				& \iff d(\lim\limits_{n \in \N} f_n(x), y_l) < 1/j \\
-				& \iff \lim\limits_{n \in \N} d(f_n(x), y_l) < 1/j \quad \text{(by continuity of $d(\cdot, y_l)$)} \\
-				& \iff \exists N \in \N \text{ s.t.} \forall n \in \N, n \geq N \implies d(f_n(x), y_l) < 1/j \quad \text{(by \rex{} \tcr{ref ex in topology section})}.   
-			\end{align*}
-		\end{itemize}
-		Thus 
-		\begin{align*}
-			f^{-1}(B_d(y_l, 1/j))
-			& = \bigcup\limits_{N \in \N} \bigcap\limits_{n \in \N \setminus [N-1]} A_{n,l,j} \\
-			& \in \MA. 
-		\end{align*}
-		Since $l,j \in \N$ are arbitrary, we have that for each $l,j \in \N$, $f^{-1}(B_d(y_l, 1/j)) \in \MA$. \tcr{An ex in anaysis notes topology section} implies that $\{f^{-1}(B_d(y_l, 1/j)): l,j \in \N\}$, is a basis for $\MT_d$. \tcr{ref ex here} implies that $\MB(Y) = \sig_Y(B_d(y_l, 1/j): l,j \in \N)$. \tcr{ref ex here} then implies that $f \in  \Meas((X, \MA), (Y, \MB(Y)))$. 
-	\end{proof}
-	
-	\begin{ex}
-		Let $(X, \MA)$ be a measurable space and $(f_n)_{n \in \N} \subset \Meas((X, \MA), (\RE, \MB(\RE)))$ Then . 
-		\begin{enumerate}
-			\item $\sup\limits_{n \in \N} f_n \in \Meas((X, \MA), (\RE, \MB(\RE))$ 
-			\item $\inf\limits_{n \in \N} f_n \in \Meas((X, \MA), (\RE, \MB(\RE))$ 
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item 
-			\item 
-		\end{enumerate}
-	\end{proof}
 	
 	\begin{defn} \ld{def:measurable_functions:00016}
 		Let $(X, \MA)$ be a measurable space and $f:X \rightarrow \C$. Then $f$ is said to be \textbf{simple} if $f(X)$ is finite. We define 
@@ -1765,68 +2050,6 @@ ka	\end{defn}
 	\end{proof}
 
 
-
-
-
-	\begin{ex} \lex{ex:measurable_functions:products:00015}
-		\tcr{pointwise convergece implies measurability} 
-		Let $(X, \MA)$ be a measurable space, $(Y, d)$ a complete metric space and $(f_n)_{n \in \N} \subset \Meas((X, \MA), (Y, \MB(Y)))$. Then $\{x \in X: \text{$(f_n(x))_{n \in \N}$ does not converge}\} \in \MA$.
-	\end{ex}
-	
-	\begin{proof}
-		Define $A \subset X$ by $\{x \in X: \text{$(f_n(x))_{n \in \N}$ does not converge}\}$. For each $m,n,k \in \N$, define $A_{m,n,k} \subset X$ by $A_{m,n,k} \defeq \{x \in X: d(f_n(x) , f_m((x))) \geq 1/k\}$. Let $m,n,k \in \N$. Since $f_m, f_n \in \Meas((X, \MA), (Y, \MB(Y)))$ \tcr{make/ref prev ex about tuples} implies that $(f_m, f_n) \in \Meas((X, \MA), (Y^2, \MB(Y)^{\otimes 2}))$. Since $d:Y \times Y \rightarrow \R_+$ is continuous \tcr{ref prev exs}, implies that $d \circ (f_m, f_n) \in \Meas((X, \MA), (\R, \MB(R)))$. Therefore 
-		\begin{align*}
-			A_{m,n,k}
-			& = (d \circ (f_m, f_n))^{-1}([1/k, \infty)) \\
-			& \in \MA. 
-		\end{align*}
-		Since $m,n,k \in \N$ are arbitrary, we have that for each $m,n,k \in \N$, $A_{m,n,k} \in \MA$. Since $(Y, d)$ is complte, for each $x \in X$, $(f_n(x))_{n \in \N}$ converges iff $(f_n(x))_{n \in \N}$ is Cauchy. Therefore
-		\begin{align*}
-			A 
-			& = \bigcup\limits_{k \in \N} \bigcap\limits_{N \in \N} \bigcup\limits_{n,m \in \N \setminus [N-1]} \{x \in X: d(f_n(x) , f_m((x))) \geq 1/k\} \\
-			& \in \MA.
-		\end{align*}
-	\end{proof}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -2089,11 +2312,11 @@ ka	\end{defn}
 \section{Projective Limits of Measurable Spaces}
 
 \begin{defn} \ld{def:measurable_spaces:proj_limits:0001}
-	Let $(J, \leq)$ be a directed set, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a $\bMeas$-projective system. We define the \tbf{projective $\sig$-algebra} of $(\MA_j)_{j \in J}$ on $\varprojlim\limits_{j \in J} X_j$, denoted $\varprojlim\limits_{j \in J} \MA_j$, by $$\varprojlim\limits_{j \in J} \MA_j \defeq \sig ( \pi_j: j \in J).$$
+	Let $(J, \leq)$ be a directed set, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a $\Meas$-projective system. We define the \tbf{projective $\sig$-algebra} of $(\MA_j)_{j \in J}$ on $\varprojlim\limits_{j \in J} X_j$, denoted $\varprojlim\limits_{j \in J} \MA_j$, by $$\varprojlim\limits_{j \in J} \MA_j \defeq \sig ( \pi_j: j \in J).$$
 \end{defn}
 
 \begin{ex} \lex{ex:measurable_spaces:proj_limits:0002} 
-	Let $(J, \leq)$ be a directed set, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a $\bMeas$-projective system. Then 
+	Let $(J, \leq)$ be a directed set, $(X_j, \MA_j)_{j \in J}$ a collection of measurable spaces and for each $(j,k) \in \leq$, $\pi_{j,k}:X_k \rightarrow X_j$ a $(\MA_k, \MA_j)$-measurable map. Suppose that $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a $\Meas$-projective system. Then 
 	$$\varprojlim\limits_{j \in J} \MA_j = \bigg[ \bigotimes\limits_{j \in J} \MA_j \bigg] \cap \varprojlim\limits_{j \in J} X_j.$$
 \end{ex}
 
@@ -2135,7 +2358,7 @@ ka	\end{defn}
 \end{proof}
 
 \begin{ex} \lex{ex:measurable_spaces:proj_limits:0002.1}
-	Let $(J, \leq)$ be a directed set and $((X_j, \MT_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a $\bTop$-projective system. Suppose that $J$ is countable and for each $j \in J$, $X_j$ is second countable. Then 
+	Let $(J, \leq)$ be a directed set and $((X_j, \MT_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ is a $\Top$-projective system. Suppose that $J$ is countable and for each $j \in J$, $X_j$ is second countable. Then 
 	$$\MB\bigg(\varprojlim\limits_{j \in J} X_j, \varprojlim\limits_{j \in J} \MT_j  \bigg) = \varprojlim\limits_{j \in J} \MB(X_j, \MT_j).$$
 \end{ex}
 
@@ -2151,7 +2374,7 @@ ka	\end{defn}
 \end{proof}
 
 \begin{ex} \lex{ex:measurable_spaces:proj_limits:0003}
-	Let $(J, {\leq})$ be a directed set and $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a $\bMeas$-projective system. Set $X \defeq \varprojlim\limits_{j \in J} X_j$ and $\MA \defeq \varprojlim\limits_{j \in J} \MA_j$. Define $\MA_0 \subset \MA$ by $\MA_0 = \bigcup\limits_{j \in J} \pi_j^*\MA_j$. Then $\MA_0$ is an algebra on $X$. 
+	Let $(J, {\leq})$ be a directed set and $((X_j, \MA_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in \leq})$ a $\Meas$-projective system. Set $X \defeq \varprojlim\limits_{j \in J} X_j$ and $\MA \defeq \varprojlim\limits_{j \in J} \MA_j$. Define $\MA_0 \subset \MA$ by $\MA_0 = \bigcup\limits_{j \in J} \pi_j^*\MA_j$. Then $\MA_0$ is an algebra on $X$. 
 \end{ex}
 
 \begin{proof}\
@@ -3681,6 +3904,8 @@ ka	\end{defn}
 	
 	\section{Introduction}
 	
+	
+	
 	\begin{defn} \tcr{(maybe relocate or delete this)}
 		Let $X$ be a set, $\ME \subset \MP(X)$ and $\rho: \ME \rightarrow \RG$. Then $\rho$ is said to be 
 		\begin{itemize}
@@ -4112,16 +4337,70 @@ ka	\end{defn}
 			\item $X = \bigcup\limits_{n \in \N} E_n$
 		\end{itemize}
 	\end{proof}
+	
+	\begin{defn}
+		Let $(X, \MA)$ be a measurable space, $\mu \in M_+(X, \MA)$ and $E \subset X$. Then $E$ is said to be \tbf{$\mu$-null} if there exists $N \in \MA$ such that $E \subset N$ and $\mu(N) = 0$.
+	\end{defn}
+
+	\begin{ex}
+		content...
+	\end{ex}
+
+	\begin{defn}
+		Let $(X, \MA)$
+	\end{defn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\begin{defn} \ld{def:measures:00010}
+		Let $(X, \MA, \mu)$ be a measure space and $(f_\al)_{\al \in A} \subset L^0(X, \MA)$ a net. Suppose that for each $\al \in A$, $f_{\al}:X \rightarrow \R$. For each $\al, \be \in A$, define $M_{\al, \be}, N_{\al, \be} \in \MA$ by
+		$$M_{\al, \be} = \{x \in X: f_{\al}(x) \leq f_{\be}(x) \}$$ 
+		and 
+		$$N_{\al, \be} = \{x \in X: f_{\al}(x) \geq f_{\be}(x) \}$$
+		respectively. Define $M,N \subset X$ by $M = \bigcap\limits_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} M_{\al, \be}$ and $N = \bigcap\limits_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} N_{\al, \be}$ respectively. Then $(f_{\al})_{\al \in A}$ is said to be 
+		\begin{itemize}
+			\item \textbf{increasing $\mu$-a.e.} if $M^c$ is a $\mu$-null set
+			\item \textbf{decreasing $\mu$-a.e.} if $N^c$ is a $\mu$-null set
+			\item \textbf{monotonic $\mu$-a.e.} if $(f_n)_{n \in \N}$ is increasing $\mu$-a.e. or $(f_n)_{n \in \N}$ is decreasing $\mu$-a.e.
+		\end{itemize} 
+	\end{defn}
+
+	\begin{ex} \lex{ex:measures:00011}
+		Let $(X, \MA, \mu)$ be a measure space and $(f_\al)_{\al \in A} \subset L^0(X, \MA)$ a net. Suppose that for each $\al \in A$, $f_{\al}:X \rightarrow \R$. If $A$ is countable, then 
+		\begin{enumerate}
+			\item $(f_\al)_{\al \in A}$ is increasing $\mu$-a.e. iff for each $\al, \be \in A$, $\al \leq \be$ implies that $f_{\al} \leq f_{\be}$ $\mu$-a.e.
+			\item $(f_\al)_{\al \in A}$ is decreasing $\mu$-a.e. iff for each $\al, \be \in A$, $\al \leq \be$ implies that $f_{\al} \geq f_{\be}$ $\mu$-a.e.
+		\end{enumerate}
+	\end{ex}
+
+	\begin{proof} Suppose that $A$ is countable. For each $\al, \be \in A$, define $M_{\al, \be},N_{\al, \be},M,N \in \MA$ as in the previous definition. Since $A$ is countable, $M,N \in \MA$. 
+		\begin{enumerate}
+			\item Suppose that $(f_{\al})_{n \in \N}$ is increasing $\mu$-a.e. By definition, $M^c$ is a $\mu$-null set. Since $M^c \in \MA$, $\mu(M^c) = 0$. Let $\al, \be \in A$. Suppose that $\al \leq \be$. Since $M \subset M_{\al, \be}$, $M_{\al, \be}^c \subset M^c$. Hence $\mu(M_{\al, \be}^c) = 0$. By definition, $f_{\al} \leq f_{\be}$ $\mu$-a.e.\\
+			Conversely, suppose that for each $\al, \be \in A$, $\al \leq \be$ implies that $f_{\al} \leq f_{\be}$ $\mu$-a.e. Then for each $\al, \be \in A$, $\mu(M_{\al, \be}^c) = 0$. Since $A$ is countable, we have that
+			\begin{align*}
+				\mu(M^c) 
+				& = \mu \bigg( \bigcup\limits_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} M_{\al, \be}^c \bigg) \\
+				& \leq \sum_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} \mu(M_{\al, \be}^c) \\
+				& = 0
+			\end{align*}
+			Thus $(f_n)_{n \in \N}$ is increasing $\mu$-a.e.
+			\item Similar to $(1)$.
+		\end{enumerate}
+	\end{proof}
 
 	\begin{defn} \ld{def:measures:00012}
 		Let $X$ be a set. We define \tbf{counting measure} on $X$, denoted $\#: \MP(X) \rightarrow \RG$, by
-		\[
-		\# (E) \defeq 
-		\begin{cases}
-			|E|, & |E| < |\N| \\
-			\infty, & |E| \geq |\N|.
-		\end{cases}
-		\] where $|\cdot|: \MP(X) \rightarrow \RG$ denotes the cardinality of $E$. 
+		$$\#(E) = |E|$$ where $|\cdot|: \MP(X) \rightarrow \RG$ denotes the cardinality of $E$. 
 	\end{defn}
 
 	\begin{ex}  \lex{ex:measures:00013}
@@ -4161,79 +4440,8 @@ ka	\end{defn}
 			\end{align*}
 		\end{enumerate}
 	\end{proof}
-	
-	
-\begin{ex} \lex{ex:measures:00013.1}
-	Let $(X, \MA)$ be a measurable space, $\mu \in M_(X)$ and $x \in X$. Suppose that $\{x\} \in \MA$. Then $\mu = \del_x$ iff $\mu(\{x\}^c) = 0$.
-\end{ex}
-
-\begin{proof}\
-	\begin{itemize}
-		\item $(\implies)$: \\
-		Suppose that $\mu = \del_x$. Then
-		\begin{align*}
-			\mu(\{x\}^c) 
-			& = \del_x(\{x\}^c) \\
-			& = 0.
-		\end{align*}
-		\item $(\impliedby)$: \\
-		Suppose that $\mu(\{x\}^c) = 0$. Let $E \in \MA$. Since 
-		\begin{align*}
-			0
-			& \leq \mu(E \cap \{x\}^c) \\
-			& \leq \mu(\{x\}^c) \\
-			& = 0,
-		\end{align*}
-		we have that $\mu(E \cap \{x\}^c) = 0$. 
-		\begin{itemize}
-			\item If $x \in E$, then 
-			\begin{align*}
-				\mu(E)
-				& = \mu(E \cap \{x\}) + \mu(E \cap \{x\}^c) \\
-				& = \mu(\{x\}) + 0 \\
-				& = \mu(\{x\}) + \mu(\{x\}^c) \\
-				& =  \mu(\{x\} \cup \{x\}^c) \\
-				& = \mu(X) \\
-				& = 1.
-			\end{align*}
-			\item If $x \not \in E$, then 
-			\begin{align*}
-				\mu(E)
-				& = \mu(E \cap \{x\}) + \mu(E \cap \{x\}^c) \\
-				& = 0 + 0 \\
-				& = 0.
-			\end{align*}
-		\end{itemize}
-		Since $E \in \MB(X)$ is arbitrary, we have that for each $E \in \MB(X)$, 
-		\begin{align*}
-			\mu(E)
-			& = 
-			\begin{cases}
-				1, & x \in E \\
-				0, & x \not \in E
-			\end{cases}\\
-			& = \del_x(E).
-		\end{align*}
-		Hence $\mu = \del_x$.
-	\end{itemize}
-\end{proof}
 
 
-\begin{ex} \lex{ex:measures:00014}
-	Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $K \in \MK(X)$ and $\mu \in M_+(X)$. If $\mu(K) > 0$, then there exists $x \in K$ such that for each $U \in \opn{\MN}(x)$, $\mu(U) > 0$.
-\end{ex}
-
-\begin{proof}
-	Suppose that $\mu(K) > 0$. For the sake of contradiction, suppose that for each $x \in K$, there exists $U \in \opn{\MN}(x)$ such that $\mu(U) = 0$. \tcr{The axiom of choice} implies that there exists $(U_x)_{x \in K} \in \opn{\Cover}(K)$ such that for each $x \in K$, $\mu(U_x) = 0$. Since $K$ is compact, there exists $n \in \N$ and $(x_j)_{j \in [n]} \subset K$ such that $(U_{x_j})_{j \in [n]} \in \opn{\Cover}(K)$. Then
-	\begin{align*}
-		0 
-		& < \mu(K) \\
-		& \leq \mu \bigg( \bigcup\limits_{j \in [n]} U_{x_j} \bigg) \\
-		& \leq \sum\limits_{j \in [n]} \mu(U_{x_j}) \\
-		& = 0,
-	\end{align*}
-	which is a contradiction. Hence there exists $x \in K$ such that for each $U \in \opn{\MN(x)}$, $\mu(U) > 0$. 
-\end{proof}
 
 
 
@@ -5117,7 +5325,7 @@ ka	\end{defn}
 	\tcr{reserve $\mu_{|E}$ to mean $\mu^E/ \mu(E)$ if $0 < \mu(E) < \infty$ (i.e. the conditional of $\mu$ on $E$)}
 
 	\begin{ex} \lex{ex:subspace_measures:00002} 
-		Let $(X, \MA)$ be a measurable space, $\mu \in M_+(X, \MA)$ and $E \in \MA$. Then 
+		Let $(X, \MA)$ be a measurable space, $\mu$ a measure on $(X, \MA)$ and $E \in \MA$. Then 
 		\begin{enumerate}
 			\item \begin{enumerate}
 				\item $\mu|_E \in M_+(E, \MA \cap E)$
@@ -5131,24 +5339,8 @@ ka	\end{defn}
 		\tcr{FINISH!!!}
 	\end{proof}
 
-	\begin{ex} \lex{ex:subspace_measures:00002.01} 
-		Let $(X, \MA)$ be a measurable space, $\mu \in M_+(X, \MA)$ and $E \in \MA$. Then $\mu = \mu_E + \mu_{E^c}$.
-	\end{ex}
-	
-	\begin{proof}
-		For each $A \in \MA$, 
-		\begin{align*}
-			\mu(A)
-			& = \mu([A \cap E] \cup [A \cap E^c]) \\
-			& = \mu(A \cap E) + \mu(A \cap E^c) \\
-			& = \mu_E(A) + \mu_{E^c}(A) \\
-			& = [\mu_E + \mu_{E^c}](A).
-		\end{align*}
-		Thus $\mu = \mu_E + \mu_{E^c}$. 
-	\end{proof}
-
 	\begin{ex} \lex{ex:subspace_measures:00002.1}
-		Let $(X, \MA)$ be a measurable space, $\mu \in M_+(X, \MA)$. Then 
+		Let $(X, \MA)$ be a measurable space, $\mu$ a measure on $(X, \MA)$. Then 
 		\begin{enumerate}
 			\item for each $(E_j)_{j \in \N} \subset \MA$, $(E_j)_{j \in \N}$ is disjoint implies that  
 			$$\mu_{\bigcup\limits_{j \in \N} E_j} = \sum_{j \in \N} \mu_{E_j},$$
@@ -5643,117 +5835,6 @@ ka	\end{defn}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Null Sets}
-
-\begin{defn}
-	Let $(X, \MA)$ be a measurable space, $\mu \in M_+(X, \MA)$ and $E \subset X$. Then $E$ is said to be \tbf{$\mu$-null} if there exists $N \in \MA$ such that $E \subset N$ and $\mu(N) = 0$.
-\end{defn}
-
-\begin{ex}
-	\tcr{If $(E_j)_j \subset \MP(X)$ is null for each $j$, then $\bigcup E_j$ is null, if for some j, then $\bigcap E_j$ is null}
-\end{ex}
-
-\tcr{define sigma ideal of null sets (ideal in the order theoretic sense)}
-
-\begin{defn}
-	Let $(X, \MA), (Y, \MB) \in \Meas$ and $f,g$. 
-\end{defn}
-
-
-
-\begin{defn} \ld{def:measures:00010}
-	Let $(X, \MA, \mu)$ be a measure space and $(f_\al)_{\al \in A} \subset L^0(X, \MA)$ a net. Suppose that for each $\al \in A$, $f_{\al}:X \rightarrow \R$. For each $\al, \be \in A$, define $M_{\al, \be}, N_{\al, \be} \in \MA$ by
-	$$M_{\al, \be} = \{x \in X: f_{\al}(x) \leq f_{\be}(x) \}$$ 
-	and 
-	$$N_{\al, \be} = \{x \in X: f_{\al}(x) \geq f_{\be}(x) \}$$
-	respectively. Define $M,N \subset X$ by $M = \bigcap\limits_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} M_{\al, \be}$ and $N = \bigcap\limits_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} N_{\al, \be}$ respectively. Then $(f_{\al})_{\al \in A}$ is said to be 
-	\begin{itemize}
-		\item \textbf{increasing $\mu$-a.e.} if $M^c$ is a $\mu$-null set
-		\item \textbf{decreasing $\mu$-a.e.} if $N^c$ is a $\mu$-null set
-		\item \textbf{monotonic $\mu$-a.e.} if $(f_n)_{n \in \N}$ is increasing $\mu$-a.e. or $(f_n)_{n \in \N}$ is decreasing $\mu$-a.e.
-	\end{itemize} 
-\end{defn}
-
-\begin{ex} \lex{ex:measures:00011}
-	Let $(X, \MA, \mu)$ be a measure space and $(f_\al)_{\al \in A} \subset L^0(X, \MA)$ a net. Suppose that for each $\al \in A$, $f_{\al}:X \rightarrow \R$. If $A$ is countable, then 
-	\begin{enumerate}
-		\item $(f_\al)_{\al \in A}$ is increasing $\mu$-a.e. iff for each $\al, \be \in A$, $\al \leq \be$ implies that $f_{\al} \leq f_{\be}$ $\mu$-a.e.
-		\item $(f_\al)_{\al \in A}$ is decreasing $\mu$-a.e. iff for each $\al, \be \in A$, $\al \leq \be$ implies that $f_{\al} \geq f_{\be}$ $\mu$-a.e.
-	\end{enumerate}
-\end{ex}
-
-\begin{proof} Suppose that $A$ is countable. For each $\al, \be \in A$, define $M_{\al, \be},N_{\al, \be},M,N \in \MA$ as in the previous definition. Since $A$ is countable, $M,N \in \MA$. 
-	\begin{enumerate}
-		\item Suppose that $(f_{\al})_{n \in \N}$ is increasing $\mu$-a.e. By definition, $M^c$ is a $\mu$-null set. Since $M^c \in \MA$, $\mu(M^c) = 0$. Let $\al, \be \in A$. Suppose that $\al \leq \be$. Since $M \subset M_{\al, \be}$, $M_{\al, \be}^c \subset M^c$. Hence $\mu(M_{\al, \be}^c) = 0$. By definition, $f_{\al} \leq f_{\be}$ $\mu$-a.e.\\
-		Conversely, suppose that for each $\al, \be \in A$, $\al \leq \be$ implies that $f_{\al} \leq f_{\be}$ $\mu$-a.e. Then for each $\al, \be \in A$, $\mu(M_{\al, \be}^c) = 0$. Since $A$ is countable, we have that
-		\begin{align*}
-			\mu(M^c) 
-			& = \mu \bigg( \bigcup\limits_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} M_{\al, \be}^c \bigg) \\
-			& \leq \sum_{\substack{(\al, \be) \in A^2 \\ \al \leq \be}} \mu(M_{\al, \be}^c) \\
-			& = 0
-		\end{align*}
-		Thus $(f_n)_{n \in \N}$ is increasing $\mu$-a.e.
-		\item Similar to $(1)$.
-	\end{enumerate}
-\end{proof}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
 	
 	
@@ -5802,46 +5883,28 @@ ka	\end{defn}
 		\tcr{exercises about integrals of sums}
 	\end{ex}
 
-	\begin{thm} \lex{ex:integration_nonnegative_functions:0001} \textbf{Monotone Convergence Theorem:} \\
-		Let $(f_n)_{n \in \N} \subset L^+$. Suppose that for each $n \in \N$, $f_n \leq f_{n+1}$. Then 
-		$$\sup_{n \in \N} \int_X f_n \dmu = \int \bigg[ \sup_{n \in \N} f_n \bigg] \dmu. $$
-	\end{thm}
-	
 	\begin{defn} \ld{def:integration_nonnegative_functions:0.004}
 		Let $(X, \MA, \mu)$ be a measure space, $f \in L^+(X, \MA)$ and $E \in \MA$. We define the \tbf{integral of $f$ over $E$ with respect to $\mu$}, denoted 
 		$$\int_E f \dmu$$
 		by 
 		$$\int_E f \dmu \defeq \int_X f \chi_E \dmu.$$
 	\end{defn}
-	
-	\begin{ex} \lex{ex:integration_nonnegative_functions:0.005}
-		Let $(X, \MA, \mu)$ be a measure space, $f \in L^+(X, \MA)$ and $E \in \MA$. Then 
+
+	\begin{ex} \lex{arg1}
+		For each $f \in L^+(X, \MA)$, 
 		$$\int_E f \dmu = \int f \dmu_E$$ 
 	\end{ex}
+
+	\begin{proof}
+		\tcr{FINISH!!!}
+	\end{proof}
+
+	\tcr{define and change notation from $\mu_f$ to $\mu^f(E) \defeq \int_E f \dmu$}. 
 	
-	\begin{proof}\
-		\begin{itemize}
-			\item Suppose that $f \in S^+(X, \MA)$. Write $f = \sum_{j \in [n]} a_j \chi_{E_j} $ \tcr{in standard representation}. Then 
-			\begin{align*}
-				\int_E f \dmu 
-				& = \int_X f \chi_E \dmu \quad \text{(by \rd{def:integration_nonnegative_functions:0.004})} \\ 
-				& = \int_X \bigg[ \sum_{j \in [n]}  a_j \chi_{E_j \cap E} \bigg] \dmu \quad \text{(by \tcr{make/ref prev ex})} \\
-				& = \sum_{j \in [n]} a_j \mu(E_j \cap E) \\
-				& = \sum_{j \in [n]} a_j \mu_E(E_j) \\
-				& = \int_X \bigg[ \sum_{j \in [n]} a_j \chi_{E_j} \bigg] \dmu_E \\
-				& = \int_X f \dmu_E.
-			\end{align*}
-			\item Suppose that $f \in L^+(X, \MA)$. \tcr{prev ex} implies that there exist $(\phi_n)_{n \in \N} \subset S^+(X, \MA)$ such that $\phi_n \convt{p.w.} f$ and for each $n \in \N$, $\phi_n \leq \phi_{n+1}$. Thus
-			\begin{align*}
-				\int_E f \dmu 
-				& = \int_E \bigg[ \sup\limits_{n \in \N} \phi_n \bigg] \dmu \\
-				& = \sup\limits_{n \in \N} \int_E \phi_n \dmu \quad \text{(by monotone convergence)} \\
-				& = \sup\limits_{n \in \N} \int_X \phi_n \dmu_E \quad \text{(by prev part)} \\
-				& = \int_X \bigg[ \sup\limits_{n \in \N} \phi_n \bigg] \dmu_E \text{(by monotone convergence)} \\
-				& = \int_X f \dmu_E.
-			\end{align*}
-		\end{itemize}
-	\end{proof}	
+	
+	\begin{thm} \lex{ex:integration_nonnegative_functions:0001} \textbf{Monotone Convergence Theorem:} \\
+		Let $(f_n)_{n \in \N} \subset L^+$. Suppose that for each $n \in \N$, $f_n \leq f_{n+1}$. Then $$\sup_{n \in \N} \int f_n = \int \sup_{n \in \N} f_n$$.
+	\end{thm}
 
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0002} 
 		Let $(X, \MA)$ be a measurable space, $\mu_1, \mu_2 \subset M_+(X, \MA)$, $\lam \in \Rg$ and $f \in L^+(X, \MA)$. Define $\mu \in M_+(X, \MA)$ by $\mu \defeq \mu_1 + \lam \mu_2$. Then 
@@ -5871,12 +5934,11 @@ ka	\end{defn}
 	\end{proof}
 	
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0003}
-		Let $\mu_1, \mu_2 \in M_+(X,\MA)$. Suppose that $\mu_1 \leq \mu_2$. Then for each $f \in L^+$, 
-		$$\int f d\mu_1 \leq \int f d\mu_2.$$
+		Let $\mu_1, \mu_2 \in M_+(X,\MA)$. Suppose that $\mu_1 \leq \mu_2$. Then for each $f \in L^+$, $$\int f d\mu_1 \leq \int f d\mu_2$$
 	\end{ex}
 	
 	\begin{proof}
-		\item Suppose that $f \in S^+(X, \MA)$. Then there exist $(a_n)_{i=1}^n \subset \Rg$ and $(E_i)_{i=1}^n \subset \MA$ such that $f = \sum\limits_{i =1}^n a_i \chi_{E_i}$. Then 
+		First suppose that $f$ is simple. Then there exist $(a_n)_{i=1}^n \subset \Rg$ and $(E_i)_{i=1}^n \subset \MA$ such that $f = \sum\limits_{i =1}^n a_i \chi_{E_i}$. Then 
 		\begin{align*}
 			\int f d\mu_1 
 			&= \sum\limits_{i =1}^n a_i \mu_1(E_i)\\
@@ -5884,13 +5946,14 @@ ka	\end{defn}
 			&= \int f \dmu_2
 		\end{align*} 
 		
-		\item Suppose that $f \in L^+(X, \MA)$. Then \tcr{the prev part implies that}
+		for general $f$, 
 		\begin{align*}
 			\int f d\mu_1 
 			&= \sup_{\substack{s \in S^+\\s \leq f}} \int s \dmu_1 \\
-			& \leq \sup_{\substack{s \in S^+\\s \leq f}} \int s d\mu_2 \\
+			& \leq \sup_{\substack{s \in S^+\\s \leq f}} \int s d\mu_2\\
 			&= \int f d\mu_2
 		\end{align*}
+		
 	\end{proof}
 	
 	\begin{thm} \lex{ex:integration_nonnegative_functions:0004} \textbf{Fatou's Lemma:}\\
@@ -5925,12 +5988,12 @@ ka	\end{defn}
 			&\geq \frac{1}{n}\mu(S_n) \\
 			&= \infty \text{, a contradiction.}
 		\end{align*}
+		
 		So for each $n \in \N$, $\mu(S_n) < \infty$ and $S$ is $\sig$-finite.
 	\end{proof}
 	
 	\begin{ex}  \lex{ex:integration_nonnegative_functions:0006}
-		Let $\mu \in M_+(X, \MA)$ and $f \in L^+(X, \MA)$. Then $f =0$ $\mu$-a.e. iff for each $E \in \MA$, 
-		$$\int_E f \dmu = 0.$$
+		Let $f \in L^+$. Then $f =0$ a.e. iff for each $E \in \MA$, $\int_E f =0$.
 	\end{ex}
 	
 	\begin{proof}
@@ -5941,7 +6004,9 @@ ka	\end{defn}
 			& \geq \frac{1}{n}\mu(N_n)\\
 			& \geq 0.
 		\end{align*} 
+		
 		Hence for each $n \in \N$, $\mu(N_n) = 0$. Thus $\mu(N) = 0$ and $f =0$ a.e. as required.
+		
 	\end{proof}
 	
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0007}
@@ -5951,6 +6016,7 @@ ka	\end{defn}
 		$$\lim \limits_{n \rightarrow \infty} \int_E f_n = \int_E f.$$ 
 		This result may fail to be true if 
 		$$\int f \dmu = \infty.$$
+		
 	\end{ex}
 	
 	\begin{proof}
@@ -6059,23 +6125,23 @@ ka	\end{defn}
 		\end{align*}
 		Thus for each $n \in \N$, $X_n$ is finite and $X_+$ is countable.
 	\end{proof}
-	
-	
 
 	\begin{defn} \lex{def:integration_nonnegative_functions:0009.1} 
-		Let $(X, \MA, \mu)$ be a measure space and $f \in L^+(X, \MA)$. We define the \tbf{indefinite integral of $f$ with respect to $\mu$}, denoted $\mu^f: \MA \rightarrow \RG$ by 
-		$$\mu^f(E) \defeq \int_E f \dmu.$$
-		\tcr{STANDARDIZE THIS NOTATION } \tcr{define and change notation from $\mu_f$ to $\mu^f(E) \defeq \int_E f \dmu$}. 
+		Let $(X, \MA, \mu)$ be a measure space and $f \in L^+(X, \MA)$. We define $\mu^f: \MA \rightarrow \RG$ by $$\mu^f(E) \defeq \int_E f \dmu.$$
 	\end{defn}
 
+	\begin{note}
+		\rex{arg1} implies that 
+		$$\mu^f(E) = \int_X f \dmu_E.$$
+	\end{note}
+	
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0010} 
-		Let $(X, \MA, \mu)$ be a measure space and $f \in L^+(X, \MA)$. Then 
+		Let $(X, \MA, \mu)$ be a measure space and $f \in L^+(X, \MA)$.
+		Then 
 		\begin{enumerate}
-			\item $\mu^f \in M_+(X, \MA)$
-			\item for each $E \in \MA$, 
-			$$\mu^f(E) = \int_X f \dmu_E, $$
+			\item $\mu^f$ is a measure on $(X, \MA)$ 
 			\item for each $g \in L^+(X, \MA)$, 
-			$$\int_X g \dmu^f = \int_X g f \dmu. $$
+			$$\int g d\mu^f = \int g f d\mu$$
 		\end{enumerate}
 	\end{ex}
 	
@@ -6117,16 +6183,15 @@ ka	\end{defn}
 				\end{align*} 
 			\end{itemize}
 			Hence $\mu^f$ is a measure on $(X, \MA)$.
-			\item Clear by \rex{ex:integration_nonnegative_functions:0.005}.
 			\item Let $g \in L^+$. 
 			\begin{itemize}
 				\item Suppose that $g \in S^+(X, \MA)$. Then there exist $E_1, E_2, \cdots, E_n \in \MA$ and  $a_1, a_2, \cdots, a_n \in \Rg$ such that $g = \sum\limits_{i=1}^n a_i \chi_{E_i}$. Then
 				\begin{align*}
 					\int g d\lam 
 					&= \sum_{i=1}^n a_i \lam(E_i)\\
-					&= \sum_{i=1}^n a_i \int_{E_i} f \dmu\\
-					&= \int \bigg(\sum_{i=1}^n a_i\chi_{E_i} \bigg) f \dmu\\
-					&= \int gf \dmu.
+					&= \sum_{i=1}^n a_i \int_{E_i} f d\mu\\
+					&= \int \bigg(\sum_{i=1}^n a_i\chi_{E_i} \bigg) f d\mu\\
+					&= \int gf d\mu.
 				\end{align*}
 				\item Suppose that $g \not \in S^+(X, \MA)$. Then there exist $(\psi_n)_{n \in \N} \subset S^+(X, \MA)$ such that for each $n \in \N$, $\psi_n \leq \psi_{n+1}$ and $\psi_n \xrightarrow{\text{p.w.}} g$. Therefore for each $n \in \N$, $\psi_n f \leq \psi_{n+1}f \leq gf$ and $\psi_nf \xrightarrow{\text{p.w.}} gf$. Monotone convergence implies that
 				\begin{align*}
@@ -6136,10 +6201,10 @@ ka	\end{defn}
 					&= \int g f \dmu 
 				\end{align*}
 			\end{itemize}
-			Since $g \in L^+(X, \MA)$ is arbitrary, we have that for each $g \in L^+(X, \MA)$, 
-			$$\int_X g \dmu^f = \int_X g f \dmu. $$
 		\end{enumerate}
 	\end{proof}
+
+	
 	
 	\begin{ex} \lex{ex:integration_nonnegative_functions:0011}
 		Let $(f_n)_{n \in \N} \subset L^+$ and $f \in L^+$. Suppose that for each $n \in \N$, $f_n \geq f_{n+1}$, $f_n \xrightarrow{\text{p.w.}} f$ and $f_1$ is integrable. Then 
@@ -6279,8 +6344,12 @@ ka	\end{defn}
 	\section{Integration of Complex Valued Functions}
 	
 	\begin{itemize}
-		\item \tcr{Show that if $f$ is $\pi^*\MB$-measurable, then
-		$$\pi_* (\mu^f) = (\pi_* \mu)^{\pi^* f}$$ }
+		\item \tcr{In the previous section, define
+			$$\mu_f(A) \defeq \int_A f \dmu$$ and in this section change notation to define
+			$$\mu^f(A) \defeq \int_X f \dmu_A$$ and show that when $f$ is $\pi^*\MB$-measurable,
+		$$\pi_* (\mu^f) = (\pi_* \mu)^{\pi^* f}$$ 
+		show something similar for $\mu_f$, However, this conflicts with borel measure on $\R$ notation $\mu_F$}
+	\item Actually, get rid of $\mu_f$, write $\mu^f$. Turns out $\mu_f = \mu^f$ (see previous section). and hide proof of $\mu^f$ being a measure in \rex{ex:integration_complex_functions:00006.1}.
 	\end{itemize}
 	
 	\begin{defn} \ld{def:integration_complex_functions:00001} 
@@ -6337,6 +6406,62 @@ ka	\end{defn}
 	\end{align*}
 	Hence $$ \limpn \int |f_n -f| \dmu \leq 0 $$ and thus $$\int |f_n -f| \dmu \rightarrow 0$$
 	\end{proof}
+
+%	\begin{defn}
+%		Let $(X, \MA, \mu)$ be a measure space and $f \in L^1(X, \MA, \mu)$. We define $\mu^f: \MA \rightarrow \R$ by $$\mu^f(E) \defeq \int_X f \dmu_E$$
+%		\tcr{hide this definition, can show that $\int_X f \dmu_E = \int_E f \dmu$.}
+%	\end{defn}
+%
+%
+%	\begin{ex} \lex{ex:integration_complex_functions:00006.1}
+%		\tcr{hide this exercise, can show that $\int_X f \dmu_E = \int_E f \dmu$.}
+%		\tcr{change notation FIX!!!}
+%		Let $(X, \MA, \mu)$ be a measure space and $f \in L^1(X, \MA, \mu)$. Suppose that $f \geq 0$.
+%		Then $\mu^f \in M_+(X, \MA)$. \\
+%		\tbf{Hint:} \rex{ex:outer_measures:00008.1}
+%	\end{ex}
+%	
+%	\begin{proof} \
+%		\tcr{hide this proof, can show that $\int_X f \dmu_E = \int_E f \dmu$.}
+%		\begin{itemize}
+%			\item Let $A, B \subset \MA$. Suppose that $A \cap B = \varnothing$. \rex{ex:subspace_measures:00002.1} and \rex{ex:integration_nonnegative_functions:0002} imply that 
+%			\begin{align*}
+%				\mu^f(A \cup B) 
+%				& = \int_X f \dmu_{A \cup B} \\
+%				& = \int_X f \, d(\mu_A + \mu_B)  \\
+%				& = \int_X f \dmu_A + \int_X f \dmu_B \\
+%				& = \mu^f(A) + \mu^f(B).
+%			\end{align*}	
+%			So $\mu^f$ is finitely additive. 
+%			\item Let $(B_n)_{n \in \N} \subset \MA$. Suppose that $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$. 
+%			\begin{itemize}
+%				\item Suppose that $f$ is simple. Since $\mu(X) < \infty$, $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$, \rex{ex:measures:00004} implies that for each $A \in \MA$, $\mu(A \cap B_n) \rightarrow 0$. Then there exist $(a_k)_{k=1}^m \subset \Rg$ and $(E_k)_{k=1}^m \subset \MA$ such that $(E_k)_{k=1}^m$ is disjoint and $f = \sum\limits_{k=1}^m a_k \chi_{E_k}$. Then 
+%				\begin{align*}
+%					\mu^f(B_n)
+%					& = \int_X f \dmu_{B_n} \\
+%					& = \sum_{k=1}^m a_k \mu_{B_n}(E_k) \\
+%					& = \sum_{k=1}^m a_k \mu(E_k \cap B_n) \\
+%					& \rightarrow 0.
+%				\end{align*}
+%				\item Suppose that $f$ is not simple. Then there exists $(\phi_j)_{j \in \N} \subset S^+(X, \MA)$ such that $\phi_j \convt{p.w.} f$ and for each $j \in \N$, $\phi_j \leq \phi_{j+1}$. Let $\ep >0$. Dominated convergence implies that 
+%				$$\lim_{j \rightarrow \infty} \int_X f - \phi_j \dmu = 0.$$ 
+%				Therefore there exists $j \in \N$ such that 
+%				$$\int_X f - \phi_j \dmu < \frac{\ep}{2}.$$
+%				The previous part implies that there existst $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $\mu_{\phi_j}(B_n) < \ep/2$. \rex{ex:subspace_measures:00002.1} and \rex{ex:integration_nonnegative_functions:0003} then imply that
+%				\begin{align*}
+%					\mu^f(B_n)
+%					& = \bigg[ \mu^f(B_n) - \mu_{\phi_j}(B_n) \bigg] + \mu_{\phi_j}(B_n) \\
+%					& = \bigg[ \int_X f \dmu_{B_n} - \int_X \phi_j \dmu_{B_n} \bigg] + \mu_{\phi_j}(B_n) \\
+%					& = \int_X f - \phi_j  \dmu_{B_n} + \mu_{\phi_j}(B_n) \\
+%					& \leq  \int_X f - \phi_j  \dmu + \mu_{\phi_j}(B_n) \\
+%					& < \frac{\ep}{2} + \frac{\ep}{2} \\
+%					& = \ep.
+%				\end{align*}
+%				Since $\ep >0$ is arbitrary, we have that for each $\ep > 0$, there exists $N \in \N$ such that for each $n \in \N$, $n \geq N$ implies that $\mu^f(B_n) < \ep$. Hence $\mu^f(B_n) \rightarrow 0$. 
+%			\end{itemize}
+%		\end{itemize}
+%		\rex{ex:outer_measures:00008.1} then implies that $\mu^f \in M_+(X, \MA)$.
+%	\end{proof}
 	
 	\begin{ex} \lex{ex:integration_complex_functions:00007} 
 		Let $\mu_1, \mu_2$ be measures on $(X, \MA)$. Then
@@ -6679,7 +6804,7 @@ ka	\end{defn}
 	\end{proof}
 
 	\begin{ex} \lex{ex:integration_complex_functions:00022} \tcb{Change notation or define categories}
-		Let $(X, \MA, \mu), (Y, \MB, \nu) \in \Obj(\bProb)$ and $f \in \Meas((X, \MA), (Y, \MB))$. Then $f$ is measure preserving iff for each $\phi \in L^1(Y, \MB, \nu)$, $\phi \circ f \in L^1(X, \MA, \mu)$ and 
+		Let $(X, \MA, \mu), (Y, \MB, \nu) \in \Obj(\bMsr)$ and $f \in \Hom_{\bMsr}((X, \MA), (Y, \MB))$. Then $f$ is measure preserving iff for each $\phi \in L^1(Y, \MB, \nu)$, $\phi \circ f \in L^1(X, \MA, \mu)$ and 
 		$$\int_Y \phi \dnu = \int_X \phi \circ f \dmu $$
 	\end{ex}
 	
@@ -7985,11 +8110,10 @@ ka	\end{defn}
 	\end{proof}
 
 	\begin{ex} \lex{ex:complex_measures:0004} 
-		Let $(X, \MA)$ be a measurable space, $\nu \in M(X, \MA)$ and $\nu_1, \nu_2 :\MA \rightarrow \R$. If $\nu = \nu_1 + i \nu_2$, then $\nu_1, \nu_2$ are signed measures \tcr{come up with notation for signed measures}.
+		Let $(X, \MA)$ be a measurable space and $\nu \in M(X, \MA)$ with $\nu = \nu_1 + i \nu_2$. Then $\nu_1, \nu_2$ are signed measures.
 	\end{ex}
 
-	\begin{proof}
-		Suppose that $\nu = \nu_1 + \nu_2$.
+	\begin{proof}\
 		\begin{enumerate}
 			\item Let $E \in \MA$. Since $\nu(E) \in \C$, $\nu_1(E), \nu_2(E) \in \R$. Since $E \in \MA$ is arbitrary, we have that for each $E \in \MA$, $\nu_1(E), \nu_2(E) < \infty$ or $\nu_1(E), \nu_2(E) > -\infty$.
 			\item 
@@ -8011,7 +8135,7 @@ ka	\end{defn}
 				& < \infty 
 			\end{align*}
 		\end{enumerate}
-		Therefore $\nu_1$ and $\nu_2$ are signed measures \tcr{notation}.
+		Therefore $\nu_1$ and $\nu_2$ are signed measures.
 	\end{proof}
 
 	\begin{ex} \lex{ex:complex_measures:0005} 
@@ -8064,13 +8188,15 @@ ka	\end{defn}
 		Since $\MB$ is countable \rex{ex:measurable_spaces:sigma_algebras:0008} implies that $\MB(X) = \sig(\MB)$. Since $\MB$ is a $\pi$-system, $X \in \MB$, and for each $A \in \MB$, $\mu(A) = \nu(A)$, \rex{ex:complex_measures:0006} implies that $\mu = \nu$.
 	\end{proof}
 
-	\begin{defn} \lex{def:complex_measures:000.2} 
-		Let $(X, \MA)$ be a measurable space, $\mu \in M(X, \MA)$ and $f \in L^1(X, \MA, \mu)$. We define the \tbf{indefinite integral of $f$ with respect to $\mu$}, denoted $\mu^f: \MA \rightarrow \C$, by 
-		$$ \mu^f(E) = \int_E f \dmu $$
+	\begin{defn} \ld{def:complex_measures:0008} 
+		Let $(X, \MA)$ be a measurable space, $\mu \in M(X, \MA)$ and $A \in \MA$. Then $\mu$ is said to be \tbf{supported on $A$} if for each $E \in \MA$, $\mu(E) = \mu(A \cap E)$. \\
+		\tcb{need to define for signed measures and measures}
 	\end{defn}
 
 	\begin{ex} \lex{ex:complex_measures:0009} 
-		Let $(X, \MA)$ be a measurable space, $\mu \in M(X, \MA)$ and $f \in L^1(X, \MA, \mu)$. Then $\mu^f \in M(X, \MA)$.
+		Let $(X, \MA)$ be a measurable space, $\mu \in M(X, \MA)$ and $f \in L^1(X, \MA, \mu)$. Define $\nu: \MA \rightarrow \C$ by 
+		$$ \nu(E) = \int_E f \dmu $$
+		Then $\nu \in M(X, \MA)$.
 	\end{ex}
 
 	\begin{proof}
@@ -8082,8 +8208,7 @@ ka	\end{defn}
 	\end{note}
 	
 	\begin{defn} \ld{def:complex_measures:0010} 
-		Let $(X,\MA)$ be a measurable space and $\nu \in M(X, \MA)$ with $\nu = \nu_1 + i\nu_2$. We define $L^1(\nu) = L^1(\nu_1)\cap L^1(\nu_2)$. For $f \in L^1(\nu)$, we define 
-		$$\int f d\nu = \int f \dnu_1 + i \int f \dnu_2.$$
+		Let $(X,\MA)$ be a measurable space and $\nu \in M(X, \MA)$ with $\nu = \nu_1 + i\nu_2$. We define $L^1(\nu) = L^1(\nu_1)\cap L^1(\nu_2)$. For $f \in L^1(\nu)$, we define $$\int f d\nu = \int fd\nu_1 + i \int f d \nu_2$$
 	\end{defn}
 	
 	\begin{thm}\textbf{Lebesgue-Radon-Nikodym Theorem:}\\
@@ -8093,43 +8218,38 @@ ka	\end{defn}
 	\begin{ex} \lex{ex:complex_measures:0011} 
 		Let $\nu \in M(X, \MA)$ and $\mu$, $\lam$ $\sig$-finite measures on $(X,\MA)$. Suppose that $\nu \ll \mu$ and $\mu \ll \lam$. Then 
 		\begin{enumerate}
-			\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and 
-			$$\int g d\nu = \int g \frac{d\nu}{d\mu} \dmu$$
-			\item $\nu \ll \lam$ and 
-			$$\frac{d \nu}{d\lam} = \frac{d \nu}{d\mu} \frac{d\mu}{d\lam} \hspace{4mm} \lam \text{-a.e.}$$
+			\item for each $g \in L^1(\nu)$, $g(d\nu/d\mu) \in  L^1(\mu)$ and $$\int g d\nu = \int g \frac{d\nu}{d\mu} \dmu$$
+			\item $\nu \ll \lam$ and $$\frac{d \nu}{d\lam} = \frac{d \nu}{d\mu} \frac{d\mu}{d\lam} \hspace{4mm} \lam \text{-a.e.}$$
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{defn} \ld{def:complex_measures:0012}
-	Let $(X,\MA)$ be a measurable space and $\nu \in M(X,\MA)$. Write $\nu = \nu_1 + i \nu_2$ with $\nu_1, \nu_2$ signed measures on $(X, \MA)$ \tcr{come up with notation for signed measures}. Define $\mu = |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$ and thus there exists $f \in L^1(\mu)$ such that $d\nu = f \dmu$. We define the \textbf{total variation of $\nu$}, denoted $|\nu|: \MA \rightarrow \Rg$, by $$|\nu|(E) = \int_E |f|\dmu$$ 
+	Let $(X,\MA)$ be a measurable space and $\nu \in M(X,\MA)$ with $ \nu = \nu_1 + i \nu_2$. Define $\mu = |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$ and thus there exists $f \in L^1(\mu)$ such that $d\nu = f \dmu$. We define the \textbf{total variation of $\nu$}, denoted $|\nu|: \MA \rightarrow \Rg$, by $$|\nu|(E) = \int_E |f|\dmu$$ 
 	\end{defn}
 	
-	\tcr{The next exercise implies that the total variation is independent of representing Radon Nikodym decomposition}
-	
-	\begin{ex} \lex{ex:complex_measures:0013} 
-	Let $(X,\MA)$ be a measurable space, $\nu \in M(X,\MA)$ and $\lam \in M_+(X, \MA)$. Suppose that $\lam$ is $\sig$-finite and $\nu \ll \lam$. Define $g \in L^1(\lam)$ by $g \defeq d\nu / d\lam$. Then for each $E \in \MA$, 
-	$$|\nu|(E) = \int_E |g| \dlam$$
+	\begin{ex} \lex{def:complex_measures:0013} 
+	Let $(X,\MA)$ be a measurable space, $\nu \in M(X,\MA)$ and $\lam$ a $\sig$-finite measure on $(X, \MA)$. Suppose that $\nu \ll \lam$. Set $g = d\nu / d\lam$. Then for each $E \in \MA$, $$|\nu|(E) = \int_E |g| \dlam$$
 	\end{ex}
 	
 	\begin{proof}
-	Write $\nu = \nu_1 + i \nu_2$. Then $\nu_1, \nu_2 \ll \lam$. Set $f_1 = d\nu_1 / d\lam$ and $f_2 = d\nu_2 / d\lam$. Then \rex{41016} implies that $d|\nu_1| = |f_1| \dlam$ and $d|\nu_2| = |f_2|d\lam$. Define $\mu \in M_+(X, \MA)$ by $\mu \defeq |\nu_1| + |\nu_2|$. Then $\nu \ll \mu$. Define $f \in L^1(\mu)$ by $f \defeq d\nu / \dmu$. Then by construction, 
+	Write $\nu = \nu_1 + i \nu_2$. Then $\nu_1, \nu_2 \ll \lam$. Set $f_1 = d\nu_1 / d\lam$ and $f_2 = d\nu_2 / d\lam$. Then \rex{41016} implies that $d|\nu_1| = |f_1| \dlam$ and $d|\nu_2| = |f_2|d\lam$. Set $\mu = |\nu_1| + |\nu_2|$ and $f = d\nu / \dmu$ as in \rd{def:complex_measures:0012}. Then by construction, 
 	\begin{align*}
 	d\mu
 	&= d|\nu_1| + d|\nu_2| \\
 	&= |f_1| \dlam + |f_2| \dlam \\
-	&= (|f_1| + |f_2|) \dlam.
+	&= (|f_1| + |f_2|) \dlam
 	\end{align*}
-	Therefore $\mu \ll \lam$ and $d\mu / d \lam = |f_1| + |f_2|$. Then \rex{ex:complex_measures:0011} implies that $\nu \ll \lam$ and
+	So that $\mu \ll \lam$ with $d\mu / d \lam = |f_1| + |f_2|$. Then \rex{ex:complex_measures:0011} implies that $\nu \ll \lam$ with 
 	\begin{align*}
-	g
-	& = \frac{d\nu}{d\lam} \quad \text{(by defintion)} \\
-	& = \frac{d\nu}{d\mu} \frac{d\mu}{d\lam} \\
-	& = f(|f_1|+|f_2|).
+	\frac{d\nu}{d\lam} 
+	&= \frac{d\nu}{d\mu} \frac{d\mu}{d\lam}\\
+	&= f(|f_1|+|f_2|) \\
+	&= g
 	\end{align*}
-	Hence for each $E \in \MA$, 
+	and for each $E \in \MA$, 
 	\begin{align*}
 	|\nu|(E) 
-	&= \int_E |f| \dmu \\
+	&= \int_E |f| d \, \mu \\
 	&= \int_E |f| (|f_1| + |f_2|) \, d\lam \\
 	&= \int_E|g| \, d\lam 
 	\end{align*}
@@ -8140,7 +8260,7 @@ ka	\end{defn}
 	\end{ex}
 	
 	\begin{proof}
-		Suppose that If $\nu \ll \mu$. Define $f \in L^1(\mu)$ and $E \in \MA$ by $f \defeq d\nu / \dmu$ and $E \defeq \{x: f(x) = 0\}$ \tcr{(Is $E \in \MA?$ if we only know $f$ almost everywhere?, need to emphasize that there exists $f \in L^0 \cap L^1$)}. Let $A \in \MA$ and suppose that $A \subset E$. Then 
+		Define $f = d\nu / \dmu$ and $E = \{x: f(x) = 0\}$. Let $A \in \MA$ and suppose that $A \subset E$. Then 
 		\begin{align*}
 			\nu(A) 
 			&= \int_A f \dmu\\
@@ -8148,101 +8268,59 @@ ka	\end{defn}
 		\end{align*} 
 	\end{proof}
 	
-	\begin{ex} \lex{ex:complex_measures:0015} 
-		Let $(X, \MA)$ be a measurable space. 
-		\begin{enumerate}
-			\item Let $\nu \in M(X, \MA)$. Write $\nu = \nu_1 + i\nu_2$ with $\nu_1, \nu_2$ signed measures on $(X, \MA)$. Then $|\nu_1|, |\nu_2| \leq |\nu| \leq |\nu_1| + |\nu_2|$.
-			\item Let $\nu_1, \nu_2 \in M(X, \MA)$. Then $|\nu_1 + \nu_2| \leq |\nu_1| + |\nu_2|$.
-		\end{enumerate}
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{enumerate}
-			\item Let $\mu$ and $f = f_1 + i f_2$ be as in the definition of $|\nu|$. Since for each $E \in \MA$, 
-			\begin{align*}
-				\nu(E) 
-				&= \int_E f \dmu\\
-				&= \int_E f_1 \dmu + i \int_E f_2 \dmu
-			\end{align*}
-			and $\nu(E) = \nu_1(E) + i\nu_2(E)$, we have that $\nu_1 = f_1 \dmu$ and $\nu_2 = f_2 \dmu$. 
-			A previous exercise tells us that $d|\nu_1| = |f_1|\dmu$ and $d |\nu_2| = |f_2|\dmu$. Since $|f_1|, |f_2| \leq |f| \leq |f_1|+|f_2|$, we have that 
-			\begin{align*}
-				|\nu_1|, |\nu_2| 
-				&\leq |\nu| \\
-				&\leq |\nu_1| + |\nu_2|\\
-			\end{align*}
-			\item \tcr{make/ref prev ex showing} there exists $\mu \in M_+(X, \MA)$ such that $\nu_1, \nu_2 \ll \mu$. Write $f_1 \defeq d \nu_1 / d \mu$ and $f_2 \defeq d \nu_2 / d \mu$. Then \tcr{prev ex} implies that $\nu_1 + \nu_2 = \mu^{f_1 + f_2}$. \tcr{ref prev ex aboutn independence of radon niko rep} implies that 
-			\begin{align*}
-				|\nu_1 + \nu_2|(E)
-				& = \int_E |f_1 + f_2| \dmu \\
-				& \leq \int_E |f_1| + |f_2| \dmu \\
-				& = \int_E |f_1|  \dmu + \int_E |f_2| \dmu \\
-				& = |\nu_1|(E) + |\nu_2|(E) \\
-				& = (|\nu_1| + |\nu_2|)(E).
-			\end{align*}
-			Since $E \in \MA$ is arbitrary, we have that for each $E \in \MA$, $|\nu_1 + \nu_2|(E) \leq (|\nu_1| + |\nu_2|)(E)$. Hence $|\nu_1 + \nu_2| \leq |\nu_1| + |\nu_2|$.
-		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{ex:complex_measures:0016} 
-		Let  $(X, \MA)$ be a measurable space, $\nu \in M(X, \MA)$ and $\al \in \C$. Then $| \al \nu | = | \al | | \nu |$.
+	\begin{ex} \lex{def:complex_measures:0015} 
+		Let $(X, \MA)$ be a measurable space and $\nu \in M(X, \MA)$ with $\nu = \nu_1 + i\nu_2$. Then $|\nu_1|, |\nu_2| \leq |\nu| \leq |\nu_1| + |\nu_2|$.
+		
 	\end{ex}
 	
 	\begin{proof}
-		Define $\mu$ and $f$ as before so that $d \nu = f \dmu$. Then $d (\al \nu) = \al f \dmu$. Hence 
+		Let $\mu$ and $f = f_1 + i f_2$ be as in the definition of $|\nu|$. Since for each $E \in \MA$, we have 
 		\begin{align*}
-			d | \al \nu | 
-			&= | \al | \dmu \\
-			&= | \al | | f | \dmu\\
-			&= | \al | d| \nu |
+			\nu(E) 
+			&= \int_E f \dmu\\
+			&= \int_E f_1 \dmu + i \int_E f_2 \dmu
 		\end{align*}
-		So $| \al \nu | = | \al | |  \nu |$.
+		and $$\nu(E) = \nu_1(E) + i\nu_2(E),$$
+		we know that $\nu_1 = f_1 \dmu$ and $\nu_2 = f_2 \dmu$. 
+		A previous exercise tells us that $d|\nu_1| = |f_1|\dmu$ and $d |\nu_2| = |f_2|\dmu$. Since $|f_1|, |f_2| \leq |f| \leq |f_1|+|f_2|$, we have that 
+		\begin{align*}
+			|\nu_1|, |\nu_2| 
+			&\leq |\nu| \\
+			&\leq |\nu_1| + |\nu_2|\\
+		\end{align*}
+	\end{proof}
+	
+	\begin{ex} \lex{def:complex_measures:0016} 
+		Let  $(X, \MA)$ be a measurable space, $\nu \in M(X, \MA)$ and $c \in \C$. Then $| c \nu | = | c | | \nu |$.
+	\end{ex}
+	
+	\begin{proof}
+		Define $\mu$ and $f$ as before so that $d \nu = f \dmu$. Then $d (c \nu) = c f \dmu$. Hence 
+		\begin{align*}
+			d | c \nu | 
+			&= | cf | \dmu \\
+			&= | c | | f | \dmu\\
+			&= | c | d| \nu |
+		\end{align*}
+		So $| c \nu | = | c | |  \nu |$.
 	\end{proof}
 
 	\begin{ex} \lex{def:complex_measures:0017} 
-	Define $\|\cdot \|: M(X, \MA) \rightarrow \Rg$ by 
-	$$\|\mu \| \defeq | \mu | (X)$$ 
+	Define $\|\cdot \|: M(X, \MA) \rightarrow \Rg$ by $$\|\mu \|= | \mu | (X)$$ 
 	Then $\|\cdot \|$ is a norm on $M(X, \MA)$. 
 	\end{ex}
 	
 	\begin{proof}
-		Let $\mu, \nu \in M(X, \MA)$ and $\al \in \C$.
-		\begin{enumerate}
-			\item \rex{ex:complex_measures:0015} implies that $| \mu + \nu | \leq | \mu | + | \nu |$. Therefore 
-			\begin{align*}
-				\| \mu + \nu \| 
-				& = | \mu + \nu |(X) \\
-				& \leq (| \mu | + | \nu |)(X) \\
-				& = | \mu |(X) + | \nu |(X) \\
-				& = \| \mu  \|  + \| \nu \|.
-			\end{align*}
-			\item \rex{ex:complex_measures:0016} implies that $|\al \mu| = |\al| |\mu|$. Therefore
-			\begin{align*}
-				\|\al \mu\|
-				& = |\al \mu|(X) \\
-				& = (|\al| |\mu|)(X) \\
-				& = |\al| |\mu|(X) \\
-				& = |\al| \|\mu\|.
-			\end{align*}
-			\item We note that
-			\begin{align*}
-				\|\mu\| = 0
-				& \iff |\mu|(X) = 0 \\
-				& \iff |\mu| = 0  \quad \text{(by \tcr{make and ref ex})}
-				& \iff \mu = 0  \quad \text{(by \tcr{make and ref ex, something about $X$ is $\mu$-null}) }. 
-			\end{align*}
-			Thus $\|\mu\| = 0$ implies that $\mu = 0$. 
-		\end{enumerate}
-		Hence $\|\cdot\|$ is a norm on $M(X, \MA)$.
+		Let $\mu, \nu \in M(X, \MA)$ and $\al \in \C$. The previous exercises tell us that $| \mu + \nu | \leq | \mu | + | \nu |$ and $| \al \mu | = | \al | | \mu |$. So clearly $\|\mu + \nu \|\leq \|\mu \|+ \|\nu \|$ and $\|c \mu \|= | c | \|\mu \|$. If $\|\mu \|= 0$, then $X$ is $\mu$-null and $\mu$ is the zero measure.
 	\end{proof}
 	
 	\begin{ex} \lex{def:complex_measures:0018} 
 		Let $(X, \MA)$ be a measurable space and $\nu \in M(X, \MA)$. Then 
+		
 		\begin{enumerate}
 			\item for each $E \in \MA$, $|\nu(E)| \leq |\nu|(E)$. 
 			\item $\nu \ll |\nu|$ and $\big|d \nu /d |\nu|\big| = 1$ $|\nu|$-a.e.
-			\item $L^1(\nu) = L^1(|\nu|)$ and for each $g \in L^1(\nu)$, 
-			$$ \bigg|\int g d\nu \bigg| \leq \int |g|d |\nu|$$
+			\item $L^1(\nu) = L^1(|\nu|)$ and for each $g \in L^1(\nu)$, $$ \bigg|\int g d\nu \bigg| \leq \int |g|d |\nu|$$
 		\end{enumerate}
 	\end{ex}
 	
@@ -8311,8 +8389,7 @@ ka	\end{defn}
 
 
 	\begin{ex} \lex{def:complex_measures:0019} 
-	Let $(X, \MA)$ be a measurable space, $\mu_1, \mu_2 \in M(X, \MA)$ and $\lam \in \C$. Then for each $f \in L^1(\mu_1 + \lam \mu_2)$, 
-	$$\int f d(\mu_1 + \lam \mu_2) = \int f \dmu_1 + \lam \int f \dmu_2$$
+	Let $(X, \MA)$ be a measurable space, $\mu_1, \mu_2 \in M(X, \MA)$ and $\lam \in \C$. Then for each $f \in L^1(\mu_1 + \lam \mu_2)$, $$\int f d(\mu_1 + \lam \mu_2) = \int f \dmu_1 + \lam \int f \dmu_2$$
 	\end{ex}
 	
 	\begin{proof}
@@ -8320,66 +8397,6 @@ ka	\end{defn}
 	\end{proof}
 
 	
-	\begin{defn} \ld{def:complex_measures:0008} 
-		Let $(X, \MA)$ be a measurable space, $\mu \in M(X, \MA)$ and $A \in \MA$. Then $\mu$ is said to be \tbf{supported on $A$} if for each $E \in \MA$, $\mu(E) = \mu(E \cap A)$. \\
-		\tcb{need to define for signed measures and measures}
-	\end{defn}
-	
-	\begin{ex} \lex{ex:complex_measures:0008.1}
-		Let $(X, \MA)$ be a measurable space, $\mu \in M(X, \MA)$ and $A \in \MA$. Then $\mu$ is supported on $A$ iff $|\mu|(A^c) = 0$.
-	\end{ex}
-	
-	\begin{proof}\
-		\begin{itemize}
-			\item $(\implies)$: \\
-			Suppose that $\mu$ is supported on $A$. Then 
-			\begin{align*}
-				|\mu|(A^c)
-				& = |\mu|(A^c \cap A) \quad \text{(by \rd{def:complex_measures:0008})} \\
-				& = |\mu|(\varnothing) \\
-				& = 0. 			
-			\end{align*}
-			\item $(\impliedby)$: \\
-			Suppose that $|\mu|(A^c) = 0$. Let $E \in \MA$. Since $E \cap A^c \subset A^c$, we have that
-			\begin{align*}
-				0
-				& \leq |\mu(E \cap A^c)| \\
-				& \leq |\mu|(E \cap A^c) \quad \text{(by \rex{def:complex_measures:0018})} \\
-				& \leq |\mu|(A^c) \\
-				& = 0.
-			\end{align*}
-			Hence $|\mu(E \cap A^c)| = 0$. Therefore $\mu(E \cap A^c) = 0$ and 
-			\begin{align*}
-				\mu(E)
-				& = \mu(E \cap A) + \mu(E \cap A^c) \\
-				& \mu(E \cap A). 
-			\end{align*}
-			Since $E \in \MA$ is arbitrary, we have that for each $E \in \MA$, $\mu(E) = \mu(E \cap A)$. Thus $\mu$ is supported on $A$. 
-		\end{itemize}
-	\end{proof}
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -9290,8 +9307,7 @@ ka	\end{defn}
 	
 	\begin{ex}
 		Let $(X, \MA, \mu)$ be a measure space, $\MB$ a sub $\sig$-algebra of $\MA$ and $f \in L^1(X, \MA, \mu)$. Define $\mu_{\MB}: \MB \rightarrow [0, \infty] $ and $\nu_f: \MB \rightarrow [0,\infty)$ by $\mu_{\MB} = \mu|_{\MB}$ and 
-		$$\nu_f(B) = \int_B f \dmu $$ 
-		Then $\nu_f \ll \mu_{\MB}$. 
+		$$\nu_f(B) = \int_B f \dmu $$ Then $\nu_f \ll \mu_{\MB}$. 
 	\end{ex}	
 	
 	\begin{proof}
@@ -10114,7 +10130,7 @@ ka	\end{defn}
 	\end{itemize}
 	\end{defn}
 	
-	\begin{ex} \lex{ex:introduction_radon_measures:0001.01}
+	\begin{ex}
 		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $\mu \in M_+(X)$. Then for each $E \in \MB(X)$,
 		\begin{enumerate}
 			\item $\mu(E) \leq \inf V^{\mu}_O(E)$.
@@ -10122,7 +10138,7 @@ ka	\end{defn}
 		\end{enumerate}
 	\end{ex}
 	
-	\begin{proof}\
+	\begin{proof}
 		\begin{enumerate}
 			\item Let $a \in V^{\mu}_O(E)$. Then there exists $U \in \{U \subset X: \text{$U$ is open and $E \subset U$}\}$ such that $a = \mu(U)$. Since $E \subset U$, we have that  
 			\begin{align*}
@@ -10146,7 +10162,7 @@ ka	\end{defn}
 	\end{ex}	
 
 	\begin{proof}
-		Suppose that $\mu$ is inner regular. Let $E \in \MB(X)$. \rex{ex:introduction_radon_measures:0001.01} implies that $\mu(E) \leq \inf V_O(E)$. Let $\ep > 0$. Since $\mu$ is finite, $\mu(E^c) -\ep < \mu(E^c)$. Inner regularity implies that there exists $K \subset E^c$ such that $\mu(K) > \mu(E^c) - \ep$. Define $U \in \MB(X)$ by $U \defeq K^c$. Then $U$ is open and $E \subset U$. By construction,
+		Suppose that $\mu$ is inner regular. Let $E \in \MB(X)$. By definition, $\mu(E) \leq \inf V_O(E)$. Let $\ep > 0$. Since $\mu$ is finite, $\mu(E^c) -\ep < \mu(E^c)$. Inner regularity implies that there exists $K \subset E^c$ such that $\mu(K) > \mu(E^c) - \ep$. Define $U \in \MB(X)$ by $U \defeq K^c$. Then $U$ is open and $E \subset U$. By construction,
 		\begin{align*}
 			\mu(U) - \mu(E) 
 			& = [\mu(X) - \mu(U^c)] - [\mu(X) - \mu(E^c)] \\
@@ -10160,17 +10176,17 @@ ka	\end{defn}
 			& \leq \mu(U) \\
 			& < \mu(E) + \ep 
 		\end{align*}
-		Since $\ep > 0$ is arbitrary, we have that for each $\ep >0$, $\inf V_O(E) < \mu(E) + \ep$. Hence $\inf V_O(E) \leq \mu(E)$. Since $\mu(E) \leq \inf V_O(E)$ and $\inf V_O(E) \leq \mu(E)$, we have that $\mu(E) = \inf V_O(E)$. Thus $\mu$ is outer regular on $E$. Since $E \in \MB(X)$ is arbitrary, we have that for each $E \in \MB(X)$, $\mu$ is outer regular on $E$. Thus $\mu$ is outer regular. Hence $\mu$ is regular.
+		Since $\ep > 0$ is arbitrary, we have that $\inf V_O(E) \leq \mu(E)$. Therefore $\mu(E) = \inf V_O(E)$ and $\mu$ is outer regular on $E$. Since $E \in \MB(X)$ is arbitrary, we have that $\mu$ is outer regular. Hence $\mu$ is regular.
 	\end{proof}
 
 	\begin{defn} \ld{def:introduction_radon_measures:0002} 
 	Let $X$ be a topological space. 
 	\begin{itemize}
-		\item Let $\mu \in M_+(X)$. Then $\mu$ is said to be \textbf{Radon} if 
+		\item Let $\mu \in M_+(X)$. Then $\mu$ is said to be \textbf{Radon} if for each $E \in \MB(X)$, 
 		\begin{enumerate}
-			\item for each $K \in \MK(X)$, $\mu(K) < \infty$,
-			\item $\mu$ is outer regular,
-			\item for each $U \subset X$, $U$ is open implies that $\mu$ is inner regular on $U$
+			\item $E$ is compact implies that $\mu(E) < \infty$
+			\item $\mu$ is outer regular on $E$
+			\item $E$ is open implies that $\mu$ is inner regular on $E$
 		\end{enumerate}
 		\item We define 
 		\begin{itemize}
@@ -10187,15 +10203,10 @@ ka	\end{defn}
 	\begin{proof}\
 		\begin{itemize}
 			\item $(\implies)$: \\
-			Suppose that $X$ is $T_1$. Let $x \in X$.
+			Suppose that $X$ is $T_1$. Let $E \in \MB(X)$. Let $x \in X$.
 			\begin{enumerate}
-				\item Since $\del_x \in M_1(X)$, for each $K \in \MK(X)$, 
-				\begin{align*}
-					\del_x(K)
-					& \leq 1 \\
-					& < \infty.
-				\end{align*}
-				\item Let $E \in \MB(X)$. 
+				\item Since $\del_x(E) \in \{0,1\}$, $E$ is compact implies that $\del_x(E) < \infty$.
+				\item 
 				\begin{itemize}
 					\item Suppose that $x \in E$. Then for each $U \subset X$, $U$ is open and $E \subset U$ implies that $\del_x(U) = 1$. Hence 
 					\begin{align*}
@@ -10213,26 +10224,26 @@ ka	\end{defn}
 					\end{align*}
 					Hence $\del_X(E) = \inf V^{\del_x}_O(E)$.
 				\end{itemize}
-				Therefore $\del_x$ is outer regular on $E$. Since $E \in \MB(X)$ is arbitrary, we have that for each $E \in \MB(X)$, $\del_x$ is outer regular on $E$. Thus $\del_x$ is outer regular. 
-				\item Let $U \subset X$. Suppose that $U$ is open.
+				Therefore $\del_x$ is outer regular on $E$. 
+				\item Suppose that $E$ is open.
 				\begin{itemize}
-					\item Suppose that $x \in U$. Define $K \subset X$ by $K \defeq \{x\}$. Then $K \subset U$ and \tcr{ref ex in topology compactness section} implies that $K \in \MK(X)$. Therefore 
+					\item Suppose that $x \in E$. Define $K \subset X$ by $K \defeq \{x\}$. Then $K \subset E$ and \tcr{ref ex in topology compactness section} implies that $K \in \MK(X)$. Therefore 
 					\begin{align*}
-						\del_x(U)
+						\del_x(E)
 						& = 1 \\
 						& = \del_x(K) \\
-						& \leq \sup V^{\del_x}_I(U) \\
-						& \leq \del_x(U).
+						& \leq \sup V^{\del_x}_I(E) \\
+						& \leq \del_x(E).
 					\end{align*}
-					Hence $\del_x(U) = \sup V^{\del_x}_I(U)$.
-					\item Suppose that $x \not \in U$. Then for each $K \in \MK(X)$, $K \subset U$ implies that $\del_x(K) = 0$. Hence
+					Hence $\del_x(E) = \sup V^{\del_x}_I(E)$.
+					\item Suppose that $x \not \in E$. Then for each $K \in \MK(X)$, $K \subset E$ implies that $\del_x(K) = 0$. Hence
 					\begin{align*}
-						\del_x(U) 
+						\del_x(E) 
 						& = 0 \\
 						& = \sup V^{\del_x}_I.
 					\end{align*}
 				\end{itemize}
-				Therefore $\del_x$ is inner regular on $U$. Since $U \subset X$ with $U$ open is arbitrary, we have that for each $U \subset X$, $U$ is open implies that $\del_x$ is inner regular on $U$. 
+				Therefore $\del_x$ is inner regular on $E$. 
 			\end{enumerate}
 			Thus $\del_x \in \MM_1(X)$. Since $x \in X$ is arbitrary, we have that for each $x \in X$, $\del_x \in \MM_1(X)$. Hence $\{\del_x:x \in X \} \subset \MM_1(X)$.
 			\item $(\impliedby)$: \\
@@ -10259,22 +10270,22 @@ ka	\end{defn}
 			\begin{align*}
 				(\mu + \lam \nu)(K) 
 				& = \mu(K) + \lam \nu(K) \\
-				& < \infty. 
+				& < \infty 
 			\end{align*} 
-			Since $K \in \MK(X)$ is arbitrary, we have that for each $K \in \MK(X)$, $[\mu + \lam \nu](K) < \infty$.
-			\item Let $E \in \MB(X)$. \rex{ex:introduction_radon_measures:0001.01} implies that $(\mu + \lam \nu)(E) \leq \inf V^{\mu + \lam \nu}_O(E)$.
+			\item Let $E \in \MB(X)$. By definition, $(\mu + \lam \nu)(E) \leq \inf V^{\mu + \lam \nu}_O(E)$.
 			\begin{itemize}
 				\item Suppose that $(\mu + \lam \nu)(E) = \infty$. Since $(\mu + \lam \nu)(E) = \mu(E) + \lam \nu(E)$, we have that $\mu(E) = \infty$ or $\nu(E) = \infty$. 
 				\begin{itemize}
 					\item Suppose that $\mu(E) = \infty$. Then
 					\begin{align*}
-						[\mu + \lam \nu](E)
+						(\mu + \lam \nu)(E)
 						& = \mu(E) + \lam \nu(E) \\
 						& \geq \mu(E) \\
 						& = \infty \\
-						& \geq \inf V^{\mu + \lam \nu}_O(E).
+						& \geq \inf V^{\mu + \lam \nu}_O(E)
 					\end{align*}
-					\item Similarly, if $\nu(E) = \infty$, then $[\mu + \lam \nu](E) \geq \inf V^{\mu + \lam \nu}_O(E)$.
+					Therefore $(\mu + \lam \nu)(E) = \inf V^{\mu + \lam \nu}_O(E)$.
+					\item Similarly, if $\nu(E) = \infty$, then $(\mu + \lam \nu)(E) = \inf V^{\mu + \lam \nu}_O(E)$.
 				\end{itemize}
 				\item Suppose that $(\mu + \lam \nu)(E) < \infty$. Let $\ep > 0$. Then 
 				\begin{align*}
@@ -10285,78 +10296,76 @@ ka	\end{defn}
 				\end{align*}
 				Since $\mu, \nu \in \MM_+(X)$, there exist $U_{\mu}, U_{\nu} \in \MB(X)$ such that $U_{\mu}$, $U_{\nu}$ are open, $E \subset U_{\mu}$, $E \subset U_{\nu}$, $\mu(U_{\mu}) < \mu(E) + \ep/2$ and $\nu(U_{\mu}) < \nu(E) + \ep/(2 [\lam + 1])$. Set $U \defeq U_{\mu} \cap U_{\nu}$. Then $U$ is open, $E \subset U$ and
 				\begin{align*}
-					[\mu + \lam \nu](U)
+					(\mu + \lam \nu)(U)
 					& = \mu(U) + \lam \nu(U) \\
 					& \leq \mu(U_{\mu}) + \lam \nu(U_{\nu}) \\
 					& < \bigg[ \mu(E) + \frac{\ep}{2} \bigg] + \lam \bigg[ \nu(E) + \frac{\ep}{2(\lam + 1)} \bigg] \\
 					& = \mu(E) + \frac{\ep}{2} + \lam \nu(E) + \frac{\ep \lam }{2 (\lam + 1)} \\
 					& < \mu(E) + \frac{\ep}{2} + \lam \nu(E) + \frac{\ep}{2} \\ 
-					& = \mu(E) + \lam \nu(E) + \ep \\
-					& = [\mu + \lam \nu](E) + \ep.
+					& = \mu(E) + \lam \nu(E) + \ep 
 				\end{align*}
-				Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, $[\mu + \lam \nu](U) < [\mu + \lam \nu](E) + \ep$. Thus 
+				Since $\ep > 0$ is arbitrary, we have that 
 				\begin{align*}
 					\inf V_O^{\mu + \lam \nu}(E)
-					& \leq [\mu + \lam \nu](U) \\
-					& \leq [\mu + \lam \nu](E).
+					& \leq (\mu + \lam \nu)(U) \\
+					& \leq \mu(E) + \lam \nu(E) 
 				\end{align*}
+				Hence $(\mu + \lam \nu)(E) = \inf V^{\mu + \lam \nu}_O(E)$ and $\mu + \lam \nu$ is outer regular on $E$. Since $E \in \MB(X)$ is arbitrary, we have that for each $E \in \MB(X)$, $\mu + \lam \nu$ is outer regular on $E$.
 			\end{itemize}
-			Since $[\mu + \lam \nu](E) \leq \inf V^{\mu + \lam \nu}_O(E)$and $\inf V_O^{\mu + \lam \nu}(E) \leq [\mu + \lam \nu](E)$, we have that $[\mu + \lam \nu](E) = \inf V^{\mu + \lam \nu}_O(E)$. Since $E \in \MB(X)$ is arbitrary, we have that for each $E \in \MB(X)$, $[\mu + \lam \nu](E) = \inf V^{\mu + \lam \nu}_O(E)$. Thus $\mu + \lam \nu$ is outer regular.
-			\item Let $U \subset X$. Suppose that $U$ is open.  \rex{ex:introduction_radon_measures:0001.01} implies that $\sup V_I^{\mu + \lam \nu}(U) \leq [\mu + \lam \nu](U)$. If $\lam = 0$, then $\mu + \lam \nu = \mu$ and since $\mu \in \MM_+(X)$, we have that
+			\item Let $U \subset X$. Suppose that $U$ is open. By definition, $V_I^{\mu + \lam \nu}(U) \leq (\mu + \lam \nu)(U)$. If $\lam = 0$, then $\mu + \lam \nu = \mu$ and since $\mu \in \MM_+(X)$, we have that
 			\begin{align*}
 				\sup V_I^{\mu + \lam \nu}(U)
 				& = \sup V_I^{\mu}(U) \\
 				& = \mu(U) \\
-				& = [\mu + \lam \nu](U).
+				& = (\mu + \lam \nu)(U)
 			\end{align*}
-			In particular $[\mu + \lam \nu](U) \leq \sup V_I^{\mu + \lam \nu}(U)$. Suppose that $\lam \neq 0$. 
+			Suppose that $\lam \neq 0$. 
 			\begin{itemize}
-				\item Suppose that $[\mu + \lam \nu](U) = \infty$. Since $[\mu + \lam \nu](U) = \mu(U) + \lam \nu(U)$, we have that $\mu(U) = \infty$ or $\nu(U) = \infty$. 
+				\item Suppose that $(\mu + \lam \nu)(U) = \infty$. Since $(\mu + \lam \nu)(U) = \mu(U) + \lam \nu(U)$, we have that $\mu(U) = \infty$ or $\nu(U) = \infty$. 
 				\begin{itemize}
 					\item Suppose that $\mu(U) = \infty$. Let $M > 0$. Since $\mu \in \MM_+(X)$, there exists $K \subset U$ such that $K$ is compact and $\mu(K) > M$. Then 
 					\begin{align*}
 						\sup V_I^{\mu + \lam \nu}(U)
-						& \geq [\mu + \lam \nu](U) \\
+						& \geq (\mu + \lam \nu)(U) \\
 						& \geq \mu(U) \\
 						& \geq \mu(K) \\
 						& > M
 					\end{align*}
-					Since $M > 0$ is arbitrary, we have that for each $M > 0$, $\sup V_I^{\mu + \lam \nu}(U) > M$. Thus
+					Since $M > 0$ is arbitrary, we have that 
 					\begin{align*}
 						\sup V_I^{\mu + \lam \nu}(U)
 						& = \infty \\
-						& \geq [\mu + \lam \nu](U).
+						& = (\mu + \lam \nu)(U).
 					\end{align*}
 					\item Suppose that $\nu(U) = \infty$. 
-					Let $M > 0$. Since $\nu \in \MM_+(X)$, there exists $K \subset U$ such that $K$ is compact and $\nu(K) > M / \lam$. Then 
+					Let $M > 0$. Since $\nu \in \MM_+(X)$, there exists $K \subset U$ such that $K$ is compact and $\nu(K) > M/\lam$. Then 
 					\begin{align*}
 						\sup V_I^{\mu + \lam \nu}(U)
-						& \geq [\mu + \lam \nu](U) \\
+						& \geq (\mu + \lam \nu)(U) \\
 						& \geq \lam \nu(U) \\
 						& \geq \lam \nu(K) \\
 						& > M
 					\end{align*} 
-					Since $M > 0$ is arbitrary, we have that for each $M > 0$, $\sup V_I^{\mu + \lam \nu}(U) > M$. Thus
+					Since $M > 0$ is arbitrary, we have that 
 					\begin{align*}
 						\sup V_I^{\mu + \lam \nu}(U)
 						& = \infty \\
-						& \geq [\mu + \lam \nu](U).
+						& = (\mu + \lam \nu)(U).
 					\end{align*}
 				\end{itemize}
-				\item Suppose that $[\mu + \lam \nu](U) < \infty$. Let $\ep > 0$. Then $\mu(U) - \ep/2 < \mu(U)$ and $\nu(U) - \ep/(2 \lam) < \nu(U)$. Since $\mu, \nu \in \MM_+(X)$, there exist $K_{\mu}, K_{\nu} \subset U$ such that $K_{\mu}$, $K_{\nu}$ are compact and $\mu(K_{\mu}) > \mu(U) - \ep/2$ and $\nu(K_{\nu}) > \nu(U) - \ep/(2 \lam)$. Set $K \defeq K_{\mu} \cup K_{\nu}$. Then $K$ is compact, $K \subset U$ and  
+				\item Suppose that $(\mu + \lam \nu)(U) < \infty$. Let $\ep > 0$. Then $\mu(U) - \ep/2 < \mu(U)$ and $\nu(U) - \ep/(2 \lam) < \nu(U)$. Since $\mu, \nu \in \MM_+(X)$, there exist $K_{\mu}, K_{\nu} \subset U$ such that $K_{\mu}$, $K_{\nu}$ are compact and $\mu(K_{\mu}) > \mu(U) - \ep/2$ and $\nu(K_{\nu}) > \nu(U) - \ep/(2 \lam)$. Set $K \defeq K_{\mu} \cup K_{\nu}$. Then $K$ is compact, $K \subset U$ and  
 				\begin{align*}
 					\sup V_I^{\mu + \lam \nu}(U)
-					& = [\mu + \lam \nu](K) \\
+					& = (\mu + \lam \nu)(K) \\
 					& = \mu(K) + \lam \nu (K) \\
 					& \geq \mu(K_{\mu}) + \lam \nu(K_{\nu}) \\
 					& > \bigg[  \mu(U) - \frac{\ep}{2} \bigg] + \lam \bigg[ \nu(U) - \frac{\ep}{2 \lam }\bigg] \\
 					& = \bigg[  \mu(U) - \frac{\ep}{2} \bigg] + \bigg[  \lam \nu(U) - \frac{\ep}{2} \bigg] \\
 					& = \mu(U) + \lam \nu(U) + \ep \\
-					& = [\mu + \lam \nu](U) + \ep  
+					& = (\mu + \lam \nu)(U) + \ep  
 				\end{align*}
-				Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, $\sup V_I^{\mu + \lam \nu}(U) > [\mu + \lam \nu](U) + \ep$. Hence $\sup V_I^{\mu + \lam \nu}(U) \geq [\mu + \lam \nu](U)$. 
+				Since $\ep > 0$ is arbitrary, we have that $\sup V_I^{\mu + \lam \nu}(U) \geq (\mu + \lam \nu)(U)$. Hence $\sup V_I^{\mu + \lam \nu}(U) = (\mu + \lam \nu)(U)$ and $\mu + \lam \nu$ is inner regular on $U$. Since $U \subset X$ with $U$ open is arbitrary, we have that for each $U \subset X$, if $U$ is open, then $\mu + \lam \nu$ is inner regular on $U$.
 			\end{itemize}
-			Since $[\mu + \lam \nu](U) \leq \sup V_I^{\mu + \lam \nu}(U)$ and $\sup V_I^{\mu + \lam \nu}(U) \leq [\mu + \lam \nu](U)$, we have that $\sup V_I^{\mu + \lam \nu}(U) = [\mu + \lam \nu](U)$. Thus $\mu + \lam \nu$ is inner regular on $U$. Since $U \subset X$ with $U$ open is arbitrary, we have that for each $U \subset X$, $U$ is open implies that $\mu + \lam \nu$ is inner regular on $U$.
 		\end{enumerate}
 		Hence $\mu + \lam \nu$ is Radon. Thus $\mu + \lam \nu \in \MM_+(X)$.
 	\end{proof}
@@ -10404,20 +10413,6 @@ ka	\end{defn}
 				&= 0
 			\end{align*}
 		\end{enumerate}
-	\end{proof}
-	
-	\begin{ex} \lex{ex:introduction_radon_measures:0004.1}
-		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$ and $\mu \in \MM_1(X)$. Then $\mu = \del_x$ iff $\supp \mu = \{x\}$. 
-	\end{ex}
-	
-	\begin{proof}
-		Since $\{x\}^c$ is open, $N_{\mu} = \bigcup\limits_{U \in \MN_{\mu}}$, $X \not \in \MN_{\mu}$ and $\supp \mu = (N_{\mu})^c$, we have that 
-		\begin{align*}
-			\mu = \del_x
-			& \iff \mu(\{x\}^c) = 0 \quad \text{(by \rex{ex:measures:00013.1})} \\
-			& \iff N_{\mu} = \{x\}^c \\
-			& \iff \supp \mu = \{x\}.
-		\end{align*}
 	\end{proof}
 
 	\begin{ex} \lex{ex:introduction_radon_measures:0005}
@@ -10541,14 +10536,6 @@ ka	\end{defn}
 		Clear by previous exercise.
 	\end{proof}
 	
-	\begin{ex} \lex{ex:introduction_radon_measures:0009.1} 
-		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Then for each $\mu \in \MM_1(X)$, $\mu$ is regular.
-	\end{ex}
-	
-	\begin{proof}
-		Clear by previous exercise.
-	\end{proof}
-	
 	\begin{ex} \lex{ex:introduction_radon_measures:0010} 
 		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $\mu \in \MM_+(X)$. If $X$ is $\sig$-compact, then $\mu$ is $\sig$-finite and $\mu$ is regular.
 	\end{ex}
@@ -10558,15 +10545,7 @@ ka	\end{defn}
 	\end{proof}
 	
 	
-	\begin{ex}
-		If $f: X \rightarrow Y$ is proper and $\mu \in MM_+(X)$, then $f_*\mu \in \MM_+(Y)$.  
-	\end{ex}
 	
-	\begin{proof}
-		\tcr{FINISH!!!}
-	\end{proof}
-	
-
 	
 
 
@@ -10613,75 +10592,54 @@ ka	\end{defn}
 
 	\subsection{Radon Measures on Subspaces}
 	
+	\tcr{note that for $K \in \MK(X)$, $K \cap E \in \MK(E)$, ref ex in topology notes, need to show that so if $\MK(X) \subset \MB(X)$, then $\MK(E) \subset \MB(E) = \MB(X) \cap E$}
+	
 	\begin{ex} \lex{ex:subspace_radon_measures:0001}
-		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $\mu \in \MM_+(X)$ and $E \in \MB(X)$. If $\mu(E) < \infty$, then 
-		\begin{enumerate}
-			\item $\mu_E \in \MM_+(E)$
-			\item $\mu_E$ is regular.
-		\end{enumerate}
+		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $\mu \in \MM_+(X)$ and $E \in \MB(X)$. Then $\mu_E \in \MM_+(E)$.
 	\end{ex}
 
-	\begin{proof}
-		Suppose that $\mu(E) < \infty$. Then $\mu_E$ is finite.
+	\begin{proof}\
 		\begin{enumerate}
-			\item \begin{enumerate}
-				\item Since $\mu_E$ is finite, for each $K \in \MK(X)$, $\mu_E(K) < \infty$.
-				\item Let $B \in \MB(X)$. \rex{ex:introduction_radon_measures:0001.01} implies that $\mu_E(B) \leq \inf V^{\mu_E}_O(B)$. Since $\mu_E$ is finite, 
+			\item Let $K \subset X$. Suppose that $K$ is compact. Then 
+			\begin{align*}
+				\mu_E(K)
+				& = \mu(K \cap E) \\
+				& \leq \mu(K) \\
+				& < \infty 
+			\end{align*} 
+			\item Let $B \in \MB(X)$. Set
+			$$V(B) \defeq \{\mu(U): U \subset X \text{, $U$ is open in $X$ and $B \subset U$}\}$$ 
+			and 
+			$$V_E(B) \defeq \{\mu_E(U): U \subset X \text{, $U$ is open in $X$ and $B \subset U$}\}$$
+			Let $a \in V_E(B)$. Then there exists $U \subset X$ such that $U$ is open in $X$, $B \subset U$ and $a = \mu_E(U)$. Since $B \subset U$, 
+			\begin{align*}
+				\mu_E(B)
+				& \leq \mu_E(U) \\
+				& = a
+			\end{align*} 
+			Since $a \in V_E(B)$ is arbitrary, we have that $\mu_E(B)$ is a lower bound for $V_E(B)$. Therefore $\mu_E(B) \leq \inf V_E(B)$. 
+			\begin{itemize}
+				\item First, suppose that $\mu_E(B) = \infty$. Then 
 				\begin{align*}
-					\mu(B \cap E)
+					\infty 
 					& = \mu_E(B) \\
-					& < \infty.
+					& \leq \inf V_E(B)
 				\end{align*}
-				Let $\ep > 0$. Since $\mu$ is outer regular, there exists $a \in V(B \cap E)$ such that $a < \mu(B \cap E) + \ep$. Then there exists $U_0 \subset X$ such that $U_0$ is open in $X$, $B \cap E \subset U_0$ and $\mu(U_0) = a$. Since $E$ is closed, $E^c$ is open. Hence $U_0 \cup E^c$ is open. Define $U \subset X$ by $U \defeq U_0 \cup E^c$. Then 
+				Hence 
 				\begin{align*}
-					B 
-					& = (B \cap E) \cup (B \cap E^c) \\
-					& \subset U_0 \cup E^c \\
-					& = U
+					\mu_E(B)
+					& = \infty \\
+					& = \inf V_E(B)
 				\end{align*}
-				and 
+				In particular, $\inf V_E(B) \leq \mu_E(B)$. 
+				\item  Now, suppose that $\mu_E(B) < \infty$. Then $\mu(B \cap E) < \infty$. Let $\ep > 0$. Since $\mu$ is outer regular, there exists $U_0 \subset X$ such that $U_0$ is open in $X$, $B \cap E \subset U_0$ and $\mu(U_0) < \mu(B \cap E) + \ep$.   
 				\begin{align*}
-					U \cap E
-					& = (U_0 \cup E^c) \cap E \\
-					& = (U_0 \cap E) \cup (E^c \cap E) \\
-					& = (U_0 \cap E) \cup \varnothing \\
-					& = U_0 \cap E.
+					\mu_E(B)
+					& = \mu|_E(B) \\
+					& < \infty
 				\end{align*}
-				Since $B \subset U$ and $U$ is open, $\mu_E(U) \in V^{\mu_E}_O(B)$. Hence
-				\begin{align*}
-					\inf V^{\mu_E}_O(B) 
-					& \leq \mu_E(U) \\
-					& = \mu(U \cap E) \\
-					& = \mu(U_0 \cap E) \\
-					& \leq \mu(U_0) \\
-					& = a \\
-					& < \mu(B \cap E) + \ep \\
-					& = \mu_E(B) + \ep. 
-				\end{align*}
-				Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, $\inf V^{\mu_E}_O(B) \leq \mu_E(B) + \ep$. Hence $\inf V^{\mu_E}_O(B) \leq \mu_E(B)$. 
-				Since $\mu_E(B) \leq \inf V^{\mu_E}_O(B)$ and $\inf V^{\mu_E}_O(B) \leq \mu_E(B)$, we have that $\mu_E(B) = \inf V^{\mu_E}_O(B)$ and $\mu_E$ is outer regular on $B$. Since $B \in \MB(X)$ is arbitrary, we have that for each $B \in \MB(X)$, $\mu_E$ is outer regular on $B$. Thus $\mu_E$ is outer regular.
-				\item Let $U \subset X$. Suppose that $U$ is open. \rex{ex:introduction_radon_measures:0001.01} implies that $\sup V^{\mu_E}_I(U) \leq \mu_E(U)$. Since $\mu_E$ is finite, $\mu_E(U) < \infty$. Let $\ep > 0$. 
-				Since $\mu$ is inner regular on $U$, there exists $K \in \MK(X)$ such that $K \subset U$ and $\mu(U) - \ep < \mu(K) $. Then 
-				\begin{align*}
-					\mu_E( U ) - \mu_E(K)
-					& = \mu_E(U \setminus K) \\
-					& = \mu_E(U \cap K^c) \\
-					& = \mu(U \cap K^c \cap E) \\
-					& \leq \mu(U \cap K^c) \\
-					& = \mu(U \setminus K) \\
-					& = \mu(U) - \mu(K) \\
-					& < \ep. 
-				\end{align*}
-				Thus
-				\begin{align*}
-					\mu_E(U) 
-					& < \mu_E(K) + \ep \\
-					& \leq \sup V^{\mu_E}_I(U) + \ep. 
-				\end{align*}
-				Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, $\mu_E(U) < \sup V^{\mu_E}_I(U) + \ep$. Thus $\mu_E(U) \leq \sup V^{\mu_E}_I(U)$. Since $\sup V^{\mu_E}_I(U) \leq \mu_E(U)$ and $\mu_E(U) \leq \sup V^{\mu_E}_I(U)$, we have that $\mu_E(U) = \sup V^{\mu_E}_I(U)$. Thus $\mu_E$ is inner regular on $U$. Since $U \subset X$ with $U$ open is arbitrary, we have that for each $U \subset X$, $U$ is open implies that $\mu_E$ is inner regular on $U$. 
-			\end{enumerate}
-			Thus $\mu_E$ is Radon.
-			\item Clear by \rex{ex:introduction_radon_measures:0009}.
+			\end{itemize}
+			\item 
 		\end{enumerate}
 	\end{proof}
 
@@ -10689,29 +10647,10 @@ ka	\end{defn}
 	
 	\begin{ex} \lex{ex:subspace_radon_measures:0002}
 		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $\mu \in \MM_+(X)$ and $E \in \MB(X)$. If $\mu$ is regular, then $\mu|_E$ is regular.
-		\tcr{Maybe add radon part first then do regular?}
 	\end{ex}
 
 	\begin{proof}
-		Suppose that $\mu$ is regular. We note that 
-		Since $\MB(E) = \MB(X) \cap E$ and $E \in \MB(X)$, we have that 
-		\begin{align*}
-			\MB(E)
-			& = \MB(X) \cap E \\
-			& \subset \MB(X).
-		\end{align*}
-		Since 
-		\begin{align*}
-			\MK(E) 
-			& \subset \MK(X) \\
-			& \subset \MB(X),
-		\end{align*}
-		we have that 
-		\begin{align*}
-			\MK(E) 
-			& \subset \MB(X) \cap E \\
-			& = \MB(E) \quad \text{(by \tcr{(ref ex)})}.  
-		\end{align*}
+		Suppose that $\mu$ is regular.
 		\begin{enumerate}
 			\item Let $K \subset E$. Suppose that $K$ is compact in $E$. Then $K$ is compact in $X$. Since $\mu$ is Radon, we have that 
 			\begin{align*}
@@ -10723,22 +10662,28 @@ ka	\end{defn}
 			$$V(B) \defeq \{\mu(U): U \subset X \text{, $U$ is open in $X$ and $B \subset U$}\}$$ 
 			and 
 			$$V_E(B) \defeq \{\mu|_E(U): U \subset E \text{, $U$ is open in $E$ and $B \subset U$}\}$$
+			Since $\MB(E) = \MB(X) \cap E$ and $E \in \MB(X)$, there exists $A \in \MB(X)$ such that 
+			\begin{align*}
+				B 
+				& = A \cap E \\
+				& \in \MB(X) \cap E \\
+				& \subset \MB(X)
+			\end{align*}
 			Clearly $\mu|_E(B) \leq \inf V_E(B)$.
 			\begin{itemize}
 				\item First, suppose that $\mu|_E(B) = \infty$. Then clearly 
 				\begin{align*}
 					\mu|_E(B)
 					& = \infty \\
-					& = \inf V_E(B).
+					& = \inf V_E(B)
 				\end{align*}
-				In particular, $\inf V_E(B) \leq \mu|_E(B)$.
 				\item Now, suppose that $\mu|_E(B) < \infty$. Then 
 				\begin{align*}
 					\mu(B)
 					& = \mu|_E(B) \\
 					& < \infty
 				\end{align*}
-				Let $\ep > 0$. Since $\mu$ is Radon, there exists $U_0 \subset X$ such that $U_0$ is open in $X$, $B \subset U_0$ and $\mu(U_0) < \mu(B) + \ep$. Set $U \defeq U_0 \cap E$. Then $U$ is open in $E$, $B \subset U$ and 
+				Let $\ep > 0$. Since $\mu$ is Radon, there exists $U_0 \subset X$ such that $U_0$ is open in $X$, $B \subset U_0$ and $\mu(U_0) < \mu(B) + \ep$. Set $U = U_0 \cap E$. Then $U$ is open in $E$, $B \subset U$ and 
 				\begin{align*}
 					\mu|_E(U)
 					& = \mu(U) \\
@@ -10752,14 +10697,19 @@ ka	\end{defn}
 					& \leq \mu|_E(U) \\
 					& < \mu|_E(B) + \ep
 				\end{align*}
-				Since $\ep > 0$ is arbitrary, we have that $\inf V_E(B) \leq \mu|_E(B)$. 
+				Since $\ep > 0$ is arbitrary, we have that $\inf V_E(B) \leq \mu|_E(B)$. Hence $\mu|_E(B) = \inf V_E(B)$.
 			\end{itemize}
-			Since $\mu|_E(B) \leq \inf V_E(B)$ and $\inf V_E(B) \leq \mu|_E(B)$, we have that $\mu|_E(B) = \inf V_E(B)$. Thus $\mu|_E$ is outer regular on $B$.
+			Thus $\mu|_E$ is outer regular on $B$.
 			\item Let $B \in \MB(E)$.  Set 
-			$$V_E(B) \defeq \{\mu|_E(K): K \in \MK(B)\}$$
-			Clearly $\sup V_E(U) \leq \mu|_E(B)$.
+			$$V_E(B) \defeq \{\mu|_E(K): K \subset B \text{ and $K$ is compact}\}$$
+			Clearly $\sup V_E(U) \leq \mu|_E(B)$. Since $E \in \MB(X)$, 
+			\begin{align*}
+				B
+				& \in \MB(E) \\
+				& \subset \MB(X)
+			\end{align*}
 			\begin{itemize}
-				\item Suppose that $\mu(B) = \infty$. Let $M >0$. Inner regularity of $\mu$ implies that there exists $K \in \MK(B)$ such that $\mu(K) > M$. Then $K \in \MB(E)$ and
+				\item Suppose that $\mu(B) = \infty$. Let $M >0$. Inner regularity of $\mu$ implies that there exists $K \subset B$ such that $K$ is compact and $\mu(K) > M$. Then $K \in \MB(E)$ and
 				\begin{align*}
 					\mu|_E(K)
 					& = \mu(K) \\
@@ -10771,7 +10721,7 @@ ka	\end{defn}
 					& = \infty \\ 
 					& = \sup V_E(B)
 				\end{align*} 
-				\item Suppose that $\mu(B) < \infty$. Let $\ep > 0$. Inner regularity of $\mu$ implies that there exists $K \in \MK(B)$ such that $\mu(K) > \mu(B) - \ep$. Then $K \in \MB(E)$ and
+				\item Suppose that $\mu(B) < \infty$. Let $\ep > 0$. Inner regularity of $\mu$ implies that there exists $K \subset B$ such that $K$ is compact and $\mu(K) > \mu(B) - \ep$. Then $K \in \MB(E)$ and
 				\begin{align*}
 					\sup V_E(B)
 					& \geq \mu|_E(K) \\
@@ -12509,7 +12459,7 @@ ka	\end{defn}
 	\tcr{idea: use this consistency theorem to obtain guassian measure $\mu$ on $\C^{\N}$ with the product sigma algebra where $(\pi_F)_*\mu$ is a gaussian measure on $\C^{|F|}$ for finite subsets $F \subset \N$ with a prescribed mean and covariance function, then try to generalize theorem 2.4 in the book on gaussian measures in hilbert spaces, for rkhs.}
 	
 	\begin{ex} \lex{ex:borel_msr:proj_systems:0004} \tbf{Kolmogorov Extension Theorem:} \\
-		Let $(J, {\leq})$ be a directed set and $((X_j, \MT_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ a $\bTopRadMsr$-projective system. Set $X \defeq \varprojlim\limits_{j \in J} X_j$ and $\MT \defeq \varprojlim\limits_{j \in J} T_j$. Suppose that 
+		Let $(J, {\leq})$ be a directed set and $((X_j, \MT_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$ a $\TopRadMsr$-projective system. Set $X \defeq \varprojlim\limits_{j \in J} X_j$ and $\MT \defeq \varprojlim\limits_{j \in J} T_j$. Suppose that 
 		\begin{itemize}
 			\item $J$ is countable
 			\item for each $j \in J$, $X_j$ is a Polish space and $\pi_j$ is surjective
@@ -12543,7 +12493,7 @@ ka	\end{defn}
 			\end{enumerate}
 			\item $\mu_0$ is a premeasure on $(X, \MA_0)$\\
 			\tbf{Hint:} \rex{ex:outer_measures:00007.1} 
-			\item there exists a unique measure $\mu \in \MM_+(X)$ such that $((X, \mu), (\pi_j)_{j \in J})$ is a $\bTopRadMsr$-projective limit of $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$. 
+			\item there exists a unique measure $\mu \in \MM_+(X)$ such that $((X, \mu), (\pi_j)_{j \in J})$ is a $\TopRadMsr$-projective limit of $((X_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$. 
 		\end{enumerate}
 	\end{ex}
 	
@@ -12781,7 +12731,7 @@ ka	\end{defn}
 				\end{align*}
 			\end{enumerate} 
 			\item Let $(B_n)_{n \in \N} \subset \MA_0$. Suppose that $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$. Set $\del \defeq \inf\limits_{n \in \N} \mu_0(B_n)$. For the sake of contradiction, suppose that $\del > 0$. \tcb{The previous parts} imply that $\bigcap\limits_{m \in \N} B_m \neq \varnothing$. This is a contradiction. Hence $\del = 0$. Since $(B_n)_{n \in \N} \subset \MA_0$ such that $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$ is arbitrary, we have that for each $(B_n)_{n \in \N} \subset \MA_0$, $(B_n)_{n \in \N}$ is decreasing and $\inf\limits_{n \in \N} B_n = \varnothing$ implies that $\inf\limits_{n \in \N} \mu_0(B_n) = 0$. \rex{ex:outer_measures:00007.1} then implies that $\mu_0$ is a premeasure on $(X, \MA_0)$. 
-			\item Set $\MC \defeq \bTopRadMsr$. Since $\sig(\MA_0) = \MB(X, \MT)$ and $\mu_0$ is finite, \rex{ex:outer_measures:00008} implies that there exists a unique $\mu \in M_+(X)$ such that $\mu|_{\MA_0} = \mu_0$. Since for each $j \in J$, $X_j$ is a Polish space, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $X$ is a Polish space. Since 
+			\item Set $\MC \defeq \TopRadMsr$. Since $\sig(\MA_0) = \MB(X, \MT)$ and $\mu_0$ is finite, \rex{ex:outer_measures:00008} implies that there exists a unique $\mu \in M_+(X)$ such that $\mu|_{\MA_0} = \mu_0$. Since for each $j \in J$, $X_j$ is a Polish space, \tcb{an exercise in the analysis notes section on Polish spaces} implies that $X$ is a Polish space. Since 
 			\begin{align*}
 				\mu(X)
 				& = \mu_0(X) \\
@@ -12798,7 +12748,7 @@ ka	\end{defn}
 					& = \mu_0(\pi_j^{-1}(E)) \\
 					& = \mu_j(E).
 				\end{align*}
-				Since $E \in \MB(X_j, \MT_j)$ is arbitrary, we have that $(\pi_j)_*\mu = \mu_j$. Since $j \in J$ is arbitrary, we have that for each $j \in J$, $(\pi_j)_*\mu = \mu_j$. Hence $(\pi_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\MC}((X, \mu), (X_j, \mu_j))$. Since $(X, (\pi_j)_{j \in J})$ is a $\bTop$-projective limit of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$, for each $(j,k) \in {\leq}$, 
+				Since $E \in \MB(X_j, \MT_j)$ is arbitrary, we have that $(\pi_j)_*\mu = \mu_j$. Since $j \in J$ is arbitrary, we have that for each $j \in J$, $(\pi_j)_*\mu = \mu_j$. Hence $(\pi_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\MC}((X, \mu), (X_j, \mu_j))$. Since $(X, (\pi_j)_{j \in J})$ is a $\Top$-projective limit of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$, for each $(j,k) \in {\leq}$, 
 				\begin{align*}
 					\pi_{j,k} \circ_{\MC} \pi_k 
 					& = \pi_{j,k} \circ \pi_k \\
@@ -12808,7 +12758,7 @@ ka	\end{defn}
 				Let $(Y, \nu) \in \Obj(\MC)$ and $(\tau_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\MC}((Y, \nu),(X_j, \mu_j))$. Suppose that for each $(j,k) \in {\leq}$, $\pi_{j,k} \circ_{\MC} \tau_k = \tau_j$. 
 				\begin{itemize}
 					\item \tbf{Existence:} \\
-					Since $Y \in \Obj(\bTop)$, $(\tau_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\bTop}(Y,X_j)$ and $(X, (\pi_j)_{j \in J})$ is a $\bTop$-projective limit of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$, there exists a unique $\phi \in \Hom_{\bTop}(Y, X)$ such that for each $j \in J$, $\pi_j \circ \phi = \tau_j$. Then for each $j \in J$,
+					Since $Y \in \Obj(\Top)$, $(\tau_j)_{j \in J} \in \prod\limits_{j \in J} \Hom_{\Top}(Y,X_j)$ and $(X, (\pi_j)_{j \in J})$ is a $\Top$-projective limit of $((X_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$, there exists a unique $\phi \in \Hom_{\Top}(Y, X)$ such that for each $j \in J$, $\pi_j \circ \phi = \tau_j$. Then for each $j \in J$,
 					\begin{align*}
 						(\pi_j)_*[\phi_*\nu]
 						& = (\pi_j \circ \phi)_*\nu \\
@@ -12836,7 +12786,7 @@ ka	\end{defn}
 					\end{align*}
 					By uniqueness of $\mu$ satisfying $\mu|_{\MA_0} = \mu_0$, we have that $\phi_*\nu = \mu$. Hence $\phi \in \Hom_{\MC}((Y, \nu), (X, \mu))$.
 					\item \tbf{Uniqueness:} \\
-					Clear by uniqueness of $\phi$ in $\bTop$. \tcr{(add details)}
+					Clear by uniqueness of $\phi$ in $\Top$. \tcr{(add details)}
 				\end{itemize}
 			\end{itemize}
 			Hence $((X, \MT, \mu), (\pi_j)_{j \in J})$ is a $\MC$-projective limit of $((X_j, \MT_j, \mu_j)_{j \in J}, (\pi_{j,k})_{(j,k) \in {\leq}})$.
@@ -12844,7 +12794,7 @@ ka	\end{defn}
 	\end{proof}
 	
 	\begin{ex}
-		\tcr{Here make an exercise about $\sup_{j \in J} \mu_j(X_j) < \infty$ iff there exists a complex measure $\mu \in \MM(X)$ such that it gives a $\bTopRadMsrC$ projective limit. Then relate/comment/explore how this is related to the feynman path integral nonexistence, which is why we do a wick rotation.}
+		\tcr{Here make an exercise about $\sup_{j \in J} \mu_j(X_j) < \infty$ iff there exists a complex measure $\mu \in \MM(X)$ such that it gives a $\TopRadMsrC$ projective limit. Then relate/comment/explore how this is related to the feynman path integral nonexistence, which is why we do a wick rotation.}
 	\end{ex}
 	
 	\begin{proof}
@@ -12856,7 +12806,7 @@ ka	\end{defn}
 	\end{note}
 	
 	\begin{ex} \lex{ex:borel_msr:proj_systems:0005}
-		Let $(X_j, \mu_j)_{j \in \N} \subset \Obj(\bTopRadMsrone)$. Suppose that for each $j \in \N$, $X_j$ is a Polish space. Let $\mu \in \MM_1( \prod\limits_{j \in \N} X_j)$. Suppose that for each $(A_j)_{j \in \N} \in \prod\limits_{j \in \N} \MB(X_j)$, 
+		Let $(X_j, \mu_j)_{j \in \N} \subset \Obj(\TopRadMsrone)$. Suppose that for each $j \in \N$, $X_j$ is a Polish space. Let $\mu \in \MM_1( \prod\limits_{j \in \N} X_j)$. Suppose that for each $(A_j)_{j \in \N} \in \prod\limits_{j \in \N} \MB(X_j)$, 
 		$$\mu \bigg(\prod_{j \in \N} A_j \bigg) = \prod_{j \in \N} \mu_j(A_j).$$
 		Then for each $j \in \N$, $\pi_j^*\mu = \mu_j$
 	\end{ex}
@@ -12874,7 +12824,7 @@ ka	\end{defn}
 	\end{proof}
 	
 	\begin{ex} \lex{ex:borel_msr:proj_systems:0006}
-		Let $(X_j, \mu_j)_{j \in \N} \subset \Obj(\bTopRadMsrone)$. Suppose that for each $j \in \N$, $X_j$ is a Polish space.
+		Let $(X_j, \mu_j)_{j \in \N} \subset \Obj(\TopRadMsrone)$. Suppose that for each $j \in \N$, $X_j$ is a Polish space.
 		Then there exists a unique $\mu \in \MM_1(\prod\limits_{j \in \N} X_j)$ such that for each $(A_j)_{j \in \N} \in \prod\limits_{j \in \N} \MB(X_j)$, 
 		$$\mu \bigg(\prod_{j \in \N} A_j \bigg) = \prod_{j \in \N} \mu_j(A_j),$$
 	\end{ex}
@@ -12882,7 +12832,7 @@ ka	\end{defn}
 	\begin{proof}\
 		\begin{itemize}
 			\item \tbf{Existence:} \\
-			For each $n \in \N$, define $Y_n \defeq \prod\limits_{j=1}^n X_j$. Set $Y \defeq \prod\limits_{j \in \N} X_j$ and for each $n,k \in \N$, if $n \leq k$, define $\tau_{n,k}: Y_k \rightarrow Y_n$ by $\tau_{n,k}((x_j)_{j=1}^k) \defeq (x_j)_{j=1}^n$. For each $n \in \N$, define $\tau_n: Y \rightarrow Y_n$ by $\tau_n((x_j)_{j \in \N}) \defeq (x_j)_{j=1}^n$. \tcr{An exercise} implies that $(Y, (\tau_n)_{n \in \N})$ is a $\bTop$-projective limit of $((Y_n)_{n \in \N}, (\tau_{n,k})_{(n \leq k)})$. For each $n \in \N$, define $\nu_n \in \MM_+(Y_n)$ by $\nu_n \defeq \bigotimes\limits_{j \in [n]} \mu_j$. \tcr{need exercise showing products of Radon measures is Radon, see theorem 7.20 in Folland, I dont think we need to assume that the spaces are LCH, so maybe just cite ulams theorem since any partial product $\nu_n$ is finite on a product of Polish spaces which is Polish.} Then $(Y_n, \nu_n)_{n \in \N} \subset \Obj(\bTopRadMsrone)$. Let $n,k \in \N$. Suppose that $n \leq k$. Let $(A_j)_{j \in [k]} \in \prod\limits_{j=1}^n \MB(X_k)$. Then
+			For each $n \in \N$, define $Y_n \defeq \prod\limits_{j=1}^n X_j$. Set $Y \defeq \prod\limits_{j \in \N} X_j$ and for each $n,k \in \N$, if $n \leq k$, define $\tau_{n,k}: Y_k \rightarrow Y_n$ by $\tau_{n,k}((x_j)_{j=1}^k) \defeq (x_j)_{j=1}^n$. For each $n \in \N$, define $\tau_n: Y \rightarrow Y_n$ by $\tau_n((x_j)_{j \in \N}) \defeq (x_j)_{j=1}^n$. \tcr{An exercise} implies that $(Y, (\tau_n)_{n \in \N})$ is a $\Top$-projective limit of $((Y_n)_{n \in \N}, (\tau_{n,k})_{(n \leq k)})$. For each $n \in \N$, define $\nu_n \in \MM_+(Y_n)$ by $\nu_n \defeq \bigotimes\limits_{j \in [n]} \mu_j$. \tcr{need exercise showing products of Radon measures is Radon, see theorem 7.20 in Folland, I dont think we need to assume that the spaces are LCH, so maybe just cite ulams theorem since any partial product $\nu_n$ is finite on a product of Polish spaces which is Polish.} Then $(Y_n, \nu_n)_{n \in \N} \subset \Obj(\TopRadMsrone)$. Let $n,k \in \N$. Suppose that $n \leq k$. Let $(A_j)_{j \in [k]} \in \prod\limits_{j=1}^n \MB(X_k)$. Then
 			\begin{align*}
 				\pi_{n,k}^*\nu_k\bigg[ \prod\limits_{j=1}^n A_j \bigg] 
 				& = \nu_k \bigg[ \pi_{n,k}^{-1} \bigg( \prod\limits_{j=1}^n A_j \bigg) \bigg] \\
@@ -12891,13 +12841,13 @@ ka	\end{defn}
 				& = \prod\limits_{j = 1}^n \mu_j(A_j) \\
 				& = \nu_n \bigg[ \prod\limits_{j=1}^n A_j \bigg].
 			\end{align*}
-			\rex{25005} \tcr{(or maybe other exercise)} and \tcr{need exercise about uniqueness of product measure in section on product measures} implies that $\pi_{n,k}^*\nu_k = \nu_n$. Thus $((Y_n, \nu_n)_{n \in \N}, (\tau_{n,k})_{n \leq k})$ is a $\bTopRadMsr$-projective system. \rex{??} \tcr{make exercise about this}	implies that $(Y, (\tau_n)_{n \in \N}) = \varprojlim\limits_{n \in \N} ((Y_n)_{n \in \N}, (\tau_{n, k})_{n \leq k})$ in $\bTop$.  We observe that 
+			\rex{25005} \tcr{(or maybe other exercise)} and \tcr{need exercise about uniqueness of product measure in section on product measures} implies that $\pi_{n,k}^*\nu_k = \nu_n$. Thus $((Y_n, \nu_n)_{n \in \N}, (\tau_{n,k})_{n \leq k})$ is a $\TopRadMsr$-projective system. \rex{??} \tcr{make exercise about this}	implies that $(Y, (\tau_n)_{n \in \N}) = \varprojlim\limits_{n \in \N} ((Y_n)_{n \in \N}, (\tau_{n, k})_{n \leq k})$ in $\Top$.  We observe that 
 			\begin{itemize}
 				\item \tcr{the analysis notes section on products of polish spaces} implies that for each $n \in \N$, $Y_n$ is Polish
 				\item by construction, for each $n \in \N$ $\tau_n$ is surjective,
 				\item since for each $n \in \N$, $\mu_j(X_j) = 1$, $\sup\limits_{n \in \N} \nu_n(Y_n) = 1$.
 			\end{itemize}
-			\rex{ex:borel_msr:proj_systems:0004} implies that there exists a unique $\mu \in \MM_+(Y)$ such that $((Y, \mu), (\tau_n)_{n \in \N})$ is a $\bTopRadMsr$-projective limit of $((Y_n, \nu_n)_{n \in \N}, (\tau_{n,k})_{n \leq k})$. Let $(A_j)_{j \in \N} \in \prod\limits_{j \in \N} \MB(X_j)$. For $n \in \N$, define $B_n \in \MB(Y)$ by $B_n \defeq \tau_n^{-1} \bigg( \prod\limits_{j=1}^n A_j \bigg)$. Then for each $n \in \N$, 
+			\rex{ex:borel_msr:proj_systems:0004} implies that there exists a unique $\mu \in \MM_+(Y)$ such that $((Y, \mu), (\tau_n)_{n \in \N})$ is a $\TopRadMsr$-projective limit of $((Y_n, \nu_n)_{n \in \N}, (\tau_{n,k})_{n \leq k})$. Let $(A_j)_{j \in \N} \in \prod\limits_{j \in \N} \MB(X_j)$. For $n \in \N$, define $B_n \in \MB(Y)$ by $B_n \defeq \tau_n^{-1} \bigg( \prod\limits_{j=1}^n A_j \bigg)$. Then for each $n \in \N$, 
 			\begin{align*}
 				B_{n+1}
 				& = \tau_{n+1}^{-1} \bigg( \prod\limits_{j=1}^{n+1} A_j \bigg) \\
@@ -12970,7 +12920,7 @@ ka	\end{defn}
 	
 	
 	\begin{defn}
-		Let $(X_j, \mu_j)_{j \in \N} \subset \Obj(\bTopRadMsrone)$. Suppose that for each $j \in \N$, $X_j$ is a Polish space. We define the \tbf{product measure of $(\mu_j)_{j \in \N}$}, denoted $\ot\limits_{j \in \N} \mu_j \in \MM_1( \prod\limits_{j \in \N} X_j)$, to be the unique $\mu \in \MM_1(\prod\limits_{j \in \N} X_ j)$ such that for each $(A_j)_{j \in \N} \in \prod\limits_{j \in \N} \MB(X_j)$, 
+		Let $(X_j, \mu_j)_{j \in \N} \subset \Obj(\TopRadMsrone)$. Suppose that for each $j \in \N$, $X_j$ is a Polish space. We define the \tbf{product measure of $(\mu_j)_{j \in \N}$}, denoted $\ot\limits_{j \in \N} \mu_j \in \MM_1( \prod\limits_{j \in \N} X_j)$, to be the unique $\mu \in \MM_1(\prod\limits_{j \in \N} X_ j)$ such that for each $(A_j)_{j \in \N} \in \prod\limits_{j \in \N} \MB(X_j)$, 
 		$$\mu \bigg(\prod_{j \in \N} A_j \bigg) = \prod_{j \in \N} \mu_j(A_j).$$
 	\end{defn}
 	
@@ -13258,25 +13208,33 @@ ka	\end{defn}
 	
 	
 	\begin{ex}
-		Let $X$ be a locally convex space and $E \in \MK(X)$. Define $F \in \MK(X) \cap \Conv(X)$ by $F \defeq \cl (\cnv E)$. Then there exists $f_E: \MM_1(E) \rightarrow F$ such that 
+		Let $X$ be a locally convex space and $E \in \MK(X)$. Define $F \in \MK(X) \cap \Conv(X)$ by $F \defeq \cl (\cnv E)$. Then there exists $f: \MM_1(E) \rightarrow F$ such that 
 		\begin{enumerate}
-			\item for each $\mu \in \MM_1(E)$, $\mu$ represents $f_E(\mu)$. 
-			\item $f_E$ is $(\MT_{w^*}, \MT_X)$-continuous.
+			\item for each $\mu \in \MM_1(E)$, $\mu$ represents $f(\mu)$. 
+			\item $f$ is $(\MT_{w^*}, \MT_X)$-continuous.
 		\end{enumerate}
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{enumerate}
-			\item For each $\mu \in \MM_1(E)$, define $K_{\mu} \subset X$ by $K_{\mu} \defeq \{x \in F: \text{$\mu$ represents $x$}\}$. \tcr{The prev ex} implies that for each $\mu \in \MM_1(E)$, $\# K_{\mu} = 1$. \tcr{Axiom of choice \tcr{(ex in product set section)} implies that} there exists \tcr{(a unique?)} $f_E: \MM_1(E) \rightarrow X$ such that for each $\mu \in \MM_1(X)$, $f_E(\mu) \in K_{\mu}$. Let $(\mu_{\al})_{\al \in A} \subset \MM_1(E)$ be a net and $\mu \in \MM_1(E)$. Suppose that $\mu_{\al} \conv{w^*} \mu$. Define $(x_{\al})_{\al \in A} \subset F$ and $x \in F$ by $x_{\al} \defeq f_E(\mu_{\al})$ and $x \defeq f_E(\mu)$. Then for each $\phi \in X^*$, 
+			\item For each $\mu \in \MM_1(E)$, define $K_{\mu} \subset X$ by $K_{\mu} \defeq \{x \in F: \text{$\mu$ represents $x$}\}$. 
+			
+			\tcr{The prev ex} implies that for each $x \in F$, $\# K_{\mu} = 1$. \tcr{exercise in set theory notes on products implies that} there exists a unique $f: \MM_1(E) \rightarrow X$ such that for each $\mu \in \MM_1(X)$, $f(\mu) \in K_{\mu}$. 
+			\item \tcr{need exercise showing that $(\MM_1(E), \MT_{w^*})$ is first-countable (note make ex in analysis notes that locally convex spaces are first countable iff they are metrizable), i.e. need to show that $(\MM_1(E), \MT_{w^*})$ is metrizable, see weak* metrizability of unit ball of dual of banach space. In the Banach space setting, the idea is easy, if $X$ is separable, then $\MT_{w^*}$ on $X^*$, should be generated by the countable family of seminorms $|\hat{x_n}|:n \in \N$ and is therefore metrizable, now just take $X = \MC(E)$, $X^* = \MM(E)$ (Alaglu says $B_{X^*}(0,1)$ is weak-* compact and since $\MM_1(E)$ is a weak-* closed  subset (check), it is also weak-* compact) and just show that $C(E)$ is separable, which should be a theorem you can find in folland. Note space must be metrizable \href{https://proofwiki.org/wiki/Space_of_Complex-Valued_Continuous_Functions_on_Compact_Hausdorff_Space_is_Separable_iff_Space_is_Metrizable}{cont funct is sep iff space is metrizable}}. Let $(\mu_n)_{n \in \N} \subset \MM_1(X)$ and $\mu \in \MM_1(X)$. Suppose that $\mu_n \conv{w^*} \mu$. Define $(x_n)_{n \in \N} \subset X$ and $x \in X$ by $x_n \defeq f(\mu_n)$ and $x \defeq f(\mu)$. Then for each $\phi \in X^*$, 
 			\begin{align*}
-				\phi(x_{\al})
-				& = \mu_{\al}(\phi|_E) \\
+				\phi(x_n)
+				& = \mu_n(\phi|_E) \\
 				& \rightarrow \mu(\phi|_E) \\
 				& = \phi(x).
 			\end{align*}
-			Thus $x_{\al} \conv{w} x$. Since $X$ is a locally convex space, $E \in \MK(X)$, $(x_{\al})_{\al \in A} \subset E$ and $x \in E$, \tcr{ref ex in analysis notes section on duality implies} $x_{\al} \rightarrow x$. Since $(\mu_{\al})_{\al \in A} \subset \MM_1(E)$ and $\mu \in \MM_1(E)$ are arbitrary, we have that for each $(\mu_{\al})_{\al \in A} \subset \MM_1(E)$ and $\mu \in \MM_1(E)$, $\mu_{\al} \conv{w^*} \mu$ implies that $f_E(\mu_{\al}) \rightarrow f_E(\mu)$. Thus $f$ is $(\MT_{w^*}, \MT_X)$-continuous.
+			Thus $x_n \conv{w} x$. Since $X$ is a locally convex space, $E \in \MK(X)$, $(x_n)_{n \in \N} \subset E$ and $x \in E$, \tcr{ref ex in analysis notes section on duality implies} $x_n \rightarrow x$. Since $(\mu_n)_{n \in \N} \subset \MM_1(X)$ and $\mu \in \MM_1(X)$ are arbitrary, we have that for each $(\mu_n)_{n \in \N} \subset \MM_1(X)$ and $\mu \in \MM_1(X)$, $\mu_n \conv{w^*} \mu$ implies that $f(\mu_n) \rightarrow f(\mu)$. Thus $f$ is $(\MT_{w^*}, \MT_X)$-continuous.
 		\end{enumerate}
 	\end{proof}
+	
+	
+	\begin{note}
+		\tcr{I think you can relax the prev exercise to get $f: \MM_{1,c}(X) \rightarrow X$ i.e. probability measures with compact support. If $\mu_n \conv{w^*} \mu$, then there should be a compact set $E \subset X$ such that $\supp \mu_n \subset E$, then do rest of the exercise}
+	\end{note}
 	
 	\begin{ex}
 		Let $X$ be a locally convex space and $E \in \MK(X)$. Define $F \in \MK(X) \cap \Conv(X)$ by $F \defeq \cl (\cnv E)$. Then for each $x \in X$, $x \in F$ iff there exists $\mu \in \MM_1(E)$ such that $\mu$ represents $x$. \\
@@ -13319,99 +13277,98 @@ ka	\end{defn}
 	\end{proof}
 	
 	\begin{ex}
-		Let $X$ be a locally convex space, $E \in \MK(X) \cap \Conv(X)$ and $x \in X$. If $ \rep_E(x) \neq \varnothing$, then $x \in E$. 
+		Let $X$ be a locally convex space, $E \in \MK(X) \cap \Conv(X)$, $\mu \in MM_1(E)$ and $x \in X$. If $\mu$ represents $x$, then $x \in E$. 
 	\end{ex}
 	
 	\begin{proof}
 		Clear by \tcr{prev ex}.
 	\end{proof}
 	
-	\begin{ex}
-		Let $X$ be a locally convex space, $E \in \MK(X) \cap \Conv(X)$ and $x \in E$. Then $x \in \extrm E$ iff $\rep_E(x) = \{\del_x\}$. \tcr{make into multiple subparts}  
+	\begin{ex}  \tcr{move to radon section}
+		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$ and $X$ is $T_1$. Let $x \in X$ and $\mu \in \MM_1(X)$. Then $\mu = \del_x$ iff $\supp \mu = \{x\}$. 
 	\end{ex}
 	
 	\begin{proof}\
 		\begin{itemize}
 			\item $(\implies)$: \\
-			\begin{itemize}
-				\item Suppose that $x \in \extrm E$. Let $\mu \in \rep_E(x)$. Let $K_1 \in \MK(E, \MT_E)$. Suppose that $K_1 \subset E \setminus \{x\}$. For the sake of contradiction, suppose that $\mu(K_1) > 0$. \rex{ex:measures:00014} implies that there exists $y \in K_1$ such that for each $U_E \in \opn{\MN}(y, \MT_E)$, $\mu(U) > 0$. Since $X$ is Hausdorff, there exists $U_0 \in \MT_X$ such that $y \in U_0$ and $U_0 \subset \{x\}^c$.
-				
-				\item Since $X$ is locall convex, \tcr{make ref ex in analysis notes section on lcs } implies that there exists $C \in \Conv(X) \cap \MN(y, \MT_X)$ such that $C \subset U_0$ and $C$ is $\MT_X$-closed. Since $E, C \in \Conv(X)$, we have that $E \cap C \in \Conv(X)$. Since $C$ is $\MT_X$-closed and $E$ is $\MT_X$-closed, we have that $E \cap C$ is $\MT_X$-closed. Since $E \in \MK(X)$, $E \cap C \in \MK(X)$. Define $K_2 \in \MK(X) \cap \Conv(X)$ by $K_2 \defeq E \cap C$. 
-				
-				\item Then 
-				\begin{align*}
-					K_2 
-					& = C \cap E \\
-					& \subset U_0 \cap E \\
-					& \subset \{x\}^c \cap E \\
-					& = E \setminus \{x\}.
-				\end{align*}
-				Since $C \in \MN(y, \MT_X)$, we have that $\Int (C, \MT_X) \in \opn{\MN}(y, \MT_X)$. Therefore $\Int (C, \MT_X) \cap E \in \opn{\MN}(y, \MT_E)$ and 
-				\begin{align*}
-					0
-					& < \mu(\Int (C, \MT_X) \cap E) \\
-					& \leq \mu (C \cap E) \\
-					& = \mu(K_2). 
-				\end{align*}
-				For the sake of contradiction, suppose that $\mu(K_2) = 1$. Then $\mu|_{K_2} \in \rep_{K_2}(x)$ \tcr{(add details)}. Hence $\rep_{K_2}(x) \neq \varnothing$. Since $K_2 \in \MK(X) \cap \Conv(X)$, and $\rep_{K_2}(x) \neq \varnothing$, \tcr{a prev ex} implies that.
-				\begin{align*}
-					x
-					& \in K_2 \\
-					& \subset E \setminus \{x\},
-				\end{align*}
-				which is a contradiction. Hence $\mu(K_2) < 1$. Since 
-				\begin{align*}
-					\mu(E \setminus K_2) 
-					& = \mu(E) - \mu(K_2) \\
-					& = 1 - \mu(K_2)
-				\end{align*}
-				and $0 < \mu(K_2) < 1$, we have that $0 < 1 - \mu(K_2) < 1$. 
-				
-				\item Define $r \in (0, 1)$ by $r \defeq \mu(K_2)$. Define $\mu_1, \mu_2 \in M_1(E)$ by $\mu_1 \defeq r^{-1} \mu_{K_2}$ and $\mu_2 \defeq (1-r)^{-1}\mu_{E \setminus K_2}$. \rex{ex:subspace_radon_measures:0001} and \rex{ex:introduction_radon_measures:0002.1} imply that $\mu_1, \mu_2 \in \MM_1(E)$. \tcr{prev ex} implies that there exists $x_1, x_2 \in E$ such that $\mu_1 \in \rep_E(x_1)$ and $\mu_2 \in \rep_E(x_2)$. \rex{ex:subspace_measures:00002.01} implies that
-				\begin{align*}
-					r \mu_1 + (1-r) \mu_2
-					& = \mu_{K_2} + \mu_{E \setminus K_2} \\
-					& = \mu.
-				\end{align*}
-				Therefore for each $\phi \in X^*$,
-				\begin{align*}
-					\phi(rx_1 + (1-r)x_2)
-					& = r\phi(x_1) + (1-r)\phi(x_2) \\
-					& = r \int_E \phi|_E \dmu_1 +  (1-r) \int_E \phi|_E \dmu_2 \\
-					& = \int_E \phi|_E \d [r\mu_1] + \int_E \phi|_E \d[(1-r)\mu_2] \\
-					& = \int_E \phi|_E \d [r\mu_1 + (1-r) \mu_2] \\
-					& = \int_E \phi|_E \dmu \\
-					& = \phi(x).
-				\end{align*}
-				Since $X$ is locally convex, $X^*$ separates the pointes of $X$. Hence 
-				\begin{align*}
-					x 
-					& = rx_1 + (1-r)x_2 \\
-					& \in E \setminus (\extrm E),
-				\end{align*} 
-				which is a contradiction. Thus $\mu(K_1) = 0$. Since $K_1 \subset E \setminus \{x\}$ is arbitrary, we have that for each $K \subset E \setminus \{x\}$, $\mu(K) = 0$. Since $\mu \in \MM_1(E)$ \rex{ex:introduction_radon_measures:0009.1} implies that $\mu$ is regular. Thus 
-				\begin{align*}
-					\mu(E \setminus \{x\})
-					& = \sup V^{\mu}_I(E \setminus \{x\}) \\
-					& = 0. 
-				\end{align*}
-				Hence $\supp \mu = \{x\}$. \rex{ex:introduction_radon_measures:0004.1} then implies that $\mu = \del_x$. 
-			\end{itemize}
-			\item $(\impliedby)$: \\
-			Suppose that $\rep_E(x) = \{\del_x\}$. For the sake of contradiction, suppose that $x \not \in \extrm E$. Then there exists \tcr{ref ex in analysis notes} $x_1, x_2 \in E$ such that $x_1 \neq x_2$ and $x = 2^{-1}x_1 + 2^{-1}x_2$. Since $\del_{x_1} \in \rep_E(x_1)$ and $\del_{x_2} \in \rep_E(x_2)$, \tcr{make/ref ex} implies that 
+			Suppose that $\mu = \del_x$. We note that $\{x\}^c \subset \MN_{\mu}$ and for each $U \in \MN_{\mu}$, $U \subset \{x\}^c$. Thus 
 			\begin{align*}
-				2^{-1}\del_{x_1} + 2^{-1}\del_{x_2} 
-				& \in \rep_E(2^{-1}x_1 + 2^{-1}x_2) \\
-				& = \rep_E(x) \\
-				& = \{\del_x\}.
+				N_{\mu}
+				& = \bigcup\limits_{U \in \MN_{\mu}} U \\
+				& = \{x\}^c.
 			\end{align*}
-			Hence $2^{-1}\del_{x_1} + 2^{-1}\del_{x_2} = \del_x$. Thus 
+			Hence 
 			\begin{align*}
-				\del_x(\{x_1\})
-				& = 2^{-1}\del_{x_1}(\{x_1\}) + 2^{-1}\del_{x_2}(\{x_1\}) \\
-				& = 2^{-1} + 0 \quad \text{(since $x_1 \neq x_2$)},
-			\end{align*} 
-			which is a contradiction since $\del_{x}(\{x_1\}) \in \{0,1\}$. Hence $x \in \extrm E$. 
+				\supp \mu
+				& = N_{\mu}^c \\
+				& = (\{x\}^c)^c \\
+				& = \{x\}.
+			\end{align*}
+			\item $(\impliedby)$: \\
+			Suppose that $\supp \mu = \{x\}$. Let $E \in \MB(X)$. \rex{ex:introduction_radon_measures:0004} implies that 
+			\begin{align*}
+				0
+				& \leq \mu(E \cap N_{\mu}) \\
+				& \leq \mu(N_{\mu}) \\
+				& = 0.
+			\end{align*}
+			Hence $\mu(E \cap N_{\mu}) = 0$. If $x \in E$, then 
+			\begin{align*}
+				\mu(E)
+				& = \mu(E \cap \{x\}) + \mu(E \cap \{x\}^c) \\
+				& = \mu(\{x\}) + \mu(E \cap [\supp \mu]^c) \\
+				& = \mu(\supp \mu) + \mu(E \cap N_{\mu}) \\
+				& = \mu(\supp \mu) \\
+				& = \mu(X) \\
+				& = 1.
+			\end{align*}
+			If $x \not \in E$, then 
+			\begin{align*}
+				\mu(E)
+				& = \mu(E \cap \{x\}) + \mu(E \cap \{x\}^c) \\
+				& = \mu(\varnothing) + \mu(E \cap [\supp \mu]^c) \\
+				& = \mu(\varnothing) + \mu(E \cap N_{\mu}) \\
+				& = 0.
+			\end{align*}
+			Since $E \in \MB(X)$ is arbitrary, we have that for each $E \in \MB(X)$, 
+			\begin{align*}
+				\mu(E)
+				& = 
+				\begin{cases}
+					1, & x \in E \\
+					0, & x \not \in E
+				\end{cases}
+				& = \del_x(E).
+			\end{align*}
+			Hence $\mu = \del_x$.
+		\end{itemize}
+	\end{proof}
+	
+	\begin{ex} \tcr{move to radon section}
+		Let $X$ be a topological space. Suppose that $\MK(X) \subset \MB(X)$. Let $K \in \MK(X)$ and $\mu \in \MM_+(X)$. If $\mu(K) > 0$, then there exists $x \in K$ such that for each $U \in \opn{\MN}(x)$, $\mu(U) > 0$ 
+	\end{ex}
+	
+	\begin{proof}
+		Suppose that $\mu(K) > 0$. For the sake of contradiction, suppose that for each $x \in K$, there exists $U \in \opn{\MN}(x)$ such that $\mu(U) = 0$. \tcr{The axiom of choice} implies that there exists $(U_x)_{x \in K} \in \opn{\Cover}(K)$ such that for each $x \in K$, $\mu(U_x) = 0$. Since $K$ is compact, there exists $n \in \N$ and $(x_j)_{j \in [n]} \subset K$ such that $(U_{x_j})_{j \in [n]} \in \opn{\Cover}(K)$. Therefore
+		\begin{align*}
+			0 
+			& < \mu(K) \\
+			& \leq \mu \bigg( \bigcup\limits_{j \in [n]} U_{x_j} \bigg) \\
+			& \leq \sum\limits_{j \in [n]} \mu(U_{x_j}) \\
+			& = 0,
+		\end{align*}
+		which is a contradiction. Hence there exists $x \in K$ such that for each $U \in \opn{\MN(x)}$, $\mu()$
+	\end{proof}
+	
+	\begin{ex}
+		Let $X$ be a locally convex space, $E \in \MK(X) \cap \Conv(X)$ and $x \in E$. Then $x \in \extrm E$ iff $\rep_E(x) = \{\del_x\}$. 
+	\end{ex}
+	
+	\begin{proof}\
+		\begin{itemize}
+			\item $(\implies)$: \\
+			Suppose that $x \in \extrm E$. Let $\mu \in \rep_E(x)$. Let $K_1 \in \MK(E)$. Suppose that $K_1 \subset E \setminus \{x\}$. For the sake of contradiction, suppose that $\mu(K_1) > 0$.  
+			\item $(\impliedby)$: \\
 		\end{itemize}
 	\end{proof}
 	
@@ -13582,11 +13539,11 @@ ka	\end{defn}
 	\end{defn}
 	
 	\begin{ex} \lex{ex:diff_radon_measures:covering_lemmas:vitali_measures:0003}
-		Let $(X, d)$ be a metric space, $\phi: \Rg \rightarrow \Rg$ and $\mu \in M_+(X)$. Suppose that $\phi$ is strictly increasing and $\bTop$-metric preserving. Then $\mu$ is $d$-Vitali iff $\mu$ is $d^{\phi}$-Vitali.
+		Let $(X, d)$ be a metric space, $\phi: \Rg \rightarrow \Rg$ and $\mu \in M_+(X)$. Suppose that $\phi$ is strictly increasing and $\Top$-metric preserving. Then $\mu$ is $d$-Vitali iff $\mu$ is $d^{\phi}$-Vitali.
 	\end{ex}
 	
 	\begin{proof}
-		Set $d' \defeq d^{\phi}$, Since $\phi$ is increasing and $\bTop$-metric preserving, \tcr{an exercise in the anlysis notes section on metric eqivalent metrics} implies that 
+		Set $d' \defeq d^{\phi}$, Since $\phi$ is increasing and $\Top$-metric preserving, \tcr{an exercise in the anlysis notes section on metric eqivalent metrics} implies that 
 		\begin{itemize}
 			\item $\phi^{-1}(\{0\}) = \{0\}$
 			\item $\phi$ is subadditive
@@ -14921,27 +14878,27 @@ ka	\end{defn}
 \end{ex}
 
 \begin{ex}
-	Let $X$ be a compact metric space, $Y$ a locally compact separable ultrametric space and $\mu \in \MM_1(X)$. 
+	Let $X$ be a locally compact Polish space nonarchimedean. 
 \end{ex}
 
 \tcr{For proof following Simmon's paper}, 
 
-\begin{proof}\
+\begin{proof}
+	
 	\begin{itemize}
-		\item \tcr{make /ref ex in analysis notes, every l(ocally) compact metric space is complete}. Since $X$ is compact\tcr{???}, \tcr{ref ex in anlysis notes} implies that $C(X)$ is separable. Thus there exists $\Phi \subset C(X)$ such that $\Phi$ is dense in $C(X)$ and $\Phi$ is countable. 
+		\item Since $X$ is a metric space Since $X$ is compact, $\mu \in \MM_1(X)$
 		\item For each $\phi \in C(X)$, define $\nu_{\phi} \in \MM(X)$ by 
 		$$\nu_{\phi}(E) \defeq \int_E \phi \dmu.$$
 		Then for each $\phi \in C(X)$, $\nu_{\phi} \ll \mu$. \tcr{ref ex} then implies that for each $\phi \in C(X)$, $\pi_*\nu_k \ll \pi_*\mu$. 
-		\item For each $\phi \in C(X)$ and $n \in \N$, define $A_{\phi, n}:Y \rightarrow \C$ by
+		\item For each $\phi \in C(X)$ and $y \in Y$, define $(A_{\phi, n}(y))_{n \in \N} \subset \Rg$ and $N_{\phi} \in \MB(X)$ by 
 		$$A_{\phi, n}(y) \defeq \frac{\pi_*\nu_{\phi}(\bar{B}(y, n^{-1}))}{\pi_*\mu(\bar{B}(y, n^{-1}))}$$
-		\rex{ex:diff_radon_measures:009} \tcr{(make/ref version for complex measures)} and \tcr{ref ex on products of measurable functions being measurabl} imply that for each $\phi \in C(X)$, $(A_{\phi, n})_{n \in \N} \subset \Meas(Y, \C)$. For each $\phi \in C(X)$, define $N_{\phi} \subset Y$ by 
-		$$N_{\phi} \defeq \bigg\{y \in Y: \text{$(A_{\phi, n}(y))_{n \in \N}$ does not converge to $\frac{d\pi_*\nu_{\phi}}{d\pi_*\mu}(y)$} \bigg\}.$$ 
-		\item \rex{ex:differentiation_complex_measures:0002} implies that $N_{\phi}$ is $\mu$-null and for each $y \in N_{\phi}^c$,
+		and $N_{\phi} \defeq \{y \in Y: \text{$(A_{\phi, n}(y))_{n \in \N}$ does not converge}\}$. 
+		\item \rex{ex:differentiation_complex_measures:0002} implies that
 		\begin{align*}
 			\frac{d\pi_*\nu_{\phi}}{d\pi_*\mu}(y)
 			& = \frac{d(\pi_*\nu_{\phi})_{\pi_*\mu}}{d\pi_*\mu}(y) \\
-			& = \lim\limits_{n \rightarrow \infty} \frac{ \pi_*\nu_{\phi}(\bar{B}(y, n^{-1}))}{\pi_*\mu(\bar{B}(y, n^{-1}))} \\
-			& = \lim\limits_{n \rightarrow \infty} A_{\phi,n}(y).
+			& = \lim_{n \rightarrow \infty} \frac{ \pi_*\nu_{\phi}(\bar{B}(y, n^{-1}))}{\pi_*\mu(\bar{B}(y, n^{-1}))} \\
+			& = \lim_{n \rightarrow \infty} A_{\phi,n}(y).
 		\end{align*}
 	\end{itemize}
 	
@@ -14953,60 +14910,19 @@ ka	\end{defn}
 	
 	Let $\phi \in C(X)$. Since $\Phi$ is dense in $C(X)$, there exists $(\phi_k)_{k \in \N} \subset \Phi$ such that $\phi_k \convt{unif} \phi$. 
 	 
-	For $k \in \N$, define $\nu_k \in \MM(X)$ by $\nu_k \defeq \nu_{\phi_k}$. Then for each $k \in \N$, $\nu_k \ll \mu$. \tcr{ref ex} implies that $\pi_*\nu_k \ll \pi_* \mu$. For each $k,n \in \N$, define $A_{k, n}:Y \rightarrow \C$ by 
+	For $k \in \N$, define $\nu_k \in \MM(X)$ by $\nu_k \defeq \nu_{\phi_k}$. Then for each $k \in \N$, $\nu_k \ll \mu$. \tcr{ref ex} implies that $\pi_*\nu_k \ll \pi_* \mu$. Define $A_{k, n}(y) \subset \R$ by 
 	$$A_{k,n}(y) \defeq \frac{\pi_*\nu_k(\bar{B}(y, n^{-1}))}{\pi_*\mu(\bar{B}(y, n^{-1}))}.$$
-	\tcr{Show $A_{n,k}$ is measurable}
-	Define $(N_k)_{k \in \N} \subset \MB(X)$ by
-	and 
-	$$N_k \defeq \bigg\{y \in Y: \text{$(A_{\phi, n}(y))_{n \in \N}$ does not converge to $\frac{d\pi_*\nu_k}{d\pi_*\mu}(y)$} \bigg\}.$$ 
-	\rex{ex:differentiation_complex_measures:0002} implies that for each $k \in \N$ $N_k$ is $\mu$-null and for each $y \in N_k^c$,
+	Then 
 	\begin{align*}
 		\frac{d\pi_*\nu_k}{d\pi_*\mu}(y)
 		& = \frac{d(\pi_*\nu_k)_{\pi_*\mu}}{d\pi_*\mu}(y) \\
-		& = \lim\limits_{n \rightarrow \infty} \frac{ \pi_*\nu_k(\bar{B}(y, n^{-1}))}{\pi_*\mu(\bar{B}(y, n^{-1}))} \\
-		& = \lim\limits_{n \rightarrow \infty} A_{k,n}(y).
+		& = \lim_{n \rightarrow \infty} \frac{ \pi_*\nu_k(\bar{B}(y, n^{-1}))}{\pi_*\mu(\bar{B}(y, n^{-1}))} \\
+		& = \lim_{n \rightarrow \infty} A_{k,n}(y).
 	\end{align*}
-	Let $\ep > 0$. Then there exists $K \in \N$ such that for each $k \in \N$, $k \geq K$ implies that $\sup\limits_{x \in X} \|\phi_k - \phi\| < \ep/2$. Let $k \in \N$. Suppose that $k \geq K$. Then for each $n \in \N$,
-	\begin{align*}
-		|A_{k,n}y - A_{\phi, n}(y)|
-		& = \bigg|  \frac{\pi_*\nu_k(\bar{B}(y, n^{-1})) - \pi_*\nu_{\phi}(\bar{B}(y, n^{-1}))}{\pi_*\mu(\bar{B}(y, n^{-1}))} \bigg| \\
-		& =  \frac{1}{\pi_*\mu(\bar{B}(y, n^{-1}))} \bigg| \int_{\pi_*\mu(\bar{B}(y, n^{-1}))} \phi_k \dmu - \int_{\pi_*\mu(\bar{B}(y, n^{-1}))} \phi \dmu \bigg| \\
-		& =  \frac{1}{\pi_*\mu(\bar{B}(y, n^{-1}))} \bigg| \int_{\pi_*\mu(\bar{B}(y, n^{-1}))} \phi_k - \phi \dmu \bigg| \\
-		& \leq \frac{1}{\pi_*\mu(\bar{B}(y, n^{-1}))} \int_{\pi_*\mu(\bar{B}(y, n^{-1}))} |\phi_k - \phi| \dmu \\
-		& \leq   \frac{1}{\pi_*\mu(\bar{B}(y, n^{-1}))} \int_{\pi_*\mu(\bar{B}(y, n^{-1}))} \sup\limits_{x \in X} \|\phi_k - \phi\| \dmu \\
-		& \leq  \frac{\ep \pi_*\mu(\bar{B}(y, n^{-1}))}{2 \pi_*\mu(\bar{B}(y, n^{-1}))} \\
-		& = \frac{\ep}{2}.
-	\end{align*}
-	Hence 
-	\begin{align*}
-		\sup\limits_{n \in \N} |A_{k,n}(y) - A_{\phi, n}(y)|
-		& \leq \frac{\ep}{2} \\
-		& < \ep. 
-	\end{align*}
-	Since $k \in \N$ with $k \geq K$ is arbitrary, we have that for each $k \in \N$, $k \geq K$ implies that $\sup\limits_{n \in \N} |A_{k,n} - A_{\phi, n}| < \ep$. Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, there exists $K \in \N$ such that for each $k \in \N$, $k \geq K$ implies that $\sup\limits_{n \in \N} |A_{k,n} - A_{\phi, n}| < \ep$. Thus $(A_{k,n})_{n \in \N} \convt{unif} (A_{\phi, n})_{n \in \N}$. The Moore-Osgood theorem \tcr{(ref ex in analysis notes here)} then implies that 
-	\begin{align*}
-		\lim\limits_{k \rightarrow \infty} \frac{d\pi_*\nu_k}{d\pi_*\mu}(y)
-		& = \lim\limits_{k \rightarrow \infty} [\lim\limits_{n \rightarrow \infty} A_{k,n}(y)] \\
-		& = \lim\limits_{n \rightarrow \infty} [\lim\limits_{k \rightarrow \infty} A_{k,n}(y)] \\
-		& = \lim\limits_{n \rightarrow \infty} A_{\phi,n}(y) \\
-		& = \frac{d\pi_*\nu_{\phi}}{d\pi_*\mu}(y) 
-	\end{align*}
-	Thus $y \in N_{\phi^c}$. Since $y \in \bigcap\limits_{k \in \N} N_k^c$ is arbitrary, we have that for each $y \in \bigcap\limits_{k \in \N} N_k^c$, $y \in N_{\phi}^c$. Thus $\bigcap\limits_{k \in \N} N_k^c \subset N_{\phi}^c$. Since 
-	\begin{align*}
-		N_{\phi}
-		& \subset \bigcup\limits_{k \in \N} N_k \\
-		& \subset \bigcup\limits_{\phi' \in \Phi} N_{\phi'}, 
-	\end{align*}
-	we have that 
-	\begin{align*}
-		\pi_*\mu(N_{\phi})
-		& \leq \pi_*\mu \bigg( \bigcup\limits_{\phi' \in \Phi} N_{\phi'} \bigg)  \\
-		& \leq \sum\limits_{\phi' \in \Phi} \pi_*\mu(N_{\phi'}) \\
-		& = \sum\limits_{\phi' \in \Phi} 0 \\
-		& = 0.
-	\end{align*}
-	Since $\phi \in C(X)$ is arbitrary, we have that for each $\phi \in C(X)$, $\pi_*\mu(N_{\phi}) = 0$. 
+	
 \end{proof}
+
+
 
 \rex{ex:diff_radon_measures:covering_lemmas:vitali_measures:0004}
 
@@ -15342,16 +15258,16 @@ ka	\end{defn}
 	\begin{ex}
 		Let $(X, \MA, \lam)$ be a probability space, $G$ a locally compact group and $\mu$ a left Haar measure on $G$. Suppose that $G$ is unimodular and $f_*\lam \ll \mu$. Then 
 		\begin{enumerate}
-			\item for each $f \in \Meas[(X, \MA), (G, \MB(G))]$, $(f^{-1})_*\lam \ll \mu$ and 
+			\item for each $f \in \Hom_{\Meas}[(X, \MA), (G, \MB(G))]$, $(f^{-1})_*\lam \ll \mu$ and 
 			$$\frac{d f^{\odot -1}_*\lam}{d \mu} = \frac{d f_*\lam }{d\mu} \circ \iota_{\mu} \text{ \hspace{.2cm} $\mu$-a.e.}$$ 
-			\item for each $f,g \in \Meas[(X, \MA), (G, \MB(G))]$, $(f^{-1})_*\lam \ll \mu$ and 
+			\item for each $f,g \in \Hom_{\Meas}[(X, \MA), (G, \MB(G))]$, $(f^{-1})_*\lam \ll \mu$ and 
 			$$\frac{d (f \odot g)_*\lam}{d \mu} = \frac{d f_*\lam }{d\mu} * \frac{d g_*\lam }{d\mu} \text{ \hspace{.2cm} $\mu$-a.e.}$$ 
 		\end{enumerate} 
 	\end{ex}
 
 	\begin{proof}\
 		\begin{enumerate}
-			\item Let $f \in \Meas[(X, \MA), (G, \MB(G))]$. The previous exercise implies that $(\iota_{\mu})_* \mu = \mu$. SInce we have that $\iota_{\mu}$ is an isomorphism, \rex{43013} implies that $(\iota_{\mu})_* f_*\lam \ll (\iota_{\mu})_*\mu$ and therefore
+			\item Let $f \in \Hom_{\Meas}[(X, \MA), (G, \MB(G))]$. The previous exercise implies that $(\iota_{\mu})_* \mu = \mu$. SInce we have that $\iota_{\mu}$ is an isomorphism, \rex{43013} implies that $(\iota_{\mu})_* f_*\lam \ll (\iota_{\mu})_*\mu$ and therefore
 			\begin{align*}
 				\frac{d (f^{\odot -1})_*\lam}{d \mu}
 				& = \frac{d (\iota_{\mu} \circ f)_*\lam}{d (\iota_{\mu})_*\mu} \\
@@ -15360,7 +15276,7 @@ ka	\end{defn}
 			\end{align*}
 
 			$$\frac{d [f^{-1}_*\lam]}{d \mu} = \frac{f_*\lam }{d\mu} \circ \iota_{\mu} \text{ \hspace{.2cm} $\mu$-a.e.}$$ 
-			\item for each $f,g \in \Meas[(X, \MA), (G, \MB(G))]$, $(f^{-1})_*\lam \ll \mu$ and 
+			\item for each $f,g \in \Hom_{\Meas}[(X, \MA), (G, \MB(G))]$, $(f^{-1})_*\lam \ll \mu$ and 
 			$$\frac{d [(f \odot g)_*\lam]}{d \mu} = \frac{d f_*\lam }{d\mu} * \frac{d g_*\lam }{d\mu} \text{ \hspace{.2cm} $\mu$-a.e.}$$ 
 		\end{enumerate} 
 	\end{proof}
@@ -15529,7 +15445,7 @@ ka	\end{defn}
 	\end{ex}
 	
 	\begin{proof}
-	\rex{ex:complex_measures:0013} implies that
+	\rex{def:complex_measures:0013} implies that
 	\begin{align*}
 	\|g \cdot \nu\| 
 	&= \int \bigg | \frac{d (g \cdot \nu)}{d\mu} \bigg | \dmu \\
@@ -17026,20 +16942,20 @@ Put $I_\phi = \lim\limits_{n \rightarrow \infty} \int \phi_n d\mu$ and $I_{\psi}
 	
 	\begin{defn}
 		\begin{itemize}\
-			\item $\bMeas$:
+			\item $\Meas$:
 			\begin{itemize}
-				\item $\Obj(\bMeas) \defeq \{(X, \MA): (X, \MA) \text{ is a measurable space} \}$
-				\item $\Meas((X, \MA), (Y, \MB)) \defeq \{f:X \rightarrow Y: f \text{ is $(\MA, \MB)$-measurable}\}$.
+				\item $\Obj(\Meas) \defeq \{(X, \MA): (X, \MA) \text{ is a measurable space} \}$
+				\item $\Hom_{\Meas}((X, \MA), (Y, \MB)) \defeq \{f:X \rightarrow Y: f \text{ is $(\MA, \MB)$-measurable}\}$.
 			\end{itemize}
-			\item $\bTopRadMsr$: 
+			\item $\TopRadMsr$: 
 			\begin{itemize}
-				\item $\Obj(\bMeas) \defeq \{(X, \mu): X \in \Obj(\bTop) \text{ and } \mu \in \MM_+(X) \}$
-				\item $\Meas((X, \mu), (Y, \nu)) \defeq \{f \in \Hom_{\bTop}(X, Y): f_*\mu = \nu\}$.
+				\item $\Obj(\Meas) \defeq \{(X, \mu): X \in \Obj(\Top) \text{ and } \mu \in \MM_+(X) \}$
+				\item $\Hom_{\Meas}((X, \mu), (Y, \nu)) \defeq \{f \in \Hom_{\Top}(X, Y): f_*\mu = \nu\}$.
 			\end{itemize}
-			\item $\bTopRadMsrone$: 
+			\item $\TopRadMsrone$: 
 			\begin{itemize}
-				\item $\Obj(\bMeas) \defeq \{(X, \mu): X \in \Obj(\bTop) \text{ and } \mu \in \MM_1(X) \}$
-				\item $\Meas((X, \mu), (Y, \nu)) \defeq \{f \in \Hom_{\bTop}(X, Y): f_*\mu = \nu\}$.
+				\item $\Obj(\Meas) \defeq \{(X, \mu): X \in \Obj(\Top) \text{ and } \mu \in \MM_1(X) \}$
+				\item $\Hom_{\Meas}((X, \mu), (Y, \nu)) \defeq \{f \in \Hom_{\Top}(X, Y): f_*\mu = \nu\}$.
 			\end{itemize}
 		\end{itemize}
 	\end{defn}
