@@ -970,36 +970,108 @@
 \end{proof}
 
 \begin{ex}  \lex{ex:set_theory:products:0005.1}
-	Let $(X_{\al})_{\al \in A}$ and $(Y_{\al})_{\al \in A}$ be collections of sets and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. Suppose that for each $\al \in A$, $f_{\al}$ is a bijection. Then $\prod\limits_{\al \in A} f_{\al}$ is a bijection and $\bigg[ \prod\limits_{\al \in A} f_{\al} \bigg]^{-1} = \prod\limits_{\al \in A} f_{\al}^{-1}$.
+	Let $(X_{\al})_{\al \in A}$ and $(Y_{\al})_{\al \in A}$ be collections of sets and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. 
+	\begin{enumerate}
+		\item For each $(B_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \MP(X_{\al})$, $\bigg[ \prod\limits_{\al \in A} f_{\al} \bigg]^{-1} \bigg( \prod\limits_{\al \in A} B_{\al} \bigg ) = \prod\limits_{\al \in A} f_{\al}^{-1}(B_{\al})$.
+		\item If for each $\al \in A$, $f_{\al}$ is a bijection, then $\prod\limits_{\al \in A} f_{\al}$ is a bijection and $\bigg[ \prod\limits_{\al \in A} f_{\al} \bigg]^{-1} = \prod\limits_{\al \in A} f_{\al}^{-1}$. \tcr{split up into subproblems about injectivity/surjectivity} 
+	\end{enumerate}
 \end{ex}
 
-\begin{proof}
-	Set $X \defeq \prod\limits_{\al \in A} X_{\al}$, $Y \defeq \prod\limits_{\al \in A}Y_{\al}$ and define $f: X \rightarrow Y$ and $g: Y \rightarrow X$ by $f \defeq \prod\limits_{\al \in A} f_{\al}$ and $g \defeq \prod\limits_{\al \in A} f_{\al}^{-1}$. Denote the $\al$-th projection maps on $\prod\limits_{\al \in A} X_{\al}$ and $\prod\limits_{\al \in A} Y_{\al}$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Let $\al \in A$. Then
-	\begin{align*}
-		\pi_{\al}^X \circ g \circ f
-		& = g_{\al} \circ \pi_{\al}^Y \circ f \\
-		& = g_{\al} \circ f_{\al} \circ \pi_{\al}^X \\
-		& = f_{\al}^{-1} \circ f_{\al} \circ \pi_{\al}^X \\
-		& = \pi_{\al}^X
-	\end{align*}
-	and 
-	\begin{align*}
-		\pi_{\al}^Y \circ f \circ g
-		& = f_{\al} \circ \pi_{\al}^X \circ g \\
-		& = f_{\al} \circ g_{\al} \circ \pi_{\al}^Y \\
-		& = f_{\al} \circ f_{\al}^{-1} \circ \pi_{\al}^Y  \\
-		& = \pi_{\al}^Y 
-	\end{align*}
-	Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $\pi_{\al}^X \circ g \circ f = \pi_{\al}^X$ and $\pi_{\al}^Y \circ f \circ g = \pi_{\al}^Y$. Hence $g \circ f = \id_X$ and $f \circ g = \id_Y$. Thus $f$ is a bijection and $f^{-1} = g$. 
+\begin{proof}\
+	\begin{enumerate}
+		\item For each $(B_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \MP(X_{\al})$,  
+		\begin{align*}
+			\bigg[ \prod\limits_{\al \in A} f_{\al} \bigg]^{-1} \bigg( \prod\limits_{\al \in A} B_{\al} \bigg )
+			& = \bigg \{(x_{\al})_{\al \in A} \in \prod\limits_{\al \in A} X_{\al}: \bigg[ \prod\limits_{\al \in A}f_{\al} \bigg] ((x_{\al})_{\al \in A}) \in \prod\limits_{\al \in A} B_{\al} \bigg \} \\ 
+			& = \bigg \{(x_{\al})_{\al \in A} \in \prod\limits_{\al \in A} X_{\al}: (f_{\al}(x_{\al}))_{\al \in A} \in \prod\limits_{\al \in A}  B_{\al} \bigg \} \\ 
+			& = \bigg \{(x_{\al})_{\al \in A} \in \prod\limits_{\al \in A} X_{\al}: \text{for each $\al \in A$, $f_{\al}(x_{\al}) \in B_{\al}$} \bigg \} \\
+			& = \bigg \{(x_{\al})_{\al \in A} \in \prod\limits_{\al \in A} X_{\al}: \text{for each $\al \in A$, $x_{\al} \in f_{\al}^{-1}(B_{\al})$} \bigg \} \\
+			& = \prod\limits_{\al \in A} f_{\al}^{-1}(B_{\al}).
+		\end{align*}
+		\item Suppose that for each $\al \in A$, $f_{\al}$ is a bijection. Set $X \defeq \prod\limits_{\al \in A} X_{\al}$, $Y \defeq \prod\limits_{\al \in A}Y_{\al}$ and define $f: X \rightarrow Y$ and $g: Y \rightarrow X$ by $f \defeq \prod\limits_{\al \in A} f_{\al}$ and $g \defeq \prod\limits_{\al \in A} f_{\al}^{-1}$. Denote the $\al$-th projection maps on $\prod\limits_{\al \in A} X_{\al}$ and $\prod\limits_{\al \in A} Y_{\al}$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Let $\al \in A$. Then
+		\begin{align*}
+			\pi_{\al}^X \circ g \circ f
+			& = g_{\al} \circ \pi_{\al}^Y \circ f \\
+			& = g_{\al} \circ f_{\al} \circ \pi_{\al}^X \\
+			& = f_{\al}^{-1} \circ f_{\al} \circ \pi_{\al}^X \\
+			& = \pi_{\al}^X
+		\end{align*}
+		and 
+		\begin{align*}
+			\pi_{\al}^Y \circ f \circ g
+			& = f_{\al} \circ \pi_{\al}^X \circ g \\
+			& = f_{\al} \circ g_{\al} \circ \pi_{\al}^Y \\
+			& = f_{\al} \circ f_{\al}^{-1} \circ \pi_{\al}^Y  \\
+			& = \pi_{\al}^Y 
+		\end{align*}
+		Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $\pi_{\al}^X \circ g \circ f = \pi_{\al}^X$ and $\pi_{\al}^Y \circ f \circ g = \pi_{\al}^Y$. Hence $g \circ f = \id_X$ and $f \circ g = \id_Y$. Thus $f$ is a bijection and $f^{-1} = g$. 
+	\end{enumerate}
 \end{proof}
 
 \begin{defn} \ld{def:set_theory:products:00010}
-	Let $X$ be a set. We define 
+	Let $X, \Gam$ be sets. We define the 
 	\begin{itemize}
-		\item the \tbf{diagonal of $X \times X$}, denoted $\Del_X \subset X \times X$, by $\Del_X \defeq \{(x,x):x \in X\}$,
-		\item the \tbf{diagonal of $X^{\N}$}, denoted $\Del_{X^{\N}} \subset X^{\N}$, by $\Del_{X^{\N}} \defeq \{x \in X^{\N}: \text{ for each $m,n \in \N$, $\pi_m(x) = \pi_n(x)$}\}$.
+		\item \tbf{diagonal of $X^{\Gam}$}, denoted $\Del_{X^{\Gam}} \subset X^{\Gam}$, by $\Del_{X^{\Gam}} \defeq \{y \in X^{\Gam}: \text{ for each $\al, \be \in \Gam$, $\pi_{\al}(y) = \pi_{\be}(y)$}\}$.
+		\item \tbf{diagonal map of $X^{\Gam}$}, denoted $\del_{X^{\Gam}}:X \rightarrow X^{\Gam}$ by $\del_{X^{\Gam}}(x)_{\gam} \defeq x$.
 	\end{itemize}
 \end{defn}
+
+\begin{note}
+	When $\Gam = [2]$, we may write $\Del_X$ and $\del_X$ in place of $\Del_{X^{[2]}}$ and $\del_{X^{\Gam}}$ respectively.
+\end{note}
+
+\begin{ex} \lex{ex:set_theory:products:00010.1}
+	Let $X$ and $\Gam$ be sets. Then 
+	\begin{enumerate}
+		\item for each $(A_{\gam})_{\gam \in \Gam} \subset \MP(X)$, $\bigcap\limits_{\gam \in \Gam} A_{\gam} = \del_{X^{\Gam}}^{-1}\bigg( \prod\limits_{\gam \in \Gam} A_{\gam} \bigg)$ 
+		\item $\Im \del_{X^{\Gam}} = \Del_{X^{\Gam}}$.
+		\item $\del_{X^{\Gam}}$ is injective. 
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item for each $(A_{\gam})_{\gam \in \Gam} \subset \MP(X)$,
+		\begin{align*}
+			\del_{X^{\Gam}}^{-1}\bigg( \prod\limits_{\gam \in \Gam} A_{\gam} \bigg)
+			& = \bigg \{x \in X: \del_X(x) \in \prod\limits_{\gam \in \Gam} A_{\gam} \bigg \} \\
+			& = \{x \in X: \text{for each $\gam \in \Gam$, $x \in A_{\gam}$}\} \\
+			& = \bigcap\limits_{\gam \in \Gam} A_{\gam}. 
+		\end{align*} 
+		\item By \rd{}, 
+		\begin{align*}
+			\Del_{X^{\Gam}}
+			& = \{y \in X^{\Gam}: \text{ for each $\al, \be \in \Gam$, $\pi_{\al}(y) = \pi_{\be}(y)$} \} \\
+			& = \{\del_X(x): x \in X \} \\
+			& = \Im \del_X. 
+		\end{align*}
+		\item Let $a,b \in X$. Suppose that $\del_{X^{\Gam}}(a) = \del_{X^{\Gam}}(b)$. Then for each $\gam \in \Gam$,
+		\begin{align*}
+			a
+			& = [\del_{X^{\Gam}}(a)]_{\gam} \\
+			& = [\del_{X^{\Gam}}(b)]_{\gam} \\
+			& = b.
+		\end{align*}
+		Since $a,b \in X$ with $\del_{X^{\Gam}}(a) = \del_{X^{\Gam}}(b)$ are arbitrary, we have that for each $a,b \in X$, $\del_{X^{\Gam}}(a) = \del_{X^{\Gam}}(b)$ implies that $a = b$. Thus $\del_{X^{\Gam}}$ is injective. 
+	\end{enumerate}
+\end{proof}
+
+\begin{ex} \lex{ex:set_theory:products:00010.2}
+	Let $X,Y$ be sets and $f:X \rightarrow Y$. Then $\del_{Y^{\Gam}} \circ f = f^{\times \Gam} \circ \del_{X^{\Gam}}$.
+\end{ex}
+
+\begin{proof}
+	Since for each $x \in X$,
+	\begin{align*}
+		\del_{Y^{\Gam}} \circ f(x)
+		& = \del_{Y^{\Gam}} (f(x)) \\
+		& = (f(x))_{\gam \in \Gam} \\
+		& = f^{\times \Gam} ((x)_{\gam \in \Gam}) \\
+		& = f^{\times \Gam} (\del_{X^{\Gam}}(x)) \\
+		& = f^{\times \Gam} \circ \del_{X^{\Gam}}(x),
+	\end{align*}
+	we have that $\del_{Y^{\Gam}} \circ f = f^{\times \Gam} \circ \del_{X^{\Gam}}$.
+\end{proof}
 
 \begin{ex} \lex{ex:set_theory:products:0005.2}
 	Let $X$ be a set, $(B_n)_{n \in \N} \subset \MP(X)$, $(Z_n)_{n \in \N}$ a collection of sets and $(f_n) \in \prod\limits_{n \in \N} B_n^{Z_n}$. Suppose that for each $n \in \N$, $f_n$ is a bijection. Set $Z_0 \defeq \prod\limits_{n \in \N} Z_n$. Define $f_0: Z_0 \rightarrow X^{\N}$ and $Z \subset Z_0$ by $f_0 \defeq \prod\limits_{n \in \N} f_n$ and $Z \defeq f_0^{-1}(\Del_{X^{\N}})$. Then 
@@ -2790,19 +2862,32 @@ Now that we have introduced the definition of a topological space, we wold like 
 \end{proof}
 
 \begin{defn} \ld{def:continuous_maps:0008}
-	Let $X$ be a set, $(Y_{\al}, \MT_{\al})_{\al \in A}$ a collection of topological spaces and $\MF \in \prod \limits_{\al \in A}Y_{\al}^X$ (i.e. $\MF = (f_{\al})_{\al \in A}$ where for each $\al \in A$, $f_{\al}:X \rightarrow Y_{\al}$). We define the \tbf{initial topology on $X$ generated by $\MF$}, denoted $\tau_X(\MF)$, by 
+	Let $X$ be a set, $(Y_{\al}, \MT_{\al})_{\al \in A}$ a collection of topological spaces and $(f_{\al})_{\al \in A} \in \prod \limits_{\al \in A}Y_{\al}^X$. We define the \tbf{initial topology on $X$ generated by $(f_{\al}, \MT_{\al})_{\al \in A}$}, denoted $\tau_X((f_{\al}, \MT_{\al}) : \al \in A)$, by 
 	\begin{align*}
-		\tau_X(\MF) 
-		&= \tau_X(\{f_{\al}^{-1}(B): B \in \MT_{\al} \text{ and } \al \in A \})
+		\tau_X((f_{\al}, \MT_{\al}) : \al \in A)
+		& = \tau_X(\{f_{\al}^{-1}(B): B \in \MT_{\al} \text{ and } \al \in A \})
 	\end{align*}	 
 \end{defn}
 
-\begin{note}
-	The initial topology topology generated by $\MF$ is also called the \tbf{weak topology generated by $\MF$} and if $\MF = \{f\}$, then $\tau_X(\MF) = f^*\MT_Y$.
+\begin{note}\
+	\begin{itemize}
+		\item The initial topology generated by $\MF$ is also called the \tbf{weak topology generated by $\MF$} 
+		\item If $\MF = \{f\}$, then $\tau_X(\MF) = f^*\MT_Y$.
+		\item When the context is clear, we may write $\tau_X(f_{\al}: \al \in A)$ in place of $\tau_X((f_{\al}, \MT_{\al}) : \al \in A)$
+	\end{itemize}
 \end{note}
 
+\begin{ex} \lex{ex:continuous_maps:0008.01}
+	Let $X$ be a set, $(Y_{\al}, \MT_{\al})_{\al \in A}$ a collection of topological spaces and $(f_{\al})_{\al \in A} \in \prod \limits_{\al \in A}Y_{\al}^X$. Then 
+	$$\tau_X((f_{\al}, \MT_{\al}):\al \in A) = \tau_X \bigg( \bigcup\limits_{\al \in A} f_{\al}^*\MT_{\al} \bigg).$$
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
+
 \begin{ex} \lex{ex:continuous_maps:0008.1}
-	Let $X$ be a set, $(Y_{\al}, \MT_{\al})_{\al \in A}$ a collection of topological spaces and $\MF \in \prod \limits_{\al \in A}Y_{\al}^X$ (i.e. $\MF = (f_{\al})_{\al \in A}$ where for each $\al \in A$, $f_{\al}:X \rightarrow Y_{\al}$). Then for each $\MT \subset \MP(X)$ if $\MT$ is a topology on $X$ and for each $\al \in A$, $f_{\al}$ is $(\MT, \MT_{\al})$-continuous, then $\tau_X(\MF) \subset \MT$.
+	Let $X$ be a set, $(Y_{\al}, \MT_{\al})_{\al \in A}$ a collection of topological spaces and $(f_{\al})_{\al \in A} \in \prod \limits_{\al \in A}Y_{\al}^X$. Then for each $\MT \subset \MP(X)$ if $\MT$ is a topology on $X$ and for each $\al \in A$, $f_{\al}$ is $(\MT, \MT_{\al})$-continuous, then $\tau_X((f_{\al}, \MT_{\al}):\al \in A) \subset \MT$.
 \end{ex}
 
 \begin{proof}
@@ -2860,17 +2945,79 @@ Now that we have introduced the definition of a topological space, we wold like 
 	\end{align*}
 \end{proof}
 
-\begin{defn} \ld{def:continuous_maps:0011}
-	Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a a collection of topological spaces, $Y$ a set and $\MF \in \prod \limits_{\al \in A}Y^{X^{\al}}$ (i.e. $\MF = (f_{\al})_{\al \in A}$ where for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y$). We define the \tbf{final topology on $Y$ generated by $\MF$}, denoted $\tau_Y(\MF)$, by 
+\begin{ex} \lex{ex:continuous_maps:0010.1}
+	Let $X,Y$ be sets, $(Z_{\al}, \MT_{Z_{\al}})_{\al \in A}$ a collection of topological spaces, $f:X \rightarrow Y$ and $(g_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Z_{\al}^Y$. Then 
+	$$\tau_X(g_{\al} \circ f: \al \in A) = f^* \tau_Y(g_{\al}: \al \in A).$$ 
+\end{ex}
+
+
+\begin{proof}
+	Define $\ME_X \subset \MP(X)$ and $\ME_Y \subset \MP(Y)$ by $\ME_X \defeq \{[g_{\al} \circ f]^{-1}(W): \text{$\al \in A$ and $W \in \MT_{Z_{\al}}$} \}$ and $\ME_Y \defeq \{g_{\al}^{-1}(W): \text{$\al \in A$ and $W \in \MT_{Z_{\al}}$} \}$. We note that $\tau_X(g_{\al} \circ f: \al \in A) = \tau_X(\ME_X)$ and $\tau_Y(g_{\al}: \al \in A) = \tau_Y(\ME_Y)$.
+	\begin{itemize}
+		\item Let $U \in \ME_X$. Then there exists $\al \in A$ and $W \in \MT_{Z_{\al}}$ such that $U = [g_{\al} \circ f]^{-1}(W)$. Then
+		\begin{align*}
+			U
+			& = [g_{\al} \circ f]^{-1}(W) \\
+			& = f^{-1}(g_{\al}^{-1}(W)) \\
+			& \in f^{-1}(\ME_Y) \\
+			& \subset f^{-1}(\tau_Y(\ME_Y)) \\
+			& = f^*\tau_Y(\ME_Y). 
+		\end{align*}
+		Since $U \in \ME_X$ is arbitrary, we have that for each $U \in \ME_X$, $U \in f^*\tau_Y(\ME_Y)$. Thus $\ME_X \subset f^*\tau_Y(\ME_Y)$. \rex{} \tcr{(ref ex)} implies that $f^*\tau_Y(\ME_Y) \in \Top(X)$. Thus 
+		\begin{align*}
+			\tau_X(\ME_X)
+			& = \tau_X(\ME_X) \\
+			& \subset \tau_X(f^*\tau_Y(\ME_Y)) \\
+			& = f^*\tau_Y(\ME_Y).
+		\end{align*}
+		\item Let $V \in \ME_Y$. Then there exists $\al \in A$ and $W \in \MT_{Z_{\al}}$ such that $V = g_{\al}^{-1}(W)$. Therefore 
+		\begin{align*}
+			f^{-1}(V)
+			& = f^{-1}(g_{\al}^{-1}(W)) \\
+			& = [g_{\al} \circ f]^{-1}(W) \\
+			& \in \ME_X \\
+			& \subset \tau_X(\ME_X). 
+		\end{align*}
+		Since $V \in \ME_Y$ is arbitrary, we have that for each $V \in \ME_Y$, $f^{-1}(V) \in \tau_X(\ME_X)$. \rex{ex:continuous_maps:0007} then implies that $f$ is $(\tau_X(\ME_X), \tau_Y(\ME_Y))$-continuous. \rex{} implies that $f^*\tau_Y(\ME_Y) \subset \tau_X(\ME_X)$. 
+	\end{itemize}
+	Since $\tau_X(\ME_X) \subset f^*\tau_Y(\ME_Y)$ and $f^*\tau_Y(\ME_Y) \subset \tau_X(\ME_X)$, we have that $\tau_X(\ME_X) = f^*\tau_Y(\ME_Y)$.
+	
+	\vspace{2cm}
+	\tcr{maybe just reference order theory notes about $(f^*)_*: \MP^2(Y) \rightarrow \MP^2(X)$ being a left adjoint and preserving suprema (i.e. unions) and sending topologies to topologies and }
 	\begin{align*}
-		\tau_Y(\MF) 
+		\tau_X(g_{\al} \circ f: \al \in A)
+		& = \tau_X \bigg[ \bigcup\limits_{\al \in A} [g_{\al} \circ f]^{-1}(\MT_{\al}) \bigg] \\
+		& = \tau_X \bigg( \bigcup\limits_{\al \in A} [g_{\al} \circ f]^*(\MT_{\al}) \bigg) \\
+		& = \tau_X \bigg[ \bigcup\limits_{\al \in A} f^* (g_{\al}^* (\MT_{\al}) ) \bigg] \quad \text{(by \rex{} \tcr{ref ex})} \\
+		& = \tau_X \bigg( f^* \bigg[ \bigcup\limits_{\al \in A} g_{\al}^*(\MT_{\al}) \bigg] \bigg) \quad \text{(by \rex{} \tcr{ref ex})} \\
+		& = f^* \tau_Y \bigg( \bigcup\limits_{\al \in A} g_{\al}^*(\MT_{\al}) \bigg) \quad \text{(by \rex{} \tcr{ref ex})} \\
+		& = f^* \tau_Y(g_{\al}: \al \in A).
+	\end{align*}
+	\tcr{FINISH!!! FIX!!!}
+\end{proof}
+
+\begin{defn} \ld{def:continuous_maps:0011}
+	Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a a collection of topological spaces, $Y$ a set and $(f_{\al})_{\al \in A} \in \prod \limits_{\al \in A}Y^{X^{\al}}$. We define the \tbf{final topology on $Y$ generated by $\MF$ and $(\MT_{\al})_{\al \in A}$}, denoted $\tau_Y((f_{\al}, \MT_{\al}):\al \in A)$, by 
+	\begin{align*}
+		\tau_Y((f_{\al}, \MT_{\al}):\al \in A)
 		& \defeq \tau_Y(\{V \subset Y: \text{ for each $\al \in A$, $f_{\al}^{-1}(V) \in \MT_{\al}$}\})
 	\end{align*}	 
 \end{defn}
 
-\begin{note}
-	If $\MF = \{f\}$, then $\tau_Y(\MF) = f_*\MT$.
+\begin{note}\
+	\begin{itemize}
+		\item If $\MF = \{f\}$, then $\tau_Y(\MF) = f_*\MT$.
+		\item When the context is clear, we may write $\tau_Y(f_{\al}: \al \in A)$ in place of $\tau_Y((f_{\al}, \MT_{\al}) : \al \in A)$
+	\end{itemize}
 \end{note}
+
+\begin{ex} 
+	\tcr{make dual version of \rex{ex:continuous_maps:0008.01}}
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
+\end{proof}
 
 \begin{ex} \lex{ex:continuous_maps:0011.1}
 	Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a a collection of topological spaces, $Y$ a set and $\MF \in \prod \limits_{\al \in A}Y^{X^{\al}}$ (i.e. $\MF = (f_{\al})_{\al \in A}$ where for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y$). Then for each $\MT \subset \MP(Y)$ if $\MT$ is a topology on $Y$ and for each $\al \in A$, $f_{\al}$ is $(\MT_{\al}, \MT)$-continuous, then $\MT \subset \tau_Y(\MF)$.
@@ -2909,6 +3056,14 @@ Now that we have introduced the definition of a topological space, we wold like 
 		& \in \MT_{\al}
 	\end{align*}
 	Since $\al \in A$ is arbitrary, we have that by definition, $g^{-1}(V) \in \tau_Y(\MF)$. Since $V \in \MC$ is arbitrary, $g$ is $(\tau_Y(\MF), \MC)$-continuous.
+\end{proof}
+
+\begin{ex} \lex{ex:continuous_maps:0012.1}
+	\tcr{make dual version of \rex{ex:continuous_maps:0010.1} for final topology}
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
 \end{proof}
 
 \begin{defn} \ld{def:continuous_maps:0013}
@@ -3496,7 +3651,6 @@ In this section, we detail a second notion of structure which aligns with our ph
 	\tcb{FINISH!!!}
 \end{proof}
 
-
 \begin{defn} \ld{def:nets:0029}
 	Let $(x_{\al})_{\al \in A} \subset \ol{\R}$ a net. 
 	\begin{itemize}
@@ -3959,7 +4113,7 @@ In this section, we detail a second notion of structure which aligns with our ph
 \end{proof}
 
 \begin{ex} \lex{ex:topology:subspaces:0005.0001}
-	Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $B \subset Y$ and $f:X \rightarrow B$. Then $f|^B$ is $(\MT_X, \MT_Y \cap B)$-continuous iff $f$ is $(\MT_X, \MT_Y)$-continuous. 
+	Let $(X, \MT_X)$, $(Y, \MT_Y)$ be topological spaces, $B \subset Y$ and $f:X \rightarrow Y$. Suppose that $f(X) \subset B$. Then $f|^B$ is $(\MT_X, \MT_Y \cap B)$-continuous iff $f$ is $(\MT_X, \MT_Y)$-continuous. 
 \end{ex}
 
 \begin{proof}\
@@ -3976,6 +4130,15 @@ In this section, we detail a second notion of structure which aligns with our ph
 	 	\item $(\impliedby):$ \\
 	 	Similar to $(1)$.
 	 \end{itemize}
+\end{proof}
+
+\begin{ex} \lex{ex:topology:subspaces:0005.0002}
+	Let $X$ be a set, $(Y_{\al}, \MT_{\al})_{\al \in A}$ a collection of topological spaces, $(f_{\al})_{\al \in A} \in \prod \limits_{\al \in A}Y_{\al}^X$ and $(B_{\al})_{\al \in A} \in \prod\limits_{\al \in A} \MP(Y_{\al})$. Suppose that for each $\al \in A$, $f_{\al}(X) \subset B_{\al}$. Then 
+	$$\tau_X((f_{\al}, \MT_{\al}):\al \in A) = \tau_X((f_{\al}|^{B_{\al}}, \MT_{\al} \cap B_{\al}):\al \in A)$$.
+\end{ex}
+
+\begin{proof}
+	\tcr{FINISH!!!}
 \end{proof}
 
 \begin{ex} \lex{ex:topology:subspaces:0006}
@@ -3999,32 +4162,39 @@ In this section, we detail a second notion of structure which aligns with our ph
 \end{proof}
 
 \begin{ex} \lex{ex:topology:subspaces:0007}
-	Let $(X, \MT)$ be a topological space, $A \subset X$ and $F \subset A$. Then $F$ is $\MT \cap A$-closed iff there exists $C \subset X$ such that $C$ is $\MT$-closed and $F = C \cap A$. 
+	Let $(X, \MT)$ be a topological space. 
+	\begin{enumerate}
+		\item Let $A \subset X$ and $F \subset A$. Then $F \in \MC(A, \MT \cap A)$ iff there exists $C \in \MC(X, \MT)$ such that $F = C \cap A$. 
+		\item For each $C \in \MC(X, \MT)$, $\MC(C, \MT \cap C) \subset \MC(X, \MT)$.
+	\end{enumerate}
 \end{ex}
 
-\begin{proof}
-	Suppose that $F$ is $\MT \cap A$-closed. Then $A \setminus F$ is $\MT \cap A$-open. Hence there exists $U \in \MT$ such that $A \setminus F = U \cap A$. Set $C = U^c$. Then $C$ is closed in $X$ and  
-	\begin{align*}
-		F
-		& = A \setminus (A \setminus F) \\
-		& = A \setminus (U \cap A) \\
-		& = A \cap [(U \cap A)^c] \\
-		& = A \cap (U^c \cup A^c) \\
-		& = (A \cap U^c) \cup (A \cap A^c) \\
-		& = A \cap U^c \\
-		& = A \cap C
-	\end{align*}
-Conversely, suppose that there exists $C \subset X$ such that $C$ is closed in $X$ and $F = A \cap C$. Since $C^c \in \MT$, we have that  
-\begin{align*}
-	A \setminus F
-	& = A \cap F^c \\
-	& = A \cap [(A \cap C)^c] \\
-	& = A \cap (A^c \cup C^c) \\
-	& = (A \cap A^c) \cup (A \cap C^c) \\
-	& = A \cap C^c \\
-	& \in \MT \cap A
-\end{align*}
-Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$-closed.
+\begin{proof}\
+	\begin{enumerate}
+		\item Suppose that $F$ is $\MT \cap A$-closed. Then $A \setminus F$ is $\MT \cap A$-open. Hence there exists $U \in \MT$ such that $A \setminus F = U \cap A$. Set $C = U^c$. Then $C$ is closed in $X$ and  
+		\begin{align*}
+			F
+			& = A \setminus (A \setminus F) \\
+			& = A \setminus (U \cap A) \\
+			& = A \cap [(U \cap A)^c] \\
+			& = A \cap (U^c \cup A^c) \\
+			& = (A \cap U^c) \cup (A \cap A^c) \\
+			& = A \cap U^c \\
+			& = A \cap C
+		\end{align*}
+		Conversely, suppose that there exists $C \subset X$ such that $C$ is closed in $X$ and $F = A \cap C$. Since $C^c \in \MT$, we have that  
+		\begin{align*}
+			A \setminus F
+			& = A \cap F^c \\
+			& = A \cap [(A \cap C)^c] \\
+			& = A \cap (A^c \cup C^c) \\
+			& = (A \cap A^c) \cup (A \cap C^c) \\
+			& = A \cap C^c \\
+			& \in \MT \cap A
+		\end{align*}
+		Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$-closed.
+		\item \tcr{FINISH!!!}
+	\end{enumerate}
 \end{proof}
 
 \begin{ex} \lex{ex:topology:subspaces:0008}
@@ -4305,14 +4475,14 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 \subsection{Topological Embeddings}
 
 \begin{defn} \ld{def:topology:subspaces:0016}
-	Let $(X, \MT_X), (Y, \MT_Y)$ be a topological space and $f : X \rightarrow Y$. Then $f$ is said to be a \tbf{$\Top$}-embedding if $f: X \rightarrow f(X)$ is a $(\MT_X, \MT_Y \cap f(X))$-homeomorphism.
+	Let $(X, \MT_X), (Y, \MT_Y)$ be a topological space and $f : X \rightarrow Y$. Then $f$ is said to be a \tbf{$(\MT_X, \MT_Y)$-embedding} if $f|^{f(X)}: X \rightarrow f(X)$ is a $(\MT_X, \MT_Y \cap f(X))$-homeomorphism.
 \end{defn}
 
 \begin{ex} \lex{ex:topology:subspaces:0017}
 	Let $(X, \MT_X), (Y, \MT_Y)$ be a topological space and $f : X \rightarrow Y$. Suppose that $f$ is $(\MT_X, \MT_Y)$-continuous and injective. Then 
 	\begin{enumerate}
-		\item $f$ is open implies that $f$ is a $\Top$-embedding
-		\item $f$ is closed implies that $f$ is a $\Top$-embedding
+		\item $f$ is open implies that $f$ is a $(\MT_X, \MT_Y)$-embedding
+		\item $f$ is closed implies that $f$ is a $(\MT_X, \MT_Y)$-embedding
 	\end{enumerate}
 \end{ex}
 
@@ -4486,6 +4656,50 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 	Hence $\MB$ is a basis for $\MT_X$.
 \end{proof}
 
+\begin{ex}  \lex{ex:product_topology:0005.1} 
+	Let $(X_{\al}, \MT_{\al})_{\al \in A}$ be a collection of topological spaces and for each $\al \in A$, $E_{\al} \subset X_{\al}$. Then 
+	$$ \bigg( \bigotimes\limits_{\al \in A} \MT_{\al} \bigg) \cap \bigg( \prod\limits_{\al \in A} E_{\al} \bigg) = \bigotimes\limits_{\al \in A} ( \MT_{\al} \cap E_{\al} )$$
+\end{ex}
+
+\begin{proof}
+	Set $E \defeq \prod\limits_{\al \in A} E_{\al}$, $X \defeq \prod\limits_{\al \in A} X_{\al}$. For each $\al \in A$, denote the projections of $X$ onto $X_{\al}$ and $E$ onto $E_{\al}$ by $\pi^X_{\al}: X \rightarrow X_{\al}$ and $\pi^E_{\al}:E \rightarrow E_{\al}$ respectively. We note that for each $\al \in A$, 
+	\begin{align*}
+		\pi^E_{\al} 
+		& = \pi^X_{\al}|_E \\
+		& = \pi^X_{\al} \circ \iota_E.
+	\end{align*} 
+	Then
+	\begin{align*}
+		\bigg( \bigotimes\limits_{\al \in A} \MT_{\al} \bigg) \cap E
+		& = \iota_E^* \bigg( \bigotimes\limits_{\al \in A} \MT_{\al}  \bigg) \quad \text{(by \rex{} \tcr{ref ex})} \\
+		& = \iota_E^* \tau_X((\pi^X_{\al}, \MT_{\al}): \al \in A) \quad \text{(by \rd{def:product_topology:0001})} \\
+		& =  \tau_E((\pi^X_{\al} \circ \iota_E, \MT_{\al}): \al \in A) \quad \text{(by \rex{ex:continuous_maps:0010.1})} \\
+		& =  \tau_E((\pi^E_{\al}, \MT_{\al}): \al \in A) \\
+		& = \tau_E((\pi^E_{\al}, \MT_{\al} \cap E_{\al}): \al \in A) \quad \text{(by \rex{ex:topology:subspaces:0005.0002})}\\
+		& = \bigotimes\limits_{\al \in A} (\MT_{\al} \cap E_{\al}).
+	\end{align*}
+	\tcr{FINISH!!! need to show \rex{ex:topology:subspaces:0005.0002} that that if $g_{\al}:X \rightarrow Y_{\al}$, then $\tau_X((g_{\al}, \MT_{\al}): \al \in A) = \tau_X((g_{\al}|^{g_{\al}(X)}, \MT_{\al} \cap g_{\al}(X)): \al \in A)$}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4609,6 +4823,14 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 	Set $X \defeq \prod\limits_{\al \in A} X_{\al}$, $Y \defeq \prod\limits_{\al \in A}Y_{\al}$ and define $f: X \rightarrow Y$ by $f \defeq \prod\limits_{\al \in A} f_{\al}$. Denote the $\al$-th projection maps on $X$ and $Y$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Set $\MT \defeq \bigotimes\limits_{\al \in A}\MT_{\al}$ and $\MS \defeq \bigotimes\limits_{\al \in A} \MS_{\al}$. Suppose that for each $\al \in A$, $f_{\al}$ is continuous. \rex{ex:set_theory:products:0005} implies that for each $\al \in A$, $\pi^Y_{\al} \circ f = f_{\al} \circ \pi^X_{\al}$. Let $\al \in A$. Then $f_{\al} \circ \pi^X_{\al}$ is continuous. Hence $\pi^Y_{\al} \circ f$ is continuous. Since $\al \in A$ is arbitrary, we have that for each $\al \in A$, $\pi^Y_{\al} \circ f$ is continuous. \rex{ex:product_topology:0007} implies that $f$ is continuous. 
 \end{proof}
 
+\begin{ex} \lex{ex:product_topology:0012.1}
+	Let $(X, \MT_X)$ be a topological space, $(Y_{\al}, \MT_{Y_{\al}})_{\al \in A}$ a collection of topological spaces, $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^X$. If for each $\al \in A$, $f_{\al}$ is $(\MT_X, \MT_{Y_{\al}})$-continuous, then $(f_{\al})_{\al \in A}$ is $(\MT_X, \bigotimes\limits_{\al \in A} \MT_{Y_{\al}})$-continuous.
+\end{ex}
+
+\begin{proof}
+	Suppose that for each $\al \in A$, $f_{\al}$ is $(\MT_X, \MT_{Y_{\al}})$-continuous. Set $f \defeq (f_{\al})_{\al \in A}$. Since for each $\al \in A$, $\pi_{\al} \circ f = f_{\al}$, \rex{ex:product_topology:0007} implies that $f$ is $(\MT_X, \bigotimes\limits_{\al \in A} \MT_{Y_{\al}})$-continuous.
+\end{proof}
+
 \begin{ex} \lex{ex:product_topology:0011}
 	Let $(X_{\al}, \MT_{\al})_{\al \in A}$ and $(Y_{\al}, \MS_{\al})_{\al \in A}$ be collections of topological spaces and $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^{X_{\al}}$, i.e. for each $\al \in A$, $f_{\al}:X_{\al} \rightarrow Y_{\al}$. If $\# \{\al \in A: f_{\al} \text{ is not surjective}\} < \infty$ and for each $\al \in A$, $f_{\al}$ is open, then $\prod\limits_{\al \in A} f_{\al}$ is open.
 \end{ex}
@@ -4616,7 +4838,7 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 \begin{proof} Set $X \defeq \prod\limits_{\al \in A} X_{\al}$, $Y \defeq \prod\limits_{\al \in A}Y_{\al}$ and define $f: X \rightarrow Y$ by $f \defeq \prod\limits_{\al \in A} f_{\al}$. Denote the $\al$-th projection maps on $X$ and $Y$ by $\pi^X_{\al}$ and $\pi^Y_{\al}$ respectively. Set $\MT \defeq \bigotimes\limits_{\al \in A}\MT_{\al}$ and $\MS \defeq \bigotimes\limits_{\al \in A} \MS_{\al}$. Suppose that $\# \{\al \in A: f_{\al} \text{ is not surjective}\} < \infty$ and for each $\al \in A$, $f_{\al}$ is open. Set 
 	$$\MB_X \defeq \bigg \{\prod_{\al \in A}U_{\al}: \text{ for each $\al \in A$,  $U_{\al} \in \MT_{\al}$ and $\# \{\al \in A: U_{\al} \neq X_{\al}\} < \infty$} \bigg\}$$
 	$$\MB_Y \defeq \bigg \{\prod_{\al \in A}V_{\al}: \text{ for each $\al \in A$,  $V_{\al} \in \MS_{\al}$ and $\# \{\al \in A: V_{\al} \neq Y_{\al}\} < \infty$} \bigg\}$$
-	A previous exercise implies that $\MB_X$ is a basis for $\MT$ and $\MB_Y$ is a basis for $\MS$. Let $U \in \MB_X$. Then for each $\al \in A$ there exist $U_{\al} \in \MT_{\al}$ such that $U = \prod\limits_{\al \in A} U_{\al}$. Define 
+	\tcr{A previous exercise} implies that $\MB_X$ is a basis for $\MT$ and $\MB_Y$ is a basis for $\MS$. Let $U \in \MB_X$. Then for each $\al \in A$ there exist $U_{\al} \in \MT_{\al}$ such that $U = \prod\limits_{\al \in A} U_{\al}$. Define 
 	\begin{itemize}
 		\item $B_1 \defeq \{\al \in A: f_{\al} \text{ is not surjective}\}$ 
 		\item $B_2 \defeq \{\al \in A: U_{\al} \neq X_{\al}\}$ 
@@ -4636,7 +4858,7 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 		& \in \MB_{Y} \\
 		& \subset \MS
 	\end{align*}
-	Since $U \in \MB_X$ is arbitrary, we have that for each $U \in \MB_X$, $f(U) \in \MS$. Since $\MB_X$ is a basis for $\MT$, an exercise about open maps in the section on continuous maps implies that $f$ is open.
+	Since $U \in \MB_X$ is arbitrary, we have that for each $U \in \MB_X$, $f(U) \in \MS$. Since $\MB_X$ is a basis for $\MT$, \tcr{an exercise about open maps in the section on continuous maps} implies that $f$ is open.
 \end{proof}
 
 \begin{ex} \lex{ex:product_topology:0012}
@@ -4654,12 +4876,35 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 	\tcb{Another application of the exercise} implies that $\pi^Y_{\al} \circ \bigg[ \prod\limits_{\al \in A}f_{\al} \bigg] (x_{\gam}) \rightarrow \pi^Y_{\al} \circ \bigg[ \prod\limits_{\al \in A}f_{\al} \bigg] (x) $ in $(Y_{\al}, \MS_{\al})$. Since $(x_{\gam})_{\gam \in \Gam} \subset \prod\limits_{\al \in A} U_{\al}$ and $x \in \prod\limits_{\al \in A}$ with $x_{\gam} \rightarrow x$ in $\bigg( \prod\limits_{\al \in A} U_{\al} , \bigg[ \bigotimes\limits_{\al \in A} \MT_{\al} \bigg] \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg] \bigg)$ is arbitary, we have that $\prod\limits_{\al \in A}f_{\al}$ is $\bigg( \bigg[ \bigotimes\limits_{\al \in A} T_{\al} \bigg]  \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg], \bigotimes\limits_{\al \in A} S_{\al} \bigg)$-continuous. \tcb{Another application of the exercise} implies that $\prod\limits_{\al \in A}f_{\al}$ is $\bigg( \bigg[ \bigotimes\limits_{\al \in A} T_{\al} \bigg]  \cap \bigg[ \prod\limits_{\al \in A} U_{\al} \bigg], \bigg[ \bigotimes\limits_{\al \in A} S_{\al} \bigg] \cap \bigg[ \prod\limits_{\al \in A} V_{\al} \bigg] \bigg)$-continuous.
 \end{proof}
 
-\begin{ex} \lex{ex:product_topology:0012.1}
-	Let $(X, \MT_X)$ be a topological space, $(Y_{\al}, \MT_{Y_{\al}})_{\al \in A}$ a collection of topological spaces, $(f_{\al})_{\al \in A} \in \prod\limits_{\al \in A} Y_{\al}^X$. If for each $\al \in A$, $f_{\al}$ is $(\MT_X, \MT_{Y_{\al}})$-continuous, then $(f_{\al})_{\al \in A}$ is $(\MT_X, \bigotimes\limits_{\al \in A} \MT_{Y_{\al}})$-continuous.
+\begin{ex} \lex{ex:product_topology:0012.2}
+	Let $(X, \MT_X)$ be a topological space and $A$ a set. Then $\del_{X^A}:X \rightarrow X^A$ is $(\MT_X, \MT_X^{\otimes A})$-continuous.
 \end{ex}
 
 \begin{proof}
-	Suppose that for each $\al \in A$, $f_{\al}$ is $(\MT_X, \MT_{Y_{\al}})$-continuous. Set $f \defeq (f_{\al})_{\al \in A}$. Since for each $\al \in A$, $\pi_{\al} \circ f = f_{\al}$, \rex{ex:product_topology:0007} implies that $f$ is $(\MT_X, \bigotimes\limits_{\al \in A} \MT_{Y_{\al}})$-continuous.
+	For each $\al \in A$, $\pi_{\al} \circ \del_{X^A} = \id_A$. Since $\id_A$ is $(\MT_X. \MT_X)$-continuous, we have that for each $\al \in A$, $\pi_{\al} \circ \del_{X^A}$ is $(\MT_X, \MT_X)$-continuous. \rex{ex:product_topology:0007} then implies that $\del_{X^A}$ is $(\MT_X, \MT_X^{\otimes A})$-continuous. 
+\end{proof}
+
+\begin{ex} \lex{ex:product_topology:0012.3}
+	Let $(X, \MT_X), (Y, \MT_Y), (Z, \MT_Z)$ be topological spaces, $f:X \rightarrow Y$ and $g_1, g_2:Y \rightarrow Z$. If $g_1 \circ f$ and $g_2 \circ f$ are $(\MT_X, \MT_Z)$-continuous, then for each $W_1, W_2 \in \MT_Z$, $f^{-1}(g_1^{-1}(W_1) \cap g_2^{-1}(W_2)) \in \MT_X$.
+\end{ex}
+
+\begin{proof}
+	Suppose that $g_1 \circ f$ and $g_2 \circ f$ are $(\MT_X, \MT_Z)$-continuous. \rex{} implies that $(g_1 \circ f) \times (g_2 \circ f)$ is $(\MT_X^{\otimes 2}, \MT_Z^{\otimes 2})$-continuous. \rex{} \tcr{(ref ex)} implies that $[(g_1 \circ f) \times (g_2 \circ f)] \circ \del_X$ is $(\MT_X, \MT_Z^{\otimes 2})$-continuous. We note that
+	\begin{align*}
+		[g_1 \times g_2] \circ \del_Y \circ f
+		& = [g_1 \times g_2] \circ [f \times f] \circ \del_X \quad \text{(by \rex{ex:set_theory:products:00010.2})} \\
+		& = [(g_1 \circ f) \times (g_2 \circ f)] \circ \del_X.
+	\end{align*}
+	Therefore for each $W_1, W_2 \in \MT_Z$, 
+	\begin{align*}
+		f^{-1}(g_1^{-1}(W_1) \cap g_2^{-1}(W_2))
+		& = f^{-1} [ \del_Y^{-1}(g_1^{-1}(W_1) \times g_2^{-1}(W_2))] \quad \text{(by \rex{ex:set_theory:products:00010.1})} \\
+		& = f^{-1} [ \del_Y^{-1}([g_1 \times g_2]^{-1}(W_1 \times W_2))] \quad \text{(by \rex{ex:set_theory:products:0005.1})} \\
+		& = ([g_1 \times g_2] \circ \del_Y \circ f)^{-1}(W_1 \times W_2) \\
+		& = ([(g_1 \circ f) \times (g_2 \circ f)] \circ \del_X)^{-1}(W_1 \times W_2) \\
+		& \in \MT_X
+	\end{align*}
+	
 \end{proof}
 
 
@@ -5544,7 +5789,7 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 	Let $X, Y$ be sets and $f,g:X \rightarrow Y$. We denote the equalizer of $f$ and $g$ by $\Eq(f,g)$ as in \rd{def:set_theory:equalizers:0001}.
 \end{note}
 
-\begin{ex} \lex{ex:topology:equalizers:0001}
+\begin{ex} \lex{ex:topology:equalizers:0001} \tcr{needs to go in separation axioms section}
 	Let $(X, \MT_X), (Y, \MT_Y)$ be topological spaces and $f,g:X \rightarrow Y$ $(\MT_X, \MT_Y)$-continuous. If $(Y, \MT_Y)$ is Hausdorff, then $\Eq(f,g)$ is closed in $(X, \MT_X)$.
 \end{ex}
 
@@ -6087,7 +6332,7 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 \end{proof}
 
 \begin{note}
-	Let $X$ be a set, we recall \rd{def:set_theory:products:00010} of $\Delta_X$ an $\Delta_{X^{\N}}$.
+	Let $X$ be a set, we recall \rd{def:set_theory:products:00010} of $\Del_X$ an $\Del_{X^{\N}}$.
 \end{note}
 
 \begin{ex} \lex{ex:topology:separation:0005}
@@ -6114,26 +6359,6 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 		\item $(3) \implies (1)$: \\
 		Suppose that $\Del_X$ is closed. Let $x,y \in X$. Suppose that $x \neq y$. Then $(x,y) \in \Del_X^c$. Recall that $\MB = \{A \times B: A,B \subset X \text{ and $A$, $B$ are open}\}$ is a basis for the product topology on $X \times X$. Since $\Del_X^c$ is open and $(x,y) \in \Del_X^c$, there exist $A \times B \in \MB$ such that $(x,y) \in A \times B \subset \Del_X^c$. Suppose that $A \cap B \neq \varnothing$. Then there exists $z \in A \cap B$. Hence $(z,z) \in A \times B$. This is a contradiction since $A  \times B \subset \Del_X^c$. Thus $x \in A$, $y \in B$ and $A \cap B = \varnothing$ and $A$, $B$ are open. Since $x,y \in X$ are arbitrary, $X$ is Hausdorff. 
 	\end{itemize}
-\end{proof}
-
-\begin{ex} \lex{ex:topology:separation:0006}
-	Let $(X, \MT)$ be a topological space. If $X$ is Hausdorff, then $\Del_{X^{\N}}$ is closed in $(X^{\N}, \MT^{\otimes \N})$.
-\end{ex}
-
-\begin{proof}
-	Suppose that $X$ is Hausdorff. Let $(x_{\al})_{\al \in A} \subset \Del_{X^{\N}}$ and $x \in X^{\N}$. Suppose that $x_{\al} \rightarrow x$. Then for each $n \in \N$, $\pi_n(x_{\al}) \conv{\al} \pi_n(x)$. Since $(x_{\al})_{\al \in A} \subset \Del_{X^{\N}}$, we have that for each $\al \in A$ and $m,n \in \N$, $\pi_m(x_{\al}) = \pi_m(x_{\al})$. Let $n \in \N$. Then
-	\begin{align*}
-		\pi_n(x_{\al}) 
-		& = \pi_1(x_{\al}) \\
-		& \conv{\al} \pi_1(x).
-	\end{align*}
-	Since $\pi_n(x_{\al}) \conv{\al} \pi_n(x)$, $\pi_n(x_{\al}) \conv{\al} \pi_1(x)$ and $X$ is Hausdorff, \rex{ex:topology:separation:0005} implies that $\pi_1(x) = \pi_n(x)$. Since $n \in \N$ is arbitrary, we have that for each $m,n \in \N$, 
-	\begin{align*}
-		\pi_m(x)
-		& = \pi_1(x) \\
-		& = \pi_n(x).
-	\end{align*}
-	Hence $x \in \Del_{X^{\N}}$. Since $(x_{\al})_{\al \in A} \subset \Del_{X^{\N}}$ and $x \in X^{\N}$ with $x_{\al} \rightarrow x$ are arbitrary, we have that for each $(x_{\al})_{\al \in A} \subset \Del_{X^{\N}}$ and $x \in X^{\N}$, if $x_{\al} \rightarrow x$, then $x \in \Del_{X^{\N}}$. Hence $\Del_{X^{\N}}$ is closed in $(X^{\N}, \MT^{\otimes \N})$. 
 \end{proof}
 
 \begin{ex} \lex{ex:topology:separation:0007}
@@ -6331,7 +6556,49 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 	\end{align*} 
 \end{proof}
 
+\begin{ex} \lex{ex:topology:separation:products:0004}
+	Let $(X, \MT)$ be a topological space and $A$ a set. Suppose that $A \neq \varnothing$. If $X$ is Hausdorff, then $\Del_{X^A}$ is closed in $(X^A, \MT^{\otimes \N})$.
+\end{ex}
 
+\begin{proof}
+	Suppose that $X$ is Hausdorff. Let $(x_{\gam})_{\gam \in \Gam} \subset \Del_{X^A}$ and $x \in X^A$. Suppose that $x_{\gam} \rightarrow x$. Then for each $\al \in A$, $\pi_{\al}(x_{\gam}) \conv{\gam} \pi_n(x)$. Since $(x_{\gam})_{\gam \in \Gam} \subset \Del_{X^A}$, we have that for each $\gam \in \Gam$ and $\al, \be \in A$, $\pi_{\al}(x_{\gam}) = \pi_{\be}(x_{\gam})$. Since $A \neq \varnothing$, there exists $\al_0 \in A$. Let $\al \in A$. Then
+	\begin{align*}
+		\pi_{\al}(x_{\gam}) 
+		& = \pi_{\al_0}(x_{\gam}) \\
+		& \conv{\gam} \pi_{\al_0}(x).
+	\end{align*}
+	Since $\pi_{\al}(x_{\gam}) \conv{\gam} \pi_{\al}(x)$, $\pi_{\al}(x_{\gam}) \conv{\gam} \pi_{\al_0}(x)$ and $(X, \MT)$ is Hausdorff, \rex{ex:topology:separation:0005} implies that $\pi_{\al_0}(x) = \pi_{\al}(x)$. Since $\al \in A$ is arbitrary, we have that for each $\al,\be \in A$, 
+	\begin{align*}
+		\pi_{\al}(x)
+		& = \pi_{\al_0}(x) \\
+		& = \pi_{\be}(x).
+	\end{align*}
+	Hence $x \in \Del_{X^A}$. Since $(x_{\gam})_{\gam \in \Gam} \subset \Del_{X^A}$ and $x \in X^A$ with $x_{\gam} \rightarrow x$ are arbitrary, we have that for each $(x_{\gam})_{\gam \in \Gam} \subset \Del_{X^A}$ and $x \in X^A$, if $x_{\gam} \rightarrow x$, then $x \in \Del_{X^A}$. Hence $\Del_{X^A}$ is closed in $(X^A, \MT^{\otimes A})$. 
+\end{proof}
+
+\begin{ex} \lex{ex:topology:separation:products:0005}
+	Let $(X, \MT_X)$ be a topological space and $A$ a set. Then 
+	\begin{enumerate}
+		\item $\del_{X^A}:X \rightarrow X^A$ is $(\MT_X, \MT_X^{\otimes A})$-closed
+		\item $\del_{X^A}:X \rightarrow X^A$ is an $(\MT_X, \MT_X^{\otimes A})$-embedding
+	\end{enumerate}
+\end{ex}
+
+\begin{proof}\
+	\begin{enumerate}
+		\item Let $C \in \MC(X, \MT)$ \tcr{(def collection of closed sets)}. Since $(X, \MT_X)$ is Hausdorff, \rex{ex:topology:separation:subspaces:0002} implies that $(C, \MT_X \cap C)$ is Hausdorff. Since $C^2 \in \MC(X^2, \MT_X^{\otimes 2})$, we have that
+		\begin{align*}
+			\del_X(C)
+			& = \{(x, x): x \in C \} \\
+			& = \Del_C \\
+			& = \MC(C^2, (\MT_X \cap C)^{\otimes 2}) \quad \text{(by \rex{ex:topology:separation:0005})} \\
+			& = \MC(C^2, \MT_X^{\otimes 2} \cap C^2) \quad \text{(by \rex{ex:product_topology:0005.1})} \\
+			& \subset \MC(X^2, \MT_X^{\otimes 2}) \quad \text{(by \rex{ex:topology:subspaces:0007})} \\ 
+		\end{align*}
+		Since $C \in \MC(X, \MT)$ is arbitrary, we have that for each $C \in \MC(X, \MT)$, $\del_{X^A}(C) \in \MC(X^2, \MT_X^{\otimes 2})$. Hence $\del_X$ is $(\MT_X, \MT_X^{\otimes A})$-closed. 
+		\item \rex{ex:set_theory:products:00010.1} implies that $\del_X$ is injective and \rex{ex:product_topology:0012.2} implies that $\del_X$ is $(\MT_X, \MT_X^{\otimes 2})$-continuous. Since $\del_X$ is $(\MT_X, \MT_X^{\otimes A})$-closed, \rex{ex:topology:subspaces:0017} implies that $\del_X$ is a $(\MT_X, \MT_X^{\otimes})$-embedding.
+	\end{enumerate}
+\end{proof}
 
 
 
@@ -8108,8 +8375,8 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 	\begin{enumerate}
 		\item $f$ is closed,
 		\item $f$ is proper,
-		\item $f$ is surjective implies that $f$ is a quotient map,
-		\item $f$ is injective implies that $f$ is a $\Top$-embedding,
+		\item $f$ is surjective implies that $f$ is a $(\MT_X, \MT_Y)$-quotient map,
+		\item $f$ is injective implies that $f$ is a $(\MT_X, \MT_Y)$-embedding,
 		\item $f$ is bijective implies that $f \in \Iso_{\Top}((X, \MT_X), (Y, \MT_Y))$.
 	\end{enumerate}
 \end{ex}
@@ -9293,8 +9560,8 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 \begin{ex}
 	We have that
 	\begin{enumerate}
-		\item $\Loc \in \Obj(\Cat)$
-		\item $\Loc \cong_{\Cat} \op{\Frm}$.
+		\item $\Loc \in \Obj(\bCat)$
+		\item $\Loc \cong_{\bCat} \op{\Frm}$.
 	\end{enumerate}
 \end{ex}
 
@@ -9343,7 +9610,7 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 				\item Since $F_0 = \id_{\Obj(\Loc)}$, $F_0$ is a bijection. 
 				\item \tcr{make exercise in algebra notes on complete lattices that the left adjoints are bijective to right adjoints, define operation $f \mapsto f^*$ and $g \mapsto g_*$ for $f$ a left adjoint and $g$ a right adjoint, show that these are inverses and thus bijections} 
 			\end{itemize}
-			Since $F_0$ and $F_1$ are bijections, \tcr{ref exercise in notes on category theory} implies that $F \in \Iso_{\Cat}(\op{\Frm}, \Loc)$ \tcr{(rewrite because $\Frm$ and $\Loc$ are not small, but maybe its okay if we are considering $U$-small categories $\Loc$ and $\Frm$ in the first place)}. 
+			Since $F_0$ and $F_1$ are bijections, \tcr{ref exercise in notes on category theory} implies that $F \in \Iso_{\bCat}(\op{\Frm}, \Loc)$ \tcr{(rewrite because $\Frm$ and $\Loc$ are not small, but maybe its okay if we are considering $U$-small categories $\Loc$ and $\Frm$ in the first place)}. 
 		\end{itemize}
 	\end{enumerate}
 \end{proof}
@@ -10178,6 +10445,7 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 		Hence $\diam \cl A = \diam A$.
 	\end{itemize}
 \end{proof}
+
 
 
 
@@ -13184,6 +13452,83 @@ Thus $A \setminus F$ is $\MT \cap A$-open which implies that $F$ is $\MT \cap A$
 		\item 
 	\end{enumerate}
 	\tcr{FINISH!!!}
+\end{proof}
+
+\begin{defn}
+	\tcr{define pointwise and uniform convergence of ... nets indexed by product of directed sets?}
+\end{defn}
+
+\begin{ex} \lex{} \tbf{Moore-Osgood Theorem:} \\
+	Let $(X, d)$ be a metric space and $(A, \leq_A)$ and $(B, \leq_B)$ directed sets and $(x_{\al, \be})_{(\al, \be) \in A \times B}, (y_{\be})_{\be \in B}, (z_{\al})_{\al \in A} \subset X$ nets. Suppose that 
+	\begin{itemize}
+		\item $x_{\al,\be} \convt{unif} y_{\be}$,
+		\item there exists $\al_0 \in A$ such that for each $\al \in A$, $\al \geq \al_0$ implies that $x_{\al,\be} \conv{\be} z_{\al}$. 
+	\end{itemize}
+	If $(X, d)$ is complete, then there exists $x \in X$ such that $x_{\al, \be} \rightarrow x$, $y_{\be} \rightarrow x$ and $z_{\al} \rightarrow x$.
+\end{ex}
+
+\begin{proof}
+	Suppose that $(X, d)$ is complete. 
+	\begin{itemize}
+		\item Let $\ep > 0$. 
+		\begin{itemize}
+			\item Since $x_{\al,\be} \convt{unif} y_{\be}$, there exists $\al_1 \in A$ such that for each $\al \in A$, $\al \geq \al_1$ implies that $\sup\limits_{\be \in B} d(x_{\al, \be}, y_{\be}) < \ep/6$. 
+			\item Then for each $\al, \al' \in A$, $\al, \al' \geq \al_1$ implies that for each $\be \in B$, 
+			\begin{align*}
+				d(x_{\al, \be}, x_{\al', \be})
+				& \leq d(x_{\al, \be}, y_{\be}) + d(y_{\be}, x_{\al', \be}) \\
+				& \leq \sup\limits_{\be \in B} d(x_{\al, \be}, y_{\be}) + \sup\limits_{\be \in B} d(x_{\al', \be}, y_{\be}) \\
+				& < \frac{\ep}{6} + \frac{\ep}{6} \\
+				& = \frac{\ep}{3}. 
+			\end{align*} 
+			\item Since $(A, \leq_A)$ is directed, there exists $\al_2 \in A$ such that $\al_2 \geq \al_0, \al_1$. Let $\al, \al' \in A$. Suppose that $\al, \al' \geq \al_2$. Then $x_{\al, \be} \conv{\be} z_{\al}$ and $x_{\al', \be} \conv{\be} z_{\al'}$. Continuity of $d: X \times X \rightarrow \Rg$ implies that $d(x_{\al, \be}, x_{\al', \be}) \rightarrow d(z_{\al}, z_{\al'})$. Since for each $\be \in B$, $d(x_{\al, \be}, x_{\al', \be}) \leq \ep/3$ and $d(x_{\al, \be}, x_{\al', \be}) \rightarrow d(z_{\al}, z_{\al'})$, we have that $d(z_{\al}, z_{\al'}) \leq \ep/3$.
+			\item Since $\al, \al' \in A$ with $\al, \al' \geq \al_2$ are arbitrary, we have that for each $\al, \al' \in A$, $\al, \al' \geq \al_2$ implies that $d(z_{\al}, z_{\al'}) \leq \ep/3$.
+		\end{itemize}
+		\item Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, there exist $\al_2 \in A$ such that for each $\al, \al' \in A$, $\al, \al' \geq \al_2$ implies that 
+		\begin{itemize}
+			\item for each $\be \in B$, 
+			\begin{itemize}
+				\item $(x_{\al, \be}, y_{\be}) < \ep/6$
+				\item $d(x_{\al, \be}, x_{\al', \be}) < \ep /3$
+			\end{itemize}
+			\item 
+			\begin{flalign*}
+				d(z_{\al}, z_{\al'}) 
+				& \leq \ep/3 & \\
+				& < \ep.  
+			\end{flalign*}
+		\end{itemize}
+		Hence $(z_{\al})_{\al \in A}$ is Cauchy. Since $(X, d)$ is complete, there exists $x \in X$ such that $z_{\al} \rightarrow x$. \tcr{(Need to redo completeness section with nets instead of sequences and show iff's in terms of sequences)}
+		\item Let $\ep > 0$. 
+		\begin{itemize}
+			\item \tcr{The prev part} implies that there exists $\al_2 \in A$ such that for each $\al, \al' \in A$, $\al, \al' \geq \al_2$ implies that $d(z_{\al}, z_{\al'}) \leq \ep/3$. Let $\al \in A$. Suppose that $\al \geq \al_2$.  Since $z_{\al'} \rightarrow x$, continuity of $d: X \times X \rightarrow \Rg$ then implies that $d(z_{\al}, z_{\al'}) \rightarrow d(z_{\al}, x)$. Since for each $\al' \in A$, $\al' \geq \al_2$ implies that $d(z_{\al}, z_{\al'}) \leq \ep/3$, we have that $d(z_{\al}, x) \leq \ep/3$. Since $\al \in A$ with $\al \geq \al_2$ is arbitrary, we have that for each $\al \in A$, $\al \geq \al_2$ implies that $d(z_{\al}, x) \leq \ep/3$. 
+			\item Since $\al_2 \geq \al_0$, \tcr{the second assumption} implies that $x_{\al_2, \be} \conv{\be} z_{\al_2}$. Therefore there exists $\be_0 \in B$ such that for each $\be \in B$, $\be \geq \be_0$ implies that $d(x_{\al_2, \be}, z_{\al_2}) < \ep/3$.
+		\end{itemize}
+		\item Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, there exists $\al_2 \in A$ and $\be_0 \in B$ such that for each $\al \in A$, and $\be \in B$, $\al \geq \al_2$ and $\be \geq \be_0$ implies that 
+		\begin{itemize}
+			\item $(x_{\al, \be}, y_{\be}) < \ep/6$
+			\item $d(x_{\al, \be}, x_{\al', \be}) < \ep /3$
+			\item $d(z_{\al}, z_{\al'}) \leq \ep/3$,
+			\item $d(z_{\al}, x) \leq \ep/3$,
+			\item $d(x_{\al_2, \be}, z_{\al_2}) < \ep/3$.
+		\end{itemize}
+		\item Let $\ep > 0$. \tcr{the previous parts} imply that there exists $\al_2 \in A$ and $\be_0 \in B$ such that for each $\al \in A$ and $\be \in B$, $\al \geq \al_2$ and $\be \geq \be_0$ implies that 
+		\begin{align*}
+			d(y_{\be}, x)
+			& \leq d(y_{\be}, x_{\al_2, \be}) + d(x_{\al_2, \be}, z_{\al_2}) + d(z_{\al_2}, x) \\
+			& < \frac{\ep}{6} + \frac{\ep}{3} + \frac{\ep}{3} \\
+			& < \ep.
+		\end{align*}
+		Since $\ep > 0$ is arbitrary, we have that for each $\ep > 0$, there exists $\be_0 \in B$ such that for each $\be \in B$, $\be \geq \be_0$ implies that $d(y_{\be}, x) < \ep$. Hence $y_{\be} \rightarrow x$. 
+		\item Let $\ep > 0$. Since $y_{\be} \rightarrow x$, there exists $\be_0 \in B$ such that for each $\be \in B$, $\be \geq \be_0$ implies that $d(y_{\be}, x) < \ep/2$. \tcr{From a previous part}, there exists $\al_0 \in A$ such that for each $\al \in A$, $\al \geq \al_0$ implies that for each $\be \in B$, $d(x_{\al, \be}, y_{\be}) < \ep/2$. Let $(\al, \be) \in A \times B$. Suppose that $(\al, \be) \geq_A \timesrel \geq_B (\al_0, \be_0)$. Then $\al \geq_A \al_0$ and $\be \geq_B \be_0$. Hence 
+		\begin{align*}
+			d(x_{\al, \be}, x)
+			& \leq d(x_{\al, \be}, y_{\be}) + d(y_{\be}, x) \\
+			& < \frac{\ep}{2} + \frac{\ep}{2} \\
+			& = \ep. 
+		\end{align*}
+		Since $(\al, \be) \in A \times B$ with $(\al, \be) \geq_A \timesrel \geq_B (\al_0, \be_0)$ is arbitrary, we have that for each $(\al, \be) \in A \times B$, $(\al, \be) \geq_A \timesrel \geq_B (\al_0, \be_0)$ implies that $d(x_{\al, \be}, x) < \ep$. Since $\ep > 0$ is arbitrary, we have that for each $\ep >0$, there exists $(\al_0, \be_0) \in A \times B$ such that for each $(\al, \be) \in A \times B$, $(\al, \be) \geq_A \timesrel \geq_B (\al_0, \be_0)$ implies that $d(x_{\al, \be}, x) < \ep$. Hence $x_{\al,\be} \rightarrow x$. 
+	\end{itemize}
 \end{proof}
 
 
@@ -17858,7 +18203,7 @@ Ultrametric spaces are given by sequences of partitions of $X$, $(\MP_j)_{j \in 
 \end{defn}
 
 \begin{ex} \lex{}
-	Let $X$ be a topological vector, $(\lam_{\al})_{\al \in A} \subset X^*$ a net and $\lam \in X^*$. Then $\lam_{\al} \conv{w^*} \lam$ iff for each $x \in X$, $ \lam_{\al} (x) \rightarrow \lam(x)$. 
+	Let $X$ be a topological vector space, $(\lam_{\al})_{\al \in A} \subset X^*$ a net and $\lam \in X^*$. Then $\lam_{\al} \conv{w^*} \lam$ iff for each $x \in X$, $ \lam_{\al} (x) \rightarrow \lam(x)$. 
 \end{ex}
 
 \begin{proof}
@@ -20908,7 +21253,7 @@ Hence $\|x + y\| \leq \|x\| + \|y\|$.
 \end{proof}
 
 \begin{ex} \lex{ex:hilbert:intro:00006.0.1}
-	Let $H_1, H_2 \in \Obj(\Hilb)$ and $A \in L(H_1, H_2)$. Then $A = 0$ iff for each $x \in H_1$ and $y \in H_2$, $\l y, Ax \r = 0$.
+	Let $H_1, H_2 \in \Obj(\bHilb)$ and $A \in L(H_1, H_2)$. Then $A = 0$ iff for each $x \in H_1$ and $y \in H_2$, $\l y, Ax \r = 0$.
 \end{ex}
 
 \begin{proof}\
@@ -21653,7 +21998,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{defn}
 
 \begin{ex} \lex{ex:hilbert:operators:0003}
-	Let $H_1, H_2, H_3 \in \Obj(\Hilb)$.  
+	Let $H_1, H_2, H_3 \in \Obj(\bHilb)$.  
 	\begin{enumerate}
 		\item For each $A, B \in L(H_1, H_2)$ and $\lam \in \C$,
 		\begin{enumerate}
@@ -21730,11 +22075,11 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{defn} \ld{def:hilbert:operators:0004} \tbf{Unitary Maps:}
-	Let $H_1, H_2 \in \Obj(\Hilb)$ and $U \in L(H_1, H_2)$. Then $U$ is said to be \tbf{unitary} if $U$ is invertible and for each $x,y \in H_1$, $\l Ux, Uy \r = \l x, y \r $.  
+	Let $H_1, H_2 \in \Obj(\bHilb)$ and $U \in L(H_1, H_2)$. Then $U$ is said to be \tbf{unitary} if $U$ is invertible and for each $x,y \in H_1$, $\l Ux, Uy \r = \l x, y \r $.  
 \end{defn}
 
 \begin{ex} \lex{ex:hilbert:operators:0005}
-	Let $H_1, H_2 \in \Obj(\Hilb)$ and $U \in L(H_1, H_2)$. Then the following are equivalent:
+	Let $H_1, H_2 \in \Obj(\bHilb)$ and $U \in L(H_1, H_2)$. Then the following are equivalent:
 	\begin{enumerate}
 		\item $U$ is unitary
 		\item $U$ is invertible and $U^{-1} = U^*$
@@ -21799,11 +22144,11 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{defn} \ld{def:hilbert:operators:0006}
-	Let $H_1, H_2 \in \Obj(\Hilb)$. We define $U(H_1, H_2) \defeq \{U \in L(H_1, H_2): \text{$U$ is unitary}\}$. When $H_1 = H_2 = H$, we write $U(H)$ in place of $U(H, H)$. 
+	Let $H_1, H_2 \in \Obj(\bHilb)$. We define $U(H_1, H_2) \defeq \{U \in L(H_1, H_2): \text{$U$ is unitary}\}$. When $H_1 = H_2 = H$, we write $U(H)$ in place of $U(H, H)$. 
 \end{defn}
 
 \begin{ex} \lex{ex:hilbert:operators:0007}
-	Let $H \in \Obj(\Hilb)$. Then $U(H)$ is a group.
+	Let $H \in \Obj(\bHilb)$. Then $U(H)$ is a group.
 \end{ex}
 
 \begin{proof}
@@ -21811,7 +22156,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{ex} \lex{ex:hilbert:operators:0007.1}
-	Let $H \in \Obj(\Hilb)$. Then $\flat \in U(\bar{H}, H^*)$. 
+	Let $H \in \Obj(\bHilb)$. Then $\flat \in U(\bar{H}, H^*)$. 
 \end{ex}
 
 \begin{proof}
@@ -21823,7 +22168,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{defn}
 
 \begin{ex} \lex{ex:hilbert:operators:0009}
-	Let $H \in \Obj(\Hilb)$. Then $I$ is unitary and self-adjoint.
+	Let $H \in \Obj(\bHilb)$. Then $I$ is unitary and self-adjoint.
 \end{ex}
 
 \begin{proof}
@@ -21997,7 +22342,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 
 
 \begin{ex}
-	Let $H_1,H_2, H_3, H_4 \in \Obj(\Hilb)$ and $A \in L(H_3, H_4)$, $B \in L(H_2,H_3)$ and $C \in L(H_1, H_2)$. Suppose that $H,K, L$ are separable. Let $(e^2_j)_{j \in \N}$ and $(e^3_j)_{j \in \N}$ be orthonormal bases for $H_2, H_3$ and $H_4$ respectively. Then 
+	Let $H_1,H_2, H_3, H_4 \in \Obj(\bHilb)$ and $A \in L(H_3, H_4)$, $B \in L(H_2,H_3)$ and $C \in L(H_1, H_2)$. Suppose that $H,K, L$ are separable. Let $(e^2_j)_{j \in \N}$ and $(e^3_j)_{j \in \N}$ be orthonormal bases for $H_2, H_3$ and $H_4$ respectively. Then 
 	$$ABC = \sum_{j \in \N} \sum_{k \in \N} \l e^3_j, Be^2_k \r (Ae^3_j)^*(e^2_k C)$$ 
 	\tcr{FINISH!!!}
 \end{ex}
@@ -22044,7 +22389,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \subsection{Introduction}
 
 \begin{ex}
-	Let $(H, \l \cdot, \cdot \r) \in \Obj(\Hilb)$ and $E \subset H$ a closed subspace of $H$. Then $(E, \l \cdot, \cdot \r|_{E \times E})$ is a Hilbert space.  
+	Let $(H, \l \cdot, \cdot \r) \in \Obj(\bHilb)$ and $E \subset H$ a closed subspace of $H$. Then $(E, \l \cdot, \cdot \r|_{E \times E})$ is a Hilbert space.  
 \end{ex}
 
 \begin{proof}
@@ -22097,11 +22442,11 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \subsection{Orthogonal Projections}
 
 \begin{defn}
-	Let $H \in \Obj(\Hilb)$ and $P \in L(H)$. Then $P$ is said to be \tbf{idemptoent} if $P^2 = P$.
+	Let $H \in \Obj(\bHilb)$ and $P \in L(H)$. Then $P$ is said to be \tbf{idemptoent} if $P^2 = P$.
 \end{defn}
 
 \begin{ex}
-	Let $H \in \Obj(\Hilb)$ and $P \in L(H)$. Then $P$ is idempotent iff $I - P$ is idempotent.
+	Let $H \in \Obj(\bHilb)$ and $P \in L(H)$. Then $P$ is idempotent iff $I - P$ is idempotent.
 \end{ex}
 
 \begin{proof}\
@@ -22122,7 +22467,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{ex}
-	Let $H \in \Obj(\Hilb)$, $E \subset H$ a closed subspace of $H$ and $P \in L(H)$. If $P|_E = I_E$ and $\Img P \subset E$, then $P$ is idempotent
+	Let $H \in \Obj(\bHilb)$, $E \subset H$ a closed subspace of $H$ and $P \in L(H)$. If $P|_E = I_E$ and $\Img P \subset E$, then $P$ is idempotent
 \end{ex}
 
 \begin{proof}
@@ -22139,7 +22484,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{defn}
-	Let $H \in \Obj(\Hilb)$ and $E \subset H$ a closed subspace of $H$. We define the \tbf{orthogonal projection onto $E$}, denoted $P_E: H \rightarrow E$ by 
+	Let $H \in \Obj(\bHilb)$ and $E \subset H$ a closed subspace of $H$. We define the \tbf{orthogonal projection onto $E$}, denoted $P_E: H \rightarrow E$ by 
 	$$P_E(x) = \argmin\limits_{y \in E^{\perp}} \| x - y\|$$
 \end{defn}
 
@@ -22148,7 +22493,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{note}
 
 \begin{ex}
-	Let $H \in \Obj(\Hilb)$ and $E \subset H$ a closed subspace of $H$. Then 
+	Let $H \in \Obj(\bHilb)$ and $E \subset H$ a closed subspace of $H$. Then 
 	\begin{enumerate}
 		\item $P_E|_E = I_E$
 		\item $\Img P_E = E$
@@ -22233,7 +22578,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{ex}
-	Let $H \in \Obj(\Hilb)$, $E \subset H$ a closed subspace of $H$. Then there exists a unique $P \in L(H)$ such that 
+	Let $H \in \Obj(\bHilb)$, $E \subset H$ a closed subspace of $H$. Then there exists a unique $P \in L(H)$ such that 
 	\begin{enumerate}
 		\item $P$ is self-adjoint
 		\item $P$ is idempotent
@@ -22317,11 +22662,11 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \tcr{need to find universal property for direct sum}
 
 \begin{defn}
-	Let $(H_\al, \l\cdot, \cdot \r_{\al})_{\al \in A} \subset \Obj(\Hilb)$. We define $s_A:\prod\limits_{\al \in A} H_{\al} \rightarrow \Rg^A$ by $s_A(x) = (\|x_{\al}\|_{\al})_{\al \in A}$.
+	Let $(H_\al, \l\cdot, \cdot \r_{\al})_{\al \in A} \subset \Obj(\bHilb)$. We define $s_A:\prod\limits_{\al \in A} H_{\al} \rightarrow \Rg^A$ by $s_A(x) = (\|x_{\al}\|_{\al})_{\al \in A}$.
 \end{defn}
 
 \begin{ex}	
-	Let $(H_\al, \l\cdot, \cdot \r_{\al})_{\al \in A} \subset \Obj(\Hilb)$. Then  
+	Let $(H_\al, \l\cdot, \cdot \r_{\al})_{\al \in A} \subset \Obj(\bHilb)$. Then  
 	\begin{enumerate}
 		\item for each $x,y \in s_A^{-1}(l^2(A))$, $(\l x_{\al}, y_{\al} \r_{\al})_{\al \in A} \in l^1(A)$
 		\item for each $x,y \in \prod\limits_{\al \in A} H_{\al}$, $\|s_A(x) - s_A(y)\|_2 \leq \|s_A(x - y)\|_2$
@@ -22354,7 +22699,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{defn}
-	Let $(H_\al, \l\cdot, \cdot \r_{\al})_{\al \in A} \subset \Obj(\Hilb)$. We define $\bigoplus\limits_{\al \in A} H_{\al} \subset \prod\limits_{\al \in A} H_{\al}$ and $\l\cdot, \cdot \r: \bigg[ \bigoplus\limits_{\al \in A} H_{\al} \bigg]^2 \rightarrow \C$ by  
+	Let $(H_\al, \l\cdot, \cdot \r_{\al})_{\al \in A} \subset \Obj(\bHilb)$. We define $\bigoplus\limits_{\al \in A} H_{\al} \subset \prod\limits_{\al \in A} H_{\al}$ and $\l\cdot, \cdot \r: \bigg[ \bigoplus\limits_{\al \in A} H_{\al} \bigg]^2 \rightarrow \C$ by  
 	$$\bigoplus\limits_{\al \in A} H_{\al} = s_A^{-1}(l^2(A))$$
 	and 
 	$$\l x, y \r = \sum\limits_{\al \in A} \l x_{\al}, y_{\al} \r_{\al}$$
@@ -22362,7 +22707,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{defn}
 	
 \begin{ex}
-	Let $(H_\al, \l\cdot, \cdot \r_{\al})_{\al \in A} \subset \Obj(\Hilb)$. Then 
+	Let $(H_\al, \l\cdot, \cdot \r_{\al})_{\al \in A} \subset \Obj(\bHilb)$. Then 
 	\begin{enumerate}
 		\item for each $x \in \prod\limits_{\al \in A} H_{\al}$, $x \in \bigoplus\limits_{\al \in A} H_{\al}$ iff $s_A(x) \in l^2(A)$
 		\item $s_A|_{\bigoplus\limits_{\al \in A} H_{\al}}: \bigoplus\limits_{\al \in A} H_{\al} \rightarrow l^2(A)$
@@ -22374,7 +22719,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{ex}
-	Let $(H_\al, \l \cdot, \cdot \r_{\al})_{\al \in A} \subset \Obj(\Hilb)$. Set $H \defeq \bigoplus\limits_{\al \in A} H_{\al}$. Then
+	Let $(H_\al, \l \cdot, \cdot \r_{\al})_{\al \in A} \subset \Obj(\bHilb)$. Set $H \defeq \bigoplus\limits_{\al \in A} H_{\al}$. Then
 	\begin{enumerate}
 		\item $H$ is a vector space
 		\item $\l \cdot, \cdot\r: H \times H \rightarrow \C$ is an inner product
@@ -22469,7 +22814,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{note}
 
 \begin{ex}
-	Let $H \in \Obj(\Hilb)$, $A$ an index set and for each $\al \in A$, $E_{\al}$ a closed subspace of $H$. Then $H \cong \bigoplus_{\al \in A} E_{\al}$ iff 
+	Let $H \in \Obj(\bHilb)$, $A$ an index set and for each $\al \in A$, $E_{\al}$ a closed subspace of $H$. Then $H \cong \bigoplus_{\al \in A} E_{\al}$ iff 
 	\begin{enumerate}
 		\item for each $\al, \be \in A$, $\al \neq \be$ implies that $E_{\al} \cap E_{\be} = \{0\}$
 		\item for each $x \in H$, there exist $(x_{\al})_{\al \in A} \in \prod\limits_{\al \in A} E_{\al}$ such that $x = \sum\limits_{\al \in A}$
@@ -22485,7 +22830,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{ex}
-	Let $H \in \Obj(\Hilb)$ and $E \subset H$ a closed subspace of $H$. Then $E^{\perp} \oplus E$ something about $E^{\perp} \cong H/E$ and adding up to $H$. \tcr{FINISH!!!}
+	Let $H \in \Obj(\bHilb)$ and $E \subset H$ a closed subspace of $H$. Then $E^{\perp} \oplus E$ something about $E^{\perp} \cong H/E$ and adding up to $H$. \tcr{FINISH!!!}
 \end{ex}
 
 \begin{proof}
@@ -22618,7 +22963,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \section{Tensor Products}
 
 \begin{ex}
-	Let $H_1, \ldots, H_n \in \Obj(\Hilb)$, $\phi \in L^n(H_1, \ldots, H_n; \C)$. Suppose that for each $j \in [n]$, $H_j$ is separable. For each $j \in [n]$, let $B_j \subset H_j$ be an orthonormal basis for $H_j$. Then
+	Let $H_1, \ldots, H_n \in \Obj(\bHilb)$, $\phi \in L^n(H_1, \ldots, H_n; \C)$. Suppose that for each $j \in [n]$, $H_j$ is separable. For each $j \in [n]$, let $B_j \subset H_j$ be an orthonormal basis for $H_j$. Then
 	$$\sum_{e_1 \in B_1} \cdots \sum_{e_n \in B_n} |\phi(e_1, \ldots, e_n)|^2 = \sum_{e_1' \in B_1'} \cdots \sum_{e_n' \in B_n'} |\phi(e_1', \ldots, e_n')|^2.$$
 \end{ex}
 
@@ -22627,7 +22972,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{defn}
-	Let $H_1, \ldots, H_n \in \Obj(\Hilb)$, $\phi \in L^n(H_1, \ldots, H_n; \C)$. Suppose that for each $j \in [n]$, $H_j$ is separable. For each $j \in [n]$, let $B_j \subset H_j$ be an orthonormal basis for $H_j$. We define $\|\cdot\|_{HS}: L^n(H_1, \ldots, H_n; \C) \rightarrow \RG$ by 
+	Let $H_1, \ldots, H_n \in \Obj(\bHilb)$, $\phi \in L^n(H_1, \ldots, H_n; \C)$. Suppose that for each $j \in [n]$, $H_j$ is separable. For each $j \in [n]$, let $B_j \subset H_j$ be an orthonormal basis for $H_j$. We define $\|\cdot\|_{HS}: L^n(H_1, \ldots, H_n; \C) \rightarrow \RG$ by 
 	$$\| \phi \|_{HS} \defeq \bigg[ \sum_{e_1 \in B_1} \sum_{e_1 \in B_1} \cdots \sum_{e_n \in B_n} |\phi(e_1, \ldots, e_n)|^2 \bigg]^{1/2}.$$ 
 	We define the \tbf{Hilbert-Schmidt functionals on $H_1, \ldots, H_n$}, denoted $HS^n(H_1, \ldots, H_n; \C)$, by 
 	$$HS^n(H_1, \ldots, H_n; \C) \defeq \{\phi \in L^n(H_1, \ldots, H_n; \C): \|\phi\|_{HS} < \infty\}.$$
@@ -22637,7 +22982,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{defn}
 
 \begin{ex}
-	Let $H_1, \ldots, H_n \in \Obj(\Hilb)$, $\phi \in L^n(H_1, \ldots, H_n; \C)$. Suppose that for each $j \in [n]$, $H_j$ is separable. For each $j \in [n]$, let $B_j \subset H_j$ be an orthonormal basis for $H_j$. 
+	Let $H_1, \ldots, H_n \in \Obj(\bHilb)$, $\phi \in L^n(H_1, \ldots, H_n; \C)$. Suppose that for each $j \in [n]$, $H_j$ is separable. For each $j \in [n]$, let $B_j \subset H_j$ be an orthonormal basis for $H_j$. 
 	\begin{enumerate}
 		\item $\l \cdot, \cdot \r_{HS}$ is an inner product on $HS^n(H_1, \ldots, H_n; \C)$ 
 		\item for each $\phi \in HS^n(H_1, \ldots, H_n; \C)$, $\l \phi, \phi \r_{HS} = \|\phi\|_{HS}$.
@@ -22685,7 +23030,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{proof}
 
 \begin{ex}
-	Let $H \in \Obj(\Hilb)$. Suppose that $H$ is separable. Then 
+	Let $H \in \Obj(\bHilb)$. Suppose that $H$ is separable. Then 
 	\begin{enumerate}
 		\item for each $\phi \in H^*$, $\|\phi\|_{HS} = \|\phi\|$ 
 		\item $HS(H;\C) = \H^*$. 
@@ -22714,16 +23059,16 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{ex}
 
 \begin{defn}
-	Let $H_1, H_2, H \in \Obj(\Hilb)$, $\al \in L^2(H_1, H_2; H)$. Suppose that for each $j \in [n]$, $H_j$ is separable. For $j \in [n]$, let $B_j \subset H_j$ be an orthonormal basis for $H_j$. Then $\al$ is said to be \tbf{Hilbert-Schmidt} if 
+	Let $H_1, H_2, H \in \Obj(\bHilb)$, $\al \in L^2(H_1, H_2; H)$. Suppose that for each $j \in [n]$, $H_j$ is separable. For $j \in [n]$, let $B_j \subset H_j$ be an orthonormal basis for $H_j$. Then $\al$ is said to be \tbf{Hilbert-Schmidt} if 
 	$$\sum_{e^1 \in B_1} \cdots \sum_{e^n \in B_n} |\phi(e^1, \cdots, e^n)|^2 < \infty $$
 \end{defn}
 
 \begin{defn}
-	Let $H_1, H_2, H \in \Obj(\Hilb)$, $\al \in L^2(H_1, H_2; H)$, $(e_j)_{j \in \N}$ and $(f_k)_{k \in \N}$ orthonormal bases for $H_1$ and $H_2$ respectively. Then $\al$ is said to be \tbf{weakly Hilbert-Schmidt} if there exists $M \geq 0$ such that for each $x \in H$,   
+	Let $H_1, H_2, H \in \Obj(\bHilb)$, $\al \in L^2(H_1, H_2; H)$, $(e_j)_{j \in \N}$ and $(f_k)_{k \in \N}$ orthonormal bases for $H_1$ and $H_2$ respectively. Then $\al$ is said to be \tbf{weakly Hilbert-Schmidt} if there exists $M \geq 0$ such that for each $x \in H$,   
 \end{defn}
 
 \begin{defn}
-	Let $H_1, H_2, K \in \Obj(\Hilb)$ and $\al \in L^2(H_1, H_2; K)$. Then $(K, \al)$ is said to be a \tbf{tensor product of $H_1$ and $H_2$} if for each vector space $Z$ and $\be \in L^2(X, Y; Z)$, there exists a unique $\phi \in L^1(T;Z)$ such that $\phi \circ \al = \be$, i.e. the following diagram commutes:
+	Let $H_1, H_2, K \in \Obj(\bHilb)$ and $\al \in L^2(H_1, H_2; K)$. Then $(K, \al)$ is said to be a \tbf{tensor product of $H_1$ and $H_2$} if for each vector space $Z$ and $\be \in L^2(X, Y; Z)$, there exists a unique $\phi \in L^1(T;Z)$ such that $\phi \circ \al = \be$, i.e. the following diagram commutes:
 	\[ 
 	\begin{tikzcd}
 		X \times Y \arrow[r, "\al"] \arrow[dr, "\be"'] 	
@@ -24703,11 +25048,11 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 
 \begin{defn} \ld{def:banach_alg:spectral:0013}
 	\tcr{Category of Banach algebras}
-	We define the \tbf{category of Banach algebras}, denoted $\BanAlg$
+	We define the \tbf{category of Banach algebras}, denoted $\bBanAlg$
 \end{defn}
 
 \begin{defn} \ld{def:banach_alg:spectral:0014}
-	Let $X$ be a unital Banach algebra. We define the \tbf{spectrum of $X$}, denoted $\sig(X)$, by $\sig(X) \defeq \Hom_{\BanAlg}(X, \C) \setminus \{0\}$.
+	Let $X$ be a unital Banach algebra. We define the \tbf{spectrum of $X$}, denoted $\sig(X)$, by $\sig(X) \defeq \Hom_{\bBanAlg}(X, \C) \setminus \{0\}$.
 \end{defn}
 
 \begin{ex} \lex{ex:banach_alg:spectral:0015}
@@ -24767,7 +25112,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 			& = [\lim_{\al \in A} \phi_{\al}(x)] [\lim_{\al \in A} \phi_{\al}(y)] \\
 			& = \phi(x) \phi(y).
 		\end{align*} 
-		So $\phi \in \Hom_{\BanAlg}(X, \C)$.
+		So $\phi \in \Hom_{\bBanAlg}(X, \C)$.
 		\item Since for each $\al \in A$, $\phi_{\al} \in \sig(X)$, \tcr{a previous exercise} \rex{arg1} implies that for each $\al \in A$, $\phi_{\al}(e) = 1$. Thus 
 		\begin{align*}
 			\phi(e) 
@@ -25078,7 +25423,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 \end{defn}
 
 \begin{note}
-	We note that $* \in \Hom_{\VectC}(X, \cnj(X))$ and therefore $0^* = 0$. \tcr{(need to define the conjugate of a vector space $\cnj(X)$)}
+	We note that $* \in \Hom_{\VectC}(X, \conj(X))$ and therefore $0^* = 0$. \tcr{(need to define the conjugate of a vector space $\conj(X)$)}
 \end{note}
 
 \begin{ex}
@@ -25086,7 +25431,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 	\begin{enumerate}
 		\item for each $x \in X$, $\|x\| = \|x^*\|$
 		\item for each $x,y \in X$, $\|x^*y\| = \|y^*x\|$
-		\item $* \in L(X, \cnj(X))$.
+		\item $* \in L(X, \conj(X))$.
 	\end{enumerate}
 \end{ex}
 
@@ -25113,7 +25458,7 @@ Let $H$ be a Hilbert space and $S \subset H$. Suppose that  $S$ is orthonormal. 
 			& = \|y^*(x^*)^*\| \\
 			& = \|y^* x\|.
 		\end{align*}
-		\item \tcr{As noted above}, $* \in \Hom_{\VectC}(X, \cnj(X))$. \tcr{The previous part} implies that for each $x \in X$, $\|x^*\| = \|x\|$. Hence $\|*\| \leq 1$. Similarly, 
+		\item \tcr{As noted above}, $* \in \Hom_{\VectC}(X, \conj(X))$. \tcr{The previous part} implies that for each $x \in X$, $\|x^*\| = \|x\|$. Hence $\|*\| \leq 1$. Similarly, 
 		\begin{align*}
 			\|*\| 
 			& = \sup\limits_{\|x\| = 1} \|x^*\| \\ 
@@ -27642,10 +27987,10 @@ The following note justifies the notation $\sum_{x \in X}f(x)$ where $f:X \right
 \tcr{move to notation?}
 
 \begin{defn}
-	We define the category of topological measure spaces, denoted $\TopMsrpos$, by 
+	We define the category of topological measure spaces, denoted $\bTopMsr$, by 
 	\begin{itemize}
-		\item $\Obj(\TopMsrpos) \defeq \{(X, \mu): X \in \Obj(\Top) \text{ and } \mu \in M(X)\}$			
-		\item $\Hom_{\TopMsrpos}((X, \mu), (Y, \nu)) \defeq \Hom_{\Top}(X, Y) \cap \Hom_{\Msrpos}((X, \MB(X), \mu), (Y, \MB(Y), \nu))$
+		\item $\Obj(\bTopMsr) \defeq \{(X, \mu): X \in \Obj(\Top) \text{ and } \mu \in M(X)\}$			
+		\item $\Hom_{\bTopMsr}((X, \mu), (Y, \nu)) \defeq \Hom_{\Top}(X, Y) \cap \Hom_{\Msr}((X, \MB(X), \mu), (Y, \MB(Y), \nu))$
 	\end{itemize}
 \end{defn}
 
